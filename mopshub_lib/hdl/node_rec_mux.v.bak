@@ -1,0 +1,123 @@
+//
+// Verilog Module mopshub_lib.node_rec_mux
+//
+// Created:
+//          by - dcs.dcs (chipdev2.physik.uni-wuppertal.de)
+//          at - 15:49:58 01/07/21
+//
+// using Mentor Graphics HDL Designer(TM) 2019.4 (Build 4)
+//
+
+`resetall
+`timescale 1ns/10ps
+module node_rec_mux(
+   input  wire            can_rec9, 
+   input  wire            can_rec18, 
+   input  wire            can_rec19, 
+   input  wire            can_rec20, 
+   input  wire            can_rec21, 
+   input  wire            can_rec22, 
+   input  wire            can_rec23, 
+   input  wire            can_rec24, 
+   input  wire            can_rec4, 
+   input  wire            can_rec5, 
+   input  wire            can_rec6, 
+   input  wire            can_rec7, 
+   input  wire            can_rec8, 
+   input  wire            can_rec10, 
+   input  wire            can_rec11, 
+   input  wire            can_rec12, 
+   input  wire            can_rec13, 
+   input  wire            can_rec14, 
+   input  wire            can_rec15, 
+   input  wire            can_rec16, 
+   input  wire            can_rec17, 
+   input  wire            can_rec0, 
+   input  wire            can_rec1, 
+   input  wire            can_rec2, 
+   input  wire            can_rec3, 
+   input  wire            can_rec26, 
+   input  wire            can_rec27, 
+   input  wire            can_rec28, 
+   input  wire            can_rec29, 
+   input  wire            can_rec30, 
+   input  wire            can_rec31, 
+   input  wire            can_rec25,
+   output wire [4:0]    bus_rec_select
+
+);
+// Internal Declarations
+reg [4:0] bus_rec_select_reg;
+assign bus_rec_select=bus_rec_select_reg;
+
+always @(*)
+  begin
+  // default values
+  bus_rec_select_reg = 5'b0;
+    if (can_rec0 == 1) begin
+      bus_rec_select_reg = 0;  
+    end if (can_rec1 == 1) begin
+      bus_rec_select_reg = 1;
+    end if (can_rec2 == 1) begin
+      bus_rec_select_reg = 2;
+    end if (can_rec3 == 1) begin
+      bus_rec_select_reg = 3;
+    end if (can_rec4 == 1) begin
+      bus_rec_select_reg = 4;
+    end if (can_rec5 == 1) begin
+      bus_rec_select_reg = 5;
+    end if (can_rec6 == 1) begin
+      bus_rec_select_reg = 6;
+    end if (can_rec7 == 1) begin
+      bus_rec_select_reg = 7;
+    end if (can_rec8 == 1) begin
+      bus_rec_select_reg = 8;
+    end if (can_rec9 == 1) begin
+      bus_rec_select_reg = 9;
+    end if (can_rec10 == 1) begin
+      bus_rec_select_reg = 10;
+    end if (can_rec11 == 1) begin
+      bus_rec_select_reg = 11;
+    end if (can_rec12 == 1) begin
+      bus_rec_select_reg = 12;
+    end if (can_rec13 == 1) begin
+      bus_rec_select_reg = 13;
+    end if (can_rec14 == 1) begin
+      bus_rec_select_reg = 14;
+    end if (can_rec15 == 1) begin
+      bus_rec_select_reg = 15;
+    end if (can_rec16 == 1) begin
+      bus_rec_select_reg = 16;
+    end if (can_rec17 == 1) begin
+      bus_rec_select_reg = 17;
+    end if (can_rec18 == 1) begin
+      bus_rec_select_reg = 18;
+    end if (can_rec19 == 1) begin
+      bus_rec_select_reg = 18;
+    end if (can_rec20 == 1) begin
+      bus_rec_select_reg = 20;
+    end if (can_rec21 == 1) begin
+      bus_rec_select_reg = 21;
+    end if (can_rec22 == 1) begin
+      bus_rec_select_reg = 22;
+    end if (can_rec23 == 1) begin
+      bus_rec_select_reg = 23;
+    end if (can_rec24 == 1) begin
+      bus_rec_select_reg = 24;
+    end if (can_rec25 == 1) begin
+      bus_rec_select_reg = 25;
+    end if (can_rec26 == 1) begin
+      bus_rec_select_reg = 26;
+    end if (can_rec27 == 1) begin
+      bus_rec_select_reg = 27;
+    end if (can_rec28== 1) begin
+      bus_rec_select_reg = 28;
+    end if (can_rec29 == 1) begin
+      bus_rec_select_reg = 29;
+    end if (can_rec30 == 1) begin
+      bus_rec_select_reg = 30;
+    end if (can_rec31 == 1) begin
+      bus_rec_select_reg = 31;
+    end 
+  end
+endmodule

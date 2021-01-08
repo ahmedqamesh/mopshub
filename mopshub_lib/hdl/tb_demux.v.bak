@@ -1,0 +1,48 @@
+//
+// Verilog Module mopshub_lib.tb_demux
+//
+// Created:
+//          by - dcs.dcs (chipdev2.physik.uni-wuppertal.de)
+//          at - 15:58:14 01/06/21
+//
+// using Mentor Graphics HDL Designer(TM) 2019.4 (Build 4)
+//
+
+`resetall
+`timescale 1ns/10ps
+module tb_demux;
+
+    // Inputs
+    reg Data_in;
+    reg [1:0] sel;
+
+    // Outputs
+    wire Data_out_0;
+    wire Data_out_1;
+    wire Data_out_2;
+    wire Data_out_3;
+
+    // Instantiate the Unit Under Test (UUT)
+    demux1to4 uut (
+        .Data_in(Data_in), 
+        .sel(sel), 
+        .Data_out_0(Data_out_0), 
+        .Data_out_1(Data_out_1), 
+        .Data_out_2(Data_out_2), 
+        .Data_out_3(Data_out_3)
+    );
+
+    initial begin
+        $monitor("TIME = %g sel = %b Data_in = %b Data_out_0 = %b Data_out_1 = %b Data_out_2 = %b Data_out_3 = %b",
+        $time,sel, Data_in,can_tra0,Data_out_1,Data_out_2,Data_out_3);
+    
+        //Apply Inputs
+        Data_in = 1;
+        sel = 0;    #100;
+        sel = 1;    #100;
+        sel = 2;    #100;
+        sel = 3;    #100;
+        Data_in = 0;
+    end
+      
+endmodule
