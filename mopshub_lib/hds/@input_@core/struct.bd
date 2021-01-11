@@ -110,19 +110,19 @@ value "/home/dcs/git/mopshub/mopshub_lib/hds/Input_Core"
 )
 (vvPair
 variable "date"
-value "01/06/21"
+value "01/08/21"
 )
 (vvPair
 variable "day"
-value "Wed"
+value "Fri"
 )
 (vvPair
 variable "day_long"
-value "Wednesday"
+value "Friday"
 )
 (vvPair
 variable "dd"
-value "06"
+value "08"
 )
 (vvPair
 variable "entity_name"
@@ -150,7 +150,7 @@ value "dcs"
 )
 (vvPair
 variable "graphical_source_date"
-value "01/06/21"
+value "01/08/21"
 )
 (vvPair
 variable "graphical_source_group"
@@ -162,7 +162,7 @@ value "chipdev2.physik.uni-wuppertal.de"
 )
 (vvPair
 variable "graphical_source_time"
-value "11:27:21"
+value "16:18:40"
 )
 (vvPair
 variable "group"
@@ -186,6 +186,10 @@ value "$HDS_PROJECT_DIR/mopshub_lib/designcheck"
 )
 (vvPair
 variable "library_downstream_ModelSimCompiler"
+value "$HDS_PROJECT_DIR/mopshub_lib/work"
+)
+(vvPair
+variable "library_downstream_QuestaSimCompiler"
 value "$HDS_PROJECT_DIR/mopshub_lib/work"
 )
 (vvPair
@@ -266,7 +270,7 @@ value "struct"
 )
 (vvPair
 variable "time"
-value "11:27:21"
+value "16:18:40"
 )
 (vvPair
 variable "unit"
@@ -4857,7 +4861,7 @@ uid 803,0
 va (VaSet
 font "courier,8,0"
 )
-xt "2000,6300,13500,7200"
+xt "2000,7200,13500,8100"
 st "wire [4:0]   addr_can;
 "
 )
@@ -5014,7 +5018,7 @@ uid 819,0
 va (VaSet
 font "courier,8,0"
 )
-xt "2000,4500,13500,5400"
+xt "2000,5400,13500,6300"
 st "wire [15:0]  read_can;
 "
 )
@@ -5111,7 +5115,7 @@ uid 829,0
 va (VaSet
 font "courier,8,0"
 )
-xt "2000,2700,15000,3600"
+xt "2000,3600,15000,4500"
 st "wire         irq_can_rec;
 "
 )
@@ -5150,7 +5154,7 @@ uid 833,0
 va (VaSet
 font "courier,8,0"
 )
-xt "2000,3600,12500,4500"
+xt "2000,4500,12500,5400"
 st "wire [6:0]   nodeid;
 "
 )
@@ -5423,52 +5427,7 @@ tm "WireNameMgr"
 )
 )
 )
-*163 (PortIoOut
-uid 1014,0
-shape (CompositeShape
-uid 1015,0
-va (VaSet
-vasetType 1
-fg "0,0,32768"
-)
-optionalChildren [
-(Pentagon
-uid 1016,0
-sl 0
-ro 270
-xt "16500,45625,18000,46375"
-)
-(Line
-uid 1017,0
-sl 0
-ro 270
-xt "16000,46000,16500,46000"
-pts [
-"16000,46000"
-"16500,46000"
-]
-)
-]
-)
-stc 0
-sf 1
-tg (WTG
-uid 1018,0
-ps "PortIoTextPlaceStrategy"
-stg "STSignalDisplayStrategy"
-f (Text
-uid 1019,0
-va (VaSet
-font "courier,8,0"
-)
-xt "19000,45550,26500,46450"
-st "can_rec_select"
-blo "19000,46250"
-tm "WireNameMgr"
-)
-)
-)
-*164 (Net
+*163 (Net
 uid 1056,0
 lang 5
 decl (Decl
@@ -5487,7 +5446,7 @@ st "wire         enable;
 "
 )
 )
-*165 (Net
+*164 (Net
 uid 1058,0
 lang 5
 decl (Decl
@@ -5507,7 +5466,7 @@ st "wire [5:0]   can_tra_select;
 "
 )
 )
-*166 (Net
+*165 (Net
 uid 1060,0
 lang 5
 decl (Decl
@@ -5521,12 +5480,12 @@ uid 1061,0
 va (VaSet
 font "courier,8,0"
 )
-xt "2000,1800,12000,2700"
+xt "2000,2700,12000,3600"
 st "wire         clock;
 "
 )
 )
-*167 (Net
+*166 (Net
 uid 1062,0
 lang 5
 decl (Decl
@@ -5540,12 +5499,12 @@ uid 1063,0
 va (VaSet
 font "courier,8,0"
 )
-xt "2000,5400,12000,6300"
+xt "2000,6300,12000,7200"
 st "wire         reset;
 "
 )
 )
-*168 (Net
+*167 (Net
 uid 1064,0
 lang 5
 decl (Decl
@@ -5564,13 +5523,13 @@ st "wire         outport;
 "
 )
 )
-*169 (Net
+*168 (Net
 uid 1066,0
 lang 5
 decl (Decl
-n "can_rec_select"
+n "can_rec"
 t "wire"
-b "[5:0]"
+b "[31:0]"
 o 39
 suid 45,0
 )
@@ -5579,9 +5538,54 @@ uid 1067,0
 va (VaSet
 font "courier,8,0"
 )
-xt "2000,7200,16500,8100"
-st "wire [5:0]   can_rec_select;
+xt "2000,1800,13000,2700"
+st "wire [31:0]  can_rec;
 "
+)
+)
+*169 (PortIoIn
+uid 1275,0
+shape (CompositeShape
+uid 1276,0
+va (VaSet
+vasetType 1
+fg "0,0,32768"
+)
+optionalChildren [
+(Pentagon
+uid 1277,0
+sl 0
+ro 90
+xt "16500,45625,18000,46375"
+)
+(Line
+uid 1278,0
+sl 0
+ro 90
+xt "16000,46000,16500,46000"
+pts [
+"16500,46000"
+"16000,46000"
+]
+)
+]
+)
+stc 0
+sf 1
+tg (WTG
+uid 1279,0
+ps "PortIoTextPlaceStrategy"
+stg "STSignalDisplayStrategy"
+f (Text
+uid 1280,0
+va (VaSet
+font "courier,8,0"
+)
+xt "19000,45550,22500,46450"
+st "can_rec"
+blo "19000,46250"
+tm "WireNameMgr"
+)
 )
 )
 *170 (Wire
@@ -7498,7 +7502,7 @@ blo "8000,47800"
 tm "WireNameMgr"
 )
 )
-on &164
+on &163
 )
 *224 (Wire
 uid 1026,0
@@ -7537,7 +7541,7 @@ blo "8000,46800"
 tm "WireNameMgr"
 )
 )
-on &165
+on &164
 )
 *225 (Wire
 uid 1032,0
@@ -7574,7 +7578,7 @@ blo "10000,42800"
 tm "WireNameMgr"
 )
 )
-on &166
+on &165
 )
 *226 (Wire
 uid 1038,0
@@ -7611,7 +7615,7 @@ blo "10000,43800"
 tm "WireNameMgr"
 )
 )
-on &167
+on &166
 )
 *227 (Wire
 uid 1044,0
@@ -7648,7 +7652,7 @@ blo "10000,44800"
 tm "WireNameMgr"
 )
 )
-on &168
+on &167
 )
 *228 (Wire
 uid 1050,0
@@ -7664,7 +7668,7 @@ pts [
 "16000,46000"
 ]
 )
-end &163
+end &169
 sat 16
 eat 32
 sty 1
@@ -7681,13 +7685,13 @@ va (VaSet
 isHidden 1
 font "courier,8,0"
 )
-xt "8000,45100,19500,46000"
-st "can_rec_select : [5:0]"
+xt "8000,45100,16500,46000"
+st "can_rec : [31:0]"
 blo "8000,45800"
 tm "WireNameMgr"
 )
 )
-on &169
+on &168
 )
 ]
 bg "65535,65535,65535"
@@ -7799,11 +7803,11 @@ tm "BdCompilerDirectivesTextMgr"
 associable 1
 )
 windowSize "1912,41,3848,1050"
-viewArea "-50344,8185,84983,76599"
+viewArea "-50300,8200,64471,64346"
 cachedDiagramExtent "0,0,133500,105000"
 hasePageBreakOrigin 1
 pageBreakOrigin "0,0"
-lastUid 1144,0
+lastUid 1280,0
 defaultCommentText (CommentText
 shape (Rectangle
 layer 0
@@ -9428,11 +9432,10 @@ uid 1076,0
 *313 (LeafLogPort
 port (LogicalPort
 lang 5
-m 1
 decl (Decl
-n "can_rec_select"
+n "can_rec"
 t "wire"
-b "[5:0]"
+b "[31:0]"
 o 39
 suid 45,0
 )

@@ -11,7 +11,7 @@ appVersion "2019.4 (Build 4)"
 model (Symbol
 commonDM (CommonDM
 ldm (LogicalDM
-suid 13,0
+suid 14,0
 usingSuid 1
 emptyRow *1 (LEmptyRow
 )
@@ -61,7 +61,7 @@ decl (Decl
 n "addr_can"
 t "wire"
 b "[4:0]"
-o 6
+o 7
 suid 1,0
 )
 )
@@ -74,7 +74,7 @@ decl (Decl
 n "read_can"
 t "wire"
 b "[15:0]"
-o 4
+o 5
 suid 2,0
 )
 )
@@ -126,7 +126,7 @@ lang 5
 decl (Decl
 n "irq_can_rec"
 t "wire"
-o 2
+o 3
 suid 6,0
 )
 )
@@ -139,7 +139,7 @@ decl (Decl
 n "nodeid"
 t "wire"
 b "[6:0]"
-o 3
+o 4
 suid 7,0
 )
 )
@@ -178,7 +178,7 @@ lang 5
 decl (Decl
 n "clock"
 t "wire"
-o 1
+o 2
 suid 10,0
 )
 )
@@ -190,7 +190,7 @@ lang 5
 decl (Decl
 n "reset"
 t "wire"
-o 5
+o 6
 suid 11,0
 )
 )
@@ -212,16 +212,15 @@ uid 186,0
 *27 (LogPort
 port (LogicalPort
 lang 5
-m 1
 decl (Decl
-n "can_rec_select"
+n "can_rec"
 t "wire"
-b "[5:0]"
-o 7
-suid 13,0
+b "[31:0]"
+o 1
+suid 14,0
 )
 )
-uid 188,0
+uid 264,0
 )
 ]
 )
@@ -349,7 +348,7 @@ uid 185,0
 litem &27
 pos 12
 dimension 20
-uid 187,0
+uid 263,0
 )
 ]
 )
@@ -608,19 +607,19 @@ value "/home/dcs/git/mopshub/mopshub_lib/hds/Input_Core"
 )
 (vvPair
 variable "date"
-value "01/06/21"
+value "01/08/21"
 )
 (vvPair
 variable "day"
-value "Wed"
+value "Fri"
 )
 (vvPair
 variable "day_long"
-value "Wednesday"
+value "Friday"
 )
 (vvPair
 variable "dd"
-value "06"
+value "08"
 )
 (vvPair
 variable "entity_name"
@@ -648,7 +647,7 @@ value "dcs"
 )
 (vvPair
 variable "graphical_source_date"
-value "01/06/21"
+value "01/08/21"
 )
 (vvPair
 variable "graphical_source_group"
@@ -660,7 +659,7 @@ value "chipdev2.physik.uni-wuppertal.de"
 )
 (vvPair
 variable "graphical_source_time"
-value "11:27:21"
+value "16:18:40"
 )
 (vvPair
 variable "group"
@@ -684,6 +683,10 @@ value "$HDS_PROJECT_DIR/mopshub_lib/designcheck"
 )
 (vvPair
 variable "library_downstream_ModelSimCompiler"
+value "$HDS_PROJECT_DIR/mopshub_lib/work"
+)
+(vvPair
+variable "library_downstream_QuestaSimCompiler"
 value "$HDS_PROJECT_DIR/mopshub_lib/work"
 )
 (vvPair
@@ -764,7 +767,7 @@ value "symbol"
 )
 (vvPair
 variable "time"
-value "11:27:21"
+value "16:18:40"
 )
 (vvPair
 variable "unit"
@@ -831,8 +834,9 @@ uid 124,0
 va (VaSet
 font "courier,8,0"
 )
-xt "2000,8100,17000,9000"
-st "output wire [4:0]   addr_can;"
+xt "2000,9000,17000,9900"
+st "output wire [4:0]   addr_can;
+"
 )
 thePort (LogicalPort
 lang 5
@@ -841,7 +845,7 @@ decl (Decl
 n "addr_can"
 t "wire"
 b "[4:0]"
-o 6
+o 7
 suid 1,0
 )
 )
@@ -878,8 +882,9 @@ uid 129,0
 va (VaSet
 font "courier,8,0"
 )
-xt "2000,6300,17000,7200"
-st "input  wire [15:0]  read_can;"
+xt "2000,7200,17000,8100"
+st "input  wire [15:0]  read_can;
+"
 )
 thePort (LogicalPort
 lang 5
@@ -887,7 +892,7 @@ decl (Decl
 n "read_can"
 t "wire"
 b "[15:0]"
-o 4
+o 5
 suid 2,0
 )
 )
@@ -926,7 +931,8 @@ va (VaSet
 font "courier,8,0"
 )
 xt "2000,14400,20500,15300"
-st "output wire         write_sig_can_n;"
+st "output wire         write_sig_can_n;
+"
 )
 thePort (LogicalPort
 lang 5
@@ -973,7 +979,8 @@ va (VaSet
 font "courier,8,0"
 )
 xt "2000,12600,20000,13500"
-st "output wire         read_sig_can_n;"
+st "output wire         read_sig_can_n;
+"
 )
 thePort (LogicalPort
 lang 5
@@ -1020,7 +1027,8 @@ va (VaSet
 font "courier,8,0"
 )
 xt "2000,13500,17500,14400"
-st "output wire [15:0]  write_can;"
+st "output wire [15:0]  write_can;
+"
 )
 thePort (LogicalPort
 lang 5
@@ -1066,15 +1074,16 @@ uid 149,0
 va (VaSet
 font "courier,8,0"
 )
-xt "2000,4500,18500,5400"
-st "input  wire         irq_can_rec;"
+xt "2000,5400,18500,6300"
+st "input  wire         irq_can_rec;
+"
 )
 thePort (LogicalPort
 lang 5
 decl (Decl
 n "irq_can_rec"
 t "wire"
-o 2
+o 3
 suid 6,0
 )
 )
@@ -1111,8 +1120,9 @@ uid 154,0
 va (VaSet
 font "courier,8,0"
 )
-xt "2000,5400,16000,6300"
-st "input  wire [6:0]   nodeid;"
+xt "2000,6300,16000,7200"
+st "input  wire [6:0]   nodeid;
+"
 )
 thePort (LogicalPort
 lang 5
@@ -1120,7 +1130,7 @@ decl (Decl
 n "nodeid"
 t "wire"
 b "[6:0]"
-o 3
+o 4
 suid 7,0
 )
 )
@@ -1159,7 +1169,8 @@ va (VaSet
 font "courier,8,0"
 )
 xt "2000,10800,16000,11700"
-st "output wire         enable;"
+st "output wire         enable;
+"
 )
 thePort (LogicalPort
 lang 5
@@ -1206,7 +1217,8 @@ va (VaSet
 font "courier,8,0"
 )
 xt "2000,9900,20000,10800"
-st "output wire [5:0]   can_tra_select;"
+st "output wire [5:0]   can_tra_select;
+"
 )
 thePort (LogicalPort
 lang 5
@@ -1252,15 +1264,16 @@ uid 203,0
 va (VaSet
 font "courier,8,0"
 )
-xt "2000,3600,15500,4500"
-st "input  wire         clock;"
+xt "2000,4500,15500,5400"
+st "input  wire         clock;
+"
 )
 thePort (LogicalPort
 lang 5
 decl (Decl
 n "clock"
 t "wire"
-o 1
+o 2
 suid 10,0
 )
 )
@@ -1297,15 +1310,16 @@ uid 208,0
 va (VaSet
 font "courier,8,0"
 )
-xt "2000,7200,15500,8100"
-st "input  wire         reset;"
+xt "2000,8100,15500,9000"
+st "input  wire         reset;
+"
 )
 thePort (LogicalPort
 lang 5
 decl (Decl
 n "reset"
 t "wire"
-o 5
+o 6
 suid 11,0
 )
 )
@@ -1344,7 +1358,8 @@ va (VaSet
 font "courier,8,0"
 )
 xt "2000,11700,16500,12600"
-st "output wire         outport;"
+st "output wire         outport;
+"
 )
 thePort (LogicalPort
 lang 5
@@ -1358,50 +1373,48 @@ suid 12,0
 )
 )
 *88 (CptPort
-uid 214,0
+uid 265,0
 ps "OnEdgeStrategy"
 shape (Triangle
-uid 215,0
 ro 90
 va (VaSet
 vasetType 1
 fg "0,65535,0"
 )
-xt "39000,13625,39750,14375"
+xt "14250,11625,15000,12375"
 )
 tg (CPTG
-uid 216,0
+uid 267,0
 ps "CptPortTextPlaceStrategy"
-stg "RightVerticalLayoutStrategy"
+stg "VerticalLayoutStrategy"
 f (Text
-uid 217,0
+uid 268,0
 va (VaSet
 font "courier,8,0"
 )
-xt "26500,13550,38000,14450"
-st "can_rec_select : [5:0]"
-ju 2
-blo "38000,14250"
+xt "16000,11550,24500,12450"
+st "can_rec : [31:0]"
+blo "16000,12250"
 tm "CptPortNameMgr"
 )
 )
 dt (MLText
-uid 218,0
+uid 269,0
 va (VaSet
 font "courier,8,0"
 )
-xt "2000,9000,20000,9900"
-st "output wire [5:0]   can_rec_select;"
+xt "2000,3600,16500,4500"
+st "input  wire [31:0]  can_rec;
+"
 )
 thePort (LogicalPort
 lang 5
-m 1
 decl (Decl
-n "can_rec_select"
+n "can_rec"
 t "wire"
-b "[5:0]"
-o 7
-suid 13,0
+b "[31:0]"
+o 1
+suid 14,0
 )
 )
 )
@@ -2114,7 +2127,7 @@ xt "2000,2700,2000,2700"
 tm "SyDeclarativeTextMgr"
 )
 )
-lastUid 240,0
+lastUid 291,0
 postModuleDirective "// ### Please start your Verilog code here ###"
 activeModelName "Symbol:CDM"
 )
