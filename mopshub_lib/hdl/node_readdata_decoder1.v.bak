@@ -1,17 +1,8 @@
-//
-// Verilog Module mopshub_lib.node_readdata_decoder
-//
-// Created:
-//          by - dcs.dcs (chipdev2.physik.uni-wuppertal.de)
-//          at - 17:58:22 01/11/21
-//
-// using Mentor Graphics HDL Designer(TM) 2019.4 (Build 4)
-//
-
 `resetall
 `timescale 1ns/10ps
-module node_readdata_decoder(
+module node_readdata_select(
    input   wire    [31:0]  can_rec, 
+   input   wire    [31:0] readdata_counter,
    input   wire    [15:0]  readdata0, 
    input   wire    [15:0]  readdata1, 
    input   wire    [15:0]  readdata2, 
@@ -44,10 +35,39 @@ module node_readdata_decoder(
    input   wire    [15:0]  readdata29, 
    input   wire    [15:0]  readdata30, 
    input   wire    [15:0]  readdata31, 
+   
    output   wire   [4:0]  bus_rec_select, 
    output  wire    [15:0]  readdata
 );
+reg [15:0] readdata_reg ;
+reg [15:0] bus_rec_select_reg ;
 
-// ### Please start your Verilog code here ###
-// Internal Declarations
+assign bus_rec_select = bus_rec_select_reg;
+assign readdata = readdata_reg;
+
+always @(*)
+begin 
+ case (readdata_counter)
+  31'h01 :
+  begin 
+    readdata_reg = readdata0;
+    bus_rec_select_reg= 5'b00000; 
+  end
+  31'b010 :
+  begin 
+    readdata_reg = readdata1;
+    bus_rec_select_reg= 5'b00001;
+  end
+  31'b0100 :
+  begin 
+    readdata_reg = readdata2;
+    bus_rec_select_reg= 5'b00010;
+  end
+   default : 
+   begin 
+    readdata_reg = readdata0;
+    bus_rec_select_reg= 5'b00000;
+  end   
+ endcase
+end
 endmodule

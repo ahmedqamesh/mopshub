@@ -3,54 +3,52 @@
 //
 // Created:
 //          by - dcs.dcs (chipdev2.physik.uni-wuppertal.de)
-//          at - 11:47:23 01/08/21
+//          at - 15:06:18 01/13/21
 //
 // using Mentor Graphics HDL Designer(TM) 2019.4 (Build 4)
 //
 
 `resetall
 `timescale 1ns/10ps
-module node_rec_decoder(
-   input  wire            can_rec9, 
-   input  wire            can_rec18, 
-   input  wire            can_rec19, 
-   input  wire            can_rec20, 
-   input  wire            can_rec21, 
-   input  wire            can_rec22, 
-   input  wire            can_rec23, 
-   input  wire            can_rec24, 
-   input  wire            can_rec4, 
-   input  wire            can_rec5, 
-   input  wire            can_rec6, 
-   input  wire            can_rec7, 
-   input  wire            can_rec8, 
-   input  wire            can_rec10, 
-   input  wire            can_rec11, 
-   input  wire            can_rec12, 
-   input  wire            can_rec13, 
-   input  wire            can_rec14, 
-   input  wire            can_rec15, 
-   input  wire            can_rec16, 
-   input  wire            can_rec17, 
-   input  wire            can_rec0, 
-   input  wire            can_rec1, 
-   input  wire            can_rec2, 
-   input  wire            can_rec3, 
-   input  wire            can_rec26, 
-   input  wire            can_rec27, 
-   input  wire            can_rec28, 
-   input  wire            can_rec29, 
-   input  wire            can_rec30, 
-   input  wire            can_rec31, 
-   input  wire            can_rec25,
-   
-   output wire [31:0]    can_rec
-
+module node_rec_decoder( 
+   // Port Declarations
+   input   wire            can_rec9, 
+   input   wire            can_rec18, 
+   input   wire            can_rec19, 
+   input   wire            can_rec20, 
+   input   wire            can_rec21, 
+   input   wire            can_rec22, 
+   input   wire            can_rec23, 
+   input   wire            can_rec24, 
+   input   wire            can_rec4, 
+   input   wire            can_rec5, 
+   input   wire            can_rec6, 
+   input   wire            can_rec7, 
+   input   wire            can_rec8, 
+   input   wire            can_rec10, 
+   input   wire            can_rec11, 
+   input   wire            can_rec12, 
+   input   wire            can_rec13, 
+   input   wire            can_rec14, 
+   input   wire            can_rec15, 
+   input   wire            can_rec16, 
+   input   wire            can_rec17, 
+   input   wire            can_rec0, 
+   input   wire            can_rec1, 
+   input   wire            can_rec2, 
+   input   wire            can_rec3, 
+   input   wire            can_rec26, 
+   input   wire            can_rec27, 
+   input   wire            can_rec28, 
+   input   wire            can_rec29, 
+   input   wire            can_rec30, 
+   input   wire            can_rec31, 
+   input   wire            can_rec25, 
+   output  wire    [31:0]  can_rec
 );
+
 reg [31:0] can_rec_reg;
 assign  can_rec =can_rec_reg ;
-
-// Internal Declarations
 always @(*)
   begin
     can_rec_reg[9] = can_rec9;
