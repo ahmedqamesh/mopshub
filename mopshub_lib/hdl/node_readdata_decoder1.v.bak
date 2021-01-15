@@ -1,73 +1,52 @@
 `resetall
 `timescale 1ns/10ps
-module node_readdata_select(
-   input   wire    [31:0]  can_rec, 
-   input   wire    [31:0] readdata_counter,
-   input   wire    [15:0]  readdata0, 
-   input   wire    [15:0]  readdata1, 
-   input   wire    [15:0]  readdata2, 
-   input   wire    [15:0]  readdata3, 
-   input   wire    [15:0]  readdata4, 
-   input   wire    [15:0]  readdata5, 
-   input   wire    [15:0]  readdata6, 
-   input   wire    [15:0]  readdata7, 
-   input   wire    [15:0]  readdata8, 
-   input   wire    [15:0]  readdata9, 
-   input   wire    [15:0]  readdata10, 
-   input   wire    [15:0]  readdata11, 
-   input   wire    [15:0]  readdata12, 
-   input   wire    [15:0]  readdata13, 
-   input   wire    [15:0]  readdata14, 
-   input   wire    [15:0]  readdata15, 
-   input   wire    [15:0]  readdata16, 
-   input   wire    [15:0]  readdata17, 
-   input   wire    [15:0]  readdata18, 
-   input   wire    [15:0]  readdata19, 
-   input   wire    [15:0]  readdata20, 
-   input   wire    [15:0]  readdata21, 
-   input   wire    [15:0]  readdata22, 
-   input   wire    [15:0]  readdata23, 
-   input   wire    [15:0]  readdata24, 
-   input   wire    [15:0]  readdata25, 
-   input   wire    [15:0]  readdata26, 
-   input   wire    [15:0]  readdata27, 
-   input   wire    [15:0]  readdata28, 
-   input   wire    [15:0]  readdata29, 
-   input   wire    [15:0]  readdata30, 
-   input   wire    [15:0]  readdata31, 
-   
-   output   wire   [4:0]  bus_rec_select, 
-   output  wire    [15:0]  readdata
-);
-reg [15:0] readdata_reg ;
-reg [15:0] bus_rec_select_reg ;
+module node_readdata_select( 
+   output  wire    [4:0]  can_rec_counter, 
+   input   wire    [31:0]  readdata_counter
 
-assign bus_rec_select = bus_rec_select_reg;
-assign readdata = readdata_reg;
+
+);
+
+
+// Internal Declarations
+reg [5:0] can_rec_counter_reg ;
+assign can_rec_counter = can_rec_counter_reg;
 
 always @(*)
 begin 
  case (readdata_counter)
-  31'h01 :
-  begin 
-    readdata_reg = readdata0;
-    bus_rec_select_reg= 5'b00000; 
-  end
-  31'b010 :
-  begin 
-    readdata_reg = readdata1;
-    bus_rec_select_reg= 5'b00001;
-  end
-  31'b0100 :
-  begin 
-    readdata_reg = readdata2;
-    bus_rec_select_reg= 5'b00010;
-  end
-   default : 
-   begin 
-    readdata_reg = readdata0;
-    bus_rec_select_reg= 5'b00000;
-  end   
- endcase
+   32'b1: can_rec_counter_reg = 5'h0;
+   32'b10: can_rec_counter_reg = 5'h1;
+   32'b100: can_rec_counter_reg = 5'h2;
+   32'b1000: can_rec_counter_reg = 5'h3;
+   32'b10000: can_rec_counter_reg = 5'h4;
+   32'b100000: can_rec_counter_reg = 5'h5;
+   32'b1000000: can_rec_counter_reg = 5'h6;
+   32'b10000000: can_rec_counter_reg = 5'h7;
+   32'b100000000: can_rec_counter_reg = 5'h8;
+   32'b1000000000: can_rec_counter_reg = 5'h9;
+   32'b10000000000: can_rec_counter_reg = 5'hA;
+   32'b100000000000: can_rec_counter_reg = 5'hB;
+   32'b1000000000000: can_rec_counter_reg = 5'hC;
+   32'b10000000000000: can_rec_counter_reg = 5'hD;
+   32'b100000000000000: can_rec_counter_reg = 5'hE;
+   32'b1000000000000000: can_rec_counter_reg = 5'hF;
+   32'b10000000000000000: can_rec_counter_reg = 5'h10;
+   32'b100000000000000000: can_rec_counter_reg = 5'h11;
+   32'b1000000000000000000: can_rec_counter_reg = 5'h12;
+   32'b10000000000000000000: can_rec_counter_reg = 5'h13;
+   32'b100000000000000000000: can_rec_counter_reg = 5'h14;
+   32'b1000000000000000000000: can_rec_counter_reg = 5'h15;
+   32'b10000000000000000000000: can_rec_counter_reg = 5'h16;
+   32'b100000000000000000000000: can_rec_counter_reg = 5'h17;
+   32'b1000000000000000000000000: can_rec_counter_reg = 5'h18;
+   32'b10000000000000000000000000: can_rec_counter_reg = 5'h19;
+   32'b100000000000000000000000000: can_rec_counter_reg = 5'h1A;
+   32'b1000000000000000000000000000: can_rec_counter_reg = 5'h1B;
+   32'b10000000000000000000000000000: can_rec_counter_reg = 5'h1C;
+   32'b100000000000000000000000000000: can_rec_counter_reg = 5'h1D;
+   32'b1000000000000000000000000000000: can_rec_counter_reg = 5'h1E;
+   32'b10000000000000000000000000000000: can_rec_counter_reg = 5'h1F;
+   endcase   
 end
 endmodule

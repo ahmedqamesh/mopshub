@@ -27,8 +27,6 @@ module tb_readdata_counter;
 	  $monitor($time, " clock=%1b,reset=%1b,readdata_counter=%b",clock,reset,readdata_counter);
 		// Initialize Inputs
     clock = 0;  
-	  reset = 0;
- 
 	#1 reset = 1;
 	#1 reset = 0; 
 	

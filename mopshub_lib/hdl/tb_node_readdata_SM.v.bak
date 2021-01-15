@@ -10,12 +10,13 @@
 
 `resetall
 `timescale 1ns/10ps
-module tb_node_readdata_SM ;
+module tb_node_readdata_decoder ;
 	// Inputs
   	reg    clock;
 	 reg    reset;
+	 reg    rst;
+	 reg    [31:0]  can_rec;
    reg    choose_bus_start;
-   reg    [31:0]  can_rec; 
    reg    [15:0]  readdata0; 
    reg    [15:0]  readdata1; 
    reg    [15:0]  readdata2; 
@@ -59,6 +60,7 @@ module tb_node_readdata_SM ;
 	node_readdata_decoder UUT (
 	    .clock(clock), 
       .reset(reset),
+      .rst(rst),
       .can_rec(can_rec),
       .readdata0(readdata0),
       .readdata1(readdata1),
@@ -98,27 +100,44 @@ module tb_node_readdata_SM ;
       .choose_bus_start(choose_bus_start),
       .irq_can_rec(irq_can_rec)                     
 	);
-	always #1 clock = ~clock;
+	always #5 clock = ~clock;
   initial begin
-    $monitor("TIME = %g reset = %b can_rec = %b bus_rec_select = %b readdata = %b irq_can_rec = %b choose_bus_end = %b",
-    $time,reset, can_rec,bus_rec_select,readdata,irq_can_rec, choose_bus_end);
- 		
+    $monitor($time,": choose_bus_start = %b can_rec = %b bus_rec_select = %b  readdata = %b irq_can_rec = %b  choose_bus_end = %b",
+                     choose_bus_start, can_rec, bus_rec_select, readdata,irq_can_rec, choose_bus_end);
+ 	
+ 	 		
  		// Initialize Inputs
     clock = 0;  
-	  reset = 0;
  
   	#1 reset = 1;
   	#1 reset = 0;
-   choose_bus_start =1; 
-   can_rec = 32'b01000000000000000000000000000000;
-   readdata30= 16'b0101010101010000;
+   #1 //wait for 1 second
+   rst = 1;
+   choose_bus_start =1;   //start reading //expected message readdata = readdata1  
+   can_rec = 32'b00000000000000000000000000000010;  //enable counter 1
+   readdata0= 16'b0101010100000000; //send a random message to readdata0
+   readdata1= 16'b0000000000000001; //send a random message to readdata1
+   
+    
+   #5 //wait for 4 seconds
   	#1 reset = 1;
-  	#1 reset = 0;    
-   #10 choose_bus_start =1;
-    can_rec = 32'b10000000000000000000000000000000; 
-    readdata31= 16'b0101010100000000;
-    
-    
+  	#1 reset = 0;
+   rst = 1;
+   choose_bus_start =1; //start reading //expected message readdata = readdata2 
+   can_rec = 32'b00000000000000000000000000000100;
+   readdata0= 16'b0101010100000000; //send a random message to readdata0
+   readdata2= 16'b0000000000000011;
+   
+
+   #5 //wait for 5 seconds
+   rst = 1;
+ 	 #1 reset = 1;
+  	#1 reset = 0;
+   choose_bus_start =1; 
+   readdata3= 16'b0101000000000111; //send a random message to readdata3
+   readdata4= 16'b0101000000001111; //send a random message to readdata2
+   can_rec = 32'b00000000000000000000000000011000; //enable counter 3,4
+       
   end 
     
 endmodule
