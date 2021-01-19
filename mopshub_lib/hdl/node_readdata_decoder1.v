@@ -3,10 +3,7 @@
 module node_readdata_select( 
    output  wire    [4:0]  can_rec_counter, 
    input   wire    [31:0]  readdata_counter
-
-
 );
-
 
 // Internal Declarations
 reg [4:0] can_rec_counter_reg ;

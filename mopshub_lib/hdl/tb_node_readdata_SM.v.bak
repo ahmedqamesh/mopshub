@@ -100,7 +100,7 @@ module tb_node_readdata_decoder ;
       .choose_bus_start(choose_bus_start),
       .irq_can_rec(irq_can_rec)                     
 	);
-	always #5 clock = ~clock;
+	always #1 clock = ~clock;
   initial begin
     $monitor($time,": choose_bus_start = %b can_rec = %b bus_rec_select = %b  readdata = %b irq_can_rec = %b  choose_bus_end = %b",
                      choose_bus_start, can_rec, bus_rec_select, readdata,irq_can_rec, choose_bus_end);
@@ -110,34 +110,14 @@ module tb_node_readdata_decoder ;
     clock = 0;  
  
   	#1 reset = 1;
-  	#1 reset = 0;
-   #1 //wait for 1 second
+  	#1 reset = 0;//The counter starts here
    rst = 1;
-   choose_bus_start =1;   //start reading //expected message readdata = readdata1  
-   can_rec = 32'b00000000000000000000000000000010;  //enable counter 1
-   readdata0= 16'b0101010100000000; //send a random message to readdata0
-   readdata1= 16'b0000000000000001; //send a random message to readdata1
-   
-    
-   #5 //wait for 4 seconds
-  	#1 reset = 1;
-  	#1 reset = 0;
-   rst = 1;
-   choose_bus_start =1; //start reading //expected message readdata = readdata2 
-   can_rec = 32'b00000000000000000000000000000100;
-   readdata0= 16'b0101010100000000; //send a random message to readdata0
-   readdata2= 16'b0000000000000011;
-   
-
-   #5 //wait for 5 seconds
-   rst = 1;
- 	 #1 reset = 1;
-  	#1 reset = 0;
-   choose_bus_start =1; 
-   readdata3= 16'b0101000000000111; //send a random message to readdata3
-   readdata4= 16'b0101000000001111; //send a random message to readdata2
-   can_rec = 32'b00000000000000000000000000011000; //enable counter 3,4
-       
+   choose_bus_start =1;   //start reading //expected message readdata = readdata0
+   can_rec = 32'b00000000000000000000000000000001; //enable counter 0
+   readdata0= 16'b0101010100000000; //send a random message to readdata0 
+   //can_rec = 32'b00000000000000000000000000000010; //enable counter 1
+   //readdata1= 16'b0000000000000001; //send a random message to readdata1
+      
   end 
     
 endmodule
