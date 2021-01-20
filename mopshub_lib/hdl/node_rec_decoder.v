@@ -43,13 +43,14 @@ module node_rec_decoder(
    input   wire            can_rec29, 
    input   wire            can_rec30, 
    input   wire            can_rec31, 
-   input   wire            can_rec25, 
+   input   wire            can_rec25,
+   input   wire             ireqsucrec, 
    output  wire    [31:0]  can_rec
 );
 
 reg [31:0] can_rec_reg;
 assign  can_rec =can_rec_reg ;
-always @(*)
+always @(ireqsucrec)
   begin
     can_rec_reg[9] = can_rec9;
     can_rec_reg[18] = can_rec18;

@@ -15,8 +15,8 @@ module tb_node_readdata_SM ;
   	reg    clock;
 	 reg    rst;
 	 reg    genrst;
+	 reg    ireqsucrec;
 	 reg    [31:0]  can_rec;
-   reg    choose_bus_start;
    reg    [15:0]  readdata0; 
    reg    [15:0]  readdata1; 
    reg    [15:0]  readdata2; 
@@ -55,12 +55,12 @@ module tb_node_readdata_SM ;
    wire   [15:0]  readdata;
    wire    choose_bus_end;
    wire    irq_can_rec;
-   wire    init;
+   wire    init_bus_select;
 	
 	node_readdata_SM UUT (
 	    .clock(clock), 
       .rst(rst),
-      .init(init),
+      .init_bus_select(init_bus_select),
       .genrst(genrst),
       .can_rec(can_rec),
       .readdata0(readdata0),
@@ -98,19 +98,19 @@ module tb_node_readdata_SM ;
       .bus_rec_select(bus_rec_select),
       .readdata(readdata),
       .choose_bus_end(choose_bus_end),
-      .choose_bus_start(choose_bus_start),
+      .ireqsucrec(ireqsucrec),
       .irq_can_rec(irq_can_rec)                     
 	);
 // ### Please start your Verilog code here ### 
 	always #1 clock = ~clock;
   initial begin
-    $monitor($time,": choose_bus_start = %b can_rec = %b bus_rec_select = %d  readdata = %b irq_can_rec = %b  choose_bus_end = %b",
-                     choose_bus_start, can_rec, bus_rec_select, readdata,irq_can_rec, choose_bus_end);
+    $monitor($time,": ireqsucrec = %b can_rec = %b bus_rec_select = %d  readdata = %b irq_can_rec = %b  choose_bus_end = %b",
+                     ireqsucrec, can_rec, bus_rec_select, readdata,irq_can_rec, choose_bus_end);
  	 		// Initialize Inputs
    clock = 0;  
   	#1
    rst = 1;
-   choose_bus_start =1;   //start reading //expected message readdata = readdata1 
+   ireqsucrec =1;   //start reading //expected message readdata = readdata1 
    can_rec = 32'b00000000000000000000000000000010; //enable counter 1
    readdata1= 16'b0000000000000001; //send a random message to readdata1
    genrst = 1;
