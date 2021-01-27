@@ -13,7 +13,7 @@
 module tb_node_readdata_SM ;
 	// Inputs
   	reg    clock;
-	 reg    rst;
+	 reg    reset;
 	 reg    genrst;
 	 reg    ireqsucrec;
 	 reg    [31:0]  can_rec;
@@ -49,6 +49,8 @@ module tb_node_readdata_SM ;
    reg    [15:0]  readdata29; 
    reg    [15:0]  readdata30; 
    reg    [15:0]  readdata31;
+   reg            endwait;
+   reg            restirq;
    
 	// Outputs
    wire   [4:0]  bus_rec_select;
@@ -56,13 +58,15 @@ module tb_node_readdata_SM ;
    wire    choose_bus_end;
    wire    irq_can_rec;
    wire    init_bus_select;
-	
+	 wire   [4:0] count_bus;
+	 
 	node_readdata_SM UUT (
 	    .clock(clock), 
-      .rst(rst),
+      .reset(reset),
       .init_bus_select(init_bus_select),
       .genrst(genrst),
       .can_rec(can_rec),
+      .endwait(endwait),
       .readdata0(readdata0),
       .readdata1(readdata1),
       .readdata2(readdata2),
@@ -99,17 +103,53 @@ module tb_node_readdata_SM ;
       .readdata(readdata),
       .choose_bus_end(choose_bus_end),
       .ireqsucrec(ireqsucrec),
-      .irq_can_rec(irq_can_rec)                     
+      .irq_can_rec(irq_can_rec),
+      .count_bus(count_bus),
+      .restirq(restirq)                   
 	);
 // ### Please start your Verilog code here ### 
 	always #1 clock = ~clock;
   initial begin
-    $monitor($time,": ireqsucrec = %b can_rec = %b bus_rec_select = %d  readdata = %b irq_can_rec = %b  choose_bus_end = %b",
-                     ireqsucrec, can_rec, bus_rec_select, readdata,irq_can_rec, choose_bus_end);
+    $monitor($time,": ireqsucrec = %b can_rec = %b bus_rec_select = %d  readdata = %b irq_can_rec = %b  choose_bus_end = %b count_bus = %d",
+                     ireqsucrec, can_rec, bus_rec_select, readdata,irq_can_rec, choose_bus_end, count_bus);
  	 		// Initialize Inputs
    clock = 0;  
+   readdata0 = 16'b0; 
+   readdata1 = 16'b0; 
+   readdata2 = 16'b0; 
+   readdata3 = 16'b0; 
+   readdata4 = 16'b0; 
+   readdata5 = 16'b0; 
+   readdata6 = 16'b0; 
+   readdata7 = 16'b0; 
+   readdata8 = 16'b0; 
+   readdata9 = 16'b0; 
+   readdata10 = 16'b0; 
+   readdata11 = 16'b0; 
+   readdata12 = 16'b0; 
+   readdata13 = 16'b0; 
+   readdata14 = 16'b0; 
+   readdata15 = 16'b0; 
+   readdata16 = 16'b0; 
+   readdata17 = 16'b0; 
+   readdata18 = 16'b0; 
+   readdata19 = 16'b0; 
+   readdata20 = 16'b0; 
+   readdata21 = 16'b0; 
+   readdata22 = 16'b0; 
+   readdata23 = 16'b0; 
+   readdata24 = 16'b0; 
+   readdata25 = 16'b0; 
+   readdata26 = 16'b0; 
+   readdata27 = 16'b0; 
+   readdata28 = 16'b0; 
+   readdata29 = 16'b0; 
+   readdata30 = 16'b0; 
+   readdata31 = 16'b0;
+   endwait = 0 ;
+   
   	#1
-   rst = 1;
+   reset = 1;
    ireqsucrec =1;   //start reading //expected message readdata = readdata1 
    can_rec = 32'b00000000000000000000000000000010; //enable counter 1
    readdata1= 16'b0000000000000001; //send a random message to readdata1

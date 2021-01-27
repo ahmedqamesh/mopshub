@@ -6,9 +6,7 @@ module tra_mes_buf(
    input   wire    [75:0]  data_tra_in,   // input data from the SCB or Object Dictionary side
    input   wire            en,            // enable signal
    input   wire            rst,           //
-   output  wire    [75:0]  data_tra_out,  // Output data to be written on the CAN bus
-   input   wire            sdobuf,        // indicates the message written is SDO
-   input   wire            pdobuf         // Indicates the message written is PDO
+   output  wire    [75:0]  data_tra_out  // Output data to be written on the CAN bus
 );
 
 //tmrg default triplicate
