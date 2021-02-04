@@ -12,7 +12,7 @@
 `timescale 1ns/10ps
 module tb_node_readdata_SM ;
 	// Inputs
-  	reg    clock;
+  	reg    clk;
 	 reg    reset;
 	 reg    genrst;
 	 reg    ireqsucrec;
@@ -61,7 +61,7 @@ module tb_node_readdata_SM ;
 	 wire   [4:0] count_bus;
 	 
 	node_readdata_SM UUT (
-	    .clock(clock), 
+	    .clk(clk), 
       .reset(reset),
       .init_bus_select(init_bus_select),
       .genrst(genrst),
@@ -108,12 +108,13 @@ module tb_node_readdata_SM ;
       .restirq(restirq)                   
 	);
 // ### Please start your Verilog code here ### 
-	always #1 clock = ~clock;
+  initial clk = 0;  
+	always #1 clk = ~clk;
   initial begin
     $monitor($time,": ireqsucrec = %b can_rec = %b bus_rec_select = %d  readdata = %b irq_can_rec = %b  choose_bus_end = %b count_bus = %d",
                      ireqsucrec, can_rec, bus_rec_select, readdata,irq_can_rec, choose_bus_end, count_bus);
  	 		// Initialize Inputs
-   clock = 0;  
+   
    readdata0 = 16'b0; 
    readdata1 = 16'b0; 
    readdata2 = 16'b0; 

@@ -1,13 +1,15 @@
 `resetall
 `timescale 1ns/10ps
 module idcomp(
-   output  wire             chksdocmd, 
-   output  wire             genrst, 
-   output  wire             highpr, 
+  // input ports
    input   wire    [10:0]  idnew, 
    input   wire    [10:0]  idprev, 
    input   wire    [7:0]   sdocmd, 
    input   wire    [7:0]   sdocmdnew,  // SDO command of the new incoming message
+   // Output ports
+   output  wire             chksdocmd, 
+   output  wire             genrst, 
+   output  wire             highpr, 
    output  wire             sdopr
 );
 

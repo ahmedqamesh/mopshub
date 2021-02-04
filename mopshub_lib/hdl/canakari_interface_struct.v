@@ -1,6 +1,6 @@
 `resetall
 `timescale 1ns/10ps
-module CANAkari_interface( 
+module canakari_interface( 
    // Port Declarations
    input   wire            abort, 
    input   wire            clk,              // posedge
@@ -78,7 +78,7 @@ idcomp idcomp0(
    .sdopr     (sdopr)
 ); 
 
-interfaceSM interfaceSM0( 
+interface_SM interfaceSM0( 
    .abort         (abort), 
    .chksdocmd     (chksdocmd), 
    .clk           (clk), 

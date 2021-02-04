@@ -2,8 +2,7 @@
 `timescale 1ns/10ps
 module initialize_block( 
    input   wire    [4:0]   addr,       // Address of the Canakari registers
-   output  wire    [15:0]  data_init,  // Ouput data to be written to the registers
-   input   wire    [6:0]   nodeid      // 7-bit CANopen node-ID - currently unused
+   output  wire    [15:0]  data_init  // Ouput data to be written to the registers
 );
 
 //tmrg default triplicate

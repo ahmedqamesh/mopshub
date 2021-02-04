@@ -8,11 +8,14 @@ module caninterface(
    input   wire    [75:0]  data_tra_mes, 
    input   wire            initi,         // Initialization command
    input   wire            read, 
+   
    input   wire    [15:0]  read_can,      // Data coming from Cankari
    input   wire            write, 
-   output  wire    [15:0]  write_can,     // Data written to Cankari
-   output  wire    [7:0]   sdocmdnew,     // SDO command of the new message
    input   wire            id_comp,       // command to compare IDs
+   
+   output  wire    [15:0]  write_can,     // Data written to Cankari
+   
+   output  wire    [7:0]   sdocmdnew,     // SDO command of the new message
    output  wire    [10:0]  newid          // ID of the new message
 );
 
@@ -21,12 +24,15 @@ module caninterface(
 // Internal Declarations
 reg   [7:0] sdocmdreg;            // combinational 
 reg   [7:0] sdocmdsto;            // sequential storing element
+
 reg  [10:0] newidreg;              // combinational 
 reg  [10:0] newidsto;              // sequential storing element
+
 reg  [15:0] write_canreg;
 wire [15:0] tra_con; 
 wire [15:0] rst_irq;
-wire [3:0]  cmd;                                    // This is a 4 bit concatenated command of signals coming from the state machine i.e initial,read,write,id_comp
+
+wire [3:0]  cmd;               // This is a 4 bit concatenated command of signals coming from the state machine i.e initial,read,write,id_comp
 
 
 
@@ -36,6 +42,7 @@ wire [10:0] newidstoVoted = newidsto;
 
 assign sdocmdnew = sdocmdstoVoted;
 assign newid = newidstoVoted;
+
 assign write_can = write_canreg;
 
 assign tra_con = 16'b1000000000001000;
@@ -72,41 +79,41 @@ begin
                end                                      
     4'b0100 :  begin                                     // write canakari register 
                 case(addr)
-                  5'b01100 : begin
+                  5'b01100 : begin  // Transmission Identifier 1
                               write_canreg[15:5] = data_tra_mes[74:64];
                               write_canreg[4:0]  = 5'h0; 
 
                              end
                   
-                  5'b01010 : begin
+                  5'b01010 : begin  // Transmission Data 1-2
                               write_canreg[15:8] = data_tra_mes[63:56];
                               write_canreg[7:0]  = data_tra_mes[47:40];
                              end
                              
-                  5'b01001 : begin
+                  5'b01001 : begin   // Transmission Data 3-4
                               write_canreg[15:8] = data_tra_mes[55:48];
                               write_canreg[7:0]  = data_tra_mes[39:32];
                              end
                              
-                  5'b01000 : begin
+                  5'b01000 : begin   // Transmission Data 5-6
                               write_canreg[15:8] = data_tra_mes[7:0];
                               write_canreg[7:0]  = data_tra_mes[15:8];
                              end
                              
-                  5'b00111 : begin
+                  5'b00111 : begin   // Transmission Data 7-8
                               write_canreg[15:8] = data_tra_mes[23:16];
                               write_canreg[7:0]  = data_tra_mes[31:24];
                              end
                              
-                  5'b01110 : begin
+                  5'b01110 : begin //general
                               write_canreg = 16'b0000000010011100;
                              end
                              
-                  5'b10010 : begin
+                  5'b10010 : begin // Interrupt
                               write_canreg = rst_irq;
                              end
                              
-                  5'b01101 : begin
+                  5'b01101 : begin  // Transmission Control
                               write_canreg = tra_con;
                              end
                  default    :begin
@@ -117,12 +124,12 @@ begin
                 endcase 
                end                                       
     4'b0011 :  begin                                    // Compare ID of message being processed and the new message in the CAN node
-                if(addr == 5'b00101)
+                if(addr == 5'b00101)  // Receive Identifier 1
                   begin
                     newidreg[10:0] = read_can[15:5];
                     sdocmdreg = sdocmdreg;
                   end 
-                else if(addr == 5'b00011)
+                else if(addr == 5'b00011) // Receive Data 1-2
                   begin
                     sdocmdreg = read_can[15:8];
                     newidreg  = newidreg;

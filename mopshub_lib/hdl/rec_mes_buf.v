@@ -4,9 +4,11 @@ module rec_mes_buf(
    // Port Declarations
    input   wire            clk, 
    input   wire    [15:0]  data_rec_in,   // 16-bit data from each receive register of canakari
+   input   wire    [4:0]  data_rec_req,
    input   wire            en,            // enable signal
    input   wire            rst,           // reset active low
    input   wire    [4:0]   addr,          // same address of register as in canakari
+   
    output  wire    [7:0]   sdocmd,        // SDO command byte to tell write or read operation
    output  wire    [75:0]  data_rec_out,  // complete CAN message output. 11-bit ID and 4 data-bytes
    output  wire    [10:0]  idprev         // ID of the message on which bridge controller is working at the moment
@@ -69,7 +71,7 @@ begin
    if(en)
     begin
     case(addr)
-     5'b00101 : id[10:0] <= data_rec_in[15:5];             // 5-bit selection line is the address of corresponding registers in Cankari. ID register data
+     5'b00101 : id[10:0] <= data_rec_in[15:5];        // 5-bit selection line is the address of corresponding registers in Cankari. ID register data
 
      5'b00011 :begin 
                  b2  <= data_rec_in[7:0];             // first data byte
@@ -107,7 +109,7 @@ end
 
 //Output assigments
 assign idprev = idVoted[10:0];
-assign data_rec_out = {idVoted,b1Voted,b3Voted,b2Voted,b4Voted,b8Voted,b7Voted,b6Voted,b5Voted};
+assign data_rec_out = {idVoted,b1Voted,b2Voted,b3Voted,b4Voted,b5Voted,b6Voted,b7Voted,b8Voted};
 assign sdocmd = b1Voted;
 
 endmodule
