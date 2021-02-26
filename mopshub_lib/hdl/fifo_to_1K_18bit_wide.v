@@ -1,0 +1,49 @@
+//
+// Verilog Module mopshub_lib.fifo_to_1K_18bit_wide
+//
+// Created:
+//          by - dcs.dcs (chipdev2.physik.uni-wuppertal.de)
+//          at - 15:44:49 02/25/21
+//
+// using Mentor Graphics HDL Designer(TM) 2019.4 (Build 4)
+//
+
+`resetall
+`timescale 1ns/10ps
+// 18 bit wide, 2K deep[it will take at least 1000 clock cycles to read the entire thing out.]
+module fifo_to_2K_18bit_wide( 
+   input   wire            rst, 
+   input   wire            wr_clk, 
+   input   wire            rd_clk, 
+   input   wire    [17:0]  din, 
+   input   wire            wr_en, 
+   input   wire            rd_en, 
+   input   wire    [9:0]   prog_full_thresh_assert, 
+   input   wire    [9:0]   prog_full_thresh_negate, 
+   output  wire    [17:0]  dout,                     //18 bit output signal
+   output  wire            full, 
+   output  wire            almost_full, 
+   output  wire            empty, 
+   output  wire            prog_full
+);
+
+
+// Internal Declarations
+reg wr_en_r, rd_en_s;
+reg [17:0] din_r;
+reg [17:0] dout18bit;
+//-------------------------------------------------------------------------------------------
+//-- write pipeline
+//-------------------------------------------------------------------------------------------
+
+always @(rising_edge(wr_clk))
+begin      
+      wr_en_r   <= wr_en;
+      din_r     <= din;
+end
+//-------------------------------------------------------------------------------------------
+//-- FIFO - ip
+//-------------------------------------------------------------------------------------------
+// ### Please start your Verilog code here ###
+// Internal Declarations
+endmodule
