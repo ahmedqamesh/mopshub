@@ -20,7 +20,7 @@
 
 module fh_epath_fifo2K_18bit_wide(dout,full,empty, almost_full,din,wr_en,rd_en,rd_clk,wr_clk,rst);
   parameter DATA_WIDTH=18; //FIFO width
-  parameter ADDRESS_WIDTH = 4;
+  parameter ADDRESS_WIDTH = 11;
   parameter FIFO_DEPTH = (1 << ADDRESS_WIDTH);// the FIFO depth is  2K (2^11)
   parameter f_almost_full_value=14;
   
@@ -107,7 +107,7 @@ endmodule
 //==============================================================
 
 module b_counter(c_out,c_rst,c_clk,en);     
-  parameter c_width=4; //counter width    
+  parameter c_width=11; //counter width    
   output [c_width-1:0] c_out; reg [c_width-1:0] c_out;   
   input c_rst,c_clk,en;
   always @(posedge c_clk or posedge c_rst) 

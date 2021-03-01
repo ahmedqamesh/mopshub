@@ -70,7 +70,7 @@ fifo_to_2K_18bit_wide DRAM_2K_18bit(.rst(fifoFLUSH)
                                   , .prog_full(prog_full_s));
                               
 always @ (*)
-// Enable the Module
+// // Module Enabled
   if(//egroup 0
     (EnableFrHo_Egroup0Eproc2_8b10b  == 1 &&  egroupID == 0 && epathID == 0)|
     (EnableFrHo_Egroup0Eproc4_8b10b  == 1 &&  egroupID == 0 && epathID == 0)|
@@ -153,7 +153,7 @@ always @ (*)
     end
   
   else
-// Disable the Module
+// Module Disabled
     begin
     dout            <= 10'd0;
     doutRdy         <= 0;

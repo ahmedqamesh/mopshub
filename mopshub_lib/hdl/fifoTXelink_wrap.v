@@ -149,7 +149,11 @@ always @ (*)
     //egroup 5
     (EnableFrHo_Egroup5Eproc2_8b10b  == 1 &&  egroupID == 5                ))
     begin
+      always @ (posedge wr_clk)
+      begin
+      
        wr_en_r   <= 0;
+      end
     end
   
   else
