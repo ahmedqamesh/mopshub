@@ -14,17 +14,17 @@ module tb_fifo_to_2K_18bit_wide ;
   
   parameter DATA_WIDTH=18;
   parameter ADDRESS_WIDTH = 11;
-  parameter FIFO_DEPTH = 16 ;//(1 << ADDRESS_WIDTH);// the FIFO depth is  2K (2^11)
-
+  parameter FIFO_DEPTH = (1 << ADDRESS_WIDTH);// the FIFO depth is  2K (2^11)
+  
   wire [DATA_WIDTH-1:0] dout;
   wire almost_full,full,empty;
-  
+  wire prog_full;
+  wire [ADDRESS_WIDTH-2:0] prog_full_thresh_assert,prog_full_thresh_negate;
+  wire [3:0] r_ptr,w_ptr,ptr_diff;
   
   reg [DATA_WIDTH-1:0] din;
   reg rd_en,wr_en,rd_clk,wr_clk;
   reg rst;
-  
-  wire [3:0] r_ptr,w_ptr,ptr_diff;
   
   assign r_ptr=fifo2K_18bit_wide.r_ptr;
   assign w_ptr=fifo2K_18bit_wide.w_ptr;
@@ -33,11 +33,19 @@ module tb_fifo_to_2K_18bit_wide ;
   assign w_next_en=fifo2K_18bit_wide.w_next_en;
 
   
-  fh_epath_fifo2K_18bit_wide fifo2K_18bit_wide(dout,full,empty,
-  
-  almost_full,din,rd_en,wr_en,rd_clk,wr_clk,rst);
-  
-  
+  fh_epath_fifo2K_18bit_wide fifo2K_18bit_wide(dout,
+                                              full,
+                                              empty,
+                                              prog_full,
+                                              almost_full,
+                                              din,
+                                              rd_en,
+                                              wr_en,
+                                              rd_clk,
+                                              wr_clk,
+                                              rst,
+                                              prog_full_thresh_assert,
+                                              prog_full_thresh_negate);
   
   
   //initial #5000 $stop;

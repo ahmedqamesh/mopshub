@@ -15,31 +15,46 @@
 module EPROC_OUT #(
    // synopsys template
    // synopsys template
-   parameter IC_Elink                       = 0,
-   parameter egroupID                       = 0,
-   //Enable all Egroups from 0 to 5 with 8b10bencoding
-   parameter EnableFrHo_Egroup0Eproc2_8b10b = 1,
-   parameter EnableFrHo_Egroup1Eproc2_8b10b = 1,
-   parameter EnableFrHo_Egroup2Eproc2_8b10b = 1,
-   parameter EnableFrHo_Egroup3Eproc2_8b10b = 1,
-   parameter EnableFrHo_Egroup4Eproc2_8b10b = 1,
-   parameter EnableFrHo_Egroup5Eproc2_8b10b = 1
+// synopsys template
+   parameter DATA_IN_WIDTH = 10
 )
 ( 
-   input   wire           bitCLK, 
-   input   wire           bitCLKx2, 
-   input   wire           bitCLKx4, 
-   input   wire           rst, 
-   input   wire           ENA, 
-   input   wire           swap_outbits, 
-   output  wire           getDataTrig,       //-- @ bitCLKx4
-   output  wire    [1:0]  EDATA_OUT, 
-   input   wire           fhCR_REVERSE_10B, 
-   input   wire    [9:0]  DATA_IN, 
-   input   wire           DATA_RDY, 
-   input   wire           toHostXoff
+   input   wire                         bitCLK,  
+   input   wire                         bitCLKx4, 
+   input   wire                         rst, 
+   input   wire                         swap_outbits,      //A signal to swap the bits
+   output  wire                         getDataTrig,       //-- @ bitCLKx4
+   output  wire    [1:0]                EDATA_OUT, 
+   input   wire                         fhCR_REVERSE_10B, 
+   input   wire    [DATA_IN_WIDTH-1:0]  DATA_IN, 
+   input   wire                         DATA_RDY, 
+   input   wire                         toHostXoff
 );
 
-// ### Please start your Verilog code here ###
+
 // Internal Declarations
+reg          getDataTrig_ENC8b10b_r;
+reg    [1:0] edata_out_s;
+
+assign getDataTrig = getDataTrig_ENC8b10b_r;
+
+EPROC_OUT_ENC8b10b ENC8b10b( .rst(rst)
+                            , .bitCLK(bitCLK)
+                            , .bitCLKx4(bitCLKx4)
+                            , .getDataTrig(getDataTrig_ENC8b10b_r)// out 
+                            , .edataIN(DATA_IN)
+                            , .edataINrdy(DATA_RDY)
+                            , .fhCR_REVERSE_10B(fhCR_REVERSE_10B)
+                            , .EdataOUT(data_out_s) //out data from ENC8b10b
+                            , .toHostXoff(toHostXoff));    
+                                        
+// buffer the output data
+always @ (swap_outbits, edata_out_s)
+  begin
+  	if (swap_outbits)
+  	 EDATA_OUT <= {edata_out_s[0],edata_out_s[1]};
+  	else     
+    EDATA_OUT <= edata_out_s;
+  end
+
 endmodule

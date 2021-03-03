@@ -12,7 +12,7 @@ model (Symbol
 commonDM (CommonDM
 ldm (LogicalDM
 ordering 1
-suid 23,0
+suid 24,0
 usingSuid 1
 emptyRow *1 (LEmptyRow
 )
@@ -61,7 +61,7 @@ m 1
 decl (Decl
 n "dout"
 t "reg"
-b "[f_width-1:0]"
+b "[DATA_WIDTH-1:0]"
 preAdd 0
 posAdd 0
 o 1
@@ -73,32 +73,19 @@ uid 120,0
 *16 (LogPort
 port (LogicalPort
 lang 5
-m 1
-decl (Decl
-n "f_half_full_flag"
-t "wire"
-preAdd 0
-posAdd 0
-o 3
-suid 3,0
-)
-)
-uid 124,0
-)
-*17 (LogPort
-port (LogicalPort
-lang 5
 decl (Decl
 n "din"
 t "wire"
-b "[f_width-1:0]"
+b "[DATA_WIDTH-1:0]"
+prec "//It defines when the signal is deasserted. The threshold can be dynamically set in-circuit during reset."
+preAdd 0
 o 6
 suid 13,0
 )
 )
 uid 227,0
 )
-*18 (LogPort
+*17 (LogPort
 port (LogicalPort
 lang 5
 decl (Decl
@@ -110,19 +97,20 @@ suid 14,0
 )
 uid 229,0
 )
-*19 (LogPort
+*18 (LogPort
 port (LogicalPort
 lang 5
 decl (Decl
 n "rd_en"
 t "wire"
+preAdd 0
 o 8
 suid 15,0
 )
 )
 uid 231,0
 )
-*20 (LogPort
+*19 (LogPort
 port (LogicalPort
 lang 5
 decl (Decl
@@ -134,19 +122,21 @@ suid 16,0
 )
 uid 233,0
 )
-*21 (LogPort
+*20 (LogPort
 port (LogicalPort
 lang 5
 decl (Decl
 n "wr_en"
 t "wire"
+eolc "//If the FIFO is not full, asserting this signal causes data to be written to the FIFO. This signal is active high"
+posAdd 0
 o 7
 suid 17,0
 )
 )
 uid 235,0
 )
-*22 (LogPort
+*21 (LogPort
 port (LogicalPort
 lang 5
 decl (Decl
@@ -158,70 +148,99 @@ suid 18,0
 )
 uid 254,0
 )
-*23 (LogPort
+*22 (LogPort
 port (LogicalPort
 lang 5
 m 1
 decl (Decl
 n "empty"
 t "wire"
-o 4
+preAdd 0
+o 3
 suid 19,0
 )
 )
 uid 278,0
 )
-*24 (LogPort
+*23 (LogPort
 port (LogicalPort
 lang 5
 m 1
 decl (Decl
 n "full"
 t "wire"
+eolc "//FIFO is full. Write requests are ignored when is full is non-destructive to the contents of the FIFO. T"
+posAdd 0
 o 2
 suid 20,0
 )
 )
 uid 280,0
 )
-*25 (LogPort
+*24 (LogPort
 port (LogicalPort
 lang 5
 m 1
 decl (Decl
 n "almost_full"
 t "wire"
+eolc "//  this signal indicates that only one more write can be performed before the FIFO is full."
+preAdd 0
+posAdd 0
 o 5
 suid 21,0
 )
 )
 uid 321,0
 )
-*26 (LogPort
+*25 (LogPort
 port (LogicalPort
 lang 5
+m 1
 decl (Decl
 n "prog_full_thresh_assert"
 t "wire"
-b "[9:0]"
+b "[ADDRESS_WIDTH-2:0]"
+eolc "// Used to set the upper threshold value for the programmable full flag,"
+posAdd 0
 o 12
 suid 22,0
 )
 )
 uid 345,0
 )
-*27 (LogPort
+*26 (LogPort
 port (LogicalPort
 lang 5
+m 1
 decl (Decl
 n "prog_full_thresh_negate"
 t "wire"
-b "[9:0]"
+b "[ADDRESS_WIDTH-2:0]"
+prec "//It defines when the signal is asserted. Thethreshold can be dynamically set in-circuit during reset."
+eolc "//Used to set the lower threshold value for the programmable full flag,"
+preAdd 0
+posAdd 0
 o 13
 suid 23,0
 )
 )
 uid 347,0
+)
+*27 (LogPort
+port (LogicalPort
+lang 5
+m 1
+decl (Decl
+n "prog_full"
+t "wire"
+eolc "//The signal is asserted when the number of entries in the FIFO is greater than or equal to the user-defined assert threshold. W"
+posAdd 0
+o 4
+suid 24,0
+)
+)
+uid 432,0
 )
 ]
 )
@@ -283,73 +302,73 @@ uid 121,0
 litem &16
 pos 1
 dimension 20
-uid 125,0
+uid 228,0
 )
 *35 (MRCItem
 litem &17
 pos 2
 dimension 20
-uid 228,0
+uid 230,0
 )
 *36 (MRCItem
 litem &18
 pos 3
 dimension 20
-uid 230,0
+uid 232,0
 )
 *37 (MRCItem
 litem &19
 pos 4
 dimension 20
-uid 232,0
+uid 234,0
 )
 *38 (MRCItem
 litem &20
 pos 5
 dimension 20
-uid 234,0
+uid 236,0
 )
 *39 (MRCItem
 litem &21
 pos 6
 dimension 20
-uid 236,0
+uid 255,0
 )
 *40 (MRCItem
 litem &22
 pos 7
 dimension 20
-uid 255,0
+uid 279,0
 )
 *41 (MRCItem
 litem &23
 pos 8
 dimension 20
-uid 279,0
+uid 281,0
 )
 *42 (MRCItem
 litem &24
 pos 9
 dimension 20
-uid 281,0
+uid 322,0
 )
 *43 (MRCItem
 litem &25
 pos 10
 dimension 20
-uid 322,0
+uid 346,0
 )
 *44 (MRCItem
 litem &26
 pos 11
 dimension 20
-uid 346,0
+uid 348,0
 )
 *45 (MRCItem
 litem &27
 pos 12
 dimension 20
-uid 348,0
+uid 433,0
 )
 ]
 )
@@ -461,41 +480,40 @@ tm "GenericEolColHdrMgr"
 )
 *65 (LogGeneric
 generic (GiElement
-name "f_width"
-value "8"
-e "//FIFO width"
+name "DATA_WIDTH"
+value "18"
+pr "// synopsys template"
+apr 0
 )
-uid 395,0
+uid 468,0
 )
 *66 (LogGeneric
 generic (GiElement
-name "f_depth"
-value "16"
-e "//FIFO depth"
+name "ADDRESS_WIDTH"
+value "11"
 )
-uid 397,0
+uid 470,0
 )
 *67 (LogGeneric
 generic (GiElement
-name "f_ptr_width"
-value "4"
-e "//because depth =16;"
+name "FIFO_DEPTH"
+value "(1 << ADDRESS_WIDTH)"
 )
-uid 399,0
+uid 472,0
 )
 *68 (LogGeneric
 generic (GiElement
-name "f_half_full_value"
-value "8"
+name "f_almost_full_value"
+value "(FIFO_DEPTH-2)"
 )
-uid 401,0
+uid 474,0
 )
 *69 (LogGeneric
 generic (GiElement
-name "f_almost_full_value"
-value "14"
+name "f_prog_full_value"
+value "1024"
 )
-uid 403,0
+uid 476,0
 )
 ]
 )
@@ -551,31 +569,31 @@ uid 195,0
 litem &65
 pos 0
 dimension 20
-uid 396,0
+uid 469,0
 )
 *76 (MRCItem
 litem &66
 pos 1
 dimension 20
-uid 398,0
+uid 471,0
 )
 *77 (MRCItem
 litem &67
 pos 2
 dimension 20
-uid 400,0
+uid 473,0
 )
 *78 (MRCItem
 litem &68
 pos 3
 dimension 20
-uid 402,0
+uid 475,0
 )
 *79 (MRCItem
 litem &69
 pos 4
 dimension 20
-uid 404,0
+uid 477,0
 )
 ]
 )
@@ -676,19 +694,19 @@ value "/home/dcs/git/mopshub/mopshub_lib/hds/fh_epath_fifo2K_18bit_wide"
 )
 (vvPair
 variable "date"
-value "03/01/21"
+value "03/02/21"
 )
 (vvPair
 variable "day"
-value "Mon"
+value "Tue"
 )
 (vvPair
 variable "day_long"
-value "Monday"
+value "Tuesday"
 )
 (vvPair
 variable "dd"
-value "01"
+value "02"
 )
 (vvPair
 variable "entity_name"
@@ -716,7 +734,7 @@ value "dcs"
 )
 (vvPair
 variable "graphical_source_date"
-value "03/01/21"
+value "03/02/21"
 )
 (vvPair
 variable "graphical_source_group"
@@ -728,7 +746,7 @@ value "chipdev2.physik.uni-wuppertal.de"
 )
 (vvPair
 variable "graphical_source_time"
-value "17:42:36"
+value "14:11:00"
 )
 (vvPair
 variable "group"
@@ -836,7 +854,7 @@ value "symbol"
 )
 (vvPair
 variable "time"
-value "17:42:36"
+value "14:11:00"
 )
 (vvPair
 variable "unit"
@@ -880,7 +898,7 @@ va (VaSet
 vasetType 1
 fg "0,65535,0"
 )
-xt "53000,20625,53750,21375"
+xt "102000,29625,102750,30375"
 )
 tg (CPTG
 uid 50,0
@@ -891,10 +909,10 @@ uid 51,0
 va (VaSet
 font "courier,8,0"
 )
-xt "50000,20550,52000,21450"
+xt "99000,29550,101000,30450"
 st "dout"
 ju 2
-blo "52000,21250"
+blo "101000,30250"
 tm "CptPortNameMgr"
 )
 )
@@ -903,9 +921,8 @@ uid 52,0
 va (VaSet
 font "courier,8,0"
 )
-xt "2000,9200,18500,10100"
-st "output reg [f_width-1:0]   dout;
-"
+xt "2000,9200,21500,10100"
+st "output reg [DATA_WIDTH-1:0]      dout;"
 )
 thePort (LogicalPort
 lang 5
@@ -913,7 +930,7 @@ m 1
 decl (Decl
 n "dout"
 t "reg"
-b "[f_width-1:0]"
+b "[DATA_WIDTH-1:0]"
 preAdd 0
 posAdd 0
 o 1
@@ -922,56 +939,6 @@ suid 1,0
 )
 )
 *87 (CptPort
-uid 58,0
-ps "OnEdgeStrategy"
-shape (Triangle
-uid 59,0
-ro 90
-va (VaSet
-vasetType 1
-fg "0,65535,0"
-)
-xt "53000,23625,53750,24375"
-)
-tg (CPTG
-uid 60,0
-ps "CptPortTextPlaceStrategy"
-stg "RightVerticalLayoutStrategy"
-f (Text
-uid 61,0
-va (VaSet
-font "courier,8,0"
-)
-xt "43500,23550,52000,24450"
-st "f_half_full_flag"
-ju 2
-blo "52000,24250"
-tm "CptPortNameMgr"
-)
-)
-dt (MLText
-uid 62,0
-va (VaSet
-font "courier,8,0"
-)
-xt "2000,11000,24500,11900"
-st "output wire                f_half_full_flag;
-"
-)
-thePort (LogicalPort
-lang 5
-m 1
-decl (Decl
-n "f_half_full_flag"
-t "wire"
-preAdd 0
-posAdd 0
-o 3
-suid 3,0
-)
-)
-)
-*88 (CptPort
 uid 202,0
 ps "OnEdgeStrategy"
 shape (Triangle
@@ -981,7 +948,7 @@ va (VaSet
 vasetType 1
 fg "0,65535,0"
 )
-xt "31250,22625,32000,23375"
+xt "74250,28625,75000,29375"
 )
 tg (CPTG
 uid 204,0
@@ -992,9 +959,9 @@ uid 205,0
 va (VaSet
 font "courier,8,0"
 )
-xt "33000,22550,34500,23450"
+xt "76000,28550,77500,29450"
 st "din"
-blo "33000,23250"
+blo "76000,29250"
 tm "CptPortNameMgr"
 )
 )
@@ -1003,22 +970,24 @@ uid 206,0
 va (VaSet
 font "courier,8,0"
 )
-xt "2000,13700,18000,14600"
-st "input  wire [f_width-1:0]  din;
-"
+xt "2000,13700,55000,15500"
+st "//It defines when the signal is deasserted. The threshold can be dynamically set in-circuit during reset.
+input  wire [DATA_WIDTH-1:0] din;"
 )
 thePort (LogicalPort
 lang 5
 decl (Decl
 n "din"
 t "wire"
-b "[f_width-1:0]"
+b "[DATA_WIDTH-1:0]"
+prec "//It defines when the signal is deasserted. The threshold can be dynamically set in-circuit during reset."
+preAdd 0
 o 6
 suid 13,0
 )
 )
 )
-*89 (CptPort
+*88 (CptPort
 uid 207,0
 ps "OnEdgeStrategy"
 shape (Triangle
@@ -1028,7 +997,7 @@ va (VaSet
 vasetType 1
 fg "0,65535,0"
 )
-xt "31250,23625,32000,24375"
+xt "74250,29625,75000,30375"
 )
 tg (CPTG
 uid 209,0
@@ -1039,9 +1008,9 @@ uid 210,0
 va (VaSet
 font "courier,8,0"
 )
-xt "33000,23550,36000,24450"
+xt "76000,29550,79000,30450"
 st "rd_clk"
-blo "33000,24250"
+blo "76000,30250"
 tm "CptPortNameMgr"
 )
 )
@@ -1050,9 +1019,8 @@ uid 211,0
 va (VaSet
 font "courier,8,0"
 )
-xt "2000,16400,19500,17300"
-st "input  wire                rd_clk;
-"
+xt "2000,17300,22500,18200"
+st "input  wire                      rd_clk;"
 )
 thePort (LogicalPort
 lang 5
@@ -1064,7 +1032,7 @@ suid 14,0
 )
 )
 )
-*90 (CptPort
+*89 (CptPort
 uid 212,0
 ps "OnEdgeStrategy"
 shape (Triangle
@@ -1074,7 +1042,7 @@ va (VaSet
 vasetType 1
 fg "0,65535,0"
 )
-xt "31250,24625,32000,25375"
+xt "74250,30625,75000,31375"
 )
 tg (CPTG
 uid 214,0
@@ -1085,9 +1053,9 @@ uid 215,0
 va (VaSet
 font "courier,8,0"
 )
-xt "33000,24550,35500,25450"
+xt "76000,30550,78500,31450"
 st "rd_en"
-blo "33000,25250"
+blo "76000,31250"
 tm "CptPortNameMgr"
 )
 )
@@ -1096,21 +1064,21 @@ uid 216,0
 va (VaSet
 font "courier,8,0"
 )
-xt "2000,15500,19000,16400"
-st "input  wire                rd_en;
-"
+xt "2000,16400,22000,17300"
+st "input  wire                      rd_en;"
 )
 thePort (LogicalPort
 lang 5
 decl (Decl
 n "rd_en"
 t "wire"
+preAdd 0
 o 8
 suid 15,0
 )
 )
 )
-*91 (CptPort
+*90 (CptPort
 uid 217,0
 ps "OnEdgeStrategy"
 shape (Triangle
@@ -1120,7 +1088,7 @@ va (VaSet
 vasetType 1
 fg "0,65535,0"
 )
-xt "31250,25625,32000,26375"
+xt "74250,31625,75000,32375"
 )
 tg (CPTG
 uid 219,0
@@ -1131,9 +1099,9 @@ uid 220,0
 va (VaSet
 font "courier,8,0"
 )
-xt "33000,25550,36000,26450"
+xt "76000,31550,79000,32450"
 st "wr_clk"
-blo "33000,26250"
+blo "76000,32250"
 tm "CptPortNameMgr"
 )
 )
@@ -1142,9 +1110,8 @@ uid 221,0
 va (VaSet
 font "courier,8,0"
 )
-xt "2000,17300,19500,18200"
-st "input  wire                wr_clk;
-"
+xt "2000,18200,22500,19100"
+st "input  wire                      wr_clk;"
 )
 thePort (LogicalPort
 lang 5
@@ -1156,7 +1123,7 @@ suid 16,0
 )
 )
 )
-*92 (CptPort
+*91 (CptPort
 uid 222,0
 ps "OnEdgeStrategy"
 shape (Triangle
@@ -1166,7 +1133,7 @@ va (VaSet
 vasetType 1
 fg "0,65535,0"
 )
-xt "31250,26625,32000,27375"
+xt "74250,32625,75000,33375"
 )
 tg (CPTG
 uid 224,0
@@ -1177,9 +1144,9 @@ uid 225,0
 va (VaSet
 font "courier,8,0"
 )
-xt "33000,26550,35500,27450"
+xt "76000,32550,78500,33450"
 st "wr_en"
-blo "33000,27250"
+blo "76000,33250"
 tm "CptPortNameMgr"
 )
 )
@@ -1188,21 +1155,22 @@ uid 226,0
 va (VaSet
 font "courier,8,0"
 )
-xt "2000,14600,19000,15500"
-st "input  wire                wr_en;
-"
+xt "2000,15500,79500,16400"
+st "input  wire                      wr_en; //If the FIFO is not full, asserting this signal causes data to be written to the FIFO. This signal is active high"
 )
 thePort (LogicalPort
 lang 5
 decl (Decl
 n "wr_en"
 t "wire"
+eolc "//If the FIFO is not full, asserting this signal causes data to be written to the FIFO. This signal is active high"
+posAdd 0
 o 7
 suid 17,0
 )
 )
 )
-*93 (CptPort
+*92 (CptPort
 uid 249,0
 ps "OnEdgeStrategy"
 shape (Triangle
@@ -1212,7 +1180,7 @@ va (VaSet
 vasetType 1
 fg "0,65535,0"
 )
-xt "31250,27625,32000,28375"
+xt "74250,33625,75000,34375"
 )
 tg (CPTG
 uid 251,0
@@ -1223,9 +1191,9 @@ uid 252,0
 va (VaSet
 font "courier,8,0"
 )
-xt "33000,27550,34500,28450"
+xt "76000,33550,77500,34450"
 st "rst"
-blo "33000,28250"
+blo "76000,34250"
 tm "CptPortNameMgr"
 )
 )
@@ -1234,9 +1202,8 @@ uid 253,0
 va (VaSet
 font "courier,8,0"
 )
-xt "2000,18200,18000,19100"
-st "input  wire                rst;
-"
+xt "2000,19100,21000,20000"
+st "input  wire                      rst;"
 )
 thePort (LogicalPort
 lang 5
@@ -1248,7 +1215,7 @@ suid 18,0
 )
 )
 )
-*94 (CptPort
+*93 (CptPort
 uid 268,0
 ps "OnEdgeStrategy"
 shape (Triangle
@@ -1258,7 +1225,7 @@ va (VaSet
 vasetType 1
 fg "0,65535,0"
 )
-xt "53000,25625,53750,26375"
+xt "102000,34625,102750,35375"
 )
 tg (CPTG
 uid 270,0
@@ -1269,10 +1236,10 @@ uid 271,0
 va (VaSet
 font "courier,8,0"
 )
-xt "49500,25550,52000,26450"
+xt "98500,34550,101000,35450"
 st "empty"
 ju 2
-blo "52000,26250"
+blo "101000,35250"
 tm "CptPortNameMgr"
 )
 )
@@ -1281,9 +1248,8 @@ uid 272,0
 va (VaSet
 font "courier,8,0"
 )
-xt "2000,11900,19000,12800"
-st "output wire                empty;
-"
+xt "2000,11000,22000,11900"
+st "output wire                      empty;"
 )
 thePort (LogicalPort
 lang 5
@@ -1291,12 +1257,13 @@ m 1
 decl (Decl
 n "empty"
 t "wire"
-o 4
+preAdd 0
+o 3
 suid 19,0
 )
 )
 )
-*95 (CptPort
+*94 (CptPort
 uid 273,0
 ps "OnEdgeStrategy"
 shape (Triangle
@@ -1306,7 +1273,7 @@ va (VaSet
 vasetType 1
 fg "0,65535,0"
 )
-xt "53000,26625,53750,27375"
+xt "102000,35625,102750,36375"
 )
 tg (CPTG
 uid 275,0
@@ -1317,10 +1284,10 @@ uid 276,0
 va (VaSet
 font "courier,8,0"
 )
-xt "50000,26550,52000,27450"
+xt "99000,35550,101000,36450"
 st "full"
 ju 2
-blo "52000,27250"
+blo "101000,36250"
 tm "CptPortNameMgr"
 )
 )
@@ -1329,9 +1296,8 @@ uid 277,0
 va (VaSet
 font "courier,8,0"
 )
-xt "2000,10100,18500,11000"
-st "output wire                full;
-"
+xt "2000,10100,74500,11000"
+st "output wire                      full; //FIFO is full. Write requests are ignored when is full is non-destructive to the contents of the FIFO. T"
 )
 thePort (LogicalPort
 lang 5
@@ -1339,12 +1305,14 @@ m 1
 decl (Decl
 n "full"
 t "wire"
+eolc "//FIFO is full. Write requests are ignored when is full is non-destructive to the contents of the FIFO. T"
+posAdd 0
 o 2
 suid 20,0
 )
 )
 )
-*96 (CptPort
+*95 (CptPort
 uid 316,0
 ps "OnEdgeStrategy"
 shape (Triangle
@@ -1354,7 +1322,7 @@ va (VaSet
 vasetType 1
 fg "0,65535,0"
 )
-xt "53000,27625,53750,28375"
+xt "102000,36625,102750,37375"
 )
 tg (CPTG
 uid 318,0
@@ -1365,10 +1333,10 @@ uid 319,0
 va (VaSet
 font "courier,8,0"
 )
-xt "46000,27550,52000,28450"
+xt "95000,36550,101000,37450"
 st "almost_full"
 ju 2
-blo "52000,28250"
+blo "101000,37250"
 tm "CptPortNameMgr"
 )
 )
@@ -1377,9 +1345,8 @@ uid 320,0
 va (VaSet
 font "courier,8,0"
 )
-xt "2000,12800,22000,13700"
-st "output wire                almost_full;
-"
+xt "2000,12800,71500,13700"
+st "output wire                      almost_full; //  this signal indicates that only one more write can be performed before the FIFO is full."
 )
 thePort (LogicalPort
 lang 5
@@ -1387,22 +1354,25 @@ m 1
 decl (Decl
 n "almost_full"
 t "wire"
+eolc "//  this signal indicates that only one more write can be performed before the FIFO is full."
+preAdd 0
+posAdd 0
 o 5
 suid 21,0
 )
 )
 )
-*97 (CptPort
+*96 (CptPort
 uid 335,0
 ps "OnEdgeStrategy"
 shape (Triangle
-uid 336,0
-ro 90
+uid 466,0
+ro 180
 va (VaSet
 vasetType 1
 fg "0,65535,0"
 )
-xt "31250,28625,32000,29375"
+xt "88625,43000,89375,43750"
 )
 tg (CPTG
 uid 337,0
@@ -1410,12 +1380,13 @@ ps "CptPortTextPlaceStrategy"
 stg "VerticalLayoutStrategy"
 f (Text
 uid 338,0
+ro 270
 va (VaSet
 font "courier,8,0"
 )
-xt "33000,28550,45000,29450"
+xt "88550,30000,89450,42000"
 st "prog_full_thresh_assert"
-blo "33000,29250"
+blo "89250,42000"
 tm "CptPortNameMgr"
 )
 )
@@ -1424,32 +1395,34 @@ uid 339,0
 va (VaSet
 font "courier,8,0"
 )
-xt "2000,19100,28000,20000"
-st "input  wire [9:0]          prog_full_thresh_assert;
-"
+xt "2000,20000,67500,20900"
+st "output wire [ADDRESS_WIDTH-2:0]  prog_full_thresh_assert; // Used to set the upper threshold value for the programmable full flag,"
 )
 thePort (LogicalPort
 lang 5
+m 1
 decl (Decl
 n "prog_full_thresh_assert"
 t "wire"
-b "[9:0]"
+b "[ADDRESS_WIDTH-2:0]"
+eolc "// Used to set the upper threshold value for the programmable full flag,"
+posAdd 0
 o 12
 suid 22,0
 )
 )
 )
-*98 (CptPort
+*97 (CptPort
 uid 340,0
 ps "OnEdgeStrategy"
 shape (Triangle
-uid 341,0
-ro 90
+uid 467,0
+ro 180
 va (VaSet
 vasetType 1
 fg "0,65535,0"
 )
-xt "31250,29625,32000,30375"
+xt "90625,43000,91375,43750"
 )
 tg (CPTG
 uid 342,0
@@ -1457,12 +1430,13 @@ ps "CptPortTextPlaceStrategy"
 stg "VerticalLayoutStrategy"
 f (Text
 uid 343,0
+ro 270
 va (VaSet
 font "courier,8,0"
 )
-xt "33000,29550,45000,30450"
+xt "90550,30000,91450,42000"
 st "prog_full_thresh_negate"
-blo "33000,30250"
+blo "91250,42000"
 tm "CptPortNameMgr"
 )
 )
@@ -1471,18 +1445,72 @@ uid 344,0
 va (VaSet
 font "courier,8,0"
 )
-xt "2000,20000,28000,20900"
-st "input  wire [9:0]          prog_full_thresh_negate;
-"
+xt "2000,20900,66500,22700"
+st "//It defines when the signal is asserted. Thethreshold can be dynamically set in-circuit during reset.
+output wire [ADDRESS_WIDTH-2:0] prog_full_thresh_negate; //Used to set the lower threshold value for the programmable full flag,"
 )
 thePort (LogicalPort
 lang 5
+m 1
 decl (Decl
 n "prog_full_thresh_negate"
 t "wire"
-b "[9:0]"
+b "[ADDRESS_WIDTH-2:0]"
+prec "//It defines when the signal is asserted. Thethreshold can be dynamically set in-circuit during reset."
+eolc "//Used to set the lower threshold value for the programmable full flag,"
+preAdd 0
+posAdd 0
 o 13
 suid 23,0
+)
+)
+)
+*98 (CptPort
+uid 427,0
+ps "OnEdgeStrategy"
+shape (Triangle
+uid 428,0
+ro 90
+va (VaSet
+vasetType 1
+fg "0,65535,0"
+)
+xt "102000,37625,102750,38375"
+)
+tg (CPTG
+uid 429,0
+ps "CptPortTextPlaceStrategy"
+stg "RightVerticalLayoutStrategy"
+f (Text
+uid 430,0
+va (VaSet
+font "courier,8,0"
+)
+xt "96500,37550,101000,38450"
+st "prog_full"
+ju 2
+blo "101000,38250"
+tm "CptPortNameMgr"
+)
+)
+dt (MLText
+uid 431,0
+va (VaSet
+font "courier,8,0"
+)
+xt "2000,11900,88500,12800"
+st "output wire                      prog_full; //The signal is asserted when the number of entries in the FIFO is greater than or equal to the user-defined assert threshold. W"
+)
+thePort (LogicalPort
+lang 5
+m 1
+decl (Decl
+n "prog_full"
+t "wire"
+eolc "//The signal is asserted when the number of entries in the FIFO is greater than or equal to the user-defined assert threshold. W"
+posAdd 0
+o 4
+suid 24,0
 )
 )
 )
@@ -1495,7 +1523,7 @@ fg "0,65535,0"
 lineColor "0,32896,0"
 lineWidth 2
 )
-xt "32000,13000,53000,32000"
+xt "75000,24000,102000,43000"
 )
 oxt "28000,8000,45000,22000"
 biTextGroup (BiTextGroup
@@ -1507,18 +1535,18 @@ uid 11,0
 va (VaSet
 font "courier,8,1"
 )
-xt "34250,17100,40250,18000"
+xt "81250,27100,87250,28000"
 st "mopshub_lib"
-blo "34250,17800"
+blo "81250,27800"
 )
 second (Text
 uid 12,0
 va (VaSet
 font "courier,8,1"
 )
-xt "34250,18000,47750,18900"
+xt "81250,28000,94750,28900"
 st "fh_epath_fifo2K_18bit_wide"
-blo "34250,18700"
+blo "81250,28700"
 )
 )
 gi *99 (GenericInterface
@@ -1531,42 +1559,41 @@ uid 15,0
 va (VaSet
 font "courier,8,0"
 )
-xt "32000,4800,54500,11100"
+xt "75000,16800,96500,24000"
 st "Parameter Declarations
 
-f_width             8  //FIFO width         
-f_depth             16 //FIFO depth         
-f_ptr_width         4  //because depth =16; 
-f_half_full_value   8                       
-f_almost_full_value 14                      
-"
+// synopsys template
+DATA_WIDTH          18                    
+ADDRESS_WIDTH       11                    
+FIFO_DEPTH          (1 << ADDRESS_WIDTH)  
+f_almost_full_value (FIFO_DEPTH-2)        
+f_prog_full_value   1024                  "
 )
 header "Parameter Declarations"
 showHdrWhenContentsEmpty 1
 )
 elements [
 (GiElement
-name "f_width"
-value "8"
-e "//FIFO width"
+name "DATA_WIDTH"
+value "18"
+pr "// synopsys template"
+apr 0
 )
 (GiElement
-name "f_depth"
-value "16"
-e "//FIFO depth"
+name "ADDRESS_WIDTH"
+value "11"
 )
 (GiElement
-name "f_ptr_width"
-value "4"
-e "//because depth =16;"
-)
-(GiElement
-name "f_half_full_value"
-value "8"
+name "FIFO_DEPTH"
+value "(1 << ADDRESS_WIDTH)"
 )
 (GiElement
 name "f_almost_full_value"
-value "14"
+value "(FIFO_DEPTH-2)"
+)
+(GiElement
+name "f_prog_full_value"
+value "1024"
 )
 ]
 )
@@ -1953,8 +1980,8 @@ tm "PackageList"
 ]
 )
 windowSize "1912,41,3848,1050"
-viewArea "-500,-500,143392,72244"
-cachedDiagramExtent "0,4600,56000,41000"
+viewArea "-500,-500,126262,63584"
+cachedDiagramExtent "0,4600,102750,43750"
 hasePageBreakOrigin 1
 pageBreakOrigin "0,-1000"
 defaultCommentText (CommentText
@@ -2226,6 +2253,6 @@ xt "2000,8300,2000,8300"
 tm "SyDeclarativeTextMgr"
 )
 )
-lastUid 404,0
+lastUid 499,0
 activeModelName "Symbol"
 )
