@@ -70,11 +70,11 @@ always @(posedge bitCLK)
 //-------------------------------------------------------------------------------------------
 //-- 8b10b encoding
 //-------------------------------------------------------------------------------------------
-enc8b10bx  enc8b10_wrap(.clk(bitCLKx4)
+enc8b10b_wrap enc8b10bx(.clk(bitCLKx4)
                       	,.rst(rst)
-                      	,.dataCode(edataIN[9:8])// -- 00"data, 01"eop, 10"sop, 11"comma
+                      	,.dataCode(edataIN[9:8])//00"data, 01"eop, 10"sop, 11"comma
                       	,.dataIN(edataIN[7:0])
-                      	,.dataINrdy(edataINrdy)// -- one? CLKx4 after inp_request_trig_out
+                      	,.dataINrdy(edataINrdy)// one? CLKx4 after inp_request_trig_out
                       	,.encDataOut(enc10bit)
                       	);
 
@@ -98,10 +98,8 @@ always @(posedge bitCLK)
   begin
   	if (rst)
   	   send_count <= 3'b0;
-  	else 
-  	 begin 
+  	else  
       send_count <= send_count + 1;
-    end
   end
   
 mux8_Nbit #(.N(2))bitMUX( .data0(enc10bit_r[1:0])
@@ -113,6 +111,6 @@ mux8_Nbit #(.N(2))bitMUX( .data0(enc10bit_r[1:0])
                          ,.data6(zeros2bit) 
                          ,.data7(zeros2bit)
                          ,.sel(send_count)    //select signal             
-                         ,.data_out(data_out)); //output Trig signal will enable reading from fifo (rd_en=1)
+                         ,.data_out(EdataOUT)); //output Trig signal will enable reading from fifo (rd_en=1)
                         
 endmodule

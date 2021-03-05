@@ -27,14 +27,15 @@ module EPROC_OUT #(
    output  wire    [1:0]                EDATA_OUT, 
    input   wire                         fhCR_REVERSE_10B, 
    input   wire    [DATA_IN_WIDTH-1:0]  DATA_IN, 
-   input   wire                         DATA_RDY, 
-   input   wire                         toHostXoff
+   input   wire                         DATA_RDY
 );
 
 
 // Internal Declarations
 reg          getDataTrig_ENC8b10b_r;
 reg    [1:0] edata_out_s;
+reg    [1:0] edata_out_r;
+assign EDATA_OUT =edata_out_r;
 
 assign getDataTrig = getDataTrig_ENC8b10b_r;
 
@@ -45,16 +46,15 @@ EPROC_OUT_ENC8b10b ENC8b10b( .rst(rst)
                             , .edataIN(DATA_IN)
                             , .edataINrdy(DATA_RDY)
                             , .fhCR_REVERSE_10B(fhCR_REVERSE_10B)
-                            , .EdataOUT(data_out_s) //out data from ENC8b10b
-                            , .toHostXoff(toHostXoff));    
+                            , .EdataOUT(data_out_s));  //out data from ENC8b10b   
                                         
 // buffer the output data
 always @ (swap_outbits, edata_out_s)
   begin
   	if (swap_outbits)
-  	 EDATA_OUT <= {edata_out_s[0],edata_out_s[1]};
+  	 edata_out_r <= {edata_out_s[0],edata_out_s[1]};
   	else     
-    EDATA_OUT <= edata_out_s;
+    edata_out_r <= edata_out_s;
   end
 
 endmodule

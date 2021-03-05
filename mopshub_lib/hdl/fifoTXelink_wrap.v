@@ -13,8 +13,7 @@
 module fifoTXelink_wrap #(
 // FIFO parameters
    parameter DATA_IN_WIDTH  = 18,
-   parameter DATA_OUT_WIDTH = 10,
-   parameter [9:0] comma_byte     = {2'b11, 8'b0}
+   parameter DATA_OUT_WIDTH = 10
 )
 ( 
    // Port Declarations
@@ -26,8 +25,8 @@ module fifoTXelink_wrap #(
    input   wire                         rst, 
    input   wire                         wr_clk, 
    input   wire                         wr_en, 
-   output  reg    [DATA_OUT_WIDTH-1:0]   dout, 
-   output  reg                         doutRdy, 
+   output  wire    [DATA_OUT_WIDTH-1:0]   dout, 
+   output  wire                         doutRdy, 
    output  wire                         empty, 
    output  wire                         full, 
    output  wire                         prog_full
