@@ -19,46 +19,50 @@ uid 116,0
 embeddedInstances [
 (EmbeddedInstance
 name "eb1"
-number "12"
+number "11"
 )
 (EmbeddedInstance
 name "eb2"
-number "13"
+number "12"
 )
 (EmbeddedInstance
 name "eb3"
-number "14"
+number "13"
 )
 (EmbeddedInstance
 name "eb4"
-number "15"
+number "14"
 )
 (EmbeddedInstance
 name "eb5"
-number "16"
+number "15"
 )
 (EmbeddedInstance
 name "eb6"
-number "17"
+number "16"
 )
 (EmbeddedInstance
 name "eb7"
-number "18"
+number "17"
 )
 (EmbeddedInstance
 name "eb8"
-number "19"
+number "18"
 )
 (EmbeddedInstance
 name "eb9"
-number "20"
+number "19"
 )
 (EmbeddedInstance
 name "eb10"
-number "21"
+number "20"
 )
 (EmbeddedInstance
 name "eb11"
+number "21"
+)
+(EmbeddedInstance
+name "eb12"
 number "22"
 )
 ]
@@ -71,7 +75,7 @@ value "fifoTXelink_wrap.v"
 (HdrProperty
 class "HDS"
 name "DocViewState"
-value "1614766600"
+value "1615227412"
 )
 (HdrProperty
 class "HDS"
@@ -134,19 +138,19 @@ value "/home/dcs/git/mopshub/mopshub_lib/hds/fifoTXelink_wrap"
 )
 (vvPair
 variable "date"
-value "03/03/21"
+value "03/08/21"
 )
 (vvPair
 variable "day"
-value "Wed"
+value "Mon"
 )
 (vvPair
 variable "day_long"
-value "Wednesday"
+value "Monday"
 )
 (vvPair
 variable "dd"
-value "03"
+value "08"
 )
 (vvPair
 variable "entity_name"
@@ -174,7 +178,7 @@ value "dcs"
 )
 (vvPair
 variable "graphical_source_date"
-value "03/03/21"
+value "03/08/21"
 )
 (vvPair
 variable "graphical_source_group"
@@ -186,7 +190,7 @@ value "chipdev2.physik.uni-wuppertal.de"
 )
 (vvPair
 variable "graphical_source_time"
-value "11:20:10"
+value "19:25:34"
 )
 (vvPair
 variable "group"
@@ -215,6 +219,10 @@ value "$HDS_PROJECT_DIR/mopshub_lib/work"
 (vvPair
 variable "library_downstream_QuestaSimCompiler"
 value "$HDS_PROJECT_DIR/mopshub_lib/work"
+)
+(vvPair
+variable "library_downstream_SvAssistantInvoke"
+value "$HDS_PROJECT_DIR/mopshub_lib/svassistant"
 )
 (vvPair
 variable "mm"
@@ -294,7 +302,7 @@ value "struct"
 )
 (vvPair
 variable "time"
-value "11:20:10"
+value "19:25:34"
 )
 (vvPair
 variable "unit"
@@ -336,18 +344,18 @@ ptn "String"
 uid 43,0
 pclass "HDS"
 pname "DocViewState"
-pvalue "1614766600"
+pvalue "1615227412"
 ptn "String"
 )
 *3 (Property
-uid 160,0
+uid 156,0
 pclass "HDS"
 pname "DocView"
 pvalue "fifoTXelink_wrap.v"
 ptn "String"
 )
 *4 (Property
-uid 161,0
+uid 157,0
 pclass "HDS"
 pname "DocViewState"
 ptn "String"
@@ -438,8 +446,14 @@ uid 10,0
 va (VaSet
 font "courier,8,0"
 )
-xt "20000,0,32500,900"
+xt "20000,0,36000,6300"
 st "// Internal Declarations
+// Internal Declarations
+
+
+// Local declarations
+
+// Internal signal declarations
 "
 tm "BdCompilerDirectivesTextMgr"
 )
@@ -457,7 +471,9 @@ uid 12,0
 va (VaSet
 font "courier,8,0"
 )
-xt "20000,5400,20000,5400"
+xt "20000,5400,30000,6300"
+st "// fifoTXelink_wrap
+"
 tm "BdCompilerDirectivesTextMgr"
 )
 ]
@@ -476,64 +492,30 @@ optionalChildren [
 ordering 1
 uid 15,0
 name "fifoTXelink_wrap"
-on 8
+on 7
 fa [
 (IbdNFA
-io "I"
+io "O"
 c *16 (IbdNet
 d (Decl
-n "din"
+n "full"
 t "wire"
-b "[DATA_IN_WIDTH-1:0]"
-prec "// Port Declarations"
-eolc "//DATA = 2bits +16bits"
-preAdd 0
-o 22
+o 32
 )
-uid 92,0
-on 33
+uid 112,0
+on 40
 nodes [
 &15
-]
-)
-)
-(IbdNFA
-io "I"
-c *17 (IbdNet
-d (Decl
-n "wr_en"
-t "wire"
-o 28
-)
-uid 104,0
-on 39
-nodes [
-&15
-]
-)
-)
-(IbdNFA
-io "I"
-c *18 (IbdNet
-d (Decl
-n "rd_clk"
-t "wire"
-o 24
-)
-uid 96,0
-on 35
-nodes [
-&15
-*19 (IbdHdsComponent
+*17 (IbdHdsComponent
 archFileType "UNKNOWN"
 p [
-*20 (IbdCptPort
+*18 (IbdCptPort
 p (LogicalPort
 lang 5
 m 1
 decl (Decl
 n "dout"
-t "reg"
+t "wire"
 b "[DATA_WIDTH-1:0]"
 preAdd 0
 posAdd 0
@@ -541,7 +523,7 @@ o 1
 )
 )
 )
-*21 (IbdCptPort
+*19 (IbdCptPort
 p (LogicalPort
 lang 5
 decl (Decl
@@ -554,7 +536,7 @@ o 6
 )
 )
 )
-*22 (IbdCptPort
+*20 (IbdCptPort
 p (LogicalPort
 lang 5
 decl (Decl
@@ -564,18 +546,19 @@ o 9
 )
 )
 )
-*23 (IbdCptPort
+*21 (IbdCptPort
 p (LogicalPort
 lang 5
 decl (Decl
 n "rd_en"
 t "wire"
+eolc "Control the  read operation "
 preAdd 0
 o 8
 )
 )
 )
-*24 (IbdCptPort
+*22 (IbdCptPort
 p (LogicalPort
 lang 5
 decl (Decl
@@ -585,7 +568,7 @@ o 10
 )
 )
 )
-*25 (IbdCptPort
+*23 (IbdCptPort
 p (LogicalPort
 lang 5
 decl (Decl
@@ -597,7 +580,7 @@ o 7
 )
 )
 )
-*26 (IbdCptPort
+*24 (IbdCptPort
 p (LogicalPort
 lang 5
 decl (Decl
@@ -607,7 +590,7 @@ o 11
 )
 )
 )
-*27 (IbdCptPort
+*25 (IbdCptPort
 p (LogicalPort
 lang 5
 m 1
@@ -619,7 +602,7 @@ o 3
 )
 )
 )
-*28 (IbdCptPort
+*26 (IbdCptPort
 p (LogicalPort
 lang 5
 m 1
@@ -632,7 +615,7 @@ o 2
 )
 )
 )
-*29 (IbdCptPort
+*27 (IbdCptPort
 p (LogicalPort
 lang 5
 m 1
@@ -646,37 +629,7 @@ o 5
 )
 )
 )
-*30 (IbdCptPort
-p (LogicalPort
-lang 5
-m 1
-decl (Decl
-n "prog_full_thresh_assert"
-t "wire"
-b "[ADDRESS_WIDTH-2:0]"
-eolc "// Used to set the upper threshold value for the programmable full flag,"
-posAdd 0
-o 12
-)
-)
-)
-*31 (IbdCptPort
-p (LogicalPort
-lang 5
-m 1
-decl (Decl
-n "prog_full_thresh_negate"
-t "wire"
-b "[ADDRESS_WIDTH-2:0]"
-prec "//It defines when the signal is asserted. Thethreshold can be dynamically set in-circuit during reset."
-eolc "//Used to set the lower threshold value for the programmable full flag,"
-preAdd 0
-posAdd 0
-o 13
-)
-)
-)
-*32 (IbdCptPort
+*28 (IbdCptPort
 p (LogicalPort
 lang 5
 m 1
@@ -695,107 +648,161 @@ lib "mopshub_lib"
 ele [
 ]
 ordering 1
-bc "-------------------------------------------------------------------------------------------
--- Instantiate FIFO - ip
--------------------------------------------------------------------------------------------
+bc " Instances
+ -------------------------------------------------------------------------------------------
+ -- Instantiate FIFO - ip
+ -------------------------------------------------------------------------------------------
+
 "
 uid 116,0
 name "fh_epath_fifo2K_18bit_wide"
-on 11
+on 10
 fa [
 (IbdCFA
-l "rd_clk"
-p &22
-c &18
-)
-(IbdCFA
-l "prog_full"
-p &32
-c *33 (IbdNet
-d (Decl
-n "prog_full_s"
-t "reg"
-o 3
-)
-uid 54,0
-on 14
-nodes [
-&19
-]
-)
-)
-(IbdCFA
-l "wr_en"
-p &25
-c *34 (IbdNet
-d (Decl
-n "wr_en_r"
-t "reg"
-o 21
-iv "0"
-)
-uid 90,0
-on 32
-nodes [
-&19
-]
-)
-)
-(IbdCFA
 l "empty"
-p &27
-c *35 (IbdNet
+p &25
+c *29 (IbdNet
 d (Decl
 n "empty_efifo"
 t "reg"
-o 2
+o 19
 )
-uid 52,0
-on 13
+uid 86,0
+on 27
 nodes [
-&19
+&17
 ]
 )
 )
 (IbdCFA
-l "rd_en"
-p &23
-c *36 (IbdNet
-d (Decl
-n "rd_en_s"
-t "reg"
-o 1
-)
-uid 50,0
-on 12
-nodes [
-&19
-]
-)
+l "full"
+p &26
+c &16
 )
 (IbdCFA
 l "din"
-p &21
-c *37 (IbdNet
+p &19
+c *30 (IbdNet
 d (Decl
 n "din_r"
 t "reg"
 b "[DATA_IN_WIDTH-1:0]"
 eolc "// The default input has commas (2'b11) as a wordcode"
-o 12
+o 8
 iv "{2'b11, 16'b0}"
 )
-uid 72,0
-on 23
+uid 64,0
+on 16
 nodes [
-&19
+&17
+]
+)
+)
+(IbdCFA
+l "wr_en"
+p &23
+c *31 (IbdNet
+d (Decl
+n "wr_en_r"
+t "reg"
+o 14
+iv "0"
+)
+uid 76,0
+on 22
+nodes [
+&17
+]
+)
+)
+(IbdCFA
+l "rd_en"
+p &21
+c *32 (IbdNet
+d (Decl
+n "rd_en_s"
+t "wire"
+o 18
+)
+uid 84,0
+on 26
+nodes [
+&17
+]
+)
+)
+(IbdCFA
+l "rd_clk"
+p &20
+c *33 (IbdNet
+d (Decl
+n "rd_clk"
+t "wire"
+o 24
+)
+uid 96,0
+on 32
+nodes [
+&15
+&17
+]
+)
+)
+(IbdCFA
+l "dout"
+p &18
+c *34 (IbdNet
+d (Decl
+n "dout18bit"
+t "reg"
+b "[DATA_OUT_WIDTH-1:0]"
+o 7
+)
+uid 62,0
+on 15
+nodes [
+&17
+]
+)
+)
+(IbdCFA
+l "almost_full"
+p &27
+c *35 (IbdNet
+d (Decl
+n "almost_full"
+t "wire"
+eolc "//  this signal indicates that only one more write can be performed before the FIFO is full."
+o 21
+)
+uid 90,0
+on 29
+nodes [
+&17
+]
+)
+)
+(IbdCFA
+l "wr_clk"
+p &22
+c *36 (IbdNet
+d (Decl
+n "wr_clk"
+t "wire"
+o 27
+)
+uid 102,0
+on 35
+nodes [
+&15
+&17
 ]
 )
 )
 (IbdCFA
 l "rst"
-p &26
-c *38 (IbdNet
+p &24
+c *37 (IbdNet
 d (Decl
 n "fifoFLUSH"
 t "wire"
@@ -803,61 +810,26 @@ eolc "// x-link wrapper signal"
 o 23
 )
 uid 94,0
-on 34
+on 31
 nodes [
 &15
-&19
+&17
 ]
 )
 )
 (IbdCFA
-l "full"
+l "prog_full"
 p &28
-c *39 (IbdNet
+c *38 (IbdNet
 d (Decl
-n "full"
-t "wire"
-o 32
-)
-uid 112,0
-on 43
-nodes [
-&15
-&19
-]
-)
-)
-(IbdCFA
-l "wr_clk"
-p &24
-c *40 (IbdNet
-d (Decl
-n "wr_clk"
-t "wire"
-o 27
-)
-uid 102,0
-on 38
-nodes [
-&15
-&19
-]
-)
-)
-(IbdCFA
-l "dout"
-p &20
-c *41 (IbdNet
-d (Decl
-n "dout18bit"
+n "prog_full_s"
 t "reg"
-b "[DATA_OUT_WIDTH-1:0]"
-o 11
+o 1
 )
-uid 70,0
-on 22
+uid 50,0
+on 9
 nodes [
-&19
+&17
 ]
 )
 )
@@ -865,39 +837,6 @@ nodes [
 dec [
 ]
 ucp [
-(IbdPortFA
-f "O: almost_full"
-p &29
-c *42 (IbdUcPortConnector
-uid 153,0
-on 9
-nodes [
-&19
-]
-)
-)
-(IbdPortFA
-f "O: prog_full_thresh_assert[ADDRESS_WIDTH-2:0]"
-p &30
-c *43 (IbdUcPortConnector
-uid 155,0
-on 10
-nodes [
-&19
-]
-)
-)
-(IbdPortFA
-f "O: prog_full_thresh_negate[ADDRESS_WIDTH-2:0]"
-p &31
-c *44 (IbdUcPortConnector
-uid 157,0
-on 11
-nodes [
-&19
-]
-)
-)
 ]
 )
 ]
@@ -905,14 +844,116 @@ nodes [
 )
 (IbdNFA
 io "O"
-c *45 (IbdNet
+c *39 (IbdNet
+d (Decl
+n "prog_full"
+t "wire"
+o 33
+)
+uid 114,0
+on 41
+nodes [
+&15
+]
+)
+)
+(IbdNFA
+io "I"
+c &33
+)
+(IbdNFA
+io "I"
+c *40 (IbdNet
+d (Decl
+n "rd_en"
+t "wire"
+eolc "// 1 clk trigger feeded from the EPROC_Out block"
+o 25
+)
+uid 98,0
+on 33
+nodes [
+&15
+]
+)
+)
+(IbdNFA
+io "I"
+c *41 (IbdNet
+d (Decl
+n "wr_en"
+t "wire"
+o 28
+)
+uid 104,0
+on 36
+nodes [
+&15
+]
+)
+)
+(IbdNFA
+io "O"
+c *42 (IbdNet
+d (Decl
+n "dout"
+t "wire"
+b "[DATA_OUT_WIDTH_Local-1:0]"
+o 29
+)
+uid 106,0
+on 37
+nodes [
+&15
+]
+)
+)
+(IbdNFA
+io "I"
+c *43 (IbdNet
+d (Decl
+n "rst"
+t "wire"
+prec "// Port Declarations"
+preAdd 0
+o 26
+)
+uid 100,0
+on 34
+nodes [
+&15
+]
+)
+)
+(IbdNFA
+io "I"
+c &36
+)
+(IbdNFA
+io "O"
+c *44 (IbdNet
 d (Decl
 n "doutRdy"
 t "wire"
 o 30
 )
 uid 108,0
-on 41
+on 38
+nodes [
+&15
+]
+)
+)
+(IbdNFA
+io "O"
+c *45 (IbdNet
+d (Decl
+n "empty"
+t "wire"
+o 31
+)
+uid 110,0
+on 39
 nodes [
 &15
 ]
@@ -922,14 +963,17 @@ nodes [
 io "I"
 c *46 (IbdNet
 d (Decl
-n "rst"
+n "din"
 t "wire"
-prec "// Port Declarations"
+b "[DATA_IN_WIDTH-1:0]"
+prec "// Port Declarations
+// Port Declarations"
+eolc "//DATA = 2bits +16bits"
 preAdd 0
-o 26
+o 22
 )
-uid 100,0
-on 37
+uid 92,0
+on 30
 nodes [
 &15
 ]
@@ -937,88 +981,37 @@ nodes [
 )
 (IbdNFA
 io "I"
-c &38
-)
-(IbdNFA
-io "I"
-c *47 (IbdNet
-d (Decl
-n "rd_en"
-t "wire"
-eolc "// 1 clk trigger feeded from the EPROC_Out block"
-o 25
-)
-uid 98,0
-on 36
-nodes [
-&15
-]
-)
-)
-(IbdNFA
-io "O"
-c *48 (IbdNet
-d (Decl
-n "prog_full"
-t "wire"
-o 33
-)
-uid 114,0
-on 44
-nodes [
-&15
-]
-)
-)
-(IbdNFA
-io "O"
-c *49 (IbdNet
-d (Decl
-n "empty"
-t "wire"
-o 31
-)
-uid 110,0
-on 42
-nodes [
-&15
-]
-)
-)
-(IbdNFA
-io "O"
-c &39
-)
-(IbdNFA
-io "I"
-c &40
-)
-(IbdNFA
-io "O"
-c *50 (IbdNet
-d (Decl
-n "dout"
-t "wire"
-b "[DATA_OUT_WIDTH-1:0]"
-o 29
-)
-uid 106,0
-on 40
-nodes [
-&15
-]
-)
+c &37
 )
 ]
 dec [
 ]
 )
-&19
-*51 (IbdEB
+&17
+*47 (IbdEB
 uid 120,0
 optionalChildren [
-*52 (IbdEmbeddedText
-theText "//-------------------------------------------------------------------------------------------
+*48 (IbdEmbeddedText
+theText "// HDL Embedded Text Block 1 eb1
+assign doutRdy = doutRdy_r;
+assign dout =dout_r;
+"
+uid 121,0
+)
+]
+name "eb1"
+on 11
+fa [
+]
+dec [
+]
+)
+*49 (IbdEB
+uid 123,0
+optionalChildren [
+*50 (IbdEmbeddedText
+theText "// HDL Embedded Text Block 2 eb2
+//-------------------------------------------------------------------------------------------
 //-- write pipeline
 //-------------------------------------------------------------------------------------------
 always @ (posedge wr_clk)
@@ -1027,24 +1020,25 @@ always @ (posedge wr_clk)
     din_r   <= din;
   end
 "
-uid 121,0
+uid 124,0
 )
 ]
-name "eb1"
+name "eb2"
 on 12
 fa [
 ]
 dec [
 ]
 )
-*53 (IbdEB
-uid 123,0
+*51 (IbdEB
+uid 126,0
 optionalChildren [
-*54 (IbdEmbeddedText
-theText "//-------------------------------------------------------------------------------------------
+*52 (IbdEmbeddedText
+theText "// HDL Embedded Text Block 3 eb3
+//-------------------------------------------------------------------------------------------
 //-- re pulse [Reading Data]
 //-------------------------------------------------------------------------------------------
-always @ (posedge rd_clk,rst)
+always @ (posedge rd_clk, posedge rst)
   begin
      if (rst)
       byte_cnt <= 0;
@@ -1052,38 +1046,40 @@ always @ (posedge rd_clk,rst)
     byte_cnt <= !byte_cnt; 
   end
 "
-uid 124,0
+uid 127,0
 )
 ]
-name "eb2"
+name "eb3"
 on 13
 fa [
 ]
 dec [
 ]
 )
-*55 (IbdEB
-uid 126,0
+*53 (IbdEB
+uid 129,0
 optionalChildren [
-*56 (IbdEmbeddedText
-theText "assign rd_en_s = rd_en & (!byte_cnt) & (!empty_efifo);//-- only when byte_cnt = 0
+*54 (IbdEmbeddedText
+theText "// HDL Embedded Text Block 4 eb4
+assign rd_en_s = rd_en & (!byte_cnt) & (!empty_efifo);//-- only when byte_cnt = 0
 assign word16_code = dout18bit[17:16];
 "
-uid 127,0
+uid 130,0
 )
 ]
-name "eb3"
+name "eb4"
 on 14
 fa [
 ]
 dec [
 ]
 )
-*57 (IbdEB
-uid 129,0
+*55 (IbdEB
+uid 132,0
 optionalChildren [
-*58 (IbdEmbeddedText
-theText "//Assigning the word16_code
+*56 (IbdEmbeddedText
+theText "// HDL Embedded Text Block 5 eb5
+//Assigning the word16_code
 always @ (word16_code,empty_efifo1,empty_efifo2)
   begin
     if(empty_efifo1 == 1)//The FIFO is empty
@@ -1109,147 +1105,154 @@ always @ (word16_code,empty_efifo1,empty_efifo2)
         end
   end
 "
-uid 130,0
+uid 133,0
 )
 ]
-name "eb4"
+name "eb5"
 on 15
 fa [
 ]
 dec [
 ]
 )
-*59 (IbdEB
-uid 132,0
+*57 (IbdEB
+uid 135,0
 optionalChildren [
-*60 (IbdEmbeddedText
-theText "assign byte0 = {byte0_code , dout18bit[15:8]};
+*58 (IbdEmbeddedText
+theText "// HDL Embedded Text Block 6 eb6
+assign byte0 = {byte0_code , dout18bit[15:8]};
 assign byte1 =  {byte1_code , dout18bit[7 : 0]};
 "
-uid 133,0
+uid 136,0
 )
 ]
-name "eb5"
+name "eb6"
 on 16
 fa [
 ]
 dec [
 ]
 )
-*61 (IbdEB
-uid 135,0
+*59 (IbdEB
+uid 138,0
 optionalChildren [
-*62 (IbdEmbeddedText
-theText "// Generate Dout
+*60 (IbdEmbeddedText
+theText "// HDL Embedded Text Block 7 eb7
+// Generate Dout
 always @(byte_cnt,byte0,byte1)
   begin
      if (byte_cnt ==1)
-      dout = byte0;
+      dout_r = byte0;
      else  
-     dout = byte1;
-  end
-"
-uid 136,0
-)
-]
-name "eb6"
-on 17
-fa [
-]
-dec [
-]
-)
-*63 (IbdEB
-uid 138,0
-optionalChildren [
-*64 (IbdEmbeddedText
-theText "// deliver a byte_rdy signal
-always @ (posedge rd_clk)
-  begin
-    byte_rdy =byte_cnt;
+     dout_r = byte1;
   end
 "
 uid 139,0
 )
 ]
 name "eb7"
-on 18
+on 17
 fa [
 ]
 dec [
 ]
 )
-*65 (IbdEB
+*61 (IbdEB
 uid 141,0
 optionalChildren [
-*66 (IbdEmbeddedText
-theText "//-------------------------------------------------------------------------------------------
-//-- re-pulse [Empty FIFO]
-//-------------------------------------------------------------------------------------------
+*62 (IbdEmbeddedText
+theText "// HDL Embedded Text Block 8 eb8
+// deliver a byte_rdy signal
 always @ (posedge rd_clk)
- begin
-    doutRdy = rd_en;   
-    empty_efifo1 = empty_efifo;
-    empty_efifo2 = empty_efifo1;  
-    empty_efifo3 = empty_efifo2; 
+  begin
+    byte_rdy =byte_cnt;
   end
 "
 uid 142,0
 )
 ]
 name "eb8"
+on 18
+fa [
+]
+dec [
+]
+)
+*63 (IbdEB
+uid 144,0
+optionalChildren [
+*64 (IbdEmbeddedText
+theText "// HDL Embedded Text Block 9 eb9
+//-------------------------------------------------------------------------------------------
+//-- re-pulse [Empty FIFO]
+//-------------------------------------------------------------------------------------------
+always @ (posedge rd_clk)
+ begin
+    doutRdy_r = rd_en;   
+    empty_efifo1 = empty_efifo;
+    empty_efifo2 = empty_efifo1;  
+    empty_efifo3 = empty_efifo2; 
+  end
+"
+uid 145,0
+)
+]
+name "eb9"
 on 19
 fa [
 ]
 dec [
 ]
 )
-*67 (IbdEB
-uid 144,0
+*65 (IbdEB
+uid 147,0
 optionalChildren [
-*68 (IbdEmbeddedText
-theText "assign empty_efifo = empty;
+*66 (IbdEmbeddedText
+theText "// HDL Embedded Text Block 10 eb10
+assign empty = empty_efifo;
 "
-uid 145,0
+uid 148,0
 )
 ]
-name "eb9"
+name "eb10"
 on 20
 fa [
 ]
 dec [
 ]
 )
-*69 (IbdEB
-uid 147,0
+*67 (IbdEB
+uid 150,0
 optionalChildren [
-*70 (IbdEmbeddedText
-theText "always @ (posedge rd_clk)
+*68 (IbdEmbeddedText
+theText "// HDL Embedded Text Block 11 eb11
+always @ (posedge rd_clk)
  begin
     rst_state = rst | fifoFLUSH;
     OE = !rst_state;
   end
 "
-uid 148,0
+uid 151,0
 )
 ]
-name "eb10"
+name "eb11"
 on 21
 fa [
 ]
 dec [
 ]
 )
-*71 (IbdEB
-uid 150,0
+*69 (IbdEB
+uid 153,0
 optionalChildren [
-*72 (IbdEmbeddedText
-theText "assign prog_full =prog_full_s & OE; // Take the signal out of the FIFO
+*70 (IbdEmbeddedText
+theText "// HDL Embedded Text Block 12 eb12
+assign prog_full =prog_full_s & OE; // Take the signal out of the FIFO
 "
-uid 151,0
+uid 154,0
 )
 ]
-name "eb11"
+name "eb12"
 on 22
 fa [
 ]
@@ -1261,9 +1264,26 @@ dec [
 rowContainer (IbdRowContainer
 uid 16,0
 optionalChildren [
-&36
-&35
-&33
+&38
+*71 (IbdNet
+d (Decl
+n "dout_r"
+t "reg"
+b "[DATA_OUT_WIDTH_Local-1:0]"
+o 2
+)
+uid 52,0
+on 10
+)
+*72 (IbdNet
+d (Decl
+n "doutRdy_r"
+t "reg"
+o 3
+)
+uid 54,0
+on 11
+)
 *73 (IbdNet
 d (Decl
 n "OE"
@@ -1271,159 +1291,133 @@ t "reg"
 o 4
 )
 uid 56,0
-on 15
+on 12
 )
 *74 (IbdNet
 d (Decl
-n "rst_state"
+n "byte_cnt"
 t "reg"
 o 5
 )
 uid 58,0
-on 16
+on 13
 )
 *75 (IbdNet
 d (Decl
-n "byte_cnt"
+n "byte_rdy"
 t "reg"
 o 6
 )
 uid 60,0
-on 17
+on 14
 )
+&34
+&30
 *76 (IbdNet
-d (Decl
-n "byte_mux_sel"
-t "reg"
-o 7
-)
-uid 62,0
-on 18
-)
-*77 (IbdNet
-d (Decl
-n "byte_rdy"
-t "reg"
-o 8
-)
-uid 64,0
-on 19
-)
-*78 (IbdNet
-d (Decl
-n "rd_en1"
-t "reg"
-o 9
-)
-uid 66,0
-on 20
-)
-*79 (IbdNet
-d (Decl
-n "rd_en2"
-t "reg"
-o 10
-iv "0"
-)
-uid 68,0
-on 21
-)
-&41
-&37
-*80 (IbdNet
-d (Decl
-n "byte0"
-t "reg"
-b "[9:0]"
-o 13
-)
-uid 74,0
-on 24
-)
-*81 (IbdNet
-d (Decl
-n "byte1"
-t "reg"
-b "[9:0]"
-o 14
-iv "{2'b11, 8'b0}"
-)
-uid 76,0
-on 25
-)
-*82 (IbdNet
 d (Decl
 n "byte0_code"
 t "reg"
 b "[1:0]"
-o 15
+o 9
 )
-uid 78,0
-on 26
+uid 66,0
+on 17
 )
-*83 (IbdNet
+*77 (IbdNet
 d (Decl
 n "byte1_code"
 t "reg"
 b "[1:0]"
+o 10
+)
+uid 68,0
+on 18
+)
+*78 (IbdNet
+d (Decl
+n "empty_efifo1"
+t "reg"
+o 11
+)
+uid 70,0
+on 19
+)
+*79 (IbdNet
+d (Decl
+n "empty_efifo2"
+t "reg"
+o 12
+)
+uid 72,0
+on 20
+)
+*80 (IbdNet
+d (Decl
+n "empty_efifo3"
+t "reg"
+o 13
+)
+uid 74,0
+on 21
+)
+&31
+*81 (IbdNet
+d (Decl
+n "byte0"
+t "wire"
+b "[DATA_OUT_WIDTH_Local-1:0]"
+o 15
+iv "{2'b11, 8'b0}"
+)
+uid 78,0
+on 23
+)
+*82 (IbdNet
+d (Decl
+n "byte1"
+t "wire"
+b "[DATA_OUT_WIDTH_Local-1:0]"
 o 16
+iv "{2'b11, 8'b0}"
 )
 uid 80,0
-on 27
+on 24
 )
-*84 (IbdNet
+*83 (IbdNet
 d (Decl
 n "word16_code"
-t "reg"
+t "wire"
 b "[1:0]"
 o 17
 )
 uid 82,0
-on 28
+on 25
 )
-*85 (IbdNet
+&32
+&29
+*84 (IbdNet
 d (Decl
-n "empty_efifo1"
-t "reg"
-o 18
-)
-uid 84,0
-on 29
-)
-*86 (IbdNet
-d (Decl
-n "empty_efifo2"
-t "reg"
-o 19
-)
-uid 86,0
-on 30
-)
-*87 (IbdNet
-d (Decl
-n "empty_efifo3"
+n "rst_state"
 t "reg"
 o 20
+iv "0"
 )
 uid 88,0
-on 31
+on 28
 )
-&34
-&16
-&38
-&18
-&47
+&35
 &46
+&37
+&33
 &40
-&17
-&50
-&45
-&49
-&39
-&48
-&42
 &43
+&36
+&41
+&42
 &44
+&45
+&16
+&39
 ]
 )
 )
@@ -1433,384 +1427,367 @@ mainIct (MIct
 name "All"
 mcolContainer (MIctColContainer
 optionalChildren [
-*88 (MRefCol
+*85 (MRefCol
 p 0
 uid 20,0
 d 20
 )
-*89 (MNameCol
-p 2
+*86 (MNameCol
+p 1
 uid 21,0
 d 150
 )
-*90 (MTypeCol
-p 3
+*87 (MTypeCol
+p 2
 uid 22,0
 )
-*91 (MSignedCol
-p 4
+*88 (MSignedCol
+p 3
 uid 23,0
 )
-*92 (MBoundsCol
-p 5
+*89 (MBoundsCol
+p 4
 uid 24,0
-d 126
+d 162
 )
-*93 (MFilterCol
-p 6
+*90 (MFilterCol
+p 5
 hidden 1
 uid 25,0
 d 120
 )
-*94 (MFixedCol
-p 7
+*91 (MFixedCol
+p 6
 hidden 1
 uid 26,0
 d 20
 )
-*95 (MInterfaceCol
-p 8
+*92 (MInterfaceCol
+p 7
 uid 27,0
 d 35
 ibdInterface &15
 )
-*96 (MDelayCol
+*93 (MDelayCol
 p 23
 uid 28,0
 )
-*97 (MValueCol
+*94 (MValueCol
 p 24
 uid 29,0
 d 90
 )
-*98 (MEolCol
+*95 (MEolCol
 p 25
 uid 30,0
 d 300
 )
-*99 (MHdsCompInstCol
-p 9
+*96 (MHdsCompInstCol
+p 8
 uid 117,0
 optionalChildren [
-*100 (MCompPortCol
-p 10
+*97 (MCompPortCol
+p 9
 hidden 1
 uid 118,0
-d 60
+d 72
 )
-*101 (MCompActualCol
-p 11
+*98 (MCompActualCol
+p 10
 hidden 1
 uid 119,0
 d 35
 )
 ]
 d 35
-comp &19
+comp &17
 )
-*102 (MEBCol
-p 12
+*99 (MEBCol
+p 11
 uid 122,0
+d 35
+eb &47
+)
+*100 (MEBCol
+p 12
+uid 125,0
+d 35
+eb &49
+)
+*101 (MEBCol
+p 13
+uid 128,0
 d 35
 eb &51
 )
-*103 (MEBCol
-p 13
-uid 125,0
+*102 (MEBCol
+p 14
+uid 131,0
 d 35
 eb &53
 )
-*104 (MEBCol
-p 14
-uid 128,0
+*103 (MEBCol
+p 15
+uid 134,0
 d 35
 eb &55
 )
-*105 (MEBCol
-p 15
-uid 131,0
+*104 (MEBCol
+p 16
+uid 137,0
 d 35
 eb &57
 )
-*106 (MEBCol
-p 16
-uid 134,0
+*105 (MEBCol
+p 17
+uid 140,0
 d 35
 eb &59
 )
-*107 (MEBCol
-p 17
-uid 137,0
+*106 (MEBCol
+p 18
+uid 143,0
 d 35
 eb &61
 )
-*108 (MEBCol
-p 18
-uid 140,0
+*107 (MEBCol
+p 19
+uid 146,0
 d 35
 eb &63
 )
-*109 (MEBCol
-p 19
-uid 143,0
+*108 (MEBCol
+p 20
+uid 149,0
 d 35
 eb &65
 )
-*110 (MEBCol
-p 20
-uid 146,0
+*109 (MEBCol
+p 21
+uid 152,0
 d 35
 eb &67
 )
-*111 (MEBCol
-p 21
-uid 149,0
+*110 (MEBCol
+p 22
+uid 155,0
 d 35
 eb &69
-)
-*112 (MEBCol
-p 22
-uid 152,0
-d 35
-eb &71
-)
-*113 (MExpandCol
-p 1
-uid 159,0
-d 15
-depth 1
 )
 ]
 )
 mrowContainer (MIctRowContainer
 optionalChildren [
-*114 (MRefRow
+*111 (MRefRow
 p 0
 uid 32,0
 )
-*115 (MNameRow
+*112 (MNameRow
 p 1
 uid 33,0
 d 162
 )
-*116 (MLibRow
+*113 (MLibRow
 p 2
 uid 34,0
 )
-*117 (MInstanceRefRow
+*114 (MInstanceRefRow
 p 3
 uid 35,0
 )
-*118 (MPortMapLabelRow
+*115 (MPortMapLabelRow
 p 4
 uid 36,0
 )
-*119 (MFilterRow
+*116 (MFilterRow
 p 5
 hidden 1
 uid 37,0
 d 20
 )
-*120 (MFixedRow
+*117 (MFixedRow
 p 6
 hidden 1
 uid 38,0
 )
-*121 (MReqRow
+*118 (MReqRow
 p 7
 hidden 1
 uid 39,0
 )
-*122 (MUcPortGroupRow
+*119 (MUcPortGroupRow
 p 8
+hidden 1
 uid 40,0
-optionalChildren [
-*123 (MUcPortRow
-p 9
-uid 154,0
-ucport &42
 )
-*124 (MUcPortRow
-p 10
-uid 156,0
-ucport &43
-)
-*125 (MUcPortRow
-p 11
-uid 158,0
-ucport &44
-)
-]
-expandCol &113
-)
-*126 (MEmptyRow
-p 45
+*120 (MEmptyRow
+p 42
 uid 41,0
 )
-*127 (MNetRow
-p 12
+*121 (MNetRow
+p 9
 uid 51,0
-net &36
+net &38
 )
-*128 (MNetRow
-p 13
+*122 (MNetRow
+p 10
 uid 53,0
-net &35
+net &71
 )
-*129 (MNetRow
-p 14
+*123 (MNetRow
+p 11
 uid 55,0
-net &33
+net &72
 )
-*130 (MNetRow
-p 15
+*124 (MNetRow
+p 12
 uid 57,0
 net &73
 )
-*131 (MNetRow
-p 16
+*125 (MNetRow
+p 13
 uid 59,0
 net &74
 )
-*132 (MNetRow
-p 17
+*126 (MNetRow
+p 14
 uid 61,0
 net &75
 )
-*133 (MNetRow
-p 18
+*127 (MNetRow
+p 15
 uid 63,0
+net &34
+)
+*128 (MNetRow
+p 16
+uid 65,0
+net &30
+)
+*129 (MNetRow
+p 17
+uid 67,0
 net &76
 )
-*134 (MNetRow
-p 19
-uid 65,0
+*130 (MNetRow
+p 18
+uid 69,0
 net &77
 )
-*135 (MNetRow
-p 20
-uid 67,0
+*131 (MNetRow
+p 19
+uid 71,0
 net &78
 )
-*136 (MNetRow
-p 21
-uid 69,0
+*132 (MNetRow
+p 20
+uid 73,0
 net &79
 )
-*137 (MNetRow
-p 22
-uid 71,0
-net &41
-)
-*138 (MNetRow
-p 23
-uid 73,0
-net &37
-)
-*139 (MNetRow
-p 24
+*133 (MNetRow
+p 21
 uid 75,0
 net &80
 )
-*140 (MNetRow
-p 25
+*134 (MNetRow
+p 22
 uid 77,0
+net &31
+)
+*135 (MNetRow
+p 23
+uid 79,0
 net &81
 )
-*141 (MNetRow
-p 26
-uid 79,0
+*136 (MNetRow
+p 24
+uid 81,0
 net &82
 )
-*142 (MNetRow
-p 27
-uid 81,0
+*137 (MNetRow
+p 25
+uid 83,0
 net &83
 )
-*143 (MNetRow
+*138 (MNetRow
+p 26
+uid 85,0
+net &32
+)
+*139 (MNetRow
+p 27
+uid 87,0
+net &29
+)
+*140 (MNetRow
 p 28
-uid 83,0
+uid 89,0
 net &84
 )
-*144 (MNetRow
+*141 (MNetRow
 p 29
-uid 85,0
-net &85
-)
-*145 (MNetRow
-p 30
-uid 87,0
-net &86
-)
-*146 (MNetRow
-p 31
-uid 89,0
-net &87
-)
-*147 (MNetRow
-p 32
 uid 91,0
-net &34
+net &35
 )
-*148 (MNetRow
-p 33
+*142 (MNetRow
+p 30
 uid 93,0
-net &16
-)
-*149 (MNetRow
-p 34
-uid 95,0
-net &38
-)
-*150 (MNetRow
-p 35
-uid 97,0
-net &18
-)
-*151 (MNetRow
-p 36
-uid 99,0
-net &47
-)
-*152 (MNetRow
-p 37
-uid 101,0
 net &46
 )
-*153 (MNetRow
-p 38
-uid 103,0
+*143 (MNetRow
+p 31
+uid 95,0
+net &37
+)
+*144 (MNetRow
+p 32
+uid 97,0
+net &33
+)
+*145 (MNetRow
+p 33
+uid 99,0
 net &40
 )
-*154 (MNetRow
-p 39
+*146 (MNetRow
+p 34
+uid 101,0
+net &43
+)
+*147 (MNetRow
+p 35
+uid 103,0
+net &36
+)
+*148 (MNetRow
+p 36
 uid 105,0
-net &17
+net &41
 )
-*155 (MNetRow
-p 40
+*149 (MNetRow
+p 37
 uid 107,0
-net &50
+net &42
 )
-*156 (MNetRow
-p 41
+*150 (MNetRow
+p 38
 uid 109,0
+net &44
+)
+*151 (MNetRow
+p 39
+uid 111,0
 net &45
 )
-*157 (MNetRow
-p 42
-uid 111,0
-net &49
-)
-*158 (MNetRow
-p 43
+*152 (MNetRow
+p 40
 uid 113,0
-net &39
+net &16
 )
-*159 (MNetRow
-p 44
+*153 (MNetRow
+p 41
 uid 115,0
-net &48
+net &39
 )
 ]
 )
@@ -1901,57 +1878,57 @@ font "courier,10,0"
 )
 uid 17,0
 )
-lastUid 161,0
+lastUid 157,0
 genericsCommonDM (CommonDM
 ldm (LogicalDM
-emptyRow *160 (LEmptyRow
+emptyRow *154 (LEmptyRow
 )
 optionalChildren [
-*161 (RefLabelRowHdr
+*155 (RefLabelRowHdr
 )
-*162 (TitleRowHdr
+*156 (TitleRowHdr
 )
-*163 (FilterRowHdr
+*157 (FilterRowHdr
 )
-*164 (RefLabelColHdr
+*158 (RefLabelColHdr
 tm "RefLabelColHdrMgr"
 )
-*165 (RowExpandColHdr
+*159 (RowExpandColHdr
 tm "RowExpandColHdrMgr"
 )
-*166 (GroupColHdr
+*160 (GroupColHdr
 tm "GroupColHdrMgr"
 )
-*167 (NameColHdr
+*161 (NameColHdr
 tm "GenericNameColHdrMgr"
 )
-*168 (InitColHdr
+*162 (InitColHdr
 tm "GenericValueColHdrMgr"
 )
-*169 (EolColHdr
+*163 (EolColHdr
 tm "GenericEolColHdrMgr"
 )
-*170 (LogGeneric
+*164 (LogGeneric
 generic (GiElement
 name "DATA_IN_WIDTH"
 value "18"
-pr "// FIFO parameters"
+pr "// synopsys template
+// FIFO parameters"
 apr 0
 )
 uid 45,0
 )
-*171 (LogGeneric
+*165 (LogGeneric
 generic (GiElement
 name "DATA_OUT_WIDTH"
-value "10"
+value "18"
 )
 uid 47,0
 )
-*172 (LogGeneric
+*166 (LogGeneric
 generic (GiElement
-name "comma_byte"
-type "[9:0]"
-value "{2'b11, 8'b0}"
+name "DATA_OUT_WIDTH_Local"
+value "10"
 )
 uid 49,0
 )
@@ -1961,7 +1938,7 @@ pdm (PhysicalDM
 displayShortBounds 1
 editShortBounds 1
 optionalChildren [
-*173 (Sheet
+*167 (Sheet
 sheetRow (SheetRow
 headerVa (MVa
 cellColor "49152,49152,49152"
@@ -1978,42 +1955,42 @@ cellColor "39936,56832,65280"
 fontColor "0,0,0"
 font "courier,10,0"
 )
-emptyMRCItem *174 (MRCItem
-litem &160
+emptyMRCItem *168 (MRCItem
+litem &154
 pos 3
 dimension 20
 )
 optionalChildren [
-*175 (MRCItem
-litem &161
+*169 (MRCItem
+litem &155
 pos 0
 dimension 20
 )
-*176 (MRCItem
-litem &162
+*170 (MRCItem
+litem &156
 pos 1
 dimension 23
 )
-*177 (MRCItem
-litem &163
+*171 (MRCItem
+litem &157
 pos 2
 hidden 1
 dimension 20
 )
-*178 (MRCItem
-litem &170
+*172 (MRCItem
+litem &164
 pos 0
 dimension 20
 uid 44,0
 )
-*179 (MRCItem
-litem &171
+*173 (MRCItem
+litem &165
 pos 1
 dimension 20
 uid 46,0
 )
-*180 (MRCItem
-litem &172
+*174 (MRCItem
+litem &166
 pos 2
 dimension 20
 uid 48,0
@@ -2028,28 +2005,28 @@ font "courier,10,0"
 textAngle 90
 )
 optionalChildren [
-*181 (MRCItem
-litem &164
+*175 (MRCItem
+litem &158
 pos 0
 dimension 20
 )
-*182 (MRCItem
-litem &166
+*176 (MRCItem
+litem &160
 pos 1
 dimension 50
 )
-*183 (MRCItem
-litem &167
+*177 (MRCItem
+litem &161
 pos 2
 dimension 100
 )
-*184 (MRCItem
-litem &168
+*178 (MRCItem
+litem &162
 pos 3
 dimension 50
 )
-*185 (MRCItem
-litem &169
+*179 (MRCItem
+litem &163
 pos 4
 dimension 80
 )

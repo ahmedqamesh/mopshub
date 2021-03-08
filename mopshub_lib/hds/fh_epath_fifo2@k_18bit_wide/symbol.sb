@@ -60,7 +60,7 @@ lang 5
 m 1
 decl (Decl
 n "dout"
-t "reg"
+t "wire"
 b "[DATA_WIDTH-1:0]"
 preAdd 0
 posAdd 0
@@ -103,6 +103,7 @@ lang 5
 decl (Decl
 n "rd_en"
 t "wire"
+eolc "Control the  read operation "
 preAdd 0
 o 8
 suid 15,0
@@ -198,40 +199,6 @@ port (LogicalPort
 lang 5
 m 1
 decl (Decl
-n "prog_full_thresh_assert"
-t "wire"
-b "[ADDRESS_WIDTH-2:0]"
-eolc "// Used to set the upper threshold value for the programmable full flag,"
-posAdd 0
-o 12
-suid 22,0
-)
-)
-uid 345,0
-)
-*26 (LogPort
-port (LogicalPort
-lang 5
-m 1
-decl (Decl
-n "prog_full_thresh_negate"
-t "wire"
-b "[ADDRESS_WIDTH-2:0]"
-prec "//It defines when the signal is asserted. Thethreshold can be dynamically set in-circuit during reset."
-eolc "//Used to set the lower threshold value for the programmable full flag,"
-preAdd 0
-posAdd 0
-o 13
-suid 23,0
-)
-)
-uid 347,0
-)
-*27 (LogPort
-port (LogicalPort
-lang 5
-m 1
-decl (Decl
 n "prog_full"
 t "wire"
 eolc "//The signal is asserted when the number of entries in the FIFO is greater than or equal to the user-defined assert threshold. W"
@@ -249,7 +216,7 @@ displayShortBounds 1
 editShortBounds 1
 uid 163,0
 optionalChildren [
-*28 (Sheet
+*26 (Sheet
 sheetRow (SheetRow
 headerVa (MVa
 cellColor "49152,49152,49152"
@@ -266,107 +233,95 @@ cellColor "39936,56832,65280"
 fontColor "0,0,0"
 font "courier,10,0"
 )
-emptyMRCItem *29 (MRCItem
+emptyMRCItem *27 (MRCItem
 litem &1
-pos 13
+pos 11
 dimension 20
 )
 uid 165,0
 optionalChildren [
-*30 (MRCItem
+*28 (MRCItem
 litem &2
 pos 0
 dimension 20
 uid 166,0
 )
-*31 (MRCItem
+*29 (MRCItem
 litem &3
 pos 1
 dimension 23
 uid 167,0
 )
-*32 (MRCItem
+*30 (MRCItem
 litem &4
 pos 2
 hidden 1
 dimension 20
 uid 168,0
 )
-*33 (MRCItem
+*31 (MRCItem
 litem &15
 pos 0
 dimension 20
 uid 121,0
 )
-*34 (MRCItem
+*32 (MRCItem
 litem &16
 pos 1
 dimension 20
 uid 228,0
 )
-*35 (MRCItem
+*33 (MRCItem
 litem &17
 pos 2
 dimension 20
 uid 230,0
 )
-*36 (MRCItem
+*34 (MRCItem
 litem &18
 pos 3
 dimension 20
 uid 232,0
 )
-*37 (MRCItem
+*35 (MRCItem
 litem &19
 pos 4
 dimension 20
 uid 234,0
 )
-*38 (MRCItem
+*36 (MRCItem
 litem &20
 pos 5
 dimension 20
 uid 236,0
 )
-*39 (MRCItem
+*37 (MRCItem
 litem &21
 pos 6
 dimension 20
 uid 255,0
 )
-*40 (MRCItem
+*38 (MRCItem
 litem &22
 pos 7
 dimension 20
 uid 279,0
 )
-*41 (MRCItem
+*39 (MRCItem
 litem &23
 pos 8
 dimension 20
 uid 281,0
 )
-*42 (MRCItem
+*40 (MRCItem
 litem &24
 pos 9
 dimension 20
 uid 322,0
 )
-*43 (MRCItem
+*41 (MRCItem
 litem &25
 pos 10
-dimension 20
-uid 346,0
-)
-*44 (MRCItem
-litem &26
-pos 11
-dimension 20
-uid 348,0
-)
-*45 (MRCItem
-litem &27
-pos 12
 dimension 20
 uid 433,0
 )
@@ -381,55 +336,55 @@ textAngle 90
 )
 uid 169,0
 optionalChildren [
-*46 (MRCItem
+*42 (MRCItem
 litem &5
 pos 0
 dimension 20
 uid 170,0
 )
-*47 (MRCItem
+*43 (MRCItem
 litem &7
 pos 1
 dimension 50
 uid 171,0
 )
-*48 (MRCItem
+*44 (MRCItem
 litem &8
 pos 2
 dimension 100
 uid 172,0
 )
-*49 (MRCItem
+*45 (MRCItem
 litem &9
 pos 3
 dimension 50
 uid 173,0
 )
-*50 (MRCItem
+*46 (MRCItem
 litem &10
 pos 4
 dimension 100
 uid 174,0
 )
-*51 (MRCItem
+*47 (MRCItem
 litem &11
 pos 5
 dimension 60
 uid 175,0
 )
-*52 (MRCItem
+*48 (MRCItem
 litem &12
 pos 6
 dimension 100
 uid 176,0
 )
-*53 (MRCItem
+*49 (MRCItem
 litem &13
 pos 7
 dimension 50
 uid 177,0
 )
-*54 (MRCItem
+*50 (MRCItem
 litem &14
 pos 8
 dimension 80
@@ -450,35 +405,35 @@ uid 148,0
 )
 genericsCommonDM (CommonDM
 ldm (LogicalDM
-emptyRow *55 (LEmptyRow
+emptyRow *51 (LEmptyRow
 )
 uid 180,0
 optionalChildren [
-*56 (RefLabelRowHdr
+*52 (RefLabelRowHdr
 )
-*57 (TitleRowHdr
+*53 (TitleRowHdr
 )
-*58 (FilterRowHdr
+*54 (FilterRowHdr
 )
-*59 (RefLabelColHdr
+*55 (RefLabelColHdr
 tm "RefLabelColHdrMgr"
 )
-*60 (RowExpandColHdr
+*56 (RowExpandColHdr
 tm "RowExpandColHdrMgr"
 )
-*61 (GroupColHdr
+*57 (GroupColHdr
 tm "GroupColHdrMgr"
 )
-*62 (NameColHdr
+*58 (NameColHdr
 tm "GenericNameColHdrMgr"
 )
-*63 (InitColHdr
+*59 (InitColHdr
 tm "GenericValueColHdrMgr"
 )
-*64 (EolColHdr
+*60 (EolColHdr
 tm "GenericEolColHdrMgr"
 )
-*65 (LogGeneric
+*61 (LogGeneric
 generic (GiElement
 name "DATA_WIDTH"
 value "18"
@@ -487,28 +442,28 @@ apr 0
 )
 uid 468,0
 )
-*66 (LogGeneric
+*62 (LogGeneric
 generic (GiElement
 name "ADDRESS_WIDTH"
 value "11"
 )
 uid 470,0
 )
-*67 (LogGeneric
+*63 (LogGeneric
 generic (GiElement
 name "FIFO_DEPTH"
 value "(1 << ADDRESS_WIDTH)"
 )
 uid 472,0
 )
-*68 (LogGeneric
+*64 (LogGeneric
 generic (GiElement
 name "f_almost_full_value"
 value "(FIFO_DEPTH-2)"
 )
 uid 474,0
 )
-*69 (LogGeneric
+*65 (LogGeneric
 generic (GiElement
 name "f_prog_full_value"
 value "1024"
@@ -522,7 +477,7 @@ displayShortBounds 1
 editShortBounds 1
 uid 190,0
 optionalChildren [
-*70 (Sheet
+*66 (Sheet
 sheetRow (SheetRow
 headerVa (MVa
 cellColor "49152,49152,49152"
@@ -539,58 +494,58 @@ cellColor "39936,56832,65280"
 fontColor "0,0,0"
 font "courier,10,0"
 )
-emptyMRCItem *71 (MRCItem
-litem &55
+emptyMRCItem *67 (MRCItem
+litem &51
 pos 5
 dimension 20
 )
 uid 192,0
 optionalChildren [
-*72 (MRCItem
-litem &56
+*68 (MRCItem
+litem &52
 pos 0
 dimension 20
 uid 193,0
 )
-*73 (MRCItem
-litem &57
+*69 (MRCItem
+litem &53
 pos 1
 dimension 23
 uid 194,0
 )
-*74 (MRCItem
-litem &58
+*70 (MRCItem
+litem &54
 pos 2
 hidden 1
 dimension 20
 uid 195,0
 )
-*75 (MRCItem
-litem &65
+*71 (MRCItem
+litem &61
 pos 0
 dimension 20
 uid 469,0
 )
-*76 (MRCItem
-litem &66
+*72 (MRCItem
+litem &62
 pos 1
 dimension 20
 uid 471,0
 )
-*77 (MRCItem
-litem &67
+*73 (MRCItem
+litem &63
 pos 2
 dimension 20
 uid 473,0
 )
-*78 (MRCItem
-litem &68
+*74 (MRCItem
+litem &64
 pos 3
 dimension 20
 uid 475,0
 )
-*79 (MRCItem
-litem &69
+*75 (MRCItem
+litem &65
 pos 4
 dimension 20
 uid 477,0
@@ -606,32 +561,32 @@ textAngle 90
 )
 uid 196,0
 optionalChildren [
-*80 (MRCItem
-litem &59
+*76 (MRCItem
+litem &55
 pos 0
 dimension 20
 uid 197,0
 )
-*81 (MRCItem
-litem &61
+*77 (MRCItem
+litem &57
 pos 1
 dimension 50
 uid 198,0
 )
-*82 (MRCItem
-litem &62
+*78 (MRCItem
+litem &58
 pos 2
 dimension 100
 uid 199,0
 )
-*83 (MRCItem
-litem &63
+*79 (MRCItem
+litem &59
 pos 3
 dimension 50
 uid 200,0
 )
-*84 (MRCItem
-litem &64
+*80 (MRCItem
+litem &60
 pos 4
 dimension 80
 uid 201,0
@@ -694,19 +649,19 @@ value "/home/dcs/git/mopshub/mopshub_lib/hds/fh_epath_fifo2K_18bit_wide"
 )
 (vvPair
 variable "date"
-value "03/02/21"
+value "03/08/21"
 )
 (vvPair
 variable "day"
-value "Tue"
+value "Mon"
 )
 (vvPair
 variable "day_long"
-value "Tuesday"
+value "Monday"
 )
 (vvPair
 variable "dd"
-value "02"
+value "08"
 )
 (vvPair
 variable "entity_name"
@@ -734,7 +689,7 @@ value "dcs"
 )
 (vvPair
 variable "graphical_source_date"
-value "03/02/21"
+value "03/08/21"
 )
 (vvPair
 variable "graphical_source_group"
@@ -746,7 +701,7 @@ value "chipdev2.physik.uni-wuppertal.de"
 )
 (vvPair
 variable "graphical_source_time"
-value "14:11:00"
+value "19:20:51"
 )
 (vvPair
 variable "group"
@@ -775,6 +730,10 @@ value "$HDS_PROJECT_DIR/mopshub_lib/work"
 (vvPair
 variable "library_downstream_QuestaSimCompiler"
 value "$HDS_PROJECT_DIR/mopshub_lib/work"
+)
+(vvPair
+variable "library_downstream_SvAssistantInvoke"
+value "$HDS_PROJECT_DIR/mopshub_lib/svassistant"
 )
 (vvPair
 variable "mm"
@@ -854,7 +813,7 @@ value "symbol"
 )
 (vvPair
 variable "time"
-value "14:11:00"
+value "19:20:51"
 )
 (vvPair
 variable "unit"
@@ -885,10 +844,10 @@ value "21"
 LanguageMgr "Verilog2001LangMgr"
 uid 147,0
 optionalChildren [
-*85 (SymbolBody
+*81 (SymbolBody
 uid 8,0
 optionalChildren [
-*86 (CptPort
+*82 (CptPort
 uid 48,0
 ps "OnEdgeStrategy"
 shape (Triangle
@@ -921,15 +880,16 @@ uid 52,0
 va (VaSet
 font "courier,8,0"
 )
-xt "2000,9200,21500,10100"
-st "output reg [DATA_WIDTH-1:0]      dout;"
+xt "2000,9200,20000,10100"
+st "output wire [DATA_WIDTH-1:0]  dout;
+"
 )
 thePort (LogicalPort
 lang 5
 m 1
 decl (Decl
 n "dout"
-t "reg"
+t "wire"
 b "[DATA_WIDTH-1:0]"
 preAdd 0
 posAdd 0
@@ -938,7 +898,7 @@ suid 1,0
 )
 )
 )
-*87 (CptPort
+*83 (CptPort
 uid 202,0
 ps "OnEdgeStrategy"
 shape (Triangle
@@ -972,7 +932,8 @@ font "courier,8,0"
 )
 xt "2000,13700,55000,15500"
 st "//It defines when the signal is deasserted. The threshold can be dynamically set in-circuit during reset.
-input  wire [DATA_WIDTH-1:0] din;"
+input  wire [DATA_WIDTH-1:0] din;
+"
 )
 thePort (LogicalPort
 lang 5
@@ -987,7 +948,7 @@ suid 13,0
 )
 )
 )
-*88 (CptPort
+*84 (CptPort
 uid 207,0
 ps "OnEdgeStrategy"
 shape (Triangle
@@ -1019,8 +980,9 @@ uid 211,0
 va (VaSet
 font "courier,8,0"
 )
-xt "2000,17300,22500,18200"
-st "input  wire                      rd_clk;"
+xt "2000,17300,21000,18200"
+st "input  wire                   rd_clk;
+"
 )
 thePort (LogicalPort
 lang 5
@@ -1032,7 +994,7 @@ suid 14,0
 )
 )
 )
-*89 (CptPort
+*85 (CptPort
 uid 212,0
 ps "OnEdgeStrategy"
 shape (Triangle
@@ -1064,21 +1026,23 @@ uid 216,0
 va (VaSet
 font "courier,8,0"
 )
-xt "2000,16400,22000,17300"
-st "input  wire                      rd_en;"
+xt "2000,16400,36500,17300"
+st "input  wire                   rd_en; // Control the  read operation 
+"
 )
 thePort (LogicalPort
 lang 5
 decl (Decl
 n "rd_en"
 t "wire"
+eolc "Control the  read operation "
 preAdd 0
 o 8
 suid 15,0
 )
 )
 )
-*90 (CptPort
+*86 (CptPort
 uid 217,0
 ps "OnEdgeStrategy"
 shape (Triangle
@@ -1110,8 +1074,9 @@ uid 221,0
 va (VaSet
 font "courier,8,0"
 )
-xt "2000,18200,22500,19100"
-st "input  wire                      wr_clk;"
+xt "2000,18200,21000,19100"
+st "input  wire                   wr_clk;
+"
 )
 thePort (LogicalPort
 lang 5
@@ -1123,7 +1088,7 @@ suid 16,0
 )
 )
 )
-*91 (CptPort
+*87 (CptPort
 uid 222,0
 ps "OnEdgeStrategy"
 shape (Triangle
@@ -1155,8 +1120,9 @@ uid 226,0
 va (VaSet
 font "courier,8,0"
 )
-xt "2000,15500,79500,16400"
-st "input  wire                      wr_en; //If the FIFO is not full, asserting this signal causes data to be written to the FIFO. This signal is active high"
+xt "2000,15500,78000,16400"
+st "input  wire                   wr_en; //If the FIFO is not full, asserting this signal causes data to be written to the FIFO. This signal is active high
+"
 )
 thePort (LogicalPort
 lang 5
@@ -1170,7 +1136,7 @@ suid 17,0
 )
 )
 )
-*92 (CptPort
+*88 (CptPort
 uid 249,0
 ps "OnEdgeStrategy"
 shape (Triangle
@@ -1202,8 +1168,9 @@ uid 253,0
 va (VaSet
 font "courier,8,0"
 )
-xt "2000,19100,21000,20000"
-st "input  wire                      rst;"
+xt "2000,19100,19500,20000"
+st "input  wire                   rst;
+"
 )
 thePort (LogicalPort
 lang 5
@@ -1215,7 +1182,7 @@ suid 18,0
 )
 )
 )
-*93 (CptPort
+*89 (CptPort
 uid 268,0
 ps "OnEdgeStrategy"
 shape (Triangle
@@ -1248,8 +1215,9 @@ uid 272,0
 va (VaSet
 font "courier,8,0"
 )
-xt "2000,11000,22000,11900"
-st "output wire                      empty;"
+xt "2000,11000,20500,11900"
+st "output wire                   empty;
+"
 )
 thePort (LogicalPort
 lang 5
@@ -1263,7 +1231,7 @@ suid 19,0
 )
 )
 )
-*94 (CptPort
+*90 (CptPort
 uid 273,0
 ps "OnEdgeStrategy"
 shape (Triangle
@@ -1296,8 +1264,9 @@ uid 277,0
 va (VaSet
 font "courier,8,0"
 )
-xt "2000,10100,74500,11000"
-st "output wire                      full; //FIFO is full. Write requests are ignored when is full is non-destructive to the contents of the FIFO. T"
+xt "2000,10100,73000,11000"
+st "output wire                   full; //FIFO is full. Write requests are ignored when is full is non-destructive to the contents of the FIFO. T
+"
 )
 thePort (LogicalPort
 lang 5
@@ -1312,7 +1281,7 @@ suid 20,0
 )
 )
 )
-*95 (CptPort
+*91 (CptPort
 uid 316,0
 ps "OnEdgeStrategy"
 shape (Triangle
@@ -1345,8 +1314,9 @@ uid 320,0
 va (VaSet
 font "courier,8,0"
 )
-xt "2000,12800,71500,13700"
-st "output wire                      almost_full; //  this signal indicates that only one more write can be performed before the FIFO is full."
+xt "2000,12800,70000,13700"
+st "output wire                   almost_full; //  this signal indicates that only one more write can be performed before the FIFO is full.
+"
 )
 thePort (LogicalPort
 lang 5
@@ -1362,110 +1332,7 @@ suid 21,0
 )
 )
 )
-*96 (CptPort
-uid 335,0
-ps "OnEdgeStrategy"
-shape (Triangle
-uid 466,0
-ro 180
-va (VaSet
-vasetType 1
-fg "0,65535,0"
-)
-xt "88625,43000,89375,43750"
-)
-tg (CPTG
-uid 337,0
-ps "CptPortTextPlaceStrategy"
-stg "VerticalLayoutStrategy"
-f (Text
-uid 338,0
-ro 270
-va (VaSet
-font "courier,8,0"
-)
-xt "88550,30000,89450,42000"
-st "prog_full_thresh_assert"
-blo "89250,42000"
-tm "CptPortNameMgr"
-)
-)
-dt (MLText
-uid 339,0
-va (VaSet
-font "courier,8,0"
-)
-xt "2000,20000,67500,20900"
-st "output wire [ADDRESS_WIDTH-2:0]  prog_full_thresh_assert; // Used to set the upper threshold value for the programmable full flag,"
-)
-thePort (LogicalPort
-lang 5
-m 1
-decl (Decl
-n "prog_full_thresh_assert"
-t "wire"
-b "[ADDRESS_WIDTH-2:0]"
-eolc "// Used to set the upper threshold value for the programmable full flag,"
-posAdd 0
-o 12
-suid 22,0
-)
-)
-)
-*97 (CptPort
-uid 340,0
-ps "OnEdgeStrategy"
-shape (Triangle
-uid 467,0
-ro 180
-va (VaSet
-vasetType 1
-fg "0,65535,0"
-)
-xt "90625,43000,91375,43750"
-)
-tg (CPTG
-uid 342,0
-ps "CptPortTextPlaceStrategy"
-stg "VerticalLayoutStrategy"
-f (Text
-uid 343,0
-ro 270
-va (VaSet
-font "courier,8,0"
-)
-xt "90550,30000,91450,42000"
-st "prog_full_thresh_negate"
-blo "91250,42000"
-tm "CptPortNameMgr"
-)
-)
-dt (MLText
-uid 344,0
-va (VaSet
-font "courier,8,0"
-)
-xt "2000,20900,66500,22700"
-st "//It defines when the signal is asserted. Thethreshold can be dynamically set in-circuit during reset.
-output wire [ADDRESS_WIDTH-2:0] prog_full_thresh_negate; //Used to set the lower threshold value for the programmable full flag,"
-)
-thePort (LogicalPort
-lang 5
-m 1
-decl (Decl
-n "prog_full_thresh_negate"
-t "wire"
-b "[ADDRESS_WIDTH-2:0]"
-prec "//It defines when the signal is asserted. Thethreshold can be dynamically set in-circuit during reset."
-eolc "//Used to set the lower threshold value for the programmable full flag,"
-preAdd 0
-posAdd 0
-o 13
-suid 23,0
-)
-)
-)
-*98 (CptPort
+*92 (CptPort
 uid 427,0
 ps "OnEdgeStrategy"
 shape (Triangle
@@ -1498,8 +1365,9 @@ uid 431,0
 va (VaSet
 font "courier,8,0"
 )
-xt "2000,11900,88500,12800"
-st "output wire                      prog_full; //The signal is asserted when the number of entries in the FIFO is greater than or equal to the user-defined assert threshold. W"
+xt "2000,11900,87000,12800"
+st "output wire                   prog_full; //The signal is asserted when the number of entries in the FIFO is greater than or equal to the user-defined assert threshold. W
+"
 )
 thePort (LogicalPort
 lang 5
@@ -1549,7 +1417,7 @@ st "fh_epath_fifo2K_18bit_wide"
 blo "81250,28700"
 )
 )
-gi *99 (GenericInterface
+gi *93 (GenericInterface
 uid 13,0
 ps "CenterOffsetStrategy"
 matrix (Matrix
@@ -1608,10 +1476,10 @@ sTC 0
 sF 0
 )
 )
-*100 (Grouping
+*94 (Grouping
 uid 16,0
 optionalChildren [
-*101 (CommentText
+*95 (CommentText
 uid 18,0
 shape (Rectangle
 uid 19,0
@@ -1643,7 +1511,7 @@ position 1
 ignorePrefs 1
 titleBlock 1
 )
-*102 (CommentText
+*96 (CommentText
 uid 21,0
 shape (Rectangle
 uid 22,0
@@ -1675,7 +1543,7 @@ position 1
 ignorePrefs 1
 titleBlock 1
 )
-*103 (CommentText
+*97 (CommentText
 uid 24,0
 shape (Rectangle
 uid 25,0
@@ -1707,7 +1575,7 @@ position 1
 ignorePrefs 1
 titleBlock 1
 )
-*104 (CommentText
+*98 (CommentText
 uid 27,0
 shape (Rectangle
 uid 28,0
@@ -1739,7 +1607,7 @@ position 1
 ignorePrefs 1
 titleBlock 1
 )
-*105 (CommentText
+*99 (CommentText
 uid 30,0
 shape (Rectangle
 uid 31,0
@@ -1770,7 +1638,7 @@ visibleWidth 20000
 ignorePrefs 1
 titleBlock 1
 )
-*106 (CommentText
+*100 (CommentText
 uid 33,0
 shape (Rectangle
 uid 34,0
@@ -1802,7 +1670,7 @@ position 1
 ignorePrefs 1
 titleBlock 1
 )
-*107 (CommentText
+*101 (CommentText
 uid 36,0
 shape (Rectangle
 uid 37,0
@@ -1833,7 +1701,7 @@ position 1
 ignorePrefs 1
 titleBlock 1
 )
-*108 (CommentText
+*102 (CommentText
 uid 39,0
 shape (Rectangle
 uid 40,0
@@ -1865,7 +1733,7 @@ position 1
 ignorePrefs 1
 titleBlock 1
 )
-*109 (CommentText
+*103 (CommentText
 uid 42,0
 shape (Rectangle
 uid 43,0
@@ -1897,7 +1765,7 @@ position 1
 ignorePrefs 1
 titleBlock 1
 )
-*110 (CommentText
+*104 (CommentText
 uid 45,0
 shape (Rectangle
 uid 46,0
@@ -1954,11 +1822,11 @@ xShown 1
 yShown 1
 color "26368,26368,26368"
 )
-packageList *111 (PackageList
+packageList *105 (PackageList
 uid 144,0
 stg "VerticalLayoutStrategy"
 textVec [
-*112 (Text
+*106 (Text
 uid 145,0
 va (VaSet
 isHidden 1
@@ -1968,7 +1836,7 @@ xt "20000,4600,26500,5500"
 st "Package List"
 blo "20000,5300"
 )
-*113 (MLText
+*107 (MLText
 uid 146,0
 va (VaSet
 isHidden 1
@@ -1980,8 +1848,8 @@ tm "PackageList"
 ]
 )
 windowSize "1912,41,3848,1050"
-viewArea "-500,-500,126262,63584"
-cachedDiagramExtent "0,4600,102750,43750"
+viewArea "39377,-1848,165454,61890"
+cachedDiagramExtent "0,4600,102750,43000"
 hasePageBreakOrigin 1
 pageBreakOrigin "0,-1000"
 defaultCommentText (CommentText
@@ -2095,7 +1963,7 @@ st "<cell>"
 blo "24750,16700"
 )
 )
-gi *114 (GenericInterface
+gi *108 (GenericInterface
 ps "CenterOffsetStrategy"
 matrix (Matrix
 text (MLText
@@ -2197,7 +2065,7 @@ o 0
 )
 )
 )
-DeclarativeBlock *115 (SymDeclBlock
+DeclarativeBlock *109 (SymDeclBlock
 uid 1,0
 stg "SymDeclLayoutStrategy"
 declLabel (Text
@@ -2253,6 +2121,8 @@ xt "2000,8300,2000,8300"
 tm "SyDeclarativeTextMgr"
 )
 )
-lastUid 499,0
+lastUid 655,0
+okToSyncOnLoad 1
+OkToSyncGenericsOnLoad 1
 activeModelName "Symbol"
 )

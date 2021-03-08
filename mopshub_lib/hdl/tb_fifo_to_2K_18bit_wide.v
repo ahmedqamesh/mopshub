@@ -19,7 +19,6 @@ module tb_fifo_to_2K_18bit_wide ;
   wire [DATA_WIDTH-1:0] dout;
   wire almost_full,full,empty;
   wire prog_full;
-  wire [ADDRESS_WIDTH-2:0] prog_full_thresh_assert,prog_full_thresh_negate;
   wire [3:0] r_ptr,w_ptr,ptr_diff;
   
   reg [DATA_WIDTH-1:0] din;
@@ -43,9 +42,7 @@ module tb_fifo_to_2K_18bit_wide ;
                                               wr_en,
                                               rd_clk,
                                               wr_clk,
-                                              rst,
-                                              prog_full_thresh_assert,
-                                              prog_full_thresh_negate);
+                                              rst);
   
   
   //initial #5000 $stop;
@@ -65,8 +62,22 @@ module tb_fifo_to_2K_18bit_wide ;
     repeat(20) @(posedge wr_clk) din=din-1;
     end
   
-  initial begin rst=1;#30 rst=0;end 
-  initial begin fork #50 wr_en=1; #1800 wr_en=0; #2500 wr_en=1 ; join end            
+  initial 
+    begin 
+      rst=1;
+      #30 rst=0;
+    end 
+    
+    
+  initial 
+    begin 
+      fork //Fork-Join will start all the processes inside it parallel and wait for the completion of all the processes.
+        #50 wr_en=1; 
+        #1800 wr_en=0; 
+        #2500 wr_en=1 ; 
+      join 
+    end            
+  
   initial begin
     $monitor("din %d dout %d",din,dout);
     fork #50 rd_en=0; 
