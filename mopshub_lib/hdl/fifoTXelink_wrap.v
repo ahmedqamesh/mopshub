@@ -15,8 +15,7 @@ module fifoTXelink_wrap #(
    // synopsys template
 // FIFO parameters
    parameter DATA_IN_WIDTH        = 18,
-   parameter DATA_OUT_WIDTH       = 18,
-   parameter DATA_OUT_WIDTH_Local = 10
+   parameter Byte_OUT_WIDTH       = 10
 )
 ( 
    // Port Declarations
@@ -30,7 +29,8 @@ module fifoTXelink_wrap #(
    input   wire                                rst, 
    input   wire                                wr_clk, 
    input   wire                                wr_en, 
-   output  wire    [DATA_OUT_WIDTH_Local-1:0]  dout, 
+   
+   output  wire    [Byte_OUT_WIDTH-1:0]        dout, 
    output  wire                                doutRdy, 
    output  wire                                empty, 
    output  wire                                full, 
@@ -38,25 +38,15 @@ module fifoTXelink_wrap #(
 );
 
 // Internal Declarations
-// Internal Declarations
-
-
 // Local declarations
 
 // Internal signal declarations
-// Internal Declarations
 
-
-// Local declarations
-
-// Internal signal declarations
-wire                             prog_full_s;
-reg   [DATA_OUT_WIDTH_Local-1:0] dout_r;
+reg   [Byte_OUT_WIDTH-1:0]       dout_r;
 reg                              doutRdy_r;
 reg                              OE;
 reg                              byte_cnt;
 reg                              byte_rdy;
-wire  [DATA_OUT_WIDTH-1:0]       dout18bit;
 reg   [DATA_IN_WIDTH-1:0]        din_r         = {2'b11, 16'b0};   // The default input has commas (2'b11) as a wordcode
 reg   [1:0]                      byte0_code;
 reg   [1:0]                      byte1_code;
@@ -64,69 +54,66 @@ reg                              empty_efifo1;
 reg                              empty_efifo2;
 reg                              empty_efifo3;
 reg                              wr_en_r       = 0;
-wire  [DATA_OUT_WIDTH_Local-1:0] byte0         = {2'b11, 8'b0};
-wire  [DATA_OUT_WIDTH_Local-1:0] byte1         = {2'b11, 8'b0};
-wire  [1:0]                      word16_code;
-wire                             rd_en_s;
-wire                             empty_efifo;
 reg                              rst_state     = 0;
+reg  [Byte_OUT_WIDTH-1:0]       byte0         = {2'b11, 8'b0};
+reg  [Byte_OUT_WIDTH-1:0]       byte1         = {2'b11, 8'b0};
+
+
+wire  [DATA_IN_WIDTH-1:0]        dout18bit;
+wire                             prog_full_s;
+wire  [1:0]                      word16_code;
+wire                             rd_en_s;   //enable reading from FIFO
+wire                             empty_efifo;
 wire                             almost_full;                      //  this signal indicates that only one more write can be performed before the FIFO is full.
 
 
 // Instances 
-//  Instances
 //  -------------------------------------------------------------------------------------------
 //  -- Instantiate FIFO - ip
 //  -------------------------------------------------------------------------------------------
-// 
-// 
 fh_epath_fifo2K_18bit_wide DRAM_2K_18bit( 
-   .dout        (dout18bit), 
-   .full        (full), 
-   .empty       (empty_efifo), 
-   .prog_full   (prog_full_s), 
-   .almost_full (almost_full), 
-   .din         (din_r), 
-   .wr_en       (wr_en_r), 
-   .rd_en       (rd_en_s), 
-   .rd_clk      (rd_clk), 
-   .wr_clk      (wr_clk), 
-   .rst         (fifoFLUSH)
-); 
-
-// HDL Embedded Text Block 1 eb1
-// HDL Embedded Text Block 1 eb1
+                                         .dout        (dout18bit), 
+                                         .full        (full), 
+                                         .empty       (empty_efifo), 
+                                         .prog_full   (prog_full_s), 
+                                         .almost_full (almost_full), 
+                                         .din         (din_r), 
+                                         .wr_en       (wr_en_r), 
+                                         .rd_en       (rd_en_s), 
+                                         .rd_clk      (rd_clk), 
+                                         .wr_clk      (wr_clk), 
+                                         .rst         (fifoFLUSH)
+                                      ); 
+                                              
 assign doutRdy = doutRdy_r;
 assign dout =dout_r;
-// HDL Embedded Text Block 2 eb2
-// HDL Embedded Text Block 2 eb2
-//-------------------------------------------------------------------------------------------
-//-- write pipeline
-//-------------------------------------------------------------------------------------------
+//
+////-------------------------------------------------------------------------------------------
+////-- write pipeline
+////-------------------------------------------------------------------------------------------
 always @ (posedge wr_clk)
   begin
     wr_en_r <= wr_en;
     din_r   <= din;
   end
-// HDL Embedded Text Block 3 eb3
-// HDL Embedded Text Block 3 eb3
-//-------------------------------------------------------------------------------------------
-//-- re pulse [Reading Data]
-//-------------------------------------------------------------------------------------------
+
+////-------------------------------------------------------------------------------------------
+////-- re pulse [Reading Data]
+////-------------------------------------------------------------------------------------------
 always @ (posedge rd_clk, posedge rst)
   begin
      if (rst)
       byte_cnt <= 0;
-     else if (rd_en)//-- 1 clk trigger       
-    byte_cnt <= !byte_cnt; 
+     else if (rd_en==1)//-- 1 clk trigger       
+      byte_cnt <= !byte_cnt; 
   end
-// HDL Embedded Text Block 4 eb4
-// HDL Embedded Text Block 4 eb4
-assign rd_en_s = rd_en & (!byte_cnt) & (!empty_efifo);//-- only when byte_cnt = 0
+//  
+//Never read from an Empty FIFO
+//Wait till byte_cnt = 1 
+assign rd_en_s = (rd_en & (!byte_cnt) & (!empty_efifo));//-- only when byte_cnt = 0 and empty_efifo = 0 // FIFO will read with the next rd_clk
 assign word16_code = dout18bit[17:16];
-// HDL Embedded Text Block 5 eb5
-// HDL Embedded Text Block 5 eb5
-//Assigning the word16_code
+
+////Assigning the word16_code
 always @ (word16_code,empty_efifo1,empty_efifo2)
   begin
     if(empty_efifo1 == 1)//The FIFO is empty
@@ -151,13 +138,15 @@ always @ (word16_code,empty_efifo1,empty_efifo2)
           byte1_code = {empty_efifo2, empty_efifo2}; 
         end
   end
-// HDL Embedded Text Block 6 eb6
-// HDL Embedded Text Block 6 eb6
-assign byte0 = {byte0_code , dout18bit[15:8]};
-assign byte1 =  {byte1_code , dout18bit[7 : 0]};
-// HDL Embedded Text Block 7 eb7
-// HDL Embedded Text Block 7 eb7
-// Generate Dout
+//
+always @ (rd_clk)
+  begin
+     byte0 <= {byte0_code , dout18bit[15:8]};
+     byte1 <=  {byte1_code , dout18bit[7 : 0]};
+  end
+
+
+//// Generate Dout
 always @(byte_cnt,byte0,byte1)
   begin
      if (byte_cnt ==1)
@@ -165,18 +154,19 @@ always @(byte_cnt,byte0,byte1)
      else  
      dout_r = byte1;
   end
-// HDL Embedded Text Block 8 eb8
-// HDL Embedded Text Block 8 eb8
-// deliver a byte_rdy signal
+  
+
+//// deliver a byte_rdy signal
 always @ (posedge rd_clk)
   begin
     byte_rdy =byte_cnt;
   end
-// HDL Embedded Text Block 9 eb9
-// HDL Embedded Text Block 9 eb9
+
+
 //-------------------------------------------------------------------------------------------
-//-- re-pulse [Empty FIFO]
+//-- re-pulse
 //-------------------------------------------------------------------------------------------
+//Get the FIFO status for reading
 always @ (posedge rd_clk)
  begin
     doutRdy_r = rd_en;   
@@ -184,20 +174,19 @@ always @ (posedge rd_clk)
     empty_efifo2 = empty_efifo1;  
     empty_efifo3 = empty_efifo2; 
   end
-// HDL Embedded Text Block 10 eb10
+
 // HDL Embedded Text Block 10 eb10
 assign empty = empty_efifo;
-// HDL Embedded Text Block 11 eb11
-// HDL Embedded Text Block 11 eb11
+
+//// HDL Embedded Text Block 11 eb11
 always @ (posedge rd_clk)
  begin
-    rst_state = rst | fifoFLUSH;
+    rst_state = (rst | fifoFLUSH);
     OE = !rst_state;
   end
-// HDL Embedded Text Block 12 eb12
+  
 // HDL Embedded Text Block 12 eb12
 assign prog_full = (prog_full_s & OE); // Take the signal out of the FIFO
-
 
 endmodule // fifoTXelink_wrap
 // fifoTXelink_wrap

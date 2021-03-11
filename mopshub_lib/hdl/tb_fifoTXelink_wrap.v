@@ -10,117 +10,114 @@
 
 `resetall
 `timescale 1ns/10ps
-module tb_fifoTXelink_wrap( 
+module tb_fifoTXelink_wrap; 
+  parameter DATA_WIDTH           =18;
+  parameter Byte_OUT_WIDTH       = 10;
    // Port Declarations
-   output  wire    [9:0]  dout, 
-   output  wire           doutRdy, 
-   output  wire           prog_full, 
-   output  wire           full, 
-   output  wire           empty
-);
+   wire    [Byte_OUT_WIDTH-1:0]  dout; 
+   wire                          doutRdy;
+   wire                          prog_full; 
+   wire                          full; 
+   wire                          empty;
+  
+  wire  [DATA_WIDTH-1:0]       dout18bit; 
+  wire  [Byte_OUT_WIDTH-1:0]       byte0;
+  wire  [Byte_OUT_WIDTH-1:0]       byte1;
+  wire  [1:0]                      word16_code;
+  wire  [DATA_WIDTH-1:0]       din_r;
+  wire  byte_cnt;
+  wire  rd_en_s;
+  
+  reg     [DATA_WIDTH-1:0]       din;
+  reg                            rd_en;
+  reg                            wr_en;
+  reg                            rd_clk;
+  reg                            wr_clk;
+  reg                            rst;
+  reg                            fifoFLUSH;
 
-
-// Internal Declarations
-
-
-// Local declarations
-
-// Internal signal declarations
-reg  [17:0] din;
-reg         rd_en;
-reg         wr_en;
-reg         rd_clk;
-reg         wr_clk;
-reg         rst;
-reg         fifoFLUSH;
-
-
+assign dout18bit=TXelink_wrap.dout18bit;
+assign rd_en_s  = TXelink_wrap.rd_en_s;
+assign byte_cnt  = TXelink_wrap.byte_cnt;
+assign din_r = TXelink_wrap.din_r;
+assign word16_code = TXelink_wrap.word16_code;
+assign byte0 = TXelink_wrap.byte0;
+assign byte1 = TXelink_wrap.byte1;
 // Instances 
 fifoTXelink_wrap TXelink_wrap( 
-   .din       (din), 
-   .fifoFLUSH (fifoFLUSH), 
-   .rd_clk    (rd_clk), 
-   .rd_en     (rd_en), 
-   .rst       (rst), 
-   .wr_clk    (wr_clk), 
-   .wr_en     (wr_en), 
-   .dout      (dout), 
-   .doutRdy   (doutRdy), 
-   .empty     (empty), 
-   .full      (full), 
-   .prog_full (prog_full)
-); 
+                           .din       (din), 
+                           .fifoFLUSH (fifoFLUSH), 
+                           .rd_clk    (rd_clk), 
+                           .rd_en     (rd_en), 
+                           .rst       (rst), 
+                           .wr_clk    (wr_clk), 
+                           .wr_en     (wr_en), 
+                           .dout      (dout), 
+                           .doutRdy   (doutRdy), 
+                           .empty     (empty), 
+                           .full      (full), 
+                           .prog_full (prog_full)
+                        ); 
 
 // HDL Embedded Text Block 1 Rclock
-initial begin 
-    #10 rd_clk=0; 
+  initial begin 
+    rd_clk=0; 
     forever #10 rd_clk=~rd_clk; 
   end
 // HDL Embedded Text Block 2 Wclock
-initial begin 
-    #5 wr_clk=0; 
+  initial begin 
+    wr_clk=0; 
     forever #5 wr_clk=~wr_clk; 
-  end
+  end  
 
 // HDL Embedded Text Block 3 Initialize
 // Initialize 3                                        
 initial 
   begin 
+   fork
+    din=0;
+    rd_en= 0;
+    wr_en= 0;
+    //rst module
+    rst = 1;
+    #10 rst =0;
+    //rst FIFO
     fifoFLUSH = 1;
+    #10 fifoFLUSH = 0;
+   join 
   end
-// HDL Embedded Text Block 4 Data_Gen
-// Data_Gen 4                                        
-initial begin 
-  din=0;
- @(posedge wr_en) din = {2'b10,16'b0};
- @(posedge wr_en) wr_en = 1;
- @(posedge wr_en) wr_en = 0;
 
- @(posedge wr_en) din = {2'b00,16'hDEAD};
- @(posedge wr_en) wr_en = 1;
- @(posedge wr_en) wr_en = 0;
- 
- @(posedge wr_en) din = {2'b00,16'hBEEF};
- @(posedge wr_en) wr_en = 1;
- @(posedge wr_en) wr_en = 0;
-  
- 
- @(posedge wr_en) din = {2'b01,16'b0};
- @(posedge wr_en) wr_en = 1;
- @(posedge wr_en) wr_en = 0;
-end
-
-// HDL Embedded Text Block 5 enabling
-// enabling 5                                        
+//Sending Data to FIFO                                       
 initial 
   begin 
-    fork //Fork-Join will start all the processes inside it parallel and wait for the completion of all the processes.
-    #50   wr_en=1; 
-    #100 wr_en=0; 
-    #200 wr_en=1 ; 
-    join 
+    //fork //Fork-Join will start all the processes inside it parallel and wait for the completion of all the processes.
+    //SOP
+    #5 din = {2'b10,16'h0};
+    #5 wr_en=1; 
+    #10 wr_en=0;
+    //Data 
+     din = {2'b00,16'hDEAD};
+    #5 wr_en=1; 
+    #10 wr_en=0;  
+        
+    din = {2'b00,16'hBEEF};
+    #5 wr_en=1; 
+    #10 wr_en=0;
+    //EOP
+    din = {2'b01,16'b0};
+    #5 wr_en=1; 
+    #10 wr_en=0;
+    //join 
   end    
 
-// HDL Embedded Text Block 6 reset
-// Reset                                        
-  initial 
-    begin 
-      rst=1;
-      #30 rst=0;
-    end 
-// HDL Embedded Text Block 7 reading
-// reading 7                                        
+// Read from FIFO                                        
   initial 
   begin
-    $monitor("din %d dout %d",din,dout);
     fork 
-     #50   rd_en=0; 
-     #100  rd_en=1; 
-     #2400 rd_en=0; 
-     #2500 rd_en=1; 
+      $monitor("TIME = %g dout18bit %h rd_en_s %h rd_en %h byte_cnt  %h empty_fifo %h",$time,dout18bit,rd_en_s,rd_en,byte_cnt, empty); 
+      #40 rd_en=1; 
+      #200 rd_en=0; 
     join 
   end
-
-
 endmodule // tb_fifoTXelink_wrap
 

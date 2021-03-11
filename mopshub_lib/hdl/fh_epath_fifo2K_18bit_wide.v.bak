@@ -19,16 +19,17 @@ module fh_epath_fifo2K_18bit_wide #(
    parameter ADDRESS_WIDTH       = 11,
    parameter FIFO_DEPTH          = (1 << ADDRESS_WIDTH),
    parameter f_almost_full_value = (FIFO_DEPTH-2),
-   parameter f_prog_full_value   = 1024
+   parameter f_prog_full_value   = FIFO_DEPTH
 )
 ( 
    // Port Declarations
-   output  reg     [DATA_WIDTH-1:0]  dout, 
+   output  wire     [DATA_WIDTH-1:0]  dout, 
    output  wire                      full,         //FIFO is full. Write requests are ignored when is full is non-destructive to the contents of the FIFO. T
    output  wire                      empty, 
    output  wire                      prog_full,    //The signal is asserted when the number of entries in the FIFO is greater than or equal to the user-defined assert threshold. W
    output  wire                      almost_full,  //  this signal indicates that only one more write can be performed before the FIFO is full.
-   //It defines when the signal is deasserted. The threshold can be dynamically set in-circuit during reset.
+                                                   //It defines when the signal is deasserted. 
+                                                   //The threshold can be dynamically set in-circuit during reset.
    input   wire    [DATA_WIDTH-1:0]  din, 
    input   wire                      wr_en,        //If the FIFO is not full, asserting this signal causes data to be written to the FIFO. This signal is active high
    input   wire                      rd_en,        // Control the  read operation 
@@ -37,12 +38,6 @@ module fh_epath_fifo2K_18bit_wide #(
    input   wire                      rst
 );
 
-// Internal Declarations
-// Internal Declarations
-
-
-// Local declarations
-
 // Internal signal declarations
 wire  [ADDRESS_WIDTH-1:0] r_ptr;
 wire  [ADDRESS_WIDTH-1:0] w_ptr;
@@ -50,12 +45,12 @@ reg                       r_next_en;
 reg                       w_next_en;
 reg   [ADDRESS_WIDTH-1:0] ptr_diff;
 reg   [DATA_WIDTH-1:0]    f_memory  [FIFO_DEPTH-1:0];
-
+reg   [DATA_WIDTH-1:0]    dout_r;
 
 // Instances 
 // instantiate address counters
 // 
-b_counter r_b_counter( 
+b_counter r_b_counter (
    .c_out (r_ptr), 
    .c_rst (rst), 
    .c_clk (rd_clk), 
@@ -89,12 +84,12 @@ assign prog_full=(ptr_diff==f_prog_full_value);
   always @(posedge rd_clk) //read from memory
   begin    
     if(rst)
-      dout<=0; //f_memory[r_ptr];
+      dout_r<=0; //f_memory[r_ptr];
     else if(rd_en) begin
       if(!empty)
-        dout<=f_memory[r_ptr]; 
+        dout_r<=f_memory[r_ptr]; 
       end
-    else dout<=0; 
+    else dout_r<=0; 
   end
 // HDL Embedded Text Block 4 eb4
 //--------------------------------------------------------- 
@@ -110,6 +105,7 @@ assign prog_full=(ptr_diff==f_prog_full_value);
   end
 // HDL Embedded Text Block 5 eb5
 //---------------------------------------------------------
+ //Never Read from an empty FIFO
   always @(*) //after empty flag activated fifo read counter should not increment;
   begin if(rd_en && (!empty))
     r_next_en=1;
@@ -118,11 +114,12 @@ assign prog_full=(ptr_diff==f_prog_full_value);
   end
 // HDL Embedded Text Block 6 eb6
 //--------------------------------------------------------
+ //Never write to a full FIFO
   always @(*) //after full flag activated fifo write counter should not increment;
   begin if(wr_en && (!full))
     w_next_en=1; 
     else w_next_en=0;
   end
-
+assign dout = dout_r; 
 endmodule // fh_epath_fifo2K_18bit_wide
 

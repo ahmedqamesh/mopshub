@@ -11,17 +11,20 @@
 `resetall
 `timescale 1ns/10ps
 
-    
+
 //==============================================================
 
 //b_counter.v; 4 bit asynchronous binary up counter
 
 //==============================================================
 
-module b_counter(c_out,c_rst,c_clk,en);     
-  parameter c_width=11; //counter width    
-  output [c_width-1:0] c_out; reg [c_width-1:0] c_out;   
+module b_counter#(
+  parameter ADDRESS_WIDTH=11 //Counter width
+  )(c_out,c_rst,c_clk,en);
+  output [ADDRESS_WIDTH-1:0] c_out;
+  reg [ADDRESS_WIDTH-1:0] c_out;
   input c_rst,c_clk,en;
+  
   always @(posedge c_clk or posedge c_rst) 
   if (c_rst)
   c_out <= 0;
