@@ -137,13 +137,14 @@ always @ (word16_code,empty_efifo1,empty_efifo2)
           byte0_code = {empty_efifo1, empty_efifo1}; 
           byte1_code = {empty_efifo2, empty_efifo2}; 
         end
+
   end
 //
-//always @ (rd_clk)
- // begin
-  assign byte0 =  {byte0_code , dout18bit[15:8]};
-  assign byte1 =  {byte1_code , dout18bit[7 : 0]}  ;
- // end
+always @ (rd_clk)
+  begin
+    byte0 <= {byte0_code , dout18bit[15:8]};
+    byte1 <=  {byte1_code , dout18bit[7 : 0]};
+ end
 
 
 //// Generate Dout
@@ -159,7 +160,7 @@ always @(byte_cnt,byte0,byte1)
 //// deliver a byte_rdy signal
 always @ (posedge rd_clk)
   begin
-    byte_rdy =byte_cnt;
+    byte_rdy <=byte_cnt;
   end
 
 
@@ -169,10 +170,10 @@ always @ (posedge rd_clk)
 //Get the FIFO status for reading
 always @ (posedge rd_clk)
  begin
-    doutRdy_r = rd_en;   
-    empty_efifo1 = empty_efifo;
-    empty_efifo2 = empty_efifo1;  
-    empty_efifo3 = empty_efifo2; 
+    doutRdy_r <= rd_en;   
+    empty_efifo1 <= empty_efifo;
+    empty_efifo2 <= empty_efifo1;  
+    empty_efifo3 <= empty_efifo2; 
   end
 
 // HDL Embedded Text Block 10 eb10
@@ -181,8 +182,8 @@ assign empty = empty_efifo;
 //// HDL Embedded Text Block 11 eb11
 always @ (posedge rd_clk)
  begin
-    rst_state = (rst | fifoFLUSH);
-    OE = !rst_state;
+    rst_state <= (rst | fifoFLUSH);
+    OE <= !rst_state;
   end
   
 // HDL Embedded Text Block 12 eb12

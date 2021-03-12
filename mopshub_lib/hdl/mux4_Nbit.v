@@ -34,16 +34,16 @@ always @ (data0, data1, data2, data3, sel)
 begin  
    case (sel)
    "00" : begin
-      data_out_reg<=data0;
+      data_out_reg=data0;
    end
    "01" : begin
-      data_out_reg<=data1;
+      data_out_reg=data1;
    end
    "10" : begin
-      data_out_reg<=data2;
+      data_out_reg=data2;
    end
    "11" : begin
-      data_out_reg<=data3;
+      data_out_reg=data3;
    end
    endcase
 end

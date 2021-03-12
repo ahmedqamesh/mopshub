@@ -16,10 +16,11 @@ module EPROC_OUT #(
    // synopsys template
    // synopsys template
 // synopsys template
+// synopsys template
    parameter DATA_IN_WIDTH = 10
 )
 ( 
-   input   wire                         bitCLK,  
+   input   wire                         bitCLK, 
    input   wire                         bitCLKx4, 
    input   wire                         rst, 
    input   wire                         swap_outbits,      //A signal to swap the bits
