@@ -39,29 +39,29 @@ assign data_out = data_out_reg;
 always @ (data0, data1, data2, data3, data4, data5, data6, data7, sel)
 begin : process0_flowchart_proc
    case (sel)
-   "000" : begin
-      data_out_reg<=data0;
+   3'b000 : begin
+      data_out_reg=data0;
    end
-   "001" : begin
-      data_out_reg<=data1;
+   3'b001 : begin
+      data_out_reg=data1;
    end
-   "010" : begin
-      data_out_reg<=data2;
+   3'b010 : begin
+      data_out_reg=data2;
    end
-   "011" : begin
-      data_out_reg<=data3;
+   3'b011 : begin
+      data_out_reg=data3;
    end
-   "100" : begin
-      data_out_reg<=data4;
+   3'b100 : begin
+      data_out_reg=data4;
    end
-   "101" : begin
-      data_out_reg<=data5;
+   3'b101 : begin
+      data_out_reg=data5;
    end
-   "110" : begin
-      data_out_reg<=data6;
+   3'b110 : begin
+      data_out_reg=data6;
    end
-   "111" : begin
-      data_out_reg<=data7;
+   3'b111 : begin
+      data_out_reg=data7;
    end
    endcase
 end

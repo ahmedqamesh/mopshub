@@ -26,14 +26,17 @@ module pulse_pdxx_pwxx #(
 
 
 // Internal Declarations
-wire on_s = 0;
-reg trigger_1clk_delayed,t0,off_sig = 0;
+wire on_s;
+wire t0 ;
+reg trigger_1clk_delayed= 0;
+
 always @(posedge clk)
   begin
     trigger_1clk_delayed <= trigger;
   end
   
-assign t0 = trigger & (!trigger_1clk_delayed); //-- Recored the first clk of a trigger, one clk pulse
+assign t0 = (trigger & !trigger_1clk_delayed); //-- Recored the first clk of a trigger, one clk pulse
+
 //----------------------------------------
 //-- shift register for pulse delay
 //----------------------------------------

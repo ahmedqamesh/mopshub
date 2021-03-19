@@ -32,17 +32,17 @@ assign data_out = data_out_reg;
 // Flowchart process0
 always @ (data0, data1, data2, data3, sel)
 begin  
-   case (sel)
-   "00" : begin
+   case (sel) 
+   2'b00 : begin //Read Wanted data
       data_out_reg=data0;
    end
-   "01" : begin
+   2'b01 : begin//Read EOP data
       data_out_reg=data1;
    end
-   "10" : begin
+   2'b10 : begin//Read SOP data
       data_out_reg=data2;
    end
-   "11" : begin
+   2'b11: begin//Read Comma data
       data_out_reg=data3;
    end
    endcase
