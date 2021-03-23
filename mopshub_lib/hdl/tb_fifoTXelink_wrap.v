@@ -62,12 +62,12 @@ fifoTXelink_wrap TXelink_wrap(
 // HDL Embedded Text Block 1 Rclock
   initial begin 
     rd_clk=0; 
-    forever #10 rd_clk=~rd_clk; 
+    forever #2 rd_clk=~rd_clk; 
   end
 // HDL Embedded Text Block 2 Wclock
   initial begin 
     wr_clk=0; 
-    forever #5 wr_clk=~wr_clk; 
+    forever #4 wr_clk=~wr_clk; 
   end  
 
 // HDL Embedded Text Block 3 Initialize
@@ -116,8 +116,9 @@ initial
     fork 
       $monitor("TIME = %g dout18bit %h rd_en_s %h rd_en %h byte_cnt  %h empty_fifo %h",$time,dout18bit,rd_en_s,rd_en,byte_cnt, empty); 
       #40 rd_en=1; 
-      #200 rd_en=0; 
+      #100 rd_en=0; 
     join 
   end
+  initial #400 $stop;
 endmodule // tb_fifoTXelink_wrap
 

@@ -109,7 +109,7 @@ assign  enc_ena_s = enc_ena | encoder_rst_delayed;
 // HDL Embedded Text Block 6 encoder_rst
 // encoder_rst 6  
 //enable the decoder at the  negative edge of the clock
-always @(posedge clk) //Still not sure about that Qamesh 16/3 2021 
+always @(negedge clk) //Still not sure about that Qamesh 16/3 2021 
   begin    
     enc_ena <= dataINrdy_s | encoder_rst; // whenever a data is ready or a rest signal received
     encoder_rst_clk1 <= encoder_rst;

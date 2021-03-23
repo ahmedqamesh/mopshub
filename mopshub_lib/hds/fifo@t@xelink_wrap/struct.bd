@@ -115,19 +115,19 @@ value "/home/dcs/git/mopshub/mopshub_lib/hds/fifoTXelink_wrap"
 )
 (vvPair
 variable "date"
-value "03/16/21"
+value "03/21/21"
 )
 (vvPair
 variable "day"
-value "Tue"
+value "Sun"
 )
 (vvPair
 variable "day_long"
-value "Tuesday"
+value "Sunday"
 )
 (vvPair
 variable "dd"
-value "16"
+value "21"
 )
 (vvPair
 variable "entity_name"
@@ -155,7 +155,7 @@ value "dcs"
 )
 (vvPair
 variable "graphical_source_date"
-value "03/16/21"
+value "03/21/21"
 )
 (vvPair
 variable "graphical_source_group"
@@ -167,7 +167,7 @@ value "chipdev2.physik.uni-wuppertal.de"
 )
 (vvPair
 variable "graphical_source_time"
-value "17:30:16"
+value "18:33:39"
 )
 (vvPair
 variable "group"
@@ -279,7 +279,7 @@ value "struct"
 )
 (vvPair
 variable "time"
-value "17:30:16"
+value "18:33:39"
 )
 (vvPair
 variable "unit"
@@ -437,6 +437,7 @@ t "reg"
 b "[1:0]"
 o 19
 suid 7,0
+iv "2'b11"
 )
 declText (MLText
 uid 22,0
@@ -457,6 +458,7 @@ t "reg"
 b "[1:0]"
 o 20
 suid 8,0
+iv "2'b11"
 )
 declText (MLText
 uid 24,0
@@ -574,7 +576,6 @@ t "reg"
 b "[Byte_OUT_WIDTH-1:0]"
 o 26
 suid 14,0
-iv "{2'b11, 8'b0}"
 )
 declText (MLText
 uid 36,0
@@ -595,7 +596,6 @@ t "reg"
 b "[Byte_OUT_WIDTH-1:0]"
 o 27
 suid 15,0
-iv "{2'b11, 8'b0}"
 )
 declText (MLText
 uid 38,0
@@ -2576,15 +2576,13 @@ va (VaSet
 isHidden 1
 font "courier,8,0"
 )
-xt "56200,5200,70200,9700"
+xt "56200,5200,69700,9700"
 st "
-//
 always @ (rd_clk)
-  begin
-    byte0 <= {byte0_code , dout18bit[15:8]};
-    byte1 <=  {byte1_code , dout18bit[7 : 0]};
+ begin
+  byte0 <= {byte0_code , dout18bit[15:8]};
+  byte1 <=  {byte1_code , dout18bit[7 : 0]};
  end
-
 "
 tm "HdlTextMgr"
 wrapOption 3
@@ -6068,12 +6066,12 @@ tm "BdCompilerDirectivesTextMgr"
 ]
 associable 1
 )
-windowSize "-8,13,1928,1088"
-viewArea "-22700,-24500,126331,56584"
+windowSize "1912,41,3848,1050"
+viewArea "-3681,-9716,128220,56966"
 cachedDiagramExtent "-8500,-10000,129000,79700"
 hasePageBreakOrigin 1
 pageBreakOrigin "-11000,-11000"
-lastUid 2042,0
+lastUid 2396,0
 defaultCommentText (CommentText
 shape (Rectangle
 layer 0
@@ -7268,6 +7266,7 @@ t "reg"
 b "[1:0]"
 o 19
 suid 7,0
+iv "2'b11"
 )
 )
 uid 1055,0
@@ -7282,6 +7281,7 @@ t "reg"
 b "[1:0]"
 o 20
 suid 8,0
+iv "2'b11"
 )
 )
 uid 1057,0
@@ -7363,7 +7363,6 @@ t "reg"
 b "[Byte_OUT_WIDTH-1:0]"
 o 26
 suid 14,0
-iv "{2'b11, 8'b0}"
 )
 )
 uid 1069,0
@@ -7378,7 +7377,6 @@ t "reg"
 b "[Byte_OUT_WIDTH-1:0]"
 o 27
 suid 15,0
-iv "{2'b11, 8'b0}"
 )
 )
 uid 1071,0

@@ -48,17 +48,15 @@ reg                              OE;
 reg                              byte_cnt;
 reg                              byte_rdy;
 reg   [DATA_IN_WIDTH-1:0]        din_r         = {2'b11, 16'b0};   // The default input has commas (2'b11) as a wordcode
-reg   [1:0]                      byte0_code;
-reg   [1:0]                      byte1_code;
+reg   [1:0]                      byte0_code= 2'b11;
+reg   [1:0]                      byte1_code = 2'b11;
 reg                              empty_efifo1;
 reg                              empty_efifo2;
 reg                              empty_efifo3;
 reg                              wr_en_r       = 0;
 reg                              rst_state     = 0;
-reg  [Byte_OUT_WIDTH-1:0]       byte0         = {2'b11, 8'b0};
-reg  [Byte_OUT_WIDTH-1:0]       byte1         = {2'b11, 8'b0};
-
-
+reg  [Byte_OUT_WIDTH-1:0]       byte0;
+reg  [Byte_OUT_WIDTH-1:0]       byte1;
 wire  [DATA_IN_WIDTH-1:0]        dout18bit;
 wire                             prog_full_s;
 wire  [1:0]                      word16_code;
@@ -139,14 +137,11 @@ always @ (word16_code,empty_efifo1,empty_efifo2)
         end
 
   end
-//
 always @ (rd_clk)
-  begin
-    byte0 <= {byte0_code , dout18bit[15:8]};
-    byte1 <=  {byte1_code , dout18bit[7 : 0]};
+ begin
+  byte0 <= {byte0_code , dout18bit[15:8]};
+  byte1 <=  {byte1_code , dout18bit[7 : 0]};
  end
-
-
 //// Generate Dout
 always @(byte_cnt,byte0,byte1)
   begin
@@ -168,7 +163,7 @@ always @ (posedge rd_clk)
 //-- re-pulse
 //-------------------------------------------------------------------------------------------
 //Get the FIFO status for reading
-always @ (posedge rd_clk)
+always @ (posedge rd_clk)// activate a doutready signal after one rd clock of the Trigger signal 
  begin
     doutRdy_r <= rd_en;   
     empty_efifo1 <= empty_efifo;
