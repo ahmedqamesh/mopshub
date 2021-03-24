@@ -24,22 +24,21 @@ module tb_fifoTXelink_wrap;
   wire  [Byte_OUT_WIDTH-1:0]       byte0;
   wire  [Byte_OUT_WIDTH-1:0]       byte1;
   wire  [1:0]                      word16_code;
-  wire  [DATA_WIDTH-1:0]       din_r;
   wire  byte_cnt;
-  wire  rd_en_s;
   
+  reg   [2:0] request_cycle_cnt     = 0;
+  reg   [2:0] sel_cnt            = 0;
   reg     [DATA_WIDTH-1:0]       din;
+  reg enable = 0;
   reg                            rd_en;
   reg                            wr_en;
   reg                            rd_clk;
   reg                            wr_clk;
   reg                            rst;
   reg                            fifoFLUSH;
-
+  
 assign dout18bit=TXelink_wrap.dout18bit;
-assign rd_en_s  = TXelink_wrap.rd_en_s;
 assign byte_cnt  = TXelink_wrap.byte_cnt;
-assign din_r = TXelink_wrap.din_r;
 assign word16_code = TXelink_wrap.word16_code;
 assign byte0 = TXelink_wrap.byte0;
 assign byte1 = TXelink_wrap.byte1;
@@ -59,16 +58,18 @@ fifoTXelink_wrap TXelink_wrap(
                            .prog_full (prog_full)
                         ); 
 
-// HDL Embedded Text Block 1 Rclock
-  initial begin 
-    rd_clk=0; 
-    forever #2 rd_clk=~rd_clk; 
-  end
 // HDL Embedded Text Block 2 Wclock
   initial begin 
     wr_clk=0; 
-    forever #4 wr_clk=~wr_clk; 
-  end  
+    forever #1 wr_clk=~wr_clk; 
+  end 
+  
+// HDL Embedded Text Block 1 Rclock
+  initial begin 
+    rd_clk=0; 
+    forever #1 rd_clk=~rd_clk; 
+  end
+ 
 
 // HDL Embedded Text Block 3 Initialize
 // Initialize 3                                        
@@ -78,47 +79,134 @@ initial
     din=0;
     rd_en= 0;
     wr_en= 0;
+    enable = 1;
     //rst module
     rst = 1;
-    #10 rst =0;
+    #5 rst =0;
     //rst FIFO
     fifoFLUSH = 1;
-    #10 fifoFLUSH = 0;
+    #5 fifoFLUSH = 0;
    join 
   end
 
 //Sending Data to FIFO                                       
-initial 
-  begin 
-    //fork //Fork-Join will start all the processes inside it parallel and wait for the completion of all the processes.
-    //SOP
-    #5 din = {2'b10,16'h0};
-    #5 wr_en=1; 
-    #10 wr_en=0;
-    //Data 
-     din = {2'b00,16'hDEAD};
-    #5 wr_en=1; 
-    #10 wr_en=0;  
-        
-    din = {2'b00,16'hBEEF};
-    #5 wr_en=1; 
-    #10 wr_en=0;
-    //EOP
-    din = {2'b01,16'b0};
-    #5 wr_en=1; 
-    #10 wr_en=0;
-    //join 
-  end    
+//initial 
+//  begin 
+//    //fork //Fork-Join will start all the processes inside it parallel and wait for the completion of all the processes.
+//    $monitor("TIME = %g dout18bit %h rd_en %h byte_cnt  %h empty_fifo %h",$time,dout18bit,rd_en,byte_cnt, empty);
+//    #5 
+//    din = {2'b10,16'h0};
+//    wr_en=1;
+//    #2 
+//    wr_en=0;
+//  //  rd_en=1;  
+//   // #5
+//  //  rd_en=0;
+//    
+//    //Data 
+//     din = {2'b00,16'hDEAD};
+//    wr_en=1;
+//    #2 
+//    wr_en=0;
+//  //  rd_en=1;  
+//    //#4
+//  //  rd_en=0; 
+//        
+//    din = {2'b00,16'hBEEF};
+//    wr_en=1;
+//    #2 
+//    wr_en=0;
+//   // rd_en=1;  
+//   // #4
+//   // rd_en=0; 
+//    
+//    //EOP
+//    din = {2'b01,16'b0};
+//   wr_en=1;
+//    #2
+//    wr_en=0;
+//  //  rd_en=1;  
+//   // #4
+//    //rd_en=0;
+//  end    
 
-// Read from FIFO                                        
-  initial 
+//// Read from FIFO                                        
+//  initial 
+//  begin
+//
+//       
+//      #40 rd_en=1; 
+//      #100 rd_en=0; 
+//  end
+//  initial #400 $stop;
+
+always @(posedge rd_clk)
   begin
-    fork 
-      $monitor("TIME = %g dout18bit %h rd_en_s %h rd_en %h byte_cnt  %h empty_fifo %h",$time,dout18bit,rd_en_s,rd_en,byte_cnt, empty); 
-      #40 rd_en=1; 
-      #100 rd_en=0; 
-    join 
+     if (rst)
+        request_cycle_cnt <= 3'b0;
+     else 
+      begin 
+        request_cycle_cnt <= request_cycle_cnt + 1'b1;
+    end
   end
-  initial #400 $stop;
+assign send_out_trig = (request_cycle_cnt == 3'b100) ? 1:0;  //cycle 5 CLKs
+
+always @(posedge rd_clk)
+  begin
+     if (rst ==1)
+      begin 
+         rd_en<=0;
+         sel_cnt <=0;
+      end
+     else if (send_out_trig == 1) //Trigger after cycle 5 CLKs
+        begin
+      rd_en<=1;  
+      sel_cnt <= sel_cnt+1;
+      end
+      else
+        rd_en<=0;  
+  end
+ 
+ always @(posedge rd_clk)
+ begin 
+  if(enable == 1)
+    case (sel_cnt)
+        3'b000 : begin 
+                 din = {2'b10,16'h0};
+                 wr_en <= 1;
+                end
+        3'b001 : begin 
+                din = {2'b00,16'hDEAD};
+                 wr_en <= 1;
+                end
+        3'b010 : begin 
+                 din = {2'b00,16'hBEEF};
+                  wr_en <= 1;
+                end
+        3'b011 : begin 
+                 din ={2'b01,16'h0};
+                  wr_en <= 1;
+                end
+        3'b100 : begin
+                 din = {2'b00,16'h0};
+                 wr_en <= 0;
+                 end
+        3'b101 : begin 
+                 din = {2'b00,16'h0};
+                 wr_en <= 0;
+                end
+        3'b110 : begin 
+                 din = {2'b00,16'h0};
+                 wr_en <= 0;
+                end
+        3'b111 : begin
+                 din = {2'b00,16'h0};
+                 wr_en <= 0;
+                 end
+    endcase
+  else
+    din = {2'b00,16'h0};
+end    
+initial #400 $stop;
 endmodule // tb_fifoTXelink_wrap
 

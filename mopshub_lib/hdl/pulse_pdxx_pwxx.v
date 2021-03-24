@@ -14,7 +14,7 @@
 module pulse_pdxx_pwxx #(
    // synopsys template
    // FIFO parameters
-   parameter pd = 0,
+   parameter pd = 0,   //pulse depth
    parameter pw = 1   //pulse width in clks
    //pulse width in clks
 )
