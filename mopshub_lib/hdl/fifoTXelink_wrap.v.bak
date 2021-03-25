@@ -47,23 +47,23 @@ reg                              doutRdy_r;
 reg                              OE;
 reg                              byte_cnt;
 reg                              byte_rdy;
-reg   [DATA_IN_WIDTH-1:0]        din_r         = {2'b11, 16'b0};   // The default input has commas (2'b11) as a wordcode
-reg   [1:0]                      byte0_code= 2'b11;
-reg   [1:0]                      byte1_code = 2'b11;
 reg                              empty_efifo1;
 reg                              empty_efifo2;
 reg                              empty_efifo3;
 reg                              wr_en_r       = 0;
 reg                              rst_state     = 0;
-reg  [Byte_OUT_WIDTH-1:0]       byte0;
-reg  [Byte_OUT_WIDTH-1:0]       byte1;
+reg  [Byte_OUT_WIDTH-1:0]       byte0 = {2'b11, 16'b0};
+reg  [Byte_OUT_WIDTH-1:0]       byte1 = {2'b11, 16'b0}; 
+reg   [DATA_IN_WIDTH-1:0]        din_r         = {2'b11, 16'b0};   // The default input has commas (2'b11) as a wordcode
+reg   [1:0]                      byte0_code;
+reg   [1:0]                      byte1_code;
+
 wire  [DATA_IN_WIDTH-1:0]        dout18bit;
 wire                             prog_full_s;
 wire  [1:0]                      word16_code;
 wire                             rd_en_s;   //enable reading from FIFO
 wire                             empty_efifo;
 wire                             almost_full;                      //  this signal indicates that only one more write can be performed before the FIFO is full.
-
 
 // Instances 
 //  -------------------------------------------------------------------------------------------
@@ -75,12 +75,13 @@ fh_epath_fifo2K_18bit_wide DRAM_2K_18bit(
                                          .empty       (empty_efifo), 
                                          .prog_full   (prog_full_s), 
                                          .almost_full (almost_full), 
-                                         .din         (din_r), 
+                                         .rst         (fifoFLUSH),
+                                         .din         (din_r), //will appear after one clk of din 
                                          .wr_en       (wr_en_r), 
                                          .rd_en       (rd_en_s), 
                                          .rd_clk      (rd_clk), 
-                                         .wr_clk      (wr_clk), 
-                                         .rst         (fifoFLUSH)
+                                         .wr_clk      (wr_clk)
+
                                       ); 
                                               
 assign doutRdy = doutRdy_r;
@@ -108,7 +109,7 @@ always @ (posedge rd_clk, posedge rst)
 //  
 //Never read from an Empty FIFO
 //Wait till byte_cnt = 1 
-assign rd_en_s = (rd_en & (!byte_cnt) & (!empty_efifo));//-- only when byte_cnt = 0 and empty_efifo = 0 // FIFO will read with the next rd_clk
+assign rd_en_s = rd_en & (!byte_cnt) & (!empty_efifo);//-- only when byte_cnt = 0 and empty_efifo = 0 // FIFO will read with the next rd_clk
 assign word16_code = dout18bit[17:16];
 
 ////Assigning the word16_code
@@ -137,10 +138,10 @@ always @ (word16_code,empty_efifo1,empty_efifo2)
         end
 
   end
-always @ (rd_clk)
+always @ (posedge rd_clk)//byte1_code, byte0_code,dout18bit)
  begin
-  byte0 <= {byte0_code , dout18bit[15:8]};
-  byte1 <=  {byte1_code , dout18bit[7 : 0]};
+  byte0 = {byte0_code , dout18bit[15:8]};
+  byte1 =  {byte1_code , dout18bit[7 : 0]};
  end
 //// Generate Dout
 always @(byte_cnt,byte0,byte1)
@@ -152,11 +153,11 @@ always @(byte_cnt,byte0,byte1)
   end
   
 
-//// deliver a byte_rdy signal
-always @ (posedge rd_clk)
-  begin
-    byte_rdy <=byte_cnt;
-  end
+////// deliver a byte_rdy signal
+//always @ (posedge rd_clk)
+//  begin
+//    byte_rdy <=byte_cnt;
+//  end
 
 
 //-------------------------------------------------------------------------------------------

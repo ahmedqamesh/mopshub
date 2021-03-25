@@ -33,7 +33,7 @@ wire  [2:0]  sel_cnt;
 
 
 // Instances 
-data_generator_SM U_0( 
+data_generator_SM SM( 
    .clk_usr           (clk_usr), 
    .enable            (enable), 
    .loop_en           (loop_en), 
