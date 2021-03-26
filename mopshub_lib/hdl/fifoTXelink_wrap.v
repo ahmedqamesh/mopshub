@@ -138,10 +138,10 @@ always @ (word16_code,empty_efifo1,empty_efifo2)
         end
 
   end
-always @ (posedge rd_clk, negedge rd_clk)//byte1_code, byte0_code,dout18bit)
+always @ (rd_clk )//byte1_code, byte0_code,dout18bit)
  begin
-  byte0 <= {byte0_code , dout18bit[15:8]};
-  byte1 <=  {byte1_code , dout18bit[7 : 0]};
+  byte0 = {byte0_code , dout18bit[15:8]};
+  byte1 =  {byte1_code , dout18bit[7 : 0]};
  end
 //// Generate Dout
 always @(byte_cnt,byte0,byte1)

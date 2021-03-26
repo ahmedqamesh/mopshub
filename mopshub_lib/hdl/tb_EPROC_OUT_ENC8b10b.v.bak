@@ -12,119 +12,101 @@
 `timescale 1ns/10ps
 module tb_EPROC_OUT_ENC8b10b ;
   // Port Declarations
-  parameter half_clock_period_40 = 1;
-  
-  wire [1:0] EDATA_OUT;
-  wire getDataTrig;
-  reg [9:0] edataIN; // 10 bits input code+data
-  reg DATA_RDY;
   reg   rst; 
-  reg   clk_usr;     //bitCLK to send the 2bits EdataOUT [clk_40 MB/s]
-  reg   reverse_tx; //normally it is equal to 0 (//LSB send first ) enc10bit_r = enc10bit
-  reg   swap_output; //No swap equal to 0
-  reg datain_valid;
-  wire [9:0] enc10bit;
-  wire [7:0] DEC_OUT;
-  wire [9:0] enc10bit_out;
-  wire ko;
-  wire code_err;
-  wire disp_err;
+  reg   wr_clk;     //bitCLK to send the 2bits EdataOUT [clk_40 MB/s]
+  reg   DATA_RDY;
+  //EPROC OUT ENC8b10b Signals
+  wire [1:0] ENC_EDATA_OUT_2bit;
+  wire getDataTrig;
+  reg [9:0] GEN_EDATA_10bit; // 10 bits input code+data
   
-  // Instances  
-  assign enc10bit          = U_0.enc10bit;
+  //GBTX Emulator
+  wire [7:0]  DEC_EDATA_OUT_8bit;
+  wire [9:0]  ENC_EDATA_OUT_10bit;
+  wire        ko;
+  wire        code_err;
+  wire        disp_err;
+  
+  //Data generator Signals
+  reg         gen_clk;
+  wire        done; 
+  wire        wen;
+  wire [17:0] GEN_EDATA_18bit;
+  
+
+  
+  
+  data_generator DataGEN(
+  .clk_usr  (wr_clk),
+  .enable   (~rst),
+  .loop_en  (~rst),
+  .done     (done),
+  .tx_fifo_pfull(1'b0),
+  .dout     (GEN_EDATA_18bit),
+  .wen      (wen)
+  );
+  
   
   EPROC_OUT_ENC8b10b U_0( 
-  .edataIN       (edataIN), 
-  .DATA_RDY    (DATA_RDY), //one? CLKx4 after inp_request_trig_out
+  .edataIN       (GEN_EDATA_10bit), 
+  .DATA_RDY      (DATA_RDY), //one? CLKx4 after inp_request_trig_out
   .getDataTrig   (getDataTrig), 
-  .EDATA_OUT      (EDATA_OUT), 
+  .EDATA_OUT     (ENC_EDATA_OUT_2bit), 
   .rst           (rst), 
-  .bitCLK        (clk_usr),  // runs the counters as a normal FIFO clk
-  .swap_outbits (swap_output),
-  .fhCR_REVERSE_10B(reverse_tx)
+  .bitCLK        (wr_clk),  // runs the counters as a normal FIFO clk
+  .swap_outbits  (1'b0), //No swap equal to 0
+  .fhCR_REVERSE_10B(1'b0)//normally it is equal to 0 (//LSB send first ) enc10bit_r = enc10bit
   ); 
   
   
   GBTX_Emulator U_1( 
-  .ko          (ko), 
-  .code_err    (code_err), 
-  .disp_err    (disp_err), 
-  .dataout     (DEC_OUT), 
-  .rst         (rst), 
-  .bitCLK        (clk_usr),
-  .enc10bit_out_sig(enc10bit_out),
-  .datain_valid(datain_valid),
-  .EDATA_2bit (EDATA_OUT),
-  .data_10b_in (enc10bit), 
-  .data_10b_en (1'b0)
+  .ko               (ko), 
+  .code_err         (code_err), 
+  .disp_err         (disp_err), 
+  .dataout          (DEC_EDATA_OUT_8bit), 
+  .rst              (rst), 
+  .datain_valid     (~rst),
+  .bitCLK           (wr_clk),
+  .enc10bit_out_sig (ENC_EDATA_OUT_10bit),
+  .EDATA_2bit       (ENC_EDATA_OUT_2bit),
+  .data_10b_in      (10'b0), 
+  .data_10b_en      (1'b0)
   );
   
   // clocks           
   initial begin 
-    clk_usr=0; 
-    forever #half_clock_period_40 clk_usr=~clk_usr;
+    wr_clk=0; 
+    forever #1 wr_clk=~wr_clk;
   end
-
+  
+  //Generator clk
+  initial begin 
+    gen_clk=0; 
+    forever #4 gen_clk=~gen_clk; 
+  end
+  
   //Initialization
   initial 
   begin
-    fork
-    reverse_tx = 0; 
-    edataIN= 10'b0; 
-    DATA_RDY=1'b0;
-    swap_output  = 0;
-    
+    DATA_RDY = 1'b0;
     rst = 1'b1;
-    #5 rst=!rst;
-    //Decoder signal
-    datain_valid =1'b0;
-    join 
+    #10 rst=!rst;
   end
   
-  //Sending Data                                     
-  initial 
-  begin 
-    //fork //Fork-Join will start all the processes inside it parallel and wait for the completion of all the processes.
-    //SOP
+  //initial 
+  always@(GEN_EDATA_18bit)
+  begin
+
     #5;
-    datain_valid =!datain_valid;
-    edataIN = {2'b10,8'h0};
-    DATA_RDY=1'b1;
-    #10;
-    DATA_RDY=1'b0;  
-    
-    //Data
-    #5; 
-    edataIN = {2'b00,8'hDE};
-    DATA_RDY=1'b1;
-    #10;
-    DATA_RDY=1'b0;   
+    DATA_RDY = 1'b1;
+    GEN_EDATA_10bit = {GEN_EDATA_18bit[17:16],GEN_EDATA_18bit[15:8]};
+    #4;//wait 4 wr_clks
+    DATA_RDY = 1'b0;
     
     #5;
-    edataIN = {2'b00,8'hAD};
-    DATA_RDY=1'b1;
-    #10;
-    DATA_RDY=1'b0; 
-    
-    #5;
-    edataIN = {2'b00,8'hBE};
-    DATA_RDY=1'b1;
-    #10;
-    DATA_RDY=1'b0;  
-    
-    #5;
-    edataIN = {2'b00,8'hEF};
-    DATA_RDY=1'b1;
-    #10;
-    DATA_RDY=1'b0; 
-    //EOP
-    
-    #5;  
-    edataIN = {2'b01,8'b0};
-    DATA_RDY=1'b1;
-    #10;
-    DATA_RDY=1'b0;
-    
-    //join   
-  end   
+    GEN_EDATA_10bit = {GEN_EDATA_18bit[17:16],GEN_EDATA_18bit[7:0]};
+    DATA_RDY = 1'b1;
+    #4;//wait 4 wr_clks
+    DATA_RDY = 1'b0;
+  end  
 endmodule

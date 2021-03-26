@@ -14,6 +14,8 @@ module tb_fifoTXelink_wrap;
   parameter DATA_WIDTH           =18;
   parameter Byte_OUT_WIDTH       = 10;
   // Port Declarations
+  reg                            rst;
+  
   wire    [Byte_OUT_WIDTH-1:0]  dout; 
   wire                          doutRdy;
 
@@ -27,11 +29,13 @@ module tb_fifoTXelink_wrap;
   reg                            rd_en;
   reg                            rd_clk;
   reg                            wr_clk;
+  
+  
+  
+  // Data Generator Signals
   reg                            gen_clk;
-  reg                            rst;
-
   wire done;               // dbg
-  wire [DATA_WIDTH-1:0] din_gen;
+  wire [DATA_WIDTH-1:0] GEN_EDATA_10bit;
   wire rd_en_s;
   wire wen; //wr_en signal
 
@@ -47,7 +51,7 @@ module tb_fifoTXelink_wrap;
   assign rd_en_s = TXelink_wrap.rd_en_s;  
   // Instances 
   fifoTXelink_wrap TXelink_wrap( 
-  .din       (din_gen), 
+  .din       (GEN_EDATA_10bit), 
   .fifoFLUSH (rst), 
   .rd_clk    (rd_clk), 
   .rd_en     (rd_en), 
@@ -66,15 +70,15 @@ module tb_fifoTXelink_wrap;
   .enable(~rst),
   .loop_en(~rst),
   .done(done),
-  .tx_fifo_pfull(0),
-  .dout(din_gen),
+  .tx_fifo_pfull(0'b0),
+  .dout(GEN_EDATA_10bit),
   .wen(wen)
   );  
   
   //Wr_clk to FIFO //40 Mb
   initial begin 
     wr_clk=0; 
-    forever #5 wr_clk=~wr_clk; 
+    forever #1 wr_clk=~wr_clk; 
   end 
 
   //Generator clk // 80 Mb
