@@ -47,6 +47,7 @@ reg   [ADDRESS_WIDTH-1:0] ptr_diff;
 reg   [DATA_WIDTH-1:0]    f_memory  [FIFO_DEPTH-1:0];
 reg   [DATA_WIDTH-1:0]    dout_r;
 
+wire rd_en_s;
 // Instances 
 // instantiate address counters
 // 
@@ -69,6 +70,7 @@ assign full=(ptr_diff==(FIFO_DEPTH-1)); //assign FIFO status
 assign empty=(ptr_diff==0);
 assign almost_full=(ptr_diff==f_almost_full_value);
 assign prog_full=(ptr_diff==f_prog_full_value);
+assign rd_en_s =(rd_en == 0) ? 1:0;
 // HDL Embedded Text Block 2 eb2
 //---------------------------------------------------------
   
@@ -85,7 +87,7 @@ assign prog_full=(ptr_diff==f_prog_full_value);
   begin    
     if(rst)
       dout_r<=0; //f_memory[r_ptr];
-    else if(rd_en) begin
+    else if(rd_en_s) begin
       if(!empty)
         dout_r<=f_memory[r_ptr]; 
       end
@@ -107,7 +109,7 @@ assign prog_full=(ptr_diff==f_prog_full_value);
 //---------------------------------------------------------
  //Never Read from an empty FIFO
   always @(*) //after empty flag activated fifo read counter should not increment;
-  begin if(rd_en && (!empty))
+  begin if(rd_en_s && (!empty))
     r_next_en=1;
     
     else r_next_en=0;  

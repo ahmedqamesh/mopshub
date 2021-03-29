@@ -23,8 +23,9 @@ module FIFO_to_Elink #(
    // Port Declarations
    // Port Declarations
    input   wire                         efifoWe, 
-   input   wire                         clk_usr, 
-   input   wire                         clk_80, 
+   input   wire                         wr_clk, 
+   input   wire                         clk_80,
+   input   wire                         bitCLKx4, 
    input   wire                         rst, 
    input   wire    [DATA_IN_WIDTH-1:0]  efifoDin, 
    output  wire                         efifoPfull, 
@@ -51,9 +52,25 @@ wire                       swap_output    = 0;   // when '1', the output bits wi
 reg                        DATA1bitOUT_r;
 
 
+fifoTXelink_wrap U_0( 
+   .wr_clk    (wr_clk), 
+   .rd_clk    (clk_80), 
+   .din       (efifoDin), 
+   .fifoFLUSH (fifo_flush), 
+   .rd_en     (efifoRE), 
+   .rst       (rst), 
+   .wr_en     (efifoWe), 
+   .dout      (efifoDout), 
+   .doutRdy   (doutRdy), 
+   .empty     (empty), 
+   .full      (full), 
+   .prog_full (efifoPfull)
+); 
+
 // Instances 
 EPROC_OUT_ENC8b10b U_1( 
-   .bitCLK           (clk_usr), 
+   .bitCLK           (wr_clk), 
+   .bitCLKx4         (bitCLKx4),
    .getDataTrig      (efifoRE), 
    .edataIN          (efifoDout), 
    .DATA_RDY         (doutRdy), 
@@ -63,20 +80,6 @@ EPROC_OUT_ENC8b10b U_1(
    .swap_outbits     (swap_output)
 ); 
 
-fifoTXelink_wrap U_0( 
-   .din       (efifoDin), 
-   .fifoFLUSH (fifo_flush), 
-   .rd_clk    (clk_80), 
-   .rd_en     (efifoRE), 
-   .rst       (rst), 
-   .wr_clk    (clk_usr), 
-   .wr_en     (efifoWe), 
-   .dout      (efifoDout), 
-   .doutRdy   (doutRdy), 
-   .empty     (empty), 
-   .full      (full), 
-   .prog_full (efifoPfull)
-); 
 
 // HDL Embedded Text Block 1 serialization
 //-------------------------------------------
@@ -115,12 +118,6 @@ end
 //2 bits @ clk80, can interface 2-bit of GBT frame                                       
 assign elink2bit = dout2bit; 
 assign DATA1bitOUT =DATA1bitOUT_r; //1 bit output 
-
-
-
-
-
-
 
 endmodule // FIFO_to_Elink
 

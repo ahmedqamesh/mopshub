@@ -14,27 +14,27 @@ module tb_fifo_to_2K_18bit_wide ;
   
   parameter DATA_WIDTH=18;
   
-  wire [DATA_WIDTH-1:0] dout;
+  wire [DATA_WIDTH-1:0] FIFO_EDATA_18bit;
   wire almost_full,full,empty;
   wire prog_full;
   
-  reg rd_en,wr_en,rd_clk,wr_clk;
+  reg rd_en,rd_clk;
+  wire wr_clk; //Equivalent to Gen_clk
   reg rst;
   
   //reg           enable;
-  reg tx_fifo_pfull;
   wire done;               // dbg
-  wire [DATA_WIDTH-1:0] din_gen;
+  wire [DATA_WIDTH-1:0] GEN_EDATA_18bit;
   wire wen; //wr_en signal
+  reg enable;
 
-  
-  
-  fh_epath_fifo2K_18bit_wide fifo2K_18bit_wide(.dout(dout),
+  fh_epath_fifo2K_18bit_wide fifo2K_18bit_wide(
+  .dout(FIFO_EDATA_18bit),
   .full(full),
   .empty(empty),
   .prog_full(prog_full),
   .almost_full(almost_full),
-  .din(din_gen),
+  .din(GEN_EDATA_18bit),
   .rd_en(rd_en),
   .wr_en(wen),
   .rd_clk(rd_clk),
@@ -43,34 +43,41 @@ module tb_fifo_to_2K_18bit_wide ;
   
   data_generator DataGEN(
   .clk_usr(wr_clk),
-  .enable(~rst),
-  .loop_en(~rst),
+  .enable(enable),
+  .loop_en(enable),
   .done(done),
-  .tx_fifo_pfull(tx_fifo_pfull),
-  .dout(din_gen),
+  .tx_fifo_pfull(1'b0),
+  .dout(GEN_EDATA_18bit),
   .wen(wen)
   ); 
   
-  
-  //initial #100 $stop;
+  //clocks
   initial begin 
     rd_clk=0; 
     forever #1 rd_clk=~rd_clk; 
   end
   
-  initial begin 
-    wr_clk=0; 
-    forever #1 wr_clk=~wr_clk; 
-  end  
-  
+  //Wr_clk to FIFO 
+  //Freq. Wr_clk = Freq. rd_clk / 4 [=40 MHz]
+  clock_divider #(4) div_0(
+  .clock_in(rd_clk),
+  .clock_out(wr_clk) //Equivalent to Gen_clk
+  );
   
   initial 
   begin 
     rd_en= 0;
-    wr_en= 0;
-    tx_fifo_pfull = 0;
     rst=1;
-    #2 rst=0;
-    rd_en=1;
-  end                     
+    
+    #10 rst=0;
+    enable = ~rst;
+  end   
+    //Generate enable signal 
+  always@(GEN_EDATA_18bit)
+  begin 
+    rd_en= 1;
+    #1;
+    rd_en= 0;
+     
+  end             
 endmodule

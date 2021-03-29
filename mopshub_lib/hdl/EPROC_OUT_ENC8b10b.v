@@ -15,13 +15,16 @@ module EPROC_OUT_ENC8b10b(
    // Port Declarations
    // Port Declarations
    input   wire           bitCLK,            //bitCLK to send the 2bits EdataOUT [clk_40 MB/s]
-   output  wire           getDataTrig,       //output Trig signal will enable reading from fifo (rd_en=1)
+   input   wire           bitCLKx4,
+   
    input   wire    [9:0]  edataIN,           //Data stored in the FIFO
    input   wire           DATA_RDY, 
    input   wire           fhCR_REVERSE_10B, 
+   input   wire           swap_outbits,
    input   wire           rst,               // reset all the counters and data
-   output  wire    [1:0]  EDATA_OUT, 
-   input   wire           swap_outbits
+   output  wire           getDataTrig,       //output Trig signal will enable reading from fifo (rd_en=1)
+   output  wire    [1:0]  EDATA_OUT 
+  
 );
 
 // Local declarations
@@ -41,11 +44,11 @@ module EPROC_OUT_ENC8b10b(
 wire        inp_request_trig;
 wire        inp_request_trig_out;
 reg   [2:0] request_cycle_cnt     = 0;
-reg   [2:0] send_count            = 0;
+reg   [2:0] send_count            = 2'b0;
 reg         send_out_trig         = 0;
 wire  [9:0] enc10bit;
 reg   [9:0] enc10bit_r;
-wire  [1:0] zeros2bit             = 0;
+wire  [1:0] zeros2bit             = 2'b0;
 reg   [1:0] edata_out_r;
 wire  [1:0] edata_out_s;
 
@@ -60,7 +63,7 @@ wire  [1:0] edata_out_s;
 // 
 // 
 enc8b10b_wrap enc8b10bx( 
-   .clk           (bitCLK),
+   .clk           (bitCLKx4), // The same clock for reading the FIFO
    .rst           (rst), 
    .dataCode      (edataIN[9:8]), 
    .dataIN        (edataIN[7:0]), 
@@ -89,7 +92,7 @@ mux8_Nbit #(2) bitMUX(
 // 
 // 
 pulse_pdxx_pwxx #(0,1) pulse_pd( 
-   .clk      (bitCLK), 
+   .clk      (bitCLKx4), 
    .trigger  (inp_request_trig), // both appear at the same time trigger and  pulseout
    .pulseout (inp_request_trig_out)
 ); 
@@ -107,14 +110,17 @@ always @(posedge bitCLK)
      if (rst)
         request_cycle_cnt <= 3'b0;
      else 
-      begin 
-        request_cycle_cnt <= request_cycle_cnt + 1'b1;
+      begin
+      if  (inp_request_trig == 1)
+          request_cycle_cnt <= 3'b0;
+      else
+          request_cycle_cnt <= request_cycle_cnt + 1'b1;
     end
   end
 // HDL Embedded Text Block 2 eb2
 // HDL Embedded Text Block 2 Trig_sig
 //  request cycle 5 CLKs
-assign inp_request_trig = (request_cycle_cnt == 3'b100) ? 1:0;  //cycle 5 CLKs
+assign inp_request_trig = (request_cycle_cnt == 3'b100) ? 1:0;  //cycle 5 bitCLKs
 assign getDataTrig = inp_request_trig_out; //getDataTrig will enable reading signal from FIFO (rd_en)
 // HDL Embedded Text Block 3 eb3
 // HDL Embedded Text Block 3 eb3
@@ -147,7 +153,7 @@ always @(posedge bitCLK)
 // Counter over the select signal
 always @(posedge bitCLK)
   begin
-     if (rst)
+     if (send_out_trig == 1)
         send_count <= 3'b0;
      else  
       send_count <= send_count + 1'b1;
@@ -161,8 +167,6 @@ always @ (swap_outbits, edata_out_s)
      else     
     edata_out_r = edata_out_s;
   end
-
-
 
 // HDL Embedded Text Block 7 eb7
 assign EDATA_OUT =edata_out_r;

@@ -28,7 +28,7 @@ module mux8_Nbit#(
 
 
 // Internal Declarations
-reg [N-1:0] data_out_reg;
+reg [N-1:0] data_out_reg = 0;
 assign data_out = data_out_reg;
 // Internal Declarations
 

@@ -11,14 +11,17 @@
 `resetall
 `timescale 1ns/10ps
 module tb_EPROC_OUT_ENC8b10b ;
+
   // Port Declarations
   reg   rst; 
-  reg   wr_clk;     //bitCLK to send the 2bits EdataOUT [clk_40 MB/s]
-  reg   DATA_RDY;
+  wire   bitCLK;     //bitCLK to send the 2bits EdataOUT [clk_40 MB/s]
+  reg   bitCLKx4;  //bitCLKx4 for Triggering the signal [clk_160 MB/s]
   //EPROC OUT ENC8b10b Signals
   wire [1:0] ENC_EDATA_OUT_2bit;
   wire getDataTrig;
   reg [9:0] GEN_EDATA_10bit; // 10 bits input code+data
+
+  reg dataINrdy;
   
   //GBTX Emulator
   wire [7:0]  DEC_EDATA_OUT_8bit;
@@ -28,16 +31,26 @@ module tb_EPROC_OUT_ENC8b10b ;
   wire        disp_err;
   
   //Data generator Signals
-  reg         gen_clk;
+  wire [17:0] GEN_EDATA_18bit;
+  wire         gen_clk;
   wire        done; 
   wire        wen;
-  wire [17:0] GEN_EDATA_18bit;
-  
+  reg byte_cnt;
+  //Freq. bitCLK = Freq. bitCLKx4 / 4 [=40 MHz]
+  clock_divider #(4) div_0(
+  .clock_in(bitCLKx4),
+  .clock_out(bitCLK)//Equivalent to the wr_clk
+          );
+          
 
-  
-  
+  //Freq. gen_clk = Freq. bitCLKx4 / 8 [=20 MHz]
+  clock_divider #(8) div_1(
+  .clock_in(bitCLKx4),
+  .clock_out(gen_clk)//Equivalent to rd_clk in the fifoTXelink_wrap Module
+          );
+            
   data_generator DataGEN(
-  .clk_usr  (wr_clk),
+  .clk_usr  (gen_clk),
   .enable   (~rst),
   .loop_en  (~rst),
   .done     (done),
@@ -47,13 +60,14 @@ module tb_EPROC_OUT_ENC8b10b ;
   );
   
   
-  EPROC_OUT_ENC8b10b U_0( 
+  EPROC_OUT_ENC8b10b ENC8b10b( 
   .edataIN       (GEN_EDATA_10bit), 
-  .DATA_RDY      (DATA_RDY), //one? CLKx4 after inp_request_trig_out
+  .DATA_RDY      (dataINrdy), //one? CLKx4 after inp_request_trig_out
   .getDataTrig   (getDataTrig), 
   .EDATA_OUT     (ENC_EDATA_OUT_2bit), 
   .rst           (rst), 
-  .bitCLK        (wr_clk),  // runs the counters as a normal FIFO clk
+  .bitCLK        (bitCLK),  // runs the counters as a normal FIFO clk
+  .bitCLKx4      (bitCLKx4),
   .swap_outbits  (1'b0), //No swap equal to 0
   .fhCR_REVERSE_10B(1'b0)//normally it is equal to 0 (//LSB send first ) enc10bit_r = enc10bit
   ); 
@@ -64,49 +78,59 @@ module tb_EPROC_OUT_ENC8b10b ;
   .code_err         (code_err), 
   .disp_err         (disp_err), 
   .dataout          (DEC_EDATA_OUT_8bit), 
+  .enc10bit_out_sig (ENC_EDATA_OUT_10bit),
   .rst              (rst), 
   .datain_valid     (~rst),
-  .bitCLK           (wr_clk),
-  .enc10bit_out_sig (ENC_EDATA_OUT_10bit),
+  .bitCLK           (bitCLK),
   .EDATA_2bit       (ENC_EDATA_OUT_2bit),
-  .data_10b_in      (10'b0), 
+  .data_10b_in      (10'b0),//{enc10bit_r[0],enc10bit_r[1],enc10bit_r[2],enc10bit_r[3],enc10bit_r[4],enc10bit_r[5],enc10bit_r[6],enc10bit_r[7],enc10bit_r[8],enc10bit_r[9]}), 
   .data_10b_en      (1'b0)
   );
   
   // clocks           
+//  initial begin 
+//    bitCLK=0; 
+//    forever #4 bitCLK=~bitCLK; //Equivalent to the wr_clk
+//  end
+
   initial begin 
-    wr_clk=0; 
-    forever #1 wr_clk=~wr_clk;
+    bitCLKx4=0; 
+    forever #1 bitCLKx4=~bitCLKx4; //Equivalent to the rd_clk
   end
   
-  //Generator clk
-  initial begin 
-    gen_clk=0; 
-    forever #4 gen_clk=~gen_clk; 
-  end
-  
+    
+//  Generator clk
+//  initial begin 
+//    gen_clk=0; 
+//    forever #8 gen_clk=~gen_clk; Equivalent to rd_clk in the fifoTXelink_wrap Module
+//  end
+
   //Initialization
   initial 
   begin
-    DATA_RDY = 1'b0;
+    dataINrdy= 0;
+    GEN_EDATA_10bit = 10'b0;
+    byte_cnt = 0;
     rst = 1'b1;
     #10 rst=!rst;
   end
   
   //initial 
-  always@(GEN_EDATA_18bit)
-  begin
-
-    #5;
-    DATA_RDY = 1'b1;
-    GEN_EDATA_10bit = {GEN_EDATA_18bit[17:16],GEN_EDATA_18bit[15:8]};
-    #4;//wait 4 wr_clks
-    DATA_RDY = 1'b0;
-    
-    #5;
-    GEN_EDATA_10bit = {GEN_EDATA_18bit[17:16],GEN_EDATA_18bit[7:0]};
-    DATA_RDY = 1'b1;
-    #4;//wait 4 wr_clks
-    DATA_RDY = 1'b0;
-  end  
+    always@(posedge getDataTrig)
+      begin
+        if (byte_cnt ==0)
+          GEN_EDATA_10bit = {GEN_EDATA_18bit[17:16],GEN_EDATA_18bit[15:8]};
+        else
+          GEN_EDATA_10bit = {GEN_EDATA_18bit[17:16],GEN_EDATA_18bit[7:0]}; 
+        end
+  //end 
+  
+  always@(GEN_EDATA_10bit)
+    begin
+      byte_cnt = ~byte_cnt;
+      dataINrdy= 1;
+      #4;
+      dataINrdy= 0;
+      
+    end   
 endmodule

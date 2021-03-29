@@ -14,30 +14,31 @@ module tb_enc8b10b_wrap ;
   // Port Declarations
   
   
-  reg [7:0] ENC_IN;
-  reg [1:0] dataCode;
-  reg DATA_RDY;
-  reg   ENC_RST; 
-  reg   ENC_CLK; 
   
+  reg [1:0] GEN_Code;
+  reg   rst; 
+  reg   bitCLKx4; 
   
-  wire [9:0] ENC_OUT;
+  wire [9:0] ENC_EDATA_OUT_10bit;
   wire encDataOutrdy;
   
-  reg datain_valid;
-  reg data_10b_en;
   
   wire [1:0] dataCode_s;
   wire [7:0]  byte;
   wire isk;
   
-  
-  wire [7:0]DEC_OUT;
-  
-  
+  wire [7:0]DEC_EDATA_OUT_8bit;
   wire ko;
   wire code_err;
   wire disp_err;
+  
+  //Data generator Signals
+  reg         gen_clk;
+  wire        done; 
+  wire        wen;
+  reg        dataINrdy;
+  wire [17:0] GEN_EDATA_18bit;
+  reg [7:0] GEN_EDATA_8bit;
   
   // Instances 
   assign dataCode_s = U_0.dataCode_s;  
@@ -46,105 +47,76 @@ module tb_enc8b10b_wrap ;
   assign byte= U_0.byte;
   
   enc8b10b_wrap U_0( 
-  .dataIN        (ENC_IN), 
-  .dataINrdy     (DATA_RDY),
-  .dataCode      (dataCode), 
-  .encDataOut    (ENC_OUT), 
+  .dataIN        (GEN_EDATA_8bit), 
+  .dataINrdy     (dataINrdy),
+  .dataCode      (GEN_Code), 
+  .encDataOut    (ENC_EDATA_OUT_10bit), 
   .encDataOutrdy (encDataOutrdy),
-  .rst           (ENC_RST), 
-  .clk           (ENC_CLK)
+  .rst           (rst), 
+  .clk           (bitCLKx4)
   ); 
   
   GBTX_Emulator U_1( 
   .ko          (ko), 
   .code_err    (code_err), 
   .disp_err   (disp_err), 
-  .dataout      (DEC_OUT), 
-  .rst           (ENC_RST), 
-  .EDATA_2bit           (), 
-  .enc10bit_out_sig   (), 
-  .bitCLK        (ENC_CLK), 
-  .data_10b_in       (ENC_OUT), 
-  .data_10b_en (data_10b_en),
-  .datain_valid(datain_valid)
+  .dataout      (DEC_EDATA_OUT_8bit), 
+  .rst           (rst), 
+  .EDATA_2bit    (), 
+  .enc10bit_out_sig (), 
+  .bitCLK        (bitCLKx4), 
+  .data_10b_in       (ENC_EDATA_OUT_10bit), 
+  .data_10b_en (1'b1),
+  .datain_valid(~rst)
+  );
+  data_generator DataGEN(
+  .clk_usr  (gen_clk),
+  .enable   (~rst),
+  .loop_en  (~rst),
+  .done     (done),
+  .tx_fifo_pfull(1'b0),
+  .dout     (GEN_EDATA_18bit),
+  .wen      (wen)
   );
   
   initial begin 
-    ENC_CLK=0; 
-    forever #5 ENC_CLK=~ENC_CLK; 
+    bitCLKx4=0; 
+    forever #4 bitCLKx4=~bitCLKx4; 
+  end
+  
+  //Generator clk
+  initial begin 
+    gen_clk=0; 
+    forever #4 gen_clk=~gen_clk; //Equivalent to rd_clk in the fifoTXelink_wrap Module
   end
   
   initial 
   begin
-    fork
     //Intialise signals
-    //Data
-    ENC_IN=8'b0; 
-    DATA_RDY=1'b0; 
-    dataCode = 2'b0;
-    data_10b_en = 1;
+    dataINrdy = 0;
+    rst = 1'b1;
+    #10 rst=!rst;
+  end
+ 
+   always@(GEN_EDATA_8bit)
+    begin
+      dataINrdy= 0;
+      #gen_clk;
+      dataINrdy= 1;
+    end    
     
-    ENC_RST = 1'b1;
-    #5 ENC_RST=!ENC_RST;
-    
-    //Decoder signal
-    datain_valid =1'b0;
-    join
-    
+     
+  //initial 
+  always@(GEN_EDATA_18bit)
+  begin
+    GEN_Code = GEN_EDATA_18bit[17:16];
+    GEN_EDATA_8bit = GEN_EDATA_18bit[15:8];
+    #12
+    //Wait three clk cycles
+    GEN_Code = GEN_EDATA_18bit[17:16];
+    GEN_EDATA_8bit = GEN_EDATA_18bit[7:0];
   end
 
-  
-  //Sending Data                                     
-  initial 
-  begin 
-    //fork //Fork-Join will start all the processes inside it parallel and wait for the completion of all the processes.
-    //SOP
-    
-    #6;
-    datain_valid =~datain_valid;
-    dataCode = 2'b10;
-    ENC_IN = 8'h0;
-    DATA_RDY=1'b1;
-    #10;
-    DATA_RDY=1'b0;  
-    
-    //Data
-    #5; 
-    dataCode = 2'b00;
-    ENC_IN = 8'hDE;
-    DATA_RDY=1'b1;
-    #10;
-    DATA_RDY=1'b0;   
-    
-    #5;
-    dataCode = 2'b00;
-    ENC_IN = 8'hAD;
-    DATA_RDY=1'b1;
-    #10;
-    DATA_RDY=1'b0; 
-    
-    #5;
-    dataCode = 2'b00;
-    ENC_IN = 8'hBE;
-    
-    DATA_RDY=1'b1;
-    #10;
-    DATA_RDY=1'b0;  
-    
-    #5;
-    dataCode = 2'b00;
-    ENC_IN = 8'hEF;  
-    DATA_RDY=1'b1;
-    #10;
-    DATA_RDY=1'b0; 
-    //EOP
-    
-    #5;  
-    dataCode = 2'b01;
-    ENC_IN = 8'h0;  
-    DATA_RDY=1'b1;
-    #10;
-    DATA_RDY=1'b0; 
-    //join   
-  end      
+
+          
 endmodule

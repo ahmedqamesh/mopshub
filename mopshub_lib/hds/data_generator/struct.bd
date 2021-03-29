@@ -75,19 +75,19 @@ value "/home/dcs/git/mopshub/mopshub_lib/hds/data_generator"
 )
 (vvPair
 variable "date"
-value "03/25/21"
+value "03/27/21"
 )
 (vvPair
 variable "day"
-value "Thu"
+value "Sat"
 )
 (vvPair
 variable "day_long"
-value "Thursday"
+value "Saturday"
 )
 (vvPair
 variable "dd"
-value "25"
+value "27"
 )
 (vvPair
 variable "entity_name"
@@ -115,7 +115,7 @@ value "dcs"
 )
 (vvPair
 variable "graphical_source_date"
-value "03/25/21"
+value "03/27/21"
 )
 (vvPair
 variable "graphical_source_group"
@@ -127,7 +127,7 @@ value "chipdev2.physik.uni-wuppertal.de"
 )
 (vvPair
 variable "graphical_source_time"
-value "13:30:30"
+value "21:03:40"
 )
 (vvPair
 variable "group"
@@ -239,7 +239,7 @@ value "struct"
 )
 (vvPair
 variable "time"
-value "13:30:30"
+value "21:03:40"
 )
 (vvPair
 variable "unit"
@@ -945,9 +945,9 @@ vasetType 1
 fg "49152,49152,49152"
 )
 xt "21250,22250,22750,23750"
-iconName "VerilogFileViewIcon.png"
-iconMaskName "VerilogFileViewIcon.msk"
-ftype 11
+iconName "StateMachineViewIcon.png"
+iconMaskName "StateMachineViewIcon.msk"
+ftype 3
 )
 viewiconposition 0
 portVis (PortSigDisplay
@@ -1003,22 +1003,23 @@ always @(posedge clk_usr)
                  dout_i ={2'b01,16'h0};
                 end
         3'b100 : begin
-                 dout_i = {2'b00,16'h0};
+                 dout_i = {2'b11,16'h0};
                  end
         3'b101 : begin 
-                 dout_i = {2'b00,16'h0};
+                 dout_i = {2'b11,16'h0};
                 end
         3'b110 : begin 
-                 dout_i = {2'b00,16'h0};
+                 dout_i = {2'b11,16'h0};
                 end
         3'b111 : begin
-                 dout_i = {2'b00,16'h0};
+                 dout_i = {2'b11,16'h0};
 
                  end
     endcase
   else
-    dout_i = {2'b00,16'h0};
+    dout_i = {2'b11,16'h0};
 end                                            
+
 
 
 
@@ -1099,7 +1100,8 @@ va (VaSet
 font "courier,8,0"
 )
 xt "2000,3700,27500,4600"
-st "wire         enable; // should be used through VIO"
+st "wire         enable; // should be used through VIO
+"
 )
 )
 *28 (Net
@@ -1118,7 +1120,8 @@ va (VaSet
 font "courier,8,0"
 )
 xt "2000,2800,22000,3700"
-st "wire         clk_usr; // write FIFO clk"
+st "wire         clk_usr; // write FIFO clk
+"
 )
 )
 *29 (Net
@@ -1136,7 +1139,8 @@ va (VaSet
 font "courier,8,0"
 )
 xt "2000,4600,13000,5500"
-st "wire         loop_en;"
+st "wire         loop_en;
+"
 )
 )
 *30 (PortIoIn
@@ -1315,7 +1319,8 @@ va (VaSet
 font "courier,8,0"
 )
 xt "2000,10000,16600,10900"
-st "reg [17:0]   dout_i = 18'b0;"
+st "reg [17:0]   dout_i = 18'b0;
+"
 )
 )
 *35 (HdlText
@@ -1477,7 +1482,8 @@ va (VaSet
 font "courier,8,0"
 )
 xt "2000,7300,11500,8200"
-st "wire [17:0]  dout;"
+st "wire [17:0]  dout;
+"
 )
 )
 *41 (Net
@@ -1496,7 +1502,8 @@ va (VaSet
 font "courier,8,0"
 )
 xt "2000,6400,15000,7300"
-st "wire         done; // dbg"
+st "wire         done; // dbg
+"
 )
 )
 *42 (PortIoOut
@@ -1606,7 +1613,8 @@ va (VaSet
 font "courier,8,0"
 )
 xt "2000,10900,13000,11800"
-st "wire [2:0]   sel_cnt;"
+st "wire [2:0]   sel_cnt;
+"
 )
 )
 *45 (Net
@@ -1625,7 +1633,8 @@ va (VaSet
 font "courier,8,0"
 )
 xt "2000,5500,27000,6400"
-st "wire         tx_fifo_pfull; // pfull from Tx FIFO"
+st "wire         tx_fifo_pfull; // pfull from Tx FIFO
+"
 )
 )
 *46 (PortIoOut
@@ -1680,7 +1689,7 @@ decl (Decl
 n "wen"
 t "wire"
 eolc " ena signal"
-o 10
+o 7
 suid 19,0
 )
 declText (MLText
@@ -1689,7 +1698,8 @@ va (VaSet
 font "courier,8,0"
 )
 xt "2000,8200,18500,9100"
-st "wire         wen; //  ena signal"
+st "wire         wen; //  ena signal
+"
 )
 )
 *48 (Wire
@@ -2335,12 +2345,12 @@ tm "BdCompilerDirectivesTextMgr"
 ]
 associable 1
 )
-windowSize "3832,13,5768,1088"
-viewArea "-35800,-14400,66980,41520"
+windowSize "-8,13,1928,1088"
+viewArea "-18888,-2472,77040,49720"
 cachedDiagramExtent "-6000,0,76000,51000"
 hasePageBreakOrigin 1
 pageBreakOrigin "-69000,0"
-lastUid 568,0
+lastUid 609,0
 defaultCommentText (CommentText
 shape (Rectangle
 layer 0
@@ -3398,6 +3408,7 @@ tm "BdDeclarativeTextMgr"
 )
 commonDM (CommonDM
 ldm (LogicalDM
+ordering 1
 suid 19,0
 usingSuid 1
 emptyRow *94 (LEmptyRow
@@ -3461,6 +3472,8 @@ lang 5
 decl (Decl
 n "clk_usr"
 t "wire"
+prec "// Port Declarations"
+preAdd 0
 o 1
 suid 2,0
 )
@@ -3556,7 +3569,7 @@ m 1
 decl (Decl
 n "wen"
 t "wire"
-o 10
+o 7
 suid 19,0
 )
 )
@@ -3632,7 +3645,7 @@ uid 266,0
 )
 *126 (MRCItem
 litem &112
-pos 6
+pos 7
 dimension 20
 uid 268,0
 )
@@ -3650,7 +3663,7 @@ uid 348,0
 )
 *129 (MRCItem
 litem &115
-pos 7
+pos 8
 dimension 20
 uid 406,0
 )
@@ -3662,7 +3675,7 @@ uid 410,0
 )
 *131 (MRCItem
 litem &117
-pos 8
+pos 6
 dimension 20
 uid 527,0
 )

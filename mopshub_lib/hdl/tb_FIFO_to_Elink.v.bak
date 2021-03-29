@@ -13,23 +13,23 @@
 module tb_FIFO_to_Elink ;
   parameter DATA_WIDTH=18;
   parameter DATA_OUT_WIDTH = 10;
-  reg                            rd_clk;
-  reg                            wr_clk; 
+  wire                            clk_80;
+  wire                            wr_clk; 
+  reg                            clk_160;
+  wire                            gen_clk;
   reg                            rst; 
   //FIFO_to_Elink Signals
   wire                         DATA1bitOUT; 
   wire    [1:0]                elink2bit; 
   
-  //encoder Signals
-  wire [1:0] dout2bit;
   //FIFO Signals
   wire [DATA_OUT_WIDTH-1:0] Dout;
   wire doutRdy;
   wire getDataTrig;
   //data Genrator Signal
-  reg                            gen_clk;
+  
   wire done;          
-  wire [DATA_WIDTH-1:0] GEN_EDATA_10bit;
+  wire [DATA_WIDTH-1:0] GEN_EDATA_18bit;
   wire wen; //wr_en signal
   
   //GBTX Emulator Signals
@@ -50,18 +50,19 @@ module tb_FIFO_to_Elink ;
   .loop_en          (~rst),
   .done             (done),
   .tx_fifo_pfull    (1'b0),
-  .dout             (GEN_EDATA_10bit),
+  .dout             (GEN_EDATA_18bit),
   .wen              (wen)
   );
   
   
   FIFO_to_Elink MUT(
-  .clk_usr          (wr_clk),
-  .clk_80           (rd_clk),
+  .wr_clk          (wr_clk),
+  .clk_80           (clk_80),
+  .bitCLKx4         (clk_160),
   .rst              (rst),
   .fifo_flush       (rst),
   .efifoWe          (wen),
-  .efifoDin         (GEN_EDATA_10bit),
+  .efifoDin         (GEN_EDATA_18bit),
   .efifoPfull       (),
   .DATA1bitOUT      (DATA1bitOUT),
   .elink2bit        (elink2bit)
@@ -73,7 +74,7 @@ module tb_FIFO_to_Elink ;
   .code_err         (code_err), 
   .disp_err         (disp_err), 
   .rst              (rst), 
-  .bitCLK           (wr_clk),
+  .bitCLK           (clk_160),
   .dataout          (DEC_EDATA_OUT_8bit), 
   .enc10bit_out_sig (ENC_EDATA_OUT_10bit),
   .EDATA_2bit       (elink2bit),
@@ -83,24 +84,34 @@ module tb_FIFO_to_Elink ;
   );
   
   //initial #5000 $stop;
-  //Wr_clk to FIFO //40 Mb
-  initial begin 
-    wr_clk=0; 
-    forever #1 wr_clk=~wr_clk; 
-  end 
+  //Wr_clk to FIFO //40 Mb 
+  //Freq. Wr_clk = Freq. rd_clk / 4 [=40 MHz]
+  clock_divider #(4) div_0(
+  .clock_in(clk_160),
+  .clock_out(wr_clk)//Equivalent to the bitCLK
+  );
+  
+
+  //Generator clk
+  //Freq. gen_clk = Freq. rd_clk / 4 [=40 MHz]
+  clock_divider #(4) div_1(
+  .clock_in(clk_160),
+  .clock_out(gen_clk)//Equivalent to the wr_clk
+  );
+  
   
   //Generator clk // 80 Mb
-  initial begin 
-    gen_clk=0; 
-    forever #3 gen_clk=~gen_clk; 
-  end
+  //Freq. gen_clk = Freq. rd_clk / 4 [=40 MHz]
+  clock_divider #(2) div_2(
+  .clock_in(clk_160),
+  .clock_out(clk_80)//Equivalent to the wr_clk
+  );
   
-  // rd_clk from FIFO //160 Mb
   initial begin 
-    rd_clk=0; 
-    forever #0.5 rd_clk=~rd_clk; 
+    clk_160=0; 
+    forever #1 clk_160=~clk_160; 
   end
-  
+
   initial 
   begin 
     //rst module

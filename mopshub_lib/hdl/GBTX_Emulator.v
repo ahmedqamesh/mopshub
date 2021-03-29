@@ -102,19 +102,20 @@ always @(posedge bitCLK)
      if (rst)
         request_cycle_cnt <= 3'b0;
      else 
-      begin 
-        request_cycle_cnt <= request_cycle_cnt + 1;
+      begin
+      if  (inp_request_trig == 1)
+          request_cycle_cnt <= 3'b0;
+      else
+          request_cycle_cnt <= request_cycle_cnt + 1'b1;
     end
-  end                                       
-
-
+  end
 // HDL Embedded Text Block 6 bitcounter
 // eb6 6      
 // Counter over the select signal
 always @(posedge bitCLK)
   begin
-     if (rst)
-        send_count <= 3'b0;
+     if (send_out_trig == 1)
+        send_count <= 3'b0; 
      else  
       send_count <= send_count + 1'b1;
   end                                  
