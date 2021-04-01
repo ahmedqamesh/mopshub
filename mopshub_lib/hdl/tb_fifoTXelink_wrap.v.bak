@@ -11,7 +11,7 @@
 `resetall
 `timescale 1ns/10ps
 module tb_fifoTXelink_wrap; 
-  parameter DATA_WIDTH           =18;
+  parameter DATA_WIDTH           =8;
   parameter Byte_OUT_WIDTH       = 10;
   // Port Declarations
   //clks
@@ -19,50 +19,40 @@ module tb_fifoTXelink_wrap;
   wire                            wr_clk;
   wire                            gen_clk;
   reg                            rst;
-  
-  wire    [Byte_OUT_WIDTH-1:0]  dout; 
+  wire  [Byte_OUT_WIDTH-1:0]    dout; 
   wire                          doutRdy;
-  wire                          empty;
+  wire  [Byte_OUT_WIDTH-1:0]    dout10bit; 
+  wire  [1:0]                  word8_code;
   
-  wire  [DATA_WIDTH-1:0]       dout18bit; 
-  wire  [Byte_OUT_WIDTH-1:0]       byte0;
-  wire  [Byte_OUT_WIDTH-1:0]       byte1;
-  wire  [1:0]                      word16_code;
-  wire  byte_cnt;
-  wire empty_efifo, empty_efifo1, empty_efifo2, empty_efifo3;
   reg  rd_en;
+  wire empty_efifo;
   wire rd_en_s;
-  
-  
+  wire byte_cnt;
   // Data Generator Signals
-  wire done;               // dbg
-  wire [DATA_WIDTH-1:0] GEN_EDATA_18bit;
-  
-  wire wen; //wr_en signal
+  wire done;  // dbg
+  wire [DATA_WIDTH-1:0] GEN_EDATA_8bit;
+  wire [1:0]  delimeter;
+  wire wr_en; //wr_en signal
   reg enable; 
-    
-  assign dout18bit=TXelink_wrap.dout18bit;
-  assign byte_cnt  = TXelink_wrap.byte_cnt;
-  assign word16_code = TXelink_wrap.word16_code;
-  assign byte0 = TXelink_wrap.byte0;
-  assign byte1 = TXelink_wrap.byte1;
+  
+  assign dout10bit=TXelink_wrap.dout10bit;
+  assign word8_code = TXelink_wrap.word8_code;
   assign rd_en_s = TXelink_wrap.rd_en_s;  
-  assign empty_efifo1 = TXelink_wrap.empty_efifo1;
-  assign empty_efifo2 = TXelink_wrap.empty_efifo2;
-  assign empty_efifo3 = TXelink_wrap.empty_efifo3;
+  assign byte_cnt = TXelink_wrap.byte_cnt;
+  
   // Instances 
   fifoTXelink_wrap TXelink_wrap( 
-  .din       (GEN_EDATA_18bit), 
+  .din       ({delimeter,GEN_EDATA_8bit}), 
   .fifoFLUSH (rst), 
   .rd_clk    (rd_clk), 
   .rd_en     (rd_en), //Equivalent to getDataTrig
   .rst       (rst), 
   .wr_clk    (wr_clk), 
-  .wr_en     (wen), 
+  .wr_en     (wr_en), 
   .dout      (dout), 
   .doutRdy   (doutRdy), 
-  .empty     (empty), 
-  .full      (), 
+  .empty_efifo(empty_efifo), 
+  .full_efifo      (), 
   .prog_full ()
   ); 
   
@@ -71,9 +61,10 @@ module tb_fifoTXelink_wrap;
   .enable(enable),
   .loop_en(enable),
   .done(done),
-  .tx_fifo_pfull(0'b0),
-  .dout(GEN_EDATA_18bit),
-  .wen(wen)
+  .tx_fifo_pfull(1'b0),
+  .dout(GEN_EDATA_8bit),
+  .delimeter(delimeter),
+  .wr_en(wr_en)
   );  
   
   // rd_clk from FIFO //160 Mb
@@ -89,29 +80,39 @@ module tb_fifoTXelink_wrap;
   .clock_out(wr_clk)//Equivalent to the bitCLK
   );
   
-
+  
   //Generator clk // 80 Mb
   //Freq. gen_clk = Freq. rd_clk / 4 [=40 MHz]
   clock_divider #(4) div_1(
   .clock_in(rd_clk),
   .clock_out(gen_clk)//Equivalent to the wr_clk
   );
-
+  
   // HDL Embedded Text Block 3 Initialize
   // Initialize 3                                        
   initial 
   begin 
     rd_en= 0;
-    //rst module
+    enable = 0;
     rst = 1;
-    #10 rst =0;
-    enable = ~rst;
+    #4 rst =0;
+    #1;
+    enable =1;
   end
-    //Generate enable signal 
-  always@(GEN_EDATA_18bit)
-  begin
-    rd_en= 1; 
-    #8//Should depend on the gen_clk 4 ns for one clk cycle which is twice the factor
-    rd_en= 0;
+  //Generate enable signal 
+  always@(GEN_EDATA_8bit)
+    begin
+      //#1;
+      rd_en= 1; 
+      #1//Should depend on the gen_clk 4 ns for one clk cycle which is twice the factor
+      rd_en= 0;
+    end 
+   
+  //Loop data Generation
+  always@(done)
+    begin
+     enable =0;
+     #16;
+     enable =1;
   end  
 endmodule

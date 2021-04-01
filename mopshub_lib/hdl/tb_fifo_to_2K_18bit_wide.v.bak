@@ -12,9 +12,9 @@
 `timescale 1ns/10ps
 module tb_fifo_to_2K_18bit_wide ;
   
-  parameter DATA_WIDTH=18;
+  parameter DATA_WIDTH=10;
   
-  wire [DATA_WIDTH-1:0] FIFO_EDATA_18bit;
+  wire [DATA_WIDTH-1:0] FIFO_EDATA_10bit;
   wire almost_full,full,empty;
   wire prog_full;
   
@@ -24,19 +24,20 @@ module tb_fifo_to_2K_18bit_wide ;
   
   //reg           enable;
   wire done;               // dbg
-  wire [DATA_WIDTH-1:0] GEN_EDATA_18bit;
-  wire wen; //wr_en signal
+  wire [8-1:0] GEN_EDATA_8bit;
+  wire [1:0] delimeter;
+  wire wr_en; //wr_en signal
   reg enable;
 
-  fh_epath_fifo2K_18bit_wide fifo2K_18bit_wide(
-  .dout(FIFO_EDATA_18bit),
+  fh_epath_fifo2K_18bit_wide #(10)fifo2K_18bit_wide(
+  .dout(FIFO_EDATA_10bit),
   .full(full),
   .empty(empty),
   .prog_full(prog_full),
   .almost_full(almost_full),
-  .din(GEN_EDATA_18bit),
+  .din({delimeter,GEN_EDATA_8bit}),
   .rd_en(rd_en),
-  .wr_en(wen),
+  .wr_en(wr_en),
   .rd_clk(rd_clk),
   .wr_clk(wr_clk),
   .rst(rst));
@@ -47,8 +48,9 @@ module tb_fifo_to_2K_18bit_wide ;
   .loop_en(enable),
   .done(done),
   .tx_fifo_pfull(1'b0),
-  .dout(GEN_EDATA_18bit),
-  .wen(wen)
+  .dout(GEN_EDATA_8bit),
+  .delimeter(delimeter),
+  .wr_en(wr_en)
   ); 
   
   //clocks
@@ -67,15 +69,17 @@ module tb_fifo_to_2K_18bit_wide ;
   initial 
   begin 
     rd_en= 0;
+    enable = 0;
     rst=1;
     
-    #10 rst=0;
+    #1 rst=0;
     enable = ~rst;
-    enable = 1;
+    
   end   
     //Generate enable signal 
-  always@(GEN_EDATA_18bit)
+  always@(GEN_EDATA_8bit)
   begin 
+    #1;
     rd_en= 1;
     #1;
     rd_en= 0;

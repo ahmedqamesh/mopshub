@@ -11,7 +11,7 @@
 `resetall
 `timescale 1ns/10ps
 module tb_EPROC_OUT_ENC8b10b ;
-
+  
   // Port Declarations
   reg   rst; 
   wire   bitCLK;     //bitCLK to send the 2bits EdataOUT [clk_40 MB/s]
@@ -20,7 +20,7 @@ module tb_EPROC_OUT_ENC8b10b ;
   wire [1:0] ENC_EDATA_OUT_2bit;
   wire getDataTrig;
   reg [9:0] GEN_EDATA_10bit; // 10 bits input code+data
-
+  
   reg dataINrdy;
   
   //GBTX Emulator
@@ -31,32 +31,23 @@ module tb_EPROC_OUT_ENC8b10b ;
   wire        disp_err;
   
   //Data generator Signals
-  wire [17:0] GEN_EDATA_18bit;
+  wire [15:0] GEN_EDATA_16bit;
+  wire [1:0] delimeter;
   wire         gen_clk;
   wire        done; 
-  wire        wen;
+  wire        wr_en;
   reg byte_cnt;
-  //Freq. bitCLK = Freq. bitCLKx4 / 4 [=40 MHz]
-  clock_divider #(4) div_0(
-  .clock_in(bitCLKx4),
-  .clock_out(bitCLK)//Equivalent to the wr_clk
-          );
-          
 
-  //Freq. gen_clk = Freq. bitCLKx4 / 8 [=20 MHz]
-  clock_divider #(8) div_1(
-  .clock_in(bitCLKx4),
-  .clock_out(gen_clk)//Equivalent to rd_clk in the fifoTXelink_wrap Module
-          );
-            
+  
   data_generator DataGEN(
   .clk_usr  (gen_clk),
   .enable   (~rst),
   .loop_en  (~rst),
   .done     (done),
   .tx_fifo_pfull(1'b0),
-  .dout     (GEN_EDATA_18bit),
-  .wen      (wen)
+  .dout     (GEN_EDATA_16bit),
+  .delimeter(delimeter),
+  .wr_en      (wr_en)
   );
   
   
@@ -88,23 +79,26 @@ module tb_EPROC_OUT_ENC8b10b ;
   );
   
   // clocks           
-//  initial begin 
-//    bitCLK=0; 
-//    forever #4 bitCLK=~bitCLK; //Equivalent to the wr_clk
-//  end
-
+  
   initial begin 
     bitCLKx4=0; 
     forever #1 bitCLKx4=~bitCLKx4; //Equivalent to the rd_clk
   end
   
-    
-//  Generator clk
-//  initial begin 
-//    gen_clk=0; 
-//    forever #8 gen_clk=~gen_clk; Equivalent to rd_clk in the fifoTXelink_wrap Module
-//  end
-
+  //Freq. bitCLK = Freq. bitCLKx4 / 4 [=40 MHz]
+  clock_divider #(4) div_0(
+  .clock_in(bitCLKx4),
+  .clock_out(bitCLK)//Equivalent to the wr_clk
+  );
+  
+  
+  //Freq. gen_clk = Freq. bitCLKx4 / 8 [=20 MHz]
+  clock_divider #(8) div_1(
+  .clock_in(bitCLKx4),
+  .clock_out(gen_clk)//Equivalent to rd_clk in the fifoTXelink_wrap Module
+  );
+  
+  
   //Initialization
   initial 
   begin
@@ -116,21 +110,21 @@ module tb_EPROC_OUT_ENC8b10b ;
   end
   
   //initial 
-    always@(posedge getDataTrig)
-      begin
-        if (byte_cnt ==0)
-          GEN_EDATA_10bit = {GEN_EDATA_18bit[17:16],GEN_EDATA_18bit[15:8]};
-        else
-          GEN_EDATA_10bit = {GEN_EDATA_18bit[17:16],GEN_EDATA_18bit[7:0]}; 
-        end
+  always@(posedge getDataTrig)
+  begin
+    if (byte_cnt ==0)
+    GEN_EDATA_10bit = {delimeter,GEN_EDATA_16bit[15:8]};
+    else
+    GEN_EDATA_10bit = {delimeter,GEN_EDATA_16bit[7:0]}; 
+  end
   //end 
   
   always@(GEN_EDATA_10bit)
-    begin
-      byte_cnt = ~byte_cnt;
-      dataINrdy= 1;
-      #4;
-      dataINrdy= 0;
-      
-    end   
+  begin
+    byte_cnt = ~byte_cnt;
+    dataINrdy= 1;
+    #4;
+    dataINrdy= 0;
+    
+  end   
 endmodule

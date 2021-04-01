@@ -15,7 +15,7 @@
 module fh_epath_fifo2K_18bit_wide #(
    // synopsys template
    // synopsys template
-   parameter DATA_WIDTH          = 18,
+   parameter DATA_WIDTH          = 10,
    parameter ADDRESS_WIDTH       = 11,
    parameter FIFO_DEPTH          = (1 << ADDRESS_WIDTH),
    parameter f_almost_full_value = (FIFO_DEPTH-2),
@@ -45,7 +45,7 @@ reg                       r_next_en;
 reg                       w_next_en;
 reg   [ADDRESS_WIDTH-1:0] ptr_diff;
 reg   [DATA_WIDTH-1:0]    f_memory  [FIFO_DEPTH-1:0];
-reg   [DATA_WIDTH-1:0]    dout_r;
+reg   [DATA_WIDTH-1:0]    dout_r = {2'b11,8'b0};
 
 wire rd_en_s;
 // Instances 
@@ -70,7 +70,7 @@ assign full=(ptr_diff==(FIFO_DEPTH-1)); //assign FIFO status
 assign empty=(ptr_diff==0);
 assign almost_full=(ptr_diff==f_almost_full_value);
 assign prog_full=(ptr_diff==f_prog_full_value);
-assign rd_en_s =(rd_en == 0) ? 1:0;
+assign rd_en_s = (rd_en == 1) ? 1:0;
 // HDL Embedded Text Block 2 eb2
 //---------------------------------------------------------
   

@@ -28,40 +28,36 @@ module mux8_Nbit#(
 
 
 // Internal Declarations
-reg [N-1:0] data_out_reg;
-assign data_out = data_out_reg;
-// Internal Declarations
-
-
-
+reg [N-1:0] data_out_r ;//= 0;
+assign data_out = data_out_r;
 /////////////////////////////////////////////////////////////////
 // Flowchart process0
 always @ (data0, data1, data2, data3, data4, data5, data6, data7, sel)
 begin : process0_flowchart_proc
    case (sel)
    3'b000 : begin
-      data_out_reg=data0;
+      data_out_r=data0;
    end
    3'b001 : begin
-      data_out_reg=data1;
+      data_out_r=data1;
    end
    3'b010 : begin
-      data_out_reg=data2;
+      data_out_r=data2;
    end
    3'b011 : begin
-      data_out_reg=data3;
+      data_out_r=data3;
    end
    3'b100 : begin
-      data_out_reg=data4;
+      data_out_r=data4;
    end
    3'b101 : begin
-      data_out_reg=data5;
+      data_out_r=data5;
    end
    3'b110 : begin
-      data_out_reg=data6;
+      data_out_r=data6;
    end
    3'b111 : begin
-      data_out_reg=data7;
+      data_out_r=data7;
    end
    endcase
 end

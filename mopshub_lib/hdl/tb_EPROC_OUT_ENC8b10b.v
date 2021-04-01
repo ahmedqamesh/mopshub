@@ -31,11 +31,13 @@ module tb_EPROC_OUT_ENC8b10b ;
   wire        disp_err;
   
   //Data generator Signals
-  wire [17:0] GEN_EDATA_18bit;
+  wire [15:0] GEN_EDATA_16bit;
+  wire [1:0] delimeter;
   wire         gen_clk;
   wire        done; 
-  wire        wen;
+  wire        wr_en;
   reg byte_cnt;
+
   
   data_generator DataGEN(
   .clk_usr  (gen_clk),
@@ -43,8 +45,9 @@ module tb_EPROC_OUT_ENC8b10b ;
   .loop_en  (~rst),
   .done     (done),
   .tx_fifo_pfull(1'b0),
-  .dout     (GEN_EDATA_18bit),
-  .wen      (wen)
+  .dout     (GEN_EDATA_16bit),
+  .delimeter(delimeter),
+  .wr_en      (wr_en)
   );
   
   
@@ -106,13 +109,13 @@ module tb_EPROC_OUT_ENC8b10b ;
     #10 rst=!rst;
   end
   
-  //initial 
+ 
   always@(posedge getDataTrig)
   begin
     if (byte_cnt ==0)
-    GEN_EDATA_10bit = {GEN_EDATA_18bit[17:16],GEN_EDATA_18bit[15:8]};
+    GEN_EDATA_10bit = {delimeter,GEN_EDATA_16bit[15:8]};
     else
-    GEN_EDATA_10bit = {GEN_EDATA_18bit[17:16],GEN_EDATA_18bit[7:0]}; 
+    GEN_EDATA_10bit = {delimeter,GEN_EDATA_16bit[7:0]}; 
   end
   //end 
   

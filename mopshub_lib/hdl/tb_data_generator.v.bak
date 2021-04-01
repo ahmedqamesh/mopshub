@@ -16,19 +16,21 @@ module tb_data_generator ;
   reg loop_en; 
   reg tx_fifo_pfull;  // pfull from Tx FIFO
   wire done;               // dbg
-  wire [17:0] dout;
-  wire wen;
-  wire [2:0] sel_cnt;
+  wire [15:0] dout;
+  wire wr_en;
+  wire [1:0] delimeter;
   
-  assign sel_cnt = MUT.sel_cnt;
   
+  
+  // Instances 
   data_generator MUT(.clk_usr(clk_usr),
   .enable(enable),
   .loop_en(loop_en),
   .done(done),
   .tx_fifo_pfull(tx_fifo_pfull),
   .dout(dout),
-  .wen(wen)
+  .delimeter(delimeter),
+  .wr_en(wr_en)
   );   
   
   initial begin 
@@ -44,7 +46,6 @@ module tb_data_generator ;
     tx_fifo_pfull=0;
     #5;
     enable = !enable;
-    loop_en = !loop_en;
-    
+    loop_en = 1;
   end
 endmodule

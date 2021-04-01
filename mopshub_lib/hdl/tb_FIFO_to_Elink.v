@@ -11,13 +11,14 @@
 `resetall
 `timescale 1ns/10ps
 module tb_FIFO_to_Elink ;
-  parameter DATA_WIDTH=18;
+  parameter DATA_WIDTH=8;
   parameter DATA_OUT_WIDTH = 10;
-  wire                            clk_80;
-  wire                            wr_clk; 
   reg                            clk_160;
-  wire                            gen_clk;
   reg                            rst; 
+  wire                            clk_80;
+  wire                            clk_40; 
+  wire                            gen_clk;
+  
   //FIFO_to_Elink Signals
   wire                         DATA1bitOUT; 
   wire    [1:0]                elink2bit; 
@@ -27,18 +28,19 @@ module tb_FIFO_to_Elink ;
   wire doutRdy;
   wire getDataTrig;
   //data Genrator Signal
-  
-  wire done;          
-  wire [DATA_WIDTH-1:0] GEN_EDATA_18bit;
-  wire wen; //wr_en signal
+  wire [DATA_WIDTH-1:0] GEN_EDATA_8bit;
+  wire tx_fifo_pfull;
+  wire wr_en; 
+  wire [1:0]delimeter;
+  wire done; 
+  reg enable;
   
   //GBTX Emulator Signals
-  wire [7:0] DEC_EDATA_OUT_8bit;
-  wire [9:0] ENC_EDATA_OUT_10bit;
+  wire [DATA_WIDTH-1:0] DEC_EDATA_OUT_8bit;
+  wire [DATA_OUT_WIDTH-1:0] ENC_EDATA_OUT_10bit;
   wire ko;
   wire code_err;
   wire disp_err;
-  
   
   assign Dout = MUT.efifoDout;
   assign doutRdy = MUT.doutRdy;
@@ -46,24 +48,24 @@ module tb_FIFO_to_Elink ;
   
   data_generator DataGEN(
   .clk_usr          (gen_clk),
-  .enable           (~rst),
-  .loop_en          (~rst),
+  .enable           (enable),
+  .loop_en          (enable),
   .done             (done),
-  .tx_fifo_pfull    (1'b0),
-  .dout             (GEN_EDATA_18bit),
-  .wen              (wen)
+  .tx_fifo_pfull    (tx_fifo_pfull),
+  .dout             (GEN_EDATA_8bit),
+  .delimeter        (delimeter),
+  .wr_en            (wr_en)
   );
   
-  
   FIFO_to_Elink MUT(
-  .wr_clk          (wr_clk),
+  .wr_clk          (clk_40),
   .clk_80           (clk_80),
   .bitCLKx4         (clk_160),
   .rst              (rst),
   .fifo_flush       (rst),
-  .efifoWe          (wen),
-  .efifoDin         (GEN_EDATA_18bit),
-  .efifoPfull       (),
+  .efifoWe          (wr_en),
+  .efifoDin         ({delimeter,GEN_EDATA_8bit}),
+  .efifoPfull       (tx_fifo_pfull),
   .DATA1bitOUT      (DATA1bitOUT),
   .elink2bit        (elink2bit)
   );
@@ -74,7 +76,7 @@ module tb_FIFO_to_Elink ;
   .code_err         (code_err), 
   .disp_err         (disp_err), 
   .rst              (rst), 
-  .bitCLK           (clk_80),
+  .bitCLK           (clk_40),
   .dataout          (DEC_EDATA_OUT_8bit), 
   .enc10bit_out_sig (ENC_EDATA_OUT_10bit),
   .EDATA_2bit       (elink2bit),
@@ -83,41 +85,42 @@ module tb_FIFO_to_Elink ;
   .data_10b_en      ()
   );
   
-  //initial #5000 $stop;
-  //Wr_clk to FIFO //40 Mb 
-  //Freq. Wr_clk = Freq. rd_clk / 4 [=40 MHz]
+  //clk_40 to FIFO //40 Mb 
+  //Freq. clk_40 = Freq. clk_160 / 4 [=40 MHz]
   clock_divider #(4) div_0(
   .clock_in(clk_160),
-  .clock_out(wr_clk)//Equivalent to the bitCLK
+  .clock_out(clk_40)//Equivalent to the bitCLK
   );
   
-
   //Generator clk
-  //Freq. gen_clk = Freq. rd_clk / 4 [=40 MHz]
+  //Freq. gen_clk = Freq. clk_160 / 4 [=40 MHz]
   clock_divider #(4) div_1(
   .clock_in(clk_160),
-  .clock_out(gen_clk)//Equivalent to the wr_clk
+  .clock_out(gen_clk)//Equivalent to the clk_40
   );
-  
-  
-  //Generator clk // 80 Mb
-  //Freq. gen_clk = Freq. rd_clk / 4 [=40 MHz]
+  //Generator clk_80 // 80 Mb
+  //Freq. clk_80 = Freq. clk_160 / 2 [=80 MHz]
   clock_divider #(2) div_2(
   .clock_in(clk_160),
-  .clock_out(clk_80)//Equivalent to the wr_clk
+  .clock_out(clk_80)//Equivalent to the bitCLKx2
   );
   
   initial begin 
     clk_160=0; 
-    forever #1 clk_160=~clk_160; 
+    forever #1 clk_160=~clk_160; //Equivalent to the bitCLKx4
   end
-
+  
   initial 
   begin 
-    //rst module
+    enable = 1;
     rst = 1;
-    #10 rst =0;
+    #1 rst =0;
   end 
-  
+  always@(done)
+    begin
+      enable =0;
+      #16;
+      enable =1;
+    end
   
 endmodule

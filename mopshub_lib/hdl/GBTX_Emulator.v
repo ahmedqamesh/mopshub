@@ -39,6 +39,8 @@ wire        inp_request_trig;
 reg   [2:0] request_cycle_cnt  = 0;
 reg   [2:0] send_count;
 reg         send_out_trig;
+reg   [1:0] EDATA_2bit_r = 2'b0;
+
 
 
 // Instances 
@@ -58,9 +60,7 @@ demux8_Nbit U_1(
    .EDATA_2bit   (EDATA_2bit), 
    .enc10bit_out (enc10bit_out)
 ); 
-
-// HDL Embedded Text Block 1 eb1
-// eb1 1      
+     
 always@(posedge bitCLK)
 begin
 if (data_10b_en ==1)

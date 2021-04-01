@@ -12,7 +12,7 @@ model (Symbol
 commonDM (CommonDM
 ldm (LogicalDM
 ordering 1
-suid 13,0
+suid 15,0
 usingSuid 1
 emptyRow *1 (LEmptyRow
 )
@@ -119,19 +119,6 @@ uid 194,0
 *19 (LogPort
 port (LogicalPort
 lang 5
-m 1
-decl (Decl
-n "empty"
-t "wire"
-o 10
-suid 5,0
-)
-)
-uid 196,0
-)
-*20 (LogPort
-port (LogicalPort
-lang 5
 decl (Decl
 n "fifoFLUSH"
 t "wire"
@@ -143,21 +130,7 @@ suid 6,0
 )
 uid 198,0
 )
-*21 (LogPort
-port (LogicalPort
-lang 5
-m 1
-decl (Decl
-n "full"
-t "wire"
-preAdd 0
-o 11
-suid 7,0
-)
-)
-uid 200,0
-)
-*22 (LogPort
+*20 (LogPort
 port (LogicalPort
 lang 5
 m 1
@@ -170,7 +143,7 @@ suid 8,0
 )
 uid 202,0
 )
-*23 (LogPort
+*21 (LogPort
 port (LogicalPort
 lang 5
 decl (Decl
@@ -183,7 +156,7 @@ suid 9,0
 )
 uid 204,0
 )
-*24 (LogPort
+*22 (LogPort
 port (LogicalPort
 lang 5
 decl (Decl
@@ -197,7 +170,7 @@ suid 10,0
 )
 uid 206,0
 )
-*25 (LogPort
+*23 (LogPort
 port (LogicalPort
 lang 5
 decl (Decl
@@ -210,7 +183,7 @@ suid 11,0
 )
 uid 208,0
 )
-*26 (LogPort
+*24 (LogPort
 port (LogicalPort
 lang 5
 decl (Decl
@@ -221,6 +194,32 @@ suid 12,0
 )
 )
 uid 210,0
+)
+*25 (LogPort
+port (LogicalPort
+lang 5
+m 1
+decl (Decl
+n "empty_efifo"
+t "wire"
+o 10
+suid 14,0
+)
+)
+uid 1443,0
+)
+*26 (LogPort
+port (LogicalPort
+lang 5
+m 1
+decl (Decl
+n "full_efifo"
+t "wire"
+o 11
+suid 15,0
+)
+)
+uid 1445,0
 )
 ]
 )
@@ -298,51 +297,51 @@ uid 195,0
 )
 *36 (MRCItem
 litem &19
-pos 10
-dimension 20
-uid 197,0
-)
-*37 (MRCItem
-litem &20
 pos 1
 dimension 20
 uid 199,0
 )
-*38 (MRCItem
-litem &21
+*37 (MRCItem
+litem &20
 pos 9
-dimension 20
-uid 201,0
-)
-*39 (MRCItem
-litem &22
-pos 11
 dimension 20
 uid 203,0
 )
-*40 (MRCItem
-litem &23
+*38 (MRCItem
+litem &21
 pos 5
 dimension 20
 uid 205,0
 )
-*41 (MRCItem
-litem &24
+*39 (MRCItem
+litem &22
 pos 6
 dimension 20
 uid 207,0
 )
-*42 (MRCItem
-litem &25
+*40 (MRCItem
+litem &23
 pos 2
 dimension 20
 uid 209,0
 )
-*43 (MRCItem
-litem &26
+*41 (MRCItem
+litem &24
 pos 3
 dimension 20
 uid 211,0
+)
+*42 (MRCItem
+litem &25
+pos 10
+dimension 20
+uid 1444,0
+)
+*43 (MRCItem
+litem &26
+pos 11
+dimension 20
+uid 1446,0
 )
 ]
 )
@@ -455,20 +454,20 @@ tm "GenericEolColHdrMgr"
 *63 (LogGeneric
 generic (GiElement
 name "DATA_IN_WIDTH"
-value "18"
+value "10"
 pr "// synopsys template
 // synopsys template
 // FIFO parameters"
 apr 0
 )
-uid 1341,0
+uid 1447,0
 )
 *64 (LogGeneric
 generic (GiElement
 name "Byte_OUT_WIDTH"
 value "10"
 )
-uid 1343,0
+uid 1449,0
 )
 ]
 )
@@ -524,13 +523,13 @@ uid 99,0
 litem &63
 pos 0
 dimension 20
-uid 1342,0
+uid 1448,0
 )
 *71 (MRCItem
 litem &64
 pos 1
 dimension 20
-uid 1344,0
+uid 1450,0
 )
 ]
 )
@@ -631,19 +630,19 @@ value "/home/dcs/git/mopshub/mopshub_lib/hds/fifoTXelink_wrap"
 )
 (vvPair
 variable "date"
-value "03/21/21"
+value "03/30/21"
 )
 (vvPair
 variable "day"
-value "Sun"
+value "Tue"
 )
 (vvPair
 variable "day_long"
-value "Sunday"
+value "Tuesday"
 )
 (vvPair
 variable "dd"
-value "21"
+value "30"
 )
 (vvPair
 variable "entity_name"
@@ -671,7 +670,7 @@ value "dcs"
 )
 (vvPair
 variable "graphical_source_date"
-value "03/21/21"
+value "03/30/21"
 )
 (vvPair
 variable "graphical_source_group"
@@ -683,7 +682,7 @@ value "chipdev2.physik.uni-wuppertal.de"
 )
 (vvPair
 variable "graphical_source_time"
-value "18:33:51"
+value "23:40:01"
 )
 (vvPair
 variable "group"
@@ -795,7 +794,7 @@ value "symbol"
 )
 (vvPair
 variable "time"
-value "18:33:51"
+value "23:40:01"
 )
 (vvPair
 variable "unit"
@@ -863,7 +862,8 @@ font "courier,8,0"
 )
 xt "3000,11800,13500,13600"
 st "// Port Declarations
-input  wire  rst;"
+input  wire  rst;
+"
 )
 thePort (LogicalPort
 lang 5
@@ -913,7 +913,8 @@ xt "3000,5500,33000,9100"
 st "// Port Declarations
 // Port Declarations
 // Port Declarations
-input  wire [DATA_IN_WIDTH-1:0] din; //DATA = 2bits +16bits"
+input  wire [DATA_IN_WIDTH-1:0] din; //DATA = 2bits +16bits
+"
 )
 thePort (LogicalPort
 lang 5
@@ -966,7 +967,8 @@ va (VaSet
 font "courier,8,0"
 )
 xt "3000,15400,23000,16300"
-st "output wire [Byte_OUT_WIDTH-1:0]  dout;"
+st "output wire [Byte_OUT_WIDTH-1:0]  dout;
+"
 )
 thePort (LogicalPort
 lang 5
@@ -1015,7 +1017,8 @@ va (VaSet
 font "courier,8,0"
 )
 xt "3000,16300,24500,17200"
-st "output wire                       doutRdy;"
+st "output wire                       doutRdy;
+"
 )
 thePort (LogicalPort
 lang 5
@@ -1030,53 +1033,6 @@ suid 4,0
 )
 )
 *82 (CptPort
-uid 150,0
-ps "OnEdgeStrategy"
-shape (Triangle
-uid 151,0
-ro 90
-va (VaSet
-vasetType 1
-fg "0,65535,0"
-)
-xt "28000,28625,28750,29375"
-)
-tg (CPTG
-uid 152,0
-ps "CptPortTextPlaceStrategy"
-stg "RightVerticalLayoutStrategy"
-f (Text
-uid 153,0
-va (VaSet
-font "courier,8,0"
-)
-xt "24500,28550,27000,29450"
-st "empty"
-ju 2
-blo "27000,29250"
-tm "CptPortNameMgr"
-)
-)
-dt (MLText
-uid 154,0
-va (VaSet
-font "courier,8,0"
-)
-xt "3000,17200,23500,18100"
-st "output wire                       empty;"
-)
-thePort (LogicalPort
-lang 5
-m 1
-decl (Decl
-n "empty"
-t "wire"
-o 10
-suid 5,0
-)
-)
-)
-*83 (CptPort
 uid 155,0
 ps "OnEdgeStrategy"
 shape (Triangle
@@ -1109,7 +1065,8 @@ va (VaSet
 font "courier,8,0"
 )
 xt "3000,9100,38000,10000"
-st "input  wire                       fifoFLUSH; // x-link wrapper signal"
+st "input  wire                       fifoFLUSH; // x-link wrapper signal
+"
 )
 thePort (LogicalPort
 lang 5
@@ -1123,55 +1080,7 @@ suid 6,0
 )
 )
 )
-*84 (CptPort
-uid 160,0
-ps "OnEdgeStrategy"
-shape (Triangle
-uid 161,0
-ro 90
-va (VaSet
-vasetType 1
-fg "0,65535,0"
-)
-xt "28000,29625,28750,30375"
-)
-tg (CPTG
-uid 162,0
-ps "CptPortTextPlaceStrategy"
-stg "RightVerticalLayoutStrategy"
-f (Text
-uid 163,0
-va (VaSet
-font "courier,8,0"
-)
-xt "25000,29550,27000,30450"
-st "full"
-ju 2
-blo "27000,30250"
-tm "CptPortNameMgr"
-)
-)
-dt (MLText
-uid 164,0
-va (VaSet
-font "courier,8,0"
-)
-xt "3000,18100,23000,19000"
-st "output wire                       full;"
-)
-thePort (LogicalPort
-lang 5
-m 1
-decl (Decl
-n "full"
-t "wire"
-preAdd 0
-o 11
-suid 7,0
-)
-)
-)
-*85 (CptPort
+*83 (CptPort
 uid 165,0
 ps "OnEdgeStrategy"
 shape (Triangle
@@ -1205,7 +1114,8 @@ va (VaSet
 font "courier,8,0"
 )
 xt "3000,19000,25500,19900"
-st "output wire                       prog_full;"
+st "output wire                       prog_full;
+"
 )
 thePort (LogicalPort
 lang 5
@@ -1218,7 +1128,7 @@ suid 8,0
 )
 )
 )
-*86 (CptPort
+*84 (CptPort
 uid 170,0
 ps "OnEdgeStrategy"
 shape (Triangle
@@ -1251,7 +1161,8 @@ va (VaSet
 font "courier,8,0"
 )
 xt "3000,10000,24000,10900"
-st "input  wire                       rd_clk;"
+st "input  wire                       rd_clk;
+"
 )
 thePort (LogicalPort
 lang 5
@@ -1264,7 +1175,7 @@ suid 9,0
 )
 )
 )
-*87 (CptPort
+*85 (CptPort
 uid 175,0
 ps "OnEdgeStrategy"
 shape (Triangle
@@ -1297,7 +1208,8 @@ va (VaSet
 font "courier,8,0"
 )
 xt "3000,10900,48000,11800"
-st "input  wire                       rd_en; // 1 clk trigger feeded from the EPROC_Out block"
+st "input  wire                       rd_en; // 1 clk trigger feeded from the EPROC_Out block
+"
 )
 thePort (LogicalPort
 lang 5
@@ -1311,7 +1223,7 @@ suid 10,0
 )
 )
 )
-*88 (CptPort
+*86 (CptPort
 uid 180,0
 ps "OnEdgeStrategy"
 shape (Triangle
@@ -1344,7 +1256,8 @@ va (VaSet
 font "courier,8,0"
 )
 xt "3000,13600,24000,14500"
-st "input  wire                       wr_clk;"
+st "input  wire                       wr_clk;
+"
 )
 thePort (LogicalPort
 lang 5
@@ -1357,7 +1270,7 @@ suid 11,0
 )
 )
 )
-*89 (CptPort
+*87 (CptPort
 uid 185,0
 ps "OnEdgeStrategy"
 shape (Triangle
@@ -1390,7 +1303,8 @@ va (VaSet
 font "courier,8,0"
 )
 xt "3000,14500,23500,15400"
-st "input  wire                       wr_en;"
+st "input  wire                       wr_en;
+"
 )
 thePort (LogicalPort
 lang 5
@@ -1399,6 +1313,102 @@ n "wr_en"
 t "wire"
 o 7
 suid 12,0
+)
+)
+)
+*88 (CptPort
+uid 1433,0
+ps "OnEdgeStrategy"
+shape (Triangle
+uid 1434,0
+ro 90
+va (VaSet
+vasetType 1
+fg "0,65535,0"
+)
+xt "28000,31625,28750,32375"
+)
+tg (CPTG
+uid 1435,0
+ps "CptPortTextPlaceStrategy"
+stg "RightVerticalLayoutStrategy"
+f (Text
+uid 1436,0
+va (VaSet
+font "courier,8,0"
+)
+xt "21000,31550,27000,32450"
+st "empty_efifo"
+ju 2
+blo "27000,32250"
+tm "CptPortNameMgr"
+)
+)
+dt (MLText
+uid 1437,0
+va (VaSet
+font "courier,8,0"
+)
+xt "3000,17200,26500,18100"
+st "output wire                       empty_efifo;
+"
+)
+thePort (LogicalPort
+lang 5
+m 1
+decl (Decl
+n "empty_efifo"
+t "wire"
+o 10
+suid 14,0
+)
+)
+)
+*89 (CptPort
+uid 1438,0
+ps "OnEdgeStrategy"
+shape (Triangle
+uid 1439,0
+ro 90
+va (VaSet
+vasetType 1
+fg "0,65535,0"
+)
+xt "28000,32625,28750,33375"
+)
+tg (CPTG
+uid 1440,0
+ps "CptPortTextPlaceStrategy"
+stg "RightVerticalLayoutStrategy"
+f (Text
+uid 1441,0
+va (VaSet
+font "courier,8,0"
+)
+xt "21500,32550,27000,33450"
+st "full_efifo"
+ju 2
+blo "27000,33250"
+tm "CptPortNameMgr"
+)
+)
+dt (MLText
+uid 1442,0
+va (VaSet
+font "courier,8,0"
+)
+xt "3000,18100,26000,19000"
+st "output wire                       full_efifo;
+"
+)
+thePort (LogicalPort
+lang 5
+m 1
+decl (Decl
+n "full_efifo"
+t "wire"
+o 11
+suid 15,0
 )
 )
 )
@@ -1453,8 +1463,9 @@ st "Parameter Declarations
 // synopsys template
 // synopsys template
 // FIFO parameters
-DATA_IN_WIDTH  18  
-Byte_OUT_WIDTH 10  "
+DATA_IN_WIDTH  10  
+Byte_OUT_WIDTH 10  
+"
 )
 header "Parameter Declarations"
 showHdrWhenContentsEmpty 1
@@ -1462,7 +1473,7 @@ showHdrWhenContentsEmpty 1
 elements [
 (GiElement
 name "DATA_IN_WIDTH"
-value "18"
+value "10"
 pr "// synopsys template
 // synopsys template
 // FIFO parameters"
@@ -2130,10 +2141,11 @@ xt "3000,4600,3000,4600"
 tm "SyDeclarativeTextMgr"
 )
 )
-lastUid 1410,0
-postModuleDirective "// Local declarations
-
-// Internal signal declarations"
+lastUid 1450,0
+postModuleDirective "// Internal Declarations
+  // Local declarations
+  
+  // Internal signal declarations"
 okToSyncOnLoad 1
 OkToSyncGenericsOnLoad 1
 activeModelName "Symbol"

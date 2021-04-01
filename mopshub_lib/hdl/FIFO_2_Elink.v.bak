@@ -12,15 +12,10 @@
 `timescale 1ns/10ps
 module FIFO_to_Elink #(
    // synopsys template
-   parameter DATA_IN_WIDTH  = 18,
+   parameter DATA_IN_WIDTH  = 10,
    parameter DATA_OUT_WIDTH = 10
 )
 ( 
-   // Port Declarations
-   // Port Declarations
-   // Port Declarations
-   // Port Declarations
-   // Port Declarations
    // Port Declarations
    input   wire                         efifoWe, 
    input   wire                         wr_clk, 
@@ -40,21 +35,20 @@ module FIFO_to_Elink #(
 // Internal Declarations
 reg                        bitCount1      = 0;
 wire  [1:0]                dout2bit;             //  @ 40MHz
-reg                        dout2bit_r     = 0;
 wire                        doutRdy;
 wire  [DATA_OUT_WIDTH-1:0] efifoDout;            // 10-bit data in
 wire                       efifoRE;
 wire                       empty;
 //---
 wire                       full;
-wire                       reverse_tx     = 0;
-wire                       swap_output    = 0;   // when '1', the output bits will be swapped
-reg                        DATA1bitOUT_r;
+wire                       reverse_tx     = 1'b0;
+wire                       swap_output    = 1'b0;   // when '1', the output bits will be swapped
+reg                        DATA1bitOUT_r = 1'b0;
 
 
 fifoTXelink_wrap U_0( 
    .wr_clk    (wr_clk), 
-   .rd_clk    (clk_80), 
+   .rd_clk    (bitCLKx4), 
    .din       (efifoDin), 
    .fifoFLUSH (fifo_flush), 
    .rd_en     (efifoRE), 
@@ -62,8 +56,8 @@ fifoTXelink_wrap U_0(
    .wr_en     (efifoWe), 
    .dout      (efifoDout), 
    .doutRdy   (doutRdy), 
-   .empty     (empty), 
-   .full      (full), 
+   .empty_efifo(empty), 
+   .full_efifo (full), 
    .prog_full (efifoPfull)
 ); 
 
@@ -90,16 +84,6 @@ begin
         bitCount1 <= ! bitCount1;
 end
 
-
-
-// HDL Embedded Text Block 2 eb2
-// eb2 2                                        
-always @(posedge clk_80)
-begin 
-  if(bitCount1 == 0)
-    dout2bit_r <= dout2bit[1];
-end
-
 // HDL Embedded Text Block 3 eb3
 // eb3 3                                        
 always @(posedge clk_80)//serialized output
@@ -107,11 +91,8 @@ begin
   if(bitCount1 == 0)
     DATA1bitOUT_r <= dout2bit[0]; //serialize the first bit
   else
-    DATA1bitOUT_r <= dout2bit_r; //serialize the second bit which is filled in the other block ?bitCount1 = 0
+    DATA1bitOUT_r <= dout2bit[1]; //serialize the second bit which is filled in the other block ?bitCount1 = 0
 end
-
-
-
 
 // HDL Embedded Text Block 4 eb4
 // eb4 4 
