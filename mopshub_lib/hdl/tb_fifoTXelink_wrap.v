@@ -93,15 +93,13 @@ module tb_fifoTXelink_wrap;
     enable = 0;
     rst = 1;
     #4 rst =0;
-    #1;
     enable =1;
   end
   //Generate enable signal 
   always@(GEN_EDATA_8bit)
     begin
-      //#1;
       rd_en= 1; 
-      #1//Should depend on the gen_clk 4 ns for one clk cycle which is twice the factor
+      #4//Should depend on the gen_clk 4 ns for one clk cycle which is twice the factor
       rd_en= 0;
     end 
    

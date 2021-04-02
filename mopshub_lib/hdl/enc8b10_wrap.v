@@ -32,8 +32,8 @@ module enc8b10b_wrap(
 reg   [7:0] dataIN_s;
 wire  [7:0] byte;
 reg   [1:0] dataCode_s           = 1;
-wire  [7:0] Kchar_eop =  8'b11011100;// K28.6
-wire  [7:0] Kchar_sop = 8'b00111100 ;// K28.1
+wire  [7:0] Kchar_eop   = 8'b11011100;// K28.6
+wire  [7:0] Kchar_sop   = 8'b00111100 ;// K28.1
 wire  [7:0] Kchar_comma = 8'b10111100;//K28.5 
 // --enaFall : in std_logic ;
 // --SBYTECLK : in std_logic ;	-- Master synchronous send byte clock
@@ -84,7 +84,7 @@ always @(posedge clk) //read from memory
       begin
     		  dataIN_s    <= dataIN;
     		  dataCode_s  <= dataCode;
-    		  isk         <= dataCode[1] | dataCode[0]; //Control signal for the KI of the incoder (goes low if there is data i.e. code = 00)
+    		  isk         <= dataCode[1] | dataCode[0]; //Control signal for the KI of the encoder (goes low if there is data i.e. code = 00, 01, 10)
       end
   end
 
@@ -123,6 +123,9 @@ always @(posedge clk) //Still not sure about that Qamesh 16/3 2021
 // rdy_out 7
 //output signal  encDataOutrdy to show that data is ready after the decoder                              
 always @(posedge clk) 
+if (rst)
+encDataOutrdy_r <=0;
+else
   begin    
     encDataOutrdy_r <= dataINrdy_s & (! encoder_rst);
   end                                 

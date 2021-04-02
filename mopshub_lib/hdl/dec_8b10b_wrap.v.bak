@@ -1,0 +1,53 @@
+//
+// Verilog Module mopshub_lib.dec_8b10b_wrap
+//
+// Created:
+//          by - dcs.dcs (chipdev2.physik.uni-wuppertal.de)
+//          at - 19:00:38 04/02/21
+//
+// using Mentor Graphics HDL Designer(TM) 2018.1 (Build 12)
+//
+
+`resetall
+`timescale 1ns/10ps
+module dec_8b10b_wrap #(
+   // synopsys template
+   parameter COMMAp       = 10'b0011111010,  //-K.28.5//comma / idle character
+   parameter COMMAn       = 10'b1100000101,  //+K.28.5
+   parameter EOCp         = 10'b0011110110,  //-K.28.6 //start-of-chunk and end-of-chunk characters
+   parameter EOCn         = 10'b1100001001,  //+K.28.6
+   parameter SOCp         = 10'b0011111001,  //-K.28.1
+   parameter SOCn         = 10'b1100000110,  //+K.28.1
+   parameter SOBp         = 10'b0011110101,  //-K.28.2 //start-of-busy and end-of-busy characters
+   parameter SOBn         = 10'b1100001010,  //+K.28.2
+   parameter EOBp         = 10'b0011110011,  //-K.28.3 
+   parameter EOBn         = 10'b1100001100,  //+K.28.3 
+   parameter FEI4B_COMMAp = 10'b1100000110,  //+K.28.1
+   parameter FEI4B_COMMAn = 10'b0011111001,  //-K.28.1
+   parameter FEI4B_EOCp   = 10'b1100000101,  //+K.28.5 
+   parameter FEI4B_EOCn   = 10'b0011111010,  //-K.28.5 
+   parameter FEI4B_SOCp   = 10'b1100000111,  //+K.28.7
+   parameter FEI4B_SOCn   = 10'b0011111000   //-K.28.7
+)
+( 
+   // Port Declarations
+   input   wire    [9:0]  ABCDEIFGHJ_IN, 
+   input   wire           RBYTECLK, 
+   input   wire           datain_valid, 
+   input   wire           reset, 
+   output  wire           BUSY, 
+   output  wire    [7:0]  HGFEDCBA, 
+   output  wire    [1:0]  ISK, 
+   output  wire           code_err, 
+   output  wire           disp_err
+);
+
+
+// Internal Declarations
+
+
+
+
+// ### Please start your Verilog code here ### 
+
+endmodule

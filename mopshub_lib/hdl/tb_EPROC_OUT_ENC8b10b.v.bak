@@ -11,7 +11,6 @@
 `resetall
 `timescale 1ns/10ps
 module tb_EPROC_OUT_ENC8b10b ;
-  
   // Port Declarations
   reg   rst; 
   wire   bitCLK;     //bitCLK to send the 2bits EdataOUT [clk_40 MB/s]
@@ -20,7 +19,6 @@ module tb_EPROC_OUT_ENC8b10b ;
   wire [1:0] ENC_EDATA_OUT_2bit;
   wire getDataTrig;
   reg [9:0] GEN_EDATA_10bit; // 10 bits input code+data
-  
   reg dataINrdy;
   
   //GBTX Emulator
@@ -31,13 +29,12 @@ module tb_EPROC_OUT_ENC8b10b ;
   wire        disp_err;
   
   //Data generator Signals
-  wire [15:0] GEN_EDATA_16bit;
+  wire [7:0] GEN_EDATA_8bit;
   wire [1:0] delimeter;
   wire         gen_clk;
   wire        done; 
   wire        wr_en;
-  reg byte_cnt;
-
+  
   
   data_generator DataGEN(
   .clk_usr  (gen_clk),
@@ -45,11 +42,10 @@ module tb_EPROC_OUT_ENC8b10b ;
   .loop_en  (~rst),
   .done     (done),
   .tx_fifo_pfull(1'b0),
-  .dout     (GEN_EDATA_16bit),
+  .dout     (GEN_EDATA_8bit),
   .delimeter(delimeter),
   .wr_en      (wr_en)
   );
-  
   
   EPROC_OUT_ENC8b10b ENC8b10b( 
   .edataIN       (GEN_EDATA_10bit), 
@@ -63,8 +59,7 @@ module tb_EPROC_OUT_ENC8b10b ;
   .fhCR_REVERSE_10B(1'b0)//normally it is equal to 0 (//LSB send first ) enc10bit_r = enc10bit
   ); 
   
-  
-  GBTX_Emulator U_1( 
+  GBTX_Emulator Emulator( 
   .ko               (ko), 
   .code_err         (code_err), 
   .disp_err         (disp_err), 
@@ -78,8 +73,7 @@ module tb_EPROC_OUT_ENC8b10b ;
   .data_10b_en      (1'b0)
   );
   
-  // clocks           
-  
+  // clocks    
   initial begin 
     bitCLKx4=0; 
     forever #1 bitCLKx4=~bitCLKx4; //Equivalent to the rd_clk
@@ -104,27 +98,16 @@ module tb_EPROC_OUT_ENC8b10b ;
   begin
     dataINrdy= 0;
     GEN_EDATA_10bit = 10'b0;
-    byte_cnt = 0;
     rst = 1'b1;
-    #10 rst=!rst;
+    #4 rst=!rst;
   end
   
-  //initial 
+  
   always@(posedge getDataTrig)
   begin
-    if (byte_cnt ==0)
-    GEN_EDATA_10bit = {delimeter,GEN_EDATA_16bit[15:8]};
-    else
-    GEN_EDATA_10bit = {delimeter,GEN_EDATA_16bit[7:0]}; 
-  end
-  //end 
-  
-  always@(GEN_EDATA_10bit)
-  begin
-    byte_cnt = ~byte_cnt;
+    GEN_EDATA_10bit = {delimeter,GEN_EDATA_8bit};
     dataINrdy= 1;
     #4;
     dataINrdy= 0;
-    
-  end   
+  end  
 endmodule

@@ -32,9 +32,9 @@ module enc8b10b_wrap(
 reg   [7:0] dataIN_s;
 wire  [7:0] byte;
 reg   [1:0] dataCode_s           = 1;
-wire  [7:0] Kchar_eop            = 8'b11011100;
-wire  [7:0] Kchar_sop            = 8'b00111100;
-wire  [7:0] Kchar_comma          = 8'b10111100;
+wire  [7:0] Kchar_eop            = 8'b11011100; //dc
+wire  [7:0] Kchar_sop            = 8'b00111100; //3c
+wire  [7:0] Kchar_comma          = 8'b10111100; //bc
 // --enaFall : in std_logic ;
 // --SBYTECLK : in std_logic ;	-- Master synchronous send byte clock
 reg         isk                  = 1;             // -- Control (K) input(active high)

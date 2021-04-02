@@ -60,28 +60,38 @@ always @(posedge clk_usr)
     case (sel_cnt)
         3'b000 : begin 
                  dout_i  <= 8'h00;
-                 delimeter_r  <= 2'b10;
+                 delimeter_r  <= 2'b11;
                 end
         3'b001 : begin 
+                 dout_i  <= 8'h00;
+                 delimeter_r  <= 2'b10;
+                end
+                
+        3'b010 : begin 
                 dout_i  <= 8'hDE;
                 delimeter_r  <= 2'b00;
                 end
-        3'b010 : begin 
+        3'b011 : begin 
                  dout_i  <= 8'hAD;
                  delimeter_r <= 2'b00;
                 end
-        3'b011 : begin 
+        3'b100 : begin 
                  dout_i  <=8'hBE;
                  delimeter_r  <=2'b00;
                 end
-        3'b100 : begin 
+        3'b101 : begin 
                  dout_i  <=8'hEF;
                  delimeter_r  <=2'b00;
                 end
-        3'b101 : begin 
+        3'b110 : begin 
                  dout_i  <=8'h00;
                  delimeter_r  <=2'b01;
                  end
+        3'b111 : begin 
+                 dout_i  <=8'h00;
+                 delimeter_r  <=2'b11;
+                 end
+                 
             endcase
           end
 //always@(posedge clk_usr)
