@@ -64,7 +64,7 @@ module tb_EPROC_OUT_ENC8b10b ;
   .code_err         (code_err), 
   .disp_err         (disp_err), 
   .dataout          (DEC_EDATA_OUT_8bit), 
-  .enc10bit_out_sig (ENC_EDATA_OUT_10bit),
+  .enc10bit_out_dbg (ENC_EDATA_OUT_10bit),
   .rst              (rst), 
   .datain_valid     (~rst),
   .bitCLK           (bitCLK),

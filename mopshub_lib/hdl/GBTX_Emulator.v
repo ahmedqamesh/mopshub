@@ -21,7 +21,7 @@ module GBTX_Emulator(
    output  wire           code_err, 
    output  wire    [7:0]  dataout, 
    output  wire           disp_err, 
-   output  wire    [9:0]  enc10bit_out_sig, 
+   output  wire    [9:0]  enc10bit_out_dbg, 
    output  wire           ko
 );
 
@@ -66,7 +66,7 @@ begin
 if (data_10b_en ==1)
  datain_enc10bit <= data_10b_in;
 else
-   datain_enc10bit <= enc10bit_out_sig;     
+   datain_enc10bit <= enc10bit_out_dbg;     
 end                              
 
 
@@ -85,7 +85,7 @@ always @(posedge bitCLK)
 
 // HDL Embedded Text Block 3 eb3
 // eb3 3
-assign   enc10bit_out_sig =  enc10bit_r;                                    
+assign   enc10bit_out_dbg =  enc10bit_r;                                    
 // HDL Embedded Text Block 4 eb4
 // eb4 4
 assign inp_request_trig = (request_cycle_cnt == 3'b100) ? 1:0;  //cycle 5 CLKs                                       

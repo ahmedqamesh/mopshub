@@ -28,7 +28,6 @@ module tb_elinkRXfifo_wrap ;
   wire [1:0]       ISK;
   wire        code_err;
   wire        disp_err;
-  wire        BUSY;
   
   //Data generator Signals
   wire [7:0] GEN_EDATA_8bit;
@@ -65,12 +64,11 @@ module tb_elinkRXfifo_wrap ;
   .ISK              (ISK), 
   .code_err         (code_err), 
   .disp_err         (disp_err), 
-  .BUSY             (BUSY),
   .dataout          (DEC_EDATA_OUT_8bit), 
-  .enc10bit_out_sig (ENC_EDATA_OUT_10bit),
+  .enc10bit_out_dbg (ENC_EDATA_OUT_10bit),
   .rst              (rst), 
   .datain_valid     (~rst),
-  .bitCLK           (bitCLK),
+  .bitCLK           (bitCLK),//clk160
   .EDATA_2bit       (ENC_EDATA_OUT_2bit),
   .data_10b_in      (10'b0),//{enc10bit_r[0],enc10bit_r[1],enc10bit_r[2],enc10bit_r[3],enc10bit_r[4],enc10bit_r[5],enc10bit_r[6],enc10bit_r[7],enc10bit_r[8],enc10bit_r[9]}), 
   .data_10b_en      (1'b0)
