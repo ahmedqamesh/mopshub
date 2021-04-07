@@ -100,19 +100,19 @@ value "/home/dcs/git/mopshub/mopshub_lib/hds/GBTX_Emulator"
 )
 (vvPair
 variable "date"
-value "04/03/21"
+value "04/06/21"
 )
 (vvPair
 variable "day"
-value "Sat"
+value "Tue"
 )
 (vvPair
 variable "day_long"
-value "Saturday"
+value "Tuesday"
 )
 (vvPair
 variable "dd"
-value "03"
+value "06"
 )
 (vvPair
 variable "entity_name"
@@ -140,7 +140,7 @@ value "dcs"
 )
 (vvPair
 variable "graphical_source_date"
-value "04/03/21"
+value "04/06/21"
 )
 (vvPair
 variable "graphical_source_group"
@@ -152,7 +152,7 @@ value "chipdev2.physik.uni-wuppertal.de"
 )
 (vvPair
 variable "graphical_source_time"
-value "18:47:56"
+value "16:50:18"
 )
 (vvPair
 variable "group"
@@ -264,7 +264,7 @@ value "struct"
 )
 (vvPair
 variable "time"
-value "18:47:56"
+value "16:50:18"
 )
 (vvPair
 variable "unit"
@@ -579,16 +579,16 @@ optionalChildren [
 uid 55,0
 sl 0
 ro 270
-xt "9000,14625,10500,15375"
+xt "44000,17625,45500,18375"
 )
 (Line
 uid 56,0
 sl 0
 ro 270
-xt "10500,15000,11000,15000"
+xt "45500,18000,46000,18000"
 pts [
-"10500,15000"
-"11000,15000"
+"45500,18000"
+"46000,18000"
 ]
 )
 ]
@@ -603,10 +603,10 @@ uid 58,0
 va (VaSet
 font "courier,8,0"
 )
-xt "2000,14500,8000,15400"
+xt "37000,17500,43000,18400"
 st "data_10b_en"
 ju 2
-blo "8000,15200"
+blo "43000,18200"
 tm "WireNameMgr"
 )
 )
@@ -643,16 +643,16 @@ optionalChildren [
 uid 69,0
 sl 0
 ro 270
-xt "9000,15625,10500,16375"
+xt "44000,18625,45500,19375"
 )
 (Line
 uid 70,0
 sl 0
 ro 270
-xt "10500,16000,11000,16000"
+xt "45500,19000,46000,19000"
 pts [
-"10500,16000"
-"11000,16000"
+"45500,19000"
+"46000,19000"
 ]
 )
 ]
@@ -667,10 +667,10 @@ uid 72,0
 va (VaSet
 font "courier,8,0"
 )
-xt "2000,15500,8000,16400"
+xt "37000,18500,43000,19400"
 st "data_10b_in"
 ju 2
-blo "8000,16200"
+blo "43000,19200"
 tm "WireNameMgr"
 )
 )
@@ -1540,9 +1540,9 @@ vasetType 1
 fg "49152,49152,49152"
 )
 xt "65250,26250,66750,27750"
-iconName "FlowChart.png"
-iconMaskName "FlowChart.msk"
-ftype 4
+iconName "VhdlFileViewIcon.png"
+iconMaskName "VhdlFileViewIcon.msk"
+ftype 10
 )
 ordering 1
 viewiconposition 0
@@ -1770,23 +1770,25 @@ fg "65535,65535,65535"
 lineColor "0,0,32768"
 lineWidth 2
 )
-xt "20000,14000,38000,19000"
+xt "55000,17000,73000,22000"
 )
+oxt "20000,14000,38000,19000"
 text (MLText
 uid 365,0
 va (VaSet
 isHidden 1
 font "courier,8,0"
 )
-xt "20200,14200,36700,18700"
+xt "55200,17200,71700,21700"
 st "
 always@(posedge bitCLK)
 begin
 if (data_10b_en ==1)
  datain_enc10bit <= data_10b_in;
 else
-   datain_enc10bit <= enc10bit_out_sig;     
+   datain_enc10bit <= enc10bit_out_dbg;     
 end
+
 
 "
 tm "HdlTextMgr"
@@ -1805,8 +1807,9 @@ fg "65535,65535,37120"
 lineColor "0,0,32768"
 lineWidth 2
 )
-xt "12000,14000,15000,19000"
+xt "47000,17000,50000,22000"
 )
+oxt "12000,14000,15000,19000"
 ttg (MlTextGroup
 uid 358,0
 ps "CenterOffsetStrategy"
@@ -1817,9 +1820,9 @@ uid 359,0
 va (VaSet
 font "courier,8,1"
 )
-xt "12750,15600,14250,16500"
+xt "47750,18600,49250,19500"
 st "eb1"
-blo "12750,16300"
+blo "47750,19300"
 tm "HdlTextNameMgr"
 )
 *52 (Text
@@ -1827,9 +1830,9 @@ uid 360,0
 va (VaSet
 font "courier,8,1"
 )
-xt "12750,16500,13250,17400"
+xt "47750,19500,48250,20400"
 st "1"
-blo "12750,17200"
+blo "47750,20200"
 tm "HdlTextNumberMgr"
 )
 ]
@@ -1841,7 +1844,7 @@ va (VaSet
 vasetType 1
 fg "49152,49152,49152"
 )
-xt "12250,17250,13750,18750"
+xt "47250,20250,48750,21750"
 iconName "TextFile.png"
 iconMaskName "TextFile.msk"
 ftype 21
@@ -1976,10 +1979,11 @@ xt "69200,14200,85700,18700"
 st "
 // HDL Embedded Text Block 3 eb3
 // eb3 3
-assign   enc10bit_out_sig =  enc10bit_r;
+assign   enc10bit_out_dbg =  enc10bit_r;
 // HDL Embedded Text Block 4 eb4
 // eb4 4
 assign inp_request_trig = (request_cycle_cnt == 3'b100) ? 1:0;  //cycle 5 CLKs
+
 
 "
 tm "HdlTextMgr"
@@ -2253,15 +2257,16 @@ fg "65535,65535,65535"
 lineColor "0,0,32768"
 lineWidth 2
 )
-xt "48000,14000,66000,19000"
+xt "47000,26000,65000,31000"
 )
+oxt "48000,14000,66000,19000"
 text (MLText
 uid 583,0
 va (VaSet
 isHidden 1
 font "courier,8,0"
 )
-xt "48200,14200,65200,18700"
+xt "47200,26200,64200,30700"
 st "
 // HDL Embedded Text Block 6 bitcounter
 // eb6 6      
@@ -2291,8 +2296,9 @@ fg "65535,65535,37120"
 lineColor "0,0,32768"
 lineWidth 2
 )
-xt "40000,14000,43000,17000"
+xt "39000,26000,42000,29000"
 )
+oxt "40000,14000,43000,17000"
 ttg (MlTextGroup
 uid 576,0
 ps "CenterOffsetStrategy"
@@ -2303,9 +2309,9 @@ uid 577,0
 va (VaSet
 font "courier,8,1"
 )
-xt "40750,14600,42250,15500"
+xt "39750,26600,41250,27500"
 st "eb6"
-blo "40750,15300"
+blo "39750,27300"
 tm "HdlTextNameMgr"
 )
 *72 (Text
@@ -2313,9 +2319,9 @@ uid 578,0
 va (VaSet
 font "courier,8,1"
 )
-xt "40750,15500,41250,16400"
+xt "39750,27500,40250,28400"
 st "6"
-blo "40750,16200"
+blo "39750,28200"
 tm "HdlTextNumberMgr"
 )
 ]
@@ -2327,7 +2333,7 @@ va (VaSet
 vasetType 1
 fg "49152,49152,49152"
 )
-xt "40250,15250,41750,16750"
+xt "39250,27250,40750,28750"
 iconName "TextFile.png"
 iconMaskName "TextFile.msk"
 ftype 21
@@ -2771,7 +2777,7 @@ uid 644,0
 va (VaSet
 vasetType 1
 )
-xt "5600,9600,6400,10400"
+xt "29600,9600,30400,10400"
 radius 400
 )
 )
@@ -2783,7 +2789,7 @@ uid 646,0
 va (VaSet
 vasetType 1
 )
-xt "28600,9600,29400,10400"
+xt "27600,9600,28400,10400"
 radius 400
 )
 )
@@ -2807,7 +2813,7 @@ uid 650,0
 va (VaSet
 vasetType 1
 )
-xt "33600,9600,34400,10400"
+xt "26600,9600,27400,10400"
 radius 400
 )
 )
@@ -2870,10 +2876,10 @@ uid 62,0
 va (VaSet
 vasetType 3
 )
-xt "11000,15000,12000,15000"
+xt "46000,18000,47000,18000"
 pts [
-"11000,15000"
-"12000,15000"
+"46000,18000"
+"47000,18000"
 ]
 )
 start &12
@@ -2894,9 +2900,9 @@ va (VaSet
 isHidden 1
 font "courier,8,0"
 )
-xt "9000,14100,15000,15000"
+xt "44000,17100,50000,18000"
 st "data_10b_en"
-blo "9000,14800"
+blo "44000,17800"
 tm "WireNameMgr"
 )
 )
@@ -2910,10 +2916,10 @@ va (VaSet
 vasetType 3
 lineWidth 2
 )
-xt "11000,16000,12000,16000"
+xt "46000,19000,47000,19000"
 pts [
-"11000,16000"
-"12000,16000"
+"46000,19000"
+"47000,19000"
 ]
 )
 start &14
@@ -2935,9 +2941,9 @@ va (VaSet
 isHidden 1
 font "courier,8,0"
 )
-xt "7000,15100,13000,16000"
+xt "42000,18100,48000,19000"
 st "data_10b_in"
-blo "7000,15800"
+blo "42000,18800"
 tm "WireNameMgr"
 )
 )
@@ -2994,7 +3000,7 @@ uid 654,0
 va (VaSet
 vasetType 1
 )
-xt "27600,8600,28400,9400"
+xt "28600,8600,29400,9400"
 radius 400
 )
 )
@@ -3057,10 +3063,10 @@ uid 254,0
 va (VaSet
 vasetType 3
 )
-xt "28000,9000,64250,24000"
+xt "29000,9000,64250,24000"
 pts [
-"28000,9000"
-"28000,24000"
+"29000,9000"
+"29000,24000"
 "64250,24000"
 ]
 )
@@ -3096,10 +3102,10 @@ uid 260,0
 va (VaSet
 vasetType 3
 )
-xt "29000,10000,64250,25000"
+xt "28000,10000,64250,25000"
 pts [
-"29000,10000"
-"29000,25000"
+"28000,10000"
+"28000,25000"
 "64250,25000"
 ]
 )
@@ -3340,11 +3346,11 @@ uid 367,0
 va (VaSet
 vasetType 3
 )
-xt "6000,10000,12000,18000"
+xt "30000,10000,47000,21000"
 pts [
-"6000,10000"
-"6000,18000"
-"12000,18000"
+"30000,10000"
+"30000,21000"
+"47000,21000"
 ]
 )
 start &88
@@ -3364,9 +3370,9 @@ va (VaSet
 isHidden 1
 font "courier,8,0"
 )
-xt "8000,17100,11000,18000"
+xt "43000,20100,46000,21000"
 st "bitCLK"
-blo "8000,17800"
+blo "43000,20800"
 tm "WireNameMgr"
 )
 )
@@ -3380,14 +3386,13 @@ va (VaSet
 vasetType 3
 lineWidth 2
 )
-xt "5000,13000,71000,17000"
+xt "38000,13000,68000,20000"
 pts [
-"70000,15000"
-"71000,15000"
-"71000,13000"
-"5000,13000"
-"5000,17000"
-"12000,17000"
+"68000,15000"
+"68000,13000"
+"38000,13000"
+"38000,20000"
+"47000,20000"
 ]
 )
 start *108 (BdJunction
@@ -3398,7 +3403,7 @@ uid 662,0
 va (VaSet
 vasetType 1
 )
-xt "69600,14600,70400,15400"
+xt "67600,14600,68400,15400"
 radius 400
 )
 )
@@ -3419,9 +3424,9 @@ va (VaSet
 isHidden 1
 font "courier,8,0"
 )
-xt "-1000,16100,7500,17000"
+xt "34000,19100,42500,20000"
 st "enc10bit_out_dbg"
-blo "-1000,16800"
+blo "34000,19800"
 tm "WireNameMgr"
 )
 )
@@ -3435,11 +3440,11 @@ va (VaSet
 vasetType 3
 lineWidth 2
 )
-xt "15000,18000,64250,23000"
+xt "50000,21000,64250,23000"
 pts [
-"15000,18000"
-"21000,18000"
-"21000,23000"
+"50000,21000"
+"54000,21000"
+"54000,23000"
 "64250,23000"
 ]
 )
@@ -3462,9 +3467,9 @@ va (VaSet
 isHidden 1
 font "courier,8,0"
 )
-xt "16000,17100,24000,18000"
+xt "51000,20100,59000,21000"
 st "datain_enc10bit"
-blo "16000,17800"
+blo "51000,20800"
 tm "WireNameMgr"
 )
 )
@@ -3742,7 +3747,7 @@ uid 660,0
 va (VaSet
 vasetType 1
 )
-xt "38600,4600,39400,5400"
+xt "33600,4600,34400,5400"
 radius 400
 )
 )
@@ -3876,11 +3881,11 @@ uid 585,0
 va (VaSet
 vasetType 3
 )
-xt "34000,10000,40000,16000"
+xt "27000,10000,39000,28000"
 pts [
-"34000,10000"
-"34000,16000"
-"40000,16000"
+"27000,10000"
+"27000,28000"
+"39000,28000"
 ]
 )
 start &91
@@ -3900,9 +3905,9 @@ va (VaSet
 isHidden 1
 font "courier,8,0"
 )
-xt "36000,15100,39000,16000"
+xt "35000,27100,38000,28000"
 st "bitCLK"
-blo "36000,15800"
+blo "35000,27800"
 tm "WireNameMgr"
 )
 )
@@ -3915,11 +3920,11 @@ uid 593,0
 va (VaSet
 vasetType 3
 )
-xt "39000,5000,40000,15000"
+xt "34000,5000,39000,27000"
 pts [
-"39000,5000"
-"39000,15000"
-"40000,15000"
+"34000,5000"
+"34000,27000"
+"39000,27000"
 ]
 )
 start &118
@@ -3939,9 +3944,9 @@ va (VaSet
 isHidden 1
 font "courier,8,0"
 )
-xt "32000,14100,39000,15000"
+xt "31000,26100,38000,27000"
 st "send_out_trig"
-blo "32000,14800"
+blo "31000,26800"
 tm "WireNameMgr"
 )
 )
@@ -3955,10 +3960,10 @@ va (VaSet
 vasetType 3
 lineWidth 2
 )
-xt "0,16000,49000,30000"
+xt "0,25000,49000,30000"
 pts [
-"43000,16000"
-"49000,16000"
+"42000,28000"
+"49000,28000"
 "49000,30000"
 "0,30000"
 "0,25000"
@@ -3984,9 +3989,9 @@ va (VaSet
 isHidden 1
 font "courier,8,0"
 )
-xt "44000,15100,49500,16000"
+xt "43000,27100,48500,28000"
 st "send_count"
-blo "44000,15800"
+blo "43000,27800"
 tm "WireNameMgr"
 )
 )
@@ -4116,11 +4121,11 @@ tm "BdCompilerDirectivesTextMgr"
 associable 1
 )
 windowSize "1912,41,3848,1050"
-viewArea "2500,-6500,106993,44618"
+viewArea "-36714,-14332,89411,47368"
 cachedDiagramExtent "-8000,-9000,106000,55400"
 hasePageBreakOrigin 1
 pageBreakOrigin "-9000,-2000"
-lastUid 960,0
+lastUid 1031,0
 defaultCommentText (CommentText
 shape (Rectangle
 layer 0

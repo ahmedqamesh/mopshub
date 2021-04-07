@@ -53,7 +53,7 @@ reg   [1:0] DATA2bitIN     = 0;
 
 
 // Instances 
-EPROC_IN2_DEC8b10b U_2( 
+EPROC_IN_DEC8b10b U_2( 
    .bitCLK         (bitCLK), 
    .rst            (rst), 
    .swap_inputbits (swap_input), 

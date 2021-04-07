@@ -59,6 +59,8 @@ begin : process0_flowchart_proc
    3'b111 : begin
       data_out_r=data7;
    end
+   default : data_out_r=0;
+   
    endcase
 end
 

@@ -30,16 +30,6 @@ module EPROC_OUT_ENC8b10b(
   // Local declarations
   
   // Internal signal declarations
-  
-  
-  // Local declarations
-  
-  // Internal signal declarations
-  
-  
-  // Local declarations
-  
-  // Internal signal declarations
   // Internal Declarations
   wire        inp_request_trig;
   wire        inp_request_trig_out;
@@ -52,10 +42,8 @@ module EPROC_OUT_ENC8b10b(
   reg   [1:0] edata_out_r = 2'b0;
   wire  [1:0] edata_out_s;
   
+  assign EDATA_OUT =edata_out_r;
   
-  // Instances 
-  //  Instances
-  //   Instances
   //   -------------------------------------------------------------------------------------------
   //   -- 8b10b encoding
   //   -------------------------------------------------------------------------------------------
@@ -119,6 +107,9 @@ module EPROC_OUT_ENC8b10b(
   assign getDataTrig = inp_request_trig_out; //getDataTrig will enable reading signal from FIFO (rd_en)
   
   always @(posedge bitCLK)
+   if (rst ==1)
+   send_out_trig <=0;
+   else
   begin
     send_out_trig <= inp_request_trig; //send_out_trig will be used later when sending out 2bits @bitCLK
   end
@@ -164,6 +155,6 @@ module EPROC_OUT_ENC8b10b(
     edata_out_r = edata_out_s;
   end
   
-  assign EDATA_OUT =edata_out_r;
+  
   
 endmodule // EPROC_OUT_ENC8b10b

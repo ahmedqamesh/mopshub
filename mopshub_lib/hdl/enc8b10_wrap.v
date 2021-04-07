@@ -31,10 +31,10 @@ module enc8b10b_wrap(
 // Internal signal declarations
 reg   [7:0] dataIN_s;
 wire  [7:0] byte;
-reg   [1:0] dataCode_s           = 1;
-wire  [7:0] Kchar_eop   = 8'b11011100;// K28.6
-wire  [7:0] Kchar_sop   = 8'b00111100 ;// K28.1
-wire  [7:0] Kchar_comma = 8'b10111100;//K28.5 
+reg   [1:0] dataCode_s           = 2'b11;
+wire  [7:0] Kchar_eop   = 8'b11011100;// K28.6 DC
+wire  [7:0] Kchar_sop   = 8'b00111100 ;// K28.1 3C
+wire  [7:0] Kchar_comma = 8'b10111100;//K28.5  BC
 // --enaFall : in std_logic ;
 // --SBYTECLK : in std_logic ;	-- Master synchronous send byte clock
 reg         isk                  = 1;   // -- Control (K) input(active high)

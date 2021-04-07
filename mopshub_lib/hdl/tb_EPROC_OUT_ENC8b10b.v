@@ -24,6 +24,7 @@ module tb_EPROC_OUT_ENC8b10b ;
   //GBTX Emulator
   wire [7:0]  DEC_EDATA_OUT_8bit;
   wire [9:0]  ENC_EDATA_OUT_10bit;
+  wire [9:0]  enc10bit_r;
   wire        ko;
   wire        code_err;
   wire        disp_err;
@@ -31,13 +32,13 @@ module tb_EPROC_OUT_ENC8b10b ;
   //Data generator Signals
   wire [7:0] GEN_EDATA_8bit;
   wire [1:0] delimeter;
-  wire         gen_clk;
+  wire         CLKGEN;
   wire        done; 
   wire        wr_en;
   
-  
+  assign enc10bit_r = ENC8b10b.enc10bit_r;
   data_generator DataGEN(
-  .clk_usr  (gen_clk),
+  .clk_usr  (CLKGEN),
   .enable   (~rst),
   .loop_en  (~rst),
   .done     (done),
@@ -89,7 +90,7 @@ module tb_EPROC_OUT_ENC8b10b ;
   //Freq. gen_clk = Freq. bitCLKx4 / 8 [=20 MHz]
   clock_divider #(8) div_1(
   .clock_in(bitCLKx4),
-  .clock_out(gen_clk)//Equivalent to rd_clk in the fifoTXelink_wrap Module
+  .clock_out(CLKGEN)//Equivalent to rd_clk in the fifoTXelink_wrap Module
   );
   
   

@@ -18,7 +18,7 @@ uid 239,0
 ]
 embeddedInstances [
 (EmbeddedInstance
-name "GBT_mode_Sig"
+name "Choose_Mode"
 number "1"
 )
 (EmbeddedInstance
@@ -91,19 +91,19 @@ value "/home/dcs/git/mopshub/mopshub_lib/hds/dec_8b10b_wrap"
 )
 (vvPair
 variable "date"
-value "04/02/21"
+value "04/07/21"
 )
 (vvPair
 variable "day"
-value "Fri"
+value "Wed"
 )
 (vvPair
 variable "day_long"
-value "Friday"
+value "Wednesday"
 )
 (vvPair
 variable "dd"
-value "02"
+value "07"
 )
 (vvPair
 variable "entity_name"
@@ -131,7 +131,7 @@ value "dcs"
 )
 (vvPair
 variable "graphical_source_date"
-value "04/02/21"
+value "04/07/21"
 )
 (vvPair
 variable "graphical_source_group"
@@ -143,7 +143,7 @@ value "chipdev2.physik.uni-wuppertal.de"
 )
 (vvPair
 variable "graphical_source_time"
-value "18:32:37"
+value "19:55:22"
 )
 (vvPair
 variable "group"
@@ -255,7 +255,7 @@ value "struct"
 )
 (vvPair
 variable "time"
-value "18:32:37"
+value "19:55:22"
 )
 (vvPair
 variable "unit"
@@ -1395,9 +1395,9 @@ vasetType 1
 fg "49152,49152,49152"
 )
 xt "3250,30250,4750,31750"
-iconName "FlowChart.png"
-iconMaskName "FlowChart.msk"
-ftype 4
+iconName "VhdlFileViewIcon.png"
+iconMaskName "VhdlFileViewIcon.msk"
+ftype 10
 )
 ordering 1
 viewiconposition 0
@@ -1721,11 +1721,22 @@ font "courier,8,0"
 xt "5200,40200,22700,44700"
 st "
 // GBT_mode_Sig 1                                        
-   assign ISK_comma   = (ABCDEIFGHJ_IN == FEI4B_COMMAp |  ABCDEIFGHJ_IN == FEI4B_COMMAn )  ? 1: 0; //(ABCDEIFGHJ_IN == COMMAp |  ABCDEIFGHJ_IN == COMMAn )  ? 1: 0;
-   assign ISK_soc     = (ABCDEIFGHJ_IN == FEI4B_SOCp   |  ABCDEIFGHJ_IN == FEI4B_SOCn   )  ? 1: 0;//(ABCDEIFGHJ_IN == SOCp   |  ABCDEIFGHJ_IN == SOCn   )  ? 1: 0;
-   assign ISK_eoc     = (ABCDEIFGHJ_IN == FEI4B_EOCp   |  ABCDEIFGHJ_IN == FEI4B_EOCn   )  ? 1: 0;//(ABCDEIFGHJ_IN == EOCp   |  ABCDEIFGHJ_IN == EOCn   )  ? 1: 0;
-   assign ISK_sob     = 0;//(ABCDEIFGHJ_IN == SOBp   |  ABCDEIFGHJ_IN == SOBn   )  ? 1: 0;
-   assign ISK_eob     = 0;//(ABCDEIFGHJ_IN == EOBp   |  ABCDEIFGHJ_IN == EOBn   )  ? 1: 0;
+if (GENERATE_FEI4B == 0) 
+  begin:GBT_mode
+   assign ISK_comma   = (ABCDEIFGHJ_IN == COMMAp |  ABCDEIFGHJ_IN == COMMAn )  ? 1: 0;
+   assign ISK_soc     = (ABCDEIFGHJ_IN == SOCp   |  ABCDEIFGHJ_IN == SOCn   )  ? 1: 0;
+   assign ISK_eoc     = (ABCDEIFGHJ_IN == EOCp   |  ABCDEIFGHJ_IN == EOCn   )  ? 1: 0;
+   assign ISK_sob     = (ABCDEIFGHJ_IN == SOBp   |  ABCDEIFGHJ_IN == SOBn   )  ? 1: 0;
+   assign ISK_eob     = (ABCDEIFGHJ_IN == EOBp   |  ABCDEIFGHJ_IN == EOBn   )  ? 1: 0;
+  end
+else
+  begin:MOPS
+   assign ISK_comma   = (ABCDEIFGHJ_IN == FEI4B_COMMAp |  ABCDEIFGHJ_IN == FEI4B_COMMAn )  ? 1: 0;
+   assign ISK_soc     = (ABCDEIFGHJ_IN == FEI4B_SOCp   |  ABCDEIFGHJ_IN == FEI4B_SOCn   )  ? 1: 0;
+   assign ISK_eoc     = (ABCDEIFGHJ_IN == FEI4B_EOCp   |  ABCDEIFGHJ_IN == FEI4B_EOCn   )  ? 1: 0;
+   assign ISK_sob     = 0;
+   assign ISK_eob     = 0;    
+  end
 
 
 
@@ -1760,8 +1771,8 @@ uid 390,0
 va (VaSet
 font "courier,8,1"
 )
-xt "-1750,34100,4750,35000"
-st "GBT_mode_Sig"
+xt "-1750,34100,4250,35000"
+st "Choose_Mode"
 blo "-1750,34800"
 tm "HdlTextNameMgr"
 )
@@ -2225,9 +2236,10 @@ font "courier,8,0"
 xt "54200,45200,71700,49700"
 st "
 // eb2 5 
-assign   ISK = HGFEDCBA_reg;
+assign   ISK = ISK_reg;
 assign   HGFEDCBA = HGFEDCBA_reg;   
 assign   BUSY = BUSY_s;                                    
+
 
 
 
@@ -3548,11 +3560,11 @@ tm "BdCompilerDirectivesTextMgr"
 associable 1
 )
 windowSize "1912,41,3848,1050"
-viewArea "-46100,3400,87514,68764"
+viewArea "-29976,3400,69378,52004"
 cachedDiagramExtent "-16000,0,72000,55000"
 hasePageBreakOrigin 1
 pageBreakOrigin "-80000,0"
-lastUid 917,0
+lastUid 1180,0
 defaultCommentText (CommentText
 shape (Rectangle
 layer 0
@@ -5359,6 +5371,14 @@ e "-K.28.7"
 )
 uid 916,0
 )
+*233 (LogGeneric
+generic (GiElement
+name "GENERATE_FEI4B"
+type "integer"
+value "0"
+)
+uid 1092,0
+)
 ]
 )
 pdm (PhysicalDM
@@ -5366,7 +5386,7 @@ displayShortBounds 1
 editShortBounds 1
 uid 195,0
 optionalChildren [
-*233 (Sheet
+*234 (Sheet
 sheetRow (SheetRow
 headerVa (MVa
 cellColor "49152,49152,49152"
@@ -5383,127 +5403,133 @@ cellColor "39936,56832,65280"
 fontColor "0,0,0"
 font "courier,10,0"
 )
-emptyMRCItem *234 (MRCItem
+emptyMRCItem *235 (MRCItem
 litem &207
-pos 16
+pos 17
 dimension 20
 )
 uid 197,0
 optionalChildren [
-*235 (MRCItem
+*236 (MRCItem
 litem &208
 pos 0
 dimension 20
 uid 198,0
 )
-*236 (MRCItem
+*237 (MRCItem
 litem &209
 pos 1
 dimension 23
 uid 199,0
 )
-*237 (MRCItem
+*238 (MRCItem
 litem &210
 pos 2
 hidden 1
 dimension 20
 uid 200,0
 )
-*238 (MRCItem
+*239 (MRCItem
 litem &217
-pos 0
+pos 1
 dimension 20
 uid 464,0
 )
-*239 (MRCItem
+*240 (MRCItem
 litem &218
-pos 4
+pos 5
 dimension 20
 uid 466,0
 )
-*240 (MRCItem
+*241 (MRCItem
 litem &219
-pos 2
+pos 3
 dimension 20
 uid 468,0
 )
-*241 (MRCItem
+*242 (MRCItem
 litem &220
-pos 6
+pos 7
 dimension 20
 uid 470,0
 )
-*242 (MRCItem
+*243 (MRCItem
 litem &221
-pos 8
+pos 9
 dimension 20
 uid 472,0
 )
-*243 (MRCItem
+*244 (MRCItem
 litem &222
-pos 1
+pos 2
 dimension 20
 uid 474,0
 )
-*244 (MRCItem
+*245 (MRCItem
 litem &223
-pos 5
+pos 6
 dimension 20
 uid 476,0
 )
-*245 (MRCItem
+*246 (MRCItem
 litem &224
-pos 3
+pos 4
 dimension 20
 uid 478,0
 )
-*246 (MRCItem
+*247 (MRCItem
 litem &225
-pos 7
+pos 8
 dimension 20
 uid 480,0
 )
-*247 (MRCItem
+*248 (MRCItem
 litem &226
-pos 9
+pos 10
 dimension 20
 uid 482,0
 )
-*248 (MRCItem
+*249 (MRCItem
 litem &227
-pos 10
+pos 11
 dimension 20
 uid 907,0
 )
-*249 (MRCItem
+*250 (MRCItem
 litem &228
-pos 11
+pos 12
 dimension 20
 uid 909,0
 )
-*250 (MRCItem
+*251 (MRCItem
 litem &229
-pos 12
+pos 13
 dimension 20
 uid 911,0
 )
-*251 (MRCItem
+*252 (MRCItem
 litem &230
-pos 13
+pos 14
 dimension 20
 uid 913,0
 )
-*252 (MRCItem
+*253 (MRCItem
 litem &231
-pos 14
+pos 15
 dimension 20
 uid 915,0
 )
-*253 (MRCItem
+*254 (MRCItem
 litem &232
-pos 15
+pos 16
 dimension 20
 uid 917,0
+)
+*255 (MRCItem
+litem &233
+pos 0
+dimension 20
+uid 1093,0
 )
 ]
 )
@@ -5516,31 +5542,31 @@ textAngle 90
 )
 uid 201,0
 optionalChildren [
-*254 (MRCItem
+*256 (MRCItem
 litem &211
 pos 0
 dimension 20
 uid 202,0
 )
-*255 (MRCItem
+*257 (MRCItem
 litem &213
 pos 1
 dimension 50
 uid 203,0
 )
-*256 (MRCItem
+*258 (MRCItem
 litem &214
 pos 2
 dimension 100
 uid 204,0
 )
-*257 (MRCItem
+*259 (MRCItem
 litem &215
 pos 3
 dimension 243
 uid 205,0
 )
-*258 (MRCItem
+*260 (MRCItem
 litem &216
 pos 4
 dimension 505

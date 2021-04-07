@@ -83,7 +83,6 @@ module tb_fifo_to_2K_18bit_wide ;
     rd_en= 1;
     #1;
     rd_en= 0;
-     
   end
 
   

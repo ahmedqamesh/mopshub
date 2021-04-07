@@ -42,6 +42,7 @@ module EPROC_OUT_ENC8b10b(
   reg   [1:0] edata_out_r = 2'b0;
   wire  [1:0] edata_out_s;
   
+  assign EDATA_OUT =edata_out_r;
   
   //   -------------------------------------------------------------------------------------------
   //   -- 8b10b encoding
@@ -106,9 +107,12 @@ module EPROC_OUT_ENC8b10b(
   assign getDataTrig = inp_request_trig_out; //getDataTrig will enable reading signal from FIFO (rd_en)
   
   always @(posedge bitCLK)
-  begin
-    send_out_trig <= inp_request_trig; //send_out_trig will be used later when sending out 2bits @bitCLK
-  end
+   if (rst ==1)
+      send_out_trig <=0;
+   else
+    begin
+      send_out_trig <= inp_request_trig; //send_out_trig will be used later when sending out 2bits @bitCLK
+    end
   // HDL Embedded Text Block 4 data_reg
   //Fill the register enc10bit_r with data 
   always @(posedge bitCLK)
@@ -150,7 +154,4 @@ module EPROC_OUT_ENC8b10b(
     else     
     edata_out_r = edata_out_s;
   end
-  
-  assign EDATA_OUT =edata_out_r;
-  
 endmodule // EPROC_OUT_ENC8b10b

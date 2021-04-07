@@ -24,6 +24,7 @@ module tb_EPROC_OUT_ENC8b10b ;
   //GBTX Emulator
   wire [7:0]  DEC_EDATA_OUT_8bit;
   wire [9:0]  ENC_EDATA_OUT_10bit;
+  wire [9:0]  enc10bit_r;
   wire        ko;
   wire        code_err;
   wire        disp_err;
@@ -35,7 +36,7 @@ module tb_EPROC_OUT_ENC8b10b ;
   wire        done; 
   wire        wr_en;
   
-  
+  assign enc10bit_r = ENC8b10b.enc10bit_r;
   data_generator DataGEN(
   .clk_usr  (gen_clk),
   .enable   (~rst),
@@ -64,7 +65,7 @@ module tb_EPROC_OUT_ENC8b10b ;
   .code_err         (code_err), 
   .disp_err         (disp_err), 
   .dataout          (DEC_EDATA_OUT_8bit), 
-  .enc10bit_out_sig (ENC_EDATA_OUT_10bit),
+  .enc10bit_out_dbg (ENC_EDATA_OUT_10bit),
   .rst              (rst), 
   .datain_valid     (~rst),
   .bitCLK           (bitCLK),
