@@ -58,16 +58,18 @@ module tb_FIFO_to_Elink ;
   );
   
   FIFO_to_Elink MUT(
-  .wr_clk          (clk_40),
-  .clk_80           (clk_80),
+  .wr_clk           (clk_40),
+  .bitCLKx2         (clk_80),
   .bitCLKx4         (clk_160),
   .rst              (rst),
   .fifo_flush       (rst),
-  .efifoWe          (wr_en),
+  .efifoWr          (wr_en),
   .efifoDin         ({delimeter,GEN_EDATA_8bit}),
   .efifoPfull       (tx_fifo_pfull),
   .DATA1bitOUT      (DATA1bitOUT),
-  .elink2bit        (elink2bit)
+  .elink2bit        (elink2bit),
+  .reverse_tx(1'b0),
+  .swap_output(1'b0)
   );
   
   
@@ -76,9 +78,9 @@ module tb_FIFO_to_Elink ;
   .code_err         (code_err), 
   .disp_err         (disp_err), 
   .rst              (rst), 
-  .bitCLK           (clk_80),
+  .bitCLK           (clk_40),
   .dataout          (DEC_EDATA_OUT_8bit), 
-  .enc10bit_out_sig (ENC_EDATA_OUT_10bit),
+  .enc10bit_out_dbg (ENC_EDATA_OUT_10bit),
   .EDATA_2bit       (elink2bit),
   .datain_valid     (~rst),
   .data_10b_in      (), 

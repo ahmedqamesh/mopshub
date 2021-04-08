@@ -29,7 +29,7 @@ module FIFO_to_Elink #(
    output  wire    [1:0]                elink2bit, 
    input   wire                         fifo_flush, 
    input   wire                         reverse_tx,   // 0
-   input   wire                         swap_output   // 0 defaultwhen '1', the output bits will be swapped
+   input   wire                         swap_output   // 0 default when '1', the output bits will be swapped
 );
 
 // Local declarations

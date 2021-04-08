@@ -23,11 +23,6 @@ module tb_Elink_to_FIFO ;
   wire  [1:0] delimeter;
   reg   [9:0] GEN_EDATA_10bit; // 10 bits input code+data
   wire  [1:0] ENC_EDATA_OUT_2bit;
-  wire  [9:0] dout_dbg;
-  wire        wr_en_dbg;
-  wire  [9:0] din_dbg;
-  wire  [9:0] din_fifo_dbg;
-  wire        wr_en_fifo_dbg;
   wire        getDataTrig;
   reg         dataINrdy;
   reg         enable;
@@ -43,11 +38,6 @@ module tb_Elink_to_FIFO ;
   wire        done; 
   wire        wr_en;
    
-  assign din_fifo_dbg = Emulator.din_fifo_dbg;
-  assign wr_en_fifo_dbg = Emulator.wr_en_fifo_dbg;
-  assign din_dbg = Emulator.din_dbg;
-  assign dout_dbg = Emulator.dout_dbg;
-  assign wr_en_dbg = Emulator.wr_en_dbg;
   //Generate 8b data 
   data_generator DataGEN(
   .clk_usr        (genCLK),
