@@ -7,7 +7,6 @@
 //
 // using Mentor Graphics HDL Designer(TM) 2018.1 (Build 12)
 //
-
 `resetall
 `timescale 1ns/10ps
 module demux8_Nbit (

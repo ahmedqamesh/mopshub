@@ -10,7 +10,7 @@
 
 `resetall
 `timescale 1ns/10ps
-module upstreamFIFO #(
+module fifo_upstream #(
    // synopsys template
    // synopsys template
    parameter DATA_WIDTH          = 10,
@@ -49,14 +49,14 @@ wire rd_en_s;
 // Instances 
 // instantiate address counters
 // 
-b_counter r_b_counter (
+binary_counter r_b_counter (
    .c_out (r_ptr), 
    .c_rst (rst), 
    .c_clk (rd_clk), 
    .en    (r_next_en)
 ); 
 
-b_counter w_b_counter( 
+binary_counter w_b_counter( 
    .c_out (w_ptr), 
    .c_rst (rst), 
    .c_clk (wr_clk), 

@@ -12,7 +12,7 @@
 `timescale 1ns/10ps
 // Asynchronous FIFO (w/ 2 asynchronous clocks).
 // 18 bit wide, 2K deep[it will take at least 1000 clock cycles to read the entire thing out.]
-module fh_epath_fifo2K_18bit_wide #(
+module fifo_downstream #(
    // synopsys template
    // synopsys template
    parameter DATA_WIDTH          = 10,
@@ -70,7 +70,7 @@ assign full=(ptr_diff==(FIFO_DEPTH-1)); //assign FIFO status
 assign empty=(ptr_diff==0);
 assign almost_full=(ptr_diff==f_almost_full_value);
 assign prog_full=(ptr_diff==f_prog_full_value);
-assign rd_en_s =(rd_en == 0) ? 1:0;
+assign rd_en_s = (rd_en == 1) ? 1:0;
 // HDL Embedded Text Block 2 eb2
 //---------------------------------------------------------
   

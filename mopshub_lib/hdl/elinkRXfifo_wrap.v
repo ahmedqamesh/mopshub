@@ -10,7 +10,7 @@
 
 `resetall
 `timescale 1ns/10ps
-module elinkRXfifo_wrap( 
+module fifo_RXelink_wrap( 
    // Port Declarations
    // Port Declarations
    // -----------------------------
@@ -52,7 +52,7 @@ reg         wr_en_r         = 0;
 
 
 // Instances 
-upstreamFIFO U_0( 
+fifo_upstream U_0( 
    .dout        (dout_elink), 
    .full        (full_elink), 
    .empty       (empty_elink_i), 

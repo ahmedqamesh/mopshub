@@ -12,7 +12,7 @@
 `timescale 1ns/10ps
 // Asynchronous FIFO (w/ 2 asynchronous clocks).
 // 18 bit wide, 2K deep[it will take at least 1000 clock cycles to read the entire thing out.]
-module fh_epath_fifo2K_18bit_wide #(
+module fifo_downstream #(
    // synopsys template
    // synopsys template
    parameter DATA_WIDTH          = 10,
@@ -51,14 +51,14 @@ wire rd_en_s;
 // Instances 
 // instantiate address counters
 // 
-b_counter r_b_counter (
+binary_counter r_b_counter (
    .c_out (r_ptr), 
    .c_rst (rst), 
    .c_clk (rd_clk), 
    .en    (r_next_en)
 ); 
 
-b_counter w_b_counter( 
+binary_counter w_b_counter( 
    .c_out (w_ptr), 
    .c_rst (rst), 
    .c_clk (wr_clk), 

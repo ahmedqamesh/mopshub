@@ -12,7 +12,7 @@ model (Symbol
 commonDM (CommonDM
 ldm (LogicalDM
 ordering 1
-suid 86,0
+suid 88,0
 usingSuid 1
 emptyRow *1 (LEmptyRow
 )
@@ -240,6 +240,7 @@ n "wrEn_dbg"
 t "reg"
 o 12
 suid 81,0
+iv "0"
 )
 )
 uid 1769,0
@@ -254,6 +255,7 @@ t "reg"
 b "[9:0]"
 o 16
 suid 83,0
+iv "10'b0"
 )
 )
 uid 2047,0
@@ -278,10 +280,9 @@ lang 5
 m 1
 decl (Decl
 n "wr_en_fifo_dbg"
-t "reg"
+t "wire"
 o 18
 suid 86,0
-iv "0"
 )
 )
 uid 3476,0
@@ -715,19 +716,19 @@ value "/home/dcs/git/mopshub/mopshub_lib/hds/Elink_to_FIFO"
 )
 (vvPair
 variable "date"
-value "04/07/21"
+value "04/08/21"
 )
 (vvPair
 variable "day"
-value "Wed"
+value "Thu"
 )
 (vvPair
 variable "day_long"
-value "Wednesday"
+value "Thursday"
 )
 (vvPair
 variable "dd"
-value "07"
+value "08"
 )
 (vvPair
 variable "entity_name"
@@ -755,7 +756,7 @@ value "dcs"
 )
 (vvPair
 variable "graphical_source_date"
-value "04/07/21"
+value "04/08/21"
 )
 (vvPair
 variable "graphical_source_group"
@@ -767,7 +768,7 @@ value "chipdev2.physik.uni-wuppertal.de"
 )
 (vvPair
 variable "graphical_source_time"
-value "17:58:24"
+value "10:04:54"
 )
 (vvPair
 variable "group"
@@ -879,7 +880,7 @@ value "symbol"
 )
 (vvPair
 variable "time"
-value "17:58:24"
+value "10:04:54"
 )
 (vvPair
 variable "unit"
@@ -1603,8 +1604,8 @@ uid 1774,0
 va (VaSet
 font "courier,8,0"
 )
-xt "2000,13500,16500,14400"
-st "output reg         wrEn_dbg;
+xt "2000,13500,18500,14400"
+st "output reg         wrEn_dbg = 0;
 "
 )
 thePort (LogicalPort
@@ -1615,6 +1616,7 @@ n "wrEn_dbg"
 t "reg"
 o 12
 suid 81,0
+iv "0"
 )
 )
 )
@@ -1651,8 +1653,8 @@ uid 2052,0
 va (VaSet
 font "courier,8,0"
 )
-xt "2000,17100,16000,18000"
-st "output reg [9:0]   din_dbg;
+xt "2000,17100,20100,18000"
+st "output reg [9:0]   din_dbg = 10'b0;
 "
 )
 thePort (LogicalPort
@@ -1664,6 +1666,7 @@ t "reg"
 b "[9:0]"
 o 16
 suid 83,0
+iv "10'b0"
 )
 )
 )
@@ -1749,8 +1752,8 @@ uid 3481,0
 va (VaSet
 font "courier,8,0"
 )
-xt "2000,18900,21500,19800"
-st "output reg         wr_en_fifo_dbg = 0;
+xt "2000,18900,19500,19800"
+st "output wire        wr_en_fifo_dbg;
 "
 )
 thePort (LogicalPort
@@ -1758,10 +1761,9 @@ lang 5
 m 1
 decl (Decl
 n "wr_en_fifo_dbg"
-t "reg"
+t "wire"
 o 18
 suid 86,0
-iv "0"
 )
 )
 )
@@ -2483,7 +2485,7 @@ xt "2000,2700,2000,2700"
 tm "SyDeclarativeTextMgr"
 )
 )
-lastUid 3503,0
+lastUid 3649,0
 postModuleDirective "// Local declarations
 
 // Internal signal declarations"

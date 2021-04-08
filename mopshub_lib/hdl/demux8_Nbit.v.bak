@@ -17,6 +17,7 @@ output  wire    [9:0]  enc10bit_out
 );
     
 reg  [9:0] enc10bit_r= 10'b0;
+
 assign enc10bit_out = enc10bit_r;
  always @(EDATA_2bit or sel)
  begin 

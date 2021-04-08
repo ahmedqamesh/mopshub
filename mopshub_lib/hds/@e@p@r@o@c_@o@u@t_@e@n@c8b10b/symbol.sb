@@ -12,7 +12,7 @@ model (Symbol
 commonDM (CommonDM
 ldm (LogicalDM
 ordering 1
-suid 15,0
+suid 17,0
 usingSuid 1
 emptyRow *1 (LEmptyRow
 )
@@ -65,29 +65,13 @@ prec "// Port Declarations
 eolc "//bitCLK to send the 2bits EdataOUT [clk_40 MB/s]"
 preAdd 0
 posAdd 0
-o 1
+o 2
 suid 2,0
 )
 )
 uid 158,0
 )
 *16 (LogPort
-port (LogicalPort
-lang 5
-decl (Decl
-n "edataIN"
-t "wire"
-b "[9:0]"
-eolc "//Data stored in the FIFO"
-preAdd 0
-posAdd 0
-o 3
-suid 5,0
-)
-)
-uid 164,0
-)
-*17 (LogPort
 port (LogicalPort
 lang 5
 decl (Decl
@@ -99,7 +83,7 @@ suid 7,0
 )
 uid 168,0
 )
-*18 (LogPort
+*17 (LogPort
 port (LogicalPort
 lang 5
 m 1
@@ -114,7 +98,7 @@ suid 8,0
 )
 uid 170,0
 )
-*19 (LogPort
+*18 (LogPort
 port (LogicalPort
 lang 5
 decl (Decl
@@ -128,7 +112,7 @@ suid 9,0
 )
 uid 172,0
 )
-*20 (LogPort
+*19 (LogPort
 port (LogicalPort
 lang 5
 m 1
@@ -142,7 +126,7 @@ suid 11,0
 )
 uid 539,0
 )
-*21 (LogPort
+*20 (LogPort
 port (LogicalPort
 lang 5
 decl (Decl
@@ -154,29 +138,47 @@ suid 12,0
 )
 uid 541,0
 )
-*22 (LogPort
-port (LogicalPort
-lang 5
-decl (Decl
-n "DATA_RDY"
-t "wire"
-o 4
-suid 13,0
-)
-)
-uid 575,0
-)
-*23 (LogPort
+*21 (LogPort
 port (LogicalPort
 lang 5
 decl (Decl
 n "bitCLKx4"
 t "wire"
-o 2
+prec "// Port Declarations"
+preAdd 0
+o 1
 suid 15,0
 )
 )
 uid 773,0
+)
+*22 (LogPort
+port (LogicalPort
+lang 5
+decl (Decl
+n "EDATA_IN"
+t "wire"
+b "[9:0]"
+eolc "//Data stored in the FIFO"
+preAdd 0
+posAdd 0
+o 3
+suid 16,0
+)
+)
+uid 820,0
+)
+*23 (LogPort
+port (LogicalPort
+lang 5
+decl (Decl
+n "EDATA_RDY"
+t "wire"
+o 4
+suid 17,0
+)
+)
+uid 822,0
 )
 ]
 )
@@ -236,51 +238,51 @@ uid 159,0
 )
 *30 (MRCItem
 litem &16
-pos 1
-dimension 20
-uid 165,0
-)
-*31 (MRCItem
-litem &17
 pos 2
 dimension 20
 uid 169,0
 )
-*32 (MRCItem
-litem &18
+*31 (MRCItem
+litem &17
 pos 3
 dimension 20
 uid 171,0
 )
-*33 (MRCItem
-litem &19
+*32 (MRCItem
+litem &18
 pos 4
 dimension 20
 uid 173,0
 )
-*34 (MRCItem
-litem &20
+*33 (MRCItem
+litem &19
 pos 5
 dimension 20
 uid 538,0
 )
-*35 (MRCItem
-litem &21
+*34 (MRCItem
+litem &20
 pos 6
 dimension 20
 uid 540,0
 )
-*36 (MRCItem
-litem &22
-pos 7
-dimension 20
-uid 574,0
-)
-*37 (MRCItem
-litem &23
+*35 (MRCItem
+litem &21
 pos 8
 dimension 20
 uid 774,0
+)
+*36 (MRCItem
+litem &22
+pos 1
+dimension 20
+uid 819,0
+)
+*37 (MRCItem
+litem &23
+pos 7
+dimension 20
+uid 821,0
 )
 ]
 )
@@ -539,19 +541,19 @@ value "/home/dcs/git/mopshub/mopshub_lib/hds/EPROC_OUT_ENC8b10b"
 )
 (vvPair
 variable "date"
-value "03/27/21"
+value "04/08/21"
 )
 (vvPair
 variable "day"
-value "Sat"
+value "Thu"
 )
 (vvPair
 variable "day_long"
-value "Saturday"
+value "Thursday"
 )
 (vvPair
 variable "dd"
-value "27"
+value "08"
 )
 (vvPair
 variable "entity_name"
@@ -579,7 +581,7 @@ value "dcs"
 )
 (vvPair
 variable "graphical_source_date"
-value "03/27/21"
+value "04/08/21"
 )
 (vvPair
 variable "graphical_source_group"
@@ -591,7 +593,7 @@ value "chipdev2.physik.uni-wuppertal.de"
 )
 (vvPair
 variable "graphical_source_time"
-value "22:52:04"
+value "12:33:40"
 )
 (vvPair
 variable "group"
@@ -627,7 +629,7 @@ value "$HDS_PROJECT_DIR/mopshub_lib/svassistant"
 )
 (vvPair
 variable "mm"
-value "03"
+value "04"
 )
 (vvPair
 variable "module_name"
@@ -635,11 +637,11 @@ value "EPROC_OUT_ENC8b10b"
 )
 (vvPair
 variable "month"
-value "Mar"
+value "Apr"
 )
 (vvPair
 variable "month_long"
-value "March"
+value "April"
 )
 (vvPair
 variable "p"
@@ -703,7 +705,7 @@ value "symbol"
 )
 (vvPair
 variable "time"
-value "22:52:04"
+value "12:33:40"
 )
 (vvPair
 variable "unit"
@@ -769,7 +771,7 @@ uid 115,0
 va (VaSet
 font "courier,8,0"
 )
-xt "2000,3600,37000,6300"
+xt "2000,5400,37000,8100"
 st "// Port Declarations
 // Port Declarations
 input  wire bitCLK; //bitCLK to send the 2bits EdataOUT [clk_40 MB/s]
@@ -785,62 +787,12 @@ prec "// Port Declarations
 eolc "//bitCLK to send the 2bits EdataOUT [clk_40 MB/s]"
 preAdd 0
 posAdd 0
-o 1
+o 2
 suid 2,0
 )
 )
 )
 *69 (CptPort
-uid 126,0
-ps "OnEdgeStrategy"
-shape (Triangle
-uid 127,0
-ro 90
-va (VaSet
-vasetType 1
-fg "0,65535,0"
-)
-xt "35250,22625,36000,23375"
-)
-tg (CPTG
-uid 128,0
-ps "CptPortTextPlaceStrategy"
-stg "VerticalLayoutStrategy"
-f (Text
-uid 129,0
-va (VaSet
-font "courier,8,0"
-)
-xt "37000,22550,45000,23450"
-st "edataIN : [9:0]"
-blo "37000,23250"
-tm "CptPortNameMgr"
-)
-)
-dt (MLText
-uid 130,0
-va (VaSet
-font "courier,8,0"
-)
-xt "2000,7200,29000,8100"
-st "input  wire [9:0]  edataIN; //Data stored in the FIFO
-"
-)
-thePort (LogicalPort
-lang 5
-decl (Decl
-n "edataIN"
-t "wire"
-b "[9:0]"
-eolc "//Data stored in the FIFO"
-preAdd 0
-posAdd 0
-o 3
-suid 5,0
-)
-)
-)
-*70 (CptPort
 uid 136,0
 ps "OnEdgeStrategy"
 shape (Triangle
@@ -872,7 +824,7 @@ uid 140,0
 va (VaSet
 font "courier,8,0"
 )
-xt "2000,9000,20500,9900"
+xt "2000,9900,20500,10800"
 st "input  wire        fhCR_REVERSE_10B;
 "
 )
@@ -886,7 +838,7 @@ suid 7,0
 )
 )
 )
-*71 (CptPort
+*70 (CptPort
 uid 141,0
 ps "OnEdgeStrategy"
 shape (Triangle
@@ -919,7 +871,7 @@ uid 145,0
 va (VaSet
 font "courier,8,0"
 )
-xt "2000,11700,48500,12600"
+xt "2000,12600,48500,13500"
 st "output wire        getDataTrig; //output Trig signal will enable reading from fifo (rd_en=1)
 "
 )
@@ -936,7 +888,7 @@ suid 8,0
 )
 )
 )
-*72 (CptPort
+*71 (CptPort
 uid 146,0
 ps "OnEdgeStrategy"
 shape (Triangle
@@ -968,7 +920,7 @@ uid 150,0
 va (VaSet
 font "courier,8,0"
 )
-xt "2000,10800,31500,11700"
+xt "2000,11700,31500,12600"
 st "input  wire        rst; // reset all the counters and data
 "
 )
@@ -984,7 +936,7 @@ suid 9,0
 )
 )
 )
-*73 (CptPort
+*72 (CptPort
 uid 542,0
 ps "OnEdgeStrategy"
 shape (Triangle
@@ -1017,7 +969,7 @@ uid 546,0
 va (VaSet
 font "courier,8,0"
 )
-xt "2000,12600,17000,13500"
+xt "2000,13500,17000,14400"
 st "output wire [1:0]  EDATA_OUT;
 "
 )
@@ -1033,7 +985,7 @@ suid 11,0
 )
 )
 )
-*74 (CptPort
+*73 (CptPort
 uid 547,0
 ps "OnEdgeStrategy"
 shape (Triangle
@@ -1065,7 +1017,7 @@ uid 551,0
 va (VaSet
 font "courier,8,0"
 )
-xt "2000,9900,18500,10800"
+xt "2000,10800,18500,11700"
 st "input  wire        swap_outbits;
 "
 )
@@ -1079,53 +1031,7 @@ suid 12,0
 )
 )
 )
-*75 (CptPort
-uid 576,0
-ps "OnEdgeStrategy"
-shape (Triangle
-uid 577,0
-ro 90
-va (VaSet
-vasetType 1
-fg "0,65535,0"
-)
-xt "35250,27625,36000,28375"
-)
-tg (CPTG
-uid 578,0
-ps "CptPortTextPlaceStrategy"
-stg "VerticalLayoutStrategy"
-f (Text
-uid 579,0
-va (VaSet
-font "courier,8,0"
-)
-xt "37000,27550,41000,28450"
-st "DATA_RDY"
-blo "37000,28250"
-tm "CptPortNameMgr"
-)
-)
-dt (MLText
-uid 580,0
-va (VaSet
-font "courier,8,0"
-)
-xt "2000,8100,16500,9000"
-st "input  wire        DATA_RDY;
-"
-)
-thePort (LogicalPort
-lang 5
-decl (Decl
-n "DATA_RDY"
-t "wire"
-o 4
-suid 13,0
-)
-)
-)
-*76 (CptPort
+*74 (CptPort
 uid 768,0
 ps "OnEdgeStrategy"
 shape (Triangle
@@ -1157,8 +1063,9 @@ uid 772,0
 va (VaSet
 font "courier,8,0"
 )
-xt "2000,6300,16500,7200"
-st "input  wire        bitCLKx4;
+xt "2000,3600,13000,5400"
+st "// Port Declarations
+input  wire bitCLKx4;
 "
 )
 thePort (LogicalPort
@@ -1166,8 +1073,106 @@ lang 5
 decl (Decl
 n "bitCLKx4"
 t "wire"
-o 2
+prec "// Port Declarations"
+preAdd 0
+o 1
 suid 15,0
+)
+)
+)
+*75 (CptPort
+uid 823,0
+ps "OnEdgeStrategy"
+shape (Triangle
+uid 824,0
+ro 90
+va (VaSet
+vasetType 1
+fg "0,65535,0"
+)
+xt "35250,29625,36000,30375"
+)
+tg (CPTG
+uid 825,0
+ps "CptPortTextPlaceStrategy"
+stg "VerticalLayoutStrategy"
+f (Text
+uid 826,0
+va (VaSet
+font "courier,8,0"
+)
+xt "37000,29550,45500,30450"
+st "EDATA_IN : [9:0]"
+blo "37000,30250"
+tm "CptPortNameMgr"
+)
+)
+dt (MLText
+uid 827,0
+va (VaSet
+font "courier,8,0"
+)
+xt "2000,8100,29500,9000"
+st "input  wire [9:0]  EDATA_IN; //Data stored in the FIFO
+"
+)
+thePort (LogicalPort
+lang 5
+decl (Decl
+n "EDATA_IN"
+t "wire"
+b "[9:0]"
+eolc "//Data stored in the FIFO"
+preAdd 0
+posAdd 0
+o 3
+suid 16,0
+)
+)
+)
+*76 (CptPort
+uid 828,0
+ps "OnEdgeStrategy"
+shape (Triangle
+uid 829,0
+ro 90
+va (VaSet
+vasetType 1
+fg "0,65535,0"
+)
+xt "35250,30625,36000,31375"
+)
+tg (CPTG
+uid 830,0
+ps "CptPortTextPlaceStrategy"
+stg "VerticalLayoutStrategy"
+f (Text
+uid 831,0
+va (VaSet
+font "courier,8,0"
+)
+xt "37000,30550,41500,31450"
+st "EDATA_RDY"
+blo "37000,31250"
+tm "CptPortNameMgr"
+)
+)
+dt (MLText
+uid 832,0
+va (VaSet
+font "courier,8,0"
+)
+xt "2000,9000,17000,9900"
+st "input  wire        EDATA_RDY;
+"
+)
+thePort (LogicalPort
+lang 5
+decl (Decl
+n "EDATA_RDY"
+t "wire"
+o 4
+suid 17,0
 )
 )
 )
@@ -1882,19 +1887,17 @@ xt "2000,2700,2000,2700"
 tm "SyDeclarativeTextMgr"
 )
 )
-lastUid 774,0
+lastUid 854,0
 postModuleDirective "// Local declarations
-
-// Internal signal declarations
-
-
-// Local declarations
-
-// Internal signal declarations
+  
+  // Internal signal declarations
+  // Internal Declarations
 
 
 // Local declarations
 
 // Internal signal declarations"
+okToSyncOnLoad 1
+OkToSyncGenericsOnLoad 1
 activeModelName "Symbol"
 )
