@@ -3,6 +3,7 @@
 module fifo_downstream #(
    // synopsys template
    // synopsys template
+// synopsys template
    parameter DATA_WIDTH          = 10,
    parameter ADDRESS_WIDTH       = 11,
    parameter FIFO_DEPTH          = (1 << ADDRESS_WIDTH),
@@ -11,22 +12,23 @@ module fifo_downstream #(
 )
 ( 
    // Port Declarations
-   output  wire     [DATA_WIDTH-1:0]  dout, 
+   output  wire    [DATA_WIDTH-1:0]  dout, 
    output  wire                      full,         //FIFO is full. Write requests are ignored when is full is non-destructive to the contents of the FIFO. T
-   output  wire                      empty,  // If DIff = 0
+   output  wire                      empty,        // If DIff = 0
    output  wire                      prog_full,    //The signal is asserted when the number of entries in the FIFO is greater than or equal to the user-defined assert threshold. W
    output  wire                      almost_full,  //  this signal indicates that only one more write can be performed before the FIFO is full.
-                                                   //It defines when the signal is deasserted. 
-                                                   //The threshold can be dynamically set in-circuit during reset.
+   //It defines when the signal is deasserted.
+   //The threshold can be dynamically set in-circuit during reset.
    input   wire    [DATA_WIDTH-1:0]  din, 
    input   wire                      wr_en,        //If the FIFO is not full, asserting this signal causes data to be written to the FIFO. This signal is active high
-   input   wire                      rd_en,        // Control the  read operation 
+   input   wire                      rd_en,        // Control the  read operation
    input   wire                      rd_clk, 
    input   wire                      wr_clk, 
    input   wire                      rst
 );
 
-// Internal signal declarations
+
+// Internal Declarations
 wire  [ADDRESS_WIDTH-1:0] r_ptr;
 wire  [ADDRESS_WIDTH-1:0] w_ptr;
 reg                       r_next_en;

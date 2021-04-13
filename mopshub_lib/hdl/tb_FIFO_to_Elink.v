@@ -13,41 +13,33 @@
 module tb_FIFO_to_Elink ;
   parameter DATA_WIDTH=8;
   parameter DATA_OUT_WIDTH = 10;
-  reg                            clk_160;
   reg                            rst; 
-  wire                            clk_80;
-  wire                            clk_40; 
-  wire                            gen_clk;
-  
+  reg                            bitCLKx4;
+  wire                           bitCLKx2;
+  wire                           bitCLK; 
+  wire                           genCLK;
+    
+  wire [DATA_WIDTH-1:0] GEN_EDATA_8bit;
+  wire [1:0]            delimeter;
+  wire [DATA_WIDTH-1:0] DEC_EDATA_OUT_8bit;
+  wire [1:0]            ISK;
   //FIFO_to_Elink Signals
   wire                         DATA1bitOUT; 
-  wire    [1:0]                elink2bit; 
+  wire    [1:0]                elink2bit;
   
-  //FIFO Signals
-  wire [DATA_OUT_WIDTH-1:0] Dout;
-  wire doutRdy;
-  wire getDataTrig;
-  //data Genrator Signal
-  wire [DATA_WIDTH-1:0] GEN_EDATA_8bit;
-  wire tx_fifo_pfull;
-  wire wr_en; 
-  wire [1:0]delimeter;
-  wire done; 
-  reg enable;
+  wire           doutRdy;
+  wire           getDataTrig;
+  wire           DATA_RDY;
+  wire           tx_fifo_pfull;
+  wire           wr_en; 
+  wire           done; 
+  reg            enable;
   
-  //GBTX Emulator Signals
-  wire [DATA_WIDTH-1:0] DEC_EDATA_OUT_8bit;
-  wire [DATA_OUT_WIDTH-1:0] ENC_EDATA_OUT_10bit;
-  wire ko;
-  wire code_err;
-  wire disp_err;
-  
-  assign Dout = MUT.efifoDout;
   assign doutRdy = MUT.doutRdy;
   assign getDataTrig = MUT.efifoRE;
   
   data_generator DataGEN(
-  .clk_usr          (gen_clk),
+  .clk_usr          (genCLK),
   .enable           (enable),
   .loop_en          (enable),
   .done             (done),
@@ -58,9 +50,9 @@ module tb_FIFO_to_Elink ;
   );
   
   FIFO_to_Elink MUT(
-  .wr_clk           (clk_40),
-  .bitCLKx2         (clk_80),
-  .bitCLKx4         (clk_160),
+  .wr_clk           (bitCLK),
+  .bitCLKx2         (bitCLKx2),
+  .bitCLKx4         (bitCLKx4),
   .rst              (rst),
   .fifo_flush       (rst),
   .efifoWr          (wr_en),
@@ -71,53 +63,57 @@ module tb_FIFO_to_Elink ;
   .reverse_tx(1'b0),
   .swap_output(1'b0)
   );
-  
-  
-  GBTX_Emulator U_1( 
-  .ko               (ko), 
-  .code_err         (code_err), 
-  .disp_err         (disp_err), 
+
+   EMCI_Emulator Emulator( 
+  .bitCLKx4         (bitCLKx4),
+  .bitCLKx2         (bitCLKx2),
+  .bitCLK           (bitCLK),
   .rst              (rst), 
-  .bitCLK           (clk_40),
-  .dataout          (DEC_EDATA_OUT_8bit), 
-  .enc10bit_out_dbg (ENC_EDATA_OUT_10bit),
+  .efifoRe          (), 
+  .efifoEmpty       (), 
+  .efifoFull        (), 
+  .efifoDout        (),
   .EDATA_2bit       (elink2bit),
+  .DATA1bitIN       (1'b0),
+  .swap_input       (1'b0),
+  .reverse_rx       (1'b0),
+  .enc10bit_out_dbg (),
+  .HGFEDCBA         (DEC_EDATA_OUT_8bit),
+  .ISK(ISK),
   .datain_valid     (~rst),
-  .data_10b_in      (), 
-  .data_10b_en      ()
+  .data_10b_in      (10'b0),//{enc10bit_r[0],enc10bit_r[1],enc10bit_r[2],enc10bit_r[3],enc10bit_r[4],enc10bit_r[5],enc10bit_r[6],enc10bit_r[7],enc10bit_r[8],enc10bit_r[9]}), 
+  .data_10b_en      (1'b0)
   );
-  
-  //clk_40 to FIFO //40 Mb 
-  //Freq. clk_40 = Freq. clk_160 / 4 [=40 MHz]
+//   
+  //bitCLK to FIFO //40 Mb 
+  //Freq. bitCLK = Freq. bitCLKx4 / 4 [=40 MHz]
   clock_divider #(4) div_0(
-  .clock_in(clk_160),
-  .clock_out(clk_40)//Equivalent to the bitCLK
+  .clock_in(bitCLKx4),
+  .clock_out(bitCLK)//Equivalent to the bitCLK
   );
   
   //Generator clk
-  //Freq. gen_clk = Freq. clk_160 / 4 [=40 MHz]
+  //Freq. genCLK = Freq. bitCLKx4 / 4 [=40 MHz]
   clock_divider #(4) div_1(
-  .clock_in(clk_160),
-  .clock_out(gen_clk)//Equivalent to the clk_40
+  .clock_in(bitCLKx4),
+  .clock_out(genCLK)//Equivalent to the bitCLK
   );
-  //Generator clk_80 // 80 Mb
-  //Freq. clk_80 = Freq. clk_160 / 2 [=80 MHz]
+  //Generator bitCLKx2 // 80 Mb
+  //Freq. bitCLKx2 = Freq. bitCLKx4 / 2 [=80 MHz]
   clock_divider #(2) div_2(
-  .clock_in(clk_160),
-  .clock_out(clk_80)//Equivalent to the bitCLKx2
+  .clock_in(bitCLKx4),
+  .clock_out(bitCLKx2)//Equivalent to the bitCLKx2
   );
   
   initial begin 
-    clk_160=0; 
-    forever #1 clk_160=~clk_160; //Equivalent to the bitCLKx4
+    bitCLKx4=0; 
+    forever #1 bitCLKx4=~bitCLKx4; //Equivalent to the bitCLKx4
   end
   
   initial 
   begin 
-    enable = 1;
-    rst = 1;
-    #1 rst =0;
-    #3;
+    rst = 1'b1;
+    #10 rst=!rst;
   end 
   always@(done)
     begin
@@ -125,5 +121,4 @@ module tb_FIFO_to_Elink ;
       #16;
       enable =1;
     end
-  
 endmodule
