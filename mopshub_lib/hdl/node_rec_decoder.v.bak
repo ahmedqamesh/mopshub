@@ -10,80 +10,73 @@
 
 `resetall
 `timescale 1ns/10ps
-module node_rec_decoder( 
+module dec32_Nbit( 
    // Port Declarations
-   input   wire            can_rec9, 
-   input   wire            can_rec18, 
-   input   wire            can_rec19, 
-   input   wire            can_rec20, 
-   input   wire            can_rec21, 
-   input   wire            can_rec22, 
-   input   wire            can_rec23, 
-   input   wire            can_rec24, 
-   input   wire            can_rec4, 
-   input   wire            can_rec5, 
-   input   wire            can_rec6, 
-   input   wire            can_rec7, 
-   input   wire            can_rec8, 
-   input   wire            can_rec10, 
-   input   wire            can_rec11, 
-   input   wire            can_rec12, 
-   input   wire            can_rec13, 
-   input   wire            can_rec14, 
-   input   wire            can_rec15, 
-   input   wire            can_rec16, 
-   input   wire            can_rec17, 
-   input   wire            can_rec0, 
-   input   wire            can_rec1, 
-   input   wire            can_rec2, 
-   input   wire            can_rec3, 
-   input   wire            can_rec26, 
-   input   wire            can_rec27, 
-   input   wire            can_rec28, 
-   input   wire            can_rec29, 
-   input   wire            can_rec30, 
-   input   wire            can_rec31, 
-   input   wire            can_rec25,
-   input   wire             ireqsucrec, 
-   output  wire    [31:0]  can_rec
+   input   wire            Input9, 
+   input   wire            Input18, 
+   input   wire            Input19, 
+   input   wire            Input20, 
+   input   wire            Input21, 
+   input   wire            Input22, 
+   input   wire            Input23, 
+   input   wire            Input24, 
+   input   wire            Input4, 
+   input   wire            Input5, 
+   input   wire            Input6, 
+   input   wire            Input7, 
+   input   wire            Input8, 
+   input   wire            Input10, 
+   input   wire            Input11, 
+   input   wire            Input12, 
+   input   wire            Input13, 
+   input   wire            Input14, 
+   input   wire            Input15, 
+   input   wire            Input16, 
+   input   wire            Input17, 
+   input   wire            Input0, 
+   input   wire            Input1, 
+   input   wire            Input2, 
+   input   wire            Input3, 
+   input   wire            Input26, 
+   input   wire            Input27, 
+   input   wire            Input28, 
+   input   wire            Input29, 
+   input   wire            Input30, 
+   input   wire            Input31, 
+   input   wire            Input25,
+   output  wire    [31:0]  output_bus
 );
+assign    output_bus[0] = Input0;
+assign    output_bus[1] = Input1;
+assign    output_bus[2] = Input2;
+assign    output_bus[3] = Input3;
+assign    output_bus[4] = Input4;
+assign    output_bus[5] = Input5;
+assign    output_bus[6] = Input6;
+assign    output_bus[7] = Input7;
+assign    output_bus[8] = Input8;   
+assign    output_bus[9] = Input9;
+assign    output_bus[10] = Input10;
+assign    output_bus[11] = Input11;
+assign    output_bus[12] = Input12;
+assign    output_bus[13] = Input13;
+assign    output_bus[14] = Input14;
+assign    output_bus[15] = Input15;
+assign    output_bus[16] = Iput16;
+assign    output_bus[17] = Input17;    
+assign    output_bus[18] = Input18;
+assign    output_bus[19] = Input19;
+assign    output_bus[20] = Input20;
+assign    output_bus[21] = Input21;
+assign    output_bus[22] = Input22;
+assign    output_bus[23] = Input23;
+assign    output_bus[24] = Input24;
+assign    output_bus[25] = Input25;
+assign    output_bus[26] = Input26;
+assign    output_bus[27] = Input27;
+assign    output_bus[28] = Input28;
+assign    output_bus[29] = Input29;
+assign    output_bus[30] = Input30;
+assign    output_bus[31] = Input31;
 
-reg [31:0] can_rec_reg;
-assign  can_rec =can_rec_reg ;
-always @(ireqsucrec)
-  begin
-    can_rec_reg[0] = can_rec0;
-    can_rec_reg[1] = can_rec1;
-    can_rec_reg[2] = can_rec2;
-    can_rec_reg[3] = can_rec3;
-    can_rec_reg[4] = can_rec4;
-    can_rec_reg[5] = can_rec5;
-    can_rec_reg[6] = can_rec6;
-    can_rec_reg[7] = can_rec7;
-    can_rec_reg[8] = can_rec8;   
-    can_rec_reg[9] = can_rec9;
-    can_rec_reg[18] = can_rec18;
-    can_rec_reg[19] = can_rec19;
-    can_rec_reg[20] = can_rec20;
-    can_rec_reg[21] = can_rec21;
-    can_rec_reg[22] = can_rec22;
-    can_rec_reg[23] = can_rec23;
-    can_rec_reg[24] = can_rec24;
-
-    can_rec_reg[10] = can_rec10;
-    can_rec_reg[11] = can_rec11;
-    can_rec_reg[12] = can_rec12;
-    can_rec_reg[13] = can_rec13;
-    can_rec_reg[14] = can_rec14;
-    can_rec_reg[15] = can_rec15;
-    can_rec_reg[16] = can_rec16;
-    can_rec_reg[17] = can_rec17;
-    can_rec_reg[26] = can_rec26;
-    can_rec_reg[27] = can_rec27;
-    can_rec_reg[28] = can_rec28;
-    can_rec_reg[29] = can_rec29;
-    can_rec_reg[30] = can_rec30;
-    can_rec_reg[31] = can_rec31;
-    can_rec_reg[25] = can_rec25;
-  end
 endmodule

@@ -48,7 +48,7 @@ module tb_node_rec_decoder ;
    // Outputs
    wire  [31:0]   can_rec;
   
-  node_rec_decoder uut (
+  dec32_Nbit uut (
       .can_rec(can_rec),
       .can_rec0(can_rec0), 
       .can_rec1(can_rec1), 
