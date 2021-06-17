@@ -10,9 +10,11 @@
 
 `resetall
 `timescale 1ns/10ps
-module demux1_31bit( 
+module demux1_1bit#(
+  parameter def_value = 1'b1
+  )( 
   input   wire    [4:0]  sel,
-  input   wire           Input,  
+  input   wire           input_port,  
   output   wire            output9, 
   output   wire            output18, 
   output   wire            output19, 
@@ -47,38 +49,38 @@ module demux1_31bit(
   output   wire            output25
   );
   
-  reg output9_reg =1'b1; 
-  reg output18_reg =1'b1; 
-  reg output19_reg =1'b1; 
-  reg output20_reg =1'b1; 
-  reg output21_reg =1'b1; 
-  reg output22_reg =1'b1; 
-  reg output23_reg =1'b1; 
-  reg output24_reg =1'b1; 
-  reg output4_reg =1'b1; 
-  reg output5_reg =1'b1; 
-  reg output6_reg =1'b1; 
-  reg output7_reg =1'b1; 
-  reg output8_reg =1'b1; 
-  reg output10_reg =1'b1; 
-  reg output11_reg =1'b1; 
-  reg output12_reg =1'b1; 
-  reg output13_reg =1'b1; 
-  reg output14_reg =1'b1; 
-  reg output15_reg =1'b1; 
-  reg output16_reg =1'b1; 
-  reg output17_reg =1'b1; 
-  reg output0_reg =1'b1; 
-  reg output1_reg =1'b1; 
-  reg output2_reg =1'b1; 
-  reg output3_reg =1'b1; 
-  reg output26_reg =1'b1; 
-  reg output27_reg =1'b1; 
-  reg output28_reg =1'b1; 
-  reg output29_reg =1'b1; 
-  reg output30_reg =1'b1; 
-  reg output31_reg =1'b1; 
-  reg output25_reg =1'b1; 
+  reg output9_reg =def_value; 
+  reg output18_reg =def_value; 
+  reg output19_reg =def_value; 
+  reg output20_reg =def_value; 
+  reg output21_reg =def_value; 
+  reg output22_reg =def_value; 
+  reg output23_reg =def_value; 
+  reg output24_reg =def_value; 
+  reg output4_reg =def_value; 
+  reg output5_reg =def_value; 
+  reg output6_reg =def_value; 
+  reg output7_reg =def_value; 
+  reg output8_reg =def_value; 
+  reg output10_reg =def_value; 
+  reg output11_reg =def_value; 
+  reg output12_reg =def_value; 
+  reg output13_reg =def_value; 
+  reg output14_reg =def_value; 
+  reg output15_reg =def_value; 
+  reg output16_reg =def_value; 
+  reg output17_reg =def_value; 
+  reg output0_reg =def_value; 
+  reg output1_reg =def_value; 
+  reg output2_reg =def_value; 
+  reg output3_reg =def_value; 
+  reg output26_reg =def_value; 
+  reg output27_reg =def_value; 
+  reg output28_reg =def_value; 
+  reg output29_reg =def_value; 
+  reg output30_reg =def_value; 
+  reg output31_reg =def_value; 
+  reg output25_reg =def_value; 
   
  assign  output9=output9_reg; 
  assign  output18=output18_reg; 
@@ -113,104 +115,104 @@ module demux1_31bit(
  assign  output31=output31_reg; 
  assign  output25=output25_reg; 
   
-  always @(Input or sel)
+  always @(input_port or sel)
   begin 
     case (sel)
       5'h0 : begin 
-        output0_reg = Input;
+        output0_reg = input_port;
       end
       5'h1 : begin 
-        output1_reg  = Input;
+        output1_reg  = input_port;
       end
       5'h2 : begin 
-        output2_reg  = Input;
+        output2_reg  = input_port;
       end
       5'h3 : begin 
-        output3_reg  = Input;
+        output3_reg  = input_port;
       end
       5'h4 : begin
-        output4_reg  = Input;
+        output4_reg  = input_port;
       end
       5'h5 : begin 
-        output5_reg = Input;
+        output5_reg = input_port;
       end
       5'h6 : begin 
-        output6_reg  = Input;
+        output6_reg  = input_port;
       end
       5'h7 : begin 
-        output7_reg  = Input;
+        output7_reg  = input_port;
       end
       5'h8 : begin 
-        output8_reg  = Input;
+        output8_reg  = input_port;
       end
       5'h9 : begin
-        output9_reg  = Input;
+        output9_reg  = input_port;
       end
       5'hA : begin 
-        output10_reg = Input;
+        output10_reg = input_port;
       end
       5'hB : begin 
-        output11_reg  = Input;
+        output11_reg  = input_port;
       end
       5'hC : begin 
-        output12_reg  = Input;
+        output12_reg  = input_port;
       end
       5'hD : begin 
-        output13_reg  = Input;
+        output13_reg  = input_port;
       end
       5'hE : begin
-        output14_reg  = Input;
+        output14_reg  = input_port;
       end
       5'hF : begin 
-        output15_reg = Input;
+        output15_reg = input_port;
       end
       5'h10 : begin 
-        output16_reg  = Input;
+        output16_reg  = input_port;
       end
       5'h11 : begin 
-        output17_reg  = Input;
+        output17_reg  = input_port;
       end
       5'h12 : begin 
-        output18_reg  = Input;
+        output18_reg  = input_port;
       end
       5'h13 : begin
-        output19_reg  = Input;           
+        output19_reg  = input_port;           
       end
       5'h14 : begin 
-        output20_reg  = Input;
+        output20_reg  = input_port;
       end
       5'h15 : begin 
-        output21_reg  = Input;
+        output21_reg  = input_port;
       end
       5'h16 : begin 
-        output22_reg  = Input;
+        output22_reg  = input_port;
       end
       5'h17 : begin
-        output23_reg  = Input;
+        output23_reg  = input_port;
       end
       5'h18 : begin 
-        output24_reg = Input;
+        output24_reg = input_port;
       end
       5'h19 : begin 
-        output25_reg  = Input;
+        output25_reg  = input_port;
       end
       5'h1A : begin 
-        output26_reg  = Input;
+        output26_reg  = input_port;
       end
       5'h1B : begin 
-        output27_reg  = Input;
+        output27_reg  = input_port;
       end
       5'h1C : begin
-        output28_reg  = Input;
+        output28_reg  = input_port;
     end 
       5'h1D : begin 
-        output29_reg  = Input;
+        output29_reg  = input_port;
       end
       5'h1E : begin 
-        output30_reg  = Input;
+        output30_reg  = input_port;
       end
       5'h1F : begin
-        output31_reg  = Input;
+        output31_reg  = input_port;
     end    
     endcase
   end

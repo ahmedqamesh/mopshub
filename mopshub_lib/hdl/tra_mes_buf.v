@@ -7,37 +7,37 @@ module tra_mes_buf(
    input   wire            en,            // enable signal
    input   wire            rst,           //
    output  wire    [75:0]  data_tra_out,  // Output data to be written on the CAN bus
-   output  wire    [4:0]   data_tra_bus
+   output  wire    [4: 0]  data_tra_select
 );
 
 //tmrg default triplicate
 //tmrg tmr_error false
 // Internal Declarations
 reg [75:0] data_tra_reg;
-reg [4:0] data_bus_reg;
-
+reg [4: 0] data_tra_select_reg;
 // Triplication assignment
 wire [75:0] data_tra_regVoted = data_tra_reg;
-wire [4:0] data_bus_regVoted = data_bus_reg;
-
+wire [4:0] data_tra_select_regVoted = data_tra_select_reg;
 always@(posedge clk or negedge rst)
 begin 
  if(!rst)
   begin
     data_tra_reg <= 76'd0;
-    data_bus_reg <= 5'd0; 
+    data_tra_select_reg <= 5'd0;
   end
  else
   if(en)
-    begin
+  begin
       data_tra_reg <= data_tra_in;
-      data_bus_reg <= data_tra_in[20:16];
+      data_tra_select_reg <= data_tra_in[4:0];
     end
-  else 
+  else
+  begin 
    data_tra_reg <= data_tra_regVoted;
-   data_bus_reg <= data_bus_regVoted;
+   data_tra_select_reg <= data_tra_select_regVoted;
+ end
 end 
 
 assign data_tra_out = data_tra_regVoted;
-assign data_tra_bus = data_bus_regVoted;
+assign data_tra_select = data_tra_select_regVoted;
 endmodule

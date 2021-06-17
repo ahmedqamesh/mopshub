@@ -44,7 +44,8 @@ module dec32_Nbit(
    input   wire            Input30, 
    input   wire            Input31, 
    input   wire            Input25,
-   output  wire    [31:0]  output_bus
+   output  wire    [31:0]  output_bus,
+   output  wire    output_bus_sig
 );
 assign    output_bus[0] = Input0;
 assign    output_bus[1] = Input1;

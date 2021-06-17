@@ -5,81 +5,59 @@ module caninterface(
    input   wire            rst, 
    input   wire    [4:0]   addr,          // Address of the Cankari register
    input   wire    [15:0]  data_init,     // Data coming from the intial block for initial configuration of the registers
-   input   wire    [75:0]  data_tra_mes, 
    input   wire            initi,         // Initialization command
-   input   wire            read, 
-   input   wire    [15:0]  read_can,      // Data coming from Cankari
+   input   wire            read,    
    input   wire            write, 
-   input   wire            id_comp,       // command to compare IDs
+    
+   input   wire    [15:0]  read_can,      // Data coming from Cankari
+   input   wire    [75:0]  data_tra_mes, 
+   input   wire    [4:0]  can_rec_select,    
+   input   wire    [4:0]  can_tra_select_sig,    
    
    output  wire    [15:0]  write_can,     // Data written to Cankari
-   
-   output  wire    [7:0]   sdocmdnew,     // SDO command of the new message
-   output  wire    [10:0]  newid          // ID of the new message
+   output  wire    [4:0]  can_tra_select
 );
 
-//tmrg default triplicate
-//tmrg tmr_error false
-// Internal Declarations
-reg   [7:0] sdocmdreg;            // combinational 
-reg   [7:0] sdocmdsto;            // sequential storing element
-
-reg  [10:0] newidreg;              // combinational 
-reg  [10:0] newidsto;              // sequential storing element
+// Internal Declarations           
 reg  [15:0] write_canreg;
-wire [15:0] tra_con; 
+reg  [4 :0] can_rec_reg;
+reg  [4 :0] can_tra_reg;
+
+wire [15:0] tra_control; 
 wire [15:0] rst_irq;
-wire [3:0]  cmd;                                    // This is a 4 bit concatenated command of signals coming from the state machine i.e initial,read,write,id_comp
-
-
-
-//Triplication 
-wire [7:0] sdocmdstoVoted = sdocmdsto;
-wire [10:0] newidstoVoted = newidsto;
-
-assign sdocmdnew = sdocmdstoVoted;
-assign newid = newidstoVoted;
+wire [15:0] gen_data;
+wire [2:0]  cmd;               // This is a 4 bit concatenated command of signals coming from the state machine i.e initial,read,write
 
 assign write_can = write_canreg;
+assign can_rec_select = can_rec_reg;
+assign can_tra_select = can_tra_reg;
+
 
 assign tra_con = 16'b1000000000001000;
 assign rst_irq = 16'h8070;
-assign cmd  = {initi,read,write,id_comp};               //initi and id_comp are active high while read and write are active low
-
-
-
-
+assign gen_data = 16'b0000000010011100;
+assign cmd  = {initi,read,write};               //initi is active high while read and write are active low
 
 ////This is purely combinational block to read and write values to Canakari node
 always@(*)
 begin
   write_canreg = 16'h0000;
-  newidreg  = 11'h0;
-  sdocmdreg = 8'h0;
+  can_rec_reg = 5'h0; 
   case(cmd)
-    4'b1100 :  begin
-                  write_canreg = data_init;              // Initialize
-                  sdocmdreg = 8'h0;
-                  newidreg  = 11'h0;
-               end
-    4'b0010 :  begin                                     // read canankari register.. Multiplexing for complete message in done rec_mes_buf register
-                if(addr == 5'b00011)
-                  begin
-                    sdocmdreg = read_can[15:8];
-                    newidreg  = newidreg;
-                  end
-                else
-                  begin
-                    sdocmdreg = sdocmdreg;
-                    newidreg  = newidreg;
-                  end 
+    3'b110 : begin
+               write_canreg = data_init;              // Initialize
+               can_tra_reg  = can_tra_select_sig;
+              end
+    3'b001 :  begin  // read canankari register.. Multiplexing for complete message in done rec_mes_buf register
+               can_rec_reg = can_rec_select;
                end                                      
-    4'b0100 :  begin                                     // write canakari register 
+    
+    3'b010 :  begin   // write canakari register 
+                can_tra_reg        = can_tra_select_sig;
                 case(addr)
                   5'b01100 : begin  // Transmission Identifier 1
                               write_canreg[15:5] = data_tra_mes[74:64];
                               write_canreg[4:0]  = 5'h0; 
-
                              end
                   
                   5'b01010 : begin  // Transmission Data 1-2
@@ -103,72 +81,23 @@ begin
                              end
                              
                   5'b01110 : begin //general
-                              write_canreg = 16'b0000000010011100;
-                             end
+                              write_canreg = gen_data;
+                             end 
                              
                   5'b10010 : begin // Interrupt
-                              write_canreg = rst_irq;
+                              write_canreg = rst_irq; 
                              end
                              
                   5'b01101 : begin  // Transmission Control
-                              write_canreg = tra_con;
+                              write_canreg = tra_control;
                              end
                  default    :begin
                               write_canreg = 16'h0;
-                              sdocmdreg = sdocmdreg;
-                              newidreg  = newidreg;
+                              can_tra_reg = 5'h0;
+                              can_rec_reg  = 5'h0;
                              end
                 endcase 
                end                                       
-    4'b0011 :  begin                                    // Compare ID of message being processed and the new message in the CAN node
-                if(addr == 5'b00101)  // Receive Identifier 1
-                  begin
-                    newidreg[10:0] = read_can[15:5];
-                    sdocmdreg = sdocmdreg;
-                  end 
-                else if(addr == 5'b00011) // Receive Data 1-2
-                  begin
-                    sdocmdreg = read_can[15:8];
-                    newidreg  = newidreg;
-                  end
-                else
-                   begin
-                    newidreg  = newidreg;
-                    sdocmdreg = sdocmdreg;
-                   end
-               end 
-    default :  begin 
-                    write_canreg = 16'h0000;                                               
-                    newidreg     = newidreg;
-                    sdocmdreg    = sdocmdreg;
-               end 
   endcase
 end
-
-
-///This block stores values for the new ID and SDO command
-always@(posedge clock or negedge rst)
-begin 
-if(!rst)
- begin 
-   sdocmdsto <= 8'h0;
-   newidsto  <= 11'h0;
- end  
-else 
- begin
-   if(cmd == 4'b0011)
-    begin 
-      sdocmdsto <= sdocmdreg;
-      newidsto  <= newidreg;
-    end
-   else 
-    begin 
-      sdocmdsto <= sdocmdstoVoted;
-      newidsto  <= newidstoVoted;
-    end 
- end
-end
-
-
-
-endmodule 
+endmodule

@@ -9,10 +9,12 @@
 //
 `resetall
 `timescale 1ns/10ps
-module demux8_Nbit (
+module demux8_Nbit #(
+parameter N = 10
+)(
 input   wire    [2:0]  sel,
 input   wire    [1:0]  EDATA_2bit,  
-output  wire    [9:0]  enc10bit_out
+output  wire    [N-1:0]  enc10bit_out
 );
     
 reg  [9:0] enc10bit_r= 10'b0;

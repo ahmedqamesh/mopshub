@@ -7,10 +7,11 @@
 //
 // using Mentor Graphics HDL Designer(TM) 2018.1 (Build 12)
 //
-
 `resetall
 `timescale 1ns/10ps
-module demux8_Nbit (
+module demux8_Nbit #(
+parameter N = 10
+)(
 input   wire    [2:0]  sel,
 input   wire    [1:0]  EDATA_2bit,  
 output  wire    [9:0]  enc10bit_out
