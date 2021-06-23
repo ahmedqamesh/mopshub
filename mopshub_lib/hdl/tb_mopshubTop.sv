@@ -1,0 +1,167 @@
+//
+// Verilog Module mopshub_lib.tb_mopshubTop
+//
+// Created:
+//          by - dcs.dcs (chipdev2.physik.uni-wuppertal.de)
+//          at - 17:06:05 06/18/21
+//
+// using Mentor Graphics HDL Designer(TM) 2019.4 (Build 4)
+//
+
+`resetall
+`timescale 1ns/10ps
+module tb_mopshubTop ;
+  reg          clock  = 1'b0;            // posedge
+  reg          rst    = 1'b0; 
+  wire         irqstatus;
+  wire         irq;
+  //wire     [4:0]      addr_can; 
+  wire     [4:0]      bus_tra_select; 
+  //Initialization Signals
+  wire                sign_on_sig; 
+  //write signals
+  reg                 en; //Enable the tra_buffer
+  reg   [75:0]        data_tra_uplink;
+  reg                 irq_elink; 
+  wire                start_read_elink;
+  reg                 end_read_elink;
+  wire                send_mes_can_done;
+  //wire  [15:0]        write_can; 
+  //wire                write_sig_can_n; 
+  
+  //Read Signals
+  reg           endwait= 1'b0;
+  reg           end_write_elink= 1'b0;  
+  wire   [75:0]  data_rec_uplink; 
+  wire           send_mes_elink; 
+  wire           start_write_elink;
+  reg                irq_can_tra; 
+  reg                irq_can_rec; 
+  reg     [4:0]      bus_rec_select = 1'b0; 
+  //reg     [15:0]     read_can; 
+  //reg                read_sig_can_n;
+  wire               enable_cs; 
+  wire               end_can_proc; 
+  
+  //part related to data Generator        
+  reg loop_en; 
+  wire done;               // dbg end of loop
+  wire [11:0] canid;
+  wire           rx0; 
+  //  reg           rx1= 1'b0; 
+  //  reg           rx2= 1'b0; 
+  //  reg           rx3= 1'b0; 
+  //  reg           rx4= 1'b0; 
+  //  reg           rx5= 1'b0; 
+  //  reg           rx6= 1'b0; 
+  //  reg           rx7= 1'b0;
+  
+  wire           tx0; 
+  //  wire           tx1; 
+  //  wire           tx2; 
+  //  wire           tx3; 
+  //  wire           tx4; 
+  //  wire           tx5; 
+  //  wire           tx6; 
+  //  wire           tx7;
+  //    
+  assign irq_can_tra = mopshub.irq_can_tra;
+  assign irq_can_rec = mopshub.irqsucrec;
+  assign enable_cs   = mopshub.enable_cs;
+  
+  data_generator MUT(
+  .clk(clock),
+  .rst(rst),
+  .loop_en(loop_en),
+  .en(en),
+  .sign_on_sig(sign_on_sig),
+  .done(done),
+  .txgen(rx0),
+  .payload(data_tra_uplink),
+  .irq_elink(irq_elink),
+  .start_read_elink(start_read_elink),
+  .end_read_elink(end_read_elink),
+  .end_send_msg(send_mes_can_done),
+  .canid(canid));   
+  
+  //  mopshubCore controller(
+  //  .clk(clock),
+  //  .rst(rst), 
+  //  .sign_on_sig(sign_on_sig),           
+  //  .data_tra_uplink(data_tra_uplink), 
+  //  .irq_elink(irq_elink),       
+  //  .start_read_elink(start_read_elink),    
+  //  .end_read_elink(end_read_elink),        
+  //  .end_write_elink(end_write_elink),        
+  //  .endwait(endwait), 
+  //  .en(en),                 
+  //  .data_rec_uplink(data_rec_uplink),        
+  //  .send_mes_elink(send_mes_elink),        
+  //  .start_write_elink(start_write_elink),               
+  //  .end_can_proc(end_can_proc),        
+  //  .enable_cs(enable_cs),        
+  //  .read_sig_can_n(read_sig_can_n),        
+  //  .write_sig_can_n(write_sig_can_n),        
+  //  .write_can(write_can),        
+  //  .bus_tra_select(bus_tra_select),  
+  //  .read_can(read_can),        
+  //  .bus_rec_select(bus_rec_select),
+  //  .addr_can(addr_can),   
+  //  .send_mes_can_done(send_mes_can_done),     
+  //  .irq_can_rec(irq_can_rec),        
+  //  .irq_can_tra(irq_can_tra));
+  
+  mopshubCore mopshub(
+  .clk(clock),
+  .rst(rst), 
+  .sign_on_sig(sign_on_sig),           
+  .data_tra_uplink(data_tra_uplink), 
+  .irq_elink(irq_elink),       
+  .start_read_elink(start_read_elink),    
+  .end_read_elink(end_read_elink),        
+  .end_write_elink(end_write_elink),        
+  .endwait(endwait),
+  .send_mes_can_done(send_mes_can_done), 
+  .en(en),           
+  .rx(rx0),
+  .can_rec_select(bus_rec_select),
+  .can_tra_select(bus_tra_select), 
+  .end_can_proc(end_can_proc), 
+  .irqstatus(irqstatus),
+  .irq(irq),    
+  //  .rx1(rx1),        
+  //  .rx2(rx2),        
+  //  .rx3(rx3),        
+  //  .rx4(rx4),        
+  //  .rx5(rx5),        
+  //  .rx6(rx6),        
+  //  .rx7(rx7),        
+  .data_rec_uplink(data_rec_uplink),        
+  .send_mes_elink(send_mes_elink),        
+  .start_write_elink(start_write_elink),        
+  .tx(tx0));       
+  //  .tx1(tx1),        
+  //  .tx2(tx2),        
+  //  .tx3(tx3),        
+  //  .tx4(tx4),        
+  //  .tx5(tx5),        
+  //  .tx6(tx6),        
+  //  .tx7(tx7));
+  
+  always #1 clock = ~clock;
+  initial 
+  begin
+    //   irq_can_tra = 0;
+    //   irq_can_rec = 0;
+    #5 rst = !rst;
+   // loop_en= 0;
+   // loop_en = !loop_en;
+  end
+  //  always@(posedge send_mes_can_done)
+  //    begin
+    //    irq_can_tra = 1;
+    //    #5
+    //    irq_can_tra = 0;
+    //    end
+  endmodule
+  

@@ -42,7 +42,7 @@ module tb_EPROC_IN_DEC8b10b ;
   assign alignment_sreg   = DEC8b10b.alignment_sreg;
   assign align_select     = DEC8b10b.align_select;
   assign enc10bit_r = ENC8b10b.enc10bit_r;
-  data_generator DataGEN(
+  data_gen_elink DataGEN(
   .clk_usr          (genCLK),
   .enable           (enable),
   .loop_en          (~rst),

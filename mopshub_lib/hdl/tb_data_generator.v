@@ -12,32 +12,30 @@
 `timescale 1ns/10ps
 module tb_data_generator ;
   reg clk_usr;            // write FIFO clk
-  reg enable;            // should be used through VIO
+  reg rst;            // should be used through VIO
   reg loop_en; 
-  reg tx_fifo_pfull;  // pfull from Tx FIFO
   wire done;               // dbg
-  wire [7:0] dout;
+  wire [15:0] dout;
   wire wr_en;
   wire [1:0] delimeter;
   
   
   
   // Instances 
-  data_generator MUT(.clk_usr(clk_usr),
-  .enable(enable),
+  data_gen MUT(
+  .clk_usr(clk_usr),
+  .rst(rst),
   .loop_en(loop_en),
   .done(done),
   .tx_fifo_pfull(tx_fifo_pfull),
   .dout(dout),
   .delimeter(delimeter),
-  .wr_en(wr_en)
-  );   
+  .wr_en(wr_en));   
   
   initial begin 
     clk_usr=0; 
     forever #1 clk_usr=~clk_usr; 
   end 
-  
   
   initial 
   begin 

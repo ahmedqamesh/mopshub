@@ -63,7 +63,7 @@ assign    output_bus[12] = Input12;
 assign    output_bus[13] = Input13;
 assign    output_bus[14] = Input14;
 assign    output_bus[15] = Input15;
-assign    output_bus[16] = Iput16;
+assign    output_bus[16] = Input16;
 assign    output_bus[17] = Input17;    
 assign    output_bus[18] = Input18;
 assign    output_bus[19] = Input19;
@@ -79,4 +79,9 @@ assign    output_bus[28] = Input28;
 assign    output_bus[29] = Input29;
 assign    output_bus[30] = Input30;
 assign    output_bus[31] = Input31;
+
+always@(*)
+begin
+  output_bus_sig = 1; 
+end
 endmodule

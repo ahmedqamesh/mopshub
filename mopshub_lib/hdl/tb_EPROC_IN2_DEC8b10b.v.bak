@@ -16,7 +16,7 @@ module tb_EPROC_IN_DEC8b10b ;
   reg           rst; 
   reg           bitCLKx4;
   wire          bitCLK;     //bitCLK to send the 2bits EdataOUT [clk_40 MB/s]
-  wire          CLKGEN;
+  wire          genCLK;
   
   wire  [7:0]   GEN_EDATA_8bit;
   wire  [1:0]   delimeter;
@@ -42,8 +42,8 @@ module tb_EPROC_IN_DEC8b10b ;
   assign alignment_sreg   = DEC8b10b.alignment_sreg;
   assign align_select     = DEC8b10b.align_select;
   assign enc10bit_r = ENC8b10b.enc10bit_r;
-  data_generator DataGEN(
-  .clk_usr          (CLKGEN),
+  data_generator_elink DataGEN(
+  .clk_usr          (genCLK),
   .enable           (enable),
   .loop_en          (~rst),
   .done             (done),
@@ -93,7 +93,7 @@ module tb_EPROC_IN_DEC8b10b ;
   //Freq. gen_clk = Freq. bitCLKx4 / 4 [=40 MHz]
   clock_divider #(4) div_1(
   .clock_in(bitCLKx4),
-  .clock_out(CLKGEN)
+  .clock_out(genCLK)
   );
   
   //Initialization

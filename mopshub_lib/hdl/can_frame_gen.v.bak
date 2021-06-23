@@ -1,0 +1,39 @@
+//
+// Verilog Module mopshub_lib.can_frame_gen
+//
+// Created:
+//          by - dcs.dcs (chipdev2.physik.uni-wuppertal.de)
+//          at - 15:27:03 06/23/21
+//
+// using Mentor Graphics HDL Designer(TM) 2019.4 (Build 4)
+//
+
+`resetall
+`timescale 1ns/10ps
+`include "canmsgpack.sv" 
+LIBRARY work;
+`include  "work.config"
+`include  "work.can_pattern_gen"
+module can_frame_gen(
+  input wire rst,
+  output wire write_dbg,
+  input wire  [75:0] payload
+  );
+  wire [63:0]data;                // 8 bytes of data to be sent 
+  wire [10:0]customcanid;          // Custom CAN id from tbSM
+  reg write_dbg_reg = 0;
+  assign data = payload[63:0];
+  assign customcanid = payload[74:64];
+  assign write_dbg = write_dbg_reg;
+  //Variables to hold different type of MOPS specific message
+  CAN_Message_MOPS canmsgcustom     = new;
+  always@(*) 
+  if (!rst)
+  write_dbg = 0;
+  else
+  begin
+    canmsgcustom.msgcustom(.id(customcanid), .rtr(1'b0), .dlcval(4'h8),.datain(data)); 
+    size = canmsgcustom.canfmsgcustomrame.size(); 
+    write_dbg = 1;
+  end
+endmodule

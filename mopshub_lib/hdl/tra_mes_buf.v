@@ -1,12 +1,14 @@
 `resetall
 `timescale 1ns/10ps
-module tra_mes_buf( 
+module tra_mes_buf#(
+    parameter DATA_CAN_WIDTH = 76
+    )( 
    // Port Declarations
    input   wire            clk, 
-   input   wire    [75:0]  data_tra_in,   // input data from the SCB or Object Dictionary side
+   input   wire    [DATA_CAN_WIDTH - 1:0]  data_tra_in,   // input data from the SCB or Object Dictionary side
    input   wire            en,            // enable signal
    input   wire            rst,           //
-   output  wire    [75:0]  data_tra_out,  // Output data to be written on the CAN bus
+   output  wire    [DATA_CAN_WIDTH - 1:0]  data_tra_out,  // Output data to be written on the CAN bus
    output  wire    [4: 0]  data_tra_select
 );
 
