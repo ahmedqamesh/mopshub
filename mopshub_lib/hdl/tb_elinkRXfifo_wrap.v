@@ -37,7 +37,7 @@ module tb_elinkRXfifo_wrap ;
   wire        wr_en;
   
   
-  data_generator DataGEN(
+  data_gen_elink DataGEN(
   .clk_usr  (gen_clk),
   .enable   (enable),
   .loop_en  (~rst),
@@ -62,8 +62,8 @@ module tb_elinkRXfifo_wrap ;
   
   EMCI_Emulator Emulator( 
   .ISK              (ISK), 
-  .code_err         (code_err), 
-  .disp_err         (disp_err), 
+ //.code_err         (code_err), 
+  //.disp_err         (disp_err), 
   .dataout          (DEC_EDATA_OUT_8bit), 
   .enc10bit_out_dbg (ENC_EDATA_OUT_10bit),
   .rst              (rst), 

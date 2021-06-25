@@ -38,7 +38,7 @@ module tb_FIFO_to_Elink ;
   assign doutRdy = MUT.doutRdy;
   assign getDataTrig = MUT.efifoRE;
   
-  data_generator DataGEN(
+  data_gen_elink DataGEN(
   .clk_usr          (genCLK),
   .enable           (enable),
   .loop_en          (enable),

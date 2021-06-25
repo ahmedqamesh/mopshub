@@ -19,7 +19,7 @@ module bitstream_shift_register #(
   parameter din_bit_size = 2
   )
   ( 
-  input   wire    [din_bit_size -1:0]      din,    // Declare input for data to the first flop in the shift register
+  input   wire    [din_bit_size -1:0]      din,// Declare input for data to the first flop in the shift register
   input   wire               clk,  // Declare input for the clock to all flops in the shift register
   input   wire               en,   // Declare input for enable to switch the shift register on/off
   input   wire               dir,  // Declare input to shift in either left or right direction

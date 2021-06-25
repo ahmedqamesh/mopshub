@@ -11,39 +11,52 @@
 `resetall
 `timescale 1ns/10ps
 module tb_data_generator ;
-  reg clk_usr;            // write FIFO clk
-  reg rst;            // should be used through VIO
-  reg loop_en; 
-  wire done;               // dbg
-  wire [15:0] dout;
-  wire wr_en;
-  wire [1:0] delimeter;
+  reg          clock ;            // posedge
+  reg          rst    = 1'b0; 
+  reg          loop_en= 1'b0; 
+  wire         done;               // dbg
+   
+  wire         buffer_en; //Enable the tra_buffer
+  wire  [75:0] data_tra_uplink;
+  wire  [11:0] canid;
+  wire  [7:0] busid;
+  wire         rx0;
+  
+  wire               irq_elink; 
+  reg                sign_on_sig = 1'b0;
+  reg                start_read_elink;
+  wire               end_read_elink;
+  reg                send_mes_can_done;
   
   
   
-  // Instances 
-  data_gen MUT(
-  .clk_usr(clk_usr),
+  data_generator MUT(
+  .clk(clock),
   .rst(rst),
   .loop_en(loop_en),
+  .buffer_en(buffer_en),
+  .sign_on_sig(sign_on_sig),
   .done(done),
-  .tx_fifo_pfull(tx_fifo_pfull),
-  .dout(dout),
-  .delimeter(delimeter),
-  .wr_en(wr_en));   
+  .txgen(rx0),
+  .payload(data_tra_uplink),
+  .irq_elink(irq_elink),
+  .start_read_elink(start_read_elink),
+  .end_read_elink(end_read_elink),
+  .end_send_msg(send_mes_can_done),
+  .busid(busid),
+  .canid(canid));  
   
   initial begin 
-    clk_usr=0; 
-    forever #1 clk_usr=~clk_usr; 
+    clock=0; 
+    forever #1 clock=~clock; 
   end 
-  
   initial 
   begin 
-    enable= 0;
-    loop_en= 0;
-    tx_fifo_pfull=0;
-    #5;
-    enable = !enable;
-    loop_en = 1;
+    #10 rst = !rst;
+    loop_en= 1;
+    sign_on_sig = 1;
   end
+ always@(irq_elink) start_read_elink =1;
+ always@(end_read_elink) send_mes_can_done =1;
 endmodule
+

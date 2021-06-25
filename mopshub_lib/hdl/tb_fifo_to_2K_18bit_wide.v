@@ -40,7 +40,7 @@ module tb_fifo_downstream ;
                         .wr_clk     (wr_clk),
                         .rst        (rst));
   
-  data_generator DataGEN(
+  data_gen_elink DataGEN(
                         .clk_usr      (wr_clk),
                         .enable       (enable),
                         .loop_en      (enable),

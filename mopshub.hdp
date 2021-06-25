@@ -5,10 +5,14 @@ mopshub_lib = $HDS_PROJECT_DIR/mopshub_lib/designcheck
 MOPSv1_lib = /home/dcs/git/CANAkari/MOPSv1/MOPSv1/MOPSv1_lib/designcheck
 [ModelSim]
 mopshub_lib = $HDS_PROJECT_DIR/mopshub_lib/work
+[Precision]
+mopshub_lib = $HDS_PROJECT_DIR/mopshub_lib/ps
 [QuestaSim]
 canakari_lib = /home/dcs/git/CANAkari/canakari/canakari_lib/work
 elinkcore_lib = $HDS_PROJECT_DIR/elinkcore_lib/work
 mopshub_lib = $HDS_PROJECT_DIR/mopshub_lib/work
+[QuestaSim_Invoke_Dir]
+mopshub_lib = $HDS_PROJECT_DIR/mopshub_lib/sim
 [SvAssistant]
 mopshub_lib = $HDS_PROJECT_DIR/mopshub_lib/svassistant
 [hdl]
@@ -17,7 +21,6 @@ elinkcore_lib = $HDS_PROJECT_DIR/elinkcore_lib/hdl
 ip_lib = $HDS_PROJECT_DIR/ip/ip_lib/hdl
 mopshub_lib = $HDS_PROJECT_DIR/mopshub_lib/hdl
 MOPSv1_lib = /home/dcs/git/CANAkari/MOPSv1/MOPSv1/MOPSv1_lib/hdl
-MOPSv2_lib = /home/dcs/git/CANAkari/MOPSv2/MOPSv2_lib/hdl
 MOPSv2_top_lib = /home/dcs/git/CANAkari/MOPSv2/top_lib/hdl
 [hds]
 canakari_lib = /home/dcs/git/CANAkari/canakari/canakari_lib/hds
@@ -25,11 +28,10 @@ elinkcore_lib = $HDS_PROJECT_DIR/elinkcore_lib/hds
 ip_lib = $HDS_PROJECT_DIR/ip/ip_lib/hds
 mopshub_lib = $HDS_PROJECT_DIR/mopshub_lib/hds
 MOPSv1_lib = /home/dcs/git/CANAkari/MOPSv1/MOPSv1/MOPSv1_lib/hds
-MOPSv2_lib = /home/dcs/git/CANAkari/MOPSv2/MOPSv2_lib/hds
 MOPSv2_top_lib = /home/dcs/git/CANAkari/MOPSv2/top_lib/hds
 [hds_settings]
-default_library = MOPSv2_lib
-design_root = mopshub_lib.tb_mopshubTop(tb_mopshubTop)tb_mopshubTop.sv
+default_library = canakari_lib
+design_root = mopshub_lib.tb_data_generator(tb_data_generator)tb_data_generator.v
 version = 2
 [includes_search_path]
 canakari_lib = /home/dcs/git/CANAkari
@@ -39,15 +41,13 @@ elinkcore_lib = all
 ip_lib = all
 mopshub_lib = specify
 MOPSv1_lib = all
-MOPSv2_lib = all
-MOPSv2_top_lib = all
+MOPSv2_top_lib = specify
 [library_type]
 canakari_lib = regular
 elinkcore_lib = regular
 ip_lib = regular
 mopshub_lib = regular
 MOPSv1_lib = regular
-MOPSv2_lib = regular
 MOPSv2_top_lib = regular
 [shared]
 others = $HDS_TEAM_HOME/shared.hdp

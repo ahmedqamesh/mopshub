@@ -30,7 +30,7 @@ module can_frame_gen(
   always@(payload) 
   begin
     canmsgcustom.msgcustom(.id(customcanid), .rtr(1'b0), .dlcval(4'h8),.datain(data)); 
-    size = canmsgcustom.canfmsgcustomrame.size(); 
+    size = canmsgcustom.canframe.size(); 
   end
   always@(posedge clk or negedge rst)
   if(!rst)

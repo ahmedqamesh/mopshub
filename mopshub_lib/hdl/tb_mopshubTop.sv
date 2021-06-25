@@ -20,11 +20,11 @@ module tb_mopshubTop ;
   //Initialization Signals
   wire                sign_on_sig; 
   //write signals
-  reg                 en; //Enable the tra_buffer
+  wire                 en; //Enable the tra_buffer
   reg   [75:0]        data_tra_uplink;
-  reg                 irq_elink; 
+  wire                 irq_elink; 
   wire                start_read_elink;
-  reg                 end_read_elink;
+  wire                 end_read_elink;
   wire                send_mes_can_done;
   //wire  [15:0]        write_can; 
   //wire                write_sig_can_n; 
@@ -35,9 +35,9 @@ module tb_mopshubTop ;
   wire   [75:0]  data_rec_uplink; 
   wire           send_mes_elink; 
   wire           start_write_elink;
-  reg                irq_can_tra; 
-  reg                irq_can_rec; 
-  reg     [4:0]      bus_rec_select = 1'b0; 
+  wire                irq_can_tra; 
+  wire                irq_can_rec; 
+  reg     [4:0]      bus_rec_select = 5'b0; 
   //reg     [15:0]     read_can; 
   //reg                read_sig_can_n;
   wire               enable_cs; 
@@ -47,7 +47,7 @@ module tb_mopshubTop ;
   reg loop_en; 
   wire done;               // dbg end of loop
   wire [11:0] canid;
-  wire           rx0; 
+  wire  rx0;
   //  reg           rx1= 1'b0; 
   //  reg           rx2= 1'b0; 
   //  reg           rx3= 1'b0; 
@@ -65,9 +65,9 @@ module tb_mopshubTop ;
   //  wire           tx6; 
   //  wire           tx7;
   //    
-  assign irq_can_tra = mopshub.irq_can_tra;
-  assign irq_can_rec = mopshub.irqsucrec;
-  assign enable_cs   = mopshub.enable_cs;
+ // assign irq_can_tra = mopshub.irq_can_tra;
+ // assign irq_can_rec = mopshub.irqsucrec;
+  //assign enable_cs   = mopshub.enable_cs;
   
   data_generator MUT(
   .clk(clock),
@@ -153,9 +153,9 @@ module tb_mopshubTop ;
   begin
     //   irq_can_tra = 0;
     //   irq_can_rec = 0;
-    #5 rst = !rst;
-   // loop_en= 0;
-   // loop_en = !loop_en;
+    #10 rst = !rst;
+    loop_en= 0;
+    // loop_en = !loop_en;
   end
   //  always@(posedge send_mes_can_done)
   //    begin

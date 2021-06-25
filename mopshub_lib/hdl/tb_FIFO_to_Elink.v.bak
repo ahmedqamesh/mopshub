@@ -18,37 +18,23 @@ module tb_FIFO_to_Elink ;
   wire                           bitCLKx2;
   wire                           bitCLK; 
   wire                           genCLK;
-  
-  
+    
   wire [DATA_WIDTH-1:0] GEN_EDATA_8bit;
   wire [1:0]            delimeter;
-  wire [7:0]            efifoDout;
+  wire [DATA_WIDTH-1:0] DEC_EDATA_OUT_8bit;
+  wire [1:0]            ISK;
   //FIFO_to_Elink Signals
   wire                         DATA1bitOUT; 
-  wire    [1:0]                elink2bit; 
+  wire    [1:0]                elink2bit;
   
-  
-  //FIFO Signals
-  wire [DATA_OUT_WIDTH-1:0] Dout;
-  wire doutRdy;
-  wire getDataTrig;
-  //data Genrator Signal
+  wire           doutRdy;
+  wire           getDataTrig;
   wire           DATA_RDY;
-  wire tx_fifo_pfull;
-  wire wr_en; 
-  wire done; 
-  reg enable;
+  wire           tx_fifo_pfull;
+  wire           wr_en; 
+  wire           done; 
+  reg            enable;
   
-  //GBTX Emulator Signals
-  wire [DATA_WIDTH-1:0] DEC_EDATA_OUT_8bit;
-  wire [DATA_OUT_WIDTH-1:0] ENC_EDATA_OUT_10bit;
-  wire ko;
-  wire code_err;
-  wire disp_err;
-  wire [1:0] ISK;
-  //reg efifoRe;
-  
-  assign Dout = MUT.efifoDout;
   assign doutRdy = MUT.doutRdy;
   assign getDataTrig = MUT.efifoRE;
   
@@ -77,22 +63,7 @@ module tb_FIFO_to_Elink ;
   .reverse_tx(1'b0),
   .swap_output(1'b0)
   );
-  
-//  
-//  GBTX_Emulator U_1( 
-//  .ko               (ko), 
-//  .code_err         (code_err), 
-//  .disp_err         (disp_err), 
-//  .rst              (rst), 
-//  .bitCLK           (bitCLK),
-//  .dataout          (DEC_EDATA_OUT_8bit), 
-//  .enc10bit_out_dbg (ENC_EDATA_OUT_10bit),
-//  .EDATA_2bit       (elink2bit),
-//  .datain_valid     (~rst),
-//  .data_10b_in      (), 
-//  .data_10b_en      ()
-//  );
-//// 
+
    EMCI_Emulator Emulator( 
   .bitCLKx4         (bitCLKx4),
   .bitCLKx2         (bitCLKx2),
@@ -107,12 +78,9 @@ module tb_FIFO_to_Elink ;
   .swap_input       (1'b0),
   .reverse_rx       (1'b0),
   .enc10bit_out_dbg (),
-  .HGFEDCBA         (efifoDout),
+  .HGFEDCBA         (DEC_EDATA_OUT_8bit),
   .ISK(ISK),
   .datain_valid     (~rst),
-  .code_err         (code_err), 
-  .disp_err         (disp_err),
-  .BUSY(), 
   .data_10b_in      (10'b0),//{enc10bit_r[0],enc10bit_r[1],enc10bit_r[2],enc10bit_r[3],enc10bit_r[4],enc10bit_r[5],enc10bit_r[6],enc10bit_r[7],enc10bit_r[8],enc10bit_r[9]}), 
   .data_10b_en      (1'b0)
   );
@@ -144,7 +112,6 @@ module tb_FIFO_to_Elink ;
   
   initial 
   begin 
-    
     rst = 1'b1;
     #10 rst=!rst;
   end 

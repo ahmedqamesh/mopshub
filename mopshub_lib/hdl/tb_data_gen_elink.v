@@ -11,41 +11,35 @@
 `resetall
 `timescale 1ns/10ps
 module tb_data_gen_elink ;
-  reg clk_usr;            // write FIFO clk
-  reg enable;            // should be used through VIO
+  reg clk;            // write FIFO clk
+  reg rst = 1'b0;            // should be used through VIO
   reg loop_en; 
   reg tx_fifo_pfull;  // pfull from Tx FIFO
-  wire done;               // dbg
   wire [15:0] dout;
   wire wr_en;
+  wire done;               // dbg
   wire [1:0] delimeter;
-  
-  
-  
-  // Instances 
-  data_gen_elink MUT(
-  .clk_usr(clk_usr),
-  .enable(enable),
+   //Instances 
+  data_gen_elink GEN_B(
+  .clk(clk),
+  .rst(rst),
   .loop_en(loop_en),
-  .done(done),
-  .tx_fifo_pfull(tx_fifo_pfull),
+  .tx_fifo_pfull(1'b0),
   .dout(dout),
   .delimeter(delimeter),
+  .done(done),
   .wr_en(wr_en));   
   
   initial begin 
-    clk_usr=0; 
-    forever #1 clk_usr=~clk_usr; 
+    clk=0; 
+    forever #1 clk=~clk; 
   end 
-  
-  
   initial 
   begin 
-    enable= 0;
     loop_en= 0;
     tx_fifo_pfull=0;
     #5;
-    enable = !enable;
+    rst = !rst;
     loop_en = 1;
   end
 endmodule

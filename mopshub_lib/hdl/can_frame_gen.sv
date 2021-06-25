@@ -10,10 +10,12 @@
 `resetall
 `timescale 1ns/10ps
 `include "canmsgpack.sv" 
-module can_frame_gen(
+module can_frame_gen#(
+  parameter DATA_WIDTH = 76)
+  (
   input wire rst,
   input wire clk,
-  input wire  [75:0] payload,
+  input wire  [DATA_WIDTH-1:0] payload,
   output wire txgen
   );
   logic txgenreg = 1'b1;        //CAN message tx bit  

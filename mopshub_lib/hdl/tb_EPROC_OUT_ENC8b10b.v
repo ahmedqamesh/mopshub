@@ -37,7 +37,7 @@ module tb_EPROC_OUT_ENC8b10b ;
   wire        wr_en;
   reg         enable;
   assign enc10bit_r = ENC8b10b.enc10bit_r;
-  data_generator DataGEN(
+  data_gen_elink DataGEN(
   .clk_usr          (genCLK),
   .enable           (enable),
   .loop_en          (~rst),

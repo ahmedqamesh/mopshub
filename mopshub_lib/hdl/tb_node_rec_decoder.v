@@ -13,89 +13,91 @@
 module tb_node_rec_decoder ;
    // Internal Declarations
    // Inputs
-   reg can_rec9; 
-   reg can_rec18; 
-   reg can_rec19; 
-   reg can_rec20; 
-   reg can_rec21; 
-   reg can_rec22; 
-   reg can_rec23; 
-   reg can_rec24; 
-   reg can_rec4; 
-   reg can_rec5; 
-   reg can_rec6; 
-   reg can_rec7; 
-   reg can_rec8; 
-   reg can_rec10; 
-   reg can_rec11; 
-   reg can_rec12; 
-   reg can_rec13; 
-   reg can_rec14; 
-   reg can_rec15; 
-   reg can_rec16; 
-   reg can_rec17; 
-   reg can_rec0; 
-   reg can_rec1; 
-   reg can_rec2; 
-   reg can_rec3; 
-   reg can_rec26; 
-   reg can_rec27; 
-   reg can_rec28; 
-   reg can_rec29; 
-   reg can_rec30; 
-   reg can_rec31; 
-   reg can_rec25;
+   reg Input9; 
+   reg Input18; 
+   reg Input19; 
+   reg Input20; 
+   reg Input21; 
+   reg Input22; 
+   reg Input23; 
+   reg Input24; 
+   reg Input4; 
+   reg Input5; 
+   reg Input6; 
+   reg Input7; 
+   reg Input8; 
+   reg Input10; 
+   reg Input11; 
+   reg Input12; 
+   reg Input13; 
+   reg Input14; 
+   reg Input15; 
+   reg Input16; 
+   reg Input17; 
+   reg Input0; 
+   reg Input1; 
+   reg Input2; 
+   reg Input3; 
+   reg Input26; 
+   reg Input27; 
+   reg Input28; 
+   reg Input29; 
+   reg Input30; 
+   reg Input31; 
+   reg Input25;
    // Outputs
-   wire  [31:0]   can_rec;
+   wire output_bus_sig;
+   wire  [31:0]   output_bus;
   
   dec32_Nbit uut (
-      .can_rec(can_rec),
-      .can_rec0(can_rec0), 
-      .can_rec1(can_rec1), 
-      .can_rec2(can_rec2), 
-      .can_rec3(can_rec3), 
-      .can_rec4(can_rec4), 
-      .can_rec5(can_rec5), 
-      .can_rec6(can_rec6), 
-      .can_rec7(can_rec7),
-      .can_rec8(can_rec8), 
-      .can_rec9(can_rec9), 
-      .can_rec10(can_rec10), 
-      .can_rec11(can_rec11),
-      .can_rec12(can_rec12), 
-      .can_rec13(can_rec13), 
-      .can_rec14(can_rec14), 
-      .can_rec15(can_rec15), 
-      .can_rec16(can_rec16), 
-      .can_rec17(can_rec17),
-      .can_rec18(can_rec18), 
-      .can_rec19(can_rec19), 
-      .can_rec20(can_rec20),
-      .can_rec21(can_rec21), 
-      .can_rec22(can_rec22), 
-      .can_rec23(can_rec23), 
-      .can_rec24(can_rec24), 
-      .can_rec25(can_rec25), 
-      .can_rec26(can_rec26), 
-      .can_rec27(can_rec27),
-      .can_rec28(can_rec28), 
-      .can_rec29(can_rec29),               
-      .can_rec30(can_rec30), 
-      .can_rec31(can_rec31)
+      .output_bus(output_bus),
+      .output_bus_sig(output_bus_sig),
+      .Input0(Input0), 
+      .Input1(Input1), 
+      .Input2(Input2), 
+      .Input3(Input3), 
+      .Input4(Input4), 
+      .Input5(Input5), 
+      .Input6(Input6), 
+      .Input7(Input7),
+      .Input8(Input8), 
+      .Input9(Input9), 
+      .Input10(Input10), 
+      .Input11(Input11),
+      .Input12(Input12), 
+      .Input13(Input13), 
+      .Input14(Input14), 
+      .Input15(Input15), 
+      .Input16(Input16), 
+      .Input17(Input17),
+      .Input18(Input18), 
+      .Input19(Input19), 
+      .Input20(Input20),
+      .Input21(Input21), 
+      .Input22(Input22), 
+      .Input23(Input23), 
+      .Input24(Input24), 
+      .Input25(Input25), 
+      .Input26(Input26), 
+      .Input27(Input27),
+      .Input28(Input28), 
+      .Input29(Input29),               
+      .Input30(Input30), 
+      .Input31(Input31)
         
       );
   
   initial begin
-    $monitor("TIME = %g can_rec0 = %b can_rec1 = %b can_rec30 = %b can_rec31 = %b can_rec0 = %b can_rec1 = %b can_rec30 = %b can_rec31 = %b can_rec = %b",
-    $time,can_rec0, can_rec1,can_rec30,can_rec31, can_rec[0],can_rec[1],can_rec[30],can_rec[31],can_rec);
+    $monitor("TIME = %g Input0 = %b Input1 = %b Input30 = %b Input31 = %b Input0 = %b Input1 = %b Input30 = %b Input31 = %b ",
+    $time,Input0, Input1,Input30,Input31, output_bus[0],output_bus[1],output_bus[30],output_bus[31]);
     
-    can_rec0 = 1; #10;
-    can_rec0 = 0;
-    can_rec1 = 1; #10;
-    can_rec1 = 0;
-    can_rec30 = 1; #10;
-    can_rec30 = 0;
-    can_rec31 = 1; #10;  
+    Input0 = 1; #10;
+    Input0 = 0;
+    Input1 = 1; #10;
+    Input1 = 0;
+    Input30 = 1; #10;
+    Input30 = 0;
+    Input31 = 1; #10;  
   end 
 
 endmodule

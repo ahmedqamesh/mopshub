@@ -41,7 +41,7 @@ module tb_Elink_to_FIFO ;
    
    assign din_dbg =  Emulator.din_dbg;
   //Generate 8b data 
-  data_generator DataGEN(
+  data_gen_elink DataGEN(
   .clk_usr        (genCLK),
   .enable         (enable),
   .loop_en        (~rst),

@@ -31,7 +31,6 @@ pulse_pdxx_pwxx DUT(
         
   initial 
   begin
-  clk=1'b1;
   trigger = 1'b0; 
    end
        
