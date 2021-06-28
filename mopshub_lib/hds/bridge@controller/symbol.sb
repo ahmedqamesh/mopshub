@@ -11,7 +11,7 @@ appVersion "2019.4 (Build 4)"
 model (Symbol
 commonDM (CommonDM
 ldm (LogicalDM
-suid 32,0
+suid 33,0
 usingSuid 1
 emptyRow *1 (LEmptyRow
 )
@@ -165,7 +165,7 @@ decl (Decl
 n "can_rec_select"
 t "wire"
 b "[4:0]"
-o 1
+o 2
 suid 10,0
 )
 )
@@ -191,7 +191,7 @@ decl (Decl
 n "data_tra_uplink"
 t "wire"
 b "[75:0]"
-o 3
+o 4
 suid 12,0
 )
 )
@@ -203,7 +203,7 @@ lang 5
 decl (Decl
 n "clk"
 t "wire"
-o 2
+o 3
 suid 13,0
 )
 )
@@ -351,21 +351,6 @@ uid 992,0
 *38 (LogPort
 port (LogicalPort
 lang 5
-decl (Decl
-n "en"
-t "wire"
-eolc "// enable signal"
-preAdd 0
-posAdd 0
-o 4
-suid 31,0
-)
-)
-uid 1087,0
-)
-*39 (LogPort
-port (LogicalPort
-lang 5
 m 1
 decl (Decl
 n "send_mes_can_done"
@@ -375,6 +360,18 @@ suid 32,0
 )
 )
 uid 1138,0
+)
+*39 (LogPort
+port (LogicalPort
+lang 5
+decl (Decl
+n "buffer_en"
+t "wire"
+o 1
+suid 33,0
+)
+)
+uid 1255,0
 )
 ]
 )
@@ -560,21 +557,21 @@ uid 808,0
 )
 *67 (MRCItem
 litem &37
-pos 23
+pos 22
 dimension 20
 uid 991,0
 )
 *68 (MRCItem
 litem &38
-pos 22
+pos 23
 dimension 20
-uid 1086,0
+uid 1137,0
 )
 *69 (MRCItem
 litem &39
 pos 24
 dimension 20
-uid 1137,0
+uid 1254,0
 )
 ]
 )
@@ -833,19 +830,19 @@ value "/home/dcs/git/mopshub/mopshub_lib/hds/bridgeController"
 )
 (vvPair
 variable "date"
-value "06/23/21"
+value "06/28/21"
 )
 (vvPair
 variable "day"
-value "Wed"
+value "Mon"
 )
 (vvPair
 variable "day_long"
-value "Wednesday"
+value "Monday"
 )
 (vvPair
 variable "dd"
-value "23"
+value "28"
 )
 (vvPair
 variable "entity_name"
@@ -873,7 +870,7 @@ value "dcs"
 )
 (vvPair
 variable "graphical_source_date"
-value "06/23/21"
+value "06/28/21"
 )
 (vvPair
 variable "graphical_source_group"
@@ -885,7 +882,7 @@ value "chipdev2.physik.uni-wuppertal.de"
 )
 (vvPair
 variable "graphical_source_time"
-value "13:15:26"
+value "15:55:13"
 )
 (vvPair
 variable "group"
@@ -912,8 +909,16 @@ variable "library_downstream_ModelSimCompiler"
 value "$HDS_PROJECT_DIR/mopshub_lib/work"
 )
 (vvPair
+variable "library_downstream_PrecisionSynthesisDataPrep"
+value "$HDS_PROJECT_DIR/mopshub_lib/ps"
+)
+(vvPair
 variable "library_downstream_QuestaSimCompiler"
 value "$HDS_PROJECT_DIR/mopshub_lib/work"
+)
+(vvPair
+variable "library_downstream_QuestaSimSimulator"
+value "$HDS_PROJECT_DIR/mopshub_lib/sim"
 )
 (vvPair
 variable "library_downstream_SvAssistantInvoke"
@@ -997,7 +1002,7 @@ value "symbol"
 )
 (vvPair
 variable "time"
-value "13:15:26"
+value "15:55:13"
 )
 (vvPair
 variable "unit"
@@ -1437,7 +1442,7 @@ uid 209,0
 va (VaSet
 font "courier,8,0"
 )
-xt "2000,3600,20000,4500"
+xt "2000,4500,20000,5400"
 st "input  wire [4:0]   can_rec_select;"
 )
 thePort (LogicalPort
@@ -1446,7 +1451,7 @@ decl (Decl
 n "can_rec_select"
 t "wire"
 b "[4:0]"
-o 1
+o 2
 suid 10,0
 )
 )
@@ -1530,7 +1535,7 @@ uid 219,0
 va (VaSet
 font "courier,8,0"
 )
-xt "2000,5400,20500,6300"
+xt "2000,6300,20500,7200"
 st "input  wire [75:0]  data_tra_uplink;"
 )
 thePort (LogicalPort
@@ -1539,7 +1544,7 @@ decl (Decl
 n "data_tra_uplink"
 t "wire"
 b "[75:0]"
-o 3
+o 4
 suid 12,0
 )
 )
@@ -1576,7 +1581,7 @@ uid 224,0
 va (VaSet
 font "courier,8,0"
 )
-xt "2000,4500,14500,5400"
+xt "2000,5400,14500,6300"
 st "input  wire         clk;"
 )
 thePort (LogicalPort
@@ -1584,7 +1589,7 @@ lang 5
 decl (Decl
 n "clk"
 t "wire"
-o 2
+o 3
 suid 13,0
 )
 )
@@ -2098,54 +2103,6 @@ suid 30,0
 )
 )
 *123 (CptPort
-uid 1088,0
-ps "OnEdgeStrategy"
-shape (Triangle
-uid 1089,0
-ro 90
-va (VaSet
-vasetType 1
-fg "0,65535,0"
-)
-xt "14250,19625,15000,20375"
-)
-tg (CPTG
-uid 1090,0
-ps "CptPortTextPlaceStrategy"
-stg "VerticalLayoutStrategy"
-f (Text
-uid 1091,0
-va (VaSet
-font "courier,8,0"
-)
-xt "16000,19550,17000,20450"
-st "en"
-blo "16000,20250"
-tm "CptPortNameMgr"
-)
-)
-dt (MLText
-uid 1092,0
-va (VaSet
-font "courier,8,0"
-)
-xt "2000,6300,22500,7200"
-st "input  wire         en; // enable signal"
-)
-thePort (LogicalPort
-lang 5
-decl (Decl
-n "en"
-t "wire"
-eolc "// enable signal"
-preAdd 0
-posAdd 0
-o 4
-suid 31,0
-)
-)
-)
-*124 (CptPort
 uid 1139,0
 ps "OnEdgeStrategy"
 shape (Triangle
@@ -2189,6 +2146,51 @@ n "send_mes_can_done"
 t "wire"
 o 19
 suid 32,0
+)
+)
+)
+*124 (CptPort
+uid 1256,0
+ps "OnEdgeStrategy"
+shape (Triangle
+uid 1257,0
+ro 90
+va (VaSet
+vasetType 1
+fg "0,65535,0"
+)
+xt "14250,19625,15000,20375"
+)
+tg (CPTG
+uid 1258,0
+ps "CptPortTextPlaceStrategy"
+stg "VerticalLayoutStrategy"
+f (Text
+uid 1259,0
+va (VaSet
+font "courier,8,0"
+)
+xt "16000,19550,20500,20450"
+st "buffer_en"
+blo "16000,20250"
+tm "CptPortNameMgr"
+)
+)
+dt (MLText
+uid 1260,0
+va (VaSet
+font "courier,8,0"
+)
+xt "2000,3600,17500,4500"
+st "input  wire         buffer_en;"
+)
+thePort (LogicalPort
+lang 5
+decl (Decl
+n "buffer_en"
+t "wire"
+o 1
+suid 33,0
 )
 )
 )
@@ -2902,7 +2904,7 @@ xt "2000,2700,2000,2700"
 tm "SyDeclarativeTextMgr"
 )
 )
-lastUid 1209,0
+lastUid 1722,0
 postModuleDirective "// ### Please start your Verilog code here ###"
 activeModelName "Symbol:CDM"
 )

@@ -15,18 +15,23 @@ module tb_mopshubTop ;
   reg          rst    = 1'b0; 
   wire         irqstatus;
   wire         irq;
-  //wire     [4:0]      addr_can; 
-  wire     [4:0]      bus_tra_select; 
+  reg   [75:0]    data_tra_uplink;
+  wire    [15:0]  write_can;
+  wire     [4:0]  can_tra_select; 
+  
+  wire        done;    // dbg
   //Initialization Signals
-  wire                sign_on_sig; 
+  //wire     [4:0]      addr_can; 
+  
+  reg                sign_on_sig; 
+  
   //write signals
-  wire                 en; //Enable the tra_buffer
-  reg   [75:0]        data_tra_uplink;
   wire                 irq_elink; 
+  
   wire                start_read_elink;
   wire                 end_read_elink;
   wire                send_mes_can_done;
-  //wire  [15:0]        write_can; 
+  reg                irq_can_tra; 
   //wire                write_sig_can_n; 
   
   //Read Signals
@@ -35,18 +40,17 @@ module tb_mopshubTop ;
   wire   [75:0]  data_rec_uplink; 
   wire           send_mes_elink; 
   wire           start_write_elink;
-  wire                irq_can_tra; 
+
   wire                irq_can_rec; 
-  reg     [4:0]      bus_rec_select = 5'b0; 
-  //reg     [15:0]     read_can; 
+  reg     [4:0]      can_rec_select = 5'b0; 
   //reg                read_sig_can_n;
   wire               enable_cs; 
   wire               end_can_proc; 
   
   //part related to data Generator        
-  reg loop_en; 
-  wire done;               // dbg end of loop
-  wire [11:0] canid;
+  reg         loop_en= 1'b0; 
+  
+  wire        buffer_en; //Enable the tra_buffer
   wire  rx0;
   //  reg           rx1= 1'b0; 
   //  reg           rx2= 1'b0; 
@@ -64,16 +68,22 @@ module tb_mopshubTop ;
   //  wire           tx5; 
   //  wire           tx6; 
   //  wire           tx7;
-  //    
- // assign irq_can_tra = mopshub.irq_can_tra;
- // assign irq_can_rec = mopshub.irqsucrec;
-  //assign enable_cs   = mopshub.enable_cs;
+  wire    [15:0]  read_can;
   
-  data_generator MUT(
-  .clk(clock),
+  //    
+  //assign irq_can_tra = mopshub.irq_can_tra;
+  assign irq_can_rec = mopshub.irqsucrec;
+  assign enable_cs   = mopshub.enable_cs;
+  assign write_can = mopshub.write_can;
+  assign read_can   = mopshub.read_can;
+    
+  data_generator #(
+  .max_cnt_size (5),
+  .n_buses (5'b11111)
+  )DataGen(.clk(clock),
   .rst(rst),
   .loop_en(loop_en),
-  .en(en),
+  .buffer_en(buffer_en),
   .sign_on_sig(sign_on_sig),
   .done(done),
   .txgen(rx0),
@@ -82,7 +92,7 @@ module tb_mopshubTop ;
   .start_read_elink(start_read_elink),
   .end_read_elink(end_read_elink),
   .end_send_msg(send_mes_can_done),
-  .canid(canid));   
+  .busid());  
   
   //  mopshubCore controller(
   //  .clk(clock),
@@ -122,13 +132,14 @@ module tb_mopshubTop ;
   .end_write_elink(end_write_elink),        
   .endwait(endwait),
   .send_mes_can_done(send_mes_can_done), 
-  .en(en),           
+  .buffer_en(buffer_en),           
   .rx(rx0),
-  .can_rec_select(bus_rec_select),
-  .can_tra_select(bus_tra_select), 
+  .can_rec_select(can_rec_select),
+  .can_tra_select(can_tra_select), 
   .end_can_proc(end_can_proc), 
   .irqstatus(irqstatus),
-  .irq(irq),    
+  .irq(irq),  
+  .irq_can_tra(irq_can_tra),  
   //  .rx1(rx1),        
   //  .rx2(rx2),        
   //  .rx3(rx3),        
@@ -151,17 +162,18 @@ module tb_mopshubTop ;
   always #1 clock = ~clock;
   initial 
   begin
-    //   irq_can_tra = 0;
+    irq_can_tra = 0;
     //   irq_can_rec = 0;
     #10 rst = !rst;
     loop_en= 0;
-    // loop_en = !loop_en;
+    //loop_en = !loop_en;
   end
-  //  always@(posedge send_mes_can_done)
-  //    begin
-    //    irq_can_tra = 1;
-    //    #5
-    //    irq_can_tra = 0;
-    //    end
+  //Temporarly Solution till Canakari is fixed
+    always@(posedge send_mes_can_done)
+      begin
+        irq_can_tra = 1;
+        #5
+        irq_can_tra = 0;
+        end
   endmodule
   

@@ -82,7 +82,7 @@ begin
                  b5  <= data_rec_in[15:8];            // fifth 
                end                    
      5'b00000 :begin 
-                 b8  <= {4'b0,can_rec_select};       // Eigth // holds the bus Id
+                 b8  <= {3'b0,can_rec_select};       // Eigth // holds the bus Id
                  b7  <= data_rec_in[15:8];            // Seventh 
                end             
      default 
@@ -103,6 +103,6 @@ begin
 end 
 
 //Output assigments
-assign data_rec_out = {idVoted,b1Voted,b2Voted,b3Voted,b4Voted,b5Voted,b6Voted,b7Voted,b8Voted};
+assign data_rec_out = {idVoted,b1Voted,b3Voted,b2Voted,b4Voted,b8Voted,b7Voted,b6Voted,b5Voted};
 
 endmodule

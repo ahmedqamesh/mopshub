@@ -8,8 +8,7 @@ module rec_mes_buf(
    input   wire            en,            // enable signal
    input   wire            rst,           // reset active low
    input   wire    [4 :0]   addr,          // same address of register as in canakari
-   output  wire    [75:0]  data_rec_out,  // complete CAN message output. 11-bit ID and 4 data-bytes
-   output  wire    [4 :0]  data_rec_select
+   output  wire    [75:0]  data_rec_out  // complete CAN message output. 11-bit ID and 4 data-bytes
 
 );
 
@@ -25,7 +24,6 @@ reg [7:0] b5;
 reg [7:0] b6;
 reg [7:0] b7;
 reg [7:0] b8;
-reg [4:0] data_rec_select_reg;
 
 
 //Triplication signals 
@@ -38,7 +36,6 @@ wire [7:0] b5Voted  = b5;
 wire [7:0] b6Voted  = b6;
 wire [7:0] b7Voted  = b7;
 wire [7:0] b8Voted  = b8;
-wire [4:0] data_rec_select_regVoted = data_rec_select_reg;
 
 
 
@@ -55,7 +52,6 @@ begin
    b6 <= 8'h00;
    b7 <= 8'h00;
    b8 <= 8'h00;
-   data_rec_select_reg <= 5'd0;
    end
   else
    begin
@@ -70,7 +66,6 @@ begin
         b8 <= b8Voted;
    if(en)
     begin
-    data_rec_select_reg <= can_rec_select;
     case(addr)
      5'b00101 : id[10:0] <= data_rec_in[15:5];        // 5-bit selection line is the address of corresponding registers in Cankari. ID register data
 
@@ -101,7 +96,6 @@ begin
         b6 <= b6Voted;
         b7 <= b7Voted;
         b8 <= b8Voted;
-        data_rec_select_reg <= data_rec_select_regVoted;
       end 
     endcase
     end        
@@ -109,7 +103,6 @@ begin
 end 
 
 //Output assigments
-assign data_rec_out = {idVoted,b1Voted,b2Voted,b3Voted,b4Voted,b5Voted,b6Voted,b7Voted,b8Voted};
-assign data_rec_select = data_rec_select_regVoted;
+assign data_rec_out = {idVoted,b1Voted,b3Voted,b2Voted,b4Voted,b8Voted,b7Voted,b6Voted,b5Voted};
 
 endmodule

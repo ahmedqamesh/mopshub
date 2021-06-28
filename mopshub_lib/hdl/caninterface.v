@@ -12,7 +12,7 @@ module caninterface(
    input   wire    [15:0]  read_can,      // Data coming from Cankari
    input   wire    [75:0]  data_tra_mes, 
    input   wire    [4:0]  can_rec_select,    
-   input   wire    [4:0]  can_tra_select_sig,    
+   input   wire    [4:0]  can_tra_select_cnt,   
    
    output  wire    [15:0]  write_can,     // Data written to Cankari
    output  wire    [4:0]  can_tra_select
@@ -44,7 +44,7 @@ begin
   case(cmd)
     3'b110 : begin
                write_can_reg = data_init;              // Initialize
-               can_tra_reg  = can_tra_select_sig;
+               can_tra_reg  = can_tra_select_cnt;
               end
               
     3'b001 :  begin  // read canankari register.. Multiplexing for complete message in done rec_mes_buf register
@@ -52,7 +52,7 @@ begin
                end     
                                                 
     3'b010 :  begin   // write canakari register 
-                can_tra_reg        = can_tra_select_sig;
+                can_tra_reg        = data_tra_mes[4:0];
                 case(addr)
                   5'b01100 : begin  // Transmission Identifier 1
                               write_can_reg[15:5] = data_tra_mes[74:64];
@@ -87,7 +87,7 @@ begin
                               write_can_reg = rst_irq; 
                              end
                              
-                  5'b01101 : begin  // Transmission Control
+                  5'b01101 : begin  // Transmisigssion Control
                               write_can_reg = tra_control;
                              end
                  default    :begin
