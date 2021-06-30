@@ -12,6 +12,7 @@
 `include "canmsgpack.sv" 
 module can_frame_gen(
   input wire rst,
+  input wire frame_en,
   input wire clk,
   input wire  [75:0] payload,
   output wire txgen
@@ -27,11 +28,12 @@ module can_frame_gen(
   assign customcanid = payload[74:64];
   //Variables to hold different type of MOPS specific message
   CAN_Message_MOPS canmsgcustom     = new;
-  always@(payload) 
+  always@(frame_en, customcanid,data) 
   begin
     canmsgcustom.msgcustom(.id(customcanid), .rtr(1'b0), .dlcval(4'h8),.datain(data)); 
     size = canmsgcustom.canframe.size(); 
   end
+  
   always@(posedge clk or negedge rst)
   if(!rst)
   begin         
@@ -39,7 +41,7 @@ module can_frame_gen(
   end 
   else
   begin
-    if(payload) 
+    if(frame_en) 
     if (i < size)
     begin 
       i <= i + 1 ;

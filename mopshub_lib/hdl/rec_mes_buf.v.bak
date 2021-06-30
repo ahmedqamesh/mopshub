@@ -5,7 +5,7 @@ module rec_mes_buf(
    input   wire            clk, 
    input   wire    [15:0]  data_rec_in,   // 16-bit data from each receive register of canakari
    input   wire    [4:0]  can_rec_select,
-   input   wire            en,            // enable signal
+   input   wire            buffer_en,            // enable signal
    input   wire            rst,           // reset active low
    input   wire    [4 :0]   addr,          // same address of register as in canakari
    output  wire    [75:0]  data_rec_out  // complete CAN message output. 11-bit ID and 4 data-bytes
@@ -64,7 +64,7 @@ begin
         b6 <= b6Voted;
         b7 <= b7Voted;
         b8 <= b8Voted;
-   if(en)
+   if(buffer_en)
     begin
     case(addr)
      5'b00101 : id[10:0] <= data_rec_in[15:5];        // 5-bit selection line is the address of corresponding registers in Cankari. ID register data
@@ -82,7 +82,7 @@ begin
                  b5  <= data_rec_in[15:8];            // fifth 
                end                    
      5'b00000 :begin 
-                 b8  <= {4'b0,can_rec_select};       // Eigth // holds the bus Id
+                 b8  <= {3'b0,can_rec_select};       // Eigth // holds the bus Id
                  b7  <= data_rec_in[15:8];            // Seventh 
                end             
      default 

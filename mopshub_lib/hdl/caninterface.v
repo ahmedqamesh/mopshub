@@ -8,50 +8,55 @@ module caninterface(
    input   wire            initi,         // Initialization command
    input   wire            read,    
    input   wire            write, 
-    
+   input   wire            bus_comp,    
    input   wire    [15:0]  read_can,      // Data coming from Cankari
    input   wire    [75:0]  data_tra_mes, 
    input   wire    [4:0]  can_rec_select,    
    input   wire    [4:0]  can_tra_select_cnt,   
    
    output  wire    [15:0]  write_can,     // Data written to Cankari
-   output  wire    [4:0]  can_tra_select
+   output  wire    [4:0]  can_tra_select,
+   output  wire    [4:0] can_tra_comp,
+   output  wire    [4:0] can_rec_comp
 );
 
 // Internal Declarations           
 reg  [15:0] write_can_reg;
 reg  [4 :0] can_rec_reg;
 reg  [4 :0] can_tra_reg= 5'h0;
-
+reg  [4 :0] can_tra_comp_reg= 5'h0;
+reg  [4 :0] can_rec_comp_reg= 5'h0;
 wire [15:0] tra_control; 
 wire [15:0] rst_irq;
 wire [15:0] gen_data;
-wire [2:0]  cmd;               // This is a 4 bit concatenated command of signals coming from the state machine i.e initial,read,write
+wire [3:0]  cmd;               // This is a 4 bit concatenated command of signals coming from the state machine i.e initial,read,write
 
 assign write_can = write_can_reg;
 assign can_tra_select = can_tra_reg;
-
-assign tra_control = 16'h8008; //16'b1 000000000 00 1000
-assign rst_irq = 16'h8070;
-assign gen_data = 16'h9C; //16'b0000000010011100
-assign cmd  = {initi,read,write};               //initi is active high while read and write are active low
+assign can_tra_comp = can_tra_comp_reg;
+assign can_rec_comp = can_rec_comp_reg;
+assign tra_control  = 16'h8008; //16'b1 000000000 00 1000
+assign rst_irq      = 16'h8070;
+assign gen_data     = 16'h9C; //16'b0000000010011100
+assign cmd  = {initi,read,write,bus_comp};               //initi is active high while read and write are active low
 
 ////This is purely combinational block to read and write values to Canakari node
 always@(*)
 begin
   write_can_reg = 16'h0000;
   can_rec_reg = 5'h0;
+  can_tra_reg =5'h0;
   case(cmd)
-    3'b110 : begin
+    4'b1100 : begin
                write_can_reg = data_init;              // Initialize
                can_tra_reg  = can_tra_select_cnt;
               end
               
-    3'b001 :  begin  // read canankari register.. Multiplexing for complete message in done rec_mes_buf register
+    4'b0010 :  begin  // read canankari register.. Multiplexing for complete message in done rec_mes_buf register
                can_rec_reg = can_rec_select;
                end     
                                                 
-    3'b010 :  begin   // write canakari register 
+    4'b0100 :  begin   // write canakari register 
                 can_tra_reg        = data_tra_mes[4:0];
                 case(addr)
                   5'b01100 : begin  // Transmission Identifier 1
@@ -96,7 +101,11 @@ begin
                               can_rec_reg  = 5'h0;
                              end
                 endcase 
-               end                                       
+               end      
+    4'b0011 :  begin                                    // Compare Bus ID
+                  can_tra_comp_reg        = data_tra_mes[4:0];
+                  can_rec_comp_reg        = can_rec_select;
+                end                                
   endcase
 end
 endmodule

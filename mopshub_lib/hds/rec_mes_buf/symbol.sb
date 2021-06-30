@@ -12,7 +12,7 @@ model (Symbol
 commonDM (CommonDM
 ldm (LogicalDM
 ordering 1
-suid 14,0
+suid 15,0
 usingSuid 1
 emptyRow *1 (LEmptyRow
 )
@@ -119,21 +119,6 @@ uid 181,0
 port (LogicalPort
 lang 5
 decl (Decl
-n "en"
-t "wire"
-eolc "// enable signal"
-preAdd 0
-posAdd 0
-o 4
-suid 7,0
-)
-)
-uid 303,0
-)
-*20 (LogPort
-port (LogicalPort
-lang 5
-decl (Decl
 n "addr"
 t "wire"
 b "[4:0]"
@@ -146,7 +131,7 @@ suid 8,0
 )
 uid 422,0
 )
-*21 (LogPort
+*20 (LogPort
 port (LogicalPort
 lang 5
 decl (Decl
@@ -158,6 +143,20 @@ suid 14,0
 )
 )
 uid 1068,0
+)
+*21 (LogPort
+port (LogicalPort
+lang 5
+decl (Decl
+n "buffer_en"
+t "wire"
+eolc "// enable signal"
+posAdd 0
+o 4
+suid 15,0
+)
+)
+uid 1119,0
 )
 ]
 )
@@ -217,7 +216,7 @@ uid 127,0
 )
 *28 (MRCItem
 litem &16
-pos 4
+pos 3
 dimension 20
 uid 133,0
 )
@@ -229,27 +228,27 @@ uid 178,0
 )
 *30 (MRCItem
 litem &18
-pos 5
+pos 4
 dimension 20
 uid 180,0
 )
 *31 (MRCItem
 litem &19
-pos 3
-dimension 20
-uid 302,0
-)
-*32 (MRCItem
-litem &20
 pos 0
 dimension 20
 uid 421,0
+)
+*32 (MRCItem
+litem &20
+pos 5
+dimension 20
+uid 1069,0
 )
 *33 (MRCItem
 litem &21
 pos 6
 dimension 20
-uid 1069,0
+uid 1120,0
 )
 ]
 )
@@ -508,19 +507,19 @@ value "/home/dcs/git/mopshub/mopshub_lib/hds/rec_mes_buf"
 )
 (vvPair
 variable "date"
-value "06/17/21"
+value "06/29/21"
 )
 (vvPair
 variable "day"
-value "Thu"
+value "Tue"
 )
 (vvPair
 variable "day_long"
-value "Thursday"
+value "Tuesday"
 )
 (vvPair
 variable "dd"
-value "17"
+value "29"
 )
 (vvPair
 variable "entity_name"
@@ -548,7 +547,7 @@ value "dcs"
 )
 (vvPair
 variable "graphical_source_date"
-value "06/17/21"
+value "06/29/21"
 )
 (vvPair
 variable "graphical_source_group"
@@ -560,7 +559,7 @@ value "chipdev2.physik.uni-wuppertal.de"
 )
 (vvPair
 variable "graphical_source_time"
-value "13:15:34"
+value "10:07:56"
 )
 (vvPair
 variable "group"
@@ -587,8 +586,16 @@ variable "library_downstream_ModelSimCompiler"
 value "$HDS_PROJECT_DIR/mopshub_lib/work"
 )
 (vvPair
+variable "library_downstream_PrecisionSynthesisDataPrep"
+value "$HDS_PROJECT_DIR/mopshub_lib/ps"
+)
+(vvPair
 variable "library_downstream_QuestaSimCompiler"
 value "$HDS_PROJECT_DIR/mopshub_lib/work"
+)
+(vvPair
+variable "library_downstream_QuestaSimSimulator"
+value "$HDS_PROJECT_DIR/mopshub_lib/sim"
 )
 (vvPair
 variable "library_downstream_SvAssistantInvoke"
@@ -672,7 +679,7 @@ value "symbol"
 )
 (vvPair
 variable "time"
-value "13:15:34"
+value "10:07:56"
 )
 (vvPair
 variable "unit"
@@ -906,55 +913,6 @@ suid 6,0
 )
 )
 *68 (CptPort
-uid 304,0
-ps "OnEdgeStrategy"
-shape (Triangle
-uid 353,0
-ro 90
-va (VaSet
-vasetType 1
-fg "0,65535,0"
-)
-xt "14250,23625,15000,24375"
-)
-tg (CPTG
-uid 306,0
-ps "CptPortTextPlaceStrategy"
-stg "VerticalLayoutStrategy"
-f (Text
-uid 307,0
-va (VaSet
-font "courier,8,0"
-)
-xt "16000,23550,17000,24450"
-st "en"
-blo "16000,24250"
-tm "CptPortNameMgr"
-)
-)
-dt (MLText
-uid 308,0
-va (VaSet
-font "courier,8,0"
-)
-xt "2000,7200,22500,8100"
-st "input  wire         en; // enable signal
-"
-)
-thePort (LogicalPort
-lang 5
-decl (Decl
-n "en"
-t "wire"
-eolc "// enable signal"
-preAdd 0
-posAdd 0
-o 4
-suid 7,0
-)
-)
-)
-*69 (CptPort
 uid 423,0
 ps "OnEdgeStrategy"
 shape (Triangle
@@ -1004,7 +962,7 @@ suid 8,0
 )
 )
 )
-*70 (CptPort
+*69 (CptPort
 uid 1063,0
 ps "OnEdgeStrategy"
 shape (Triangle
@@ -1051,6 +1009,54 @@ suid 14,0
 )
 )
 )
+*70 (CptPort
+uid 1114,0
+ps "OnEdgeStrategy"
+shape (Triangle
+uid 1115,0
+ro 90
+va (VaSet
+vasetType 1
+fg "0,65535,0"
+)
+xt "14250,26625,15000,27375"
+)
+tg (CPTG
+uid 1116,0
+ps "CptPortTextPlaceStrategy"
+stg "VerticalLayoutStrategy"
+f (Text
+uid 1117,0
+va (VaSet
+font "courier,8,0"
+)
+xt "16000,26550,20500,27450"
+st "buffer_en"
+blo "16000,27250"
+tm "CptPortNameMgr"
+)
+)
+dt (MLText
+uid 1118,0
+va (VaSet
+font "courier,8,0"
+)
+xt "2000,7200,26000,8100"
+st "input  wire         buffer_en; // enable signal
+"
+)
+thePort (LogicalPort
+lang 5
+decl (Decl
+n "buffer_en"
+t "wire"
+eolc "// enable signal"
+posAdd 0
+o 4
+suid 15,0
+)
+)
+)
 ]
 shape (Rectangle
 uid 929,0
@@ -1060,7 +1066,7 @@ fg "0,65535,0"
 lineColor "0,32896,0"
 lineWidth 2
 )
-xt "15000,16000,42000,27000"
+xt "15000,16000,42000,28000"
 )
 oxt "15000,16000,42000,26000"
 biTextGroup (BiTextGroup
@@ -1763,7 +1769,7 @@ xt "2000,2700,2000,2700"
 tm "SyDeclarativeTextMgr"
 )
 )
-lastUid 1091,0
+lastUid 1120,0
 postModuleDirective "//tmrg default triplicate
 //tmrg tmr_error false"
 okToSyncOnLoad 1

@@ -11,47 +11,35 @@
 `resetall
 `timescale 1ns/10ps
 module tb_mopshubTop ;
-  reg          clock  = 1'b0;            // posedge
-  reg          rst    = 1'b0; 
-  wire         irqstatus;
-  wire         irq;
-  reg   [75:0]    data_tra_uplink;
+  reg             clock  = 1'b0;            // posedge
+  reg             rst    = 1'b0;
+  reg     [75:0]  data_tra_uplink;
+  wire            done;    // dbg
   wire    [15:0]  write_can;
   wire     [4:0]  can_tra_select; 
   
-  wire        done;    // dbg
   //Initialization Signals
   //wire     [4:0]      addr_can; 
-  
-  reg                sign_on_sig; 
-  
+  reg             sign_on_sig; 
   //write signals
-  wire                 irq_elink; 
-  
-  wire                start_read_elink;
-  wire                 end_read_elink;
-  wire                send_mes_can_done;
-  reg                irq_can_tra; 
-  //wire                write_sig_can_n; 
-  
+  wire            irq_elink; 
+  wire            priority_sig;
+  wire            start_read_elink;
+  wire            end_read_elink;
+  wire            send_mes_can_done;
+  wire            irq_can_tra; 
   //Read Signals
-  reg           endwait= 1'b0;
-  reg           end_write_elink= 1'b0;  
-  wire   [75:0]  data_rec_uplink; 
-  wire           send_mes_elink; 
-  wire           start_write_elink;
-
-  wire                irq_can_rec; 
-  reg     [4:0]      can_rec_select = 5'b0; 
-  //reg                read_sig_can_n;
-  wire               enable_cs; 
-  wire               end_can_proc; 
+  reg             endwait= 1'b0;
+  reg             end_write_elink= 1'b0;  
+  wire   [75:0]   data_rec_uplink; 
+  wire            send_mes_elink; 
+  wire            start_write_elink;
+  wire            irq_can_rec; 
+  reg     [4:0]   can_rec_select = 5'b0; 
+  wire            enable_cs; 
+  wire            end_can_proc; 
   
-  //part related to data Generator        
-  reg         loop_en= 1'b0; 
-  
-  wire        buffer_en; //Enable the tra_buffer
-  wire  rx0;
+  reg  rx0;
   //  reg           rx1= 1'b0; 
   //  reg           rx2= 1'b0; 
   //  reg           rx3= 1'b0; 
@@ -70,17 +58,23 @@ module tb_mopshubTop ;
   //  wire           tx7;
   wire    [15:0]  read_can;
   
+  
+  //Data Generator Signals       
+  reg         loop_en= 1'b0; 
+  wire        buffer_en; //Enable the tra_buffer
+  
   //    
-  //assign irq_can_tra = mopshub.irq_can_tra;
+  assign irq_can_tra = mopshub.irqsuctra;
   assign irq_can_rec = mopshub.irqsucrec;
   assign enable_cs   = mopshub.enable_cs;
   assign write_can = mopshub.write_can;
   assign read_can   = mopshub.read_can;
-    
+  
   data_generator #(
-  .max_cnt_size (5),
-  .n_buses (5'b11111)
-  )DataGen(.clk(clock),
+  .max_cnt_size (5))//,
+  //.n_buses (5'b11111))
+  DataGen(
+  .clk(clock),
   .rst(rst),
   .loop_en(loop_en),
   .buffer_en(buffer_en),
@@ -94,34 +88,9 @@ module tb_mopshubTop ;
   .end_send_msg(send_mes_can_done),
   .busid());  
   
-  //  mopshubCore controller(
-  //  .clk(clock),
-  //  .rst(rst), 
-  //  .sign_on_sig(sign_on_sig),           
-  //  .data_tra_uplink(data_tra_uplink), 
-  //  .irq_elink(irq_elink),       
-  //  .start_read_elink(start_read_elink),    
-  //  .end_read_elink(end_read_elink),        
-  //  .end_write_elink(end_write_elink),        
-  //  .endwait(endwait), 
-  //  .en(en),                 
-  //  .data_rec_uplink(data_rec_uplink),        
-  //  .send_mes_elink(send_mes_elink),        
-  //  .start_write_elink(start_write_elink),               
-  //  .end_can_proc(end_can_proc),        
-  //  .enable_cs(enable_cs),        
-  //  .read_sig_can_n(read_sig_can_n),        
-  //  .write_sig_can_n(write_sig_can_n),        
-  //  .write_can(write_can),        
-  //  .bus_tra_select(bus_tra_select),  
-  //  .read_can(read_can),        
-  //  .bus_rec_select(bus_rec_select),
-  //  .addr_can(addr_can),   
-  //  .send_mes_can_done(send_mes_can_done),     
-  //  .irq_can_rec(irq_can_rec),        
-  //  .irq_can_tra(irq_can_tra));
-  
-  mopshubCore mopshub(
+  mopshubCore#(
+  .max_cnt_size (5),
+  .n_buses (5'b00011))mopshub(
   .clk(clock),
   .rst(rst), 
   .sign_on_sig(sign_on_sig),           
@@ -137,9 +106,8 @@ module tb_mopshubTop ;
   .can_rec_select(can_rec_select),
   .can_tra_select(can_tra_select), 
   .end_can_proc(end_can_proc), 
-  .irqstatus(irqstatus),
-  .irq(irq),  
-  .irq_can_tra(irq_can_tra),  
+  //.irq_can_tra(irq_can_tra), 
+  .priority_sig(priority_sig ), 
   //  .rx1(rx1),        
   //  .rx2(rx2),        
   //  .rx3(rx3),        
@@ -162,18 +130,16 @@ module tb_mopshubTop ;
   always #1 clock = ~clock;
   initial 
   begin
-    irq_can_tra = 0;
-    //   irq_can_rec = 0;
+    //irq_can_tra = 0;
     #10 rst = !rst;
     loop_en= 0;
     //loop_en = !loop_en;
   end
   //Temporarly Solution till Canakari is fixed
-    always@(posedge send_mes_can_done)
-      begin
-        irq_can_tra = 1;
-        #5
-        irq_can_tra = 0;
-        end
-  endmodule
-  
+  //  always@(posedge send_mes_can_done)
+  //    begin
+  //        irq_can_tra = 1;
+  //        #5
+  //        irq_can_tra = 0;
+  //        end    
+endmodule
