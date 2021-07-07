@@ -26,7 +26,7 @@ module bit_counter  #(
   always @(posedge clk)
     if (!rst | ext_rst) 
       begin
-        data_out_reg <= 5'b00000 ; //Default number is 32 (NON-Existing bus)
+        data_out_reg <= 5'b00000 ; //Default number is 0 
       end 
     else if (enable) 
       begin

@@ -1,6 +1,6 @@
 `resetall
 `timescale 1ns/10ps
-module timoutrst( 
+module timout_rst( 
    input   wire      clk, 
    input   wire      entimeout, 
    input   wire      rst, 

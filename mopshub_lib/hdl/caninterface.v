@@ -1,6 +1,6 @@
 `resetall
 `timescale 1ns/10ps
-module caninterface( 
+module can_interface( 
    input   wire            clock, 
    input   wire            rst, 
    input   wire    [4:0]   addr,          // Address of the Cankari register

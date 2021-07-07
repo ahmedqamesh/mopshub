@@ -73,7 +73,7 @@ module tb_mopshubTop ;
   data_generator #(
   .max_cnt_size (5))//,
   //.n_buses (5'b11111))
-  DataGen(
+  data_generator0(
   .clk(clock),
   .rst(rst),
   .loop_en(loop_en),
@@ -85,8 +85,7 @@ module tb_mopshubTop ;
   .irq_elink(irq_elink),
   .start_read_elink(start_read_elink),
   .end_read_elink(end_read_elink),
-  .end_send_msg(send_mes_can_done),
-  .busid());  
+  .send_mes_can_done(send_mes_can_done));  
   
   mopshubCore#(
   .max_cnt_size (5),
@@ -106,6 +105,7 @@ module tb_mopshubTop ;
   .can_rec_select(can_rec_select),
   .can_tra_select(can_tra_select), 
   .end_can_proc(end_can_proc), 
+  .end_cnt_dbg(1'b1),
   //.irq_can_tra(irq_can_tra), 
   .priority_sig(priority_sig ), 
   //  .rx1(rx1),        

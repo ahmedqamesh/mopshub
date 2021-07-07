@@ -18,7 +18,6 @@ module tb_data_generator ;
   
   wire         buffer_en; //Enable the tra_buffer
   wire  [75:0] data_tra_uplink;
-  wire  [7:0]  busid;
   wire         rx0;
   
   wire               irq_elink; 
@@ -42,8 +41,7 @@ module tb_data_generator ;
   .irq_elink(irq_elink),
   .start_read_elink(start_read_elink),
   .end_read_elink(end_read_elink),
-  .end_send_msg(send_mes_can_done),
-  .busid(busid));  
+  .end_send_msg(send_mes_can_done));  
   
   initial begin 
     forever #1 clock=~clock; 

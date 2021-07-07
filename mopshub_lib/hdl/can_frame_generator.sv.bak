@@ -30,10 +30,10 @@ module can_frame_generator(
   //Variables to hold different type of MOPS specific message
   CAN_Message_MOPS canmsgcustom     = new;
   CAN_Message_MOPS canmsgadc        = new;
-  always@(frame_en, customcanid,data) 
+  always@(customcanid,data) 
   begin
-    canmsgcustom.msgcustom(.id(customcanid), .rtr(1'b0), .dlcval(4'h8),.datain(data));
-    //canmsgadc.radc(.ch(0), .id(customcanid)); 
+    //canmsgcustom.msgcustom(.id(customcanid), .rtr(1'b0), .dlcval(4'h8),.datain(data));
+    canmsgadc.radc(.ch(0), .id(customcanid)); 
     size = canmsgcustom.canframe.size(); 
   end
   

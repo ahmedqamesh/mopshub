@@ -148,7 +148,7 @@ module tb_node_readdata_SM ;
    readdata30 = 16'b0; 
    readdata31 = 16'b0;
    endwait = 0 ;
-   resetirq = 0;
+   //resetirq = 0;
    
   	#1
    reset = 1;

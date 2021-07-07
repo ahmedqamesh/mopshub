@@ -1,6 +1,6 @@
 `resetall
 `timescale 1ns/10ps
-module tra_mes_buf( 
+module tra_data_buf( 
    // Port Declarations
    input   wire            clk, 
    input   wire    [75:0]  data_tra_in,   // input data from the SCB or Object Dictionary side

@@ -18,5 +18,5 @@ module clock_signals(
 // Internal Declarations
 reg clk_reg = 1'b0;
 assign clk = clk_reg;
-always #1 clk_reg = ~clk_reg;
+always #10 clk_reg = ~clk_reg;
 endmodule
