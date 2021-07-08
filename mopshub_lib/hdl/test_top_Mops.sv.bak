@@ -1,332 +1,211 @@
 `resetall
 `timescale 1ns/10ps
 module test_top_Mops();
-///Internal registers
-reg clock = 1'b0;
-reg rst   = 1'b1;
-reg startsmreg= 1'b0; 
-reg startreg = 1'b0;
-reg sign_in_msg_reg = 1'b0;
-int ch;
-int failures = 0;                             // Number of BAD reponses from the chip 
-reg [75:0] requestreg = 75'h0;
-reg [75:0] responsereg = 75'h0;
-reg [75:0] sign_in = 75'h0;
-reg [5:0]  ftrim_pads_reg = 6'b111100;        
-/******** This "ftrim_pads_reg"value must be assigned correctly in order to run the testbench smoothly for both cases
-i.e Automated trimming enabled / disabled. The value is dependent on "mops_osc" module because this is from where the MOPS 
-chip gets the OSC / CLK signal. e.g if Automated trimming is enabled and Canakari generates trimming code of "111100" then this is 
-the value which should be used for "ftrim_pads_reg" to correctly trim the dummy oscillator and get the correct frequecny in the case
-automated trimming is disabled.
-*/
-//Instantiation signal wires common
-wire            clk;
-wire            rst_n;
+reg             clk = 1'b0;
 wire            clk_low;
-wire    [10:0]id = 11'h601;                 // here define the node id for the chip to communicate with 
+reg             rst   = 1'b1;
+wire            sign_on_sig;
+wire            osc_auto_trim;
+reg             startsmreg= 1'b0; 
+string          info_debug_sig;     
+int             ch;
+wire    [75:0]  bus_data;
+//tbSM signals  
+wire            indic_sign_in;
+wire            start_trim_sig;
+wire            read_adc_start;
+wire            read_adc_end;
+// MOPSHUB signals
+
+wire    [75:0]  data_rec_uplink;
+wire    [75:0]  request;
+wire            reqmsg;
+wire    [75:0]  response;
+wire            respmsg;
+reg     [4:0]   can_rec_select = 5'b11110;
+wire            irq_can_rec;
+reg             end_write_elink= 1'b1;
+
+
+reg             elink_test;
+wire            irq_elink;
+wire            start_read_elink;
+wire            end_read_elink; 
+wire     [75:0] data_tra_uplink;
+reg      [75:0] requestreg  = 75'h0;
+reg      [75:0] responsereg = 75'h0; 
+wire     [4:0]  can_tra_select;
+wire            irq_can_tra;
+wire            send_mes_can_done;
+wire            buffer_en; //Enable the tra_buffer
+wire            done;    // dbg  
+// Generator signals 
+int failures = 0;                             // Number of BAD reponses from the chip  
 wire            tx;
 wire            rx;
-wire            sign_in_msg;
-//MOPS signals
-wire            txmops;
-wire    [5:0]   adc_trim;
-wire    [6:0]   can_nodeid;
-wire    [39:0]  adc_select;
-wire            adc_soc;
-wire            adc_eoc;
-wire    [11:0]  adc_data;
-wire            osc_auto_trim;
-wire    [5:0]   ftrim_pads;
-wire    [5:0]   ftrim_osc;
-wire            clk_osc;
-wire            ready_osc;
-
-//tbSM signals  
-wire startsm;
-wire nextran;
-wire respmsg;
-wire reqmsg;
-wire [31:0]taildata;  
-wire [10:0]customcanid;                      // This is a custom CAN id which can be defined in the tbSM
-wire indic_sign_in;
-wire read_adc_end;
-wire        buffer_en; //Enable the tra_buffer
-
-// CANdecoder signals
-wire    [75:0]  bus_data;
-wire    [75:0]  request;
-wire    [75:0]  response;
-wire            txdec;
-wire            irq_can_rec;
-wire            sign_on_sig;
-// Generator signals 
-wire     start;
-wire     txgen;
-wire     read;                // From state machine to prepare a read request
-wire     write;               // From state machine to prepare a write request 
-wire     random1000;          // from state machine to prepare 1000 random messages
-wire [23:0]indexsubindex;       // from state machine index and subindex to write and read. Index bytes are sent LSB first 
-wire     rstchip;             // prepare reset chip request 
-wire     readadc;             // from state machine to read ADC
-wire     allch;               // Indication from SM to read all channels 
-//wire     ch;                  // From SM to read a specific channel 
-wire     custommsg;           // Indication from SM to prepare custom message
-wire [3:0]dlc;                 // DLC value in the custom message 
-wire [63:0]data;                // 8 bytes of data to be sent 
-wire doneran;
-wire finranmes;
-// oscillator debug signals
-real time_new, time_old, freq;
-
-//Internal assignments
-assign rst_n = rst;
-assign clk = clock;
-assign dlc = 4'h8;   //// "1" = wait for oscillator trimming before sign-in message  
-assign rx =  ~(rst_n ^ (txdec & txgen & txmops));
-assign tx = txdec | txmops;
-assign startsm = startsmreg;
-assign can_nodeid = 7'b0000001;
+wire            tx_mopshub;
+//Internal assignments  
 assign request = requestreg;
 assign response = responsereg;
-assign sign_in_msg = sign_in_msg_reg;
 //Automated trimming signals
 assign osc_auto_trim =1'b1;                    ////Active high. Enable /disable automated trimming. If disabled then take care of ftrim_pads_reg
-assign ftrim_pads = ftrim_pads_reg;
 
 /// Top level instantiation
-//top_level DUT( 
-//   // Port Declarations
-//            .clk(clk_osc),
-//            .rst_n(rst_n),
-//            .osc_reset_n(),
-//            .can_rx(rx),
-//            .can_tx(txmops),
-//            .can_nodeid(can_nodeid),
-//            .adc_clk(),
-//            .adc_reset(),
-//            .adc_trim(adc_trim), 
-//            .adc_select(adc_select),
-//            .adc_soc(adc_soc),
-//            .adc_eoc(adc_eoc),  
-//            .adc_data(adc_data),
-//            .osc_auto_trim(osc_auto_trim),
-//            .ftrim_pads(ftrim_pads),
-//            .ftrim_osc(ftrim_osc),
-//            .ready_osc(ready_osc)
-//              
-//);
-
-
-/// Top level instantiation
-mops_top_level DUT( 
-            .clk(clk),
-            .rst_n(rst_n),
-            .can_rx(rx),
-            .can_tx(txmops),
-            .osc_auto_trim(osc_auto_trim),
-            .ftrim_pads(ftrim_pads),
-            .can_nodeid(can_nodeid),
-            .ready_osc(ready_osc),
-            .ftrim_osc(ftrim_osc),             
-            .adc_select(adc_select),
-            .adc_soc(adc_soc),
-            .adc_eoc(adc_eoc),  
-            .adc_data(adc_data)
-);
-
-
-mops_osc mops_osc0 (
- .ftrim(ftrim_osc),
- .reset(rst),
- .clk(clk_osc)
-);
-
-always@(posedge clk_osc)
-begin
- time_old=time_new;
- time_new=$realtime();
- if(time_old!=time_new)
-  freq=1e3/(time_new-time_old);
-end
-
-
-
 assign irq_can_rec = mopshub.irqsucrec;
+assign irq_can_tra = mopshub.irqsuctra;
 mopshubCore#(
-  .max_cnt_size (5),
-  .n_buses (5'b11111))mopshub(
-  .clk(clk),
-  .rst(rst_n), 
-  .sign_on_sig(sign_on_sig),           
-  .data_tra_uplink(), 
-  .irq_elink(),       
-  .start_read_elink(),    
-  .end_read_elink(),        
-  .end_write_elink(1'b1),        
-  .endwait(),
-  .send_mes_can_done(), 
-  .buffer_en(buffer_en),           
-  .rx(rx),
-  .can_rec_select(5'b11110),
-  .can_tra_select(), 
-  .end_can_proc(), 
-  .end_cnt_dbg(1'b1),
-  //.irq_can_tra(irq_can_tra), 
-  .priority_sig( ), 
-  //  .rx1(rx1),        
-  //  .rx2(rx2),        
-  //  .rx3(rx3),        
-  //  .rx4(rx4),        
-  //  .rx5(rx5),        
-  //  .rx6(rx6),        
-  //  .rx7(rx7),        
-  .data_rec_uplink(bus_data),        
-  .send_mes_elink(),        
-  .start_write_elink(),        
-  .tx(txdec));  
-//  
-//adcdumdata adcdumdata0(
-//  .clk(clk),
-//  .rst(rst_n),
-//  .soc(adc_soc),
-//  .eoc(adc_eoc),
-//  .dataout(adc_data),
-//  .adc_select(adc_select)
-//  );
+.max_cnt_size (5),
+.n_buses (5'b11111))mopshub(
+.clk(clk),
+.rst(rst), 
+.sign_on_sig(sign_on_sig),               
+.end_write_elink(end_write_elink),        
+.endwait(),
+.can_rec_select(can_rec_select),
+.data_rec_uplink(data_rec_uplink),        
+.send_mes_elink(),        
+.start_write_elink(),
+
+.end_can_proc(), 
+.end_cnt_dbg(1'b1),
+.irq_elink(irq_elink), 
+.data_tra_uplink(data_tra_uplink),      
+.can_tra_select(can_tra_select), 
+.start_read_elink(start_read_elink),    
+.end_read_elink(end_read_elink),    
+.send_mes_can_done(send_mes_can_done), 
+.buffer_en(buffer_en),  
+.priority_sig( ), 
+//  .rx1(rx1),        
+//  .rx2(rx2),        
+//  .rx3(rx3),        
+//  .rx4(rx4),        
+//  .rx5(rx5),        
+//  .rx6(rx6),        
+//  .rx7(rx7),
+.rx(rx),              
+.tx(tx_mopshub));  
 
 clkdiv clkdiv0( 
-   .clk     (clk), 
-   .clk_low (clk_low), 
-   .rst_n   (rst_n)
+.clk     (clk), 
+.clk_low (clk_low), 
+.rst_n   (rst)
 ); 
 
-data_generator_SM data_generator0(
-  .clk(clk),
-  .rst(rst_n),
-  .loop_en(1'b0),
-  .read_adc(1'b1),
-  .startsm(startsm),
-  .read_adc_end(read_adc_end),
-  .sign_on_sig(sign_on_sig),
-  .indexsubindex(indexsubindex),  // Value of index should be LSB first   
-  .read(read),
-  .readadc(readadc),        // indicates to read an ADC channel 
-  .write(write),                  // Prepare SDO write request  
-  .txdec(txdec), // Acknowledgement bit from the decoder to move to the next state
-  .start(start),  
-  .ch(ch),
-  .respmsg(respmsg),
-  .reqmsg(reqmsg),  
-  .taildata(taildata),
-  .data(data),  
-  .custommsg(custommsg), 
-  .customcanid(customcanid), 
-  .osc_auto_trim(osc_auto_trim),
-  .trimming_done(ready_osc),
-  .indic_sign_in(indic_sign_in),  
-  .buffer_en(buffer_en),
-  .done(),
-  .irq_elink(),
-  .start_read_elink(),
-  .end_read_elink(),
-  .end_send_msg());
-  
-canframegen gen0( 
-   .clk(clk),
-   .read(read), 
-   .clk_low(clk_low),   
-   .rst_n(rst_n),
-   .txgen(txgen),
-   .start(start),
-   .id(id),
-   .write(write),                    // From state machine to prepare a write request 
-   .random1000(random1000),          // from state machine to prepare 1000 random messages
-   .indexsubindex(indexsubindex),    // from state machine index and subindex to write and read. Index bytes are sent LSB first 
-   .rstchip(rstchip),                // prepare reset chip request 
-   .readadc(readadc),                // from state machine to read ADC
-   .allch(allch),                    // Indication from SM to read all channels 
-   .ch(ch),                          // From SM to read a specific channel 
-   .custommsg(custommsg),            // Indication from SM to prepare custom message
-   .dlc(dlc),                        // DLC value in the custom message 
-   .data(data),                      // 8 bytes of data to be sent 
-   .doneranwire(doneran),
-   .finranmes(finranmes),
-   .sendran(sendran),
-   .nextran(nextran),
-   .taildata(taildata),
-   .customcanid(customcanid)
-);
+data_generator data_generator0(
+.clk(clk),
+.rst(rst),
+.loop_en(1'b0),
+.read_adc(1'b1),
+//Sign on Signal
+.sign_on_sig(sign_on_sig),
+//Start SM
+.startsm(startsmreg),
+//OScillation Triming Signals
+.osc_auto_trim(osc_auto_trim),
+.start_trim_sig(start_trim_sig),
+.indic_sign_in(indic_sign_in), 
+//Read ADC channels from MOPS and send it to MOPSHUB rx
+.read_adc_start(read_adc_start),
+.read_adc_end(read_adc_end),
+.respmsg(respmsg),
+.reqmsg(reqmsg),
+.ch(ch),  
+// Acknowledgement bit from the MOPSHUB
+.tx_mopshub(tx_mopshub), 
+// Generator Signals
+.clk_low(clk_low),
+//RX-TX signals
+.tx(tx),
+.rx(rx),
+//Decoder SIgnals
+.bus_data(bus_data),
+//read data from Elink and send it to the bus
+.elink_test(elink_test),
+.irq_elink(irq_elink),
+.start_read_elink(start_read_elink),
+.end_read_elink(end_read_elink),
+.send_mes_can_done(send_mes_can_done),
+.payload(data_tra_uplink),
+.buffer_en(buffer_en),
+.done(done));
 
-
- 
 //////////****// Clock generation////////////////
-always #50 clock = ~clock;   
+always #50 clk = ~clk;   
 //////////////////////////////////////////////// 
-  
+
 /////******* Reset Generator task--low active ****/////
 task genrst;
   begin
     rst = 1'b0;
-    @(negedge clock)
+    @(negedge clk)
     rst = 1'b0;
     #200
     rst = 1'b1;
   end 
 endtask
 
+
+/////*******Start SM for Data Generation ****/////
 initial 
-
 begin
-//test_message1 = new;
-
 genrst; 
-//#4000000
 #200000
 startsmreg <= 1'b1;
 #50
 startsmreg <= 1'b0;
-
 end
 
+always@(posedge clk)
+begin 
+  if(read_adc_end ==1)
+      elink_test =1'b1;
+end
 
-
-
-/******* This prints bus activity ******///
-always@(posedge clk or negedge rst_n)
-if (!rst_n)
+/////******* This prints bus activity ******///
+always@(posedge clk or negedge rst)
+if (!rst)
   begin
     requestreg <= 0;
     responsereg <= 0;
-    sign_in    <= 0;
+    info_debug_sig = "<:RESET>";
   end
 else 
 begin
+  if(start_trim_sig)
+    begin 
+      info_debug_sig = "<:Oscillator Trimming:>";
+      $strobeh("\t Oscillator Trimming: %h ",data_rec_uplink);
+    end  
   if(indic_sign_in)
     begin 
-      sign_in <= bus_data;
-      $strobeh("\t Sign-in message %h ",sign_in);
+      info_debug_sig = "<:Signing in:>";
+      $strobeh("\t Sign-in message: %h ",data_rec_uplink);
     end 
-  else if (respmsg |nextran )
+  if(read_adc_start)
+    begin 
+      info_debug_sig = "<:       RECEIVE RX signals      :>";
+    end 
+  if(start_read_elink)
+    begin 
+      info_debug_sig = "<:       Transmit RX signals     :>";
+    end  
+  else if (respmsg)
     begin
-      responsereg <= bus_data;
+      responsereg <= data_rec_uplink;
       $strobeh("\t Request %h \t Response %h",request,response);
     end
-  else if (reqmsg )
+  else if(reqmsg)
     begin
-      requestreg <= bus_data;  
+      requestreg <= data_rec_uplink; 
     end
   
 end
 
-
-
 //// ********* Score board *************////
-
-//always@(posedge clk or negedge rst_n)
 always@(*)
 begin 
-  sign_in_msg_reg = 1'b0;
-  if (respmsg | nextran)
+  if (respmsg)
    begin
      #500
       casez(request)
@@ -500,7 +379,7 @@ begin
                end
         75'h6014020010000000000:
                begin 
-                if(response == {75'h58143200100000000,2'b00,adc_trim})
+                if(response == {75'h58143200100000000,2'b00,000000})//I replaced adc_trim here
                   $strobe("Status GOOD");
                 else
                   begin
@@ -610,23 +489,10 @@ begin
                     failures += 1;
                   end
                end
-              
-
-
       endcase
-//      if( (request == 75'h0) & (response == 75'h7010500000000000000) )  
-//        $strobe("Status GOOD");
-//      else if( (request == 75'h6014010000000000000)& (response == 75'h5814310000000000191) )  
-//        $strobe("Status GOOD");
-//      else
-//        $strobe("Status BAD ***************************************************************************** Status BAD");
 
    end
 end
-
-
-
-
 
 endmodule 
 
