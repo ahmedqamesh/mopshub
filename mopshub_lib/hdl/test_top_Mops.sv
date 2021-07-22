@@ -53,7 +53,8 @@ assign osc_auto_trim =1'b1;                    ////Active high. Enable /disable 
 /// Top level instantiation
 assign irq_can_rec = mopshub.irqsucrec;
 assign irq_can_tra = mopshub.irqsuctra;
-mopshubCore#(
+
+mopshub_core#(
 .max_cnt_size (5),
 .n_buses (5'b11111))mopshub(
 .clk(clk),

@@ -11,13 +11,13 @@
 `resetall
 `timescale 1ns/10ps
 module demux1_Nbit#(
-  parameter def_value = 0,
-  parameter N = 32,
-  parameter M = 5
+  parameter def_value = 16'b0,
+  parameter N = 16
   
   )( 
-  input    wire  [M-1 : 0]           sel,
-  input    wire  [N-1 : 0]           input_port,  
+  input    wire  [4 : 0]           sel,
+
+  input    wire  [N-1 : 0]           input_bus,  
   output   wire  [N-1 : 0]            output9, 
   output   wire  [N-1 : 0]            output18, 
   output   wire  [N-1 : 0]            output19, 
@@ -118,105 +118,141 @@ module demux1_Nbit#(
  assign  output31=output31_reg; 
  assign  output25=output25_reg; 
   
-  always @(input_port or sel)
+  always @(*)
   begin 
-    case (sel)
+   output9_reg =def_value; 
+   output18_reg =def_value; 
+   output19_reg =def_value; 
+   output20_reg =def_value; 
+   output21_reg =def_value; 
+   output22_reg =def_value; 
+   output23_reg =def_value; 
+   output24_reg =def_value; 
+   output4_reg =def_value; 
+   output5_reg =def_value; 
+   output6_reg =def_value; 
+   output7_reg =def_value; 
+   output8_reg =def_value; 
+   output10_reg =def_value; 
+   output11_reg =def_value; 
+   output12_reg =def_value; 
+   output13_reg =def_value; 
+   output14_reg =def_value; 
+   output15_reg =def_value; 
+   output16_reg =def_value; 
+   output17_reg =def_value; 
+   output0_reg =def_value; 
+   output1_reg =def_value; 
+   output2_reg =def_value; 
+   output3_reg =def_value; 
+   output26_reg =def_value; 
+   output27_reg =def_value; 
+   output28_reg =def_value; 
+   output29_reg =def_value; 
+   output30_reg =def_value; 
+   output31_reg =def_value; 
+   output25_reg =def_value;   
+   case (sel)
       5'h0 : begin 
-        output0_reg = input_port;
+        output0_reg = input_bus;
       end
       5'h1 : begin 
-        output1_reg  = input_port;
+        output1_reg  = input_bus;
       end
       5'h2 : begin 
-        output2_reg  = input_port;
+        output2_reg  = input_bus;
       end
       5'h3 : begin 
-        output3_reg  = input_port;
+        output3_reg  = input_bus;
       end
       5'h4 : begin
-        output4_reg  = input_port;
+        output4_reg  = input_bus;
       end
       5'h5 : begin 
-        output5_reg = input_port;
+        output5_reg = input_bus;
       end
       5'h6 : begin 
-        output6_reg  = input_port;
+        output6_reg  = input_bus;
       end
       5'h7 : begin 
-        output7_reg  = input_port;
+        output7_reg  = input_bus;
       end
       5'h8 : begin 
-        output8_reg  = input_port;
+        output8_reg  = input_bus;
       end
       5'h9 : begin
-        output9_reg  = input_port;
+        output9_reg  = input_bus;
       end
       5'hA : begin 
-        output10_reg = input_port;
+        output10_reg = input_bus;
       end
       5'hB : begin 
-        output11_reg  = input_port;
+        output11_reg  = input_bus;
       end
       5'hC : begin 
-        output12_reg  = input_port;
+        output12_reg  = input_bus;
       end
       5'hD : begin 
-        output13_reg  = input_port;
+        output13_reg  = input_bus;
       end
       5'hE : begin
-        output14_reg  = input_port;
+        output14_reg  = input_bus;
       end
       5'hF : begin 
-        output15_reg = input_port;
+        output15_reg = input_bus;
       end
       5'h10 : begin 
-        output16_reg  = input_port;
+        output16_reg  = input_bus;
       end
       5'h11 : begin 
-        output17_reg  = input_port;
+        output17_reg  = input_bus;
       end
       5'h12 : begin 
-        output18_reg  = input_port;
+        output18_reg  = input_bus;
       end
       5'h13 : begin
-        output19_reg  = input_port;           
+        output19_reg  = input_bus;           
       end
       5'h14 : begin 
-        output20_reg  = input_port;
+        output20_reg  = input_bus;
       end
       5'h15 : begin 
-        output21_reg  = input_port;
+        output21_reg  = input_bus;
       end
       5'h16 : begin 
-        output22_reg  = input_port;
+        output22_reg  = input_bus;
       end
       5'h17 : begin
-        output23_reg  = input_port;
+        output23_reg  = input_bus;
       end
       5'h18 : begin 
-        output24_reg = input_port;
+        output24_reg = input_bus;
       end
       5'h19 : begin 
-        output25_reg  = input_port;
+        output25_reg  = input_bus;
       end
       5'h1A : begin 
-        output26_reg  = input_port;
+        output26_reg  = input_bus;
       end
       5'h1B : begin 
-        output27_reg  = input_port;
+        output27_reg  = input_bus;
       end
       5'h1C : begin
-        output28_reg  = input_port;
+        output28_reg  = input_bus;
     end 
       5'h1D : begin 
-        output29_reg  = input_port;
+        output29_reg  = input_bus;
       end
       5'h1E : begin 
-        output30_reg  = input_port;
+        output30_reg  = input_bus;
       end
       5'h1F : begin
-        output31_reg  = input_port;
+        output31_reg  = input_bus;
     end    
+      default: begin
+        output0_reg  = input_bus;
+    end 
+    
     endcase
   end
   

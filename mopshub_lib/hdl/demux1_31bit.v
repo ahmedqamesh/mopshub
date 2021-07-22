@@ -13,8 +13,8 @@
 module demux1_1bit#(
   parameter def_value = 1'b1
   )( 
-  input   wire    [4:0]  sel,
-  input   wire           input_port,  
+  input    wire    [4:0]   sel,
+  input    wire            input_port,  
   output   wire            output9, 
   output   wire            output18, 
   output   wire            output19, 
@@ -48,7 +48,6 @@ module demux1_1bit#(
   output   wire            output31, 
   output   wire            output25
   );
-  
   reg output9_reg =def_value; 
   reg output18_reg =def_value; 
   reg output19_reg =def_value; 
@@ -81,7 +80,7 @@ module demux1_1bit#(
   reg output30_reg =def_value; 
   reg output31_reg =def_value; 
   reg output25_reg =def_value; 
-  
+ 
  assign  output9=output9_reg; 
  assign  output18=output18_reg; 
  assign  output19=output19_reg; 
@@ -114,9 +113,42 @@ module demux1_1bit#(
  assign  output30=output30_reg; 
  assign  output31=output31_reg; 
  assign  output25=output25_reg; 
-  
-  always @(input_port or sel)
-  begin 
+ 
+
+  always @(input_port)
+  begin
+  output9_reg =def_value; 
+ output18_reg =def_value; 
+ output19_reg =def_value; 
+ output20_reg =def_value; 
+ output21_reg =def_value; 
+ output22_reg =def_value; 
+ output23_reg =def_value; 
+ output24_reg =def_value; 
+ output4_reg =def_value; 
+ output5_reg =def_value; 
+ output6_reg =def_value; 
+ output7_reg =def_value; 
+ output8_reg =def_value; 
+ output10_reg =def_value; 
+ output11_reg =def_value; 
+ output12_reg =def_value; 
+ output13_reg =def_value; 
+ output14_reg =def_value; 
+ output15_reg =def_value; 
+ output16_reg =def_value; 
+ output17_reg =def_value; 
+ output0_reg =def_value; 
+ output1_reg =def_value; 
+ output2_reg =def_value; 
+ output3_reg =def_value; 
+ output26_reg =def_value; 
+ output27_reg =def_value; 
+ output28_reg =def_value; 
+ output29_reg =def_value; 
+ output30_reg =def_value; 
+ output31_reg =def_value; 
+ output25_reg =def_value; 
     case (sel)
       5'h0 : begin 
         output0_reg = input_port;

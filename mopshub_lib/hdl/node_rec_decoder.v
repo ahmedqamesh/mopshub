@@ -84,7 +84,7 @@ assign    output_bus[29] = Input29;
 assign    output_bus[30] = Input30;
 assign    output_bus[31] = Input31;
 
-always@(*)
+always@(output_bus)
 begin
   output_bus_sig_reg = 1; 
 end
