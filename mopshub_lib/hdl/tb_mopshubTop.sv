@@ -44,7 +44,7 @@ wire            buffer_en; //Enable the tra_buffer
 wire            done;    // dbg  
 // Generator signals 
 int failures = 0;                             // Number of BAD reponses from the chip  
-//wire            rx0;
+wire            rx0;
 //wire            rx1;
 //wire            rx2;
 //wire            rx3;
@@ -54,7 +54,7 @@ int failures = 0;                             // Number of BAD reponses from the
 //wire            rx7;
 
 
-//wire            tx0;
+wire            tx0;
 //wire            tx1;
 //wire            tx2;
 //wire            tx3;
@@ -63,7 +63,6 @@ int failures = 0;                             // Number of BAD reponses from the
 //wire            tx6;
 //wire            tx7;
 
-wire            rx;
 wire            tx_mopshub;
 //Internal assignments  
 assign request = requestreg;
@@ -76,7 +75,7 @@ assign irq_can_rec = mopshub.irq_can_rec;
 assign irq_can_tra = mopshub.irq_can_tra;
 assign can_tra_select = mopshub.can_tra_select;
 //assign can_rec_select = mopshub.can_rec_select;
-
+assign tx_mopshub = tx0;
 mopshub_top#(
 .max_cnt_size (5),
 .n_buses (5'b11111))mopshub(
@@ -101,7 +100,7 @@ mopshub_top#(
 .send_mes_can_done(send_mes_can_done), 
 .buffer_en(buffer_en),  
 .priority_sig( ),         
-.rx0(rx),        
+.rx0(rx0),        
 //.rx1(rx1),        
 //.rx2(rx2),        
 //.rx3(rx3),        
@@ -116,7 +115,7 @@ mopshub_top#(
 //.tx5(tx5),
 //.tx6(tx6),
 //.tx7(tx7),
-.tx0(tx_mopshub));  
+.tx0(tx0));  
 
 clkdiv clkdiv0( 
 .clk     (clk), 
@@ -148,18 +147,18 @@ data_generator data_generator0(
 // Generator Signals
 .clk_low(clk_low),
 //RX-TX signals
-.rx(rx),
+.rx(rx0),
 //Decoder Signals [Listen always to the bus ]
 .bus_data(bus_data),
 //read data from Elink and send it to the bus
-.bus_test(bus_test),
-.sel_bus(),
+.sel_ch(5'b0),
+.sel_bus(5'b0),
 .elink_test(elink_test),
 .irq_elink(irq_elink),
 .start_read_elink(start_read_elink),
 .end_read_elink(end_read_elink),
 .send_mes_can_done(send_mes_can_done),
-.payload(data_tra_uplink),
+.bus_payload(data_tra_uplink),
 .buffer_en(buffer_en),
 .done(done));
 
