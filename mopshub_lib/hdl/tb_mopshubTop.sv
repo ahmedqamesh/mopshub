@@ -25,7 +25,7 @@ wire    [75:0]  request;
 wire            reqmsg;
 wire    [75:0]  response;
 wire            respmsg;
-reg     [4:0]   can_rec_select = 5'b11110;
+reg     [4:0]   can_rec_select = 5'b0;
 wire            irq_can_rec;
 reg             end_write_elink= 1'b1;
 

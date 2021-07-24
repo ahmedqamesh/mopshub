@@ -44,13 +44,11 @@ module dec32_Nbit(
    input   wire            Input30, 
    input   wire            Input31, 
    input   wire            Input25,
-   output  wire    [31:0]  output_bus,
-   output  wire    output_bus_sig
+   output   wire            triger_signal,
+   output  wire    [31:0]  output_bus
 );
-reg output_bus_sig_reg = 0;
-
-assign output_bus_sig = output_bus_sig_reg;
-
+reg triger_signal_reg = 0;
+assign triger_signal = triger_signal_reg;
 assign    output_bus[0] = Input0;
 assign    output_bus[1] = Input1;
 assign    output_bus[2] = Input2;
@@ -84,8 +82,9 @@ assign    output_bus[29] = Input29;
 assign    output_bus[30] = Input30;
 assign    output_bus[31] = Input31;
 
-always@(output_bus)
+always@(Input0)
 begin
-  output_bus_sig_reg = 1; 
+  triger_signal_reg = 1;
 end
+
 endmodule
