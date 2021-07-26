@@ -11,80 +11,104 @@
 `resetall
 `timescale 1ns/10ps
 module dec32_Nbit( 
-   // Port Declarations
-   input   wire            Input9, 
-   input   wire            Input18, 
-   input   wire            Input19, 
-   input   wire            Input20, 
-   input   wire            Input21, 
-   input   wire            Input22, 
-   input   wire            Input23, 
-   input   wire            Input24, 
-   input   wire            Input4, 
-   input   wire            Input5, 
-   input   wire            Input6, 
-   input   wire            Input7, 
-   input   wire            Input8, 
-   input   wire            Input10, 
-   input   wire            Input11, 
-   input   wire            Input12, 
-   input   wire            Input13, 
-   input   wire            Input14, 
-   input   wire            Input15, 
-   input   wire            Input16, 
-   input   wire            Input17, 
-   input   wire            Input0, 
-   input   wire            Input1, 
-   input   wire            Input2, 
-   input   wire            Input3, 
-   input   wire            Input26, 
-   input   wire            Input27, 
-   input   wire            Input28, 
-   input   wire            Input29, 
-   input   wire            Input30, 
-   input   wire            Input31, 
-   input   wire            Input25,
-   output   wire            triger_signal,
-   output  wire    [31:0]  output_bus
-);
-reg triger_signal_reg = 0;
-assign triger_signal = triger_signal_reg;
-assign    output_bus[0] = Input0;
-assign    output_bus[1] = Input1;
-assign    output_bus[2] = Input2;
-assign    output_bus[3] = Input3;
-assign    output_bus[4] = Input4;
-assign    output_bus[5] = Input5;
-assign    output_bus[6] = Input6;
-assign    output_bus[7] = Input7;
-assign    output_bus[8] = Input8;   
-assign    output_bus[9] = Input9;
-assign    output_bus[10] = Input10;
-assign    output_bus[11] = Input11;
-assign    output_bus[12] = Input12;
-assign    output_bus[13] = Input13;
-assign    output_bus[14] = Input14;
-assign    output_bus[15] = Input15;
-assign    output_bus[16] = Input16;
-assign    output_bus[17] = Input17;    
-assign    output_bus[18] = Input18;
-assign    output_bus[19] = Input19;
-assign    output_bus[20] = Input20;
-assign    output_bus[21] = Input21;
-assign    output_bus[22] = Input22;
-assign    output_bus[23] = Input23;
-assign    output_bus[24] = Input24;
-assign    output_bus[25] = Input25;
-assign    output_bus[26] = Input26;
-assign    output_bus[27] = Input27;
-assign    output_bus[28] = Input28;
-assign    output_bus[29] = Input29;
-assign    output_bus[30] = Input30;
-assign    output_bus[31] = Input31;
-
-always@(Input0)
-begin
-  triger_signal_reg = 1;
-end
-
+  // Port Declarations
+  input   wire            clk, 
+  input   wire            rst,  
+  input   wire            enable,   
+  input   wire            Input0, 
+  input   wire            Input1, 
+  input   wire            Input2, 
+  input   wire            Input3, 
+  input   wire            Input4, 
+  input   wire            Input5, 
+  input   wire            Input6, 
+  input   wire            Input7, 
+  input   wire            Input8,    
+  input   wire            Input9, 
+  input   wire            Input10, 
+  input   wire            Input11, 
+  input   wire            Input12, 
+  input   wire            Input13, 
+  input   wire            Input14, 
+  input   wire            Input15, 
+  input   wire            Input16, 
+  input   wire            Input17,    
+  input   wire            Input18, 
+  input   wire            Input19, 
+  input   wire            Input20, 
+  input   wire            Input21, 
+  input   wire            Input22, 
+  input   wire            Input23, 
+  input   wire            Input24, 
+  input   wire            Input25,
+  input   wire            Input26, 
+  input   wire            Input27, 
+  input   wire            Input28, 
+  input   wire            Input29, 
+  input   wire            Input30, 
+  input   wire            Input31, 
+  output  wire            triger_signal,
+  output  wire    [31:0]  output_bus
+  );
+  reg       triger_signal_reg = 0;
+  reg [31:0]  output_bus_reg;
+  //assign    triger_signal = triger_signal_reg;
+  
+  assign    output_bus[0] = Input0;
+  assign    output_bus[1] = Input1;
+  assign    output_bus[2] = Input2;
+  assign    output_bus[3] = Input3;
+  assign    output_bus[4] = Input4;
+  assign    output_bus[5] = Input5;
+  assign    output_bus[6] = Input6;
+  assign    output_bus[7] = Input7;
+  assign    output_bus[8] = Input8;   
+  assign    output_bus[9] = Input9;
+  assign    output_bus[10] = Input10;
+  assign    output_bus[11] = Input11;
+  assign    output_bus[12] = Input12;
+  assign    output_bus[13] = Input13;
+  assign    output_bus[14] = Input14;
+  assign    output_bus[15] = Input15;
+  assign    output_bus[16] = Input16;
+  assign    output_bus[17] = Input17;    
+  assign    output_bus[18] = Input18;
+  assign    output_bus[19] = Input19;
+  assign    output_bus[20] = Input20;
+  assign    output_bus[21] = Input21;
+  assign    output_bus[22] = Input22;
+  assign    output_bus[23] = Input23;
+  assign    output_bus[24] = Input24;
+  assign    output_bus[25] = Input25;
+  assign    output_bus[26] = Input26;
+  assign    output_bus[27] = Input27;
+  assign    output_bus[28] = Input28;
+  assign    output_bus[29] = Input29;
+  assign    output_bus[30] = Input30;
+  assign    output_bus[31] = Input31;
+  
+//  always@(Input0)
+//  begin
+//    triger_signal_reg = Input0;
+//    
+//  end
+  always@(posedge clk)
+begin 
+ if(!rst)
+  begin
+    output_bus_reg <= 32'd0;
+    triger_signal_reg <=1'b0;
+  end
+ else
+  if(enable)
+  begin
+      output_bus_reg <= output_bus;
+      triger_signal_reg <=1'b1;
+    end
+  else
+  begin 
+   output_bus_reg <= output_bus_reg;
+   triger_signal_reg <=1'b1;
+ end
+end   
 endmodule

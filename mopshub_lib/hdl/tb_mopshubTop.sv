@@ -25,10 +25,11 @@ wire    [75:0]  request;
 wire            reqmsg;
 wire    [75:0]  response;
 wire            respmsg;
-reg     [4:0]   can_rec_select = 5'b0;
+wire     [4:0]   can_rec_select;
 wire            irq_can_rec;
 reg             end_write_elink= 1'b1;
-
+wire            start_bus_loop;
+wire            done_bus_loop;
 
 
 wire            irq_elink;
@@ -74,7 +75,10 @@ assign osc_auto_trim =1'b0;                    ////Active high. Enable /disable 
 assign irq_can_rec = mopshub.irq_can_rec;
 assign irq_can_tra = mopshub.irq_can_tra;
 assign can_tra_select = mopshub.can_tra_select;
-//assign can_rec_select = mopshub.can_rec_select;
+assign can_rec_select = mopshub.can_rec_select;
+assign done_bus_loop = mopshub.done_bus_loop;
+assign start_bus_loop = mopshub.start_bus_loop;
+
 assign tx_mopshub = tx0;
 mopshub_top#(
 .max_cnt_size (5),
@@ -85,7 +89,6 @@ mopshub_top#(
 .sign_on_sig(sign_on_sig),               
 .end_write_elink(end_write_elink),        
 .endwait(),
-.can_rec_select(can_rec_select),
 .data_rec_uplink(data_rec_uplink),        
 .send_mes_elink(),        
 .start_write_elink(),
