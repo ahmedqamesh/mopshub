@@ -56,50 +56,43 @@ begin
                end     
                                                 
     4'b0100 :  begin   // write canakari register 
+                can_tra_reg        = data_tra_mes[4:0];
                 case(addr)
                   5'b01100 : begin  // Transmission Identifier 1
                               write_can_reg[15:5] = data_tra_mes[74:64];
                               write_can_reg[4:0]  = 5'h0; 
-                              can_tra_reg        = data_tra_mes[4:0];
                              end
                   
                   5'b01010 : begin  // Transmission Data 1-2
                               write_can_reg[15:8] = data_tra_mes[63:56];
                               write_can_reg[7:0]  = data_tra_mes[47:40];
-                              can_tra_reg        = data_tra_mes[4:0];
                              end
                              
                   5'b01001 : begin   // Transmission Data 3-4
                               write_can_reg[15:8] = data_tra_mes[55:48];
                               write_can_reg[7:0]  = data_tra_mes[39:32];
-                              can_tra_reg        = data_tra_mes[4:0];
                              end
                              
                   5'b01000 : begin   // Transmission Data 5-6*
                               write_can_reg[15:8] = data_tra_mes[7:0];
                               write_can_reg[7:0]  = data_tra_mes[15:8];
-                              can_tra_reg        = data_tra_mes[4:0];
                              end
                              
                   5'b00111 : begin   // Transmission Data 7-8*
                               write_can_reg[15:8] = data_tra_mes[23:16];
                               write_can_reg[7:0]  = data_tra_mes[31:24];
-                              can_tra_reg        = data_tra_mes[4:0];
                              end
                              
                   5'b01110 : begin //general
                               write_can_reg = gen_data;
-                              can_tra_reg        = data_tra_mes[4:0];
                              end 
                              
                   5'b10010 : begin // Interrupt
                               write_can_reg = rst_irq; 
-                              can_tra_reg        = data_tra_mes[4:0];
                              end
                              
                   5'b01101 : begin  // Transmisigssion Control
                               write_can_reg = tra_control;
-                              can_tra_reg        = data_tra_mes[4:0];
                              end
                  default    :begin
                               write_can_reg = 16'h0;

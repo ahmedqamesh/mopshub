@@ -115,7 +115,7 @@ module demux1_1bit#(
  assign  output25=output25_reg; 
  
 
-  always @(posedge input_port)
+  always @(negedge input_port or posedge input_port)
   begin
   output9_reg =def_value; 
  output18_reg =def_value; 

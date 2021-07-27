@@ -56,7 +56,7 @@ begin
                end     
                                                 
     4'b0100 :  begin   // write canakari register 
-                can_tra_reg        = data_tra_mes[4:0];
+                can_tra_reg        = data_tra_mes[28:24];// data_tra_mes[4:0];
                 case(addr)
                   5'b01100 : begin  // Transmission Identifier 1
                               write_can_reg[15:5] = data_tra_mes[74:64];

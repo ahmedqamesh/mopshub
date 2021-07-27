@@ -28,9 +28,6 @@ wire            respmsg;
 wire     [4:0]   can_rec_select;
 wire            irq_can_rec;
 reg             end_write_elink= 1'b1;
-wire            start_bus_loop;
-wire            done_bus_loop;
-
 
 wire            irq_elink;
 wire            start_read_elink;
@@ -46,7 +43,7 @@ wire            done;    // dbg
 // Generator signals 
 int failures = 0;                             // Number of BAD reponses from the chip  
 wire            rx0;
-//wire            rx1;
+wire            rx1;
 //wire            rx2;
 //wire            rx3;
 //wire            rx4;
@@ -56,7 +53,7 @@ wire            rx0;
 
 
 wire            tx0;
-//wire            tx1;
+wire            tx1;
 //wire            tx2;
 //wire            tx3;
 //wire            tx4;
@@ -76,8 +73,6 @@ assign irq_can_rec = mopshub.irq_can_rec;
 assign irq_can_tra = mopshub.irq_can_tra;
 assign can_tra_select = mopshub.can_tra_select;
 assign can_rec_select = mopshub.can_rec_select;
-assign done_bus_loop = mopshub.done_bus_loop;
-assign start_bus_loop = mopshub.start_bus_loop;
 
 assign tx_mopshub = tx0;
 mopshub_top#(
@@ -94,24 +89,23 @@ mopshub_top#(
 .start_write_elink(),
 
 //.end_can_proc(), 
-.end_cnt_dbg(1'b1),
+.end_cnt_dbg(1'b0),
 .irq_elink(irq_elink), 
-.data_tra_uplink(data_tra_uplink),      
-//.can_tra_select(can_tra_select), 
+.data_tra_uplink(data_tra_uplink),       
 .start_read_elink(start_read_elink),    
 .end_read_elink(end_read_elink),    
 .send_mes_can_done(send_mes_can_done), 
 .buffer_en(buffer_en),  
 .priority_sig( ),         
 .rx0(rx0),        
-//.rx1(rx1),        
+.rx1(rx1),        
 //.rx2(rx2),        
 //.rx3(rx3),        
 //.rx4(rx4),        
 //.rx5(rx5),        
 //.rx6(rx6),        
 //.rx7(rx7),              
-//.tx1(tx1),
+.tx1(tx1),
 //.tx2(tx2),
 //.tx3(tx3),
 //.tx4(tx4),
