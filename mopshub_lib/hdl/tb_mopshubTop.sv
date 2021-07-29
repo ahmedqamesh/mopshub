@@ -2,7 +2,6 @@
 `timescale 1ns/10ps
 module tb_mopshubTop();
 reg             clk = 1'b0;
-wire            clk_low;
 reg             rst   = 1'b1;
 wire            start_init;
 wire            sign_on_sig;
@@ -41,7 +40,8 @@ wire            send_mes_can_done;
 wire            buffer_en; //Enable the tra_buffer
 wire            done;    // dbg  
 // Generator signals 
-int failures = 0;                             // Number of BAD reponses from the chip  
+int failures = 0;   
+reg            rx_mopshub;                          // Number of BAD reponses from the chip  
 wire            rx0;
 wire            rx1;
 //wire            rx2;
@@ -75,9 +75,10 @@ assign can_tra_select = mopshub.can_tra_select;
 assign can_rec_select = mopshub.can_rec_select;
 
 assign tx_mopshub = tx0;
+//assign rx_mopshub = rx0;
 mopshub_top#(
 .max_cnt_size (5),
-.n_buses (5'b11111))mopshub(
+.n_buses (5'b10))mopshub(
 .clk(clk),
 .rst(rst), 
 .start_init(start_init),
@@ -87,8 +88,6 @@ mopshub_top#(
 .data_rec_uplink(data_rec_uplink),        
 .send_mes_elink(),        
 .start_write_elink(),
-
-//.end_can_proc(), 
 .end_cnt_dbg(1'b0),
 .irq_elink(irq_elink), 
 .data_tra_uplink(data_tra_uplink),       
@@ -114,12 +113,6 @@ mopshub_top#(
 //.tx7(tx7),
 .tx0(tx0));  
 
-clkdiv clkdiv0( 
-.clk     (clk), 
-.clk_low (clk_low), 
-.rst_n   (rst)
-); 
-
 data_generator data_generator0(
 .clk(clk),
 .rst(rst),
@@ -142,7 +135,6 @@ data_generator data_generator0(
 // Acknowledgement bit from the MOPSHUB
 .tx_mopshub(tx_mopshub), 
 // Generator Signals
-.clk_low(clk_low),
 //RX-TX signals
 .rx(rx0),
 //Decoder Signals [Listen always to the bus ]
@@ -164,22 +156,14 @@ always #50 clk = ~clk;
 //////////////////////////////////////////////// 
 
 /////******* Reset Generator task--low active ****/////
-task genrst;
+initial 
   begin
-    rst = 1'b0;
-    @(negedge clk)
     rst = 1'b0;
     #200
     rst = 1'b1;
   end 
-endtask
-
 
 /////*******Start SM for Data Generation ****/////
-initial 
-begin
-genrst; 
-end
 
 always@(posedge clk)
 begin 
@@ -192,7 +176,7 @@ begin
       elink_test =1'b1; 
 end
 
-/////******* This prints bus activity ******///
+/////******* prints bus activity ******///
 always@(posedge clk or negedge rst)
 if (!rst)
   begin

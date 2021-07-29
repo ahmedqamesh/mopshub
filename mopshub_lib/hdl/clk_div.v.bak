@@ -11,9 +11,9 @@
 `resetall
 `timescale 1ns/10ps
 module clk_div( 
-   input   wire      clk, 
-   input   wire      rst, 
-   output  wire      clk_low
+   output  wire      clk_low, 
+   input   wire      rst_n, 
+   input   wire      clk
 );
 
 
@@ -22,7 +22,7 @@ integer count = 0;
 reg clk_out = 1'b0;
 
 assign clk_low = clk_out;
-always@(posedge clk or negedge rst)
+always@(posedge clk or negedge rst_n)
 begin 
   count <= count + 1;
   if (!rst_n)

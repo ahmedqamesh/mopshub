@@ -11,9 +11,9 @@
 `resetall
 `timescale 1ns/10ps
 module clk_div( 
-   input   wire      clk, 
+   output  wire      clk_low, 
    input   wire      rst, 
-   output  wire      clk_low
+   input   wire      clk
 );
 
 

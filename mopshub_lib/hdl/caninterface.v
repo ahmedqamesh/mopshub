@@ -45,6 +45,7 @@ always@(*)
 begin
   write_can_reg = 16'h0000;
   can_rec_reg = 5'h0;
+  can_tra_reg  = can_tra_select_cnt;
   case(cmd)
     4'b1100 : begin
                write_can_reg = data_init;              // Initialize
