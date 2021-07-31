@@ -10,13 +10,16 @@ string          info_debug_sig;
 int             ch;
 wire    [75:0]  bus_data;
 //tbSM signals  
-wire            indic_sign_in;
+wire    [7:0]   bus_id;
+wire            start_sign_in;
+wire            end_sign_in;
 wire            start_trim_sig;
-reg             read_adc = 1'b1;
+reg             start_data_gen= 1'b0;
+reg             read_adc = 1'b0;
 wire            read_adc_start;
 wire            read_adc_end;
 reg             elink_test=1'b0;
-reg             bus_test=1'b0;
+reg             rx_test = 1'b0;
 // MOPSHUB signals
 
 wire    [75:0]  data_rec_uplink;
@@ -24,7 +27,7 @@ wire    [75:0]  request;
 wire            reqmsg;
 wire    [75:0]  response;
 wire            respmsg;
-wire     [4:0]   can_rec_select;
+wire     [4:0]  can_rec_select;
 wire            irq_can_rec;
 reg             end_write_elink= 1'b1;
 
@@ -34,14 +37,14 @@ wire            end_read_elink;
 wire     [75:0] data_tra_uplink;
 reg      [75:0] requestreg  = 75'h0;
 reg      [75:0] responsereg = 75'h0; 
+
 wire     [4:0]  can_tra_select;
 wire            irq_can_tra;
 wire            send_mes_can_done;
 wire            buffer_en; //Enable the tra_buffer
-wire            done;    // dbg  
+wire            done;    
 // Generator signals 
-int failures = 0;   
-reg            rx_mopshub;                          // Number of BAD reponses from the chip  
+int failures = 0;   // Number of BAD reponses from the chip  
 wire            rx0;
 wire            rx1;
 //wire            rx2;
@@ -60,8 +63,6 @@ wire            tx1;
 //wire            tx5;
 //wire            tx6;
 //wire            tx7;
-
-wire            tx_mopshub;
 //Internal assignments  
 assign request = requestreg;
 assign response = responsereg;
@@ -74,11 +75,10 @@ assign irq_can_tra = mopshub.irq_can_tra;
 assign can_tra_select = mopshub.can_tra_select;
 assign can_rec_select = mopshub.can_rec_select;
 
-assign tx_mopshub = tx0;
-//assign rx_mopshub = rx0;
+
 mopshub_top#(
 .max_cnt_size (5),
-.n_buses (5'b10))mopshub(
+.n_buses (5'b01))mopshub(
 .clk(clk),
 .rst(rst), 
 .start_init(start_init),
@@ -117,14 +117,13 @@ data_generator data_generator0(
 .clk(clk),
 .rst(rst),
 .loop_en(1'b0),
-//Sign on Signal
-.sign_on_sig(sign_on_sig),
 //Start SM
-.startsm(),
+.start_data_gen(start_data_gen),
 //OScillation Triming Signals
 .osc_auto_trim(osc_auto_trim),
 .start_trim_sig(start_trim_sig),
-.indic_sign_in(indic_sign_in), 
+.sign_in_start(start_sign_in), 
+.sign_in_end(end_sign_in),
 //Read ADC channels from MOPS and send it to MOPSHUB rx
 .read_adc(read_adc),
 .read_adc_start(read_adc_start),
@@ -133,21 +132,25 @@ data_generator data_generator0(
 .reqmsg(reqmsg),
 .ch(ch),  
 // Acknowledgement bit from the MOPSHUB
-.tx_mopshub(tx_mopshub), 
+.tx0(tx0),
+.tx1(tx1), 
 // Generator Signals
 //RX-TX signals
-.rx(rx0),
+.rx0(rx0),
+.rx1(rx1),
 //Decoder Signals [Listen always to the bus ]
 .bus_data(bus_data),
 //read data from Elink and send it to the bus
-.sel_ch(5'b0),
-.sel_bus(5'b0),
+.sel_ch(1'b1),
+.sel_bus(1'b1),
+.bus_cnt(5'b0),
 .elink_test(elink_test),
 .irq_elink(irq_elink),
 .start_read_elink(start_read_elink),
 .end_read_elink(end_read_elink),
 .send_mes_can_done(send_mes_can_done),
 .bus_payload(data_tra_uplink),
+.bus_id(bus_id),
 .buffer_en(buffer_en),
 .done(done));
 
@@ -161,19 +164,35 @@ initial
     rst = 1'b0;
     #200
     rst = 1'b1;
+    if (osc_auto_trim ==1'b1)
+    begin
+      #200000
+      start_data_gen =1'b1;
+    end
+    else
+    start_data_gen =1'b1;
   end 
 
-/////*******Start SM for Data Generation ****/////
-
+/////*******Start Full SM for Data Generation ****/////
 always@(posedge clk)
 begin 
-  if(read_adc_end ==1)
+  if(end_sign_in ==1)//Done with Initialisation
     begin
       read_adc =1'b0;
+      elink_test = 1'b1;
+    end
+  if(read_adc ==1)//Start read ADC
+    begin
+      rx_test =1'b1;
+    end
+  if(read_adc_end ==1)//Done with Read ADC
+    begin
+      read_adc =1'b0;
+      rx_test =1'b0;
       elink_test =1'b1; 
     end
-  if (end_read_elink == 1)
-      elink_test =1'b1; 
+  if (end_read_elink == 1)//Done Writing Data
+      elink_test =1'b0; 
 end
 
 /////******* prints bus activity ******///
@@ -186,53 +205,109 @@ if (!rst)
   end
 else 
 begin
-  if(start_trim_sig)
-    begin 
-      info_debug_sig = "<:Oscillator Trimming:>";
-      $strobeh("\t Oscillator Trimming: %h ",data_rec_uplink);
-    end  
   if(start_init)
     begin 
       info_debug_sig = "<:initialization:>";
       $strobeh("\t initialization: %h ",data_rec_uplink);
-    end 
-    
-  if(indic_sign_in)
+    end  
+  if(start_trim_sig)
     begin 
+       $strobe("*****************************************************************************");
+      info_debug_sig = "<:Oscillator Trimming:>";
+      $strobeh("\t Oscillator Trimming: %h ",data_rec_uplink);
+    end  
+ 
+  if(start_sign_in)
+    begin 
+       $strobe("*****************************************************************************");
       info_debug_sig = "<:Signing in:>";
       $strobeh("\t Sign-in message: %h ",data_rec_uplink);
     end 
   if(read_adc_start)
     begin 
-      info_debug_sig = "<:       RECEIVE RX signals      :>";
+      info_debug_sig = $sformatf("<:       RECEIVE RX signals   [BUS ID %d ]  :>",bus_id);
     end 
   if(start_read_elink)
     begin 
-      info_debug_sig = "<:       Transmit RX signals     :>";
+      info_debug_sig = $sformatf("<:       Transmit RX signals      [BUS ID %d ]  :>",bus_id);
     end  
-  else if (respmsg)
+  //test RX part 
+  else if (respmsg && rx_test)
     begin
       responsereg <= data_rec_uplink;
       $strobeh("\t Request %h \t Response %h",request,response);
     end
-  else if(reqmsg)
+  else if(reqmsg && rx_test)
     begin
       requestreg <= data_rec_uplink; 
     end
-  
+ //Test Elink
+  else if (respmsg && elink_test)
+    begin
+      responsereg <= data_rec_uplink;
+      $strobeh("\t Request %h \t Response %h",request,response);
+    end
+  else if(reqmsg && elink_test)
+    begin
+      requestreg <= data_tra_uplink; 
+    end
+//Default
+  else if (respmsg && !elink_test && !rx_test)
+    begin
+      responsereg <= data_rec_uplink;
+      $strobeh("\t Request %h \t Response %h",request,response);
+    end
+  else if(reqmsg && !elink_test && !rx_test)
+    begin
+      requestreg <= data_rec_uplink; 
+    end
+        
 end
-
-//// ********* Score board *************////
 always@(*)
 begin 
-  if (respmsg)
+  if (respmsg && elink_test)
+   begin
+     #500
+      casez(request)
+       {43'h601402400??,bus_id,8'h0,16'h0}:
+               begin 
+                if(response inside{ {43'h581??2400??,bus_id,24'h???}})
+                  $strobe("Status GOOD [BUS ID %d] Elink Test",bus_id);
+                else
+                  begin
+                    $display("Current simulation time is: ", $realtime);
+                    $strobe("Status BAD ********************************[Elink Test]****************************** Status BAD");
+                    $strobe("******************** Please check SDO abort codes to understand why write operation failed");
+                    failures += 1;
+                  end
+               end
+        default:
+              begin 
+                if(response == request)
+                  $strobe("Status GOOD [BUS ID %d]",bus_id);
+                else
+                  begin
+                    $display("Current simulation time is: ", $realtime);
+                    $strobe("Status BAD ********************************[Elink Test]****************************** Status BAD");
+                    $strobe("************MOPS reponded to a random message. The reponse must be checked");
+                    failures += 1;
+                  end
+               end
+      endcase
+
+   end
+end     
+//// ********* Score board for RX*************////
+always@(*)
+begin 
+  if (respmsg && !elink_test)
    begin
      #500
       casez(request)
         75'h0: begin    //////// Reset request////
-                if(response inside {75'h701?500000000000000})
+                if(response inside {{43'h701?5000000,bus_id,24'h0}})//{75'h701 ?500 0000 0000 0000})
                   begin                     
-                    $strobe("Status GOOD");
+                    $strobe("Status GOOD [BUS ID %d]",bus_id);
                   end 
                 else
                   begin
@@ -408,10 +483,10 @@ begin
                     failures += 1;
                   end
                end
-        75'h6014020020000000000:
+        {43'h60140200200,bus_id,8'h0,16'h0}://75'h6014020020000000000:
                begin 
-                if(response == {75'h58143200200000000,8'h01})
-                  $strobe("Status GOOD");
+                if(response == {43'h58143200200,bus_id,24'h01})// {75'h58143200200000000,8'h01})
+                  $strobe("Status GOOD [BUS ID %d]",bus_id);
                 else
                   begin
                     $display("Current simulation time is: ", $realtime);
@@ -419,10 +494,10 @@ begin
                     failures += 1;
                   end
                end
-        75'h6014020030000000000:
+        {43'h60140200300,bus_id,8'h0,16'h0}: //75'h601 40200300 00 000000:
                begin 
-                if(response == {75'h58143200300000000,8'h01})
-                  $strobe("Status GOOD");
+                if(response == {43'h58143200300,bus_id,24'h01})// {75'h58143200300000000,8'h01})
+                  $strobe("Status GOOD [BUS ID %d]",bus_id);
                 else
                   begin
                     $display("Current simulation time is: ", $realtime);
@@ -430,10 +505,10 @@ begin
                     failures += 1;
                   end
                end
-        75'h6014020040000000000:
+        {43'h60140200400,bus_id,8'h0,16'h0}: //75'h6014020040000000000:
                begin 
-                if(response == {75'h58143200400000000,8'h0})
-                  $strobe("Status GOOD");
+                if(response == {43'h58143200400,bus_id,24'h00})//{75'h5814320040000000000,8'h01})
+                  $strobe("Status GOOD [BUS ID %d]",bus_id);
                 else
                   begin
                     $display("Current simulation time is: ", $realtime);
@@ -441,10 +516,10 @@ begin
                     failures += 1;
                   end
                end
-        75'h6014021000000000000:
+        {43'h60140210000,bus_id,8'h0,16'h0}: //75'h6014021000000000000:
                begin 
-                if(response == 75'h5814321000000000000)
-                  $strobe("Status GOOD");
+                if(response == {43'h58143210000,bus_id,24'h00})//75'h5814321000000000000)
+                  $strobe("Status GOOD [BUS ID %d]",bus_id);
                 else
                   begin
                     $display("Current simulation time is: ", $realtime);
@@ -452,16 +527,16 @@ begin
                     failures += 1;
                   end
                end
-        75'h601402310??00000000:
-               begin 
-                if(response == 75'h5814323100000000003)
-                  $strobe("Status GOOD");
-                else if(response == 75'h5814323100100000123)
-                  $strobe("Status GOOD");
-                else if(response == 75'h5814323100200000223)
-                  $strobe("Status GOOD");
-                else if(response == 75'h5814323100300000323)
-                  $strobe("Status GOOD");
+       {43'h601402310??,bus_id,8'h0,16'h0}: //75'h601402310??00000000:
+               begin
+                if(response == {43'h58143231000,bus_id,24'h03})//75'h581 43 23100000000003)
+                  $strobe("Status GOOD [BUS ID %d]",bus_id);
+                else if(response == {43'h58143231001,bus_id,24'h123})//75'h5814323100100000123)
+                  $strobe("Status GOOD [BUS ID %d]",bus_id);
+                else if(response == {43'h58143231002,bus_id,24'h223})//75'h5814323100200000223)
+                  $strobe("Status GOOD [BUS ID %d]",bus_id);
+                else if(response == {43'h58143231003,bus_id,24'h323})//75'h5814323100300000323)
+                  $strobe("Status GOOD [BUS ID %d]",bus_id);
                 else
                   begin
                     $display("Current simulation time is: ", $realtime);
@@ -470,10 +545,10 @@ begin
                     failures += 1;
                   end
                end
-        75'h601402400??00000000:
+        {43'h601402400??,bus_id,8'h0,16'h0}:
                begin 
-                if(response inside{ 75'h581??2400??00000???})
-                  $strobe("Status GOOD");
+                if(response inside{ {43'h581??2400??,bus_id,24'h???}})
+                  $strobe("Status GOOD [BUS ID %d]",bus_id);
                 else
                   begin
                     $display("Current simulation time is: ", $realtime);
@@ -485,10 +560,11 @@ begin
 
         //// Below is the check for write operation 
         ///////**********************************///
-        75'h60123??????????????:
+        
+        {43'h60123??????,bus_id,24'h??}://75'h601 23?? ???? ???? ????:
                begin 
-                if(response inside {75'h58160??????00000000})
-                  $strobe("Status GOOD");
+                if(response inside {{43'h58160??????,bus_id,8'h??,16'h0}})//75'h581 60?? ?? ?? 0000 0000})
+                  $strobe("Status GOOD [BUS ID %d]: Read ADC channel",bus_id);
                 else
                   begin
                     $display("Current simulation time is: ", $realtime);
@@ -500,7 +576,7 @@ begin
         default:
               begin 
                 if(response == request)
-                  $strobe("Status GOOD");
+                  $strobe("Status GOOD [BUS ID %d]",bus_id);
                 else
                   begin
                     $display("Current simulation time is: ", $realtime);

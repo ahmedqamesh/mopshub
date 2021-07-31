@@ -13,8 +13,7 @@
 module dec32_Nbit( 
   input   wire            clk, 
   input   wire            rst, 
-  input   wire            ireqsucrec, 
-  input   wire            enable,   
+  input   wire            ireqsucrec,   
   input   wire            Input0, 
   input   wire            Input1, 
   input   wire            Input2, 
@@ -47,10 +46,11 @@ module dec32_Nbit(
   input   wire            Input29, 
   input   wire            Input30, 
   input   wire            Input31, 
-  output  wire    [31:0]  irqsucrec_signals
+  output wire   [31:0]  data_tra_out
+  
   );
   reg   [31:0]  output_bus_reg = 32'd0;
-
+  wire    [31:0]  irqsucrec_signals;
   assign    irqsucrec_signals[0] = Input0;
   assign    irqsucrec_signals[1] = Input1;
   assign    irqsucrec_signals[2] = Input2;
@@ -82,6 +82,26 @@ module dec32_Nbit(
   assign    irqsucrec_signals[28] = Input28;
   assign    irqsucrec_signals[29] = Input29;
   assign    irqsucrec_signals[30] = Input30;
-  assign    irqsucrec_signals[31] = Input31;  
+  assign    irqsucrec_signals[31] = Input31; 
+// Triplication assignment
+wire [31:0] data_tra_regVoted = output_bus_reg;
+always@(posedge clk or negedge rst)
+begin 
+ if(!rst)
+  begin
+    output_bus_reg <= 32'd0;
+  end
+ else
+  if(ireqsucrec)
+  begin
+      output_bus_reg <= irqsucrec_signals;
+    end
+  else
+  begin 
+   output_bus_reg <= data_tra_regVoted;
+ end
+end 
+assign data_tra_out = data_tra_regVoted;  
+   
   endmodule
   
