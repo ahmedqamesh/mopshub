@@ -13,7 +13,7 @@ module can_interface(
    input   wire    [15:0]  read_can,      // Data coming from Cankari
    input   wire    [75:0]  data_tra_mes, 
    input   wire    [4:0]  can_rec_select,    
-   input   wire    [4:0]  can_tra_select_cnt,   
+   input   wire    [4:0]  data_tra_select,   
    
    output  wire    [15:0]  write_can,     // Data written to Cankari
    output  wire    [4:0]  can_tra_select,
@@ -46,20 +46,21 @@ assign can_tra_select  = (cmd == 5'b01000 | cmd == 5'b11000 ) ? can_tra_reg: can
 always@(*)
 begin
   write_can_reg = 16'h0000;
-  can_rec_reg  = can_rec_select;
-  can_tra_reg  = can_tra_select_cnt;
+ // can_rec_reg  = can_rec_select;
+  can_tra_reg  = data_tra_select;
   case(cmd)
     5'b11000 : begin
                write_can_reg = data_init;              // Initialize
-               can_tra_reg  = can_tra_select_cnt;
+               can_tra_reg  = data_tra_select;
               end
               
     5'b00100 :  begin  // read canankari register.. Multiplexing for complete message in done rec_mes_buf register
                can_rec_reg = can_rec_select;
+
                end     
                                                 
     5'b01000 :  begin   // write canakari register 
-                can_tra_reg        = data_tra_mes[28:24];// data_tra_mes[4:0];
+                can_tra_reg        = data_tra_select;//data_tra_mes[28:24];// data_tra_mes[4:0];
                 case(addr)
                   5'b01100 : begin  // Transmission Identifier 1
                               write_can_reg[15:5] = data_tra_mes[74:64];
@@ -89,11 +90,15 @@ begin
                   5'b01110 : begin //general
                               write_can_reg = gen_data;
                              end 
+//                             
+//                  5'b10010 : begin // Interrupt
+//                              write_can_reg = rst_irq; 
+//                             end
                              
-                  5'b10010 : begin // Interrupt
-                              write_can_reg = rst_irq; 
-                             end
-                             
+                  5'b01111 : begin //Confirm bus Id
+                              can_tra_reg = data_tra_select; 
+                             end                           
+
                   5'b01101 : begin  // Transmisigssion Control
                               write_can_reg = tra_control;
                              end
@@ -115,15 +120,11 @@ begin
                   5'b10010 : begin // Interrupt
                               write_can_reg = rst_irq; 
                              end
-                             
-                  5'b01101 : begin  // Transmisigssion Control
-                              write_can_reg = tra_control;
-                             end
                 endcase                              
                 end  
                 
     5'b00110 :  begin                                    // Compare Bus ID
-                  can_tra_comp_reg        = data_tra_mes[4:0];
+                  can_tra_comp_reg        = data_tra_select;//data_tra_mes[28:24];
                   can_rec_comp_reg        = can_rec_select;
                 end                                
   endcase
