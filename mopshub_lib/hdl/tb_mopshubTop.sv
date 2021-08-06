@@ -181,8 +181,8 @@ always #50 clk = ~clk;
   begin 
     if(end_sign_in ==1)//Done with Initialisation
     begin
-      //sel_bus=1'b1;
-      read_adc =1'b1;
+      sel_bus=1'b1;
+      //read_adc =1'b1;
       
       //elink_test = 1'b1;
       start_data_gen =1'b0;
