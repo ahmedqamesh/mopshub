@@ -10,7 +10,7 @@
 
 `resetall
 `timescale 1ns/10ps
-module elinkCore( 
+module elink_core( 
    // Port Declarations
    output  wire    [9:0]     rx_fifo_data_out, 
    output  wire              rx_fifo_empty, 

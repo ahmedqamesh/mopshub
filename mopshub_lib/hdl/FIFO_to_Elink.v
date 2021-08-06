@@ -10,7 +10,7 @@
 
 `resetall
 `timescale 1ns/10ps
-module FIFO_to_Elink #(
+module fifo_to_elink #(
    // synopsys template
    // synopsys template
    parameter DATA_IN_WIDTH  = 10,

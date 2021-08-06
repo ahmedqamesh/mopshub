@@ -28,9 +28,9 @@ wire    [75:0]  request;
 wire            reqmsg;
 wire    [75:0]  response;
 wire            respmsg;
-wire     [4:0]  can_rec_select;
+wire    [4:0]   can_rec_select;
 wire            irq_can_rec;
-reg             end_write_elink= 1'b1;
+wire    [9:0]  data_uplink_out;//= 1'b1;
 
 wire            irq_elink;
 wire            start_read_elink;
@@ -43,7 +43,11 @@ wire     [4:0]  can_tra_select;
 wire            irq_can_tra;
 wire            send_mes_can_done;
 wire            buffer_en; //Enable the tra_buffer
-wire            elink_test_done;    
+wire            elink_test_done;  
+
+wire [1:0] tx_elink2bit; 
+wire DATA1bitIN; 
+wire [7:0] DEC_EDATA_OUT_8bit;
 // Generator signals 
 int failures = 0;   // Number of BAD reponses from the chip  
 wire            rx0;
@@ -85,18 +89,19 @@ mopshub_top#(
 .irq_can_ack(irq_can_ack),
 .start_init(start_init),
 .sign_on_sig(sign_on_sig),               
-.end_write_elink(end_write_elink),        
+.data_uplink_out(data_uplink_out),        
 .endwait(),
 .data_rec_uplink(data_rec_uplink),        
 .send_mes_elink(),        
-.start_write_elink(),
 .end_cnt_dbg(1'b0),
 .irq_elink(irq_elink), 
 .data_tra_uplink(data_tra_uplink),       
 .start_read_elink(start_read_elink),    
 .end_read_elink(end_read_elink),    
 .send_mes_can_done(send_mes_can_done), 
-.buffer_en(buffer_en),  
+.buffer_en(buffer_en), 
+.tx_elink2bit(tx_elink2bit),
+.tx_elink1bit(DATA1bitIN), 
 .priority_sig( ),         
 .rx0(rx0),        
 .rx1(rx1),        
@@ -155,7 +160,11 @@ data_generator#(
 .bus_payload(data_tra_uplink),
 .bus_id(bus_id),
 .buffer_en(buffer_en),
-.elink_test_done(elink_test_done));
+.elink_test_done(elink_test_done),
+//EMCI EMulator
+.elink2bit(tx_elink2bit),
+.DATA1bitIN(DATA1bitIN), 
+.DEC_EDATA_OUT_8bit (DEC_EDATA_OUT_8bit));
 
 //////////****// Clock generation////////////////
 always #50 clk = ~clk;   
@@ -181,10 +190,10 @@ always #50 clk = ~clk;
   begin 
     if(end_sign_in ==1)//Done with Initialisation
     begin
-      sel_bus=1'b1;
-      //read_adc =1'b1;
+      //sel_bus=1'b1;
+      read_adc =1'b1;
       
-      elink_test = 1'b1;
+     // elink_test = 1'b1;
       start_data_gen =1'b0;
     end
     if(read_adc_end ==1)//Done with Read ADC
@@ -234,6 +243,11 @@ always #50 clk = ~clk;
     begin 
       info_debug_sig = $sformatf("<:       Receive RX signals   [BUS ID %d ]  :>",bus_id);
     end 
+    if(read_adc_end)
+    begin 
+      $strobe("*****************************************************************************");
+      info_debug_sig = {""};
+    end     
     if(start_read_elink)
     begin 
       info_debug_sig = $sformatf("<:       Transmit TX signals  [BUS ID %d ]  :>",bus_id);
