@@ -53,7 +53,7 @@ module tb_EPROC_IN_DEC8b10b ;
   .wr_en            (wr_en)
   );
   
-  EPROC_OUT_ENC8b10b ENC8b10b( 
+  elink_proc_out_enc8b10b ENC8b10b( 
   .rst              (rst), 
   .bitCLK           (bitCLK),  // runs the counters as a normal FIFO clk
   .bitCLKx4         (bitCLKx4),
@@ -65,7 +65,7 @@ module tb_EPROC_IN_DEC8b10b ;
   .fhCR_REVERSE_10B (1'b1)//normally it is equal to 0 (//LSB send first ) enc10bit_r = enc10bit
   ); 
   
-  EPROC_IN_DEC8b10b DEC8b10b(
+  elink_proc_in_dec8b10b DEC8b10b(
   .bitCLK           (bitCLK),
   .bitCLKx4         (bitCLKx4),
   .rst              (rst),

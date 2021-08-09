@@ -12,7 +12,7 @@ model (Symbol
 commonDM (CommonDM
 ldm (LogicalDM
 ordering 1
-suid 121,0
+suid 123,0
 usingSuid 1
 emptyRow *1 (LEmptyRow
 )
@@ -452,19 +452,6 @@ uid 6658,0
 *46 (LogPort
 port (LogicalPort
 lang 5
-decl (Decl
-n "elink2bit"
-t "wire"
-b "[1:0]"
-o 33
-suid 119,0
-)
-)
-uid 7198,0
-)
-*47 (LogPort
-port (LogicalPort
-lang 5
 m 1
 decl (Decl
 n "DEC_EDATA_OUT_8bit"
@@ -475,6 +462,19 @@ suid 120,0
 )
 )
 uid 7337,0
+)
+*47 (LogPort
+port (LogicalPort
+lang 5
+decl (Decl
+n "tx_elink2bit"
+t "wire"
+b "[1:0]"
+o 33
+suid 122,0
+)
+)
+uid 7483,0
 )
 ]
 )
@@ -714,15 +714,15 @@ uid 6657,0
 )
 *84 (MRCItem
 litem &46
-pos 32
-dimension 20
-uid 7197,0
-)
-*85 (MRCItem
-litem &47
 pos 31
 dimension 20
 uid 7336,0
+)
+*85 (MRCItem
+litem &47
+pos 32
+dimension 20
+uid 7482,0
 )
 ]
 )
@@ -1046,19 +1046,19 @@ value "/home/dcs/git/mopshub/mopshub_lib/hds/data_generator"
 )
 (vvPair
 variable "date"
-value "08/06/21"
+value "08/09/21"
 )
 (vvPair
 variable "day"
-value "Fri"
+value "Mon"
 )
 (vvPair
 variable "day_long"
-value "Friday"
+value "Monday"
 )
 (vvPair
 variable "dd"
-value "06"
+value "09"
 )
 (vvPair
 variable "entity_name"
@@ -1086,7 +1086,7 @@ value "dcs"
 )
 (vvPair
 variable "graphical_source_date"
-value "08/06/21"
+value "08/09/21"
 )
 (vvPair
 variable "graphical_source_group"
@@ -1098,7 +1098,7 @@ value "chipdev2.physik.uni-wuppertal.de"
 )
 (vvPair
 variable "graphical_source_time"
-value "20:00:17"
+value "16:34:05"
 )
 (vvPair
 variable "group"
@@ -1218,7 +1218,7 @@ value "symbol"
 )
 (vvPair
 variable "time"
-value "20:00:17"
+value "16:34:05"
 )
 (vvPair
 variable "unit"
@@ -1285,8 +1285,7 @@ va (VaSet
 font "courier,8,0"
 )
 xt "2000,11000,28000,11900"
-st "input  wire                  clk; // write FIFO clk
-"
+st "input  wire                  clk; // write FIFO clk"
 )
 thePort (LogicalPort
 lang 5
@@ -1333,8 +1332,7 @@ va (VaSet
 font "courier,8,0"
 )
 xt "2000,20900,22000,21800"
-st "output wire                  irq_elink;
-"
+st "output wire                  irq_elink;"
 )
 thePort (LogicalPort
 lang 5
@@ -1380,8 +1378,7 @@ va (VaSet
 font "courier,8,0"
 )
 xt "2000,9200,19000,10100"
-st "input  wire                  rst;
-"
+st "input  wire                  rst;"
 )
 thePort (LogicalPort
 lang 5
@@ -1427,8 +1424,7 @@ va (VaSet
 font "courier,8,0"
 )
 xt "2000,21800,24500,22700"
-st "output wire                  end_read_elink;
-"
+st "output wire                  end_read_elink;"
 )
 thePort (LogicalPort
 lang 5
@@ -1475,8 +1471,7 @@ va (VaSet
 font "courier,8,0"
 )
 xt "2000,11900,22000,12800"
-st "output wire                  buffer_en;
-"
+st "output wire                  buffer_en;"
 )
 thePort (LogicalPort
 lang 5
@@ -1522,8 +1517,7 @@ va (VaSet
 font "courier,8,0"
 )
 xt "2000,12800,21000,13700"
-st "input  wire                  loop_en;
-"
+st "input  wire                  loop_en;"
 )
 thePort (LogicalPort
 lang 5
@@ -1568,8 +1562,7 @@ va (VaSet
 font "courier,8,0"
 )
 xt "2000,13700,25500,14600"
-st "input  wire                  start_read_elink;
-"
+st "input  wire                  start_read_elink;"
 )
 thePort (LogicalPort
 lang 5
@@ -1614,8 +1607,7 @@ va (VaSet
 font "courier,8,0"
 )
 xt "2000,14600,24000,15500"
-st "input  wire                  osc_auto_trim;
-"
+st "input  wire                  osc_auto_trim;"
 )
 thePort (LogicalPort
 lang 5
@@ -1661,8 +1653,7 @@ va (VaSet
 font "courier,8,0"
 )
 xt "2000,15500,20500,16400"
-st "output wire                  reqmsg;
-"
+st "output wire                  reqmsg;"
 )
 thePort (LogicalPort
 lang 5
@@ -1709,8 +1700,7 @@ va (VaSet
 font "courier,8,0"
 )
 xt "2000,16400,21000,17300"
-st "output wire                  respmsg;
-"
+st "output wire                  respmsg;"
 )
 thePort (LogicalPort
 lang 5
@@ -1756,8 +1746,7 @@ va (VaSet
 font "courier,8,0"
 )
 xt "2000,17300,21500,18200"
-st "input  wire                  read_adc;
-"
+st "input  wire                  read_adc;"
 )
 thePort (LogicalPort
 lang 5
@@ -1803,8 +1792,7 @@ va (VaSet
 font "courier,8,0"
 )
 xt "2000,24500,23500,25400"
-st "output wire                  read_adc_end;
-"
+st "output wire                  read_adc_end;"
 )
 thePort (LogicalPort
 lang 5
@@ -1851,8 +1839,7 @@ va (VaSet
 font "courier,8,0"
 )
 xt "2000,22700,24500,23600"
-st "output wire                  start_trim_sig;
-"
+st "output wire                  start_trim_sig;"
 )
 thePort (LogicalPort
 lang 5
@@ -1899,8 +1886,7 @@ va (VaSet
 font "courier,8,0"
 )
 xt "2000,23600,24500,24500"
-st "output wire                  read_adc_start;
-"
+st "output wire                  read_adc_start;"
 )
 thePort (LogicalPort
 lang 5
@@ -1946,8 +1932,7 @@ va (VaSet
 font "courier,8,0"
 )
 xt "2000,20000,22500,20900"
-st "input  wire                  elink_test;
-"
+st "input  wire                  elink_test;"
 )
 thePort (LogicalPort
 lang 5
@@ -1993,8 +1978,7 @@ va (VaSet
 font "courier,8,0"
 )
 xt "2000,25400,21500,26300"
-st "output wire [75:0]           bus_data;
-"
+st "output wire [75:0]           bus_data;"
 )
 thePort (LogicalPort
 lang 5
@@ -2042,8 +2026,7 @@ va (VaSet
 font "courier,8,0"
 )
 xt "2000,18200,18500,19100"
-st "output wire [31:0]           ch;
-"
+st "output wire [31:0]           ch;"
 )
 thePort (LogicalPort
 lang 5
@@ -2090,8 +2073,7 @@ va (VaSet
 font "courier,8,0"
 )
 xt "2000,30800,21000,31700"
-st "input  wire                  sel_bus;
-"
+st "input  wire                  sel_bus;"
 )
 thePort (LogicalPort
 lang 5
@@ -2137,8 +2119,7 @@ va (VaSet
 font "courier,8,0"
 )
 xt "2000,10100,30100,11000"
-st "output reg [DATA_WIDTH-1:0]  bus_payload = 76'b0100000;
-"
+st "output reg [DATA_WIDTH-1:0]  bus_payload = 76'b0100000;"
 )
 thePort (LogicalPort
 lang 5
@@ -2186,8 +2167,7 @@ va (VaSet
 font "courier,8,0"
 )
 xt "2000,31700,20500,32600"
-st "input  wire                  sel_ch;
-"
+st "input  wire                  sel_ch;"
 )
 thePort (LogicalPort
 lang 5
@@ -2232,8 +2212,7 @@ va (VaSet
 font "courier,8,0"
 )
 xt "2000,19100,19000,20000"
-st "input  wire                  rx0;
-"
+st "input  wire                  rx0;"
 )
 thePort (LogicalPort
 lang 5
@@ -2278,8 +2257,7 @@ va (VaSet
 font "courier,8,0"
 )
 xt "2000,26300,19000,27200"
-st "input  wire                  rx1;
-"
+st "input  wire                  rx1;"
 )
 thePort (LogicalPort
 lang 5
@@ -2324,8 +2302,7 @@ va (VaSet
 font "courier,8,0"
 )
 xt "2000,27200,19000,28100"
-st "input  wire                  tx0;
-"
+st "input  wire                  tx0;"
 )
 thePort (LogicalPort
 lang 5
@@ -2370,8 +2347,7 @@ va (VaSet
 font "courier,8,0"
 )
 xt "2000,28100,19000,29000"
-st "input  wire                  tx1;
-"
+st "input  wire                  tx1;"
 )
 thePort (LogicalPort
 lang 5
@@ -2417,8 +2393,7 @@ va (VaSet
 font "courier,8,0"
 )
 xt "2000,29000,24100,29900"
-st "output reg [7:0]             bus_id = 8'b0;
-"
+st "output reg [7:0]             bus_id = 8'b0;"
 )
 thePort (LogicalPort
 lang 5
@@ -2466,8 +2441,7 @@ va (VaSet
 font "courier,8,0"
 )
 xt "2000,29900,24500,30800"
-st "input  wire                  start_data_gen;
-"
+st "input  wire                  start_data_gen;"
 )
 thePort (LogicalPort
 lang 5
@@ -2512,8 +2486,7 @@ va (VaSet
 font "courier,8,0"
 )
 xt "2000,32600,21000,33500"
-st "input  wire [4:0]            bus_cnt;
-"
+st "input  wire [4:0]            bus_cnt;"
 )
 thePort (LogicalPort
 lang 5
@@ -2560,8 +2533,7 @@ va (VaSet
 font "courier,8,0"
 )
 xt "2000,33500,23000,34400"
-st "output wire                  sign_in_end;
-"
+st "output wire                  sign_in_end;"
 )
 thePort (LogicalPort
 lang 5
@@ -2608,8 +2580,7 @@ va (VaSet
 font "courier,8,0"
 )
 xt "2000,34400,24000,35300"
-st "output wire                  sign_in_start;
-"
+st "output wire                  sign_in_start;"
 )
 thePort (LogicalPort
 lang 5
@@ -2655,8 +2626,7 @@ va (VaSet
 font "courier,8,0"
 )
 xt "2000,35300,23000,36200"
-st "input  wire                  irq_can_ack;
-"
+st "input  wire                  irq_can_ack;"
 )
 thePort (LogicalPort
 lang 5
@@ -2702,8 +2672,7 @@ va (VaSet
 font "courier,8,0"
 )
 xt "2000,36200,25000,37100"
-st "output wire                  elink_test_done;
-"
+st "output wire                  elink_test_done;"
 )
 thePort (LogicalPort
 lang 5
@@ -2717,53 +2686,6 @@ suid 118,0
 )
 )
 *157 (CptPort
-uid 7199,0
-ps "OnEdgeStrategy"
-shape (Triangle
-uid 7200,0
-ro 90
-va (VaSet
-vasetType 1
-fg "0,65535,0"
-)
-xt "26250,33625,27000,34375"
-)
-tg (CPTG
-uid 7201,0
-ps "CptPortTextPlaceStrategy"
-stg "VerticalLayoutStrategy"
-f (Text
-uid 7202,0
-va (VaSet
-font "courier,8,0"
-)
-xt "28000,33550,32500,34450"
-st "elink2bit"
-blo "28000,34250"
-tm "CptPortNameMgr"
-)
-)
-dt (MLText
-uid 7203,0
-va (VaSet
-font "courier,8,0"
-)
-xt "2000,38000,22000,38900"
-st "input  wire [1:0]            elink2bit;
-"
-)
-thePort (LogicalPort
-lang 5
-decl (Decl
-n "elink2bit"
-t "wire"
-b "[1:0]"
-o 33
-suid 119,0
-)
-)
-)
-*158 (CptPort
 uid 7338,0
 ps "OnEdgeStrategy"
 shape (Triangle
@@ -2797,8 +2719,7 @@ va (VaSet
 font "courier,8,0"
 )
 xt "2000,37100,26500,38000"
-st "output wire [7:0]            DEC_EDATA_OUT_8bit;
-"
+st "output wire [7:0]            DEC_EDATA_OUT_8bit;"
 )
 thePort (LogicalPort
 lang 5
@@ -2809,6 +2730,52 @@ t "wire"
 b "[7:0]"
 o 32
 suid 120,0
+)
+)
+)
+*158 (CptPort
+uid 7484,0
+ps "OnEdgeStrategy"
+shape (Triangle
+uid 7485,0
+ro 90
+va (VaSet
+vasetType 1
+fg "0,65535,0"
+)
+xt "26250,33625,27000,34375"
+)
+tg (CPTG
+uid 7486,0
+ps "CptPortTextPlaceStrategy"
+stg "VerticalLayoutStrategy"
+f (Text
+uid 7487,0
+va (VaSet
+font "courier,8,0"
+)
+xt "28000,33550,34500,34450"
+st "tx_elink2bit"
+blo "28000,34250"
+tm "CptPortNameMgr"
+)
+)
+dt (MLText
+uid 7488,0
+va (VaSet
+font "courier,8,0"
+)
+xt "2000,38000,23500,38900"
+st "input  wire [1:0]            tx_elink2bit;"
+)
+thePort (LogicalPort
+lang 5
+decl (Decl
+n "tx_elink2bit"
+t "wire"
+b "[1:0]"
+o 33
+suid 122,0
 )
 )
 )
@@ -3578,7 +3545,7 @@ xt "2000,8300,2000,8300"
 tm "SyDeclarativeTextMgr"
 )
 )
-lastUid 7459,0
+lastUid 7913,0
 okToSyncOnLoad 1
 OkToSyncGenericsOnLoad 1
 activeModelName "Symbol:GEN"

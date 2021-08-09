@@ -78,7 +78,7 @@ assign irq_can_rec = mopshub.irq_can_rec;
 assign irq_can_tra = mopshub.irq_can_tra;
 assign can_tra_select = mopshub.can_tra_select;
 assign can_rec_select = mopshub.can_rec_select;
-
+assign data_rec_uplink = mopshub.data_rec_uplink;
 
 mopshub_top#(
 .max_cnt_size (5),
@@ -89,8 +89,7 @@ mopshub_top#(
 .start_init(start_init),
 .sign_on_sig(sign_on_sig),               
 .data_uplink_out(data_uplink_out),        
-.endwait(),
-.data_rec_uplink(data_rec_uplink),        
+.endwait(),       
 .send_mes_elink(),        
 .end_cnt_dbg(1'b0),
 .irq_elink(irq_elink), 
@@ -161,7 +160,7 @@ data_generator#(
 .buffer_en(buffer_en),
 .elink_test_done(elink_test_done),
 //EMCI EMulator
-.elink2bit(tx_elink2bit),
+.tx_elink2bit(tx_elink2bit),
 .DEC_EDATA_OUT_8bit (DEC_EDATA_OUT_8bit));
 
 //////////****// Clock generation////////////////
@@ -188,7 +187,7 @@ always #50 clk = ~clk;
   begin 
     if(end_sign_in ==1)//Done with Initialisation
     begin
-      //sel_bus=1'b1;
+      sel_bus=1'b1;
       read_adc =1'b1;
       
      // elink_test = 1'b1;

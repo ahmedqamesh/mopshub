@@ -10,7 +10,7 @@
 
 `resetall
 `timescale 1ns/10ps
-module Elink_to_FIFO #(
+module elink_to_fifo #(
    // synopsys template
    parameter serialized_input = 0
 )
@@ -51,7 +51,7 @@ wire        DATA_RDY;
 
 
 // Instances 
-EPROC_IN_DEC8b10b U_2( 
+elink_proc_in_dec8b10b U_2( 
    .DATA_IN          (DATA2bitIN), 
    .bitCLK           (bitCLK), 
    .bitCLKx4         (bitCLKx4), 

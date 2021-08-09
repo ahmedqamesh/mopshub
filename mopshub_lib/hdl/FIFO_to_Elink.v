@@ -54,7 +54,7 @@ reg                        DATA1bitOUT_r  = 1'b0;
 // Instances 
 //  Instances
 // 
-EPROC_OUT_ENC8b10b U_1( 
+elink_proc_out_enc8b10b U_1( 
    .bitCLKx4         (bitCLKx4), 
    .bitCLK           (wr_clk), 
    .EDATA_IN         (efifoDout), 

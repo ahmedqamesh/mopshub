@@ -16,8 +16,8 @@ number "12"
 )
 ]
 )
-version "31.1"
-appVersion "2018.1 (Build 12)"
+version "32.1"
+appVersion "2019.4 (Build 4)"
 noEmbeddedEditors 1
 model (BlockDiag
 VExpander (VariableExpander
@@ -64,19 +64,19 @@ value "/home/dcs/git/mopshub/mopshub_lib/hds/sync_detector"
 )
 (vvPair
 variable "date"
-value "04/07/21"
+value "08/09/21"
 )
 (vvPair
 variable "day"
-value "Wed"
+value "Mon"
 )
 (vvPair
 variable "day_long"
-value "Wednesday"
+value "Monday"
 )
 (vvPair
 variable "dd"
-value "07"
+value "09"
 )
 (vvPair
 variable "entity_name"
@@ -104,7 +104,7 @@ value "dcs"
 )
 (vvPair
 variable "graphical_source_date"
-value "04/07/21"
+value "08/09/21"
 )
 (vvPair
 variable "graphical_source_group"
@@ -116,7 +116,7 @@ value "chipdev2.physik.uni-wuppertal.de"
 )
 (vvPair
 variable "graphical_source_time"
-value "18:34:08"
+value "13:21:54"
 )
 (vvPair
 variable "group"
@@ -143,8 +143,16 @@ variable "library_downstream_ModelSimCompiler"
 value "$HDS_PROJECT_DIR/mopshub_lib/work"
 )
 (vvPair
+variable "library_downstream_PrecisionSynthesisDataPrep"
+value "$HDS_PROJECT_DIR/mopshub_lib/ps"
+)
+(vvPair
 variable "library_downstream_QuestaSimCompiler"
 value "$HDS_PROJECT_DIR/mopshub_lib/work"
+)
+(vvPair
+variable "library_downstream_QuestaSimSimulator"
+value "$HDS_PROJECT_DIR/mopshub_lib/sim"
 )
 (vvPair
 variable "library_downstream_SvAssistantInvoke"
@@ -152,7 +160,7 @@ value "$HDS_PROJECT_DIR/mopshub_lib/svassistant"
 )
 (vvPair
 variable "mm"
-value "04"
+value "08"
 )
 (vvPair
 variable "module_name"
@@ -160,11 +168,11 @@ value "sync_detector"
 )
 (vvPair
 variable "month"
-value "Apr"
+value "Aug"
 )
 (vvPair
 variable "month_long"
-value "April"
+value "August"
 )
 (vvPair
 variable "p"
@@ -196,11 +204,11 @@ value "<TBD>"
 )
 (vvPair
 variable "task_ModelSimPath"
-value "<TBD>"
+value "/eda/mentor/2019-20/RHELx86/AMS_2019.4/amsv/modeltech/bin"
 )
 (vvPair
 variable "task_NC-SimPath"
-value "/eda/cadence/2018-19/RHELx86/XCELIUM_18.03.010/tools/bin"
+value "/eda/cadence/2019-20/RHELx86/XCELIUM_19.03.013/tools/bin"
 )
 (vvPair
 variable "task_PrecisionRTLPath"
@@ -208,7 +216,7 @@ value "<TBD>"
 )
 (vvPair
 variable "task_QuestaSimPath"
-value "/eda/mentor/2018-19/RHELx86/AMS_17.1.1/questasim/v10.6_1/bin"
+value "/eda/mentor/2019-20/RHELx86/QUESTA-CORE-PRIME_2019.4/questasim/linux_x86_64"
 )
 (vvPair
 variable "task_VCSPath"
@@ -228,7 +236,7 @@ value "struct"
 )
 (vvPair
 variable "time"
-value "18:34:08"
+value "13:21:54"
 )
 (vvPair
 variable "unit"
@@ -240,7 +248,7 @@ value "dcs"
 )
 (vvPair
 variable "version"
-value "2018.1 (Build 12)"
+value "2019.4 (Build 4)"
 )
 (vvPair
 variable "view"
@@ -627,7 +635,7 @@ st "
 //------------------------------------------------------------------------------------------- 
 //1 10bit-word per alignment, 2 possible alignments
 //  10 bit word, alligned to bit 0 , 1
-assign  bitstream_align0 = (thCR_REVERSE_10B == 0)       ?  EDATAbitstreamSREG [9:0] ://LSB send first
+assign  bitstream_align0 = (reverse_stream_10b == 0)       ?  EDATAbitstreamSREG [9:0] ://LSB send first
                                                          {  EDATAbitstreamSREG [0],
                                                             EDATAbitstreamSREG [1],
                                                             EDATAbitstreamSREG [2],
@@ -640,7 +648,7 @@ assign  bitstream_align0 = (thCR_REVERSE_10B == 0)       ?  EDATAbitstreamSREG [
                                                             EDATAbitstreamSREG [9]};//MSB send first
                                  
    
-assign  bitstream_align1 = (thCR_REVERSE_10B == 0)     ?    EDATAbitstreamSREG [1+9:1+0]://LSB send first
+assign  bitstream_align1 = (reverse_stream_10b == 0)     ?    EDATAbitstreamSREG [1+9:1+0]://LSB send first
                                                          {  EDATAbitstreamSREG [1+0],
                                                             EDATAbitstreamSREG [1+1],
                                                             EDATAbitstreamSREG [1+2],
@@ -669,6 +677,8 @@ else
     assign comma_valid_bits[0] = (bitstream_align0 == FEI4B_COMMAp | bitstream_align0== FEI4B_COMMAn) ? 1:0;
     assign comma_valid_bits[1] = (bitstream_align1 == FEI4B_COMMAp | bitstream_align1== FEI4B_COMMAn) ? 1:0;
   end
+
+
 
 
 
@@ -904,26 +914,7 @@ st "wire [1:0]   comma_valid_bits;
 "
 )
 )
-*22 (Net
-uid 239,0
-lang 5
-decl (Decl
-n "thCR_REVERSE_10B"
-t "wire"
-o 5
-suid 10,0
-)
-declText (MLText
-uid 240,0
-va (VaSet
-font "courier,8,0"
-)
-xt "2000,5400,17500,6300"
-st "wire         thCR_REVERSE_10B;
-"
-)
-)
-*23 (PortIoIn
+*22 (PortIoIn
 uid 261,0
 shape (CompositeShape
 uid 262,0
@@ -969,7 +960,7 @@ tm "WireNameMgr"
 )
 )
 )
-*24 (Net
+*23 (Net
 uid 269,0
 lang 5
 decl (Decl
@@ -989,7 +980,7 @@ st "wire [11:0]  bitstream_in;
 "
 )
 )
-*25 (PortIoIn
+*24 (PortIoIn
 uid 277,0
 shape (CompositeShape
 uid 278,0
@@ -1027,15 +1018,15 @@ uid 282,0
 va (VaSet
 font "courier,8,0"
 )
-xt "17500,20550,26000,21450"
-st "thCR_REVERSE_10B"
+xt "16500,20550,26000,21450"
+st "reverse_stream_10b"
 ju 2
 blo "26000,21250"
 tm "WireNameMgr"
 )
 )
 )
-*26 (PortIoOut
+*25 (PortIoOut
 uid 283,0
 shape (CompositeShape
 uid 284,0
@@ -1080,7 +1071,7 @@ tm "WireNameMgr"
 )
 )
 )
-*27 (PortIoOut
+*26 (PortIoOut
 uid 289,0
 shape (CompositeShape
 uid 290,0
@@ -1125,7 +1116,7 @@ tm "WireNameMgr"
 )
 )
 )
-*28 (Net
+*27 (Net
 uid 311,0
 lang 5
 decl (Decl
@@ -1146,7 +1137,7 @@ st "wire         bitCLK;
 "
 )
 )
-*29 (Net
+*28 (Net
 uid 313,0
 lang 5
 decl (Decl
@@ -1167,7 +1158,7 @@ st "wire         rst;
 "
 )
 )
-*30 (PortIoIn
+*29 (PortIoIn
 uid 315,0
 shape (CompositeShape
 uid 316,0
@@ -1213,7 +1204,7 @@ tm "WireNameMgr"
 )
 )
 )
-*31 (PortIoIn
+*30 (PortIoIn
 uid 321,0
 shape (CompositeShape
 uid 322,0
@@ -1259,7 +1250,7 @@ tm "WireNameMgr"
 )
 )
 )
-*32 (PortIoOut
+*31 (PortIoOut
 uid 333,0
 shape (CompositeShape
 uid 334,0
@@ -1304,7 +1295,7 @@ tm "WireNameMgr"
 )
 )
 )
-*33 (Net
+*32 (Net
 uid 404,0
 lang 5
 decl (Decl
@@ -1324,7 +1315,7 @@ st "wire [9:0]   bitstream_align1;
 "
 )
 )
-*34 (Net
+*33 (Net
 uid 406,0
 lang 5
 decl (Decl
@@ -1342,6 +1333,25 @@ font "courier,8,0"
 )
 xt "2000,1800,27000,2700"
 st "wire [9:0]   bitstream_align0; //2 words of 10bit
+"
+)
+)
+*34 (Net
+uid 916,0
+lang 5
+decl (Decl
+n "reverse_stream_10b"
+t "wire"
+o 5
+suid 20,0
+)
+declText (MLText
+uid 917,0
+va (VaSet
+font "courier,8,0"
+)
+xt "2000,5400,18500,6300"
+st "wire         reverse_stream_10b;
 "
 )
 )
@@ -1399,7 +1409,7 @@ pts [
 ]
 )
 start &12
-end &26
+end &25
 sat 2
 eat 32
 sty 1
@@ -1423,7 +1433,7 @@ blo "41000,20800"
 tm "WireNameMgr"
 )
 )
-on &34
+on &33
 )
 *37 (Wire
 uid 165,0
@@ -1440,7 +1450,7 @@ pts [
 ]
 )
 start &12
-end &27
+end &26
 sat 2
 eat 32
 sty 1
@@ -1480,7 +1490,7 @@ pts [
 "10000,22000"
 ]
 )
-start &23
+start &22
 end &16
 sat 32
 eat 1
@@ -1505,7 +1515,7 @@ blo "4000,18800"
 tm "WireNameMgr"
 )
 )
-on &24
+on &23
 )
 *39 (Wire
 uid 213,0
@@ -1520,7 +1530,7 @@ pts [
 "31000,21000"
 ]
 )
-start &25
+start &24
 end &12
 sat 32
 eat 1
@@ -1538,13 +1548,13 @@ va (VaSet
 isHidden 1
 font "courier,8,0"
 )
-xt "26000,20100,34500,21000"
-st "thCR_REVERSE_10B"
+xt "26000,20100,35500,21000"
+st "reverse_stream_10b"
 blo "26000,20800"
 tm "WireNameMgr"
 )
 )
-on &22
+on &34
 )
 *40 (Wire
 uid 295,0
@@ -1559,7 +1569,7 @@ pts [
 "10000,21000"
 ]
 )
-start &31
+start &30
 end &16
 sat 32
 eat 1
@@ -1583,7 +1593,7 @@ blo "8000,20800"
 tm "WireNameMgr"
 )
 )
-on &28
+on &27
 )
 *41 (Wire
 uid 303,0
@@ -1598,7 +1608,7 @@ pts [
 "10000,20000"
 ]
 )
-start &30
+start &29
 end &16
 sat 32
 eat 1
@@ -1622,7 +1632,7 @@ blo "8000,19800"
 tm "WireNameMgr"
 )
 )
-on &29
+on &28
 )
 *42 (Wire
 uid 339,0
@@ -1639,7 +1649,7 @@ pts [
 ]
 )
 start &12
-end &32
+end &31
 sat 2
 eat 32
 sty 1
@@ -1662,7 +1672,7 @@ blo "35000,19800"
 tm "WireNameMgr"
 )
 )
-on &33
+on &32
 )
 ]
 bg "65535,65535,65535"
@@ -1773,12 +1783,12 @@ tm "BdCompilerDirectivesTextMgr"
 ]
 associable 1
 )
-windowSize "1912,41,3848,1050"
-viewArea "-28300,8100,64202,53352"
+windowSize "-8,13,1928,1088"
+viewArea "-28300,8100,41933,46312"
 cachedDiagramExtent "-1250,0,57000,49000"
 hasePageBreakOrigin 1
 pageBreakOrigin "-69000,0"
-lastUid 788,0
+lastUid 919,0
 defaultCommentText (CommentText
 shape (Rectangle
 layer 0
@@ -2835,7 +2845,7 @@ tm "BdDeclarativeTextMgr"
 commonDM (CommonDM
 ldm (LogicalDM
 ordering 1
-suid 18,0
+suid 20,0
 usingSuid 1
 emptyRow *74 (LEmptyRow
 )
@@ -2914,18 +2924,6 @@ uid 247,0
 port (LogicalPort
 lang 5
 decl (Decl
-n "thCR_REVERSE_10B"
-t "wire"
-o 5
-suid 10,0
-)
-)
-uid 259,0
-)
-*92 (LeafLogPort
-port (LogicalPort
-lang 5
-decl (Decl
 n "bitstream_in"
 t "wire"
 b "[11:0]"
@@ -2935,7 +2933,7 @@ suid 12,0
 )
 uid 273,0
 )
-*93 (LeafLogPort
+*92 (LeafLogPort
 port (LogicalPort
 lang 5
 decl (Decl
@@ -2947,7 +2945,7 @@ suid 14,0
 )
 uid 327,0
 )
-*94 (LeafLogPort
+*93 (LeafLogPort
 port (LogicalPort
 lang 5
 decl (Decl
@@ -2959,7 +2957,7 @@ suid 15,0
 )
 uid 329,0
 )
-*95 (LeafLogPort
+*94 (LeafLogPort
 port (LogicalPort
 lang 5
 m 1
@@ -2973,7 +2971,7 @@ suid 17,0
 )
 uid 408,0
 )
-*96 (LeafLogPort
+*95 (LeafLogPort
 port (LogicalPort
 lang 5
 m 1
@@ -2986,6 +2984,18 @@ suid 18,0
 )
 )
 uid 410,0
+)
+*96 (LeafLogPort
+port (LogicalPort
+lang 5
+decl (Decl
+n "reverse_stream_10b"
+t "wire"
+o 5
+suid 20,0
+)
+)
+uid 918,0
 )
 ]
 )
@@ -3039,7 +3049,7 @@ uid 74,0
 )
 *102 (MRCItem
 litem &89
-pos 5
+pos 4
 dimension 20
 uid 242,0
 )
@@ -3051,39 +3061,39 @@ uid 248,0
 )
 *104 (MRCItem
 litem &91
-pos 4
-dimension 20
-uid 260,0
-)
-*105 (MRCItem
-litem &92
 pos 1
 dimension 20
 uid 274,0
 )
-*106 (MRCItem
-litem &93
+*105 (MRCItem
+litem &92
 pos 0
 dimension 20
 uid 328,0
 )
-*107 (MRCItem
-litem &94
+*106 (MRCItem
+litem &93
 pos 3
 dimension 20
 uid 330,0
+)
+*107 (MRCItem
+litem &94
+pos 5
+dimension 20
+uid 409,0
 )
 *108 (MRCItem
 litem &95
 pos 6
 dimension 20
-uid 409,0
+uid 411,0
 )
 *109 (MRCItem
 litem &96
 pos 7
 dimension 20
-uid 411,0
+uid 919,0
 )
 ]
 )
@@ -3376,5 +3386,5 @@ vaOverrides [
 uid 86,0
 type 1
 )
-activeModelName "BlockDiag:CDM"
+activeModelName "BlockDiag"
 )

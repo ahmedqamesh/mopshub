@@ -7,7 +7,7 @@ dmPackageRefs [
 ]
 instances [
 (Instance
-name "U_0"
+name "bitstream_shift_register0"
 duLibraryName "mopshub_lib"
 duName "bitstream_shift_register"
 elements [
@@ -37,8 +37,8 @@ number "2"
 )
 ]
 )
-version "31.1"
-appVersion "2018.1 (Build 12)"
+version "32.1"
+appVersion "2019.4 (Build 4)"
 noEmbeddedEditors 1
 model (BlockDiag
 VExpander (VariableExpander
@@ -85,19 +85,19 @@ value "/home/dcs/git/mopshub/mopshub_lib/hds/bitstream_deserializer"
 )
 (vvPair
 variable "date"
-value "04/07/21"
+value "08/09/21"
 )
 (vvPair
 variable "day"
-value "Wed"
+value "Mon"
 )
 (vvPair
 variable "day_long"
-value "Wednesday"
+value "Monday"
 )
 (vvPair
 variable "dd"
-value "07"
+value "09"
 )
 (vvPair
 variable "entity_name"
@@ -125,7 +125,7 @@ value "dcs"
 )
 (vvPair
 variable "graphical_source_date"
-value "04/07/21"
+value "08/09/21"
 )
 (vvPair
 variable "graphical_source_group"
@@ -137,7 +137,7 @@ value "chipdev2.physik.uni-wuppertal.de"
 )
 (vvPair
 variable "graphical_source_time"
-value "19:39:11"
+value "13:29:33"
 )
 (vvPair
 variable "group"
@@ -164,8 +164,16 @@ variable "library_downstream_ModelSimCompiler"
 value "$HDS_PROJECT_DIR/mopshub_lib/work"
 )
 (vvPair
+variable "library_downstream_PrecisionSynthesisDataPrep"
+value "$HDS_PROJECT_DIR/mopshub_lib/ps"
+)
+(vvPair
 variable "library_downstream_QuestaSimCompiler"
 value "$HDS_PROJECT_DIR/mopshub_lib/work"
+)
+(vvPair
+variable "library_downstream_QuestaSimSimulator"
+value "$HDS_PROJECT_DIR/mopshub_lib/sim"
 )
 (vvPair
 variable "library_downstream_SvAssistantInvoke"
@@ -173,7 +181,7 @@ value "$HDS_PROJECT_DIR/mopshub_lib/svassistant"
 )
 (vvPair
 variable "mm"
-value "04"
+value "08"
 )
 (vvPair
 variable "module_name"
@@ -181,11 +189,11 @@ value "bitstream_deserializer"
 )
 (vvPair
 variable "month"
-value "Apr"
+value "Aug"
 )
 (vvPair
 variable "month_long"
-value "April"
+value "August"
 )
 (vvPair
 variable "p"
@@ -217,11 +225,11 @@ value "<TBD>"
 )
 (vvPair
 variable "task_ModelSimPath"
-value "<TBD>"
+value "/eda/mentor/2019-20/RHELx86/AMS_2019.4/amsv/modeltech/bin"
 )
 (vvPair
 variable "task_NC-SimPath"
-value "/eda/cadence/2018-19/RHELx86/XCELIUM_18.03.010/tools/bin"
+value "/eda/cadence/2019-20/RHELx86/XCELIUM_19.03.013/tools/bin"
 )
 (vvPair
 variable "task_PrecisionRTLPath"
@@ -229,7 +237,7 @@ value "<TBD>"
 )
 (vvPair
 variable "task_QuestaSimPath"
-value "/eda/mentor/2018-19/RHELx86/AMS_17.1.1/questasim/v10.6_1/bin"
+value "/eda/mentor/2019-20/RHELx86/QUESTA-CORE-PRIME_2019.4/questasim/linux_x86_64"
 )
 (vvPair
 variable "task_VCSPath"
@@ -249,7 +257,7 @@ value "struct"
 )
 (vvPair
 variable "time"
-value "19:39:11"
+value "13:29:33"
 )
 (vvPair
 variable "unit"
@@ -261,7 +269,7 @@ value "dcs"
 )
 (vvPair
 variable "version"
-value "2018.1 (Build 12)"
+value "2019.4 (Build 4)"
 )
 (vvPair
 variable "view"
@@ -652,8 +660,8 @@ uid 114,0
 va (VaSet
 font "courier,8,0"
 )
-xt "-6500,28550,1000,29450"
-st "swap_inputbits"
+xt "-5500,28550,1000,29450"
+st "swap_tx_bits"
 ju 2
 blo "1000,29250"
 tm "WireNameMgr"
@@ -689,14 +697,16 @@ font "courier,8,0"
 xt "14200,39200,31700,43700"
 st "
   // buffer the output data
-always @ (swap_inputbits, DATA_IN)//bit swapping on a GBT frame level
+always @ (swap_tx_bits, DATA_IN)//bit swapping on a GBT frame level
 begin
-  if (swap_inputbits)
+  if (swap_tx_bits)
   edata_in_r = {DATA_IN[0],DATA_IN[1]};
   else     
   edata_in_r = DATA_IN;
 end
   
+
+
 
 
 
@@ -1179,8 +1189,8 @@ uid 146,0
 va (VaSet
 font "courier,8,1"
 )
-xt "42750,27900,44250,28800"
-st "U_0"
+xt "42750,27900,55750,28800"
+st "bitstream_shift_register0"
 blo "42750,28600"
 tm "InstanceNameMgr"
 )
@@ -1238,24 +1248,6 @@ sF 0
 archFileType "UNKNOWN"
 )
 *32 (Net
-uid 225,0
-lang 5
-decl (Decl
-n "swap_inputbits"
-t "wire"
-o 4
-suid 1,0
-)
-declText (MLText
-uid 226,0
-va (VaSet
-font "courier,8,0"
-)
-xt "2000,4500,16500,5400"
-st "wire         swap_inputbits;"
-)
-)
-*33 (Net
 uid 227,0
 lang 5
 decl (Decl
@@ -1274,7 +1266,7 @@ xt "2000,9900,14500,10800"
 st "wire [1:0]   edata_in_s;"
 )
 )
-*34 (Net
+*33 (Net
 uid 229,0
 lang 5
 decl (Decl
@@ -1294,7 +1286,7 @@ xt "2000,9000,18100,9900"
 st "reg [1:0]    edata_in_r = 2'b0;"
 )
 )
-*35 (Net
+*34 (Net
 uid 231,0
 lang 5
 decl (Decl
@@ -1314,7 +1306,7 @@ xt "2000,2700,12500,3600"
 st "wire         bitCLK;"
 )
 )
-*36 (Net
+*35 (Net
 uid 233,0
 lang 5
 decl (Decl
@@ -1334,7 +1326,7 @@ xt "2000,3600,11000,4500"
 st "wire         rst;"
 )
 )
-*37 (Net
+*36 (Net
 uid 235,0
 lang 5
 decl (Decl
@@ -1354,7 +1346,7 @@ xt "2000,7200,11000,8100"
 st "wire         dir;"
 )
 )
-*38 (Net
+*37 (Net
 uid 237,0
 lang 5
 decl (Decl
@@ -1374,7 +1366,7 @@ xt "2000,10800,10500,11700"
 st "wire         en;"
 )
 )
-*39 (Net
+*38 (Net
 uid 239,0
 lang 5
 decl (Decl
@@ -1393,7 +1385,7 @@ xt "2000,1800,13000,2700"
 st "wire [1:0]   DATA_IN;"
 )
 )
-*40 (Net
+*39 (Net
 uid 241,0
 lang 5
 decl (Decl
@@ -1412,7 +1404,7 @@ xt "2000,5400,11500,6300"
 st "wire [11:0]  dout;"
 )
 )
-*41 (PortIoOut
+*40 (PortIoOut
 uid 249,0
 shape (CompositeShape
 uid 250,0
@@ -1457,7 +1449,7 @@ tm "WireNameMgr"
 )
 )
 )
-*42 (Net
+*41 (Net
 uid 285,0
 lang 5
 decl (Decl
@@ -1479,7 +1471,7 @@ xt "2000,8100,44000,9000"
 st "reg          dir_r = 1; // Declare input to shift in either left or right direction"
 )
 )
-*43 (Net
+*42 (Net
 uid 295,0
 lang 5
 decl (Decl
@@ -1501,7 +1493,7 @@ xt "2000,11700,45500,12600"
 st "reg          en_r = 1; // Declare input for enable to switch the shift register on/off"
 )
 )
-*44 (PortIoIn
+*43 (PortIoIn
 uid 297,0
 shape (CompositeShape
 uid 298,0
@@ -1547,7 +1539,7 @@ tm "WireNameMgr"
 )
 )
 )
-*45 (PortIoIn
+*44 (PortIoIn
 uid 309,0
 shape (CompositeShape
 uid 310,0
@@ -1593,6 +1585,24 @@ tm "WireNameMgr"
 )
 )
 )
+*45 (Net
+uid 793,0
+lang 5
+decl (Decl
+n "swap_tx_bits"
+t "wire"
+o 4
+suid 16,0
+)
+declText (MLText
+uid 794,0
+va (VaSet
+font "courier,8,0"
+)
+xt "2000,4500,15500,5400"
+st "wire         swap_tx_bits;"
+)
+)
 *46 (Wire
 uid 175,0
 shape (OrthoPolyLine
@@ -1623,13 +1633,13 @@ va (VaSet
 isHidden 1
 font "courier,8,0"
 )
-xt "5000,28100,12500,29000"
-st "swap_inputbits"
+xt "5000,28100,11500,29000"
+st "swap_tx_bits"
 blo "5000,28800"
 tm "WireNameMgr"
 )
 )
-on &32
+on &45
 )
 *47 (Wire
 uid 181,0
@@ -1671,7 +1681,7 @@ blo "21000,21800"
 tm "WireNameMgr"
 )
 )
-on &33
+on &32
 )
 *48 (Wire
 uid 187,0
@@ -1710,7 +1720,7 @@ blo "13000,31800"
 tm "WireNameMgr"
 )
 )
-on &34
+on &33
 )
 *49 (Wire
 uid 207,0
@@ -1748,7 +1758,7 @@ blo "35000,22800"
 tm "WireNameMgr"
 )
 )
-on &37
+on &36
 )
 *50 (Wire
 uid 213,0
@@ -1786,7 +1796,7 @@ blo "35050,23750"
 tm "WireNameMgr"
 )
 )
-on &38
+on &37
 )
 *51 (Wire
 uid 219,0
@@ -1827,7 +1837,7 @@ blo "-2000,29800"
 tm "WireNameMgr"
 )
 )
-on &39
+on &38
 )
 *52 (Wire
 uid 243,0
@@ -1844,7 +1854,7 @@ pts [
 ]
 )
 start &28
-end &41
+end &40
 sat 32
 eat 32
 sty 1
@@ -1868,7 +1878,7 @@ blo "60000,19800"
 tm "WireNameMgr"
 )
 )
-on &40
+on &39
 )
 *53 (Wire
 uid 277,0
@@ -1904,7 +1914,7 @@ blo "19000,32800"
 tm "WireNameMgr"
 )
 )
-on &42
+on &41
 )
 *54 (Wire
 uid 287,0
@@ -1940,7 +1950,7 @@ blo "19000,33800"
 tm "WireNameMgr"
 )
 )
-on &43
+on &42
 )
 *55 (Wire
 uid 303,0
@@ -1955,7 +1965,7 @@ pts [
 "37250,20000"
 ]
 )
-start &44
+start &43
 end &23
 es 0
 sat 32
@@ -1979,7 +1989,7 @@ blo "37000,19800"
 tm "WireNameMgr"
 )
 )
-on &35
+on &34
 )
 *56 (Wire
 uid 315,0
@@ -1994,7 +2004,7 @@ pts [
 "37250,21000"
 ]
 )
-start &45
+start &44
 end &26
 es 0
 sat 32
@@ -2018,7 +2028,7 @@ blo "37000,20800"
 tm "WireNameMgr"
 )
 )
-on &36
+on &35
 )
 ]
 bg "65535,65535,65535"
@@ -2129,12 +2139,12 @@ tm "BdCompilerDirectivesTextMgr"
 ]
 associable 1
 )
-windowSize "1912,41,3848,1050"
-viewArea "4216,6684,76162,41880"
-cachedDiagramExtent "-6500,0,69000,51000"
+windowSize "3832,13,5768,1088"
+viewArea "10452,6700,72120,40252"
+cachedDiagramExtent "-5500,0,69000,51000"
 hasePageBreakOrigin 1
 pageBreakOrigin "-69000,0"
-lastUid 747,0
+lastUid 841,0
 defaultCommentText (CommentText
 shape (Rectangle
 layer 0
@@ -3190,7 +3200,7 @@ tm "BdDeclarativeTextMgr"
 )
 commonDM (CommonDM
 ldm (LogicalDM
-suid 15,0
+suid 16,0
 usingSuid 1
 emptyRow *88 (LEmptyRow
 )
@@ -3238,18 +3248,6 @@ tm "BlockDiagramEolColHdrMgr"
 *103 (LeafLogPort
 port (LogicalPort
 lang 5
-decl (Decl
-n "swap_inputbits"
-t "wire"
-o 4
-suid 1,0
-)
-)
-uid 255,0
-)
-*104 (LeafLogPort
-port (LogicalPort
-lang 5
 m 4
 decl (Decl
 n "edata_in_s"
@@ -3261,7 +3259,7 @@ suid 2,0
 )
 uid 257,0
 )
-*105 (LeafLogPort
+*104 (LeafLogPort
 port (LogicalPort
 lang 5
 m 4
@@ -3276,7 +3274,7 @@ iv "2'b0"
 )
 uid 259,0
 )
-*106 (LeafLogPort
+*105 (LeafLogPort
 port (LogicalPort
 lang 5
 decl (Decl
@@ -3290,7 +3288,7 @@ suid 4,0
 )
 uid 261,0
 )
-*107 (LeafLogPort
+*106 (LeafLogPort
 port (LogicalPort
 lang 5
 decl (Decl
@@ -3304,7 +3302,7 @@ suid 5,0
 )
 uid 263,0
 )
-*108 (LeafLogPort
+*107 (LeafLogPort
 port (LogicalPort
 lang 5
 m 4
@@ -3319,7 +3317,7 @@ suid 6,0
 )
 uid 265,0
 )
-*109 (LeafLogPort
+*108 (LeafLogPort
 port (LogicalPort
 lang 5
 m 4
@@ -3334,7 +3332,7 @@ suid 7,0
 )
 uid 267,0
 )
-*110 (LeafLogPort
+*109 (LeafLogPort
 port (LogicalPort
 lang 5
 decl (Decl
@@ -3347,7 +3345,7 @@ suid 8,0
 )
 uid 269,0
 )
-*111 (LeafLogPort
+*110 (LeafLogPort
 port (LogicalPort
 lang 5
 m 1
@@ -3361,7 +3359,7 @@ suid 9,0
 )
 uid 271,0
 )
-*112 (LeafLogPort
+*111 (LeafLogPort
 port (LogicalPort
 lang 5
 m 4
@@ -3378,7 +3376,7 @@ iv "1"
 )
 uid 273,0
 )
-*113 (LeafLogPort
+*112 (LeafLogPort
 port (LogicalPort
 lang 5
 m 4
@@ -3394,6 +3392,18 @@ iv "1"
 )
 )
 uid 275,0
+)
+*113 (LeafLogPort
+port (LogicalPort
+lang 5
+decl (Decl
+n "swap_tx_bits"
+t "wire"
+o 4
+suid 16,0
+)
+)
+uid 795,0
 )
 ]
 )
@@ -3447,69 +3457,69 @@ uid 74,0
 )
 *119 (MRCItem
 litem &103
-pos 0
-dimension 20
-uid 256,0
-)
-*120 (MRCItem
-litem &104
-pos 5
+pos 4
 dimension 20
 uid 258,0
 )
-*121 (MRCItem
-litem &105
-pos 10
+*120 (MRCItem
+litem &104
+pos 9
 dimension 20
 uid 260,0
+)
+*121 (MRCItem
+litem &105
+pos 0
+dimension 20
+uid 262,0
 )
 *122 (MRCItem
 litem &106
 pos 1
 dimension 20
-uid 262,0
+uid 264,0
 )
 *123 (MRCItem
 litem &107
-pos 2
+pos 5
 dimension 20
-uid 264,0
+uid 266,0
 )
 *124 (MRCItem
 litem &108
 pos 6
 dimension 20
-uid 266,0
+uid 268,0
 )
 *125 (MRCItem
 litem &109
-pos 7
+pos 2
 dimension 20
-uid 268,0
+uid 270,0
 )
 *126 (MRCItem
 litem &110
 pos 3
 dimension 20
-uid 270,0
+uid 272,0
 )
 *127 (MRCItem
 litem &111
-pos 4
+pos 7
 dimension 20
-uid 272,0
+uid 274,0
 )
 *128 (MRCItem
 litem &112
 pos 8
 dimension 20
-uid 274,0
+uid 276,0
 )
 *129 (MRCItem
 litem &113
-pos 9
+pos 10
 dimension 20
-uid 276,0
+uid 796,0
 )
 ]
 )

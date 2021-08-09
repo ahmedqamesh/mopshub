@@ -48,7 +48,7 @@ module tb_elinkRXfifo_wrap ;
   .wr_en      (wr_en)
   );
   
-  EPROC_OUT_ENC8b10b ENC8b10b( 
+  elink_proc_out_enc8b10b ENC8b10b( 
   .edataIN       (GEN_EDATA_10bit), 
   .DATA_RDY      (dataINrdy), //one? CLKx4 after inp_request_trig_out
   .getDataTrig   (getDataTrig), 

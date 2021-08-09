@@ -11,7 +11,7 @@
 `resetall
 `timescale 1ns/10ps
 // 8b10b encoder for EPROC_OUT module
-module EPROC_OUT_ENC8b10b( 
+module elink_proc_out_enc8b10b( 
    // Port Declarations
    input   wire           bitCLKx4, 
    // Port Declarations
