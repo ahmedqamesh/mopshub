@@ -10,7 +10,7 @@
 
 `resetall
 `timescale 1ns/10ps
-module tb_EPROC_IN_DEC8b10b ;
+module tb_elink_proc_in_dec8b10b ;
   
   // Port Declarations
   reg           rst; 
@@ -42,9 +42,10 @@ module tb_EPROC_IN_DEC8b10b ;
   assign alignment_sreg   = DEC8b10b.alignment_sreg;
   assign align_select     = DEC8b10b.align_select;
   assign enc10bit_r = ENC8b10b.enc10bit_r;
+  
   data_gen_elink DataGEN(
-  .clk_usr          (genCLK),
-  .enable           (enable),
+  .clk          (genCLK),
+  .rst           (~rst),
   .loop_en          (~rst),
   .done             (done),
   .tx_fifo_pfull    (1'b0),
