@@ -12,7 +12,7 @@ model (Symbol
 commonDM (CommonDM
 ldm (LogicalDM
 ordering 1
-suid 24,0
+suid 25,0
 usingSuid 1
 emptyRow *1 (LEmptyRow
 )
@@ -96,18 +96,6 @@ uid 173,0
 *18 (LogPort
 port (LogicalPort
 lang 5
-decl (Decl
-n "rst"
-t "wire"
-o 6
-suid 18,0
-)
-)
-uid 175,0
-)
-*19 (LogPort
-port (LogicalPort
-lang 5
 m 1
 decl (Decl
 n "bitstream_align1"
@@ -119,7 +107,7 @@ suid 21,0
 )
 uid 261,0
 )
-*20 (LogPort
+*19 (LogPort
 port (LogicalPort
 lang 5
 m 1
@@ -133,7 +121,7 @@ suid 22,0
 )
 uid 263,0
 )
-*21 (LogPort
+*20 (LogPort
 port (LogicalPort
 lang 5
 decl (Decl
@@ -144,6 +132,18 @@ suid 24,0
 )
 )
 uid 424,0
+)
+*21 (LogPort
+port (LogicalPort
+lang 5
+decl (Decl
+n "reset"
+t "wire"
+o 6
+suid 25,0
+)
+)
+uid 453,0
 )
 ]
 )
@@ -217,25 +217,25 @@ uid 174,0
 litem &18
 pos 3
 dimension 20
-uid 176,0
+uid 260,0
 )
 *31 (MRCItem
 litem &19
 pos 4
 dimension 20
-uid 260,0
+uid 262,0
 )
 *32 (MRCItem
 litem &20
 pos 5
 dimension 20
-uid 262,0
+uid 423,0
 )
 *33 (MRCItem
 litem &21
 pos 6
 dimension 20
-uid 423,0
+uid 452,0
 )
 ]
 )
@@ -566,19 +566,19 @@ value "/home/dcs/git/mopshub/mopshub_lib/hds/sync_detector"
 )
 (vvPair
 variable "date"
-value "08/09/21"
+value "08/11/21"
 )
 (vvPair
 variable "day"
-value "Mon"
+value "Wed"
 )
 (vvPair
 variable "day_long"
-value "Monday"
+value "Wednesday"
 )
 (vvPair
 variable "dd"
-value "09"
+value "11"
 )
 (vvPair
 variable "entity_name"
@@ -606,7 +606,7 @@ value "dcs"
 )
 (vvPair
 variable "graphical_source_date"
-value "08/09/21"
+value "08/11/21"
 )
 (vvPair
 variable "graphical_source_group"
@@ -618,7 +618,7 @@ value "chipdev2.physik.uni-wuppertal.de"
 )
 (vvPair
 variable "graphical_source_time"
-value "13:21:54"
+value "12:41:38"
 )
 (vvPair
 variable "group"
@@ -738,7 +738,7 @@ value "symbol"
 )
 (vvPair
 variable "time"
-value "13:21:54"
+value "12:41:38"
 )
 (vvPair
 variable "unit"
@@ -915,52 +915,6 @@ suid 17,0
 )
 )
 *77 (CptPort
-uid 199,0
-ps "OnEdgeStrategy"
-shape (Triangle
-uid 200,0
-ro 90
-va (VaSet
-vasetType 1
-fg "0,65535,0"
-)
-xt "22250,12625,23000,13375"
-)
-tg (CPTG
-uid 201,0
-ps "CptPortTextPlaceStrategy"
-stg "VerticalLayoutStrategy"
-f (Text
-uid 202,0
-va (VaSet
-font "courier,8,0"
-)
-xt "24000,12550,25500,13450"
-st "rst"
-blo "24000,13250"
-tm "CptPortNameMgr"
-)
-)
-dt (MLText
-uid 203,0
-va (VaSet
-font "courier,8,0"
-)
-xt "2000,8100,14500,9000"
-st "input  wire         rst;
-"
-)
-thePort (LogicalPort
-lang 5
-decl (Decl
-n "rst"
-t "wire"
-o 6
-suid 18,0
-)
-)
-)
-*78 (CptPort
 uid 264,0
 ps "OnEdgeStrategy"
 shape (Triangle
@@ -1009,7 +963,7 @@ suid 21,0
 )
 )
 )
-*79 (CptPort
+*78 (CptPort
 uid 269,0
 ps "OnEdgeStrategy"
 shape (Triangle
@@ -1058,7 +1012,7 @@ suid 22,0
 )
 )
 )
-*80 (CptPort
+*79 (CptPort
 uid 425,0
 ps "OnEdgeStrategy"
 shape (Triangle
@@ -1101,6 +1055,52 @@ n "reverse_stream_10b"
 t "wire"
 o 5
 suid 24,0
+)
+)
+)
+*80 (CptPort
+uid 454,0
+ps "OnEdgeStrategy"
+shape (Triangle
+uid 455,0
+ro 90
+va (VaSet
+vasetType 1
+fg "0,65535,0"
+)
+xt "22250,14625,23000,15375"
+)
+tg (CPTG
+uid 456,0
+ps "CptPortTextPlaceStrategy"
+stg "VerticalLayoutStrategy"
+f (Text
+uid 457,0
+va (VaSet
+font "courier,8,0"
+)
+xt "24000,14550,26500,15450"
+st "reset"
+blo "24000,15250"
+tm "CptPortNameMgr"
+)
+)
+dt (MLText
+uid 458,0
+va (VaSet
+font "courier,8,0"
+)
+xt "2000,8100,15500,9000"
+st "input  wire         reset;
+"
+)
+thePort (LogicalPort
+lang 5
+decl (Decl
+n "reset"
+t "wire"
+o 6
+suid 25,0
 )
 )
 )
@@ -1849,7 +1849,7 @@ xt "2000,2700,2000,2700"
 tm "SyDeclarativeTextMgr"
 )
 )
-lastUid 429,0
+lastUid 458,0
 postModuleDirective "// Local declarations
 
 // Internal signal declarations"
