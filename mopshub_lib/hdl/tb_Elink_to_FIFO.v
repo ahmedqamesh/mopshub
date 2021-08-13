@@ -44,7 +44,7 @@ module tb_Elink_to_FIFO ;
   .clk                (bitCLK),
   .bitCLK             (bitCLK),
   .bitCLKx4           (bitCLKx4),
-  .loop_en            (rst),
+  .loop_en            (1'b0),
   .done               (done),
   .tx_fifo_pfull      (fifo_full),
   .dout               (GEN_EDATA_8bit),
@@ -73,6 +73,7 @@ module tb_Elink_to_FIFO ;
   .HGFEDCBA           (DEC_EDATA_OUT_8bit),
   .ISK                (),
   .enc10bit_out_dbg   (),
+  .reverse_10b_dbg(1'b1),
   .data_10b_in        (10'b0),//{enc10bit_r[0],enc10bit_r[1],enc10bit_r[2],enc10bit_r[3],enc10bit_r[4],enc10bit_r[5],enc10bit_r[6],enc10bit_r[7],enc10bit_r[8],enc10bit_r[9]}), 
   .data_10b_en        (1'b0)
   );

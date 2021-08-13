@@ -12,7 +12,7 @@ model (Symbol
 commonDM (CommonDM
 ldm (LogicalDM
 ordering 1
-suid 9,0
+suid 10,0
 usingSuid 1
 emptyRow *1 (LEmptyRow
 )
@@ -120,20 +120,6 @@ uid 102,0
 port (LogicalPort
 lang 5
 decl (Decl
-n "fhCR_REVERSE_10B"
-t "wire"
-preAdd 0
-posAdd 0
-o 5
-suid 5,0
-)
-)
-uid 104,0
-)
-*20 (LogPort
-port (LogicalPort
-lang 5
-decl (Decl
 n "swap_outbits"
 t "wire"
 preAdd 0
@@ -144,7 +130,7 @@ suid 6,0
 )
 uid 106,0
 )
-*21 (LogPort
+*20 (LogPort
 port (LogicalPort
 lang 5
 decl (Decl
@@ -159,7 +145,7 @@ suid 7,0
 )
 uid 108,0
 )
-*22 (LogPort
+*21 (LogPort
 port (LogicalPort
 lang 5
 m 1
@@ -175,7 +161,7 @@ suid 8,0
 )
 uid 110,0
 )
-*23 (LogPort
+*22 (LogPort
 port (LogicalPort
 lang 5
 m 1
@@ -190,6 +176,18 @@ suid 9,0
 )
 )
 uid 112,0
+)
+*23 (LogPort
+port (LogicalPort
+lang 5
+decl (Decl
+n "reverse_stream_10b"
+t "wire"
+o 5
+suid 10,0
+)
+)
+uid 195,0
 )
 ]
 )
@@ -269,31 +267,31 @@ uid 103,0
 litem &19
 pos 4
 dimension 20
-uid 105,0
+uid 107,0
 )
 *34 (MRCItem
 litem &20
 pos 5
 dimension 20
-uid 107,0
+uid 109,0
 )
 *35 (MRCItem
 litem &21
 pos 6
 dimension 20
-uid 109,0
+uid 111,0
 )
 *36 (MRCItem
 litem &22
 pos 7
 dimension 20
-uid 111,0
+uid 113,0
 )
 *37 (MRCItem
 litem &23
 pos 8
 dimension 20
-uid 113,0
+uid 194,0
 )
 ]
 )
@@ -552,19 +550,19 @@ value "/home/dcs/git/mopshub/mopshub_lib/hds/elink_proc_out_enc8b10b"
 )
 (vvPair
 variable "date"
-value "08/09/21"
+value "08/13/21"
 )
 (vvPair
 variable "day"
-value "Mon"
+value "Fri"
 )
 (vvPair
 variable "day_long"
-value "Monday"
+value "Friday"
 )
 (vvPair
 variable "dd"
-value "09"
+value "13"
 )
 (vvPair
 variable "entity_name"
@@ -592,7 +590,7 @@ value "dcs"
 )
 (vvPair
 variable "graphical_source_date"
-value "08/09/21"
+value "08/13/21"
 )
 (vvPair
 variable "graphical_source_group"
@@ -604,7 +602,7 @@ value "chipdev2.physik.uni-wuppertal.de"
 )
 (vvPair
 variable "graphical_source_time"
-value "18:06:15"
+value "10:02:06"
 )
 (vvPair
 variable "group"
@@ -724,7 +722,7 @@ value "symbol"
 )
 (vvPair
 variable "time"
-value "18:06:15"
+value "10:02:06"
 )
 (vvPair
 variable "unit"
@@ -960,54 +958,6 @@ suid 4,0
 )
 )
 *72 (CptPort
-uid 68,0
-ps "OnEdgeStrategy"
-shape (Triangle
-uid 69,0
-ro 90
-va (VaSet
-vasetType 1
-fg "0,65535,0"
-)
-xt "50250,11625,51000,12375"
-)
-tg (CPTG
-uid 70,0
-ps "CptPortTextPlaceStrategy"
-stg "VerticalLayoutStrategy"
-f (Text
-uid 71,0
-va (VaSet
-font "courier,8,0"
-)
-xt "52000,11550,60500,12450"
-st "fhCR_REVERSE_10B"
-blo "52000,12250"
-tm "CptPortNameMgr"
-)
-)
-dt (MLText
-uid 72,0
-va (VaSet
-font "courier,8,0"
-)
-xt "2000,15500,20500,16400"
-st "input  wire        fhCR_REVERSE_10B;
-"
-)
-thePort (LogicalPort
-lang 5
-decl (Decl
-n "fhCR_REVERSE_10B"
-t "wire"
-preAdd 0
-posAdd 0
-o 5
-suid 5,0
-)
-)
-)
-*73 (CptPort
 uid 73,0
 ps "OnEdgeStrategy"
 shape (Triangle
@@ -1055,7 +1005,7 @@ suid 6,0
 )
 )
 )
-*74 (CptPort
+*73 (CptPort
 uid 78,0
 ps "OnEdgeStrategy"
 shape (Triangle
@@ -1104,7 +1054,7 @@ suid 7,0
 )
 )
 )
-*75 (CptPort
+*74 (CptPort
 uid 83,0
 ps "OnEdgeStrategy"
 shape (Triangle
@@ -1155,7 +1105,7 @@ suid 8,0
 )
 )
 )
-*76 (CptPort
+*75 (CptPort
 uid 88,0
 ps "OnEdgeStrategy"
 shape (Triangle
@@ -1203,6 +1153,52 @@ preAdd 0
 posAdd 0
 o 9
 suid 9,0
+)
+)
+)
+*76 (CptPort
+uid 196,0
+ps "OnEdgeStrategy"
+shape (Triangle
+uid 197,0
+ro 90
+va (VaSet
+vasetType 1
+fg "0,65535,0"
+)
+xt "50250,16625,51000,17375"
+)
+tg (CPTG
+uid 198,0
+ps "CptPortTextPlaceStrategy"
+stg "VerticalLayoutStrategy"
+f (Text
+uid 199,0
+va (VaSet
+font "courier,8,0"
+)
+xt "52000,16550,61500,17450"
+st "reverse_stream_10b"
+blo "52000,17250"
+tm "CptPortNameMgr"
+)
+)
+dt (MLText
+uid 200,0
+va (VaSet
+font "courier,8,0"
+)
+xt "2000,15500,21500,16400"
+st "input  wire        reverse_stream_10b;
+"
+)
+thePort (LogicalPort
+lang 5
+decl (Decl
+n "reverse_stream_10b"
+t "wire"
+o 5
+suid 10,0
 )
 )
 )
@@ -1944,7 +1940,7 @@ xt "2000,8300,2000,8300"
 tm "SyDeclarativeTextMgr"
 )
 )
-lastUid 171,0
+lastUid 200,0
 postModuleDirective "// Local declarations
   
   // Internal signal declarations
