@@ -149,7 +149,7 @@ value "chipdev2.physik.uni-wuppertal.de"
 )
 (vvPair
 variable "graphical_source_time"
-value "13:30:16"
+value "21:17:04"
 )
 (vvPair
 variable "group"
@@ -269,7 +269,7 @@ value "struct"
 )
 (vvPair
 variable "time"
-value "13:30:16"
+value "21:17:04"
 )
 (vvPair
 variable "unit"
@@ -1232,25 +1232,45 @@ begin
   case (sel_cnt)
     5'b0 : begin 
       dout_i  <= 8'h00;
+      delimeter_r  <= 2'b11;
+    end
+    5'b00001 : begin 
+      dout_i  <= 8'h00;
       delimeter_r  <= 2'b10;
     end
-    5'b0001 : begin 
+    5'b00010 : begin 
       dout_i  <= 8'hDE;
       delimeter_r  <= 2'b00;
     end
-    5'b00010 : begin 
+    5'b00011 : begin 
       dout_i  <= 8'hAD;
       delimeter_r <= 2'b00;
     end
-    5'b00011 : begin 
+    5'b00100 : begin 
       dout_i  <= 8'hBE;
       delimeter_r  <= 2'b00;
     end
-    5'b00100 : begin 
+    5'b00101 : begin 
       dout_i  <= 8'hEF;
       delimeter_r <= 2'b00;
     end
-    5'b00101 : begin 
+    5'b00110 : begin 
+      dout_i  <=8'hDE;
+      delimeter_r  <=2'b00;
+    end
+    5'b00111 : begin 
+      dout_i  <= 8'hAD;
+      delimeter_r  <= 2'b00;
+    end
+    5'b01000 : begin 
+      dout_i  <= 8'hBE;
+      delimeter_r  <= 2'b00;
+    end
+    5'b01001 : begin 
+      dout_i  <= 8'hEF;
+      delimeter_r <= 2'b00;
+    end
+    5'b01010 : begin 
       dout_i  <=8'h00;
       delimeter_r  <=2'b01;
     end
@@ -1266,6 +1286,10 @@ begin
     delimeter_r  <=2'b11;
   end
 end                                            
+
+
+
+
 
 
 
@@ -1598,8 +1622,7 @@ isHidden 1
 font "courier,8,0"
 )
 xt "3000,8800,17500,9700"
-st "wire                loop_en;
-"
+st "wire                loop_en;"
 )
 )
 *40 (Net
@@ -1619,8 +1642,7 @@ va (VaSet
 font "courier,8,0"
 )
 xt "3000,4300,21100,5200"
-st "reg [7:0]           dout_i = 16'b0;
-"
+st "reg [7:0]           dout_i = 16'b0;"
 )
 )
 *41 (Net
@@ -1640,8 +1662,7 @@ isHidden 1
 font "courier,8,0"
 )
 xt "3000,13300,16000,14200"
-st "wire [7:0]          dout;
-"
+st "wire [7:0]          dout;"
 )
 )
 *42 (Net
@@ -1661,8 +1682,7 @@ isHidden 1
 font "courier,8,0"
 )
 xt "3000,12400,19500,13300"
-st "wire                done; // dbg
-"
+st "wire                done; // dbg"
 )
 )
 *43 (Net
@@ -1682,8 +1702,7 @@ isHidden 1
 font "courier,8,0"
 )
 xt "3000,10600,31500,11500"
-st "wire                tx_fifo_pfull; // pfull from Tx FIFO
-"
+st "wire                tx_fifo_pfull; // pfull from Tx FIFO"
 )
 )
 *44 (Net
@@ -1702,8 +1721,7 @@ va (VaSet
 font "courier,8,0"
 )
 xt "3000,10600,24000,11500"
-st "wire                wr_en; //  ena signal
-"
+st "wire                wr_en; //  ena signal"
 )
 )
 *45 (Net
@@ -1723,8 +1741,7 @@ isHidden 1
 font "courier,8,0"
 )
 xt "3000,11500,18500,12400"
-st "wire [1:0]          delimeter;
-"
+st "wire [1:0]          delimeter;"
 )
 )
 *46 (Net
@@ -1743,8 +1760,7 @@ va (VaSet
 font "courier,8,0"
 )
 xt "3000,8800,17500,9700"
-st "wire [max_cnt-1:0]  sel_cnt;
-"
+st "wire [max_cnt-1:0]  sel_cnt;"
 )
 )
 *47 (Net
@@ -1764,8 +1780,7 @@ va (VaSet
 font "courier,8,0"
 )
 xt "3000,3400,23100,4300"
-st "reg [1:0]           delimeter_r = 2'b0;
-"
+st "reg [1:0]           delimeter_r = 2'b0;"
 )
 )
 *48 (Net
@@ -1798,8 +1813,7 @@ st "// Port Declarations
 // Port Declarations
 // Port Declarations
 // Port Declarations
-wire clk; // write FIFO clk
-"
+wire clk; // write FIFO clk"
 )
 )
 *49 (Net
@@ -1819,8 +1833,7 @@ isHidden 1
 font "courier,8,0"
 )
 xt "3000,9700,30500,10600"
-st "wire                rst; // should be used through VIO
-"
+st "wire                rst; // should be used through VIO"
 )
 )
 *50 (PortIoIn
@@ -1931,8 +1944,7 @@ va (VaSet
 font "courier,8,0"
 )
 xt "3000,9700,17500,10600"
-st "wire [2:0]          state_o;
-"
+st "wire [2:0]          state_o;"
 )
 )
 *53 (SaComponent
@@ -2231,8 +2243,7 @@ va (VaSet
 font "courier,8,0"
 )
 xt "3000,6100,20000,7000"
-st "wire                request_trig;
-"
+st "wire                request_trig;"
 )
 )
 *63 (Net
@@ -2250,8 +2261,7 @@ va (VaSet
 font "courier,8,0"
 )
 xt "3000,2500,19000,3400"
-st "wire                counter_en;
-"
+st "wire                counter_en;"
 )
 )
 *64 (Net
@@ -2269,8 +2279,7 @@ va (VaSet
 font "courier,8,0"
 )
 xt "3000,7900,17500,8800"
-st "wire                rst_cnt;
-"
+st "wire                rst_cnt;"
 )
 )
 *65 (SaComponent
@@ -2735,8 +2744,7 @@ font "courier,8,0"
 )
 xt "0,0,10500,1800"
 st "// Port Declarations
-wire bitCLKx4;
-"
+wire bitCLKx4;"
 )
 )
 *79 (Net
@@ -2762,8 +2770,7 @@ font "courier,8,0"
 xt "0,0,31500,2700"
 st "// Port Declarations
 // Port Declarations
-wire bitCLK; //bitCLK to send the 2bits EdataOUT [clk_40 MB/s]
-"
+wire bitCLK; //bitCLK to send the 2bits EdataOUT [clk_40 MB/s]"
 )
 )
 *80 (PortIoIn
@@ -2874,8 +2881,7 @@ va (VaSet
 font "courier,8,0"
 )
 xt "3000,5200,21500,6100"
-st "wire [9:0]          gen_edata_10bit;
-"
+st "wire [9:0]          gen_edata_10bit;"
 )
 )
 *83 (PortIoIn
@@ -2988,8 +2994,7 @@ isHidden 1
 font "courier,8,0"
 )
 xt "0,0,17000,900"
-st "wire                swap_tx_bits;
-"
+st "wire                swap_tx_bits;"
 )
 )
 *86 (Net
@@ -3010,8 +3015,7 @@ isHidden 1
 font "courier,8,0"
 )
 xt "0,0,20000,900"
-st "wire                reverse_stream_10b;
-"
+st "wire                reverse_stream_10b;"
 )
 )
 *87 (Net
@@ -3033,8 +3037,7 @@ isHidden 1
 font "courier,8,0"
 )
 xt "0,0,47000,900"
-st "wire                getDataTrig; //output Trig signal will enable reading from fifo (rd_en=1)
-"
+st "wire                getDataTrig; //output Trig signal will enable reading from fifo (rd_en=1)"
 )
 )
 *88 (PortIoOut
@@ -3101,8 +3104,7 @@ isHidden 1
 font "courier,8,0"
 )
 xt "0,0,15500,900"
-st "wire [1:0]          EDATA_OUT;
-"
+st "wire [1:0]          EDATA_OUT;"
 )
 )
 *90 (PortIoOut
@@ -3165,8 +3167,7 @@ va (VaSet
 font "courier,8,0"
 )
 xt "3000,7000,16500,7900"
-st "wire                reset;
-"
+st "wire                reset;"
 )
 )
 *92 (PortIoIn
@@ -3231,8 +3232,7 @@ isHidden 1
 font "courier,8,0"
 )
 xt "0,0,14000,900"
-st "wire                genCLK;
-"
+st "wire                genCLK;"
 )
 )
 *94 (Wire
@@ -4470,11 +4470,11 @@ tm "BdCompilerDirectivesTextMgr"
 associable 1
 )
 windowSize "1912,41,3848,1050"
-viewArea "35501,1382,123292,45765"
+viewArea "21580,15464,103804,55688"
 cachedDiagramExtent "-3000,0,119000,51000"
 hasePageBreakOrigin 1
 pageBreakOrigin "-69000,0"
-lastUid 1858,0
+lastUid 1921,0
 defaultCommentText (CommentText
 shape (Rectangle
 layer 0
@@ -6216,7 +6216,7 @@ uid 431,0
 *243 (LogGeneric
 generic (GiElement
 name "max_cnt"
-value "5"
+value "10"
 )
 uid 877,0
 )

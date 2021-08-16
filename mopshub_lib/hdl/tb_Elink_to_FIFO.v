@@ -22,8 +22,8 @@ module tb_Elink_to_FIFO ;
   wire  [7:0] GEN_EDATA_8bit;
   wire  [1:0] delimeter;
   wire  [1:0] tx_elink2bit;
-  wire  [9:0] dec8b_Out;
-  wire  data_rdy;
+  wire  [9:0] dec8b_Out_dbg;
+  wire  dec8b_rdy_dbg;
   
   //GBTX Emulator
   wire [7:0]  tx_elink8bit_dec;
@@ -32,8 +32,8 @@ module tb_Elink_to_FIFO ;
   //Data generator Signals
   wire        done; 
   
-  assign dec8b_Out =  Emulator.dec8b_Out;
-  assign data_rdy = Emulator.data_rdy;
+  assign dec8b_Out_dbg =  Emulator.dec8b_Out_dbg;
+  assign dec8b_rdy_dbg = Emulator.dec8b_rdy_dbg;
   assign rst = ~reset;
   //Generate 8b data 
   data_gen_elink data_gen_elink0(
@@ -42,7 +42,7 @@ module tb_Elink_to_FIFO ;
   .bitCLK             (bitCLK),
   .bitCLKx4           (bitCLKx4),
   .genCLK             (genCLK),
-  .loop_en            (1'b0),
+  .loop_en            (1'b1),
   .done               (done),
   .tx_fifo_pfull      (fifo_full),
   .dout               (GEN_EDATA_8bit),

@@ -83,19 +83,19 @@ value "/home/dcs/git/mopshub/mopshub_lib/hds/dec_8b10b_wrap"
 )
 (vvPair
 variable "date"
-value "08/11/21"
+value "08/16/21"
 )
 (vvPair
 variable "day"
-value "Wed"
+value "Mon"
 )
 (vvPair
 variable "day_long"
-value "Wednesday"
+value "Monday"
 )
 (vvPair
 variable "dd"
-value "11"
+value "16"
 )
 (vvPair
 variable "entity_name"
@@ -123,7 +123,7 @@ value "dcs"
 )
 (vvPair
 variable "graphical_source_date"
-value "08/11/21"
+value "08/16/21"
 )
 (vvPair
 variable "graphical_source_group"
@@ -135,7 +135,7 @@ value "chipdev2.physik.uni-wuppertal.de"
 )
 (vvPair
 variable "graphical_source_time"
-value "15:58:50"
+value "20:15:28"
 )
 (vvPair
 variable "group"
@@ -255,7 +255,7 @@ value "struct"
 )
 (vvPair
 variable "time"
-value "15:58:50"
+value "20:15:28"
 )
 (vvPair
 variable "unit"
@@ -365,16 +365,16 @@ optionalChildren [
 uid 25,0
 sl 0
 ro 270
-xt "55500,25625,57000,26375"
+xt "65500,25625,67000,26375"
 )
 (Line
 uid 26,0
 sl 0
 ro 270
-xt "55000,26000,55500,26000"
+xt "65000,26000,65500,26000"
 pts [
-"55000,26000"
-"55500,26000"
+"65000,26000"
+"65500,26000"
 ]
 )
 ]
@@ -390,9 +390,9 @@ uid 28,0
 va (VaSet
 font "courier,8,0"
 )
-xt "58000,25550,60000,26450"
+xt "68000,25550,70000,26450"
 st "BUSY"
-blo "58000,26250"
+blo "68000,26250"
 tm "WireNameMgr"
 )
 )
@@ -429,16 +429,16 @@ optionalChildren [
 uid 39,0
 sl 0
 ro 270
-xt "55500,24625,57000,25375"
+xt "65500,24625,67000,25375"
 )
 (Line
 uid 40,0
 sl 0
 ro 270
-xt "55000,25000,55500,25000"
+xt "65000,25000,65500,25000"
 pts [
-"55000,25000"
-"55500,25000"
+"65000,25000"
+"65500,25000"
 ]
 )
 ]
@@ -454,9 +454,9 @@ uid 42,0
 va (VaSet
 font "courier,8,0"
 )
-xt "58000,24550,62000,25450"
+xt "68000,24550,72000,25450"
 st "HGFEDCBA"
-blo "58000,25250"
+blo "68000,25250"
 tm "WireNameMgr"
 )
 )
@@ -494,16 +494,16 @@ optionalChildren [
 uid 53,0
 sl 0
 ro 270
-xt "55500,23625,57000,24375"
+xt "65500,23625,67000,24375"
 )
 (Line
 uid 54,0
 sl 0
 ro 270
-xt "55000,24000,55500,24000"
+xt "65000,24000,65500,24000"
 pts [
-"55000,24000"
-"55500,24000"
+"65000,24000"
+"65500,24000"
 ]
 )
 ]
@@ -519,9 +519,9 @@ uid 56,0
 va (VaSet
 font "courier,8,0"
 )
-xt "58000,23550,59500,24450"
+xt "68000,23550,69500,24450"
 st "ISK"
-blo "58000,24250"
+blo "68000,24250"
 tm "WireNameMgr"
 )
 )
@@ -1176,7 +1176,7 @@ va (VaSet
 vasetType 1
 fg "0,65535,0"
 )
-xt "17000,12625,17750,13375"
+xt "17000,11625,17750,12375"
 )
 tg (CPTG
 uid 225,0
@@ -1187,10 +1187,10 @@ uid 226,0
 va (VaSet
 font "courier,8,0"
 )
-xt "15000,12550,16000,13450"
+xt "15000,11550,16000,12450"
 st "ko"
 ju 2
-blo "16000,13250"
+blo "16000,12250"
 )
 )
 thePort (LogicalPort
@@ -1216,7 +1216,7 @@ va (VaSet
 vasetType 1
 fg "0,65535,0"
 )
-xt "17000,11625,17750,12375"
+xt "17000,12625,17750,13375"
 )
 tg (CPTG
 uid 229,0
@@ -1227,10 +1227,10 @@ uid 230,0
 va (VaSet
 font "courier,8,0"
 )
-xt "8000,11550,16000,12450"
+xt "8000,12550,16000,13450"
 st "dataout : (7:0)"
 ju 2
-blo "16000,12250"
+blo "16000,13250"
 )
 )
 thePort (LogicalPort
@@ -1980,7 +1980,7 @@ fg "65535,65535,65535"
 lineColor "0,0,32768"
 lineWidth 2
 )
-xt "43000,20000,61000,25000"
+xt "46000,20000,64000,25000"
 )
 oxt "47000,43000,65000,48000"
 text (MLText
@@ -1989,7 +1989,7 @@ va (VaSet
 isHidden 1
 font "courier,8,0"
 )
-xt "43200,20200,56200,24700"
+xt "46200,20200,59200,24700"
 st "
 // isk_signal 3 
 always@(posedge RBYTECLK)
@@ -2001,11 +2001,14 @@ end
 else
 begin
 HGFEDCBA_reg <= HGFEDCBA_falling_edge;
-if (ISK_falling_edge == 1)
+if (ISK_falling_edge == 1)//edges of the data frame
    ISK_reg <= ISKcode; 
 else
    ISK_reg <= 2'b00;
 end                                        
+
+
+
 
 
 
@@ -2026,7 +2029,7 @@ fg "65535,65535,37120"
 lineColor "0,0,32768"
 lineWidth 2
 )
-xt "35000,15000,42000,21000"
+xt "38000,15000,45000,21000"
 )
 oxt "39000,40000,47000,43000"
 ttg (MlTextGroup
@@ -2039,9 +2042,9 @@ uid 530,0
 va (VaSet
 font "courier,8,1"
 )
-xt "35250,16100,40750,17000"
+xt "38250,16100,43750,17000"
 st "isk_signal"
-blo "35250,16800"
+blo "38250,16800"
 tm "HdlTextNameMgr"
 )
 *60 (Text
@@ -2049,9 +2052,9 @@ uid 531,0
 va (VaSet
 font "courier,8,1"
 )
-xt "35250,17000,35750,17900"
+xt "38250,17000,38750,17900"
 st "3"
-blo "35250,17700"
+blo "38250,17700"
 tm "HdlTextNumberMgr"
 )
 ]
@@ -2063,7 +2066,7 @@ va (VaSet
 vasetType 1
 fg "49152,49152,49152"
 )
-xt "35250,19250,36750,20750"
+xt "38250,19250,39750,20750"
 iconName "TextFile.png"
 iconMaskName "TextFile.msk"
 ftype 21
@@ -2130,29 +2133,10 @@ xt "-8000,2100,2000,3000"
 st "reg         BUSY_s;"
 )
 )
-*64 (Net
-uid 656,0
-lang 5
-decl (Decl
-n "ISK_falling_edge"
-t "wire"
-o 21
-suid 22,0
-)
-declText (MLText
-uid 657,0
-va (VaSet
-isHidden 1
-font "courier,8,0"
-)
-xt "-8000,7500,7000,8400"
-st "wire        ISK_falling_edge;"
-)
-)
-*65 (HdlText
+*64 (HdlText
 uid 658,0
 optionalChildren [
-*66 (EmbeddedText
+*65 (EmbeddedText
 uid 664,0
 commentText (CommentText
 uid 665,0
@@ -2166,7 +2150,7 @@ fg "65535,65535,65535"
 lineColor "0,0,32768"
 lineWidth 2
 )
-xt "59000,30000,77000,35000"
+xt "69000,30000,87000,35000"
 )
 oxt "0,0,18000,5000"
 text (MLText
@@ -2175,12 +2159,14 @@ va (VaSet
 isHidden 1
 font "courier,8,0"
 )
-xt "59200,30200,76700,34700"
+xt "69200,30200,86700,34700"
 st "
 // eb2 5 
 assign   ISK = ISK_reg;
 assign   HGFEDCBA = HGFEDCBA_reg;   
-assign   BUSY = BUSY_s;                                    
+assign   HGFEDCBA = HGFEDCBA_reg;                                   
+
+
 
 
 
@@ -2202,7 +2188,7 @@ fg "65535,65535,37120"
 lineColor "0,0,32768"
 lineWidth 2
 )
-xt "51000,23000,54000,27000"
+xt "61000,22000,64000,27000"
 )
 oxt "0,0,8000,10000"
 ttg (MlTextGroup
@@ -2210,24 +2196,24 @@ uid 660,0
 ps "CenterOffsetStrategy"
 stg "VerticalLayoutStrategy"
 textVec [
-*67 (Text
+*66 (Text
 uid 661,0
 va (VaSet
 font "courier,8,1"
 )
-xt "51250,23100,52750,24000"
+xt "61250,23100,62750,24000"
 st "eb2"
-blo "51250,23800"
+blo "61250,23800"
 tm "HdlTextNameMgr"
 )
-*68 (Text
+*67 (Text
 uid 662,0
 va (VaSet
 font "courier,8,1"
 )
-xt "51250,24000,51750,24900"
+xt "61250,24000,61750,24900"
 st "5"
-blo "51250,24700"
+blo "61250,24700"
 tm "HdlTextNumberMgr"
 )
 ]
@@ -2239,12 +2225,29 @@ va (VaSet
 vasetType 1
 fg "49152,49152,49152"
 )
-xt "51250,25250,52750,26750"
+xt "61250,25250,62750,26750"
 iconName "TextFile.png"
 iconMaskName "TextFile.msk"
 ftype 21
 )
 viewiconposition 0
+)
+*68 (Net
+uid 1644,0
+lang 5
+decl (Decl
+n "ISK_falling_edge"
+t "wire"
+o 21
+suid 28,0
+)
+declText (MLText
+uid 1645,0
+va (VaSet
+isHidden 1
+font "courier,8,0"
+)
+)
 )
 *69 (Wire
 uid 15,0
@@ -2306,14 +2309,14 @@ uid 30,0
 va (VaSet
 vasetType 3
 )
-xt "54000,26000,55000,26000"
+xt "64000,26000,65000,26000"
 pts [
-"55000,26000"
-"54000,26000"
+"65000,26000"
+"64000,26000"
 ]
 )
 start &3
-end &65
+end &64
 sat 32
 eat 2
 st 0
@@ -2328,9 +2331,9 @@ va (VaSet
 isHidden 1
 font "courier,8,0"
 )
-xt "54000,25100,56000,26000"
+xt "64000,25100,66000,26000"
 st "BUSY"
-blo "54000,25800"
+blo "64000,25800"
 tm "WireNameMgr"
 )
 )
@@ -2344,14 +2347,14 @@ va (VaSet
 vasetType 3
 lineWidth 2
 )
-xt "54000,25000,55000,25000"
+xt "64000,25000,65000,25000"
 pts [
-"55000,25000"
-"54000,25000"
+"65000,25000"
+"64000,25000"
 ]
 )
 start &5
-end &65
+end &64
 sat 32
 eat 2
 sty 1
@@ -2367,9 +2370,9 @@ va (VaSet
 isHidden 1
 font "courier,8,0"
 )
-xt "54000,24100,62500,25000"
+xt "64000,24100,72500,25000"
 st "HGFEDCBA : [7:0]"
-blo "54000,24800"
+blo "64000,24800"
 tm "WireNameMgr"
 )
 )
@@ -2383,14 +2386,14 @@ va (VaSet
 vasetType 3
 lineWidth 2
 )
-xt "54000,24000,55000,24000"
+xt "64000,24000,65000,24000"
 pts [
-"55000,24000"
-"54000,24000"
+"65000,24000"
+"64000,24000"
 ]
 )
 start &7
-end &65
+end &64
 sat 32
 eat 2
 sty 1
@@ -2406,9 +2409,9 @@ va (VaSet
 isHidden 1
 font "courier,8,0"
 )
-xt "54000,23100,60000,24000"
+xt "64000,23100,70000,24000"
 st "ISK : [1:0]"
-blo "54000,23800"
+blo "64000,23800"
 tm "WireNameMgr"
 )
 )
@@ -2763,12 +2766,12 @@ va (VaSet
 vasetType 3
 lineWidth 2
 )
-xt "22000,19000,35000,23000"
+xt "22000,19000,38000,23000"
 pts [
 "22000,23000"
-"28000,23000"
-"28000,19000"
-"35000,19000"
+"30000,23000"
+"30000,19000"
+"38000,19000"
 ]
 )
 start &51
@@ -2804,16 +2807,16 @@ va (VaSet
 vasetType 3
 lineWidth 2
 )
-xt "42000,18000,51000,25000"
+xt "45000,18000,61000,25000"
 pts [
-"42000,18000"
+"45000,18000"
 "47000,18000"
 "47000,25000"
-"51000,25000"
+"61000,25000"
 ]
 )
 start &57
-end &65
+end &64
 sat 2
 eat 1
 sty 1
@@ -2829,9 +2832,9 @@ uid 428,0
 va (VaSet
 font "courier,8,0"
 )
-xt "41000,24100,49000,25000"
+xt "50000,24100,58000,25000"
 st "ISK_reg : [1:0]"
-blo "41000,24800"
+blo "50000,24800"
 tm "WireNameMgr"
 )
 )
@@ -2924,15 +2927,15 @@ va (VaSet
 vasetType 3
 lineWidth 2
 )
-xt "42000,17000,51000,24000"
+xt "45000,17000,61000,24000"
 pts [
-"51000,24000"
+"61000,24000"
 "48000,24000"
 "48000,17000"
-"42000,17000"
+"45000,17000"
 ]
 )
-start &65
+start &64
 end &57
 sat 1
 eat 2
@@ -2949,9 +2952,9 @@ uid 556,0
 va (VaSet
 font "courier,8,0"
 )
-xt "41000,23100,51500,24000"
+xt "50000,23100,60500,24000"
 st "HGFEDCBA_reg : [7:0]"
-blo "41000,23800"
+blo "50000,23800"
 tm "WireNameMgr"
 )
 )
@@ -2965,12 +2968,12 @@ va (VaSet
 vasetType 3
 lineWidth 2
 )
-xt "17750,12000,35000,17000"
+xt "17750,13000,38000,18000"
 pts [
-"35000,17000"
-"29000,17000"
-"29000,12000"
-"17750,12000"
+"38000,18000"
+"31000,18000"
+"31000,13000"
+"17750,13000"
 ]
 )
 start &57
@@ -2990,9 +2993,9 @@ uid 635,0
 va (VaSet
 font "courier,8,0"
 )
-xt "18000,11100,33000,12000"
+xt "18000,12100,33000,13000"
 st "HGFEDCBA_falling_edge : [7:0]"
-blo "18000,11800"
+blo "18000,12800"
 tm "WireNameMgr"
 )
 )
@@ -3005,16 +3008,16 @@ uid 639,0
 va (VaSet
 vasetType 3
 )
-xt "22000,24000,51000,26000"
+xt "22000,24000,61000,26000"
 pts [
 "22000,24000"
-"28000,24000"
-"28000,26000"
-"51000,26000"
+"30000,24000"
+"30000,26000"
+"61000,26000"
 ]
 )
 start &51
-end &65
+end &64
 sat 2
 eat 1
 st 0
@@ -3044,12 +3047,12 @@ uid 649,0
 va (VaSet
 vasetType 3
 )
-xt "17750,13000,35000,18000"
+xt "17750,12000,38000,17000"
 pts [
-"17750,13000"
-"28000,13000"
-"28000,18000"
-"35000,18000"
+"17750,12000"
+"32000,12000"
+"32000,17000"
+"38000,17000"
 ]
 )
 start &29
@@ -3068,13 +3071,13 @@ uid 655,0
 va (VaSet
 font "courier,8,0"
 )
-xt "18000,12100,26500,13000"
+xt "18000,11100,26500,12000"
 st "ISK_falling_edge"
-blo "18000,12800"
+blo "18000,11800"
 tm "WireNameMgr"
 )
 )
-on &64
+on &68
 )
 *91 (Wire
 uid 680,0
@@ -3083,10 +3086,10 @@ uid 681,0
 va (VaSet
 vasetType 3
 )
-xt "30000,16000,35000,16000"
+xt "33000,16000,38000,16000"
 pts [
-"35000,16000"
-"30000,16000"
+"38000,16000"
+"33000,16000"
 ]
 )
 start &57
@@ -3104,9 +3107,9 @@ uid 687,0
 va (VaSet
 font "courier,8,0"
 )
-xt "30000,15100,34000,16000"
+xt "33000,15100,37000,16000"
 st "RBYTECLK"
-blo "30000,15800"
+blo "33000,15800"
 tm "WireNameMgr"
 )
 )
@@ -3264,11 +3267,11 @@ tm "BdCompilerDirectivesTextMgr"
 associable 1
 )
 windowSize "1912,41,3848,1050"
-viewArea "-14704,-5000,60668,31872"
-cachedDiagramExtent "-14000,0,77000,38000"
+viewArea "-9908,-9433,110538,49489"
+cachedDiagramExtent "-14000,0,87000,38000"
 hasePageBreakOrigin 1
 pageBreakOrigin "-80000,0"
-lastUid 1441,0
+lastUid 1677,0
 defaultCommentText (CommentText
 shape (Rectangle
 layer 0
@@ -4329,7 +4332,7 @@ tm "BdDeclarativeTextMgr"
 )
 commonDM (CommonDM
 ldm (LogicalDM
-suid 25,0
+suid 30,0
 usingSuid 1
 emptyRow *124 (LEmptyRow
 )
@@ -4644,11 +4647,10 @@ decl (Decl
 n "ISK_falling_edge"
 t "wire"
 o 21
-suid 22,0
+suid 28,0
 )
 )
-uid 626,0
-scheme 0
+uid 1646,0
 )
 ]
 )
@@ -4818,7 +4820,7 @@ uid 625,0
 litem &158
 pos 19
 dimension 20
-uid 627,0
+uid 1647,0
 )
 ]
 )

@@ -13,19 +13,18 @@
 module rec_elink_buf(
    // Port Declarations
    input   wire            clk, 
-   input   wire    [15:0]  data_rec_in,   // 16-bit data from each receive register of canakari
-   input   wire    [4:0]  can_rec_select,
+   input   wire    [7:0]  data_rec_in,   // 16-bit data from each receive register of canakari
    input   wire            buffer_en,            // enable signal
    input   wire            rst,           // reset active low
    input   wire    [4 :0]   addr,          // same address of register as in canakari
-   output  wire    [75:0]  data_rec_out  // complete CAN message output. 11-bit ID and 4 data-bytes
+   output  wire    [75:0]  data_rec_out  // complete CAN message output. 11-bit b0 and 4 data-bytes
 
 );
 
 //tmrg default triplicate
 //tmrg tmr_error false
 // Internal Declarations
-reg [11:0] id;      // CAN ID is 11-bits.  Here 3 Hex values are used to reprent COB-ID
+reg [7:0] b0;      // CAN b0 is 11-bits.  Here 3 Hex values are used to reprent COB-b0
 reg [7:0] b1;       // Data bytes 1...8
 reg [7:0] b2;
 reg [7:0] b3;
@@ -37,7 +36,7 @@ reg [7:0] b8;
 
 
 //Triplication signals 
-wire [11:0] idVoted = id;
+wire [7:0] b0Voted  = b0;
 wire [7:0] b1Voted  = b1;
 wire [7:0] b2Voted  = b2;
 wire [7:0] b3Voted  = b3;
@@ -53,7 +52,7 @@ always@(posedge clk or negedge rst)
 begin 
   if(!rst)
    begin 
-   id <= 12'h000;
+   b0 <= 8'h000;
    b1 <= 8'h00;
    b2 <= 8'h00;
    b3 <= 8'h00;
@@ -65,7 +64,7 @@ begin
    end
   else
    begin
-        id <= idVoted;
+        b0 <= b0Voted;
         b1 <= b1Voted;
         b2 <= b2Voted;
         b3 <= b3Voted;
@@ -77,27 +76,18 @@ begin
    if(buffer_en)
     begin
     case(addr)
-     5'b00101 : id[10:0] <= data_rec_in[15:5];        // 5-bit selection line is the address of corresponding registers in Cankari. ID register data
-
-     5'b00011 :begin 
-                 b2  <= data_rec_in[7:0];             // second data byte
-                 b1  <= data_rec_in[15:8];            // first  data byte
-               end
-     5'b00010 :begin 
-                 b4  <= data_rec_in[7:0];             // fourth
-                 b3  <= data_rec_in[15:8];            // third 
-               end                                    
-     5'b00001 :begin 
-                 b6  <= data_rec_in[7:0];             // sixth 
-                 b5  <= data_rec_in[15:8];            // fifth 
-               end                    
-     5'b00000 :begin 
-                 b8  <= {3'b0,can_rec_select};       // Eigth // holds the bus Id
-                 b7  <= data_rec_in[15:8];            // Seventh 
-               end             
+     5'b00001 : b0  <= data_rec_in[7:0];        // 5-bit selection line is the address of corresponding registers in Cankari. b0 register data
+     5'b00010 : b1  <= data_rec_in[7:0];            // first  data byte
+     5'b00011 : b2  <= data_rec_in[7:0];             // second data byte                                  
+     5'b00100 : b3  <= data_rec_in[7:0];             // sixth 
+     5'b00101 : b4  <= data_rec_in[7:0];           // fifth                    
+     5'b00110 : b5  <= data_rec_in[7:0];       // Eigth // holds the bus b0
+     5'b00111 : b6  <= data_rec_in[7:0];            // Seventh            
+     5'b01000 : b7  <= data_rec_in[7:0];       // Eigth // holds the bus b0
+     5'b01001 : b8  <= data_rec_in[7:0];            // Seventh  
      default 
       begin
-        id <= idVoted;
+        b0 <= b0Voted;
         b1 <= b1Voted;
         b2 <= b2Voted;
         b3 <= b3Voted;
@@ -113,6 +103,6 @@ begin
 end 
 
 //Output assigments
-assign data_rec_out = {idVoted,b1Voted,b3Voted,b2Voted,b4Voted,b8Voted,b7Voted,b6Voted,b5Voted};
+assign data_rec_out = {b0Voted,b1Voted,b2Voted,b3Voted,b4Voted,b5Voted,b6Voted,b7Voted,b8Voted};
 
 endmodule
