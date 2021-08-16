@@ -21,22 +21,19 @@ module tb_Elink_to_FIFO ;
   //EPROC OUT ENC8b10b Signals
   wire  [7:0] GEN_EDATA_8bit;
   wire  [1:0] delimeter;
-  wire  [1:0] ENC_EDATA_OUT_2bit;
-  wire  [9:0] din_dbg;
-  wire        getDataTrig;
+  wire  [1:0] tx_elink2bit;
+  wire  [9:0] dec8b_Out;
+  wire  data_rdy;
   
   //GBTX Emulator
-  wire [7:0]  DEC_EDATA_OUT_8bit;
-  wire        fifo_empty;
+  wire [7:0]  tx_elink8bit_dec;
   wire        fifo_full;
-  wire         fifo_rd_en;
-  wire [9:0]  fifo_dout;
   
   //Data generator Signals
   wire        done; 
   
-  assign din_dbg =  Emulator.dec8b_Out;
-  assign fifo_rd_en = !getDataTrig;
+  assign dec8b_Out =  Emulator.dec8b_Out;
+  assign data_rdy = Emulator.data_rdy;
   assign rst = ~reset;
   //Generate 8b data 
   data_gen_elink data_gen_elink0(
@@ -45,15 +42,15 @@ module tb_Elink_to_FIFO ;
   .bitCLK             (bitCLK),
   .bitCLKx4           (bitCLKx4),
   .genCLK             (genCLK),
-  .loop_en            (1'b0),
+  .loop_en            (1'b1),
   .done               (done),
   .tx_fifo_pfull      (fifo_full),
   .dout               (GEN_EDATA_8bit),
   .delimeter          (delimeter),
   .swap_tx_bits       (1'b0),
   .reverse_stream_10b (1'b1),
-  .getDataTrig        (getDataTrig), 
-  .EDATA_OUT          (ENC_EDATA_OUT_2bit)
+  .getDataTrig        (), 
+  .EDATA_OUT          (tx_elink2bit)
   );
   
   EMCI_Emulator #(
@@ -63,15 +60,12 @@ module tb_Elink_to_FIFO ;
   .bitCLK             (bitCLK),
   .rst                (rst), 
   .reset              (reset), 
-  .fifo_rd_en         (fifo_rd_en), 
-  .fifo_empty         (fifo_empty), 
   .fifo_full          (fifo_full), 
-  .fifo_dout          (fifo_dout),
-  .tx_elink2bit       (ENC_EDATA_OUT_2bit),
+  .tx_elink2bit       (tx_elink2bit),
   .DATA1bitIN         (1'b0),
   .swap_tx_bits       (1'b0),
   .reverse_stream_10b (1'b0),
-  .HGFEDCBA           (DEC_EDATA_OUT_8bit),
+  .HGFEDCBA           (tx_elink8bit_dec),
   .ISK                (),
   .enc10bit_out_dbg   (),
   .reverse_10b_dbg(1'b1),
