@@ -17,7 +17,7 @@ module tb_Elink_to_FIFO ;
   reg         bitCLKx4;  //bitCLKx4 [clk_160 MB/s]    
   wire        bitCLKx2;  //bitCLKx2 [clk_80 MB/s]
   wire        bitCLK;    //bitCLK   [clk_40 MB/s]
-  
+  wire        genCLK;    //bitCLK   [clk_40 MB/s]
   //EPROC OUT ENC8b10b Signals
   wire  [7:0] GEN_EDATA_8bit;
   wire  [1:0] delimeter;
@@ -44,6 +44,7 @@ module tb_Elink_to_FIFO ;
   .clk                (bitCLK),
   .bitCLK             (bitCLK),
   .bitCLKx4           (bitCLKx4),
+  .genCLK             (genCLK),
   .loop_en            (1'b0),
   .done               (done),
   .tx_fifo_pfull      (fifo_full),
@@ -95,7 +96,13 @@ module tb_Elink_to_FIFO ;
   .clock_in(bitCLKx4),
   .clock_out(bitCLKx2)//Equivalent to the 80
   );
-  
+
+  //Freq. bitCLK = Freq. bitCLKx2 / 2 [=80 MHz]
+  clock_divider #(10) div_gen(
+  .clock_in(bitCLKx4),
+  .clock_out(genCLK)
+  );
+    
   initial 
   begin
     reset = 1'b1;
