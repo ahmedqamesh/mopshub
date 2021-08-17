@@ -34,19 +34,19 @@ module tb_Elink_to_FIFO ;
   
   assign dec8b_Out_dbg =  Emulator.dec8b_Out_dbg;
   assign dec8b_rdy_dbg = Emulator.dec8b_rdy_dbg;
+  assign gen_edata_8bit =  data_gen_elink0.gen_edata_8bit_reg;
+  assign delimeter = data_gen_elink0.delimeter_reg;
+  
   assign rst = ~reset;
   //Generate 8b data 
   data_gen_elink data_gen_elink0(
   .rst                (rst),
-  .clk                (bitCLK),
   .bitCLK             (bitCLK),
   .bitCLKx4           (bitCLKx4),
   .genCLK             (genCLK),
   .loop_en            (1'b1),
   .done               (done),
   .tx_fifo_pfull      (fifo_full),
-  .gen_edata_8bit     (gen_edata_8bit),
-  .delimeter          (delimeter),
   .swap_tx_bits       (1'b0),
   .reverse_stream_10b (1'b1),
   .getDataTrig        (), 
