@@ -12,12 +12,12 @@
 `timescale 1ns/10ps
 module rec_elink_buf(
    // Port Declarations
-   input   wire            clk, 
+   input   wire           clk, 
    input   wire    [7:0]  data_rec_in,   // 16-bit data from each receive register of canakari
-   input   wire            buffer_en,            // enable signal
-   input   wire            rst,           // reset active low
-   input   wire    [4 :0]   addr,          // same address of register as in canakari
-   output  wire    [75:0]  data_rec_out  // complete CAN message output. 11-bit b0 and 4 data-bytes
+   input   wire           buffer_en,            // enable signal
+   input   wire           rst,           // reset active low
+   input   wire    [4 :0] addr,          // same address of register as in canakari
+   output  wire    [75:0] data_rec_out  // complete CAN message output. 11-bit b0 and 4 data-bytes
 
 );
 
@@ -33,7 +33,7 @@ reg [7:0] b5;
 reg [7:0] b6;
 reg [7:0] b7;
 reg [7:0] b8;
-
+reg [7:0] b9;
 
 //Triplication signals 
 wire [7:0] b0Voted  = b0;
@@ -45,14 +45,14 @@ wire [7:0] b5Voted  = b5;
 wire [7:0] b6Voted  = b6;
 wire [7:0] b7Voted  = b7;
 wire [7:0] b8Voted  = b8;
-
+wire [7:0] b9Voted  = b9;
 
 
 always@(posedge clk or negedge rst)
 begin 
   if(!rst)
    begin 
-   b0 <= 8'h000;
+   b0 <= 8'h00;
    b1 <= 8'h00;
    b2 <= 8'h00;
    b3 <= 8'h00;
@@ -61,6 +61,7 @@ begin
    b6 <= 8'h00;
    b7 <= 8'h00;
    b8 <= 8'h00;
+   b9 <= 8'h00;
    end
   else
    begin
@@ -73,18 +74,32 @@ begin
         b6 <= b6Voted;
         b7 <= b7Voted;
         b8 <= b8Voted;
+        b9 <= b9Voted;
    if(buffer_en)
     begin
     case(addr)
-     5'b00001 : b0  <= data_rec_in[7:0];        // 5-bit selection line is the address of corresponding registers in Cankari. b0 register data
-     5'b00010 : b1  <= data_rec_in[7:0];            // first  data byte
-     5'b00011 : b2  <= data_rec_in[7:0];             // second data byte                                  
-     5'b00100 : b3  <= data_rec_in[7:0];             // sixth 
-     5'b00101 : b4  <= data_rec_in[7:0];           // fifth                    
-     5'b00110 : b5  <= data_rec_in[7:0];       // Eigth // holds the bus b0
-     5'b00111 : b6  <= data_rec_in[7:0];            // Seventh            
-     5'b01000 : b7  <= data_rec_in[7:0];       // Eigth // holds the bus b0
-     5'b01001 : b8  <= data_rec_in[7:0];            // Seventh  
+//     5'b00000 : b0  <= data_rec_in[7:0];    
+//     5'b00001 : b1  <= data_rec_in[7:0];        
+//     5'b00010 : b2  <= data_rec_in[7:0];         
+//     5'b00011 : b3  <= data_rec_in[7:0];                                  
+//     5'b00100 : b4  <= data_rec_in[7:0];        
+//     5'b00101 : b5  <= data_rec_in[7:0];                     
+//     5'b00110 : b6  <= data_rec_in[7:0];       
+//     5'b00111 : b7  <= data_rec_in[7:0];           
+//     5'b01000 : b8  <= data_rec_in[7:0];      
+//     5'b01001 : b9  <= data_rec_in[7:0];            
+//     5'b01010 : b9  <= data_rec_in[7:0]; 
+     
+     5'b00001 : b0  <= data_rec_in[7:0];        
+     5'b00010 : b1  <= data_rec_in[7:0];         
+     5'b00011 : b2  <= data_rec_in[7:0];                                  
+     5'b00100 : b3  <= data_rec_in[7:0];        
+     5'b00101 : b4  <= data_rec_in[7:0];                     
+     5'b00110 : b5  <= data_rec_in[7:0];       
+     5'b00111 : b6  <= data_rec_in[7:0];           
+     5'b01000 : b7  <= data_rec_in[7:0];      
+     5'b01001 : b8  <= data_rec_in[7:0];            
+     5'b01010 : b9  <= data_rec_in[7:0];           
      default 
       begin
         b0 <= b0Voted;
@@ -96,6 +111,7 @@ begin
         b6 <= b6Voted;
         b7 <= b7Voted;
         b8 <= b8Voted;
+        b9 <= b9Voted;
       end 
     endcase
     end        
@@ -103,6 +119,6 @@ begin
 end 
 
 //Output assigments
-assign data_rec_out = {b0Voted,b1Voted,b2Voted,b3Voted,b4Voted,b5Voted,b6Voted,b7Voted,b8Voted};
+assign data_rec_out = {b0Voted,b1Voted,b2Voted,b3Voted,b4Voted,b5Voted,b6Voted,b7Voted,b8Voted,b9Voted[7:4]};
 
 endmodule
