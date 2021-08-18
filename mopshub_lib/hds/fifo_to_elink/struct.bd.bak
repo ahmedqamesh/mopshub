@@ -88,19 +88,19 @@ value "/home/dcs/git/mopshub/mopshub_lib/hds/fifo_to_elink"
 )
 (vvPair
 variable "date"
-value "08/09/21"
+value "08/18/21"
 )
 (vvPair
 variable "day"
-value "Mon"
+value "Wed"
 )
 (vvPair
 variable "day_long"
-value "Monday"
+value "Wednesday"
 )
 (vvPair
 variable "dd"
-value "09"
+value "18"
 )
 (vvPair
 variable "entity_name"
@@ -128,7 +128,7 @@ value "dcs"
 )
 (vvPair
 variable "graphical_source_date"
-value "08/09/21"
+value "08/18/21"
 )
 (vvPair
 variable "graphical_source_group"
@@ -140,7 +140,7 @@ value "chipdev2.physik.uni-wuppertal.de"
 )
 (vvPair
 variable "graphical_source_time"
-value "15:06:40"
+value "15:30:47"
 )
 (vvPair
 variable "group"
@@ -260,7 +260,7 @@ value "struct"
 )
 (vvPair
 variable "time"
-value "15:06:40"
+value "15:30:47"
 )
 (vvPair
 variable "unit"
@@ -1008,41 +1008,6 @@ o 2
 )
 )
 *28 (CptPort
-uid 401,0
-ps "OnEdgeStrategy"
-shape (Triangle
-uid 402,0
-ro 90
-va (VaSet
-vasetType 1
-fg "0,65535,0"
-)
-xt "17250,23625,18000,24375"
-)
-tg (CPTG
-uid 403,0
-ps "CptPortTextPlaceStrategy"
-stg "VerticalLayoutStrategy"
-f (Text
-uid 404,0
-va (VaSet
-font "courier,8,0"
-)
-xt "19000,23550,27500,24450"
-st "fhCR_REVERSE_10B"
-blo "19000,24250"
-)
-)
-thePort (LogicalPort
-lang 5
-decl (Decl
-n "fhCR_REVERSE_10B"
-t "wire"
-o 5
-)
-)
-)
-*29 (CptPort
 uid 405,0
 ps "OnEdgeStrategy"
 shape (Triangle
@@ -1076,12 +1041,13 @@ decl (Decl
 n "getDataTrig"
 t "wire"
 eolc "//output Trig signal will enable reading from fifo (rd_en=1)"
+preAdd 0
 posAdd 0
 o 8
 )
 )
 )
-*30 (CptPort
+*29 (CptPort
 uid 409,0
 ps "OnEdgeStrategy"
 shape (Triangle
@@ -1112,13 +1078,14 @@ lang 5
 decl (Decl
 n "rst"
 t "wire"
-eolc "reset all the counters and data"
+eolc "// reset all the counters and data"
 preAdd 0
+posAdd 0
 o 7
 )
 )
 )
-*31 (CptPort
+*30 (CptPort
 uid 413,0
 ps "OnEdgeStrategy"
 shape (Triangle
@@ -1152,11 +1119,13 @@ decl (Decl
 n "EDATA_OUT"
 t "wire"
 b "[1:0]"
+preAdd 0
+posAdd 0
 o 9
 )
 )
 )
-*32 (CptPort
+*31 (CptPort
 uid 417,0
 ps "OnEdgeStrategy"
 shape (Triangle
@@ -1187,11 +1156,13 @@ lang 5
 decl (Decl
 n "swap_outbits"
 t "wire"
+preAdd 0
+posAdd 0
 o 6
 )
 )
 )
-*33 (CptPort
+*32 (CptPort
 uid 425,0
 ps "OnEdgeStrategy"
 shape (Triangle
@@ -1222,11 +1193,14 @@ lang 5
 decl (Decl
 n "bitCLKx4"
 t "wire"
+prec "// Port Declarations"
+preAdd 0
+posAdd 0
 o 1
 )
 )
 )
-*34 (CommentText
+*33 (CommentText
 uid 483,0
 ps "EdgeToEdgeStrategy"
 shape (Rectangle
@@ -1260,7 +1234,7 @@ visibleWidth 15000
 )
 included 1
 )
-*35 (CptPort
+*34 (CptPort
 uid 917,0
 ps "OnEdgeStrategy"
 shape (Triangle
@@ -1302,7 +1276,7 @@ suid 16,0
 )
 )
 )
-*36 (CptPort
+*35 (CptPort
 uid 921,0
 ps "OnEdgeStrategy"
 shape (Triangle
@@ -1335,8 +1309,46 @@ lang 5
 decl (Decl
 n "EDATA_RDY"
 t "wire"
+preAdd 0
+posAdd 0
 o 4
 suid 17,0
+)
+)
+)
+*36 (CptPort
+uid 1856,0
+ps "OnEdgeStrategy"
+shape (Triangle
+uid 1857,0
+ro 90
+va (VaSet
+vasetType 1
+fg "0,65535,0"
+)
+xt "17250,23625,18000,24375"
+)
+tg (CPTG
+uid 1858,0
+ps "CptPortTextPlaceStrategy"
+stg "VerticalLayoutStrategy"
+f (Text
+uid 1859,0
+va (VaSet
+font "courier,8,0"
+)
+xt "19000,23550,28500,24450"
+st "reverse_stream_10b"
+blo "19000,24250"
+)
+)
+thePort (LogicalPort
+lang 5
+decl (Decl
+n "reverse_stream_10b"
+t "wire"
+o 5
+suid 10,0
 )
 )
 )
@@ -1414,9 +1426,9 @@ vasetType 1
 fg "49152,49152,49152"
 )
 xt "18250,30250,19750,31750"
-iconName "VerilogFileViewIcon.png"
-iconMaskName "VerilogFileViewIcon.msk"
-ftype 11
+iconName "BlockDiagram.png"
+iconMaskName "BlockDiagram.msk"
+ftype 1
 )
 ordering 1
 viewiconposition 0
@@ -3261,7 +3273,7 @@ pts [
 ]
 )
 start &76
-end &35
+end &34
 es 0
 sat 32
 eat 32
@@ -3278,9 +3290,9 @@ ro 90
 va (VaSet
 font "courier,8,0"
 )
-xt "36000,6000,36900,22500"
+xt "36000,8000,36900,24500"
 st "efifoDout : [DATA_OUT_WIDTH-1:0]"
-blo "36200,6000"
+blo "36200,8000"
 tm "WireNameMgr"
 )
 )
@@ -3301,7 +3313,7 @@ pts [
 ]
 )
 start &77
-end &36
+end &35
 es 0
 sat 32
 eat 32
@@ -3488,7 +3500,7 @@ pts [
 "17250,26000"
 ]
 )
-end &33
+end &32
 sat 16
 eat 32
 st 0
@@ -3524,7 +3536,7 @@ pts [
 "33750,10000"
 ]
 )
-start &29
+start &28
 end &69
 ss 0
 sat 32
@@ -3563,7 +3575,7 @@ pts [
 ]
 )
 start &86
-end &28
+end &36
 sat 32
 eat 32
 stc 0
@@ -3600,7 +3612,7 @@ pts [
 "17250,28000"
 ]
 )
-end &30
+end &29
 sat 16
 eat 32
 st 0
@@ -3652,7 +3664,7 @@ pts [
 "46000,14000"
 ]
 )
-start &31
+start &30
 end &48
 ss 0
 sat 32
@@ -3669,9 +3681,9 @@ uid 476,0
 va (VaSet
 font "courier,8,0"
 )
-xt "41000,14100,49500,15000"
+xt "41000,17100,49500,18000"
 st "dout2bit : [1:0]"
-blo "41000,14800"
+blo "41000,17800"
 tm "WireNameMgr"
 )
 )
@@ -3691,7 +3703,7 @@ pts [
 ]
 )
 start &85
-end &32
+end &31
 sat 32
 eat 32
 stc 0
@@ -3853,9 +3865,9 @@ uid 553,0
 va (VaSet
 font "courier,8,0"
 )
-xt "39000,4100,46000,5000"
+xt "39000,3100,46000,4000"
 st "DATA1bitOUT_r"
-blo "39000,4800"
+blo "39000,3800"
 tm "WireNameMgr"
 )
 )
@@ -4058,9 +4070,9 @@ uid 1430,0
 va (VaSet
 vasetType 3
 )
-xt "9000,-2000,14250,-2000"
+xt "10000,-2000,14250,-2000"
 pts [
-"9000,-2000"
+"10000,-2000"
 "14250,-2000"
 ]
 )
@@ -4080,9 +4092,9 @@ uid 1436,0
 va (VaSet
 font "courier,8,0"
 )
-xt "9000,-2900,13000,-2000"
+xt "11000,-2900,15000,-2000"
 st "bitCLKx4"
-blo "9000,-2200"
+blo "11000,-2200"
 tm "WireNameMgr"
 )
 )
@@ -4202,7 +4214,7 @@ tm "BdCompilerDirectivesTextMgr"
 associable 1
 )
 windowSize "1912,41,3848,1050"
-viewArea "-21400,3446,57398,41994"
+viewArea "-16997,-14277,84712,35479"
 cachedDiagramExtent "-21000,-11000,104700,56000"
 pageSetupInfo (PageSetupInfo
 fileName "/home/dcs/Desktop/FIFO_TO_eLINK"
@@ -4222,7 +4234,7 @@ exportStdPackageRefs 1
 )
 hasePageBreakOrigin 1
 pageBreakOrigin "-14000,-12000"
-lastUid 1737,0
+lastUid 1859,0
 defaultCommentText (CommentText
 shape (Rectangle
 layer 0
