@@ -41,6 +41,7 @@ module tb_Elink_to_FIFO ;
   .rst                (rst),
   .bitCLK             (bitCLK),
   .bitCLKx4           (bitCLKx4),
+  .bitCLKx2           (bitCLKx2),
   .genCLK             (genCLK),
   .loop_en            (1'b0),
   .tx_fifo_pfull      (1'b0),
