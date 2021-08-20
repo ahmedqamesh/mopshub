@@ -12,8 +12,7 @@
 `timescale 1ns/10ps
 module tb_Elink_to_FIFO ;
   // Port Declarations
-  wire         rst; 
-  reg         reset;
+  reg         rst; 
   reg         bitCLKx4;  //bitCLKx4 [clk_160 MB/s]    
   wire        bitCLKx2;  //bitCLKx2 [clk_80 MB/s]
   wire        bitCLK;    //bitCLK   [clk_40 MB/s]
@@ -26,7 +25,9 @@ module tb_Elink_to_FIFO ;
   wire  [9:0] dec8b_Out_dbg;
   wire  dec8b_rdy_dbg;  
   wire  [75:0] data_mopshub_gen;
+  wire  [75:0] gen_edata_tra;
   wire  [75:0] data_emci_rec;
+  wire irq_elink_rec ;
   //EMCI  Emulator
   wire  [1:0] tx_emci2bit;
   wire [7:0]  tx_elink8bit_dec_dbg;
@@ -35,9 +36,10 @@ module tb_Elink_to_FIFO ;
   assign dec8b_rdy_dbg = EMCI_Emulator0.dec8b_rdy_dbg;
   assign gen_edata_8bit =  data_gen_elink0.data_rec_8bitout;
   assign delimeter = data_gen_elink0.data_rec_delimiter;
-  assign data_mopshub_gen = data_gen_elink0.data_gen_76bit_reg ;
-  assign data_emci_rec = EMCI_Emulator0.data_tra_out_reg;
-  assign rst = ~reset;
+  assign data_mopshub_gen = EMCI_Emulator0.data_rec_76bit_reg ; 
+  assign gen_edata_tra = data_gen_elink0.gen_edata_tra ;
+  assign data_emci_rec = EMCI_Emulator0.data_tra_76bit_reg;
+  assign irq_elink_rec = data_gen_elink0.irq_elink_rec ;
   //Generate 8b data 
   data_gen_elink data_gen_elink0(
   .rst                (rst),
@@ -64,13 +66,13 @@ module tb_Elink_to_FIFO ;
   .bitCLKx4           (bitCLKx4),
   .bitCLKx2           (bitCLKx2),
   .bitCLK             (bitCLK),
-  .rst                (rst), 
-  .reset              (reset), 
+  .rst                (rst),  
   .data_mopshub_10bit(data_mopshub_10bit),
   .wr_elink_en (wr_elink_en),
   .rx_elink2bit       (tx_mopshub2bit),
   .tx_elink2bit       (tx_emci2bit),
-  //.rx_elink1bit       (1'b0),
+  .gen_edata_tra (gen_edata_tra),
+  .irq_elink_rec (irq_elink_rec),
   .swap_tx_bits       (1'b0),
   .reverse_stream_10b_tx (1'b1),
   .reverse_stream_10b_rx (1'b0)
@@ -95,7 +97,7 @@ module tb_Elink_to_FIFO ;
   );
   initial 
   begin
-    reset = 1'b1;
-    #10 reset=!reset;
+    rst = 1'b0;
+    #10 rst=!rst;
   end
 endmodule
