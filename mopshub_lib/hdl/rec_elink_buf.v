@@ -24,18 +24,7 @@ module rec_elink_buf(
   // Internal Declarations
   reg [7:0] data_rec_reg;
   reg [1:0] data_delimiter_reg;
-  // Triplication assignment
-  //wire [7:0] data_rec_regVoted = data_rec_reg;
-  
-  //always@(posedge clk or negedge rst)
   always@(*)
-  //begin 
-  // if(!rst)
-  //  begin
-  //    data_rec_reg <= 8'd0;
-  //  end
-  // else
-  //  if(buffer_en)
   case(addr)
     5'b00000  :  begin data_rec_reg  = 8'h00; 
       data_delimiter_reg = 2'b11;
@@ -77,11 +66,6 @@ module rec_elink_buf(
       data_delimiter_reg = 2'b01;
     end
   endcase
-  //  else
-  //  begin 
-  //   data_rec_reg <= data_rec_regVoted;
-  // end
-  //end 
   assign data_rec_8bitout = data_rec_reg;//data_rec_regVoted;
   assign data_rec_delimiter = data_delimiter_reg;//data_rec_regVoted;
 endmodule

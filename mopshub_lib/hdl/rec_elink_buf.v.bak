@@ -17,7 +17,7 @@ module rec_elink_buf(
   // input   wire            rst,
   input   wire    [75:0]  data_rec_in,   // input data from the SCB or Object Dictionary side
   // input   wire            buffer_en,     // enable signal 
-  input   wire    [3 :0]  addr, 
+  input   wire    [4 :0]  addr, 
   output  wire    [7:0]   data_rec_8bitout,   // Output data to be written on the CAN bus
   output  wire    [1:0]   data_rec_delimiter   // Output data to be written on the CAN bus
   );
@@ -37,43 +37,43 @@ module rec_elink_buf(
   // else
   //  if(buffer_en)
   case(addr)
-    4'b0000  :  begin data_rec_reg  = 8'h00; 
+    5'b00000  :  begin data_rec_reg  = 8'h00; 
       data_delimiter_reg = 2'b11;
     end
-    4'b0001  :  begin data_rec_reg  = 8'h00; 
+    5'b00001  :  begin data_rec_reg  = 8'h00; 
       data_delimiter_reg = 2'b10;
     end
-    4'b0010  :  begin data_rec_reg  = data_rec_in[75:68]; 
+    5'b00010  :  begin data_rec_reg  = data_rec_in[75:68]; 
       data_delimiter_reg = 2'b00;
     end      
-    4'b0011  :  begin data_rec_reg  = data_rec_in[67:60];  
+    5'b00011  :  begin data_rec_reg  = data_rec_in[67:60];  
       data_delimiter_reg = 2'b00;
     end         
-    4'b0100  :  begin data_rec_reg  = data_rec_in[59:52];  
+    5'b00100  :  begin data_rec_reg  = data_rec_in[59:52];  
       data_delimiter_reg = 2'b00;
     end                                  
-    4'b0101  :  begin data_rec_reg  = data_rec_in[51:44];  
+    5'b00101  :  begin data_rec_reg  = data_rec_in[51:44];  
       data_delimiter_reg = 2'b00;
     end        
-    4'b0110  :  begin data_rec_reg  = data_rec_in[43:36];  
+    5'b00110  :  begin data_rec_reg  = data_rec_in[43:36];  
       data_delimiter_reg = 2'b00;
     end                     
-    4'b0111  :  begin data_rec_reg  = data_rec_in[35:28];  
+    5'b00111  :  begin data_rec_reg  = data_rec_in[35:28];  
       data_delimiter_reg = 2'b00;
     end       
-    4'b1000  :  begin data_rec_reg  = data_rec_in[27:20];  
+    5'b01000  :  begin data_rec_reg  = data_rec_in[27:20];  
       data_delimiter_reg = 2'b00;
     end           
-    4'b1001  :  begin data_rec_reg  = data_rec_in[19:12];  
+    5'b01001  :  begin data_rec_reg  = data_rec_in[19:12];  
       data_delimiter_reg = 2'b00;
     end      
-    4'b1010  :  begin data_rec_reg  = data_rec_in[11:4];  
+    5'b01010  :  begin data_rec_reg  = data_rec_in[11:4];  
       data_delimiter_reg = 2'b00;
     end            
-    4'b1011  :  begin data_rec_reg  = {data_rec_in[3:0],4'h0};  
+    5'b01011  :  begin data_rec_reg  = {data_rec_in[3:0],4'h0};  
       data_delimiter_reg = 2'b00;
     end
-    4'b1100  :  begin data_rec_reg  = 8'h00; 
+    5'b01100  :  begin data_rec_reg  = 8'h00; 
       data_delimiter_reg = 2'b01;
     end
   endcase

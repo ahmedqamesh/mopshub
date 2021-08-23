@@ -13,7 +13,7 @@
 module tra_elink_buf(
    // Port Declarations
    input   wire           clk, 
-   input   wire    [7:0]  data_tra_in,   // 16-bit data from each traeive register of canakari
+   input   wire    [7:0]  data_tra_8bitin,   // 16-bit data from each traeive register of canakari
    input   wire           buffer_en,            // enable signal
    input   wire           rst,           // reset active low
    input   wire    [4 :0] addr,        
@@ -78,28 +78,28 @@ begin
    if(buffer_en)
     begin
     case(addr)
-//     5'b00000 : b0  <= data_tra_in[7:0];    
-//     5'b00001 : b1  <= data_tra_in[7:0];        
-//     5'b00010 : b2  <= data_tra_in[7:0];         
-//     5'b00011 : b3  <= data_tra_in[7:0];                                  
-//     5'b00100 : b4  <= data_tra_in[7:0];        
-//     5'b00101 : b5  <= data_tra_in[7:0];                     
-//     5'b00110 : b6  <= data_tra_in[7:0];       
-//     5'b00111 : b7  <= data_tra_in[7:0];           
-//     5'b01000 : b8  <= data_tra_in[7:0];      
-//     5'b01001 : b9  <= data_tra_in[7:0];            
-//     5'b01010 : b9  <= data_tra_in[7:0]; 
+//     5'b00000 : b0  <= data_tra_8bitin[7:0];    
+//     5'b00001 : b1  <= data_tra_8bitin[7:0];        
+//     5'b00010 : b2  <= data_tra_8bitin[7:0];         
+//     5'b00011 : b3  <= data_tra_8bitin[7:0];                                  
+//     5'b00100 : b4  <= data_tra_8bitin[7:0];        
+//     5'b00101 : b5  <= data_tra_8bitin[7:0];                     
+//     5'b00110 : b6  <= data_tra_8bitin[7:0];       
+//     5'b00111 : b7  <= data_tra_8bitin[7:0];           
+//     5'b01000 : b8  <= data_tra_8bitin[7:0];      
+//     5'b01001 : b9  <= data_tra_8bitin[7:0];            
+//     5'b01010 : b9  <= data_tra_8bitin[7:0]; 
      
-     5'b00010 : b0  <= data_tra_in[7:0];        
-     5'b00011 : b1  <= data_tra_in[7:0];         
-     5'b00100 : b2  <= data_tra_in[7:0];                                  
-     5'b00101 : b3  <= data_tra_in[7:0];        
-     5'b00110 : b4  <= data_tra_in[7:0];                     
-     5'b00111 : b5  <= data_tra_in[7:0];       
-     5'b01000 : b6  <= data_tra_in[7:0];           
-     5'b01001 : b7  <= data_tra_in[7:0];      
-     5'b01010 : b8  <= data_tra_in[7:0];            
-     5'b01011 : b9  <= data_tra_in[7:0];            
+     5'b00010 : b0  <= data_tra_8bitin[7:0];        
+     5'b00011 : b1  <= data_tra_8bitin[7:0];         
+     5'b00100 : b2  <= data_tra_8bitin[7:0];                                  
+     5'b00101 : b3  <= data_tra_8bitin[7:0];        
+     5'b00110 : b4  <= data_tra_8bitin[7:0];                     
+     5'b00111 : b5  <= data_tra_8bitin[7:0];       
+     5'b01000 : b6  <= data_tra_8bitin[7:0];           
+     5'b01001 : b7  <= data_tra_8bitin[7:0];      
+     5'b01010 : b8  <= data_tra_8bitin[7:0];            
+     5'b01011 : b9  <= data_tra_8bitin[7:0];            
      default 
       begin
         b0 <= b0Voted;

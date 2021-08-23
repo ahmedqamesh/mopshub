@@ -64,19 +64,19 @@ value "/home/dcs/git/mopshub/mopshub_lib/hds/data_gen_elink_SM"
 )
 (vvPair
 variable "date"
-value "08/20/21"
+value "08/23/21"
 )
 (vvPair
 variable "day"
-value "Fri"
+value "Mon"
 )
 (vvPair
 variable "day_long"
-value "Friday"
+value "Monday"
 )
 (vvPair
 variable "dd"
-value "20"
+value "23"
 )
 (vvPair
 variable "entity_name"
@@ -104,7 +104,7 @@ value "dcs"
 )
 (vvPair
 variable "graphical_source_date"
-value "08/20/21"
+value "08/23/21"
 )
 (vvPair
 variable "graphical_source_group"
@@ -116,7 +116,7 @@ value "chipdev2.physik.uni-wuppertal.de"
 )
 (vvPair
 variable "graphical_source_time"
-value "11:58:51"
+value "19:33:47"
 )
 (vvPair
 variable "group"
@@ -236,7 +236,7 @@ value "fsm"
 )
 (vvPair
 variable "time"
-value "11:58:51"
+value "19:33:47"
 )
 (vvPair
 variable "unit"
@@ -2574,10 +2574,10 @@ uid 340,0
 va (VaSet
 vasetType 3
 )
-xt "11425,22145,20932,40485"
+xt "11442,22123,20932,40485"
 pts [
 "20932,40485"
-"11425,22145"
+"11442,22123"
 ]
 arrow 1
 )
@@ -2595,7 +2595,7 @@ fg "65535,65535,65535"
 bg "0,0,0"
 lineColor "0,32768,49152"
 )
-xt "15678,31260,21178,32270"
+xt "15687,31249,21187,32259"
 )
 autoResize 1
 lineShape (Line
@@ -2604,10 +2604,10 @@ va (VaSet
 vasetType 3
 isHidden 1
 )
-xt "18428,32615,18428,32615"
+xt "18437,32604,18437,32604"
 pts [
-"18428,32615"
-"18428,32615"
+"18437,32604"
+"18437,32604"
 ]
 )
 condition (MLText
@@ -2615,7 +2615,7 @@ uid 344,0
 va (VaSet
 font "courier,8,0"
 )
-xt "16178,31315,20678,32215"
+xt "16187,31304,20687,32204"
 tm "Condition"
 )
 actions (MLText
@@ -2623,7 +2623,7 @@ uid 345,0
 va (VaSet
 font "courier,8,0"
 )
-xt "18428,32615,18428,32615"
+xt "18437,32604,18437,32604"
 tm "Actions"
 )
 )
@@ -2638,7 +2638,7 @@ isHidden 1
 fg "65535,65535,65535"
 bg "0,0,0"
 )
-xt "19329,38000,20631,39302"
+xt "19331,37998,20633,39300"
 radius 651
 )
 pr (Text
@@ -2647,10 +2647,10 @@ va (VaSet
 isHidden 1
 font "courier,8,0"
 )
-xt "19730,38201,20230,39101"
+xt "19732,38199,20232,39099"
 st "1"
 ju 0
-blo "19980,38901"
+blo "19982,38899"
 tm "TransitionPriority"
 )
 padding "100,100"
@@ -3124,8 +3124,8 @@ tm "SmCompilerDirectivesTextMgr"
 ]
 associable 1
 )
-windowSize "1912,41,3848,1050"
-viewArea "9360,464,89871,39850"
+windowSize "3832,13,5768,1088"
+viewArea "-7300,4700,59507,39956"
 cachedDiagramExtent "0,-1589,86161,60425"
 hasePageBreakOrigin 1
 pageBreakOrigin "0,-2000"
@@ -3410,11 +3410,11 @@ font "courier,8,0"
 xt "37455,-641,67555,5659"
 st "SIGNAL             MODE    DEFAULT  RESET  SCHEME COMMENT  
 state_o            output  3'b0            COMB            
-done               output  0               COMB   dbg      
 start_write_elink  output  0               COMB            
 wr_en              output  0               COMB            
 counter_en         output  0               COMB            
 rst_cnt            output  0               COMB            
+done               output  0               COMB   dbg      
 "
 tm "SmSignalsGenStatusTextMgr"
 )
@@ -3518,7 +3518,7 @@ stateOrder [
 name "csm"
 )
 ]
-lastUid 1695,0
+lastUid 1782,0
 commonDM (CommonDM
 ldm (LogicalDM
 emptyRow *67 (LEmptyRow
@@ -3636,7 +3636,7 @@ decl (Decl
 n "state_o"
 t "reg"
 b "[2:0]"
-o 8
+o 10
 )
 )
 uid 426,0
@@ -3655,12 +3655,68 @@ o 5
 )
 uid 428,0
 )
-*93 (LGroup
+*93 (LeafLogPort
+port (LogicalPort
+lang 5
+m 1
+decl (Decl
+n "start_write_elink"
+t "reg"
+o 9
+)
+)
+uid 1328,0
+scheme 0
+defVal "0"
+)
+*94 (LeafLogPort
+port (LogicalPort
+lang 5
+m 1
+decl (Decl
+n "wr_en"
+t "reg"
+o 11
+)
+)
+uid 1446,0
+scheme 0
+defVal "0"
+)
+*95 (LeafLogPort
+port (LogicalPort
+lang 5
+m 1
+decl (Decl
+n "counter_en"
+t "reg"
+o 6
+)
+)
+uid 1459,0
+scheme 0
+defVal "0"
+)
+*96 (LeafLogPort
+port (LogicalPort
+lang 5
+m 1
+decl (Decl
+n "rst_cnt"
+t "reg"
+o 8
+)
+)
+uid 1472,0
+scheme 0
+defVal "0"
+)
+*97 (LGroup
 name "out"
 comment ""
-uid 893,0
+uid 1782,0
 optionalChildren [
-*94 (LeafLogPort
+*98 (LeafLogPort
 port (LogicalPort
 lang 5
 m 1
@@ -3668,14 +3724,14 @@ decl (Decl
 n "done"
 t "reg"
 eolc "dbg"
-o 6
+o 7
 )
 )
 uid 416,0
 scheme 0
 defVal "0"
 )
-*95 (LeafLogPort
+*99 (LeafLogPort
 port (LogicalPort
 lang 5
 decl (Decl
@@ -3687,62 +3743,6 @@ o 2
 uid 777,0
 )
 ]
-)
-*96 (LeafLogPort
-port (LogicalPort
-lang 5
-m 1
-decl (Decl
-n "start_write_elink"
-t "reg"
-o 7
-)
-)
-uid 1328,0
-scheme 0
-defVal "0"
-)
-*97 (LeafLogPort
-port (LogicalPort
-lang 5
-m 1
-decl (Decl
-n "wr_en"
-t "reg"
-o 9
-)
-)
-uid 1446,0
-scheme 0
-defVal "0"
-)
-*98 (LeafLogPort
-port (LogicalPort
-lang 5
-m 1
-decl (Decl
-n "counter_en"
-t "reg"
-o 10
-)
-)
-uid 1459,0
-scheme 0
-defVal "0"
-)
-*99 (LeafLogPort
-port (LogicalPort
-lang 5
-m 1
-decl (Decl
-n "rst_cnt"
-t "reg"
-o 11
-)
-)
-uid 1472,0
-scheme 0
-defVal "0"
 )
 ]
 )
@@ -3801,9 +3801,8 @@ dimension 20
 uid 415,0
 )
 *106 (MRCItem
-litem &94
+litem &98
 pos 5
-relPos 0
 dimension 20
 uid 417,0
 )
@@ -3832,32 +3831,31 @@ dimension 20
 uid 429,0
 )
 *111 (MRCItem
-litem &95
+litem &99
 pos 6
-relPos 1
 dimension 20
 uid 778,0
 )
 *112 (MRCItem
-litem &96
+litem &93
 pos 7
 dimension 20
 uid 1329,0
 )
 *113 (MRCItem
-litem &97
+litem &94
 pos 8
 dimension 20
 uid 1447,0
 )
 *114 (MRCItem
-litem &98
+litem &95
 pos 9
 dimension 20
 uid 1460,0
 )
 *115 (MRCItem
-litem &99
+litem &96
 pos 10
 dimension 20
 uid 1473,0
