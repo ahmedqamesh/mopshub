@@ -85,19 +85,19 @@ value "/home/dcs/git/mopshub/mopshub_lib/hds/bitstream_deserializer"
 )
 (vvPair
 variable "date"
-value "08/11/21"
+value "08/24/21"
 )
 (vvPair
 variable "day"
-value "Wed"
+value "Tue"
 )
 (vvPair
 variable "day_long"
-value "Wednesday"
+value "Tuesday"
 )
 (vvPair
 variable "dd"
-value "11"
+value "24"
 )
 (vvPair
 variable "entity_name"
@@ -125,7 +125,7 @@ value "dcs"
 )
 (vvPair
 variable "graphical_source_date"
-value "08/11/21"
+value "08/24/21"
 )
 (vvPair
 variable "graphical_source_group"
@@ -137,7 +137,7 @@ value "chipdev2.physik.uni-wuppertal.de"
 )
 (vvPair
 variable "graphical_source_time"
-value "12:40:52"
+value "18:05:13"
 )
 (vvPair
 variable "group"
@@ -257,7 +257,7 @@ value "struct"
 )
 (vvPair
 variable "time"
-value "12:40:52"
+value "18:05:13"
 )
 (vvPair
 variable "unit"
@@ -661,7 +661,7 @@ va (VaSet
 font "courier,8,0"
 )
 xt "-5500,28550,1000,29450"
-st "swap_tx_bits"
+st "swap_rx_bits"
 ju 2
 blo "1000,29250"
 tm "WireNameMgr"
@@ -697,14 +697,15 @@ font "courier,8,0"
 xt "14200,39200,31700,43700"
 st "
   // buffer the output data
-always @ (swap_tx_bits, DATA_IN)//bit swapping on a GBT frame level
+always @ (swap_rx_bits, DATA_IN)//bit swapping on a GBT frame level
 begin
-  if (swap_tx_bits)
+  if (swap_rx_bits)
   edata_in_r = {DATA_IN[0],DATA_IN[1]};
   else     
   edata_in_r = DATA_IN;
 end
   
+
 
 
 
@@ -1530,25 +1531,6 @@ tm "WireNameMgr"
 )
 )
 *43 (Net
-uid 793,0
-lang 5
-decl (Decl
-n "swap_tx_bits"
-t "wire"
-o 4
-suid 16,0
-)
-declText (MLText
-uid 794,0
-va (VaSet
-font "courier,8,0"
-)
-xt "2000,4500,15500,5400"
-st "wire         swap_tx_bits;
-"
-)
-)
-*44 (Net
 uid 891,0
 lang 5
 decl (Decl
@@ -1569,7 +1551,7 @@ st "wire         reset; // Declare input to reset the register to a default valu
 "
 )
 )
-*45 (PortIoIn
+*44 (PortIoIn
 uid 899,0
 shape (CompositeShape
 uid 900,0
@@ -1615,6 +1597,25 @@ tm "WireNameMgr"
 )
 )
 )
+*45 (Net
+uid 952,0
+lang 5
+decl (Decl
+n "swap_rx_bits"
+t "wire"
+o 4
+suid 18,0
+)
+declText (MLText
+uid 953,0
+va (VaSet
+font "courier,8,0"
+)
+xt "2000,4500,15500,5400"
+st "wire         swap_rx_bits;
+"
+)
+)
 *46 (Wire
 uid 175,0
 shape (OrthoPolyLine
@@ -1646,12 +1647,12 @@ isHidden 1
 font "courier,8,0"
 )
 xt "5000,28100,11500,29000"
-st "swap_tx_bits"
+st "swap_rx_bits"
 blo "5000,28800"
 tm "WireNameMgr"
 )
 )
-on &43
+on &45
 )
 *47 (Wire
 uid 181,0
@@ -2016,7 +2017,7 @@ pts [
 "37250,21000"
 ]
 )
-start &45
+start &44
 end &28
 sat 32
 eat 32
@@ -2040,7 +2041,7 @@ blo "34000,20800"
 tm "WireNameMgr"
 )
 )
-on &44
+on &43
 )
 ]
 bg "65535,65535,65535"
@@ -2152,11 +2153,11 @@ tm "BdCompilerDirectivesTextMgr"
 associable 1
 )
 windowSize "3832,13,5768,1088"
-viewArea "-3814,6700,54428,37436"
+viewArea "-13255,10172,39848,38196"
 cachedDiagramExtent "-5500,0,69000,51000"
 hasePageBreakOrigin 1
 pageBreakOrigin "-69000,0"
-lastUid 906,0
+lastUid 955,0
 defaultCommentText (CommentText
 shape (Rectangle
 layer 0
@@ -3212,7 +3213,7 @@ tm "BdDeclarativeTextMgr"
 )
 commonDM (CommonDM
 ldm (LogicalDM
-suid 17,0
+suid 18,0
 usingSuid 1
 emptyRow *88 (LEmptyRow
 )
@@ -3395,18 +3396,6 @@ uid 275,0
 port (LogicalPort
 lang 5
 decl (Decl
-n "swap_tx_bits"
-t "wire"
-o 4
-suid 16,0
-)
-)
-uid 795,0
-)
-*113 (LeafLogPort
-port (LogicalPort
-lang 5
-decl (Decl
 n "reset"
 t "wire"
 o 11
@@ -3414,6 +3403,18 @@ suid 17,0
 )
 )
 uid 905,0
+)
+*113 (LeafLogPort
+port (LogicalPort
+lang 5
+decl (Decl
+n "swap_rx_bits"
+t "wire"
+o 4
+suid 18,0
+)
+)
+uid 954,0
 )
 ]
 )
@@ -3523,13 +3524,13 @@ uid 276,0
 litem &112
 pos 9
 dimension 20
-uid 796,0
+uid 906,0
 )
 *129 (MRCItem
 litem &113
 pos 10
 dimension 20
-uid 906,0
+uid 955,0
 )
 ]
 )

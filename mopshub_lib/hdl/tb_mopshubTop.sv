@@ -45,7 +45,7 @@ wire            send_mes_can_done;
 wire            buffer_en; //Enable the tra_buffer
 wire            elink_test_done;  
 
-wire [1:0] tx_elink2bit; 
+wire [1:0] tx_mopshub_2bit; 
 wire [7:0] DEC_EDATA_OUT_8bit;
 // Generator signals 
 int failures = 0;   // Number of BAD reponses from the chip  
@@ -98,7 +98,7 @@ mopshub_top#(
 .end_read_elink(end_read_elink),    
 .send_mes_can_done(send_mes_can_done), 
 .buffer_en(buffer_en), 
-.tx_elink2bit(tx_elink2bit),
+.tx_elink2bit(tx_mopshub_2bit),
 .tx_elink1bit(), 
 .priority_sig( ),         
 .rx0(rx0),        
@@ -160,7 +160,8 @@ data_generator#(
 .buffer_en(buffer_en),
 .elink_test_done(elink_test_done),
 //EMCI EMulator
-.tx_elink2bit(tx_elink2bit),
+.tx_elink2bit(),
+.rx_elink2bit(tx_mopshub_2bit),
 .DEC_EDATA_OUT_8bit (DEC_EDATA_OUT_8bit));
 
 //////////****// Clock generation////////////////
