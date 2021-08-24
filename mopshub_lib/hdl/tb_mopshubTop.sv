@@ -38,7 +38,7 @@ wire            end_read_elink;
 wire     [75:0] data_tra_uplink;
 reg      [75:0] requestreg  = 75'h0;
 reg      [75:0] responsereg = 75'h0; 
-
+wire     [75:0] data_tra_out;
 wire     [4:0]  can_tra_select;
 wire            irq_can_tra;
 wire            send_mes_can_done;
@@ -46,7 +46,7 @@ wire            buffer_en; //Enable the tra_buffer
 wire            elink_test_done;  
 
 wire [1:0] tx_mopshub_2bit; 
-wire [7:0] DEC_EDATA_OUT_8bit;
+//wire [7:0] DEC_EDATA_OUT_8bit;
 // Generator signals 
 int failures = 0;   // Number of BAD reponses from the chip  
 wire            rx0;
@@ -74,25 +74,25 @@ assign response = responsereg;
 assign osc_auto_trim =1'b0;                    ////Active high. Enable /disable automated trimming. If disabled then take care of ftrim_pads_reg
 
 /// Top level instantiation
-assign irq_can_rec = mopshub.irq_can_rec;
-assign irq_can_tra = mopshub.irq_can_tra;
-assign can_tra_select = mopshub.can_tra_select;
-assign can_rec_select = mopshub.can_rec_select;
-assign data_rec_uplink = mopshub.data_rec_uplink;
+assign irq_can_rec = mopshub0.irq_can_rec;
+assign irq_can_tra = mopshub0.irq_can_tra;
+assign can_tra_select = mopshub0.can_tra_select;
+assign can_rec_select = mopshub0.can_rec_select;
+assign data_rec_uplink = mopshub0.data_rec_uplink;
+assign data_tra_out = data_generator0.data_tra_out;
 
 mopshub_top#(
 .max_cnt_size (5),
-.n_buses (5'b01))mopshub(
+.n_buses (5'b01))mopshub0(
 .clk(clk),
 .rst(rst), 
 .irq_can_ack(irq_can_ack),
 .start_init(start_init),
 .sign_on_sig(sign_on_sig),               
 .data_uplink_out(data_uplink_out),        
-.endwait(),       
-.send_mes_elink(),        
+.endwait(),               
 .end_cnt_dbg(1'b0),
-.irq_elink(irq_elink), 
+//.irq_elink(irq_elink), 
 .data_tra_uplink(data_tra_uplink),       
 .start_read_elink(start_read_elink),    
 .end_read_elink(end_read_elink),    
@@ -159,10 +159,10 @@ data_generator#(
 .bus_id(bus_id),
 .buffer_en(buffer_en),
 .elink_test_done(elink_test_done),
+//.DEC_EDATA_OUT_8bit (DEC_EDATA_OUT_8bit),
 //EMCI EMulator
 .tx_elink2bit(),
-.rx_elink2bit(tx_mopshub_2bit),
-.DEC_EDATA_OUT_8bit (DEC_EDATA_OUT_8bit));
+.rx_elink2bit(tx_mopshub_2bit));
 
 //////////****// Clock generation////////////////
 always #50 clk = ~clk;   

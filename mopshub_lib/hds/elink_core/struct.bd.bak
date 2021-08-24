@@ -14,7 +14,7 @@ elements [
 (GiElement
 name "GENERATE_FEI4B"
 type "integer"
-value "0"
+value "1"
 )
 (GiElement
 name "serialized_input"
@@ -231,7 +231,7 @@ value "chipdev2.physik.uni-wuppertal.de"
 )
 (vvPair
 variable "graphical_source_time"
-value "18:26:35"
+value "18:56:17"
 )
 (vvPair
 variable "group"
@@ -351,7 +351,7 @@ value "struct"
 )
 (vvPair
 variable "time"
-value "18:26:35"
+value "18:56:17"
 )
 (vvPair
 variable "unit"
@@ -1406,9 +1406,8 @@ va (VaSet
 font "courier,8,0"
 )
 xt "-5000,7000,14000,8800"
-st "GENERATE_FEI4B   = 0    ( integer )  
-serialized_input = 0    ( integer )  
-"
+st "GENERATE_FEI4B   = 1    ( integer )  
+serialized_input = 0    ( integer )  "
 )
 header ""
 )
@@ -1416,7 +1415,7 @@ elements [
 (GiElement
 name "GENERATE_FEI4B"
 type "integer"
-value "0"
+value "1"
 )
 (GiElement
 name "serialized_input"
@@ -2388,8 +2387,7 @@ st "// synopsys template
 // synopsys template
 DATA_IN_WIDTH    = 10      
 serialized_input = 0     ( integer )  
-DATA_OUT_WIDTH   = 10      
-"
+DATA_OUT_WIDTH   = 10      "
 )
 header ""
 )
@@ -5405,13 +5403,14 @@ begin
   end
   if (irq_elink_rec)
   begin
-    data_rec_76bit_reg  <= data_rec_in ; 
+    data_rec_76bit_reg  <= data_rec_uplink ; 
   end 
   else
   begin
    data_rec_76bit_reg  <= data_rec_76bit_reg ; 
   end
 end  
+
 
 
 
@@ -7586,10 +7585,10 @@ uid 795,0
 va (VaSet
 vasetType 3
 )
-xt "36750,51000,44000,51000"
+xt "36750,51000,46000,51000"
 pts [
 "36750,51000"
-"44000,51000"
+"46000,51000"
 ]
 )
 start &45
@@ -10061,12 +10060,12 @@ tm "BdCompilerDirectivesTextMgr"
 ]
 associable 1
 )
-windowSize "3832,13,5768,1088"
-viewArea "-28282,13705,74498,67945"
+windowSize "1912,41,3848,1050"
+viewArea "-122761,100,-7990,56246"
 cachedDiagramExtent "-115500,0,117200,70000"
 hasePageBreakOrigin 1
-pageBreakOrigin "-138000,-51000"
-lastUid 4586,0
+pageBreakOrigin "-138000,0"
+lastUid 4860,0
 defaultCommentText (CommentText
 shape (Rectangle
 layer 0
@@ -12133,6 +12132,24 @@ tm "GenericValueColHdrMgr"
 *432 (EolColHdr
 tm "GenericEolColHdrMgr"
 )
+*433 (LogGeneric
+generic (GiElement
+name "Kchar_eop"
+type "integer"
+value "8'b11011100"
+e "// K28.6"
+)
+uid 4722,0
+)
+*434 (LogGeneric
+generic (GiElement
+name "Kchar_sop"
+type "integer"
+value "8'b00111100"
+e "// K28.1"
+)
+uid 4724,0
+)
 ]
 )
 pdm (PhysicalDM
@@ -12140,7 +12157,7 @@ displayShortBounds 1
 editShortBounds 1
 uid 97,0
 optionalChildren [
-*433 (Sheet
+*435 (Sheet
 sheetRow (SheetRow
 headerVa (MVa
 cellColor "49152,49152,49152"
@@ -12157,31 +12174,43 @@ cellColor "39936,56832,65280"
 fontColor "0,0,0"
 font "courier,10,0"
 )
-emptyMRCItem *434 (MRCItem
+emptyMRCItem *436 (MRCItem
 litem &423
-pos 0
+pos 2
 dimension 20
 )
 uid 99,0
 optionalChildren [
-*435 (MRCItem
+*437 (MRCItem
 litem &424
 pos 0
 dimension 20
 uid 100,0
 )
-*436 (MRCItem
+*438 (MRCItem
 litem &425
 pos 1
 dimension 23
 uid 101,0
 )
-*437 (MRCItem
+*439 (MRCItem
 litem &426
 pos 2
 hidden 1
 dimension 20
 uid 102,0
+)
+*440 (MRCItem
+litem &433
+pos 0
+dimension 20
+uid 4723,0
+)
+*441 (MRCItem
+litem &434
+pos 1
+dimension 20
+uid 4725,0
 )
 ]
 )
@@ -12194,31 +12223,31 @@ textAngle 90
 )
 uid 103,0
 optionalChildren [
-*438 (MRCItem
+*442 (MRCItem
 litem &427
 pos 0
 dimension 20
 uid 104,0
 )
-*439 (MRCItem
+*443 (MRCItem
 litem &429
 pos 1
 dimension 50
 uid 105,0
 )
-*440 (MRCItem
+*444 (MRCItem
 litem &430
 pos 2
 dimension 100
 uid 106,0
 )
-*441 (MRCItem
+*445 (MRCItem
 litem &431
 pos 3
 dimension 50
 uid 107,0
 )
-*442 (MRCItem
+*446 (MRCItem
 litem &432
 pos 4
 dimension 80
