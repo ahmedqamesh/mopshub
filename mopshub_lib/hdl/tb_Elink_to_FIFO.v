@@ -20,15 +20,16 @@ module tb_Elink_to_FIFO ;
   wire  [7:0]  gen_edata_8bit;
   wire  [1:0]  delimeter;
   wire  [75:0] data_gen_rec;
+  wire  [75:0] data_gen_tra;
   wire  [75:0] data_emci_rec;
   wire  [75:0] data_emci_tra;
   //EMCI Emulator
   wire  [1:0]  tx_emci2bit;
-  wire  [1:0]  tx_mopshub2bit;
-  wire         start_write_elink;
   wire         tx_emci1bit;
+  wire  [1:0]  tx_mopshub2bit;
   wire         tx_mopshub1bit;
-  
+  wire         start_write_elink;
+
   assign gen_edata_8bit   = EMCI_Emulator0.data_rec_8bitout;
   assign delimeter        = EMCI_Emulator0.data_rec_delimiter;
   assign data_emci_tra    = EMCI_Emulator0.data_tra_76bit_reg ; 
@@ -42,8 +43,8 @@ module tb_Elink_to_FIFO ;
   .bitCLKx2               (bitCLKx2),
   .loop_en                (1'b1),
   .tx_elink2bit_gen       (tx_mopshub2bit),
-  .rx_elink2bit_gen       (tx_emci2bit),
   .tx_elink1bit_gen       (tx_mopshub1bit),
+  .rx_elink2bit_gen       (tx_emci2bit),
   .rx_elink1bit_gen       (tx_emci1bit),
   .start_write_elink      (start_write_elink),
   .data_gen_rec           (data_gen_rec),
@@ -63,12 +64,13 @@ module tb_Elink_to_FIFO ;
   .bitCLKx2               (bitCLKx2),
   .bitCLK                 (bitCLK),
   .rst                    (rst),  
-  .rx_elink2bit           (tx_mopshub2bit),
   .tx_elink2bit           (tx_emci2bit),
-  .rx_elink1bit           (tx_mopshub1bit),
   .tx_elink1bit           (tx_emci1bit),
+  .rx_elink2bit           (tx_mopshub2bit),
+  .rx_elink1bit           (tx_mopshub1bit),
   .start_write_elink      (start_write_elink),
   .data_rec_in            (data_gen_rec),
+  .data_tra_out(data_gen_tra),
   .elink_delim_dbg        (1'b1),
   .swap_tx_bits           (1'b0),
   .reverse_stream_10b_tx  (1'b1),

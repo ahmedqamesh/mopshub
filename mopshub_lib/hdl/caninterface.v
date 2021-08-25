@@ -23,7 +23,7 @@ module can_interface(
 
 // Internal Declarations           
 reg  [15:0] write_can_reg;
-reg  [4 :0] can_rec_reg;
+reg  [4 :0] can_rec_reg= 5'h0;
 reg  [4 :0] can_tra_reg= 5'h0;
 reg  [4 :0] can_tra_comp_reg= 5'h0;
 reg  [4 :0] can_rec_comp_reg= 5'h0;
@@ -41,17 +41,17 @@ assign rst_irq      = 16'h8070;
 assign gen_data     = 16'h9C; //16'b0000000010011100
 //assign can_tra_select = can_tra_reg;
 assign cmd  = {initi,read,write,bus_comp,reset_can};               //initi is active high while read and write are active low
-assign can_tra_select  = (cmd == 5'b01000 | cmd == 5'b11000 ) ? can_tra_reg: can_rec_reg;
+assign can_tra_select  = (cmd == 5'b01000 | cmd == 5'b11000 ) ? can_tra_reg: can_rec_reg;//can_tra_reg [write,init]
 ////This is purely combinational block to read and write values to Canakari node
 always@(*)
 begin
   write_can_reg = 16'h0000;
- // can_rec_reg  = can_rec_select;
+  //can_rec_reg  = can_rec_select;
   can_tra_reg  = data_tra_select;
   case(cmd)
     5'b11000 : begin
                write_can_reg = data_init;              // Initialize
-               can_tra_reg  = data_tra_select;
+              // can_tra_reg  = data_tra_select;
               end
               
     5'b00100 :  begin  // read canankari register.. Multiplexing for complete message in done rec_mes_buf register
@@ -60,7 +60,7 @@ begin
                end     
                                                 
     5'b01000 :  begin   // write canakari register 
-                can_tra_reg        = data_tra_select;//data_tra_mes[28:24];// data_tra_mes[4:0];
+               // can_tra_reg        = data_tra_select;//data_tra_mes[28:24];// data_tra_mes[4:0];
                 case(addr)
                   5'b01100 : begin  // Transmission Identifier 1
                               write_can_reg[15:5] = data_tra_mes[74:64];

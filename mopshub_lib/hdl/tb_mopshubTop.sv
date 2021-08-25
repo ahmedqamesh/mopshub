@@ -22,31 +22,29 @@ wire            read_adc_end;
 reg             elink_test=1'b0;
 reg             sel_bus = 1'b0;
 // MOPSHUB signals
-
 wire    [75:0]  data_rec_uplink;
+wire    [75:0]  data_uplink_out;
 wire    [75:0]  request;
 wire            reqmsg;
 wire    [75:0]  response;
 wire            respmsg;
 wire    [4:0]   can_rec_select;
 wire            irq_can_rec;
-wire    [9:0]  data_uplink_out;//= 1'b1;
-
 wire            irq_elink;
 wire            start_read_elink;
 wire            end_read_elink; 
 wire     [75:0] data_tra_uplink;
 reg      [75:0] requestreg  = 75'h0;
 reg      [75:0] responsereg = 75'h0; 
-wire     [75:0] data_tra_out;
+wire     [75:0] data_tra_emulator_out;
+wire            start_write_emulator;
 wire     [4:0]  can_tra_select;
 wire            irq_can_tra;
-wire            send_mes_can_done;
 wire            buffer_en; //Enable the tra_buffer
 wire            elink_test_done;  
 
 wire [1:0] tx_mopshub_2bit; 
-//wire [7:0] DEC_EDATA_OUT_8bit;
+wire       tx_mopshub_1bit; 
 // Generator signals 
 int failures = 0;   // Number of BAD reponses from the chip  
 wire            rx0;
@@ -79,7 +77,8 @@ assign irq_can_tra = mopshub0.irq_can_tra;
 assign can_tra_select = mopshub0.can_tra_select;
 assign can_rec_select = mopshub0.can_rec_select;
 assign data_rec_uplink = mopshub0.data_rec_uplink;
-assign data_tra_out = data_generator0.data_tra_out;
+assign data_tra_emulator_out = data_generator0.data_tra_emulator_out;
+assign start_write_emulator = mopshub0.tx_irq_elink;
 
 mopshub_top#(
 .max_cnt_size (5),
@@ -92,14 +91,13 @@ mopshub_top#(
 .data_uplink_out(data_uplink_out),        
 .endwait(),               
 .end_cnt_dbg(1'b0),
-//.irq_elink(irq_elink), 
+.irq_elink_rec(irq_elink), 
 .data_tra_uplink(data_tra_uplink),       
 .start_read_elink(start_read_elink),    
 .end_read_elink(end_read_elink),    
-.send_mes_can_done(send_mes_can_done), 
 .buffer_en(buffer_en), 
 .tx_elink2bit(tx_mopshub_2bit),
-.tx_elink1bit(), 
+.tx_elink1bit(tx_mopshub_1bit), 
 .priority_sig( ),         
 .rx0(rx0),        
 .rx1(rx1),        
@@ -149,7 +147,7 @@ data_generator#(
 //read data from Elink and send it to the bus
 .sel_ch(1'b1),
 .sel_bus(sel_bus),
-.bus_cnt(5'b0),
+.bus_cnt(5'b0),// test Bus 0
 .elink_test(elink_test),
 .irq_elink(irq_elink),
 .start_read_elink(start_read_elink),
@@ -159,9 +157,12 @@ data_generator#(
 .bus_id(bus_id),
 .buffer_en(buffer_en),
 .elink_test_done(elink_test_done),
-//.DEC_EDATA_OUT_8bit (DEC_EDATA_OUT_8bit),
+
 //EMCI EMulator
+.start_write_emulator(start_write_emulator),
 .tx_elink2bit(),
+.tx_elink1bit(),
+.rx_elink1bit(tx_mopshub_1bit),
 .rx_elink2bit(tx_mopshub_2bit));
 
 //////////****// Clock generation////////////////
@@ -189,9 +190,9 @@ always #50 clk = ~clk;
     if(end_sign_in ==1)//Done with Initialisation
     begin
       sel_bus=1'b1;
-      read_adc =1'b1;
+      //read_adc =1'b1;
       
-     // elink_test = 1'b1;
+      elink_test = 1'b1;
       start_data_gen =1'b0;
     end
     if(read_adc_end ==1)//Done with Read ADC
@@ -246,7 +247,7 @@ always #50 clk = ~clk;
       $strobe("*****************************************************************************");
       info_debug_sig = {""};
     end     
-    if(start_read_elink)
+    if(start_read_elink && elink_test)
     begin 
       info_debug_sig = $sformatf("<:       Transmit TX signals  [BUS ID %d ]  :>",bus_id);
     end  
