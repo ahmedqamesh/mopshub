@@ -147,7 +147,7 @@ data_generator#(
 //read data from Elink and send it to the bus
 .sel_ch(1'b1),
 .sel_bus(sel_bus),
-.bus_cnt(5'b0),// test Bus 0
+.bus_cnt(5'b1),// test Bus 0
 .elink_test(elink_test),
 .irq_elink(irq_elink),
 .start_read_elink(start_read_elink),
