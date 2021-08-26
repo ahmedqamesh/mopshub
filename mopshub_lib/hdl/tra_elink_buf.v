@@ -10,7 +10,7 @@
 
 `resetall
 `timescale 1ns/10ps
-module tra_elink_buf(
+module buffer_tra_elink(
    // Port Declarations
    input   wire           clk, 
    input   wire    [7:0]  data_tra_8bitin,   // 16-bit data from each traeive register of canakari

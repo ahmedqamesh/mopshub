@@ -10,7 +10,7 @@
 
 `resetall
 `timescale 1ns/10ps
-module canakari_rec_buffer(
+module buffer_rec_canakari(
    input   wire            clk, 
    input   wire    [4:0]  data_tra_in,   // input data from the SCB or Object Dictionary side
    input   wire            buffer_en,     // enable signal

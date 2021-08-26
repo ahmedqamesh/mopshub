@@ -41,7 +41,7 @@ assign rst_irq      = 16'h8070;
 assign gen_data     = 16'h9C; //16'b0000000010011100
 //assign can_tra_select = can_tra_reg;
 assign cmd  = {initi,read,write,bus_comp,reset_can};               //initi is active high while read and write are active low
-assign can_tra_select  = (cmd == 5'b11000 | cmd == 5'b01000) ? can_tra_reg: can_rec_reg;//can_tra_reg [write,init]
+assign can_tra_select  =can_tra_reg;//(cmd == 5'b11000 | cmd == 5'b01000) ? can_tra_reg: can_rec_reg;//can_tra_reg [write,init]
 ////This is purely combinational block to read and write values to Canakari node
 always@(*)
 begin
@@ -94,10 +94,10 @@ begin
 //                  5'b10010 : begin // Interrupt
 //                              write_can_reg = rst_irq; 
 //                             end
-                             
-                  5'b01111 : begin //Confirm bus Id
-                              can_tra_reg = data_tra_select; 
-                             end                           
+//                             
+//                  5'b01111 : begin //Confirm bus Id
+//                              can_tra_reg = data_tra_select; 
+//                             end                           
 
                   5'b01101 : begin  // Transmisigssion Control
                               write_can_reg = tra_control;
@@ -110,7 +110,7 @@ begin
                 endcase 
                end      
     5'b01001 :  begin     // reset Bus
-                can_tra_reg        = can_rec_select;
+                //can_tra_reg        = can_rec_select;
                 case(addr)
                              
                   5'b01110 : begin //general

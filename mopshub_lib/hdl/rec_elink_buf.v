@@ -11,7 +11,7 @@
 `resetall
 `timescale 1ns/10ps
 
-module rec_elink_buf( 
+module buffer_rec_elink( 
   // Port Declarations
   // input   wire            clk, 
   // input   wire            rst,

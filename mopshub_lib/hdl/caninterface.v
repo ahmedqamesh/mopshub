@@ -33,34 +33,28 @@ wire [15:0] gen_data;
 wire [4:0]  cmd;               // This is a 4 bit concatenated command of signals coming from the state machine i.e initial,read,write
 
 assign write_can = write_can_reg;
-
 assign can_tra_comp = can_tra_comp_reg;
 assign can_rec_comp = can_rec_comp_reg;
 assign tra_control  = 16'h8008; //16'b1 000000000 00 1000
 assign rst_irq      = 16'h8070;
 assign gen_data     = 16'h9C; //16'b0000000010011100
-//assign can_tra_select = can_tra_reg;
 assign cmd  = {initi,read,write,bus_comp,reset_can};               //initi is active high while read and write are active low
-assign can_tra_select  = (cmd == 5'b11000 | cmd == 5'b01000) ? can_tra_reg: can_rec_reg;//can_tra_reg [write,init]
+assign can_tra_select  =can_tra_reg;
 ////This is purely combinational block to read and write values to Canakari node
 always@(*)
 begin
   write_can_reg = 16'h0000;
-  //can_rec_reg  = can_rec_select;
   can_tra_reg  = data_tra_select;
   case(cmd)
     5'b11000 : begin
                write_can_reg = data_init;              // Initialize
-              // can_tra_reg  = data_tra_select;
               end
-              
+                            
     5'b00100 :  begin  // read canankari register.. Multiplexing for complete message in done rec_mes_buf register
                can_rec_reg = can_rec_select;
-
                end     
                                                 
     5'b01000 :  begin   // write canakari register 
-               // can_tra_reg        = data_tra_select;//data_tra_mes[28:24];// data_tra_mes[4:0];
                 case(addr)
                   5'b01100 : begin  // Transmission Identifier 1
                               write_can_reg[15:5] = data_tra_mes[74:64];
@@ -90,15 +84,6 @@ begin
                   5'b01110 : begin //general
                               write_can_reg = gen_data;
                              end 
-//                             
-//                  5'b10010 : begin // Interrupt
-//                              write_can_reg = rst_irq; 
-//                             end
-//                             
-//                  5'b01111 : begin //Confirm bus Id
-//                              can_tra_reg = data_tra_select; 
-//                             end                           
-
                   5'b01101 : begin  // Transmisigssion Control
                               write_can_reg = tra_control;
                              end
@@ -110,7 +95,6 @@ begin
                 endcase 
                end      
     5'b01001 :  begin     // reset Bus
-                can_tra_reg        = can_rec_select;
                 case(addr)
                              
                   5'b01110 : begin //general

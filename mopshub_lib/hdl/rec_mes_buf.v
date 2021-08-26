@@ -1,6 +1,6 @@
 `resetall
 `timescale 1ns/10ps
-module rec_data_buf( 
+module buffer_rec_data( 
    // Port Declarations
    input   wire            clk, 
    input   wire    [15:0]  data_rec_in,   // 16-bit data from each receive register of canakari
