@@ -16,11 +16,12 @@ wire            start_trim_sig;
 reg             start_data_gen= 1'b0;
 reg             test_rx = 1'b0;
 reg             test_tx = 1'b0;
-wire            test_tx_done;
+wire            test_tx_end;
+wire            test_tx_start;
 wire            start_write_tx;
-wire            read_adc_start;
-wire            read_adc_end;
-reg             test_elink_data=1'b0;
+wire            test_rx_start;
+wire            test_rx_end;
+reg             test_mopshub_core=1'b0;
 reg             sel_bus = 1'b0;
 // MOPSHUB signals
 wire    [75:0]  data_rec_uplink;
@@ -28,7 +29,6 @@ wire    [75:0]  data_tra_uplink;
 wire            reqmsg;
 wire            respmsg;
 wire    [4:0]   can_rec_select;
-wire            irq_can_rec;
 reg             start_read_elink =1'b1;
 wire            end_read_elink; 
 reg      [75:0] requestreg  = 75'h0;
@@ -38,7 +38,6 @@ wire     [75:0] data_rec_emulator_in;
 wire            irq_elink_tra;
 wire            irq_elink_rec;
 wire     [4:0]  can_tra_select;
-wire            irq_can_tra;
 wire            test_elink_data_done;  
 
 wire [1:0] tx_mopshub_2bit; 
@@ -69,8 +68,6 @@ wire            tx1;
 assign osc_auto_trim =1'b0;                    ////Active high. Enable /disable automated trimming. If disabled then take care of ftrim_pads_reg
 
 /// Top level instantiation
-assign irq_can_rec = mopshub0.irq_can_rec;
-assign irq_can_tra = mopshub0.irq_can_tra;
 assign can_tra_select = mopshub0.can_tra_select;
 assign can_rec_select = mopshub0.can_rec_select;
 assign data_rec_uplink = mopshub0.data_rec_uplink;
@@ -84,15 +81,12 @@ mopshub_top#(
 .n_buses (5'b01))mopshub0(
 .clk(clk),
 .rst(rst), 
-.start_init(start_init),             
-.endwait(),               
-.end_cnt_dbg(1'b0),
-.data_tra_uplink_dbg(data_rec_emulator_in),               
+.start_init(start_init),                            
+.end_cnt_dbg(1'b0),               
 .tx_elink2bit(tx_mopshub_2bit),
 .tx_elink1bit(tx_mopshub_1bit),
 .rx_elink1bit(rx_mopshub_1bit),
-.rx_elink2bit(rx_mopshub_2bit),
-.priority_sig( ),         
+.rx_elink2bit(rx_mopshub_2bit),        
 .rx0(rx0),        
 .rx1(rx1),        
 //.rx2(rx2),        
@@ -125,10 +119,11 @@ data_generator#(
 //Read ADC channels from MOPS and send it to MOPSHUB rx
 .test_rx(test_rx),
 .test_tx(test_tx),
-.test_tx_done(test_tx_done),
+.test_tx_end(test_tx_end),
 .start_write_emulator(start_write_tx),
-.read_adc_start(read_adc_start),
-.read_adc_end(read_adc_end),
+.test_rx_start(test_rx_start),
+.test_rx_end(test_rx_end),
+.test_tx_start(test_tx_start),
 .respmsg(respmsg),
 .reqmsg(reqmsg),
 .adc_ch(adc_ch),  
@@ -145,7 +140,7 @@ data_generator#(
 .sel_ch(1'b1),
 .sel_bus(sel_bus),
 .bus_cnt(5'b0),// test Bus 0
-.test_elink_data(test_elink_data),
+.test_mopshub_core(test_mopshub_core),
 .start_read_elink(start_read_elink),
 .end_read_elink(end_read_elink),
 .irq_can_ack(1'b0),
@@ -185,19 +180,19 @@ always #50 clk = ~clk;
       sel_bus=1'b0;
       test_rx =1'b1;
      
-      //test_elink_data = 1'b1;
+      //test_mopshub_core = 1'b1;
       start_data_gen =1'b0;
     end
-    if(read_adc_end ==1)//Done Rx test
+    if(test_rx_end ==1)//Done Rx test
     begin
       test_rx =1'b0;
-      test_elink_data =1'b0;
+      test_mopshub_core =1'b0;
       test_tx =1'b1; 
     end
     if (test_elink_data_done == 1)//Done Elink test 
-    test_elink_data =1'b0; 
+    test_mopshub_core =1'b0; 
     
-    if (test_tx_done ==1)//Done Tx test
+    if (test_tx_end ==1)//Done Tx test
     test_tx =1'b0;
   end
   
@@ -234,22 +229,27 @@ always #50 clk = ~clk;
       $strobe("*****************************************************************************");
       info_debug_sig = {""};
     end
-    if(read_adc_start)
+    if(test_rx_start)
     begin 
-      info_debug_sig = $sformatf("<:       RX signals   [BUS ID %d ]  :>",bus_id);
+      info_debug_sig = $sformatf("<:RX signals   [BUS ID %d ]  :>",bus_id);
     end 
-    if(read_adc_end)
+    if(test_rx_end)
     begin 
       $strobe("*****************************************************************************");
       info_debug_sig = {""};
     end     
+    if(test_tx_end)
+    begin 
+      $strobe("*****************************************************************************");
+      info_debug_sig = {""};
+    end 
     if (start_write_tx && test_tx)
     begin 
-      info_debug_sig = $sformatf("<:       TX signals  [BUS ID %d ]  :>",bus_id);
+      info_debug_sig = $sformatf("<:TX signals  [BUS ID %d ]  :>",bus_id);
     end     
-    if(start_read_elink && test_elink_data)
+    if(start_read_elink && test_mopshub_core)
     begin 
-      info_debug_sig = $sformatf("<:       Elink test  [BUS ID %d ]  :>",bus_id);
+      info_debug_sig = $sformatf("<:Elink test  [BUS ID %d ]  :>",bus_id);
     end  
     //test RX part 
     else if (respmsg && test_rx)
@@ -262,22 +262,22 @@ always #50 clk = ~clk;
       requestreg <= data_rec_uplink; 
     end
     //Test Elink
-    else if (respmsg && (test_elink_data || test_tx))
+    else if (respmsg && (test_mopshub_core || test_tx))
     begin
       responsereg <= data_rec_uplink;
       $strobeh("\t Transmit TX signals [BUS ID %d]: \t request %h \t response %h\t Emulator_in %h",bus_id,requestreg,responsereg, data_rec_emulator_in);
     end
-    else if(reqmsg && (test_elink_data || test_tx))
+    else if(reqmsg && (test_mopshub_core || test_tx))
     begin
       requestreg <= data_tra_uplink; 
     end
     //Default
-    else if (respmsg && !test_elink_data && !test_rx && !test_tx)
+    else if (respmsg && !test_mopshub_core && !test_rx && !test_tx)
     begin
       responsereg <= data_rec_uplink;
       $strobeh("\t Sign-In Signals [BUS ID %d]: \t request %h \t response %h \t Emulator_out %h",bus_id,requestreg,responsereg,data_tra_emulator_out);
     end
-    else if(reqmsg && !test_elink_data && !test_rx&& !test_tx)
+    else if(reqmsg && !test_mopshub_core && !test_rx&& !test_tx)
     begin
       requestreg <= data_rec_uplink; 
     end
