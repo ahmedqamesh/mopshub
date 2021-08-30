@@ -219,7 +219,7 @@ always #50 clk = ~clk;
     end  
     if(start_sign_in)
     begin 
-      #500
+      #10
       $strobe("*****************************************************************************");
       info_debug_sig = {"<:Signing in [BUS ID ",$sformatf("%h",bus_id)," ]:>"};
       $strobeh("\t Sign-in message [BUS ID %d ]  :",bus_id);
@@ -240,7 +240,7 @@ always #50 clk = ~clk;
     end     
     if(test_tx_end)
     begin 
-      #50
+      #10
       $strobe("*****************************************************************************");
       info_debug_sig = {""};
     end 

@@ -71,7 +71,7 @@ value "/home/dcs/git/mopshub/mopshub_lib/hds/fifo_RXelink_wrap"
 )
 (vvPair
 variable "date"
-value "08/16/21"
+value "08/30/21"
 )
 (vvPair
 variable "day"
@@ -83,7 +83,7 @@ value "Monday"
 )
 (vvPair
 variable "dd"
-value "16"
+value "30"
 )
 (vvPair
 variable "entity_name"
@@ -111,7 +111,7 @@ value "dcs"
 )
 (vvPair
 variable "graphical_source_date"
-value "08/16/21"
+value "08/30/21"
 )
 (vvPair
 variable "graphical_source_group"
@@ -123,7 +123,7 @@ value "chipdev2.physik.uni-wuppertal.de"
 )
 (vvPair
 variable "graphical_source_time"
-value "18:11:44"
+value "16:44:12"
 )
 (vvPair
 variable "group"
@@ -243,7 +243,7 @@ value "struct"
 )
 (vvPair
 variable "time"
-value "18:11:44"
+value "16:44:12"
 )
 (vvPair
 variable "unit"
@@ -341,8 +341,7 @@ font "courier,8,0"
 xt "-7000,2500,9500,5200"
 st "// -----------------------------
 // ------ General Interface ----
-wire bitClk;
-"
+wire bitClk;"
 )
 )
 *3 (PortIoIn
@@ -408,8 +407,7 @@ va (VaSet
 font "courier,8,0"
 )
 xt "-7000,6100,3500,7000"
-st "wire        din_rdy;
-"
+st "wire        din_rdy;"
 )
 )
 *5 (PortIoOut
@@ -565,8 +563,7 @@ va (VaSet
 font "courier,8,0"
 )
 xt "-7000,10600,5000,11500"
-st "wire        flush_fifo;
-"
+st "wire        flush_fifo;"
 )
 )
 *9 (PortIoOut
@@ -768,8 +765,7 @@ va (VaSet
 font "courier,8,0"
 )
 xt "-7000,12400,2500,13300"
-st "wire        reset;
-"
+st "wire        reset;"
 )
 )
 *14 (Grouping
@@ -1123,8 +1119,7 @@ va (VaSet
 font "courier,8,0"
 )
 xt "-7000,17800,6000,18700"
-st "reg [9:0]   din_fifo = 0;
-"
+st "reg [9:0]   din_fifo = 0;"
 )
 )
 *26 (GlobalConnector
@@ -1195,10 +1190,10 @@ va (VaSet
 isHidden 1
 font "courier,8,0"
 )
-xt "22200,43200,37700,47700"
+xt "22200,43200,38200,47700"
 st "
 //what to write into the FIFO?
-always@(posedge bitClk)
+always@(posedge fifo_wr_clk )//bitClk)
 if (reset)
 begin
   wr_en_fifo      <= 1'b0;
@@ -1241,6 +1236,7 @@ begin
     flag_pack <= flag_pack;
   end 
 end
+
 
 
 
@@ -1386,8 +1382,7 @@ va (VaSet
 font "courier,8,0"
 )
 xt "-7000,5200,1500,6100"
-st "wire [9:0]  din;
-"
+st "wire [9:0]  din;"
 )
 )
 *34 (Net
@@ -1406,8 +1401,7 @@ va (VaSet
 font "courier,8,0"
 )
 xt "-7000,20500,7000,21400"
-st "reg         wr_en_fifo = 0;
-"
+st "reg         wr_en_fifo = 0;"
 )
 )
 *35 (Net
@@ -1426,8 +1420,7 @@ va (VaSet
 font "courier,8,0"
 )
 xt "-7000,18700,6500,19600"
-st "reg         flag_pack = 0;
-"
+st "reg         flag_pack = 0;"
 )
 )
 *36 (SaComponent
@@ -1974,8 +1967,7 @@ va (VaSet
 font "courier,8,0"
 )
 xt "-7000,9700,5500,10600"
-st "wire        fifo_wr_clk;
-"
+st "wire        fifo_wr_clk;"
 )
 )
 *53 (Net
@@ -1999,8 +1991,7 @@ font "courier,8,0"
 xt "-7000,7000,9000,9700"
 st "// ----------------------------
 // --- User Logic Interface ---
-wire fifo_rd_clk;
-"
+wire fifo_rd_clk;"
 )
 )
 *54 (Net
@@ -2020,8 +2011,7 @@ va (VaSet
 font "courier,8,0"
 )
 xt "-7000,15100,4500,16000"
-st "wire        full_fifo;
-"
+st "wire        full_fifo;"
 )
 )
 *55 (Net
@@ -2041,8 +2031,7 @@ va (VaSet
 font "courier,8,0"
 )
 xt "-7000,14200,5000,15100"
-st "wire        empty_fifo;
-"
+st "wire        empty_fifo;"
 )
 )
 *56 (Net
@@ -2063,8 +2052,7 @@ va (VaSet
 font "courier,8,0"
 )
 xt "-7000,13300,4500,14200"
-st "wire [9:0]  dout_fifo;
-"
+st "wire [9:0]  dout_fifo;"
 )
 )
 *57 (Net
@@ -2082,8 +2070,7 @@ va (VaSet
 font "courier,8,0"
 )
 xt "-7000,19600,7000,20500"
-st "wire        prog_full_fifo;
-"
+st "wire        prog_full_fifo;"
 )
 )
 *58 (Net
@@ -2101,8 +2088,7 @@ va (VaSet
 font "courier,8,0"
 )
 xt "-7000,16900,8000,17800"
-st "wire        almost_full_fifo;
-"
+st "wire        almost_full_fifo;"
 )
 )
 *59 (Net
@@ -2122,8 +2108,7 @@ va (VaSet
 font "courier,8,0"
 )
 xt "-7000,11500,5000,12400"
-st "wire        rd_en_fifo;
-"
+st "wire        rd_en_fifo;"
 )
 )
 *60 (Wire
@@ -2918,12 +2903,12 @@ tm "BdCompilerDirectivesTextMgr"
 ]
 associable 1
 )
-windowSize "1912,41,3848,1050"
-viewArea "2942,5158,129049,66849"
+windowSize "2107,347,3563,1102"
+viewArea "-20952,5200,61659,44328"
 cachedDiagramExtent "-9000,0,74500,51000"
 hasePageBreakOrigin 1
 pageBreakOrigin "-10000,0"
-lastUid 2578,0
+lastUid 2625,0
 defaultCommentText (CommentText
 shape (Rectangle
 layer 0

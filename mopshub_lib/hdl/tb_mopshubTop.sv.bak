@@ -73,7 +73,7 @@ assign can_rec_select = mopshub0.can_rec_select;
 assign data_rec_uplink = mopshub0.data_rec_uplink;
 assign data_tra_uplink = mopshub0.data_tra_uplink;
 
-assign data_tra_emulator_out = data_generator0.data_tra_emulator_out;
+assign data_tra_emulator_out = data_generator0.data_tra_76bit_reg;
 assign data_rec_emulator_in = data_generator0.data_rec_76bit_reg;
 assign irq_elink_tra = mopshub0.irq_elink_tra;
 assign irq_elink_rec = mopshub0.irq_elink_rec;
@@ -219,7 +219,7 @@ always #50 clk = ~clk;
     end  
     if(start_sign_in)
     begin 
-      #500
+      #50
       $strobe("*****************************************************************************");
       info_debug_sig = {"<:Signing in [BUS ID ",$sformatf("%h",bus_id)," ]:>"};
       $strobeh("\t Sign-in message [BUS ID %d ]  :",bus_id);
