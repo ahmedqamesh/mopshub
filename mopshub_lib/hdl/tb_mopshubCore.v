@@ -12,7 +12,7 @@
 `timescale 1ns/10ps
 module tb_mopshubCore ;
 reg             clk = 1'b0;
-reg             rst   = 1'b1;
+reg             rst = 1'b1;
 wire            start_init;
 wire            osc_auto_trim;
 string          info_debug_sig;     
@@ -26,9 +26,6 @@ wire            start_trim_sig;
 reg             start_data_gen= 1'b0;
 reg             test_rx = 1'b0;
 reg             test_tx = 1'b0;
-//wire            test_tx_end;
-//wire            test_tx_start;
-//wire            start_write_tx;
 wire            test_rx_start;
 wire            test_rx_end;
 reg             test_mopshub_core=1'b0;
@@ -79,7 +76,7 @@ assign irq_can_tra = mopshub_core0.irq_can_tra;
 assign can_tra_select = mopshub_core0.can_tra_select;
 assign can_rec_select = mopshub_core0.can_rec_select;
 assign irq_elink_tra = data_generator0.irq_elink;
-
+assign data_tra_uplink = data_generator0.bus_payload;
 
 mopshub_core#(
 .max_cnt_size (5),
@@ -128,15 +125,10 @@ data_generator#(
 .test_rx(test_rx),
 .test_rx_start(test_rx_start),
 .test_rx_end(test_rx_end),
-.start_write_emulator( ),
-.test_tx(),
-.test_tx_start(),
-.test_tx_end( ),
 .test_mopshub_core(test_mopshub_core),
 .start_read_elink(start_read_elink),
 .end_read_elink(end_read_elink),
 .test_elink_data_done(test_elink_data_done),
-
 .respmsg(respmsg),
 .reqmsg(reqmsg),
 .adc_ch(adc_ch),  
@@ -153,16 +145,9 @@ data_generator#(
 .sel_ch(1'b1),
 .sel_bus(sel_bus),
 .bus_cnt(5'b0),// test Bus 0
-
 .irq_can_ack(irq_can_ack),
-.bus_payload(data_tra_uplink),
 .bus_id(bus_id),
-.buffer_en(buffer_en),
-//EMCI EMulator
-.tx_elink1bit(),
-.tx_elink2bit(),
-.rx_elink1bit(),
-.rx_elink2bit());
+.buffer_en(buffer_en));
 //////////****// Clock generation////////////////
 always #50 clk = ~clk;   
 //////////////////////////////////////////////// 
@@ -188,9 +173,9 @@ always #50 clk = ~clk;
     if(end_sign_in ==1)//Done with Initialisation
     begin
       sel_bus=1'b0;
-     // test_rx =1'b1;
+      test_rx =1'b1;
      
-      test_mopshub_core = 1'b1;
+//      test_mopshub_core = 1'b1;
       start_data_gen =1'b0;
     end
     if(test_rx_end ==1)//Done Rx test
@@ -225,7 +210,7 @@ always #50 clk = ~clk;
     end  
     if(start_sign_in)
     begin 
-      #500
+      #50
       $strobe("*****************************************************************************");
       info_debug_sig = {"<:Signing in [BUS ID ",$sformatf("%h",bus_id)," ]:>"};
       $strobeh("\t Sign-in message [BUS ID %d ]  :",bus_id);
@@ -576,6 +561,7 @@ always #50 clk = ~clk;
           else
           begin
             $display("Current simulation time is: ", $realtime);
+            $strobe("Status BAD *************************************************************************** Status BAD%h",requestreg);
             $strobe("Status BAD *************************************************************************** Status BAD%h",responsereg);
             $strobe("************MOPS reponded to a random message. The reponse must be checked");
             failures += 1;

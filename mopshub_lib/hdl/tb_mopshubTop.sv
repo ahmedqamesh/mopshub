@@ -73,7 +73,8 @@ assign can_rec_select = mopshub0.can_rec_select;
 assign data_rec_uplink = mopshub0.data_rec_uplink;
 assign data_tra_uplink = mopshub0.data_tra_uplink;
 
-assign data_tra_emulator_out = data_generator0.data_tra_emulator_out;
+assign data_tra_emulator_out = data_generator0.data_tra_76bit_reg;
+assign data_rec_emulator_in = data_generator0.data_rec_76bit_reg;
 assign irq_elink_tra = mopshub0.irq_elink_tra;
 assign irq_elink_rec = mopshub0.irq_elink_rec;
 mopshub_top#(
@@ -144,7 +145,6 @@ data_generator#(
 .start_read_elink(start_read_elink),
 .end_read_elink(end_read_elink),
 .irq_can_ack(1'b0),
-.bus_payload(data_rec_emulator_in),
 .bus_id(bus_id),
 .buffer_en(),
 .test_elink_data_done(test_elink_data_done),
@@ -178,8 +178,8 @@ always #50 clk = ~clk;
     if(end_sign_in ==1)//Done with Initialisation
     begin
       sel_bus=1'b0;
-      test_rx =1'b1;
-     
+     // test_rx =1'b1;
+      test_tx =1'b1;
       //test_mopshub_core = 1'b1;
       start_data_gen =1'b0;
     end
@@ -240,6 +240,7 @@ always #50 clk = ~clk;
     end     
     if(test_tx_end)
     begin 
+      #50
       $strobe("*****************************************************************************");
       info_debug_sig = {""};
     end 
@@ -291,7 +292,7 @@ always #50 clk = ~clk;
       #500
       casez(requestreg)
         75'h0: begin    //////// Reset requestreg////
-          if(responsereg inside {{43'h701?5000000,bus_id,24'h0}})//{75'h701 ?500 0000 0000 0000})
+          if(responsereg inside {{43'h701?5000000,bus_id,24'h0}})
           begin                     
             $strobe("Status GOOD [BUS ID %d]-Reset request",bus_id);
           end 
@@ -302,7 +303,7 @@ always #50 clk = ~clk;
             failures += 1;
           end  
         end
-        75'h701??00000000000000:   //////// Node guard / status ////
+        75'h701??00000000000000: 
         begin 
           if(responsereg == 75'h701?500000000000000)
           $strobe("Status GOOD");
@@ -460,7 +461,7 @@ always #50 clk = ~clk;
         end
         75'h6014020010000000000:
         begin 
-          if(responsereg == {75'h58143200100000000,2'b00,000000})//I replaced adc_trim here
+          if(responsereg == {75'h58143200100000000,2'b00,000000})
           $strobe("Status GOOD");
           else
           begin
@@ -469,9 +470,9 @@ always #50 clk = ~clk;
             failures += 1;
           end
         end
-        {43'h60140200200,bus_id,8'h0,16'h0}://75'h6014020020000000000:
+        {43'h60140200200,bus_id,8'h0,16'h0}:
         begin 
-          if(responsereg == {43'h58143200200,bus_id,24'h01})// {75'h58143200200000000,8'h01})
+          if(responsereg == {43'h58143200200,bus_id,24'h01})
           $strobe("Status GOOD [BUS ID %d]- Sign-in test",bus_id);
           else
           begin
@@ -480,9 +481,9 @@ always #50 clk = ~clk;
             failures += 1;
           end
         end
-        {43'h60140200300,bus_id,8'h0,16'h0}: //75'h601 40200300 00 000000:
+        {43'h60140200300,bus_id,8'h0,16'h0}: 
         begin 
-          if(responsereg == {43'h58143200300,bus_id,24'h01})// {75'h58143200300000000,8'h01})
+          if(responsereg == {43'h58143200300,bus_id,24'h01})
           $strobe("Status GOOD [BUS ID %d]- Sign-in test",bus_id);
           else
           begin
@@ -491,9 +492,9 @@ always #50 clk = ~clk;
             failures += 1;
           end
         end
-        {43'h60140200400,bus_id,8'h0,16'h0}: //75'h6014020040000000000:
+        {43'h60140200400,bus_id,8'h0,16'h0} :
         begin 
-          if(responsereg == {43'h58143200400,bus_id,24'h00})//{75'h5814320040000000000,8'h01})
+          if(responsereg == {43'h58143200400,bus_id,24'h00})
           $strobe("Status GOOD [BUS ID %d]- Sign-in test",bus_id);
           else
           begin
@@ -505,16 +506,26 @@ always #50 clk = ~clk;
         // Check TX- Test
         {43'h60140??240?,3'h0,can_tra_select,8'h0,16'h0}:begin
           if(responsereg inside{ {43'h5818000240?,3'h0,can_tra_select,24'h???}})
-          $strobe("Status GOOD [BUS ID %d] - Elink Test",bus_id);
+          $strobe("Status GOOD [BUS ID %d] - TX Test",bus_id);
           else
           begin
             $display("Current simulation time is: ", $realtime);
-            $strobe("Status BAD ********************************[Elink Test****************************** Status BAD %h",responsereg);
+            $strobe("Status BAD ********************************[TX Test****************************** Status BAD %h",responsereg);
             $strobe("******************** Please check SDO abort codes to understand why write operation failed");
             failures += 1;
           end
         end
-        
+        {43'h60140??401?,3'h0,can_tra_select,8'h0,16'h0}:begin
+          if(responsereg inside{ {43'h5818000401?,3'h0,can_tra_select,24'h???}})
+          $strobe("Status GOOD [BUS ID %d] - TX Test",bus_id);
+          else
+          begin
+            $display("Current simulation time is: ", $realtime);
+            $strobe("Status BAD ********************************[TX Test****************************** Status BAD %h",responsereg);
+            $strobe("******************** Please check SDO abort codes to understand why write operation failed");
+            failures += 1;
+          end
+        end        
         {43'h60140210000,bus_id,8'h0,16'h0}: //75'h6014021000000000000:
         begin 
           if(responsereg == {43'h58143210000,bus_id,24'h00})//75'h581 43 21 0000 0000 0000)
@@ -522,7 +533,7 @@ always #50 clk = ~clk;
           else
           begin
             $display("Current simulation time is: ", $realtime);
-            $strobe("Status BAD ***************************************************************************** Status BAD");
+            $strobe("Status BAD *************************-RX test-**************************************** Status BAD");
             failures += 1;
           end
         end
@@ -579,7 +590,8 @@ always #50 clk = ~clk;
           else
           begin
             $display("Current simulation time is: ", $realtime);
-            $strobe("Status BAD ***************************************************************************** Status BAD%h",responsereg);
+            $strobe("Status BAD *************************************************************************** Status BAD%h",requestreg);
+            $strobe("Status BAD *************************************************************************** Status BAD%h",responsereg);
             $strobe("************MOPS reponded to a random message. The reponse must be checked");
             failures += 1;
           end
