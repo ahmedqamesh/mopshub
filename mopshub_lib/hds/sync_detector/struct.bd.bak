@@ -116,7 +116,7 @@ value "chipdev2.physik.uni-wuppertal.de"
 )
 (vvPair
 variable "graphical_source_time"
-value "16:03:52"
+value "16:05:07"
 )
 (vvPair
 variable "group"
@@ -236,7 +236,7 @@ value "struct"
 )
 (vvPair
 variable "time"
-value "16:03:52"
+value "16:05:07"
 )
 (vvPair
 variable "unit"
@@ -667,16 +667,17 @@ assign  bitstream_align1 = (reverse_stream_10b == 0)     ?    EDATAbitstreamSREG
 //synchronization                                     
 // attempting to align on two ksel characters, BC(K.28.5 is a comma symbol) and 3C(K.28.1)  they arrive as BC in the lower byte and 3C in the upper byte. 
 //1 10bit-word per alignment, comma is valid if two first words have comma...
-if (GENERATE_FEI4B == 0) 
-  begin:GBT_mode
+if (generate_mopshub == 0) 
+  begin:EMCI_mode
     assign comma_valid_bits[0] = (bitstream_align0 == COMMAp | bitstream_align0== COMMAn) ? 1:0;
     assign comma_valid_bits[1] = (bitstream_align1 == COMMAp | bitstream_align1== COMMAn) ? 1:0;
   end
 else
-  begin:MOPS
+  begin:MOPSHUB_mode
     assign comma_valid_bits[0] = (bitstream_align0 == FEI4B_COMMAp | bitstream_align0== FEI4B_COMMAn) ? 1:0;
     assign comma_valid_bits[1] = (bitstream_align1 == FEI4B_COMMAp | bitstream_align1== FEI4B_COMMAn) ? 1:0;
   end
+
 
 
 

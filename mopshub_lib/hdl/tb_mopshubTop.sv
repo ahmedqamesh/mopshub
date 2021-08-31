@@ -82,7 +82,8 @@ mopshub_top#(
 .n_buses (5'b01))mopshub0(
 .clk(clk),
 .rst(rst), 
-.start_init(start_init),                            
+.start_init(start_init),  
+.power_bus_on(1'b0),                          
 .end_cnt_dbg(1'b0),               
 .tx_elink2bit(tx_mopshub_2bit),
 .tx_elink1bit(tx_mopshub_1bit),
@@ -178,8 +179,8 @@ always #50 clk = ~clk;
     if(end_sign_in ==1)//Done with Initialisation
     begin
       sel_bus=1'b0;
-      //test_rx =1'b1;
-      test_tx =1'b1;
+      test_rx =1'b1;
+      // test_tx =1'b1;
       //test_mopshub_core = 1'b1;
       start_data_gen =1'b0;
     end

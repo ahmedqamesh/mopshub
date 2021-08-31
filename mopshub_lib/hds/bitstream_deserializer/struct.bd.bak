@@ -85,19 +85,19 @@ value "/home/dcs/git/mopshub/mopshub_lib/hds/bitstream_deserializer"
 )
 (vvPair
 variable "date"
-value "08/11/21"
+value "08/31/21"
 )
 (vvPair
 variable "day"
-value "Wed"
+value "Tue"
 )
 (vvPair
 variable "day_long"
-value "Wednesday"
+value "Tuesday"
 )
 (vvPair
 variable "dd"
-value "11"
+value "31"
 )
 (vvPair
 variable "entity_name"
@@ -125,7 +125,7 @@ value "dcs"
 )
 (vvPair
 variable "graphical_source_date"
-value "08/11/21"
+value "08/31/21"
 )
 (vvPair
 variable "graphical_source_group"
@@ -137,7 +137,7 @@ value "chipdev2.physik.uni-wuppertal.de"
 )
 (vvPair
 variable "graphical_source_time"
-value "12:40:52"
+value "17:02:19"
 )
 (vvPair
 variable "group"
@@ -257,7 +257,7 @@ value "struct"
 )
 (vvPair
 variable "time"
-value "12:40:52"
+value "17:02:19"
 )
 (vvPair
 variable "unit"
@@ -661,7 +661,7 @@ va (VaSet
 font "courier,8,0"
 )
 xt "-5500,28550,1000,29450"
-st "swap_tx_bits"
+st "swap_rx_bits"
 ju 2
 blo "1000,29250"
 tm "WireNameMgr"
@@ -697,14 +697,15 @@ font "courier,8,0"
 xt "14200,39200,31700,43700"
 st "
   // buffer the output data
-always @ (swap_tx_bits, DATA_IN)//bit swapping on a GBT frame level
+always @ (swap_rx_bits, DATA_IN)//bit swapping on a GBT frame level
 begin
-  if (swap_tx_bits)
+  if (swap_rx_bits)
   edata_in_r = {DATA_IN[0],DATA_IN[1]};
   else     
   edata_in_r = DATA_IN;
 end
   
+
 
 
 
@@ -1066,6 +1067,7 @@ n "din"
 t "wire"
 b "[din_bit_size -1:0]"
 eolc "// Declare input for data to the first flop in the shift register"
+preAdd 0
 posAdd 0
 o 1
 )
@@ -1106,15 +1108,16 @@ n "dout"
 t "wire"
 b "[dout_bit_size-1:0]"
 preAdd 0
+posAdd 0
 o 6
 )
 )
 )
 *28 (CptPort
-uid 887,0
+uid 1001,0
 ps "OnEdgeStrategy"
 shape (Triangle
-uid 888,0
+uid 1002,0
 ro 90
 va (VaSet
 vasetType 1
@@ -1123,28 +1126,29 @@ fg "0,65535,0"
 xt "37250,20625,38000,21375"
 )
 tg (CPTG
-uid 889,0
+uid 1003,0
 ps "CptPortTextPlaceStrategy"
 stg "VerticalLayoutStrategy"
 f (Text
-uid 890,0
+uid 1004,0
 va (VaSet
 font "courier,8,0"
 )
-xt "39000,20550,41500,21450"
-st "reset"
+xt "39000,20550,40500,21450"
+st "rst"
 blo "39000,21250"
 )
 )
 thePort (LogicalPort
 lang 5
 decl (Decl
-n "reset"
+n "rst"
 t "wire"
 eolc "// Declare input to reset the register to a default value"
+preAdd 0
 posAdd 0
 o 5
-suid 11,0
+suid 5,0
 )
 )
 )
@@ -1530,68 +1534,69 @@ tm "WireNameMgr"
 )
 )
 *43 (Net
-uid 793,0
+uid 952,0
 lang 5
 decl (Decl
-n "swap_tx_bits"
+n "swap_rx_bits"
 t "wire"
 o 4
-suid 16,0
+suid 18,0
 )
 declText (MLText
-uid 794,0
+uid 953,0
 va (VaSet
 font "courier,8,0"
 )
 xt "2000,4500,15500,5400"
-st "wire         swap_tx_bits;
+st "wire         swap_rx_bits;
 "
 )
 )
 *44 (Net
-uid 891,0
+uid 1005,0
 lang 5
 decl (Decl
-n "reset"
+n "rst"
 t "wire"
 eolc "// Declare input to reset the register to a default value"
+preAdd 0
 posAdd 0
 o 11
-suid 17,0
+suid 19,0
 )
 declText (MLText
-uid 892,0
+uid 1006,0
 va (VaSet
 font "courier,8,0"
 )
-xt "2000,3600,41000,4500"
-st "wire         reset; // Declare input to reset the register to a default value
+xt "2000,3600,40000,4500"
+st "wire         rst; // Declare input to reset the register to a default value
 "
 )
 )
 *45 (PortIoIn
-uid 899,0
+uid 1013,0
 shape (CompositeShape
-uid 900,0
+uid 1014,0
 va (VaSet
 vasetType 1
 fg "0,0,32768"
 )
 optionalChildren [
 (Pentagon
-uid 901,0
+uid 1015,0
 sl 0
 ro 270
-xt "33000,20625,34500,21375"
+xt "32000,20625,33500,21375"
 )
 (Line
-uid 902,0
+uid 1016,0
 sl 0
 ro 270
-xt "34500,21000,35000,21000"
+xt "33500,21000,34000,21000"
 pts [
-"34500,21000"
-"35000,21000"
+"33500,21000"
+"34000,21000"
 ]
 )
 ]
@@ -1599,18 +1604,18 @@ pts [
 stc 0
 sf 1
 tg (WTG
-uid 903,0
+uid 1017,0
 ps "PortIoTextPlaceStrategy"
 stg "STSignalDisplayStrategy"
 f (Text
-uid 904,0
+uid 1018,0
 va (VaSet
 font "courier,8,0"
 )
-xt "29500,20550,32000,21450"
-st "reset"
+xt "29500,20550,31000,21450"
+st "rst"
 ju 2
-blo "32000,21250"
+blo "31000,21250"
 tm "WireNameMgr"
 )
 )
@@ -1646,7 +1651,7 @@ isHidden 1
 font "courier,8,0"
 )
 xt "5000,28100,11500,29000"
-st "swap_tx_bits"
+st "swap_rx_bits"
 blo "5000,28800"
 tm "WireNameMgr"
 )
@@ -2004,15 +2009,15 @@ tm "WireNameMgr"
 on &34
 )
 *56 (Wire
-uid 893,0
+uid 1007,0
 shape (OrthoPolyLine
-uid 894,0
+uid 1008,0
 va (VaSet
 vasetType 3
 )
-xt "35000,21000,37250,21000"
+xt "34000,21000,37250,21000"
 pts [
-"35000,21000"
+"34000,21000"
 "37250,21000"
 ]
 )
@@ -2025,18 +2030,18 @@ st 0
 sf 1
 si 0
 tg (WTG
-uid 897,0
+uid 1011,0
 ps "ConnStartEndStrategy"
 stg "STSignalDisplayStrategy"
 f (Text
-uid 898,0
+uid 1012,0
 va (VaSet
 isHidden 1
 font "courier,8,0"
 )
-xt "34000,20100,36500,21000"
-st "reset"
-blo "34000,20800"
+xt "35000,20100,36500,21000"
+st "rst"
+blo "35000,20800"
 tm "WireNameMgr"
 )
 )
@@ -2152,11 +2157,11 @@ tm "BdCompilerDirectivesTextMgr"
 associable 1
 )
 windowSize "3832,13,5768,1088"
-viewArea "-3814,6700,54428,37436"
+viewArea "10612,10200,58576,36296"
 cachedDiagramExtent "-5500,0,69000,51000"
 hasePageBreakOrigin 1
 pageBreakOrigin "-69000,0"
-lastUid 906,0
+lastUid 1020,0
 defaultCommentText (CommentText
 shape (Rectangle
 layer 0
@@ -3212,7 +3217,7 @@ tm "BdDeclarativeTextMgr"
 )
 commonDM (CommonDM
 ldm (LogicalDM
-suid 17,0
+suid 19,0
 usingSuid 1
 emptyRow *88 (LEmptyRow
 )
@@ -3395,25 +3400,25 @@ uid 275,0
 port (LogicalPort
 lang 5
 decl (Decl
-n "swap_tx_bits"
+n "swap_rx_bits"
 t "wire"
 o 4
-suid 16,0
+suid 18,0
 )
 )
-uid 795,0
+uid 954,0
 )
 *113 (LeafLogPort
 port (LogicalPort
 lang 5
 decl (Decl
-n "reset"
+n "rst"
 t "wire"
 o 11
-suid 17,0
+suid 19,0
 )
 )
-uid 905,0
+uid 1019,0
 )
 ]
 )
@@ -3523,13 +3528,13 @@ uid 276,0
 litem &112
 pos 9
 dimension 20
-uid 796,0
+uid 955,0
 )
 *129 (MRCItem
 litem &113
 pos 10
 dimension 20
-uid 906,0
+uid 1020,0
 )
 ]
 )

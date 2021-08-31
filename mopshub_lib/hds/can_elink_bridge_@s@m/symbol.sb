@@ -11,7 +11,7 @@ appVersion "2019.4 (Build 4)"
 model (Symbol
 commonDM (CommonDM
 ldm (LogicalDM
-suid 82,0
+suid 86,0
 usingSuid 1
 emptyRow *1 (LEmptyRow
 )
@@ -61,7 +61,7 @@ decl (Decl
 n "abort_mes"
 t "reg"
 eolc "Signals other state machines to come to a known statte "
-o 17
+o 19
 suid 29,0
 )
 )
@@ -75,7 +75,7 @@ decl (Decl
 n "entimeout"
 t "reg"
 eolc "enable for timeout reset counter "
-o 20
+o 23
 suid 40,0
 )
 )
@@ -88,7 +88,7 @@ decl (Decl
 n "timeoutrst"
 t "wire"
 eolc "timeout reset in case bridge controller does not respond in a specied amount of time "
-o 16
+o 18
 suid 41,0
 )
 )
@@ -102,7 +102,7 @@ decl (Decl
 n "statedeb"
 t "reg"
 b "[4:0]"
-o 33
+o 37
 suid 42,0
 )
 )
@@ -115,7 +115,7 @@ decl (Decl
 n "endwait"
 t "wire"
 eolc "This signal indicates when message can't be decoded in one of the CANopen objects to go back to known state to receive message"
-o 8
+o 9
 suid 43,0
 )
 )
@@ -128,7 +128,7 @@ m 1
 decl (Decl
 n "end_can_proc"
 t "reg"
-o 19
+o 22
 suid 62,0
 )
 )
@@ -142,7 +142,7 @@ decl (Decl
 n "sign_on_sig"
 t "reg"
 eolc "Signal to send one time NMT message after bootup"
-o 27
+o 30
 suid 63,0
 )
 )
@@ -167,7 +167,7 @@ m 1
 decl (Decl
 n "can_bus_comp"
 t "reg"
-o 18
+o 20
 suid 70,0
 )
 )
@@ -179,7 +179,7 @@ lang 5
 decl (Decl
 n "priority_sig"
 t "wire"
-o 12
+o 14
 suid 71,0
 )
 )
@@ -192,7 +192,7 @@ m 1
 decl (Decl
 n "send_mes_can"
 t "reg"
-o 26
+o 29
 suid 74,0
 )
 )
@@ -204,7 +204,7 @@ lang 5
 decl (Decl
 n "reset_irq_rec_done"
 t "wire"
-o 13
+o 15
 suid 79,0
 )
 )
@@ -216,31 +216,81 @@ lang 5
 decl (Decl
 n "reset_irq_tra_done"
 t "wire"
-o 14
+o 16
 suid 80,0
 )
 )
 uid 8008,0
 )
-*28 (LGroup
+*28 (LogPort
+port (LogicalPort
+lang 5
+decl (Decl
+n "power_bus_on"
+t "wire"
+o 13
+suid 83,0
+)
+)
+uid 8244,0
+)
+*29 (LogPort
+port (LogicalPort
+lang 5
+m 1
+decl (Decl
+n "start_trim_osc"
+t "reg"
+o 34
+suid 84,0
+)
+)
+uid 8301,0
+)
+*30 (LogPort
+port (LogicalPort
+lang 5
+decl (Decl
+n "end_trim_osc"
+t "wire"
+o 6
+suid 85,0
+)
+)
+uid 8303,0
+)
+*31 (LogPort
+port (LogicalPort
+lang 5
+m 1
+decl (Decl
+n "done_trim_osc_all"
+t "reg"
+o 21
+suid 86,0
+)
+)
+uid 8565,0
+)
+*32 (LGroup
 name "can"
 comment ""
-uid 8218,0
+uid 8646,0
 optionalChildren [
-*29 (LogPort
+*33 (LogPort
 port (LogicalPort
 lang 5
 decl (Decl
 n "irq_can_tra"
 t "wire"
 eolc "successful transmission interrupt signal from cankari "
-o 10
+o 11
 suid 35,0
 )
 )
 uid 2070,0
 )
-*30 (LogPort
+*34 (LogPort
 port (LogicalPort
 lang 5
 m 1
@@ -248,13 +298,13 @@ decl (Decl
 n "start_read_can"
 t "reg"
 eolc "to read canakari receive registers"
-o 29
+o 32
 suid 4,0
 )
 )
 uid 172,0
 )
-*31 (LogPort
+*35 (LogPort
 port (LogicalPort
 lang 5
 m 1
@@ -262,13 +312,13 @@ decl (Decl
 n "start_write_can"
 t "reg"
 eolc "to write transmit registers of canakari "
-o 31
+o 35
 suid 5,0
 )
 )
 uid 174,0
 )
-*32 (LogPort
+*36 (LogPort
 port (LogicalPort
 lang 5
 decl (Decl
@@ -281,7 +331,7 @@ suid 7,0
 )
 uid 178,0
 )
-*33 (LogPort
+*37 (LogPort
 port (LogicalPort
 lang 5
 decl (Decl
@@ -294,20 +344,20 @@ suid 8,0
 )
 uid 180,0
 )
-*34 (LogPort
+*38 (LogPort
 port (LogicalPort
 lang 5
 decl (Decl
 n "end_write_can"
 t "wire"
 eolc "goes high when can interface block had finished writing canakari transmit registers"
-o 6
+o 7
 suid 9,0
 )
 )
 uid 182,0
 )
-*35 (LogPort
+*39 (LogPort
 port (LogicalPort
 lang 5
 m 1
@@ -315,26 +365,26 @@ decl (Decl
 n "reset_irq_can"
 t "reg"
 eolc "reset canakri interrupt "
-o 22
+o 25
 suid 11,0
 )
 )
 uid 186,0
 )
-*36 (LogPort
+*40 (LogPort
 port (LogicalPort
 lang 5
 decl (Decl
 n "irq_can_rec"
 t "wire"
 eolc "interrupt signal from canakari to indicate successful read of a new message by one of the 32 buses "
-o 9
+o 10
 suid 34,0
 )
 )
 uid 2068,0
 )
-*37 (LogPort
+*41 (LogPort
 port (LogicalPort
 lang 5
 m 1
@@ -342,13 +392,13 @@ decl (Decl
 n "reset_irq_can_all"
 t "reg"
 eolc "reset all canakri interrupt "
-o 23
+o 26
 suid 67,0
 )
 )
 uid 6407,0
 )
-*38 (LogPort
+*42 (LogPort
 port (LogicalPort
 lang 5
 m 1
@@ -356,13 +406,13 @@ decl (Decl
 n "start_init"
 t "reg"
 eolc "to initialize the CAN node (cankari)"
-o 28
+o 31
 suid 72,0
 )
 )
 uid 7492,0
 )
-*39 (LogPort
+*43 (LogPort
 port (LogicalPort
 lang 5
 m 1
@@ -370,33 +420,33 @@ decl (Decl
 n "irq_can_ack"
 t "reg"
 eolc "tto start transmitting CAN message "
-o 21
+o 24
 suid 73,0
 )
 )
 uid 7674,0
 )
-*40 (LogPort
+*44 (LogPort
 port (LogicalPort
 lang 5
 m 1
 decl (Decl
 n "reset_irq_tra_can"
 t "reg"
-o 25
+o 28
 suid 77,0
 )
 )
 uid 8002,0
 )
-*41 (LogPort
+*45 (LogPort
 port (LogicalPort
 lang 5
 m 1
 decl (Decl
 n "reset_irq_rec_can"
 t "reg"
-o 24
+o 27
 suid 78,0
 )
 )
@@ -404,38 +454,38 @@ uid 8004,0
 )
 ]
 )
-*42 (LGroup
+*46 (LGroup
 name "elink"
 comment ""
-uid 8219,0
+uid 8647,0
 optionalChildren [
-*43 (LogPort
+*47 (LogPort
 port (LogicalPort
 lang 5
 decl (Decl
 n "end_write_elink"
 t "wire"
 eolc "Goes high when CANopen block finished reading the received message buffer register "
-o 7
+o 8
 suid 50,0
 )
 )
 uid 3930,0
 )
-*44 (LogPort
+*48 (LogPort
 port (LogicalPort
 lang 5
 m 1
 decl (Decl
 n "start_write_elink"
 t "reg"
-o 32
+o 36
 suid 51,0
 )
 )
 uid 3932,0
 )
-*45 (LogPort
+*49 (LogPort
 port (LogicalPort
 lang 5
 m 1
@@ -443,13 +493,13 @@ decl (Decl
 n "start_read_elink"
 t "reg"
 eolc "signal to read transmit message buffer register "
-o 30
+o 33
 suid 57,0
 )
 )
 uid 4154,0
 )
-*46 (LogPort
+*50 (LogPort
 port (LogicalPort
 lang 5
 decl (Decl
@@ -462,14 +512,14 @@ suid 58,0
 )
 uid 4156,0
 )
-*47 (LogPort
+*51 (LogPort
 port (LogicalPort
 lang 5
 decl (Decl
 n "irq_elink_tra"
 t "wire"
 eolc "interrupt from elink to indicate it has a msg"
-o 11
+o 12
 suid 81,0
 )
 )
@@ -477,12 +527,12 @@ uid 8105,0
 )
 ]
 )
-*48 (LGroup
+*52 (LGroup
 name "top"
 comment ""
-uid 8220,0
+uid 8648,0
 optionalChildren [
-*49 (LogPort
+*53 (LogPort
 port (LogicalPort
 lang 5
 decl (Decl
@@ -495,14 +545,14 @@ suid 1,0
 )
 uid 107,0
 )
-*50 (LogPort
+*54 (LogPort
 port (LogicalPort
 lang 5
 decl (Decl
 n "rst"
 t "wire"
 eolc "lowactive"
-o 15
+o 17
 suid 2,0
 )
 )
@@ -517,7 +567,7 @@ displayShortBounds 1
 editShortBounds 1
 uid 67,0
 optionalChildren [
-*51 (Sheet
+*55 (Sheet
 sheetRow (SheetRow
 headerVa (MVa
 cellColor "49152,49152,49152"
@@ -534,229 +584,253 @@ cellColor "39936,56832,65280"
 fontColor "0,0,0"
 font "courier,10,0"
 )
-emptyMRCItem *52 (MRCItem
+emptyMRCItem *56 (MRCItem
 litem &1
 pos 16
 dimension 20
 )
 uid 69,0
 optionalChildren [
-*53 (MRCItem
+*57 (MRCItem
 litem &2
 pos 0
 dimension 20
 uid 70,0
 )
-*54 (MRCItem
+*58 (MRCItem
 litem &3
 pos 1
 dimension 23
 uid 71,0
 )
-*55 (MRCItem
+*59 (MRCItem
 litem &4
 pos 2
 hidden 1
 dimension 20
 uid 72,0
 )
-*56 (MRCItem
-litem &49
+*60 (MRCItem
+litem &53
 pos 16
 dimension 20
 uid 106,0
 )
-*57 (MRCItem
-litem &50
+*61 (MRCItem
+litem &54
 pos 17
 dimension 20
 uid 108,0
 )
-*58 (MRCItem
-litem &30
+*62 (MRCItem
+litem &34
 pos 1
 dimension 20
 uid 171,0
 )
-*59 (MRCItem
-litem &31
+*63 (MRCItem
+litem &35
 pos 2
 dimension 20
 uid 173,0
 )
-*60 (MRCItem
-litem &32
+*64 (MRCItem
+litem &36
 pos 19
 dimension 20
 uid 177,0
 )
-*61 (MRCItem
-litem &33
+*65 (MRCItem
+litem &37
 pos 20
 dimension 20
 uid 179,0
 )
-*62 (MRCItem
-litem &34
+*66 (MRCItem
+litem &38
 pos 21
 dimension 20
 uid 181,0
 )
-*63 (MRCItem
-litem &35
+*67 (MRCItem
+litem &39
 pos 4
 dimension 20
 uid 185,0
 )
-*64 (MRCItem
+*68 (MRCItem
 litem &15
 pos 0
 dimension 20
 uid 1710,0
 )
-*65 (MRCItem
-litem &36
+*69 (MRCItem
+litem &40
 pos 18
 dimension 20
 uid 2067,0
 )
-*66 (MRCItem
-litem &29
+*70 (MRCItem
+litem &33
 pos 10
 dimension 20
 uid 2069,0
 )
-*67 (MRCItem
+*71 (MRCItem
 litem &16
 pos 22
 dimension 20
 uid 2435,0
 )
-*68 (MRCItem
+*72 (MRCItem
 litem &17
 pos 23
 dimension 20
 uid 2437,0
 )
-*69 (MRCItem
+*73 (MRCItem
 litem &18
 pos 24
 dimension 20
 uid 2499,0
 )
-*70 (MRCItem
+*74 (MRCItem
 litem &19
 pos 25
 dimension 20
 uid 2581,0
 )
-*71 (MRCItem
-litem &43
+*75 (MRCItem
+litem &47
 pos 13
 dimension 20
 uid 3929,0
 )
-*72 (MRCItem
-litem &44
+*76 (MRCItem
+litem &48
 pos 12
 dimension 20
 uid 3931,0
 )
-*73 (MRCItem
-litem &45
+*77 (MRCItem
+litem &49
 pos 11
 dimension 20
 uid 4153,0
 )
-*74 (MRCItem
-litem &46
+*78 (MRCItem
+litem &50
 pos 14
 dimension 20
 uid 4155,0
 )
-*75 (MRCItem
+*79 (MRCItem
 litem &20
 pos 27
 dimension 20
 uid 4470,0
 )
-*76 (MRCItem
+*80 (MRCItem
 litem &21
 pos 26
 dimension 20
 uid 4502,0
 )
-*77 (MRCItem
-litem &37
+*81 (MRCItem
+litem &41
 pos 28
 dimension 20
 uid 6406,0
 )
-*78 (MRCItem
+*82 (MRCItem
 litem &22
 pos 29
 dimension 20
 uid 6545,0
 )
-*79 (MRCItem
+*83 (MRCItem
 litem &23
 pos 31
 dimension 20
 uid 6577,0
 )
-*80 (MRCItem
+*84 (MRCItem
 litem &24
 pos 30
 dimension 20
 uid 6709,0
 )
-*81 (MRCItem
-litem &38
+*85 (MRCItem
+litem &42
 pos 3
 dimension 20
 uid 7491,0
 )
-*82 (MRCItem
-litem &39
+*86 (MRCItem
+litem &43
 pos 9
 dimension 20
 uid 7673,0
 )
-*83 (MRCItem
+*87 (MRCItem
 litem &25
 pos 32
 dimension 20
 uid 7705,0
 )
-*84 (MRCItem
-litem &40
+*88 (MRCItem
+litem &44
 pos 5
 dimension 20
 uid 8001,0
 )
-*85 (MRCItem
-litem &41
+*89 (MRCItem
+litem &45
 pos 6
 dimension 20
 uid 8003,0
 )
-*86 (MRCItem
+*90 (MRCItem
 litem &26
 pos 7
 dimension 20
 uid 8005,0
 )
-*87 (MRCItem
+*91 (MRCItem
 litem &27
 pos 8
 dimension 20
 uid 8007,0
 )
-*88 (MRCItem
-litem &47
+*92 (MRCItem
+litem &51
 pos 15
 dimension 20
 uid 8104,0
+)
+*93 (MRCItem
+litem &28
+pos 33
+dimension 20
+uid 8243,0
+)
+*94 (MRCItem
+litem &29
+pos 34
+dimension 20
+uid 8300,0
+)
+*95 (MRCItem
+litem &30
+pos 35
+dimension 20
+uid 8302,0
+)
+*96 (MRCItem
+litem &31
+pos 36
+dimension 20
+uid 8564,0
 )
 ]
 )
@@ -769,55 +843,55 @@ textAngle 90
 )
 uid 73,0
 optionalChildren [
-*89 (MRCItem
+*97 (MRCItem
 litem &5
 pos 0
 dimension 20
 uid 74,0
 )
-*90 (MRCItem
+*98 (MRCItem
 litem &7
 pos 1
 dimension 50
 uid 75,0
 )
-*91 (MRCItem
+*99 (MRCItem
 litem &8
 pos 2
 dimension 100
 uid 76,0
 )
-*92 (MRCItem
+*100 (MRCItem
 litem &9
 pos 3
 dimension 50
 uid 77,0
 )
-*93 (MRCItem
+*101 (MRCItem
 litem &10
 pos 4
 dimension 100
 uid 78,0
 )
-*94 (MRCItem
+*102 (MRCItem
 litem &11
 pos 5
 dimension 60
 uid 79,0
 )
-*95 (MRCItem
+*103 (MRCItem
 litem &12
 pos 6
 dimension 100
 uid 80,0
 )
-*96 (MRCItem
+*104 (MRCItem
 litem &13
 pos 7
 dimension 50
 uid 81,0
 )
-*97 (MRCItem
+*105 (MRCItem
 litem &14
 pos 8
 dimension 80
@@ -838,32 +912,32 @@ uid 52,0
 )
 genericsCommonDM (CommonDM
 ldm (LogicalDM
-emptyRow *98 (LEmptyRow
+emptyRow *106 (LEmptyRow
 )
 uid 84,0
 optionalChildren [
-*99 (RefLabelRowHdr
+*107 (RefLabelRowHdr
 )
-*100 (TitleRowHdr
+*108 (TitleRowHdr
 )
-*101 (FilterRowHdr
+*109 (FilterRowHdr
 )
-*102 (RefLabelColHdr
+*110 (RefLabelColHdr
 tm "RefLabelColHdrMgr"
 )
-*103 (RowExpandColHdr
+*111 (RowExpandColHdr
 tm "RowExpandColHdrMgr"
 )
-*104 (GroupColHdr
+*112 (GroupColHdr
 tm "GroupColHdrMgr"
 )
-*105 (NameColHdr
+*113 (NameColHdr
 tm "GenericNameColHdrMgr"
 )
-*106 (InitColHdr
+*114 (InitColHdr
 tm "GenericValueColHdrMgr"
 )
-*107 (EolColHdr
+*115 (EolColHdr
 tm "GenericEolColHdrMgr"
 )
 ]
@@ -873,7 +947,7 @@ displayShortBounds 1
 editShortBounds 1
 uid 94,0
 optionalChildren [
-*108 (Sheet
+*116 (Sheet
 sheetRow (SheetRow
 headerVa (MVa
 cellColor "49152,49152,49152"
@@ -890,27 +964,27 @@ cellColor "39936,56832,65280"
 fontColor "0,0,0"
 font "courier,10,0"
 )
-emptyMRCItem *109 (MRCItem
-litem &98
+emptyMRCItem *117 (MRCItem
+litem &106
 pos 0
 dimension 20
 )
 uid 96,0
 optionalChildren [
-*110 (MRCItem
-litem &99
+*118 (MRCItem
+litem &107
 pos 0
 dimension 20
 uid 97,0
 )
-*111 (MRCItem
-litem &100
+*119 (MRCItem
+litem &108
 pos 1
 dimension 23
 uid 98,0
 )
-*112 (MRCItem
-litem &101
+*120 (MRCItem
+litem &109
 pos 2
 hidden 1
 dimension 20
@@ -927,32 +1001,32 @@ textAngle 90
 )
 uid 100,0
 optionalChildren [
-*113 (MRCItem
-litem &102
+*121 (MRCItem
+litem &110
 pos 0
 dimension 20
 uid 101,0
 )
-*114 (MRCItem
-litem &104
+*122 (MRCItem
+litem &112
 pos 1
 dimension 50
 uid 102,0
 )
-*115 (MRCItem
-litem &105
+*123 (MRCItem
+litem &113
 pos 2
 dimension 100
 uid 103,0
 )
-*116 (MRCItem
-litem &106
+*124 (MRCItem
+litem &114
 pos 3
 dimension 50
 uid 104,0
 )
-*117 (MRCItem
-litem &107
+*125 (MRCItem
+litem &115
 pos 4
 dimension 80
 uid 105,0
@@ -1015,19 +1089,19 @@ value "/home/dcs/git/mopshub/mopshub_lib/hds/can_elink_bridge_SM"
 )
 (vvPair
 variable "date"
-value "08/27/21"
+value "08/31/21"
 )
 (vvPair
 variable "day"
-value "Fri"
+value "Tue"
 )
 (vvPair
 variable "day_long"
-value "Friday"
+value "Tuesday"
 )
 (vvPair
 variable "dd"
-value "27"
+value "31"
 )
 (vvPair
 variable "entity_name"
@@ -1055,7 +1129,7 @@ value "dcs"
 )
 (vvPair
 variable "graphical_source_date"
-value "08/27/21"
+value "08/31/21"
 )
 (vvPair
 variable "graphical_source_group"
@@ -1067,7 +1141,7 @@ value "chipdev2.physik.uni-wuppertal.de"
 )
 (vvPair
 variable "graphical_source_time"
-value "12:05:27"
+value "19:11:06"
 )
 (vvPair
 variable "group"
@@ -1187,7 +1261,7 @@ value "symbol"
 )
 (vvPair
 variable "time"
-value "12:05:27"
+value "19:11:06"
 )
 (vvPair
 variable "unit"
@@ -1218,10 +1292,10 @@ value "21"
 LanguageMgr "Verilog2001LangMgr"
 uid 51,0
 optionalChildren [
-*118 (SymbolBody
+*126 (SymbolBody
 uid 8,0
 optionalChildren [
-*119 (CptPort
+*127 (CptPort
 uid 110,0
 ps "OnEdgeStrategy"
 shape (Triangle
@@ -1254,8 +1328,7 @@ va (VaSet
 font "courier,8,0"
 )
 xt "2000,4500,19000,5400"
-st "input  wire       clk; // posedge
-"
+st "input  wire       clk; // posedge"
 )
 thePort (LogicalPort
 lang 5
@@ -1268,7 +1341,7 @@ suid 1,0
 )
 )
 )
-*120 (CptPort
+*128 (CptPort
 uid 115,0
 ps "OnEdgeStrategy"
 shape (Triangle
@@ -1300,9 +1373,8 @@ uid 119,0
 va (VaSet
 font "courier,8,0"
 )
-xt "2000,16200,20000,17100"
-st "input  wire       rst; // lowactive
-"
+xt "2000,18000,20000,18900"
+st "input  wire       rst; // lowactive"
 )
 thePort (LogicalPort
 lang 5
@@ -1310,12 +1382,12 @@ decl (Decl
 n "rst"
 t "wire"
 eolc "lowactive"
-o 15
+o 17
 suid 2,0
 )
 )
 )
-*121 (CptPort
+*129 (CptPort
 uid 197,0
 ps "OnEdgeStrategy"
 shape (Triangle
@@ -1347,9 +1419,8 @@ uid 201,0
 va (VaSet
 font "courier,8,0"
 )
-xt "2000,28800,38000,29700"
-st "output reg        start_read_can; // to read canakari receive registers
-"
+xt "2000,31500,38000,32400"
+st "output reg        start_read_can; // to read canakari receive registers"
 )
 thePort (LogicalPort
 lang 5
@@ -1358,12 +1429,12 @@ decl (Decl
 n "start_read_can"
 t "reg"
 eolc "to read canakari receive registers"
-o 29
+o 32
 suid 4,0
 )
 )
 )
-*122 (CptPort
+*130 (CptPort
 uid 202,0
 ps "OnEdgeStrategy"
 shape (Triangle
@@ -1395,9 +1466,8 @@ uid 206,0
 va (VaSet
 font "courier,8,0"
 )
-xt "2000,30600,41500,31500"
-st "output reg        start_write_can; // to write transmit registers of canakari 
-"
+xt "2000,34200,41500,35100"
+st "output reg        start_write_can; // to write transmit registers of canakari "
 )
 thePort (LogicalPort
 lang 5
@@ -1406,12 +1476,12 @@ decl (Decl
 n "start_write_can"
 t "reg"
 eolc "to write transmit registers of canakari "
-o 31
+o 35
 suid 5,0
 )
 )
 )
-*123 (CptPort
+*131 (CptPort
 uid 212,0
 ps "OnEdgeStrategy"
 shape (Triangle
@@ -1444,8 +1514,7 @@ va (VaSet
 font "courier,8,0"
 )
 xt "2000,5400,60000,6300"
-st "input  wire       end_init; // Signal from CAN interface block to indicate that initialization process is finished 
-"
+st "input  wire       end_init; // Signal from CAN interface block to indicate that initialization process is finished "
 )
 thePort (LogicalPort
 lang 5
@@ -1458,7 +1527,7 @@ suid 7,0
 )
 )
 )
-*124 (CptPort
+*132 (CptPort
 uid 217,0
 ps "OnEdgeStrategy"
 shape (Triangle
@@ -1491,8 +1560,7 @@ va (VaSet
 font "courier,8,0"
 )
 xt "2000,6300,59000,7200"
-st "input  wire       end_read_can; // signal from CANopen block to indicate that it has read receive message buffer 
-"
+st "input  wire       end_read_can; // signal from CANopen block to indicate that it has read receive message buffer "
 )
 thePort (LogicalPort
 lang 5
@@ -1505,7 +1573,7 @@ suid 8,0
 )
 )
 )
-*125 (CptPort
+*133 (CptPort
 uid 222,0
 ps "OnEdgeStrategy"
 shape (Triangle
@@ -1537,9 +1605,8 @@ uid 226,0
 va (VaSet
 font "courier,8,0"
 )
-xt "2000,8100,62000,9000"
-st "input  wire       end_write_can; // goes high when can interface block had finished writing canakari transmit registers
-"
+xt "2000,9000,62000,9900"
+st "input  wire       end_write_can; // goes high when can interface block had finished writing canakari transmit registers"
 )
 thePort (LogicalPort
 lang 5
@@ -1547,12 +1614,12 @@ decl (Decl
 n "end_write_can"
 t "wire"
 eolc "goes high when can interface block had finished writing canakari transmit registers"
-o 6
+o 7
 suid 9,0
 )
 )
 )
-*126 (CptPort
+*134 (CptPort
 uid 232,0
 ps "OnEdgeStrategy"
 shape (Triangle
@@ -1584,9 +1651,8 @@ uid 236,0
 va (VaSet
 font "courier,8,0"
 )
-xt "2000,22500,32500,23400"
-st "output reg        reset_irq_can; // reset canakri interrupt 
-"
+xt "2000,25200,32500,26100"
+st "output reg        reset_irq_can; // reset canakri interrupt "
 )
 thePort (LogicalPort
 lang 5
@@ -1595,12 +1661,12 @@ decl (Decl
 n "reset_irq_can"
 t "reg"
 eolc "reset canakri interrupt "
-o 22
+o 25
 suid 11,0
 )
 )
 )
-*127 (CptPort
+*135 (CptPort
 uid 1715,0
 ps "OnEdgeStrategy"
 shape (Triangle
@@ -1633,9 +1699,8 @@ uid 1719,0
 va (VaSet
 font "courier,8,0"
 )
-xt "2000,18000,46000,18900"
-st "output reg        abort_mes; // Signals other state machines to come to a known statte 
-"
+xt "2000,19800,46000,20700"
+st "output reg        abort_mes; // Signals other state machines to come to a known statte "
 )
 thePort (LogicalPort
 lang 5
@@ -1644,12 +1709,12 @@ decl (Decl
 n "abort_mes"
 t "reg"
 eolc "Signals other state machines to come to a known statte "
-o 17
+o 19
 suid 29,0
 )
 )
 )
-*128 (CptPort
+*136 (CptPort
 uid 2074,0
 ps "OnEdgeStrategy"
 shape (Triangle
@@ -1681,9 +1746,8 @@ uid 2078,0
 va (VaSet
 font "courier,8,0"
 )
-xt "2000,11700,46500,12600"
-st "input  wire       irq_can_tra; // successful transmission interrupt signal from cankari 
-"
+xt "2000,12600,46500,13500"
+st "input  wire       irq_can_tra; // successful transmission interrupt signal from cankari "
 )
 thePort (LogicalPort
 lang 5
@@ -1691,12 +1755,12 @@ decl (Decl
 n "irq_can_tra"
 t "wire"
 eolc "successful transmission interrupt signal from cankari "
-o 10
+o 11
 suid 35,0
 )
 )
 )
-*129 (CptPort
+*137 (CptPort
 uid 2079,0
 ps "OnEdgeStrategy"
 shape (Triangle
@@ -1728,9 +1792,8 @@ uid 2083,0
 va (VaSet
 font "courier,8,0"
 )
-xt "2000,10800,69000,11700"
-st "input  wire       irq_can_rec; // interrupt signal from canakari to indicate successful read of a new message by one of the 32 buses 
-"
+xt "2000,11700,69000,12600"
+st "input  wire       irq_can_rec; // interrupt signal from canakari to indicate successful read of a new message by one of the 32 buses "
 )
 thePort (LogicalPort
 lang 5
@@ -1738,12 +1801,12 @@ decl (Decl
 n "irq_can_rec"
 t "wire"
 eolc "interrupt signal from canakari to indicate successful read of a new message by one of the 32 buses "
-o 9
+o 10
 suid 34,0
 )
 )
 )
-*130 (CptPort
+*138 (CptPort
 uid 2442,0
 ps "OnEdgeStrategy"
 shape (Triangle
@@ -1776,9 +1839,8 @@ uid 2446,0
 va (VaSet
 font "courier,8,0"
 )
-xt "2000,20700,35000,21600"
-st "output reg        entimeout; // enable for timeout reset counter 
-"
+xt "2000,23400,35000,24300"
+st "output reg        entimeout; // enable for timeout reset counter "
 )
 thePort (LogicalPort
 lang 5
@@ -1787,12 +1849,12 @@ decl (Decl
 n "entimeout"
 t "reg"
 eolc "enable for timeout reset counter "
-o 20
+o 23
 suid 40,0
 )
 )
 )
-*131 (CptPort
+*139 (CptPort
 uid 2447,0
 ps "OnEdgeStrategy"
 shape (Triangle
@@ -1824,9 +1886,8 @@ uid 2451,0
 va (VaSet
 font "courier,8,0"
 )
-xt "2000,17100,61500,18000"
-st "input  wire       timeoutrst; // timeout reset in case bridge controller does not respond in a specied amount of time 
-"
+xt "2000,18900,61500,19800"
+st "input  wire       timeoutrst; // timeout reset in case bridge controller does not respond in a specied amount of time "
 )
 thePort (LogicalPort
 lang 5
@@ -1834,12 +1895,12 @@ decl (Decl
 n "timeoutrst"
 t "wire"
 eolc "timeout reset in case bridge controller does not respond in a specied amount of time "
-o 16
+o 18
 suid 41,0
 )
 )
 )
-*132 (CptPort
+*140 (CptPort
 uid 2504,0
 ps "OnEdgeStrategy"
 shape (Triangle
@@ -1872,9 +1933,8 @@ uid 2508,0
 va (VaSet
 font "courier,8,0"
 )
-xt "2000,32400,16000,33300"
-st "output reg [4:0]  statedeb;
-"
+xt "2000,36000,16000,36900"
+st "output reg [4:0]  statedeb;"
 )
 thePort (LogicalPort
 lang 5
@@ -1883,12 +1943,12 @@ decl (Decl
 n "statedeb"
 t "reg"
 b "[4:0]"
-o 33
+o 37
 suid 42,0
 )
 )
 )
-*133 (CptPort
+*141 (CptPort
 uid 2586,0
 ps "OnEdgeStrategy"
 shape (Triangle
@@ -1921,9 +1981,8 @@ uid 2590,0
 va (VaSet
 font "courier,8,0"
 )
-xt "2000,9900,80600,10800"
-st "input  wire       endwait; // This signal indicates when message can't be decoded in one of the CANopen objects to go back to known state to receive message
-"
+xt "2000,10800,80600,11700"
+st "input  wire       endwait; // This signal indicates when message can't be decoded in one of the CANopen objects to go back to known state to receive message"
 )
 thePort (LogicalPort
 lang 5
@@ -1931,12 +1990,12 @@ decl (Decl
 n "endwait"
 t "wire"
 eolc "This signal indicates when message can't be decoded in one of the CANopen objects to go back to known state to receive message"
-o 8
+o 9
 suid 43,0
 )
 )
 )
-*134 (CptPort
+*142 (CptPort
 uid 3936,0
 ps "OnEdgeStrategy"
 shape (Triangle
@@ -1968,9 +2027,8 @@ uid 3940,0
 va (VaSet
 font "courier,8,0"
 )
-xt "2000,9000,63000,9900"
-st "input  wire       end_write_elink; // Goes high when CANopen block finished reading the received message buffer register 
-"
+xt "2000,9900,63000,10800"
+st "input  wire       end_write_elink; // Goes high when CANopen block finished reading the received message buffer register "
 )
 thePort (LogicalPort
 lang 5
@@ -1978,12 +2036,12 @@ decl (Decl
 n "end_write_elink"
 t "wire"
 eolc "Goes high when CANopen block finished reading the received message buffer register "
-o 7
+o 8
 suid 50,0
 )
 )
 )
-*135 (CptPort
+*143 (CptPort
 uid 3941,0
 ps "OnEdgeStrategy"
 shape (Triangle
@@ -2016,9 +2074,8 @@ uid 3945,0
 va (VaSet
 font "courier,8,0"
 )
-xt "2000,31500,20500,32400"
-st "output reg        start_write_elink;
-"
+xt "2000,35100,20500,36000"
+st "output reg        start_write_elink;"
 )
 thePort (LogicalPort
 lang 5
@@ -2026,12 +2083,12 @@ m 1
 decl (Decl
 n "start_write_elink"
 t "reg"
-o 32
+o 36
 suid 51,0
 )
 )
 )
-*136 (CptPort
+*144 (CptPort
 uid 4161,0
 ps "OnEdgeStrategy"
 shape (Triangle
@@ -2064,9 +2121,8 @@ uid 4165,0
 va (VaSet
 font "courier,8,0"
 )
-xt "2000,29700,46000,30600"
-st "output reg        start_read_elink; // signal to read transmit message buffer register 
-"
+xt "2000,32400,46000,33300"
+st "output reg        start_read_elink; // signal to read transmit message buffer register "
 )
 thePort (LogicalPort
 lang 5
@@ -2075,12 +2131,12 @@ decl (Decl
 n "start_read_elink"
 t "reg"
 eolc "signal to read transmit message buffer register "
-o 30
+o 33
 suid 57,0
 )
 )
 )
-*137 (CptPort
+*145 (CptPort
 uid 4166,0
 ps "OnEdgeStrategy"
 shape (Triangle
@@ -2113,8 +2169,7 @@ va (VaSet
 font "courier,8,0"
 )
 xt "2000,7200,68000,8100"
-st "input  wire       end_read_elink; // this signal goes high when CANopen block has finshed writing transmit message buffer register 
-"
+st "input  wire       end_read_elink; // this signal goes high when CANopen block has finshed writing transmit message buffer register "
 )
 thePort (LogicalPort
 lang 5
@@ -2127,7 +2182,7 @@ suid 58,0
 )
 )
 )
-*138 (CptPort
+*146 (CptPort
 uid 4475,0
 ps "OnEdgeStrategy"
 shape (Triangle
@@ -2160,9 +2215,8 @@ uid 4479,0
 va (VaSet
 font "courier,8,0"
 )
-xt "2000,19800,18000,20700"
-st "output reg        end_can_proc;
-"
+xt "2000,22500,18000,23400"
+st "output reg        end_can_proc;"
 )
 thePort (LogicalPort
 lang 5
@@ -2170,12 +2224,12 @@ m 1
 decl (Decl
 n "end_can_proc"
 t "reg"
-o 19
+o 22
 suid 62,0
 )
 )
 )
-*139 (CptPort
+*147 (CptPort
 uid 4507,0
 ps "OnEdgeStrategy"
 shape (Triangle
@@ -2208,9 +2262,8 @@ uid 4511,0
 va (VaSet
 font "courier,8,0"
 )
-xt "2000,27000,43500,27900"
-st "output reg        sign_on_sig; // Signal to send one time NMT message after bootup
-"
+xt "2000,29700,43500,30600"
+st "output reg        sign_on_sig; // Signal to send one time NMT message after bootup"
 )
 thePort (LogicalPort
 lang 5
@@ -2219,12 +2272,12 @@ decl (Decl
 n "sign_on_sig"
 t "reg"
 eolc "Signal to send one time NMT message after bootup"
-o 27
+o 30
 suid 63,0
 )
 )
 )
-*140 (CptPort
+*148 (CptPort
 uid 6411,0
 ps "OnEdgeStrategy"
 shape (Triangle
@@ -2257,9 +2310,8 @@ uid 6415,0
 va (VaSet
 font "courier,8,0"
 )
-xt "2000,23400,36500,24300"
-st "output reg        reset_irq_can_all; // reset all canakri interrupt 
-"
+xt "2000,26100,36500,27000"
+st "output reg        reset_irq_can_all; // reset all canakri interrupt "
 )
 thePort (LogicalPort
 lang 5
@@ -2268,12 +2320,12 @@ decl (Decl
 n "reset_irq_can_all"
 t "reg"
 eolc "reset all canakri interrupt "
-o 23
+o 26
 suid 67,0
 )
 )
 )
-*141 (CptPort
+*149 (CptPort
 uid 6550,0
 ps "OnEdgeStrategy"
 shape (Triangle
@@ -2306,8 +2358,7 @@ va (VaSet
 font "courier,8,0"
 )
 xt "2000,3600,18500,4500"
-st "input  wire       can_bus_match;
-"
+st "input  wire       can_bus_match;"
 )
 thePort (LogicalPort
 lang 5
@@ -2319,7 +2370,7 @@ suid 69,0
 )
 )
 )
-*142 (CptPort
+*150 (CptPort
 uid 6582,0
 ps "OnEdgeStrategy"
 shape (Triangle
@@ -2352,9 +2403,8 @@ uid 6586,0
 va (VaSet
 font "courier,8,0"
 )
-xt "2000,18900,18000,19800"
-st "output reg        can_bus_comp;
-"
+xt "2000,20700,18000,21600"
+st "output reg        can_bus_comp;"
 )
 thePort (LogicalPort
 lang 5
@@ -2362,12 +2412,12 @@ m 1
 decl (Decl
 n "can_bus_comp"
 t "reg"
-o 18
+o 20
 suid 70,0
 )
 )
 )
-*143 (CptPort
+*151 (CptPort
 uid 6714,0
 ps "OnEdgeStrategy"
 shape (Triangle
@@ -2399,21 +2449,20 @@ uid 6718,0
 va (VaSet
 font "courier,8,0"
 )
-xt "2000,13500,18000,14400"
-st "input  wire       priority_sig;
-"
+xt "2000,15300,18000,16200"
+st "input  wire       priority_sig;"
 )
 thePort (LogicalPort
 lang 5
 decl (Decl
 n "priority_sig"
 t "wire"
-o 12
+o 14
 suid 71,0
 )
 )
 )
-*144 (CptPort
+*152 (CptPort
 uid 7496,0
 ps "OnEdgeStrategy"
 shape (Triangle
@@ -2446,9 +2495,8 @@ uid 7500,0
 va (VaSet
 font "courier,8,0"
 )
-xt "2000,27900,37000,28800"
-st "output reg        start_init; // to initialize the CAN node (cankari)
-"
+xt "2000,30600,37000,31500"
+st "output reg        start_init; // to initialize the CAN node (cankari)"
 )
 thePort (LogicalPort
 lang 5
@@ -2457,12 +2505,12 @@ decl (Decl
 n "start_init"
 t "reg"
 eolc "to initialize the CAN node (cankari)"
-o 28
+o 31
 suid 72,0
 )
 )
 )
-*145 (CptPort
+*153 (CptPort
 uid 7678,0
 ps "OnEdgeStrategy"
 shape (Triangle
@@ -2495,9 +2543,8 @@ uid 7682,0
 va (VaSet
 font "courier,8,0"
 )
-xt "2000,21600,37000,22500"
-st "output reg        irq_can_ack; // tto start transmitting CAN message 
-"
+xt "2000,24300,37000,25200"
+st "output reg        irq_can_ack; // tto start transmitting CAN message "
 )
 thePort (LogicalPort
 lang 5
@@ -2506,12 +2553,12 @@ decl (Decl
 n "irq_can_ack"
 t "reg"
 eolc "tto start transmitting CAN message "
-o 21
+o 24
 suid 73,0
 )
 )
 )
-*146 (CptPort
+*154 (CptPort
 uid 7710,0
 ps "OnEdgeStrategy"
 shape (Triangle
@@ -2544,9 +2591,8 @@ uid 7714,0
 va (VaSet
 font "courier,8,0"
 )
-xt "2000,26100,18000,27000"
-st "output reg        send_mes_can;
-"
+xt "2000,28800,18000,29700"
+st "output reg        send_mes_can;"
 )
 thePort (LogicalPort
 lang 5
@@ -2554,12 +2600,12 @@ m 1
 decl (Decl
 n "send_mes_can"
 t "reg"
-o 26
+o 29
 suid 74,0
 )
 )
 )
-*147 (CptPort
+*155 (CptPort
 uid 8012,0
 ps "OnEdgeStrategy"
 shape (Triangle
@@ -2591,21 +2637,20 @@ uid 8016,0
 va (VaSet
 font "courier,8,0"
 )
-xt "2000,14400,21000,15300"
-st "input  wire       reset_irq_rec_done;
-"
+xt "2000,16200,21000,17100"
+st "input  wire       reset_irq_rec_done;"
 )
 thePort (LogicalPort
 lang 5
 decl (Decl
 n "reset_irq_rec_done"
 t "wire"
-o 13
+o 15
 suid 79,0
 )
 )
 )
-*148 (CptPort
+*156 (CptPort
 uid 8017,0
 ps "OnEdgeStrategy"
 shape (Triangle
@@ -2637,21 +2682,20 @@ uid 8021,0
 va (VaSet
 font "courier,8,0"
 )
-xt "2000,15300,21000,16200"
-st "input  wire       reset_irq_tra_done;
-"
+xt "2000,17100,21000,18000"
+st "input  wire       reset_irq_tra_done;"
 )
 thePort (LogicalPort
 lang 5
 decl (Decl
 n "reset_irq_tra_done"
 t "wire"
-o 14
+o 16
 suid 80,0
 )
 )
 )
-*149 (CptPort
+*157 (CptPort
 uid 8022,0
 ps "OnEdgeStrategy"
 shape (Triangle
@@ -2684,9 +2728,8 @@ uid 8026,0
 va (VaSet
 font "courier,8,0"
 )
-xt "2000,25200,20500,26100"
-st "output reg        reset_irq_tra_can;
-"
+xt "2000,27900,20500,28800"
+st "output reg        reset_irq_tra_can;"
 )
 thePort (LogicalPort
 lang 5
@@ -2694,12 +2737,12 @@ m 1
 decl (Decl
 n "reset_irq_tra_can"
 t "reg"
-o 25
+o 28
 suid 77,0
 )
 )
 )
-*150 (CptPort
+*158 (CptPort
 uid 8027,0
 ps "OnEdgeStrategy"
 shape (Triangle
@@ -2732,9 +2775,8 @@ uid 8031,0
 va (VaSet
 font "courier,8,0"
 )
-xt "2000,24300,20500,25200"
-st "output reg        reset_irq_rec_can;
-"
+xt "2000,27000,20500,27900"
+st "output reg        reset_irq_rec_can;"
 )
 thePort (LogicalPort
 lang 5
@@ -2742,12 +2784,12 @@ m 1
 decl (Decl
 n "reset_irq_rec_can"
 t "reg"
-o 24
+o 27
 suid 78,0
 )
 )
 )
-*151 (CptPort
+*159 (CptPort
 uid 8116,0
 ps "OnEdgeStrategy"
 shape (Triangle
@@ -2779,9 +2821,8 @@ uid 8120,0
 va (VaSet
 font "courier,8,0"
 )
-xt "2000,12600,43000,13500"
-st "input  wire       irq_elink_tra; // interrupt from elink to indicate it has a msg
-"
+xt "2000,13500,43000,14400"
+st "input  wire       irq_elink_tra; // interrupt from elink to indicate it has a msg"
 )
 thePort (LogicalPort
 lang 5
@@ -2789,8 +2830,192 @@ decl (Decl
 n "irq_elink_tra"
 t "wire"
 eolc "interrupt from elink to indicate it has a msg"
-o 11
+o 12
 suid 81,0
+)
+)
+)
+*160 (CptPort
+uid 8248,0
+ps "OnEdgeStrategy"
+shape (Triangle
+uid 8249,0
+ro 90
+va (VaSet
+vasetType 1
+fg "0,65535,0"
+)
+xt "14250,27625,15000,28375"
+)
+tg (CPTG
+uid 8250,0
+ps "CptPortTextPlaceStrategy"
+stg "VerticalLayoutStrategy"
+f (Text
+uid 8251,0
+va (VaSet
+font "courier,8,0"
+)
+xt "16000,27550,22500,28450"
+st "power_bus_on"
+blo "16000,28250"
+tm "CptPortNameMgr"
+)
+)
+dt (MLText
+uid 8252,0
+va (VaSet
+font "courier,8,0"
+)
+xt "2000,14400,18000,15300"
+st "input  wire       power_bus_on;"
+)
+thePort (LogicalPort
+lang 5
+decl (Decl
+n "power_bus_on"
+t "wire"
+o 13
+suid 83,0
+)
+)
+)
+*161 (CptPort
+uid 8307,0
+ps "OnEdgeStrategy"
+shape (Triangle
+uid 8308,0
+ro 90
+va (VaSet
+vasetType 1
+fg "0,65535,0"
+)
+xt "46000,40625,46750,41375"
+)
+tg (CPTG
+uid 8309,0
+ps "CptPortTextPlaceStrategy"
+stg "RightVerticalLayoutStrategy"
+f (Text
+uid 8310,0
+va (VaSet
+font "courier,8,0"
+)
+xt "37500,40550,45000,41450"
+st "start_trim_osc"
+ju 2
+blo "45000,41250"
+tm "CptPortNameMgr"
+)
+)
+dt (MLText
+uid 8311,0
+va (VaSet
+font "courier,8,0"
+)
+xt "2000,33300,19000,34200"
+st "output reg        start_trim_osc;"
+)
+thePort (LogicalPort
+lang 5
+m 1
+decl (Decl
+n "start_trim_osc"
+t "reg"
+o 34
+suid 84,0
+)
+)
+)
+*162 (CptPort
+uid 8312,0
+ps "OnEdgeStrategy"
+shape (Triangle
+uid 8313,0
+ro 90
+va (VaSet
+vasetType 1
+fg "0,65535,0"
+)
+xt "14250,28625,15000,29375"
+)
+tg (CPTG
+uid 8314,0
+ps "CptPortTextPlaceStrategy"
+stg "VerticalLayoutStrategy"
+f (Text
+uid 8315,0
+va (VaSet
+font "courier,8,0"
+)
+xt "16000,28550,22500,29450"
+st "end_trim_osc"
+blo "16000,29250"
+tm "CptPortNameMgr"
+)
+)
+dt (MLText
+uid 8316,0
+va (VaSet
+font "courier,8,0"
+)
+xt "2000,8100,18000,9000"
+st "input  wire       end_trim_osc;"
+)
+thePort (LogicalPort
+lang 5
+decl (Decl
+n "end_trim_osc"
+t "wire"
+o 6
+suid 85,0
+)
+)
+)
+*163 (CptPort
+uid 8569,0
+ps "OnEdgeStrategy"
+shape (Triangle
+uid 8570,0
+ro 90
+va (VaSet
+vasetType 1
+fg "0,65535,0"
+)
+xt "46000,41625,46750,42375"
+)
+tg (CPTG
+uid 8571,0
+ps "CptPortTextPlaceStrategy"
+stg "RightVerticalLayoutStrategy"
+f (Text
+uid 8572,0
+va (VaSet
+font "courier,8,0"
+)
+xt "36000,41550,45000,42450"
+st "done_trim_osc_all"
+ju 2
+blo "45000,42250"
+tm "CptPortNameMgr"
+)
+)
+dt (MLText
+uid 8573,0
+va (VaSet
+font "courier,8,0"
+)
+xt "2000,21600,20500,22500"
+st "output reg        done_trim_osc_all;"
+)
+thePort (LogicalPort
+lang 5
+m 1
+decl (Decl
+n "done_trim_osc_all"
+t "reg"
+o 21
+suid 86,0
 )
 )
 )
@@ -2803,7 +3028,7 @@ fg "0,65535,0"
 lineColor "0,32896,0"
 lineWidth 2
 )
-xt "15000,-1000,46000,41000"
+xt "15000,-1000,46000,43000"
 )
 oxt "15000,-1000,39000,26000"
 biTextGroup (BiTextGroup
@@ -2829,7 +3054,7 @@ st "can_elink_bridge_SM"
 blo "25750,24700"
 )
 )
-gi *152 (GenericInterface
+gi *164 (GenericInterface
 uid 13,0
 ps "CenterOffsetStrategy"
 matrix (Matrix
@@ -2859,10 +3084,10 @@ sIVOD 1
 sF 0
 )
 )
-*153 (Grouping
+*165 (Grouping
 uid 16,0
 optionalChildren [
-*154 (CommentText
+*166 (CommentText
 uid 18,0
 shape (Rectangle
 uid 19,0
@@ -2894,7 +3119,7 @@ position 1
 ignorePrefs 1
 titleBlock 1
 )
-*155 (CommentText
+*167 (CommentText
 uid 21,0
 shape (Rectangle
 uid 22,0
@@ -2926,7 +3151,7 @@ position 1
 ignorePrefs 1
 titleBlock 1
 )
-*156 (CommentText
+*168 (CommentText
 uid 24,0
 shape (Rectangle
 uid 25,0
@@ -2958,7 +3183,7 @@ position 1
 ignorePrefs 1
 titleBlock 1
 )
-*157 (CommentText
+*169 (CommentText
 uid 27,0
 shape (Rectangle
 uid 28,0
@@ -2990,7 +3215,7 @@ position 1
 ignorePrefs 1
 titleBlock 1
 )
-*158 (CommentText
+*170 (CommentText
 uid 30,0
 shape (Rectangle
 uid 31,0
@@ -3021,7 +3246,7 @@ visibleWidth 20000
 ignorePrefs 1
 titleBlock 1
 )
-*159 (CommentText
+*171 (CommentText
 uid 33,0
 shape (Rectangle
 uid 34,0
@@ -3053,7 +3278,7 @@ position 1
 ignorePrefs 1
 titleBlock 1
 )
-*160 (CommentText
+*172 (CommentText
 uid 36,0
 shape (Rectangle
 uid 37,0
@@ -3084,7 +3309,7 @@ position 1
 ignorePrefs 1
 titleBlock 1
 )
-*161 (CommentText
+*173 (CommentText
 uid 39,0
 shape (Rectangle
 uid 40,0
@@ -3116,7 +3341,7 @@ position 1
 ignorePrefs 1
 titleBlock 1
 )
-*162 (CommentText
+*174 (CommentText
 uid 42,0
 shape (Rectangle
 uid 43,0
@@ -3148,7 +3373,7 @@ position 1
 ignorePrefs 1
 titleBlock 1
 )
-*163 (CommentText
+*175 (CommentText
 uid 45,0
 shape (Rectangle
 uid 46,0
@@ -3205,11 +3430,11 @@ xShown 1
 yShown 1
 color "26368,26368,26368"
 )
-packageList *164 (PackageList
+packageList *176 (PackageList
 uid 48,0
 stg "VerticalLayoutStrategy"
 textVec [
-*165 (Text
+*177 (Text
 uid 49,0
 va (VaSet
 isHidden 1
@@ -3219,7 +3444,7 @@ xt "20000,0,26500,900"
 st "Package List"
 blo "20000,700"
 )
-*166 (MLText
+*178 (MLText
 uid 50,0
 va (VaSet
 isHidden 1
@@ -3349,7 +3574,7 @@ st "<cell>"
 blo "24750,16700"
 )
 )
-gi *167 (GenericInterface
+gi *179 (GenericInterface
 ps "CenterOffsetStrategy"
 matrix (Matrix
 text (MLText
@@ -3451,7 +3676,7 @@ o 0
 )
 )
 )
-DeclarativeBlock *168 (SymDeclBlock
+DeclarativeBlock *180 (SymDeclBlock
 uid 1,0
 stg "SymDeclLayoutStrategy"
 declLabel (Text
@@ -3507,7 +3732,7 @@ xt "2000,2700,2000,2700"
 tm "SyDeclarativeTextMgr"
 )
 )
-lastUid 8220,0
+lastUid 8648,0
 okToSyncOnLoad 1
 OkToSyncGenericsOnLoad 1
 activeModelName "Symbol:CDM"

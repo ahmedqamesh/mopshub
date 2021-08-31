@@ -82,7 +82,8 @@ mopshub_top#(
 .n_buses (5'b01))mopshub0(
 .clk(clk),
 .rst(rst), 
-.start_init(start_init),                            
+.start_init(start_init),  
+.power_bus_on(1'b0),                          
 .end_cnt_dbg(1'b0),               
 .tx_elink2bit(tx_mopshub_2bit),
 .tx_elink1bit(tx_mopshub_1bit),
@@ -179,7 +180,7 @@ always #50 clk = ~clk;
     begin
       sel_bus=1'b0;
       test_rx =1'b1;
-     // test_tx =1'b1;
+      // test_tx =1'b1;
       //test_mopshub_core = 1'b1;
       start_data_gen =1'b0;
     end
@@ -275,8 +276,8 @@ always #50 clk = ~clk;
     //Default
     else if (respmsg && !test_mopshub_core && !test_rx && !test_tx)
     begin
-      responsereg <= data_rec_uplink;
-      $strobeh("\t Sign-In Signals [BUS ID %d]: \t request %h \t response %h \t Emulator_out %h",bus_id,requestreg,responsereg,data_tra_emulator_out);
+      responsereg <= data_tra_emulator_out ;
+      $strobeh("\t Sign-In Signals [BUS ID %d]: \t request %h \t response %h \t Emulator_out %h",bus_id,requestreg,data_rec_uplink,data_tra_emulator_out);
     end
     else if(reqmsg && !test_mopshub_core && !test_rx&& !test_tx)
     begin

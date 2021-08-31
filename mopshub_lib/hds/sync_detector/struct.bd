@@ -116,7 +116,7 @@ value "chipdev2.physik.uni-wuppertal.de"
 )
 (vvPair
 variable "graphical_source_time"
-value "16:05:07"
+value "16:59:54"
 )
 (vvPair
 variable "group"
@@ -236,7 +236,7 @@ value "struct"
 )
 (vvPair
 variable "time"
-value "16:05:07"
+value "16:59:54"
 )
 (vvPair
 variable "unit"
@@ -800,10 +800,11 @@ font "courier,8,0"
 xt "21200,29200,35200,33700"
 st "
 always@(posedge bitCLK)
-if (reset)
+if (!rst)
     EDATAbitstreamSREG <=0;
 else
     EDATAbitstreamSREG <= bitstream_in;
+
 
 
 
@@ -894,7 +895,8 @@ va (VaSet
 font "courier,8,0"
 )
 xt "2000,9000,40100,9900"
-st "reg [11:0]   EDATAbitstreamSREG = 12'b0; //12 bit (2 x 5 = 10, plus 2 more)"
+st "reg [11:0]   EDATAbitstreamSREG = 12'b0; //12 bit (2 x 5 = 10, plus 2 more)
+"
 )
 )
 *21 (Net
@@ -913,7 +915,8 @@ va (VaSet
 font "courier,8,0"
 )
 xt "2000,2700,17500,3600"
-st "wire [1:0]   comma_valid_bits;"
+st "wire [1:0]   comma_valid_bits;
+"
 )
 )
 *22 (PortIoIn
@@ -978,7 +981,8 @@ va (VaSet
 font "courier,8,0"
 )
 xt "2000,3600,15500,4500"
-st "wire [11:0]  bitstream_in;"
+st "wire [11:0]  bitstream_in;
+"
 )
 )
 *24 (PortIoIn
@@ -1134,7 +1138,8 @@ va (VaSet
 font "courier,8,0"
 )
 xt "2000,4500,12500,5400"
-st "wire         bitCLK;"
+st "wire         bitCLK;
+"
 )
 )
 *28 (PortIoIn
@@ -1175,8 +1180,8 @@ uid 320,0
 va (VaSet
 font "courier,8,0"
 )
-xt "5500,19550,8000,20450"
-st "reset"
+xt "6500,19550,8000,20450"
+st "rst"
 ju 2
 blo "8000,20250"
 tm "WireNameMgr"
@@ -1290,7 +1295,8 @@ va (VaSet
 font "courier,8,0"
 )
 xt "2000,7200,17500,8100"
-st "wire [9:0]   bitstream_align1;"
+st "wire [9:0]   bitstream_align1;
+"
 )
 )
 *32 (Net
@@ -1310,7 +1316,8 @@ va (VaSet
 font "courier,8,0"
 )
 xt "2000,1800,27000,2700"
-st "wire [9:0]   bitstream_align0; //2 words of 10bit"
+st "wire [9:0]   bitstream_align0; //2 words of 10bit
+"
 )
 )
 *33 (Net
@@ -1328,27 +1335,29 @@ va (VaSet
 font "courier,8,0"
 )
 xt "2000,5400,18500,6300"
-st "wire         reverse_stream_10b;"
+st "wire         reverse_stream_10b;
+"
 )
 )
 *34 (Net
-uid 1002,0
+uid 1088,0
 lang 5
 decl (Decl
-n "reset"
+n "rst"
 t "wire"
 preAdd 0
 posAdd 0
 o 6
-suid 21,0
+suid 22,0
 )
 declText (MLText
-uid 1003,0
+uid 1089,0
 va (VaSet
 font "courier,8,0"
 )
-xt "2000,6300,12000,7200"
-st "wire         reset;"
+xt "2000,6300,11000,7200"
+st "wire         rst;
+"
 )
 )
 *35 (Wire
@@ -1624,8 +1633,8 @@ va (VaSet
 isHidden 1
 font "courier,8,0"
 )
-xt "11000,19100,13500,20000"
-st "reset"
+xt "11000,19100,12500,20000"
+st "rst"
 blo "11000,19800"
 tm "WireNameMgr"
 )
@@ -1782,11 +1791,11 @@ tm "BdCompilerDirectivesTextMgr"
 associable 1
 )
 windowSize "1912,41,3848,1050"
-viewArea "-3500,-800,49603,25178"
+viewArea "-3500,2392,44464,26640"
 cachedDiagramExtent "0,0,63000,49000"
 hasePageBreakOrigin 1
 pageBreakOrigin "0,0"
-lastUid 1046,0
+lastUid 1091,0
 defaultCommentText (CommentText
 shape (Rectangle
 layer 0
@@ -2843,7 +2852,7 @@ tm "BdDeclarativeTextMgr"
 commonDM (CommonDM
 ldm (LogicalDM
 ordering 1
-suid 21,0
+suid 22,0
 usingSuid 1
 emptyRow *74 (LEmptyRow
 )
@@ -2987,13 +2996,13 @@ uid 918,0
 port (LogicalPort
 lang 5
 decl (Decl
-n "reset"
+n "rst"
 t "wire"
 o 6
-suid 21,0
+suid 22,0
 )
 )
-uid 1004,0
+uid 1090,0
 )
 ]
 )
@@ -3091,7 +3100,7 @@ uid 919,0
 litem &96
 pos 7
 dimension 20
-uid 1005,0
+uid 1091,0
 )
 ]
 )

@@ -11,7 +11,7 @@ appVersion "2019.4 (Build 4)"
 model (Symbol
 commonDM (CommonDM
 ldm (LogicalDM
-suid 15,0
+suid 16,0
 usingSuid 1
 emptyRow *1 (LEmptyRow
 )
@@ -98,18 +98,6 @@ uid 346,0
 port (LogicalPort
 lang 5
 decl (Decl
-n "reset"
-t "wire"
-o 3
-suid 14,0
-)
-)
-uid 1012,0
-)
-*19 (LogPort
-port (LogicalPort
-lang 5
-decl (Decl
 n "swap_rx_bits"
 t "wire"
 o 4
@@ -117,6 +105,18 @@ suid 15,0
 )
 )
 uid 1041,0
+)
+*19 (LogPort
+port (LogicalPort
+lang 5
+decl (Decl
+n "rst"
+t "wire"
+o 3
+suid 16,0
+)
+)
+uid 1070,0
 )
 ]
 )
@@ -190,13 +190,13 @@ uid 345,0
 litem &18
 pos 3
 dimension 20
-uid 1011,0
+uid 1040,0
 )
 *29 (MRCItem
 litem &19
 pos 4
 dimension 20
-uid 1040,0
+uid 1069,0
 )
 ]
 )
@@ -455,7 +455,7 @@ value "/home/dcs/git/mopshub/mopshub_lib/hds/bitstream_deserializer"
 )
 (vvPair
 variable "date"
-value "08/24/21"
+value "08/31/21"
 )
 (vvPair
 variable "day"
@@ -467,7 +467,7 @@ value "Tuesday"
 )
 (vvPair
 variable "dd"
-value "24"
+value "31"
 )
 (vvPair
 variable "entity_name"
@@ -495,7 +495,7 @@ value "dcs"
 )
 (vvPair
 variable "graphical_source_date"
-value "08/24/21"
+value "08/31/21"
 )
 (vvPair
 variable "graphical_source_group"
@@ -507,7 +507,7 @@ value "chipdev2.physik.uni-wuppertal.de"
 )
 (vvPair
 variable "graphical_source_time"
-value "18:05:13"
+value "17:02:33"
 )
 (vvPair
 variable "group"
@@ -627,7 +627,7 @@ value "symbol"
 )
 (vvPair
 variable "time"
-value "18:05:13"
+value "17:02:33"
 )
 (vvPair
 variable "unit"
@@ -694,8 +694,7 @@ va (VaSet
 font "courier,8,0"
 )
 xt "2000,3600,16500,4500"
-st "input  wire [1:0]   DATA_IN;
-"
+st "input  wire [1:0]   DATA_IN;"
 )
 thePort (LogicalPort
 lang 5
@@ -742,8 +741,7 @@ va (VaSet
 font "courier,8,0"
 )
 xt "2000,7200,15000,8100"
-st "output wire [11:0]  dout;
-"
+st "output wire [11:0]  dout;"
 )
 thePort (LogicalPort
 lang 5
@@ -790,8 +788,7 @@ va (VaSet
 font "courier,8,0"
 )
 xt "2000,4500,16000,5400"
-st "input  wire         bitCLK;
-"
+st "input  wire         bitCLK;"
 )
 thePort (LogicalPort
 lang 5
@@ -806,52 +803,6 @@ suid 10,0
 )
 )
 *63 (CptPort
-uid 1013,0
-ps "OnEdgeStrategy"
-shape (Triangle
-uid 1014,0
-ro 90
-va (VaSet
-vasetType 1
-fg "0,65535,0"
-)
-xt "14250,17625,15000,18375"
-)
-tg (CPTG
-uid 1015,0
-ps "CptPortTextPlaceStrategy"
-stg "VerticalLayoutStrategy"
-f (Text
-uid 1016,0
-va (VaSet
-font "courier,8,0"
-)
-xt "16000,17550,18500,18450"
-st "reset"
-blo "16000,18250"
-tm "CptPortNameMgr"
-)
-)
-dt (MLText
-uid 1017,0
-va (VaSet
-font "courier,8,0"
-)
-xt "2000,5400,15500,6300"
-st "input  wire         reset;
-"
-)
-thePort (LogicalPort
-lang 5
-decl (Decl
-n "reset"
-t "wire"
-o 3
-suid 14,0
-)
-)
-)
-*64 (CptPort
 uid 1042,0
 ps "OnEdgeStrategy"
 shape (Triangle
@@ -884,8 +835,7 @@ va (VaSet
 font "courier,8,0"
 )
 xt "2000,6300,19000,7200"
-st "input  wire         swap_rx_bits;
-"
+st "input  wire         swap_rx_bits;"
 )
 thePort (LogicalPort
 lang 5
@@ -894,6 +844,51 @@ n "swap_rx_bits"
 t "wire"
 o 4
 suid 15,0
+)
+)
+)
+*64 (CptPort
+uid 1071,0
+ps "OnEdgeStrategy"
+shape (Triangle
+uid 1072,0
+ro 90
+va (VaSet
+vasetType 1
+fg "0,65535,0"
+)
+xt "14250,19625,15000,20375"
+)
+tg (CPTG
+uid 1073,0
+ps "CptPortTextPlaceStrategy"
+stg "VerticalLayoutStrategy"
+f (Text
+uid 1074,0
+va (VaSet
+font "courier,8,0"
+)
+xt "16000,19550,17500,20450"
+st "rst"
+blo "16000,20250"
+tm "CptPortNameMgr"
+)
+)
+dt (MLText
+uid 1075,0
+va (VaSet
+font "courier,8,0"
+)
+xt "2000,5400,14500,6300"
+st "input  wire         rst;"
+)
+thePort (LogicalPort
+lang 5
+decl (Decl
+n "rst"
+t "wire"
+o 3
+suid 16,0
 )
 )
 )
@@ -1607,7 +1602,7 @@ xt "2000,2700,2000,2700"
 tm "SyDeclarativeTextMgr"
 )
 )
-lastUid 1046,0
+lastUid 1097,0
 postModuleDirective "// ### Please start your Verilog code here ###"
 activeModelName "Symbol:CDM"
 )
