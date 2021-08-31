@@ -85,19 +85,19 @@ value "/home/dcs/git/mopshub/mopshub_lib/hds/elink_to_fifo"
 )
 (vvPair
 variable "date"
-value "08/30/21"
+value "08/31/21"
 )
 (vvPair
 variable "day"
-value "Mon"
+value "Tue"
 )
 (vvPair
 variable "day_long"
-value "Monday"
+value "Tuesday"
 )
 (vvPair
 variable "dd"
-value "30"
+value "31"
 )
 (vvPair
 variable "entity_name"
@@ -125,7 +125,7 @@ value "dcs"
 )
 (vvPair
 variable "graphical_source_date"
-value "08/30/21"
+value "08/31/21"
 )
 (vvPair
 variable "graphical_source_group"
@@ -137,7 +137,7 @@ value "chipdev2.physik.uni-wuppertal.de"
 )
 (vvPair
 variable "graphical_source_time"
-value "21:34:36"
+value "15:40:35"
 )
 (vvPair
 variable "group"
@@ -257,7 +257,7 @@ value "struct"
 )
 (vvPair
 variable "time"
-value "21:34:36"
+value "15:40:35"
 )
 (vvPair
 variable "unit"
@@ -1806,7 +1806,7 @@ xt "18200,44200,34700,48700"
 st "
 // Serialization
 if (serialized_input == 0)begin:GBT_frame_case
-  always@(posedge bitCLK)
+  always@(posedge bitCLKx4)
   if (reset)
     begin
      data_2bit_in <= 2'b0;
@@ -1826,7 +1826,7 @@ else begin:Elink_frame_case
     else
       din2bit_r <= {rx_elink1bit,din2bit_r[1]};
   
-  always@(posedge bitCLK)
+  always@(posedge bitCLKx4)
     if (reset)
       data_2bit_in <= 2'b0;
   else
@@ -1839,6 +1839,7 @@ else begin:Elink_frame_case
 
 end                                       
  
+
 
 
 
@@ -4375,12 +4376,12 @@ tm "BdCompilerDirectivesTextMgr"
 ]
 associable 1
 )
-windowSize "-8,13,1928,1088"
-viewArea "-27000,-2700,51798,38884"
+windowSize "3832,13,5768,1088"
+viewArea "-21456,15402,50490,53370"
 cachedDiagramExtent "-7500,0,85000,60000"
 hasePageBreakOrigin 1
 pageBreakOrigin "-69000,0"
-lastUid 6474,0
+lastUid 6537,0
 defaultCommentText (CommentText
 shape (Rectangle
 layer 0

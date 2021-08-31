@@ -178,7 +178,7 @@ always #50 clk = ~clk;
     if(end_sign_in ==1)//Done with Initialisation
     begin
       sel_bus=1'b0;
-     // test_rx =1'b1;
+      //test_rx =1'b1;
       test_tx =1'b1;
       //test_mopshub_core = 1'b1;
       start_data_gen =1'b0;
@@ -255,8 +255,8 @@ always #50 clk = ~clk;
     //test RX part 
     else if (respmsg && test_rx)
     begin
-      responsereg <= data_rec_uplink;
-      $strobeh("\t Receive RX signals [BUS ID %d]: \t request %h \t response %h \t Emulator_out %h",bus_id,requestreg,responsereg,data_tra_emulator_out);
+      responsereg <= data_tra_emulator_out;
+      $strobeh("\t Receive RX signals [BUS ID %d]: \t request %h \t response %h \t Emulator_out %h",bus_id,requestreg,data_rec_uplink,data_tra_emulator_out);
     end
     else if(reqmsg && test_rx)
     begin
@@ -275,8 +275,8 @@ always #50 clk = ~clk;
     //Default
     else if (respmsg && !test_mopshub_core && !test_rx && !test_tx)
     begin
-      responsereg <= data_rec_uplink;
-      $strobeh("\t Sign-In Signals [BUS ID %d]: \t request %h \t response %h \t Emulator_out %h",bus_id,requestreg,responsereg,data_tra_emulator_out);
+      responsereg <= data_tra_emulator_out ;
+      $strobeh("\t Sign-In Signals [BUS ID %d]: \t request %h \t response %h \t Emulator_out %h",bus_id,requestreg,data_rec_uplink,data_tra_emulator_out);
     end
     else if(reqmsg && !test_mopshub_core && !test_rx&& !test_tx)
     begin
