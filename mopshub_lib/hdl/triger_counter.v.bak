@@ -26,7 +26,7 @@ module triger_counter #(
   // Counter over the Clock signal
   always @(posedge bitCLK)
   begin
-    if (rst ==1)
+    if (!rst)
     request_cycle_cnt <= 3'b0;
     else 
     begin

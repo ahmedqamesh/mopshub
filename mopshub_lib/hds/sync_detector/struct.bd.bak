@@ -64,7 +64,7 @@ value "/home/dcs/git/mopshub/mopshub_lib/hds/sync_detector"
 )
 (vvPair
 variable "date"
-value "08/10/21"
+value "08/31/21"
 )
 (vvPair
 variable "day"
@@ -76,7 +76,7 @@ value "Tuesday"
 )
 (vvPair
 variable "dd"
-value "10"
+value "31"
 )
 (vvPair
 variable "entity_name"
@@ -104,7 +104,7 @@ value "dcs"
 )
 (vvPair
 variable "graphical_source_date"
-value "08/10/21"
+value "08/31/21"
 )
 (vvPair
 variable "graphical_source_group"
@@ -116,7 +116,7 @@ value "chipdev2.physik.uni-wuppertal.de"
 )
 (vvPair
 variable "graphical_source_time"
-value "14:26:12"
+value "16:03:52"
 )
 (vvPair
 variable "group"
@@ -236,7 +236,7 @@ value "struct"
 )
 (vvPair
 variable "time"
-value "14:26:12"
+value "16:03:52"
 )
 (vvPair
 variable "unit"
@@ -799,10 +799,11 @@ font "courier,8,0"
 xt "21200,29200,35200,33700"
 st "
 always@(posedge bitCLK)
-if (rst)
+if (reset)
     EDATAbitstreamSREG <=0;
 else
     EDATAbitstreamSREG <= bitstream_in;
+
 
 
 
@@ -1135,27 +1136,7 @@ xt "2000,4500,12500,5400"
 st "wire         bitCLK;"
 )
 )
-*28 (Net
-uid 313,0
-lang 5
-decl (Decl
-n "rst"
-t "wire"
-preAdd 0
-posAdd 0
-o 6
-suid 15,0
-)
-declText (MLText
-uid 314,0
-va (VaSet
-font "courier,8,0"
-)
-xt "2000,6300,11000,7200"
-st "wire         rst;"
-)
-)
-*29 (PortIoIn
+*28 (PortIoIn
 uid 315,0
 shape (CompositeShape
 uid 316,0
@@ -1193,15 +1174,15 @@ uid 320,0
 va (VaSet
 font "courier,8,0"
 )
-xt "6500,19550,8000,20450"
-st "rst"
+xt "5500,19550,8000,20450"
+st "reset"
 ju 2
 blo "8000,20250"
 tm "WireNameMgr"
 )
 )
 )
-*30 (PortIoIn
+*29 (PortIoIn
 uid 321,0
 shape (CompositeShape
 uid 322,0
@@ -1247,7 +1228,7 @@ tm "WireNameMgr"
 )
 )
 )
-*31 (PortIoOut
+*30 (PortIoOut
 uid 333,0
 shape (CompositeShape
 uid 334,0
@@ -1292,7 +1273,7 @@ tm "WireNameMgr"
 )
 )
 )
-*32 (Net
+*31 (Net
 uid 404,0
 lang 5
 decl (Decl
@@ -1311,7 +1292,7 @@ xt "2000,7200,17500,8100"
 st "wire [9:0]   bitstream_align1;"
 )
 )
-*33 (Net
+*32 (Net
 uid 406,0
 lang 5
 decl (Decl
@@ -1331,7 +1312,7 @@ xt "2000,1800,27000,2700"
 st "wire [9:0]   bitstream_align0; //2 words of 10bit"
 )
 )
-*34 (Net
+*33 (Net
 uid 916,0
 lang 5
 decl (Decl
@@ -1347,6 +1328,26 @@ font "courier,8,0"
 )
 xt "2000,5400,18500,6300"
 st "wire         reverse_stream_10b;"
+)
+)
+*34 (Net
+uid 1002,0
+lang 5
+decl (Decl
+n "reset"
+t "wire"
+preAdd 0
+posAdd 0
+o 6
+suid 21,0
+)
+declText (MLText
+uid 1003,0
+va (VaSet
+font "courier,8,0"
+)
+xt "2000,6300,12000,7200"
+st "wire         reset;"
 )
 )
 *35 (Wire
@@ -1429,7 +1430,7 @@ blo "47000,16800"
 tm "WireNameMgr"
 )
 )
-on &33
+on &32
 )
 *37 (Wire
 uid 165,0
@@ -1550,7 +1551,7 @@ blo "32000,16800"
 tm "WireNameMgr"
 )
 )
-on &34
+on &33
 )
 *40 (Wire
 uid 295,0
@@ -1565,7 +1566,7 @@ pts [
 "13000,21000"
 ]
 )
-start &30
+start &29
 end &16
 sat 32
 eat 1
@@ -1604,7 +1605,7 @@ pts [
 "13000,20000"
 ]
 )
-start &29
+start &28
 end &16
 sat 32
 eat 1
@@ -1622,13 +1623,13 @@ va (VaSet
 isHidden 1
 font "courier,8,0"
 )
-xt "11000,19100,12500,20000"
-st "rst"
+xt "11000,19100,13500,20000"
+st "reset"
 blo "11000,19800"
 tm "WireNameMgr"
 )
 )
-on &28
+on &34
 )
 *42 (Wire
 uid 339,0
@@ -1645,7 +1646,7 @@ pts [
 ]
 )
 start &12
-end &31
+end &30
 sat 2
 eat 32
 sty 1
@@ -1668,7 +1669,7 @@ blo "41000,15800"
 tm "WireNameMgr"
 )
 )
-on &32
+on &31
 )
 ]
 bg "65535,65535,65535"
@@ -1779,12 +1780,12 @@ tm "BdCompilerDirectivesTextMgr"
 ]
 associable 1
 )
-windowSize "4023,99,5479,904"
-viewArea "-4510,-753,43577,23973"
+windowSize "1912,41,3848,1050"
+viewArea "-3500,-800,49603,25178"
 cachedDiagramExtent "0,0,63000,49000"
 hasePageBreakOrigin 1
-pageBreakOrigin "-69000,0"
-lastUid 960,0
+pageBreakOrigin "0,0"
+lastUid 1046,0
 defaultCommentText (CommentText
 shape (Rectangle
 layer 0
@@ -2841,7 +2842,7 @@ tm "BdDeclarativeTextMgr"
 commonDM (CommonDM
 ldm (LogicalDM
 ordering 1
-suid 20,0
+suid 21,0
 usingSuid 1
 emptyRow *74 (LEmptyRow
 )
@@ -2944,18 +2945,6 @@ uid 327,0
 *93 (LeafLogPort
 port (LogicalPort
 lang 5
-decl (Decl
-n "rst"
-t "wire"
-o 6
-suid 15,0
-)
-)
-uid 329,0
-)
-*94 (LeafLogPort
-port (LogicalPort
-lang 5
 m 1
 decl (Decl
 n "bitstream_align1"
@@ -2967,7 +2956,7 @@ suid 17,0
 )
 uid 408,0
 )
-*95 (LeafLogPort
+*94 (LeafLogPort
 port (LogicalPort
 lang 5
 m 1
@@ -2981,7 +2970,7 @@ suid 18,0
 )
 uid 410,0
 )
-*96 (LeafLogPort
+*95 (LeafLogPort
 port (LogicalPort
 lang 5
 decl (Decl
@@ -2992,6 +2981,18 @@ suid 20,0
 )
 )
 uid 918,0
+)
+*96 (LeafLogPort
+port (LogicalPort
+lang 5
+decl (Decl
+n "reset"
+t "wire"
+o 6
+suid 21,0
+)
+)
+uid 1004,0
 )
 ]
 )
@@ -3045,7 +3046,7 @@ uid 74,0
 )
 *102 (MRCItem
 litem &89
-pos 4
+pos 3
 dimension 20
 uid 242,0
 )
@@ -3069,27 +3070,27 @@ uid 328,0
 )
 *106 (MRCItem
 litem &93
-pos 3
+pos 4
 dimension 20
-uid 330,0
+uid 409,0
 )
 *107 (MRCItem
 litem &94
 pos 5
 dimension 20
-uid 409,0
+uid 411,0
 )
 *108 (MRCItem
 litem &95
 pos 6
 dimension 20
-uid 411,0
+uid 919,0
 )
 *109 (MRCItem
 litem &96
 pos 7
 dimension 20
-uid 919,0
+uid 1005,0
 )
 ]
 )
@@ -3207,7 +3208,7 @@ tm "GenericEolColHdrMgr"
 )
 *130 (LogGeneric
 generic (GiElement
-name "GENERATE_FEI4B"
+name "generate_mopshub"
 type "integer"
 value "0"
 )

@@ -104,19 +104,19 @@ value "/home/dcs/git/mopshub/mopshub_lib/hds/enc8b10b_wrap"
 )
 (vvPair
 variable "date"
-value "08/19/21"
+value "08/31/21"
 )
 (vvPair
 variable "day"
-value "Thu"
+value "Tue"
 )
 (vvPair
 variable "day_long"
-value "Thursday"
+value "Tuesday"
 )
 (vvPair
 variable "dd"
-value "19"
+value "31"
 )
 (vvPair
 variable "entity_name"
@@ -144,7 +144,7 @@ value "dcs"
 )
 (vvPair
 variable "graphical_source_date"
-value "08/19/21"
+value "08/31/21"
 )
 (vvPair
 variable "graphical_source_group"
@@ -156,7 +156,7 @@ value "chipdev2.physik.uni-wuppertal.de"
 )
 (vvPair
 variable "graphical_source_time"
-value "16:35:52"
+value "16:23:20"
 )
 (vvPair
 variable "group"
@@ -276,7 +276,7 @@ value "struct"
 )
 (vvPair
 variable "time"
-value "16:35:52"
+value "16:23:20"
 )
 (vvPair
 variable "unit"
@@ -871,16 +871,16 @@ optionalChildren [
 uid 97,0
 sl 0
 ro 270
-xt "21000,11625,22500,12375"
+xt "20000,11625,21500,12375"
 )
 (Line
 uid 98,0
 sl 0
 ro 270
-xt "22500,12000,23000,12000"
+xt "21500,12000,22000,12000"
 pts [
-"22500,12000"
-"23000,12000"
+"21500,12000"
+"22000,12000"
 ]
 )
 ]
@@ -895,10 +895,10 @@ uid 100,0
 va (VaSet
 font "courier,8,0"
 )
-xt "15500,11500,20000,12400"
+xt "14500,11500,19000,12400"
 st "dataINrdy"
 ju 2
-blo "20000,12200"
+blo "19000,12200"
 tm "WireNameMgr"
 )
 )
@@ -1891,11 +1891,11 @@ va (VaSet
 isHidden 1
 font "courier,8,0"
 )
-xt "32200,11200,49200,15700"
+xt "32200,11200,49700,15700"
 st "
 // HDL Embedded Text Block 2 enc_rst_sig
-// eb1 2         
-assign encoder_rst = (rst_state |rst);
+// eb1 2        
+assign encoder_rst = (rst_state |!rst);
 // HDL Embedded Text Block 3 eb1
 // eb1 3
 //Assign the  dataINrdy signal to be used later as output
@@ -1905,8 +1905,10 @@ assign dataINrdy_s = dataINrdy & (!encoder_rst);
 // rst_state 4    
 always @(posedge clk) 
   begin    
-    rst_state <=rst;
+    rst_state <=!rst;
   end
+
+
 
 "
 tm "HdlTextMgr"
@@ -2189,12 +2191,13 @@ st "
 // rdy_out 7
 //output signal  encDataOutrdy to show that data is ready after the decoder                              
 always @(posedge clk) 
-if (rst)
+if (!rst)
 encDataOutrdy_r <=0;
 else
 begin    
   encDataOutrdy_r <= dataINrdy_s & (! encoder_rst);
 end
+
 
 
 "
@@ -2863,9 +2866,9 @@ uid 104,0
 va (VaSet
 vasetType 3
 )
-xt "23000,12000,24000,12000"
+xt "22000,12000,24000,12000"
 pts [
-"23000,12000"
+"22000,12000"
 "24000,12000"
 ]
 )
@@ -2887,9 +2890,9 @@ va (VaSet
 isHidden 1
 font "courier,8,0"
 )
-xt "21000,11100,25500,12000"
+xt "20000,11100,24500,12000"
 st "dataINrdy"
-blo "21000,11800"
+blo "20000,11800"
 tm "WireNameMgr"
 )
 )
@@ -4074,12 +4077,12 @@ tm "BdCompilerDirectivesTextMgr"
 ]
 associable 1
 )
-windowSize "1619,265,3075,1020"
-viewArea "56760,-4992,109779,20120"
+windowSize "1912,41,3848,1050"
+viewArea "4421,-12391,130543,51369"
 cachedDiagramExtent "-5000,-4900,107500,51100"
 hasePageBreakOrigin 1
 pageBreakOrigin "-7000,-10000"
-lastUid 1012,0
+lastUid 1232,0
 defaultCommentText (CommentText
 shape (Rectangle
 layer 0
@@ -5137,7 +5140,7 @@ tm "BdDeclarativeTextMgr"
 commonDM (CommonDM
 ldm (LogicalDM
 ordering 1
-suid 23,0
+suid 24,0
 usingSuid 1
 emptyRow *154 (LEmptyRow
 )

@@ -83,19 +83,19 @@ value "/home/dcs/git/mopshub/mopshub_lib/hds/dec_8b10b_wrap"
 )
 (vvPair
 variable "date"
-value "08/30/21"
+value "08/31/21"
 )
 (vvPair
 variable "day"
-value "Mon"
+value "Tue"
 )
 (vvPair
 variable "day_long"
-value "Monday"
+value "Tuesday"
 )
 (vvPair
 variable "dd"
-value "30"
+value "31"
 )
 (vvPair
 variable "entity_name"
@@ -123,7 +123,7 @@ value "dcs"
 )
 (vvPair
 variable "graphical_source_date"
-value "08/30/21"
+value "08/31/21"
 )
 (vvPair
 variable "graphical_source_group"
@@ -135,7 +135,7 @@ value "chipdev2.physik.uni-wuppertal.de"
 )
 (vvPair
 variable "graphical_source_time"
-value "16:56:01"
+value "15:58:29"
 )
 (vvPair
 variable "group"
@@ -255,7 +255,7 @@ value "struct"
 )
 (vvPair
 variable "time"
-value "16:56:01"
+value "15:58:29"
 )
 (vvPair
 variable "unit"
@@ -1670,8 +1670,8 @@ font "courier,8,0"
 xt "7200,26200,24700,30700"
 st "
 // GBT_mode_Sig 1                                        
-if (GENERATE_FEI4B == 0) 
-  begin:GBT_mode
+if (generate_mopshub == 0) 
+  begin:EMCI_mode
    assign ISK_comma   = (ABCDEIFGHJ_IN == COMMAp |  ABCDEIFGHJ_IN == COMMAn )  ? 1: 0;
    assign ISK_soc     = (ABCDEIFGHJ_IN == SOCp   |  ABCDEIFGHJ_IN == SOCn   )  ? 1: 0;
    assign ISK_eoc     = (ABCDEIFGHJ_IN == EOCp   |  ABCDEIFGHJ_IN == EOCn   )  ? 1: 0;
@@ -1679,13 +1679,14 @@ if (GENERATE_FEI4B == 0)
    assign ISK_eob     = (ABCDEIFGHJ_IN == EOBp   |  ABCDEIFGHJ_IN == EOBn   )  ? 1: 0;
   end
 else
-  begin:MOPS
+  begin:MOPSHUB_mode 
    assign ISK_comma   = (ABCDEIFGHJ_IN == FEI4B_COMMAp |  ABCDEIFGHJ_IN == FEI4B_COMMAn )  ? 1: 0;
    assign ISK_soc     = (ABCDEIFGHJ_IN == FEI4B_SOCp   |  ABCDEIFGHJ_IN == FEI4B_SOCn   )  ? 1: 0;
    assign ISK_eoc     = (ABCDEIFGHJ_IN == FEI4B_EOCp   |  ABCDEIFGHJ_IN == FEI4B_EOCn   )  ? 1: 0;
    assign ISK_sob     = 0;
    assign ISK_eob     = 0;    
   end
+
 
 
 
@@ -3270,11 +3271,11 @@ tm "BdCompilerDirectivesTextMgr"
 associable 1
 )
 windowSize "1912,41,3848,1050"
-viewArea "12011,-1490,82176,32835"
+viewArea "-18377,-1500,45004,29506"
 cachedDiagramExtent "-14000,0,87000,38000"
 hasePageBreakOrigin 1
 pageBreakOrigin "-80000,0"
-lastUid 1772,0
+lastUid 1851,0
 defaultCommentText (CommentText
 shape (Rectangle
 layer 0
@@ -5085,7 +5086,7 @@ uid 916,0
 )
 *220 (LogGeneric
 generic (GiElement
-name "GENERATE_FEI4B"
+name "generate_mopshub"
 type "integer"
 value "0"
 )

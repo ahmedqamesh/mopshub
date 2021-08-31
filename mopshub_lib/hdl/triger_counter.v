@@ -15,7 +15,7 @@ module triger_counter #(
   parameter req_size = 3'b011)
   (
   input wire rst,
-  input wire bitCLK,
+  input wire clk,
   output wire request_trig
   );
   
@@ -24,9 +24,9 @@ module triger_counter #(
   
   
   // Counter over the Clock signal
-  always @(posedge bitCLK)
+  always @(posedge clk)
   begin
-    if (rst ==1)
+    if (!rst)
     request_cycle_cnt <= 3'b0;
     else 
     begin

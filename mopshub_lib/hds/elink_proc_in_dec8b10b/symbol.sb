@@ -12,7 +12,7 @@ model (Symbol
 commonDM (CommonDM
 ldm (LogicalDM
 ordering 1
-suid 70,0
+suid 71,0
 usingSuid 1
 emptyRow *1 (LEmptyRow
 )
@@ -84,18 +84,6 @@ uid 4281,0
 *17 (LogPort
 port (LogicalPort
 lang 5
-decl (Decl
-n "bitCLKx4"
-t "wire"
-o 3
-suid 57,0
-)
-)
-uid 4283,0
-)
-*18 (LogPort
-port (LogicalPort
-lang 5
 m 1
 decl (Decl
 n "HGFEDCBA"
@@ -107,7 +95,7 @@ suid 58,0
 )
 uid 4285,0
 )
-*19 (LogPort
+*18 (LogPort
 port (LogicalPort
 lang 5
 m 1
@@ -121,7 +109,7 @@ suid 59,0
 )
 uid 4287,0
 )
-*20 (LogPort
+*19 (LogPort
 port (LogicalPort
 lang 5
 decl (Decl
@@ -133,7 +121,7 @@ suid 63,0
 )
 uid 4367,0
 )
-*21 (LogPort
+*20 (LogPort
 port (LogicalPort
 lang 5
 m 1
@@ -146,7 +134,7 @@ suid 65,0
 )
 uid 4425,0
 )
-*22 (LogPort
+*21 (LogPort
 port (LogicalPort
 lang 5
 decl (Decl
@@ -158,7 +146,7 @@ suid 67,0
 )
 uid 4507,0
 )
-*23 (LogPort
+*22 (LogPort
 port (LogicalPort
 lang 5
 decl (Decl
@@ -169,6 +157,18 @@ suid 70,0
 )
 )
 uid 4682,0
+)
+*23 (LogPort
+port (LogicalPort
+lang 5
+decl (Decl
+n "clk"
+t "wire"
+o 3
+suid 71,0
+)
+)
+uid 4711,0
 )
 ]
 )
@@ -234,45 +234,45 @@ uid 4280,0
 )
 *31 (MRCItem
 litem &17
-pos 0
-dimension 20
-uid 4282,0
-)
-*32 (MRCItem
-litem &18
 pos 4
 dimension 20
 uid 4284,0
 )
-*33 (MRCItem
-litem &19
+*32 (MRCItem
+litem &18
 pos 5
 dimension 20
 uid 4286,0
 )
-*34 (MRCItem
-litem &20
+*33 (MRCItem
+litem &19
 pos 7
 dimension 20
 uid 4366,0
 )
-*35 (MRCItem
-litem &21
+*34 (MRCItem
+litem &20
 pos 6
 dimension 20
 uid 4424,0
 )
-*36 (MRCItem
-litem &22
+*35 (MRCItem
+litem &21
 pos 2
 dimension 20
 uid 4506,0
 )
-*37 (MRCItem
-litem &23
+*36 (MRCItem
+litem &22
 pos 8
 dimension 20
 uid 4681,0
+)
+*37 (MRCItem
+litem &23
+pos 0
+dimension 20
+uid 4710,0
 )
 ]
 )
@@ -384,11 +384,11 @@ tm "GenericEolColHdrMgr"
 )
 *57 (LogGeneric
 generic (GiElement
-name "GENERATE_FEI4B"
+name "generate_mopshub"
 type "integer"
 value "0"
 )
-uid 4483,0
+uid 4740,0
 )
 ]
 )
@@ -444,7 +444,7 @@ uid 155,0
 litem &57
 pos 0
 dimension 20
-uid 4482,0
+uid 4739,0
 )
 ]
 )
@@ -545,7 +545,7 @@ value "/home/dcs/git/mopshub/mopshub_lib/hds/elink_proc_in_dec8b10b"
 )
 (vvPair
 variable "date"
-value "08/24/21"
+value "08/31/21"
 )
 (vvPair
 variable "day"
@@ -557,7 +557,7 @@ value "Tuesday"
 )
 (vvPair
 variable "dd"
-value "24"
+value "31"
 )
 (vvPair
 variable "entity_name"
@@ -585,7 +585,7 @@ value "dcs"
 )
 (vvPair
 variable "graphical_source_date"
-value "08/24/21"
+value "08/31/21"
 )
 (vvPair
 variable "graphical_source_group"
@@ -597,7 +597,7 @@ value "chipdev2.physik.uni-wuppertal.de"
 )
 (vvPair
 variable "graphical_source_time"
-value "18:03:48"
+value "15:59:36"
 )
 (vvPair
 variable "group"
@@ -717,7 +717,7 @@ value "symbol"
 )
 (vvPair
 variable "time"
-value "18:03:48"
+value "15:59:36"
 )
 (vvPair
 variable "unit"
@@ -784,8 +784,7 @@ va (VaSet
 font "courier,8,0"
 )
 xt "2000,9200,16000,10100"
-st "input  wire [1:0]  DATA_IN;
-"
+st "input  wire [1:0]  DATA_IN;"
 )
 thePort (LogicalPort
 lang 5
@@ -833,8 +832,7 @@ va (VaSet
 font "courier,8,0"
 )
 xt "2000,10100,15500,11000"
-st "input  wire        bitCLK;
-"
+st "input  wire        bitCLK;"
 )
 thePort (LogicalPort
 lang 5
@@ -847,52 +845,6 @@ suid 56,0
 )
 )
 *72 (CptPort
-uid 4314,0
-ps "OnEdgeStrategy"
-shape (Triangle
-uid 4315,0
-ro 90
-va (VaSet
-vasetType 1
-fg "0,65535,0"
-)
-xt "14250,32625,15000,33375"
-)
-tg (CPTG
-uid 4316,0
-ps "CptPortTextPlaceStrategy"
-stg "VerticalLayoutStrategy"
-f (Text
-uid 4317,0
-va (VaSet
-font "courier,8,0"
-)
-xt "16000,32550,20000,33450"
-st "bitCLKx4"
-blo "16000,33250"
-tm "CptPortNameMgr"
-)
-)
-dt (MLText
-uid 4318,0
-va (VaSet
-font "courier,8,0"
-)
-xt "2000,11000,16500,11900"
-st "input  wire        bitCLKx4;
-"
-)
-thePort (LogicalPort
-lang 5
-decl (Decl
-n "bitCLKx4"
-t "wire"
-o 3
-suid 57,0
-)
-)
-)
-*73 (CptPort
 uid 4319,0
 ps "OnEdgeStrategy"
 shape (Triangle
@@ -926,8 +878,7 @@ va (VaSet
 font "courier,8,0"
 )
 xt "2000,15500,16500,16400"
-st "output wire [7:0]  HGFEDCBA;
-"
+st "output wire [7:0]  HGFEDCBA;"
 )
 thePort (LogicalPort
 lang 5
@@ -941,7 +892,7 @@ suid 58,0
 )
 )
 )
-*74 (CptPort
+*73 (CptPort
 uid 4324,0
 ps "OnEdgeStrategy"
 shape (Triangle
@@ -975,8 +926,7 @@ va (VaSet
 font "courier,8,0"
 )
 xt "2000,16400,14000,17300"
-st "output wire [1:0]  ISK;
-"
+st "output wire [1:0]  ISK;"
 )
 thePort (LogicalPort
 lang 5
@@ -990,7 +940,7 @@ suid 59,0
 )
 )
 )
-*75 (CptPort
+*74 (CptPort
 uid 4368,0
 ps "OnEdgeStrategy"
 shape (Triangle
@@ -1023,8 +973,7 @@ va (VaSet
 font "courier,8,0"
 )
 xt "2000,13700,21500,14600"
-st "input  wire        reverse_stream_10b;
-"
+st "input  wire        reverse_stream_10b;"
 )
 thePort (LogicalPort
 lang 5
@@ -1036,7 +985,7 @@ suid 63,0
 )
 )
 )
-*76 (CptPort
+*75 (CptPort
 uid 4426,0
 ps "OnEdgeStrategy"
 shape (Triangle
@@ -1070,8 +1019,7 @@ va (VaSet
 font "courier,8,0"
 )
 xt "2000,14600,16500,15500"
-st "output wire        data_rdy;
-"
+st "output wire        data_rdy;"
 )
 thePort (LogicalPort
 lang 5
@@ -1084,7 +1032,7 @@ suid 65,0
 )
 )
 )
-*77 (CptPort
+*76 (CptPort
 uid 4508,0
 ps "OnEdgeStrategy"
 shape (Triangle
@@ -1117,8 +1065,7 @@ va (VaSet
 font "courier,8,0"
 )
 xt "2000,11900,15000,12800"
-st "input  wire        reset;
-"
+st "input  wire        reset;"
 )
 thePort (LogicalPort
 lang 5
@@ -1130,7 +1077,7 @@ suid 67,0
 )
 )
 )
-*78 (CptPort
+*77 (CptPort
 uid 4683,0
 ps "OnEdgeStrategy"
 shape (Triangle
@@ -1163,8 +1110,7 @@ va (VaSet
 font "courier,8,0"
 )
 xt "2000,12800,18500,13700"
-st "input  wire        swap_rx_bits;
-"
+st "input  wire        swap_rx_bits;"
 )
 thePort (LogicalPort
 lang 5
@@ -1173,6 +1119,51 @@ n "swap_rx_bits"
 t "wire"
 o 5
 suid 70,0
+)
+)
+)
+*78 (CptPort
+uid 4712,0
+ps "OnEdgeStrategy"
+shape (Triangle
+uid 4713,0
+ro 90
+va (VaSet
+vasetType 1
+fg "0,65535,0"
+)
+xt "14250,37625,15000,38375"
+)
+tg (CPTG
+uid 4714,0
+ps "CptPortTextPlaceStrategy"
+stg "VerticalLayoutStrategy"
+f (Text
+uid 4715,0
+va (VaSet
+font "courier,8,0"
+)
+xt "16000,37550,17500,38450"
+st "clk"
+blo "16000,38250"
+tm "CptPortNameMgr"
+)
+)
+dt (MLText
+uid 4716,0
+va (VaSet
+font "courier,8,0"
+)
+xt "2000,11000,14000,11900"
+st "input  wire        clk;"
+)
+thePort (LogicalPort
+lang 5
+decl (Decl
+n "clk"
+t "wire"
+o 3
+suid 71,0
 )
 )
 )
@@ -1225,14 +1216,15 @@ font "courier,8,0"
 xt "25000,34100,36500,36800"
 st "Parameter Declarations
 
-GENERATE_FEI4B 0  "
+generate_mopshub 0  
+"
 )
 header "Parameter Declarations"
 showHdrWhenContentsEmpty 1
 )
 elements [
 (GiElement
-name "GENERATE_FEI4B"
+name "generate_mopshub"
 type "integer"
 value "0"
 )
@@ -1894,7 +1886,7 @@ xt "2000,8300,2000,8300"
 tm "SyDeclarativeTextMgr"
 )
 )
-lastUid 4687,0
+lastUid 4740,0
 okToSyncOnLoad 1
 OkToSyncGenericsOnLoad 1
 activeModelName "Symbol"
