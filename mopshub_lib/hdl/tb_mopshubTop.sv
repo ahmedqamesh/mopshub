@@ -4,7 +4,7 @@ module tb_mopshubTop();
 reg             clk = 1'b0;
 reg             rst   = 1'b1;
 wire            start_init;
-wire            osc_auto_trim;
+//wire            osc_auto_trim;
 string          info_debug_sig;     
 int             adc_ch;
 wire    [75:0]  bus_data;
@@ -31,6 +31,9 @@ wire            respmsg;
 wire    [4:0]   can_rec_select;
 reg             start_read_elink =1'b1;
 wire            end_read_elink; 
+reg             power_bus_on =1'b0;
+wire            start_trim_osc;
+wire            sign_on_sig;
 reg      [75:0] requestreg  = 75'h0;
 reg      [75:0] responsereg = 75'h0; 
 wire     [75:0] data_tra_emulator_out;
@@ -65,7 +68,7 @@ wire            tx1;
 //wire            tx7;
 //Internal assignments  
 //Automated trimming signals
-assign osc_auto_trim =1'b0;                    ////Active high. Enable /disable automated trimming. If disabled then take care of ftrim_pads_reg
+reg osc_auto_trim =1'b1;                    ////Active high. Enable /disable automated trimming. If disabled then take care of ftrim_pads_reg
 
 /// Top level instantiation
 assign can_tra_select = mopshub0.can_tra_select;
@@ -83,7 +86,9 @@ mopshub_top#(
 .clk(clk),
 .rst(rst), 
 .start_init(start_init),  
-.power_bus_on(1'b0),                          
+.power_bus_on(power_bus_on), 
+.start_trim_osc(start_trim_osc),
+.sign_on_sig(sign_on_sig),                         
 .end_cnt_dbg(1'b0),               
 .tx_elink2bit(tx_mopshub_2bit),
 .tx_elink1bit(tx_mopshub_1bit),
@@ -139,7 +144,6 @@ data_generator#(
 //Decoder Signals [Listen always to the bus ]
 .bus_data(bus_data),
 //read data from Elink and send it to the bus
-.sel_ch(1'b1),
 .sel_bus(sel_bus),
 .bus_cnt(5'b0),// test Bus 0
 .test_mopshub_core(test_mopshub_core),
@@ -169,19 +173,27 @@ always #50 clk = ~clk;
       #200000
       start_data_gen =1'b1;
     end
+    else if (power_bus_on ==1'b1)
+    begin
+     #1000000
+    start_data_gen =1'b1;
+    end
     else
     start_data_gen =1'b1;
-  end 
+ end
   
   /////*******Start Full SM for Data Generation ****/////
   always@(posedge clk)
   begin 
+    if (start_sign_in ==1)
+      osc_auto_trim  = 1'b0; 
     if(end_sign_in ==1)//Done with Initialisation
     begin
       sel_bus=1'b0;
       test_rx =1'b1;
       // test_tx =1'b1;
       //test_mopshub_core = 1'b1;
+      
       start_data_gen =1'b0;
     end
     if(test_rx_end ==1)//Done Rx test
@@ -211,7 +223,18 @@ always #50 clk = ~clk;
     begin 
       info_debug_sig = "<:initialization:>";
       $strobeh("\t initialization: %h ",data_rec_uplink);
-    end  
+    end
+    if(start_sign_in)
+    begin 
+      $strobe("*****************************************************************************");
+      info_debug_sig = {""};
+    end    
+    if(start_trim_osc)
+    begin 
+      $strobe("*****************************************************************************");
+      info_debug_sig = {"<:Oscillator Trimming [BUS ID ",$sformatf("%h",can_tra_select)," ]:>"};
+      $strobeh("\t Oscillator Trimming: %h ",data_rec_uplink);
+    end       
     if(start_trim_sig)
     begin 
       $strobe("*****************************************************************************");
@@ -220,8 +243,6 @@ always #50 clk = ~clk;
     end  
     if(start_sign_in)
     begin 
-      #10
-      $strobe("*****************************************************************************");
       info_debug_sig = {"<:Signing in [BUS ID ",$sformatf("%h",bus_id)," ]:>"};
       $strobeh("\t Sign-in message [BUS ID %d ]  :",bus_id);
     end 
@@ -252,12 +273,23 @@ always #50 clk = ~clk;
     if(start_read_elink && test_mopshub_core)
     begin 
       info_debug_sig = $sformatf("<:Elink test  [BUS ID %d ]  :>",bus_id);
+    end
+    // Test Osc Trim
+    else if(respmsg && osc_auto_trim && !test_mopshub_core && !test_rx && !test_tx)
+    begin
+      responsereg <= data_rec_uplink;
+       $strobeh("\t Oscillator trimming [BUS ID %d]: \t reques RX testt %h \t response %h \t",bus_id,requestreg,responsereg);
+ 
+    end  
+    else if(reqmsg && osc_auto_trim && !test_mopshub_core && !test_rx && !test_tx)
+    begin
+      requestreg <= bus_data; 
     end  
     //test RX part 
     else if (respmsg && test_rx)
     begin
       responsereg <= data_tra_emulator_out;
-      $strobeh("\t Receive RX signals [BUS ID %d]: \t request %h \t response %h \t Emulator_out %h",bus_id,requestreg,data_rec_uplink,data_tra_emulator_out);
+      $strobeh("\t Receive RX signals [BUS ID %d]: \t reques RX testt %h \t response %h \t Emulator_out %h",bus_id,requestreg,data_rec_uplink,data_tra_emulator_out);
     end
     else if(reqmsg && test_rx)
     begin
@@ -274,12 +306,12 @@ always #50 clk = ~clk;
       requestreg <= data_tra_uplink; 
     end
     //Default
-    else if (respmsg && !test_mopshub_core && !test_rx && !test_tx)
+    else if (respmsg && !test_mopshub_core && !test_rx && !test_tx && !osc_auto_trim)
     begin
       responsereg <= data_tra_emulator_out ;
-      $strobeh("\t Sign-In Signals [BUS ID %d]: \t request %h \t response %h \t Emulator_out %h",bus_id,requestreg,data_rec_uplink,data_tra_emulator_out);
+      $strobeh("\t [BUS ID %d]: \t request %h \t response %h \t Emulator_out %h",bus_id,requestreg,data_rec_uplink,data_tra_emulator_out);
     end
-    else if(reqmsg && !test_mopshub_core && !test_rx&& !test_tx)
+    else if(reqmsg && !test_mopshub_core && !test_rx&& !test_tx && !osc_auto_trim)
     begin
       requestreg <= data_rec_uplink; 
     end
@@ -290,7 +322,7 @@ always #50 clk = ~clk;
   begin 
     if (respmsg)
     begin
-      #500
+     #500
       casez(requestreg)
         75'h0: begin    //////// Reset requestreg////
           if(responsereg inside {{43'h701?5000000,bus_id,24'h0}})
@@ -504,6 +536,20 @@ always #50 clk = ~clk;
             failures += 1;
           end
         end
+        //Check Osc test
+        {76'h555aaaaaaaaaaaaaaaa}://
+        begin 
+          if(responsereg inside{ {43'h555aaaaaaaa,bus_id,24'haaaaaa}})
+          $strobe("Status GOOD [BUS ID %d]- Trimming Osc test",bus_id);
+          else
+          begin
+            $display("Current simulation time is: ", $realtime);
+            $strobe("Status BAD ***************- Trimming Osc -************************************************* Status BAD");
+            $strobe("******************** Please check SDO abort codes to understand why write operation failed");
+            failures += 1;
+          end
+        end 
+        
         // Check TX- Test
         {43'h60140??240?,3'h0,can_tra_select,8'h0,16'h0}:begin
           if(responsereg inside{ {43'h5818000240?,3'h0,can_tra_select,24'h???}})
@@ -584,10 +630,14 @@ always #50 clk = ~clk;
             failures += 1;
           end
         end
+        
         default:
         begin 
           if(responsereg == requestreg)
-          $strobe("Status GOOD [BUS ID %d]- RX test",bus_id);
+          begin
+          $strobe("Status GOOD [BUS ID %d]- test",bus_id);
+          $strobe("Status GOOD [BUS ID %h]:",responsereg);
+        end
           else
           begin
             $display("Current simulation time is: ", $realtime);
