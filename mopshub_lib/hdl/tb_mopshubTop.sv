@@ -6,26 +6,25 @@ reg             rst   = 1'b1;
 wire            rst_mops_dbg;
 wire            start_init;
 wire            end_init;
-reg             sel_bus = 1'b1;
+reg             sel_bus = 1'b0;
 string          info_debug_sig;     
-wire            sign_on_sig;
-
 //tbSM signals  
 wire    [75:0]  bus_data;
 wire    [7:0]   bus_id;
 int             adc_ch;
-
-reg             start_data_gen= 1'b0;
-wire            sign_in_start;
-wire            sign_in_end;
 //Automated trimming signals
 reg             osc_auto_trim =1'b0; ////Active high. Enable /disable automated trimming. If disabled then take care of ftrim_pads_reg
-reg             en_osc_trim =1'b1;
+reg             en_osc_trim =1'b0;
 wire            ready_osc;
 wire            trim_sig_start;
 wire            trim_sig_end;
 wire            start_trim_osc;
 wire            end_trim_osc;
+
+wire            sign_on_sig;
+reg             start_data_gen= 1'b0;
+wire            sign_in_start;
+wire            sign_in_end;
 
 reg             test_rx = 1'b0;
 wire            test_rx_start;
@@ -40,8 +39,8 @@ wire    [75:0]  data_rec_uplink;
 wire    [75:0]  data_tra_emulator_out;
 wire    [4:0]   can_rec_select;
 wire    [75:0]  data_tra_uplink;
-wire     [4:0]  can_tra_select;
-wire     [75:0] data_rec_emulator_in;
+wire    [4:0]  can_tra_select;
+wire    [75:0] data_rec_emulator_in;
 wire            irq_elink_tra;
 wire            irq_elink_rec;
 reg      [75:0] requestreg  = 75'h0;
@@ -56,20 +55,21 @@ wire       rx_mopshub_1bit;
 int failures = 0;   // Number of BAD reponses from the chip  
 wire            rx0;
 wire            rx1;
-//wire            rx2;
-//wire            rx3;
-//wire            rx4;
-//wire            rx5;
-//wire            rx6;
-//wire            rx7;
+wire            rx2;
+wire            rx3;
+wire            rx4;
+wire            rx5;
+wire            rx6;
+wire            rx7;
+
 wire            tx0;
 wire            tx1;
-//wire            tx2;
-//wire            tx3;
-//wire            tx4;
-//wire            tx5;
-//wire            tx6;
-//wire            tx7;
+wire            tx2;
+wire            tx3;
+wire            tx4;
+wire            tx5;
+wire            tx6;
+wire            tx7;
 //Internal assignments  
 assign can_tra_select = mopshub0.can_tra_select;
 assign can_rec_select = mopshub0.can_rec_select;
@@ -85,7 +85,7 @@ assign irq_elink_rec = mopshub0.irq_elink_rec;
 
 mopshub_top#(
 .max_cnt_size (5),
-.n_buses (5'b01))mopshub0(
+.n_buses (5'b111))mopshub0(
 .clk(clk),
 .rst(rst), 
 .start_init(start_init),  
@@ -102,23 +102,24 @@ mopshub_top#(
 .rx_elink2bit(rx_mopshub_2bit),        
 .rx0(rx0),        
 .rx1(rx1),        
-//.rx2(rx2),        
-//.rx3(rx3),        
-//.rx4(rx4),        
-//.rx5(rx5),        
-//.rx6(rx6),        
-//.rx7(rx7),              
+.rx2(rx2),        
+.rx3(rx3),        
+.rx4(rx4),        
+.rx5(rx5),        
+.rx6(rx6),        
+.rx7(rx7),
+
+.tx0(tx0),              
 .tx1(tx1),
-//.tx2(tx2),
-//.tx3(tx3),
-//.tx4(tx4),
-//.tx5(tx5),
-//.tx6(tx6),
-//.tx7(tx7),
-.tx0(tx0));
+.tx2(tx2),
+.tx3(tx3),
+.tx4(tx4),
+.tx5(tx5),
+.tx6(tx6),
+.tx7(tx7));
 
 data_generator#(
-.n_buses (5'b01))data_generator0(
+.n_buses (5'b111))data_generator0(
 .clk(clk),
 .rst(rst),
 .ext_rst_mops(rst_mops_dbg),
@@ -143,12 +144,6 @@ data_generator#(
 .reqmsg(reqmsg),
 .adc_ch(adc_ch),  
 // Acknowledgement bit from the MOPSHUB
-.tx0(tx0),
-.tx1(tx1), 
-// Generator Signals
-//RX-TX signals
-.rx0(rx0),
-.rx1(rx1),
 //Decoder Signals [Listen always to the bus ]
 .bus_data(bus_data),
 //read data from Elink and send it to the bus
@@ -158,11 +153,32 @@ data_generator#(
 .irq_can_ack(1'b0),
 .bus_id(bus_id),
 .buffer_en(),
-//EMCI EMulator
+.test_elink_data_done(),
+.start_write_emulator(),
+.end_read_elink(),
+.start_read_elink(),
+//Elin.kSignals
 .tx_elink1bit(rx_mopshub_1bit),
 .tx_elink2bit(rx_mopshub_2bit),
 .rx_elink1bit(tx_mopshub_1bit),
-.rx_elink2bit(tx_mopshub_2bit));
+.rx_elink2bit(tx_mopshub_2bit),
+//RX-TX signals
+.rx0(rx0),        
+.rx1(rx1),        
+.rx2(rx2),        
+.rx3(rx3),        
+.rx4(rx4),        
+.rx5(rx5),        
+.rx6(rx6),        
+.rx7(rx7),
+.tx0(tx0),              
+.tx1(tx1),
+.tx2(tx2),
+.tx3(tx3),
+.tx4(tx4),
+.tx5(tx5),
+.tx6(tx6),
+.tx7(tx7));
 //////////****// Clock generation////////////////
 always #50 clk = ~clk;   
 //////////////////////////////////////////////// 
@@ -186,12 +202,12 @@ always #50 clk = ~clk;
   always@(posedge clk)
   begin 
     if (sign_on_sig ==1)
-     start_data_gen =1'b1;
-     
+    begin
+     en_osc_trim    = 1'b0;
+     start_data_gen = 1'b1;
+    end    
     if(sign_in_start ==1)
       osc_auto_trim  = 1'b0;//sign_on_sig 
-    if(sign_on_sig ==1)
-      en_osc_trim  = 1'b0;
     if(sign_in_end ==1)//Done with Initialisation
     begin
       test_rx =1'b1;
@@ -228,7 +244,12 @@ always #50 clk = ~clk;
       info_debug_sig = {""};
     end
     /////*********************************Oscillator Trimming*********************************///// 
-    if(start_trim_osc||trim_sig_start)
+    if(start_trim_osc)
+    begin 
+      info_debug_sig = {"<:Oscillator Trimming [BUS ID ",$sformatf("%h",can_tra_select)," ]:>"};
+      $strobeh("\t Oscillator Trimming [BUS ID %d ]: ",can_tra_select);
+    end
+    if(trim_sig_start)
     begin 
       info_debug_sig = {"<:Oscillator Trimming [BUS ID ",$sformatf("%h",bus_id)," ]:>"};
       $strobeh("\t Oscillator Trimming [BUS ID %d ]: ",bus_id);
@@ -238,6 +259,7 @@ always #50 clk = ~clk;
       $strobe("*****************************************************************************");
       info_debug_sig = {""};
     end
+
     /////*********************************  Oscillator Reg Test *********************************///// 
     if(sign_in_start)
     begin 
@@ -271,16 +293,17 @@ always #50 clk = ~clk;
       $strobe("*****************************************************************************");
       info_debug_sig = {""};
     end    
+    
     // Test Osc Trim  Response part 
-    else if(en_osc_trim  && !test_rx && !test_tx)
+    if(en_osc_trim  && !test_rx && !test_tx)
     begin
       requestreg <= {12'h555,64'hAAAAAAAAAAAAAAAA};  
     end  
-    else if(sign_on_sig  && !test_rx && !test_tx)
+    if(end_trim_osc)
     begin 
       responsereg <= data_rec_uplink;
       $strobeh("\t Sign On Message [BUS ID %d]: \t request %h \t response %h \t",bus_id,requestreg,responsereg);
-      $strobe("*****************************************************************************"); 
+      $strobeh("*************************************************************************"); 
     end      
     // Test Osc Trim  Response part 
     else if(respmsg && osc_auto_trim  && !test_rx && !test_tx)
@@ -501,7 +524,7 @@ always #50 clk = ~clk;
         end
         75'h6014020010000000000:
         begin 
-          if(responsereg == {75'h58143200100000000,2'b00,000000})
+          if(responsereg == {75'h58143200100000000})
           $strobe("Status GOOD");
           else
           begin
