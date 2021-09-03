@@ -19,8 +19,9 @@ reg             start_data_gen= 1'b0;
 wire            sign_in_start;
 wire            sign_in_end;
 //Automated trimming signals
-reg             osc_auto_trim =1'b1; ////Active high. Enable /disable automated trimming. If disabled then take care of ftrim_pads_reg
-reg             en_osc_trim =1'b0;
+reg             osc_auto_trim =1'b0; ////Active high. Enable /disable automated trimming. If disabled then take care of ftrim_pads_reg
+reg             en_osc_trim =1'b1;
+wire            ready_osc;
 wire            trim_sig_start;
 wire            trim_sig_end;
 wire            start_trim_osc;
@@ -77,21 +78,24 @@ assign data_tra_uplink = mopshub0.data_tra_uplink;
 
 assign data_tra_emulator_out = data_generator0.data_tra_76bit_reg;
 assign data_rec_emulator_in = data_generator0.data_rec_76bit_reg;
+assign ready_osc  = data_generator0.ready_osc ;
+
 assign irq_elink_tra = mopshub0.irq_elink_tra;
 assign irq_elink_rec = mopshub0.irq_elink_rec;
-assign end_init = mopshub0.end_init;
+
 mopshub_top#(
 .max_cnt_size (5),
 .n_buses (5'b01))mopshub0(
 .clk(clk),
 .rst(rst), 
 .start_init(start_init),  
-.en_osc_trim(1'b0), 
+.end_init(end_init), 
+.en_osc_trim(en_osc_trim), 
 .start_trim_osc(start_trim_osc),
 .done_trim_osc_all(end_trim_osc),
 .sign_on_sig(sign_on_sig),  
 .rst_mops_dbg(rst_mops_dbg),                       
-.end_cnt_dbg(1'b0),               
+.end_cnt_dbg(sel_bus),               
 .tx_elink2bit(tx_mopshub_2bit),
 .tx_elink1bit(tx_mopshub_1bit),
 .rx_elink1bit(rx_mopshub_1bit),
@@ -174,20 +178,20 @@ always #50 clk = ~clk;
       #100000
       start_data_gen =1'b1;
     end
-    else if (en_osc_trim ==1'b1)
-    begin
-     #1000000
-    start_data_gen =1'b1;
-    end
     else
-    start_data_gen =1'b1;
+    start_data_gen =1'b0;
  end
   
   /////*******Start Full SM for Data Generation ****/////
   always@(posedge clk)
   begin 
+    if (sign_on_sig ==1)
+     start_data_gen =1'b1;
+     
     if(sign_in_start ==1)
-      osc_auto_trim  = 1'b0; 
+      osc_auto_trim  = 1'b0;//sign_on_sig 
+    if(sign_on_sig ==1)
+      en_osc_trim  = 1'b0;
     if(sign_in_end ==1)//Done with Initialisation
     begin
       test_rx =1'b1;
@@ -216,16 +220,20 @@ always #50 clk = ~clk;
     if(start_init)
     begin 
       info_debug_sig = "<:initialization:>";
-      $strobeh("\t initialization [BUS ID %d ]  ",can_tra_select);
+      $strobeh("\t initialization [BUS ID %d ]",can_tra_select);
     end  
+    if(end_init)
+    begin 
+      $strobe("*****************************************************************************");
+      info_debug_sig = {""};
+    end
     /////*********************************Oscillator Trimming*********************************///// 
     if(start_trim_osc||trim_sig_start)
     begin 
-      $strobe("*****************************************************************************");
       info_debug_sig = {"<:Oscillator Trimming [BUS ID ",$sformatf("%h",bus_id)," ]:>"};
-      $strobeh("\t Oscillator Trimming [BUS ID %d ]  ",bus_id);
+      $strobeh("\t Oscillator Trimming [BUS ID %d ]: ",bus_id);
     end       
-    if(trim_sig_end)
+    if(end_trim_osc||trim_sig_end)
     begin 
       $strobe("*****************************************************************************");
       info_debug_sig = {""};
@@ -233,6 +241,7 @@ always #50 clk = ~clk;
     /////*********************************  Oscillator Reg Test *********************************///// 
     if(sign_in_start)
     begin 
+      #10
       info_debug_sig = {"<:Oscillator Reg Test [BUS ID ",$sformatf("%h",bus_id)," ]:>"};
       $strobeh("\t Oscillator Reg Test [BUS ID %d ]  :",bus_id);
     end 
@@ -262,6 +271,17 @@ always #50 clk = ~clk;
       $strobe("*****************************************************************************");
       info_debug_sig = {""};
     end    
+    // Test Osc Trim  Response part 
+    else if(en_osc_trim  && !test_rx && !test_tx)
+    begin
+      requestreg <= {12'h555,64'hAAAAAAAAAAAAAAAA};  
+    end  
+    else if(sign_on_sig  && !test_rx && !test_tx)
+    begin 
+      responsereg <= data_rec_uplink;
+      $strobeh("\t Sign On Message[BUS ID %d]: \t request %h \t response %h \t",bus_id,requestreg,responsereg);
+      $strobe("*****************************************************************************"); 
+    end      
     // Test Osc Trim  Response part 
     else if(respmsg && osc_auto_trim  && !test_rx && !test_tx)
     begin
