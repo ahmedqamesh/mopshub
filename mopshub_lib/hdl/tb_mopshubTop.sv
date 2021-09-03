@@ -92,7 +92,7 @@ mopshub_top#(
 .end_init(end_init), 
 .en_osc_trim(en_osc_trim), 
 .start_trim_osc(start_trim_osc),
-.done_trim_osc_all(end_trim_osc),
+.end_trim_bus(end_trim_osc),
 .sign_on_sig(sign_on_sig),  
 .rst_mops_dbg(rst_mops_dbg),                       
 .end_cnt_dbg(sel_bus),               
