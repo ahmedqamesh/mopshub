@@ -3,10 +3,11 @@
 module tb_mopshubTop();
 reg             clk = 1'b0;
 reg             rst   = 1'b1;
+wire            rst_mops_dbg;
 wire            start_init;
-reg             sel_bus = 1'b1;
+wire            end_init;
+reg             sel_bus = 1'b0;
 string          info_debug_sig;     
-reg             power_bus_on =1'b0;
 wire            sign_on_sig;
 
 //tbSM signals  
@@ -19,9 +20,11 @@ wire            sign_in_start;
 wire            sign_in_end;
 //Automated trimming signals
 reg             osc_auto_trim =1'b1; ////Active high. Enable /disable automated trimming. If disabled then take care of ftrim_pads_reg
+reg             en_osc_trim =1'b0;
 wire            trim_sig_start;
 wire            trim_sig_end;
 wire            start_trim_osc;
+wire            end_trim_osc;
 
 reg             test_rx = 1'b0;
 wire            test_rx_start;
@@ -76,16 +79,19 @@ assign data_tra_emulator_out = data_generator0.data_tra_76bit_reg;
 assign data_rec_emulator_in = data_generator0.data_rec_76bit_reg;
 assign irq_elink_tra = mopshub0.irq_elink_tra;
 assign irq_elink_rec = mopshub0.irq_elink_rec;
+assign end_init = mopshub0.end_init;
 mopshub_top#(
 .max_cnt_size (5),
 .n_buses (5'b01))mopshub0(
 .clk(clk),
 .rst(rst), 
 .start_init(start_init),  
-.power_bus_on(power_bus_on), 
+.en_osc_trim(1'b0), 
 .start_trim_osc(start_trim_osc),
-.sign_on_sig(sign_on_sig),                         
-.end_cnt_dbg(1'b1),               
+.done_trim_osc_all(end_trim_osc),
+.sign_on_sig(sign_on_sig),  
+.rst_mops_dbg(rst_mops_dbg),                       
+.end_cnt_dbg(1'b0),               
 .tx_elink2bit(tx_mopshub_2bit),
 .tx_elink1bit(tx_mopshub_1bit),
 .rx_elink1bit(rx_mopshub_1bit),
@@ -105,12 +111,14 @@ mopshub_top#(
 //.tx5(tx5),
 //.tx6(tx6),
 //.tx7(tx7),
-.tx0(tx0));  
+.tx0(tx0));
 
 data_generator#(
 .n_buses (5'b01))data_generator0(
 .clk(clk),
 .rst(rst),
+.ext_rst_mops(rst_mops_dbg),
+.ext_trim_mops(en_osc_trim),
 .loop_en(1'b0),
 //Start SM
 .start_data_gen(start_data_gen),
@@ -166,7 +174,7 @@ always #50 clk = ~clk;
       #100000
       start_data_gen =1'b1;
     end
-    else if (power_bus_on ==1'b1)
+    else if (en_osc_trim ==1'b1)
     begin
      #1000000
     start_data_gen =1'b1;
