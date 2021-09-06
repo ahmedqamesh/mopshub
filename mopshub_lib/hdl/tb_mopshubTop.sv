@@ -85,7 +85,7 @@ assign irq_elink_rec = mopshub0.irq_elink_rec;
 
 mopshub_top#(
 .max_cnt_size (5),
-.n_buses (5'b111))mopshub0(
+.n_buses (5'b101))mopshub0(
 .clk(clk),
 .rst(rst), 
 .start_init(start_init),  
@@ -191,19 +191,25 @@ always #50 clk = ~clk;
 //    if (osc_auto_trim ==1'b1)
 //    begin
 //      #50000
-//      start_data_gen =1'b0;
+//      start_data_gen =1'b1;
 //    end
 //    else
 //    start_data_gen =1'b0;
  end
-  
+always@(posedge sign_on_sig)
+     begin
+     #1700
+     start_data_gen = 1'b1;
+     #100
+     start_data_gen = 1'b0;
+    end  
   /////*******Start Full SM for Data Generation ****/////
   always@(posedge clk)
   begin  
     if (sign_on_sig ==1)
     begin
      en_osc_trim    = 1'b0;
-     start_data_gen = 1'b1;
+    // start_data_gen = 1'b0;
     end    
     if(sign_in_start ==1)
     begin
