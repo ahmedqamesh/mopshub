@@ -9,11 +9,11 @@ wire            end_init;
 reg             sel_bus = 1'b0;
 string          info_debug_sig;     
 //tbSM signals  
-wire    [75:0]  bus_data;
+wire    [75:0]  bus_dec_data;
 wire    [7:0]   bus_id;
 int             adc_ch;
 //Automated trimming signals
-reg             osc_auto_trim =1'b0; ////Active high. Enable /disable automated trimming. If disabled then take care of ftrim_pads_reg
+reg             osc_auto_trim =1'b1; ////Active high. Enable /disable automated trimming. If disabled then take care of ftrim_pads_reg
 reg             en_osc_trim =1'b0;
 wire            ready_osc;
 wire            trim_sig_start;
@@ -71,14 +71,14 @@ wire            tx5;
 wire            tx6;
 wire            tx7;
 //Internal assignments  
-assign can_tra_select = mopshub0.can_tra_select;
-assign can_rec_select = mopshub0.can_rec_select;
-assign data_rec_uplink = mopshub0.data_rec_uplink;
-assign data_tra_uplink = mopshub0.data_tra_uplink;
+assign can_tra_select   = mopshub0.can_tra_select;
+assign can_rec_select   = mopshub0.can_rec_select;
+assign data_rec_uplink  = mopshub0.data_rec_uplink;
+assign data_tra_uplink  = mopshub0.data_tra_uplink;
 
-assign data_tra_emulator_out = data_generator0.data_tra_76bit_reg;
-assign data_rec_emulator_in = data_generator0.data_rec_76bit_reg;
-assign ready_osc  = data_generator0.ready_osc ;
+assign data_tra_emulator_out  = data_generator0.data_tra_76bit_reg;
+assign data_rec_emulator_in   = data_generator0.data_rec_76bit_reg;
+assign ready_osc              = data_generator0.ready_osc ;
 
 assign irq_elink_tra = mopshub0.irq_elink_tra;
 assign irq_elink_rec = mopshub0.irq_elink_rec;
@@ -95,7 +95,7 @@ mopshub_top#(
 .end_trim_bus(end_trim_osc),
 .sign_on_sig(sign_on_sig),  
 .rst_mops_dbg(rst_mops_dbg),                       
-.end_cnt_dbg(sel_bus),               
+.end_cnt_dbg(1'b0),//sel_bus),               
 .tx_elink2bit(tx_mopshub_2bit),
 .tx_elink1bit(tx_mopshub_1bit),
 .rx_elink1bit(rx_mopshub_1bit),
@@ -108,7 +108,6 @@ mopshub_top#(
 .rx5(rx5),        
 .rx6(rx6),        
 .rx7(rx7),
-
 .tx0(tx0),              
 .tx1(tx1),
 .tx2(tx2),
@@ -145,18 +144,18 @@ data_generator#(
 .adc_ch(adc_ch),  
 // Acknowledgement bit from the MOPSHUB
 //Decoder Signals [Listen always to the bus ]
-.bus_data(bus_data),
+.bus_dec_data(bus_dec_data),
 //read data from Elink and send it to the bus
 .sel_bus(sel_bus),
-.bus_cnt(5'b0),// test Bus 0
+.bus_cnt(5'b100),// test Bus 0
 .test_mopshub_core(1'b0),
 .irq_can_ack(1'b0),
 .bus_id(bus_id),
 .buffer_en(),
 .test_elink_data_done(),
 .start_write_emulator(),
-.end_read_elink(),
 .start_read_elink(),
+.end_read_elink(),
 //Elin.kSignals
 .tx_elink1bit(rx_mopshub_1bit),
 .tx_elink2bit(rx_mopshub_2bit),
@@ -189,25 +188,28 @@ always #50 clk = ~clk;
     rst = 1'b0;
     #200
     rst = 1'b1;
-    if (osc_auto_trim ==1'b1)
-    begin
-      #100000
-      start_data_gen =1'b1;
-    end
-    else
-    start_data_gen =1'b0;
+//    if (osc_auto_trim ==1'b1)
+//    begin
+//      #50000
+//      start_data_gen =1'b0;
+//    end
+//    else
+//    start_data_gen =1'b0;
  end
   
   /////*******Start Full SM for Data Generation ****/////
   always@(posedge clk)
-  begin 
+  begin  
     if (sign_on_sig ==1)
     begin
      en_osc_trim    = 1'b0;
      start_data_gen = 1'b1;
     end    
     if(sign_in_start ==1)
+    begin
       osc_auto_trim  = 1'b0;//sign_on_sig 
+      start_data_gen =1'b0;
+    end
     if(sign_in_end ==1)//Done with Initialisation
     begin
       test_rx =1'b1;
@@ -313,7 +315,7 @@ always #50 clk = ~clk;
     end  
     else if(reqmsg && osc_auto_trim  && !test_rx && !test_tx)
     begin
-      requestreg <= bus_data; 
+      requestreg <= bus_dec_data; 
     end  
     //test RX Response part 
     else if(reqmsg && test_rx)
