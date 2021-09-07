@@ -4,16 +4,17 @@ module tb_mopshubTop();
 reg             clk = 1'b0;
 reg             rst   = 1'b1;
 wire            rst_mops_dbg;
+reg     [4:0]   can_tra_select_dbg =5'b0;
 wire            start_init;
 wire            end_init;
-reg             sel_bus = 1'b0;
+reg             sel_bus = 1'b1;
 string          info_debug_sig;     
 //tbSM signals  
 wire    [75:0]  bus_dec_data;
 wire    [7:0]   bus_id;
 int             adc_ch;
 //Automated trimming signals
-reg             osc_auto_trim =1'b0; ////Active high. Enable /disable automated trimming. If disabled then take care of ftrim_pads_reg
+reg             osc_auto_trim =1'b1; ////Active high. Enable /disable automated trimming. If disabled then take care of ftrim_pads_reg
 reg             en_osc_trim =1'b0;
 wire            ready_osc;
 wire            trim_sig_start;
@@ -85,7 +86,7 @@ assign irq_elink_rec = mopshub0.irq_elink_rec;
 
 mopshub_top#(
 .max_cnt_size (5),
-.n_buses (5'b101))mopshub0(
+.n_buses (5'b111))mopshub0(
 .clk(clk),
 .rst(rst), 
 .start_init(start_init),  
@@ -95,7 +96,8 @@ mopshub_top#(
 .end_trim_bus(end_trim_osc),
 .sign_on_sig(sign_on_sig),  
 .rst_mops_dbg(rst_mops_dbg),                       
-.end_cnt_dbg(1'b0),//sel_bus),               
+.end_cnt_dbg(1'b0),//sel_bus), 
+.can_tra_select_dbg(can_tra_select_dbg),              
 .tx_elink2bit(tx_mopshub_2bit),
 .tx_elink1bit(tx_mopshub_1bit),
 .rx_elink1bit(rx_mopshub_1bit),
@@ -147,7 +149,7 @@ data_generator#(
 .bus_dec_data(bus_dec_data),
 //read data from Elink and send it to the bus
 .sel_bus(sel_bus),
-.bus_cnt(5'b100),// test Bus 0
+.bus_cnt(can_tra_select_dbg),// test Bus 0
 .test_mopshub_core(1'b0),
 .irq_can_ack(1'b0),
 .bus_id(bus_id),
@@ -208,12 +210,11 @@ always@(posedge sign_on_sig)
   begin  
     if (sign_on_sig ==1)
     begin
-     en_osc_trim    = 1'b0;
+     en_osc_trim    = 1'b1;
     // start_data_gen = 1'b0;
     end    
     if(sign_in_start ==1)
     begin
-      osc_auto_trim  = 1'b0;//sign_on_sig 
       start_data_gen =1'b0;
     end
     if(sign_in_end ==1)//Done with Initialisation
@@ -272,7 +273,7 @@ always@(posedge sign_on_sig)
     if(sign_in_start)
     begin 
       #10
-      info_debug_sig = {"<:Oscillator Reg Test [BUS ID ",$sformatf("%h",bus_id)," ]:>"};
+      info_debug_sig = {"<:       Oscillator Reg Test       :>"};
       $strobeh("\t Oscillator Reg Test [BUS ID %d ]  :",bus_id);
     end 
     if(sign_in_end)

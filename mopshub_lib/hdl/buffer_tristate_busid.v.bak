@@ -18,12 +18,14 @@ module buffer_tristate_busid(
    input   wire    [4:0]  data_tra_in3,
    input   wire    [4:0]  data_tra_in4,
    input   wire    [4:0]  data_tra_in5,
+   input   wire    [4:0]  data_tra_in6,
    input   wire           buffer_en0,    // enable signal
    input   wire           buffer_en1,    // enable signal
    input   wire           buffer_en2,    // enable signal
    input   wire           buffer_en3,    // enable signal
    input   wire           buffer_en4,    // enable signal
    input   wire           buffer_en5,    // enable signal
+   input   wire           buffer_en6,    // enable signal
    input   wire           rst, 
    output  wire    [4:0]  data_tra_out   // Output data to be written on the CAN bus
 );
@@ -58,7 +60,6 @@ begin
  else if(buffer_en4)
   begin
       data_tra_reg <= data_tra_in4;
-    end
     end
  else if(buffer_en5)
   begin

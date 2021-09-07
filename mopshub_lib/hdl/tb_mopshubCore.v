@@ -15,14 +15,17 @@ reg             clk = 1'b0;
 reg             rst = 1'b1;
 wire            start_init;
 wire            osc_auto_trim;
+wire            ready_osc;
 string          info_debug_sig;     
 int             adc_ch;
-wire    [75:0]  bus_data;
+wire    [75:0]  bus_dec_data;
 //tbSM signals  
 wire    [7:0]   bus_id;
 wire            start_sign_in;
 wire            end_sign_in;
-wire            start_trim_sig;
+wire            trim_sig_start;
+wire            trim_sig_end;
+
 reg             start_data_gen= 1'b0;
 reg             test_rx = 1'b0;
 reg             test_tx = 1'b0;
@@ -51,24 +54,24 @@ wire           irq_can_ack;
 int failures = 0;   // Number of BAD reponses from the chip  
 wire            rx0;
 wire            rx1;
-//wire            rx2;
-//wire            rx3;
-//wire            rx4;
-//wire            rx5;
-//wire            rx6;
-//wire            rx7;
+wire            rx2;
+wire            rx3;
+wire            rx4;
+wire            rx5;
+wire            rx6;
+wire            rx7;
 
 wire            tx0;
 wire            tx1;
-//wire            tx2;
-//wire            tx3;
-//wire            tx4;
-//wire            tx5;
-//wire            tx6;
-//wire            tx7;
+wire            tx2;
+wire            tx3;
+wire            tx4;
+wire            tx5;
+wire            tx6;
+wire            tx7;
 //Internal assignments  
 //Automated trimming signals
-assign osc_auto_trim =1'b0;                    ////Active high. Enable /disable automated trimming. If disabled then take care of ftrim_pads_reg
+assign osc_auto_trim =1'b1;                    ////Active high. Enable /disable automated trimming. If disabled then take care of ftrim_pads_reg
 
 /// Top level instantiation
 assign irq_can_rec = mopshub_core0.irq_can_rec;
@@ -76,11 +79,11 @@ assign irq_can_tra = mopshub_core0.irq_can_tra;
 assign can_tra_select = mopshub_core0.can_tra_select;
 assign can_rec_select = mopshub_core0.can_rec_select;
 assign irq_elink_tra = data_generator0.irq_elink;
-assign data_tra_uplink = data_generator0.bus_payload;
-
+assign data_tra_uplink = data_generator0.data_rec_in;
+assign ready_osc = data_generator0.ready_osc ;
 mopshub_core#(
 .max_cnt_size (5),
-.n_buses (5'b01))mopshub_core0(
+.n_buses (5'b111))mopshub_core0(
 .clk(clk),
 .rst(rst), 
 .start_init(start_init),                           
@@ -94,23 +97,23 @@ mopshub_core#(
 .buffer_en(buffer_en),      
 .rx0(rx0),        
 .rx1(rx1),        
-//.rx2(rx2),        
-//.rx3(rx3),        
-//.rx4(rx4),        
-//.rx5(rx5),        
-//.rx6(rx6),        
-//.rx7(rx7),              
+.rx2(rx2),        
+.rx3(rx3),        
+.rx4(rx4),        
+.rx5(rx5),        
+.rx6(rx6),        
+.rx7(rx7),              
 .tx1(tx1),
-//.tx2(tx2),
-//.tx3(tx3),
-//.tx4(tx4),
-//.tx5(tx5),
-//.tx6(tx6),
-//.tx7(tx7),
+.tx2(tx2),
+.tx3(tx3),
+.tx4(tx4),
+.tx5(tx5),
+.tx6(tx6),
+.tx7(tx7),
 .tx0(tx0));  
 
 data_generator#(
-.n_buses (5'b01))data_generator0(
+.n_buses (5'b111))data_generator0(
 .clk(clk),
 .rst(rst),
 .loop_en(1'b0),
@@ -118,7 +121,8 @@ data_generator#(
 .start_data_gen(start_data_gen),
 //OScillation Triming Signals
 .osc_auto_trim(osc_auto_trim),
-.start_trim_sig(start_trim_sig),
+.trim_sig_start(trim_sig_start),
+.trim_sig_end(trim_sig_end),
 .sign_in_start(start_sign_in), 
 .sign_in_end(end_sign_in),
 //Read ADC channels from MOPS and send it to MOPSHUB rx
@@ -132,22 +136,31 @@ data_generator#(
 .respmsg(respmsg),
 .reqmsg(reqmsg),
 .adc_ch(adc_ch),  
-// Acknowledgement bit from the MOPSHUB
-.tx0(tx0),
-.tx1(tx1), 
-// Generator Signals
-//RX-TX signals
-.rx0(rx0),
-.rx1(rx1),
 //Decoder Signals [Listen always to the bus ]
-.bus_data(bus_data),
+.bus_dec_data(bus_dec_data),
 //read data from Elink and send it to the bus
-.sel_ch(1'b1),
 .sel_bus(sel_bus),
 .bus_cnt(5'b0),// test Bus 0
 .irq_can_ack(irq_can_ack),
 .bus_id(bus_id),
-.buffer_en(buffer_en));
+.buffer_en(buffer_en),
+//RX-TX signals
+.rx0(rx0),        
+.rx1(rx1),        
+.rx2(rx2),        
+.rx3(rx3),        
+.rx4(rx4),        
+.rx5(rx5),        
+.rx6(rx6),        
+.rx7(rx7),
+.tx0(tx0),              
+.tx1(tx1),
+.tx2(tx2),
+.tx3(tx3),
+.tx4(tx4),
+.tx5(tx5),
+.tx6(tx6),
+.tx7(tx7));
 //////////****// Clock generation////////////////
 always #50 clk = ~clk;   
 //////////////////////////////////////////////// 
@@ -202,7 +215,7 @@ always #50 clk = ~clk;
       info_debug_sig = "<:initialization:>";
       $strobeh("\t initialization: %h ",data_rec_uplink);
     end  
-    if(start_trim_sig)
+    if(trim_sig_start)
     begin 
       $strobe("*****************************************************************************");
       info_debug_sig = "<:Oscillator Trimming:>";
