@@ -4,7 +4,7 @@ module tb_mopshubTop();
 reg             clk = 1'b0;
 reg             rst   = 1'b1;
 wire            rst_mops_dbg;
-reg     [4:0]   can_tra_select_dbg =5'd4;
+reg     [4:0]   can_tra_select_dbg =5'd0;
 wire            start_init;
 wire            end_init;
 reg             sel_bus = 1'b1;
@@ -21,7 +21,8 @@ wire            trim_sig_start;
 wire            trim_sig_end;
 wire            start_trim_osc;
 wire            end_trim_osc;
-
+wire            osc_reg_start;
+wire            osc_reg_end;
 wire            sign_on_sig;
 reg             start_data_gen= 1'b0;
 wire            sign_in_start;
@@ -85,7 +86,6 @@ assign irq_elink_tra = mopshub0.irq_elink_tra;
 assign irq_elink_rec = mopshub0.irq_elink_rec;
 
 mopshub_top#(
-.max_cnt_size (5),
 .n_buses (5'b111))mopshub0(
 .clk(clk),
 .rst(rst), 
@@ -134,6 +134,8 @@ data_generator#(
 .trim_sig_end (trim_sig_end),
 .sign_in_start(sign_in_start), 
 .sign_in_end(sign_in_end),
+.osc_reg_end(osc_reg_end),
+.osc_reg_start(osc_reg_start),
 //Read ADC channels from MOPS and send it to MOPSHUB rx
 .test_rx(test_rx),
 .test_tx(test_tx),
@@ -208,6 +210,10 @@ always@(posedge sign_on_sig)
   /////*******Start Full SM for Data Generation ****/////
   always@(posedge clk)
   begin  
+    if(osc_reg_start ==1)
+    begin
+      osc_auto_trim =1'b0;
+    end
     if (sign_on_sig ==1)
     begin
      en_osc_trim    = 1'b1;
@@ -270,13 +276,13 @@ always@(posedge sign_on_sig)
     end
 
     /////*********************************  Oscillator Reg Test *********************************///// 
-    if(sign_in_start)
+    if(osc_reg_start)
     begin 
       #10
       info_debug_sig = {"<:       Oscillator Reg Test       :>"};
       $strobeh("\t Oscillator Reg Test [BUS ID %d ]  :",bus_id);
     end 
-    if(sign_in_end)
+    if(osc_reg_end)
     begin 
       $strobe("*****************************************************************************");
       info_debug_sig = {""};
@@ -323,7 +329,8 @@ always@(posedge sign_on_sig)
     else if(reqmsg && osc_auto_trim  && !test_rx && !test_tx)
     begin
       requestreg <= bus_dec_data; 
-    end  
+    end 
+     
     //test RX Response part 
     else if(reqmsg && test_rx)
     begin

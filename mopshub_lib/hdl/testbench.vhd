@@ -14,11 +14,11 @@ LIBRARY work;
 USE work.config;
 USE work.can_pattern_gen;
 
-ENTITY testbench IS
-END ENTITY testbench;
+ENTITY tb_canakari IS
+END ENTITY tb_canakari;
 
 --
-ARCHITECTURE behave OF testbench IS
+ARCHITECTURE behave OF tb_canakari IS
 
   component dut IS
    PORT(clock            : IN std_logic;
