@@ -4,7 +4,7 @@ module tb_mopshubTop();
 reg             clk = 1'b0;
 reg             rst   = 1'b1;
 wire            rst_mops_dbg;
-reg     [4:0]   can_tra_select_dbg =5'b0;
+reg     [4:0]   can_tra_select_dbg =5'd4;
 wire            start_init;
 wire            end_init;
 reg             sel_bus = 1'b1;
@@ -311,7 +311,7 @@ always@(posedge sign_on_sig)
     if(end_trim_osc)
     begin 
       responsereg <= data_rec_uplink;
-      $strobeh("\t Sign On Message [BUS ID %d]: \t request %h \t response %h \t",bus_id,requestreg,responsereg);
+      $strobeh("\t Sign In Message [BUS ID %d]: \t request %h \t response %h \t",bus_id,requestreg,responsereg);
       $strobeh("*************************************************************************"); 
     end      
     // Test Osc Trim  Response part 
