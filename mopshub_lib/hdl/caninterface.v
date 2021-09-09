@@ -34,15 +34,15 @@ wire [15:0] gen_data;
 wire [75:0] trim_data;
 wire [5:0]  cmd;               // This is a 4 bit concatenated command of signals coming from the state machine i.e initial,read,write
 
-assign write_can = write_can_reg;
+assign write_can    = write_can_reg;
+assign can_tra_select  =can_tra_reg;
 assign can_tra_comp = can_tra_comp_reg;
 assign can_rec_comp = can_rec_comp_reg;
 assign tra_control  = 16'h8008; //16'b1 000000000 00 1000
 assign rst_irq      = 16'h8070;
 assign gen_data     = 16'h9C; //16'b0000000010011100
-assign trim_data     = {12'h555,64'hAAAAAAAAAAAAAAAA};//Msg with the most possible transitions [660 High to low transitions]
-assign cmd  = {initi,read,write,bus_comp,reset_can,trim};               //initi is active high while read and write are active low
-assign can_tra_select  =can_tra_reg;
+assign trim_data    = {12'h555,64'hAAAAAAAAAAAAAAAA};//Msg with the most possible transitions [660 High to low transitions]
+assign cmd  = {initi,read,write,bus_comp,reset_can,trim};   //initi is active high while read and write are active low
 ////This is purely combinational block to read and write values to Canakari node
 always@(*)
 begin

@@ -4,10 +4,10 @@ module tb_mopshubTop();
 reg             clk = 1'b0;
 reg             rst   = 1'b1;
 wire            rst_mops_dbg;
-reg     [4:0]   can_tra_select_dbg =5'd0;
+reg     [4:0]   can_tra_select_dbg =5'd5;
 wire            start_init;
 wire            end_init;
-reg             sel_bus = 1'b1;
+reg             sel_bus = 1'b0;
 string          info_debug_sig;     
 //tbSM signals  
 wire    [75:0]  bus_dec_data;
@@ -19,6 +19,7 @@ reg             en_osc_trim =1'b0;
 wire            ready_osc;
 wire            trim_sig_start;
 wire            trim_sig_end;
+wire            trim_sig_done;
 wire            start_trim_osc;
 wire            end_trim_osc;
 wire            osc_reg_start;
@@ -132,6 +133,7 @@ data_generator#(
 .osc_auto_trim(osc_auto_trim),
 .trim_sig_start(trim_sig_start),
 .trim_sig_end (trim_sig_end),
+.trim_sig_done(trim_sig_done),
 .sign_in_start(sign_in_start), 
 .sign_in_end(sign_in_end),
 .osc_reg_end(osc_reg_end),
@@ -202,7 +204,7 @@ always #50 clk = ~clk;
  end
 always@(posedge sign_on_sig)
      begin
-     #1700
+     #1500
      start_data_gen = 1'b1;
      #100
      start_data_gen = 1'b0;
@@ -210,20 +212,11 @@ always@(posedge sign_on_sig)
   /////*******Start Full SM for Data Generation ****/////
   always@(posedge clk)
   begin  
-    if(osc_reg_start ==1)
+    if(trim_sig_done ==1)
     begin
       osc_auto_trim =1'b0;
     end
-    if (sign_on_sig ==1)
-    begin
-     en_osc_trim    = 1'b1;
-    // start_data_gen = 1'b0;
-    end    
-    if(sign_in_start ==1)
-    begin
-      start_data_gen =1'b0;
-    end
-    if(sign_in_end ==1)//Done with Initialisation
+    if(osc_reg_end ==1)//Done with Initialisation
     begin
       test_rx =1'b1;
       // test_tx =1'b1;
@@ -258,6 +251,7 @@ always@(posedge sign_on_sig)
       $strobe("*****************************************************************************");
       info_debug_sig = {""};
     end
+    
     /////*********************************Oscillator Trimming*********************************///// 
     if(start_trim_osc)
     begin 
@@ -274,7 +268,18 @@ always@(posedge sign_on_sig)
       $strobe("*****************************************************************************");
       info_debug_sig = {""};
     end
-
+    /////*********************************  Sign In message print *********************************///// 
+    if(sign_in_start)
+    begin 
+      responsereg <= data_rec_uplink;
+      $strobeh("\t Sign In Message [BUS ID %d]: \t request %h \t response %h \t",bus_id,requestreg,responsereg); 
+    end     
+    if(sign_in_end)
+    begin 
+      $strobe("*****************************************************************************");
+      info_debug_sig = {""};
+    end 
+    
     /////*********************************  Oscillator Reg Test *********************************///// 
     if(osc_reg_start)
     begin 

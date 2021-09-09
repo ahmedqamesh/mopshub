@@ -3,12 +3,12 @@
 module buffer_rec_data( 
    // Port Declarations
    input   wire            clk, 
-   input   wire    [15:0]  data_rec_in,   // 16-bit data from each receive register of canakari
-   input   wire    [4:0]  can_rec_select,
-   input   wire            buffer_en,            // enable signal
-   input   wire            rst,           // reset active low
-   input   wire    [4 :0]   addr,          // same address of register as in canakari
-   output  wire    [75:0]  data_rec_out  // complete CAN message output. 11-bit ID and 4 data-bytes
+   input   wire    [15:0]  data_rec_in,    // 16-bit data from each receive register of canakari
+   input   wire    [4 :0]  can_rec_select,
+   input   wire            buffer_en,      // enable signal
+   input   wire            rst,            // reset active low
+   input   wire    [4 :0]  addr,           // same address of register as in canakari
+   output  wire    [75:0]  data_rec_out    // complete CAN message output. 11-bit ID and 4 data-bytes
 
 );
 
@@ -25,7 +25,6 @@ reg [7:0] b6;
 reg [7:0] b7;
 reg [7:0] b8;
 
-
 //Triplication signals 
 wire [11:0] idVoted = id;
 wire [7:0] b1Voted  = b1;
@@ -36,8 +35,6 @@ wire [7:0] b5Voted  = b5;
 wire [7:0] b6Voted  = b6;
 wire [7:0] b7Voted  = b7;
 wire [7:0] b8Voted  = b8;
-
-
 
 always@(posedge clk or negedge rst)
 begin 

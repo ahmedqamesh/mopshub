@@ -15,8 +15,8 @@ reg             clk = 1'b0;
 reg             rst = 1'b1;
 wire            start_init;
 wire            end_init;
-reg             sel_bus = 1'b1;
-reg     [4:0]   can_tra_select_dbg =5'd4;
+reg             sel_bus = 1'b0;
+reg     [4:0]   can_tra_select_dbg =5'd2;
 wire            ready_osc;
 string          info_debug_sig; 
 wire            sign_on_sig ;   
@@ -29,6 +29,7 @@ wire            sign_in_end;
 reg            osc_auto_trim =1'b1; ////Active high. Enable /disable automated trimming. If disabled then take care of ftrim_pads_reg
 wire            trim_sig_start;
 wire            trim_sig_end;
+wire            trim_sig_done;
 wire            osc_reg_start;
 wire            osc_reg_end;
 
@@ -125,6 +126,7 @@ data_generator#(
 .osc_auto_trim(osc_auto_trim),
 .trim_sig_start(trim_sig_start),
 .trim_sig_end(trim_sig_end),
+.trim_sig_done(trim_sig_done),
 .sign_in_start(sign_in_start), 
 .sign_in_end(sign_in_end),
 .osc_reg_end(osc_reg_end),
@@ -186,15 +188,20 @@ always #50 clk = ~clk;
   
 always@(posedge sign_on_sig)
      begin
+     if (osc_auto_trim ==1'b1)
+     begin
      #1700
      start_data_gen = 1'b1;
      #100
      start_data_gen = 1'b0;
-    end   
+     end
+     else
+     start_data_gen =1'b1;
+    end  
   /////*******Start Full SM for Data Generation ****/////
   always@(posedge clk)
   begin
-    if(osc_reg_start ==1)
+    if(trim_sig_done ==1)
     begin
       osc_auto_trim =1'b0;
     end
@@ -240,6 +247,7 @@ always@(posedge sign_on_sig)
       $strobe("*****************************************************************************");
       info_debug_sig = {""};
     end 
+    /////*********************************  Sign In message print *********************************///// 
     if(sign_in_start)
     begin 
       responsereg <= data_rec_uplink;
