@@ -5,6 +5,7 @@ reg             clk = 1'b0;
 reg             rst   = 1'b1;
 wire            rst_mops_dbg;
 reg     [4:0]   can_tra_select_dbg =5'd5;
+wire            sign_on_sig;
 reg             start_data_gen= 1'b0;
 wire            start_init;
 wire            end_init;
@@ -26,7 +27,7 @@ wire            trim_sig_done;
 wire            start_trim_osc;
 wire            end_trim_osc;
 
-wire            sign_on_sig;
+
 wire            sign_in_start;
 wire            sign_in_end;
 
@@ -325,14 +326,14 @@ always@(posedge sign_on_sig)
       $strobeh("*************************************************************************"); 
     end      
     // Test Osc Trim  Response part 
-    else if(respmsg && osc_auto_trim  && !test_rx && !test_tx)
+    else if(respmsg && osc_auto_trim  && !test_rx && !test_tx && !test_osc_reg)
     begin
       responsereg <= data_rec_uplink;
        $strobeh("\t Oscillator trimming [BUS ID %d]: \t request %h \t response %h \t",bus_id,requestreg,responsereg);
     end  
-    else if(reqmsg && osc_auto_trim  && !test_rx && !test_tx)
+    else if(reqmsg && osc_auto_trim  && !test_rx && !test_tx && !test_osc_reg)
     begin
-      requestreg <= bus_dec_data; 
+      requestreg <= {76'h555aaaaaaaaaaaaaaaa};  
     end 
      
     //test RX Response part 

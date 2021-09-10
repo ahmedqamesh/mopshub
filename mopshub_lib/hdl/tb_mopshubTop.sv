@@ -4,29 +4,30 @@ module tb_mopshubTop();
 reg             clk = 1'b0;
 reg             rst   = 1'b1;
 wire            rst_mops_dbg;
+reg             sel_bus = 1'b0;
 reg     [4:0]   can_tra_select_dbg =5'd5;
+wire            sign_on_sig;
 reg             start_data_gen= 1'b0;
 wire            start_init;
 wire            end_init;
-reg             sel_bus = 1'b0;
 string          info_debug_sig;     
 //tbSM signals  
-wire    [75:0]  bus_dec_data;
+wire    [75:0]  bus_dec_dta;
 wire    [7:0]   bus_id;
 int             adc_ch;
 
 //Automated trimming signals
 reg             osc_auto_trim =1'b1; ////Active high. Enable /disable automated trimming. If disabled then take care of ftrim_pads_reg
-reg             en_osc_trim =1'b0;
-wire            ready_osc;
 wire            trim_sig_start;
 wire            trim_sig_end;
 wire            trim_sig_done;
 
+reg             en_osc_trim =1'b0;
+wire            ready_osc;
 wire            start_trim_osc;
 wire            end_trim_osc;
 
-wire            sign_on_sig;
+
 wire            sign_in_start;
 wire            sign_in_end;
 
@@ -325,14 +326,14 @@ always@(posedge sign_on_sig)
       $strobeh("*************************************************************************"); 
     end      
     // Test Osc Trim  Response part 
-    else if(respmsg && osc_auto_trim  && !test_rx && !test_tx)
+    else if(respmsg && osc_auto_trim  && !test_rx && !test_tx && !test_osc_reg)
     begin
       responsereg <= data_rec_uplink;
        $strobeh("\t Oscillator trimming [BUS ID %d]: \t request %h \t response %h \t",bus_id,requestreg,responsereg);
     end  
-    else if(reqmsg && osc_auto_trim  && !test_rx && !test_tx)
+    else if(reqmsg && osc_auto_trim  && !test_rx && !test_tx && !test_osc_reg)
     begin
-      requestreg <= bus_dec_data; 
+      requestreg <= {76'h555aaaaaaaaaaaaaaaa};  
     end 
      
     //test RX Response part 

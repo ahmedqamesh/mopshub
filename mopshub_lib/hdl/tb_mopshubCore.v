@@ -16,7 +16,7 @@ reg             rst = 1'b1;
 wire            start_init;
 wire            end_init;
 reg             sel_bus = 1'b0;
-reg     [4:0]   can_tra_select_dbg =5'd2;
+reg     [4:0]   can_tra_select_dbg =5'd1;
 wire            ready_osc;
 string          info_debug_sig; 
 wire            sign_on_sig ; 
@@ -194,7 +194,8 @@ always@(posedge sign_on_sig)
   begin
     if(trim_sig_done ==1)
     begin
-      osc_auto_trim =1'b0;
+      //sel_bus = 1'b1;
+      //osc_auto_trim =1'b0;
       test_osc_reg = 1'b1;
     end
     if(osc_reg_end ==1)//Done with Initialisation
@@ -277,11 +278,11 @@ always@(posedge sign_on_sig)
       info_debug_sig = $sformatf("<:Elink test  [BUS ID %d ]  :>",bus_id);
     end  
     // Test Osc Trim  Response part 
-    else if(reqmsg &&osc_auto_trim  && !test_rx)
+    else if(reqmsg &&osc_auto_trim  && !test_rx && !test_mopshub_core && !test_osc_reg)
     begin
-      requestreg <= bus_dec_data;  
+      requestreg <= {76'h555aaaaaaaaaaaaaaaa};  
     end 
-    else if (respmsg &&osc_auto_trim && !test_rx)
+    else if (respmsg &&osc_auto_trim && !test_rx && !test_mopshub_core && !test_osc_reg )
     begin
       responsereg <= data_rec_uplink;
       $strobeh("\t Oscillator Trimming [BUS ID %d]: \t request %h \t response %h",bus_id,requestreg,responsereg);
@@ -545,7 +546,7 @@ always@(posedge sign_on_sig)
           else
           begin
             $display("Current simulation time is: ", $realtime);
-            $strobe("Status BAD ***************- Trimming Osc -************************************************* Status BAD");
+            $strobe("Status BAD ***************[Trimming Osc test]************************************************* Status BAD");
             $strobe("******************** Please check SDO abort codes to understand why write operation failed");
             failures += 1;
           end
@@ -558,7 +559,7 @@ always@(posedge sign_on_sig)
           else
           begin
             $display("Current simulation time is: ", $realtime);
-            $strobe("Status BAD ********************************[Elink Test****************************** Status BAD %h",responsereg);
+            $strobe("Status BAD ********************************[Elink Test]****************************** Status BAD %h",responsereg);
             $strobe("******************** Please check SDO abort codes to understand why write operation failed");
             failures += 1;
           end

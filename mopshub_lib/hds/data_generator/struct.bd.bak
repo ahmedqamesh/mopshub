@@ -182,19 +182,19 @@ value "/home/dcs/git/mopshub/mopshub_lib/hds/data_generator"
 )
 (vvPair
 variable "date"
-value "09/09/21"
+value "09/10/21"
 )
 (vvPair
 variable "day"
-value "Thu"
+value "Fri"
 )
 (vvPair
 variable "day_long"
-value "Thursday"
+value "Friday"
 )
 (vvPair
 variable "dd"
-value "09"
+value "10"
 )
 (vvPair
 variable "entity_name"
@@ -222,7 +222,7 @@ value "dcs"
 )
 (vvPair
 variable "graphical_source_date"
-value "09/09/21"
+value "09/10/21"
 )
 (vvPair
 variable "graphical_source_group"
@@ -234,7 +234,7 @@ value "chipdev2.physik.uni-wuppertal.de"
 )
 (vvPair
 variable "graphical_source_time"
-value "18:23:03"
+value "19:54:55"
 )
 (vvPair
 variable "group"
@@ -354,7 +354,7 @@ value "struct"
 )
 (vvPair
 variable "time"
-value "18:23:03"
+value "19:54:55"
 )
 (vvPair
 variable "unit"
@@ -757,6 +757,7 @@ begin
     data_rec_in <= {sdoid,32'h0, bus_id};
   end
   else
+  if (test_tx ||test_mopshub_core)
   case (select_bus)
     5'h0 : begin 
       bus_id  <= 8'h0; 
@@ -929,6 +930,7 @@ begin
 //      data_rec_in  <= data_rec_in; 
 //    end  
 end                                            
+
 
 
 
@@ -4382,10 +4384,11 @@ assign rx5 = (select_bus == 5'd5) ? ~(rst ^ (tx5 & txgen & txmops)): 0;
 assign rx6 = (select_bus == 5'd6) ? ~(rst ^ (tx6 & txgen & txmops)): 0;
 assign rx7 = (select_bus == 5'd7) ? ~(rst ^ (tx7 & txgen & txmops)): 0;
 
-assign rxdec       = ~(rst ^ (rx0 | rx1 | rx2 | rx3 | rx4  | rx5 | rx6 | rx7));
-assign rxmops      = ~(rst ^ (rx0 | rx1 | rx2 | rx3 | rx4  | rx5 | rx6 | rx7));
+assign rxdec       = rx_mopshub; 
+assign rxmops      = rx_mopshub;
 assign rx_mopshub  = ~(rst ^ (rx0 | rx1 | rx2 | rx3 | rx4  | rx5 | rx6 | rx7));
 assign tx_mopshub  = ~(rst ^ (tx0 & tx1 & tx2 & tx3 & tx4& tx5 & tx6 & tx7));
+
 
 
 
@@ -9756,6 +9759,8 @@ end
 
 
 
+
+
 "
 tm "HdlTextMgr"
 wrapOption 3
@@ -13366,7 +13371,6 @@ pts [
 )
 start &119
 end &132
-es 0
 sat 2
 eat 32
 st 0
@@ -13417,9 +13421,9 @@ uid 11346,0
 va (VaSet
 font "courier,8,0"
 )
-xt "10000,14100,13000,15000"
+xt "6000,14100,9000,15000"
 st "rxmops"
-blo "10000,14800"
+blo "6000,14800"
 tm "WireNameMgr"
 )
 )
@@ -16153,11 +16157,11 @@ tm "BdCompilerDirectivesTextMgr"
 associable 1
 )
 windowSize "1912,41,3848,1050"
-viewArea "-100998,15756,-1644,64360"
+viewArea "-77340,21700,-255,59410"
 cachedDiagramExtent "-68400,-11900,68500,55000"
 hasePageBreakOrigin 1
 pageBreakOrigin "-69000,-51000"
-lastUid 26929,0
+lastUid 27556,0
 defaultCommentText (CommentText
 shape (Rectangle
 layer 0
