@@ -5,6 +5,7 @@ reg             clk = 1'b0;
 reg             rst   = 1'b1;
 wire            rst_mops_dbg;
 reg     [4:0]   can_tra_select_dbg =5'd5;
+reg             start_data_gen= 1'b0;
 wire            start_init;
 wire            end_init;
 reg             sel_bus = 1'b0;
@@ -13,6 +14,7 @@ string          info_debug_sig;
 wire    [75:0]  bus_dec_data;
 wire    [7:0]   bus_id;
 int             adc_ch;
+
 //Automated trimming signals
 reg             osc_auto_trim =1'b1; ////Active high. Enable /disable automated trimming. If disabled then take care of ftrim_pads_reg
 reg             en_osc_trim =1'b0;
@@ -20,14 +22,17 @@ wire            ready_osc;
 wire            trim_sig_start;
 wire            trim_sig_end;
 wire            trim_sig_done;
+
 wire            start_trim_osc;
 wire            end_trim_osc;
-wire            osc_reg_start;
-wire            osc_reg_end;
+
 wire            sign_on_sig;
-reg             start_data_gen= 1'b0;
 wire            sign_in_start;
 wire            sign_in_end;
+
+reg             test_osc_reg = 1'b0;
+wire            osc_reg_start;
+wire            osc_reg_end;
 
 reg             test_rx = 1'b0;
 wire            test_rx_start;
@@ -50,10 +55,6 @@ reg      [75:0] requestreg  = 75'h0;
 wire            reqmsg;
 reg      [75:0] responsereg = 75'h0; 
 wire            respmsg;
-wire [1:0] tx_mopshub_2bit; 
-wire       tx_mopshub_1bit; 
-wire [1:0] rx_mopshub_2bit; 
-wire       rx_mopshub_1bit;
 // Generator signals 
 int failures = 0;   // Number of BAD reponses from the chip  
 wire            rx0;
@@ -73,6 +74,10 @@ wire            tx4;
 wire            tx5;
 wire            tx6;
 wire            tx7;
+wire [1:0] tx_mopshub_2bit; 
+wire       tx_mopshub_1bit; 
+wire [1:0] rx_mopshub_2bit; 
+wire       rx_mopshub_1bit;
 //Internal assignments  
 assign can_tra_select   = mopshub0.can_tra_select;
 assign can_rec_select   = mopshub0.can_rec_select;
@@ -97,7 +102,7 @@ mopshub_top#(
 .end_trim_bus(end_trim_osc),
 .sign_on_sig(sign_on_sig),  
 .rst_mops_dbg(rst_mops_dbg),                       
-.end_cnt_dbg(1'b0),//sel_bus), 
+.end_cnt_dbg(1'b0),
 .can_tra_select_dbg(can_tra_select_dbg),              
 .tx_elink2bit(tx_mopshub_2bit),
 .tx_elink1bit(tx_mopshub_1bit),
@@ -121,7 +126,7 @@ mopshub_top#(
 .tx7(tx7));
 
 data_generator#(
-.n_buses (5'b111))data_generator0(
+.n_buses (5'b001))data_generator0(
 .clk(clk),
 .rst(rst),
 .ext_rst_mops(rst_mops_dbg),
@@ -194,13 +199,6 @@ always #50 clk = ~clk;
     rst = 1'b0;
     #200
     rst = 1'b1;
-//    if (osc_auto_trim ==1'b1)
-//    begin
-//      #50000
-//      start_data_gen =1'b1;
-//    end
-//    else
-//    start_data_gen =1'b0;
  end
 always@(posedge sign_on_sig)
      begin
@@ -215,10 +213,12 @@ always@(posedge sign_on_sig)
     if(trim_sig_done ==1)
     begin
       osc_auto_trim =1'b0;
+      test_osc_reg = 1'b1;
     end
     if(osc_reg_end ==1)//Done with Initialisation
     begin
       test_rx =1'b1;
+      test_osc_reg = 1'b0;
       // test_tx =1'b1;
       start_data_gen =1'b0;
     end
@@ -283,9 +283,8 @@ always@(posedge sign_on_sig)
     /////*********************************  Oscillator Reg Test *********************************///// 
     if(osc_reg_start)
     begin 
-      #10
       info_debug_sig = {"<:       Oscillator Reg Test       :>"};
-      $strobeh("\t Oscillator Reg Test [BUS ID %d ]  :",bus_id);
+      $strobeh("\t Oscillator Reg Test [BUS ID %d ]",bus_id);
     end 
     if(osc_reg_end)
     begin 
@@ -337,11 +336,11 @@ always@(posedge sign_on_sig)
     end 
      
     //test RX Response part 
-    else if(reqmsg && test_rx)
+    else if(reqmsg && (test_rx || test_osc_reg))
     begin
       requestreg <= data_rec_uplink; 
     end
-    else if (respmsg && test_rx)
+    else if (respmsg && (test_rx || test_osc_reg))
     begin
       responsereg <= data_tra_emulator_out;
       $strobeh("\t Receive RX signals [BUS ID %d]: \t request  %h \t response %h \t Emulator_out %h",bus_id,requestreg,data_rec_uplink,data_tra_emulator_out);
@@ -587,6 +586,18 @@ always@(posedge sign_on_sig)
             failures += 1;
           end
         end
+        {43'h60123??????,bus_id,24'h??}:
+        begin 
+          if(responsereg inside {{43'h58160??????,bus_id,8'h??,16'h0}})
+          $strobe("Status GOOD [BUS ID %d]- Oscillator Reg Test",bus_id);
+          else
+          begin
+            $display("Current simulation time is: ", $realtime);
+            $strobe("Oscillator Reg Test:Status BAD ****************************************************************** Status BAD");
+            $strobe("******************** Please check SDO abort codes to understand why write operation failed");
+            failures += 1;
+          end
+        end
         //Check Osc test
         {76'h555aaaaaaaaaaaaaaaa}:
         begin 
@@ -668,19 +679,7 @@ always@(posedge sign_on_sig)
         
         //// Below is the check for write operation 
         ///////**********************************///
-        
-        {43'h60123??????,bus_id,24'h??}:
-        begin 
-          if(responsereg inside {{43'h58160??????,bus_id,8'h??,16'h0}})
-          $strobe("Status GOOD [BUS ID %d]- Oscillator Reg Test",bus_id);
-          else
-          begin
-            $display("Current simulation time is: ", $realtime);
-            $strobe("Oscillator Reg Test:Status BAD ****************************************************************** Status BAD");
-            $strobe("******************** Please check SDO abort codes to understand why write operation failed");
-            failures += 1;
-          end
-        end
+
         
         default:
         begin 
@@ -704,4 +703,3 @@ always@(posedge sign_on_sig)
   end
   
 endmodule 
-

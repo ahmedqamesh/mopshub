@@ -19,21 +19,23 @@ reg             sel_bus = 1'b0;
 reg     [4:0]   can_tra_select_dbg =5'd2;
 wire            ready_osc;
 string          info_debug_sig; 
-wire            sign_on_sig ;   
+wire            sign_on_sig ; 
+reg             start_data_gen= 1'b0;  
 int             adc_ch;
 wire    [75:0]  bus_dec_data;
 //tbSM signals  
 wire    [7:0]   bus_id;
 wire            sign_in_start;
 wire            sign_in_end;
-reg            osc_auto_trim =1'b1; ////Active high. Enable /disable automated trimming. If disabled then take care of ftrim_pads_reg
+reg             osc_auto_trim =1'b1; ////Active high. Enable /disable automated trimming. If disabled then take care of ftrim_pads_reg
 wire            trim_sig_start;
 wire            trim_sig_end;
 wire            trim_sig_done;
+reg             test_osc_reg = 1'b0;
 wire            osc_reg_start;
 wire            osc_reg_end;
 
-reg             start_data_gen= 1'b0;
+
 reg             test_rx = 1'b0;
 wire            test_rx_start;
 wire            test_rx_end;
@@ -45,16 +47,16 @@ wire            reqmsg;
 wire            respmsg;
 wire    [4:0]   can_rec_select;
 wire            irq_can_rec;
-wire             start_read_elink;
-wire             end_read_elink; 
+wire            start_read_elink;
+wire            end_read_elink; 
 reg      [75:0] requestreg  = 75'h0;
 reg      [75:0] responsereg = 75'h0; 
 wire            irq_elink_tra;
 wire     [4:0]  can_tra_select;
 wire            irq_can_tra;
 wire            test_elink_data_done;  
-wire           buffer_en;
-wire           irq_can_ack;
+wire            buffer_en;
+wire            irq_can_ack;
 // Generator signals 
 int failures = 0;   // Number of BAD reponses from the chip  
 wire            rx0;
@@ -122,6 +124,7 @@ data_generator#(
 .loop_en(1'b0),
 //Start SM
 .start_data_gen(start_data_gen),
+.ext_trim_mops(osc_auto_trim),
 //OScillation Triming Signals
 .osc_auto_trim(osc_auto_trim),
 .trim_sig_start(trim_sig_start),
@@ -177,26 +180,14 @@ always #50 clk = ~clk;
     rst = 1'b0;
     #200
     rst = 1'b1;
-//    if (osc_auto_trim ==1'b1)
-//    begin
-//      #200000
-//      start_data_gen =1'b1;
-//    end
-//    else
-//    start_data_gen =1'b1;
   end 
   
 always@(posedge sign_on_sig)
      begin
-     if (osc_auto_trim ==1'b1)
-     begin
-     #1700
+     #1500
      start_data_gen = 1'b1;
      #100
      start_data_gen = 1'b0;
-     end
-     else
-     start_data_gen =1'b1;
     end  
   /////*******Start Full SM for Data Generation ****/////
   always@(posedge clk)
@@ -204,12 +195,13 @@ always@(posedge sign_on_sig)
     if(trim_sig_done ==1)
     begin
       osc_auto_trim =1'b0;
+      test_osc_reg = 1'b1;
     end
     if(osc_reg_end ==1)//Done with Initialisation
     begin
-      test_rx =1'b0;
+      test_rx =1'b1;
+      test_osc_reg = 1'b0;
 //    test_mopshub_core = 1'b1;
-      start_data_gen =1'b0;
     end
     if(test_rx_end ==1)//Done Rx test
     begin
@@ -295,12 +287,12 @@ always@(posedge sign_on_sig)
       $strobeh("\t Oscillator Trimming [BUS ID %d]: \t request %h \t response %h",bus_id,requestreg,responsereg);
     end    
     //test RX part 
-    else if (respmsg && test_rx)
+    else if (respmsg && (test_rx || test_osc_reg))
     begin
       responsereg <= data_rec_uplink;
       $strobeh("\t Receive RX signals [BUS ID %d]: \t request %h \t response %h",bus_id,requestreg,responsereg);
     end
-    else if(reqmsg && test_rx)
+    else if(reqmsg && (test_rx || test_osc_reg))
     begin
       requestreg <= data_rec_uplink; 
     end
@@ -648,4 +640,3 @@ always@(posedge sign_on_sig)
   end
   
 endmodule 
-
