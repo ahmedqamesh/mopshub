@@ -11,7 +11,7 @@
 `resetall
 `timescale 1ns/10ps
 //creates an internal reset pulse for initialization/reset
-module intialize_elinkCore
+module intialize_elink_core
 ( 
    input   wire    rst,       // 
    input   wire    clk,    

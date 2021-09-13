@@ -11,7 +11,7 @@ appVersion "2019.4 (Build 4)"
 model (Symbol
 commonDM (CommonDM
 ldm (LogicalDM
-suid 16,0
+suid 18,0
 usingSuid 1
 emptyRow *1 (LEmptyRow
 )
@@ -57,44 +57,17 @@ tm "EolColHdrMgr"
 port (LogicalPort
 lang 5
 decl (Decl
-n "DATA_IN"
-t "wire"
-b "[1:0]"
-o 1
-suid 1,0
-)
-)
-uid 106,0
-)
-*16 (LogPort
-port (LogicalPort
-lang 5
-m 1
-decl (Decl
-n "dout"
-t "wire"
-b "[11:0]"
-o 5
-suid 4,0
-)
-)
-uid 112,0
-)
-*17 (LogPort
-port (LogicalPort
-lang 5
-decl (Decl
 n "bitCLK"
 t "wire"
 preAdd 0
 posAdd 0
-o 2
+o 1
 suid 10,0
 )
 )
 uid 346,0
 )
-*18 (LogPort
+*16 (LogPort
 port (LogicalPort
 lang 5
 decl (Decl
@@ -106,7 +79,7 @@ suid 15,0
 )
 uid 1041,0
 )
-*19 (LogPort
+*17 (LogPort
 port (LogicalPort
 lang 5
 decl (Decl
@@ -117,6 +90,33 @@ suid 16,0
 )
 )
 uid 1070,0
+)
+*18 (LogPort
+port (LogicalPort
+lang 5
+decl (Decl
+n "data_2bit_in"
+t "wire"
+b "[1:0]"
+o 2
+suid 17,0
+)
+)
+uid 1143,0
+)
+*19 (LogPort
+port (LogicalPort
+lang 5
+m 1
+decl (Decl
+n "data_12bit_out"
+t "wire"
+b "[11:0]"
+o 5
+suid 18,0
+)
+)
+uid 1145,0
 )
 ]
 )
@@ -170,33 +170,33 @@ uid 72,0
 )
 *25 (MRCItem
 litem &15
-pos 1
-dimension 20
-uid 107,0
-)
-*26 (MRCItem
-litem &16
-pos 2
-dimension 20
-uid 113,0
-)
-*27 (MRCItem
-litem &17
 pos 0
 dimension 20
 uid 345,0
+)
+*26 (MRCItem
+litem &16
+pos 1
+dimension 20
+uid 1040,0
+)
+*27 (MRCItem
+litem &17
+pos 2
+dimension 20
+uid 1069,0
 )
 *28 (MRCItem
 litem &18
 pos 3
 dimension 20
-uid 1040,0
+uid 1142,0
 )
 *29 (MRCItem
 litem &19
 pos 4
 dimension 20
-uid 1069,0
+uid 1144,0
 )
 ]
 )
@@ -455,19 +455,19 @@ value "/home/dcs/git/mopshub/mopshub_lib/hds/bitstream_deserializer"
 )
 (vvPair
 variable "date"
-value "08/31/21"
+value "09/13/21"
 )
 (vvPair
 variable "day"
-value "Tue"
+value "Mon"
 )
 (vvPair
 variable "day_long"
-value "Tuesday"
+value "Monday"
 )
 (vvPair
 variable "dd"
-value "31"
+value "13"
 )
 (vvPair
 variable "entity_name"
@@ -495,7 +495,7 @@ value "dcs"
 )
 (vvPair
 variable "graphical_source_date"
-value "08/31/21"
+value "09/13/21"
 )
 (vvPair
 variable "graphical_source_group"
@@ -507,7 +507,7 @@ value "chipdev2.physik.uni-wuppertal.de"
 )
 (vvPair
 variable "graphical_source_time"
-value "17:02:33"
+value "12:39:15"
 )
 (vvPair
 variable "group"
@@ -551,7 +551,7 @@ value "$HDS_PROJECT_DIR/mopshub_lib/svassistant"
 )
 (vvPair
 variable "mm"
-value "08"
+value "09"
 )
 (vvPair
 variable "module_name"
@@ -559,11 +559,11 @@ value "bitstream_deserializer"
 )
 (vvPair
 variable "month"
-value "Aug"
+value "Sep"
 )
 (vvPair
 variable "month_long"
-value "August"
+value "September"
 )
 (vvPair
 variable "p"
@@ -627,7 +627,7 @@ value "symbol"
 )
 (vvPair
 variable "time"
-value "17:02:33"
+value "12:39:15"
 )
 (vvPair
 variable "unit"
@@ -662,100 +662,6 @@ optionalChildren [
 uid 8,0
 optionalChildren [
 *60 (CptPort
-uid 124,0
-ps "OnEdgeStrategy"
-shape (Triangle
-uid 125,0
-ro 90
-va (VaSet
-vasetType 1
-fg "0,65535,0"
-)
-xt "14250,6625,15000,7375"
-)
-tg (CPTG
-uid 126,0
-ps "CptPortTextPlaceStrategy"
-stg "VerticalLayoutStrategy"
-f (Text
-uid 127,0
-va (VaSet
-font "courier,8,0"
-)
-xt "16000,6550,24000,7450"
-st "DATA_IN : [1:0]"
-blo "16000,7250"
-tm "CptPortNameMgr"
-)
-)
-dt (MLText
-uid 128,0
-va (VaSet
-font "courier,8,0"
-)
-xt "2000,3600,16500,4500"
-st "input  wire [1:0]   DATA_IN;"
-)
-thePort (LogicalPort
-lang 5
-decl (Decl
-n "DATA_IN"
-t "wire"
-b "[1:0]"
-o 1
-suid 1,0
-)
-)
-)
-*61 (CptPort
-uid 139,0
-ps "OnEdgeStrategy"
-shape (Triangle
-uid 140,0
-ro 90
-va (VaSet
-vasetType 1
-fg "0,65535,0"
-)
-xt "39000,6625,39750,7375"
-)
-tg (CPTG
-uid 141,0
-ps "CptPortTextPlaceStrategy"
-stg "RightVerticalLayoutStrategy"
-f (Text
-uid 142,0
-va (VaSet
-font "courier,8,0"
-)
-xt "31000,6550,38000,7450"
-st "dout : [11:0]"
-ju 2
-blo "38000,7250"
-tm "CptPortNameMgr"
-)
-)
-dt (MLText
-uid 143,0
-va (VaSet
-font "courier,8,0"
-)
-xt "2000,7200,15000,8100"
-st "output wire [11:0]  dout;"
-)
-thePort (LogicalPort
-lang 5
-m 1
-decl (Decl
-n "dout"
-t "wire"
-b "[11:0]"
-o 5
-suid 4,0
-)
-)
-)
-*62 (CptPort
 uid 349,0
 ps "OnEdgeStrategy"
 shape (Triangle
@@ -787,7 +693,7 @@ uid 353,0
 va (VaSet
 font "courier,8,0"
 )
-xt "2000,4500,16000,5400"
+xt "2000,3600,16000,4500"
 st "input  wire         bitCLK;"
 )
 thePort (LogicalPort
@@ -797,12 +703,12 @@ n "bitCLK"
 t "wire"
 preAdd 0
 posAdd 0
-o 2
+o 1
 suid 10,0
 )
 )
 )
-*63 (CptPort
+*61 (CptPort
 uid 1042,0
 ps "OnEdgeStrategy"
 shape (Triangle
@@ -847,7 +753,7 @@ suid 15,0
 )
 )
 )
-*64 (CptPort
+*62 (CptPort
 uid 1071,0
 ps "OnEdgeStrategy"
 shape (Triangle
@@ -892,6 +798,100 @@ suid 16,0
 )
 )
 )
+*63 (CptPort
+uid 1146,0
+ps "OnEdgeStrategy"
+shape (Triangle
+uid 1147,0
+ro 90
+va (VaSet
+vasetType 1
+fg "0,65535,0"
+)
+xt "14250,20625,15000,21375"
+)
+tg (CPTG
+uid 1148,0
+ps "CptPortTextPlaceStrategy"
+stg "VerticalLayoutStrategy"
+f (Text
+uid 1149,0
+va (VaSet
+font "courier,8,0"
+)
+xt "16000,20550,26500,21450"
+st "data_2bit_in : [1:0]"
+blo "16000,21250"
+tm "CptPortNameMgr"
+)
+)
+dt (MLText
+uid 1150,0
+va (VaSet
+font "courier,8,0"
+)
+xt "2000,4500,19000,5400"
+st "input  wire [1:0]   data_2bit_in;"
+)
+thePort (LogicalPort
+lang 5
+decl (Decl
+n "data_2bit_in"
+t "wire"
+b "[1:0]"
+o 2
+suid 17,0
+)
+)
+)
+*64 (CptPort
+uid 1151,0
+ps "OnEdgeStrategy"
+shape (Triangle
+uid 1152,0
+ro 90
+va (VaSet
+vasetType 1
+fg "0,65535,0"
+)
+xt "41000,6625,41750,7375"
+)
+tg (CPTG
+uid 1153,0
+ps "CptPortTextPlaceStrategy"
+stg "RightVerticalLayoutStrategy"
+f (Text
+uid 1154,0
+va (VaSet
+font "courier,8,0"
+)
+xt "28000,6550,40000,7450"
+st "data_12bit_out : [11:0]"
+ju 2
+blo "40000,7250"
+tm "CptPortNameMgr"
+)
+)
+dt (MLText
+uid 1155,0
+va (VaSet
+font "courier,8,0"
+)
+xt "2000,7200,20000,8100"
+st "output wire [11:0]  data_12bit_out;"
+)
+thePort (LogicalPort
+lang 5
+m 1
+decl (Decl
+n "data_12bit_out"
+t "wire"
+b "[11:0]"
+o 5
+suid 18,0
+)
+)
+)
 ]
 shape (Rectangle
 uid 9,0
@@ -901,8 +901,9 @@ fg "0,65535,0"
 lineColor "0,32896,0"
 lineWidth 2
 )
-xt "15000,6000,39000,26000"
+xt "15000,6000,41000,26000"
 )
+oxt "15000,6000,39000,26000"
 biTextGroup (BiTextGroup
 uid 10,0
 ps "CenterOffsetStrategy"
@@ -1602,7 +1603,7 @@ xt "2000,2700,2000,2700"
 tm "SyDeclarativeTextMgr"
 )
 )
-lastUid 1097,0
+lastUid 1221,0
 postModuleDirective "// ### Please start your Verilog code here ###"
 activeModelName "Symbol:CDM"
 )
