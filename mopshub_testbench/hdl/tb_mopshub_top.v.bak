@@ -12,21 +12,24 @@ wire            start_init;
 wire            end_init;
 string          info_debug_sig;     
 //tbSM signals  
-wire    [75:0]  bus_dec_dta;
+wire    [75:0]  bus_dec_data;
 wire    [7:0]   bus_id;
 int             adc_ch;
 
 //Automated trimming signals
-reg             osc_auto_trim =1'b1; ////Active high. Enable /disable automated trimming. If disabled then take care of ftrim_pads_reg
+reg             osc_auto_trim =1'b0; ////Active high. Enable /disable automated trimming. If disabled then take care of ftrim_pads_reg
 wire            trim_sig_start;
 wire            trim_sig_end;
 wire            trim_sig_done;
 
-reg             en_osc_trim =1'b0;
+reg             osc_auto_trim_mopshub =1'b1;
 wire            ready_osc;
 wire            start_trim_osc;
-wire            end_trim_osc;
+wire            end_trim_bus;
+wire            done_trim_osc;
 
+wire            power_bus_en;
+wire    [4:0]   power_bus_cnt;
 
 wire            sign_in_start;
 wire            sign_in_end;
@@ -84,6 +87,7 @@ assign can_tra_select   = mopshub0.can_tra_select;
 assign can_rec_select   = mopshub0.can_rec_select;
 assign data_rec_uplink  = mopshub0.data_rec_uplink;
 assign data_tra_uplink  = mopshub0.data_tra_uplink;
+assign done_trim_osc    = mopshub0.done_trim_osc;
 
 assign data_tra_emulator_out  = data_generator0.data_tra_76bit_reg;
 assign data_rec_emulator_in   = data_generator0.data_rec_76bit_reg;
@@ -98,9 +102,11 @@ mopshub_top#(
 .rst(rst), 
 .start_init(start_init),  
 .end_init(end_init), 
-.en_osc_trim(en_osc_trim), 
-.start_trim_osc(start_trim_osc),
-.end_trim_bus(end_trim_osc),
+.osc_auto_trim_mopshub(osc_auto_trim_mopshub), 
+.start_trim_ack(start_trim_osc),
+.end_trim_bus(end_trim_bus),
+.power_bus_en(power_bus_en),
+.power_bus_cnt(power_bus_cnt),
 .sign_on_sig(sign_on_sig),  
 .rst_mops_dbg(rst_mops_dbg),                       
 .end_cnt_dbg(1'b0),
@@ -127,11 +133,11 @@ mopshub_top#(
 .tx7(tx7));
 
 data_generator#(
-.n_buses (5'b001))data_generator0(
+.n_buses (5'b111))data_generator0(
 .clk(clk),
 .rst(rst),
 .ext_rst_mops(rst_mops_dbg),
-.ext_trim_mops(en_osc_trim),
+.ext_trim_mops(osc_auto_trim_mopshub),
 .loop_en(1'b0),
 //Start SM
 .start_data_gen(start_data_gen),
@@ -256,15 +262,15 @@ always@(posedge sign_on_sig)
     /////*********************************Oscillator Trimming*********************************///// 
     if(start_trim_osc)
     begin 
-      info_debug_sig = {"<:Oscillator Trimming [BUS ID ",$sformatf("%h",can_tra_select)," ]:>"};
-      $strobeh("\t Oscillator Trimming [BUS ID %d ]: ",can_tra_select);
+      info_debug_sig = {"<:Oscillator Trimming [BUS ID ",$sformatf("%h",power_bus_cnt)," ]:>"};
+      $strobeh("\t Oscillator Trimming [BUS ID %d ]: ",power_bus_cnt);
     end
     if(trim_sig_start)
     begin 
       info_debug_sig = {"<:Oscillator Trimming [BUS ID ",$sformatf("%h",bus_id)," ]:>"};
       $strobeh("\t Oscillator Trimming [BUS ID %d ]: ",bus_id);
     end       
-    if(end_trim_osc||trim_sig_end)
+    if(end_trim_bus||trim_sig_end)
     begin 
       $strobe("*****************************************************************************");
       info_debug_sig = {""};
@@ -315,11 +321,11 @@ always@(posedge sign_on_sig)
     end    
     
     // Test Osc Trim  Response part 
-    if(en_osc_trim  && !test_rx && !test_tx)
+    if(osc_auto_trim_mopshub  && !test_rx && !test_tx)
     begin
       requestreg <= {12'h555,64'hAAAAAAAAAAAAAAAA};  
     end  
-    if(end_trim_osc)
+    if(end_trim_bus)
     begin 
       responsereg <= data_rec_uplink;
       $strobeh("\t Sign In Message [BUS ID %d]: \t request %h \t response %h \t",bus_id,requestreg,responsereg);
