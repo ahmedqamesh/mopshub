@@ -217,9 +217,10 @@ always@(posedge sign_on_sig)
   /////*******Start Full SM for Data Generation ****/////
   always@(posedge clk)
   begin  
-    if(trim_sig_done ==1)
+    if(trim_sig_done ==1 ||done_trim_osc ==1)
     begin
       osc_auto_trim =1'b0;
+      osc_auto_trim_mopshub = 1'b0;
       test_osc_reg = 1'b1;
     end
     if(osc_reg_end ==1)//Done with Initialisation
@@ -276,12 +277,12 @@ always@(posedge sign_on_sig)
       info_debug_sig = {""};
     end
     /////*********************************  Sign In message print *********************************///// 
-    if(sign_in_start)
+    if(sign_in_start & !osc_auto_trim_mopshub)
     begin 
       responsereg <= data_rec_uplink;
       $strobeh("\t Sign In Message [BUS ID %d]: \t request %h \t response %h \t",bus_id,requestreg,responsereg); 
     end     
-    if(sign_in_end)
+    if(sign_in_end &!osc_auto_trim_mopshub)
     begin 
       $strobe("*****************************************************************************");
       info_debug_sig = {""};
