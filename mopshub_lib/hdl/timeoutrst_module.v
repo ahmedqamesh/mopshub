@@ -3,6 +3,7 @@
 module timout_rst( 
    input   wire      clk, 
    input   wire      entimeout, 
+   input   wire [31:0] time_limit, 
    input   wire      rst, 
    output  wire      timeoutrst
 );
@@ -40,7 +41,7 @@ end
 
 always@(posedge clk)
 begin 
-  if(counterVoted >= 32'd1500000)//#900000
+  if(counterVoted >= time_limit)
       timeoutrstreg <= 1'b1;
   else
       timeoutrstreg <= 1'b0;

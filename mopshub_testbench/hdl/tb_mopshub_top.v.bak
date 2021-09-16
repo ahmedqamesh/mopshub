@@ -217,7 +217,7 @@ always@(posedge sign_on_sig)
   /////*******Start Full SM for Data Generation ****/////
   always@(posedge clk)
   begin  
-    if(trim_sig_done ==1)
+    if(trim_sig_done ==1 ||done_trim_osc ==1)
     begin
       osc_auto_trim =1'b0;
       osc_auto_trim_mopshub = 1'b0;
@@ -280,7 +280,8 @@ always@(posedge sign_on_sig)
     if(sign_in_start & !osc_auto_trim_mopshub)
     begin 
       responsereg <= data_rec_uplink;
-      $strobeh("\t Sign In Message [BUS ID %d]: \t request %h \t response %h \t",bus_id,requestreg,responsereg); 
+      //can_rec_select instead of bus_id in case MOPSHUB skip the bus id
+      $strobeh("\t Sign In Message [BUS ID %d]: \t request %h \t response %h \t",can_rec_select,requestreg,responsereg); 
     end     
     if(sign_in_end &!osc_auto_trim_mopshub)
     begin 
@@ -627,18 +628,18 @@ always@(posedge sign_on_sig)
           else
           begin
             $display("Current simulation time is: ", $realtime);
-            $strobe("Status BAD ********************************[TX Test****************************** Status BAD %h",responsereg);
+            $strobe("Status BAD ********************************[TX Test [BUS ID %d]****************** Status BAD %h",can_tra_select,requestreg);
             $strobe("******************** Please check SDO abort codes to understand why write operation failed");
             failures += 1;
           end
         end
         {43'h60140??401?,3'h0,can_tra_select,8'h0,16'h0}:begin
           if(responsereg inside{ {43'h5818000401?,3'h0,can_tra_select,24'h???}})
-          $strobe("Status GOOD [BUS ID %d] - TX Test",bus_id);
+          $strobe("Status GOOD [BUS ID %d] - TX Test",can_tra_select);
           else
           begin
             $display("Current simulation time is: ", $realtime);
-            $strobe("Status BAD ********************************[TX Test****************************** Status BAD %h",responsereg);
+            $strobe("Status BAD ********************************[TX Test [BUS ID %d]****************** Status BAD %h",can_tra_select,requestreg);
             $strobe("******************** Please check SDO abort codes to understand why write operation failed");
             failures += 1;
           end
@@ -694,7 +695,7 @@ always@(posedge sign_on_sig)
           if(responsereg == requestreg)
           begin
           $strobe("Status GOOD [BUS ID %d]- test",bus_id);
-          $strobe("Status GOOD [BUS ID %h]:",responsereg);
+          $strobe("responsereg = responsereg [BUS ID %d]: Msg = %h",bus_id, responsereg);
         end
           else
           begin

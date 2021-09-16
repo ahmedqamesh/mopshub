@@ -11,7 +11,7 @@ appVersion "2019.4 (Build 4)"
 model (Symbol
 commonDM (CommonDM
 ldm (LogicalDM
-suid 48,0
+suid 49,0
 usingSuid 1
 emptyRow *1 (LEmptyRow
 )
@@ -97,19 +97,6 @@ uid 127,0
 *18 (LogPort
 port (LogicalPort
 lang 5
-m 1
-decl (Decl
-n "osc_auto_trim"
-t "reg"
-o 10
-suid 12,0
-)
-)
-uid 129,0
-)
-*19 (LogPort
-port (LogicalPort
-lang 5
 decl (Decl
 n "timeoutrst"
 t "wire"
@@ -120,7 +107,7 @@ suid 25,0
 )
 uid 155,0
 )
-*20 (LogPort
+*19 (LogPort
 port (LogicalPort
 lang 5
 decl (Decl
@@ -132,7 +119,7 @@ suid 46,0
 )
 uid 472,0
 )
-*21 (LogPort
+*20 (LogPort
 port (LogicalPort
 lang 5
 decl (Decl
@@ -144,7 +131,7 @@ suid 47,0
 )
 uid 603,0
 )
-*22 (LogPort
+*21 (LogPort
 port (LogicalPort
 lang 5
 decl (Decl
@@ -156,10 +143,23 @@ suid 48,0
 )
 uid 909,0
 )
+*22 (LogPort
+port (LogicalPort
+lang 5
+m 1
+decl (Decl
+n "osc_trim_mode"
+t "reg"
+o 10
+suid 49,0
+)
+)
+uid 985,0
+)
 *23 (LGroup
 name "top"
 comment ""
-uid 961,0
+uid 986,0
 optionalChildren [
 *24 (LogPort
 port (LogicalPort
@@ -259,45 +259,45 @@ uid 126,0
 )
 *34 (MRCItem
 litem &18
-pos 6
-dimension 20
-uid 128,0
-)
-*35 (MRCItem
-litem &19
 pos 3
 dimension 20
 uid 154,0
 )
-*36 (MRCItem
+*35 (MRCItem
 litem &24
 pos 5
 dimension 20
 uid 192,0
 )
-*37 (MRCItem
+*36 (MRCItem
 litem &25
 pos 4
 dimension 20
 uid 194,0
 )
-*38 (MRCItem
-litem &20
+*37 (MRCItem
+litem &19
 pos 7
 dimension 20
 uid 471,0
 )
-*39 (MRCItem
-litem &21
+*38 (MRCItem
+litem &20
 pos 8
 dimension 20
 uid 602,0
 )
-*40 (MRCItem
-litem &22
+*39 (MRCItem
+litem &21
 pos 9
 dimension 20
 uid 908,0
+)
+*40 (MRCItem
+litem &22
+pos 6
+dimension 20
+uid 984,0
 )
 ]
 )
@@ -556,19 +556,19 @@ value "/home/dcs/git/mopshub/mopshub_lib/hds/osc_trim_SM"
 )
 (vvPair
 variable "date"
-value "09/15/21"
+value "09/16/21"
 )
 (vvPair
 variable "day"
-value "Wed"
+value "Thu"
 )
 (vvPair
 variable "day_long"
-value "Wednesday"
+value "Thursday"
 )
 (vvPair
 variable "dd"
-value "15"
+value "16"
 )
 (vvPair
 variable "entity_name"
@@ -596,7 +596,7 @@ value "dcs"
 )
 (vvPair
 variable "graphical_source_date"
-value "09/15/21"
+value "09/16/21"
 )
 (vvPair
 variable "graphical_source_group"
@@ -608,7 +608,7 @@ value "chipdev2.physik.uni-wuppertal.de"
 )
 (vvPair
 variable "graphical_source_time"
-value "16:09:43"
+value "12:31:12"
 )
 (vvPair
 variable "group"
@@ -728,7 +728,7 @@ value "symbol"
 )
 (vvPair
 variable "time"
-value "16:09:43"
+value "12:31:12"
 )
 (vvPair
 variable "unit"
@@ -796,7 +796,8 @@ va (VaSet
 font "courier,8,0"
 )
 xt "2000,9900,42500,10800"
-st "output reg abort_mes; // Signals other state machines to come to a known statte "
+st "output reg abort_mes; // Signals other state machines to come to a known statte 
+"
 )
 thePort (LogicalPort
 lang 5
@@ -843,7 +844,8 @@ va (VaSet
 font "courier,8,0"
 )
 xt "2000,5400,77600,6300"
-st "input  wire endwait; // This signal indicates when message can't be decoded in one of the CANopen objects to go back to known state to receive message"
+st "input  wire endwait; // This signal indicates when message can't be decoded in one of the CANopen objects to go back to known state to receive message
+"
 )
 thePort (LogicalPort
 lang 5
@@ -890,7 +892,8 @@ va (VaSet
 font "courier,8,0"
 )
 xt "2000,10800,31500,11700"
-st "output reg entimeout; // enable for timeout reset counter "
+st "output reg entimeout; // enable for timeout reset counter 
+"
 )
 thePort (LogicalPort
 lang 5
@@ -905,53 +908,6 @@ suid 11,0
 )
 )
 *74 (CptPort
-uid 254,0
-ps "OnEdgeStrategy"
-shape (Triangle
-uid 503,0
-ro 90
-va (VaSet
-vasetType 1
-fg "0,65535,0"
-)
-xt "40000,31625,40750,32375"
-)
-tg (CPTG
-uid 256,0
-ps "CptPortTextPlaceStrategy"
-stg "RightVerticalLayoutStrategy"
-f (Text
-uid 257,0
-va (VaSet
-font "courier,8,0"
-)
-xt "32000,31550,39000,32450"
-st "osc_auto_trim"
-ju 2
-blo "39000,32250"
-tm "CptPortNameMgr"
-)
-)
-dt (MLText
-uid 258,0
-va (VaSet
-font "courier,8,0"
-)
-xt "2000,11700,15000,12600"
-st "output reg osc_auto_trim;"
-)
-thePort (LogicalPort
-lang 5
-m 1
-decl (Decl
-n "osc_auto_trim"
-t "reg"
-o 10
-suid 12,0
-)
-)
-)
-*75 (CptPort
 uid 319,0
 ps "OnEdgeStrategy"
 shape (Triangle
@@ -984,7 +940,8 @@ va (VaSet
 font "courier,8,0"
 )
 xt "2000,9000,58500,9900"
-st "input  wire timeoutrst; // timeout reset in case bridge controller does not respond in a specied amount of time "
+st "input  wire timeoutrst; // timeout reset in case bridge controller does not respond in a specied amount of time 
+"
 )
 thePort (LogicalPort
 lang 5
@@ -997,7 +954,7 @@ suid 25,0
 )
 )
 )
-*76 (CptPort
+*75 (CptPort
 uid 414,0
 ps "OnEdgeStrategy"
 shape (Triangle
@@ -1030,7 +987,8 @@ va (VaSet
 font "courier,8,0"
 )
 xt "2000,8100,17000,9000"
-st "input  wire rst; // lowactive"
+st "input  wire rst; // lowactive
+"
 )
 thePort (LogicalPort
 lang 5
@@ -1043,7 +1001,7 @@ suid 44,0
 )
 )
 )
-*77 (CptPort
+*76 (CptPort
 uid 419,0
 ps "OnEdgeStrategy"
 shape (Triangle
@@ -1076,7 +1034,8 @@ va (VaSet
 font "courier,8,0"
 )
 xt "2000,3600,16000,4500"
-st "input  wire clk; // posedge"
+st "input  wire clk; // posedge
+"
 )
 thePort (LogicalPort
 lang 5
@@ -1089,7 +1048,7 @@ suid 45,0
 )
 )
 )
-*78 (CptPort
+*77 (CptPort
 uid 476,0
 ps "OnEdgeStrategy"
 shape (Triangle
@@ -1122,7 +1081,8 @@ va (VaSet
 font "courier,8,0"
 )
 xt "2000,6300,19500,7200"
-st "input  wire osc_auto_trim_mopshub;"
+st "input  wire osc_auto_trim_mopshub;
+"
 )
 thePort (LogicalPort
 lang 5
@@ -1134,7 +1094,7 @@ suid 46,0
 )
 )
 )
-*79 (CptPort
+*78 (CptPort
 uid 605,0
 ps "OnEdgeStrategy"
 shape (Triangle
@@ -1167,7 +1127,8 @@ va (VaSet
 font "courier,8,0"
 )
 xt "2000,4500,13000,5400"
-st "input  wire end_init;"
+st "input  wire end_init;
+"
 )
 thePort (LogicalPort
 lang 5
@@ -1179,7 +1140,7 @@ suid 47,0
 )
 )
 )
-*80 (CptPort
+*79 (CptPort
 uid 911,0
 ps "OnEdgeStrategy"
 shape (Triangle
@@ -1212,7 +1173,8 @@ va (VaSet
 font "courier,8,0"
 )
 xt "2000,7200,18000,8100"
-st "input  wire osc_auto_trim_sent;"
+st "input  wire osc_auto_trim_sent;
+"
 )
 thePort (LogicalPort
 lang 5
@@ -1221,6 +1183,54 @@ n "osc_auto_trim_sent"
 t "wire"
 o 5
 suid 48,0
+)
+)
+)
+*80 (CptPort
+uid 987,0
+ps "OnEdgeStrategy"
+shape (Triangle
+uid 988,0
+ro 90
+va (VaSet
+vasetType 1
+fg "0,65535,0"
+)
+xt "40000,12625,40750,13375"
+)
+tg (CPTG
+uid 989,0
+ps "CptPortTextPlaceStrategy"
+stg "RightVerticalLayoutStrategy"
+f (Text
+uid 990,0
+va (VaSet
+font "courier,8,0"
+)
+xt "32000,12550,39000,13450"
+st "osc_trim_mode"
+ju 2
+blo "39000,13250"
+tm "CptPortNameMgr"
+)
+)
+dt (MLText
+uid 991,0
+va (VaSet
+font "courier,8,0"
+)
+xt "2000,11700,15000,12600"
+st "output reg osc_trim_mode;
+"
+)
+thePort (LogicalPort
+lang 5
+m 1
+decl (Decl
+n "osc_trim_mode"
+t "reg"
+o 10
+suid 49,0
 )
 )
 )
@@ -1934,7 +1944,7 @@ xt "2000,2700,2000,2700"
 tm "SyDeclarativeTextMgr"
 )
 )
-lastUid 961,0
+lastUid 991,0
 postModuleDirective "// ### Please start your Verilog code here ###"
 activeModelName "Symbol:CDM"
 )
