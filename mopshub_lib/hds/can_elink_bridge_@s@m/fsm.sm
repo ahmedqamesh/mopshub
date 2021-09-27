@@ -69,19 +69,19 @@ value "/home/dcs/git/mopshub/mopshub_lib/hds/can_elink_bridge_SM"
 )
 (vvPair
 variable "date"
-value "09/16/21"
+value "09/22/21"
 )
 (vvPair
 variable "day"
-value "Thu"
+value "Wed"
 )
 (vvPair
 variable "day_long"
-value "Thursday"
+value "Wednesday"
 )
 (vvPair
 variable "dd"
-value "16"
+value "22"
 )
 (vvPair
 variable "entity_name"
@@ -109,7 +109,7 @@ value "dcs"
 )
 (vvPair
 variable "graphical_source_date"
-value "09/16/21"
+value "09/22/21"
 )
 (vvPair
 variable "graphical_source_group"
@@ -121,7 +121,7 @@ value "chipdev2.physik.uni-wuppertal.de"
 )
 (vvPair
 variable "graphical_source_time"
-value "11:28:15"
+value "13:47:05"
 )
 (vvPair
 variable "group"
@@ -241,7 +241,7 @@ value "fsm"
 )
 (vvPair
 variable "time"
-value "11:28:15"
+value "13:47:05"
 )
 (vvPair
 variable "unit"
@@ -8928,9 +8928,9 @@ va (VaSet
 fg "0,0,32768"
 font "courier,10,1"
 )
-xt "32548,-29276,36748,-28276"
+xt "32248,-29276,36448,-28276"
 st "wait 20"
-blo "32548,-28476"
+blo "32248,-28476"
 tm "SmWaitText"
 )
 )
@@ -15279,7 +15279,7 @@ tm "SmCompilerDirectivesTextMgr"
 associable 1
 )
 windowSize "1912,41,3848,1050"
-viewArea "-7385,2182,136079,72365"
+viewArea "34300,2200,140506,55892"
 cachedDiagramExtent "0,-2454,136117,149073"
 hasePageBreakOrigin 1
 pageBreakOrigin "0,-53000"
@@ -15581,6 +15581,12 @@ reset_irq_osc_can  output  0               COMB
 rst_mops_dbg       output  0               COMB                                                           
 power_bus_en       output  0               COMB                                                           
 end_trim_bus       output  0               COMB                                                           
+statedeb           output  N/A      N/A    N/A                                                            
+start_msg_cnt      output  0               COMB                                                           
+rst_msg_cnt        output  0               COMB                                                           
+start_trim_ack     output  0               COMB                                                           
+entimeout_trim     output  1               COMB                                                           
+skip_osc_trim      output  0               COMB                                                           
 start_read_can     output  0               COMB   to read canakari receive registers                      
 start_write_can    output  0               COMB   to write transmit registers of canakari                 
 start_init         output  0               COMB   to initialize the CAN node (cankari)                    
@@ -15591,12 +15597,6 @@ reset_irq_tra_can  output  0               COMB
 reset_irq_rec_can  output  0               COMB                                                           
 start_write_elink  output  0               COMB                                                           
 start_read_elink   output  0               COMB   signal to read transmit message buffer register         
-statedeb           output  0               COMB                                                           
-start_msg_cnt      output  0               COMB                                                           
-rst_msg_cnt        output  0               COMB                                                           
-start_trim_ack     output  0               COMB                                                           
-entimeout_trim     output  1               COMB                                                           
-skip_osc_trim      output  0               COMB                                                           
 "
 tm "SmSignalsGenStatusTextMgr"
 )
@@ -15743,7 +15743,7 @@ stateOrder [
 name "csm"
 )
 ]
-lastUid 13998,0
+lastUid 14117,0
 commonDM (CommonDM
 ldm (LogicalDM
 emptyRow *179 (LEmptyRow
@@ -15984,7 +15984,7 @@ m 1
 decl (Decl
 n "start_trim_osc"
 t "reg"
-o 48
+o 49
 )
 )
 uid 9260,0
@@ -16037,7 +16037,7 @@ m 1
 decl (Decl
 n "start_osc_cnt"
 t "reg"
-o 44
+o 45
 )
 )
 uid 10081,0
@@ -16122,12 +16122,122 @@ uid 11302,0
 scheme 0
 defVal "0"
 )
-*224 (LGroup
+*224 (LeafLogPort
+port (LogicalPort
+lang 5
+m 1
+decl (Decl
+n "statedeb"
+t "reg"
+b "[5:0]"
+o 52
+)
+)
+uid 12304,0
+ass "<none>"
+)
+*225 (LeafLogPort
+port (LogicalPort
+lang 5
+decl (Decl
+n "osc_msg_cnt"
+t "wire"
+b "[4:0]"
+o 16
+)
+)
+uid 13622,0
+)
+*226 (LeafLogPort
+port (LogicalPort
+lang 5
+m 1
+decl (Decl
+n "start_msg_cnt"
+t "reg"
+o 44
+)
+)
+uid 13624,0
+scheme 0
+defVal "0"
+)
+*227 (LeafLogPort
+port (LogicalPort
+lang 5
+m 1
+decl (Decl
+n "rst_msg_cnt"
+t "reg"
+o 38
+)
+)
+uid 13626,0
+scheme 0
+defVal "0"
+)
+*228 (LeafLogPort
+port (LogicalPort
+lang 5
+m 1
+decl (Decl
+n "start_trim_ack"
+t "reg"
+o 48
+)
+)
+uid 13672,0
+scheme 0
+defVal "0"
+)
+*229 (LeafLogPort
+port (LogicalPort
+lang 5
+m 1
+decl (Decl
+n "entimeout_trim"
+t "reg"
+o 29
+)
+)
+uid 13755,0
+scheme 0
+defVal "1"
+)
+*230 (LeafLogPort
+port (LogicalPort
+lang 5
+decl (Decl
+n "timeoutrst_trim"
+t "wire"
+eolc "timeout reset in case bridge controller does not respond in a specied amount of time "
+o 22
+)
+)
+uid 13768,0
+cat 12
+expr "timeoutrst_trim"
+)
+*231 (LeafLogPort
+port (LogicalPort
+lang 5
+m 1
+decl (Decl
+n "skip_osc_trim"
+t "reg"
+o 42
+)
+)
+uid 13997,0
+scheme 0
+defVal "0"
+)
+*232 (LGroup
 name "top"
 comment ""
-uid 11753,0
+uid 14086,0
 optionalChildren [
-*225 (LeafLogPort
+*233 (LeafLogPort
 port (LogicalPort
 lang 5
 decl (Decl
@@ -16141,7 +16251,7 @@ uid 158,0
 cat 1
 expr "posedge clk"
 )
-*226 (LeafLogPort
+*234 (LeafLogPort
 port (LogicalPort
 lang 5
 decl (Decl
@@ -16157,12 +16267,12 @@ expr "!rst"
 )
 ]
 )
-*227 (LGroup
+*235 (LGroup
 name "can"
 comment ""
-uid 11754,0
+uid 14087,0
 optionalChildren [
-*228 (LeafLogPort
+*236 (LeafLogPort
 port (LogicalPort
 lang 5
 decl (Decl
@@ -16174,7 +16284,7 @@ o 12
 )
 uid 231,0
 )
-*229 (LeafLogPort
+*237 (LeafLogPort
 port (LogicalPort
 lang 5
 m 1
@@ -16182,14 +16292,14 @@ decl (Decl
 n "start_read_can"
 t "reg"
 eolc "to read canakari receive registers"
-o 45
+o 46
 )
 )
 uid 233,0
 scheme 0
 defVal "0"
 )
-*230 (LeafLogPort
+*238 (LeafLogPort
 port (LogicalPort
 lang 5
 m 1
@@ -16197,14 +16307,14 @@ decl (Decl
 n "start_write_can"
 t "reg"
 eolc "to write transmit registers of canakari "
-o 49
+o 50
 )
 )
 uid 235,0
 scheme 0
 defVal "0"
 )
-*231 (LeafLogPort
+*239 (LeafLogPort
 port (LogicalPort
 lang 5
 m 1
@@ -16212,14 +16322,14 @@ decl (Decl
 n "start_init"
 t "reg"
 eolc "to initialize the CAN node (cankari)"
-o 42
+o 43
 )
 )
 uid 237,0
 scheme 0
 defVal "0"
 )
-*232 (LeafLogPort
+*240 (LeafLogPort
 port (LogicalPort
 lang 5
 decl (Decl
@@ -16231,7 +16341,7 @@ o 4
 )
 uid 239,0
 )
-*233 (LeafLogPort
+*241 (LeafLogPort
 port (LogicalPort
 lang 5
 decl (Decl
@@ -16243,7 +16353,7 @@ o 6
 )
 uid 252,0
 )
-*234 (LeafLogPort
+*242 (LeafLogPort
 port (LogicalPort
 lang 5
 decl (Decl
@@ -16255,7 +16365,7 @@ o 9
 )
 uid 254,0
 )
-*235 (LeafLogPort
+*243 (LeafLogPort
 port (LogicalPort
 lang 5
 m 1
@@ -16270,7 +16380,7 @@ uid 269,0
 scheme 0
 defVal "0"
 )
-*236 (LeafLogPort
+*244 (LeafLogPort
 port (LogicalPort
 lang 5
 m 1
@@ -16285,7 +16395,7 @@ uid 307,0
 scheme 0
 defVal "0"
 )
-*237 (LeafLogPort
+*245 (LeafLogPort
 port (LogicalPort
 lang 5
 m 1
@@ -16300,7 +16410,7 @@ uid 7725,0
 scheme 0
 defVal "0"
 )
-*238 (LeafLogPort
+*246 (LeafLogPort
 port (LogicalPort
 lang 5
 decl (Decl
@@ -16312,7 +16422,7 @@ o 13
 )
 uid 2611,0
 )
-*239 (LeafLogPort
+*247 (LeafLogPort
 port (LogicalPort
 lang 5
 m 1
@@ -16326,7 +16436,7 @@ uid 8942,0
 scheme 0
 defVal "0"
 )
-*240 (LeafLogPort
+*248 (LeafLogPort
 port (LogicalPort
 lang 5
 m 1
@@ -16342,26 +16452,26 @@ defVal "0"
 )
 ]
 )
-*241 (LGroup
+*249 (LGroup
 name "elink"
 comment ""
-uid 11755,0
+uid 14088,0
 optionalChildren [
-*242 (LeafLogPort
+*250 (LeafLogPort
 port (LogicalPort
 lang 5
 m 1
 decl (Decl
 n "start_write_elink"
 t "reg"
-o 50
+o 51
 )
 )
 uid 311,0
 scheme 0
 defVal "0"
 )
-*243 (LeafLogPort
+*251 (LeafLogPort
 port (LogicalPort
 lang 5
 m 1
@@ -16369,14 +16479,14 @@ decl (Decl
 n "start_read_elink"
 t "reg"
 eolc "signal to read transmit message buffer register "
-o 46
+o 47
 )
 )
 uid 313,0
 scheme 0
 defVal "0"
 )
-*244 (LeafLogPort
+*252 (LeafLogPort
 port (LogicalPort
 lang 5
 decl (Decl
@@ -16388,7 +16498,7 @@ o 10
 )
 uid 1761,0
 )
-*245 (LeafLogPort
+*253 (LeafLogPort
 port (LogicalPort
 lang 5
 decl (Decl
@@ -16400,7 +16510,7 @@ o 7
 )
 uid 1748,0
 )
-*246 (LeafLogPort
+*254 (LeafLogPort
 port (LogicalPort
 lang 5
 decl (Decl
@@ -16413,118 +16523,6 @@ o 14
 uid 309,0
 )
 ]
-)
-*247 (LeafLogPort
-port (LogicalPort
-lang 5
-m 1
-decl (Decl
-n "statedeb"
-t "reg"
-b "[5:0]"
-o 51
-)
-)
-uid 12304,0
-scheme 0
-defVal "0"
-)
-*248 (LeafLogPort
-port (LogicalPort
-lang 5
-decl (Decl
-n "osc_msg_cnt"
-t "wire"
-b "[4:0]"
-o 16
-)
-)
-uid 13622,0
-scheme 0
-)
-*249 (LeafLogPort
-port (LogicalPort
-lang 5
-m 1
-decl (Decl
-n "start_msg_cnt"
-t "reg"
-o 43
-)
-)
-uid 13624,0
-scheme 0
-defVal "0"
-)
-*250 (LeafLogPort
-port (LogicalPort
-lang 5
-m 1
-decl (Decl
-n "rst_msg_cnt"
-t "reg"
-o 38
-)
-)
-uid 13626,0
-scheme 0
-defVal "0"
-)
-*251 (LeafLogPort
-port (LogicalPort
-lang 5
-m 1
-decl (Decl
-n "start_trim_ack"
-t "reg"
-o 47
-)
-)
-uid 13672,0
-scheme 0
-defVal "0"
-)
-*252 (LeafLogPort
-port (LogicalPort
-lang 5
-m 1
-decl (Decl
-n "entimeout_trim"
-t "reg"
-o 29
-)
-)
-uid 13755,0
-scheme 0
-defVal "1"
-)
-*253 (LeafLogPort
-port (LogicalPort
-lang 5
-decl (Decl
-n "timeoutrst_trim"
-t "wire"
-eolc "timeout reset in case bridge controller does not respond in a specied amount of time "
-o 22
-)
-)
-uid 13768,0
-cat 12
-expr "timeoutrst_trim"
-)
-*254 (LeafLogPort
-port (LogicalPort
-lang 5
-m 1
-decl (Decl
-n "skip_osc_trim"
-t "reg"
-o 52
-)
-)
-uid 13997,0
-scheme 0
-defVal "0"
 )
 ]
 )
@@ -16577,85 +16575,85 @@ dimension 20
 uid 190,0
 )
 *260 (MRCItem
-litem &225
+litem &233
 pos 16
 dimension 20
 uid 159,0
 )
 *261 (MRCItem
-litem &226
+litem &234
 pos 17
 dimension 20
 uid 161,0
 )
 *262 (MRCItem
-litem &228
+litem &236
 pos 18
 dimension 20
 uid 232,0
 )
 *263 (MRCItem
-litem &229
+litem &237
 pos 1
 dimension 20
 uid 234,0
 )
 *264 (MRCItem
-litem &230
+litem &238
 pos 2
 dimension 20
 uid 236,0
 )
 *265 (MRCItem
-litem &231
+litem &239
 pos 3
 dimension 20
 uid 238,0
 )
 *266 (MRCItem
-litem &232
+litem &240
 pos 19
 dimension 20
 uid 240,0
 )
 *267 (MRCItem
-litem &233
+litem &241
 pos 20
 dimension 20
 uid 253,0
 )
 *268 (MRCItem
-litem &234
+litem &242
 pos 21
 dimension 20
 uid 255,0
 )
 *269 (MRCItem
-litem &235
+litem &243
 pos 4
 dimension 20
 uid 270,0
 )
 *270 (MRCItem
-litem &236
+litem &244
 pos 9
 dimension 20
 uid 308,0
 )
 *271 (MRCItem
-litem &242
+litem &250
 pos 12
 dimension 20
 uid 312,0
 )
 *272 (MRCItem
-litem &243
+litem &251
 pos 11
 dimension 20
 uid 314,0
 )
 *273 (MRCItem
-litem &244
+litem &252
 pos 13
 dimension 20
 uid 1762,0
@@ -16667,7 +16665,7 @@ dimension 20
 uid 1976,0
 )
 *275 (MRCItem
-litem &238
+litem &246
 pos 10
 dimension 20
 uid 2612,0
@@ -16697,7 +16695,7 @@ dimension 20
 uid 6103,0
 )
 *280 (MRCItem
-litem &245
+litem &253
 pos 14
 dimension 20
 uid 1749,0
@@ -16709,7 +16707,7 @@ dimension 20
 uid 6465,0
 )
 *282 (MRCItem
-litem &237
+litem &245
 pos 25
 dimension 20
 uid 7724,0
@@ -16739,19 +16737,19 @@ dimension 20
 uid 8574,0
 )
 *287 (MRCItem
-litem &246
+litem &254
 pos 15
 dimension 20
 uid 310,0
 )
 *288 (MRCItem
-litem &239
+litem &247
 pos 5
 dimension 20
 uid 8943,0
 )
 *289 (MRCItem
-litem &240
+litem &248
 pos 6
 dimension 20
 uid 8962,0
@@ -16841,49 +16839,49 @@ dimension 20
 uid 11303,0
 )
 *304 (MRCItem
-litem &247
+litem &224
 pos 42
 dimension 20
 uid 12305,0
 )
 *305 (MRCItem
-litem &248
+litem &225
 pos 43
 dimension 20
 uid 13623,0
 )
 *306 (MRCItem
-litem &249
+litem &226
 pos 44
 dimension 20
 uid 13625,0
 )
 *307 (MRCItem
-litem &250
+litem &227
 pos 45
 dimension 20
 uid 13627,0
 )
 *308 (MRCItem
-litem &251
+litem &228
 pos 46
 dimension 20
 uid 13673,0
 )
 *309 (MRCItem
-litem &252
+litem &229
 pos 48
 dimension 20
 uid 13756,0
 )
 *310 (MRCItem
-litem &253
+litem &230
 pos 50
 dimension 20
 uid 13769,0
 )
 *311 (MRCItem
-litem &254
+litem &231
 pos 51
 dimension 20
 uid 13998,0

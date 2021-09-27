@@ -85,19 +85,19 @@ value "/home/dcs/git/mopshub/mopshub_lib/hds/elink_to_fifo"
 )
 (vvPair
 variable "date"
-value "08/31/21"
+value "09/27/21"
 )
 (vvPair
 variable "day"
-value "Tue"
+value "Mon"
 )
 (vvPair
 variable "day_long"
-value "Tuesday"
+value "Monday"
 )
 (vvPair
 variable "dd"
-value "31"
+value "27"
 )
 (vvPair
 variable "entity_name"
@@ -125,7 +125,7 @@ value "dcs"
 )
 (vvPair
 variable "graphical_source_date"
-value "08/31/21"
+value "09/27/21"
 )
 (vvPair
 variable "graphical_source_group"
@@ -137,7 +137,7 @@ value "chipdev2.physik.uni-wuppertal.de"
 )
 (vvPair
 variable "graphical_source_time"
-value "17:13:52"
+value "15:02:00"
 )
 (vvPair
 variable "group"
@@ -181,7 +181,7 @@ value "$HDS_PROJECT_DIR/mopshub_lib/svassistant"
 )
 (vvPair
 variable "mm"
-value "08"
+value "09"
 )
 (vvPair
 variable "module_name"
@@ -189,11 +189,11 @@ value "elink_to_fifo"
 )
 (vvPair
 variable "month"
-value "Aug"
+value "Sep"
 )
 (vvPair
 variable "month_long"
-value "August"
+value "September"
 )
 (vvPair
 variable "p"
@@ -257,7 +257,7 @@ value "struct"
 )
 (vvPair
 variable "time"
-value "17:13:52"
+value "15:02:00"
 )
 (vvPair
 variable "unit"
@@ -1575,7 +1575,7 @@ archFileType "UNKNOWN"
 uid 766,0
 lang 5
 decl (Decl
-n "bitCLKx2"
+n "clk_80"
 t "wire"
 o 2
 suid 36,0
@@ -1628,8 +1628,8 @@ uid 909,0
 va (VaSet
 font "courier,8,0"
 )
-xt "3000,8500,7000,9400"
-st "bitCLKx2"
+xt "4000,8500,7000,9400"
+st "clk_80"
 ju 2
 blo "7000,9200"
 tm "WireNameMgr"
@@ -1795,7 +1795,7 @@ if (serialized_input == 0)begin:GBT_frame_case
     end 
   end
 else begin:Elink_frame_case
-  always@(posedge bitCLKx2)
+  always@(posedge clk_80 )
     if (!rst)
        din2bit_r <= 2'b0;
     else
@@ -1815,6 +1815,7 @@ else begin:Elink_frame_case
 
 end                                       
  
+
 
 
 
@@ -3037,8 +3038,8 @@ va (VaSet
 isHidden 1
 font "courier,8,0"
 )
-xt "12000,8100,16000,9000"
-st "bitCLKx2"
+xt "12000,8100,15000,9000"
+st "clk_80"
 blo "12000,8800"
 tm "WireNameMgr"
 )
@@ -3476,8 +3477,8 @@ uid 1483,0
 va (VaSet
 font "courier,8,0"
 )
-xt "6000,36100,10000,37000"
-st "bitCLKx2"
+xt "6000,36100,9000,37000"
+st "clk_80"
 blo "6000,36800"
 tm "WireNameMgr"
 )
@@ -4367,11 +4368,11 @@ tm "BdCompilerDirectivesTextMgr"
 associable 1
 )
 windowSize "1912,41,3848,1050"
-viewArea "-11404,-1582,46838,26910"
+viewArea "10362,4476,63465,30454"
 cachedDiagramExtent "-7500,0,85000,60000"
 hasePageBreakOrigin 1
 pageBreakOrigin "-69000,0"
-lastUid 6736,0
+lastUid 6799,0
 defaultCommentText (CommentText
 shape (Rectangle
 layer 0
@@ -5482,7 +5483,7 @@ tm "BlockDiagramEolColHdrMgr"
 port (LogicalPort
 lang 5
 decl (Decl
-n "bitCLKx2"
+n "clk_80"
 t "wire"
 o 2
 suid 36,0

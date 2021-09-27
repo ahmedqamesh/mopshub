@@ -82,16 +82,24 @@ wire [1:0] tx_mopshub_2bit;
 wire       tx_mopshub_1bit; 
 wire [1:0] rx_mopshub_2bit; 
 wire       rx_mopshub_1bit;
+
 //Internal assignments  
 assign can_tra_select   = mopshub0.can_tra_select;
 assign can_rec_select   = mopshub0.can_rec_select;
 assign data_rec_uplink  = mopshub0.data_rec_uplink;
 assign data_tra_uplink  = mopshub0.data_tra_uplink;
 assign done_trim_osc    = mopshub0.done_trim_osc;
+assign start_init       = mopshub0.start_init;
+assign end_init         = mopshub0.end_init;
+assign rst_mops_dbg     = mopshub0.rst_mops_dbg;
+assign sign_on_sig      = mopshub0.sign_on_sig;
+assign end_trim_bus     = mopshub0.end_trim_bus;
+assign start_trim_osc   = mopshub0.start_trim_ack;
+
 
 assign data_tra_emulator_out  = data_generator0.data_tra_76bit_reg;
 assign data_rec_emulator_in   = data_generator0.data_rec_76bit_reg;
-assign ready_osc              = data_generator0.ready_osc ;
+assign ready_osc              = data_generator0.ready_osc;
 
 assign irq_elink_tra = mopshub0.irq_elink_tra;
 assign irq_elink_rec = mopshub0.irq_elink_rec;
@@ -99,16 +107,10 @@ assign irq_elink_rec = mopshub0.irq_elink_rec;
 mopshub_top#(
 .n_buses (5'b111))mopshub0(
 .clk(clk),
-.rst(rst), 
-.start_init(start_init),  
-.end_init(end_init), 
+.rst(rst),  
 .osc_auto_trim_mopshub(osc_auto_trim_mopshub), 
-.start_trim_ack(start_trim_osc),
-.end_trim_bus(end_trim_bus),
 .power_bus_en(power_bus_en),
-.power_bus_cnt(power_bus_cnt),
-.sign_on_sig(sign_on_sig),  
-.rst_mops_dbg(rst_mops_dbg),                       
+.power_bus_cnt(power_bus_cnt),                     
 .end_cnt_dbg(1'b0),
 .can_tra_select_dbg(can_tra_select_dbg),              
 .tx_elink2bit(tx_mopshub_2bit),

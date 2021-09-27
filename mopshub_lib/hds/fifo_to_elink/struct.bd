@@ -84,19 +84,19 @@ value "/home/dcs/git/mopshub/mopshub_lib/hds/fifo_to_elink"
 )
 (vvPair
 variable "date"
-value "08/31/21"
+value "09/27/21"
 )
 (vvPair
 variable "day"
-value "Tue"
+value "Mon"
 )
 (vvPair
 variable "day_long"
-value "Tuesday"
+value "Monday"
 )
 (vvPair
 variable "dd"
-value "31"
+value "27"
 )
 (vvPair
 variable "entity_name"
@@ -124,7 +124,7 @@ value "dcs"
 )
 (vvPair
 variable "graphical_source_date"
-value "08/31/21"
+value "09/27/21"
 )
 (vvPair
 variable "graphical_source_group"
@@ -136,7 +136,7 @@ value "chipdev2.physik.uni-wuppertal.de"
 )
 (vvPair
 variable "graphical_source_time"
-value "16:26:12"
+value "15:00:00"
 )
 (vvPair
 variable "group"
@@ -180,7 +180,7 @@ value "$HDS_PROJECT_DIR/mopshub_lib/svassistant"
 )
 (vvPair
 variable "mm"
-value "08"
+value "09"
 )
 (vvPair
 variable "module_name"
@@ -188,11 +188,11 @@ value "fifo_to_elink"
 )
 (vvPair
 variable "month"
-value "Aug"
+value "Sep"
 )
 (vvPair
 variable "month_long"
-value "August"
+value "September"
 )
 (vvPair
 variable "p"
@@ -256,7 +256,7 @@ value "struct"
 )
 (vvPair
 variable "time"
-value "16:26:12"
+value "15:00:00"
 )
 (vvPair
 variable "unit"
@@ -1054,10 +1054,11 @@ st "
 //-------------------------------------------
 //-- serialization of the 2-bit data output:
 //-------------------------------------------                                       
-always @(posedge bitCLKx2)
+always @(posedge clk_80)
 begin
         bitCount1 <= ! bitCount1;
 end
+
 
 
 "
@@ -1164,7 +1165,7 @@ always @(posedge clk)//serialized output
    end
 end
 else begin:Elink_frame_case 
-   always @(posedge bitCLKx2)//serialized output
+   always @(posedge clk_80 )//serialized output
    begin
     if(bitCount1 == 0)
       begin
@@ -1176,6 +1177,7 @@ else begin:Elink_frame_case
       end
    end
 end
+
 
 
 
@@ -2277,8 +2279,8 @@ uid 877,0
 va (VaSet
 font "courier,8,0"
 )
-xt "-13000,-6450,-9000,-5550"
-st "bitCLKx2"
+xt "-12000,-6450,-9000,-5550"
+st "clk_80"
 ju 2
 blo "-9000,-5750"
 tm "WireNameMgr"
@@ -2310,7 +2312,7 @@ blo "750,-5750"
 uid 889,0
 lang 5
 decl (Decl
-n "bitCLKx2"
+n "clk_80"
 t "wire"
 o 2
 suid 21,0
@@ -3660,8 +3662,8 @@ uid 503,0
 va (VaSet
 font "courier,8,0"
 )
-xt "71000,5100,75000,6000"
-st "bitCLKx2"
+xt "71000,5100,74000,6000"
+st "clk_80"
 blo "71000,5800"
 tm "WireNameMgr"
 )
@@ -3851,8 +3853,8 @@ va (VaSet
 isHidden 1
 font "courier,8,0"
 )
-xt "-21000,-7900,-17000,-7000"
-st "bitCLKx2"
+xt "-21000,-7900,-18000,-7000"
+st "clk_80"
 blo "-21000,-7200"
 tm "WireNameMgr"
 )
@@ -3886,8 +3888,8 @@ uid 898,0
 va (VaSet
 font "courier,8,0"
 )
-xt "71000,11100,75000,12000"
-st "bitCLKx2"
+xt "71000,11100,74000,12000"
+st "clk_80"
 blo "71000,11800"
 tm "WireNameMgr"
 )
@@ -4125,9 +4127,9 @@ uid 3445,0
 va (VaSet
 vasetType 3
 )
-xt "71000,11000,76000,11000"
+xt "70000,11000,76000,11000"
 pts [
-"71000,11000"
+"70000,11000"
 "76000,11000"
 ]
 )
@@ -4414,8 +4416,8 @@ tm "BdCompilerDirectivesTextMgr"
 ]
 associable 1
 )
-windowSize "1912,41,3848,1050"
-viewArea "-21820,-19390,55265,18320"
+windowSize "281,191,1737,946"
+viewArea "-16306,-20097,34247,3847"
 cachedDiagramExtent "-21000,-11000,102000,56000"
 pageSetupInfo (PageSetupInfo
 fileName "/home/dcs/Desktop/FIFO_TO_eLINK"
@@ -4435,7 +4437,7 @@ exportStdPackageRefs 1
 )
 hasePageBreakOrigin 1
 pageBreakOrigin "-14000,-12000"
-lastUid 3681,0
+lastUid 3744,0
 defaultCommentText (CommentText
 shape (Rectangle
 layer 0
@@ -5568,7 +5570,7 @@ uid 700,0
 port (LogicalPort
 lang 5
 decl (Decl
-n "bitCLKx2"
+n "clk_80"
 t "wire"
 o 2
 suid 21,0

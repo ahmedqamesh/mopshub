@@ -255,7 +255,7 @@ value "chipdev2.physik.uni-wuppertal.de"
 )
 (vvPair
 variable "graphical_source_time"
-value "15:17:04"
+value "15:34:16"
 )
 (vvPair
 variable "group"
@@ -375,7 +375,7 @@ value "struct"
 )
 (vvPair
 variable "time"
-value "15:17:04"
+value "15:34:16"
 )
 (vvPair
 variable "unit"
@@ -2140,7 +2140,7 @@ font "courier,8,0"
 xt "24200,14200,41800,18700"
 st "
 assign select_bus =(sel_bus ==1'b1) ? bus_cnt: bus_loop_cnt;
-assign rx0 = (select_bus == 5'd0) ? ~(rst ^ (txmops)): 0;//tx0 & txgen & 
+assign rx0 = (select_bus == 5'd0) ? ~(rst ^ (tx0 & txgen & txmops)): 0;
 assign rx1 = (select_bus == 5'd1) ? ~(rst ^ (tx1 & txgen & txmops)): 0;
 assign rx2 = (select_bus == 5'd2) ? ~(rst ^ (tx2 & txgen & txmops)): 0;
 assign rx3 = (select_bus == 5'd3) ? ~(rst ^ (tx3 & txgen & txmops)): 0;
@@ -2153,6 +2153,7 @@ assign rxdec       = rx_mopshub;
 assign rxmops      = rx_mopshub;
 assign rx_mopshub  = ~(rst ^ (rx0 | rx1 | rx2 | rx3 | rx4  | rx5 | rx6 | rx7));
 assign tx_mopshub  = ~(rst ^ (tx0 & tx1 & tx2 & tx3 & tx4& tx5 & tx6 & tx7));
+
 
 
 
@@ -17205,7 +17206,7 @@ tm "BdCompilerDirectivesTextMgr"
 associable 1
 )
 windowSize "1912,41,3848,1050"
-viewArea "-53098,-21076,46256,27528"
+viewArea "-53098,-10288,46256,38316"
 cachedDiagramExtent "-71400,-22000,68500,55000"
 hasePageBreakOrigin 1
 pageBreakOrigin "-138000,-51000"

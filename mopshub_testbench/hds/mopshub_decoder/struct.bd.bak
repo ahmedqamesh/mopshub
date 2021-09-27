@@ -112,23 +112,23 @@ VExpander (VariableExpander
 vvMap [
 (vvPair
 variable "HDLDir"
-value "/home/dcs/git/mopshub/mopshub_testbench/hdl"
+value "/home/dcs/git/mopshub/mopshub_lib/hdl"
 )
 (vvPair
 variable "HDSDir"
-value "/home/dcs/git/mopshub/mopshub_testbench/hds"
+value "/home/dcs/git/mopshub/mopshub_lib/hds"
 )
 (vvPair
 variable "SideDataDesignDir"
-value "/home/dcs/git/mopshub/mopshub_testbench/hds/mopshub_decoder/struct.bd.info"
+value "/home/dcs/git/mopshub/mopshub_lib/hds/@e@m@c@i_@emulator/struct.bd.info"
 )
 (vvPair
 variable "SideDataUserDir"
-value "/home/dcs/git/mopshub/mopshub_testbench/hds/mopshub_decoder/struct.bd.user"
+value "/home/dcs/git/mopshub/mopshub_lib/hds/@e@m@c@i_@emulator/struct.bd.user"
 )
 (vvPair
 variable "SourceDir"
-value "/home/dcs/git/mopshub/mopshub_testbench/hds"
+value "/home/dcs/git/mopshub/mopshub_lib/hds"
 )
 (vvPair
 variable "appl"
@@ -144,31 +144,31 @@ value "%(unit)_%(view)_config"
 )
 (vvPair
 variable "d"
-value "/home/dcs/git/mopshub/mopshub_testbench/hds/mopshub_decoder"
+value "/home/dcs/git/mopshub/mopshub_lib/hds/@e@m@c@i_@emulator"
 )
 (vvPair
 variable "d_logical"
-value "/home/dcs/git/mopshub/mopshub_testbench/hds/mopshub_decoder"
+value "/home/dcs/git/mopshub/mopshub_lib/hds/EMCI_Emulator"
 )
 (vvPair
 variable "date"
-value "09/27/21"
+value "08/31/21"
 )
 (vvPair
 variable "day"
-value "Mon"
+value "Tue"
 )
 (vvPair
 variable "day_long"
-value "Monday"
+value "Tuesday"
 )
 (vvPair
 variable "dd"
-value "27"
+value "31"
 )
 (vvPair
 variable "entity_name"
-value "mopshub_decoder"
+value "EMCI_Emulator"
 )
 (vvPair
 variable "ext"
@@ -192,7 +192,7 @@ value "dcs"
 )
 (vvPair
 variable "graphical_source_date"
-value "09/27/21"
+value "08/31/21"
 )
 (vvPair
 variable "graphical_source_group"
@@ -204,7 +204,7 @@ value "chipdev2.physik.uni-wuppertal.de"
 )
 (vvPair
 variable "graphical_source_time"
-value "15:03:36"
+value "17:14:22"
 )
 (vvPair
 variable "group"
@@ -220,7 +220,7 @@ value "Verilog"
 )
 (vvPair
 variable "library"
-value "mopshub_testbench"
+value "mopshub_lib"
 )
 (vvPair
 variable "library_downstream_HdsLintPlugin"
@@ -236,11 +236,11 @@ value "$HDS_PROJECT_DIR/mopshub_lib/ps"
 )
 (vvPair
 variable "library_downstream_QuestaSimCompiler"
-value "$HDS_PROJECT_DIR/mopshub_testbench/mopshub_testbench/work"
+value "$HDS_PROJECT_DIR/mopshub_lib/work"
 )
 (vvPair
 variable "library_downstream_QuestaSimSimulator"
-value "$HDS_PROJECT_DIR/mopshub_testbench/sim"
+value "$HDS_PROJECT_DIR/mopshub_lib/sim"
 )
 (vvPair
 variable "library_downstream_SvAssistantInvoke"
@@ -248,27 +248,27 @@ value "$HDS_PROJECT_DIR/mopshub_lib/svassistant"
 )
 (vvPair
 variable "mm"
-value "09"
+value "08"
 )
 (vvPair
 variable "module_name"
-value "mopshub_decoder"
+value "EMCI_Emulator"
 )
 (vvPair
 variable "month"
-value "Sep"
+value "Aug"
 )
 (vvPair
 variable "month_long"
-value "September"
+value "August"
 )
 (vvPair
 variable "p"
-value "/home/dcs/git/mopshub/mopshub_testbench/hds/mopshub_decoder/struct.bd"
+value "/home/dcs/git/mopshub/mopshub_lib/hds/@e@m@c@i_@emulator/struct.bd"
 )
 (vvPair
 variable "p_logical"
-value "/home/dcs/git/mopshub/mopshub_testbench/hds/mopshub_decoder/struct.bd"
+value "/home/dcs/git/mopshub/mopshub_lib/hds/EMCI_Emulator/struct.bd"
 )
 (vvPair
 variable "package_name"
@@ -324,11 +324,11 @@ value "struct"
 )
 (vvPair
 variable "time"
-value "15:03:36"
+value "17:14:22"
 )
 (vvPair
 variable "unit"
-value "mopshub_decoder"
+value "EMCI_Emulator"
 )
 (vvPair
 variable "user"
@@ -663,7 +663,7 @@ fg "0,0,32768"
 bg "0,0,32768"
 font "courier,8,0"
 )
-xt "37200,77050,46700,77950"
+xt "37200,77050,53700,77950"
 st "
 %library/%unit/%view
 "
@@ -821,7 +821,7 @@ st "wire         reset;"
 uid 1344,0
 lang 5
 decl (Decl
-n "clk_80"
+n "bitCLKx2"
 t "wire"
 o 4
 suid 27,0
@@ -874,8 +874,8 @@ uid 1357,0
 va (VaSet
 font "courier,8,0"
 )
-xt "56000,3550,59000,4450"
-st "clk_80"
+xt "55000,3550,59000,4450"
+st "bitCLKx2"
 ju 2
 blo "59000,4250"
 tm "WireNameMgr"
@@ -932,6 +932,42 @@ tm "WireNameMgr"
 uid 1808,0
 optionalChildren [
 *20 (CptPort
+uid 1756,0
+ps "OnEdgeStrategy"
+shape (Triangle
+uid 1757,0
+ro 90
+va (VaSet
+vasetType 1
+fg "0,65535,0"
+)
+xt "26250,9625,27000,10375"
+)
+tg (CPTG
+uid 1758,0
+ps "CptPortTextPlaceStrategy"
+stg "VerticalLayoutStrategy"
+f (Text
+uid 1759,0
+va (VaSet
+font "courier,8,0"
+)
+xt "28000,9550,32000,10450"
+st "bitCLKx2"
+blo "28000,10250"
+)
+)
+thePort (LogicalPort
+lang 5
+decl (Decl
+n "bitCLKx2"
+t "wire"
+o 2
+suid 2,0
+)
+)
+)
+*21 (CptPort
 uid 1760,0
 ps "OnEdgeStrategy"
 shape (Triangle
@@ -969,7 +1005,7 @@ suid 3,0
 )
 )
 )
-*21 (CptPort
+*22 (CptPort
 uid 1776,0
 ps "OnEdgeStrategy"
 shape (Triangle
@@ -1005,7 +1041,7 @@ suid 8,0
 )
 )
 )
-*22 (CptPort
+*23 (CptPort
 uid 4046,0
 ps "OnEdgeStrategy"
 shape (Triangle
@@ -1042,7 +1078,7 @@ suid 92,0
 )
 )
 )
-*23 (CptPort
+*24 (CptPort
 uid 4195,0
 ps "OnEdgeStrategy"
 shape (Triangle
@@ -1081,7 +1117,7 @@ suid 100,0
 )
 )
 )
-*24 (CptPort
+*25 (CptPort
 uid 4203,0
 ps "OnEdgeStrategy"
 shape (Triangle
@@ -1118,7 +1154,7 @@ suid 99,0
 )
 )
 )
-*25 (CptPort
+*26 (CptPort
 uid 4207,0
 ps "OnEdgeStrategy"
 shape (Triangle
@@ -1154,7 +1190,7 @@ suid 98,0
 )
 )
 )
-*26 (CptPort
+*27 (CptPort
 uid 5787,0
 ps "OnEdgeStrategy"
 shape (Triangle
@@ -1190,7 +1226,7 @@ suid 106,0
 )
 )
 )
-*27 (CptPort
+*28 (CptPort
 uid 5936,0
 ps "OnEdgeStrategy"
 shape (Triangle
@@ -1228,7 +1264,7 @@ suid 107,0
 )
 )
 )
-*28 (CptPort
+*29 (CptPort
 uid 5940,0
 ps "OnEdgeStrategy"
 shape (Triangle
@@ -1266,7 +1302,7 @@ suid 108,0
 )
 )
 )
-*29 (CptPort
+*30 (CptPort
 uid 8873,0
 ps "OnEdgeStrategy"
 shape (Triangle
@@ -1302,7 +1338,7 @@ suid 112,0
 )
 )
 )
-*30 (CptPort
+*31 (CptPort
 uid 10333,0
 ps "OnEdgeStrategy"
 shape (Triangle
@@ -1341,7 +1377,7 @@ suid 115,0
 )
 )
 )
-*31 (CptPort
+*32 (CptPort
 uid 10337,0
 ps "OnEdgeStrategy"
 shape (Triangle
@@ -1379,7 +1415,7 @@ suid 114,0
 )
 )
 )
-*32 (CptPort
+*33 (CptPort
 uid 10499,0
 ps "OnEdgeStrategy"
 shape (Triangle
@@ -1415,7 +1451,7 @@ suid 116,0
 )
 )
 )
-*33 (CptPort
+*34 (CptPort
 uid 10503,0
 ps "OnEdgeStrategy"
 shape (Triangle
@@ -1451,7 +1487,7 @@ suid 117,0
 )
 )
 )
-*34 (CptPort
+*35 (CptPort
 uid 14645,0
 ps "OnEdgeStrategy"
 shape (Triangle
@@ -1487,7 +1523,7 @@ suid 118,0
 )
 )
 )
-*35 (CptPort
+*36 (CptPort
 uid 14655,0
 ps "OnEdgeStrategy"
 shape (Triangle
@@ -1520,42 +1556,6 @@ n "clk"
 t "wire"
 o 10
 suid 119,0
-)
-)
-)
-*36 (CptPort
-uid 15329,0
-ps "OnEdgeStrategy"
-shape (Triangle
-uid 15330,0
-ro 90
-va (VaSet
-vasetType 1
-fg "0,65535,0"
-)
-xt "26250,9625,27000,10375"
-)
-tg (CPTG
-uid 15331,0
-ps "CptPortTextPlaceStrategy"
-stg "VerticalLayoutStrategy"
-f (Text
-uid 15332,0
-va (VaSet
-font "courier,8,0"
-)
-xt "28000,9550,31000,10450"
-st "clk_80"
-blo "28000,10250"
-)
-)
-thePort (LogicalPort
-lang 5
-decl (Decl
-n "clk_80"
-t "wire"
-o 2
-suid 120,0
 )
 )
 )
@@ -5616,6 +5616,42 @@ font "courier,8,0"
 uid 10433,0
 optionalChildren [
 *161 (CptPort
+uid 10369,0
+ps "OnEdgeStrategy"
+shape (Triangle
+uid 10370,0
+ro 90
+va (VaSet
+vasetType 1
+fg "0,65535,0"
+)
+xt "26250,43625,27000,44375"
+)
+tg (CPTG
+uid 10371,0
+ps "CptPortTextPlaceStrategy"
+stg "VerticalLayoutStrategy"
+f (Text
+uid 10372,0
+va (VaSet
+font "courier,8,0"
+)
+xt "28000,43550,32000,44450"
+st "bitCLKx2"
+blo "28000,44250"
+)
+)
+thePort (LogicalPort
+lang 5
+decl (Decl
+n "bitCLKx2"
+t "wire"
+o 2
+suid 19,0
+)
+)
+)
+*162 (CptPort
 uid 10377,0
 ps "OnEdgeStrategy"
 shape (Triangle
@@ -5651,7 +5687,7 @@ suid 25,0
 )
 )
 )
-*162 (CptPort
+*163 (CptPort
 uid 10385,0
 ps "OnEdgeStrategy"
 shape (Triangle
@@ -5687,7 +5723,7 @@ suid 30,0
 )
 )
 )
-*163 (CptPort
+*164 (CptPort
 uid 10389,0
 ps "OnEdgeStrategy"
 shape (Triangle
@@ -5724,7 +5760,7 @@ suid 31,0
 )
 )
 )
-*164 (CptPort
+*165 (CptPort
 uid 10393,0
 ps "OnEdgeStrategy"
 shape (Triangle
@@ -5762,7 +5798,7 @@ suid 32,0
 )
 )
 )
-*165 (CptPort
+*166 (CptPort
 uid 10401,0
 ps "OnEdgeStrategy"
 shape (Triangle
@@ -5798,7 +5834,7 @@ suid 36,0
 )
 )
 )
-*166 (CptPort
+*167 (CptPort
 uid 10405,0
 ps "OnEdgeStrategy"
 shape (Triangle
@@ -5836,7 +5872,7 @@ suid 37,0
 )
 )
 )
-*167 (CptPort
+*168 (CptPort
 uid 10409,0
 ps "OnEdgeStrategy"
 shape (Triangle
@@ -5874,7 +5910,7 @@ suid 38,0
 )
 )
 )
-*168 (CptPort
+*169 (CptPort
 uid 10413,0
 ps "OnEdgeStrategy"
 shape (Triangle
@@ -5911,7 +5947,7 @@ suid 39,0
 )
 )
 )
-*169 (CptPort
+*170 (CptPort
 uid 10425,0
 ps "OnEdgeStrategy"
 shape (Triangle
@@ -5949,7 +5985,7 @@ suid 42,0
 )
 )
 )
-*170 (CptPort
+*171 (CptPort
 uid 10429,0
 ps "OnEdgeStrategy"
 shape (Triangle
@@ -5988,7 +6024,7 @@ suid 43,0
 )
 )
 )
-*171 (CptPort
+*172 (CptPort
 uid 10495,0
 ps "OnEdgeStrategy"
 shape (Triangle
@@ -6024,7 +6060,7 @@ suid 44,0
 )
 )
 )
-*172 (CptPort
+*173 (CptPort
 uid 10829,0
 ps "OnEdgeStrategy"
 shape (Triangle
@@ -6062,7 +6098,7 @@ suid 45,0
 )
 )
 )
-*173 (CptPort
+*174 (CptPort
 uid 13855,0
 ps "OnEdgeStrategy"
 shape (Triangle
@@ -6098,7 +6134,7 @@ suid 46,0
 )
 )
 )
-*174 (CptPort
+*175 (CptPort
 uid 14641,0
 ps "OnEdgeStrategy"
 shape (Triangle
@@ -6134,7 +6170,7 @@ suid 47,0
 )
 )
 )
-*175 (CptPort
+*176 (CptPort
 uid 14659,0
 ps "OnEdgeStrategy"
 shape (Triangle
@@ -6167,42 +6203,6 @@ n "rst"
 t "wire"
 o 16
 suid 48,0
-)
-)
-)
-*176 (CptPort
-uid 15333,0
-ps "OnEdgeStrategy"
-shape (Triangle
-uid 15334,0
-ro 90
-va (VaSet
-vasetType 1
-fg "0,65535,0"
-)
-xt "26250,43625,27000,44375"
-)
-tg (CPTG
-uid 15335,0
-ps "CptPortTextPlaceStrategy"
-stg "VerticalLayoutStrategy"
-f (Text
-uid 15336,0
-va (VaSet
-font "courier,8,0"
-)
-xt "28000,43550,31000,44450"
-st "clk_80"
-blo "28000,44250"
-)
-)
-thePort (LogicalPort
-lang 5
-decl (Decl
-n "clk_80"
-t "wire"
-o 2
-suid 49,0
 )
 )
 )
@@ -6761,7 +6761,7 @@ pts [
 ]
 )
 start &13
-end &22
+end &23
 es 0
 sat 32
 eat 32
@@ -6800,7 +6800,7 @@ pts [
 "21000,13000"
 ]
 )
-start &26
+start &27
 ss 0
 sat 32
 eat 16
@@ -6853,8 +6853,8 @@ va (VaSet
 isHidden 1
 font "courier,8,0"
 )
-xt "65000,3100,68000,4000"
-st "clk_80"
+xt "65000,3100,69000,4000"
+st "bitCLKx2"
 blo "65000,3800"
 tm "WireNameMgr"
 )
@@ -6875,7 +6875,7 @@ pts [
 ]
 )
 start &18
-end &33
+end &34
 es 0
 sat 32
 eat 32
@@ -6914,7 +6914,7 @@ pts [
 "26250,14000"
 ]
 )
-end &21
+end &22
 sat 16
 eat 32
 st 0
@@ -6950,7 +6950,7 @@ pts [
 ]
 )
 start &40
-end &32
+end &33
 sat 32
 eat 32
 stc 0
@@ -6988,7 +6988,7 @@ pts [
 "59000,14000"
 ]
 )
-start &27
+start &28
 end &46
 sat 32
 eat 1
@@ -7027,7 +7027,7 @@ pts [
 "59000,13000"
 ]
 )
-start &23
+start &24
 end &46
 sat 32
 eat 1
@@ -7066,7 +7066,7 @@ pts [
 "20000,11000"
 ]
 )
-start &20
+start &21
 sat 32
 eat 16
 stc 0
@@ -7543,7 +7543,7 @@ pts [
 "20000,51000"
 ]
 )
-start &167
+start &168
 end &90
 sat 32
 eat 32
@@ -7584,7 +7584,7 @@ pts [
 ]
 )
 start &93
-end &173
+end &174
 es 0
 sat 32
 eat 32
@@ -7623,7 +7623,7 @@ pts [
 "26250,47000"
 ]
 )
-end &171
+end &172
 es 0
 sat 16
 eat 32
@@ -7661,7 +7661,7 @@ pts [
 "26250,40000"
 ]
 )
-end &161
+end &162
 sat 16
 eat 32
 st 0
@@ -7697,7 +7697,7 @@ pts [
 "26250,44000"
 ]
 )
-end &176
+end &161
 sat 16
 eat 32
 st 0
@@ -7711,8 +7711,8 @@ uid 8816,0
 va (VaSet
 font "courier,8,0"
 )
-xt "22000,43100,25000,44000"
-st "clk_80"
+xt "22000,43100,26000,44000"
+st "bitCLKx2"
 blo "22000,43800"
 tm "WireNameMgr"
 )
@@ -7840,8 +7840,7 @@ pts [
 "26250,10000"
 ]
 )
-end &36
-es 0
+end &20
 sat 16
 eat 32
 st 0
@@ -7855,9 +7854,9 @@ uid 8930,0
 va (VaSet
 font "courier,8,0"
 )
-xt "21000,9100,24000,10000"
-st "clk_80"
-blo "21000,9800"
+xt "22000,9100,26000,10000"
+st "bitCLKx2"
+blo "22000,9800"
 tm "WireNameMgr"
 )
 )
@@ -8120,7 +8119,7 @@ pts [
 "59000,53000"
 ]
 )
-start &164
+start &165
 end &115
 sat 32
 eat 2
@@ -8161,7 +8160,7 @@ pts [
 ]
 )
 start &66
-end &24
+end &25
 sat 32
 eat 32
 stc 0
@@ -8238,7 +8237,7 @@ pts [
 ]
 )
 start &148
-end &163
+end &164
 sat 32
 eat 32
 stc 0
@@ -8676,7 +8675,7 @@ pts [
 "20000,52000"
 ]
 )
-start &168
+start &169
 end &155
 sat 32
 eat 32
@@ -8716,7 +8715,7 @@ pts [
 ]
 )
 start &157
-end &29
+end &30
 sat 32
 eat 32
 stc 0
@@ -8755,7 +8754,7 @@ pts [
 "57000,19000"
 ]
 )
-start &30
+start &31
 sat 32
 eat 16
 sty 1
@@ -8791,7 +8790,7 @@ pts [
 "57000,20000"
 ]
 )
-start &31
+start &32
 sat 32
 eat 16
 st 0
@@ -8826,7 +8825,7 @@ pts [
 "58000,40000"
 ]
 )
-start &169
+start &170
 sat 32
 eat 16
 st 0
@@ -8862,7 +8861,7 @@ pts [
 "58000,41000"
 ]
 )
-start &170
+start &171
 sat 32
 eat 16
 sty 1
@@ -8943,7 +8942,7 @@ pts [
 "59000,52000"
 ]
 )
-start &172
+start &173
 end &115
 sat 32
 eat 1
@@ -9131,7 +9130,7 @@ pts [
 "26250,8000"
 ]
 )
-end &35
+end &36
 sat 16
 eat 32
 st 0
@@ -9167,7 +9166,7 @@ pts [
 "26250,43000"
 ]
 )
-end &174
+end &175
 es 0
 sat 16
 eat 32
@@ -9204,7 +9203,7 @@ pts [
 "26250,41000"
 ]
 )
-end &165
+end &166
 sat 16
 eat 32
 st 0
@@ -9277,7 +9276,7 @@ pts [
 "26250,42000"
 ]
 )
-end &162
+end &163
 sat 16
 eat 32
 st 0
@@ -9419,7 +9418,7 @@ pts [
 "26250,7000"
 ]
 )
-end &34
+end &35
 sat 16
 eat 32
 st 0
@@ -9454,7 +9453,7 @@ pts [
 "26250,39000"
 ]
 )
-end &175
+end &176
 sat 16
 eat 32
 st 0
@@ -9489,7 +9488,7 @@ pts [
 "26250,12000"
 ]
 )
-end &25
+end &26
 sat 16
 eat 32
 st 0
@@ -9659,12 +9658,12 @@ tm "BdCompilerDirectivesTextMgr"
 ]
 associable 1
 )
-windowSize "1912,41,3848,1050"
-viewArea "5700,26854,84498,65402"
+windowSize "3832,13,5768,1088"
+viewArea "5700,-700,93063,45404"
 cachedDiagramExtent "-1000,0,164400,79000"
 hasePageBreakOrigin 1
 pageBreakOrigin "0,0"
-lastUid 15336,0
+lastUid 15183,0
 defaultCommentText (CommentText
 shape (Rectangle
 layer 0
@@ -10798,7 +10797,7 @@ uid 528,0
 port (LogicalPort
 lang 5
 decl (Decl
-n "clk_80"
+n "bitCLKx2"
 t "wire"
 o 4
 suid 27,0
