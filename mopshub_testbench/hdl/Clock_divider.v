@@ -1,22 +1,17 @@
-//
-// Verilog Module mopshub_lib.Clock_divider
-//
-// Created:
-//          by - dcs.dcs (chipdev2.physik.uni-wuppertal.de)
-//          at - 13:43:19 03/29/21
-//
-// using Mentor Graphics HDL Designer(TM) 2018.1 (Build 12)
-//
-// Verilog project: Verilog code for clock divider on FPGA
-// Top level Verilog code for clock divider on FPGA
 `resetall
 `timescale 1ns/10ps
-module clock_divider(clock_in,clock_out
-  );
-  input clock_in; // input clock on FPGA
-  output reg clock_out; // output clock after dividing the input clock by divisor
+module clock_divider #(
+   // synopsys template
+   parameter DIVISOR = 28'd1
+)
+( 
+   input   wire      clock_in, 
+   output  reg       clock_out
+);
+
+
+// Internal Declarations
   reg[27:0] counter=28'd0;
-  parameter DIVISOR = 28'd2;
   // The frequency of the output clk_out
   //  = The frequency of the input clk_in divided by DIVISOR
   // For example: Fclk_in = 50Mhz, if you want to get 1Hz signal to blink LEDs

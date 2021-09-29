@@ -2,6 +2,8 @@
 `timescale 1ns/10ps
 module tb_mopshub_top();
 reg             clk = 1'b0;
+wire             clk_40;
+wire             clk_80;
 reg             rst   = 1'b1;
 wire            rst_mops_dbg;
 reg             sel_bus = 1'b0;
@@ -22,7 +24,7 @@ wire            trim_sig_start;
 wire            trim_sig_end;
 wire            trim_sig_done;
 
-reg             osc_auto_trim_mopshub =1'b1;
+reg             osc_auto_trim_mopshub =1'b0;
 wire            ready_osc;
 wire            start_trim_osc;
 wire            end_trim_bus;
@@ -78,9 +80,9 @@ wire            tx4;
 wire            tx5;
 wire            tx6;
 wire            tx7;
-wire [1:0] tx_mopshub_2bit; 
+//wire [1:0] tx_mopshub_2bit; 
 wire       tx_mopshub_1bit; 
-wire [1:0] rx_mopshub_2bit; 
+//wire [1:0] rx_mopshub_2bit; 
 wire       rx_mopshub_1bit;
 
 //Internal assignments  
@@ -106,17 +108,19 @@ assign irq_elink_rec = mopshub0.irq_elink_rec;
 
 mopshub_top#(
 .n_buses (5'b111))mopshub0(
-.clk(clk),
+.clk(clk_40),
+.clk_40(clk_40),
+.clk_80(clk_80),
 .rst(rst),  
 .osc_auto_trim_mopshub(osc_auto_trim_mopshub), 
 .power_bus_en(power_bus_en),
 .power_bus_cnt(power_bus_cnt),                     
 .end_cnt_dbg(1'b0),
 .can_tra_select_dbg(can_tra_select_dbg),              
-.tx_elink2bit(tx_mopshub_2bit),
+//.tx_elink2bit(tx_mopshub_2bit),
 .tx_elink1bit(tx_mopshub_1bit),
 .rx_elink1bit(rx_mopshub_1bit),
-.rx_elink2bit(rx_mopshub_2bit),        
+//.rx_elink2bit(rx_mopshub_2bit),        
 .rx0(rx0),        
 .rx1(rx1),        
 .rx2(rx2),        
@@ -178,9 +182,9 @@ data_generator#(
 .end_read_elink(),
 //Elin.kSignals
 .tx_elink1bit(rx_mopshub_1bit),
-.tx_elink2bit(rx_mopshub_2bit),
+//.tx_elink2bit(rx_mopshub_2bit),
 .rx_elink1bit(tx_mopshub_1bit),
-.rx_elink2bit(tx_mopshub_2bit),
+//.rx_elink2bit(tx_mopshub_2bit),
 //RX-TX signals
 .rx0(rx0),        
 .rx1(rx1),        
@@ -201,6 +205,17 @@ data_generator#(
 //////////****// Clock generation////////////////
 always #50 clk = ~clk;   
 //////////////////////////////////////////////// 
+clock_divider #(28'd2)
+clock_divider2( 
+   .clock_in  (clk), 
+   .clock_out (clk_80)
+); 
+
+clock_divider #(28'd4)
+clock_divider4( 
+   .clock_in  (clk), 
+   .clock_out (clk_40)
+); 
  
   /////******* Reset Generator task--low active ****/////
   initial 
