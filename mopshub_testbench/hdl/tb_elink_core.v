@@ -33,7 +33,6 @@ emci_decoder #(
   .clk_40                 (clk_40),//I will use here bitCLK if I need to test elink_proc_out
   .loop_en                (1'b0),
   .start_write_emulator   (start_write_elink),
-  .data_gen_rec           (data_gen_rec),
   .data_tra_out          (data_gen_tra), 
   .data_rec_in           (data_gen_rec), 
   .ISK                    (),
