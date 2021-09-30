@@ -206,7 +206,7 @@ value "chipdev2.physik.uni-wuppertal.de"
 )
 (vvPair
 variable "graphical_source_time"
-value "16:05:12"
+value "21:34:42"
 )
 (vvPair
 variable "group"
@@ -326,7 +326,7 @@ value "struct"
 )
 (vvPair
 variable "time"
-value "16:05:12"
+value "21:34:42"
 )
 (vvPair
 variable "unit"
@@ -1841,11 +1841,12 @@ always@(data_tra_10bitin)
       end
     else  
       begin
-       fifo_data_sop = 1'b0;
+       fifo_data_sop = 1'b1;
        fifo_data_eop = 1'b0;
        fifo_data_packet =1'b0;
       end    
   end
+
 
 
 
@@ -2069,7 +2070,7 @@ always@(posedge clk )//bitCLK)
 begin 
   if (rst)
   begin
-    data_tra_76bit_reg <= 75'b0;
+    data_tra_76bit_reg <= 76'b0;
   end
   if (irq_elink_tra)
   begin
@@ -2086,7 +2087,7 @@ always@(posedge clk)//bitCLK)
 begin 
   if (rst)
   begin
-    data_rec_76bit_reg <= 75'b0;
+    data_rec_76bit_reg <= 76'b0;
   end
   if (irq_elink_rec)
   begin
@@ -2097,6 +2098,7 @@ begin
    data_rec_76bit_reg  <= data_rec_76bit_reg ; 
   end
 end  
+
 
 
 
@@ -6921,6 +6923,7 @@ end
 
 
 
+
 "
 tm "HdlTextMgr"
 wrapOption 3
@@ -10738,12 +10741,12 @@ tm "BdCompilerDirectivesTextMgr"
 ]
 associable 1
 )
-windowSize "3832,13,5768,1088"
-viewArea "-7121,-26106,119100,40504"
+windowSize "1912,41,3848,1050"
+viewArea "11280,-19495,105495,26595"
 cachedDiagramExtent "-1000,-11000,145500,79000"
 hasePageBreakOrigin 1
-pageBreakOrigin "0,0"
-lastUid 16233,0
+pageBreakOrigin "0,-51000"
+lastUid 16902,0
 defaultCommentText (CommentText
 shape (Rectangle
 layer 0
@@ -11803,7 +11806,7 @@ tm "BdDeclarativeTextMgr"
 commonDM (CommonDM
 ldm (LogicalDM
 ordering 1
-suid 228,0
+suid 234,0
 usingSuid 1
 emptyRow *334 (LEmptyRow
 )
@@ -12957,7 +12960,7 @@ uid 83,0
 *464 (MRCItem
 litem &347
 pos 8
-dimension 50
+dimension 166
 uid 84,0
 )
 *465 (MRCItem
@@ -13186,5 +13189,5 @@ vaOverrides [
 uid 86,0
 type 1
 )
-activeModelName "BlockDiag"
+activeModelName "BlockDiag:GEN"
 )

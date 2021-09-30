@@ -206,7 +206,7 @@ value "chipdev2.physik.uni-wuppertal.de"
 )
 (vvPair
 variable "graphical_source_time"
-value "17:53:53"
+value "21:36:39"
 )
 (vvPair
 variable "group"
@@ -326,7 +326,7 @@ value "struct"
 )
 (vvPair
 variable "time"
-value "17:53:53"
+value "21:36:39"
 )
 (vvPair
 variable "unit"
@@ -1821,19 +1821,19 @@ st "
 assign elink_data_rdy = !fifo_empty;
 always@(data_tra_10bitin)
   begin
-  if(data_tra_10bitin == {2'b10,Kchar_sop})// 0x3c = 0011 1100 SOP (if 8b10b)
+  if(data_tra_10bitin == {2'b00,Kchar_sop})// 0x3c = 0011 1100 SOP (if 8b10b)
       begin
         fifo_data_sop = 1'b1;
         fifo_data_eop = 1'b0;
         fifo_data_packet =1'b0;
       end 
-    else if(cs_eread && data_tra_10bitin != {2'b10,Kchar_sop}&& data_tra_10bitin != {2'b01,Kchar_eop})// data
+    else if(cs_eread && data_tra_10bitin != {2'b00,Kchar_sop}&& data_tra_10bitin != {2'b00,Kchar_eop})// data
       begin
         fifo_data_sop = 1'b0;
         fifo_data_eop = 1'b0;
         fifo_data_packet = 1'b1;
       end   
-    else if(data_tra_10bitin == {2'b01,Kchar_eop})// 0xdc = 1101 1100 (if 8b10b)
+    else if(data_tra_10bitin == {2'b00,Kchar_eop})// 0xdc = 1101 1100 (if 8b10b)
       begin
        fifo_data_sop = 1'b0;
        fifo_data_eop = 1'b1;
@@ -1846,6 +1846,8 @@ always@(data_tra_10bitin)
        fifo_data_packet =1'b0;
       end    
   end
+
+
 
 
 
@@ -10741,11 +10743,11 @@ tm "BdCompilerDirectivesTextMgr"
 associable 1
 )
 windowSize "1912,41,3848,1050"
-viewArea "-28071,3447,86700,59593"
+viewArea "11280,23240,105495,69330"
 cachedDiagramExtent "-1000,-11000,145500,79000"
 hasePageBreakOrigin 1
 pageBreakOrigin "0,-51000"
-lastUid 16432,0
+lastUid 16902,0
 defaultCommentText (CommentText
 shape (Rectangle
 layer 0
@@ -11805,7 +11807,7 @@ tm "BdDeclarativeTextMgr"
 commonDM (CommonDM
 ldm (LogicalDM
 ordering 1
-suid 228,0
+suid 234,0
 usingSuid 1
 emptyRow *334 (LEmptyRow
 )
@@ -12959,7 +12961,7 @@ uid 83,0
 *464 (MRCItem
 litem &347
 pos 8
-dimension 50
+dimension 166
 uid 84,0
 )
 *465 (MRCItem

@@ -120,7 +120,7 @@ value "chipdev2.physik.uni-wuppertal.de"
 )
 (vvPair
 variable "graphical_source_time"
-value "15:10:39"
+value "19:56:43"
 )
 (vvPair
 variable "group"
@@ -240,7 +240,7 @@ value "struct"
 )
 (vvPair
 variable "time"
-value "15:10:39"
+value "19:56:43"
 )
 (vvPair
 variable "unit"
@@ -670,7 +670,7 @@ assign  bitstream_align1 = (reverse_stream_10b == 0)     ?  EDATAbitstreamSREG [
 //The receiver requires that the K28.5 idle character be periodically transmitted to enable byte and word
 //synchronization                                     
 // attempting to align on two ksel characters, BC(K.28.5 is a comma symbol) and 3C(K.28.1)  they arrive as BC in the lower byte and 3C in the upper byte. 
-//1 10bit-word per alignment, comma is valid if two first words have comma...
+//1 10bit-word per alignment, comma is valid if two first words have comma [Two consecutive commas received]
 if (generate_mopshub == 0) 
   begin:EMCI_mode
     assign comma_valid_bits[0] = (bitstream_align0 == COMMAp | bitstream_align0== COMMAn) ? 1:0;
@@ -681,6 +681,7 @@ else
     assign comma_valid_bits[0] = (bitstream_align0 == FEI4B_COMMAp | bitstream_align0== FEI4B_COMMAn) ? 1:0;
     assign comma_valid_bits[1] = (bitstream_align1 == FEI4B_COMMAp | bitstream_align1== FEI4B_COMMAn) ? 1:0;
   end
+
 
 
 
@@ -903,8 +904,7 @@ va (VaSet
 font "courier,8,0"
 )
 xt "2000,11700,40100,12600"
-st "reg [11:0]   EDATAbitstreamSREG = 12'b0; //12 bit (2 x 5 = 10, plus 2 more)
-"
+st "reg [11:0]   EDATAbitstreamSREG = 12'b0; //12 bit (2 x 5 = 10, plus 2 more)"
 )
 )
 *21 (Net
@@ -923,8 +923,7 @@ va (VaSet
 font "courier,8,0"
 )
 xt "2000,2700,17500,3600"
-st "wire [1:0]   comma_valid_bits;
-"
+st "wire [1:0]   comma_valid_bits;"
 )
 )
 *22 (PortIoIn
@@ -989,8 +988,7 @@ va (VaSet
 font "courier,8,0"
 )
 xt "2000,3600,15500,4500"
-st "wire [11:0]  bitstream_in;
-"
+st "wire [11:0]  bitstream_in;"
 )
 )
 *24 (PortIoIn
@@ -1282,8 +1280,7 @@ va (VaSet
 font "courier,8,0"
 )
 xt "2000,7200,17500,8100"
-st "wire [9:0]   bitstream_align1;
-"
+st "wire [9:0]   bitstream_align1;"
 )
 )
 *31 (Net
@@ -1303,8 +1300,7 @@ va (VaSet
 font "courier,8,0"
 )
 xt "2000,1800,27000,2700"
-st "wire [9:0]   bitstream_align0; //2 words of 10bit
-"
+st "wire [9:0]   bitstream_align0; //2 words of 10bit"
 )
 )
 *32 (Net
@@ -1322,8 +1318,7 @@ va (VaSet
 font "courier,8,0"
 )
 xt "2000,5400,18500,6300"
-st "wire         reverse_stream_10b;
-"
+st "wire         reverse_stream_10b;"
 )
 )
 *33 (Net
@@ -1343,8 +1338,7 @@ va (VaSet
 font "courier,8,0"
 )
 xt "2000,6300,11000,7200"
-st "wire         rst;
-"
+st "wire         rst;"
 )
 )
 *34 (Net
@@ -1364,8 +1358,7 @@ va (VaSet
 font "courier,8,0"
 )
 xt "2000,4500,11000,5400"
-st "wire         clk;
-"
+st "wire         clk;"
 )
 )
 *35 (HdlText
@@ -1546,8 +1539,7 @@ va (VaSet
 font "courier,8,0"
 )
 xt "2000,8100,19600,9000"
-st "reg          direct10b_rdy = 1'b0;
-"
+st "reg          direct10b_rdy = 1'b0;"
 )
 )
 *41 (PortIoIn
@@ -1611,8 +1603,7 @@ va (VaSet
 font "courier,8,0"
 )
 xt "2000,9000,14500,9900"
-st "wire         enc_stream;
-"
+st "wire         enc_stream;"
 )
 )
 *43 (PortIoOut
@@ -1677,8 +1668,7 @@ va (VaSet
 font "courier,8,0"
 )
 xt "2000,9900,25100,10800"
-st "reg [9:0]    direct10b_data = 10'b1100000000;
-"
+st "reg [9:0]    direct10b_data = 10'b1100000000;"
 )
 )
 *45 (Net
@@ -1698,8 +1688,7 @@ va (VaSet
 font "courier,8,0"
 )
 xt "2000,12600,20600,13500"
-st "reg [1:0]    direct_inpcount = 2'b0;
-"
+st "reg [1:0]    direct_inpcount = 2'b0;"
 )
 )
 *46 (Wire
@@ -2360,11 +2349,11 @@ tm "BdCompilerDirectivesTextMgr"
 associable 1
 )
 windowSize "1912,41,3848,1050"
-viewArea "-20707,-9092,91861,45976"
+viewArea "-20700,-9100,82080,41180"
 cachedDiagramExtent "0,0,63000,49000"
 hasePageBreakOrigin 1
 pageBreakOrigin "0,0"
-lastUid 1408,0
+lastUid 1467,0
 defaultCommentText (CommentText
 shape (Rectangle
 layer 0
