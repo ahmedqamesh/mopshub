@@ -18,7 +18,7 @@ uid 1470,0
 ]
 embeddedInstances [
 (EmbeddedInstance
-name "FIFO_Write"
+name "test_before_Write"
 number "3"
 )
 ]
@@ -71,19 +71,19 @@ value "/home/dcs/git/mopshub/mopshub_lib/hds/fifo_RXelink_wrap"
 )
 (vvPair
 variable "date"
-value "08/31/21"
+value "09/30/21"
 )
 (vvPair
 variable "day"
-value "Tue"
+value "Thu"
 )
 (vvPair
 variable "day_long"
-value "Tuesday"
+value "Thursday"
 )
 (vvPair
 variable "dd"
-value "31"
+value "30"
 )
 (vvPair
 variable "entity_name"
@@ -111,7 +111,7 @@ value "dcs"
 )
 (vvPair
 variable "graphical_source_date"
-value "08/31/21"
+value "09/30/21"
 )
 (vvPair
 variable "graphical_source_group"
@@ -123,7 +123,7 @@ value "chipdev2.physik.uni-wuppertal.de"
 )
 (vvPair
 variable "graphical_source_time"
-value "16:43:14"
+value "16:06:33"
 )
 (vvPair
 variable "group"
@@ -167,7 +167,7 @@ value "$HDS_PROJECT_DIR/mopshub_lib/svassistant"
 )
 (vvPair
 variable "mm"
-value "08"
+value "09"
 )
 (vvPair
 variable "module_name"
@@ -175,11 +175,11 @@ value "fifo_RXelink_wrap"
 )
 (vvPair
 variable "month"
-value "Aug"
+value "Sep"
 )
 (vvPair
 variable "month_long"
-value "August"
+value "September"
 )
 (vvPair
 variable "p"
@@ -243,7 +243,7 @@ value "struct"
 )
 (vvPair
 variable "time"
-value "16:43:14"
+value "16:06:33"
 )
 (vvPair
 variable "unit"
@@ -287,16 +287,16 @@ optionalChildren [
 uid 39,0
 sl 0
 ro 270
-xt "5000,30625,6500,31375"
+xt "-2000,31625,-500,32375"
 )
 (Line
 uid 40,0
 sl 0
 ro 270
-xt "6500,31000,7000,31000"
+xt "-500,32000,0,32000"
 pts [
-"6500,31000"
-"7000,31000"
+"-500,32000"
+"0,32000"
 ]
 )
 ]
@@ -312,10 +312,10 @@ uid 42,0
 va (VaSet
 font "courier,8,0"
 )
-xt "500,30550,4000,31450"
+xt "-6500,31550,-3000,32450"
 st "din_rdy"
 ju 2
-blo "4000,31250"
+blo "-3000,32250"
 tm "WireNameMgr"
 )
 )
@@ -337,8 +337,7 @@ va (VaSet
 font "courier,8,0"
 )
 xt "-7000,4300,3500,5200"
-st "wire        din_rdy;
-"
+st "wire        din_rdy;"
 )
 )
 *3 (PortIoOut
@@ -354,16 +353,16 @@ optionalChildren [
 uid 53,0
 sl 0
 ro 270
-xt "66500,26625,68000,27375"
+xt "41500,27625,43000,28375"
 )
 (Line
 uid 54,0
 sl 0
 ro 270
-xt "66000,27000,66500,27000"
+xt "41000,28000,41500,28000"
 pts [
-"66000,27000"
-"66500,27000"
+"41000,28000"
+"41500,28000"
 ]
 )
 ]
@@ -379,9 +378,9 @@ uid 56,0
 va (VaSet
 font "courier,8,0"
 )
-xt "69000,26550,73500,27450"
+xt "44000,27550,48500,28450"
 st "dout_fifo"
-blo "69000,27250"
+blo "44000,28250"
 tm "WireNameMgr"
 )
 )
@@ -399,16 +398,16 @@ optionalChildren [
 uid 67,0
 sl 0
 ro 270
-xt "62500,22625,64000,23375"
+xt "45500,23625,47000,24375"
 )
 (Line
 uid 68,0
 sl 0
 ro 270
-xt "62000,23000,62500,23000"
+xt "45000,24000,45500,24000"
 pts [
-"62000,23000"
-"62500,23000"
+"45000,24000"
+"45500,24000"
 ]
 )
 ]
@@ -424,9 +423,9 @@ uid 70,0
 va (VaSet
 font "courier,8,0"
 )
-xt "65000,22550,70500,23450"
+xt "48000,23550,53500,24450"
 st "empty_fifo"
-blo "65000,23250"
+blo "48000,24250"
 tm "WireNameMgr"
 )
 )
@@ -444,16 +443,16 @@ optionalChildren [
 uid 81,0
 sl 0
 ro 270
-xt "21000,23625,22500,24375"
+xt "6000,25625,7500,26375"
 )
 (Line
 uid 82,0
 sl 0
 ro 270
-xt "22500,24000,23000,24000"
+xt "7500,26000,8000,26000"
 pts [
-"22500,24000"
-"23000,24000"
+"7500,26000"
+"8000,26000"
 ]
 )
 ]
@@ -469,10 +468,10 @@ uid 84,0
 va (VaSet
 font "courier,8,0"
 )
-xt "14500,23550,20000,24450"
+xt "-500,25550,5000,26450"
 st "flush_fifo"
 ju 2
-blo "20000,24250"
+blo "5000,26250"
 tm "WireNameMgr"
 )
 )
@@ -494,8 +493,7 @@ va (VaSet
 font "courier,8,0"
 )
 xt "-7000,8800,5000,9700"
-st "wire        flush_fifo;
-"
+st "wire        flush_fifo;"
 )
 )
 *7 (PortIoOut
@@ -511,16 +509,16 @@ optionalChildren [
 uid 95,0
 sl 0
 ro 270
-xt "62500,21625,64000,22375"
+xt "45500,22625,47000,23375"
 )
 (Line
 uid 96,0
 sl 0
 ro 270
-xt "62000,22000,62500,22000"
+xt "45000,23000,45500,23000"
 pts [
-"62000,22000"
-"62500,22000"
+"45000,23000"
+"45500,23000"
 ]
 )
 ]
@@ -536,9 +534,9 @@ uid 98,0
 va (VaSet
 font "courier,8,0"
 )
-xt "65000,21550,69500,22450"
+xt "48000,22550,52500,23450"
 st "full_fifo"
-blo "65000,22250"
+blo "48000,23250"
 tm "WireNameMgr"
 )
 )
@@ -556,16 +554,16 @@ optionalChildren [
 uid 123,0
 sl 0
 ro 270
-xt "21000,21625,22500,22375"
+xt "6000,23625,7500,24375"
 )
 (Line
 uid 124,0
 sl 0
 ro 270
-xt "22500,22000,23000,22000"
+xt "7500,24000,8000,24000"
 pts [
-"22500,22000"
-"23000,22000"
+"7500,24000"
+"8000,24000"
 ]
 )
 ]
@@ -581,10 +579,10 @@ uid 126,0
 va (VaSet
 font "courier,8,0"
 )
-xt "14000,21550,20000,22450"
+xt "-1000,23550,5000,24450"
 st "fifo_rd_clk"
 ju 2
-blo "20000,22250"
+blo "5000,24250"
 tm "WireNameMgr"
 )
 )
@@ -602,16 +600,16 @@ optionalChildren [
 uid 137,0
 sl 0
 ro 90
-xt "66500,25625,68000,26375"
+xt "41500,26625,43000,27375"
 )
 (Line
 uid 138,0
 sl 0
 ro 90
-xt "66000,26000,66500,26000"
+xt "41000,27000,41500,27000"
 pts [
-"66500,26000"
-"66000,26000"
+"41500,27000"
+"41000,27000"
 ]
 )
 ]
@@ -627,9 +625,9 @@ uid 140,0
 va (VaSet
 font "courier,8,0"
 )
-xt "69000,25550,74500,26450"
+xt "44000,26550,49500,27450"
 st "rd_en_fifo"
-blo "69000,26250"
+blo "44000,27250"
 tm "WireNameMgr"
 )
 )
@@ -647,16 +645,16 @@ optionalChildren [
 uid 151,0
 sl 0
 ro 270
-xt "6000,32625,7500,33375"
+xt "-2000,32625,-500,33375"
 )
 (Line
 uid 152,0
 sl 0
 ro 270
-xt "7500,33000,8000,33000"
+xt "-500,33000,0,33000"
 pts [
-"7500,33000"
-"8000,33000"
+"-500,33000"
+"0,33000"
 ]
 )
 ]
@@ -672,10 +670,10 @@ uid 154,0
 va (VaSet
 font "courier,8,0"
 )
-xt "3500,32550,5000,33450"
+xt "-4500,32550,-3000,33450"
 st "rst"
 ju 2
-blo "5000,33250"
+blo "-3000,33250"
 tm "WireNameMgr"
 )
 )
@@ -1031,8 +1029,7 @@ va (VaSet
 font "courier,8,0"
 )
 xt "-7000,16000,6000,16900"
-st "reg [9:0]   din_fifo = 0;
-"
+st "reg [9:0]   din_fifo = 0;"
 )
 )
 *23 (HdlText
@@ -1052,7 +1049,7 @@ fg "65535,65535,65535"
 lineColor "0,0,32768"
 lineWidth 2
 )
-xt "22000,43000,40000,48000"
+xt "10000,44000,28000,49000"
 )
 oxt "49000,20000,67000,25000"
 text (MLText
@@ -1061,14 +1058,14 @@ va (VaSet
 isHidden 1
 font "courier,8,0"
 )
-xt "22200,43200,37700,47700"
+xt "10200,44200,25700,48700"
 st "
 //what to write into the FIFO?
-always@(posedge clk )
+always@(posedge clk)
 if (!rst)
 begin
   wr_en_fifo      <= 1'b0;
-  flag_pack    <= 1'b0;
+  flag_pack       <= 1'b0;
 end
 else 
 begin
@@ -1076,37 +1073,51 @@ begin
   if(wr_en_fifo == 1)//always make sure you write only once
   begin
     wr_en_fifo   <= 1'b0;
-    flag_pack <= flag_pack;
+    flag_pack    <= flag_pack;
   end
-  
   else if(flag_pack == 1 && din_rdy == 1 && din[9:8] == 2'b11 )// ignore commas
   begin
-    wr_en_fifo      <= 1'b1;
+    wr_en_fifo   <= 1'b1;
     flag_pack    <= flag_pack;
-  end   
-  else if(flag_pack == 0 && din_rdy == 1 && din == {2'b10,Kchar_sop})// 0x3c = 0011 1100 SOP (if 8b10b)
+  end
+  else if(flag_pack == 0 && din_rdy == 1 && din == {2'b10,Kchar_sop})// 03c = 0011 1100 SOP (if 8b10b)
   begin
-    wr_en_fifo      <= 1'b1;
+    wr_en_fifo   <= 1'b1;
     flag_pack    <= 1'b1; //SOP detected. raise the flag, write everything
   end   
-  
-  else if(flag_pack == 1 && din_rdy == 1 && din != {2'b01,Kchar_eop})// data
+  else if(flag_pack == 1 && din_rdy == 1 && din != {2'b01,Kchar_eop})// not EOP means it is data //flag_pack == 1 && 
   begin
     wr_en_fifo   <= 1'b1;
-    flag_pack <= 1'b1;
+    flag_pack    <= 1'b1; //SOP detected.
   end   
-  
-  else if(flag_pack == 1 && din_rdy == 1 && din == {2'b01,Kchar_eop})// 0xdc = 1101 1100 (if 8b10b)
+  else if(flag_pack == 1 && din_rdy == 1 && din == {2'b01,Kchar_eop})// 0dc = 1101 1100 (if 8b10b)
   begin
     wr_en_fifo   <= 1'b1;
-    flag_pack <= 1'b0; //EOP detected. drop the flag
+    flag_pack    <= 1'b0; //EOP detected. drop the flag
   end 
   else
   begin
     wr_en_fifo   <= 1'b0;
-    flag_pack <= flag_pack;
+    flag_pack    <= flag_pack;
   end 
 end
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
@@ -1151,7 +1162,7 @@ fg "65535,65535,37120"
 lineColor "0,0,32768"
 lineWidth 2
 )
-xt "14000,29000,22000,35000"
+xt "2000,30000,11000,35000"
 )
 oxt "41000,7000,48000,13000"
 ttg (MlTextGroup
@@ -1164,9 +1175,9 @@ uid 476,0
 va (VaSet
 font "courier,8,1"
 )
-xt "15250,30100,20750,31000"
-st "FIFO_Write"
-blo "15250,30800"
+xt "2250,31100,11250,32000"
+st "test_before_Write"
+blo "2250,31800"
 tm "HdlTextNameMgr"
 )
 *26 (Text
@@ -1174,9 +1185,9 @@ uid 477,0
 va (VaSet
 font "courier,8,1"
 )
-xt "15250,31000,15750,31900"
+xt "2250,32000,2750,32900"
 st "3"
-blo "15250,31700"
+blo "2250,32700"
 tm "HdlTextNumberMgr"
 )
 ]
@@ -1188,7 +1199,7 @@ va (VaSet
 vasetType 1
 fg "49152,49152,49152"
 )
-xt "14250,33250,15750,34750"
+xt "2250,33250,3750,34750"
 iconName "TextFile.png"
 iconMaskName "TextFile.msk"
 ftype 21
@@ -1208,16 +1219,16 @@ optionalChildren [
 uid 817,0
 sl 0
 ro 270
-xt "5000,29625,6500,30375"
+xt "-2000,30625,-500,31375"
 )
 (Line
 uid 818,0
 sl 0
 ro 270
-xt "6500,30000,7000,30000"
+xt "-500,31000,0,31000"
 pts [
-"6500,30000"
-"7000,30000"
+"-500,31000"
+"0,31000"
 ]
 )
 ]
@@ -1233,10 +1244,10 @@ uid 820,0
 va (VaSet
 font "courier,8,0"
 )
-xt "2500,29500,4000,30400"
+xt "-4500,30500,-3000,31400"
 st "din"
 ju 2
-blo "4000,30200"
+blo "-3000,31200"
 tm "WireNameMgr"
 )
 )
@@ -1257,8 +1268,7 @@ va (VaSet
 font "courier,8,0"
 )
 xt "-7000,3400,1500,4300"
-st "wire [9:0]  din;
-"
+st "wire [9:0]  din;"
 )
 )
 *29 (Net
@@ -1277,8 +1287,7 @@ va (VaSet
 font "courier,8,0"
 )
 xt "-7000,18700,7000,19600"
-st "reg         wr_en_fifo = 0;
-"
+st "reg         wr_en_fifo = 0;"
 )
 )
 *30 (Net
@@ -1297,8 +1306,7 @@ va (VaSet
 font "courier,8,0"
 )
 xt "-7000,16900,6500,17800"
-st "reg         flag_pack = 0;
-"
+st "reg         flag_pack = 0;"
 )
 )
 *31 (SaComponent
@@ -1314,7 +1322,7 @@ va (VaSet
 vasetType 1
 fg "0,65535,0"
 )
-xt "58000,26625,58750,27375"
+xt "35000,27625,35750,28375"
 )
 tg (CPTG
 uid 1428,0
@@ -1325,10 +1333,10 @@ uid 1429,0
 va (VaSet
 font "courier,8,0"
 )
-xt "44000,26550,57000,27450"
+xt "21000,27550,34000,28450"
 st "dout : [DATA_WIDTH - 1:0]"
 ju 2
-blo "57000,27250"
+blo "34000,28250"
 )
 )
 thePort (LogicalPort
@@ -1352,7 +1360,7 @@ va (VaSet
 vasetType 1
 fg "0,65535,0"
 )
-xt "58000,21625,58750,22375"
+xt "35000,22625,35750,23375"
 )
 tg (CPTG
 uid 1432,0
@@ -1363,10 +1371,10 @@ uid 1433,0
 va (VaSet
 font "courier,8,0"
 )
-xt "55000,21550,57000,22450"
+xt "32000,22550,34000,23450"
 st "full"
 ju 2
-blo "57000,22250"
+blo "34000,23250"
 )
 )
 thePort (LogicalPort
@@ -1389,7 +1397,7 @@ va (VaSet
 vasetType 1
 fg "0,65535,0"
 )
-xt "58000,22625,58750,23375"
+xt "35000,23625,35750,24375"
 )
 tg (CPTG
 uid 1436,0
@@ -1400,10 +1408,10 @@ uid 1437,0
 va (VaSet
 font "courier,8,0"
 )
-xt "54500,22550,57000,23450"
+xt "31500,23550,34000,24450"
 st "empty"
 ju 2
-blo "57000,23250"
+blo "34000,24250"
 )
 )
 thePort (LogicalPort
@@ -1426,7 +1434,7 @@ va (VaSet
 vasetType 1
 fg "0,65535,0"
 )
-xt "58000,23625,58750,24375"
+xt "35000,24625,35750,25375"
 )
 tg (CPTG
 uid 1440,0
@@ -1437,10 +1445,10 @@ uid 1441,0
 va (VaSet
 font "courier,8,0"
 )
-xt "52500,23550,57000,24450"
+xt "29500,24550,34000,25450"
 st "prog_full"
 ju 2
-blo "57000,24250"
+blo "34000,25250"
 )
 )
 thePort (LogicalPort
@@ -1463,7 +1471,7 @@ va (VaSet
 vasetType 1
 fg "0,65535,0"
 )
-xt "58000,24625,58750,25375"
+xt "35000,25625,35750,26375"
 )
 tg (CPTG
 uid 1444,0
@@ -1474,10 +1482,10 @@ uid 1445,0
 va (VaSet
 font "courier,8,0"
 )
-xt "51000,24550,57000,25450"
+xt "28000,25550,34000,26450"
 st "almost_full"
 ju 2
-blo "57000,25250"
+blo "34000,26250"
 )
 )
 thePort (LogicalPort
@@ -1500,7 +1508,7 @@ va (VaSet
 vasetType 1
 fg "0,65535,0"
 )
-xt "28250,25625,29000,26375"
+xt "13250,26625,14000,27375"
 )
 tg (CPTG
 uid 1448,0
@@ -1511,9 +1519,9 @@ uid 1449,0
 va (VaSet
 font "courier,8,0"
 )
-xt "30000,25550,42500,26450"
+xt "15000,26550,27500,27450"
 st "din : [DATA_WIDTH - 1:0]"
-blo "30000,26250"
+blo "15000,27250"
 )
 )
 thePort (LogicalPort
@@ -1536,7 +1544,7 @@ va (VaSet
 vasetType 1
 fg "0,65535,0"
 )
-xt "28250,26625,29000,27375"
+xt "13250,27625,14000,28375"
 )
 tg (CPTG
 uid 1452,0
@@ -1547,9 +1555,9 @@ uid 1453,0
 va (VaSet
 font "courier,8,0"
 )
-xt "30000,26550,32500,27450"
+xt "15000,27550,17500,28450"
 st "wr_en"
-blo "30000,27250"
+blo "15000,28250"
 )
 )
 thePort (LogicalPort
@@ -1571,7 +1579,7 @@ va (VaSet
 vasetType 1
 fg "0,65535,0"
 )
-xt "58000,25625,58750,26375"
+xt "35000,26625,35750,27375"
 )
 tg (CPTG
 uid 1456,0
@@ -1582,10 +1590,10 @@ uid 1457,0
 va (VaSet
 font "courier,8,0"
 )
-xt "54500,25550,57000,26450"
+xt "31500,26550,34000,27450"
 st "rd_en"
 ju 2
-blo "57000,26250"
+blo "34000,27250"
 )
 )
 thePort (LogicalPort
@@ -1607,7 +1615,7 @@ va (VaSet
 vasetType 1
 fg "0,65535,0"
 )
-xt "28250,21625,29000,22375"
+xt "13250,23625,14000,24375"
 )
 tg (CPTG
 uid 1460,0
@@ -1618,9 +1626,9 @@ uid 1461,0
 va (VaSet
 font "courier,8,0"
 )
-xt "30000,21550,33000,22450"
+xt "15000,23550,18000,24450"
 st "rd_clk"
-blo "30000,22250"
+blo "15000,24250"
 )
 )
 thePort (LogicalPort
@@ -1642,7 +1650,7 @@ va (VaSet
 vasetType 1
 fg "0,65535,0"
 )
-xt "28250,22625,29000,23375"
+xt "13250,24625,14000,25375"
 )
 tg (CPTG
 uid 1464,0
@@ -1653,9 +1661,9 @@ uid 1465,0
 va (VaSet
 font "courier,8,0"
 )
-xt "30000,22550,33000,23450"
+xt "15000,24550,18000,25450"
 st "wr_clk"
-blo "30000,23250"
+blo "15000,25250"
 )
 )
 thePort (LogicalPort
@@ -1677,7 +1685,7 @@ va (VaSet
 vasetType 1
 fg "0,65535,0"
 )
-xt "28250,23625,29000,24375"
+xt "13250,25625,14000,26375"
 )
 tg (CPTG
 uid 1468,0
@@ -1688,9 +1696,9 @@ uid 1469,0
 va (VaSet
 font "courier,8,0"
 )
-xt "30000,23550,31500,24450"
+xt "15000,25550,16500,26450"
 st "rst"
-blo "30000,24250"
+blo "15000,26250"
 )
 )
 thePort (LogicalPort
@@ -1711,7 +1719,7 @@ fg "0,65535,0"
 lineColor "0,32896,0"
 lineWidth 2
 )
-xt "29000,20000,58000,28000"
+xt "14000,22000,35000,29000"
 )
 oxt "0,0,8000,10000"
 ttg (MlTextGroup
@@ -1724,9 +1732,9 @@ uid 1473,0
 va (VaSet
 font "courier,8,1"
 )
-xt "38000,22000,44000,22900"
+xt "20000,23000,26000,23900"
 st "mopshub_lib"
-blo "38000,22700"
+blo "20000,23700"
 tm "BdLibraryNameMgr"
 )
 *44 (Text
@@ -1734,9 +1742,9 @@ uid 1474,0
 va (VaSet
 font "courier,8,1"
 )
-xt "38000,22900,45000,23800"
+xt "20000,23900,27000,24800"
 st "fifo_upstream"
-blo "38000,23600"
+blo "20000,24600"
 tm "CptNameMgr"
 )
 *45 (Text
@@ -1744,9 +1752,9 @@ uid 1475,0
 va (VaSet
 font "courier,8,1"
 )
-xt "38000,23800,48500,24700"
+xt "20000,24800,30500,25700"
 st "fifo_upstream_elink0"
-blo "38000,24500"
+blo "20000,25500"
 tm "InstanceNameMgr"
 )
 ]
@@ -1761,7 +1769,7 @@ uid 1478,0
 va (VaSet
 font "courier,8,0"
 )
-xt "43500,20000,43500,20000"
+xt "28500,21000,28500,21000"
 )
 header ""
 )
@@ -1775,7 +1783,7 @@ va (VaSet
 vasetType 1
 fg "49152,49152,49152"
 )
-xt "29250,26250,30750,27750"
+xt "14250,27250,15750,28750"
 iconName "VerilogFileViewIcon.png"
 iconMaskName "VerilogFileViewIcon.msk"
 ftype 11
@@ -1797,16 +1805,16 @@ optionalChildren [
 uid 1632,0
 sl 0
 ro 270
-xt "21000,22625,22500,23375"
+xt "6000,24625,7500,25375"
 )
 (Line
 uid 1633,0
 sl 0
 ro 270
-xt "22500,23000,23000,23000"
+xt "7500,25000,8000,25000"
 pts [
-"22500,23000"
-"23000,23000"
+"7500,25000"
+"8000,25000"
 ]
 )
 ]
@@ -1822,10 +1830,10 @@ uid 1635,0
 va (VaSet
 font "courier,8,0"
 )
-xt "14000,22550,20000,23450"
+xt "-1000,24550,5000,25450"
 st "fifo_wr_clk"
 ju 2
-blo "20000,23250"
+blo "5000,25250"
 tm "WireNameMgr"
 )
 )
@@ -1845,8 +1853,7 @@ va (VaSet
 font "courier,8,0"
 )
 xt "-7000,7900,5500,8800"
-st "wire        fifo_wr_clk;
-"
+st "wire        fifo_wr_clk;"
 )
 )
 *48 (Net
@@ -1870,8 +1877,7 @@ font "courier,8,0"
 xt "-7000,5200,9000,7900"
 st "// ----------------------------
 // --- User Logic Interface ---
-wire fifo_rd_clk;
-"
+wire fifo_rd_clk;"
 )
 )
 *49 (Net
@@ -1891,8 +1897,7 @@ va (VaSet
 font "courier,8,0"
 )
 xt "-7000,13300,4500,14200"
-st "wire        full_fifo;
-"
+st "wire        full_fifo;"
 )
 )
 *50 (Net
@@ -1912,8 +1917,7 @@ va (VaSet
 font "courier,8,0"
 )
 xt "-7000,12400,5000,13300"
-st "wire        empty_fifo;
-"
+st "wire        empty_fifo;"
 )
 )
 *51 (Net
@@ -1934,8 +1938,7 @@ va (VaSet
 font "courier,8,0"
 )
 xt "-7000,11500,4500,12400"
-st "wire [9:0]  dout_fifo;
-"
+st "wire [9:0]  dout_fifo;"
 )
 )
 *52 (Net
@@ -1953,8 +1956,7 @@ va (VaSet
 font "courier,8,0"
 )
 xt "-7000,17800,7000,18700"
-st "wire        prog_full_fifo;
-"
+st "wire        prog_full_fifo;"
 )
 )
 *53 (Net
@@ -1972,8 +1974,7 @@ va (VaSet
 font "courier,8,0"
 )
 xt "-7000,15100,8000,16000"
-st "wire        almost_full_fifo;
-"
+st "wire        almost_full_fifo;"
 )
 )
 *54 (Net
@@ -1993,8 +1994,7 @@ va (VaSet
 font "courier,8,0"
 )
 xt "-7000,9700,5000,10600"
-st "wire        rd_en_fifo;
-"
+st "wire        rd_en_fifo;"
 )
 )
 *55 (Net
@@ -2014,8 +2014,7 @@ va (VaSet
 font "courier,8,0"
 )
 xt "-7000,10600,1500,11500"
-st "wire        rst;
-"
+st "wire        rst;"
 )
 )
 *56 (PortIoIn
@@ -2031,16 +2030,16 @@ optionalChildren [
 uid 2783,0
 sl 0
 ro 270
-xt "6000,33625,7500,34375"
+xt "-2000,33625,-500,34375"
 )
 (Line
 uid 2784,0
 sl 0
 ro 270
-xt "7500,34000,8000,34000"
+xt "-500,34000,0,34000"
 pts [
-"7500,34000"
-"8000,34000"
+"-500,34000"
+"0,34000"
 ]
 )
 ]
@@ -2056,10 +2055,10 @@ uid 2786,0
 va (VaSet
 font "courier,8,0"
 )
-xt "3500,33500,5000,34400"
+xt "-4500,33500,-3000,34400"
 st "clk"
 ju 2
-blo "5000,34200"
+blo "-3000,34200"
 tm "WireNameMgr"
 )
 )
@@ -2079,8 +2078,7 @@ va (VaSet
 font "courier,8,0"
 )
 xt "-7000,2500,1500,3400"
-st "wire        clk;
-"
+st "wire        clk;"
 )
 )
 *58 (Wire
@@ -2090,10 +2088,10 @@ uid 44,0
 va (VaSet
 vasetType 3
 )
-xt "7000,31000,14000,31000"
+xt "0,32000,2000,32000"
 pts [
-"7000,31000"
-"14000,31000"
+"0,32000"
+"2000,32000"
 ]
 )
 start &1
@@ -2112,9 +2110,9 @@ va (VaSet
 isHidden 1
 font "courier,8,0"
 )
-xt "5000,30100,8500,31000"
+xt "-2000,31100,1500,32000"
 st "din_rdy"
-blo "5000,30800"
+blo "-2000,31800"
 tm "WireNameMgr"
 )
 )
@@ -2128,10 +2126,10 @@ va (VaSet
 vasetType 3
 lineWidth 2
 )
-xt "58750,27000,66000,27000"
+xt "35750,28000,41000,28000"
 pts [
-"66000,27000"
-"58750,27000"
+"41000,28000"
+"35750,28000"
 ]
 )
 start &3
@@ -2152,9 +2150,9 @@ va (VaSet
 isHidden 1
 font "courier,8,0"
 )
-xt "65000,26100,74000,27000"
+xt "40000,27100,49000,28000"
 st "dout_fifo : [9:0]"
-blo "65000,26800"
+blo "40000,27800"
 tm "WireNameMgr"
 )
 )
@@ -2167,11 +2165,10 @@ uid 72,0
 va (VaSet
 vasetType 3
 )
-xt "58750,23000,62000,23000"
+xt "35750,24000,45000,24000"
 pts [
-"62000,23000"
-"60000,23000"
-"58750,23000"
+"45000,24000"
+"35750,24000"
 ]
 )
 start &4
@@ -2190,9 +2187,9 @@ va (VaSet
 isHidden 1
 font "courier,8,0"
 )
-xt "61000,22100,66500,23000"
+xt "44000,23100,49500,24000"
 st "empty_fifo"
-blo "61000,22800"
+blo "44000,23800"
 tm "WireNameMgr"
 )
 )
@@ -2205,10 +2202,10 @@ uid 86,0
 va (VaSet
 vasetType 3
 )
-xt "23000,24000,28250,24000"
+xt "8000,26000,13250,26000"
 pts [
-"23000,24000"
-"28250,24000"
+"8000,26000"
+"13250,26000"
 ]
 )
 start &5
@@ -2228,9 +2225,9 @@ va (VaSet
 isHidden 1
 font "courier,8,0"
 )
-xt "27000,23100,32500,24000"
+xt "12000,25100,17500,26000"
 st "flush_fifo"
-blo "27000,23800"
+blo "12000,25800"
 tm "WireNameMgr"
 )
 )
@@ -2243,11 +2240,10 @@ uid 100,0
 va (VaSet
 vasetType 3
 )
-xt "58750,22000,62000,22000"
+xt "35750,23000,45000,23000"
 pts [
-"62000,22000"
-"60000,22000"
-"58750,22000"
+"45000,23000"
+"35750,23000"
 ]
 )
 start &7
@@ -2267,9 +2263,9 @@ va (VaSet
 isHidden 1
 font "courier,8,0"
 )
-xt "61000,21100,65500,22000"
+xt "44000,22100,48500,23000"
 st "full_fifo"
-blo "61000,21800"
+blo "44000,22800"
 tm "WireNameMgr"
 )
 )
@@ -2282,10 +2278,10 @@ uid 128,0
 va (VaSet
 vasetType 3
 )
-xt "23000,22000,28250,22000"
+xt "8000,24000,13250,24000"
 pts [
-"23000,22000"
-"28250,22000"
+"8000,24000"
+"13250,24000"
 ]
 )
 start &8
@@ -2305,9 +2301,9 @@ va (VaSet
 isHidden 1
 font "courier,8,0"
 )
-xt "19000,21100,25000,22000"
+xt "4000,23100,10000,24000"
 st "fifo_rd_clk"
-blo "19000,21800"
+blo "4000,23800"
 tm "WireNameMgr"
 )
 )
@@ -2320,10 +2316,10 @@ uid 142,0
 va (VaSet
 vasetType 3
 )
-xt "58750,26000,66000,26000"
+xt "35750,27000,41000,27000"
 pts [
-"66000,26000"
-"58750,26000"
+"41000,27000"
+"35750,27000"
 ]
 )
 start &9
@@ -2342,9 +2338,9 @@ va (VaSet
 isHidden 1
 font "courier,8,0"
 )
-xt "58000,25100,63500,26000"
+xt "35000,26100,40500,27000"
 st "rd_en_fifo"
-blo "58000,25800"
+blo "35000,26800"
 tm "WireNameMgr"
 )
 )
@@ -2357,10 +2353,10 @@ uid 156,0
 va (VaSet
 vasetType 3
 )
-xt "8000,33000,14000,33000"
+xt "0,33000,2000,33000"
 pts [
-"8000,33000"
-"14000,33000"
+"0,33000"
+"2000,33000"
 ]
 )
 start &10
@@ -2379,9 +2375,9 @@ va (VaSet
 isHidden 1
 font "courier,8,0"
 )
-xt "11000,32100,12500,33000"
+xt "-1000,32100,500,33000"
 st "rst"
-blo "11000,32800"
+blo "-1000,32800"
 tm "WireNameMgr"
 )
 )
@@ -2395,11 +2391,11 @@ va (VaSet
 vasetType 3
 lineWidth 2
 )
-xt "18000,26000,28250,29000"
+xt "6000,27000,13250,30000"
 pts [
-"18000,29000"
-"18000,26000"
-"28250,26000"
+"6000,30000"
+"6000,27000"
+"13250,27000"
 ]
 )
 start &23
@@ -2421,9 +2417,9 @@ uid 340,0
 va (VaSet
 font "courier,8,0"
 )
-xt "20000,25100,24000,26000"
+xt "8000,26100,12000,27000"
 st "din_fifo"
-blo "20000,25800"
+blo "8000,26800"
 tm "WireNameMgr"
 )
 )
@@ -2436,10 +2432,10 @@ uid 422,0
 va (VaSet
 vasetType 3
 )
-xt "58750,24000,69000,24000"
+xt "35750,25000,44000,25000"
 pts [
-"58750,24000"
-"69000,24000"
+"35750,25000"
+"44000,25000"
 ]
 )
 start &35
@@ -2457,9 +2453,9 @@ uid 426,0
 va (VaSet
 font "courier,8,0"
 )
-xt "60000,23100,67500,24000"
+xt "36000,24100,43500,25000"
 st "prog_full_fifo"
-blo "60000,23800"
+blo "36000,24800"
 tm "WireNameMgr"
 )
 )
@@ -2472,10 +2468,10 @@ uid 430,0
 va (VaSet
 vasetType 3
 )
-xt "58750,25000,69000,25000"
+xt "35750,26000,44000,26000"
 pts [
-"58750,25000"
-"69000,25000"
+"35750,26000"
+"44000,26000"
 ]
 )
 start &36
@@ -2493,9 +2489,9 @@ uid 434,0
 va (VaSet
 font "courier,8,0"
 )
-xt "60000,24100,68500,25000"
+xt "36000,25100,44500,26000"
 st "almost_full_fifo"
-blo "60000,24800"
+blo "36000,25800"
 tm "WireNameMgr"
 )
 )
@@ -2509,10 +2505,10 @@ va (VaSet
 vasetType 3
 lineWidth 2
 )
-xt "7000,30000,14000,30000"
+xt "0,31000,2000,31000"
 pts [
-"7000,30000"
-"14000,30000"
+"0,31000"
+"2000,31000"
 ]
 )
 start &27
@@ -2534,9 +2530,9 @@ va (VaSet
 isHidden 1
 font "courier,8,0"
 )
-xt "8000,29100,9500,30000"
+xt "1000,30100,2500,31000"
 st "din"
-blo "8000,29800"
+blo "1000,30800"
 tm "WireNameMgr"
 )
 )
@@ -2549,16 +2545,15 @@ uid 872,0
 va (VaSet
 vasetType 3
 )
-xt "19000,27000,28250,29000"
+xt "7000,28000,13250,30000"
 pts [
-"28250,27000"
-"19000,27000"
-"19000,29000"
+"13250,28000"
+"7000,28000"
+"7000,30000"
 ]
 )
 start &38
 end &23
-ss 0
 sat 32
 eat 2
 st 0
@@ -2573,9 +2568,9 @@ uid 878,0
 va (VaSet
 font "courier,8,0"
 )
-xt "20000,26100,25500,27000"
+xt "8000,27100,13500,28000"
 st "wr_en_fifo"
-blo "20000,26800"
+blo "8000,27800"
 tm "WireNameMgr"
 )
 )
@@ -2588,10 +2583,10 @@ uid 954,0
 va (VaSet
 vasetType 3
 )
-xt "22000,32000,29000,32000"
+xt "11000,33000,17000,33000"
 pts [
-"22000,32000"
-"29000,32000"
+"11000,33000"
+"17000,33000"
 ]
 )
 start &23
@@ -2609,9 +2604,9 @@ uid 960,0
 va (VaSet
 font "courier,8,0"
 )
-xt "24000,31100,28500,32000"
+xt "12000,32100,16500,33000"
 st "flag_pack"
-blo "24000,31800"
+blo "12000,32800"
 tm "WireNameMgr"
 )
 )
@@ -2624,10 +2619,10 @@ uid 1625,0
 va (VaSet
 vasetType 3
 )
-xt "23000,23000,28250,23000"
+xt "8000,25000,13250,25000"
 pts [
-"23000,23000"
-"28250,23000"
+"8000,25000"
+"13250,25000"
 ]
 )
 start &46
@@ -2648,9 +2643,9 @@ va (VaSet
 isHidden 1
 font "courier,8,0"
 )
-xt "24000,22100,30000,23000"
+xt "9000,24100,15000,25000"
 st "fifo_wr_clk"
-blo "24000,22800"
+blo "9000,24800"
 tm "WireNameMgr"
 )
 )
@@ -2663,10 +2658,10 @@ uid 2788,0
 va (VaSet
 vasetType 3
 )
-xt "8000,34000,14000,34000"
+xt "0,34000,2000,34000"
 pts [
-"8000,34000"
-"14000,34000"
+"0,34000"
+"2000,34000"
 ]
 )
 start &56
@@ -2686,9 +2681,9 @@ va (VaSet
 isHidden 1
 font "courier,8,0"
 )
-xt "9000,33100,10500,34000"
+xt "1000,33100,2500,34000"
 st "clk"
-blo "9000,33800"
+blo "1000,33800"
 tm "WireNameMgr"
 )
 )
@@ -2803,12 +2798,12 @@ tm "BdCompilerDirectivesTextMgr"
 ]
 associable 1
 )
-windowSize "3832,13,5768,1088"
-viewArea "3129,1910,83640,44398"
-cachedDiagramExtent "-9000,0,74500,51000"
+windowSize "1912,41,3848,1050"
+viewArea "-23947,1900,49712,37934"
+cachedDiagramExtent "-9000,0,53500,51000"
 hasePageBreakOrigin 1
 pageBreakOrigin "-10000,0"
-lastUid 2797,0
+lastUid 2840,0
 defaultCommentText (CommentText
 shape (Rectangle
 layer 0
