@@ -1,7 +1,7 @@
 `resetall
 `timescale 1ns/10ps
 module tb_mopshub_top();
-  reg             clk = 1'b0;
+  reg              clk = 1'b0;
   wire             clk_40;
   wire             clk_80;
   reg             rst   = 1'b1;
@@ -108,8 +108,8 @@ module tb_mopshub_top();
   
   mopshub_top#(
   .n_buses (5'b111),
-  .seialize_data_stream(1))mopshub0(
-  .clk(clk_40),
+  .seialize_data_stream(0))mopshub0(
+  .clk(clk),
   //.clk_40(clk_40),
   .clk_80(clk_80),
   .rst(rst),  
@@ -141,9 +141,9 @@ module tb_mopshub_top();
   
   data_generator#(
   .n_buses (5'b111),
-  .seialize_data_stream(1))data_generator0(
-  .clk(clk_40),
-  //.clk_80(clk_80),
+  .seialize_data_stream(0))data_generator0(
+  .clk(clk),
+  .clk_80(clk_80),
   .rst(rst),
   .ext_rst_mops(rst_mops_dbg),
   .ext_trim_mops(osc_auto_trim_mopshub),

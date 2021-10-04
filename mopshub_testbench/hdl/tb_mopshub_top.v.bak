@@ -1,7 +1,7 @@
 `resetall
 `timescale 1ns/10ps
 module tb_mopshub_top();
-  reg             clk = 1'b0;
+  reg              clk = 1'b0;
   wire             clk_40;
   wire             clk_80;
   reg             rst   = 1'b1;
@@ -108,10 +108,10 @@ module tb_mopshub_top();
   
   mopshub_top#(
   .n_buses (5'b111),
-  .seialize_data_stream(1))mopshub0(
-  .clk(clk_80),
+  .seialize_data_stream(0))mopshub0(
+  .clk(clk_40),
   //.clk_40(clk_40),
-  .clk_80(clk_40),
+  .clk_80(clk_80),
   .rst(rst),  
   .osc_auto_trim_mopshub(osc_auto_trim_mopshub), 
   .power_bus_en(power_bus_en),
@@ -141,9 +141,9 @@ module tb_mopshub_top();
   
   data_generator#(
   .n_buses (5'b111),
-  .seialize_data_stream(1))data_generator0(
-  .clk(clk_80),
-  .clk_80(clk_40),
+  .seialize_data_stream(0))data_generator0(
+  .clk(clk_40),
+  .clk_80(clk_80),
   .rst(rst),
   .ext_rst_mops(rst_mops_dbg),
   .ext_trim_mops(osc_auto_trim_mopshub),
@@ -209,7 +209,7 @@ module tb_mopshub_top();
   always #50 clk = ~clk;   
   //////////////////////////////////////////////// 
   
-  clock_divider #(28'd4)
+  clock_divider #(28'd2)
   clock_divider4( 
   .clock_in  (clk), 
   .clock_out (clk_40)

@@ -6,8 +6,6 @@ module tb_elink_core ;
   reg          clk_enable;  //clk_enable [clk_enable MB/s]    
   wire         clk_80;  //clk_80 [clk_80 MB/s]
   wire         clk_40;    //clk_40   [clk_40 MB/s]
-  wire         clk_801;  //clk_80 [clk_80 MB/s]
-  wire         clk_401;    //clk_40   [clk_40 MB/s]
   //EPROC OUT ENC8b10b Signals
   wire  [7:0]  gen_edata_8bit;
   wire  [1:0]  delimeter;
@@ -53,20 +51,7 @@ emci_decoder #(
     forever #(1) clk_enable=~clk_enable; //Equivalent to the rd_clk
   end
   
-  clock_generator #(
-  .freq(80),//MHz
-  .phase(0),
-  .duty(50))clk_gen80(
-  .enable(clk_enable), 
-  .clk(clk_801));
 
-  clock_generator #(
-  .freq(40),//MHz
-  .phase(0),
-  .duty(50))clk_gen40(
-  .enable(clk_enable), 
-  .clk(clk_401));
-  
   //Freq. bitCLK = Freq. clk_enable / 4 [=40 MHz]
   clock_divider #(4) div_4(
   .clock_in(clk_enable),
