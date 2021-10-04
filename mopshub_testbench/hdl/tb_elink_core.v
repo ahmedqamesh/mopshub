@@ -16,7 +16,7 @@ module tb_elink_core ;
   //EMCI Emulator
   wire         start_write_elink;
   wire         end_write_elink;
-  reg         start_read_elink =1'b0;
+  reg          start_read_elink =1'b0;
   assign gen_edata_8bit   = emci_decoder0.data_rec_8bitout;
   assign delimeter        = emci_decoder0.data_rec_delimiter;
   assign data_emci_tra    = emci_decoder0.data_tra_76bit_reg ; 
@@ -25,7 +25,7 @@ module tb_elink_core ;
   //integer i;
   
   //Generate 8b data 
-emci_decoder #(
+elinkcore_decoder #(
   .max_cnt(1),
   .seialize_data_stream(1))emci_decoder0(
   .rst                    (rst),

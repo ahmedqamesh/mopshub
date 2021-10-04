@@ -5,8 +5,9 @@ module tb_mopshub_top();
   wire             clk_40;
   wire             clk_80;
   reg             rst   = 1'b1;
+  wire  [3:0]     led;
   wire            rst_mops_dbg;
-  reg             sel_bus = 1'b1;
+  reg             sel_bus = 1'b0;
   reg     [4:0]   can_tra_select_dbg =5'd1;
   wire            sign_on_sig;
   reg             start_data_gen= 1'b0;
@@ -109,7 +110,7 @@ module tb_mopshub_top();
   mopshub_top#(
   .n_buses (5'b111),
   .seialize_data_stream(0))mopshub0(
-  .clk(clk),
+  .clk(clk_40),
   //.clk_40(clk_40),
   .clk_80(clk_80),
   .rst(rst),  
@@ -122,6 +123,7 @@ module tb_mopshub_top();
   .tx_elink1bit(tx_mopshub_1bit),
   .rx_elink1bit(rx_mopshub_1bit),
   .rx_elink2bit(rx_mopshub_2bit),        
+  .led(led),
   .rx0(rx0),        
   .rx1(rx1),        
   .rx2(rx2),        
@@ -142,7 +144,7 @@ module tb_mopshub_top();
   data_generator#(
   .n_buses (5'b111),
   .seialize_data_stream(0))data_generator0(
-  .clk(clk),
+  .clk(clk_40),
   .clk_80(clk_80),
   .rst(rst),
   .ext_rst_mops(rst_mops_dbg),
@@ -206,7 +208,7 @@ module tb_mopshub_top();
   .tx6(tx6),
   .tx7(tx7));
   //////////****// Clock generation////////////////
-  always #50 clk = ~clk;   
+  always #1 clk = ~clk;   
   //////////////////////////////////////////////// 
   
   clock_divider #(28'd4)
@@ -262,7 +264,7 @@ module tb_mopshub_top();
   end
   
   /////******* prints bus activity ******///
-  always@(posedge clk or negedge rst)
+  always@(posedge clk_40 or negedge rst)
   if (!rst)
   begin
     requestreg <= 0;
