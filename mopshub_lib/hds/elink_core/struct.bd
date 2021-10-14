@@ -129,19 +129,19 @@ value "/home/dcs/git/mopshub/mopshub_lib/hds/elink_core"
 )
 (vvPair
 variable "date"
-value "10/04/21"
+value "10/13/21"
 )
 (vvPair
 variable "day"
-value "Mon"
+value "Wed"
 )
 (vvPair
 variable "day_long"
-value "Monday"
+value "Wednesday"
 )
 (vvPair
 variable "dd"
-value "04"
+value "13"
 )
 (vvPair
 variable "entity_name"
@@ -169,7 +169,7 @@ value "dcs"
 )
 (vvPair
 variable "graphical_source_date"
-value "10/04/21"
+value "10/13/21"
 )
 (vvPair
 variable "graphical_source_group"
@@ -181,7 +181,7 @@ value "chipdev2.physik.uni-wuppertal.de"
 )
 (vvPair
 variable "graphical_source_time"
-value "16:57:29"
+value "18:11:58"
 )
 (vvPair
 variable "group"
@@ -301,7 +301,7 @@ value "struct"
 )
 (vvPair
 variable "time"
-value "16:57:29"
+value "18:11:58"
 )
 (vvPair
 variable "unit"
@@ -4350,12 +4350,12 @@ fg "26368,26368,26368"
 bg "49152,49152,49152"
 font "courier,8,0"
 )
-xt "2200,9200,15200,13700"
+xt "2200,9200,16700,13700"
 st "
 
 //Check FIFO output
 assign elink_data_rdy = !fifo_empty;
-always@(data_tra_10bitin)
+always@(data_tra_10bitin or cs_eread)
   begin
   if(data_tra_10bitin == {2'b10,Kchar_sop})// 0x3c = 0011 1100 SOP (if 8b10b)
       begin
@@ -4382,6 +4382,7 @@ always@(data_tra_10bitin)
        fifo_data_packet =1'b0;
       end    
   end
+
 
 
 
@@ -8170,12 +8171,12 @@ tm "BdCompilerDirectivesTextMgr"
 ]
 associable 1
 )
-windowSize "3832,13,5768,1088"
-viewArea "-12300,-12100,52794,23316"
+windowSize "-8,13,1928,1088"
+viewArea "-51187,-7130,36176,38974"
 cachedDiagramExtent "-74500,-900,103000,56000"
 hasePageBreakOrigin 1
 pageBreakOrigin "-138000,-51000"
-lastUid 8951,0
+lastUid 9133,0
 defaultCommentText (CommentText
 shape (Rectangle
 layer 0

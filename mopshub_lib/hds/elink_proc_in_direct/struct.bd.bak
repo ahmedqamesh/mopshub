@@ -75,19 +75,19 @@ value "/home/dcs/git/mopshub/mopshub_lib/hds/elink_proc_in_direct"
 )
 (vvPair
 variable "date"
-value "10/04/21"
+value "10/13/21"
 )
 (vvPair
 variable "day"
-value "Mon"
+value "Wed"
 )
 (vvPair
 variable "day_long"
-value "Monday"
+value "Wednesday"
 )
 (vvPair
 variable "dd"
-value "04"
+value "13"
 )
 (vvPair
 variable "entity_name"
@@ -115,7 +115,7 @@ value "dcs"
 )
 (vvPair
 variable "graphical_source_date"
-value "10/04/21"
+value "10/13/21"
 )
 (vvPair
 variable "graphical_source_group"
@@ -127,7 +127,7 @@ value "chipdev2.physik.uni-wuppertal.de"
 )
 (vvPair
 variable "graphical_source_time"
-value "14:40:04"
+value "15:37:56"
 )
 (vvPair
 variable "group"
@@ -247,7 +247,7 @@ value "struct"
 )
 (vvPair
 variable "time"
-value "14:40:04"
+value "15:37:56"
 )
 (vvPair
 variable "unit"
@@ -620,7 +620,7 @@ n "clk"
 t "wire"
 prec "// Port Declarations"
 preAdd 0
-o 6
+o 2
 suid 2,0
 )
 declText (MLText
@@ -686,7 +686,7 @@ lang 5
 decl (Decl
 n "rst"
 t "wire"
-o 3
+o 4
 suid 8,0
 )
 declText (MLText
@@ -1112,7 +1112,7 @@ decl (Decl
 n "bitstream_in"
 t "wire"
 b "[11:0]"
-o 11
+o 9
 suid 18,0
 )
 declText (MLText
@@ -1131,7 +1131,7 @@ lang 5
 decl (Decl
 n "swap_rx_bits"
 t "wire"
-o 12
+o 5
 suid 19,0
 )
 declText (MLText
@@ -1153,7 +1153,7 @@ t "wire"
 b "[1:0]"
 preAdd 0
 posAdd 0
-o 13
+o 1
 suid 20,0
 )
 declText (MLText
@@ -1172,7 +1172,7 @@ lang 5
 decl (Decl
 n "reverse_stream_10b"
 t "wire"
-o 14
+o 3
 suid 21,0
 )
 declText (MLText
@@ -1214,7 +1214,7 @@ decl (Decl
 n "direct_inpcount_r"
 t "reg"
 b "[1:0]"
-o 9
+o 12
 suid 36,0
 iv "2'b00"
 )
@@ -1263,13 +1263,13 @@ assign data_direct_out   = direct10b_data_r;
 //-------------------------------------------------------------------------------------------
 //-- at this stage: word10b and word10b_rdy are aligned @ bitCLK
 //-------------------------------------------------------------------------------------------
-always@(clk)
+always@(posedge clk)
 begin
     if (!rst)
     begin
         direct_inpcount_r  <= 2'b0;
         direct10b_rdy_r    <= 1'b0;
-        direct10b_data_r   <= 8'b1100000000;
+        direct10b_data_r   <= 8'b00000000;
     end
 else
   begin
@@ -1290,6 +1290,8 @@ else
       end
   end
 end
+
+
 
 
 
@@ -1408,7 +1410,7 @@ lang 5
 decl (Decl
 n "data_direct_rdy"
 t "wire"
-o 12
+o 7
 suid 39,0
 )
 declText (MLText
@@ -1430,7 +1432,7 @@ t "wire"
 b "[7:0]"
 preAdd 0
 posAdd 0
-o 14
+o 6
 suid 41,0
 )
 declText (MLText
@@ -2480,12 +2482,12 @@ tm "BdCompilerDirectivesTextMgr"
 ]
 associable 1
 )
-windowSize "1912,41,3848,1050"
-viewArea "-33907,41816,91434,105182"
+windowSize "3832,13,5768,1088"
+viewArea "-33900,41800,72306,97848"
 cachedDiagramExtent "-11500,-10700,60000,74000"
 hasePageBreakOrigin 1
 pageBreakOrigin "-69000,0"
-lastUid 1820,0
+lastUid 2033,0
 defaultCommentText (CommentText
 shape (Rectangle
 layer 0
@@ -3601,7 +3603,7 @@ n "clk"
 t "wire"
 prec "// Port Declarations"
 preAdd 0
-o 6
+o 2
 suid 2,0
 )
 )
@@ -3613,7 +3615,7 @@ lang 5
 decl (Decl
 n "rst"
 t "wire"
-o 3
+o 4
 suid 8,0
 )
 )
@@ -3628,7 +3630,7 @@ decl (Decl
 n "bitstream_in"
 t "wire"
 b "[11:0]"
-o 11
+o 9
 suid 18,0
 )
 )
@@ -3640,7 +3642,7 @@ lang 5
 decl (Decl
 n "swap_rx_bits"
 t "wire"
-o 12
+o 5
 suid 19,0
 )
 )
@@ -3653,7 +3655,7 @@ decl (Decl
 n "DATA_IN"
 t "wire"
 b "[1:0]"
-o 13
+o 1
 suid 20,0
 )
 )
@@ -3665,7 +3667,7 @@ lang 5
 decl (Decl
 n "reverse_stream_10b"
 t "wire"
-o 14
+o 3
 suid 21,0
 )
 )
@@ -3695,7 +3697,7 @@ decl (Decl
 n "direct_inpcount_r"
 t "reg"
 b "[1:0]"
-o 9
+o 12
 suid 36,0
 iv "2'b00"
 )
@@ -3738,7 +3740,7 @@ m 1
 decl (Decl
 n "data_direct_rdy"
 t "wire"
-o 12
+o 7
 suid 39,0
 )
 )
@@ -3752,7 +3754,7 @@ decl (Decl
 n "data_direct_out"
 t "wire"
 b "[7:0]"
-o 14
+o 6
 suid 41,0
 )
 )
@@ -3822,61 +3824,61 @@ uid 271,0
 )
 *131 (MRCItem
 litem &114
-pos 2
+pos 7
 dimension 20
 uid 941,0
 )
 *132 (MRCItem
 litem &115
-pos 3
+pos 2
 dimension 20
 uid 943,0
 )
 *133 (MRCItem
 litem &116
-pos 4
+pos 3
 dimension 20
 uid 945,0
 )
 *134 (MRCItem
 litem &117
-pos 5
+pos 4
 dimension 20
 uid 947,0
 )
 *135 (MRCItem
 litem &118
-pos 6
+pos 8
 dimension 20
 uid 1407,0
 )
 *136 (MRCItem
 litem &119
-pos 7
+pos 9
 dimension 20
 uid 1409,0
 )
 *137 (MRCItem
 litem &120
-pos 8
+pos 10
 dimension 20
 uid 1484,0
 )
 *138 (MRCItem
 litem &121
-pos 9
+pos 11
 dimension 20
 uid 1486,0
 )
 *139 (MRCItem
 litem &122
-pos 10
+pos 5
 dimension 20
 uid 1548,0
 )
 *140 (MRCItem
 litem &123
-pos 11
+pos 6
 dimension 20
 uid 1552,0
 )

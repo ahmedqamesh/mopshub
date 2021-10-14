@@ -5,7 +5,6 @@ module tb_mopshub_top();
   wire             clk_40;
   wire             clk_80;
   reg             rst   = 1'b1;
-  wire  [3:0]     led;
   wire            rst_mops_dbg;
   reg             sel_bus = 1'b0;
   reg     [4:0]   can_tra_select_dbg =5'd1;
@@ -111,9 +110,8 @@ module tb_mopshub_top();
   .n_buses (5'b111),
   .seialize_data_stream(0))mopshub0(
   .clk(clk_40),
-  //.clk_40(clk_40),
   .clk_80(clk_80),
-  .rst(rst),  
+  .reset(!rst),  
   .osc_auto_trim_mopshub(osc_auto_trim_mopshub), 
   .power_bus_en(power_bus_en),
   .power_bus_cnt(power_bus_cnt),                     
@@ -123,7 +121,6 @@ module tb_mopshub_top();
   .tx_elink1bit(tx_mopshub_1bit),
   .rx_elink1bit(rx_mopshub_1bit),
   .rx_elink2bit(rx_mopshub_2bit),        
-  .led(led),
   .rx0(rx0),        
   .rx1(rx1),        
   .rx2(rx2),        
@@ -341,7 +338,7 @@ module tb_mopshub_top();
     end     
     if(test_tx_end)
     begin 
-      #10
+      #200
       $strobe("*****************************************************************************");
       info_debug_sig = {""};
     end    

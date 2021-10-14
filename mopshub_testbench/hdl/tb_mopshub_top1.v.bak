@@ -1,13 +1,13 @@
 `resetall
 `timescale 1ns/10ps
-module tb_mopshub_top();
+module tb_mopshub_synthesis();
   reg              clk = 1'b0;
   wire             clk_40;
   wire             clk_80;
   reg             rst   = 1'b1;
   wire            rst_mops_dbg;
-  reg             sel_bus = 1'b0;
-  reg     [4:0]   can_tra_select_dbg =5'd1;
+  reg             sel_bus = 1'b1;
+  reg     [4:0]   can_tra_select_dbg =5'd0;
   wire            sign_on_sig;
   reg             start_data_gen= 1'b0;
   wire            start_init;
@@ -338,7 +338,7 @@ module tb_mopshub_top();
     end     
     if(test_tx_end)
     begin 
-      #70
+      #200
       $strobe("*****************************************************************************");
       info_debug_sig = {""};
     end    
