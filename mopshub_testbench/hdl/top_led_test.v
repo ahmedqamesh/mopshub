@@ -13,17 +13,12 @@
 module top_led_test (
     input wire reset,
     input wire clk,
-    output wire [3:0]  led
+    output wire led
     );
 
-  reg [31:0] counter;
-  reg LED_status; 
-//
-//initial begin
-//counter <= 32'b0;
-//LED_status <= 1'b0;
-//end
-
+  reg [31:0] counter= 32'b0;;
+  reg LED_status= 1'b0;; 
+  assign led = LED_status;
   always @ (posedge clk) 
   if (reset)
     begin
@@ -33,13 +28,13 @@ module top_led_test (
   else
   begin
     counter <= counter + 1'b1;
-  if (counter > 50000000)
+  if (counter > 5000000)
     begin
     LED_status <= !LED_status;
     counter <= 32'b0;
     end
   end
   
-  assign led = LED_status;
+  
 
 endmodule

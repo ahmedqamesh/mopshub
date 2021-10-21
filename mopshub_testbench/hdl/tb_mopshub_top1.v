@@ -1,9 +1,9 @@
 `resetall
 `timescale 1ns/10ps
 module tb_mopshub_synthesis();
-  reg              clk = 1'b0;
-  wire             clk_40;
-  wire             clk_80;
+  reg             clk = 1'b0;
+  wire            clk_40;
+  wire            clk_80;
   reg             rst   = 1'b1;
   wire            rst_mops_dbg;
   reg             sel_bus = 1'b1;
@@ -53,8 +53,8 @@ module tb_mopshub_synthesis();
   wire    [75:0]  data_tra_emulator_out;
   wire    [4:0]   can_rec_select;
   wire    [75:0]  data_tra_uplink;
-  wire    [4:0]  can_tra_select;
-  wire    [75:0] data_rec_emulator_in;
+  wire    [4:0]   can_tra_select;
+  wire    [75:0]  data_rec_emulator_in;
   wire            irq_elink_tra;
   wire            irq_elink_rec;
   reg      [75:0] requestreg  = 75'h0;
@@ -62,7 +62,7 @@ module tb_mopshub_synthesis();
   reg      [75:0] responsereg = 75'h0; 
   wire            respmsg;
   // Generator signals 
-  int failures = 0;   // Number of BAD reponses from the chip  
+  int             failures = 0;   // Number of BAD reponses from the chip  
   wire            rx0;
   wire            rx1;
   wire            rx2;
@@ -97,26 +97,24 @@ module tb_mopshub_synthesis();
   assign sign_on_sig      = mopshub0.sign_on_sig;
   assign end_trim_bus     = mopshub0.end_trim_bus;
   assign start_trim_osc   = mopshub0.start_trim_ack;
-  
+  assign power_bus_en     = mopshub0.power_bus_en;
+  assign power_bus_cnt   = mopshub0.power_bus_cnt;
+    
   
   assign data_tra_emulator_out  = data_generator0.data_tra_76bit_reg;
   assign data_rec_emulator_in   = data_generator0.data_rec_76bit_reg;
   assign ready_osc              = data_generator0.ready_osc;
-  
-  assign irq_elink_tra = mopshub0.irq_elink_tra;
-  assign irq_elink_rec = mopshub0.irq_elink_rec;
-  
   mopshub_top#(
   .n_buses (5'b111),
   .seialize_data_stream(0))mopshub0(
   .clk(clk_40),
   .clk_80(clk_80),
   .reset(!rst),  
-  .osc_auto_trim_mopshub(osc_auto_trim_mopshub), 
-  .power_bus_en(power_bus_en),
-  .power_bus_cnt(power_bus_cnt),                     
+  .osc_auto_trim_mopshub(osc_auto_trim_mopshub),                      
   .end_cnt_dbg(1'b0),
-  .can_tra_select_dbg(can_tra_select_dbg),              
+  .can_tra_select_dbg(can_tra_select_dbg), 
+  .irq_elink_rec(irq_elink_rec),
+  .irq_elink_tra(irq_elink_tra),           
   .tx_elink2bit(tx_mopshub_2bit),
   .tx_elink1bit(tx_mopshub_1bit),
   .rx_elink1bit(rx_mopshub_1bit),
@@ -137,7 +135,7 @@ module tb_mopshub_synthesis();
   .tx5(tx5),
   .tx6(tx6),
   .tx7(tx7));
-  
+
   data_generator#(
   .n_buses (5'b111),
   .seialize_data_stream(0))data_generator0(
@@ -203,7 +201,8 @@ module tb_mopshub_synthesis();
   .tx4(tx4),
   .tx5(tx5),
   .tx6(tx6),
-  .tx7(tx7));
+  .tx7(tx7)); 
+    
   //////////****// Clock generation////////////////
   always #1 clk = ~clk;   
   //////////////////////////////////////////////// 
@@ -243,6 +242,7 @@ module tb_mopshub_synthesis();
       osc_auto_trim =1'b0;
       osc_auto_trim_mopshub = 1'b0;
       test_osc_reg = 1'b1;
+      
     end
     if(osc_reg_end ==1)//Done with Initialisation
     begin
