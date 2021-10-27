@@ -46,7 +46,7 @@ assign cmd  = {initi,read,write,bus_comp,reset_can,trim};   //initi is active hi
 ////This is purely combinational block to read and write values to Canakari node
 always@(*)
 begin
-  //write_can_reg = 16'h0000;
+  write_can_reg = 16'h0000;
   can_tra_reg  = data_tra_select;
   case(cmd)
     6'b110000 : begin
