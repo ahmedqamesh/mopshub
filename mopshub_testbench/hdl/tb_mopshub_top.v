@@ -6,7 +6,7 @@ module tb_mopshub_top();
   wire             clk_80;
   reg             rst   = 1'b1;
   wire            rst_mops_dbg;
-  reg             sel_bus = 1'b0;
+  reg             sel_bus = 1'b1;
   reg     [4:0]   can_tra_select_dbg =5'd1;
   wire            sign_on_sig;
   reg             start_data_gen= 1'b0;
@@ -47,7 +47,7 @@ module tb_mopshub_top();
   wire    [75:0]  data_rec_uplink;
   wire    [75:0]  data_tra_emulator_out;
   wire    [4:0]   can_rec_select;
-  wire    [75:0]  data_tra_uplink;
+  wire    [75:0]  data_tra_downlink;
   wire    [4:0]  can_tra_select;
   wire    [75:0] data_rec_emulator_in;
   wire            irq_elink_tra;
@@ -84,7 +84,7 @@ module tb_mopshub_top();
   assign can_tra_select   = mopshub0.can_tra_select;
   assign can_rec_select   = mopshub0.can_rec_select;
   assign data_rec_uplink  = mopshub0.data_rec_uplink;
-  assign data_tra_uplink  = mopshub0.data_tra_uplink;
+  assign data_tra_downlink  = mopshub0.data_tra_downlink;
   assign done_trim_osc    = mopshub0.done_trim_osc;
   assign start_init       = mopshub0.start_init;
   assign end_init         = mopshub0.end_init;
@@ -101,7 +101,7 @@ module tb_mopshub_top();
 
   
   mopshub_top#(
-  .n_buses (5'b01),
+  .n_buses (5'b111),
   .seialize_data_stream(0),
   .generate_mopshub(1'b1))mopshub0(
   .clk(clk_40),
@@ -134,7 +134,7 @@ module tb_mopshub_top();
   .tx7(tx7));
   
   data_generator#(
-  .n_buses (5'b01),
+  .n_buses (5'b111),
   .seialize_data_stream(0),
   .generate_mopshub(1'b1))data_generator0(
   .clk(clk_40),
@@ -357,7 +357,7 @@ module tb_mopshub_top();
     //Test Elink or TX Response part 
     else if (reqmsg &&  test_tx)
     begin
-      requestreg <= data_tra_uplink; 
+      requestreg <= data_tra_downlink; 
     end
     else if (respmsg && test_tx)
     begin

@@ -1,6 +1,6 @@
 `resetall
 `timescale 1ns/10ps
-module tb_mopshub_top();
+module tb_mopshub_top_emulator();
   reg              clk = 1'b0;
   wire             clk_40;
   wire             clk_80;
@@ -92,7 +92,6 @@ module tb_mopshub_top();
   assign sign_on_sig      = mopshub0.sign_on_sig;
   assign end_trim_bus     = mopshub0.end_trim_bus;
   assign start_trim_osc   = mopshub0.start_trim_ack;
-  assign power_bus_en     = mopshub0.power_bus_en;
   assign power_bus_cnt    = mopshub0.power_bus_cnt;  
   
   assign data_tra_emulator_out  = data_generator0.data_tra_76bit_reg;
@@ -106,7 +105,8 @@ module tb_mopshub_top();
   .generate_mopshub(1'b1))mopshub0(
   .clk(clk_40),
   .clk_80(clk_80),
-  .reset(!rst),  
+  .reset(!rst), 
+  .power_bus_en(power_bus_en), 
   .osc_auto_trim_mopshub(osc_auto_trim_mopshub),                     
   .end_cnt_dbg(1'b0),
   .can_tra_select_dbg(can_tra_select_dbg),              
@@ -133,7 +133,7 @@ module tb_mopshub_top();
   .tx6(tx6),
   .tx7(tx7));
   
-  data_generator#(
+  data_generator_emulator#(
   .n_buses (5'b111),
   .seialize_data_stream(0),
   .generate_mopshub(1'b1))data_generator0(
@@ -240,7 +240,7 @@ module tb_mopshub_top();
         if(sign_on_sig ==1)//start Rx test
     begin
       start_data_gen =1'b0;
-      test_rx =1'b1;
+      test_tx =1'b1;
     end
     if(test_rx_end ==1)//Done Rx test
     begin
