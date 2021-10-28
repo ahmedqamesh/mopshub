@@ -35,11 +35,6 @@ module tb_mopshub_top();
   
   wire            sign_in_start;
   wire            sign_in_end;
-  
-  reg             test_osc_reg = 1'b0;
-  wire            osc_reg_start;
-  wire            osc_reg_end;
-  
   reg             test_rx = 1'b0;
   wire            test_rx_start;
   wire            test_rx_end;
@@ -107,7 +102,8 @@ module tb_mopshub_top();
   
   mopshub_top#(
   .n_buses (5'b01),
-  .seialize_data_stream(0))mopshub0(
+  .seialize_data_stream(0),
+  .generate_mopshub(1'b1))mopshub0(
   .clk(clk_40),
   .clk_80(clk_80),
   .reset(!rst),  
@@ -139,7 +135,8 @@ module tb_mopshub_top();
   
   data_generator#(
   .n_buses (5'b01),
-  .seialize_data_stream(0))data_generator0(
+  .seialize_data_stream(0),
+  .generate_mopshub(1'b1))data_generator0(
   .clk(clk_40),
   .clk_80(clk_80),
   .rst(rst),
@@ -155,8 +152,6 @@ module tb_mopshub_top();
   .trim_sig_done(trim_sig_done),
   .sign_in_start(sign_in_start), 
   .sign_in_end(sign_in_end),
-  .osc_reg_end(osc_reg_end),
-  .osc_reg_start(osc_reg_start),
   //Read ADC channels from MOPS and send it to MOPSHUB rx
   .test_rx(test_rx),
   .test_tx(test_tx),
@@ -241,14 +236,11 @@ module tb_mopshub_top();
     begin
       osc_auto_trim =1'b0;
       osc_auto_trim_mopshub = 1'b0;
-      test_osc_reg = 1'b1;
     end
-    if(osc_reg_end ==1)//Done with Initialisation
+        if(sign_on_sig ==1)//start Rx test
     begin
-      test_rx =1'b1;
-      test_osc_reg = 1'b0;
-      test_tx =1'b0;
       start_data_gen =1'b0;
+      test_rx =1'b1;
     end
     if(test_rx_end ==1)//Done Rx test
     begin
@@ -308,18 +300,6 @@ module tb_mopshub_top();
       $strobe("*****************************************************************************");
       info_debug_sig = {""};
     end 
-    
-    /////*********************************  Oscillator Reg Test *********************************///// 
-    if(osc_reg_start)
-    begin 
-      info_debug_sig = {"<:       Oscillator Reg Test       :>"};
-      $strobeh("\t Oscillator Reg Test [BUS ID %d ]",bus_id);
-    end 
-    if(osc_reg_end)
-    begin 
-      $strobe("*****************************************************************************");
-      info_debug_sig = {""};
-    end
     /////*********************************  RX Test    *********************************///// 
     if(test_rx_start)
     begin 
@@ -354,22 +334,22 @@ module tb_mopshub_top();
       $strobeh("*************************************************************************"); 
     end      
     // Test Osc Trim  Response part 
-    else if(respmsg && osc_auto_trim  && !test_rx && !test_tx && !test_osc_reg)
+    else if(respmsg && osc_auto_trim  && !test_rx && !test_tx )
     begin
       responsereg <= data_rec_uplink;
       $strobeh("\t Oscillator trimming [BUS ID %d]: \t request %h \t response %h \t",bus_id,requestreg,responsereg);
     end  
-    else if(reqmsg && osc_auto_trim  && !test_rx && !test_tx && !test_osc_reg)
+    else if(reqmsg && osc_auto_trim  && !test_rx && !test_tx)
     begin
       requestreg <= {76'h555aaaaaaaaaaaaaaaa};  
     end 
     
     //test RX Response part 
-    else if(reqmsg && (test_rx || test_osc_reg))
+    else if(reqmsg && (test_rx ))
     begin
       requestreg <= data_rec_uplink; 
     end
-    else if (respmsg && (test_rx || test_osc_reg))
+    else if (respmsg && (test_rx))
     begin
       responsereg <= data_tra_emulator_out;
       $strobeh("\t Receive RX signals [BUS ID %d]: \t request  %h \t response %h \t Emulator_out %h",bus_id,requestreg,data_rec_uplink,data_tra_emulator_out);
