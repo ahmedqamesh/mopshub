@@ -44,7 +44,7 @@ assign gen_data     = 16'h9C; //16'b0000000010011100
 assign trim_data    = {12'h555,64'hAAAAAAAAAAAAAAAA};//Msg with the most possible transitions [660 High to low transitions]
 assign cmd  = {initi,read,write,bus_comp,reset_can,trim};   //initi is active high while read and write are active low
 ////This is purely combinational block to read and write values to Canakari node
-always@(cmd or addr or data_init)
+always@(cmd or data_tra_select or can_rec_select or addr or data_init)
 begin
   write_can_reg = 16'h0000;
   can_tra_comp_reg = 5'b0;

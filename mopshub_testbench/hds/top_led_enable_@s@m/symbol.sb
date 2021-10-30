@@ -11,7 +11,7 @@ appVersion "2019.4 (Build 4)"
 model (Symbol
 commonDM (CommonDM
 ldm (LogicalDM
-suid 29,0
+suid 30,0
 usingSuid 1
 emptyRow *1 (LEmptyRow
 )
@@ -57,26 +57,6 @@ tm "EolColHdrMgr"
 port (LogicalPort
 lang 5
 decl (Decl
-n "clk"
-t "wire"
-prec "// Port Declarations
-// Port Declarations
-// Port Declarations
-// Port Declarations
-// Port Declarations
-// Port Declarations"
-eolc "write FIFO clk"
-preAdd 0
-o 1
-suid 12,0
-)
-)
-uid 546,0
-)
-*16 (LogPort
-port (LogicalPort
-lang 5
-decl (Decl
 n "enable_cnt"
 t "wire"
 eolc "pfull from Tx FIFO"
@@ -86,7 +66,7 @@ suid 27,0
 )
 uid 3618,0
 )
-*17 (LogPort
+*16 (LogPort
 port (LogicalPort
 lang 5
 decl (Decl
@@ -99,10 +79,30 @@ suid 29,0
 )
 uid 4069,0
 )
+*17 (LogPort
+port (LogicalPort
+lang 5
+decl (Decl
+n "clk_in"
+t "wire"
+prec "// Port Declarations
+// Port Declarations
+// Port Declarations
+// Port Declarations
+// Port Declarations
+// Port Declarations"
+eolc "write FIFO clk"
+preAdd 0
+o 1
+suid 30,0
+)
+)
+uid 4099,0
+)
 *18 (LGroup
 name "out"
 comment ""
-uid 4070,0
+uid 4100,0
 optionalChildren [
 *19 (LogPort
 port (LogicalPort
@@ -170,28 +170,28 @@ dimension 20
 uid 72,0
 )
 *25 (MRCItem
-litem &15
-pos 0
-dimension 20
-uid 545,0
-)
-*26 (MRCItem
 litem &19
 pos 3
 dimension 20
 uid 3564,0
 )
-*27 (MRCItem
-litem &16
+*26 (MRCItem
+litem &15
 pos 2
 dimension 20
 uid 3617,0
 )
-*28 (MRCItem
-litem &17
+*27 (MRCItem
+litem &16
 pos 1
 dimension 20
 uid 4068,0
+)
+*28 (MRCItem
+litem &17
+pos 0
+dimension 20
+uid 4098,0
 )
 ]
 )
@@ -450,19 +450,19 @@ value "/home/dcs/git/mopshub/mopshub_testbench/hds/top_led_enable_SM"
 )
 (vvPair
 variable "date"
-value "10/18/21"
+value "10/30/21"
 )
 (vvPair
 variable "day"
-value "Mon"
+value "Sat"
 )
 (vvPair
 variable "day_long"
-value "Monday"
+value "Saturday"
 )
 (vvPair
 variable "dd"
-value "18"
+value "30"
 )
 (vvPair
 variable "entity_name"
@@ -490,7 +490,7 @@ value "dcs"
 )
 (vvPair
 variable "graphical_source_date"
-value "10/18/21"
+value "10/30/21"
 )
 (vvPair
 variable "graphical_source_group"
@@ -502,7 +502,7 @@ value "chipdev2.physik.uni-wuppertal.de"
 )
 (vvPair
 variable "graphical_source_time"
-value "09:29:35"
+value "14:21:25"
 )
 (vvPair
 variable "group"
@@ -522,7 +522,7 @@ value "mopshub_testbench"
 )
 (vvPair
 variable "library_downstream_HdsLintPlugin"
-value "$HDS_PROJECT_DIR/mopshub_lib/designcheck"
+value "$HDS_PROJECT_DIR/mopshub_testbench/designcheck"
 )
 (vvPair
 variable "library_downstream_ModelSimCompiler"
@@ -542,7 +542,7 @@ value "$HDS_PROJECT_DIR/mopshub_testbench/sim"
 )
 (vvPair
 variable "library_downstream_SvAssistantInvoke"
-value "$HDS_PROJECT_DIR/mopshub_lib/svassistant"
+value "$HDS_PROJECT_DIR/mopshub_testbench/svassistant"
 )
 (vvPair
 variable "mm"
@@ -622,7 +622,7 @@ value "symbol"
 )
 (vvPair
 variable "time"
-value "09:29:35"
+value "14:21:25"
 )
 (vvPair
 variable "unit"
@@ -657,66 +657,6 @@ optionalChildren [
 uid 8,0
 optionalChildren [
 *59 (CptPort
-uid 550,0
-ps "OnEdgeStrategy"
-shape (Triangle
-uid 551,0
-ro 90
-va (VaSet
-vasetType 1
-fg "0,65535,0"
-)
-xt "32250,18625,33000,19375"
-)
-tg (CPTG
-uid 552,0
-ps "CptPortTextPlaceStrategy"
-stg "VerticalLayoutStrategy"
-f (Text
-uid 553,0
-va (VaSet
-font "courier,8,0"
-)
-xt "34000,18550,35500,19450"
-st "clk"
-blo "34000,19250"
-tm "CptPortNameMgr"
-)
-)
-dt (MLText
-uid 554,0
-va (VaSet
-font "courier,8,0"
-)
-xt "2000,3600,19500,9900"
-st "// Port Declarations
-// Port Declarations
-// Port Declarations
-// Port Declarations
-// Port Declarations
-// Port Declarations
-input  wire clk; // write FIFO clk
-"
-)
-thePort (LogicalPort
-lang 5
-decl (Decl
-n "clk"
-t "wire"
-prec "// Port Declarations
-// Port Declarations
-// Port Declarations
-// Port Declarations
-// Port Declarations
-// Port Declarations"
-eolc "write FIFO clk"
-preAdd 0
-o 1
-suid 12,0
-)
-)
-)
-*60 (CptPort
 uid 3567,0
 ps "OnEdgeStrategy"
 shape (Triangle
@@ -764,7 +704,7 @@ suid 26,0
 )
 )
 )
-*61 (CptPort
+*60 (CptPort
 uid 3620,0
 ps "OnEdgeStrategy"
 shape (Triangle
@@ -811,7 +751,7 @@ suid 27,0
 )
 )
 )
-*62 (CptPort
+*61 (CptPort
 uid 4071,0
 ps "OnEdgeStrategy"
 shape (Triangle
@@ -855,6 +795,66 @@ t "wire"
 eolc "should be used through VIO"
 o 3
 suid 29,0
+)
+)
+)
+*62 (CptPort
+uid 4101,0
+ps "OnEdgeStrategy"
+shape (Triangle
+uid 4102,0
+ro 90
+va (VaSet
+vasetType 1
+fg "0,65535,0"
+)
+xt "32250,24625,33000,25375"
+)
+tg (CPTG
+uid 4103,0
+ps "CptPortTextPlaceStrategy"
+stg "VerticalLayoutStrategy"
+f (Text
+uid 4104,0
+va (VaSet
+font "courier,8,0"
+)
+xt "34000,24550,37000,25450"
+st "clk_in"
+blo "34000,25250"
+tm "CptPortNameMgr"
+)
+)
+dt (MLText
+uid 4105,0
+va (VaSet
+font "courier,8,0"
+)
+xt "2000,3600,21000,9900"
+st "// Port Declarations
+// Port Declarations
+// Port Declarations
+// Port Declarations
+// Port Declarations
+// Port Declarations
+input  wire clk_in; // write FIFO clk
+"
+)
+thePort (LogicalPort
+lang 5
+decl (Decl
+n "clk_in"
+t "wire"
+prec "// Port Declarations
+// Port Declarations
+// Port Declarations
+// Port Declarations
+// Port Declarations
+// Port Declarations"
+eolc "write FIFO clk"
+preAdd 0
+o 1
+suid 30,0
 )
 )
 )
@@ -1569,7 +1569,7 @@ xt "2000,2700,2000,2700"
 tm "SyDeclarativeTextMgr"
 )
 )
-lastUid 4075,0
+lastUid 4105,0
 postModuleDirective "// ### Please start your Verilog code here ###"
 okToSyncOnLoad 1
 OkToSyncGenericsOnLoad 1
