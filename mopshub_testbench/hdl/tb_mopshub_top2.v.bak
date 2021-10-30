@@ -109,7 +109,7 @@ module tb_mopshub_top_emulator();
   .power_bus_en(power_bus_en), 
   .osc_auto_trim_mopshub(osc_auto_trim_mopshub),                     
   .end_cnt_dbg(1'b0),
-  .can_tra_select_dbg(can_tra_select_dbg),              
+  //.can_tra_select_dbg(can_tra_select_dbg),              
   .irq_elink_rec(irq_elink_rec),
   .irq_elink_tra(irq_elink_tra), 
   .tx_elink2bit(tx_mopshub_2bit),
@@ -243,7 +243,7 @@ module tb_mopshub_top_emulator();
         if(sign_on_sig ==1)//start Rx test
     begin
       start_data_gen =1'b0;
-      test_rx =1'b1;
+      test_tx =1'b1;
     end
     if(test_rx_end ==1)//Done Rx test
     begin

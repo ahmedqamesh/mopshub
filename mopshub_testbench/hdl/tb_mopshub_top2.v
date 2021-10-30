@@ -6,7 +6,7 @@ module tb_mopshub_top_emulator();
   wire             clk_80;
   reg             rst   = 1'b1;
   wire            rst_mops_dbg;
-  reg             sel_bus = 1'b0;
+  reg             sel_bus = 1'b1;
   reg     [4:0]   can_tra_select_dbg =5'd1;
   wire            sign_on_sig;
   reg             start_data_gen= 1'b0;
@@ -109,7 +109,7 @@ module tb_mopshub_top_emulator();
   .power_bus_en(power_bus_en), 
   .osc_auto_trim_mopshub(osc_auto_trim_mopshub),                     
   .end_cnt_dbg(1'b0),
-  .can_tra_select_dbg(can_tra_select_dbg),              
+  //.can_tra_select_dbg(can_tra_select_dbg),              
   .irq_elink_rec(irq_elink_rec),
   .irq_elink_tra(irq_elink_tra), 
   .tx_elink2bit(tx_mopshub_2bit),
