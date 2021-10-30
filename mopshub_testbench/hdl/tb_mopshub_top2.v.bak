@@ -47,7 +47,7 @@ module tb_mopshub_top_emulator();
   wire    [75:0]  data_rec_uplink;
   wire    [75:0]  data_tra_emulator_out;
   wire    [4:0]   can_rec_select;
-  wire    [75:0]  data_tra_uplink;
+  wire    [75:0]  data_tra_downlink;
   wire    [4:0]  can_tra_select;
   wire    [75:0] data_rec_emulator_in;
   wire            irq_elink_tra;
@@ -84,7 +84,7 @@ module tb_mopshub_top_emulator();
   assign can_tra_select   = mopshub0.can_tra_select;
   assign can_rec_select   = mopshub0.can_rec_select;
   assign data_rec_uplink  = mopshub0.data_rec_uplink;
-  assign data_tra_uplink  = mopshub0.data_tra_uplink;
+  assign data_tra_downlink  = mopshub0.data_tra_downlink;
   assign done_trim_osc    = mopshub0.done_trim_osc;
   assign start_init       = mopshub0.start_init;
   assign end_init         = mopshub0.end_init;
@@ -115,7 +115,10 @@ module tb_mopshub_top_emulator();
   .tx_elink2bit(tx_mopshub_2bit),
   .tx_elink1bit(tx_mopshub_1bit),
   .rx_elink1bit(rx_mopshub_1bit),
-  .rx_elink2bit(rx_mopshub_2bit),        
+  .rx_elink2bit(rx_mopshub_2bit),  
+  .reverse_stream_10b_tx(1'b1),
+  .reverse_stream_10b_rx(1'b0),
+  .swap_bits(1'b0),      
   .rx0(rx0),        
   .rx1(rx1),        
   .rx2(rx2),        
@@ -240,7 +243,7 @@ module tb_mopshub_top_emulator();
         if(sign_on_sig ==1)//start Rx test
     begin
       start_data_gen =1'b0;
-      test_tx =1'b1;
+      test_rx =1'b1;
     end
     if(test_rx_end ==1)//Done Rx test
     begin
@@ -317,7 +320,7 @@ module tb_mopshub_top_emulator();
     end     
     if(test_tx_end)
     begin 
-      #200
+      //#300
       $strobe("*****************************************************************************");
       info_debug_sig = {""};
     end    
@@ -357,7 +360,7 @@ module tb_mopshub_top_emulator();
     //Test Elink or TX Response part 
     else if (reqmsg &&  test_tx)
     begin
-      requestreg <= data_tra_uplink; 
+      requestreg <= data_tra_downlink; 
     end
     else if (respmsg && test_tx)
     begin
