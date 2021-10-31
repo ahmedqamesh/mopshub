@@ -1,0 +1,47 @@
+`resetall
+`timescale 1ns/10ps
+module buffer_bus_rec( 
+   // Port Declarations
+   input   wire            clk, 
+   input   wire    [31:0]  data_tra_in,   
+   input   wire    [31:0]  data_tra_in_update, 
+   input   wire            buffer_en,     // enable signal
+   input   wire            buffer_set,
+   input   wire            rst, 
+   output  wire            priority_sig,          //
+   output  wire    [31:0]  data_tra_out   // Output data to be written on the CAN bus
+);
+
+// Internal Declarations
+reg [31:0] data_tra_reg;
+reg priority_sig_reg;
+// Triplication assignment
+wire [31:0] data_tra_regVoted = data_tra_reg;
+assign  priority_sig = priority_sig_reg;
+always@(posedge clk or negedge rst)
+begin 
+ if(!rst)
+  begin
+    data_tra_reg <= 32'd0;
+    priority_sig_reg <=0;
+  end
+ else
+  if(buffer_en)
+  begin
+      data_tra_reg <= data_tra_in;
+      priority_sig_reg <=1;
+    end
+  if(buffer_set)
+  begin
+      data_tra_reg <= data_tra_in_update;
+      priority_sig_reg <=1;
+    end
+    
+  else
+  begin 
+   data_tra_reg <= data_tra_regVoted;
+   priority_sig_reg <=0;
+ end
+end 
+assign data_tra_out = data_tra_regVoted;
+endmodule
