@@ -22,7 +22,7 @@ module dec1_Nbit (
 );
   reg   [31:0]  output_bus_reg = 32'd0;
   wire [31:0] data_rec_regVoted = output_bus_reg;
-always@(posedge clk or negedge rst)
+always@(posedge clk)
 begin 
  if(!rst)
   begin

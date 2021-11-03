@@ -22,7 +22,7 @@ module binary_counter#(
   reg [ADDRESS_WIDTH-1:0] c_out;
   input c_rst,c_clk,en;
   
-  always @(posedge c_clk or posedge c_rst) 
+  always @(posedge c_clk)// or posedge c_rst) 
   if (c_rst)
   c_out <= 0;
   else if(en)  

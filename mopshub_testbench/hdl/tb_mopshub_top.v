@@ -94,7 +94,8 @@ module tb_mopshub_top();
   assign start_trim_osc   = mopshub0.start_trim_ack;
   assign power_bus_en     = mopshub0.power_bus_en;
   assign power_bus_cnt    = mopshub0.power_bus_cnt;  
-  
+  assign irq_elink_tra    = mopshub0.irq_elink_tra;
+  assign irq_elink_rec    = mopshub0.irq_elink_rec;
   assign data_tra_emulator_out  = data_generator0.data_tra_76bit_reg;
   assign data_rec_emulator_in   = data_generator0.data_rec_76bit_reg;
   assign ready_osc              = data_generator0.ready_osc;
@@ -108,10 +109,7 @@ module tb_mopshub_top();
   .clk_80(clk_80),
   .reset(!rst),  
   .osc_auto_trim_mopshub(osc_auto_trim_mopshub),                     
-  .end_cnt_dbg(1'b0),
-  .can_tra_select_dbg(can_tra_select_dbg),              
-  .irq_elink_rec(irq_elink_rec),
-  .irq_elink_tra(irq_elink_tra), 
+  .end_cnt_dbg(1'b0),             
   .tx_elink2bit(tx_mopshub_2bit),
   .tx_elink1bit(tx_mopshub_1bit),
   .rx_elink1bit(rx_mopshub_1bit),

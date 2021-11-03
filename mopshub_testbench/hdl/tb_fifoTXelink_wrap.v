@@ -34,7 +34,7 @@ module tb_fifo_TXelink_wrap;
   .wr_en          (wr_en)
   );  
   
-  fifo_TXelink_wrap TXelink_wrap( 
+  fifo_TXelink_wrap_old TXelink_wrap( 
   .din            ({delimeter,GEN_EDATA_8bit}), 
   .flush_fifo     (rst), 
   .rd_clk         (bitCLKx4), 
