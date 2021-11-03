@@ -6,7 +6,7 @@ module tb_mopshub_top();
   wire             clk_80;
   reg             rst   = 1'b1;
   wire            rst_mops_dbg;
-  reg             sel_bus = 1'b1;
+  reg             sel_bus = 1'b0;
   reg     [4:0]   can_tra_select_dbg =5'd1;
   wire            sign_on_sig;
   reg             start_data_gen= 1'b0;
@@ -109,7 +109,9 @@ module tb_mopshub_top();
   .clk_80(clk_80),
   .reset(!rst),  
   .osc_auto_trim_mopshub(osc_auto_trim_mopshub),                     
-  .end_cnt_dbg(1'b0),             
+  .end_cnt_dbg(1'b0),   
+  .reverse_stream_10b_tx(1'b1),
+  .reverse_stream_10b_rx(1'b0),          
   .tx_elink2bit(tx_mopshub_2bit),
   .tx_elink1bit(tx_mopshub_1bit),
   .rx_elink1bit(rx_mopshub_1bit),
@@ -238,7 +240,7 @@ module tb_mopshub_top();
         if(sign_on_sig ==1)//start Rx test
     begin
       start_data_gen =1'b0;
-      test_rx =1'b1;
+      test_tx =1'b1;
     end
     if(test_rx_end ==1)//Done Rx test
     begin

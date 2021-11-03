@@ -181,7 +181,7 @@ module tb_mopshub_top_emulator();
   .start_write_emulator(),
   .start_read_elink(),
   .end_read_elink(),
-  //Elin.kSignals
+  //ElinkSignals
   .tx_elink1bit(rx_mopshub_1bit),
   .tx_elink2bit(rx_mopshub_2bit),
   .rx_elink1bit(tx_mopshub_1bit),
