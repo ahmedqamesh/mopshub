@@ -16,8 +16,8 @@ module top_led_test (
     output wire led
     );
 
-  reg [31:0] counter= 32'b0;;
-  reg LED_status= 1'b0;; 
+  reg [31:0] counter= 32'b0;
+  reg LED_status= 1'b0;
   assign led = LED_status;
   always @ (posedge clk) 
   if (reset)
