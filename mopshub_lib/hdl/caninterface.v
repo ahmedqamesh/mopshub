@@ -16,6 +16,7 @@ module can_interface(
    input   wire    [4:0]   can_rec_select,    
    input   wire    [4:0]   data_tra_select,   
    
+   output  wire    [5:0]   cmd,               // This is a 4 bit concatenated command of signals coming from the state machine i.e initial,read,write
    output  wire    [15:0]  write_can,     // Data written to Cankari
    output  wire    [4:0]   can_tra_select,
    output  wire    [4:0]   can_tra_comp,
@@ -32,7 +33,6 @@ wire [15:0] tra_control;
 wire [15:0] rst_irq;
 wire [15:0] gen_data;
 wire [75:0] trim_data;
-wire [5:0]  cmd;               // This is a 4 bit concatenated command of signals coming from the state machine i.e initial,read,write
 
 assign write_can    = write_can_reg;
 assign can_tra_select  =can_tra_reg;
