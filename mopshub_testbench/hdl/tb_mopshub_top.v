@@ -1,12 +1,12 @@
 `resetall
 `timescale 1ns/10ps
 module tb_mopshub_top();
-  reg              clk = 1'b0;
+  wire              clk ;//= 1'b0;
   wire             clk_40;
   wire             clk_80;
   reg             rst   = 1'b1;
   wire            rst_mops_dbg;
-  reg             sel_bus = 1'b1;
+  reg             sel_bus = 1'b0;
   reg     [4:0]   can_tra_select_dbg =5'd1;
   wire            sign_on_sig;
   reg             start_data_gen= 1'b0;
@@ -52,9 +52,8 @@ module tb_mopshub_top();
   wire    [75:0] data_rec_emulator_in;
   wire            irq_elink_tra;
   wire            irq_elink_rec;
-
+  
   // Generator signals 
-  int failures = 0;   // Number of BAD reponses from the chip  
   wire            rx0;
   wire            rx1;
   wire            rx2;
@@ -96,23 +95,21 @@ module tb_mopshub_top();
   assign data_tra_emulator_out  = data_generator0.data_tra_76bit_reg;
   assign data_rec_emulator_in   = data_generator0.data_rec_76bit_reg;
   assign ready_osc              = data_generator0.ready_osc;
-
+  
   
   mopshub_top#(
   .n_buses (5'b111),
-  .seialize_data_stream(0),
+  .seialize_data_stream(1),
   .generate_mopshub(1'b1))mopshub0(
   .clk(clk_40),
   .clk_80(clk_80),
   .reset(!rst),  
   .osc_auto_trim_mopshub(osc_auto_trim_mopshub),                     
-  .end_cnt_dbg(1'b0),   
-  .reverse_stream_10b_tx(1'b1),
-  .reverse_stream_10b_rx(1'b0),          
-  .tx_elink2bit(tx_mopshub_2bit),
+  .end_cnt_dbg(1'b0),      
+  //.tx_elink2bit(tx_mopshub_2bit),
   .tx_elink1bit(tx_mopshub_1bit),
   .rx_elink1bit(rx_mopshub_1bit),
-  .rx_elink2bit(rx_mopshub_2bit),        
+  // .rx_elink2bit(rx_mopshub_2bit),        
   .rx0(rx0),        
   .rx1(rx1),        
   .rx2(rx2),        
@@ -132,7 +129,7 @@ module tb_mopshub_top();
   
   data_generator#(
   .n_buses (5'b111),
-  .seialize_data_stream(0),
+  .seialize_data_stream(1),
   .generate_mopshub(1'b1))data_generator0(
   .clk(clk_40),
   .clk_80(clk_80),
@@ -167,8 +164,6 @@ module tb_mopshub_top();
   .sel_bus(sel_bus),
   .bus_cnt(can_tra_select_dbg),// test Bus 0
   .test_mopshub_core(1'b0),
-  .end_trim_bus(end_trim_bus),
-  .start_trim_osc(start_trim_osc),
   .osc_auto_trim_mopshub(osc_auto_trim_mopshub),
   .can_rec_select(can_rec_select),
   .bus_id(bus_id),
@@ -177,17 +172,19 @@ module tb_mopshub_top();
   .start_write_emulator(),
   .start_read_elink(),
   .end_read_elink(),
-//print activity
-.can_tra_select(can_tra_select),
-.start_init(start_init),   
-.end_init(end_init),
-.data_rec_uplink(data_rec_uplink), 
-.data_tra_downlink(data_tra_downlink), 
+  //print activity
+  .start_init(start_init),   
+  .end_init(end_init),
+  .can_tra_select(can_tra_select),
+  .data_rec_uplink(data_rec_uplink), 
+  .data_tra_downlink(data_tra_downlink), 
+  .end_trim_bus(end_trim_bus),
+  .start_trim_osc(start_trim_osc),
   //Elin.kSignals
   .tx_elink1bit(rx_mopshub_1bit),
-  .tx_elink2bit(rx_mopshub_2bit),
+  // .tx_elink2bit(rx_mopshub_2bit),
   .rx_elink1bit(tx_mopshub_1bit),
-  .rx_elink2bit(tx_mopshub_2bit),
+  // .rx_elink2bit(tx_mopshub_2bit),
   //RX-TX signals
   .rx0(rx0),        
   .rx1(rx1),        
@@ -205,9 +202,15 @@ module tb_mopshub_top();
   .tx5(tx5),
   .tx6(tx6),
   .tx7(tx7));
-  //////////****// Clock generation////////////////
-  always #1 clk = ~clk;   
-  //////////////////////////////////////////////// 
+  
+  
+  //Clock Generators and Dividers
+  clock_generator #(
+  .freq(40))
+  clock_generator0( 
+  .clk  (clk), 
+  .enable (1'b1)
+  ); 
   
   clock_divider #(28'd4)
   clock_divider4( 
@@ -225,7 +228,7 @@ module tb_mopshub_top();
   initial 
   begin
     rst = 1'b0;
-    #200
+    #10
     rst = 1'b1;
   end
   always@(posedge sign_on_sig)
@@ -236,7 +239,7 @@ module tb_mopshub_top();
     start_data_gen = 1'b0;
   end  
   /////*******Start Full SM for Data Generation ****/////
-  always@(posedge clk)
+  always@(posedge clk_40)
   begin  
     if(trim_sig_done ==1 ||done_trim_osc ==1)
     begin
@@ -258,7 +261,7 @@ module tb_mopshub_top();
   end
   
   /////******* prints bus activity ******///
-  always@(posedge clk_40 or negedge rst)
+  always@(posedge clk_40)
   if (!rst)
   begin
     info_debug_sig = "<:RESET>";
@@ -292,5 +295,5 @@ module tb_mopshub_top();
     begin 
       info_debug_sig = {""};
     end    
-end
+  end
 endmodule 

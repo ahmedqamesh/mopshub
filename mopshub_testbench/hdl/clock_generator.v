@@ -11,7 +11,7 @@
 `resetall
 `timescale 1ns/100ps
 module clock_generator#(
-  parameter freq  = 0,//in Mhz
+  parameter freq  = 40,//in Mhz
   parameter phase = 0,// in degrees
   parameter duty  = 50 // in Percentage
   )(
