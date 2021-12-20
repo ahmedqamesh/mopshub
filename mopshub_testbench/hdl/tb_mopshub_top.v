@@ -71,9 +71,9 @@ module tb_mopshub_top();
   wire            tx5;
   wire            tx6;
   wire            tx7;
-  wire [1:0] tx_mopshub_2bit; 
+  //wire [1:0] tx_mopshub_2bit; 
   wire       tx_mopshub_1bit; 
-  wire [1:0] rx_mopshub_2bit; 
+  //wire [1:0] rx_mopshub_2bit; 
   wire       rx_mopshub_1bit;
   
   //Internal assignments  
@@ -249,7 +249,7 @@ module tb_mopshub_top();
     if(sign_on_sig ==1)//start Rx test
     begin
       start_data_gen =1'b0;
-      test_rx =1'b1;
+      test_tx =1'b1;
     end
     if(test_rx_end ==1)//Done Rx test
     begin

@@ -52,7 +52,7 @@ module tb_mopshub_top();
   wire    [75:0] data_rec_emulator_in;
   wire            irq_elink_tra;
   wire            irq_elink_rec;
-
+  
   // Generator signals 
   wire            rx0;
   wire            rx1;
@@ -95,7 +95,7 @@ module tb_mopshub_top();
   assign data_tra_emulator_out  = data_generator0.data_tra_76bit_reg;
   assign data_rec_emulator_in   = data_generator0.data_rec_76bit_reg;
   assign ready_osc              = data_generator0.ready_osc;
-
+  
   
   mopshub_top#(
   .n_buses (5'b111),
@@ -109,7 +109,7 @@ module tb_mopshub_top();
   //.tx_elink2bit(tx_mopshub_2bit),
   .tx_elink1bit(tx_mopshub_1bit),
   .rx_elink1bit(rx_mopshub_1bit),
- // .rx_elink2bit(rx_mopshub_2bit),        
+  // .rx_elink2bit(rx_mopshub_2bit),        
   .rx0(rx0),        
   .rx1(rx1),        
   .rx2(rx2),        
@@ -172,19 +172,19 @@ module tb_mopshub_top();
   .start_write_emulator(),
   .start_read_elink(),
   .end_read_elink(),
-//print activity
-.start_init(start_init),   
-.end_init(end_init),
-.can_tra_select(can_tra_select),
-.data_rec_uplink(data_rec_uplink), 
-.data_tra_downlink(data_tra_downlink), 
+  //print activity
+  .start_init(start_init),   
+  .end_init(end_init),
+  .can_tra_select(can_tra_select),
+  .data_rec_uplink(data_rec_uplink), 
+  .data_tra_downlink(data_tra_downlink), 
   .end_trim_bus(end_trim_bus),
   .start_trim_osc(start_trim_osc),
   //Elin.kSignals
   .tx_elink1bit(rx_mopshub_1bit),
- // .tx_elink2bit(rx_mopshub_2bit),
+  // .tx_elink2bit(rx_mopshub_2bit),
   .rx_elink1bit(tx_mopshub_1bit),
- // .rx_elink2bit(tx_mopshub_2bit),
+  // .rx_elink2bit(tx_mopshub_2bit),
   //RX-TX signals
   .rx0(rx0),        
   .rx1(rx1),        
@@ -211,7 +211,7 @@ module tb_mopshub_top();
   .clk  (clk), 
   .enable (1'b1)
   ); 
-    
+  
   clock_divider #(28'd4)
   clock_divider4( 
   .clock_in  (clk), 
@@ -249,7 +249,7 @@ module tb_mopshub_top();
     if(sign_on_sig ==1)//start Rx test
     begin
       start_data_gen =1'b0;
-      test_rx =1'b1;
+      test_tx =1'b1;
     end
     if(test_rx_end ==1)//Done Rx test
     begin
@@ -295,5 +295,5 @@ module tb_mopshub_top();
     begin 
       info_debug_sig = {""};
     end    
-end
+  end
 endmodule 

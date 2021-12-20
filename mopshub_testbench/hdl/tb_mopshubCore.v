@@ -5,7 +5,7 @@ reg             clk = 1'b0;
 reg             rst = 1'b1;
 wire            start_init;
 wire            end_init;
-reg             sel_bus = 1'b1;
+reg             sel_bus = 1'b0;
 reg     [4:0]   can_tra_select_dbg =5'd3;
 wire            ready_osc;
 string          info_debug_sig; 
