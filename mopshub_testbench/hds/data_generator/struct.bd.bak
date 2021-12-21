@@ -80,7 +80,7 @@ mwi 0
 uid 30127,0
 )
 (Instance
-name "U_0"
+name "bit_counter0"
 duLibraryName "mopshub_lib"
 duName "bit_counter"
 elements [
@@ -178,19 +178,19 @@ value "/home/dcs/git/mopshub/mopshub_testbench/hds/data_generator"
 )
 (vvPair
 variable "date"
-value "12/16/21"
+value "12/21/21"
 )
 (vvPair
 variable "day"
-value "Thu"
+value "Tue"
 )
 (vvPair
 variable "day_long"
-value "Thursday"
+value "Tuesday"
 )
 (vvPair
 variable "dd"
-value "16"
+value "21"
 )
 (vvPair
 variable "entity_name"
@@ -218,7 +218,7 @@ value "dcs"
 )
 (vvPair
 variable "graphical_source_date"
-value "12/16/21"
+value "12/21/21"
 )
 (vvPair
 variable "graphical_source_group"
@@ -230,7 +230,7 @@ value "chipdev2.physik.uni-wuppertal.de"
 )
 (vvPair
 variable "graphical_source_time"
-value "15:20:22"
+value "11:10:03"
 )
 (vvPair
 variable "group"
@@ -350,7 +350,7 @@ value "struct"
 )
 (vvPair
 variable "time"
-value "15:20:22"
+value "11:10:03"
 )
 (vvPair
 variable "unit"
@@ -918,13 +918,9 @@ begin
       bus_id  <= 8'h20;
       data_rec_in  <=  {sdoid,56'h0, bus_id, 8'h0,16'h0}; 
     end    
-  endcase
-//  else
-//  begin 
-//      bus_id  <= bus_id;
-//      data_rec_in  <= data_rec_in; 
-//    end  
+  endcase 
 end                                            
+
 
 
 
@@ -1036,7 +1032,7 @@ fg "65535,65535,37120"
 lineColor "0,0,32768"
 lineWidth 2
 )
-xt "14000,33000,20000,42000"
+xt "14000,33000,20000,41000"
 )
 oxt "0,0,8000,10000"
 ttg (MlTextGroup
@@ -1073,7 +1069,7 @@ va (VaSet
 vasetType 1
 fg "49152,49152,49152"
 )
-xt "14250,40250,15750,41750"
+xt "14250,39250,15750,40750"
 iconName "TextFile.png"
 iconMaskName "TextFile.msk"
 ftype 21
@@ -1088,7 +1084,7 @@ n "sdoid"
 t "wire"
 b "[11:0]"
 eolc " // this is the actual ID of the CANOpen message for SDO objects"
-o 66
+o 68
 suid 25,0
 )
 declText (MLText
@@ -1146,7 +1142,7 @@ lang 5
 decl (Decl
 n "counter_en"
 t "wire"
-o 68
+o 70
 suid 46,0
 )
 declText (MLText
@@ -1181,7 +1177,7 @@ decl (Decl
 n "state_o"
 t "wire"
 b "[2:0]"
-o 69
+o 71
 suid 52,0
 )
 declText (MLText
@@ -1750,7 +1746,7 @@ lang 5
 decl (Decl
 n "clk_low"
 t "wire"
-o 71
+o 73
 suid 122,0
 )
 declText (MLText
@@ -1768,7 +1764,7 @@ decl (Decl
 n "start"
 t "wire"
 eolc "To start Driver /generator"
-o 72
+o 74
 suid 124,0
 )
 declText (MLText
@@ -1786,7 +1782,7 @@ decl (Decl
 n "read"
 t "wire"
 eolc "Prepare SDO read request"
-o 73
+o 75
 suid 125,0
 )
 declText (MLText
@@ -1804,7 +1800,7 @@ decl (Decl
 n "write"
 t "wire"
 eolc "Prepare SDO write request"
-o 74
+o 76
 suid 126,0
 )
 declText (MLText
@@ -1823,7 +1819,7 @@ n "indexsubindex"
 t "wire"
 b "[23:0]"
 eolc " // from state machine index and subindex to write and read. Index bytes are sent LSB first "
-o 75
+o 77
 suid 127,0
 )
 declText (MLText
@@ -1842,7 +1838,7 @@ n "taildata"
 t "wire"
 b "[31:0]"
 eolc "Data which must be written to the chip "
-o 76
+o 78
 suid 129,0
 )
 declText (MLText
@@ -1861,7 +1857,7 @@ n "data"
 t "wire"
 b "[63:0]"
 eolc "Complete 8 bytes of data to be sent in a custom message"
-o 77
+o 79
 suid 130,0
 )
 declText (MLText
@@ -1879,7 +1875,7 @@ decl (Decl
 n "readadc"
 t "wire"
 eolc "indicates to read an ADC channel "
-o 78
+o 80
 suid 131,0
 )
 declText (MLText
@@ -1898,7 +1894,7 @@ n "customcanid"
 t "wire"
 b "[10:0]"
 eolc "ID to be sent in a custom message"
-o 79
+o 81
 suid 132,0
 )
 declText (MLText
@@ -1916,7 +1912,7 @@ decl (Decl
 n "custommsg"
 t "wire"
 eolc "To start a custom message"
-o 80
+o 82
 suid 137,0
 )
 declText (MLText
@@ -1933,7 +1929,7 @@ lang 5
 decl (Decl
 n "txgen"
 t "wire"
-o 81
+o 83
 suid 138,0
 )
 declText (MLText
@@ -1952,7 +1948,7 @@ n "dlc"
 t "wire"
 b "[3:0]"
 eolc "\"1\" = wait for oscillator trimming before sign-in message "
-o 82
+o 84
 suid 139,0
 iv "4'h8"
 )
@@ -1972,7 +1968,7 @@ n "id"
 t "wire"
 b "[10:0]"
 eolc "here define the node id for the chip to communicate with "
-o 83
+o 85
 suid 151,0
 iv "11'h601"
 )
@@ -1992,7 +1988,7 @@ n "can_nodeid"
 t "reg"
 b "[6:0]"
 eolc " // Hardwired CANopen Node-ID for each DCS controller chip"
-o 84
+o 86
 suid 153,0
 iv "7'h1"
 )
@@ -2010,7 +2006,7 @@ lang 5
 decl (Decl
 n "txmops"
 t "wire"
-o 85
+o 87
 suid 163,0
 )
 declText (MLText
@@ -2027,7 +2023,7 @@ lang 5
 decl (Decl
 n "ready_osc"
 t "wire"
-o 86
+o 88
 suid 166,0
 )
 declText (MLText
@@ -2467,7 +2463,7 @@ lang 5
 decl (Decl
 n "txdec"
 t "wire"
-o 87
+o 89
 suid 185,0
 )
 declText (MLText
@@ -2904,7 +2900,7 @@ fg "65535,65535,37120"
 lineColor "0,0,32768"
 lineWidth 2
 )
-xt "-6000,38000,3000,43000"
+xt "-6000,38000,3000,42000"
 )
 oxt "0,0,8000,10000"
 ttg (MlTextGroup
@@ -2941,7 +2937,7 @@ va (VaSet
 vasetType 1
 fg "49152,49152,49152"
 )
-xt "-5750,41250,-4250,42750"
+xt "-5750,40250,-4250,41750"
 iconName "TextFile.png"
 iconMaskName "TextFile.msk"
 ftype 21
@@ -2955,7 +2951,7 @@ decl (Decl
 n "payload"
 t "reg"
 b "[31:0]"
-o 88
+o 90
 suid 203,0
 iv "32'b0"
 )
@@ -3007,7 +3003,7 @@ lang 5
 decl (Decl
 n "rxmops"
 t "wire"
-o 90
+o 92
 suid 221,0
 )
 declText (MLText
@@ -3024,7 +3020,7 @@ lang 5
 decl (Decl
 n "rxdec"
 t "wire"
-o 89
+o 91
 suid 222,0
 )
 declText (MLText
@@ -3275,7 +3271,7 @@ decl (Decl
 n "bus_loop_cnt"
 t "wire"
 b "[4:0]"
-o 65
+o 67
 suid 227,0
 )
 declText (MLText
@@ -3546,7 +3542,7 @@ decl (Decl
 n "select_bus"
 t "wire"
 b "[4:0]"
-o 91
+o 93
 suid 235,0
 )
 declText (MLText
@@ -3563,7 +3559,7 @@ lang 5
 decl (Decl
 n "rst_cnt"
 t "wire"
-o 92
+o 94
 suid 236,0
 )
 declText (MLText
@@ -3580,7 +3576,7 @@ lang 5
 decl (Decl
 n "rx_mopshub"
 t "wire"
-o 94
+o 96
 suid 239,0
 )
 declText (MLText
@@ -3900,7 +3896,7 @@ lang 5
 decl (Decl
 n "end_write_emulator"
 t "wire"
-o 95
+o 97
 suid 280,0
 )
 declText (MLText
@@ -4250,7 +4246,7 @@ decl (Decl
 n "data_rec_76bit_reg"
 t "wire"
 b "[75:0]"
-o 96
+o 98
 suid 290,0
 )
 declText (MLText
@@ -4268,7 +4264,7 @@ decl (Decl
 n "data_tra_76bit_reg"
 t "wire"
 b "[75:0]"
-o 97
+o 99
 suid 291,0
 )
 declText (MLText
@@ -4349,7 +4345,7 @@ lang 5
 decl (Decl
 n "start_read_emulator"
 t "wire"
-o 64
+o 66
 suid 293,0
 iv "1'b1"
 )
@@ -4367,7 +4363,7 @@ lang 5
 decl (Decl
 n "rst_mops_dbg"
 t "wire"
-o 98
+o 100
 suid 294,0
 )
 declText (MLText
@@ -4504,7 +4500,7 @@ lang 5
 decl (Decl
 n "rst_mops"
 t "reg"
-o 62
+o 64
 suid 295,0
 )
 declText (MLText
@@ -4601,7 +4597,7 @@ lang 5
 decl (Decl
 n "auto_trim_mops"
 t "wire"
-o 99
+o 101
 suid 300,0
 )
 declText (MLText
@@ -4742,7 +4738,7 @@ lang 5
 decl (Decl
 n "counter_gen_en"
 t "wire"
-o 67
+o 69
 suid 302,0
 )
 declText (MLText
@@ -5612,7 +5608,7 @@ decl (Decl
 n "data_rec_in"
 t "reg"
 b "[75:0]"
-o 63
+o 65
 suid 316,0
 iv "76'b0100000"
 )
@@ -5630,7 +5626,7 @@ lang 5
 decl (Decl
 n "cnt_done"
 t "reg"
-o 70
+o 72
 suid 319,0
 )
 declText (MLText
@@ -5647,7 +5643,7 @@ lang 5
 decl (Decl
 n "tx_mopshub"
 t "wire"
-o 93
+o 95
 suid 322,0
 )
 declText (MLText
@@ -9280,7 +9276,7 @@ va (VaSet
 vasetType 1
 fg "0,65535,0"
 )
-xt "32250,38625,33000,39375"
+xt "32250,40625,33000,41375"
 )
 tg (CPTG
 uid 29784,0
@@ -9291,9 +9287,9 @@ uid 29785,0
 va (VaSet
 font "courier,8,0"
 )
-xt "34000,38550,42000,39450"
+xt "34000,40550,42000,41450"
 st "end_write_elink"
-blo "34000,39250"
+blo "34000,41250"
 )
 )
 thePort (LogicalPort
@@ -9470,7 +9466,7 @@ va (VaSet
 vasetType 1
 fg "0,65535,0"
 )
-xt "32250,39625,33000,40375"
+xt "32250,41625,33000,42375"
 )
 tg (CPTG
 uid 32728,0
@@ -9481,9 +9477,9 @@ uid 32729,0
 va (VaSet
 font "courier,8,0"
 )
-xt "34000,39550,39500,40450"
+xt "34000,41550,39500,42450"
 st "enc_stream"
-blo "34000,40250"
+blo "34000,42250"
 )
 )
 thePort (LogicalPort
@@ -9594,8 +9590,7 @@ font "courier,8,0"
 )
 xt "25000,56400,55500,58200"
 st "generate_mopshub     = generate_mopshub        ( integer )  
-seialize_data_stream = seialize_data_stream    ( integer )  
-"
+seialize_data_stream = seialize_data_stream    ( integer )  "
 )
 header ""
 )
@@ -10852,7 +10847,7 @@ lang 5
 decl (Decl
 n "enc_stream"
 t "wire"
-o 100
+o 102
 suid 328,0
 iv "1"
 )
@@ -10922,7 +10917,7 @@ va (VaSet
 vasetType 1
 fg "0,65535,0"
 )
-xt "-12750,27625,-12000,28375"
+xt "-11750,27625,-11000,28375"
 )
 tg (CPTG
 uid 36340,0
@@ -10933,9 +10928,9 @@ uid 36341,0
 va (VaSet
 font "courier,8,0"
 )
-xt "-11000,27550,-7500,28450"
+xt "-10000,27550,-6500,28450"
 st "ext_rst"
-blo "-11000,28250"
+blo "-10000,28250"
 )
 )
 thePort (LogicalPort
@@ -10961,7 +10956,7 @@ va (VaSet
 vasetType 1
 fg "0,65535,0"
 )
-xt "-12750,25625,-12000,26375"
+xt "-11750,25625,-11000,26375"
 )
 tg (CPTG
 uid 36344,0
@@ -10972,9 +10967,9 @@ uid 36345,0
 va (VaSet
 font "courier,8,0"
 )
-xt "-11000,25550,-9500,26450"
+xt "-10000,25550,-8500,26450"
 st "rst"
-blo "-11000,26250"
+blo "-10000,26250"
 )
 )
 thePort (LogicalPort
@@ -10999,7 +10994,7 @@ va (VaSet
 vasetType 1
 fg "0,65535,0"
 )
-xt "2000,23625,2750,24375"
+xt "3000,23625,3750,24375"
 )
 tg (CPTG
 uid 36348,0
@@ -11010,10 +11005,10 @@ uid 36349,0
 va (VaSet
 font "courier,8,0"
 )
-xt "-12000,23550,1000,24450"
+xt "-11000,23550,2000,24450"
 st "data_out : [bit_size-1:0]"
 ju 2
-blo "1000,24250"
+blo "2000,24250"
 )
 )
 thePort (LogicalPort
@@ -11040,7 +11035,7 @@ va (VaSet
 vasetType 1
 fg "0,65535,0"
 )
-xt "-12750,24625,-12000,25375"
+xt "-11750,24625,-11000,25375"
 )
 tg (CPTG
 uid 36352,0
@@ -11051,9 +11046,9 @@ uid 36353,0
 va (VaSet
 font "courier,8,0"
 )
-xt "-11000,24550,-9500,25450"
+xt "-10000,24550,-8500,25450"
 st "clk"
-blo "-11000,25250"
+blo "-10000,25250"
 )
 )
 thePort (LogicalPort
@@ -11078,7 +11073,7 @@ va (VaSet
 vasetType 1
 fg "0,65535,0"
 )
-xt "-12750,26625,-12000,27375"
+xt "-11750,26625,-11000,27375"
 )
 tg (CPTG
 uid 36356,0
@@ -11089,9 +11084,9 @@ uid 36357,0
 va (VaSet
 font "courier,8,0"
 )
-xt "-11000,26550,-5500,27450"
+xt "-10000,26550,-4500,27450"
 st "cnt_enable"
-blo "-11000,27250"
+blo "-10000,27250"
 )
 )
 thePort (LogicalPort
@@ -11115,7 +11110,7 @@ fg "0,65535,0"
 lineColor "0,32896,0"
 lineWidth 2
 )
-xt "-12000,23000,2000,29000"
+xt "-11000,23000,3000,29000"
 )
 oxt "24000,6000,38000,16000"
 ttg (MlTextGroup
@@ -11128,9 +11123,9 @@ uid 36361,0
 va (VaSet
 font "courier,8,1"
 )
-xt "-7250,27100,-1250,28000"
+xt "-4250,25100,1750,26000"
 st "mopshub_lib"
-blo "-7250,27800"
+blo "-4250,25800"
 tm "BdLibraryNameMgr"
 )
 *327 (Text
@@ -11138,9 +11133,9 @@ uid 36362,0
 va (VaSet
 font "courier,8,1"
 )
-xt "-7250,28000,-1250,28900"
+xt "-4250,26000,1750,26900"
 st "bit_counter"
-blo "-7250,28700"
+blo "-4250,26700"
 tm "CptNameMgr"
 )
 *328 (Text
@@ -11148,9 +11143,9 @@ uid 36363,0
 va (VaSet
 font "courier,8,1"
 )
-xt "-7250,28900,-5750,29800"
-st "U_0"
-blo "-7250,29600"
+xt "-4250,26900,2250,27800"
+st "bit_counter0"
+blo "-4250,27600"
 tm "InstanceNameMgr"
 )
 ]
@@ -11165,7 +11160,7 @@ uid 36366,0
 va (VaSet
 font "courier,8,0"
 )
-xt "-12000,20200,-12000,20200"
+xt "-11000,20200,-11000,20200"
 )
 header ""
 )
@@ -11179,7 +11174,7 @@ va (VaSet
 vasetType 1
 fg "49152,49152,49152"
 )
-xt "-11750,27250,-10250,28750"
+xt "-10750,27250,-9250,28750"
 iconName "VerilogFileViewIcon.png"
 iconMaskName "VerilogFileViewIcon.msk"
 ftype 11
@@ -11419,7 +11414,7 @@ va (VaSet
 vasetType 1
 fg "0,65535,0"
 )
-xt "-36000,61625,-35250,62375"
+xt "-27000,61625,-26250,62375"
 )
 tg (CPTG
 uid 37913,0
@@ -11430,10 +11425,10 @@ uid 37914,0
 va (VaSet
 font "courier,8,0"
 )
-xt "-43500,61550,-37000,62450"
+xt "-34500,61550,-28000,62450"
 st "end_trim_bus"
 ju 2
-blo "-37000,62250"
+blo "-28000,62250"
 )
 )
 thePort (LogicalPort
@@ -11490,7 +11485,7 @@ va (VaSet
 vasetType 1
 fg "0,65535,0"
 )
-xt "-36000,59625,-35250,60375"
+xt "-27000,59625,-26250,60375"
 )
 tg (CPTG
 uid 37921,0
@@ -11501,10 +11496,10 @@ uid 37922,0
 va (VaSet
 font "courier,8,0"
 )
-xt "-48000,59550,-37000,60450"
+xt "-39000,59550,-28000,60450"
 st "osc_auto_trim_mopshub"
 ju 2
-blo "-37000,60250"
+blo "-28000,60250"
 )
 )
 thePort (LogicalPort
@@ -11526,7 +11521,7 @@ va (VaSet
 vasetType 1
 fg "0,65535,0"
 )
-xt "-36000,60625,-35250,61375"
+xt "-27000,60625,-26250,61375"
 )
 tg (CPTG
 uid 37925,0
@@ -11537,10 +11532,10 @@ uid 37926,0
 va (VaSet
 font "courier,8,0"
 )
-xt "-48000,60550,-37000,61450"
+xt "-39000,60550,-28000,61450"
 st "power_bus_cnt : [4:0]"
 ju 2
-blo "-37000,61250"
+blo "-28000,61250"
 )
 )
 thePort (LogicalPort
@@ -12123,7 +12118,7 @@ va (VaSet
 vasetType 1
 fg "0,65535,0"
 )
-xt "-36000,62625,-35250,63375"
+xt "-27000,62625,-26250,63375"
 )
 tg (CPTG
 uid 38310,0
@@ -12134,10 +12129,10 @@ uid 38311,0
 va (VaSet
 font "courier,8,0"
 )
-xt "-44500,62550,-37000,63450"
+xt "-35500,62550,-28000,63450"
 st "start_trim_osc"
 ju 2
-blo "-37000,63250"
+blo "-28000,63250"
 )
 )
 thePort (LogicalPort
@@ -12194,7 +12189,7 @@ fg "0,65535,0"
 lineColor "0,32896,0"
 lineWidth 2
 )
-xt "-53000,51000,-36000,79000"
+xt "-53000,51000,-27000,79000"
 )
 oxt "0,0,8000,10000"
 ttg (MlTextGroup
@@ -12797,7 +12792,7 @@ lang 5
 decl (Decl
 n "start_trim_osc"
 t "wire"
-o 101
+o 62
 suid 381,0
 )
 declText (MLText
@@ -12860,7 +12855,7 @@ decl (Decl
 n "can_rec_select"
 t "wire"
 b "[4:0]"
-o 102
+o 63
 suid 382,0
 )
 declText (MLText
@@ -13378,10 +13373,10 @@ uid 2256,0
 va (VaSet
 vasetType 3
 )
-xt "-20000,27000,-12750,27000"
+xt "-20000,27000,-11750,27000"
 pts [
 "-20000,27000"
-"-12750,27000"
+"-11750,27000"
 ]
 )
 start &123
@@ -13400,9 +13395,9 @@ uid 2262,0
 va (VaSet
 font "courier,8,0"
 )
-xt "-18000,26100,-12500,27000"
+xt "-17000,26100,-11500,27000"
 st "counter_en"
-blo "-18000,26800"
+blo "-17000,26800"
 tm "WireNameMgr"
 )
 )
@@ -13453,10 +13448,10 @@ uid 2362,0
 va (VaSet
 vasetType 3
 )
-xt "-17000,25000,-12750,25000"
+xt "-16000,25000,-11750,25000"
 pts [
-"-17000,25000"
-"-12750,25000"
+"-16000,25000"
+"-11750,25000"
 ]
 )
 end &324
@@ -13475,9 +13470,9 @@ uid 2366,0
 va (VaSet
 font "courier,8,0"
 )
-xt "-15000,24100,-13500,25000"
+xt "-14000,24100,-12500,25000"
 st "clk"
-blo "-15000,24800"
+blo "-14000,24800"
 tm "WireNameMgr"
 )
 )
@@ -15497,7 +15492,7 @@ uid 13032,0
 va (VaSet
 vasetType 1
 )
-xt "8600,23600,9400,24400"
+xt "11600,23600,12400,24400"
 radius 400
 )
 )
@@ -15508,12 +15503,12 @@ va (VaSet
 vasetType 3
 lineWidth 2
 )
-xt "2750,24000,9000,33000"
+xt "3000,24000,12000,33000"
 pts [
 "3000,33000"
-"9000,33000"
-"9000,24000"
-"2750,24000"
+"12000,33000"
+"12000,24000"
+"3750,24000"
 ]
 )
 start &23
@@ -15629,10 +15624,10 @@ va (VaSet
 vasetType 3
 lineWidth 2
 )
-xt "9000,21000,14000,24000"
+xt "12000,21000,14000,24000"
 pts [
-"9000,24000"
-"9000,21000"
+"12000,24000"
+"12000,21000"
 "14000,21000"
 ]
 )
@@ -15655,9 +15650,9 @@ ro 270
 va (VaSet
 font "courier,8,0"
 )
-xt "8100,24500,9000,31000"
+xt "11100,24500,12000,31000"
 st "bus_loop_cnt"
-blo "8800,31000"
+blo "11800,31000"
 tm "WireNameMgr"
 )
 )
@@ -15829,12 +15824,12 @@ uid 13036,0
 va (VaSet
 vasetType 3
 )
-xt "-26250,28000,-12750,30000"
+xt "-26250,28000,-11750,30000"
 pts [
 "-26250,30000"
 "-16000,30000"
 "-16000,28000"
-"-12750,28000"
+"-11750,28000"
 ]
 )
 start &196
@@ -16333,12 +16328,12 @@ uid 17534,0
 va (VaSet
 vasetType 3
 )
-xt "-26250,39000,32250,44000"
+xt "-26250,41000,32250,44000"
 pts [
 "-26250,44000"
 "23000,44000"
-"23000,39000"
-"32250,39000"
+"23000,41000"
+"32250,41000"
 ]
 )
 start &202
@@ -16833,10 +16828,10 @@ uid 21390,0
 va (VaSet
 vasetType 3
 )
-xt "-17000,26000,-12750,26000"
+xt "-16000,26000,-11750,26000"
 pts [
-"-17000,26000"
-"-12750,26000"
+"-16000,26000"
+"-11750,26000"
 ]
 )
 end &322
@@ -16854,9 +16849,9 @@ uid 21394,0
 va (VaSet
 font "courier,8,0"
 )
-xt "-15000,25100,-13500,26000"
+xt "-14000,25100,-12500,26000"
 st "rst"
-blo "-15000,25800"
+blo "-14000,25800"
 tm "WireNameMgr"
 )
 )
@@ -17839,10 +17834,10 @@ uid 32733,0
 va (VaSet
 vasetType 3
 )
-xt "25000,40000,32250,40000"
+xt "25000,42000,32250,42000"
 pts [
-"25000,40000"
-"32250,40000"
+"25000,42000"
+"32250,42000"
 ]
 )
 end &277
@@ -17859,9 +17854,9 @@ uid 32737,0
 va (VaSet
 font "courier,8,0"
 )
-xt "26000,39100,31500,40000"
+xt "26000,41100,31500,42000"
 st "enc_stream"
-blo "26000,39800"
+blo "26000,41800"
 tm "WireNameMgr"
 )
 )
@@ -18778,10 +18773,11 @@ uid 38012,0
 va (VaSet
 vasetType 3
 )
-xt "-35250,62000,-22000,62000"
+xt "-26250,62000,-22000,62000"
 pts [
 "-22000,62000"
-"-35250,62000"
+"-24000,62000"
+"-26250,62000"
 ]
 )
 start &375
@@ -18802,9 +18798,9 @@ va (VaSet
 isHidden 1
 font "courier,8,0"
 )
-xt "-34000,61100,-27500,62000"
+xt "-27000,61100,-20500,62000"
 st "end_trim_bus"
-blo "-34000,61800"
+blo "-27000,61800"
 tm "WireNameMgr"
 )
 )
@@ -18817,10 +18813,11 @@ uid 38020,0
 va (VaSet
 vasetType 3
 )
-xt "-35250,60000,-22000,60000"
+xt "-26250,60000,-22000,60000"
 pts [
 "-22000,60000"
-"-35250,60000"
+"-24000,60000"
+"-26250,60000"
 ]
 )
 start &376
@@ -18841,9 +18838,9 @@ va (VaSet
 isHidden 1
 font "courier,8,0"
 )
-xt "-34000,59100,-23000,60000"
+xt "-29000,59100,-18000,60000"
 st "osc_auto_trim_mopshub"
-blo "-34000,59800"
+blo "-29000,59800"
 tm "WireNameMgr"
 )
 )
@@ -18857,10 +18854,11 @@ va (VaSet
 vasetType 3
 lineWidth 2
 )
-xt "-35250,61000,-22000,61000"
+xt "-26250,61000,-22000,61000"
 pts [
 "-22000,61000"
-"-35250,61000"
+"-24000,61000"
+"-26250,61000"
 ]
 )
 start &377
@@ -18882,9 +18880,9 @@ va (VaSet
 isHidden 1
 font "courier,8,0"
 )
-xt "-34000,60100,-27000,61000"
+xt "-27000,60100,-20000,61000"
 st "power_bus_cnt"
-blo "-34000,60800"
+blo "-27000,60800"
 tm "WireNameMgr"
 )
 )
@@ -18897,10 +18895,11 @@ uid 38315,0
 va (VaSet
 vasetType 3
 )
-xt "-35250,63000,-22000,63000"
+xt "-26250,63000,-22000,63000"
 pts [
 "-22000,63000"
-"-35250,63000"
+"-24000,63000"
+"-26250,63000"
 ]
 )
 start &379
@@ -18921,9 +18920,9 @@ va (VaSet
 isHidden 1
 font "courier,8,0"
 )
-xt "-30000,62100,-22500,63000"
+xt "-28000,62100,-20500,63000"
 st "start_trim_osc"
-blo "-30000,62800"
+blo "-28000,62800"
 tm "WireNameMgr"
 )
 )
@@ -19478,12 +19477,12 @@ tm "BdCompilerDirectivesTextMgr"
 ]
 associable 1
 )
-windowSize "-8,13,1928,1088"
-viewArea "-49300,34228,74036,99316"
+windowSize "2149,5,4083,1085"
+viewArea "-63400,23800,64925,91975"
 cachedDiagramExtent "-80400,-22000,68500,79000"
 hasePageBreakOrigin 1
 pageBreakOrigin "-138000,-51000"
-lastUid 40357,0
+lastUid 40863,0
 defaultCommentText (CommentText
 shape (Rectangle
 layer 0
@@ -20599,7 +20598,7 @@ n "sdoid"
 t "wire"
 b "[11:0]"
 eolc " // this is the actual ID of the CANOpen message for SDO objects"
-o 66
+o 68
 suid 25,0
 )
 )
@@ -20638,7 +20637,7 @@ m 4
 decl (Decl
 n "counter_en"
 t "wire"
-o 68
+o 70
 suid 46,0
 )
 )
@@ -20665,7 +20664,7 @@ decl (Decl
 n "state_o"
 t "wire"
 b "[2:0]"
-o 69
+o 71
 suid 52,0
 )
 )
@@ -20756,7 +20755,7 @@ m 4
 decl (Decl
 n "clk_low"
 t "wire"
-o 71
+o 73
 suid 122,0
 )
 )
@@ -20770,7 +20769,7 @@ decl (Decl
 n "start"
 t "wire"
 eolc "To start Driver /generator"
-o 72
+o 74
 suid 124,0
 )
 )
@@ -20784,7 +20783,7 @@ decl (Decl
 n "read"
 t "wire"
 eolc "Prepare SDO read request"
-o 73
+o 75
 suid 125,0
 )
 )
@@ -20798,7 +20797,7 @@ decl (Decl
 n "write"
 t "wire"
 eolc "Prepare SDO write request"
-o 74
+o 76
 suid 126,0
 )
 )
@@ -20813,7 +20812,7 @@ n "indexsubindex"
 t "wire"
 b "[23:0]"
 eolc " // from state machine index and subindex to write and read. Index bytes are sent LSB first "
-o 75
+o 77
 suid 127,0
 )
 )
@@ -20828,7 +20827,7 @@ n "taildata"
 t "wire"
 b "[31:0]"
 eolc "Data which must be written to the chip "
-o 76
+o 78
 suid 129,0
 )
 )
@@ -20843,7 +20842,7 @@ n "data"
 t "wire"
 b "[63:0]"
 eolc "Complete 8 bytes of data to be sent in a custom message"
-o 77
+o 79
 suid 130,0
 )
 )
@@ -20857,7 +20856,7 @@ decl (Decl
 n "readadc"
 t "wire"
 eolc "indicates to read an ADC channel "
-o 78
+o 80
 suid 131,0
 )
 )
@@ -20872,7 +20871,7 @@ n "customcanid"
 t "wire"
 b "[10:0]"
 eolc "ID to be sent in a custom message"
-o 79
+o 81
 suid 132,0
 )
 )
@@ -20886,7 +20885,7 @@ decl (Decl
 n "custommsg"
 t "wire"
 eolc "To start a custom message"
-o 80
+o 82
 suid 137,0
 )
 )
@@ -20899,7 +20898,7 @@ m 4
 decl (Decl
 n "txgen"
 t "wire"
-o 81
+o 83
 suid 138,0
 )
 )
@@ -20914,7 +20913,7 @@ n "dlc"
 t "wire"
 b "[3:0]"
 eolc "\"1\" = wait for oscillator trimming before sign-in message "
-o 82
+o 84
 suid 139,0
 iv "4'h8"
 )
@@ -20931,7 +20930,7 @@ n "id"
 t "wire"
 b "[10:0]"
 eolc "here define the node id for the chip to communicate with "
-o 83
+o 85
 suid 151,0
 iv "11'h601"
 )
@@ -20947,7 +20946,7 @@ n "can_nodeid"
 t "reg"
 b "[6:0]"
 eolc " // Hardwired CANopen Node-ID for each DCS controller chip"
-o 84
+o 86
 suid 153,0
 iv "7'h1"
 )
@@ -20961,7 +20960,7 @@ m 4
 decl (Decl
 n "txmops"
 t "wire"
-o 85
+o 87
 suid 163,0
 )
 )
@@ -20974,7 +20973,7 @@ m 4
 decl (Decl
 n "ready_osc"
 t "wire"
-o 86
+o 88
 suid 166,0
 )
 )
@@ -21000,7 +20999,7 @@ m 4
 decl (Decl
 n "txdec"
 t "wire"
-o 87
+o 89
 suid 185,0
 )
 )
@@ -21014,7 +21013,7 @@ decl (Decl
 n "payload"
 t "reg"
 b "[31:0]"
-o 88
+o 90
 suid 203,0
 iv "32'b0"
 )
@@ -21054,7 +21053,7 @@ m 4
 decl (Decl
 n "rxmops"
 t "wire"
-o 90
+o 92
 suid 221,0
 )
 )
@@ -21067,7 +21066,7 @@ m 4
 decl (Decl
 n "rxdec"
 t "wire"
-o 89
+o 91
 suid 222,0
 )
 )
@@ -21117,7 +21116,7 @@ decl (Decl
 n "bus_loop_cnt"
 t "wire"
 b "[4:0]"
-o 65
+o 67
 suid 227,0
 )
 )
@@ -21183,7 +21182,7 @@ decl (Decl
 n "select_bus"
 t "wire"
 b "[4:0]"
-o 91
+o 93
 suid 235,0
 )
 )
@@ -21197,7 +21196,7 @@ m 4
 decl (Decl
 n "rst_cnt"
 t "wire"
-o 92
+o 94
 suid 236,0
 )
 )
@@ -21210,7 +21209,7 @@ m 4
 decl (Decl
 n "rx_mopshub"
 t "wire"
-o 94
+o 96
 suid 239,0
 )
 )
@@ -21312,7 +21311,7 @@ m 4
 decl (Decl
 n "end_write_emulator"
 t "wire"
-o 95
+o 97
 suid 280,0
 )
 )
@@ -21404,7 +21403,7 @@ decl (Decl
 n "data_rec_76bit_reg"
 t "wire"
 b "[75:0]"
-o 96
+o 98
 suid 290,0
 )
 )
@@ -21418,7 +21417,7 @@ decl (Decl
 n "data_tra_76bit_reg"
 t "wire"
 b "[75:0]"
-o 97
+o 99
 suid 291,0
 )
 )
@@ -21444,7 +21443,7 @@ m 4
 decl (Decl
 n "start_read_emulator"
 t "wire"
-o 64
+o 66
 suid 293,0
 iv "1'b1"
 )
@@ -21458,7 +21457,7 @@ m 4
 decl (Decl
 n "rst_mops_dbg"
 t "wire"
-o 98
+o 100
 suid 294,0
 )
 )
@@ -21471,7 +21470,7 @@ m 4
 decl (Decl
 n "rst_mops"
 t "reg"
-o 62
+o 64
 suid 295,0
 )
 )
@@ -21536,7 +21535,7 @@ m 4
 decl (Decl
 n "auto_trim_mops"
 t "wire"
-o 99
+o 101
 suid 300,0
 )
 )
@@ -21550,7 +21549,7 @@ m 4
 decl (Decl
 n "counter_gen_en"
 t "wire"
-o 67
+o 69
 suid 302,0
 )
 )
@@ -21728,7 +21727,7 @@ decl (Decl
 n "data_rec_in"
 t "reg"
 b "[75:0]"
-o 63
+o 65
 suid 316,0
 iv "76'b0100000"
 )
@@ -21742,7 +21741,7 @@ m 4
 decl (Decl
 n "cnt_done"
 t "reg"
-o 70
+o 72
 suid 319,0
 )
 )
@@ -21755,7 +21754,7 @@ m 4
 decl (Decl
 n "tx_mopshub"
 t "wire"
-o 93
+o 95
 suid 322,0
 )
 )
@@ -21793,7 +21792,7 @@ m 4
 decl (Decl
 n "enc_stream"
 t "wire"
-o 100
+o 102
 suid 328,0
 iv "1"
 )
@@ -21919,7 +21918,7 @@ lang 5
 decl (Decl
 n "start_trim_osc"
 t "wire"
-o 101
+o 62
 suid 381,0
 )
 )
@@ -21932,7 +21931,7 @@ decl (Decl
 n "can_rec_select"
 t "wire"
 b "[4:0]"
-o 102
+o 63
 suid 382,0
 )
 )
@@ -22003,7 +22002,7 @@ uid 74,0
 )
 *712 (MRCItem
 litem &604
-pos 61
+pos 63
 dimension 20
 uid 1012,0
 )
@@ -22021,7 +22020,7 @@ uid 1306,0
 )
 *715 (MRCItem
 litem &607
-pos 62
+pos 64
 dimension 20
 uid 2252,0
 )
@@ -22033,7 +22032,7 @@ uid 2384,0
 )
 *717 (MRCItem
 litem &609
-pos 63
+pos 65
 dimension 20
 uid 2398,0
 )
@@ -22075,97 +22074,97 @@ uid 6010,0
 )
 *724 (MRCItem
 litem &616
-pos 64
+pos 66
 dimension 20
 uid 6622,0
 )
 *725 (MRCItem
 litem &617
-pos 65
+pos 67
 dimension 20
 uid 6624,0
 )
 *726 (MRCItem
 litem &618
-pos 66
+pos 68
 dimension 20
 uid 6626,0
 )
 *727 (MRCItem
 litem &619
-pos 67
+pos 69
 dimension 20
 uid 6628,0
 )
 *728 (MRCItem
 litem &620
-pos 68
+pos 70
 dimension 20
 uid 6630,0
 )
 *729 (MRCItem
 litem &621
-pos 69
+pos 71
 dimension 20
 uid 6632,0
 )
 *730 (MRCItem
 litem &622
-pos 70
+pos 72
 dimension 20
 uid 6634,0
 )
 *731 (MRCItem
 litem &623
-pos 71
+pos 73
 dimension 20
 uid 6636,0
 )
 *732 (MRCItem
 litem &624
-pos 72
+pos 74
 dimension 20
 uid 6638,0
 )
 *733 (MRCItem
 litem &625
-pos 73
+pos 75
 dimension 20
 uid 6664,0
 )
 *734 (MRCItem
 litem &626
-pos 74
+pos 76
 dimension 20
 uid 6666,0
 )
 *735 (MRCItem
 litem &627
-pos 75
+pos 77
 dimension 20
 uid 6668,0
 )
 *736 (MRCItem
 litem &628
-pos 76
+pos 78
 dimension 20
 uid 6980,0
 )
 *737 (MRCItem
 litem &629
-pos 77
+pos 79
 dimension 20
 uid 7139,0
 )
 *738 (MRCItem
 litem &630
-pos 78
+pos 80
 dimension 20
 uid 7283,0
 )
 *739 (MRCItem
 litem &631
-pos 79
+pos 81
 dimension 20
 uid 7295,0
 )
@@ -22177,13 +22176,13 @@ uid 7520,0
 )
 *741 (MRCItem
 litem &633
-pos 80
+pos 82
 dimension 20
 uid 7873,0
 )
 *742 (MRCItem
 litem &634
-pos 81
+pos 83
 dimension 20
 uid 10529,0
 )
@@ -22201,13 +22200,13 @@ uid 11278,0
 )
 *745 (MRCItem
 litem &637
-pos 82
+pos 84
 dimension 20
 uid 11350,0
 )
 *746 (MRCItem
 litem &638
-pos 83
+pos 85
 dimension 20
 uid 11352,0
 )
@@ -22231,7 +22230,7 @@ uid 12014,0
 )
 *750 (MRCItem
 litem &642
-pos 84
+pos 86
 dimension 20
 uid 12350,0
 )
@@ -22261,19 +22260,19 @@ uid 12692,0
 )
 *755 (MRCItem
 litem &647
-pos 85
+pos 87
 dimension 20
 uid 13020,0
 )
 *756 (MRCItem
 litem &648
-pos 86
+pos 88
 dimension 20
 uid 13040,0
 )
 *757 (MRCItem
 litem &649
-pos 87
+pos 89
 dimension 20
 uid 13543,0
 )
@@ -22321,7 +22320,7 @@ uid 17341,0
 )
 *765 (MRCItem
 litem &657
-pos 88
+pos 90
 dimension 20
 uid 17556,0
 )
@@ -22363,13 +22362,13 @@ uid 18927,0
 )
 *772 (MRCItem
 litem &664
-pos 89
+pos 91
 dimension 20
 uid 19496,0
 )
 *773 (MRCItem
 litem &665
-pos 90
+pos 92
 dimension 20
 uid 19506,0
 )
@@ -22381,19 +22380,19 @@ uid 20980,0
 )
 *775 (MRCItem
 litem &667
-pos 91
+pos 93
 dimension 20
 uid 20990,0
 )
 *776 (MRCItem
 litem &668
-pos 92
+pos 94
 dimension 20
 uid 21386,0
 )
 *777 (MRCItem
 litem &669
-pos 93
+pos 95
 dimension 20
 uid 21388,0
 )
@@ -22423,13 +22422,13 @@ uid 21808,0
 )
 *782 (MRCItem
 litem &674
-pos 94
+pos 96
 dimension 20
 uid 21810,0
 )
 *783 (MRCItem
 litem &675
-pos 95
+pos 97
 dimension 20
 uid 22449,0
 )
@@ -22513,19 +22512,19 @@ uid 23819,0
 )
 *797 (MRCItem
 litem &689
-pos 96
+pos 98
 dimension 20
 uid 24046,0
 )
 *798 (MRCItem
 litem &690
-pos 97
+pos 99
 dimension 20
 uid 24062,0
 )
 *799 (MRCItem
 litem &691
-pos 98
+pos 100
 dimension 20
 uid 26258,0
 )
@@ -22543,7 +22542,7 @@ uid 32510,0
 )
 *802 (MRCItem
 litem &694
-pos 99
+pos 101
 dimension 20
 uid 32739,0
 )
@@ -22603,13 +22602,13 @@ uid 38056,0
 )
 *812 (MRCItem
 litem &704
-pos 100
+pos 61
 dimension 20
 uid 38327,0
 )
 *813 (MRCItem
 litem &705
-pos 101
+pos 62
 dimension 20
 uid 38598,0
 )

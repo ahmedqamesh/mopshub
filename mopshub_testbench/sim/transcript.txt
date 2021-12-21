@@ -1,18 +1,44 @@
 # vsim -f hds_args.tmp -foreign "hdsInit /eda/mentor/2019-20/RHELx86/HDL-DESIGNER_2019.4/resources/downstream/modelsim/ModelSim_64Bit.dll" -pli ""/eda/mentor/2019-20/RHELx86/HDL-DESIGNER_2019.4/resources/downstream/modelsim/ModelSim_64Bit.dll"" 
-# Start time: 13:51:52 on Dec 20,2021
+# Start time: 12:46:49 on Dec 21,2021
 # ** Note: (vsim-3813) Design is being optimized due to module recompilation...
 # ** Warning: (vsim-3865) Due to PLI being present, global +acc is being enabled automatically. This will cause your simulation to run very slowly. Please use vsim -no_autoacc to disable this feature. This feature is now deprecated and will be removed from future releases.
+# ** Warning: (vopt-10016) Option '-L ieee' was detected by vlog for design-unit 'tb_mopshub_top', but was not detected by vopt. The vlog option will be ignored.
+# ** Warning: (vopt-10017) vopt and vlog detected inconsistent ordering of options -L tsmcdigital_lib, -L top_lib, -L MOPSv2_lib, -L canakari, -L CANdecoder, -L ftrim, -L mopshub_lib and -L mopshub_testbench for design-unit 'tb_mopshub_top'. vopt will ignore the ordering that was given to vlog.
 # ** Warning: (vopt-10016) Option '-L ieee' was detected by vlog for design-unit 'dec32_Nbit', but was not detected by vopt. The vlog option will be ignored.
 # ** Warning: (vopt-10017) vopt and vlog detected inconsistent ordering of options -L tsmcdigital_lib, -L top_lib, -L MOPSv2_lib, -L canakari, -L CANdecoder, -L ftrim, -L mopshub_lib and -L mopshub_testbench for design-unit 'dec32_Nbit'. vopt will ignore the ordering that was given to vlog.
+# ** Warning: (vopt-10016) Option '-L ieee' was detected by vlog for design-unit 'can_bus_activity', but was not detected by vopt. The vlog option will be ignored.
+# ** Warning: (vopt-10017) vopt and vlog detected inconsistent ordering of options -L tsmcdigital_lib, -L top_lib, -L MOPSv2_lib, -L canakari, -L CANdecoder, -L ftrim, -L mopshub_lib and -L mopshub_testbench for design-unit 'can_bus_activity'. vopt will ignore the ordering that was given to vlog.
+# ** Warning: (vopt-10017) vopt and vlog detected inconsistent ordering of options -L tsmcdigital_lib, -L top_lib, -L MOPSv2_lib, -L canakari, -L CANdecoder, -L ftrim and -L mopshub_lib for design-unit 'canframegen'. vopt will ignore the ordering that was given to vlog.
+# ** Warning: (vopt-10017) vopt and vlog detected inconsistent ordering of options -L tsmcdigital_lib, -L top_lib, -L MOPSv2_lib, -L canakari, -L CANdecoder, -L ftrim and -L mopshub_lib for design-unit 'canframegen_sv_unit'. vopt will ignore the ordering that was given to vlog.
 # ** Note: (vopt-143) Recognized 1 FSM in module "can_elink_bridge_SM(fast)".
-# Loading work.tb_mopshub_core_synthesis(fast)
-# Loading mopshub_lib.mopshub_core_diff_ports(fast)
+# Loading sv_std.std
+# Loading work.tb_mopshub_top(fast)
+# Loading mopshub_lib.mopshub_top(fast)
+# Loading mopshub_lib.elink_core(fast)
 # Loading mopshub_lib.buffer_rec_elink(fast)
 # Loading mopshub_lib.buffer_tra_elink(fast)
-# Loading mopshub_lib.elink_data_gen_SM(fast)
 # Loading mopshub_lib.elink_interface_rec_SM(fast)
 # Loading mopshub_lib.elink_interface_tra_SM(fast)
+# Loading mopshub_lib.elink_to_fifo(fast)
+# Loading mopshub_lib.elink_proc_in(fast)
+# Loading mopshub_lib.elink_proc_in_dec8b10b(fast)
+# Loading mopshub_lib.bitstream_shift_register(fast)
+# Loading mopshub_lib.dec_8b10b_wrap(fast)
+# Loading mopshub_lib.sync_detector(fast)
+# Loading mopshub_lib.elink_proc_in_direct(fast)
 # Loading mopshub_lib.fifo_RXelink_wrap(fast)
+# Loading mopshub_lib.fifo_to_elink(fast)
+# Loading mopshub_lib.elink_proc_out(fast)
+# Loading mopshub_lib.elink_proc_out_direct(fast)
+# Loading mopshub_lib.mux4_Nbit(fast)
+# Loading mopshub_lib.pulse_pdxx_pwxx(fast)
+# Loading mopshub_lib.triger_counter(fast)
+# Loading mopshub_lib.elink_proc_out_enc8b10b(fast)
+# Loading mopshub_lib.enc8b10b_wrap(fast)
+# Loading mopshub_lib.mux4_Nbit(fast__1)
+# Loading mopshub_lib.mux8_Nbit(fast)
+# Loading mopshub_lib.triger_counter(fast__1)
+# Loading mopshub_lib.fifo_TXelink_wrap(fast)
 # Loading mopshub_lib.mopshub_core(fast)
 # Loading mopshub_lib.bridge_controller(fast)
 # Loading mopshub_lib.bit_counter(fast)
@@ -101,7 +127,6 @@
 # Loading mopshub_lib.buffer_rec_canakari(fast)
 # Loading mopshub_lib.bus_rec_SM(fast)
 # Loading mopshub_lib.dec1_Nbit(fast)
-# Loading sv_std.std
 # Loading mopshub_lib.dec32_Nbit(fast)
 # Loading mopshub_lib.demux1_1bit(fast)
 # Loading mopshub_lib.demux1_1bit(fast__1)
@@ -109,56 +134,741 @@
 # Loading mopshub_lib.node_tra_demux(fast)
 # Loading mopshub_lib.demux1_Nbit(fast)
 # Loading mopshub_lib.mux1_1bit(fast)
-# Loading mopshub_lib.output_diff_buff_clk(fast)
-# Loading work.top_led_for_synth(fast)
-# Loading work.top_led_enable_SM(fast)
-# Loading work.top_led_test(fast)
-# Loading mopshub_lib.clock_divider(fast)
+# Loading work.data_generator(fast)
+# Loading CANdecoder.CANbus_decoder(fast)
+# Loading CANdecoder.CANAkari_interfacedec(fast)
+# Loading CANdecoder.caninterfacedec(fast)
+# Loading CANdecoder.idcompdec(fast)
+# Loading CANdecoder.interfaceSMdec(fast)
+# Loading CANdecoder.bridgeSMdec(fast)
+# Loading CANdecoder.initialize_blockdec(fast)
+# Loading CANdecoder.rec_mes_bufdec(fast)
+# Loading CANdecoder.timoutrstdec(fast)
+# Loading work.can_bus_activity(fast)
+# Loading work.can_net_decoder(fast)
+# Loading work.mops_top_level(fast)
+# Loading CANdecoder.adcdumdata(fast)
+# Loading MOPSv2_lib.top_level(fast)
+# Loading MOPSv2_lib.clkbuffer(fast)
+# Loading MOPSv2_lib.global_resetgen(fast)
+# Loading MOPSv2_lib.delay_cell(fast)
+# Loading MOPSv2_lib.bridge_controller_top(fast)
+# Loading MOPSv2_lib.ADCinterface(fast)
+# Loading MOPSv2_lib.ADCfsm(fast)
+# Loading MOPSv2_lib.adcsel(fast)
+# Loading MOPSv2_lib.CANAkari_interface(fast)
+# Loading MOPSv2_lib.caninterface(fast)
+# Loading MOPSv2_lib.idcomp(fast)
+# Loading MOPSv2_lib.interfaceSM(fast)
+# Loading MOPSv2_lib.bridgeSM(fast)
+# Loading MOPSv2_lib.canopen_block(fast)
+# Loading MOPSv2_lib.ODfsm(fast)
+# Loading MOPSv2_lib.abortcodes(fast)
+# Loading MOPSv2_lib.msgdecode(fast)
+# Loading MOPSv2_lib.odinterface(fast)
+# Loading MOPSv2_lib.count2reload(fast)
+# Loading MOPSv2_lib.ftrim_sel(fast)
+# Loading MOPSv2_lib.od(fast)
+# Loading MOPSv2_lib.OD_MUX(fast)
+# Loading MOPSv2_lib.OD_buf(fast)
+# Loading MOPSv2_lib.OD_control(fast)
+# Loading MOPSv2_lib.rec_mes_buf(fast)
+# Loading MOPSv2_lib.timoutrst(fast)
+# Loading MOPSv2_lib.tra_mes_buf(fast)
+# Loading top_lib.canframegen_sv_unit(fast)
+# Loading top_lib.canframegen(fast)
+# Loading mopshub_lib.clk_div(fast)
+# Loading work.data_generator_SM(fast)
+# Loading work.mopshub_decoder(fast)
+# Loading mopshub_lib.elink_core(fast__1)
+# Loading mopshub_lib.elink_to_fifo(fast__1)
+# Loading mopshub_lib.elink_proc_in(fast__1)
+# Loading mopshub_lib.elink_proc_in_dec8b10b(fast__1)
+# Loading mopshub_lib.sync_detector(fast__1)
 # Loading work.clock_generator(fast)
+# Loading mopshub_lib.clock_divider(fast)
+# Loading mopshub_lib.clock_divider(fast__1)
+# Loading std.standard
+# Loading std.textio(body)
+# Loading ieee.std_logic_1164(body)
+# Loading mopshub_lib.dec_8b10b(behavioral)#1
+# Loading mopshub_lib.enc_8b10b(behavioral)#1
 # Loading /eda/mentor/2019-20/RHELx86/HDL-DESIGNER_2019.4/resources/downstream/modelsim/ModelSim_64Bit.dll
 # ** Warning: (vsim-8634) Code was not compiled with coverage options.
 add wave -position insertpoint  \
-sim:/tb_mopshub_core_synthesis/can_rec_dbg \
-sim:/tb_mopshub_core_synthesis/can_tra_dbg \
-sim:/tb_mopshub_core_synthesis/clk_100out_n \
-sim:/tb_mopshub_core_synthesis/clk_100out_p \
-sim:/tb_mopshub_core_synthesis/irq_elink_rec_dbg \
-sim:/tb_mopshub_core_synthesis/irq_elink_tra_dbg \
-sim:/tb_mopshub_core_synthesis/led \
-sim:/tb_mopshub_core_synthesis/rx_data_rdy \
-sim:/tb_mopshub_core_synthesis/tx0 \
-sim:/tb_mopshub_core_synthesis/tx1 \
-sim:/tb_mopshub_core_synthesis/tx2 \
-sim:/tb_mopshub_core_synthesis/tx3 \
-sim:/tb_mopshub_core_synthesis/tx4 \
-sim:/tb_mopshub_core_synthesis/tx5 \
-sim:/tb_mopshub_core_synthesis/tx6 \
-sim:/tb_mopshub_core_synthesis/tx7 \
-sim:/tb_mopshub_core_synthesis/tx_data_rdy \
-sim:/tb_mopshub_core_synthesis/tx_fifo_full_rdy \
-sim:/tb_mopshub_core_synthesis/clk_40 \
-sim:/tb_mopshub_core_synthesis/clk_80 \
-sim:/tb_mopshub_core_synthesis/enable \
-sim:/tb_mopshub_core_synthesis/end_cnt_dbg \
-sim:/tb_mopshub_core_synthesis/locked \
-sim:/tb_mopshub_core_synthesis/osc_auto_trim_mopshub \
-sim:/tb_mopshub_core_synthesis/reset \
-sim:/tb_mopshub_core_synthesis/rst \
-sim:/tb_mopshub_core_synthesis/rx0 \
-sim:/tb_mopshub_core_synthesis/rx1 \
-sim:/tb_mopshub_core_synthesis/rx2 \
-sim:/tb_mopshub_core_synthesis/rx3 \
-sim:/tb_mopshub_core_synthesis/rx4 \
-sim:/tb_mopshub_core_synthesis/rx5 \
-sim:/tb_mopshub_core_synthesis/rx6 \
-sim:/tb_mopshub_core_synthesis/rx7
+sim:/tb_mopshub_top/clk \
+sim:/tb_mopshub_top/clk_40 \
+sim:/tb_mopshub_top/clk_80 \
+sim:/tb_mopshub_top/rst \
+sim:/tb_mopshub_top/rst_mops_dbg \
+sim:/tb_mopshub_top/sel_bus \
+sim:/tb_mopshub_top/can_tra_select_dbg \
+sim:/tb_mopshub_top/sign_on_sig \
+sim:/tb_mopshub_top/start_data_gen \
+sim:/tb_mopshub_top/start_init \
+sim:/tb_mopshub_top/end_init \
+sim:/tb_mopshub_top/info_debug_sig \
+sim:/tb_mopshub_top/bus_dec_data \
+sim:/tb_mopshub_top/bus_id \
+sim:/tb_mopshub_top/adc_ch \
+sim:/tb_mopshub_top/osc_auto_trim \
+sim:/tb_mopshub_top/trim_sig_start \
+sim:/tb_mopshub_top/trim_sig_end \
+sim:/tb_mopshub_top/trim_sig_done \
+sim:/tb_mopshub_top/osc_auto_trim_mopshub \
+sim:/tb_mopshub_top/ready_osc \
+sim:/tb_mopshub_top/start_trim_osc \
+sim:/tb_mopshub_top/end_trim_bus \
+sim:/tb_mopshub_top/done_trim_osc \
+sim:/tb_mopshub_top/power_bus_en \
+sim:/tb_mopshub_top/power_bus_cnt \
+sim:/tb_mopshub_top/sign_in_start \
+sim:/tb_mopshub_top/sign_in_end \
+sim:/tb_mopshub_top/test_rx \
+sim:/tb_mopshub_top/test_rx_start \
+sim:/tb_mopshub_top/test_rx_end \
+sim:/tb_mopshub_top/test_tx \
+sim:/tb_mopshub_top/test_tx_start \
+sim:/tb_mopshub_top/test_tx_end \
+sim:/tb_mopshub_top/data_rec_uplink \
+sim:/tb_mopshub_top/data_tra_emulator_out \
+sim:/tb_mopshub_top/can_rec_select \
+sim:/tb_mopshub_top/data_tra_downlink \
+sim:/tb_mopshub_top/can_tra_select \
+sim:/tb_mopshub_top/data_rec_emulator_in \
+sim:/tb_mopshub_top/irq_elink_tra \
+sim:/tb_mopshub_top/irq_elink_rec \
+sim:/tb_mopshub_top/rx0 \
+sim:/tb_mopshub_top/rx1 \
+sim:/tb_mopshub_top/rx2 \
+sim:/tb_mopshub_top/rx3 \
+sim:/tb_mopshub_top/rx4 \
+sim:/tb_mopshub_top/rx5 \
+sim:/tb_mopshub_top/rx6 \
+sim:/tb_mopshub_top/rx7 \
+sim:/tb_mopshub_top/tx0 \
+sim:/tb_mopshub_top/tx1 \
+sim:/tb_mopshub_top/tx2 \
+sim:/tb_mopshub_top/tx3 \
+sim:/tb_mopshub_top/tx4 \
+sim:/tb_mopshub_top/tx5 \
+sim:/tb_mopshub_top/tx6 \
+sim:/tb_mopshub_top/tx7 \
+sim:/tb_mopshub_top/tx_mopshub_1bit \
+sim:/tb_mopshub_top/rx_mopshub_1bit \
+sim:/tb_mopshub_top/respmsg \
+sim:/tb_mopshub_top/reqmsg
 run
 # Frequncy  = 40 MHz, Period = 25.000 ns
 # clk phase = 0 deg
 # clk duty = 50 %
-# 0
-# 
 run
+# 	 initialization [BUS ID  0 ]
+# 	 initialization [BUS ID  0 ]
+# 	 initialization [BUS ID  0 ]
+# 	 initialization [BUS ID  0 ]
+# 	 initialization [BUS ID  0 ]
+# 	 initialization [BUS ID  0 ]
+# 	 initialization [BUS ID  0 ]
+# 	 initialization [BUS ID  0 ]
+# 	 initialization [BUS ID  0 ]
+# 	 initialization [BUS ID  0 ]
+# 	 initialization [BUS ID  0 ]
+# 	 initialization [BUS ID  0 ]
+# 	 initialization [BUS ID  0 ]
+# 	 initialization [BUS ID  0 ]
+# 	 initialization [BUS ID  0 ]
+# 	 initialization [BUS ID  0 ]
+# 	 initialization [BUS ID  0 ]
+# 	 initialization [BUS ID  0 ]
+# 	 initialization [BUS ID  0 ]
+# 	 initialization [BUS ID  0 ]
+# 	 initialization [BUS ID  0 ]
+# 	 initialization [BUS ID  0 ]
+# 	 initialization [BUS ID  0 ]
+# 	 initialization [BUS ID  0 ]
+# 	 initialization [BUS ID  0 ]
+# 	 initialization [BUS ID  0 ]
+# 	 initialization [BUS ID  0 ]
+# 	 initialization [BUS ID  0 ]
+# 	 initialization [BUS ID  0 ]
+# 	 initialization [BUS ID  0 ]
+# 	 initialization [BUS ID  0 ]
+# 	 initialization [BUS ID  0 ]
+# 	 initialization [BUS ID  0 ]
+# 	 initialization [BUS ID  0 ]
+# 	 initialization [BUS ID  0 ]
+# 	 initialization [BUS ID  0 ]
+# 	 initialization [BUS ID  0 ]
+# 	 initialization [BUS ID  0 ]
+# 	 initialization [BUS ID  0 ]
+# 	 initialization [BUS ID  0 ]
+# 	 initialization [BUS ID  0 ]
+# 	 initialization [BUS ID  0 ]
+# 	 initialization [BUS ID  0 ]
+# 	 initialization [BUS ID  0 ]
+# 	 initialization [BUS ID  0 ]
+# 	 initialization [BUS ID  0 ]
+# 	 initialization [BUS ID  0 ]
+# 	 initialization [BUS ID  0 ]
+# 	 initialization [BUS ID  0 ]
+# 	 initialization [BUS ID  0 ]
+# 	 initialization [BUS ID  0 ]
+# 	 initialization [BUS ID  0 ]
+# 	 initialization [BUS ID  0 ]
+# 	 initialization [BUS ID  0 ]
+# 	 initialization [BUS ID  0 ]
+# 	 initialization [BUS ID  0 ]
+# 	 initialization [BUS ID  0 ]
+# 	 initialization [BUS ID  0 ]
+# 	 initialization [BUS ID  0 ]
+# 	 initialization [BUS ID  0 ]
+# 	 initialization [BUS ID  0 ]
+# 	 initialization [BUS ID  0 ]
+# 	 initialization [BUS ID  0 ]
+# 	 initialization [BUS ID  0 ]
+# 	 initialization [BUS ID  0 ]
+# 	 initialization [BUS ID  0 ]
+# 	 initialization [BUS ID  0 ]
+# 	 initialization [BUS ID  0 ]
+# 	 initialization [BUS ID  0 ]
+# 	 initialization [BUS ID  0 ]
+# 	 initialization [BUS ID  1 ]
+# 	 initialization [BUS ID  1 ]
+# 	 initialization [BUS ID  1 ]
+# 	 initialization [BUS ID  1 ]
+# 	 initialization [BUS ID  1 ]
+# 	 initialization [BUS ID  1 ]
+# 	 initialization [BUS ID  1 ]
+# 	 initialization [BUS ID  1 ]
+# 	 initialization [BUS ID  1 ]
+# 	 initialization [BUS ID  1 ]
+# 	 initialization [BUS ID  1 ]
+# 	 initialization [BUS ID  1 ]
+# 	 initialization [BUS ID  1 ]
+# 	 initialization [BUS ID  1 ]
+# 	 initialization [BUS ID  1 ]
+# 	 initialization [BUS ID  1 ]
+# 	 initialization [BUS ID  1 ]
+# 	 initialization [BUS ID  1 ]
+# 	 initialization [BUS ID  1 ]
+# 	 initialization [BUS ID  1 ]
+# 	 initialization [BUS ID  1 ]
+# 	 initialization [BUS ID  1 ]
+# 	 initialization [BUS ID  1 ]
+# 	 initialization [BUS ID  1 ]
+# 	 initialization [BUS ID  1 ]
+# 	 initialization [BUS ID  1 ]
+# 	 initialization [BUS ID  1 ]
+# 	 initialization [BUS ID  1 ]
+# 	 initialization [BUS ID  1 ]
+# 	 initialization [BUS ID  1 ]
+# 	 initialization [BUS ID  1 ]
+# 	 initialization [BUS ID  1 ]
+# 	 initialization [BUS ID  1 ]
+# 	 initialization [BUS ID  1 ]
+# 	 initialization [BUS ID  1 ]
+# 	 initialization [BUS ID  1 ]
+# 	 initialization [BUS ID  1 ]
+# 	 initialization [BUS ID  1 ]
+# 	 initialization [BUS ID  1 ]
+# 	 initialization [BUS ID  1 ]
+# 	 initialization [BUS ID  1 ]
+# 	 initialization [BUS ID  1 ]
+# 	 initialization [BUS ID  1 ]
+# 	 initialization [BUS ID  1 ]
+# 	 initialization [BUS ID  1 ]
+# 	 initialization [BUS ID  1 ]
+# 	 initialization [BUS ID  1 ]
+# 	 initialization [BUS ID  1 ]
+# 	 initialization [BUS ID  1 ]
+# 	 initialization [BUS ID  1 ]
+# 	 initialization [BUS ID  1 ]
+# 	 initialization [BUS ID  1 ]
+# 	 initialization [BUS ID  1 ]
+# 	 initialization [BUS ID  1 ]
+# 	 initialization [BUS ID  1 ]
+# 	 initialization [BUS ID  1 ]
+# 	 initialization [BUS ID  1 ]
+# 	 initialization [BUS ID  1 ]
+# 	 initialization [BUS ID  1 ]
+# 	 initialization [BUS ID  1 ]
+# 	 initialization [BUS ID  1 ]
+# 	 initialization [BUS ID  1 ]
+# 	 initialization [BUS ID  1 ]
+# 	 initialization [BUS ID  1 ]
+# 	 initialization [BUS ID  1 ]
+# 	 initialization [BUS ID  1 ]
+# 	 initialization [BUS ID  1 ]
+# 	 initialization [BUS ID  1 ]
+# 	 initialization [BUS ID  1 ]
+# 	 initialization [BUS ID  2 ]
+# 	 initialization [BUS ID  2 ]
+# 	 initialization [BUS ID  2 ]
+# 	 initialization [BUS ID  2 ]
+# 	 initialization [BUS ID  2 ]
+# 	 initialization [BUS ID  2 ]
+# 	 initialization [BUS ID  2 ]
+# 	 initialization [BUS ID  2 ]
+# 	 initialization [BUS ID  2 ]
+# 	 initialization [BUS ID  2 ]
+# 	 initialization [BUS ID  2 ]
+# 	 initialization [BUS ID  2 ]
+# 	 initialization [BUS ID  2 ]
+# 	 initialization [BUS ID  2 ]
+# 	 initialization [BUS ID  2 ]
+# 	 initialization [BUS ID  2 ]
+# 	 initialization [BUS ID  2 ]
+# 	 initialization [BUS ID  2 ]
+# 	 initialization [BUS ID  2 ]
+# 	 initialization [BUS ID  2 ]
+# 	 initialization [BUS ID  2 ]
+# 	 initialization [BUS ID  2 ]
+# 	 initialization [BUS ID  2 ]
+# 	 initialization [BUS ID  2 ]
+# 	 initialization [BUS ID  2 ]
+# 	 initialization [BUS ID  2 ]
+# 	 initialization [BUS ID  2 ]
+# 	 initialization [BUS ID  2 ]
+# 	 initialization [BUS ID  2 ]
+# 	 initialization [BUS ID  2 ]
+# 	 initialization [BUS ID  2 ]
+# 	 initialization [BUS ID  2 ]
+# 	 initialization [BUS ID  2 ]
+# 	 initialization [BUS ID  2 ]
+# 	 initialization [BUS ID  2 ]
+# 	 initialization [BUS ID  2 ]
+# 	 initialization [BUS ID  2 ]
+# 	 initialization [BUS ID  2 ]
+# 	 initialization [BUS ID  2 ]
+# 	 initialization [BUS ID  2 ]
+# 	 initialization [BUS ID  2 ]
+# 	 initialization [BUS ID  2 ]
+# 	 initialization [BUS ID  2 ]
+# 	 initialization [BUS ID  2 ]
+# 	 initialization [BUS ID  2 ]
+# 	 initialization [BUS ID  2 ]
+# 	 initialization [BUS ID  2 ]
+# 	 initialization [BUS ID  2 ]
+# 	 initialization [BUS ID  2 ]
+# 	 initialization [BUS ID  2 ]
+# 	 initialization [BUS ID  2 ]
+# 	 initialization [BUS ID  2 ]
+# 	 initialization [BUS ID  2 ]
+# 	 initialization [BUS ID  2 ]
+# 	 initialization [BUS ID  2 ]
+# 	 initialization [BUS ID  2 ]
+# 	 initialization [BUS ID  2 ]
+# 	 initialization [BUS ID  2 ]
+# 	 initialization [BUS ID  2 ]
+# 	 initialization [BUS ID  2 ]
+# 	 initialization [BUS ID  2 ]
+# 	 initialization [BUS ID  2 ]
+# 	 initialization [BUS ID  2 ]
+# 	 initialization [BUS ID  2 ]
+# 	 initialization [BUS ID  2 ]
+# 	 initialization [BUS ID  2 ]
+# 	 initialization [BUS ID  2 ]
+# 	 initialization [BUS ID  2 ]
+# 	 initialization [BUS ID  2 ]
+# 	 initialization [BUS ID  3 ]
+# 	 initialization [BUS ID  3 ]
+# 	 initialization [BUS ID  3 ]
+# 	 initialization [BUS ID  3 ]
+# 	 initialization [BUS ID  3 ]
+# 	 initialization [BUS ID  3 ]
+# 	 initialization [BUS ID  3 ]
+# 	 initialization [BUS ID  3 ]
+# 	 initialization [BUS ID  3 ]
+# 	 initialization [BUS ID  3 ]
+# 	 initialization [BUS ID  3 ]
+# 	 initialization [BUS ID  3 ]
+# 	 initialization [BUS ID  3 ]
+# 	 initialization [BUS ID  3 ]
+# 	 initialization [BUS ID  3 ]
+# 	 initialization [BUS ID  3 ]
+# 	 initialization [BUS ID  3 ]
+# 	 initialization [BUS ID  3 ]
+# 	 initialization [BUS ID  3 ]
+# 	 initialization [BUS ID  3 ]
+# 	 initialization [BUS ID  3 ]
+# 	 initialization [BUS ID  3 ]
+# 	 initialization [BUS ID  3 ]
+# 	 initialization [BUS ID  3 ]
+# 	 initialization [BUS ID  3 ]
+# 	 initialization [BUS ID  3 ]
+# 	 initialization [BUS ID  3 ]
+# 	 initialization [BUS ID  3 ]
+# 	 initialization [BUS ID  3 ]
+# 	 initialization [BUS ID  3 ]
+# 	 initialization [BUS ID  3 ]
+# 	 initialization [BUS ID  3 ]
+# 	 initialization [BUS ID  3 ]
+# 	 initialization [BUS ID  3 ]
+# 	 initialization [BUS ID  3 ]
+# 	 initialization [BUS ID  3 ]
+# 	 initialization [BUS ID  3 ]
+# 	 initialization [BUS ID  3 ]
+# 	 initialization [BUS ID  3 ]
+# 	 initialization [BUS ID  3 ]
+# 	 initialization [BUS ID  3 ]
+# 	 initialization [BUS ID  3 ]
+# 	 initialization [BUS ID  3 ]
+# 	 initialization [BUS ID  3 ]
+# 	 initialization [BUS ID  3 ]
+# 	 initialization [BUS ID  3 ]
+# 	 initialization [BUS ID  3 ]
+# 	 initialization [BUS ID  3 ]
+# 	 initialization [BUS ID  3 ]
+# 	 initialization [BUS ID  3 ]
+# 	 initialization [BUS ID  3 ]
+# 	 initialization [BUS ID  3 ]
+# 	 initialization [BUS ID  3 ]
+# 	 initialization [BUS ID  3 ]
+# 	 initialization [BUS ID  3 ]
+# 	 initialization [BUS ID  3 ]
+# 	 initialization [BUS ID  3 ]
+# 	 initialization [BUS ID  3 ]
+# 	 initialization [BUS ID  3 ]
+# 	 initialization [BUS ID  3 ]
+# 	 initialization [BUS ID  3 ]
+# 	 initialization [BUS ID  3 ]
+# 	 initialization [BUS ID  3 ]
+# 	 initialization [BUS ID  3 ]
+# 	 initialization [BUS ID  3 ]
+# 	 initialization [BUS ID  3 ]
+# 	 initialization [BUS ID  3 ]
+# 	 initialization [BUS ID  3 ]
+# 	 initialization [BUS ID  3 ]
+# 	 initialization [BUS ID  4 ]
+# 	 initialization [BUS ID  4 ]
+# 	 initialization [BUS ID  4 ]
+# 	 initialization [BUS ID  4 ]
+# 	 initialization [BUS ID  4 ]
+# 	 initialization [BUS ID  4 ]
+# 	 initialization [BUS ID  4 ]
+# 	 initialization [BUS ID  4 ]
+# 	 initialization [BUS ID  4 ]
+# 	 initialization [BUS ID  4 ]
+# 	 initialization [BUS ID  4 ]
+# 	 initialization [BUS ID  4 ]
+# 	 initialization [BUS ID  4 ]
+# 	 initialization [BUS ID  4 ]
+# 	 initialization [BUS ID  4 ]
+# 	 initialization [BUS ID  4 ]
+# 	 initialization [BUS ID  4 ]
+# 	 initialization [BUS ID  4 ]
+# 	 initialization [BUS ID  4 ]
+# 	 initialization [BUS ID  4 ]
+# 	 initialization [BUS ID  4 ]
+# 	 initialization [BUS ID  4 ]
+# 	 initialization [BUS ID  4 ]
+# 	 initialization [BUS ID  4 ]
+# 	 initialization [BUS ID  4 ]
+# 	 initialization [BUS ID  4 ]
+# 	 initialization [BUS ID  4 ]
+# 	 initialization [BUS ID  4 ]
+# 	 initialization [BUS ID  4 ]
+# 	 initialization [BUS ID  4 ]
+# 	 initialization [BUS ID  4 ]
+# 	 initialization [BUS ID  4 ]
+# 	 initialization [BUS ID  4 ]
+# 	 initialization [BUS ID  4 ]
+# 	 initialization [BUS ID  4 ]
+# 	 initialization [BUS ID  4 ]
+# 	 initialization [BUS ID  4 ]
+# 	 initialization [BUS ID  4 ]
+# 	 initialization [BUS ID  4 ]
+# 	 initialization [BUS ID  4 ]
+# 	 initialization [BUS ID  4 ]
+# 	 initialization [BUS ID  4 ]
+# 	 initialization [BUS ID  4 ]
+# 	 initialization [BUS ID  4 ]
+# 	 initialization [BUS ID  4 ]
+# 	 initialization [BUS ID  4 ]
+# 	 initialization [BUS ID  4 ]
+# 	 initialization [BUS ID  4 ]
+# 	 initialization [BUS ID  4 ]
+# 	 initialization [BUS ID  4 ]
+# 	 initialization [BUS ID  4 ]
+# 	 initialization [BUS ID  4 ]
+# 	 initialization [BUS ID  4 ]
+# 	 initialization [BUS ID  4 ]
+# 	 initialization [BUS ID  4 ]
+# 	 initialization [BUS ID  4 ]
+# 	 initialization [BUS ID  4 ]
+# 	 initialization [BUS ID  4 ]
+# 	 initialization [BUS ID  4 ]
+# 	 initialization [BUS ID  4 ]
+# 	 initialization [BUS ID  4 ]
+# 	 initialization [BUS ID  4 ]
+# 	 initialization [BUS ID  4 ]
+# 	 initialization [BUS ID  4 ]
+# 	 initialization [BUS ID  4 ]
+# 	 initialization [BUS ID  4 ]
+# 	 initialization [BUS ID  4 ]
+# 	 initialization [BUS ID  4 ]
+# 	 initialization [BUS ID  4 ]
+# 	 initialization [BUS ID  5 ]
+# 	 initialization [BUS ID  5 ]
+# 	 initialization [BUS ID  5 ]
+# 	 initialization [BUS ID  5 ]
+# 	 initialization [BUS ID  5 ]
+# 	 initialization [BUS ID  5 ]
+# 	 initialization [BUS ID  5 ]
+# 	 initialization [BUS ID  5 ]
+# 	 initialization [BUS ID  5 ]
+# 	 initialization [BUS ID  5 ]
+# 	 initialization [BUS ID  5 ]
+# 	 initialization [BUS ID  5 ]
+# 	 initialization [BUS ID  5 ]
+# 	 initialization [BUS ID  5 ]
+# 	 initialization [BUS ID  5 ]
+# 	 initialization [BUS ID  5 ]
+# 	 initialization [BUS ID  5 ]
+# 	 initialization [BUS ID  5 ]
+# 	 initialization [BUS ID  5 ]
+# 	 initialization [BUS ID  5 ]
+# 	 initialization [BUS ID  5 ]
+# 	 initialization [BUS ID  5 ]
+# 	 initialization [BUS ID  5 ]
+# 	 initialization [BUS ID  5 ]
+# 	 initialization [BUS ID  5 ]
+# 	 initialization [BUS ID  5 ]
+# 	 initialization [BUS ID  5 ]
+# 	 initialization [BUS ID  5 ]
+# 	 initialization [BUS ID  5 ]
+# 	 initialization [BUS ID  5 ]
+# 	 initialization [BUS ID  5 ]
+# 	 initialization [BUS ID  5 ]
+# 	 initialization [BUS ID  5 ]
+# 	 initialization [BUS ID  5 ]
+# 	 initialization [BUS ID  5 ]
+# 	 initialization [BUS ID  5 ]
+# 	 initialization [BUS ID  5 ]
+# 	 initialization [BUS ID  5 ]
+# 	 initialization [BUS ID  5 ]
+# 	 initialization [BUS ID  5 ]
+# 	 initialization [BUS ID  5 ]
+# 	 initialization [BUS ID  5 ]
+# 	 initialization [BUS ID  5 ]
+# 	 initialization [BUS ID  5 ]
+# 	 initialization [BUS ID  5 ]
+# 	 initialization [BUS ID  5 ]
+# 	 initialization [BUS ID  5 ]
+# 	 initialization [BUS ID  5 ]
+# 	 initialization [BUS ID  5 ]
+# 	 initialization [BUS ID  5 ]
+# 	 initialization [BUS ID  5 ]
+# 	 initialization [BUS ID  5 ]
+# 	 initialization [BUS ID  5 ]
+# 	 initialization [BUS ID  5 ]
+# 	 initialization [BUS ID  5 ]
+# 	 initialization [BUS ID  5 ]
+# 	 initialization [BUS ID  5 ]
+# 	 initialization [BUS ID  5 ]
+# 	 initialization [BUS ID  5 ]
+# 	 initialization [BUS ID  5 ]
+# 	 initialization [BUS ID  5 ]
+# 	 initialization [BUS ID  5 ]
+# 	 initialization [BUS ID  5 ]
+# 	 initialization [BUS ID  5 ]
+# 	 initialization [BUS ID  5 ]
+# 	 initialization [BUS ID  5 ]
+# 	 initialization [BUS ID  5 ]
+# 	 initialization [BUS ID  5 ]
+# 	 initialization [BUS ID  5 ]
+# 	 initialization [BUS ID  6 ]
+# 	 initialization [BUS ID  6 ]
+# 	 initialization [BUS ID  6 ]
+# 	 initialization [BUS ID  6 ]
+# 	 initialization [BUS ID  6 ]
+# 	 initialization [BUS ID  6 ]
+# 	 initialization [BUS ID  6 ]
+# 	 initialization [BUS ID  6 ]
+# 	 initialization [BUS ID  6 ]
+# 	 initialization [BUS ID  6 ]
+# 	 initialization [BUS ID  6 ]
+# 	 initialization [BUS ID  6 ]
+# 	 initialization [BUS ID  6 ]
+# 	 initialization [BUS ID  6 ]
+# 	 initialization [BUS ID  6 ]
+# 	 initialization [BUS ID  6 ]
+# 	 initialization [BUS ID  6 ]
+# 	 initialization [BUS ID  6 ]
+# 	 initialization [BUS ID  6 ]
+# 	 initialization [BUS ID  6 ]
+# 	 initialization [BUS ID  6 ]
+# 	 initialization [BUS ID  6 ]
+# 	 initialization [BUS ID  6 ]
+# 	 initialization [BUS ID  6 ]
+# 	 initialization [BUS ID  6 ]
+# 	 initialization [BUS ID  6 ]
+# 	 initialization [BUS ID  6 ]
+# 	 initialization [BUS ID  6 ]
+# 	 initialization [BUS ID  6 ]
+# 	 initialization [BUS ID  6 ]
+# 	 initialization [BUS ID  6 ]
+# 	 initialization [BUS ID  6 ]
+# 	 initialization [BUS ID  6 ]
+# 	 initialization [BUS ID  6 ]
+# 	 initialization [BUS ID  6 ]
+# 	 initialization [BUS ID  6 ]
+# 	 initialization [BUS ID  6 ]
+# 	 initialization [BUS ID  6 ]
+# 	 initialization [BUS ID  6 ]
+# 	 initialization [BUS ID  6 ]
+# 	 initialization [BUS ID  6 ]
+# 	 initialization [BUS ID  6 ]
+# 	 initialization [BUS ID  6 ]
+# 	 initialization [BUS ID  6 ]
+# 	 initialization [BUS ID  6 ]
+# 	 initialization [BUS ID  6 ]
+# 	 initialization [BUS ID  6 ]
+# 	 initialization [BUS ID  6 ]
+# 	 initialization [BUS ID  6 ]
+# 	 initialization [BUS ID  6 ]
+# 	 initialization [BUS ID  6 ]
+# 	 initialization [BUS ID  6 ]
+# 	 initialization [BUS ID  6 ]
+# 	 initialization [BUS ID  6 ]
+# 	 initialization [BUS ID  6 ]
+# 	 initialization [BUS ID  6 ]
+# 	 initialization [BUS ID  6 ]
+# 	 initialization [BUS ID  6 ]
+# 	 initialization [BUS ID  6 ]
+# 	 initialization [BUS ID  6 ]
+# 	 initialization [BUS ID  6 ]
+# 	 initialization [BUS ID  6 ]
+# 	 initialization [BUS ID  6 ]
+# 	 initialization [BUS ID  6 ]
+# 	 initialization [BUS ID  6 ]
+# 	 initialization [BUS ID  6 ]
+# 	 initialization [BUS ID  6 ]
+# 	 initialization [BUS ID  6 ]
+# 	 initialization [BUS ID  6 ]
+# 	 initialization [BUS ID  7 ]
+# 	 initialization [BUS ID  7 ]
+# 	 initialization [BUS ID  7 ]
+# 	 initialization [BUS ID  7 ]
+# 	 initialization [BUS ID  7 ]
+# 	 initialization [BUS ID  7 ]
+# 	 initialization [BUS ID  7 ]
+# 	 initialization [BUS ID  7 ]
+# 	 initialization [BUS ID  7 ]
+# 	 initialization [BUS ID  7 ]
+# 	 initialization [BUS ID  7 ]
+# 	 initialization [BUS ID  7 ]
+# 	 initialization [BUS ID  7 ]
+# 	 initialization [BUS ID  7 ]
+# 	 initialization [BUS ID  7 ]
+# 	 initialization [BUS ID  7 ]
+# 	 initialization [BUS ID  7 ]
+# 	 initialization [BUS ID  7 ]
+# 	 initialization [BUS ID  7 ]
+# 	 initialization [BUS ID  7 ]
+# 	 initialization [BUS ID  7 ]
+# 	 initialization [BUS ID  7 ]
+# 	 initialization [BUS ID  7 ]
+# 	 initialization [BUS ID  7 ]
+# 	 initialization [BUS ID  7 ]
+# 	 initialization [BUS ID  7 ]
+# 	 initialization [BUS ID  7 ]
+# 	 initialization [BUS ID  7 ]
+# 	 initialization [BUS ID  7 ]
+# 	 initialization [BUS ID  7 ]
+# 	 initialization [BUS ID  7 ]
+# 	 initialization [BUS ID  7 ]
+# 	 initialization [BUS ID  7 ]
+# 	 initialization [BUS ID  7 ]
+# 	 initialization [BUS ID  7 ]
+# 	 initialization [BUS ID  7 ]
+# 	 initialization [BUS ID  7 ]
+# 	 initialization [BUS ID  7 ]
+# 	 initialization [BUS ID  7 ]
+# 	 initialization [BUS ID  7 ]
+# 	 initialization [BUS ID  7 ]
+# 	 initialization [BUS ID  7 ]
+# 	 initialization [BUS ID  7 ]
+# 	 initialization [BUS ID  7 ]
+# 	 initialization [BUS ID  7 ]
+# 	 initialization [BUS ID  7 ]
+# 	 initialization [BUS ID  7 ]
+# 	 initialization [BUS ID  7 ]
+# 	 initialization [BUS ID  7 ]
+# 	 initialization [BUS ID  7 ]
+# 	 initialization [BUS ID  7 ]
+# 	 initialization [BUS ID  7 ]
+# 	 initialization [BUS ID  7 ]
+# 	 initialization [BUS ID  7 ]
+# 	 initialization [BUS ID  7 ]
+# 	 initialization [BUS ID  7 ]
+# 	 initialization [BUS ID  7 ]
+# 	 initialization [BUS ID  7 ]
+# 	 initialization [BUS ID  7 ]
+# 	 initialization [BUS ID  7 ]
+# 	 initialization [BUS ID  7 ]
+# 	 initialization [BUS ID  7 ]
+# 	 initialization [BUS ID  7 ]
+# 	 initialization [BUS ID  7 ]
+# 	 initialization [BUS ID  7 ]
+# 	 initialization [BUS ID  7 ]
+# 	 initialization [BUS ID  7 ]
+# 	 initialization [BUS ID  7 ]
+# 	 initialization [BUS ID  7 ]
+# 	 initialization [BUS ID  0 ]
+# *****************************************************************************
+# 	 Sign In Message [BUS ID   0]: 	 request 0000000000000000000 	 response 7010500000000000000 	
+# *****************************************************************************
+# 	 Transmit TX signals [BUS ID   0]: 	 request 6014000240a00000000 	 response 5818000240a00020000
+# Status GOOD [BUS ID   0] - Elink Test
+# 	 Transmit TX signals [BUS ID   0]: 	 request 6014000401200000000 	 response 5818000401200020000
+# Status GOOD [BUS ID  0] - TX Test
+# 	 Transmit TX signals [BUS ID   0]: 	 request 6014000401300000000 	 response 5818000401300020000
+# Status GOOD [BUS ID  0] - TX Test
+# 	 Transmit TX signals [BUS ID   1]: 	 request 6014000240a01000000 	 response 5818000240a01020000
+# Status GOOD [BUS ID   1] - Elink Test
+# 	 Transmit TX signals [BUS ID   1]: 	 request 6014000401201000000 	 response 5818000401201020000
+# Status GOOD [BUS ID  1] - TX Test
+# 	 Transmit TX signals [BUS ID   1]: 	 request 6014000401301000000 	 response 5818000401301020000
+# Status GOOD [BUS ID  1] - TX Test
+# 	 Transmit TX signals [BUS ID   2]: 	 request 6014000240a02000000 	 response 5818000240a02020000
+# Status GOOD [BUS ID   2] - Elink Test
+# 	 Transmit TX signals [BUS ID   2]: 	 request 6014000401202000000 	 response 5818000401202020000
+# Status GOOD [BUS ID  2] - TX Test
+# 	 Transmit TX signals [BUS ID   2]: 	 request 6014000401302000000 	 response 5818000401302020000
+# Status GOOD [BUS ID  2] - TX Test
+# 	 Transmit TX signals [BUS ID   3]: 	 request 6014000240a03000000 	 response 5818000240a03020000
+# Status GOOD [BUS ID   3] - Elink Test
+# 	 Transmit TX signals [BUS ID   3]: 	 request 6014000401203000000 	 response 5818000401203020000
+# Status GOOD [BUS ID  3] - TX Test
+# 	 Transmit TX signals [BUS ID   3]: 	 request 6014000401303000000 	 response 5818000401303020000
+# Status GOOD [BUS ID  3] - TX Test
+# 	 Transmit TX signals [BUS ID   4]: 	 request 6014000240a04000000 	 response 5818000240a04020000
+# Status GOOD [BUS ID   4] - Elink Test
+# 	 Transmit TX signals [BUS ID   4]: 	 request 6014000401204000000 	 response 5818000401204020000
+# Status GOOD [BUS ID  4] - TX Test
+# 	 Transmit TX signals [BUS ID   4]: 	 request 6014000401304000000 	 response 5818000401304020000
+# Status GOOD [BUS ID  4] - TX Test
+# 	 Transmit TX signals [BUS ID   5]: 	 request 6014000240a05000000 	 response 5818000240a05020000
+# Status GOOD [BUS ID   5] - Elink Test
+# 	 Transmit TX signals [BUS ID   5]: 	 request 6014000401205000000 	 response 5818000401205020000
+# Status GOOD [BUS ID  5] - TX Test
+# 	 Transmit TX signals [BUS ID   5]: 	 request 6014000401305000000 	 response 5818000401305020000
+# Status GOOD [BUS ID  5] - TX Test
+# 	 Transmit TX signals [BUS ID   6]: 	 request 6014000240a06000000 	 response 5818000240a06020000
+# Status GOOD [BUS ID   6] - Elink Test
+# 	 Transmit TX signals [BUS ID   6]: 	 request 6014000401206000000 	 response 5818000401206020000
+# Status GOOD [BUS ID  6] - TX Test
+# 	 Transmit TX signals [BUS ID   6]: 	 request 6014000401306000000 	 response 5818000401306020000
+# Status GOOD [BUS ID  6] - TX Test
+# 	 Transmit TX signals [BUS ID   7]: 	 request 6014000240a07000000 	 response 5818000240a07020000
+# Status GOOD [BUS ID   7] - Elink Test
+# 	 Transmit TX signals [BUS ID   7]: 	 request 6014000401207000000 	 response 5818000401207020000
+# Status GOOD [BUS ID  7] - TX Test
+# 	 Transmit TX signals [BUS ID   7]: 	 request 6014000401307000000 	 response 5818000401307020000
+# Status GOOD [BUS ID  7] - TX Test
+# *****************************************************************************
 # 0
 # 
 # hds_restart
@@ -166,19 +876,45 @@ restart -force
 # ** Note: (vsim-12125) Error and warning message counts have been reset to '0' because of 'restart'.
 # ** Note: (vsim-3813) Design is being optimized due to module recompilation...
 # ** Warning: (vsim-3865) Due to PLI being present, global +acc is being enabled automatically. This will cause your simulation to run very slowly. Please use vsim -no_autoacc to disable this feature. This feature is now deprecated and will be removed from future releases.
+# ** Warning: (vopt-10016) Option '-L ieee' was detected by vlog for design-unit 'tb_mopshub_top', but was not detected by vopt. The vlog option will be ignored.
+# ** Warning: (vopt-10017) vopt and vlog detected inconsistent ordering of options -L tsmcdigital_lib, -L top_lib, -L MOPSv2_lib, -L canakari, -L CANdecoder, -L ftrim, -L mopshub_lib and -L mopshub_testbench for design-unit 'tb_mopshub_top'. vopt will ignore the ordering that was given to vlog.
 # ** Warning: (vopt-10016) Option '-L ieee' was detected by vlog for design-unit 'dec32_Nbit', but was not detected by vopt. The vlog option will be ignored.
 # ** Warning: (vopt-10017) vopt and vlog detected inconsistent ordering of options -L tsmcdigital_lib, -L top_lib, -L MOPSv2_lib, -L canakari, -L CANdecoder, -L ftrim, -L mopshub_lib and -L mopshub_testbench for design-unit 'dec32_Nbit'. vopt will ignore the ordering that was given to vlog.
-# ** Warning: /home/dcs/git/mopshub/mopshub_lib/hdl/bridge_controller_struct.v(246): (vopt-2685) [TFMPC] - Too few port connections for 'initialize_block0'.  Expected 4, found 2.
-# ** Warning: /home/dcs/git/mopshub/mopshub_lib/hdl/bridge_controller_struct.v(246): (vopt-2718) [TFMPC] - Missing connection for port 'nodeid'.
-# ** Warning: /home/dcs/git/mopshub/mopshub_lib/hdl/bridge_controller_struct.v(246): (vopt-2718) [TFMPC] - Missing connection for port 'data_config'.
-# Loading work.tb_mopshub_core_synthesis(fast)
-# Loading mopshub_lib.mopshub_core_diff_ports(fast)
+# ** Warning: (vopt-10016) Option '-L ieee' was detected by vlog for design-unit 'can_bus_activity', but was not detected by vopt. The vlog option will be ignored.
+# ** Warning: (vopt-10017) vopt and vlog detected inconsistent ordering of options -L tsmcdigital_lib, -L top_lib, -L MOPSv2_lib, -L canakari, -L CANdecoder, -L ftrim, -L mopshub_lib and -L mopshub_testbench for design-unit 'can_bus_activity'. vopt will ignore the ordering that was given to vlog.
+# ** Warning: (vopt-10017) vopt and vlog detected inconsistent ordering of options -L tsmcdigital_lib, -L top_lib, -L MOPSv2_lib, -L canakari, -L CANdecoder, -L ftrim and -L mopshub_lib for design-unit 'canframegen'. vopt will ignore the ordering that was given to vlog.
+# ** Warning: (vopt-10017) vopt and vlog detected inconsistent ordering of options -L tsmcdigital_lib, -L top_lib, -L MOPSv2_lib, -L canakari, -L CANdecoder, -L ftrim and -L mopshub_lib for design-unit 'canframegen_sv_unit'. vopt will ignore the ordering that was given to vlog.
+# ** Warning: /home/dcs/git/mopshub/mopshub_lib/hdl/bridge_controller_struct.v(242): (vopt-2685) [TFMPC] - Too few port connections for 'initialize_block0'.  Expected 4, found 2.
+# ** Warning: /home/dcs/git/mopshub/mopshub_lib/hdl/bridge_controller_struct.v(242): (vopt-2718) [TFMPC] - Missing connection for port 'nodeid'.
+# ** Warning: /home/dcs/git/mopshub/mopshub_lib/hdl/bridge_controller_struct.v(242): (vopt-2718) [TFMPC] - Missing connection for port 'data_config'.
+# Loading sv_std.std
+# Loading work.tb_mopshub_top(fast)
+# Loading mopshub_lib.mopshub_top(fast)
+# Loading mopshub_lib.elink_core(fast)
 # Loading mopshub_lib.buffer_rec_elink(fast)
 # Loading mopshub_lib.buffer_tra_elink(fast)
-# Loading mopshub_lib.elink_data_gen_SM(fast)
 # Loading mopshub_lib.elink_interface_rec_SM(fast)
 # Loading mopshub_lib.elink_interface_tra_SM(fast)
+# Loading mopshub_lib.elink_to_fifo(fast)
+# Loading mopshub_lib.elink_proc_in(fast)
+# Loading mopshub_lib.elink_proc_in_dec8b10b(fast)
+# Loading mopshub_lib.bitstream_shift_register(fast)
+# Loading mopshub_lib.dec_8b10b_wrap(fast)
+# Loading mopshub_lib.sync_detector(fast)
+# Loading mopshub_lib.elink_proc_in_direct(fast)
 # Loading mopshub_lib.fifo_RXelink_wrap(fast)
+# Loading mopshub_lib.fifo_to_elink(fast)
+# Loading mopshub_lib.elink_proc_out(fast)
+# Loading mopshub_lib.elink_proc_out_direct(fast)
+# Loading mopshub_lib.mux4_Nbit(fast)
+# Loading mopshub_lib.pulse_pdxx_pwxx(fast)
+# Loading mopshub_lib.triger_counter(fast)
+# Loading mopshub_lib.elink_proc_out_enc8b10b(fast)
+# Loading mopshub_lib.enc8b10b_wrap(fast)
+# Loading mopshub_lib.mux4_Nbit(fast__1)
+# Loading mopshub_lib.mux8_Nbit(fast)
+# Loading mopshub_lib.triger_counter(fast__1)
+# Loading mopshub_lib.fifo_TXelink_wrap(fast)
 # Loading mopshub_lib.mopshub_core(fast)
 # Loading mopshub_lib.bridge_controller(fast)
 # Loading mopshub_lib.bit_counter(fast)
@@ -267,7 +1003,6 @@ restart -force
 # Loading mopshub_lib.buffer_rec_canakari(fast)
 # Loading mopshub_lib.bus_rec_SM(fast)
 # Loading mopshub_lib.dec1_Nbit(fast)
-# Loading sv_std.std
 # Loading mopshub_lib.dec32_Nbit(fast)
 # Loading mopshub_lib.demux1_1bit(fast)
 # Loading mopshub_lib.demux1_1bit(fast__1)
@@ -275,163 +1010,64 @@ restart -force
 # Loading mopshub_lib.node_tra_demux(fast)
 # Loading mopshub_lib.demux1_Nbit(fast)
 # Loading mopshub_lib.mux1_1bit(fast)
-# Loading mopshub_lib.output_diff_buff_clk(fast)
-# Loading work.top_led_for_synth(fast)
-# Loading work.top_led_enable_SM(fast)
-# Loading work.top_led_test(fast)
-# Loading mopshub_lib.clock_divider(fast)
+# Loading work.data_generator(fast)
+# Loading CANdecoder.CANbus_decoder(fast)
+# Loading CANdecoder.CANAkari_interfacedec(fast)
+# Loading CANdecoder.caninterfacedec(fast)
+# Loading CANdecoder.idcompdec(fast)
+# Loading CANdecoder.interfaceSMdec(fast)
+# Loading CANdecoder.bridgeSMdec(fast)
+# Loading CANdecoder.initialize_blockdec(fast)
+# Loading CANdecoder.rec_mes_bufdec(fast)
+# Loading CANdecoder.timoutrstdec(fast)
+# Loading work.can_bus_activity(fast)
+# Loading work.can_net_decoder(fast)
+# Loading work.mops_top_level(fast)
+# Loading CANdecoder.adcdumdata(fast)
+# Loading MOPSv2_lib.top_level(fast)
+# Loading MOPSv2_lib.clkbuffer(fast)
+# Loading MOPSv2_lib.global_resetgen(fast)
+# Loading MOPSv2_lib.delay_cell(fast)
+# Loading MOPSv2_lib.bridge_controller_top(fast)
+# Loading MOPSv2_lib.ADCinterface(fast)
+# Loading MOPSv2_lib.ADCfsm(fast)
+# Loading MOPSv2_lib.adcsel(fast)
+# Loading MOPSv2_lib.CANAkari_interface(fast)
+# Loading MOPSv2_lib.caninterface(fast)
+# Loading MOPSv2_lib.idcomp(fast)
+# Loading MOPSv2_lib.interfaceSM(fast)
+# Loading MOPSv2_lib.bridgeSM(fast)
+# Loading MOPSv2_lib.canopen_block(fast)
+# Loading MOPSv2_lib.ODfsm(fast)
+# Loading MOPSv2_lib.abortcodes(fast)
+# Loading MOPSv2_lib.msgdecode(fast)
+# Loading MOPSv2_lib.odinterface(fast)
+# Loading MOPSv2_lib.count2reload(fast)
+# Loading MOPSv2_lib.ftrim_sel(fast)
+# Loading MOPSv2_lib.od(fast)
+# Loading MOPSv2_lib.OD_MUX(fast)
+# Loading MOPSv2_lib.OD_buf(fast)
+# Loading MOPSv2_lib.OD_control(fast)
+# Loading MOPSv2_lib.rec_mes_buf(fast)
+# Loading MOPSv2_lib.timoutrst(fast)
+# Loading MOPSv2_lib.tra_mes_buf(fast)
+# Loading top_lib.canframegen_sv_unit(fast)
+# Loading top_lib.canframegen(fast)
+# Loading mopshub_lib.clk_div(fast)
+# Loading work.data_generator_SM(fast)
+# Loading work.mopshub_decoder(fast)
+# Loading mopshub_lib.elink_core(fast__1)
+# Loading mopshub_lib.elink_to_fifo(fast__1)
+# Loading mopshub_lib.elink_proc_in(fast__1)
+# Loading mopshub_lib.elink_proc_in_dec8b10b(fast__1)
+# Loading mopshub_lib.sync_detector(fast__1)
 # Loading work.clock_generator(fast)
+# Loading mopshub_lib.clock_divider(fast)
+# Loading mopshub_lib.clock_divider(fast__1)
+# Loading std.standard
+# Loading std.textio(body)
+# Loading ieee.std_logic_1164(body)
+# Loading mopshub_lib.dec_8b10b(behavioral)#1
+# Loading mopshub_lib.enc_8b10b(behavioral)#1
 # Loading /eda/mentor/2019-20/RHELx86/HDL-DESIGNER_2019.4/resources/downstream/modelsim/ModelSim_64Bit.dll
 # ** Warning: (vsim-8634) Code was not compiled with coverage options.
-run
-# Frequncy  = 40 MHz, Period = 25.000 ns
-# clk phase = 0 deg
-# clk duty = 50 %
-# hds_restart
-restart -force
-# ** Note: (vsim-12125) Error and warning message counts have been reset to '0' because of 'restart'.
-# ** Note: (vsim-3813) Design is being optimized due to module recompilation...
-# ** Warning: (vsim-3865) Due to PLI being present, global +acc is being enabled automatically. This will cause your simulation to run very slowly. Please use vsim -no_autoacc to disable this feature. This feature is now deprecated and will be removed from future releases.
-# ** Warning: (vopt-10016) Option '-L ieee' was detected by vlog for design-unit 'dec32_Nbit', but was not detected by vopt. The vlog option will be ignored.
-# ** Warning: (vopt-10017) vopt and vlog detected inconsistent ordering of options -L tsmcdigital_lib, -L top_lib, -L MOPSv2_lib, -L canakari, -L CANdecoder, -L ftrim, -L mopshub_lib and -L mopshub_testbench for design-unit 'dec32_Nbit'. vopt will ignore the ordering that was given to vlog.
-# ** Error: /home/dcs/git/mopshub/mopshub_lib/hdl/output_diff_buff_clk.v(34): Module 'ODDR' is not defined.
-# ** Error: /home/dcs/git/mopshub/mopshub_lib/hdl/output_diff_buff_clk.v(44): Module 'OBUFDS' is not defined.
-# Optimization failed
-# Unknown dataset name: 
-# hds_restart
-vsim -L tsmcdigital_lib -L top_lib -L MOPSv2_lib -L canakari -L CANdecoder -L ftrim -L mopshub_lib -L mopshub_testbench -l transcript.txt -i -t ns -multisource_delay latest +typdelays -nopsl -coverage mopshub_testbench.tb_mopshub_core_synthesis
-# vsim -L tsmcdigital_lib -L top_lib -L MOPSv2_lib -L canakari -L CANdecoder -L ftrim -L mopshub_lib -L mopshub_testbench -l transcript.txt -i -t ns -multisource_delay latest "+typdelays" -nopsl -coverage mopshub_testbench.tb_mopshub_core_synthesis -foreign "hdsInit /eda/mentor/2019-20/RHELx86/HDL-DESIGNER_2019.4/resources/downstream/modelsim/ModelSim_64Bit.dll" -pli ""/eda/mentor/2019-20/RHELx86/HDL-DESIGNER_2019.4/resources/downstream/modelsim/ModelSim_64Bit.dll"" 
-# Start time: 13:51:52 on Dec 20,2021
-# ** Note: (vsim-3812) Design is being optimized...
-# ** Warning: (vsim-3865) Due to PLI being present, global +acc is being enabled automatically. This will cause your simulation to run very slowly. Please use vsim -no_autoacc to disable this feature. This feature is now deprecated and will be removed from future releases.
-# ** Warning: (vopt-10016) Option '-L ieee' was detected by vlog for design-unit 'dec32_Nbit', but was not detected by vopt. The vlog option will be ignored.
-# ** Warning: (vopt-10017) vopt and vlog detected inconsistent ordering of options -L tsmcdigital_lib, -L top_lib, -L MOPSv2_lib, -L canakari, -L CANdecoder, -L ftrim, -L mopshub_lib and -L mopshub_testbench for design-unit 'dec32_Nbit'. vopt will ignore the ordering that was given to vlog.
-# ** Note: (vopt-143) Recognized 1 FSM in module "osc_trim_SM(fast)".
-# ** Note: (vopt-143) Recognized 1 FSM in module "top_led_enable_SM(fast)".
-# ** Note: (vopt-143) Recognized 1 FSM in module "can_elink_bridge_SM(fast)".
-# ** Note: (vopt-143) Recognized 1 FSM in module "bus_rec_SM(fast)".
-# ** Note: (vopt-143) Recognized 1 FSM in module "can_interface_SM(fast)".
-# ** Note: (vopt-143) Recognized 1 FSM in module "elink_interface_tra_SM(fast)".
-# ** Note: (vopt-143) Recognized 1 FSM in module "elink_interface_rec_SM(fast)".
-# ** Note: (vopt-143) Recognized 1 FSM in module "elink_data_gen_SM(fast)".
-# ** Warning: /home/dcs/git/mopshub/mopshub_lib/hdl/bridge_controller_struct.v(246): (vopt-2685) [TFMPC] - Too few port connections for 'initialize_block0'.  Expected 4, found 2.
-# ** Warning: /home/dcs/git/mopshub/mopshub_lib/hdl/bridge_controller_struct.v(246): (vopt-2718) [TFMPC] - Missing connection for port 'nodeid'.
-# ** Warning: /home/dcs/git/mopshub/mopshub_lib/hdl/bridge_controller_struct.v(246): (vopt-2718) [TFMPC] - Missing connection for port 'data_config'.
-# Loading work.tb_mopshub_core_synthesis(fast)
-# Loading mopshub_lib.mopshub_core_diff_ports(fast)
-# Loading mopshub_lib.buffer_rec_elink(fast)
-# Loading mopshub_lib.buffer_tra_elink(fast)
-# Loading mopshub_lib.elink_data_gen_SM(fast)
-# Loading mopshub_lib.elink_interface_rec_SM(fast)
-# Loading mopshub_lib.elink_interface_tra_SM(fast)
-# Loading mopshub_lib.fifo_RXelink_wrap(fast)
-# Loading mopshub_lib.mopshub_core(fast)
-# Loading mopshub_lib.bridge_controller(fast)
-# Loading mopshub_lib.bit_counter(fast)
-# Loading mopshub_lib.buffer_rec_data(fast)
-# Loading mopshub_lib.buffer_tra_data(fast)
-# Loading mopshub_lib.can_elink_bridge_SM(fast)
-# Loading mopshub_lib.canakari_interface(fast)
-# Loading mopshub_lib.buffer_tristate_busid(fast)
-# Loading mopshub_lib.bus_comp(fast)
-# Loading mopshub_lib.can_interface(fast)
-# Loading mopshub_lib.can_interface_SM(fast)
-# Loading MOPSv2_lib.initialize_block(fast)
-# Loading mopshub_lib.osc_trim_SM(fast)
-# Loading mopshub_lib.timout_rst(fast)
-# Loading mopshub_lib.canakari_top(fast)
-# Loading mopshub_lib.canakari_0_7(fast)
-# Loading mopshub_lib.can(fast)
-# Loading canakari.can2(fast)
-# Loading canakari.resetgen2(fast)
-# Loading canakari.mac2(fast)
-# Loading canakari.reset_mac2(fast)
-# Loading canakari.macfsm2(fast)
-# Loading canakari.biterrordetect2(fast)
-# Loading canakari.counter2(fast)
-# Loading canakari.decapsulation2(fast)
-# Loading canakari.destuffing2(fast)
-# Loading canakari.encapsulation2(fast)
-# Loading canakari.rcrc2(fast)
-# Loading canakari.rcrc_cell2(fast)
-# Loading canakari.recmeslen2(fast)
-# Loading canakari.rshiftreg2(fast)
-# Loading canakari.rshift_cell2(fast)
-# Loading canakari.stuffing2(fast)
-# Loading canakari.tcrc2(fast)
-# Loading canakari.tcrc_cell2(fast)
-# Loading canakari.tshiftreg2(fast)
-# Loading canakari.tshift_cell2(fast)
-# Loading canakari.fsm_register2(fast)
-# Loading canakari.fastshift2(fast)
-# Loading canakari.meslencompare2(fast)
-# Loading canakari.llc2(fast)
-# Loading canakari.llc_fsm2(fast)
-# Loading canakari.equal_id2(fast)
-# Loading canakari.bittiming2(fast)
-# Loading ftrim.Control_Sys(fast)
-# Loading ftrim.PID_Regler(fast)
-# Loading ftrim.Ftrim_En(fast)
-# Loading ftrim.Diff(fast)
-# Loading ftrim.Multi(fast)
-# Loading ftrim.Multi_i(fast)
-# Loading ftrim.Accumulator(fast)
-# Loading ftrim.Add_PID(fast)
-# Loading ftrim.Output_Scaling(fast)
-# Loading ftrim.CLK_Counter(fast)
-# Loading ftrim.Control_FSM(fast)
-# Loading ftrim.Phasenfehler_Reg(fast)
-# Loading ftrim.ready_counter(fast)
-# Loading canakari.bittime2(fast)
-# Loading canakari.sum2(fast)
-# Loading canakari.timecount2(fast)
-# Loading canakari.edgepuffer2(fast)
-# Loading canakari.smpldbit_reg2(fast)
-# Loading canakari.tseg_reg2(fast)
-# Loading canakari.fce2(fast)
-# Loading canakari.faultfsm2(fast)
-# Loading canakari.rec2(fast)
-# Loading canakari.tec2(fast)
-# Loading canakari.erbcount2(fast)
-# Loading canakari.interruptunit2(fast)
-# Loading canakari.iocpu2(fast)
-# Loading canakari.multiplexer2(fast)
-# Loading canakari.read_mux2(fast)
-# Loading canakari.write_demux2(fast)
-# Loading canakari.generalregister2(fast)
-# Loading canakari.recmescontrolreg2(fast)
-# Loading canakari.recarbitreg2(fast)
-# Loading canakari.accmaskreg2(fast)
-# Loading canakari.interrupregister2(fast)
-# Loading canakari.prescalereg2(fast)
-# Loading canakari.recregister2(fast)
-# Loading canakari.transmesconreg2(fast)
-# Loading canakari.transmitreg2(fast)
-# Loading canakari.prescale2(fast)
-# Loading mopshub_lib.node_rec_mux(fast)
-# Loading mopshub_lib.bit_shifter(fast)
-# Loading mopshub_lib.buffer_rec_canakari(fast)
-# Loading mopshub_lib.bus_rec_SM(fast)
-# Loading mopshub_lib.dec1_Nbit(fast)
-# Loading sv_std.std
-# Loading mopshub_lib.dec32_Nbit(fast)
-# Loading mopshub_lib.demux1_1bit(fast)
-# Loading mopshub_lib.demux1_1bit(fast__1)
-# Loading mopshub_lib.mux32_Nbit(fast)
-# Loading mopshub_lib.node_tra_demux(fast)
-# Loading mopshub_lib.demux1_Nbit(fast)
-# Loading mopshub_lib.mux1_1bit(fast)
-# Loading mopshub_lib.output_diff_buff_clk(fast)
-# Loading work.top_led_for_synth(fast)
-# Loading work.top_led_enable_SM(fast)
-# Loading work.top_led_test(fast)
-# Loading mopshub_lib.clock_divider(fast)
-# Loading work.clock_generator(fast)
-# Loading /eda/mentor/2019-20/RHELx86/HDL-DESIGNER_2019.4/resources/downstream/modelsim/ModelSim_64Bit.dll
-# ** Warning: (vsim-8634) Code was not compiled with coverage options.
-run
-# Frequncy  = 40 MHz, Period = 25.000 ns
-# clk phase = 0 deg
-# clk duty = 50 %
-# 0
-# 
