@@ -7,7 +7,7 @@ module tb_mopshub_top();
   reg             rst   = 1'b1;
   wire            rst_mops_dbg;
   reg             sel_bus = 1'b0;
-  reg     [4:0]   can_tra_select_dbg =5'd1;
+  reg     [4:0]   can_tra_select_dbg =5'd3;
   wire            sign_on_sig;
   reg             start_data_gen= 1'b0;
   wire            start_init;
@@ -162,7 +162,7 @@ module tb_mopshub_top();
   .power_bus_cnt(power_bus_cnt),
   //read data from Elink and send it to the bus
   .sel_bus(sel_bus),
-  .bus_cnt(can_tra_select_dbg),// test Bus 0
+  .bus_cnt(can_tra_select_dbg),
   .test_mopshub_core(1'b0),
   .osc_auto_trim_mopshub(osc_auto_trim_mopshub),
   .can_rec_select(can_rec_select),
@@ -249,7 +249,7 @@ module tb_mopshub_top();
     if(sign_on_sig ==1)//start Rx test
     begin
       start_data_gen =1'b0;
-      test_tx =1'b1;
+      test_rx =1'b1;
     end
     if(test_rx_end ==1)//Done Rx test
     begin

@@ -31,7 +31,7 @@ module buffer_rec_elink(
     5'b00000  :  begin data_rec_reg  = 8'h0; 
       data_delimiter_reg = 2'b11;
     end
-    5'b00001  :  begin data_rec_reg  = Kchar_sop; 
+    5'b00001  :  begin data_rec_reg  = Kchar_sop; //Add SOP
       data_delimiter_reg = 2'b10;
     end
     5'b00010  :  begin data_rec_reg  = data_rec_in[75:68]; 
@@ -64,7 +64,7 @@ module buffer_rec_elink(
     5'b01011  :  begin data_rec_reg  = {data_rec_in[3:0],4'h0};  
       data_delimiter_reg = 2'b00;
     end
-    5'b01100  :  begin data_rec_reg  = Kchar_eop; 
+    5'b01100  :  begin data_rec_reg  = Kchar_eop; //Add EOP
       data_delimiter_reg = 2'b01;
     end
    default  :  begin data_rec_reg  = 8'h00; 

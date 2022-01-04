@@ -17,7 +17,7 @@ reg [4:0] data_tra_select_reg;
 wire [75:0] data_tra_regVoted = data_tra_reg;
 wire [4:0] data_tra_select_regVoted = data_tra_select_reg;
 
-always@(posedge clk or negedge rst)
+always@(posedge clk)
 begin 
  if(!rst)
   begin
