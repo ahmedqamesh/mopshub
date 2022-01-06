@@ -1,0 +1,107 @@
+//
+// Verilog Module mopshub_testbench.tb_mopshub_setup
+//
+// Created:
+//          by - dcs.dcs (chipdev2.physik.uni-wuppertal.de)
+//          at - 15:00:38 01/06/22
+//
+// using Mentor Graphics HDL Designer(TM) 2019.4 (Build 4)
+//
+
+`resetall
+`timescale 1ns/10ps
+module tb_mopshub_setup();
+  wire              clk ;//= 1'b0;
+  wire             clk_40;
+  wire             clk_80;
+  reg             rst   = 1'b1;
+  reg             sel_bus = 1'b0;
+  reg     [4:0]   can_tra_select_dbg =5'd0;
+  reg             start_data_gen= 1'b0;
+  string          info_debug_sig;     
+  //tbSM signals  
+  wire    [75:0]  bus_dec_data;
+  wire    [7:0]   bus_id;
+  int             adc_ch;
+  
+  //Automated trimming signals
+  reg             osc_auto_trim =1'b0; ////Active high. Enable /disable automated trimming. If disabled then take care of ftrim_pads_reg
+  reg             osc_auto_trim_mopshub =1'b0;
+
+  
+  reg             test_advanced =1'b1;
+  wire            rand_msg_end;
+
+  // MOPSHUB signals
+  wire    [75:0]  data_send;
+  wire    [75:0]  data_rec;
+
+  assign data_send = {setup_generator0.customcanid, setup_generator0.data};
+  assign data_rec  = setup_generator0.data_rec_out2;
+  setup_generator#(
+  .n_buses (5'b111),
+  .seialize_data_stream(1))setup_generator0(
+  .clk(clk_40),
+  .clk_80(clk_80),
+  .rst(rst),
+  .ext_trim_mops(osc_auto_trim_mopshub),
+  .loop_en(1'b0),
+  //Start SM
+  .start_data_gen(start_data_gen),
+  //OScillation Triming Signals
+  .osc_auto_trim(osc_auto_trim),
+  //Read ADC channels from MOPS and send it to MOPSHUB rx
+  .test_advanced(test_advanced),
+  .rand_msg_end(rand_msg_end),
+  .respmsg(respmsg),
+  .reqmsg(reqmsg),
+  .adc_ch(adc_ch),  
+  // Acknowledgement bit from the MOPSHUB
+  //Decoder Signals [Listen always to the bus ]
+  .bus_dec_data(bus_dec_data),
+  //read data from Elink and send it to the bus
+  .sel_bus(sel_bus),
+  .bus_cnt(can_tra_select_dbg),
+  .test_mopshub_core(1'b0),
+  .osc_auto_trim_mopshub(osc_auto_trim_mopshub),
+  .bus_id(bus_id));
+  
+  
+  //Clock Generators and Dividers
+  clock_generator #(
+  .freq(40))
+  clock_generator0( 
+  .clk  (clk), 
+  .enable (1'b1)
+  ); 
+  
+  clock_divider #(28'd4)
+  clock_divider4( 
+  .clock_in  (clk), 
+  .clock_out (clk_40)
+  ); 
+  
+  
+  clock_divider #(28'd2)
+  clock_divider2( 
+  .clock_in  (clk), 
+  .clock_out (clk_80)
+  ); 
+  /////******* Reset Generator task--low active ****/////
+  initial 
+  begin
+    rst = 1'b0;
+    #10
+    rst = 1'b1;
+    #1500
+    start_data_gen = 1'b1;
+    #100
+    start_data_gen = 1'b0;
+  end  
+  /////******* prints bus activity ******///
+  always@(posedge clk_40)
+  if (!rst)
+  begin
+    info_debug_sig = "<:RESET>";
+  end
+endmodule 

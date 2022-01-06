@@ -48,7 +48,7 @@ wire [7:0] b8Voted  = b8;
 wire [7:0] b9Voted  = b9;
 
 
-always@(posedge clk or negedge rst)
+always@(posedge clk)
 begin 
   if(!rst)
    begin 

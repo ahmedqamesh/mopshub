@@ -34,7 +34,7 @@ begin
     4'b1000 :  write_can_reg = data_init;              // Initialize  
     4'b0000 :  begin   // write canakari register 
                 case(addr)
-                  5'b01100 : write_can_reg =   {data_tra_mes[74:64],5'h0}; // Transmission Identifier 1 
+                  5'b01100 : write_can_reg =   {data_tra_mes[74:64],5'h0}; // Transmission Identifier 1 [11+5] 
                   5'b01010 : write_can_reg =   {data_tra_mes[63:56],data_tra_mes[47:40]};// Transmission Data 1-2  
                   5'b01001 : write_can_reg =   {data_tra_mes[55:48],data_tra_mes[39:32]};// Transmission Data 3-4     
                   5'b01000 : write_can_reg =   {data_tra_mes[7 :0 ],data_tra_mes[15:8 ]};// Transmission Data 5-6*

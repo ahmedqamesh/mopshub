@@ -5,7 +5,7 @@ reg             clk = 1'b0;
 reg             rst = 1'b1;
 wire            start_init;
 wire            end_init;
-reg             sel_bus = 1'b1;
+reg             sel_bus = 1'b0;
 reg     [4:0]   can_tra_select_dbg =5'd3;
 wire            ready_osc;
 string          info_debug_sig; 
@@ -22,6 +22,8 @@ wire            trim_sig_start;
 wire            trim_sig_end;
 wire            trim_sig_done;
 
+reg             test_advanced =1'b0;
+wire            rand_msg_end;
 reg             test_rx = 1'b0;
 wire            test_rx_start;
 wire            test_rx_end;
@@ -68,7 +70,7 @@ assign irq_can_rec = mopshub_core0.irq_can_rec;
 assign irq_can_tra = mopshub_core0.irq_can_tra;
 assign can_tra_select = mopshub_core0.can_tra_select;
 assign can_rec_select = mopshub_core0.can_rec_select;
-assign data_tra_downlink = data_generator0.data_rec_in;
+assign data_tra_downlink = data_generator0.emulator_rec_in;
 assign ready_osc = data_generator0.ready_osc ;
 mopshub_core#(
 .n_buses (5'b111))mopshub_core0(
@@ -126,6 +128,8 @@ data_generator#(
 .start_read_elink(start_read_elink),
 .end_read_elink(end_read_elink),
 .test_elink_data_done(test_elink_data_done),
+.test_advanced(test_advanced),
+.rand_msg_end(rand_msg_end),
 .respmsg(respmsg),
 .reqmsg(reqmsg),
 .adc_ch(adc_ch),  
@@ -208,7 +212,8 @@ always #50 clk = ~clk;
     begin
       start_data_gen =1'b0;
       //test_rx =1'b1;
-      test_mopshub_core = 1'b1;
+      //test_mopshub_core = 1'b1;
+      test_advanced = 1'b1;
     end
     if(test_rx_start)
     begin 
@@ -220,10 +225,8 @@ always #50 clk = ~clk;
       test_mopshub_core =1'b1;
       info_debug_sig = {""};
     end
-    if (test_elink_data_done == 1)//Done Elink test 
-    begin
-    test_mopshub_core =1'b0; 
-    end
+    if (test_elink_data_done == 1)test_mopshub_core =1'b0; 
+    if (rand_msg_end == 1'b1)     test_advanced = 1'b0;
     if(start_read_elink && test_mopshub_core)
     begin 
       info_debug_sig = $sformatf("<:Elink test  [BUS ID %d ]  :>",bus_id);

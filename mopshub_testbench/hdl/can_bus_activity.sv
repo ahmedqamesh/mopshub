@@ -35,14 +35,20 @@ module can_bus_activity (
    input wire       test_rx_start,
    input wire       test_rx_end,
 
-   input wire       start_read_elink,
    input wire       test_mopshub_core,
+   
+   
+   input wire       test_advanced,
+   input wire       rand_msg_start,
+   input wire       rand_msg_end,
+      
    input wire       osc_auto_trim, 
    input wire       osc_auto_trim_mopshub,     
    input wire       end_trim_bus,
    input wire       start_trim_osc,
    input wire    [75:0]  data_rec_uplink,
    input wire    [75:0]  data_tra_downlink,
+   input wire    [75:0]  bus_dec_data,
    input wire            reqmsg,
    input wire            respmsg
 );
@@ -83,11 +89,11 @@ reg      [75:0] responsereg = 75'h0;
       responsereg <= data_rec_uplink;
        $strobeh("\t Sign In Message [BUS ID %d]: \t request %h \t response %h \t",can_rec_select,requestreg,responsereg); 
     end      
-    if(test_rx_end ||test_tx_end ||(sign_in_end &!osc_auto_trim_mopshub)||(end_trim_bus||trim_sig_end))
+    if(test_rx_end ||test_tx_end ||(sign_in_end &!osc_auto_trim_mopshub)||(end_trim_bus||trim_sig_end || rand_msg_end ))
     begin 
       $strobe("*****************************************************************************");
     end         
-    // Test Osc Trim  Response part 
+    /////*********************************  Test Osc Trim  Response part  *********************************
     else if(reqmsg && (osc_auto_trim ||osc_auto_trim_mopshub) && !test_rx && !test_mopshub_core )
     begin
       requestreg <= {76'h555aaaaaaaaaaaaaaaa};  
@@ -110,36 +116,31 @@ reg      [75:0] responsereg = 75'h0;
       responsereg <= data_rec_uplink;
       $strobeh("\t Receive RX signals [BUS ID %d]: \t request %h \t response %h",bus_id,requestreg,responsereg);
     end
-    else if(reqmsg && test_rx)
-    begin
-      requestreg <= data_rec_uplink; 
-    end
-
-    
+    else if(reqmsg && test_rx) requestreg <= data_rec_uplink; 
      /////********************************* test TX part  *********************************
     else if (respmsg && (test_mopshub_core || test_tx))
     begin
       responsereg <= data_rec_uplink;
       $strobeh("\t Transmit TX signals [BUS ID %d]: \t request %h \t response %h",bus_id,requestreg,responsereg);
     end
-    else if(reqmsg && (test_mopshub_core||test_tx))
+    else if(reqmsg && (test_mopshub_core||test_tx)) requestreg <= data_tra_downlink; 
+    
+    /////********************************* Random msg part *********************************
+    else if (reqmsg  && test_advanced) requestreg <= data_tra_downlink;
+    else if (respmsg && test_advanced) 
     begin
-      requestreg <= data_tra_downlink; 
+      responsereg <= bus_dec_data; 
+      $strobeh("\t Random TX signals [BUS ID %d]: \t request %h \t response %h",bus_id,requestreg,responsereg);
     end
-    //Default
-    else if (respmsg && !test_mopshub_core && !test_tx&& !test_rx)
+    /////********************************* Default *********************************
+    else if (reqmsg  && !test_mopshub_core && !test_tx && !test_rx) requestreg <= data_rec_uplink; 
+    else if (respmsg && !test_mopshub_core && !test_tx && !test_rx)
     begin
       responsereg <= data_rec_uplink;
       $strobeh("\t [BUS ID %d]: \t request %h \t response %h",bus_id,requestreg,responsereg);
     end
-    else if(reqmsg && !test_mopshub_core & !test_tx && !test_rx)
-    begin
-      requestreg <= data_rec_uplink; 
-    end
-    
   end  
-  //// ********* Score board for RX*************////
-// ### Please start your Verilog code here ### 
+  // ### Please start your Verilog code here ### 
   //// ********* Score board for RX*************////
   always@(*)
   begin 
@@ -385,11 +386,11 @@ reg      [75:0] responsereg = 75'h0;
       end
         {43'h60140??2?0?,3'h0,can_tra_select,8'h0,16'h0}:begin
           if(responsereg inside{ {43'h58180002?0?,3'h0,can_tra_select,24'h???}})
-          $strobe("Status GOOD [BUS ID %d] - Elink Test",bus_id);
+          $strobe("Status GOOD [BUS ID %d] - TX Test",can_tra_select);
           else
           begin
             $display("Current simulation time is: ", $realtime);
-            $strobe("Status BAD ********************************[Elink Test]****************************** Status BAD %h",responsereg);
+            $strobe("Status BAD ********************************[TX Test [BUS ID %d]****************** Status BAD %h",can_tra_select,requestreg);
             $strobe("******************** Please check SDO abort codes to understand why write operation failed");
             failures += 1;
           end
@@ -455,7 +456,7 @@ reg      [75:0] responsereg = 75'h0;
         default:
         begin 
           if(responsereg == requestreg)
-          $strobe("Status GOOD [BUS ID %d]- RX test",bus_id);
+          $strobe("Status GOOD [BUS ID %d]- RX-TX test",bus_id);
           else
           begin
             $display("Current simulation time is: ", $realtime);

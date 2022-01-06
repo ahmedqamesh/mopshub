@@ -43,6 +43,9 @@ module tb_mopshub_top();
   wire            test_tx_start;
   wire            test_tx_end;
   
+  reg             test_advanced =1'b0;
+  wire            rand_msg_end;
+
   // MOPSHUB signals
   wire    [75:0]  data_rec_uplink;
   wire    [75:0]  data_tra_emulator_out;
@@ -153,6 +156,8 @@ module tb_mopshub_top();
   .test_rx_start(test_rx_start),
   .test_rx_end(test_rx_end),
   .test_tx_start(test_tx_start),
+  .test_advanced(test_advanced),
+  .rand_msg_end(rand_msg_end),
   .respmsg(respmsg),
   .reqmsg(reqmsg),
   .adc_ch(adc_ch),  
@@ -249,7 +254,8 @@ module tb_mopshub_top();
     if(sign_on_sig ==1)//start Rx test
     begin
       start_data_gen =1'b0;
-      test_rx =1'b1;
+     //test_tx =1'b1;
+      test_advanced = 1'b1;
     end
     if(test_rx_end ==1)//Done Rx test
     begin

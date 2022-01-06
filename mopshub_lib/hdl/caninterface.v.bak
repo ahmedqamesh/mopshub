@@ -7,12 +7,10 @@ module can_interface(
    input   wire            write, 
    input   wire            reset_can, 
    input   wire            trim,          
-   input   wire    [75:0]  data_tra_mes, 
-  // input   wire    [4:0]   data_tra_select,   
+   input   wire    [75:0]  data_tra_mes,  
       
    output  wire    [3:0]   cmd,               // This is a 4 bit concatenated command of signals coming from the state machine i.e initial,read,write
    output  wire    [15:0]  write_can      // Data written to Cankari
-  // output  wire    [4:0]   can_tra_select
 );
 
 // Internal Declarations           
@@ -24,7 +22,6 @@ wire [15:0] gen_data;
 wire [75:0] trim_data;
 
 assign write_can       = write_can_reg;
-//assign can_tra_select  = data_tra_select;
 assign tra_control     = 16'h8008; //16'b1 000000000 00 1000
 assign rst_irq         = 16'h8070;
 assign gen_data        = 16'h9C; //16'b0000000010011100
@@ -37,7 +34,7 @@ begin
     4'b1000 :  write_can_reg = data_init;              // Initialize  
     4'b0000 :  begin   // write canakari register 
                 case(addr)
-                  5'b01100 : write_can_reg =   {data_tra_mes[74:64],5'h0}; // Transmission Identifier 1 
+                  5'b01100 : write_can_reg =   {data_tra_mes[74:64],5'h0}; // Transmission Identifier 1 [11+5] 
                   5'b01010 : write_can_reg =   {data_tra_mes[63:56],data_tra_mes[47:40]};// Transmission Data 1-2  
                   5'b01001 : write_can_reg =   {data_tra_mes[55:48],data_tra_mes[39:32]};// Transmission Data 3-4     
                   5'b01000 : write_can_reg =   {data_tra_mes[7 :0 ],data_tra_mes[15:8 ]};// Transmission Data 5-6*

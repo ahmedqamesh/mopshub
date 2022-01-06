@@ -183,19 +183,19 @@ value "/home/dcs/git/mopshub/mopshub_lib/hds/mopshub_core_diff_ports"
 )
 (vvPair
 variable "date"
-value "01/03/22"
+value "01/05/22"
 )
 (vvPair
 variable "day"
-value "Mon"
+value "Wed"
 )
 (vvPair
 variable "day_long"
-value "Monday"
+value "Wednesday"
 )
 (vvPair
 variable "dd"
-value "03"
+value "05"
 )
 (vvPair
 variable "entity_name"
@@ -223,7 +223,7 @@ value "dcs"
 )
 (vvPair
 variable "graphical_source_date"
-value "01/03/22"
+value "01/05/22"
 )
 (vvPair
 variable "graphical_source_group"
@@ -235,7 +235,7 @@ value "chipdev2.physik.uni-wuppertal.de"
 )
 (vvPair
 variable "graphical_source_time"
-value "09:42:06"
+value "13:32:10"
 )
 (vvPair
 variable "group"
@@ -355,7 +355,7 @@ value "struct"
 )
 (vvPair
 variable "time"
-value "09:42:06"
+value "13:32:10"
 )
 (vvPair
 variable "unit"
@@ -7748,7 +7748,7 @@ always@(*)//data_tra_10bitin or cs_eread)
         fifo_data_eop = 1'b0;
         fifo_data_packet =1'b0;
       end 
-    else if(cs_eread && data_tra_10bitin != {2'b10,Kchar_sop}&& data_tra_10bitin != {2'b01,Kchar_eop})// data
+    else if(cs_eread && data_tra_10bitin != {2'b10,Kchar_sop}&& data_tra_10bitin != {2'b01,Kchar_eop} && data_tra_10bitin[9:8] == 2'b11)// data
       begin
         fifo_data_sop = 1'b0;
         fifo_data_eop = 1'b0;
@@ -7767,6 +7767,7 @@ always@(*)//data_tra_10bitin or cs_eread)
        fifo_data_packet =1'b0;
       end    
   end
+
 
 
 
@@ -8270,7 +8271,7 @@ fg "0,65535,0"
 lineColor "0,32896,0"
 lineWidth 2
 )
-xt "92000,6000,116000,20000"
+xt "92000,8000,116000,20000"
 )
 oxt "0,0,8000,10000"
 ttg (MlTextGroup
@@ -10861,16 +10862,16 @@ optionalChildren [
 uid 6570,0
 sl 0
 ro 90
-xt "209500,7625,211000,8375"
+xt "205500,7625,207000,8375"
 )
 (Line
 uid 6571,0
 sl 0
 ro 90
-xt "209000,8000,209500,8000"
+xt "205000,8000,205500,8000"
 pts [
-"209500,8000"
-"209000,8000"
+"205500,8000"
+"205000,8000"
 ]
 )
 ]
@@ -10886,9 +10887,9 @@ uid 6573,0
 va (VaSet
 font "courier,8,0"
 )
-xt "212000,7550,218500,8450"
+xt "208000,7550,214500,8450"
 st "data_2bit_in"
-blo "212000,8250"
+blo "208000,8250"
 tm "WireNameMgr"
 )
 )
@@ -15258,9 +15259,9 @@ uid 5997,0
 va (VaSet
 vasetType 3
 )
-xt "156000,1000,161250,1000"
+xt "158000,1000,161250,1000"
 pts [
-"156000,1000"
+"158000,1000"
 "161250,1000"
 ]
 )
@@ -15442,9 +15443,9 @@ va (VaSet
 vasetType 3
 lineWidth 2
 )
-xt "189750,8000,209000,8000"
+xt "189750,8000,205000,8000"
 pts [
-"209000,8000"
+"205000,8000"
 "189750,8000"
 ]
 )
@@ -15619,12 +15620,12 @@ tm "BdCompilerDirectivesTextMgr"
 ]
 associable 1
 )
-windowSize "3833,5,5767,1085"
-viewArea "126039,-16454,244098,48199"
+windowSize "1913,29,3847,1063"
+viewArea "52274,-5411,191292,64708"
 cachedDiagramExtent "-65000,-98100,255400,103000"
 hasePageBreakOrigin 1
 pageBreakOrigin "-69000,-102000"
-lastUid 6758,0
+lastUid 6937,0
 defaultCommentText (CommentText
 shape (Rectangle
 layer 0

@@ -129,7 +129,7 @@ value "/home/dcs/git/mopshub/mopshub_lib/hds/elink_core"
 )
 (vvPair
 variable "date"
-value "12/22/21"
+value "01/05/22"
 )
 (vvPair
 variable "day"
@@ -141,7 +141,7 @@ value "Wednesday"
 )
 (vvPair
 variable "dd"
-value "22"
+value "05"
 )
 (vvPair
 variable "entity_name"
@@ -169,7 +169,7 @@ value "dcs"
 )
 (vvPair
 variable "graphical_source_date"
-value "12/22/21"
+value "01/05/22"
 )
 (vvPair
 variable "graphical_source_group"
@@ -181,7 +181,7 @@ value "chipdev2.physik.uni-wuppertal.de"
 )
 (vvPair
 variable "graphical_source_time"
-value "15:13:30"
+value "13:35:03"
 )
 (vvPair
 variable "group"
@@ -225,7 +225,7 @@ value "$HDS_PROJECT_DIR/mopshub_lib/svassistant"
 )
 (vvPair
 variable "mm"
-value "12"
+value "01"
 )
 (vvPair
 variable "module_name"
@@ -233,11 +233,11 @@ value "elink_core"
 )
 (vvPair
 variable "month"
-value "Dec"
+value "Jan"
 )
 (vvPair
 variable "month_long"
-value "December"
+value "January"
 )
 (vvPair
 variable "p"
@@ -301,7 +301,7 @@ value "struct"
 )
 (vvPair
 variable "time"
-value "15:13:30"
+value "13:35:03"
 )
 (vvPair
 variable "unit"
@@ -321,11 +321,11 @@ value "struct"
 )
 (vvPair
 variable "year"
-value "2021"
+value "2022"
 )
 (vvPair
 variable "yy"
-value "21"
+value "22"
 )
 ]
 )
@@ -4015,7 +4015,7 @@ always@(*)//data_tra_10bitin or cs_eread)
         fifo_data_eop = 1'b0;
         fifo_data_packet =1'b0;
       end 
-    else if(cs_eread && data_tra_10bitin != {2'b10,Kchar_sop}&& data_tra_10bitin != {2'b01,Kchar_eop})// data
+    else if(cs_eread && data_tra_10bitin != {2'b10,Kchar_sop}&& data_tra_10bitin != {2'b01,Kchar_eop} && data_tra_10bitin[9:8] == 2'b00)// data
       begin
         fifo_data_sop = 1'b0;
         fifo_data_eop = 1'b0;
@@ -4034,6 +4034,8 @@ always@(*)//data_tra_10bitin or cs_eread)
        fifo_data_packet =1'b0;
       end    
   end
+
+
 
 
 
@@ -8179,11 +8181,11 @@ tm "BdCompilerDirectivesTextMgr"
 associable 1
 )
 windowSize "3833,10,5767,1085"
-viewArea "-37008,-12196,107358,66442"
+viewArea "-37000,-12200,98169,59216"
 cachedDiagramExtent "-74500,-1900,103000,56000"
 hasePageBreakOrigin 1
 pageBreakOrigin "-138000,-51000"
-lastUid 11397,0
+lastUid 11502,0
 defaultCommentText (CommentText
 shape (Rectangle
 layer 0
