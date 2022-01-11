@@ -64,19 +64,19 @@ value "/home/dcs/git/mopshub/mopshub_lib/hds/sync_detector"
 )
 (vvPair
 variable "date"
-value "12/15/21"
+value "01/08/22"
 )
 (vvPair
 variable "day"
-value "Wed"
+value "Sat"
 )
 (vvPair
 variable "day_long"
-value "Wednesday"
+value "Saturday"
 )
 (vvPair
 variable "dd"
-value "15"
+value "08"
 )
 (vvPair
 variable "entity_name"
@@ -104,7 +104,7 @@ value "dcs"
 )
 (vvPair
 variable "graphical_source_date"
-value "12/15/21"
+value "01/08/22"
 )
 (vvPair
 variable "graphical_source_group"
@@ -116,7 +116,7 @@ value "chipdev2.physik.uni-wuppertal.de"
 )
 (vvPair
 variable "graphical_source_time"
-value "12:27:08"
+value "15:41:02"
 )
 (vvPair
 variable "group"
@@ -160,7 +160,7 @@ value "$HDS_PROJECT_DIR/mopshub_lib/svassistant"
 )
 (vvPair
 variable "mm"
-value "12"
+value "01"
 )
 (vvPair
 variable "module_name"
@@ -168,11 +168,11 @@ value "sync_detector"
 )
 (vvPair
 variable "month"
-value "Dec"
+value "Jan"
 )
 (vvPair
 variable "month_long"
-value "December"
+value "January"
 )
 (vvPair
 variable "p"
@@ -236,7 +236,7 @@ value "struct"
 )
 (vvPair
 variable "time"
-value "12:27:08"
+value "15:41:02"
 )
 (vvPair
 variable "unit"
@@ -256,11 +256,11 @@ value "struct"
 )
 (vvPair
 variable "year"
-value "2021"
+value "2022"
 )
 (vvPair
 variable "yy"
-value "21"
+value "22"
 )
 ]
 )
@@ -714,6 +714,8 @@ else
 
 
 
+
+
 "
 tm "HdlTextMgr"
 wrapOption 3
@@ -902,8 +904,7 @@ va (VaSet
 font "courier,8,0"
 )
 xt "2000,8100,40100,9000"
-st "reg [11:0]   EDATAbitstreamSREG = 12'b0; //12 bit (2 x 5 = 10, plus 2 more)
-"
+st "reg [11:0]   EDATAbitstreamSREG = 12'b0; //12 bit (2 x 5 = 10, plus 2 more)"
 )
 )
 *21 (Net
@@ -922,8 +923,7 @@ va (VaSet
 font "courier,8,0"
 )
 xt "2000,2700,17500,3600"
-st "wire [1:0]   comma_valid_bits;
-"
+st "wire [1:0]   comma_valid_bits;"
 )
 )
 *22 (PortIoIn
@@ -988,8 +988,7 @@ va (VaSet
 font "courier,8,0"
 )
 xt "2000,3600,15500,4500"
-st "wire [11:0]  bitstream_in;
-"
+st "wire [11:0]  bitstream_in;"
 )
 )
 *24 (PortIoOut
@@ -1235,8 +1234,7 @@ va (VaSet
 font "courier,8,0"
 )
 xt "2000,6300,17500,7200"
-st "wire [9:0]   bitstream_align1;
-"
+st "wire [9:0]   bitstream_align1;"
 )
 )
 *30 (Net
@@ -1256,8 +1254,7 @@ va (VaSet
 font "courier,8,0"
 )
 xt "2000,1800,27000,2700"
-st "wire [9:0]   bitstream_align0; //2 words of 10bit
-"
+st "wire [9:0]   bitstream_align0; //2 words of 10bit"
 )
 )
 *31 (Net
@@ -1277,8 +1274,7 @@ va (VaSet
 font "courier,8,0"
 )
 xt "2000,5400,11000,6300"
-st "wire         rst;
-"
+st "wire         rst;"
 )
 )
 *32 (Net
@@ -1298,8 +1294,7 @@ va (VaSet
 font "courier,8,0"
 )
 xt "2000,4500,11000,5400"
-st "wire         clk;
-"
+st "wire         clk;"
 )
 )
 *33 (Net
@@ -1320,8 +1315,7 @@ va (VaSet
 font "courier,8,0"
 )
 xt "2000,9000,26100,9900"
-st "wire [9:0]   COMMAn = 10'b1100000101; //+K.28.5
-"
+st "wire [9:0]   COMMAn = 10'b1100000101; //+K.28.5"
 )
 )
 *34 (Net
@@ -1342,8 +1336,7 @@ va (VaSet
 font "courier,8,0"
 )
 xt "2000,9900,38100,10800"
-st "wire [9:0]   COMMAp = 10'b0011111010; //-K.28.5//comma / idle character
-"
+st "wire [9:0]   COMMAp = 10'b0011111010; //-K.28.5//comma / idle character"
 )
 )
 *35 (Net
@@ -1363,8 +1356,7 @@ va (VaSet
 font "courier,8,0"
 )
 xt "2000,10800,23600,11700"
-st "wire [9:0]   MOPS_COMMAn = 10'b0011111001;
-"
+st "wire [9:0]   MOPS_COMMAn = 10'b0011111001;"
 )
 )
 *36 (Net
@@ -1384,8 +1376,7 @@ va (VaSet
 font "courier,8,0"
 )
 xt "2000,11700,23600,12600"
-st "wire [9:0]   MOPS_COMMAp = 10'b1100000110;
-"
+st "wire [9:0]   MOPS_COMMAp = 10'b1100000110;"
 )
 )
 *37 (Wire
@@ -1929,12 +1920,12 @@ tm "BdCompilerDirectivesTextMgr"
 ]
 associable 1
 )
-windowSize "1912,41,3848,1050"
-viewArea "1570,2674,59812,31166"
+windowSize "1913,51,3847,1060"
+viewArea "17600,2700,62086,24488"
 cachedDiagramExtent "0,0,63000,49000"
 hasePageBreakOrigin 1
 pageBreakOrigin "0,0"
-lastUid 1895,0
+lastUid 2060,0
 defaultCommentText (CommentText
 shape (Rectangle
 layer 0

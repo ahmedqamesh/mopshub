@@ -168,7 +168,6 @@ data_generator#(
 //////////****// Clock generation////////////////
 always #50 clk = ~clk;   
 //////////////////////////////////////////////// 
- 
   /////******* Reset Generator task--low active ****/////
   initial 
   begin

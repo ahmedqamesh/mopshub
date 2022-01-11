@@ -59,14 +59,30 @@ module mux32_Nbit#(
   always @ (*)
   begin 
     case (sel)
-      5'b000  : data_out_r=data0;
-      5'b001  : data_out_r=data1;
-      5'b010  : data_out_r=data2;
-      5'b011  : data_out_r=data3;
-      5'b100  : data_out_r=data4;
-      5'b101  : data_out_r=data5;
-      5'b110  : data_out_r=data6;
-      5'b111  : data_out_r=data7;
+      5'b000 : begin
+        data_out_r=data0;
+      end
+      5'b001 : begin
+        data_out_r=data1;
+      end
+      5'b010 : begin
+        data_out_r=data2;
+      end
+      5'b011 : begin
+        data_out_r=data3;
+      end
+      5'b100 : begin
+        data_out_r=data4;
+      end
+      5'b101 : begin
+        data_out_r=data5;
+      end
+      5'b110 : begin
+        data_out_r=data6;
+      end
+      5'b111 : begin
+        data_out_r=data7;
+      end
       default : data_out_r=0;
       
     endcase

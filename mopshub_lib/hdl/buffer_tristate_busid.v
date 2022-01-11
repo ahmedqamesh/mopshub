@@ -24,7 +24,7 @@ module buffer_tristate_busid(
 
 
 // Internal Declarations
-reg [4:0] data_tra_reg;
+reg [4:0] data_tra_reg = 5'h0;
 // Triplication assignment
 wire [4:0] data_tra_regVoted = data_tra_reg;
 always@(posedge clk)

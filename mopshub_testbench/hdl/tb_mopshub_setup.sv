@@ -11,61 +11,39 @@
 `resetall
 `timescale 1ns/10ps
 module tb_mopshub_setup();
-  wire              clk ;//= 1'b0;
-  wire             clk_40;
-  wire             clk_80;
-  reg             rst   = 1'b1;
-  reg             sel_bus = 1'b0;
-  reg     [4:0]   can_tra_select_dbg =5'd0;
-  reg             start_data_gen= 1'b0;
-  string          info_debug_sig;     
-  //tbSM signals  
-
-  wire    [7:0]   bus_id;
-  int             adc_ch;
-  
-  //Automated trimming signals
-  reg             osc_auto_trim =1'b0; ////Active high. Enable /disable automated trimming. If disabled then take care of ftrim_pads_reg
-  reg             osc_auto_trim_mopshub =1'b0;
-
-  
+  wire            clk ;//= 1'b0;
+  wire            clk_40;
+  wire            clk_80;
+  reg             start_data_gen= 1'b0;    
   reg             test_advanced =1'b1;
-  wire            rand_msg_end;
+  wire            costum_msg_end;
 
   // MOPSHUB signals
   wire    [75:0]  data_send;
-  wire    [75:0]  data_rec;
   wire    [75:0]  bus_dec_data;
-  
-  assign data_send = {setup_generator0.customcanid, setup_generator0.data};
-  assign data_rec  = setup_generator0.data_rec_out2;
+  wire    [75:0]  data_rec;
+
+  assign data_send    = {setup_generator0.customcanid, setup_generator0.data};
+  assign data_rec     = setup_generator0.bus_dec_data;
+//                        {setup_generator0.bus_dec_data2[75:56], setup_generator0.bus_dec_data2[47:40], setup_generator0.bus_dec_data2[55:48],//b1Voted,b3Voted,b2Voted
+//                         setup_generator0.bus_dec_data2[39:32], setup_generator0.bus_dec_data2[7:0]  , setup_generator0.bus_dec_data2[15:8],//b4Voted,b5Voted,b6Voted
+//                         setup_generator0.bus_dec_data2[23:16], setup_generator0.bus_dec_data2[31:24]};//b7Voted,b8Voted};                           
+//  
   setup_generator#(
   .n_buses (5'b111),
   .seialize_data_stream(1))setup_generator0(
   .clk(clk_40),
   .clk_80(clk_80),
-  .rst(rst),
-  .ext_trim_mops(osc_auto_trim_mopshub),
   .loop_en(1'b0),
-  //Start SM
-  .start_data_gen(start_data_gen),
-  //OScillation Triming Signals
-  .osc_auto_trim(osc_auto_trim),
-  //Read ADC channels from MOPS and send it to MOPSHUB rx
+  .osc_auto_trim_mopshub(1'b0),
+  //.start_data_gen(start_data_gen),
   .test_advanced(test_advanced),
-  .rand_msg_end(rand_msg_end),
+  .costum_msg_end(costum_msg_end),
   .respmsg(respmsg),
   .reqmsg(reqmsg),
-  .adc_ch(adc_ch),  
-  // Acknowledgement bit from the MOPSHUB
-  //Decoder Signals [Listen always to the bus ]
   .bus_dec_data(bus_dec_data),
-  //read data from Elink and send it to the bus
-  .sel_bus(sel_bus),
-  .bus_cnt(can_tra_select_dbg),
-  .test_mopshub_core(1'b0),
-  .osc_auto_trim_mopshub(osc_auto_trim_mopshub),
-  .bus_id(bus_id));
+  .data_rec_uplink(data_rec),
+  .test_mopshub_core(1'b0));
   
   
   //Clock Generators and Dividers
@@ -88,21 +66,5 @@ module tb_mopshub_setup();
   .clock_in  (clk), 
   .clock_out (clk_80)
   ); 
-  /////******* Reset Generator task--low active ****/////
-  initial 
-  begin
-    rst = 1'b0;
-    #10
-    rst = 1'b1;
-    #1500
-    start_data_gen = 1'b1;
-    #100
-    start_data_gen = 1'b0;
-  end  
-  /////******* prints bus activity ******///
-  always@(posedge clk_40)
-  if (!rst)
-  begin
-    info_debug_sig = "<:RESET>";
-  end
+ 
 endmodule 

@@ -120,19 +120,19 @@ value "/home/dcs/git/mopshub/mopshub_lib/hds/canakari_interface"
 )
 (vvPair
 variable "date"
-value "01/05/22"
+value "01/10/22"
 )
 (vvPair
 variable "day"
-value "Wed"
+value "Mon"
 )
 (vvPair
 variable "day_long"
-value "Wednesday"
+value "Monday"
 )
 (vvPair
 variable "dd"
-value "05"
+value "10"
 )
 (vvPair
 variable "entity_name"
@@ -160,7 +160,7 @@ value "dcs"
 )
 (vvPair
 variable "graphical_source_date"
-value "01/05/22"
+value "01/10/22"
 )
 (vvPair
 variable "graphical_source_group"
@@ -172,7 +172,7 @@ value "chipdev2.physik.uni-wuppertal.de"
 )
 (vvPair
 variable "graphical_source_time"
-value "11:41:05"
+value "10:04:21"
 )
 (vvPair
 variable "group"
@@ -292,7 +292,7 @@ value "struct"
 )
 (vvPair
 variable "time"
-value "11:41:05"
+value "10:04:21"
 )
 (vvPair
 variable "unit"
@@ -5819,7 +5819,8 @@ st "
 assign cnt_enable = (start_cnt_osc || start_cnt);
 assign ext_rst    = (rst_cnt_osc || rst_cnt);
 assign cnt_select = (init || reset_sig_can_all || start_trim_osc ||reset_irq_osc_can);
-assign tra_select = (start_write || set_bus_id || reset_irq_tra_can);
+assign tra_select = (start_write || set_bus_id || reset_irq_tra_can ||reset_irq_tra_done);
+
 
 
 
@@ -5872,9 +5873,9 @@ uid 13809,0
 va (VaSet
 font "courier,8,1"
 )
-xt "65250,23100,72750,24000"
+xt "64250,23100,71750,24000"
 st "Counter_signal"
-blo "65250,23800"
+blo "64250,23800"
 tm "HdlTextNameMgr"
 )
 *174 (Text
@@ -5882,9 +5883,9 @@ uid 13810,0
 va (VaSet
 font "courier,8,1"
 )
-xt "65250,24000,65750,24900"
+xt "64250,24000,64750,24900"
 st "2"
-blo "65250,24700"
+blo "64250,24700"
 tm "HdlTextNumberMgr"
 )
 ]
@@ -6455,12 +6456,11 @@ stg "STSignalDisplayStrategy"
 f (Text
 uid 524,0
 va (VaSet
-isHidden 1
 font "courier,8,0"
 )
-xt "30750,7100,40250,8000"
+xt "36000,15100,45500,16000"
 st "data_init : [15:0]"
-blo "30750,7800"
+blo "36000,15800"
 tm "WireNameMgr"
 )
 )
@@ -8620,9 +8620,9 @@ va (VaSet
 vasetType 3
 lineWidth 2
 )
-xt "35750,29000,47000,29000"
+xt "35750,29000,44000,29000"
 pts [
-"47000,29000"
+"44000,29000"
 "35750,29000"
 ]
 )
@@ -8642,9 +8642,9 @@ uid 14038,0
 va (VaSet
 font "courier,8,0"
 )
-xt "37000,28100,47000,29000"
+xt "36000,28100,46000,29000"
 st "data_tra_select_cnt"
-blo "37000,28800"
+blo "36000,28800"
 tm "WireNameMgr"
 )
 )
@@ -9027,8 +9027,8 @@ tm "BdCompilerDirectivesTextMgr"
 ]
 associable 1
 )
-windowSize "1913,29,3847,1063"
-viewArea "19508,-5160,133118,52143"
+windowSize "2082,29,4016,1063"
+viewArea "22276,5712,106115,49371"
 cachedDiagramExtent "1500,0,156000,59000"
 pageSetupInfo (PageSetupInfo
 fileName "/home/rahmad/Desktop/123"
@@ -9051,7 +9051,7 @@ exportStdPackageRefs 1
 )
 hasePageBreakOrigin 1
 pageBreakOrigin "0,0"
-lastUid 15858,0
+lastUid 16137,0
 defaultCommentText (CommentText
 shape (Rectangle
 layer 0
@@ -10110,7 +10110,7 @@ tm "BdDeclarativeTextMgr"
 )
 commonDM (CommonDM
 ldm (LogicalDM
-suid 147,0
+suid 149,0
 usingSuid 1
 emptyRow *293 (LEmptyRow
 )
