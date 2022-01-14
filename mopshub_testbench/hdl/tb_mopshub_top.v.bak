@@ -1,12 +1,12 @@
 `resetall
 `timescale 1ns/10ps
 module tb_mopshub_top();
-  wire              clk ;//= 1'b0;
+  wire             clk ;//= 1'b0;
   wire             clk_40;
   wire             clk_80;
-  reg             rst   = 1'b1;
+  reg             rst   = 1'b0;
   wire            rst_mops_dbg;
-  reg             sel_bus = 1'b1;
+  reg             sel_bus = 1'b0;
   reg     [4:0]   can_tra_select_dbg =5'd1;
   wire            sign_on_sig;
   reg             start_data_gen= 1'b0;
@@ -102,17 +102,17 @@ module tb_mopshub_top();
   
   mopshub_top#(
   .n_buses (5'b111),
-  .seialize_data_stream(1),
-  .generate_mopshub(1'b1))mopshub0(
+  .seialize_data_stream(0))mopshub0(
   .clk(clk_40),
   .clk_80(clk_80),
-  .reset(!rst),  
+  .rst(rst),  
   .osc_auto_trim_mopshub(osc_auto_trim_mopshub),                     
-  .end_cnt_dbg(1'b0),      
-  //.tx_elink2bit(tx_mopshub_2bit),
+  .end_cnt_dbg(1'b0),   
+  .fifo_flush(1'b1),   
+  .tx_elink2bit(tx_mopshub_2bit),
   .tx_elink1bit(tx_mopshub_1bit),
   .rx_elink1bit(rx_mopshub_1bit),
-  // .rx_elink2bit(rx_mopshub_2bit),        
+  .rx_elink2bit(rx_mopshub_2bit),        
   .rx0(rx0),        
   .rx1(rx1),        
   .rx2(rx2),        
@@ -132,8 +132,7 @@ module tb_mopshub_top();
   
   data_generator#(
   .n_buses (5'b111),
-  .seialize_data_stream(1),
-  .generate_mopshub(1'b1))data_generator0(
+  .seialize_data_stream(0))data_generator0(
   .clk(clk_40),
   .clk_80(clk_80),
   .rst(rst),
@@ -187,9 +186,9 @@ module tb_mopshub_top();
   .start_trim_osc(start_trim_osc),
   //Elin.kSignals
   .tx_elink1bit(rx_mopshub_1bit),
-  // .tx_elink2bit(rx_mopshub_2bit),
+  .tx_elink2bit(rx_mopshub_2bit),
   .rx_elink1bit(tx_mopshub_1bit),
-  // .rx_elink2bit(tx_mopshub_2bit),
+  .rx_elink2bit(tx_mopshub_2bit),
   //RX-TX signals
   .rx0(rx0),        
   .rx1(rx1),        
@@ -254,7 +253,7 @@ module tb_mopshub_top();
     if(sign_on_sig ==1)//start Rx test
     begin
       start_data_gen =1'b0;
-        test_rx =1'b1;
+        test_tx =1'b1;
       //test_advanced = 1'b1;
     end
     if(test_rx_end ==1)//Done Rx test

@@ -11,7 +11,7 @@ appVersion "2019.4 (Build 4)"
 model (Symbol
 commonDM (CommonDM
 ldm (LogicalDM
-suid 30,0
+suid 31,0
 usingSuid 1
 emptyRow *1 (LEmptyRow
 )
@@ -70,19 +70,6 @@ uid 3618,0
 port (LogicalPort
 lang 5
 decl (Decl
-n "reset"
-t "wire"
-eolc "should be used through VIO"
-o 3
-suid 29,0
-)
-)
-uid 4069,0
-)
-*17 (LogPort
-port (LogicalPort
-lang 5
-decl (Decl
 n "clk_in"
 t "wire"
 prec "// Port Declarations
@@ -99,10 +86,23 @@ suid 30,0
 )
 uid 4099,0
 )
+*17 (LogPort
+port (LogicalPort
+lang 5
+decl (Decl
+n "rst"
+t "wire"
+eolc "should be used through VIO"
+o 3
+suid 31,0
+)
+)
+uid 4129,0
+)
 *18 (LGroup
 name "out"
 comment ""
-uid 4100,0
+uid 4130,0
 optionalChildren [
 *19 (LogPort
 port (LogicalPort
@@ -183,15 +183,15 @@ uid 3617,0
 )
 *27 (MRCItem
 litem &16
-pos 1
-dimension 20
-uid 4068,0
-)
-*28 (MRCItem
-litem &17
 pos 0
 dimension 20
 uid 4098,0
+)
+*28 (MRCItem
+litem &17
+pos 1
+dimension 20
+uid 4128,0
 )
 ]
 )
@@ -450,19 +450,19 @@ value "/home/dcs/git/mopshub/mopshub_testbench/hds/top_led_enable_SM"
 )
 (vvPair
 variable "date"
-value "10/30/21"
+value "01/12/22"
 )
 (vvPair
 variable "day"
-value "Sat"
+value "Wed"
 )
 (vvPair
 variable "day_long"
-value "Saturday"
+value "Wednesday"
 )
 (vvPair
 variable "dd"
-value "30"
+value "12"
 )
 (vvPair
 variable "entity_name"
@@ -490,7 +490,7 @@ value "dcs"
 )
 (vvPair
 variable "graphical_source_date"
-value "10/30/21"
+value "01/12/22"
 )
 (vvPair
 variable "graphical_source_group"
@@ -502,7 +502,7 @@ value "chipdev2.physik.uni-wuppertal.de"
 )
 (vvPair
 variable "graphical_source_time"
-value "14:21:25"
+value "18:30:52"
 )
 (vvPair
 variable "group"
@@ -546,7 +546,7 @@ value "$HDS_PROJECT_DIR/mopshub_testbench/svassistant"
 )
 (vvPair
 variable "mm"
-value "10"
+value "01"
 )
 (vvPair
 variable "module_name"
@@ -554,11 +554,11 @@ value "top_led_enable_SM"
 )
 (vvPair
 variable "month"
-value "Oct"
+value "Jan"
 )
 (vvPair
 variable "month_long"
-value "October"
+value "January"
 )
 (vvPair
 variable "p"
@@ -622,7 +622,7 @@ value "symbol"
 )
 (vvPair
 variable "time"
-value "14:21:25"
+value "18:30:52"
 )
 (vvPair
 variable "unit"
@@ -642,11 +642,11 @@ value "symbol"
 )
 (vvPair
 variable "year"
-value "2021"
+value "2022"
 )
 (vvPair
 variable "yy"
-value "21"
+value "22"
 )
 ]
 )
@@ -752,53 +752,6 @@ suid 27,0
 )
 )
 *61 (CptPort
-uid 4071,0
-ps "OnEdgeStrategy"
-shape (Triangle
-uid 4072,0
-ro 90
-va (VaSet
-vasetType 1
-fg "0,65535,0"
-)
-xt "32250,23625,33000,24375"
-)
-tg (CPTG
-uid 4073,0
-ps "CptPortTextPlaceStrategy"
-stg "VerticalLayoutStrategy"
-f (Text
-uid 4074,0
-va (VaSet
-font "courier,8,0"
-)
-xt "34000,23550,36500,24450"
-st "reset"
-blo "34000,24250"
-tm "CptPortNameMgr"
-)
-)
-dt (MLText
-uid 4075,0
-va (VaSet
-font "courier,8,0"
-)
-xt "2000,10800,26500,11700"
-st "input  wire reset; // should be used through VIO
-"
-)
-thePort (LogicalPort
-lang 5
-decl (Decl
-n "reset"
-t "wire"
-eolc "should be used through VIO"
-o 3
-suid 29,0
-)
-)
-)
-*62 (CptPort
 uid 4101,0
 ps "OnEdgeStrategy"
 shape (Triangle
@@ -858,6 +811,53 @@ suid 30,0
 )
 )
 )
+*62 (CptPort
+uid 4131,0
+ps "OnEdgeStrategy"
+shape (Triangle
+uid 4132,0
+ro 90
+va (VaSet
+vasetType 1
+fg "0,65535,0"
+)
+xt "32250,25625,33000,26375"
+)
+tg (CPTG
+uid 4133,0
+ps "CptPortTextPlaceStrategy"
+stg "VerticalLayoutStrategy"
+f (Text
+uid 4134,0
+va (VaSet
+font "courier,8,0"
+)
+xt "34000,25550,35500,26450"
+st "rst"
+blo "34000,26250"
+tm "CptPortNameMgr"
+)
+)
+dt (MLText
+uid 4135,0
+va (VaSet
+font "courier,8,0"
+)
+xt "2000,10800,25500,11700"
+st "input  wire rst; // should be used through VIO
+"
+)
+thePort (LogicalPort
+lang 5
+decl (Decl
+n "rst"
+t "wire"
+eolc "should be used through VIO"
+o 3
+suid 31,0
+)
+)
+)
 ]
 shape (Rectangle
 uid 9,0
@@ -867,7 +867,7 @@ fg "0,65535,0"
 lineColor "0,32896,0"
 lineWidth 2
 )
-xt "33000,14000,57000,26000"
+xt "33000,14000,57000,27000"
 )
 oxt "15000,6000,39000,26000"
 biTextGroup (BiTextGroup
@@ -1569,7 +1569,7 @@ xt "2000,2700,2000,2700"
 tm "SyDeclarativeTextMgr"
 )
 )
-lastUid 4105,0
+lastUid 4135,0
 postModuleDirective "// ### Please start your Verilog code here ###"
 okToSyncOnLoad 1
 OkToSyncGenericsOnLoad 1

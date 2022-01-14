@@ -22,8 +22,6 @@ module output_diff_buff_clk(
    output  wire      clk_out_p,
    output  wire      clk_out_n 
 );
-//assign clk_out_p = clk_in;
-//assign clk_out_n = clk_in;
 // Internal Declarations
    wire clk_local_sig;
    

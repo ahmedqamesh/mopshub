@@ -16,7 +16,7 @@ use IEEE.STD_LOGIC_1164.all;
  
 entity enc_8b10b is     
     port( 
-        reset : in std_logic;
+        rst : in std_logic;
         clk : in std_logic ;
         ena : in std_logic ;
         KI : in std_logic ;            -- Control (K) input(active high) 
@@ -77,9 +77,9 @@ begin
     gi <= datain(6) ;
     hi <= datain(7) ;
 
-    disp_proc: process(clk, reset)
+    disp_proc: process(clk, rst)
     begin
-        if reset = '1' then
+        if rst = '0' then
             dispin <= '0';
             dataout <= "0000000000";
         elsif rising_edge(clk) then

@@ -12,13 +12,13 @@ libraryRefs [
 "IEEE"
 ]
 )
-version "26.1"
-appVersion "2018.1 (Build 12)"
+version "27.1"
+appVersion "2019.4 (Build 4)"
 model (Symbol
 commonDM (CommonDM
 ldm (LogicalDM
 ordering 1
-suid 8,0
+suid 11,0
 usingSuid 1
 emptyRow *1 (LEmptyRow
 )
@@ -61,20 +61,6 @@ tm "EolColHdrMgr"
 port (LogicalPort
 lang 2
 decl (Decl
-n "reset"
-t "std_logic"
-preAdd 0
-posAdd 0
-o 1
-suid 1,0
-)
-)
-uid 91,0
-)
-*15 (LogPort
-port (LogicalPort
-lang 2
-decl (Decl
 n "clk"
 t "std_logic"
 preAdd 0
@@ -85,13 +71,13 @@ suid 2,0
 )
 uid 93,0
 )
-*16 (LogPort
+*15 (LogPort
 port (LogicalPort
 lang 2
 decl (Decl
 n "datain"
 t "std_logic_vector"
-b "(9 downto 0)"
+b "(9 DOWNTO 0)"
 preAdd 0
 posAdd 0
 o 3
@@ -100,7 +86,7 @@ suid 3,0
 )
 uid 95,0
 )
-*17 (LogPort
+*16 (LogPort
 port (LogicalPort
 lang 2
 decl (Decl
@@ -114,7 +100,7 @@ suid 4,0
 )
 uid 97,0
 )
-*18 (LogPort
+*17 (LogPort
 port (LogicalPort
 lang 2
 m 1
@@ -129,14 +115,14 @@ suid 5,0
 )
 uid 99,0
 )
-*19 (LogPort
+*18 (LogPort
 port (LogicalPort
 lang 2
 m 1
 decl (Decl
 n "dataout"
 t "std_logic_vector"
-b "(7 downto 0)"
+b "(7 DOWNTO 0)"
 preAdd 0
 posAdd 0
 o 6
@@ -145,7 +131,7 @@ suid 6,0
 )
 uid 101,0
 )
-*20 (LogPort
+*19 (LogPort
 port (LogicalPort
 lang 2
 m 1
@@ -160,7 +146,7 @@ suid 7,0
 )
 uid 103,0
 )
-*21 (LogPort
+*20 (LogPort
 port (LogicalPort
 lang 2
 m 1
@@ -174,6 +160,18 @@ suid 8,0
 )
 )
 uid 105,0
+)
+*21 (LogPort
+port (LogicalPort
+lang 2
+decl (Decl
+n "rst"
+t "std_logic"
+o 1
+suid 11,0
+)
+)
+uid 255,0
 )
 ]
 )
@@ -229,49 +227,49 @@ uid 130,0
 litem &14
 pos 0
 dimension 20
-uid 92,0
+uid 94,0
 )
 *28 (MRCItem
 litem &15
 pos 1
 dimension 20
-uid 94,0
+uid 96,0
 )
 *29 (MRCItem
 litem &16
 pos 2
 dimension 20
-uid 96,0
+uid 98,0
 )
 *30 (MRCItem
 litem &17
 pos 3
 dimension 20
-uid 98,0
+uid 100,0
 )
 *31 (MRCItem
 litem &18
 pos 4
 dimension 20
-uid 100,0
+uid 102,0
 )
 *32 (MRCItem
 litem &19
 pos 5
 dimension 20
-uid 102,0
+uid 104,0
 )
 *33 (MRCItem
 litem &20
 pos 6
 dimension 20
-uid 104,0
+uid 106,0
 )
 *34 (MRCItem
 litem &21
 pos 7
 dimension 20
-uid 106,0
+uid 256,0
 )
 ]
 )
@@ -542,19 +540,19 @@ value "/home/dcs/git/mopshub/mopshub_lib/hds/dec_8b10b"
 )
 (vvPair
 variable "date"
-value "03/19/21"
+value "01/12/22"
 )
 (vvPair
 variable "day"
-value "Fri"
+value "Wed"
 )
 (vvPair
 variable "day_long"
-value "Friday"
+value "Wednesday"
 )
 (vvPair
 variable "dd"
-value "19"
+value "12"
 )
 (vvPair
 variable "entity_name"
@@ -582,7 +580,7 @@ value "dcs"
 )
 (vvPair
 variable "graphical_source_date"
-value "03/19/21"
+value "01/12/22"
 )
 (vvPair
 variable "graphical_source_group"
@@ -594,7 +592,7 @@ value "chipdev2.physik.uni-wuppertal.de"
 )
 (vvPair
 variable "graphical_source_time"
-value "17:00:45"
+value "18:02:47"
 )
 (vvPair
 variable "group"
@@ -621,8 +619,16 @@ variable "library_downstream_ModelSimCompiler"
 value "$HDS_PROJECT_DIR/mopshub_lib/work"
 )
 (vvPair
+variable "library_downstream_PrecisionSynthesisDataPrep"
+value "$HDS_PROJECT_DIR/mopshub_lib/ps"
+)
+(vvPair
 variable "library_downstream_QuestaSimCompiler"
 value "$HDS_PROJECT_DIR/mopshub_lib/work"
+)
+(vvPair
+variable "library_downstream_QuestaSimSimulator"
+value "$HDS_PROJECT_DIR/mopshub_lib/sim"
 )
 (vvPair
 variable "library_downstream_SvAssistantInvoke"
@@ -630,7 +636,7 @@ value "$HDS_PROJECT_DIR/mopshub_lib/svassistant"
 )
 (vvPair
 variable "mm"
-value "03"
+value "01"
 )
 (vvPair
 variable "module_name"
@@ -638,11 +644,11 @@ value "dec_8b10b"
 )
 (vvPair
 variable "month"
-value "Mar"
+value "Jan"
 )
 (vvPair
 variable "month_long"
-value "March"
+value "January"
 )
 (vvPair
 variable "p"
@@ -674,11 +680,11 @@ value "<TBD>"
 )
 (vvPair
 variable "task_ModelSimPath"
-value "<TBD>"
+value "/eda/mentor/2019-20/RHELx86/AMS_2019.4/amsv/modeltech/bin"
 )
 (vvPair
 variable "task_NC-SimPath"
-value "/eda/cadence/2018-19/RHELx86/XCELIUM_18.03.010/tools/bin"
+value "/eda/cadence/2019-20/RHELx86/XCELIUM_19.03.013/tools/bin"
 )
 (vvPair
 variable "task_PrecisionRTLPath"
@@ -686,7 +692,7 @@ value "<TBD>"
 )
 (vvPair
 variable "task_QuestaSimPath"
-value "/eda/mentor/2018-19/RHELx86/AMS_17.1.1/questasim/v10.6_1/bin"
+value "/eda/mentor/2019-20/RHELx86/QUESTA-CORE-PRIME_2019.4/questasim/linux_x86_64"
 )
 (vvPair
 variable "task_VCSPath"
@@ -706,7 +712,7 @@ value "symbol"
 )
 (vvPair
 variable "time"
-value "17:00:45"
+value "18:02:47"
 )
 (vvPair
 variable "unit"
@@ -718,7 +724,7 @@ value "dcs"
 )
 (vvPair
 variable "version"
-value "2018.1 (Build 12)"
+value "2019.4 (Build 4)"
 )
 (vvPair
 variable "view"
@@ -726,11 +732,11 @@ value "symbol"
 )
 (vvPair
 variable "year"
-value "2021"
+value "2022"
 )
 (vvPair
 variable "yy"
-value "21"
+value "22"
 )
 ]
 )
@@ -741,53 +747,6 @@ optionalChildren [
 uid 8,0
 optionalChildren [
 *68 (CptPort
-uid 48,0
-ps "OnEdgeStrategy"
-shape (Triangle
-uid 49,0
-ro 90
-va (VaSet
-vasetType 1
-fg "0,65535,0"
-)
-xt "-450750,258625,-450000,259375"
-)
-tg (CPTG
-uid 50,0
-ps "CptPortTextPlaceStrategy"
-stg "VerticalLayoutStrategy"
-f (Text
-uid 51,0
-va (VaSet
-font "courier,8,0"
-)
-xt "-449000,258550,-446500,259450"
-st "reset"
-blo "-449000,259250"
-tm "CptPortNameMgr"
-)
-)
-dt (MLText
-uid 52,0
-va (VaSet
-font "courier,8,0"
-)
-xt "2000,6500,19500,7400"
-st "reset        : IN     std_logic  ;"
-)
-thePort (LogicalPort
-lang 2
-decl (Decl
-n "reset"
-t "std_logic"
-preAdd 0
-posAdd 0
-o 1
-suid 1,0
-)
-)
-)
-*69 (CptPort
 uid 53,0
 ps "OnEdgeStrategy"
 shape (Triangle
@@ -820,7 +779,8 @@ va (VaSet
 font "courier,8,0"
 )
 xt "2000,7400,19500,8300"
-st "clk          : IN     std_logic  ;"
+st "clk          : IN     std_logic  ;
+"
 )
 thePort (LogicalPort
 lang 2
@@ -834,7 +794,7 @@ suid 2,0
 )
 )
 )
-*70 (CptPort
+*69 (CptPort
 uid 58,0
 ps "OnEdgeStrategy"
 shape (Triangle
@@ -867,14 +827,15 @@ va (VaSet
 font "courier,8,0"
 )
 xt "2000,8300,29000,9200"
-st "datain       : IN     std_logic_vector (9 downto 0) ;"
+st "datain       : IN     std_logic_vector (9 DOWNTO 0) ;
+"
 )
 thePort (LogicalPort
 lang 2
 decl (Decl
 n "datain"
 t "std_logic_vector"
-b "(9 downto 0)"
+b "(9 DOWNTO 0)"
 preAdd 0
 posAdd 0
 o 3
@@ -882,7 +843,7 @@ suid 3,0
 )
 )
 )
-*71 (CptPort
+*70 (CptPort
 uid 63,0
 ps "OnEdgeStrategy"
 shape (Triangle
@@ -915,7 +876,8 @@ va (VaSet
 font "courier,8,0"
 )
 xt "2000,9200,19500,10100"
-st "datain_valid : IN     std_logic  ;"
+st "datain_valid : IN     std_logic  ;
+"
 )
 thePort (LogicalPort
 lang 2
@@ -929,7 +891,7 @@ suid 4,0
 )
 )
 )
-*72 (CptPort
+*71 (CptPort
 uid 68,0
 ps "OnEdgeStrategy"
 shape (Triangle
@@ -963,7 +925,8 @@ va (VaSet
 font "courier,8,0"
 )
 xt "2000,10100,19500,11000"
-st "ko           : OUT    std_logic  ;"
+st "ko           : OUT    std_logic  ;
+"
 )
 thePort (LogicalPort
 lang 2
@@ -978,7 +941,7 @@ suid 5,0
 )
 )
 )
-*73 (CptPort
+*72 (CptPort
 uid 73,0
 ps "OnEdgeStrategy"
 shape (Triangle
@@ -1012,7 +975,8 @@ va (VaSet
 font "courier,8,0"
 )
 xt "2000,11000,29000,11900"
-st "dataout      : OUT    std_logic_vector (7 downto 0) ;"
+st "dataout      : OUT    std_logic_vector (7 DOWNTO 0) ;
+"
 )
 thePort (LogicalPort
 lang 2
@@ -1020,7 +984,7 @@ m 1
 decl (Decl
 n "dataout"
 t "std_logic_vector"
-b "(7 downto 0)"
+b "(7 DOWNTO 0)"
 preAdd 0
 posAdd 0
 o 6
@@ -1028,7 +992,7 @@ suid 6,0
 )
 )
 )
-*74 (CptPort
+*73 (CptPort
 uid 78,0
 ps "OnEdgeStrategy"
 shape (Triangle
@@ -1062,7 +1026,8 @@ va (VaSet
 font "courier,8,0"
 )
 xt "2000,11900,19500,12800"
-st "code_err     : OUT    std_logic  ;"
+st "code_err     : OUT    std_logic  ;
+"
 )
 thePort (LogicalPort
 lang 2
@@ -1077,7 +1042,7 @@ suid 7,0
 )
 )
 )
-*75 (CptPort
+*74 (CptPort
 uid 83,0
 ps "OnEdgeStrategy"
 shape (Triangle
@@ -1111,7 +1076,8 @@ va (VaSet
 font "courier,8,0"
 )
 xt "2000,12800,18500,13700"
-st "disp_err     : OUT    std_logic "
+st "disp_err     : OUT    std_logic 
+"
 )
 thePort (LogicalPort
 lang 2
@@ -1123,6 +1089,52 @@ preAdd 0
 posAdd 0
 o 8
 suid 8,0
+)
+)
+)
+*75 (CptPort
+uid 250,0
+ps "OnEdgeStrategy"
+shape (Triangle
+uid 251,0
+ro 90
+va (VaSet
+vasetType 1
+fg "0,65535,0"
+)
+xt "-450750,265625,-450000,266375"
+)
+tg (CPTG
+uid 252,0
+ps "CptPortTextPlaceStrategy"
+stg "VerticalLayoutStrategy"
+f (Text
+uid 253,0
+va (VaSet
+font "courier,8,0"
+)
+xt "-449000,265550,-447500,266450"
+st "rst"
+blo "-449000,266250"
+tm "CptPortNameMgr"
+)
+)
+dt (MLText
+uid 254,0
+va (VaSet
+font "courier,8,0"
+)
+xt "2000,6500,19500,7400"
+st "rst          : IN     std_logic  ;
+"
+)
+thePort (LogicalPort
+lang 2
+decl (Decl
+n "rst"
+t "std_logic"
+o 1
+suid 11,0
 )
 )
 )
@@ -1582,9 +1594,9 @@ uid 109,0
 va (VaSet
 font "courier,8,0"
 )
-xt "0,1900,15000,3700"
+xt "0,1900,14500,3700"
 st "LIBRARY IEEE; 
-USE IEEE.STD_LOGIC_1164.all; "
+USE IEEE.STD_LOGIC_1164.all;"
 tm "PackageList"
 )
 ]
@@ -1864,6 +1876,6 @@ xt "0,4700,0,4700"
 tm "SyDeclarativeTextMgr"
 )
 )
-lastUid 166,0
+lastUid 256,0
 activeModelName "Symbol"
 )

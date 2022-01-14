@@ -11,7 +11,7 @@
 `resetall
 `timescale 1ns/10ps
 module top_led_test (
-    input wire reset,
+    input wire rst,
     input wire clk,
     output wire led
     );
@@ -20,7 +20,7 @@ module top_led_test (
   reg LED_status= 1'b0;
   assign led = LED_status;
   always @ (posedge clk) 
-  if (reset)
+  if (!rst)
     begin
     counter <= 32'b0;
     LED_status <= 1'b0;

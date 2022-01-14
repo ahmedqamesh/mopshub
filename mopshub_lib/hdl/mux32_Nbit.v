@@ -10,49 +10,47 @@
 
 `resetall
 `timescale 1ns/10ps
-module mux32_Nbit#(
-  parameter N = 16
-  )( 
+module mux32_Nbit( 
   // Port Declarations
-  input   wire    [N-1:0]  data0, 
-  input   wire    [N-1:0]  data1, 
-  input   wire    [N-1:0]  data2, 
-  input   wire    [N-1:0]  data3, 
-  input   wire    [N-1:0]  data4, 
-  input   wire    [N-1:0]  data5, 
-  input   wire    [N-1:0]  data6, 
-  input   wire    [N-1:0]  data7, 
-  input   wire    [N-1:0]  data8, 
-  input   wire    [N-1:0]  data9, 
-  input   wire    [N-1:0]  data10, 
-  input   wire    [N-1:0]  data11, 
-  input   wire    [N-1:0]  data12, 
-  input   wire    [N-1:0]  data13, 
-  input   wire    [N-1:0]  data14, 
-  input   wire    [N-1:0]  data15, 
-  input   wire    [N-1:0]  data16, 
-  input   wire    [N-1:0]  data17, 
-  input   wire    [N-1:0]  data18, 
-  input   wire    [N-1:0]  data19, 
-  input   wire    [N-1:0]  data20, 
-  input   wire    [N-1:0]  data21, 
-  input   wire    [N-1:0]  data22, 
-  input   wire    [N-1:0]  data23, 
-  input   wire    [N-1:0]  data24, 
-  input   wire    [N-1:0]  data25, 
-  input   wire    [N-1:0]  data26, 
-  input   wire    [N-1:0]  data27, 
-  input   wire    [N-1:0]  data28, 
-  input   wire    [N-1:0]  data29, 
-  input   wire    [N-1:0]  data30, 
-  input   wire    [N-1:0]  data31,  
+  input   wire    [15:0]  data0, 
+  input   wire    [15:0]  data1, 
+  input   wire    [15:0]  data2, 
+  input   wire    [15:0]  data3, 
+  input   wire    [15:0]  data4, 
+  input   wire    [15:0]  data5, 
+  input   wire    [15:0]  data6, 
+  input   wire    [15:0]  data7, 
+  input   wire    [15:0]  data8, 
+  input   wire    [15:0]  data9, 
+  input   wire    [15:0]  data10, 
+  input   wire    [15:0]  data11, 
+  input   wire    [15:0]  data12, 
+  input   wire    [15:0]  data13, 
+  input   wire    [15:0]  data14, 
+  input   wire    [15:0]  data15, 
+  input   wire    [15:0]  data16, 
+  input   wire    [15:0]  data17, 
+  input   wire    [15:0]  data18, 
+  input   wire    [15:0]  data19, 
+  input   wire    [15:0]  data20, 
+  input   wire    [15:0]  data21, 
+  input   wire    [15:0]  data22, 
+  input   wire    [15:0]  data23, 
+  input   wire    [15:0]  data24, 
+  input   wire    [15:0]  data25, 
+  input   wire    [15:0]  data26, 
+  input   wire    [15:0]  data27, 
+  input   wire    [15:0]  data28, 
+  input   wire    [15:0]  data29, 
+  input   wire    [15:0]  data30, 
+  input   wire    [15:0]  data31,  
   input   wire    [4:0]   sel, 
-  output  wire    [N-1:0]  data_out
+  output  wire    [15:0]  data_out
   );
   
   
   // Internal Declarations
-  reg [N-1:0] data_out_r = 16'b0;
+  reg [15:0] data_out_r = 16'b0;
   assign data_out = data_out_r;
   /////////////////////////////////////////////////////////////////
   // Flowchart process0
@@ -67,7 +65,7 @@ module mux32_Nbit#(
       5'b101  : data_out_r=data5;
       5'b110  : data_out_r=data6;
       5'b111  : data_out_r=data7;
-      default : data_out_r=0;
+      default : data_out_r=16'b0;
       
     endcase
   end
