@@ -7,7 +7,7 @@ module tb_mopshub_top();
   reg             rst   = 1'b0;
   wire            rst_mops_dbg;
   reg             sel_bus = 1'b0;
-  reg     [4:0]   can_tra_select_dbg =5'd1;
+  reg     [4:0]   can_tra_select_dbg =5'd15;
   wire            sign_on_sig;
   reg             start_data_gen= 1'b0;
   wire            start_init;
@@ -65,7 +65,24 @@ module tb_mopshub_top();
   wire            rx5;
   wire            rx6;
   wire            rx7;
+  wire            rx8;
+  wire            rx9;
+  wire            rx10;
+  wire            rx11;
+  wire            rx12;
+  wire            rx13;
+  wire            rx14;
+  wire            rx15;
+  wire            rx16;
+  wire            rx17;
+  wire            rx18;
+  wire            rx19;
+  wire            rx20;
+  wire            rx21;
+  wire            rx22;
+  wire            rx23;
   
+      
   wire            tx0;
   wire            tx1;
   wire            tx2;
@@ -74,9 +91,26 @@ module tb_mopshub_top();
   wire            tx5;
   wire            tx6;
   wire            tx7;
-  //wire [1:0] tx_mopshub_2bit; 
+  wire            tx8;
+  wire            tx9;
+  wire            tx10;
+  wire            tx11;
+  wire            tx12;
+  wire            tx13;
+  wire            tx14;
+  wire            tx15;
+  wire            tx16;
+  wire            tx17;
+  wire            tx18;
+  wire            tx19;
+  wire            tx20;
+  wire            tx21;
+  wire            tx22;
+  wire            tx23;
+  
+  wire [1:0] tx_mopshub_2bit; 
   wire       tx_mopshub_1bit; 
-  //wire [1:0] rx_mopshub_2bit; 
+  wire [1:0] rx_mopshub_2bit; 
   wire       rx_mopshub_1bit;
   
   //Internal assignments  
@@ -101,7 +135,7 @@ module tb_mopshub_top();
   
   
   mopshub_top#(
-  .n_buses (5'b111),
+  .n_buses (5'b10111),
   .seialize_data_stream(0))mopshub0(
   .clk(clk_40),
   .clk_80(clk_80),
@@ -121,6 +155,22 @@ module tb_mopshub_top();
   .rx5(rx5),        
   .rx6(rx6),        
   .rx7(rx7),
+  .rx8(rx8),        
+  .rx9(rx9),        
+  .rx10(rx10),        
+  .rx11(rx11),        
+  .rx12(rx12),        
+  .rx13(rx13),        
+  .rx14(rx14),        
+  .rx15(rx15), 
+  .rx16(rx16),        
+  .rx17(rx17),        
+  .rx18(rx18),        
+  .rx19(rx19),        
+  .rx20(rx20),        
+  .rx21(rx21), 
+  .rx22(rx22),   
+  .rx23(rx23),
   .tx0(tx0),              
   .tx1(tx1),
   .tx2(tx2),
@@ -128,10 +178,26 @@ module tb_mopshub_top();
   .tx4(tx4),
   .tx5(tx5),
   .tx6(tx6),
-  .tx7(tx7));
+  .tx7(tx7),
+  .tx8(tx8),              
+  .tx9(tx9),
+  .tx10(tx10),
+  .tx11(tx11),
+  .tx12(tx12),
+  .tx13(tx13),
+  .tx14(tx14),
+  .tx15(tx15),
+  .tx16(tx16),              
+  .tx17(tx17),
+  .tx18(tx18),
+  .tx19(tx19),
+  .tx20(tx20),
+  .tx21(tx21),
+  .tx22(tx22),
+  .tx23(tx23));
   
   data_generator#(
-  .n_buses (5'b111),
+  .n_buses (5'b10111),
   .seialize_data_stream(0))data_generator0(
   .clk(clk_40),
   .clk_80(clk_80),
@@ -198,6 +264,22 @@ module tb_mopshub_top();
   .rx5(rx5),        
   .rx6(rx6),        
   .rx7(rx7),
+  .rx8(rx8),        
+  .rx9(rx9),        
+  .rx10(rx10),        
+  .rx11(rx11),        
+  .rx12(rx12),        
+  .rx13(rx13),        
+  .rx14(rx14),        
+  .rx15(rx15), 
+  .rx16(rx16),        
+  .rx17(rx17),        
+  .rx18(rx18),        
+  .rx19(rx19),        
+  .rx20(rx20),        
+  .rx21(rx21), 
+  .rx22(rx22),   
+  .rx23(rx23),
   .tx0(tx0),              
   .tx1(tx1),
   .tx2(tx2),
@@ -205,7 +287,23 @@ module tb_mopshub_top();
   .tx4(tx4),
   .tx5(tx5),
   .tx6(tx6),
-  .tx7(tx7));
+  .tx7(tx7),
+  .tx8(tx8),              
+  .tx9(tx9),
+  .tx10(tx10),
+  .tx11(tx11),
+  .tx12(tx12),
+  .tx13(tx13),
+  .tx14(tx14),
+  .tx15(tx15),
+  .tx16(tx16),              
+  .tx17(tx17),
+  .tx18(tx18),
+  .tx19(tx19),
+  .tx20(tx20),
+  .tx21(tx21),
+  .tx22(tx22),
+  .tx23(tx23));
   
   
   //Clock Generators and Dividers
@@ -253,7 +351,7 @@ module tb_mopshub_top();
     if(sign_on_sig ==1)//start Rx test
     begin
       start_data_gen =1'b0;
-        test_tx =1'b1;
+        test_rx =1'b1;
       //test_advanced = 1'b1;
     end
     if(test_rx_end ==1)//Done Rx test

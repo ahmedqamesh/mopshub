@@ -65,6 +65,34 @@ module mux32_Nbit(
       5'b101  : data_out_r=data5;
       5'b110  : data_out_r=data6;
       5'b111  : data_out_r=data7;
+      
+      5'b1000 : data_out_r=data8;
+      5'b1001 : data_out_r=data9;
+      5'b1010 : data_out_r=data10;
+      5'b1011 : data_out_r=data11;
+      5'b1100 : data_out_r=data12;
+      5'b1101 : data_out_r=data13;
+      5'b1110 : data_out_r=data14;    
+      5'b1111 : data_out_r=data15;
+      
+      5'b10000  : data_out_r=data16;
+      5'b10001  : data_out_r=data17;
+      5'b10010  : data_out_r=data18;
+      5'b10011  : data_out_r=data19;
+      5'b10100  : data_out_r=data20;
+      5'b10101  : data_out_r=data21;
+      5'b10110  : data_out_r=data22;
+      5'b10111  : data_out_r=data23;
+            
+      5'b11000  : data_out_r=data24;
+      5'b11001  : data_out_r=data25;
+      5'b11010  : data_out_r=data26;
+      5'b11011  : data_out_r=data27;
+      5'b11100  : data_out_r=data28;
+      5'b11101  : data_out_r=data29;
+      5'b11110  : data_out_r=data30;
+      5'b11111  : data_out_r=data31;
+      
       default : data_out_r=16'b0;
       
     endcase
