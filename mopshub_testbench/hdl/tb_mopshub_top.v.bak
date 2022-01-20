@@ -7,7 +7,7 @@ module tb_mopshub_top();
   reg             rst   = 1'b0;
   wire            rst_mops_dbg;
   reg             sel_bus = 1'b0;
-  reg     [4:0]   can_tra_select_dbg =5'd15;
+  reg     [4:0]   can_tra_select_dbg =5'd1;
   wire            sign_on_sig;
   reg             start_data_gen= 1'b0;
   wire            start_init;
@@ -81,7 +81,15 @@ module tb_mopshub_top();
   wire            rx21;
   wire            rx22;
   wire            rx23;
-  
+  wire            rx24;
+  wire            rx25;
+  wire            rx26;
+  wire            rx27;
+  wire            rx28;
+  wire            rx29;
+  wire            rx30;
+  wire            rx31;
+    
       
   wire            tx0;
   wire            tx1;
@@ -107,7 +115,15 @@ module tb_mopshub_top();
   wire            tx21;
   wire            tx22;
   wire            tx23;
-  
+  wire            tx24;
+  wire            tx25;
+  wire            tx26;
+  wire            tx27;
+  wire            tx28;
+  wire            tx29;
+  wire            tx30;
+  wire            tx31;
+    
   wire [1:0] tx_mopshub_2bit; 
   wire       tx_mopshub_1bit; 
   wire [1:0] rx_mopshub_2bit; 
@@ -135,7 +151,7 @@ module tb_mopshub_top();
   
   
   mopshub_top#(
-  .n_buses (5'b10111),
+  .n_buses (5'b00010),
   .seialize_data_stream(0))mopshub0(
   .clk(clk_40),
   .clk_80(clk_80),
@@ -171,6 +187,14 @@ module tb_mopshub_top();
   .rx21(rx21), 
   .rx22(rx22),   
   .rx23(rx23),
+  .rx24(rx24),        
+  .rx25(rx25),        
+  .rx26(rx26),        
+  .rx27(rx27),        
+  .rx28(rx28),        
+  .rx29(rx29),        
+  .rx30(rx30),        
+  .rx31(rx31),
   .tx0(tx0),              
   .tx1(tx1),
   .tx2(tx2),
@@ -194,10 +218,18 @@ module tb_mopshub_top();
   .tx20(tx20),
   .tx21(tx21),
   .tx22(tx22),
-  .tx23(tx23));
+  .tx23(tx23),
+  .tx24(tx24),              
+  .tx25(tx25),
+  .tx26(tx26),
+  .tx27(tx27),
+  .tx28(tx28),
+  .tx29(tx29),
+  .tx30(tx30),
+  .tx31(tx31));
   
   data_generator#(
-  .n_buses (5'b10111),
+  .n_buses (5'b00010),
   .seialize_data_stream(0))data_generator0(
   .clk(clk_40),
   .clk_80(clk_80),
@@ -280,6 +312,14 @@ module tb_mopshub_top();
   .rx21(rx21), 
   .rx22(rx22),   
   .rx23(rx23),
+  .rx24(rx24),        
+  .rx25(rx25),        
+  .rx26(rx26),        
+  .rx27(rx27),        
+  .rx28(rx28),        
+  .rx29(rx29),        
+  .rx30(rx30),        
+  .rx31(rx31),
   .tx0(tx0),              
   .tx1(tx1),
   .tx2(tx2),
@@ -303,7 +343,15 @@ module tb_mopshub_top();
   .tx20(tx20),
   .tx21(tx21),
   .tx22(tx22),
-  .tx23(tx23));
+  .tx23(tx23),  
+  .tx24(tx24),              
+  .tx25(tx25),
+  .tx26(tx26),
+  .tx27(tx27),
+  .tx28(tx28),
+  .tx29(tx29),
+  .tx30(tx30),
+  .tx31(tx31));
   
   
   //Clock Generators and Dividers
@@ -351,7 +399,7 @@ module tb_mopshub_top();
     if(sign_on_sig ==1)//start Rx test
     begin
       start_data_gen =1'b0;
-        test_rx =1'b1;
+      test_rx =1'b1;
       //test_advanced = 1'b1;
     end
     if(test_rx_end ==1)//Done Rx test

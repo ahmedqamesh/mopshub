@@ -77,7 +77,7 @@ reg      [75:0] responsereg = 75'h0;
     if(sign_in_start & osc_auto_trim_mopshub)//for mopshubtop
     begin 
       responsereg <= data_rec_uplink;
-      $strobeh("\t Sign In Message [BUS ID %d]: \t request %h \t response %h \t",can_rec_select,requestreg,responsereg); 
+       $strobeh("\t Sign In Message [BUS ID %d]: \t request %h \t response %h \t",can_rec_select,requestreg,responsereg); 
     end      
     if(test_rx_end ||test_tx_end ||(sign_in_end &!osc_auto_trim_mopshub)||(end_trim_bus||trim_sig_end || costum_msg_end ))
     begin 
