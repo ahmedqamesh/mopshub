@@ -7,9 +7,8 @@ module tb_mopshub_top();
   reg             rst   = 1'b0;
   wire            rst_mops_dbg;
   reg             sel_bus = 1'b0;
-  reg     [4:0]   can_tra_select_dbg =5'd1;
+  reg     [4:0]   can_tra_select_dbg =5'd19;
   wire            sign_on_sig;
-  reg             start_data_gen= 1'b0;
   wire            start_init;
   wire            end_init;
   string          info_debug_sig;     
@@ -24,7 +23,7 @@ module tb_mopshub_top();
   wire            trim_sig_end;
   wire            trim_sig_done;
   
-  reg             osc_auto_trim_mopshub =1'b0;
+  reg             osc_auto_trim_mopshub =1'b1;
   wire            ready_osc;
   wire            start_trim_osc;
   wire            end_trim_bus;
@@ -33,8 +32,6 @@ module tb_mopshub_top();
   wire            power_bus_en;
   wire    [4:0]   power_bus_cnt;
   
-  wire            sign_in_start;
-  wire            sign_in_end;
   reg             test_rx = 1'b0;
   wire            test_rx_start;
   wire            test_rx_end;
@@ -49,10 +46,10 @@ module tb_mopshub_top();
   // MOPSHUB signals
   wire    [75:0]  data_rec_uplink;
   wire    [75:0]  data_tra_emulator_out;
-  wire    [4:0]   can_rec_select;
+  wire    [4 :0]  can_rec_select;
   wire    [75:0]  data_tra_downlink;
-  wire    [4:0]  can_tra_select;
-  wire    [75:0] data_rec_emulator_in;
+  wire    [4 :0]  can_tra_select;
+  wire    [75:0]  data_rec_emulator_in;
   wire            irq_elink_tra;
   wire            irq_elink_rec;
   
@@ -151,7 +148,7 @@ module tb_mopshub_top();
   
   
   mopshub_top#(
-  .n_buses (5'b00010),
+  .n_buses (5'b10111),
   .seialize_data_stream(0))mopshub0(
   .clk(clk_40),
   .clk_80(clk_80),
@@ -229,7 +226,7 @@ module tb_mopshub_top();
   .tx31(tx31));
   
   data_generator#(
-  .n_buses (5'b00010),
+  .n_buses (5'b10111),
   .seialize_data_stream(0))data_generator0(
   .clk(clk_40),
   .clk_80(clk_80),
@@ -238,14 +235,12 @@ module tb_mopshub_top();
   .ext_trim_mops(osc_auto_trim_mopshub),
   .loop_en(1'b0),
   //Start SM
-  .start_data_gen(start_data_gen),
+  .start_data_gen(sign_on_sig),
   //OScillation Triming Signals
   .osc_auto_trim(osc_auto_trim),
   .trim_sig_start(trim_sig_start),
   .trim_sig_end (trim_sig_end),
   .trim_sig_done(trim_sig_done),
-  .sign_in_start(sign_in_start), 
-  .sign_in_end(sign_in_end),
   //Read ADC channels from MOPS and send it to MOPSHUB rx
   .test_rx(test_rx),
   .test_tx(test_tx),
@@ -381,13 +376,6 @@ module tb_mopshub_top();
     #10
     rst = 1'b1;
   end
-  always@(posedge sign_on_sig)
-  begin
-    #1500
-    start_data_gen = 1'b1;
-    #100
-    start_data_gen = 1'b0;
-  end  
   /////*******Start Full SM for Data Generation ****/////
   always@(posedge clk_40)
   begin  
@@ -398,8 +386,7 @@ module tb_mopshub_top();
     end
     if(sign_on_sig ==1)//start Rx test
     begin
-      start_data_gen =1'b0;
-      test_rx =1'b1;
+      test_tx =1'b1;
       //test_advanced = 1'b1;
     end
     if(test_rx_end ==1)//Done Rx test

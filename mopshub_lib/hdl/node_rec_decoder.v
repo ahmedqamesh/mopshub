@@ -83,25 +83,22 @@ module dec32_Nbit(
   assign    irqsucrec_signals[29] = Input29;
   assign    irqsucrec_signals[30] = Input30;
   assign    irqsucrec_signals[31] = Input31; 
-// Triplication assignment
-wire [31:0] data_tra_regVoted = output_bus_reg;
-always@(posedge clk )//or negedge rst)
+assign data_tra_out = output_bus_reg;  
+always@(posedge clk )
 begin 
  if(!rst)
   begin
     output_bus_reg <= 32'd0;
   end
  else
-  if(ireqsucrec)
+  if(ireqsucrec)//fill the buffer with signals
   begin
       output_bus_reg <= irqsucrec_signals;
     end
   else
   begin 
-   output_bus_reg <= data_tra_regVoted;
+   output_bus_reg <= output_bus_reg;
  end
-end 
-assign data_tra_out = data_tra_regVoted;  
-   
-  endmodule
+end    
+endmodule
   
