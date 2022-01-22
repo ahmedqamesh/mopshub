@@ -127,28 +127,28 @@ module tb_mopshub_top();
   wire       rx_mopshub_1bit;
   
   //Internal assignments  
-  assign can_tra_select   = mopshub0.can_tra_select;
-  assign can_rec_select   = mopshub0.can_rec_select;
-  assign data_rec_uplink  = mopshub0.data_rec_uplink;
-  assign data_tra_downlink  = mopshub0.data_tra_downlink;
-  assign done_trim_osc    = mopshub0.done_trim_osc;
-  assign start_init       = mopshub0.start_init;
-  assign end_init         = mopshub0.end_init;
-  assign rst_mops_dbg     = mopshub0.rst_mops_dbg;
-  assign sign_on_sig      = mopshub0.sign_on_sig;
-  assign end_trim_bus     = mopshub0.end_trim_bus;
-  assign start_trim_osc   = mopshub0.start_trim_ack;
-  assign power_bus_en     = mopshub0.power_bus_en;
-  assign power_bus_cnt    = mopshub0.power_bus_cnt;  
-  assign irq_elink_tra    = mopshub0.irq_elink_tra;
-  assign irq_elink_rec    = mopshub0.irq_elink_rec;
+  assign can_tra_select    = mopshub0.can_tra_select;
+  assign can_rec_select    = mopshub0.can_rec_select;
+  assign data_rec_uplink   = mopshub0.data_rec_uplink;
+  assign data_tra_downlink = mopshub0.data_tra_downlink;
+  assign done_trim_osc     = mopshub0.done_trim_osc;
+  assign start_init        = mopshub0.start_init;
+  assign end_init          = mopshub0.end_init;
+  assign rst_mops_dbg      = mopshub0.rst_mops_dbg;
+  assign sign_on_sig       = mopshub0.sign_on_sig;
+  assign end_trim_bus      = mopshub0.end_trim_bus;
+  assign start_trim_osc    = mopshub0.start_trim_ack;
+  assign power_bus_en      = mopshub0.power_bus_en;
+  assign power_bus_cnt     = mopshub0.power_bus_cnt;  
+  assign irq_elink_tra     = mopshub0.irq_elink_tra;
+  assign irq_elink_rec     = mopshub0.irq_elink_rec;
   assign data_tra_emulator_out  = data_generator0.data_tra_76bit_reg;
   assign data_rec_emulator_in   = data_generator0.data_rec_76bit_reg;
   assign ready_osc              = data_generator0.ready_osc;
   
   
   mopshub_top#(
-  .n_buses (5'b10111),
+  .n_buses (5'b00001),
   .seialize_data_stream(0))mopshub0(
   .clk(clk_40),
   .clk_80(clk_80),
@@ -226,7 +226,7 @@ module tb_mopshub_top();
   .tx31(tx31));
   
   data_generator#(
-  .n_buses (5'b10111),
+  .n_buses (5'b00001),
   .seialize_data_stream(0))data_generator0(
   .clk(clk_40),
   .clk_80(clk_80),
@@ -386,7 +386,7 @@ module tb_mopshub_top();
     end
     if(sign_on_sig ==1)//start Rx test
     begin
-      test_tx =1'b1;
+      test_rx =1'b1;
       //test_advanced = 1'b1;
     end
     if(test_rx_end ==1)//Done Rx test
