@@ -55,7 +55,7 @@ reg      [75:0] responsereg = 75'h0;
   always@(posedge clk)
   if (!rst)
   begin
-    requestreg <= 0;
+    requestreg  <= 0;
     responsereg <= 0;
   end
   else 
@@ -66,7 +66,8 @@ reg      [75:0] responsereg = 75'h0;
     if(trim_sig_start) $strobeh("\t Oscillator Trimming [BUS ID %d]:",bus_id);  
     if(start_trim_osc) $strobeh("\t Oscillator Trimming [BUS ID %d]:",power_bus_cnt);         
        /////*********************************  Sign In message print *********************************
-    if(end_trim_bus)$strobeh("\t Sign In Message[BUS ID %d (%h)]: \t request %h \t response %h \t",can_rec_select,can_rec_select,requestreg,responsereg);
+    if(end_trim_bus)
+      $strobeh("\t Sign In Message[BUS ID %d (%h)]: \t request %h \t response %h \t",can_rec_select,can_rec_select,requestreg,responsereg);
     if(test_rx_end ||test_tx_end ||(end_trim_bus||trim_sig_end || costum_msg_end ))
     begin 
       $strobe("*****************************************************************************");
@@ -98,23 +99,10 @@ reg      [75:0] responsereg = 75'h0;
   // ### Please start your Verilog code here ### 
   //// ********* Score board for RX*************////
   always@(*)
-  begin 
-    if (respmsg)
+  begin  
+  if (respmsg)
     begin 
       casez(requestreg)
-        75'h0: begin 
-          if(responsereg inside {{43'h701?5000000,can_rec_select,24'h0}})
-          begin                     
-            $strobeh("\t Sign In Message    [BUS ID %d]: \t request %h \t response %h \t",can_rec_select,requestreg,responsereg);
-            $strobe("*****************************************************************************");
-          end 
-          else
-          begin
-            $display("Current simulation time is: ", $realtime);
-            $strobe("Reset request: Status BAD ************************************************************* Status BAD");
-            failures += 1;
-          end  
-        end
         75'h701??00000000000000:   //////// Node guard / status ////
         begin 
           if(responsereg == 75'h701?500000000000000)
@@ -335,7 +323,6 @@ reg      [75:0] responsereg = 75'h0;
           begin
             $display("Current simulation time is: ", $realtime);
             $strobe("Status BAD ********************************[TX Test [BUS ID %d]****************** Status BAD %h",can_tra_select,requestreg);
-            $strobe("******************** Please check SDO abort codes to understand why write operation failed");
             failures += 1;
           end
       end
@@ -345,15 +332,15 @@ reg      [75:0] responsereg = 75'h0;
           else
           begin
             $display("Current simulation time is: ", $realtime);
-            $strobe("Status BAD ********************************[TX Test [BUS ID %d]****************** Status BAD %h",can_tra_select,requestreg);
-            $strobe("******************** Please check SDO abort codes to understand why write operation failed");
+            $strobe("Status BAD ********************************[TX Test [BUS ID %d]****************** Status BAD",can_tra_select);
+
             failures += 1;
           end
         end
         
-        {43'h60140210000,bus_id,8'h0,16'h0}: //75'h6014021000000000000:
+        {43'h60140210000,bus_id,8'h0,16'h0}: 
         begin 
-          if(responsereg == {43'h58143210000,bus_id,24'h00})//75'h581 43 21 0000 0000 0000)
+          if(responsereg == {43'h58143210000,bus_id,24'h00})
           $strobe("Status GOOD [BUS ID %d]- RX test",bus_id);
           else
           begin
@@ -362,9 +349,9 @@ reg      [75:0] responsereg = 75'h0;
             failures += 1;
           end
         end
-        {43'h601402310??,bus_id,8'h0,16'h0}: //75'h601402310??00000000:
+        {43'h601402310??,bus_id,8'h0,16'h0}: 
         begin
-          if(responsereg == {43'h58143231000,bus_id,24'h03})//75'h581 43 23100000000003)
+          if(responsereg == {43'h58143231000,bus_id,24'h03})
           $strobe("Status GOOD [BUS ID %d]- RX test",bus_id);
           else if(responsereg == {43'h58143231001,bus_id,24'h123})//75'h5814323100100000123)
           $strobe("Status GOOD [BUS ID %d]- RX test",bus_id);
@@ -376,7 +363,6 @@ reg      [75:0] responsereg = 75'h0;
           begin
             $display("Current simulation time is: ", $realtime);
             $strobe("Status BAD ***************************************************************************** Status BAD");
-            $strobe("******************** Please check SDO abort codes to understand why write operation failed");
             failures += 1;
           end
         end
@@ -388,14 +374,11 @@ reg      [75:0] responsereg = 75'h0;
           begin
             $display("Current simulation time is: ", $realtime);
             $strobe("Status BAD ***************************************************************************** Status BAD");
-            $strobe("******************** Please check SDO abort codes to understand why write operation failed");
             failures += 1;
           end
         end 
-        
         //// Below is the check for write operation 
         ///////**********************************///
-        
         {43'h60123??????,bus_id,24'h??}:
         begin 
           if(responsereg inside {{43'h58160??????,bus_id,8'h??,16'h0}})//75'h581 60?? ?? ?? 0000 0000})
@@ -404,7 +387,6 @@ reg      [75:0] responsereg = 75'h0;
           begin
             $display("Current simulation time is: ", $realtime);
             $strobe("Sign-in test:Status BAD ***************************************************************************** Status BAD");
-            $strobe("******************** Please check SDO abort codes to understand why write operation failed");
             failures += 1;
           end
         end
@@ -412,11 +394,18 @@ reg      [75:0] responsereg = 75'h0;
         begin 
           if(responsereg == requestreg ||(responsereg[75:8] ==requestreg[75:8]))
           $strobe("Status GOOD [BUS ID %d]- RX-TX test",bus_id);
+          if (responsereg == {44'h70105000000,3'h0,can_rec_select,24'h0}) //{43'h701?5000000,can_rec_select,24'h0}}
+            begin   
+              $strobe("*****************************************************************************");                  
+              $strobeh("\t Sign In Message    [BUS ID %d]: \t response %h \t",can_rec_select,responsereg);
+              $strobe("*****************************************************************************");
+            end 
           else
           begin
             $display("Current simulation time is: ", $realtime);
-            $strobe("Status BAD *************************************************************************** Status BAD%h",requestreg);
-            $strobe("Status BAD *************************************************************************** Status BAD%h",responsereg);
+            
+            $strobe("Status BAD **************************[RX-TX test [BUS ID %d]****************** Status BAD %h",can_rec_select,requestreg);
+            $strobe("Status BAD **************************[RX-TX test [BUS ID %d]****************** Status BAD %h",can_tra_select,responsereg);
             $strobe("************MOPS reponded to a costumom message. The reponse must be checked");
             failures += 1;
           end

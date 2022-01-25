@@ -5,9 +5,10 @@ module tb_mopshub_top();
   wire             clk_40;
   wire             clk_80;
   reg             rst   = 1'b0;
-  wire            rst_mops_dbg;
+  wire            rst_bus;
+  wire            ext_counter_gen;
   reg             sel_bus = 1'b0;
-  reg     [4:0]   can_tra_select_dbg =5'd19;
+  reg     [4:0]   can_tra_select_dbg =5'd1;
   wire            sign_on_sig;
   wire            start_init;
   wire            end_init;
@@ -134,7 +135,7 @@ module tb_mopshub_top();
   assign done_trim_osc     = mopshub0.done_trim_osc;
   assign start_init        = mopshub0.start_init;
   assign end_init          = mopshub0.end_init;
-  assign rst_mops_dbg      = mopshub0.rst_mops_dbg;
+  assign rst_bus      = mopshub0.rst_bus;
   assign sign_on_sig       = mopshub0.sign_on_sig;
   assign end_trim_bus      = mopshub0.end_trim_bus;
   assign start_trim_osc    = mopshub0.start_trim_ack;
@@ -142,9 +143,11 @@ module tb_mopshub_top();
   assign power_bus_cnt     = mopshub0.power_bus_cnt;  
   assign irq_elink_tra     = mopshub0.irq_elink_tra;
   assign irq_elink_rec     = mopshub0.irq_elink_rec;
+  assign ext_counter_gen   = mopshub0.ext_counter_gen;
   assign data_tra_emulator_out  = data_generator0.data_tra_76bit_reg;
   assign data_rec_emulator_in   = data_generator0.data_rec_76bit_reg;
   assign ready_osc              = data_generator0.ready_osc;
+  
   
   
   mopshub_top#(
@@ -231,7 +234,8 @@ module tb_mopshub_top();
   .clk(clk_40),
   .clk_80(clk_80),
   .rst(rst),
-  .ext_rst_mops(rst_mops_dbg),
+  .ext_rst_mops(rst_bus),
+  .ext_counter_gen(ext_counter_gen),
   .ext_trim_mops(osc_auto_trim_mopshub),
   .loop_en(1'b0),
   //Start SM
@@ -386,7 +390,7 @@ module tb_mopshub_top();
     end
     if(sign_on_sig ==1)//start Rx test
     begin
-      test_rx =1'b1;
+     test_rx =1'b1;
       //test_advanced = 1'b1;
     end
     if(test_rx_end ==1)//Done Rx test
