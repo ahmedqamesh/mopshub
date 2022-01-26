@@ -24,7 +24,7 @@ module tb_mopshub_top();
   wire            trim_sig_end;
   wire            trim_sig_done;
   
-  reg             osc_auto_trim_mopshub =1'b1;
+  reg             osc_auto_trim_mopshub =1'b0;
   wire            ready_osc;
   wire            start_trim_osc;
   wire            end_trim_bus;
@@ -151,7 +151,7 @@ module tb_mopshub_top();
   
   
   mopshub_top#(
-  .n_buses (5'b00001),
+  .n_buses (5'b11111),
   .seialize_data_stream(0))mopshub0(
   .clk(clk_40),
   .clk_80(clk_80),
@@ -229,7 +229,7 @@ module tb_mopshub_top();
   .tx31(tx31));
   
   data_generator#(
-  .n_buses (5'b00001),
+  .n_buses (5'b11111),
   .seialize_data_stream(0))data_generator0(
   .clk(clk_40),
   .clk_80(clk_80),
@@ -390,7 +390,7 @@ module tb_mopshub_top();
     end
     if(sign_on_sig ==1)//start Rx test
     begin
-     test_rx =1'b1;
+     test_tx =1'b1;
       //test_advanced = 1'b1;
     end
     if(test_rx_end ==1)//Done Rx test

@@ -30,7 +30,7 @@ if(!rst)
   end
 else 
 begin 
-  if(entimeout)
+  if(entimeout & !timeoutrst)
     counter <= {counterVoted + 1};
   else 
     begin

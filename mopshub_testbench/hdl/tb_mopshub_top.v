@@ -24,7 +24,7 @@ module tb_mopshub_top();
   wire            trim_sig_end;
   wire            trim_sig_done;
   
-  reg             osc_auto_trim_mopshub =1'b1;
+  reg             osc_auto_trim_mopshub =1'b0;
   wire            ready_osc;
   wire            start_trim_osc;
   wire            end_trim_bus;
