@@ -9,7 +9,7 @@ entity spi_master is
 	);
 	port (
 		clk : in std_logic := '0';
-		reset : in std_logic := '0';
+		rst : in std_logic := '1';
 		
 		sck : out std_logic := '0';
 		miso : in std_logic := '0';
@@ -44,7 +44,7 @@ begin
 process begin
 	wait until rising_edge(clk);
 	
-	if reset = '1' then
+	if rst = '0' then
 		sck_en <= '0';
 	else
 		if sck_cnt = ((F_CLK / (2 * F_SCK))-1) then
@@ -61,7 +61,7 @@ end process;
 process begin
 	wait until rising_edge(clk);
 	
-	if reset = '1' then
+	if rst = '0' then
 		Z <= idle;
 	else
 			case Z is

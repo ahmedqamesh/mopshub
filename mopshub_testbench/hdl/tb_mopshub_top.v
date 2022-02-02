@@ -121,6 +121,7 @@ module tb_mopshub_top();
   wire            tx29;
   wire            tx30;
   wire            tx31;
+  wire            spi_dat;
     
   wire [1:0] tx_mopshub_2bit; 
   wire       tx_mopshub_1bit; 
@@ -162,7 +163,9 @@ module tb_mopshub_top();
   .tx_elink2bit(tx_mopshub_2bit),
   .tx_elink1bit(tx_mopshub_1bit),
   .rx_elink1bit(rx_mopshub_1bit),
-  .rx_elink2bit(rx_mopshub_2bit),        
+  .rx_elink2bit(rx_mopshub_2bit),
+  .mosi(spi_dat),
+  .miso(spi_dat),        
   .rx0(rx0),        
   .rx1(rx1),        
   .rx2(rx2),        
@@ -386,12 +389,12 @@ module tb_mopshub_top();
     if(trim_sig_done ==1 ||done_trim_osc ==1)
     begin
       osc_auto_trim =1'b0;
-      osc_auto_trim_mopshub = 1'b0;
+     // osc_auto_trim_mopshub = 1'b0;
     end
     if(sign_on_sig ==1)//start Rx test
     begin
-     test_rx =1'b1;
-      //test_advanced = 1'b1;
+     test_tx =1'b1;
+     //test_advanced = 1'b1;
     end
     if(test_rx_end ==1)//Done Rx test
     begin
@@ -400,42 +403,23 @@ module tb_mopshub_top();
     end
     if (test_tx_end ==1)//Done Tx test
     test_tx =1'b0;
+    if (costum_msg_end ==1)
+    test_advanced = 1'b0;
   end
-  
   /////******* prints bus activity ******///
   always@(posedge clk_40)
-  if (!rst)
-  begin
-    info_debug_sig = "<:RESET>";
-  end
+  if (!rst) info_debug_sig = "<:RESET>";
   else 
   begin
-    if(start_init)
-    begin 
-      info_debug_sig = "<:initialization:>";
-    end     
+    if(start_init) info_debug_sig = "<:initialization:>";    
     /////*********************************Oscillator Trimming*********************************///// 
-    if(start_trim_osc)
-    begin 
-      info_debug_sig = {"<:Oscillator Trimming [BUS ID ",$sformatf("%h",power_bus_cnt)," ]:>"};
-    end
-    if(trim_sig_start)
-    begin 
-      info_debug_sig = {"<:Oscillator Trimming [BUS ID ",$sformatf("%h",bus_id)," ]:>"};
-    end       
+    if(start_trim_osc) info_debug_sig = {"<:Oscillator Trimming [BUS ID ",$sformatf("%h",power_bus_cnt)," ]:>"};
+    if(trim_sig_start) info_debug_sig = {"<:Oscillator Trimming [BUS ID ",$sformatf("%h",bus_id)," ]:>"};  
     /////*********************************  RX Test    *********************************///// 
-    if(test_rx_start)
-    begin 
-      info_debug_sig = $sformatf("<:RX signals   [BUS ID %d ]  :>",bus_id);
-    end 
+    if(test_rx_start)  info_debug_sig = $sformatf("<:RX signals   [BUS ID %d ]  :>",bus_id);
     /////*********************************  TX Test    *********************************/////     
-    if (test_tx_start)
-    begin 
-      info_debug_sig = $sformatf("<:TX signals  [BUS ID %d ]  :>",bus_id);
-    end     
-    if(test_tx_end || test_rx_end ||end_init||(end_trim_bus||trim_sig_end))
-    begin 
-      info_debug_sig = {""};
-    end    
+    if (test_tx_start) info_debug_sig = $sformatf("<:TX signals  [BUS ID %d ]  :>",bus_id);    
+    if (test_advanced) info_debug_sig = $sformatf("<:Costum Message  [BUS ID %d ]  :>",bus_id); 
+    if (test_tx_end || test_rx_end ||end_init||end_trim_bus||trim_sig_end ||costum_msg_end)  info_debug_sig = {""};    
   end
 endmodule 

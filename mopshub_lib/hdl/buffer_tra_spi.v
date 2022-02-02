@@ -41,7 +41,7 @@ begin
        5'b00010 : b0  <= data_tra_8bitin[7:0];        
        5'b00011 : b1  <= data_tra_8bitin[7:0];         
        5'b00100 : b2  <= data_tra_8bitin[7:0];
-       5'b00101 : b2  <= data_tra_8bitin[7:0];                                              
+       5'b00101 : b3  <= data_tra_8bitin[7:0];                                              
        default 
         begin
          b0 <= 8'h00;
