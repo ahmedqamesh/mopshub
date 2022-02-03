@@ -127,7 +127,8 @@ module tb_mopshub_top();
   wire       tx_mopshub_1bit; 
   wire [1:0] rx_mopshub_2bit; 
   wire       rx_mopshub_1bit;
-  
+  wire       tx_dout;
+  wire       rx_din;
   //Internal assignments  
   assign can_tra_select    = mopshub0.can_tra_select;
   assign can_rec_select    = mopshub0.can_rec_select;
@@ -153,7 +154,7 @@ module tb_mopshub_top();
   
   mopshub_top#(
   .n_buses (5'b11111),
-  .seialize_data_stream(0))mopshub0(
+  .seialize_data_stream(1))mopshub0(
   .clk(clk_40),
   .clk_80(clk_80),
   .rst(rst),  
@@ -164,6 +165,8 @@ module tb_mopshub_top();
   .tx_elink1bit(tx_mopshub_1bit),
   .rx_elink1bit(rx_mopshub_1bit),
   .rx_elink2bit(rx_mopshub_2bit),
+  .rx_din(rx_din),
+  .tx_dout(tx_dout),
   .mosi(spi_dat),
   .miso(spi_dat),        
   .rx0(rx0),        
@@ -233,7 +236,7 @@ module tb_mopshub_top();
   
   data_generator#(
   .n_buses (5'b11111),
-  .seialize_data_stream(0))data_generator0(
+  .seialize_data_stream(1))data_generator0(
   .clk(clk_40),
   .clk_80(clk_80),
   .rst(rst),
@@ -289,6 +292,8 @@ module tb_mopshub_top();
   .tx_elink2bit(rx_mopshub_2bit),
   .rx_elink1bit(tx_mopshub_1bit),
   .rx_elink2bit(tx_mopshub_2bit),
+  .rx_din(tx_dout),
+  .tx_dout(rx_din),
   //RX-TX signals
   .rx0(rx0),        
   .rx1(rx1),        
@@ -393,7 +398,7 @@ module tb_mopshub_top();
     end
     if(sign_on_sig ==1)//start Rx test
     begin
-     test_tx =1'b1;
+     test_rx =1'b1;
      //test_advanced = 1'b1;
     end
     if(test_rx_end ==1)//Done Rx test

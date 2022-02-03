@@ -22,7 +22,7 @@ assign timeoutrst = timeoutrstregVoted;
 //triplication assginments
 wire [31:0] counterVoted = counter;
 
-always@(posedge clk or negedge rst)
+always@(posedge clk)
 begin 
 if(!rst)
   begin
@@ -30,7 +30,7 @@ if(!rst)
   end
 else 
 begin 
-  if(entimeout)
+  if(entimeout & !timeoutrst)
     counter <= {counterVoted + 1};
   else 
     begin

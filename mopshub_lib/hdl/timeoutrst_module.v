@@ -1,14 +1,13 @@
 `resetall
 `timescale 1ns/10ps
 module timout_rst( 
-   input   wire      clk, 
-   input   wire      entimeout, 
+   input   wire        clk, 
+   input   wire        entimeout, 
    input   wire [31:0] time_limit, 
-   input   wire      rst, 
-   output  wire      timeoutrst
+   input   wire        rst, 
+   output  wire        timeoutrst
 );
 //40MHZ clock gives 25 ns
-
 //tmrg default triplicate
 //tmrg tmr_error false
 // Internal Declarations
@@ -22,7 +21,7 @@ assign timeoutrst = timeoutrstregVoted;
 //triplication assginments
 wire [31:0] counterVoted = counter;
 
-always@(posedge clk or negedge rst)
+always@(posedge clk)
 begin 
 if(!rst)
   begin
