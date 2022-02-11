@@ -1,5 +1,5 @@
 # vsim -f hds_args.tmp -foreign "hdsInit /eda/mentor/2019-20/RHELx86/HDL-DESIGNER_2019.4/resources/downstream/modelsim/ModelSim_64Bit.dll" -pli ""/eda/mentor/2019-20/RHELx86/HDL-DESIGNER_2019.4/resources/downstream/modelsim/ModelSim_64Bit.dll"" 
-# Start time: 15:41:20 on Feb 03,2022
+# Start time: 16:36:49 on Feb 10,2022
 # ** Note: (vsim-3813) Design is being optimized due to module recompilation...
 # ** Warning: (vsim-3865) Due to PLI being present, global +acc is being enabled automatically. This will cause your simulation to run very slowly. Please use vsim -no_autoacc to disable this feature. This feature is now deprecated and will be removed from future releases.
 # ** Warning: (vopt-10016) Option '-L ieee' was detected by vlog for design-unit 'tb_mopshub_top', but was not detected by vopt. The vlog option will be ignored.
@@ -10,10 +10,10 @@
 # ** Warning: (vopt-10017) vopt and vlog detected inconsistent ordering of options -L tsmcdigital_lib, -L top_lib, -L MOPSv2_lib, -L canakari, -L CANdecoder, -L ftrim, -L mopshub_lib and -L mopshub_testbench for design-unit 'can_bus_activity'. vopt will ignore the ordering that was given to vlog.
 # ** Warning: (vopt-10017) vopt and vlog detected inconsistent ordering of options -L tsmcdigital_lib, -L top_lib, -L MOPSv2_lib, -L canakari, -L CANdecoder, -L ftrim and -L mopshub_lib for design-unit 'canframegen'. vopt will ignore the ordering that was given to vlog.
 # ** Warning: (vopt-10017) vopt and vlog detected inconsistent ordering of options -L tsmcdigital_lib, -L top_lib, -L MOPSv2_lib, -L canakari, -L CANdecoder, -L ftrim and -L mopshub_lib for design-unit 'canframegen_sv_unit'. vopt will ignore the ordering that was given to vlog.
-# ** Note: (vopt-143) Recognized 1 FSM in module "osc_trim_SM(fast)".
 # Loading sv_std.std
 # Loading work.tb_mopshub_top(fast)
 # Loading mopshub_lib.mopshub_top(fast)
+# Loading mopshub_lib.control_bus(fast)
 # Loading mopshub_lib.elink_core(fast)
 # Loading mopshub_lib.buffer_rec_elink(fast)
 # Loading mopshub_lib.buffer_rec_spi(fast)
@@ -189,14 +189,50 @@
 # Loading std.standard
 # Loading std.textio(body)
 # Loading ieee.std_logic_1164(body)
-# Loading mopshub_lib.dec_8b10b(behavioral)#1
-# Loading mopshub_lib.enc_8b10b(behavioral)#1
 # Loading ieee.numeric_std(body)
 # Loading mopshub_lib.spi_master(behavioral)#1
-# ** Warning: (vsim-3015) [PCDPC] - Port size (5) does not match connection size (8) for port 'sel'. The port definition is at: /home/dcs/git/mopshub/mopshub_lib/hdl/demux1_31bit.v(16).
-#    Time: 0 ns  Iteration: 0  Instance: /tb_mopshub_top/mopshub0/monitor_pp30/demux1_1bit_cs_tra File: /home/dcs/git/mopshub/mopshub_lib/hdl/monitor_bus_struct.v Line: 69
+# Loading mopshub_lib.dec_8b10b(behavioral)#1
+# Loading mopshub_lib.enc_8b10b(behavioral)#1
 # Loading /eda/mentor/2019-20/RHELx86/HDL-DESIGNER_2019.4/resources/downstream/modelsim/ModelSim_64Bit.dll
 # ** Warning: (vsim-8634) Code was not compiled with coverage options.
+run
+# Frequncy  = 40 MHz, Period = 25.000 ns
+# clk phase = 0 deg
+# clk duty = 50 %
+# 	 initialization [BUS ID  0]:
+# 	 initialization [BUS ID  1]:
+# 	 initialization [BUS ID  2]:
+# 	 initialization [BUS ID  3]:
+# 	 initialization [BUS ID  4]:
+# 	 initialization [BUS ID  5]:
+# 	 initialization [BUS ID  6]:
+# 	 initialization [BUS ID  7]:
+# 	 initialization [BUS ID  8]:
+# 	 initialization [BUS ID  9]:
+# 	 initialization [BUS ID 10]:
+# 	 initialization [BUS ID 11]:
+# 	 initialization [BUS ID 12]:
+# 	 initialization [BUS ID 13]:
+# 	 initialization [BUS ID 14]:
+# 	 initialization [BUS ID 15]:
+# 	 initialization [BUS ID 16]:
+# 	 initialization [BUS ID 17]:
+# 	 initialization [BUS ID 18]:
+# 	 initialization [BUS ID 19]:
+# 	 initialization [BUS ID 20]:
+# 	 initialization [BUS ID 21]:
+# 	 initialization [BUS ID 22]:
+# 	 initialization [BUS ID 23]:
+# 	 initialization [BUS ID 24]:
+# 	 initialization [BUS ID 25]:
+# 	 initialization [BUS ID 26]:
+# 	 initialization [BUS ID 27]:
+# 	 initialization [BUS ID 28]:
+# 	 initialization [BUS ID 29]:
+# 	 initialization [BUS ID 30]:
+# 	 initialization [BUS ID 31]:
+# *****************************************************************************
+# 	 Oscillator Trimming [BUS ID  0]:
 add wave -position insertpoint  \
 sim:/tb_mopshub_top/clk \
 sim:/tb_mopshub_top/clk_40 \
@@ -313,44 +349,6 @@ sim:/tb_mopshub_top/tx_dout \
 sim:/tb_mopshub_top/rx_din \
 sim:/tb_mopshub_top/respmsg \
 sim:/tb_mopshub_top/reqmsg
-run
-# Frequncy  = 40 MHz, Period = 25.000 ns
-# clk phase = 0 deg
-# clk duty = 50 %
-# 	 initialization [BUS ID  0]:
-# 	 initialization [BUS ID  1]:
-# 	 initialization [BUS ID  2]:
-# 	 initialization [BUS ID  3]:
-# 	 initialization [BUS ID  4]:
-# 	 initialization [BUS ID  5]:
-# 	 initialization [BUS ID  6]:
-# 	 initialization [BUS ID  7]:
-# 	 initialization [BUS ID  8]:
-# 	 initialization [BUS ID  9]:
-# 	 initialization [BUS ID 10]:
-# 	 initialization [BUS ID 11]:
-# 	 initialization [BUS ID 12]:
-# 	 initialization [BUS ID 13]:
-# 	 initialization [BUS ID 14]:
-# 	 initialization [BUS ID 15]:
-# 	 initialization [BUS ID 16]:
-# 	 initialization [BUS ID 17]:
-# 	 initialization [BUS ID 18]:
-# 	 initialization [BUS ID 19]:
-# 	 initialization [BUS ID 20]:
-# 	 initialization [BUS ID 21]:
-# 	 initialization [BUS ID 22]:
-# 	 initialization [BUS ID 23]:
-# 	 initialization [BUS ID 24]:
-# 	 initialization [BUS ID 25]:
-# 	 initialization [BUS ID 26]:
-# 	 initialization [BUS ID 27]:
-# 	 initialization [BUS ID 28]:
-# 	 initialization [BUS ID 29]:
-# 	 initialization [BUS ID 30]:
-# 	 initialization [BUS ID 31]:
-# *****************************************************************************
-# 	 Oscillator Trimming [BUS ID  0]:
 # 	 Sign In Message[BUS ID  0 (00)]: 	 request 555aaaaaaaaaaaaaaaa 	 response 7010500000000000000 	
 # *****************************************************************************
 # 	 Oscillator Trimming [BUS ID  1]:
@@ -375,69 +373,8 @@ run
 # 	 Sign In Message[BUS ID  7 (07)]: 	 request 555aaaaaaaaaaaaaaaa 	 response 7010500000007000000 	
 # *****************************************************************************
 # 	 Oscillator Trimming [BUS ID  8]:
-# 	 Sign In Message[BUS ID  8 (08)]: 	 request 555aaaaaaaaaaaaaaaa 	 response 7010500000008000000 	
-# *****************************************************************************
-# 	 Oscillator Trimming [BUS ID  9]:
-# 	 Sign In Message[BUS ID  9 (09)]: 	 request 555aaaaaaaaaaaaaaaa 	 response 7010500000009000000 	
-# *****************************************************************************
-# 	 Oscillator Trimming [BUS ID 10]:
-# 	 Sign In Message[BUS ID 10 (0a)]: 	 request 555aaaaaaaaaaaaaaaa 	 response 701050000000a000000 	
-# *****************************************************************************
-# 	 Oscillator Trimming [BUS ID 11]:
-# 	 Sign In Message[BUS ID 11 (0b)]: 	 request 555aaaaaaaaaaaaaaaa 	 response 701050000000b000000 	
-# *****************************************************************************
-# 	 Oscillator Trimming [BUS ID 12]:
-# 	 Sign In Message[BUS ID 12 (0c)]: 	 request 555aaaaaaaaaaaaaaaa 	 response 701050000000c000000 	
-# *****************************************************************************
-# 	 Oscillator Trimming [BUS ID 13]:
-# 	 Sign In Message[BUS ID 13 (0d)]: 	 request 555aaaaaaaaaaaaaaaa 	 response 701050000000d000000 	
-# *****************************************************************************
-# 	 Oscillator Trimming [BUS ID 14]:
-# 	 Sign In Message[BUS ID 14 (0e)]: 	 request 555aaaaaaaaaaaaaaaa 	 response 701050000000e000000 	
-# *****************************************************************************
-# 	 Oscillator Trimming [BUS ID 15]:
-# 	 Sign In Message[BUS ID 15 (0f)]: 	 request 555aaaaaaaaaaaaaaaa 	 response 701050000000f000000 	
-# *****************************************************************************
-# 	 Oscillator Trimming [BUS ID 16]:
-# 	 Sign In Message[BUS ID 16 (10)]: 	 request 555aaaaaaaaaaaaaaaa 	 response 7010500000010000000 	
-# *****************************************************************************
-# 	 Oscillator Trimming [BUS ID 17]:
-# 	 Sign In Message[BUS ID 17 (11)]: 	 request 555aaaaaaaaaaaaaaaa 	 response 7010500000011000000 	
-# *****************************************************************************
-# 	 Oscillator Trimming [BUS ID 18]:
-# 	 Sign In Message[BUS ID 18 (12)]: 	 request 555aaaaaaaaaaaaaaaa 	 response 7010500000012000000 	
-# *****************************************************************************
-# 	 Oscillator Trimming [BUS ID 19]:
-# 	 Sign In Message[BUS ID 19 (13)]: 	 request 555aaaaaaaaaaaaaaaa 	 response 7010500000013000000 	
-# *****************************************************************************
-# 	 Oscillator Trimming [BUS ID 20]:
-# 	 Sign In Message[BUS ID 20 (14)]: 	 request 555aaaaaaaaaaaaaaaa 	 response 7010500000014000000 	
-# *****************************************************************************
-# 	 Oscillator Trimming [BUS ID 21]:
-# 	 Sign In Message[BUS ID 21 (15)]: 	 request 555aaaaaaaaaaaaaaaa 	 response 7010500000015000000 	
-# *****************************************************************************
-# 	 Oscillator Trimming [BUS ID 22]:
-# 	 Sign In Message[BUS ID 22 (16)]: 	 request 555aaaaaaaaaaaaaaaa 	 response 7010500000016000000 	
-# *****************************************************************************
-# 	 Oscillator Trimming [BUS ID 23]:
-# 	 Sign In Message[BUS ID 23 (17)]: 	 request 555aaaaaaaaaaaaaaaa 	 response 7010500000017000000 	
-# *****************************************************************************
-# 	 Oscillator Trimming [BUS ID 24]:
-# 	 Sign In Message[BUS ID 24 (18)]: 	 request 555aaaaaaaaaaaaaaaa 	 response 7010500000018000000 	
-# *****************************************************************************
-# 	 Oscillator Trimming [BUS ID 25]:
-# 	 Sign In Message[BUS ID 25 (19)]: 	 request 555aaaaaaaaaaaaaaaa 	 response 7010500000019000000 	
-# *****************************************************************************
-# 	 Oscillator Trimming [BUS ID 26]:
-# 	 Sign In Message[BUS ID 26 (1a)]: 	 request 555aaaaaaaaaaaaaaaa 	 response 701050000001a000000 	
-# *****************************************************************************
-# 	 Oscillator Trimming [BUS ID 27]:
-# 	 Sign In Message[BUS ID 27 (1b)]: 	 request 555aaaaaaaaaaaaaaaa 	 response 701050000001b000000 	
-# *****************************************************************************
-# 	 Oscillator Trimming [BUS ID 28]:
-# 	 Sign In Message[BUS ID 28 (1c)]: 	 request 555aaaaaaaaaaaaaaaa 	 response 701050000001c000000 	
-# *****************************************************************************
-# 	 Oscillator Trimming [BUS ID 29]:
+# 0
+# 
 # hds_restart
 restart -force
 # ** Note: (vsim-12125) Error and warning message counts have been reset to '0' because of 'restart'.
@@ -454,6 +391,7 @@ restart -force
 # Loading sv_std.std
 # Loading work.tb_mopshub_top(fast)
 # Loading mopshub_lib.mopshub_top(fast)
+# Loading mopshub_lib.control_bus(fast)
 # Loading mopshub_lib.elink_core(fast)
 # Loading mopshub_lib.buffer_rec_elink(fast)
 # Loading mopshub_lib.buffer_rec_spi(fast)
@@ -629,63 +567,20 @@ restart -force
 # Loading std.standard
 # Loading std.textio(body)
 # Loading ieee.std_logic_1164(body)
-# Loading mopshub_lib.dec_8b10b(behavioral)#1
-# Loading mopshub_lib.enc_8b10b(behavioral)#1
 # Loading ieee.numeric_std(body)
 # Loading mopshub_lib.spi_master(behavioral)#1
-# ** Warning: (vsim-3015) [PCDPC] - Port size (5) does not match connection size (8) for port 'sel'. The port definition is at: /home/dcs/git/mopshub/mopshub_lib/hdl/demux1_31bit.v(16).
-#    Time: 0 ns  Iteration: 0  Instance: /tb_mopshub_top/mopshub0/monitor_pp30/demux1_1bit_cs_tra File: /home/dcs/git/mopshub/mopshub_lib/hdl/monitor_bus_struct.v Line: 69
+# Loading mopshub_lib.dec_8b10b(behavioral)#1
+# Loading mopshub_lib.enc_8b10b(behavioral)#1
 # Loading /eda/mentor/2019-20/RHELx86/HDL-DESIGNER_2019.4/resources/downstream/modelsim/ModelSim_64Bit.dll
 # ** Warning: (vsim-8634) Code was not compiled with coverage options.
-run
-# Frequncy  = 40 MHz, Period = 25.000 ns
-# clk phase = 0 deg
-# clk duty = 50 %
-# 	 initialization [BUS ID  0]:
-# 	 initialization [BUS ID  1]:
-# 	 initialization [BUS ID  2]:
-# 	 initialization [BUS ID  3]:
-# 	 initialization [BUS ID  4]:
-# 	 initialization [BUS ID  5]:
-# 	 initialization [BUS ID  6]:
-# 	 initialization [BUS ID  7]:
-# 	 initialization [BUS ID  8]:
-# 	 initialization [BUS ID  9]:
-# 	 initialization [BUS ID 10]:
-# 	 initialization [BUS ID 11]:
-# 	 initialization [BUS ID 12]:
-# 	 initialization [BUS ID 13]:
-# 	 initialization [BUS ID 14]:
-# 	 initialization [BUS ID 15]:
-# 	 initialization [BUS ID 16]:
-# 	 initialization [BUS ID 17]:
-# 	 initialization [BUS ID 18]:
-# 	 initialization [BUS ID 19]:
-# 	 initialization [BUS ID 20]:
-# 	 initialization [BUS ID 21]:
-# 	 initialization [BUS ID 22]:
-# 	 initialization [BUS ID 23]:
-# 	 initialization [BUS ID 24]:
-# 	 initialization [BUS ID 25]:
-# 	 initialization [BUS ID 26]:
-# 	 initialization [BUS ID 27]:
-# 	 initialization [BUS ID 28]:
-# 	 initialization [BUS ID 29]:
-# 	 initialization [BUS ID 30]:
-# 	 initialization [BUS ID 31]:
-# *****************************************************************************
-# 	 Oscillator Trimming [BUS ID  0]:
-# 0
-# 
-# hds_anim_enable /tb_mopshub_top/mopshub0/mopshub_core0/bridge_controller0/osc_trim_SM0/ TRUE 0 - current_state _proc
-# Instance tb_mopshub_top.mopshub0.mopshub_core0.bridge_controller0.osc_trim_SM0 was not generated for animation, limited capabilities are still available
-# Now sending details of /tb_mopshub_top/mopshub0/mopshub_core0/bridge_controller0/osc_trim_SM0 to HDS for animation
-restart
+# hds_restart
+restart -force
 # ** Note: (vsim-12125) Error and warning message counts have been reset to '0' because of 'restart'.
 # ** Note: (vsim-8009) Loading existing optimized design _opt4
 # Loading sv_std.std
 # Loading work.tb_mopshub_top(fast)
 # Loading mopshub_lib.mopshub_top(fast)
+# Loading mopshub_lib.control_bus(fast)
 # Loading mopshub_lib.elink_core(fast)
 # Loading mopshub_lib.buffer_rec_elink(fast)
 # Loading mopshub_lib.buffer_rec_spi(fast)
@@ -858,816 +753,6 @@ restart
 # Loading work.clock_generator(fast)
 # Loading mopshub_lib.clock_divider(fast)
 # Loading mopshub_lib.clock_divider(fast__1)
-# ** Warning: (vsim-3015) [PCDPC] - Port size (5) does not match connection size (8) for port 'sel'. The port definition is at: /home/dcs/git/mopshub/mopshub_lib/hdl/demux1_31bit.v(16).
-#    Time: 0 ns  Iteration: 0  Instance: /tb_mopshub_top/mopshub0/monitor_pp30/demux1_1bit_cs_tra File: /home/dcs/git/mopshub/mopshub_lib/hdl/monitor_bus_struct.v Line: 69
-# Loading /eda/mentor/2019-20/RHELx86/HDL-DESIGNER_2019.4/resources/downstream/modelsim/ModelSim_64Bit.dll
-# ** Warning: (vsim-8634) Code was not compiled with coverage options.
-# hds_anim_enable /tb_mopshub_top/mopshub0/mopshub_core0/bridge_controller0/osc_trim_SM0/ TRUE 0 - current_state _proc
-# Instance tb_mopshub_top.mopshub0.mopshub_core0.bridge_controller0.osc_trim_SM0 was not generated for animation, limited capabilities are still available
-# Now sending details of /tb_mopshub_top/mopshub0/mopshub_core0/bridge_controller0/osc_trim_SM0 to HDS for animation
-run
-# Frequncy  = 40 MHz, Period = 25.000 ns
-# clk phase = 0 deg
-# clk duty = 50 %
-# 	 initialization [BUS ID  0]:
-# 	 initialization [BUS ID  1]:
-# 	 initialization [BUS ID  2]:
-# 	 initialization [BUS ID  3]:
-# 	 initialization [BUS ID  4]:
-# 	 initialization [BUS ID  5]:
-# 	 initialization [BUS ID  6]:
-# 	 initialization [BUS ID  7]:
-# 	 initialization [BUS ID  8]:
-# 	 initialization [BUS ID  9]:
-# 	 initialization [BUS ID 10]:
-# 	 initialization [BUS ID 11]:
-# 	 initialization [BUS ID 12]:
-# 	 initialization [BUS ID 13]:
-# 	 initialization [BUS ID 14]:
-# 	 initialization [BUS ID 15]:
-# 	 initialization [BUS ID 16]:
-# 	 initialization [BUS ID 17]:
-# 	 initialization [BUS ID 18]:
-# 	 initialization [BUS ID 19]:
-# 	 initialization [BUS ID 20]:
-# 	 initialization [BUS ID 21]:
-# 	 initialization [BUS ID 22]:
-# 	 initialization [BUS ID 23]:
-# 	 initialization [BUS ID 24]:
-# 	 initialization [BUS ID 25]:
-# 	 initialization [BUS ID 26]:
-# 	 initialization [BUS ID 27]:
-# 	 initialization [BUS ID 28]:
-# 	 initialization [BUS ID 29]:
-# 	 initialization [BUS ID 30]:
-# 	 initialization [BUS ID 31]:
-# *****************************************************************************
-# 	 Oscillator Trimming [BUS ID  0]:
-# hds_restart
-restart -force
-# ** Note: (vsim-12125) Error and warning message counts have been reset to '0' because of 'restart'.
-# ** Note: (vsim-3813) Design is being optimized due to module recompilation...
-# ** Warning: (vsim-3865) Due to PLI being present, global +acc is being enabled automatically. This will cause your simulation to run very slowly. Please use vsim -no_autoacc to disable this feature. This feature is now deprecated and will be removed from future releases.
-# ** Warning: (vopt-10016) Option '-L ieee' was detected by vlog for design-unit 'tb_mopshub_top', but was not detected by vopt. The vlog option will be ignored.
-# ** Warning: (vopt-10017) vopt and vlog detected inconsistent ordering of options -L tsmcdigital_lib, -L top_lib, -L MOPSv2_lib, -L canakari, -L CANdecoder, -L ftrim, -L mopshub_lib and -L mopshub_testbench for design-unit 'tb_mopshub_top'. vopt will ignore the ordering that was given to vlog.
-# ** Warning: (vopt-10016) Option '-L ieee' was detected by vlog for design-unit 'dec32_Nbit', but was not detected by vopt. The vlog option will be ignored.
-# ** Warning: (vopt-10017) vopt and vlog detected inconsistent ordering of options -L tsmcdigital_lib, -L top_lib, -L MOPSv2_lib, -L canakari, -L CANdecoder, -L ftrim, -L mopshub_lib and -L mopshub_testbench for design-unit 'dec32_Nbit'. vopt will ignore the ordering that was given to vlog.
-# ** Warning: (vopt-10016) Option '-L ieee' was detected by vlog for design-unit 'can_bus_activity', but was not detected by vopt. The vlog option will be ignored.
-# ** Warning: (vopt-10017) vopt and vlog detected inconsistent ordering of options -L tsmcdigital_lib, -L top_lib, -L MOPSv2_lib, -L canakari, -L CANdecoder, -L ftrim, -L mopshub_lib and -L mopshub_testbench for design-unit 'can_bus_activity'. vopt will ignore the ordering that was given to vlog.
-# ** Warning: (vopt-10017) vopt and vlog detected inconsistent ordering of options -L tsmcdigital_lib, -L top_lib, -L MOPSv2_lib, -L canakari, -L CANdecoder, -L ftrim and -L mopshub_lib for design-unit 'canframegen'. vopt will ignore the ordering that was given to vlog.
-# ** Warning: (vopt-10017) vopt and vlog detected inconsistent ordering of options -L tsmcdigital_lib, -L top_lib, -L MOPSv2_lib, -L canakari, -L CANdecoder, -L ftrim and -L mopshub_lib for design-unit 'canframegen_sv_unit'. vopt will ignore the ordering that was given to vlog.
-# Loading sv_std.std
-# Loading work.tb_mopshub_top(fast)
-# Loading mopshub_lib.mopshub_top(fast)
-# Loading mopshub_lib.elink_core(fast)
-# Loading mopshub_lib.buffer_rec_elink(fast)
-# Loading mopshub_lib.buffer_rec_spi(fast)
-# Loading mopshub_lib.buffer_tra_elink(fast)
-# Loading mopshub_lib.buffer_tra_spi(fast)
-# Loading mopshub_lib.elink_interface_rec_SM(fast)
-# Loading mopshub_lib.elink_interface_tra_SM(fast)
-# Loading mopshub_lib.elink_to_fifo(fast)
-# Loading mopshub_lib.elink_proc_in(fast)
-# Loading mopshub_lib.elink_proc_in_dec8b10b(fast)
-# Loading mopshub_lib.bitstream_shift_register(fast)
-# Loading mopshub_lib.dec_8b10b_wrap(fast)
-# Loading mopshub_lib.sync_detector(fast)
-# Loading mopshub_lib.elink_proc_in_direct(fast)
-# Loading mopshub_lib.fifo_RXelink_wrap(fast)
-# Loading mopshub_lib.fifo_to_elink(fast)
-# Loading mopshub_lib.elink_proc_out(fast)
-# Loading mopshub_lib.elink_proc_out_direct(fast)
-# Loading mopshub_lib.mux4_Nbit(fast)
-# Loading mopshub_lib.triger_counter(fast)
-# Loading mopshub_lib.elink_proc_out_enc8b10b(fast)
-# Loading mopshub_lib.enc8b10b_wrap(fast)
-# Loading mopshub_lib.mux4_Nbit(fast__1)
-# Loading mopshub_lib.mux8_Nbit(fast)
-# Loading mopshub_lib.triger_counter(fast__1)
-# Loading mopshub_lib.monitor_bus(fast)
-# Loading mopshub_lib.buffer_rec_spi_data(fast)
-# Loading mopshub_lib.buffer_tra_spi_data(fast)
-# Loading mopshub_lib.demux1_1bit(fast)
-# Loading mopshub_lib.mopshub_core(fast)
-# Loading mopshub_lib.bridge_controller(fast)
-# Loading mopshub_lib.buffer_rec_data(fast)
-# Loading mopshub_lib.buffer_tra_data(fast)
-# Loading mopshub_lib.can_elink_bridge_SM(fast)
-# Loading mopshub_lib.canakari_interface(fast)
-# Loading mopshub_lib.bit_counter(fast)
-# Loading mopshub_lib.buffer_tristate_busid(fast)
-# Loading mopshub_lib.bus_comp(fast)
-# Loading mopshub_lib.can_interface(fast)
-# Loading mopshub_lib.can_interface_SM(fast)
-# Loading MOPSv2_lib.initialize_block(fast)
-# Loading mopshub_lib.osc_trim_SM(fast)
-# Loading mopshub_lib.timout_rst(fast)
-# Loading mopshub_lib.canakari_top(fast)
-# Loading mopshub_lib.canakari_0_7(fast)
-# Loading mopshub_lib.can(fast)
-# Loading canakari.can2(fast)
-# Loading canakari.resetgen2(fast)
-# Loading canakari.mac2(fast)
-# Loading canakari.reset_mac2(fast)
-# Loading canakari.macfsm2(fast)
-# Loading canakari.biterrordetect2(fast)
-# Loading canakari.counter2(fast)
-# Loading canakari.decapsulation2(fast)
-# Loading canakari.destuffing2(fast)
-# Loading canakari.encapsulation2(fast)
-# Loading canakari.rcrc2(fast)
-# Loading canakari.rcrc_cell2(fast)
-# Loading canakari.recmeslen2(fast)
-# Loading canakari.rshiftreg2(fast)
-# Loading canakari.rshift_cell2(fast)
-# Loading canakari.stuffing2(fast)
-# Loading canakari.tcrc2(fast)
-# Loading canakari.tcrc_cell2(fast)
-# Loading canakari.tshiftreg2(fast)
-# Loading canakari.tshift_cell2(fast)
-# Loading canakari.fsm_register2(fast)
-# Loading canakari.fastshift2(fast)
-# Loading canakari.meslencompare2(fast)
-# Loading canakari.llc2(fast)
-# Loading canakari.llc_fsm2(fast)
-# Loading canakari.equal_id2(fast)
-# Loading canakari.bittiming2(fast)
-# Loading ftrim.Control_Sys(fast)
-# Loading ftrim.PID_Regler(fast)
-# Loading ftrim.Ftrim_En(fast)
-# Loading ftrim.Diff(fast)
-# Loading ftrim.Multi(fast)
-# Loading ftrim.Multi_i(fast)
-# Loading ftrim.Accumulator(fast)
-# Loading ftrim.Add_PID(fast)
-# Loading ftrim.Output_Scaling(fast)
-# Loading ftrim.CLK_Counter(fast)
-# Loading ftrim.Control_FSM(fast)
-# Loading ftrim.Phasenfehler_Reg(fast)
-# Loading ftrim.ready_counter(fast)
-# Loading canakari.bittime2(fast)
-# Loading canakari.sum2(fast)
-# Loading canakari.timecount2(fast)
-# Loading canakari.edgepuffer2(fast)
-# Loading canakari.smpldbit_reg2(fast)
-# Loading canakari.tseg_reg2(fast)
-# Loading canakari.fce2(fast)
-# Loading canakari.faultfsm2(fast)
-# Loading canakari.rec2(fast)
-# Loading canakari.tec2(fast)
-# Loading canakari.erbcount2(fast)
-# Loading canakari.interruptunit2(fast)
-# Loading canakari.iocpu2(fast)
-# Loading canakari.multiplexer2(fast)
-# Loading canakari.read_mux2(fast)
-# Loading canakari.write_demux2(fast)
-# Loading canakari.generalregister2(fast)
-# Loading canakari.recmescontrolreg2(fast)
-# Loading canakari.recarbitreg2(fast)
-# Loading canakari.accmaskreg2(fast)
-# Loading canakari.interrupregister2(fast)
-# Loading canakari.prescalereg2(fast)
-# Loading canakari.recregister2(fast)
-# Loading canakari.transmesconreg2(fast)
-# Loading canakari.transmitreg2(fast)
-# Loading canakari.prescale2(fast)
-# Loading mopshub_lib.node_rec_mux(fast)
-# Loading mopshub_lib.bit_shifter(fast)
-# Loading mopshub_lib.buffer_rec_canakari(fast)
-# Loading mopshub_lib.bus_rec_SM(fast)
-# Loading mopshub_lib.dec1_Nbit(fast)
-# Loading mopshub_lib.dec32_Nbit(fast)
-# Loading mopshub_lib.demux1_1bit(fast__1)
-# Loading mopshub_lib.mux32_Nbit(fast)
-# Loading mopshub_lib.node_tra_demux(fast)
-# Loading mopshub_lib.demux1_Nbit(fast)
-# Loading mopshub_lib.mux1_1bit(fast)
-# Loading work.data_generator(fast)
-# Loading CANdecoder.CANbus_decoder(fast)
-# Loading CANdecoder.CANAkari_interfacedec(fast)
-# Loading CANdecoder.caninterfacedec(fast)
-# Loading CANdecoder.idcompdec(fast)
-# Loading CANdecoder.interfaceSMdec(fast)
-# Loading CANdecoder.bridgeSMdec(fast)
-# Loading CANdecoder.initialize_blockdec(fast)
-# Loading CANdecoder.rec_mes_bufdec(fast)
-# Loading CANdecoder.timoutrstdec(fast)
-# Loading work.can_bus_activity(fast)
-# Loading work.can_net_decoder(fast)
-# Loading work.mops_top_level(fast)
-# Loading CANdecoder.adcdumdata(fast)
-# Loading MOPSv2_lib.top_level(fast)
-# Loading MOPSv2_lib.clkbuffer(fast)
-# Loading MOPSv2_lib.global_resetgen(fast)
-# Loading MOPSv2_lib.delay_cell(fast)
-# Loading MOPSv2_lib.bridge_controller_top(fast)
-# Loading MOPSv2_lib.ADCinterface(fast)
-# Loading MOPSv2_lib.ADCfsm(fast)
-# Loading MOPSv2_lib.adcsel(fast)
-# Loading MOPSv2_lib.CANAkari_interface(fast)
-# Loading MOPSv2_lib.caninterface(fast)
-# Loading MOPSv2_lib.idcomp(fast)
-# Loading MOPSv2_lib.interfaceSM(fast)
-# Loading MOPSv2_lib.bridgeSM(fast)
-# Loading MOPSv2_lib.canopen_block(fast)
-# Loading MOPSv2_lib.ODfsm(fast)
-# Loading MOPSv2_lib.abortcodes(fast)
-# Loading MOPSv2_lib.msgdecode(fast)
-# Loading MOPSv2_lib.odinterface(fast)
-# Loading MOPSv2_lib.count2reload(fast)
-# Loading MOPSv2_lib.ftrim_sel(fast)
-# Loading MOPSv2_lib.od(fast)
-# Loading MOPSv2_lib.OD_MUX(fast)
-# Loading MOPSv2_lib.OD_buf(fast)
-# Loading MOPSv2_lib.OD_control(fast)
-# Loading MOPSv2_lib.rec_mes_buf(fast)
-# Loading MOPSv2_lib.timoutrst(fast)
-# Loading MOPSv2_lib.tra_mes_buf(fast)
-# Loading top_lib.canframegen_sv_unit(fast)
-# Loading top_lib.canframegen(fast)
-# Loading mopshub_lib.clk_div(fast)
-# Loading work.data_generator_SM(fast)
-# Loading work.mopshub_decoder(fast)
-# Loading work.clock_generator(fast)
-# Loading mopshub_lib.clock_divider(fast)
-# Loading mopshub_lib.clock_divider(fast__1)
-# Loading std.standard
-# Loading std.textio(body)
-# Loading ieee.std_logic_1164(body)
-# Loading mopshub_lib.dec_8b10b(behavioral)#1
-# Loading mopshub_lib.enc_8b10b(behavioral)#1
-# Loading ieee.numeric_std(body)
-# Loading mopshub_lib.spi_master(behavioral)#1
-# ** Warning: (vsim-3015) [PCDPC] - Port size (5) does not match connection size (8) for port 'sel'. The port definition is at: /home/dcs/git/mopshub/mopshub_lib/hdl/demux1_31bit.v(16).
-#    Time: 0 ns  Iteration: 0  Instance: /tb_mopshub_top/mopshub0/monitor_pp30/demux1_1bit_cs_tra File: /home/dcs/git/mopshub/mopshub_lib/hdl/monitor_bus_struct.v Line: 69
-# Loading /eda/mentor/2019-20/RHELx86/HDL-DESIGNER_2019.4/resources/downstream/modelsim/ModelSim_64Bit.dll
-# ** Warning: (vsim-8634) Code was not compiled with coverage options.
-add wave -position end  sim:/tb_mopshub_top/mopshub0/mopshub_core0/bridge_controller0/entimeout_trim
-add wave -position end  sim:/tb_mopshub_top/mopshub0/mopshub_core0/bridge_controller0/timeoutrst_trim
-run
-# Frequncy  = 40 MHz, Period = 25.000 ns
-# clk phase = 0 deg
-# clk duty = 50 %
-# 	 initialization [BUS ID  0]:
-# 	 initialization [BUS ID  1]:
-# 	 initialization [BUS ID  2]:
-# 	 initialization [BUS ID  3]:
-# 	 initialization [BUS ID  4]:
-# 	 initialization [BUS ID  5]:
-# 	 initialization [BUS ID  6]:
-# 	 initialization [BUS ID  7]:
-# 	 initialization [BUS ID  8]:
-# 	 initialization [BUS ID  9]:
-# 	 initialization [BUS ID 10]:
-# 	 initialization [BUS ID 11]:
-# 	 initialization [BUS ID 12]:
-# 	 initialization [BUS ID 13]:
-# 	 initialization [BUS ID 14]:
-# 	 initialization [BUS ID 15]:
-# 	 initialization [BUS ID 16]:
-# 	 initialization [BUS ID 17]:
-# 	 initialization [BUS ID 18]:
-# 	 initialization [BUS ID 19]:
-# 	 initialization [BUS ID 20]:
-# 	 initialization [BUS ID 21]:
-# 	 initialization [BUS ID 22]:
-# 	 initialization [BUS ID 23]:
-# 	 initialization [BUS ID 24]:
-# 	 initialization [BUS ID 25]:
-# 	 initialization [BUS ID 26]:
-# 	 initialization [BUS ID 27]:
-# 	 initialization [BUS ID 28]:
-# 	 initialization [BUS ID 29]:
-# 	 initialization [BUS ID 30]:
-# 	 initialization [BUS ID 31]:
-# *****************************************************************************
-# 	 Oscillator Trimming [BUS ID  0]:
-# 	 Oscillator Trimming [BUS ID  1]:
-# 	 Oscillator Trimming [BUS ID  2]:
-# 	 Oscillator Trimming [BUS ID  3]:
-# 	 Oscillator Trimming [BUS ID  4]:
-# 	 Oscillator Trimming [BUS ID  5]:
-# 	 Oscillator Trimming [BUS ID  6]:
-# 	 Oscillator Trimming [BUS ID  7]:
-# 	 Oscillator Trimming [BUS ID  8]:
-# 	 Oscillator Trimming [BUS ID  9]:
-# 	 Oscillator Trimming [BUS ID 10]:
-# 	 Oscillator Trimming [BUS ID 11]:
-# 	 Oscillator Trimming [BUS ID 12]:
-# 	 Oscillator Trimming [BUS ID 13]:
-# 	 Oscillator Trimming [BUS ID 14]:
-# 	 Oscillator Trimming [BUS ID 15]:
-# 	 Oscillator Trimming [BUS ID 16]:
-# 	 Oscillator Trimming [BUS ID 17]:
-# 	 Oscillator Trimming [BUS ID 18]:
-# 	 Oscillator Trimming [BUS ID 19]:
-# 	 Oscillator Trimming [BUS ID 20]:
-# 	 Oscillator Trimming [BUS ID 21]:
-# 	 Oscillator Trimming [BUS ID 22]:
-# 	 Oscillator Trimming [BUS ID 23]:
-# 	 Oscillator Trimming [BUS ID 24]:
-# 	 Oscillator Trimming [BUS ID 25]:
-# 	 Oscillator Trimming [BUS ID 26]:
-# 	 Oscillator Trimming [BUS ID 27]:
-# 	 Oscillator Trimming [BUS ID 28]:
-# 	 Oscillator Trimming [BUS ID 29]:
-# 	 Oscillator Trimming [BUS ID 30]:
-# 	 Oscillator Trimming [BUS ID 31]:
-# Current simulation time is: 35478768
-# Status GOOD [BUS ID   0]- RX-TX test
-# Status BAD **************************[RX-TX test [BUS ID  0]****************** Status BAD 0000000000000000000
-# Status BAD **************************[RX-TX test [BUS ID 31]****************** Status BAD 0000000000000000000
-# ************MOPS reponded to a costumom message. The reponse must be checked
-# 	 Receive RX signals [BUS ID   0]: 	 request 0000000000000000000 	 response 0000000000000000000
-# Current simulation time is: 37217648
-# Status GOOD [BUS ID   0]- RX-TX test
-# Status BAD **************************[RX-TX test [BUS ID  0]****************** Status BAD 0000000000000000000
-# Status BAD **************************[RX-TX test [BUS ID 31]****************** Status BAD 0000000000000000000
-# ************MOPS reponded to a costumom message. The reponse must be checked
-# 	 Receive RX signals [BUS ID   0]: 	 request 0000000000000000000 	 response 0000000000000000000
-# Current simulation time is: 38956528
-# Status GOOD [BUS ID   0]- RX-TX test
-# Status BAD **************************[RX-TX test [BUS ID  0]****************** Status BAD 0000000000000000000
-# Status BAD **************************[RX-TX test [BUS ID 31]****************** Status BAD 0000000000000000000
-# ************MOPS reponded to a costumom message. The reponse must be checked
-# 	 Receive RX signals [BUS ID   0]: 	 request 0000000000000000000 	 response 0000000000000000000
-# 0
-# 
-# hds_anim_enable /tb_mopshub_top/mopshub0/mopshub_core0/bridge_controller0/osc_trim_SM0/ TRUE 0 - current_state _proc
-# Instance tb_mopshub_top.mopshub0.mopshub_core0.bridge_controller0.osc_trim_SM0 was not generated for animation, limited capabilities are still available
-# Now sending details of /tb_mopshub_top/mopshub0/mopshub_core0/bridge_controller0/osc_trim_SM0 to HDS for animation
-restart
-restart
-# ** Note: (vsim-12125) Error and warning message counts have been reset to '0' because of 'restart'.
-# ** Note: (vsim-8009) Loading existing optimized design _opt4
-# Loading sv_std.std
-# Loading work.tb_mopshub_top(fast)
-# Loading mopshub_lib.mopshub_top(fast)
-# Loading mopshub_lib.elink_core(fast)
-# Loading mopshub_lib.buffer_rec_elink(fast)
-# Loading mopshub_lib.buffer_rec_spi(fast)
-# Loading mopshub_lib.buffer_tra_elink(fast)
-# Loading mopshub_lib.buffer_tra_spi(fast)
-# Loading mopshub_lib.elink_interface_rec_SM(fast)
-# Loading mopshub_lib.elink_interface_tra_SM(fast)
-# Loading mopshub_lib.elink_to_fifo(fast)
-# Loading mopshub_lib.elink_proc_in(fast)
-# Loading mopshub_lib.elink_proc_in_dec8b10b(fast)
-# Loading mopshub_lib.bitstream_shift_register(fast)
-# Loading mopshub_lib.dec_8b10b_wrap(fast)
-# Loading mopshub_lib.sync_detector(fast)
-# Loading mopshub_lib.elink_proc_in_direct(fast)
-# Loading mopshub_lib.fifo_RXelink_wrap(fast)
-# Loading mopshub_lib.fifo_to_elink(fast)
-# Loading mopshub_lib.elink_proc_out(fast)
-# Loading mopshub_lib.elink_proc_out_direct(fast)
-# Loading mopshub_lib.mux4_Nbit(fast)
-# Loading mopshub_lib.triger_counter(fast)
-# Loading mopshub_lib.elink_proc_out_enc8b10b(fast)
-# Loading mopshub_lib.enc8b10b_wrap(fast)
-# Loading mopshub_lib.mux4_Nbit(fast__1)
-# Loading mopshub_lib.mux8_Nbit(fast)
-# Loading mopshub_lib.triger_counter(fast__1)
-# Loading mopshub_lib.monitor_bus(fast)
-# Loading mopshub_lib.buffer_rec_spi_data(fast)
-# Loading mopshub_lib.buffer_tra_spi_data(fast)
-# Loading mopshub_lib.demux1_1bit(fast)
-# Loading mopshub_lib.mopshub_core(fast)
-# Loading mopshub_lib.bridge_controller(fast)
-# Loading mopshub_lib.buffer_rec_data(fast)
-# Loading mopshub_lib.buffer_tra_data(fast)
-# Loading mopshub_lib.can_elink_bridge_SM(fast)
-# Loading mopshub_lib.canakari_interface(fast)
-# Loading mopshub_lib.bit_counter(fast)
-# Loading mopshub_lib.buffer_tristate_busid(fast)
-# Loading mopshub_lib.bus_comp(fast)
-# Loading mopshub_lib.can_interface(fast)
-# Loading mopshub_lib.can_interface_SM(fast)
-# Loading MOPSv2_lib.initialize_block(fast)
-# Loading mopshub_lib.osc_trim_SM(fast)
-# Loading mopshub_lib.timout_rst(fast)
-# Loading mopshub_lib.canakari_top(fast)
-# Loading mopshub_lib.canakari_0_7(fast)
-# Loading mopshub_lib.can(fast)
-# Loading canakari.can2(fast)
-# Loading canakari.resetgen2(fast)
-# Loading canakari.mac2(fast)
-# Loading canakari.reset_mac2(fast)
-# Loading canakari.macfsm2(fast)
-# Loading canakari.biterrordetect2(fast)
-# Loading canakari.counter2(fast)
-# Loading canakari.decapsulation2(fast)
-# Loading canakari.destuffing2(fast)
-# Loading canakari.encapsulation2(fast)
-# Loading canakari.rcrc2(fast)
-# Loading canakari.rcrc_cell2(fast)
-# Loading canakari.recmeslen2(fast)
-# Loading canakari.rshiftreg2(fast)
-# Loading canakari.rshift_cell2(fast)
-# Loading canakari.stuffing2(fast)
-# Loading canakari.tcrc2(fast)
-# Loading canakari.tcrc_cell2(fast)
-# Loading canakari.tshiftreg2(fast)
-# Loading canakari.tshift_cell2(fast)
-# Loading canakari.fsm_register2(fast)
-# Loading canakari.fastshift2(fast)
-# Loading canakari.meslencompare2(fast)
-# Loading canakari.llc2(fast)
-# Loading canakari.llc_fsm2(fast)
-# Loading canakari.equal_id2(fast)
-# Loading canakari.bittiming2(fast)
-# Loading ftrim.Control_Sys(fast)
-# Loading ftrim.PID_Regler(fast)
-# Loading ftrim.Ftrim_En(fast)
-# Loading ftrim.Diff(fast)
-# Loading ftrim.Multi(fast)
-# Loading ftrim.Multi_i(fast)
-# Loading ftrim.Accumulator(fast)
-# Loading ftrim.Add_PID(fast)
-# Loading ftrim.Output_Scaling(fast)
-# Loading ftrim.CLK_Counter(fast)
-# Loading ftrim.Control_FSM(fast)
-# Loading ftrim.Phasenfehler_Reg(fast)
-# Loading ftrim.ready_counter(fast)
-# Loading canakari.bittime2(fast)
-# Loading canakari.sum2(fast)
-# Loading canakari.timecount2(fast)
-# Loading canakari.edgepuffer2(fast)
-# Loading canakari.smpldbit_reg2(fast)
-# Loading canakari.tseg_reg2(fast)
-# Loading canakari.fce2(fast)
-# Loading canakari.faultfsm2(fast)
-# Loading canakari.rec2(fast)
-# Loading canakari.tec2(fast)
-# Loading canakari.erbcount2(fast)
-# Loading canakari.interruptunit2(fast)
-# Loading canakari.iocpu2(fast)
-# Loading canakari.multiplexer2(fast)
-# Loading canakari.read_mux2(fast)
-# Loading canakari.write_demux2(fast)
-# Loading canakari.generalregister2(fast)
-# Loading canakari.recmescontrolreg2(fast)
-# Loading canakari.recarbitreg2(fast)
-# Loading canakari.accmaskreg2(fast)
-# Loading canakari.interrupregister2(fast)
-# Loading canakari.prescalereg2(fast)
-# Loading canakari.recregister2(fast)
-# Loading canakari.transmesconreg2(fast)
-# Loading canakari.transmitreg2(fast)
-# Loading canakari.prescale2(fast)
-# Loading mopshub_lib.node_rec_mux(fast)
-# Loading mopshub_lib.bit_shifter(fast)
-# Loading mopshub_lib.buffer_rec_canakari(fast)
-# Loading mopshub_lib.bus_rec_SM(fast)
-# Loading mopshub_lib.dec1_Nbit(fast)
-# Loading mopshub_lib.dec32_Nbit(fast)
-# Loading mopshub_lib.demux1_1bit(fast__1)
-# Loading mopshub_lib.mux32_Nbit(fast)
-# Loading mopshub_lib.node_tra_demux(fast)
-# Loading mopshub_lib.demux1_Nbit(fast)
-# Loading mopshub_lib.mux1_1bit(fast)
-# Loading work.data_generator(fast)
-# Loading CANdecoder.CANbus_decoder(fast)
-# Loading CANdecoder.CANAkari_interfacedec(fast)
-# Loading CANdecoder.caninterfacedec(fast)
-# Loading CANdecoder.idcompdec(fast)
-# Loading CANdecoder.interfaceSMdec(fast)
-# Loading CANdecoder.bridgeSMdec(fast)
-# Loading CANdecoder.initialize_blockdec(fast)
-# Loading CANdecoder.rec_mes_bufdec(fast)
-# Loading CANdecoder.timoutrstdec(fast)
-# Loading work.can_bus_activity(fast)
-# Loading work.can_net_decoder(fast)
-# Loading work.mops_top_level(fast)
-# Loading CANdecoder.adcdumdata(fast)
-# Loading MOPSv2_lib.top_level(fast)
-# Loading MOPSv2_lib.clkbuffer(fast)
-# Loading MOPSv2_lib.global_resetgen(fast)
-# Loading MOPSv2_lib.delay_cell(fast)
-# Loading MOPSv2_lib.bridge_controller_top(fast)
-# Loading MOPSv2_lib.ADCinterface(fast)
-# Loading MOPSv2_lib.ADCfsm(fast)
-# Loading MOPSv2_lib.adcsel(fast)
-# Loading MOPSv2_lib.CANAkari_interface(fast)
-# Loading MOPSv2_lib.caninterface(fast)
-# Loading MOPSv2_lib.idcomp(fast)
-# Loading MOPSv2_lib.interfaceSM(fast)
-# Loading MOPSv2_lib.bridgeSM(fast)
-# Loading MOPSv2_lib.canopen_block(fast)
-# Loading MOPSv2_lib.ODfsm(fast)
-# Loading MOPSv2_lib.abortcodes(fast)
-# Loading MOPSv2_lib.msgdecode(fast)
-# Loading MOPSv2_lib.odinterface(fast)
-# Loading MOPSv2_lib.count2reload(fast)
-# Loading MOPSv2_lib.ftrim_sel(fast)
-# Loading MOPSv2_lib.od(fast)
-# Loading MOPSv2_lib.OD_MUX(fast)
-# Loading MOPSv2_lib.OD_buf(fast)
-# Loading MOPSv2_lib.OD_control(fast)
-# Loading MOPSv2_lib.rec_mes_buf(fast)
-# Loading MOPSv2_lib.timoutrst(fast)
-# Loading MOPSv2_lib.tra_mes_buf(fast)
-# Loading top_lib.canframegen_sv_unit(fast)
-# Loading top_lib.canframegen(fast)
-# Loading mopshub_lib.clk_div(fast)
-# Loading work.data_generator_SM(fast)
-# Loading work.mopshub_decoder(fast)
-# Loading work.clock_generator(fast)
-# Loading mopshub_lib.clock_divider(fast)
-# Loading mopshub_lib.clock_divider(fast__1)
-# ** Warning: (vsim-3015) [PCDPC] - Port size (5) does not match connection size (8) for port 'sel'. The port definition is at: /home/dcs/git/mopshub/mopshub_lib/hdl/demux1_31bit.v(16).
-#    Time: 0 ns  Iteration: 0  Instance: /tb_mopshub_top/mopshub0/monitor_pp30/demux1_1bit_cs_tra File: /home/dcs/git/mopshub/mopshub_lib/hdl/monitor_bus_struct.v Line: 69
-# Loading /eda/mentor/2019-20/RHELx86/HDL-DESIGNER_2019.4/resources/downstream/modelsim/ModelSim_64Bit.dll
-# ** Warning: (vsim-8634) Code was not compiled with coverage options.
-# hds_anim_enable /tb_mopshub_top/mopshub0/mopshub_core0/bridge_controller0/osc_trim_SM0/ TRUE 0 - current_state _proc
-# Instance tb_mopshub_top.mopshub0.mopshub_core0.bridge_controller0.osc_trim_SM0 was not generated for animation, limited capabilities are still available
-# Now sending details of /tb_mopshub_top/mopshub0/mopshub_core0/bridge_controller0/osc_trim_SM0 to HDS for animation
-run
-# Frequncy  = 40 MHz, Period = 25.000 ns
-# clk phase = 0 deg
-# clk duty = 50 %
-# 	 initialization [BUS ID  0]:
-# 	 initialization [BUS ID  1]:
-# 	 initialization [BUS ID  2]:
-# 	 initialization [BUS ID  3]:
-# 	 initialization [BUS ID  4]:
-# 	 initialization [BUS ID  5]:
-# 	 initialization [BUS ID  6]:
-# 	 initialization [BUS ID  7]:
-# 	 initialization [BUS ID  8]:
-# 	 initialization [BUS ID  9]:
-# 	 initialization [BUS ID 10]:
-# 	 initialization [BUS ID 11]:
-# 	 initialization [BUS ID 12]:
-# 	 initialization [BUS ID 13]:
-# 	 initialization [BUS ID 14]:
-# 	 initialization [BUS ID 15]:
-# 	 initialization [BUS ID 16]:
-# 	 initialization [BUS ID 17]:
-# 	 initialization [BUS ID 18]:
-# 	 initialization [BUS ID 19]:
-# 	 initialization [BUS ID 20]:
-# 	 initialization [BUS ID 21]:
-# 	 initialization [BUS ID 22]:
-# 	 initialization [BUS ID 23]:
-# 	 initialization [BUS ID 24]:
-# 	 initialization [BUS ID 25]:
-# 	 initialization [BUS ID 26]:
-# 	 initialization [BUS ID 27]:
-# 	 initialization [BUS ID 28]:
-# 	 initialization [BUS ID 29]:
-# 	 initialization [BUS ID 30]:
-# 	 initialization [BUS ID 31]:
-# *****************************************************************************
-# 	 Oscillator Trimming [BUS ID  0]:
-# 	 Oscillator Trimming [BUS ID  1]:
-# 	 Oscillator Trimming [BUS ID  2]:
-# 	 Oscillator Trimming [BUS ID  3]:
-# 	 Oscillator Trimming [BUS ID  4]:
-# 	 Oscillator Trimming [BUS ID  5]:
-# 	 Oscillator Trimming [BUS ID  6]:
-# 	 Oscillator Trimming [BUS ID  7]:
-# 	 Oscillator Trimming [BUS ID  8]:
-# 	 Oscillator Trimming [BUS ID  9]:
-# 	 Oscillator Trimming [BUS ID 10]:
-# 	 Oscillator Trimming [BUS ID 11]:
-# 	 Oscillator Trimming [BUS ID 12]:
-# 	 Oscillator Trimming [BUS ID 13]:
-# 	 Oscillator Trimming [BUS ID 14]:
-# 	 Oscillator Trimming [BUS ID 15]:
-# 	 Oscillator Trimming [BUS ID 16]:
-# 	 Oscillator Trimming [BUS ID 17]:
-# 	 Oscillator Trimming [BUS ID 18]:
-# 	 Oscillator Trimming [BUS ID 19]:
-# 	 Oscillator Trimming [BUS ID 20]:
-# 	 Oscillator Trimming [BUS ID 21]:
-# 	 Oscillator Trimming [BUS ID 22]:
-# 	 Oscillator Trimming [BUS ID 23]:
-# 	 Oscillator Trimming [BUS ID 24]:
-# 	 Oscillator Trimming [BUS ID 25]:
-# 	 Oscillator Trimming [BUS ID 26]:
-# 	 Oscillator Trimming [BUS ID 27]:
-# 	 Oscillator Trimming [BUS ID 28]:
-# 	 Oscillator Trimming [BUS ID 29]:
-# 	 Oscillator Trimming [BUS ID 30]:
-# 	 Oscillator Trimming [BUS ID 31]:
-# Current simulation time is: 35478768
-# Status GOOD [BUS ID   0]- RX-TX test
-# Status BAD **************************[RX-TX test [BUS ID  0]****************** Status BAD 0000000000000000000
-# Status BAD **************************[RX-TX test [BUS ID 31]****************** Status BAD 0000000000000000000
-# ************MOPS reponded to a costumom message. The reponse must be checked
-# 	 Receive RX signals [BUS ID   0]: 	 request 0000000000000000000 	 response 0000000000000000000
-# Current simulation time is: 37217648
-# Status GOOD [BUS ID   0]- RX-TX test
-# Status BAD **************************[RX-TX test [BUS ID  0]****************** Status BAD 0000000000000000000
-# Status BAD **************************[RX-TX test [BUS ID 31]****************** Status BAD 0000000000000000000
-# ************MOPS reponded to a costumom message. The reponse must be checked
-# 	 Receive RX signals [BUS ID   0]: 	 request 0000000000000000000 	 response 0000000000000000000
-# Current simulation time is: 38956528
-# Status GOOD [BUS ID   0]- RX-TX test
-# Status BAD **************************[RX-TX test [BUS ID  0]****************** Status BAD 0000000000000000000
-# Status BAD **************************[RX-TX test [BUS ID 31]****************** Status BAD 0000000000000000000
-# ************MOPS reponded to a costumom message. The reponse must be checked
-# 	 Receive RX signals [BUS ID   0]: 	 request 0000000000000000000 	 response 0000000000000000000
-# 0
-# 
-# hds_restart
-restart -force
-# ** Note: (vsim-12125) Error and warning message counts have been reset to '0' because of 'restart'.
-# ** Note: (vsim-3813) Design is being optimized due to module recompilation...
-# ** Warning: (vsim-3865) Due to PLI being present, global +acc is being enabled automatically. This will cause your simulation to run very slowly. Please use vsim -no_autoacc to disable this feature. This feature is now deprecated and will be removed from future releases.
-# ** Warning: (vopt-10016) Option '-L ieee' was detected by vlog for design-unit 'tb_mopshub_top', but was not detected by vopt. The vlog option will be ignored.
-# ** Warning: (vopt-10017) vopt and vlog detected inconsistent ordering of options -L tsmcdigital_lib, -L top_lib, -L MOPSv2_lib, -L canakari, -L CANdecoder, -L ftrim, -L mopshub_lib and -L mopshub_testbench for design-unit 'tb_mopshub_top'. vopt will ignore the ordering that was given to vlog.
-# ** Warning: (vopt-10016) Option '-L ieee' was detected by vlog for design-unit 'dec32_Nbit', but was not detected by vopt. The vlog option will be ignored.
-# ** Warning: (vopt-10017) vopt and vlog detected inconsistent ordering of options -L tsmcdigital_lib, -L top_lib, -L MOPSv2_lib, -L canakari, -L CANdecoder, -L ftrim, -L mopshub_lib and -L mopshub_testbench for design-unit 'dec32_Nbit'. vopt will ignore the ordering that was given to vlog.
-# ** Warning: (vopt-10016) Option '-L ieee' was detected by vlog for design-unit 'can_bus_activity', but was not detected by vopt. The vlog option will be ignored.
-# ** Warning: (vopt-10017) vopt and vlog detected inconsistent ordering of options -L tsmcdigital_lib, -L top_lib, -L MOPSv2_lib, -L canakari, -L CANdecoder, -L ftrim, -L mopshub_lib and -L mopshub_testbench for design-unit 'can_bus_activity'. vopt will ignore the ordering that was given to vlog.
-# ** Warning: (vopt-10017) vopt and vlog detected inconsistent ordering of options -L tsmcdigital_lib, -L top_lib, -L MOPSv2_lib, -L canakari, -L CANdecoder, -L ftrim and -L mopshub_lib for design-unit 'canframegen'. vopt will ignore the ordering that was given to vlog.
-# ** Warning: (vopt-10017) vopt and vlog detected inconsistent ordering of options -L tsmcdigital_lib, -L top_lib, -L MOPSv2_lib, -L canakari, -L CANdecoder, -L ftrim and -L mopshub_lib for design-unit 'canframegen_sv_unit'. vopt will ignore the ordering that was given to vlog.
-# Loading sv_std.std
-# Loading work.tb_mopshub_top(fast)
-# Loading mopshub_lib.mopshub_top(fast)
-# Loading mopshub_lib.elink_core(fast)
-# Loading mopshub_lib.buffer_rec_elink(fast)
-# Loading mopshub_lib.buffer_rec_spi(fast)
-# Loading mopshub_lib.buffer_tra_elink(fast)
-# Loading mopshub_lib.buffer_tra_spi(fast)
-# Loading mopshub_lib.elink_interface_rec_SM(fast)
-# Loading mopshub_lib.elink_interface_tra_SM(fast)
-# Loading mopshub_lib.elink_to_fifo(fast)
-# Loading mopshub_lib.elink_proc_in(fast)
-# Loading mopshub_lib.elink_proc_in_dec8b10b(fast)
-# Loading mopshub_lib.bitstream_shift_register(fast)
-# Loading mopshub_lib.dec_8b10b_wrap(fast)
-# Loading mopshub_lib.sync_detector(fast)
-# Loading mopshub_lib.elink_proc_in_direct(fast)
-# Loading mopshub_lib.fifo_RXelink_wrap(fast)
-# Loading mopshub_lib.fifo_to_elink(fast)
-# Loading mopshub_lib.elink_proc_out(fast)
-# Loading mopshub_lib.elink_proc_out_direct(fast)
-# Loading mopshub_lib.mux4_Nbit(fast)
-# Loading mopshub_lib.triger_counter(fast)
-# Loading mopshub_lib.elink_proc_out_enc8b10b(fast)
-# Loading mopshub_lib.enc8b10b_wrap(fast)
-# Loading mopshub_lib.mux4_Nbit(fast__1)
-# Loading mopshub_lib.mux8_Nbit(fast)
-# Loading mopshub_lib.triger_counter(fast__1)
-# Loading mopshub_lib.monitor_bus(fast)
-# Loading mopshub_lib.buffer_rec_spi_data(fast)
-# Loading mopshub_lib.buffer_tra_spi_data(fast)
-# Loading mopshub_lib.demux1_1bit(fast)
-# Loading mopshub_lib.mopshub_core(fast)
-# Loading mopshub_lib.bridge_controller(fast)
-# Loading mopshub_lib.buffer_rec_data(fast)
-# Loading mopshub_lib.buffer_tra_data(fast)
-# Loading mopshub_lib.can_elink_bridge_SM(fast)
-# Loading mopshub_lib.canakari_interface(fast)
-# Loading mopshub_lib.bit_counter(fast)
-# Loading mopshub_lib.buffer_tristate_busid(fast)
-# Loading mopshub_lib.bus_comp(fast)
-# Loading mopshub_lib.can_interface(fast)
-# Loading mopshub_lib.can_interface_SM(fast)
-# Loading MOPSv2_lib.initialize_block(fast)
-# Loading mopshub_lib.osc_trim_SM(fast)
-# Loading mopshub_lib.timout_rst(fast)
-# Loading mopshub_lib.canakari_top(fast)
-# Loading mopshub_lib.canakari_0_7(fast)
-# Loading mopshub_lib.can(fast)
-# Loading canakari.can2(fast)
-# Loading canakari.resetgen2(fast)
-# Loading canakari.mac2(fast)
-# Loading canakari.reset_mac2(fast)
-# Loading canakari.macfsm2(fast)
-# Loading canakari.biterrordetect2(fast)
-# Loading canakari.counter2(fast)
-# Loading canakari.decapsulation2(fast)
-# Loading canakari.destuffing2(fast)
-# Loading canakari.encapsulation2(fast)
-# Loading canakari.rcrc2(fast)
-# Loading canakari.rcrc_cell2(fast)
-# Loading canakari.recmeslen2(fast)
-# Loading canakari.rshiftreg2(fast)
-# Loading canakari.rshift_cell2(fast)
-# Loading canakari.stuffing2(fast)
-# Loading canakari.tcrc2(fast)
-# Loading canakari.tcrc_cell2(fast)
-# Loading canakari.tshiftreg2(fast)
-# Loading canakari.tshift_cell2(fast)
-# Loading canakari.fsm_register2(fast)
-# Loading canakari.fastshift2(fast)
-# Loading canakari.meslencompare2(fast)
-# Loading canakari.llc2(fast)
-# Loading canakari.llc_fsm2(fast)
-# Loading canakari.equal_id2(fast)
-# Loading canakari.bittiming2(fast)
-# Loading ftrim.Control_Sys(fast)
-# Loading ftrim.PID_Regler(fast)
-# Loading ftrim.Ftrim_En(fast)
-# Loading ftrim.Diff(fast)
-# Loading ftrim.Multi(fast)
-# Loading ftrim.Multi_i(fast)
-# Loading ftrim.Accumulator(fast)
-# Loading ftrim.Add_PID(fast)
-# Loading ftrim.Output_Scaling(fast)
-# Loading ftrim.CLK_Counter(fast)
-# Loading ftrim.Control_FSM(fast)
-# Loading ftrim.Phasenfehler_Reg(fast)
-# Loading ftrim.ready_counter(fast)
-# Loading canakari.bittime2(fast)
-# Loading canakari.sum2(fast)
-# Loading canakari.timecount2(fast)
-# Loading canakari.edgepuffer2(fast)
-# Loading canakari.smpldbit_reg2(fast)
-# Loading canakari.tseg_reg2(fast)
-# Loading canakari.fce2(fast)
-# Loading canakari.faultfsm2(fast)
-# Loading canakari.rec2(fast)
-# Loading canakari.tec2(fast)
-# Loading canakari.erbcount2(fast)
-# Loading canakari.interruptunit2(fast)
-# Loading canakari.iocpu2(fast)
-# Loading canakari.multiplexer2(fast)
-# Loading canakari.read_mux2(fast)
-# Loading canakari.write_demux2(fast)
-# Loading canakari.generalregister2(fast)
-# Loading canakari.recmescontrolreg2(fast)
-# Loading canakari.recarbitreg2(fast)
-# Loading canakari.accmaskreg2(fast)
-# Loading canakari.interrupregister2(fast)
-# Loading canakari.prescalereg2(fast)
-# Loading canakari.recregister2(fast)
-# Loading canakari.transmesconreg2(fast)
-# Loading canakari.transmitreg2(fast)
-# Loading canakari.prescale2(fast)
-# Loading mopshub_lib.node_rec_mux(fast)
-# Loading mopshub_lib.bit_shifter(fast)
-# Loading mopshub_lib.buffer_rec_canakari(fast)
-# Loading mopshub_lib.bus_rec_SM(fast)
-# Loading mopshub_lib.dec1_Nbit(fast)
-# Loading mopshub_lib.dec32_Nbit(fast)
-# Loading mopshub_lib.demux1_1bit(fast__1)
-# Loading mopshub_lib.mux32_Nbit(fast)
-# Loading mopshub_lib.node_tra_demux(fast)
-# Loading mopshub_lib.demux1_Nbit(fast)
-# Loading mopshub_lib.mux1_1bit(fast)
-# Loading work.data_generator(fast)
-# Loading CANdecoder.CANbus_decoder(fast)
-# Loading CANdecoder.CANAkari_interfacedec(fast)
-# Loading CANdecoder.caninterfacedec(fast)
-# Loading CANdecoder.idcompdec(fast)
-# Loading CANdecoder.interfaceSMdec(fast)
-# Loading CANdecoder.bridgeSMdec(fast)
-# Loading CANdecoder.initialize_blockdec(fast)
-# Loading CANdecoder.rec_mes_bufdec(fast)
-# Loading CANdecoder.timoutrstdec(fast)
-# Loading work.can_bus_activity(fast)
-# Loading work.can_net_decoder(fast)
-# Loading work.mops_top_level(fast)
-# Loading CANdecoder.adcdumdata(fast)
-# Loading MOPSv2_lib.top_level(fast)
-# Loading MOPSv2_lib.clkbuffer(fast)
-# Loading MOPSv2_lib.global_resetgen(fast)
-# Loading MOPSv2_lib.delay_cell(fast)
-# Loading MOPSv2_lib.bridge_controller_top(fast)
-# Loading MOPSv2_lib.ADCinterface(fast)
-# Loading MOPSv2_lib.ADCfsm(fast)
-# Loading MOPSv2_lib.adcsel(fast)
-# Loading MOPSv2_lib.CANAkari_interface(fast)
-# Loading MOPSv2_lib.caninterface(fast)
-# Loading MOPSv2_lib.idcomp(fast)
-# Loading MOPSv2_lib.interfaceSM(fast)
-# Loading MOPSv2_lib.bridgeSM(fast)
-# Loading MOPSv2_lib.canopen_block(fast)
-# Loading MOPSv2_lib.ODfsm(fast)
-# Loading MOPSv2_lib.abortcodes(fast)
-# Loading MOPSv2_lib.msgdecode(fast)
-# Loading MOPSv2_lib.odinterface(fast)
-# Loading MOPSv2_lib.count2reload(fast)
-# Loading MOPSv2_lib.ftrim_sel(fast)
-# Loading MOPSv2_lib.od(fast)
-# Loading MOPSv2_lib.OD_MUX(fast)
-# Loading MOPSv2_lib.OD_buf(fast)
-# Loading MOPSv2_lib.OD_control(fast)
-# Loading MOPSv2_lib.rec_mes_buf(fast)
-# Loading MOPSv2_lib.timoutrst(fast)
-# Loading MOPSv2_lib.tra_mes_buf(fast)
-# Loading top_lib.canframegen_sv_unit(fast)
-# Loading top_lib.canframegen(fast)
-# Loading mopshub_lib.clk_div(fast)
-# Loading work.data_generator_SM(fast)
-# Loading work.mopshub_decoder(fast)
-# Loading work.clock_generator(fast)
-# Loading mopshub_lib.clock_divider(fast)
-# Loading mopshub_lib.clock_divider(fast__1)
-# Loading std.standard
-# Loading std.textio(body)
-# Loading ieee.std_logic_1164(body)
-# Loading mopshub_lib.dec_8b10b(behavioral)#1
-# Loading mopshub_lib.enc_8b10b(behavioral)#1
-# Loading ieee.numeric_std(body)
-# Loading mopshub_lib.spi_master(behavioral)#1
-# ** Warning: (vsim-3015) [PCDPC] - Port size (5) does not match connection size (8) for port 'sel'. The port definition is at: /home/dcs/git/mopshub/mopshub_lib/hdl/demux1_31bit.v(16).
-#    Time: 0 ns  Iteration: 0  Instance: /tb_mopshub_top/mopshub0/monitor_pp30/demux1_1bit_cs_tra File: /home/dcs/git/mopshub/mopshub_lib/hdl/monitor_bus_struct.v Line: 69
 # Loading /eda/mentor/2019-20/RHELx86/HDL-DESIGNER_2019.4/resources/downstream/modelsim/ModelSim_64Bit.dll
 # ** Warning: (vsim-8634) Code was not compiled with coverage options.
 run
@@ -2189,3 +1274,10 @@ run
 # Status GOOD [BUS ID 31] - TX Test
 # 	 Transmit TX signals [BUS ID  31]: 	 request 6014000240a1f000000 	 response 5818000240a1f020000
 # *****************************************************************************
+add wave -position 107  sim:/tb_mopshub_top/data_generator0/mopshub_decoder_emulator/dout_in
+add wave -position 108  sim:/tb_mopshub_top/data_generator0/mopshub_decoder_emulator/data_2bit_in
+add wave -position 109  sim:/tb_mopshub_top/data_generator0/mopshub_decoder_emulator/data_2bit_out
+add wave -position 110  sim:/tb_mopshub_top/data_generator0/mopshub_decoder_emulator/tx_dout
+add wave -position 111  sim:/tb_mopshub_top/data_generator0/mopshub_decoder_emulator/tx_elink1bit
+# End time: 16:01:58 on Feb 11,2022, Elapsed time: 23:25:09
+# Errors: 0, Warnings: 9
