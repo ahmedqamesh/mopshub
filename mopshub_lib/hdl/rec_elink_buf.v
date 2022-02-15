@@ -23,8 +23,6 @@ module buffer_rec_elink(
   // Internal Declarations
   reg   [7:0] data_rec_reg = 8'h0;
   reg   [1:0] data_delimiter_reg= 2'b11;
-  //wire  [7:0] Kchar_eop = 8'b11011100;// K28.6
-  //wire  [7:0] Kchar_sop = 8'b00111100;// K28.1
   always@(*)
     case(addr)
       5'b00000  :   data_rec_reg  = 8'h0; 
