@@ -1,5 +1,5 @@
 # vsim -f hds_args.tmp -foreign "hdsInit /eda/mentor/2019-20/RHELx86/HDL-DESIGNER_2019.4/resources/downstream/modelsim/ModelSim_64Bit.dll" -pli ""/eda/mentor/2019-20/RHELx86/HDL-DESIGNER_2019.4/resources/downstream/modelsim/ModelSim_64Bit.dll"" 
-# Start time: 14:43:27 on Feb 15,2022
+# Start time: 16:09:43 on Feb 16,2022
 # ** Note: (vsim-3813) Design is being optimized due to module recompilation...
 # ** Warning: (vsim-3865) Due to PLI being present, global +acc is being enabled automatically. This will cause your simulation to run very slowly. Please use vsim -no_autoacc to disable this feature. This feature is now deprecated and will be removed from future releases.
 # ** Warning: (vopt-10016) Option '-L ieee' was detected by vlog for design-unit 'tb_mopshub_top', but was not detected by vopt. The vlog option will be ignored.
@@ -10,13 +10,60 @@
 # ** Warning: (vopt-10017) vopt and vlog detected inconsistent ordering of options -L tsmcdigital_lib, -L top_lib, -L MOPSv2_lib, -L canakari, -L CANdecoder, -L ftrim, -L mopshub_lib and -L mopshub_testbench for design-unit 'can_bus_activity'. vopt will ignore the ordering that was given to vlog.
 # ** Warning: (vopt-10017) vopt and vlog detected inconsistent ordering of options -L tsmcdigital_lib, -L top_lib, -L MOPSv2_lib, -L canakari, -L CANdecoder, -L ftrim and -L mopshub_lib for design-unit 'canframegen'. vopt will ignore the ordering that was given to vlog.
 # ** Warning: (vopt-10017) vopt and vlog detected inconsistent ordering of options -L tsmcdigital_lib, -L top_lib, -L MOPSv2_lib, -L canakari, -L CANdecoder, -L ftrim and -L mopshub_lib for design-unit 'canframegen_sv_unit'. vopt will ignore the ordering that was given to vlog.
+# ** Error (suppressible): /home/dcs/git/mopshub/mopshub_testbench/hdl/tb_mopshub_top.v(144): (vopt-7063) Failed to find 'power_bus_en' in hierarchical name 'mopshub0.power_bus_en'.
+#         Region: tb_mopshub_top
+# Optimization failed
+# Error loading design
+# End time: 16:09:44 on Feb 16,2022, Elapsed time: 0:00:01
+# Errors: 1, Warnings: 9
+# A time value could not be extracted from the current line
+# hds_restart
+vsim -L tsmcdigital_lib -L top_lib -L MOPSv2_lib -L canakari -L CANdecoder -L ftrim -L mopshub_lib -L mopshub_testbench -l transcript.txt -i -t ns -multisource_delay latest +typdelays -nopsl -coverage mopshub_testbench.tb_mopshub_top
+# vsim -L tsmcdigital_lib -L top_lib -L MOPSv2_lib -L canakari -L CANdecoder -L ftrim -L mopshub_lib -L mopshub_testbench -l transcript.txt -i -t ns -multisource_delay latest "+typdelays" -nopsl -coverage mopshub_testbench.tb_mopshub_top -foreign "hdsInit /eda/mentor/2019-20/RHELx86/HDL-DESIGNER_2019.4/resources/downstream/modelsim/ModelSim_64Bit.dll" -pli ""/eda/mentor/2019-20/RHELx86/HDL-DESIGNER_2019.4/resources/downstream/modelsim/ModelSim_64Bit.dll"" 
+# Start time: 16:10:15 on Feb 16,2022
+# ** Note: (vsim-3813) Design is being optimized due to module recompilation...
+# ** Warning: (vsim-3865) Due to PLI being present, global +acc is being enabled automatically. This will cause your simulation to run very slowly. Please use vsim -no_autoacc to disable this feature. This feature is now deprecated and will be removed from future releases.
+# ** Warning: (vopt-10016) Option '-L ieee' was detected by vlog for design-unit 'tb_mopshub_top', but was not detected by vopt. The vlog option will be ignored.
+# ** Warning: (vopt-10017) vopt and vlog detected inconsistent ordering of options -L tsmcdigital_lib, -L top_lib, -L MOPSv2_lib, -L canakari, -L CANdecoder, -L ftrim, -L mopshub_lib and -L mopshub_testbench for design-unit 'tb_mopshub_top'. vopt will ignore the ordering that was given to vlog.
+# ** Warning: (vopt-10016) Option '-L ieee' was detected by vlog for design-unit 'dec32_Nbit', but was not detected by vopt. The vlog option will be ignored.
+# ** Warning: (vopt-10017) vopt and vlog detected inconsistent ordering of options -L tsmcdigital_lib, -L top_lib, -L MOPSv2_lib, -L canakari, -L CANdecoder, -L ftrim, -L mopshub_lib and -L mopshub_testbench for design-unit 'dec32_Nbit'. vopt will ignore the ordering that was given to vlog.
+# ** Warning: (vopt-10016) Option '-L ieee' was detected by vlog for design-unit 'can_bus_activity', but was not detected by vopt. The vlog option will be ignored.
+# ** Warning: (vopt-10017) vopt and vlog detected inconsistent ordering of options -L tsmcdigital_lib, -L top_lib, -L MOPSv2_lib, -L canakari, -L CANdecoder, -L ftrim, -L mopshub_lib and -L mopshub_testbench for design-unit 'can_bus_activity'. vopt will ignore the ordering that was given to vlog.
+# ** Warning: (vopt-10017) vopt and vlog detected inconsistent ordering of options -L tsmcdigital_lib, -L top_lib, -L MOPSv2_lib, -L canakari, -L CANdecoder, -L ftrim and -L mopshub_lib for design-unit 'canframegen'. vopt will ignore the ordering that was given to vlog.
+# ** Warning: (vopt-10017) vopt and vlog detected inconsistent ordering of options -L tsmcdigital_lib, -L top_lib, -L MOPSv2_lib, -L canakari, -L CANdecoder, -L ftrim and -L mopshub_lib for design-unit 'canframegen_sv_unit'. vopt will ignore the ordering that was given to vlog.
+# ** Note: (vopt-143) Recognized 1 FSM in module "can_interface_SM(fast)".
 # ** Note: (vopt-143) Recognized 1 FSM in module "bus_control_SM(fast)".
+# ** Note: (vopt-143) Recognized 1 FSM in module "osc_trim_SM(fast)".
+# ** Note: (vopt-143) Recognized 1 FSM in module "can_elink_bridge_SM(fast)".
+# ** Note: (vopt-143) Recognized 1 FSM in module "elink_interface_tra_SM(fast)".
+# ** Note: (vopt-143) Recognized 1 FSM in module "elink_interface_rec_SM(fast)".
+# ** Warning: /home/dcs/git/mopshub/mopshub_testbench/hdl/tb_mopshub_top.v(157): (vopt-2685) [TFMPC] - Too few port connections for 'mopshub0'.  Expected 95, found 78.
+# ** Warning: /home/dcs/git/mopshub/mopshub_testbench/hdl/tb_mopshub_top.v(157): (vopt-2718) [TFMPC] - Missing connection for port 'tx_efifo_full'.
+# ** Warning: /home/dcs/git/mopshub/mopshub_testbench/hdl/tb_mopshub_top.v(157): (vopt-2718) [TFMPC] - Missing connection for port 'tx_data_rdy'.
+# ** Warning: /home/dcs/git/mopshub/mopshub_testbench/hdl/tb_mopshub_top.v(157): (vopt-2718) [TFMPC] - Missing connection for port 'sck_m'.
+# ** Warning: /home/dcs/git/mopshub/mopshub_testbench/hdl/tb_mopshub_top.v(157): (vopt-2718) [TFMPC] - Missing connection for port 'sck_c'.
+# ** Warning: /home/dcs/git/mopshub/mopshub_testbench/hdl/tb_mopshub_top.v(157): (vopt-2718) [TFMPC] - Missing connection for port 'rx_fifo_full'.
+# ** Warning: /home/dcs/git/mopshub/mopshub_testbench/hdl/tb_mopshub_top.v(157): (vopt-2718) [TFMPC] - Missing connection for port 'rx_data_rdy'.
+# ** Warning: /home/dcs/git/mopshub/mopshub_testbench/hdl/tb_mopshub_top.v(157): (vopt-2718) [TFMPC] - Missing connection for port 'rst_bus'.
+# ** Warning: /home/dcs/git/mopshub/mopshub_testbench/hdl/tb_mopshub_top.v(157): (vopt-2718) [TFMPC] - Missing connection for port 'power_bus_cnt'.
+# ** Warning: /home/dcs/git/mopshub/mopshub_testbench/hdl/tb_mopshub_top.v(157): (vopt-2718) [TFMPC] - Missing connection for port 'mosi_c'.
+# ** Warning: /home/dcs/git/mopshub/mopshub_testbench/hdl/tb_mopshub_top.v(157): (vopt-2718) [TFMPC] - Missing connection for port 'irq_elink_tra'.
+# ** Warning: /home/dcs/git/mopshub/mopshub_testbench/hdl/tb_mopshub_top.v(157): (vopt-2718) [TFMPC] - Missing connection for port 'irq_elink_rec'.
+# ** Warning: /home/dcs/git/mopshub/mopshub_testbench/hdl/tb_mopshub_top.v(157): (vopt-2718) [TFMPC] - Missing connection for port 'irq_can_tra'.
+# ** Warning: /home/dcs/git/mopshub/mopshub_testbench/hdl/tb_mopshub_top.v(157): (vopt-2718) [TFMPC] - Missing connection for port 'irq_can_rec'.
+# ** Warning: /home/dcs/git/mopshub/mopshub_testbench/hdl/tb_mopshub_top.v(157): (vopt-2718) [TFMPC] - Missing connection for port 'cs_active_m'.
+# ** Warning: /home/dcs/git/mopshub/mopshub_testbench/hdl/tb_mopshub_top.v(157): (vopt-2718) [TFMPC] - Missing connection for port 'cs_active_c'.
+# ** Warning: /home/dcs/git/mopshub/mopshub_testbench/hdl/tb_mopshub_top.v(157): (vopt-2718) [TFMPC] - Missing connection for port 'miso_c'.
+# ** Warning: /home/dcs/git/mopshub/mopshub_testbench/hdl/tb_mopshub_top.v(157): (vopt-2718) [TFMPC] - Missing connection for port 'endwait_all'.
+# ** Warning: /home/dcs/git/mopshub/mopshub_testbench/hdl/tb_mopshub_top.v(239): (vopt-2685) [TFMPC] - Too few port connections for 'data_generator0'.  Expected 115, found 113.
+# ** Warning: /home/dcs/git/mopshub/mopshub_testbench/hdl/tb_mopshub_top.v(239): (vopt-2718) [TFMPC] - Missing connection for port 'costum_msg_start'.
+# ** Warning: /home/dcs/git/mopshub/mopshub_testbench/hdl/tb_mopshub_top.v(239): (vopt-2718) [TFMPC] - Missing connection for port 'irq_elink_tra'.
 # Loading sv_std.std
 # Loading work.tb_mopshub_top(fast)
 # Loading mopshub_lib.mopshub_top(fast)
+# Loading mopshub_lib.bus_control_SM(fast)
 # Loading mopshub_lib.control_bus(fast)
 # Loading mopshub_lib.bit_counter(fast)
-# Loading mopshub_lib.bus_control_SM(fast)
 # Loading mopshub_lib.demux1_1bit(fast)
 # Loading mopshub_lib.initialize_bus_control(fast)
 # Loading mopshub_lib.elink_core(fast)
@@ -198,54 +245,6 @@
 # Loading mopshub_lib.enc_8b10b(behavioral)#1
 # Loading /eda/mentor/2019-20/RHELx86/HDL-DESIGNER_2019.4/resources/downstream/modelsim/ModelSim_64Bit.dll
 # ** Warning: (vsim-8634) Code was not compiled with coverage options.
-run
-# Frequncy  = 40 MHz, Period = 25.000 ns
-# clk phase = 0 deg
-# clk duty = 50 %
-run
-# 	 initialization [BUS ID  0]:
-# 	 initialization [BUS ID  1]:
-# 	 initialization [BUS ID  2]:
-# 	 initialization [BUS ID  3]:
-# 	 initialization [BUS ID  4]:
-# 	 initialization [BUS ID  5]:
-# 	 initialization [BUS ID  6]:
-# 	 initialization [BUS ID  7]:
-# 	 initialization [BUS ID  8]:
-# 	 initialization [BUS ID  9]:
-# 	 initialization [BUS ID 10]:
-# 	 initialization [BUS ID 11]:
-# 	 initialization [BUS ID 12]:
-# 	 initialization [BUS ID 13]:
-# 	 initialization [BUS ID 14]:
-# 	 initialization [BUS ID 15]:
-# 	 initialization [BUS ID 16]:
-# 	 initialization [BUS ID 17]:
-# 	 initialization [BUS ID 18]:
-# 	 initialization [BUS ID 19]:
-# 	 initialization [BUS ID 20]:
-# 	 initialization [BUS ID 21]:
-# 	 initialization [BUS ID 22]:
-# 	 initialization [BUS ID 23]:
-# 	 initialization [BUS ID 24]:
-# 	 initialization [BUS ID 25]:
-# 	 initialization [BUS ID 26]:
-# 	 initialization [BUS ID 27]:
-# 	 initialization [BUS ID 28]:
-# 	 initialization [BUS ID 29]:
-# 	 initialization [BUS ID 30]:
-# 	 initialization [BUS ID 31]:
-# *****************************************************************************
-# Current simulation time is: 1756144
-# Status BAD ********************************[TX Test [BUS ID 16]****************** Status BAD
-# 	 Transmit TX signals [BUS ID  16]: 	 request 6014000240f10000000 	 response 0000000000000000000
-# Current simulation time is: 3436784
-# Status BAD ********************************[TX Test [BUS ID 16]****************** Status BAD 6014000401010000000
-# 	 Transmit TX signals [BUS ID  16]: 	 request 6014000401010000000 	 response 7010500000010000000
-# Status GOOD [BUS ID 16] - TX Test
-# 	 Transmit TX signals [BUS ID  16]: 	 request 6014000240a10000000 	 response 5818000240a10020000
-# Status GOOD [BUS ID 17] - TX Test
-# 	 Transmit TX signals [BUS ID  17]: 	 request 6014000240f11000000 	 response 5818000240f11020000
 add wave -position insertpoint  \
 sim:/tb_mopshub_top/clk \
 sim:/tb_mopshub_top/clk_40 \
@@ -362,193 +361,6 @@ sim:/tb_mopshub_top/tx_dout \
 sim:/tb_mopshub_top/rx_din \
 sim:/tb_mopshub_top/respmsg \
 sim:/tb_mopshub_top/reqmsg
-# Status GOOD [BUS ID 17] - TX Test
-# 	 Transmit TX signals [BUS ID  17]: 	 request 6014000401011000000 	 response 5818000401011020000
-# 0
-# 
-restart
-# ** Note: (vsim-12125) Error and warning message counts have been reset to '0' because of 'restart'.
-# ** Note: (vsim-8009) Loading existing optimized design _opt4
-# Loading sv_std.std
-# Loading work.tb_mopshub_top(fast)
-# Loading mopshub_lib.mopshub_top(fast)
-# Loading mopshub_lib.control_bus(fast)
-# Loading mopshub_lib.bit_counter(fast)
-# Loading mopshub_lib.bus_control_SM(fast)
-# Loading mopshub_lib.demux1_1bit(fast)
-# Loading mopshub_lib.initialize_bus_control(fast)
-# Loading mopshub_lib.elink_core(fast)
-# Loading mopshub_lib.buffer_rec_elink(fast)
-# Loading mopshub_lib.buffer_rec_spi(fast)
-# Loading mopshub_lib.buffer_tra_elink(fast)
-# Loading mopshub_lib.buffer_tra_spi(fast)
-# Loading mopshub_lib.elink_interface_rec_SM(fast)
-# Loading mopshub_lib.elink_interface_tra_SM(fast)
-# Loading mopshub_lib.elink_to_fifo(fast)
-# Loading mopshub_lib.elink_proc_in(fast)
-# Loading mopshub_lib.elink_proc_in_dec8b10b(fast)
-# Loading mopshub_lib.bitstream_shift_register(fast)
-# Loading mopshub_lib.dec_8b10b_wrap(fast)
-# Loading mopshub_lib.sync_detector(fast)
-# Loading mopshub_lib.elink_proc_in_direct(fast)
-# Loading mopshub_lib.fifo_RXelink_wrap(fast)
-# Loading mopshub_lib.fifo_to_elink(fast)
-# Loading mopshub_lib.elink_proc_out(fast)
-# Loading mopshub_lib.elink_proc_out_direct(fast)
-# Loading mopshub_lib.mux4_Nbit(fast)
-# Loading mopshub_lib.triger_counter(fast)
-# Loading mopshub_lib.elink_proc_out_enc8b10b(fast)
-# Loading mopshub_lib.enc8b10b_wrap(fast)
-# Loading mopshub_lib.mux4_Nbit(fast__1)
-# Loading mopshub_lib.mux8_Nbit(fast)
-# Loading mopshub_lib.triger_counter(fast__1)
-# Loading mopshub_lib.monitor_bus(fast)
-# Loading mopshub_lib.buffer_rec_spi_data(fast)
-# Loading mopshub_lib.buffer_tra_spi_data(fast)
-# Loading mopshub_lib.mopshub_core(fast)
-# Loading mopshub_lib.bridge_controller(fast)
-# Loading mopshub_lib.buffer_rec_data(fast)
-# Loading mopshub_lib.buffer_tra_data(fast)
-# Loading mopshub_lib.can_elink_bridge_SM(fast)
-# Loading mopshub_lib.canakari_interface(fast)
-# Loading mopshub_lib.buffer_tristate_busid(fast)
-# Loading mopshub_lib.bus_comp(fast)
-# Loading mopshub_lib.can_interface(fast)
-# Loading mopshub_lib.can_interface_SM(fast)
-# Loading MOPSv2_lib.initialize_block(fast)
-# Loading mopshub_lib.osc_trim_SM(fast)
-# Loading mopshub_lib.timout_rst(fast)
-# Loading mopshub_lib.canakari_top(fast)
-# Loading mopshub_lib.canakari_0_7(fast)
-# Loading mopshub_lib.can(fast)
-# Loading canakari.can2(fast)
-# Loading canakari.resetgen2(fast)
-# Loading canakari.mac2(fast)
-# Loading canakari.reset_mac2(fast)
-# Loading canakari.macfsm2(fast)
-# Loading canakari.biterrordetect2(fast)
-# Loading canakari.counter2(fast)
-# Loading canakari.decapsulation2(fast)
-# Loading canakari.destuffing2(fast)
-# Loading canakari.encapsulation2(fast)
-# Loading canakari.rcrc2(fast)
-# Loading canakari.rcrc_cell2(fast)
-# Loading canakari.recmeslen2(fast)
-# Loading canakari.rshiftreg2(fast)
-# Loading canakari.rshift_cell2(fast)
-# Loading canakari.stuffing2(fast)
-# Loading canakari.tcrc2(fast)
-# Loading canakari.tcrc_cell2(fast)
-# Loading canakari.tshiftreg2(fast)
-# Loading canakari.tshift_cell2(fast)
-# Loading canakari.fsm_register2(fast)
-# Loading canakari.fastshift2(fast)
-# Loading canakari.meslencompare2(fast)
-# Loading canakari.llc2(fast)
-# Loading canakari.llc_fsm2(fast)
-# Loading canakari.equal_id2(fast)
-# Loading canakari.bittiming2(fast)
-# Loading ftrim.Control_Sys(fast)
-# Loading ftrim.PID_Regler(fast)
-# Loading ftrim.Ftrim_En(fast)
-# Loading ftrim.Diff(fast)
-# Loading ftrim.Multi(fast)
-# Loading ftrim.Multi_i(fast)
-# Loading ftrim.Accumulator(fast)
-# Loading ftrim.Add_PID(fast)
-# Loading ftrim.Output_Scaling(fast)
-# Loading ftrim.CLK_Counter(fast)
-# Loading ftrim.Control_FSM(fast)
-# Loading ftrim.Phasenfehler_Reg(fast)
-# Loading ftrim.ready_counter(fast)
-# Loading canakari.bittime2(fast)
-# Loading canakari.sum2(fast)
-# Loading canakari.timecount2(fast)
-# Loading canakari.edgepuffer2(fast)
-# Loading canakari.smpldbit_reg2(fast)
-# Loading canakari.tseg_reg2(fast)
-# Loading canakari.fce2(fast)
-# Loading canakari.faultfsm2(fast)
-# Loading canakari.rec2(fast)
-# Loading canakari.tec2(fast)
-# Loading canakari.erbcount2(fast)
-# Loading canakari.interruptunit2(fast)
-# Loading canakari.iocpu2(fast)
-# Loading canakari.multiplexer2(fast)
-# Loading canakari.read_mux2(fast)
-# Loading canakari.write_demux2(fast)
-# Loading canakari.generalregister2(fast)
-# Loading canakari.recmescontrolreg2(fast)
-# Loading canakari.recarbitreg2(fast)
-# Loading canakari.accmaskreg2(fast)
-# Loading canakari.interrupregister2(fast)
-# Loading canakari.prescalereg2(fast)
-# Loading canakari.recregister2(fast)
-# Loading canakari.transmesconreg2(fast)
-# Loading canakari.transmitreg2(fast)
-# Loading canakari.prescale2(fast)
-# Loading mopshub_lib.node_rec_mux(fast)
-# Loading mopshub_lib.bit_shifter(fast)
-# Loading mopshub_lib.buffer_rec_canakari(fast)
-# Loading mopshub_lib.bus_rec_SM(fast)
-# Loading mopshub_lib.dec1_Nbit(fast)
-# Loading mopshub_lib.dec32_Nbit(fast)
-# Loading mopshub_lib.demux1_1bit(fast__1)
-# Loading mopshub_lib.mux32_Nbit(fast)
-# Loading mopshub_lib.node_tra_demux(fast)
-# Loading mopshub_lib.demux1_Nbit(fast)
-# Loading mopshub_lib.mux1_1bit(fast)
-# Loading work.data_generator(fast)
-# Loading CANdecoder.CANbus_decoder(fast)
-# Loading CANdecoder.CANAkari_interfacedec(fast)
-# Loading CANdecoder.caninterfacedec(fast)
-# Loading CANdecoder.idcompdec(fast)
-# Loading CANdecoder.interfaceSMdec(fast)
-# Loading CANdecoder.bridgeSMdec(fast)
-# Loading CANdecoder.initialize_blockdec(fast)
-# Loading CANdecoder.rec_mes_bufdec(fast)
-# Loading CANdecoder.timoutrstdec(fast)
-# Loading work.can_bus_activity(fast)
-# Loading work.can_net_decoder(fast)
-# Loading work.mops_top_level(fast)
-# Loading CANdecoder.adcdumdata(fast)
-# Loading MOPSv2_lib.top_level(fast)
-# Loading MOPSv2_lib.clkbuffer(fast)
-# Loading MOPSv2_lib.global_resetgen(fast)
-# Loading MOPSv2_lib.delay_cell(fast)
-# Loading MOPSv2_lib.bridge_controller_top(fast)
-# Loading MOPSv2_lib.ADCinterface(fast)
-# Loading MOPSv2_lib.ADCfsm(fast)
-# Loading MOPSv2_lib.adcsel(fast)
-# Loading MOPSv2_lib.CANAkari_interface(fast)
-# Loading MOPSv2_lib.caninterface(fast)
-# Loading MOPSv2_lib.idcomp(fast)
-# Loading MOPSv2_lib.interfaceSM(fast)
-# Loading MOPSv2_lib.bridgeSM(fast)
-# Loading MOPSv2_lib.canopen_block(fast)
-# Loading MOPSv2_lib.ODfsm(fast)
-# Loading MOPSv2_lib.abortcodes(fast)
-# Loading MOPSv2_lib.msgdecode(fast)
-# Loading MOPSv2_lib.odinterface(fast)
-# Loading MOPSv2_lib.count2reload(fast)
-# Loading MOPSv2_lib.ftrim_sel(fast)
-# Loading MOPSv2_lib.od(fast)
-# Loading MOPSv2_lib.OD_MUX(fast)
-# Loading MOPSv2_lib.OD_buf(fast)
-# Loading MOPSv2_lib.OD_control(fast)
-# Loading MOPSv2_lib.rec_mes_buf(fast)
-# Loading MOPSv2_lib.timoutrst(fast)
-# Loading MOPSv2_lib.tra_mes_buf(fast)
-# Loading top_lib.canframegen_sv_unit(fast)
-# Loading top_lib.canframegen(fast)
-# Loading mopshub_lib.clk_div(fast)
-# Loading work.data_generator_SM(fast)
-# Loading work.mopshub_decoder(fast)
-# Loading work.clock_generator(fast)
-# Loading mopshub_lib.clock_divider(fast)
-# Loading mopshub_lib.clock_divider(fast__1)
-# Loading /eda/mentor/2019-20/RHELx86/HDL-DESIGNER_2019.4/resources/downstream/modelsim/ModelSim_64Bit.dll
-# ** Warning: (vsim-8634) Code was not compiled with coverage options.
 run
 # Frequncy  = 40 MHz, Period = 25.000 ns
 # clk phase = 0 deg
@@ -586,238 +398,6 @@ run
 # 	 initialization [BUS ID 30]:
 # 	 initialization [BUS ID 31]:
 # *****************************************************************************
-# Current simulation time is: 1756144
-# Status BAD ********************************[TX Test [BUS ID 16]****************** Status BAD
-# 	 Transmit TX signals [BUS ID  16]: 	 request 6014000240f10000000 	 response 0000000000000000000
-# 0
-# 
-add wave -position 26  sim:/tb_mopshub_top/mopshub0/control_bus0/power_bus_en_done
-restart
-# ** Note: (vsim-12125) Error and warning message counts have been reset to '0' because of 'restart'.
-# ** Note: (vsim-8009) Loading existing optimized design _opt4
-# Loading sv_std.std
-# Loading work.tb_mopshub_top(fast)
-# Loading mopshub_lib.mopshub_top(fast)
-# Loading mopshub_lib.control_bus(fast)
-# Loading mopshub_lib.bit_counter(fast)
-# Loading mopshub_lib.bus_control_SM(fast)
-# Loading mopshub_lib.demux1_1bit(fast)
-# Loading mopshub_lib.initialize_bus_control(fast)
-# Loading mopshub_lib.elink_core(fast)
-# Loading mopshub_lib.buffer_rec_elink(fast)
-# Loading mopshub_lib.buffer_rec_spi(fast)
-# Loading mopshub_lib.buffer_tra_elink(fast)
-# Loading mopshub_lib.buffer_tra_spi(fast)
-# Loading mopshub_lib.elink_interface_rec_SM(fast)
-# Loading mopshub_lib.elink_interface_tra_SM(fast)
-# Loading mopshub_lib.elink_to_fifo(fast)
-# Loading mopshub_lib.elink_proc_in(fast)
-# Loading mopshub_lib.elink_proc_in_dec8b10b(fast)
-# Loading mopshub_lib.bitstream_shift_register(fast)
-# Loading mopshub_lib.dec_8b10b_wrap(fast)
-# Loading mopshub_lib.sync_detector(fast)
-# Loading mopshub_lib.elink_proc_in_direct(fast)
-# Loading mopshub_lib.fifo_RXelink_wrap(fast)
-# Loading mopshub_lib.fifo_to_elink(fast)
-# Loading mopshub_lib.elink_proc_out(fast)
-# Loading mopshub_lib.elink_proc_out_direct(fast)
-# Loading mopshub_lib.mux4_Nbit(fast)
-# Loading mopshub_lib.triger_counter(fast)
-# Loading mopshub_lib.elink_proc_out_enc8b10b(fast)
-# Loading mopshub_lib.enc8b10b_wrap(fast)
-# Loading mopshub_lib.mux4_Nbit(fast__1)
-# Loading mopshub_lib.mux8_Nbit(fast)
-# Loading mopshub_lib.triger_counter(fast__1)
-# Loading mopshub_lib.monitor_bus(fast)
-# Loading mopshub_lib.buffer_rec_spi_data(fast)
-# Loading mopshub_lib.buffer_tra_spi_data(fast)
-# Loading mopshub_lib.mopshub_core(fast)
-# Loading mopshub_lib.bridge_controller(fast)
-# Loading mopshub_lib.buffer_rec_data(fast)
-# Loading mopshub_lib.buffer_tra_data(fast)
-# Loading mopshub_lib.can_elink_bridge_SM(fast)
-# Loading mopshub_lib.canakari_interface(fast)
-# Loading mopshub_lib.buffer_tristate_busid(fast)
-# Loading mopshub_lib.bus_comp(fast)
-# Loading mopshub_lib.can_interface(fast)
-# Loading mopshub_lib.can_interface_SM(fast)
-# Loading MOPSv2_lib.initialize_block(fast)
-# Loading mopshub_lib.osc_trim_SM(fast)
-# Loading mopshub_lib.timout_rst(fast)
-# Loading mopshub_lib.canakari_top(fast)
-# Loading mopshub_lib.canakari_0_7(fast)
-# Loading mopshub_lib.can(fast)
-# Loading canakari.can2(fast)
-# Loading canakari.resetgen2(fast)
-# Loading canakari.mac2(fast)
-# Loading canakari.reset_mac2(fast)
-# Loading canakari.macfsm2(fast)
-# Loading canakari.biterrordetect2(fast)
-# Loading canakari.counter2(fast)
-# Loading canakari.decapsulation2(fast)
-# Loading canakari.destuffing2(fast)
-# Loading canakari.encapsulation2(fast)
-# Loading canakari.rcrc2(fast)
-# Loading canakari.rcrc_cell2(fast)
-# Loading canakari.recmeslen2(fast)
-# Loading canakari.rshiftreg2(fast)
-# Loading canakari.rshift_cell2(fast)
-# Loading canakari.stuffing2(fast)
-# Loading canakari.tcrc2(fast)
-# Loading canakari.tcrc_cell2(fast)
-# Loading canakari.tshiftreg2(fast)
-# Loading canakari.tshift_cell2(fast)
-# Loading canakari.fsm_register2(fast)
-# Loading canakari.fastshift2(fast)
-# Loading canakari.meslencompare2(fast)
-# Loading canakari.llc2(fast)
-# Loading canakari.llc_fsm2(fast)
-# Loading canakari.equal_id2(fast)
-# Loading canakari.bittiming2(fast)
-# Loading ftrim.Control_Sys(fast)
-# Loading ftrim.PID_Regler(fast)
-# Loading ftrim.Ftrim_En(fast)
-# Loading ftrim.Diff(fast)
-# Loading ftrim.Multi(fast)
-# Loading ftrim.Multi_i(fast)
-# Loading ftrim.Accumulator(fast)
-# Loading ftrim.Add_PID(fast)
-# Loading ftrim.Output_Scaling(fast)
-# Loading ftrim.CLK_Counter(fast)
-# Loading ftrim.Control_FSM(fast)
-# Loading ftrim.Phasenfehler_Reg(fast)
-# Loading ftrim.ready_counter(fast)
-# Loading canakari.bittime2(fast)
-# Loading canakari.sum2(fast)
-# Loading canakari.timecount2(fast)
-# Loading canakari.edgepuffer2(fast)
-# Loading canakari.smpldbit_reg2(fast)
-# Loading canakari.tseg_reg2(fast)
-# Loading canakari.fce2(fast)
-# Loading canakari.faultfsm2(fast)
-# Loading canakari.rec2(fast)
-# Loading canakari.tec2(fast)
-# Loading canakari.erbcount2(fast)
-# Loading canakari.interruptunit2(fast)
-# Loading canakari.iocpu2(fast)
-# Loading canakari.multiplexer2(fast)
-# Loading canakari.read_mux2(fast)
-# Loading canakari.write_demux2(fast)
-# Loading canakari.generalregister2(fast)
-# Loading canakari.recmescontrolreg2(fast)
-# Loading canakari.recarbitreg2(fast)
-# Loading canakari.accmaskreg2(fast)
-# Loading canakari.interrupregister2(fast)
-# Loading canakari.prescalereg2(fast)
-# Loading canakari.recregister2(fast)
-# Loading canakari.transmesconreg2(fast)
-# Loading canakari.transmitreg2(fast)
-# Loading canakari.prescale2(fast)
-# Loading mopshub_lib.node_rec_mux(fast)
-# Loading mopshub_lib.bit_shifter(fast)
-# Loading mopshub_lib.buffer_rec_canakari(fast)
-# Loading mopshub_lib.bus_rec_SM(fast)
-# Loading mopshub_lib.dec1_Nbit(fast)
-# Loading mopshub_lib.dec32_Nbit(fast)
-# Loading mopshub_lib.demux1_1bit(fast__1)
-# Loading mopshub_lib.mux32_Nbit(fast)
-# Loading mopshub_lib.node_tra_demux(fast)
-# Loading mopshub_lib.demux1_Nbit(fast)
-# Loading mopshub_lib.mux1_1bit(fast)
-# Loading work.data_generator(fast)
-# Loading CANdecoder.CANbus_decoder(fast)
-# Loading CANdecoder.CANAkari_interfacedec(fast)
-# Loading CANdecoder.caninterfacedec(fast)
-# Loading CANdecoder.idcompdec(fast)
-# Loading CANdecoder.interfaceSMdec(fast)
-# Loading CANdecoder.bridgeSMdec(fast)
-# Loading CANdecoder.initialize_blockdec(fast)
-# Loading CANdecoder.rec_mes_bufdec(fast)
-# Loading CANdecoder.timoutrstdec(fast)
-# Loading work.can_bus_activity(fast)
-# Loading work.can_net_decoder(fast)
-# Loading work.mops_top_level(fast)
-# Loading CANdecoder.adcdumdata(fast)
-# Loading MOPSv2_lib.top_level(fast)
-# Loading MOPSv2_lib.clkbuffer(fast)
-# Loading MOPSv2_lib.global_resetgen(fast)
-# Loading MOPSv2_lib.delay_cell(fast)
-# Loading MOPSv2_lib.bridge_controller_top(fast)
-# Loading MOPSv2_lib.ADCinterface(fast)
-# Loading MOPSv2_lib.ADCfsm(fast)
-# Loading MOPSv2_lib.adcsel(fast)
-# Loading MOPSv2_lib.CANAkari_interface(fast)
-# Loading MOPSv2_lib.caninterface(fast)
-# Loading MOPSv2_lib.idcomp(fast)
-# Loading MOPSv2_lib.interfaceSM(fast)
-# Loading MOPSv2_lib.bridgeSM(fast)
-# Loading MOPSv2_lib.canopen_block(fast)
-# Loading MOPSv2_lib.ODfsm(fast)
-# Loading MOPSv2_lib.abortcodes(fast)
-# Loading MOPSv2_lib.msgdecode(fast)
-# Loading MOPSv2_lib.odinterface(fast)
-# Loading MOPSv2_lib.count2reload(fast)
-# Loading MOPSv2_lib.ftrim_sel(fast)
-# Loading MOPSv2_lib.od(fast)
-# Loading MOPSv2_lib.OD_MUX(fast)
-# Loading MOPSv2_lib.OD_buf(fast)
-# Loading MOPSv2_lib.OD_control(fast)
-# Loading MOPSv2_lib.rec_mes_buf(fast)
-# Loading MOPSv2_lib.timoutrst(fast)
-# Loading MOPSv2_lib.tra_mes_buf(fast)
-# Loading top_lib.canframegen_sv_unit(fast)
-# Loading top_lib.canframegen(fast)
-# Loading mopshub_lib.clk_div(fast)
-# Loading work.data_generator_SM(fast)
-# Loading work.mopshub_decoder(fast)
-# Loading work.clock_generator(fast)
-# Loading mopshub_lib.clock_divider(fast)
-# Loading mopshub_lib.clock_divider(fast__1)
-# Loading /eda/mentor/2019-20/RHELx86/HDL-DESIGNER_2019.4/resources/downstream/modelsim/ModelSim_64Bit.dll
-# ** Warning: (vsim-8634) Code was not compiled with coverage options.
-run
-# Frequncy  = 40 MHz, Period = 25.000 ns
-# clk phase = 0 deg
-# clk duty = 50 %
-# 	 initialization [BUS ID  0]:
-# 	 initialization [BUS ID  1]:
-# 	 initialization [BUS ID  2]:
-# 	 initialization [BUS ID  3]:
-# 	 initialization [BUS ID  4]:
-# 	 initialization [BUS ID  5]:
-# 	 initialization [BUS ID  6]:
-# 	 initialization [BUS ID  7]:
-# 	 initialization [BUS ID  8]:
-# 	 initialization [BUS ID  9]:
-# 	 initialization [BUS ID 10]:
-# 	 initialization [BUS ID 11]:
-# 	 initialization [BUS ID 12]:
-# 	 initialization [BUS ID 13]:
-# 	 initialization [BUS ID 14]:
-# 	 initialization [BUS ID 15]:
-# 	 initialization [BUS ID 16]:
-# 	 initialization [BUS ID 17]:
-# 	 initialization [BUS ID 18]:
-# 	 initialization [BUS ID 19]:
-# 	 initialization [BUS ID 20]:
-# 	 initialization [BUS ID 21]:
-# 	 initialization [BUS ID 22]:
-# 	 initialization [BUS ID 23]:
-# 	 initialization [BUS ID 24]:
-# 	 initialization [BUS ID 25]:
-# 	 initialization [BUS ID 26]:
-# 	 initialization [BUS ID 27]:
-# 	 initialization [BUS ID 28]:
-# 	 initialization [BUS ID 29]:
-# 	 initialization [BUS ID 30]:
-# 	 initialization [BUS ID 31]:
-# *****************************************************************************
-# Current simulation time is: 1756144
-# Status BAD ********************************[TX Test [BUS ID 16]****************** Status BAD
-# 	 Transmit TX signals [BUS ID  16]: 	 request 6014000240f10000000 	 response 0000000000000000000
-# Current simulation time is: 3436784
-# Status BAD ********************************[TX Test [BUS ID 16]****************** Status BAD 6014000401010000000
-# 	 Transmit TX signals [BUS ID  16]: 	 request 6014000401010000000 	 response 7010500000010000000
 # 0
 # 
 # hds_restart
@@ -833,514 +413,7 @@ restart -force
 # ** Warning: (vopt-10017) vopt and vlog detected inconsistent ordering of options -L tsmcdigital_lib, -L top_lib, -L MOPSv2_lib, -L canakari, -L CANdecoder, -L ftrim, -L mopshub_lib and -L mopshub_testbench for design-unit 'can_bus_activity'. vopt will ignore the ordering that was given to vlog.
 # ** Warning: (vopt-10017) vopt and vlog detected inconsistent ordering of options -L tsmcdigital_lib, -L top_lib, -L MOPSv2_lib, -L canakari, -L CANdecoder, -L ftrim and -L mopshub_lib for design-unit 'canframegen'. vopt will ignore the ordering that was given to vlog.
 # ** Warning: (vopt-10017) vopt and vlog detected inconsistent ordering of options -L tsmcdigital_lib, -L top_lib, -L MOPSv2_lib, -L canakari, -L CANdecoder, -L ftrim and -L mopshub_lib for design-unit 'canframegen_sv_unit'. vopt will ignore the ordering that was given to vlog.
-# ** Note: (vopt-143) Recognized 1 FSM in module "osc_trim_SM(fast)".
-# Loading sv_std.std
-# Loading work.tb_mopshub_top(fast)
-# Loading mopshub_lib.mopshub_top(fast)
-# Loading mopshub_lib.control_bus(fast)
-# Loading mopshub_lib.bit_counter(fast)
-# Loading mopshub_lib.bus_control_SM(fast)
-# Loading mopshub_lib.demux1_1bit(fast)
-# Loading mopshub_lib.initialize_bus_control(fast)
-# Loading mopshub_lib.elink_core(fast)
-# Loading mopshub_lib.buffer_rec_elink(fast)
-# Loading mopshub_lib.buffer_rec_spi(fast)
-# Loading mopshub_lib.buffer_tra_elink(fast)
-# Loading mopshub_lib.buffer_tra_spi(fast)
-# Loading mopshub_lib.elink_interface_rec_SM(fast)
-# Loading mopshub_lib.elink_interface_tra_SM(fast)
-# Loading mopshub_lib.elink_to_fifo(fast)
-# Loading mopshub_lib.elink_proc_in(fast)
-# Loading mopshub_lib.elink_proc_in_dec8b10b(fast)
-# Loading mopshub_lib.bitstream_shift_register(fast)
-# Loading mopshub_lib.dec_8b10b_wrap(fast)
-# Loading mopshub_lib.sync_detector(fast)
-# Loading mopshub_lib.elink_proc_in_direct(fast)
-# Loading mopshub_lib.fifo_RXelink_wrap(fast)
-# Loading mopshub_lib.fifo_to_elink(fast)
-# Loading mopshub_lib.elink_proc_out(fast)
-# Loading mopshub_lib.elink_proc_out_direct(fast)
-# Loading mopshub_lib.mux4_Nbit(fast)
-# Loading mopshub_lib.triger_counter(fast)
-# Loading mopshub_lib.elink_proc_out_enc8b10b(fast)
-# Loading mopshub_lib.enc8b10b_wrap(fast)
-# Loading mopshub_lib.mux4_Nbit(fast__1)
-# Loading mopshub_lib.mux8_Nbit(fast)
-# Loading mopshub_lib.triger_counter(fast__1)
-# Loading mopshub_lib.monitor_bus(fast)
-# Loading mopshub_lib.buffer_rec_spi_data(fast)
-# Loading mopshub_lib.buffer_tra_spi_data(fast)
-# Loading mopshub_lib.mopshub_core(fast)
-# Loading mopshub_lib.bridge_controller(fast)
-# Loading mopshub_lib.buffer_rec_data(fast)
-# Loading mopshub_lib.buffer_tra_data(fast)
-# Loading mopshub_lib.can_elink_bridge_SM(fast)
-# Loading mopshub_lib.canakari_interface(fast)
-# Loading mopshub_lib.buffer_tristate_busid(fast)
-# Loading mopshub_lib.bus_comp(fast)
-# Loading mopshub_lib.can_interface(fast)
-# Loading mopshub_lib.can_interface_SM(fast)
-# Loading MOPSv2_lib.initialize_block(fast)
-# Loading mopshub_lib.osc_trim_SM(fast)
-# Loading mopshub_lib.timout_rst(fast)
-# Loading mopshub_lib.canakari_top(fast)
-# Loading mopshub_lib.canakari_0_7(fast)
-# Loading mopshub_lib.can(fast)
-# Loading canakari.can2(fast)
-# Loading canakari.resetgen2(fast)
-# Loading canakari.mac2(fast)
-# Loading canakari.reset_mac2(fast)
-# Loading canakari.macfsm2(fast)
-# Loading canakari.biterrordetect2(fast)
-# Loading canakari.counter2(fast)
-# Loading canakari.decapsulation2(fast)
-# Loading canakari.destuffing2(fast)
-# Loading canakari.encapsulation2(fast)
-# Loading canakari.rcrc2(fast)
-# Loading canakari.rcrc_cell2(fast)
-# Loading canakari.recmeslen2(fast)
-# Loading canakari.rshiftreg2(fast)
-# Loading canakari.rshift_cell2(fast)
-# Loading canakari.stuffing2(fast)
-# Loading canakari.tcrc2(fast)
-# Loading canakari.tcrc_cell2(fast)
-# Loading canakari.tshiftreg2(fast)
-# Loading canakari.tshift_cell2(fast)
-# Loading canakari.fsm_register2(fast)
-# Loading canakari.fastshift2(fast)
-# Loading canakari.meslencompare2(fast)
-# Loading canakari.llc2(fast)
-# Loading canakari.llc_fsm2(fast)
-# Loading canakari.equal_id2(fast)
-# Loading canakari.bittiming2(fast)
-# Loading ftrim.Control_Sys(fast)
-# Loading ftrim.PID_Regler(fast)
-# Loading ftrim.Ftrim_En(fast)
-# Loading ftrim.Diff(fast)
-# Loading ftrim.Multi(fast)
-# Loading ftrim.Multi_i(fast)
-# Loading ftrim.Accumulator(fast)
-# Loading ftrim.Add_PID(fast)
-# Loading ftrim.Output_Scaling(fast)
-# Loading ftrim.CLK_Counter(fast)
-# Loading ftrim.Control_FSM(fast)
-# Loading ftrim.Phasenfehler_Reg(fast)
-# Loading ftrim.ready_counter(fast)
-# Loading canakari.bittime2(fast)
-# Loading canakari.sum2(fast)
-# Loading canakari.timecount2(fast)
-# Loading canakari.edgepuffer2(fast)
-# Loading canakari.smpldbit_reg2(fast)
-# Loading canakari.tseg_reg2(fast)
-# Loading canakari.fce2(fast)
-# Loading canakari.faultfsm2(fast)
-# Loading canakari.rec2(fast)
-# Loading canakari.tec2(fast)
-# Loading canakari.erbcount2(fast)
-# Loading canakari.interruptunit2(fast)
-# Loading canakari.iocpu2(fast)
-# Loading canakari.multiplexer2(fast)
-# Loading canakari.read_mux2(fast)
-# Loading canakari.write_demux2(fast)
-# Loading canakari.generalregister2(fast)
-# Loading canakari.recmescontrolreg2(fast)
-# Loading canakari.recarbitreg2(fast)
-# Loading canakari.accmaskreg2(fast)
-# Loading canakari.interrupregister2(fast)
-# Loading canakari.prescalereg2(fast)
-# Loading canakari.recregister2(fast)
-# Loading canakari.transmesconreg2(fast)
-# Loading canakari.transmitreg2(fast)
-# Loading canakari.prescale2(fast)
-# Loading mopshub_lib.node_rec_mux(fast)
-# Loading mopshub_lib.bit_shifter(fast)
-# Loading mopshub_lib.buffer_rec_canakari(fast)
-# Loading mopshub_lib.bus_rec_SM(fast)
-# Loading mopshub_lib.dec1_Nbit(fast)
-# Loading mopshub_lib.dec32_Nbit(fast)
-# Loading mopshub_lib.demux1_1bit(fast__1)
-# Loading mopshub_lib.mux32_Nbit(fast)
-# Loading mopshub_lib.node_tra_demux(fast)
-# Loading mopshub_lib.demux1_Nbit(fast)
-# Loading mopshub_lib.mux1_1bit(fast)
-# Loading work.data_generator(fast)
-# Loading CANdecoder.CANbus_decoder(fast)
-# Loading CANdecoder.CANAkari_interfacedec(fast)
-# Loading CANdecoder.caninterfacedec(fast)
-# Loading CANdecoder.idcompdec(fast)
-# Loading CANdecoder.interfaceSMdec(fast)
-# Loading CANdecoder.bridgeSMdec(fast)
-# Loading CANdecoder.initialize_blockdec(fast)
-# Loading CANdecoder.rec_mes_bufdec(fast)
-# Loading CANdecoder.timoutrstdec(fast)
-# Loading work.can_bus_activity(fast)
-# Loading work.can_net_decoder(fast)
-# Loading work.mops_top_level(fast)
-# Loading CANdecoder.adcdumdata(fast)
-# Loading MOPSv2_lib.top_level(fast)
-# Loading MOPSv2_lib.clkbuffer(fast)
-# Loading MOPSv2_lib.global_resetgen(fast)
-# Loading MOPSv2_lib.delay_cell(fast)
-# Loading MOPSv2_lib.bridge_controller_top(fast)
-# Loading MOPSv2_lib.ADCinterface(fast)
-# Loading MOPSv2_lib.ADCfsm(fast)
-# Loading MOPSv2_lib.adcsel(fast)
-# Loading MOPSv2_lib.CANAkari_interface(fast)
-# Loading MOPSv2_lib.caninterface(fast)
-# Loading MOPSv2_lib.idcomp(fast)
-# Loading MOPSv2_lib.interfaceSM(fast)
-# Loading MOPSv2_lib.bridgeSM(fast)
-# Loading MOPSv2_lib.canopen_block(fast)
-# Loading MOPSv2_lib.ODfsm(fast)
-# Loading MOPSv2_lib.abortcodes(fast)
-# Loading MOPSv2_lib.msgdecode(fast)
-# Loading MOPSv2_lib.odinterface(fast)
-# Loading MOPSv2_lib.count2reload(fast)
-# Loading MOPSv2_lib.ftrim_sel(fast)
-# Loading MOPSv2_lib.od(fast)
-# Loading MOPSv2_lib.OD_MUX(fast)
-# Loading MOPSv2_lib.OD_buf(fast)
-# Loading MOPSv2_lib.OD_control(fast)
-# Loading MOPSv2_lib.rec_mes_buf(fast)
-# Loading MOPSv2_lib.timoutrst(fast)
-# Loading MOPSv2_lib.tra_mes_buf(fast)
-# Loading top_lib.canframegen_sv_unit(fast)
-# Loading top_lib.canframegen(fast)
-# Loading mopshub_lib.clk_div(fast)
-# Loading work.data_generator_SM(fast)
-# Loading work.mopshub_decoder(fast)
-# Loading work.clock_generator(fast)
-# Loading mopshub_lib.clock_divider(fast)
-# Loading mopshub_lib.clock_divider(fast__1)
-# Loading std.standard
-# Loading std.textio(body)
-# Loading ieee.std_logic_1164(body)
-# Loading ieee.numeric_std(body)
-# Loading mopshub_lib.spi_master(behavioral)#1
-# Loading mopshub_lib.dec_8b10b(behavioral)#1
-# Loading mopshub_lib.enc_8b10b(behavioral)#1
-# Loading /eda/mentor/2019-20/RHELx86/HDL-DESIGNER_2019.4/resources/downstream/modelsim/ModelSim_64Bit.dll
-# ** Warning: (vsim-8634) Code was not compiled with coverage options.
-run
-# Frequncy  = 40 MHz, Period = 25.000 ns
-# clk phase = 0 deg
-# clk duty = 50 %
-# 	 initialization [BUS ID  0]:
-# 	 initialization [BUS ID  1]:
-# 	 initialization [BUS ID  2]:
-# 	 initialization [BUS ID  3]:
-# 	 initialization [BUS ID  4]:
-# 	 initialization [BUS ID  5]:
-# 	 initialization [BUS ID  6]:
-# 	 initialization [BUS ID  7]:
-# 	 initialization [BUS ID  8]:
-# 	 initialization [BUS ID  9]:
-# 	 initialization [BUS ID 10]:
-# 	 initialization [BUS ID 11]:
-# 	 initialization [BUS ID 12]:
-# 	 initialization [BUS ID 13]:
-# 	 initialization [BUS ID 14]:
-# 	 initialization [BUS ID 15]:
-# 	 initialization [BUS ID 16]:
-# 	 initialization [BUS ID 17]:
-# 	 initialization [BUS ID 18]:
-# 	 initialization [BUS ID 19]:
-# 	 initialization [BUS ID 20]:
-# 	 initialization [BUS ID 21]:
-# 	 initialization [BUS ID 22]:
-# 	 initialization [BUS ID 23]:
-# 	 initialization [BUS ID 24]:
-# 	 initialization [BUS ID 25]:
-# 	 initialization [BUS ID 26]:
-# 	 initialization [BUS ID 27]:
-# 	 initialization [BUS ID 28]:
-# 	 initialization [BUS ID 29]:
-# 	 initialization [BUS ID 30]:
-# 	 initialization [BUS ID 31]:
-# *****************************************************************************
-# Current simulation time is: 1769664
-# Status BAD ********************************[TX Test [BUS ID  0]****************** Status BAD
-# 	 Transmit TX signals [BUS ID   0]: 	 request 6014000240f00000000 	 response 0000000000000000000
-# Current simulation time is: 2970864
-# Status BAD ********************************[TX Test [BUS ID  0]****************** Status BAD 6014000401000000000
-# 	 Transmit TX signals [BUS ID   0]: 	 request 6014000401000000000 	 response 0000000000000000000
-# Current simulation time is: 4926064
-# Status BAD ********************************[TX Test [BUS ID  0]****************** Status BAD
-# 	 Transmit TX signals [BUS ID   0]: 	 request 6014000240a00000000 	 response 5818000401000020000
-run
-# Status GOOD [BUS ID  1] - TX Test
-# 	 Transmit TX signals [BUS ID   1]: 	 request 6014000240f01000000 	 response 5818000240f01020000
-# Status GOOD [BUS ID  1] - TX Test
-# 	 Transmit TX signals [BUS ID   1]: 	 request 6014000401001000000 	 response 5818000401001020000
-# 0
-# 
-# hds_restart
-restart -force
-# ** Note: (vsim-12125) Error and warning message counts have been reset to '0' because of 'restart'.
-# ** Note: (vsim-3813) Design is being optimized due to module recompilation...
-# ** Warning: (vsim-3865) Due to PLI being present, global +acc is being enabled automatically. This will cause your simulation to run very slowly. Please use vsim -no_autoacc to disable this feature. This feature is now deprecated and will be removed from future releases.
-# ** Warning: (vopt-10016) Option '-L ieee' was detected by vlog for design-unit 'tb_mopshub_top', but was not detected by vopt. The vlog option will be ignored.
-# ** Warning: (vopt-10017) vopt and vlog detected inconsistent ordering of options -L tsmcdigital_lib, -L top_lib, -L MOPSv2_lib, -L canakari, -L CANdecoder, -L ftrim, -L mopshub_lib and -L mopshub_testbench for design-unit 'tb_mopshub_top'. vopt will ignore the ordering that was given to vlog.
-# ** Warning: (vopt-10016) Option '-L ieee' was detected by vlog for design-unit 'dec32_Nbit', but was not detected by vopt. The vlog option will be ignored.
-# ** Warning: (vopt-10017) vopt and vlog detected inconsistent ordering of options -L tsmcdigital_lib, -L top_lib, -L MOPSv2_lib, -L canakari, -L CANdecoder, -L ftrim, -L mopshub_lib and -L mopshub_testbench for design-unit 'dec32_Nbit'. vopt will ignore the ordering that was given to vlog.
-# ** Warning: (vopt-10016) Option '-L ieee' was detected by vlog for design-unit 'can_bus_activity', but was not detected by vopt. The vlog option will be ignored.
-# ** Warning: (vopt-10017) vopt and vlog detected inconsistent ordering of options -L tsmcdigital_lib, -L top_lib, -L MOPSv2_lib, -L canakari, -L CANdecoder, -L ftrim, -L mopshub_lib and -L mopshub_testbench for design-unit 'can_bus_activity'. vopt will ignore the ordering that was given to vlog.
-# ** Warning: (vopt-10017) vopt and vlog detected inconsistent ordering of options -L tsmcdigital_lib, -L top_lib, -L MOPSv2_lib, -L canakari, -L CANdecoder, -L ftrim and -L mopshub_lib for design-unit 'canframegen'. vopt will ignore the ordering that was given to vlog.
-# ** Warning: (vopt-10017) vopt and vlog detected inconsistent ordering of options -L tsmcdigital_lib, -L top_lib, -L MOPSv2_lib, -L canakari, -L CANdecoder, -L ftrim and -L mopshub_lib for design-unit 'canframegen_sv_unit'. vopt will ignore the ordering that was given to vlog.
-# ** Note: (vopt-143) Recognized 1 FSM in module "osc_trim_SM(fast)".
-# Loading sv_std.std
-# Loading work.tb_mopshub_top(fast)
-# Loading mopshub_lib.mopshub_top(fast)
-# Loading mopshub_lib.control_bus(fast)
-# Loading mopshub_lib.bit_counter(fast)
-# Loading mopshub_lib.bus_control_SM(fast)
-# Loading mopshub_lib.demux1_1bit(fast)
-# Loading mopshub_lib.initialize_bus_control(fast)
-# Loading mopshub_lib.elink_core(fast)
-# Loading mopshub_lib.buffer_rec_elink(fast)
-# Loading mopshub_lib.buffer_rec_spi(fast)
-# Loading mopshub_lib.buffer_tra_elink(fast)
-# Loading mopshub_lib.buffer_tra_spi(fast)
-# Loading mopshub_lib.elink_interface_rec_SM(fast)
-# Loading mopshub_lib.elink_interface_tra_SM(fast)
-# Loading mopshub_lib.elink_to_fifo(fast)
-# Loading mopshub_lib.elink_proc_in(fast)
-# Loading mopshub_lib.elink_proc_in_dec8b10b(fast)
-# Loading mopshub_lib.bitstream_shift_register(fast)
-# Loading mopshub_lib.dec_8b10b_wrap(fast)
-# Loading mopshub_lib.sync_detector(fast)
-# Loading mopshub_lib.elink_proc_in_direct(fast)
-# Loading mopshub_lib.fifo_RXelink_wrap(fast)
-# Loading mopshub_lib.fifo_to_elink(fast)
-# Loading mopshub_lib.elink_proc_out(fast)
-# Loading mopshub_lib.elink_proc_out_direct(fast)
-# Loading mopshub_lib.mux4_Nbit(fast)
-# Loading mopshub_lib.triger_counter(fast)
-# Loading mopshub_lib.elink_proc_out_enc8b10b(fast)
-# Loading mopshub_lib.enc8b10b_wrap(fast)
-# Loading mopshub_lib.mux4_Nbit(fast__1)
-# Loading mopshub_lib.mux8_Nbit(fast)
-# Loading mopshub_lib.triger_counter(fast__1)
-# Loading mopshub_lib.monitor_bus(fast)
-# Loading mopshub_lib.buffer_rec_spi_data(fast)
-# Loading mopshub_lib.buffer_tra_spi_data(fast)
-# Loading mopshub_lib.mopshub_core(fast)
-# Loading mopshub_lib.bridge_controller(fast)
-# Loading mopshub_lib.buffer_rec_data(fast)
-# Loading mopshub_lib.buffer_tra_data(fast)
-# Loading mopshub_lib.can_elink_bridge_SM(fast)
-# Loading mopshub_lib.canakari_interface(fast)
-# Loading mopshub_lib.buffer_tristate_busid(fast)
-# Loading mopshub_lib.bus_comp(fast)
-# Loading mopshub_lib.can_interface(fast)
-# Loading mopshub_lib.can_interface_SM(fast)
-# Loading MOPSv2_lib.initialize_block(fast)
-# Loading mopshub_lib.osc_trim_SM(fast)
-# Loading mopshub_lib.timout_rst(fast)
-# Loading mopshub_lib.canakari_top(fast)
-# Loading mopshub_lib.canakari_0_7(fast)
-# Loading mopshub_lib.can(fast)
-# Loading canakari.can2(fast)
-# Loading canakari.resetgen2(fast)
-# Loading canakari.mac2(fast)
-# Loading canakari.reset_mac2(fast)
-# Loading canakari.macfsm2(fast)
-# Loading canakari.biterrordetect2(fast)
-# Loading canakari.counter2(fast)
-# Loading canakari.decapsulation2(fast)
-# Loading canakari.destuffing2(fast)
-# Loading canakari.encapsulation2(fast)
-# Loading canakari.rcrc2(fast)
-# Loading canakari.rcrc_cell2(fast)
-# Loading canakari.recmeslen2(fast)
-# Loading canakari.rshiftreg2(fast)
-# Loading canakari.rshift_cell2(fast)
-# Loading canakari.stuffing2(fast)
-# Loading canakari.tcrc2(fast)
-# Loading canakari.tcrc_cell2(fast)
-# Loading canakari.tshiftreg2(fast)
-# Loading canakari.tshift_cell2(fast)
-# Loading canakari.fsm_register2(fast)
-# Loading canakari.fastshift2(fast)
-# Loading canakari.meslencompare2(fast)
-# Loading canakari.llc2(fast)
-# Loading canakari.llc_fsm2(fast)
-# Loading canakari.equal_id2(fast)
-# Loading canakari.bittiming2(fast)
-# Loading ftrim.Control_Sys(fast)
-# Loading ftrim.PID_Regler(fast)
-# Loading ftrim.Ftrim_En(fast)
-# Loading ftrim.Diff(fast)
-# Loading ftrim.Multi(fast)
-# Loading ftrim.Multi_i(fast)
-# Loading ftrim.Accumulator(fast)
-# Loading ftrim.Add_PID(fast)
-# Loading ftrim.Output_Scaling(fast)
-# Loading ftrim.CLK_Counter(fast)
-# Loading ftrim.Control_FSM(fast)
-# Loading ftrim.Phasenfehler_Reg(fast)
-# Loading ftrim.ready_counter(fast)
-# Loading canakari.bittime2(fast)
-# Loading canakari.sum2(fast)
-# Loading canakari.timecount2(fast)
-# Loading canakari.edgepuffer2(fast)
-# Loading canakari.smpldbit_reg2(fast)
-# Loading canakari.tseg_reg2(fast)
-# Loading canakari.fce2(fast)
-# Loading canakari.faultfsm2(fast)
-# Loading canakari.rec2(fast)
-# Loading canakari.tec2(fast)
-# Loading canakari.erbcount2(fast)
-# Loading canakari.interruptunit2(fast)
-# Loading canakari.iocpu2(fast)
-# Loading canakari.multiplexer2(fast)
-# Loading canakari.read_mux2(fast)
-# Loading canakari.write_demux2(fast)
-# Loading canakari.generalregister2(fast)
-# Loading canakari.recmescontrolreg2(fast)
-# Loading canakari.recarbitreg2(fast)
-# Loading canakari.accmaskreg2(fast)
-# Loading canakari.interrupregister2(fast)
-# Loading canakari.prescalereg2(fast)
-# Loading canakari.recregister2(fast)
-# Loading canakari.transmesconreg2(fast)
-# Loading canakari.transmitreg2(fast)
-# Loading canakari.prescale2(fast)
-# Loading mopshub_lib.node_rec_mux(fast)
-# Loading mopshub_lib.bit_shifter(fast)
-# Loading mopshub_lib.buffer_rec_canakari(fast)
-# Loading mopshub_lib.bus_rec_SM(fast)
-# Loading mopshub_lib.dec1_Nbit(fast)
-# Loading mopshub_lib.dec32_Nbit(fast)
-# Loading mopshub_lib.demux1_1bit(fast__1)
-# Loading mopshub_lib.mux32_Nbit(fast)
-# Loading mopshub_lib.node_tra_demux(fast)
-# Loading mopshub_lib.demux1_Nbit(fast)
-# Loading mopshub_lib.mux1_1bit(fast)
-# Loading work.data_generator(fast)
-# Loading CANdecoder.CANbus_decoder(fast)
-# Loading CANdecoder.CANAkari_interfacedec(fast)
-# Loading CANdecoder.caninterfacedec(fast)
-# Loading CANdecoder.idcompdec(fast)
-# Loading CANdecoder.interfaceSMdec(fast)
-# Loading CANdecoder.bridgeSMdec(fast)
-# Loading CANdecoder.initialize_blockdec(fast)
-# Loading CANdecoder.rec_mes_bufdec(fast)
-# Loading CANdecoder.timoutrstdec(fast)
-# Loading work.can_bus_activity(fast)
-# Loading work.can_net_decoder(fast)
-# Loading work.mops_top_level(fast)
-# Loading CANdecoder.adcdumdata(fast)
-# Loading MOPSv2_lib.top_level(fast)
-# Loading MOPSv2_lib.clkbuffer(fast)
-# Loading MOPSv2_lib.global_resetgen(fast)
-# Loading MOPSv2_lib.delay_cell(fast)
-# Loading MOPSv2_lib.bridge_controller_top(fast)
-# Loading MOPSv2_lib.ADCinterface(fast)
-# Loading MOPSv2_lib.ADCfsm(fast)
-# Loading MOPSv2_lib.adcsel(fast)
-# Loading MOPSv2_lib.CANAkari_interface(fast)
-# Loading MOPSv2_lib.caninterface(fast)
-# Loading MOPSv2_lib.idcomp(fast)
-# Loading MOPSv2_lib.interfaceSM(fast)
-# Loading MOPSv2_lib.bridgeSM(fast)
-# Loading MOPSv2_lib.canopen_block(fast)
-# Loading MOPSv2_lib.ODfsm(fast)
-# Loading MOPSv2_lib.abortcodes(fast)
-# Loading MOPSv2_lib.msgdecode(fast)
-# Loading MOPSv2_lib.odinterface(fast)
-# Loading MOPSv2_lib.count2reload(fast)
-# Loading MOPSv2_lib.ftrim_sel(fast)
-# Loading MOPSv2_lib.od(fast)
-# Loading MOPSv2_lib.OD_MUX(fast)
-# Loading MOPSv2_lib.OD_buf(fast)
-# Loading MOPSv2_lib.OD_control(fast)
-# Loading MOPSv2_lib.rec_mes_buf(fast)
-# Loading MOPSv2_lib.timoutrst(fast)
-# Loading MOPSv2_lib.tra_mes_buf(fast)
-# Loading top_lib.canframegen_sv_unit(fast)
-# Loading top_lib.canframegen(fast)
-# Loading mopshub_lib.clk_div(fast)
-# Loading work.data_generator_SM(fast)
-# Loading work.mopshub_decoder(fast)
-# Loading work.clock_generator(fast)
-# Loading mopshub_lib.clock_divider(fast)
-# Loading mopshub_lib.clock_divider(fast__1)
-# Loading std.standard
-# Loading std.textio(body)
-# Loading ieee.std_logic_1164(body)
-# Loading ieee.numeric_std(body)
-# Loading mopshub_lib.spi_master(behavioral)#1
-# Loading mopshub_lib.dec_8b10b(behavioral)#1
-# Loading mopshub_lib.enc_8b10b(behavioral)#1
-# Loading /eda/mentor/2019-20/RHELx86/HDL-DESIGNER_2019.4/resources/downstream/modelsim/ModelSim_64Bit.dll
-# ** Warning: (vsim-8634) Code was not compiled with coverage options.
-run
-# Frequncy  = 40 MHz, Period = 25.000 ns
-# clk phase = 0 deg
-# clk duty = 50 %
-# 	 initialization [BUS ID  0]:
-# 	 initialization [BUS ID  1]:
-# 	 initialization [BUS ID  2]:
-# 	 initialization [BUS ID  3]:
-# 	 initialization [BUS ID  4]:
-# 	 initialization [BUS ID  5]:
-# 	 initialization [BUS ID  6]:
-# 	 initialization [BUS ID  7]:
-# 	 initialization [BUS ID  8]:
-# 	 initialization [BUS ID  9]:
-# 	 initialization [BUS ID 10]:
-# 	 initialization [BUS ID 11]:
-# 	 initialization [BUS ID 12]:
-# 	 initialization [BUS ID 13]:
-# 	 initialization [BUS ID 14]:
-# 	 initialization [BUS ID 15]:
-# 	 initialization [BUS ID 16]:
-# 	 initialization [BUS ID 17]:
-# 	 initialization [BUS ID 18]:
-# 	 initialization [BUS ID 19]:
-# 	 initialization [BUS ID 20]:
-# 	 initialization [BUS ID 21]:
-# 	 initialization [BUS ID 22]:
-# 	 initialization [BUS ID 23]:
-# 	 initialization [BUS ID 24]:
-# 	 initialization [BUS ID 25]:
-# 	 initialization [BUS ID 26]:
-# 	 initialization [BUS ID 27]:
-# 	 initialization [BUS ID 28]:
-# 	 initialization [BUS ID 29]:
-# 	 initialization [BUS ID 30]:
-# 	 initialization [BUS ID 31]:
-# *****************************************************************************
-# Current simulation time is: 1769664
-# Status BAD ********************************[TX Test [BUS ID  0]****************** Status BAD
-# 	 Transmit TX signals [BUS ID   0]: 	 request 6014000240f00000000 	 response 0000000000000000000
-# Current simulation time is: 2970864
-# Status BAD ********************************[TX Test [BUS ID  0]****************** Status BAD 6014000401000000000
-# 	 Transmit TX signals [BUS ID   0]: 	 request 6014000401000000000 	 response 0000000000000000000
-# Current simulation time is: 4926064
-# Status BAD ********************************[TX Test [BUS ID  0]****************** Status BAD
-# 	 Transmit TX signals [BUS ID   0]: 	 request 6014000240a00000000 	 response 5818000401000020000
-# Status GOOD [BUS ID  1] - TX Test
-# 	 Transmit TX signals [BUS ID   1]: 	 request 6014000240f01000000 	 response 5818000240f01020000
-# Status GOOD [BUS ID  1] - TX Test
-# 	 Transmit TX signals [BUS ID   1]: 	 request 6014000401001000000 	 response 5818000401001020000
-# 0
-# 
-# hds_restart
-restart -force
-# ** Note: (vsim-12125) Error and warning message counts have been reset to '0' because of 'restart'.
-# ** Note: (vsim-3813) Design is being optimized due to module recompilation...
-# ** Warning: (vsim-3865) Due to PLI being present, global +acc is being enabled automatically. This will cause your simulation to run very slowly. Please use vsim -no_autoacc to disable this feature. This feature is now deprecated and will be removed from future releases.
-# ** Warning: (vopt-10016) Option '-L ieee' was detected by vlog for design-unit 'tb_mopshub_top', but was not detected by vopt. The vlog option will be ignored.
-# ** Warning: (vopt-10017) vopt and vlog detected inconsistent ordering of options -L tsmcdigital_lib, -L top_lib, -L MOPSv2_lib, -L canakari, -L CANdecoder, -L ftrim, -L mopshub_lib and -L mopshub_testbench for design-unit 'tb_mopshub_top'. vopt will ignore the ordering that was given to vlog.
-# ** Warning: (vopt-10016) Option '-L ieee' was detected by vlog for design-unit 'dec32_Nbit', but was not detected by vopt. The vlog option will be ignored.
-# ** Warning: (vopt-10017) vopt and vlog detected inconsistent ordering of options -L tsmcdigital_lib, -L top_lib, -L MOPSv2_lib, -L canakari, -L CANdecoder, -L ftrim, -L mopshub_lib and -L mopshub_testbench for design-unit 'dec32_Nbit'. vopt will ignore the ordering that was given to vlog.
-# ** Warning: (vopt-10016) Option '-L ieee' was detected by vlog for design-unit 'can_bus_activity', but was not detected by vopt. The vlog option will be ignored.
-# ** Warning: (vopt-10017) vopt and vlog detected inconsistent ordering of options -L tsmcdigital_lib, -L top_lib, -L MOPSv2_lib, -L canakari, -L CANdecoder, -L ftrim, -L mopshub_lib and -L mopshub_testbench for design-unit 'can_bus_activity'. vopt will ignore the ordering that was given to vlog.
-# ** Warning: (vopt-10017) vopt and vlog detected inconsistent ordering of options -L tsmcdigital_lib, -L top_lib, -L MOPSv2_lib, -L canakari, -L CANdecoder, -L ftrim and -L mopshub_lib for design-unit 'canframegen'. vopt will ignore the ordering that was given to vlog.
-# ** Warning: (vopt-10017) vopt and vlog detected inconsistent ordering of options -L tsmcdigital_lib, -L top_lib, -L MOPSv2_lib, -L canakari, -L CANdecoder, -L ftrim and -L mopshub_lib for design-unit 'canframegen_sv_unit'. vopt will ignore the ordering that was given to vlog.
-# ** Warning: /home/dcs/git/mopshub/mopshub_testbench/hdl/tb_mopshub_top.v(157): (vopt-2685) [TFMPC] - Too few port connections for 'mopshub0'.  Expected 96, found 78.
+# ** Warning: /home/dcs/git/mopshub/mopshub_testbench/hdl/tb_mopshub_top.v(157): (vopt-2685) [TFMPC] - Too few port connections for 'mopshub0'.  Expected 95, found 78.
 # ** Warning: /home/dcs/git/mopshub/mopshub_testbench/hdl/tb_mopshub_top.v(157): (vopt-2718) [TFMPC] - Missing connection for port 'tx_efifo_full'.
 # ** Warning: /home/dcs/git/mopshub/mopshub_testbench/hdl/tb_mopshub_top.v(157): (vopt-2718) [TFMPC] - Missing connection for port 'tx_data_rdy'.
 # ** Warning: /home/dcs/git/mopshub/mopshub_testbench/hdl/tb_mopshub_top.v(157): (vopt-2718) [TFMPC] - Missing connection for port 'sck_m'.
@@ -1348,7 +421,6 @@ restart -force
 # ** Warning: /home/dcs/git/mopshub/mopshub_testbench/hdl/tb_mopshub_top.v(157): (vopt-2718) [TFMPC] - Missing connection for port 'rx_fifo_full'.
 # ** Warning: /home/dcs/git/mopshub/mopshub_testbench/hdl/tb_mopshub_top.v(157): (vopt-2718) [TFMPC] - Missing connection for port 'rx_data_rdy'.
 # ** Warning: /home/dcs/git/mopshub/mopshub_testbench/hdl/tb_mopshub_top.v(157): (vopt-2718) [TFMPC] - Missing connection for port 'rst_bus'.
-# ** Warning: /home/dcs/git/mopshub/mopshub_testbench/hdl/tb_mopshub_top.v(157): (vopt-2718) [TFMPC] - Missing connection for port 'power_bus_en'.
 # ** Warning: /home/dcs/git/mopshub/mopshub_testbench/hdl/tb_mopshub_top.v(157): (vopt-2718) [TFMPC] - Missing connection for port 'power_bus_cnt'.
 # ** Warning: /home/dcs/git/mopshub/mopshub_testbench/hdl/tb_mopshub_top.v(157): (vopt-2718) [TFMPC] - Missing connection for port 'mosi_c'.
 # ** Warning: /home/dcs/git/mopshub/mopshub_testbench/hdl/tb_mopshub_top.v(157): (vopt-2718) [TFMPC] - Missing connection for port 'irq_elink_tra'.
@@ -1365,9 +437,9 @@ restart -force
 # Loading sv_std.std
 # Loading work.tb_mopshub_top(fast)
 # Loading mopshub_lib.mopshub_top(fast)
+# Loading mopshub_lib.bus_control_SM(fast)
 # Loading mopshub_lib.control_bus(fast)
 # Loading mopshub_lib.bit_counter(fast)
-# Loading mopshub_lib.bus_control_SM(fast)
 # Loading mopshub_lib.demux1_1bit(fast)
 # Loading mopshub_lib.initialize_bus_control(fast)
 # Loading mopshub_lib.elink_core(fast)
@@ -1586,57 +658,2166 @@ run
 # 	 initialization [BUS ID 30]:
 # 	 initialization [BUS ID 31]:
 # *****************************************************************************
-# 	 Oscillator Trimming [BUS ID  0]:
-# 	 Sign In Message[BUS ID  0 (00)]: 	 request 555aaaaaaaaaaaaaaaa 	 response 7010500000000000000 	
-# *****************************************************************************
-# 	 Oscillator Trimming [BUS ID  1]:
-# 	 Sign In Message[BUS ID  1 (01)]: 	 request 555aaaaaaaaaaaaaaaa 	 response 7010500000001000000 	
-# *****************************************************************************
-# 	 Oscillator Trimming [BUS ID  2]:
-# 	 Sign In Message[BUS ID  2 (02)]: 	 request 555aaaaaaaaaaaaaaaa 	 response 7010500000002000000 	
-# *****************************************************************************
-# 	 Oscillator Trimming [BUS ID  3]:
-add wave -position 27  sim:/tb_mopshub_top/mopshub0/control_bus0/addr
-# 	 Sign In Message[BUS ID  3 (03)]: 	 request 555aaaaaaaaaaaaaaaa 	 response 7010500000003000000 	
-# *****************************************************************************
-# 	 Oscillator Trimming [BUS ID  4]:
-# 	 Sign In Message[BUS ID  4 (04)]: 	 request 555aaaaaaaaaaaaaaaa 	 response 7010500000004000000 	
-# *****************************************************************************
-# 	 Oscillator Trimming [BUS ID  5]:
-# 	 Sign In Message[BUS ID  5 (05)]: 	 request 555aaaaaaaaaaaaaaaa 	 response 7010500000005000000 	
-# *****************************************************************************
-# 	 Oscillator Trimming [BUS ID  6]:
-# 	 Sign In Message[BUS ID  6 (06)]: 	 request 555aaaaaaaaaaaaaaaa 	 response 7010500000006000000 	
-# *****************************************************************************
-# 	 Oscillator Trimming [BUS ID  7]:
-# 	 Sign In Message[BUS ID  7 (07)]: 	 request 555aaaaaaaaaaaaaaaa 	 response 7010500000007000000 	
-# *****************************************************************************
-# 	 Oscillator Trimming [BUS ID  8]:
-# 	 Sign In Message[BUS ID  8 (08)]: 	 request 555aaaaaaaaaaaaaaaa 	 response 7010500000008000000 	
-# *****************************************************************************
-# 	 Oscillator Trimming [BUS ID  9]:
-# 	 Sign In Message[BUS ID  9 (09)]: 	 request 555aaaaaaaaaaaaaaaa 	 response 7010500000009000000 	
-# *****************************************************************************
-# 	 Oscillator Trimming [BUS ID 10]:
-# 	 Sign In Message[BUS ID 10 (0a)]: 	 request 555aaaaaaaaaaaaaaaa 	 response 701050000000a000000 	
-# *****************************************************************************
-# 	 Oscillator Trimming [BUS ID 11]:
-# 	 Sign In Message[BUS ID 11 (0b)]: 	 request 555aaaaaaaaaaaaaaaa 	 response 701050000000b000000 	
-# *****************************************************************************
-# 	 Oscillator Trimming [BUS ID 12]:
-# 	 Sign In Message[BUS ID 12 (0c)]: 	 request 555aaaaaaaaaaaaaaaa 	 response 701050000000c000000 	
-# *****************************************************************************
-# 	 Oscillator Trimming [BUS ID 13]:
-# 	 Sign In Message[BUS ID 13 (0d)]: 	 request 555aaaaaaaaaaaaaaaa 	 response 701050000000d000000 	
-# *****************************************************************************
-# 	 Oscillator Trimming [BUS ID 14]:
-# 	 Sign In Message[BUS ID 14 (0e)]: 	 request 555aaaaaaaaaaaaaaaa 	 response 701050000000e000000 	
-# *****************************************************************************
-# 	 Oscillator Trimming [BUS ID 15]:
-# 	 Sign In Message[BUS ID 15 (0f)]: 	 request 555aaaaaaaaaaaaaaaa 	 response 701050000000f000000 	
-# *****************************************************************************
-# 	 Oscillator Trimming [BUS ID 16]:
+add wave -position 4  sim:/tb_mopshub_top/mopshub0/mopshub_core0/start_init
 # 0
 # 
-# End time: 14:55:59 on Feb 15,2022, Elapsed time: 0:12:32
-# Errors: 0, Warnings: 32
+restart
+# ** Note: (vsim-12125) Error and warning message counts have been reset to '0' because of 'restart'.
+# ** Note: (vsim-8009) Loading existing optimized design _opt5
+# Loading sv_std.std
+# Loading work.tb_mopshub_top(fast)
+# Loading mopshub_lib.mopshub_top(fast)
+# Loading mopshub_lib.bus_control_SM(fast)
+# Loading mopshub_lib.control_bus(fast)
+# Loading mopshub_lib.bit_counter(fast)
+# Loading mopshub_lib.demux1_1bit(fast)
+# Loading mopshub_lib.initialize_bus_control(fast)
+# Loading mopshub_lib.elink_core(fast)
+# Loading mopshub_lib.buffer_rec_elink(fast)
+# Loading mopshub_lib.buffer_rec_spi(fast)
+# Loading mopshub_lib.buffer_tra_elink(fast)
+# Loading mopshub_lib.buffer_tra_spi(fast)
+# Loading mopshub_lib.elink_interface_rec_SM(fast)
+# Loading mopshub_lib.elink_interface_tra_SM(fast)
+# Loading mopshub_lib.elink_to_fifo(fast)
+# Loading mopshub_lib.elink_proc_in(fast)
+# Loading mopshub_lib.elink_proc_in_dec8b10b(fast)
+# Loading mopshub_lib.bitstream_shift_register(fast)
+# Loading mopshub_lib.dec_8b10b_wrap(fast)
+# Loading mopshub_lib.sync_detector(fast)
+# Loading mopshub_lib.elink_proc_in_direct(fast)
+# Loading mopshub_lib.fifo_RXelink_wrap(fast)
+# Loading mopshub_lib.fifo_to_elink(fast)
+# Loading mopshub_lib.elink_proc_out(fast)
+# Loading mopshub_lib.elink_proc_out_direct(fast)
+# Loading mopshub_lib.mux4_Nbit(fast)
+# Loading mopshub_lib.triger_counter(fast)
+# Loading mopshub_lib.elink_proc_out_enc8b10b(fast)
+# Loading mopshub_lib.enc8b10b_wrap(fast)
+# Loading mopshub_lib.mux4_Nbit(fast__1)
+# Loading mopshub_lib.mux8_Nbit(fast)
+# Loading mopshub_lib.triger_counter(fast__1)
+# Loading mopshub_lib.monitor_bus(fast)
+# Loading mopshub_lib.buffer_rec_spi_data(fast)
+# Loading mopshub_lib.buffer_tra_spi_data(fast)
+# Loading mopshub_lib.mopshub_core(fast)
+# Loading mopshub_lib.bridge_controller(fast)
+# Loading mopshub_lib.buffer_rec_data(fast)
+# Loading mopshub_lib.buffer_tra_data(fast)
+# Loading mopshub_lib.can_elink_bridge_SM(fast)
+# Loading mopshub_lib.canakari_interface(fast)
+# Loading mopshub_lib.buffer_tristate_busid(fast)
+# Loading mopshub_lib.bus_comp(fast)
+# Loading mopshub_lib.can_interface(fast)
+# Loading mopshub_lib.can_interface_SM(fast)
+# Loading MOPSv2_lib.initialize_block(fast)
+# Loading mopshub_lib.osc_trim_SM(fast)
+# Loading mopshub_lib.timout_rst(fast)
+# Loading mopshub_lib.canakari_top(fast)
+# Loading mopshub_lib.canakari_0_7(fast)
+# Loading mopshub_lib.can(fast)
+# Loading canakari.can2(fast)
+# Loading canakari.resetgen2(fast)
+# Loading canakari.mac2(fast)
+# Loading canakari.reset_mac2(fast)
+# Loading canakari.macfsm2(fast)
+# Loading canakari.biterrordetect2(fast)
+# Loading canakari.counter2(fast)
+# Loading canakari.decapsulation2(fast)
+# Loading canakari.destuffing2(fast)
+# Loading canakari.encapsulation2(fast)
+# Loading canakari.rcrc2(fast)
+# Loading canakari.rcrc_cell2(fast)
+# Loading canakari.recmeslen2(fast)
+# Loading canakari.rshiftreg2(fast)
+# Loading canakari.rshift_cell2(fast)
+# Loading canakari.stuffing2(fast)
+# Loading canakari.tcrc2(fast)
+# Loading canakari.tcrc_cell2(fast)
+# Loading canakari.tshiftreg2(fast)
+# Loading canakari.tshift_cell2(fast)
+# Loading canakari.fsm_register2(fast)
+# Loading canakari.fastshift2(fast)
+# Loading canakari.meslencompare2(fast)
+# Loading canakari.llc2(fast)
+# Loading canakari.llc_fsm2(fast)
+# Loading canakari.equal_id2(fast)
+# Loading canakari.bittiming2(fast)
+# Loading ftrim.Control_Sys(fast)
+# Loading ftrim.PID_Regler(fast)
+# Loading ftrim.Ftrim_En(fast)
+# Loading ftrim.Diff(fast)
+# Loading ftrim.Multi(fast)
+# Loading ftrim.Multi_i(fast)
+# Loading ftrim.Accumulator(fast)
+# Loading ftrim.Add_PID(fast)
+# Loading ftrim.Output_Scaling(fast)
+# Loading ftrim.CLK_Counter(fast)
+# Loading ftrim.Control_FSM(fast)
+# Loading ftrim.Phasenfehler_Reg(fast)
+# Loading ftrim.ready_counter(fast)
+# Loading canakari.bittime2(fast)
+# Loading canakari.sum2(fast)
+# Loading canakari.timecount2(fast)
+# Loading canakari.edgepuffer2(fast)
+# Loading canakari.smpldbit_reg2(fast)
+# Loading canakari.tseg_reg2(fast)
+# Loading canakari.fce2(fast)
+# Loading canakari.faultfsm2(fast)
+# Loading canakari.rec2(fast)
+# Loading canakari.tec2(fast)
+# Loading canakari.erbcount2(fast)
+# Loading canakari.interruptunit2(fast)
+# Loading canakari.iocpu2(fast)
+# Loading canakari.multiplexer2(fast)
+# Loading canakari.read_mux2(fast)
+# Loading canakari.write_demux2(fast)
+# Loading canakari.generalregister2(fast)
+# Loading canakari.recmescontrolreg2(fast)
+# Loading canakari.recarbitreg2(fast)
+# Loading canakari.accmaskreg2(fast)
+# Loading canakari.interrupregister2(fast)
+# Loading canakari.prescalereg2(fast)
+# Loading canakari.recregister2(fast)
+# Loading canakari.transmesconreg2(fast)
+# Loading canakari.transmitreg2(fast)
+# Loading canakari.prescale2(fast)
+# Loading mopshub_lib.node_rec_mux(fast)
+# Loading mopshub_lib.bit_shifter(fast)
+# Loading mopshub_lib.buffer_rec_canakari(fast)
+# Loading mopshub_lib.bus_rec_SM(fast)
+# Loading mopshub_lib.dec1_Nbit(fast)
+# Loading mopshub_lib.dec32_Nbit(fast)
+# Loading mopshub_lib.demux1_1bit(fast__1)
+# Loading mopshub_lib.mux32_Nbit(fast)
+# Loading mopshub_lib.node_tra_demux(fast)
+# Loading mopshub_lib.demux1_Nbit(fast)
+# Loading mopshub_lib.mux1_1bit(fast)
+# Loading work.data_generator(fast)
+# Loading CANdecoder.CANbus_decoder(fast)
+# Loading CANdecoder.CANAkari_interfacedec(fast)
+# Loading CANdecoder.caninterfacedec(fast)
+# Loading CANdecoder.idcompdec(fast)
+# Loading CANdecoder.interfaceSMdec(fast)
+# Loading CANdecoder.bridgeSMdec(fast)
+# Loading CANdecoder.initialize_blockdec(fast)
+# Loading CANdecoder.rec_mes_bufdec(fast)
+# Loading CANdecoder.timoutrstdec(fast)
+# Loading work.can_bus_activity(fast)
+# Loading work.can_net_decoder(fast)
+# Loading work.mops_top_level(fast)
+# Loading CANdecoder.adcdumdata(fast)
+# Loading MOPSv2_lib.top_level(fast)
+# Loading MOPSv2_lib.clkbuffer(fast)
+# Loading MOPSv2_lib.global_resetgen(fast)
+# Loading MOPSv2_lib.delay_cell(fast)
+# Loading MOPSv2_lib.bridge_controller_top(fast)
+# Loading MOPSv2_lib.ADCinterface(fast)
+# Loading MOPSv2_lib.ADCfsm(fast)
+# Loading MOPSv2_lib.adcsel(fast)
+# Loading MOPSv2_lib.CANAkari_interface(fast)
+# Loading MOPSv2_lib.caninterface(fast)
+# Loading MOPSv2_lib.idcomp(fast)
+# Loading MOPSv2_lib.interfaceSM(fast)
+# Loading MOPSv2_lib.bridgeSM(fast)
+# Loading MOPSv2_lib.canopen_block(fast)
+# Loading MOPSv2_lib.ODfsm(fast)
+# Loading MOPSv2_lib.abortcodes(fast)
+# Loading MOPSv2_lib.msgdecode(fast)
+# Loading MOPSv2_lib.odinterface(fast)
+# Loading MOPSv2_lib.count2reload(fast)
+# Loading MOPSv2_lib.ftrim_sel(fast)
+# Loading MOPSv2_lib.od(fast)
+# Loading MOPSv2_lib.OD_MUX(fast)
+# Loading MOPSv2_lib.OD_buf(fast)
+# Loading MOPSv2_lib.OD_control(fast)
+# Loading MOPSv2_lib.rec_mes_buf(fast)
+# Loading MOPSv2_lib.timoutrst(fast)
+# Loading MOPSv2_lib.tra_mes_buf(fast)
+# Loading top_lib.canframegen_sv_unit(fast)
+# Loading top_lib.canframegen(fast)
+# Loading mopshub_lib.clk_div(fast)
+# Loading work.data_generator_SM(fast)
+# Loading work.mopshub_decoder(fast)
+# Loading work.clock_generator(fast)
+# Loading mopshub_lib.clock_divider(fast)
+# Loading mopshub_lib.clock_divider(fast__1)
+# Loading /eda/mentor/2019-20/RHELx86/HDL-DESIGNER_2019.4/resources/downstream/modelsim/ModelSim_64Bit.dll
+# ** Warning: (vsim-8634) Code was not compiled with coverage options.
+run
+# Frequncy  = 40 MHz, Period = 25.000 ns
+# clk phase = 0 deg
+# clk duty = 50 %
+# 	 initialization [BUS ID  0]:
+# 	 initialization [BUS ID  1]:
+# 	 initialization [BUS ID  2]:
+# 	 initialization [BUS ID  3]:
+# 	 initialization [BUS ID  4]:
+# 	 initialization [BUS ID  5]:
+# 	 initialization [BUS ID  6]:
+# 	 initialization [BUS ID  7]:
+# 	 initialization [BUS ID  8]:
+# 	 initialization [BUS ID  9]:
+# 	 initialization [BUS ID 10]:
+# 	 initialization [BUS ID 11]:
+# 	 initialization [BUS ID 12]:
+# 	 initialization [BUS ID 13]:
+# 	 initialization [BUS ID 14]:
+# 	 initialization [BUS ID 15]:
+# 	 initialization [BUS ID 16]:
+# 	 initialization [BUS ID 17]:
+# 	 initialization [BUS ID 18]:
+# 	 initialization [BUS ID 19]:
+# 	 initialization [BUS ID 20]:
+# 	 initialization [BUS ID 21]:
+# 	 initialization [BUS ID 22]:
+# 	 initialization [BUS ID 23]:
+# 	 initialization [BUS ID 24]:
+# 	 initialization [BUS ID 25]:
+# 	 initialization [BUS ID 26]:
+# 	 initialization [BUS ID 27]:
+# 	 initialization [BUS ID 28]:
+# 	 initialization [BUS ID 29]:
+# 	 initialization [BUS ID 30]:
+# 	 initialization [BUS ID 31]:
+# *****************************************************************************
+# 0
+# 
+add wave -position 4  sim:/tb_mopshub_top/mopshub0/mopshub_core0/bridge_controller0/start_init_can
+restart
+# ** Note: (vsim-12125) Error and warning message counts have been reset to '0' because of 'restart'.
+# ** Note: (vsim-8009) Loading existing optimized design _opt5
+# Loading sv_std.std
+# Loading work.tb_mopshub_top(fast)
+# Loading mopshub_lib.mopshub_top(fast)
+# Loading mopshub_lib.bus_control_SM(fast)
+# Loading mopshub_lib.control_bus(fast)
+# Loading mopshub_lib.bit_counter(fast)
+# Loading mopshub_lib.demux1_1bit(fast)
+# Loading mopshub_lib.initialize_bus_control(fast)
+# Loading mopshub_lib.elink_core(fast)
+# Loading mopshub_lib.buffer_rec_elink(fast)
+# Loading mopshub_lib.buffer_rec_spi(fast)
+# Loading mopshub_lib.buffer_tra_elink(fast)
+# Loading mopshub_lib.buffer_tra_spi(fast)
+# Loading mopshub_lib.elink_interface_rec_SM(fast)
+# Loading mopshub_lib.elink_interface_tra_SM(fast)
+# Loading mopshub_lib.elink_to_fifo(fast)
+# Loading mopshub_lib.elink_proc_in(fast)
+# Loading mopshub_lib.elink_proc_in_dec8b10b(fast)
+# Loading mopshub_lib.bitstream_shift_register(fast)
+# Loading mopshub_lib.dec_8b10b_wrap(fast)
+# Loading mopshub_lib.sync_detector(fast)
+# Loading mopshub_lib.elink_proc_in_direct(fast)
+# Loading mopshub_lib.fifo_RXelink_wrap(fast)
+# Loading mopshub_lib.fifo_to_elink(fast)
+# Loading mopshub_lib.elink_proc_out(fast)
+# Loading mopshub_lib.elink_proc_out_direct(fast)
+# Loading mopshub_lib.mux4_Nbit(fast)
+# Loading mopshub_lib.triger_counter(fast)
+# Loading mopshub_lib.elink_proc_out_enc8b10b(fast)
+# Loading mopshub_lib.enc8b10b_wrap(fast)
+# Loading mopshub_lib.mux4_Nbit(fast__1)
+# Loading mopshub_lib.mux8_Nbit(fast)
+# Loading mopshub_lib.triger_counter(fast__1)
+# Loading mopshub_lib.monitor_bus(fast)
+# Loading mopshub_lib.buffer_rec_spi_data(fast)
+# Loading mopshub_lib.buffer_tra_spi_data(fast)
+# Loading mopshub_lib.mopshub_core(fast)
+# Loading mopshub_lib.bridge_controller(fast)
+# Loading mopshub_lib.buffer_rec_data(fast)
+# Loading mopshub_lib.buffer_tra_data(fast)
+# Loading mopshub_lib.can_elink_bridge_SM(fast)
+# Loading mopshub_lib.canakari_interface(fast)
+# Loading mopshub_lib.buffer_tristate_busid(fast)
+# Loading mopshub_lib.bus_comp(fast)
+# Loading mopshub_lib.can_interface(fast)
+# Loading mopshub_lib.can_interface_SM(fast)
+# Loading MOPSv2_lib.initialize_block(fast)
+# Loading mopshub_lib.osc_trim_SM(fast)
+# Loading mopshub_lib.timout_rst(fast)
+# Loading mopshub_lib.canakari_top(fast)
+# Loading mopshub_lib.canakari_0_7(fast)
+# Loading mopshub_lib.can(fast)
+# Loading canakari.can2(fast)
+# Loading canakari.resetgen2(fast)
+# Loading canakari.mac2(fast)
+# Loading canakari.reset_mac2(fast)
+# Loading canakari.macfsm2(fast)
+# Loading canakari.biterrordetect2(fast)
+# Loading canakari.counter2(fast)
+# Loading canakari.decapsulation2(fast)
+# Loading canakari.destuffing2(fast)
+# Loading canakari.encapsulation2(fast)
+# Loading canakari.rcrc2(fast)
+# Loading canakari.rcrc_cell2(fast)
+# Loading canakari.recmeslen2(fast)
+# Loading canakari.rshiftreg2(fast)
+# Loading canakari.rshift_cell2(fast)
+# Loading canakari.stuffing2(fast)
+# Loading canakari.tcrc2(fast)
+# Loading canakari.tcrc_cell2(fast)
+# Loading canakari.tshiftreg2(fast)
+# Loading canakari.tshift_cell2(fast)
+# Loading canakari.fsm_register2(fast)
+# Loading canakari.fastshift2(fast)
+# Loading canakari.meslencompare2(fast)
+# Loading canakari.llc2(fast)
+# Loading canakari.llc_fsm2(fast)
+# Loading canakari.equal_id2(fast)
+# Loading canakari.bittiming2(fast)
+# Loading ftrim.Control_Sys(fast)
+# Loading ftrim.PID_Regler(fast)
+# Loading ftrim.Ftrim_En(fast)
+# Loading ftrim.Diff(fast)
+# Loading ftrim.Multi(fast)
+# Loading ftrim.Multi_i(fast)
+# Loading ftrim.Accumulator(fast)
+# Loading ftrim.Add_PID(fast)
+# Loading ftrim.Output_Scaling(fast)
+# Loading ftrim.CLK_Counter(fast)
+# Loading ftrim.Control_FSM(fast)
+# Loading ftrim.Phasenfehler_Reg(fast)
+# Loading ftrim.ready_counter(fast)
+# Loading canakari.bittime2(fast)
+# Loading canakari.sum2(fast)
+# Loading canakari.timecount2(fast)
+# Loading canakari.edgepuffer2(fast)
+# Loading canakari.smpldbit_reg2(fast)
+# Loading canakari.tseg_reg2(fast)
+# Loading canakari.fce2(fast)
+# Loading canakari.faultfsm2(fast)
+# Loading canakari.rec2(fast)
+# Loading canakari.tec2(fast)
+# Loading canakari.erbcount2(fast)
+# Loading canakari.interruptunit2(fast)
+# Loading canakari.iocpu2(fast)
+# Loading canakari.multiplexer2(fast)
+# Loading canakari.read_mux2(fast)
+# Loading canakari.write_demux2(fast)
+# Loading canakari.generalregister2(fast)
+# Loading canakari.recmescontrolreg2(fast)
+# Loading canakari.recarbitreg2(fast)
+# Loading canakari.accmaskreg2(fast)
+# Loading canakari.interrupregister2(fast)
+# Loading canakari.prescalereg2(fast)
+# Loading canakari.recregister2(fast)
+# Loading canakari.transmesconreg2(fast)
+# Loading canakari.transmitreg2(fast)
+# Loading canakari.prescale2(fast)
+# Loading mopshub_lib.node_rec_mux(fast)
+# Loading mopshub_lib.bit_shifter(fast)
+# Loading mopshub_lib.buffer_rec_canakari(fast)
+# Loading mopshub_lib.bus_rec_SM(fast)
+# Loading mopshub_lib.dec1_Nbit(fast)
+# Loading mopshub_lib.dec32_Nbit(fast)
+# Loading mopshub_lib.demux1_1bit(fast__1)
+# Loading mopshub_lib.mux32_Nbit(fast)
+# Loading mopshub_lib.node_tra_demux(fast)
+# Loading mopshub_lib.demux1_Nbit(fast)
+# Loading mopshub_lib.mux1_1bit(fast)
+# Loading work.data_generator(fast)
+# Loading CANdecoder.CANbus_decoder(fast)
+# Loading CANdecoder.CANAkari_interfacedec(fast)
+# Loading CANdecoder.caninterfacedec(fast)
+# Loading CANdecoder.idcompdec(fast)
+# Loading CANdecoder.interfaceSMdec(fast)
+# Loading CANdecoder.bridgeSMdec(fast)
+# Loading CANdecoder.initialize_blockdec(fast)
+# Loading CANdecoder.rec_mes_bufdec(fast)
+# Loading CANdecoder.timoutrstdec(fast)
+# Loading work.can_bus_activity(fast)
+# Loading work.can_net_decoder(fast)
+# Loading work.mops_top_level(fast)
+# Loading CANdecoder.adcdumdata(fast)
+# Loading MOPSv2_lib.top_level(fast)
+# Loading MOPSv2_lib.clkbuffer(fast)
+# Loading MOPSv2_lib.global_resetgen(fast)
+# Loading MOPSv2_lib.delay_cell(fast)
+# Loading MOPSv2_lib.bridge_controller_top(fast)
+# Loading MOPSv2_lib.ADCinterface(fast)
+# Loading MOPSv2_lib.ADCfsm(fast)
+# Loading MOPSv2_lib.adcsel(fast)
+# Loading MOPSv2_lib.CANAkari_interface(fast)
+# Loading MOPSv2_lib.caninterface(fast)
+# Loading MOPSv2_lib.idcomp(fast)
+# Loading MOPSv2_lib.interfaceSM(fast)
+# Loading MOPSv2_lib.bridgeSM(fast)
+# Loading MOPSv2_lib.canopen_block(fast)
+# Loading MOPSv2_lib.ODfsm(fast)
+# Loading MOPSv2_lib.abortcodes(fast)
+# Loading MOPSv2_lib.msgdecode(fast)
+# Loading MOPSv2_lib.odinterface(fast)
+# Loading MOPSv2_lib.count2reload(fast)
+# Loading MOPSv2_lib.ftrim_sel(fast)
+# Loading MOPSv2_lib.od(fast)
+# Loading MOPSv2_lib.OD_MUX(fast)
+# Loading MOPSv2_lib.OD_buf(fast)
+# Loading MOPSv2_lib.OD_control(fast)
+# Loading MOPSv2_lib.rec_mes_buf(fast)
+# Loading MOPSv2_lib.timoutrst(fast)
+# Loading MOPSv2_lib.tra_mes_buf(fast)
+# Loading top_lib.canframegen_sv_unit(fast)
+# Loading top_lib.canframegen(fast)
+# Loading mopshub_lib.clk_div(fast)
+# Loading work.data_generator_SM(fast)
+# Loading work.mopshub_decoder(fast)
+# Loading work.clock_generator(fast)
+# Loading mopshub_lib.clock_divider(fast)
+# Loading mopshub_lib.clock_divider(fast__1)
+# Loading /eda/mentor/2019-20/RHELx86/HDL-DESIGNER_2019.4/resources/downstream/modelsim/ModelSim_64Bit.dll
+# ** Warning: (vsim-8634) Code was not compiled with coverage options.
+run
+# Frequncy  = 40 MHz, Period = 25.000 ns
+# clk phase = 0 deg
+# clk duty = 50 %
+# 	 initialization [BUS ID  0]:
+# 	 initialization [BUS ID  1]:
+# 	 initialization [BUS ID  2]:
+# 	 initialization [BUS ID  3]:
+# 	 initialization [BUS ID  4]:
+# 	 initialization [BUS ID  5]:
+# 	 initialization [BUS ID  6]:
+# 	 initialization [BUS ID  7]:
+# 	 initialization [BUS ID  8]:
+# 	 initialization [BUS ID  9]:
+# 	 initialization [BUS ID 10]:
+# 	 initialization [BUS ID 11]:
+# 	 initialization [BUS ID 12]:
+# 	 initialization [BUS ID 13]:
+# 	 initialization [BUS ID 14]:
+# 	 initialization [BUS ID 15]:
+# 	 initialization [BUS ID 16]:
+# 	 initialization [BUS ID 17]:
+# 	 initialization [BUS ID 18]:
+# 	 initialization [BUS ID 19]:
+# 	 initialization [BUS ID 20]:
+# 	 initialization [BUS ID 21]:
+# 	 initialization [BUS ID 22]:
+# 	 initialization [BUS ID 23]:
+# 	 initialization [BUS ID 24]:
+# 	 initialization [BUS ID 25]:
+# 	 initialization [BUS ID 26]:
+# 	 initialization [BUS ID 27]:
+# 	 initialization [BUS ID 28]:
+# 	 initialization [BUS ID 29]:
+# 	 initialization [BUS ID 30]:
+# 	 initialization [BUS ID 31]:
+# *****************************************************************************
+# 0
+# 
+add wave -position 8  sim:/tb_mopshub_top/mopshub0/mopshub_core0/bridge_controller0/power_bus_en
+restart
+# ** Note: (vsim-12125) Error and warning message counts have been reset to '0' because of 'restart'.
+# ** Note: (vsim-8009) Loading existing optimized design _opt5
+# Loading sv_std.std
+# Loading work.tb_mopshub_top(fast)
+# Loading mopshub_lib.mopshub_top(fast)
+# Loading mopshub_lib.bus_control_SM(fast)
+# Loading mopshub_lib.control_bus(fast)
+# Loading mopshub_lib.bit_counter(fast)
+# Loading mopshub_lib.demux1_1bit(fast)
+# Loading mopshub_lib.initialize_bus_control(fast)
+# Loading mopshub_lib.elink_core(fast)
+# Loading mopshub_lib.buffer_rec_elink(fast)
+# Loading mopshub_lib.buffer_rec_spi(fast)
+# Loading mopshub_lib.buffer_tra_elink(fast)
+# Loading mopshub_lib.buffer_tra_spi(fast)
+# Loading mopshub_lib.elink_interface_rec_SM(fast)
+# Loading mopshub_lib.elink_interface_tra_SM(fast)
+# Loading mopshub_lib.elink_to_fifo(fast)
+# Loading mopshub_lib.elink_proc_in(fast)
+# Loading mopshub_lib.elink_proc_in_dec8b10b(fast)
+# Loading mopshub_lib.bitstream_shift_register(fast)
+# Loading mopshub_lib.dec_8b10b_wrap(fast)
+# Loading mopshub_lib.sync_detector(fast)
+# Loading mopshub_lib.elink_proc_in_direct(fast)
+# Loading mopshub_lib.fifo_RXelink_wrap(fast)
+# Loading mopshub_lib.fifo_to_elink(fast)
+# Loading mopshub_lib.elink_proc_out(fast)
+# Loading mopshub_lib.elink_proc_out_direct(fast)
+# Loading mopshub_lib.mux4_Nbit(fast)
+# Loading mopshub_lib.triger_counter(fast)
+# Loading mopshub_lib.elink_proc_out_enc8b10b(fast)
+# Loading mopshub_lib.enc8b10b_wrap(fast)
+# Loading mopshub_lib.mux4_Nbit(fast__1)
+# Loading mopshub_lib.mux8_Nbit(fast)
+# Loading mopshub_lib.triger_counter(fast__1)
+# Loading mopshub_lib.monitor_bus(fast)
+# Loading mopshub_lib.buffer_rec_spi_data(fast)
+# Loading mopshub_lib.buffer_tra_spi_data(fast)
+# Loading mopshub_lib.mopshub_core(fast)
+# Loading mopshub_lib.bridge_controller(fast)
+# Loading mopshub_lib.buffer_rec_data(fast)
+# Loading mopshub_lib.buffer_tra_data(fast)
+# Loading mopshub_lib.can_elink_bridge_SM(fast)
+# Loading mopshub_lib.canakari_interface(fast)
+# Loading mopshub_lib.buffer_tristate_busid(fast)
+# Loading mopshub_lib.bus_comp(fast)
+# Loading mopshub_lib.can_interface(fast)
+# Loading mopshub_lib.can_interface_SM(fast)
+# Loading MOPSv2_lib.initialize_block(fast)
+# Loading mopshub_lib.osc_trim_SM(fast)
+# Loading mopshub_lib.timout_rst(fast)
+# Loading mopshub_lib.canakari_top(fast)
+# Loading mopshub_lib.canakari_0_7(fast)
+# Loading mopshub_lib.can(fast)
+# Loading canakari.can2(fast)
+# Loading canakari.resetgen2(fast)
+# Loading canakari.mac2(fast)
+# Loading canakari.reset_mac2(fast)
+# Loading canakari.macfsm2(fast)
+# Loading canakari.biterrordetect2(fast)
+# Loading canakari.counter2(fast)
+# Loading canakari.decapsulation2(fast)
+# Loading canakari.destuffing2(fast)
+# Loading canakari.encapsulation2(fast)
+# Loading canakari.rcrc2(fast)
+# Loading canakari.rcrc_cell2(fast)
+# Loading canakari.recmeslen2(fast)
+# Loading canakari.rshiftreg2(fast)
+# Loading canakari.rshift_cell2(fast)
+# Loading canakari.stuffing2(fast)
+# Loading canakari.tcrc2(fast)
+# Loading canakari.tcrc_cell2(fast)
+# Loading canakari.tshiftreg2(fast)
+# Loading canakari.tshift_cell2(fast)
+# Loading canakari.fsm_register2(fast)
+# Loading canakari.fastshift2(fast)
+# Loading canakari.meslencompare2(fast)
+# Loading canakari.llc2(fast)
+# Loading canakari.llc_fsm2(fast)
+# Loading canakari.equal_id2(fast)
+# Loading canakari.bittiming2(fast)
+# Loading ftrim.Control_Sys(fast)
+# Loading ftrim.PID_Regler(fast)
+# Loading ftrim.Ftrim_En(fast)
+# Loading ftrim.Diff(fast)
+# Loading ftrim.Multi(fast)
+# Loading ftrim.Multi_i(fast)
+# Loading ftrim.Accumulator(fast)
+# Loading ftrim.Add_PID(fast)
+# Loading ftrim.Output_Scaling(fast)
+# Loading ftrim.CLK_Counter(fast)
+# Loading ftrim.Control_FSM(fast)
+# Loading ftrim.Phasenfehler_Reg(fast)
+# Loading ftrim.ready_counter(fast)
+# Loading canakari.bittime2(fast)
+# Loading canakari.sum2(fast)
+# Loading canakari.timecount2(fast)
+# Loading canakari.edgepuffer2(fast)
+# Loading canakari.smpldbit_reg2(fast)
+# Loading canakari.tseg_reg2(fast)
+# Loading canakari.fce2(fast)
+# Loading canakari.faultfsm2(fast)
+# Loading canakari.rec2(fast)
+# Loading canakari.tec2(fast)
+# Loading canakari.erbcount2(fast)
+# Loading canakari.interruptunit2(fast)
+# Loading canakari.iocpu2(fast)
+# Loading canakari.multiplexer2(fast)
+# Loading canakari.read_mux2(fast)
+# Loading canakari.write_demux2(fast)
+# Loading canakari.generalregister2(fast)
+# Loading canakari.recmescontrolreg2(fast)
+# Loading canakari.recarbitreg2(fast)
+# Loading canakari.accmaskreg2(fast)
+# Loading canakari.interrupregister2(fast)
+# Loading canakari.prescalereg2(fast)
+# Loading canakari.recregister2(fast)
+# Loading canakari.transmesconreg2(fast)
+# Loading canakari.transmitreg2(fast)
+# Loading canakari.prescale2(fast)
+# Loading mopshub_lib.node_rec_mux(fast)
+# Loading mopshub_lib.bit_shifter(fast)
+# Loading mopshub_lib.buffer_rec_canakari(fast)
+# Loading mopshub_lib.bus_rec_SM(fast)
+# Loading mopshub_lib.dec1_Nbit(fast)
+# Loading mopshub_lib.dec32_Nbit(fast)
+# Loading mopshub_lib.demux1_1bit(fast__1)
+# Loading mopshub_lib.mux32_Nbit(fast)
+# Loading mopshub_lib.node_tra_demux(fast)
+# Loading mopshub_lib.demux1_Nbit(fast)
+# Loading mopshub_lib.mux1_1bit(fast)
+# Loading work.data_generator(fast)
+# Loading CANdecoder.CANbus_decoder(fast)
+# Loading CANdecoder.CANAkari_interfacedec(fast)
+# Loading CANdecoder.caninterfacedec(fast)
+# Loading CANdecoder.idcompdec(fast)
+# Loading CANdecoder.interfaceSMdec(fast)
+# Loading CANdecoder.bridgeSMdec(fast)
+# Loading CANdecoder.initialize_blockdec(fast)
+# Loading CANdecoder.rec_mes_bufdec(fast)
+# Loading CANdecoder.timoutrstdec(fast)
+# Loading work.can_bus_activity(fast)
+# Loading work.can_net_decoder(fast)
+# Loading work.mops_top_level(fast)
+# Loading CANdecoder.adcdumdata(fast)
+# Loading MOPSv2_lib.top_level(fast)
+# Loading MOPSv2_lib.clkbuffer(fast)
+# Loading MOPSv2_lib.global_resetgen(fast)
+# Loading MOPSv2_lib.delay_cell(fast)
+# Loading MOPSv2_lib.bridge_controller_top(fast)
+# Loading MOPSv2_lib.ADCinterface(fast)
+# Loading MOPSv2_lib.ADCfsm(fast)
+# Loading MOPSv2_lib.adcsel(fast)
+# Loading MOPSv2_lib.CANAkari_interface(fast)
+# Loading MOPSv2_lib.caninterface(fast)
+# Loading MOPSv2_lib.idcomp(fast)
+# Loading MOPSv2_lib.interfaceSM(fast)
+# Loading MOPSv2_lib.bridgeSM(fast)
+# Loading MOPSv2_lib.canopen_block(fast)
+# Loading MOPSv2_lib.ODfsm(fast)
+# Loading MOPSv2_lib.abortcodes(fast)
+# Loading MOPSv2_lib.msgdecode(fast)
+# Loading MOPSv2_lib.odinterface(fast)
+# Loading MOPSv2_lib.count2reload(fast)
+# Loading MOPSv2_lib.ftrim_sel(fast)
+# Loading MOPSv2_lib.od(fast)
+# Loading MOPSv2_lib.OD_MUX(fast)
+# Loading MOPSv2_lib.OD_buf(fast)
+# Loading MOPSv2_lib.OD_control(fast)
+# Loading MOPSv2_lib.rec_mes_buf(fast)
+# Loading MOPSv2_lib.timoutrst(fast)
+# Loading MOPSv2_lib.tra_mes_buf(fast)
+# Loading top_lib.canframegen_sv_unit(fast)
+# Loading top_lib.canframegen(fast)
+# Loading mopshub_lib.clk_div(fast)
+# Loading work.data_generator_SM(fast)
+# Loading work.mopshub_decoder(fast)
+# Loading work.clock_generator(fast)
+# Loading mopshub_lib.clock_divider(fast)
+# Loading mopshub_lib.clock_divider(fast__1)
+# Loading /eda/mentor/2019-20/RHELx86/HDL-DESIGNER_2019.4/resources/downstream/modelsim/ModelSim_64Bit.dll
+# ** Warning: (vsim-8634) Code was not compiled with coverage options.
+run
+# Frequncy  = 40 MHz, Period = 25.000 ns
+# clk phase = 0 deg
+# clk duty = 50 %
+# 	 initialization [BUS ID  0]:
+# 	 initialization [BUS ID  1]:
+# 	 initialization [BUS ID  2]:
+# 	 initialization [BUS ID  3]:
+# 	 initialization [BUS ID  4]:
+# 	 initialization [BUS ID  5]:
+# 	 initialization [BUS ID  6]:
+# 	 initialization [BUS ID  7]:
+# 	 initialization [BUS ID  8]:
+# 	 initialization [BUS ID  9]:
+# 	 initialization [BUS ID 10]:
+# 	 initialization [BUS ID 11]:
+# 	 initialization [BUS ID 12]:
+# 	 initialization [BUS ID 13]:
+# 	 initialization [BUS ID 14]:
+# 	 initialization [BUS ID 15]:
+# 	 initialization [BUS ID 16]:
+# 	 initialization [BUS ID 17]:
+# 	 initialization [BUS ID 18]:
+# 	 initialization [BUS ID 19]:
+# 	 initialization [BUS ID 20]:
+# 	 initialization [BUS ID 21]:
+# 	 initialization [BUS ID 22]:
+# 	 initialization [BUS ID 23]:
+# 	 initialization [BUS ID 24]:
+# 	 initialization [BUS ID 25]:
+# 	 initialization [BUS ID 26]:
+# 	 initialization [BUS ID 27]:
+# 	 initialization [BUS ID 28]:
+# 	 initialization [BUS ID 29]:
+# 	 initialization [BUS ID 30]:
+# 	 initialization [BUS ID 31]:
+# *****************************************************************************
+# 0
+# 
+add wave -position 9  sim:/tb_mopshub_top/mopshub0/mopshub_core0/bridge_controller0/power_bus_en_done
+add wave -position 9  sim:/tb_mopshub_top/mopshub0/mopshub_core0/bridge_controller0/power_bus_cnt
+restart
+# ** Note: (vsim-12125) Error and warning message counts have been reset to '0' because of 'restart'.
+# ** Note: (vsim-8009) Loading existing optimized design _opt5
+# Loading sv_std.std
+# Loading work.tb_mopshub_top(fast)
+# Loading mopshub_lib.mopshub_top(fast)
+# Loading mopshub_lib.bus_control_SM(fast)
+# Loading mopshub_lib.control_bus(fast)
+# Loading mopshub_lib.bit_counter(fast)
+# Loading mopshub_lib.demux1_1bit(fast)
+# Loading mopshub_lib.initialize_bus_control(fast)
+# Loading mopshub_lib.elink_core(fast)
+# Loading mopshub_lib.buffer_rec_elink(fast)
+# Loading mopshub_lib.buffer_rec_spi(fast)
+# Loading mopshub_lib.buffer_tra_elink(fast)
+# Loading mopshub_lib.buffer_tra_spi(fast)
+# Loading mopshub_lib.elink_interface_rec_SM(fast)
+# Loading mopshub_lib.elink_interface_tra_SM(fast)
+# Loading mopshub_lib.elink_to_fifo(fast)
+# Loading mopshub_lib.elink_proc_in(fast)
+# Loading mopshub_lib.elink_proc_in_dec8b10b(fast)
+# Loading mopshub_lib.bitstream_shift_register(fast)
+# Loading mopshub_lib.dec_8b10b_wrap(fast)
+# Loading mopshub_lib.sync_detector(fast)
+# Loading mopshub_lib.elink_proc_in_direct(fast)
+# Loading mopshub_lib.fifo_RXelink_wrap(fast)
+# Loading mopshub_lib.fifo_to_elink(fast)
+# Loading mopshub_lib.elink_proc_out(fast)
+# Loading mopshub_lib.elink_proc_out_direct(fast)
+# Loading mopshub_lib.mux4_Nbit(fast)
+# Loading mopshub_lib.triger_counter(fast)
+# Loading mopshub_lib.elink_proc_out_enc8b10b(fast)
+# Loading mopshub_lib.enc8b10b_wrap(fast)
+# Loading mopshub_lib.mux4_Nbit(fast__1)
+# Loading mopshub_lib.mux8_Nbit(fast)
+# Loading mopshub_lib.triger_counter(fast__1)
+# Loading mopshub_lib.monitor_bus(fast)
+# Loading mopshub_lib.buffer_rec_spi_data(fast)
+# Loading mopshub_lib.buffer_tra_spi_data(fast)
+# Loading mopshub_lib.mopshub_core(fast)
+# Loading mopshub_lib.bridge_controller(fast)
+# Loading mopshub_lib.buffer_rec_data(fast)
+# Loading mopshub_lib.buffer_tra_data(fast)
+# Loading mopshub_lib.can_elink_bridge_SM(fast)
+# Loading mopshub_lib.canakari_interface(fast)
+# Loading mopshub_lib.buffer_tristate_busid(fast)
+# Loading mopshub_lib.bus_comp(fast)
+# Loading mopshub_lib.can_interface(fast)
+# Loading mopshub_lib.can_interface_SM(fast)
+# Loading MOPSv2_lib.initialize_block(fast)
+# Loading mopshub_lib.osc_trim_SM(fast)
+# Loading mopshub_lib.timout_rst(fast)
+# Loading mopshub_lib.canakari_top(fast)
+# Loading mopshub_lib.canakari_0_7(fast)
+# Loading mopshub_lib.can(fast)
+# Loading canakari.can2(fast)
+# Loading canakari.resetgen2(fast)
+# Loading canakari.mac2(fast)
+# Loading canakari.reset_mac2(fast)
+# Loading canakari.macfsm2(fast)
+# Loading canakari.biterrordetect2(fast)
+# Loading canakari.counter2(fast)
+# Loading canakari.decapsulation2(fast)
+# Loading canakari.destuffing2(fast)
+# Loading canakari.encapsulation2(fast)
+# Loading canakari.rcrc2(fast)
+# Loading canakari.rcrc_cell2(fast)
+# Loading canakari.recmeslen2(fast)
+# Loading canakari.rshiftreg2(fast)
+# Loading canakari.rshift_cell2(fast)
+# Loading canakari.stuffing2(fast)
+# Loading canakari.tcrc2(fast)
+# Loading canakari.tcrc_cell2(fast)
+# Loading canakari.tshiftreg2(fast)
+# Loading canakari.tshift_cell2(fast)
+# Loading canakari.fsm_register2(fast)
+# Loading canakari.fastshift2(fast)
+# Loading canakari.meslencompare2(fast)
+# Loading canakari.llc2(fast)
+# Loading canakari.llc_fsm2(fast)
+# Loading canakari.equal_id2(fast)
+# Loading canakari.bittiming2(fast)
+# Loading ftrim.Control_Sys(fast)
+# Loading ftrim.PID_Regler(fast)
+# Loading ftrim.Ftrim_En(fast)
+# Loading ftrim.Diff(fast)
+# Loading ftrim.Multi(fast)
+# Loading ftrim.Multi_i(fast)
+# Loading ftrim.Accumulator(fast)
+# Loading ftrim.Add_PID(fast)
+# Loading ftrim.Output_Scaling(fast)
+# Loading ftrim.CLK_Counter(fast)
+# Loading ftrim.Control_FSM(fast)
+# Loading ftrim.Phasenfehler_Reg(fast)
+# Loading ftrim.ready_counter(fast)
+# Loading canakari.bittime2(fast)
+# Loading canakari.sum2(fast)
+# Loading canakari.timecount2(fast)
+# Loading canakari.edgepuffer2(fast)
+# Loading canakari.smpldbit_reg2(fast)
+# Loading canakari.tseg_reg2(fast)
+# Loading canakari.fce2(fast)
+# Loading canakari.faultfsm2(fast)
+# Loading canakari.rec2(fast)
+# Loading canakari.tec2(fast)
+# Loading canakari.erbcount2(fast)
+# Loading canakari.interruptunit2(fast)
+# Loading canakari.iocpu2(fast)
+# Loading canakari.multiplexer2(fast)
+# Loading canakari.read_mux2(fast)
+# Loading canakari.write_demux2(fast)
+# Loading canakari.generalregister2(fast)
+# Loading canakari.recmescontrolreg2(fast)
+# Loading canakari.recarbitreg2(fast)
+# Loading canakari.accmaskreg2(fast)
+# Loading canakari.interrupregister2(fast)
+# Loading canakari.prescalereg2(fast)
+# Loading canakari.recregister2(fast)
+# Loading canakari.transmesconreg2(fast)
+# Loading canakari.transmitreg2(fast)
+# Loading canakari.prescale2(fast)
+# Loading mopshub_lib.node_rec_mux(fast)
+# Loading mopshub_lib.bit_shifter(fast)
+# Loading mopshub_lib.buffer_rec_canakari(fast)
+# Loading mopshub_lib.bus_rec_SM(fast)
+# Loading mopshub_lib.dec1_Nbit(fast)
+# Loading mopshub_lib.dec32_Nbit(fast)
+# Loading mopshub_lib.demux1_1bit(fast__1)
+# Loading mopshub_lib.mux32_Nbit(fast)
+# Loading mopshub_lib.node_tra_demux(fast)
+# Loading mopshub_lib.demux1_Nbit(fast)
+# Loading mopshub_lib.mux1_1bit(fast)
+# Loading work.data_generator(fast)
+# Loading CANdecoder.CANbus_decoder(fast)
+# Loading CANdecoder.CANAkari_interfacedec(fast)
+# Loading CANdecoder.caninterfacedec(fast)
+# Loading CANdecoder.idcompdec(fast)
+# Loading CANdecoder.interfaceSMdec(fast)
+# Loading CANdecoder.bridgeSMdec(fast)
+# Loading CANdecoder.initialize_blockdec(fast)
+# Loading CANdecoder.rec_mes_bufdec(fast)
+# Loading CANdecoder.timoutrstdec(fast)
+# Loading work.can_bus_activity(fast)
+# Loading work.can_net_decoder(fast)
+# Loading work.mops_top_level(fast)
+# Loading CANdecoder.adcdumdata(fast)
+# Loading MOPSv2_lib.top_level(fast)
+# Loading MOPSv2_lib.clkbuffer(fast)
+# Loading MOPSv2_lib.global_resetgen(fast)
+# Loading MOPSv2_lib.delay_cell(fast)
+# Loading MOPSv2_lib.bridge_controller_top(fast)
+# Loading MOPSv2_lib.ADCinterface(fast)
+# Loading MOPSv2_lib.ADCfsm(fast)
+# Loading MOPSv2_lib.adcsel(fast)
+# Loading MOPSv2_lib.CANAkari_interface(fast)
+# Loading MOPSv2_lib.caninterface(fast)
+# Loading MOPSv2_lib.idcomp(fast)
+# Loading MOPSv2_lib.interfaceSM(fast)
+# Loading MOPSv2_lib.bridgeSM(fast)
+# Loading MOPSv2_lib.canopen_block(fast)
+# Loading MOPSv2_lib.ODfsm(fast)
+# Loading MOPSv2_lib.abortcodes(fast)
+# Loading MOPSv2_lib.msgdecode(fast)
+# Loading MOPSv2_lib.odinterface(fast)
+# Loading MOPSv2_lib.count2reload(fast)
+# Loading MOPSv2_lib.ftrim_sel(fast)
+# Loading MOPSv2_lib.od(fast)
+# Loading MOPSv2_lib.OD_MUX(fast)
+# Loading MOPSv2_lib.OD_buf(fast)
+# Loading MOPSv2_lib.OD_control(fast)
+# Loading MOPSv2_lib.rec_mes_buf(fast)
+# Loading MOPSv2_lib.timoutrst(fast)
+# Loading MOPSv2_lib.tra_mes_buf(fast)
+# Loading top_lib.canframegen_sv_unit(fast)
+# Loading top_lib.canframegen(fast)
+# Loading mopshub_lib.clk_div(fast)
+# Loading work.data_generator_SM(fast)
+# Loading work.mopshub_decoder(fast)
+# Loading work.clock_generator(fast)
+# Loading mopshub_lib.clock_divider(fast)
+# Loading mopshub_lib.clock_divider(fast__1)
+# Loading /eda/mentor/2019-20/RHELx86/HDL-DESIGNER_2019.4/resources/downstream/modelsim/ModelSim_64Bit.dll
+# ** Warning: (vsim-8634) Code was not compiled with coverage options.
+run
+# Frequncy  = 40 MHz, Period = 25.000 ns
+# clk phase = 0 deg
+# clk duty = 50 %
+# 	 initialization [BUS ID  0]:
+# 	 initialization [BUS ID  1]:
+# 	 initialization [BUS ID  2]:
+# 	 initialization [BUS ID  3]:
+# 	 initialization [BUS ID  4]:
+# 	 initialization [BUS ID  5]:
+# 	 initialization [BUS ID  6]:
+# 	 initialization [BUS ID  7]:
+# 	 initialization [BUS ID  8]:
+# 	 initialization [BUS ID  9]:
+# 	 initialization [BUS ID 10]:
+# 	 initialization [BUS ID 11]:
+# 	 initialization [BUS ID 12]:
+# 	 initialization [BUS ID 13]:
+# 	 initialization [BUS ID 14]:
+# 	 initialization [BUS ID 15]:
+# 	 initialization [BUS ID 16]:
+# 	 initialization [BUS ID 17]:
+# 	 initialization [BUS ID 18]:
+# 	 initialization [BUS ID 19]:
+# 	 initialization [BUS ID 20]:
+# 	 initialization [BUS ID 21]:
+# 	 initialization [BUS ID 22]:
+# 	 initialization [BUS ID 23]:
+# 	 initialization [BUS ID 24]:
+# 	 initialization [BUS ID 25]:
+# 	 initialization [BUS ID 26]:
+# 	 initialization [BUS ID 27]:
+# 	 initialization [BUS ID 28]:
+# 	 initialization [BUS ID 29]:
+# 	 initialization [BUS ID 30]:
+# 	 initialization [BUS ID 31]:
+# *****************************************************************************
+# 0
+# 
+# hds_restart
+restart -force
+# ** Note: (vsim-12125) Error and warning message counts have been reset to '0' because of 'restart'.
+# ** Note: (vsim-3813) Design is being optimized due to module recompilation...
+# ** Warning: (vsim-3865) Due to PLI being present, global +acc is being enabled automatically. This will cause your simulation to run very slowly. Please use vsim -no_autoacc to disable this feature. This feature is now deprecated and will be removed from future releases.
+# ** Warning: (vopt-10016) Option '-L ieee' was detected by vlog for design-unit 'tb_mopshub_top', but was not detected by vopt. The vlog option will be ignored.
+# ** Warning: (vopt-10017) vopt and vlog detected inconsistent ordering of options -L tsmcdigital_lib, -L top_lib, -L MOPSv2_lib, -L canakari, -L CANdecoder, -L ftrim, -L mopshub_lib and -L mopshub_testbench for design-unit 'tb_mopshub_top'. vopt will ignore the ordering that was given to vlog.
+# ** Warning: (vopt-10016) Option '-L ieee' was detected by vlog for design-unit 'dec32_Nbit', but was not detected by vopt. The vlog option will be ignored.
+# ** Warning: (vopt-10017) vopt and vlog detected inconsistent ordering of options -L tsmcdigital_lib, -L top_lib, -L MOPSv2_lib, -L canakari, -L CANdecoder, -L ftrim, -L mopshub_lib and -L mopshub_testbench for design-unit 'dec32_Nbit'. vopt will ignore the ordering that was given to vlog.
+# ** Warning: (vopt-10016) Option '-L ieee' was detected by vlog for design-unit 'can_bus_activity', but was not detected by vopt. The vlog option will be ignored.
+# ** Warning: (vopt-10017) vopt and vlog detected inconsistent ordering of options -L tsmcdigital_lib, -L top_lib, -L MOPSv2_lib, -L canakari, -L CANdecoder, -L ftrim, -L mopshub_lib and -L mopshub_testbench for design-unit 'can_bus_activity'. vopt will ignore the ordering that was given to vlog.
+# ** Warning: (vopt-10017) vopt and vlog detected inconsistent ordering of options -L tsmcdigital_lib, -L top_lib, -L MOPSv2_lib, -L canakari, -L CANdecoder, -L ftrim and -L mopshub_lib for design-unit 'canframegen'. vopt will ignore the ordering that was given to vlog.
+# ** Warning: (vopt-10017) vopt and vlog detected inconsistent ordering of options -L tsmcdigital_lib, -L top_lib, -L MOPSv2_lib, -L canakari, -L CANdecoder, -L ftrim and -L mopshub_lib for design-unit 'canframegen_sv_unit'. vopt will ignore the ordering that was given to vlog.
+# Loading sv_std.std
+# Loading work.tb_mopshub_top(fast)
+# Loading mopshub_lib.mopshub_top(fast)
+# Loading mopshub_lib.bus_control_SM(fast)
+# Loading mopshub_lib.control_bus(fast)
+# Loading mopshub_lib.bit_counter(fast)
+# Loading mopshub_lib.demux1_1bit(fast)
+# Loading mopshub_lib.initialize_bus_control(fast)
+# Loading mopshub_lib.elink_core(fast)
+# Loading mopshub_lib.buffer_rec_elink(fast)
+# Loading mopshub_lib.buffer_rec_spi(fast)
+# Loading mopshub_lib.buffer_tra_elink(fast)
+# Loading mopshub_lib.buffer_tra_spi(fast)
+# Loading mopshub_lib.elink_interface_rec_SM(fast)
+# Loading mopshub_lib.elink_interface_tra_SM(fast)
+# Loading mopshub_lib.elink_to_fifo(fast)
+# Loading mopshub_lib.elink_proc_in(fast)
+# Loading mopshub_lib.elink_proc_in_dec8b10b(fast)
+# Loading mopshub_lib.bitstream_shift_register(fast)
+# Loading mopshub_lib.dec_8b10b_wrap(fast)
+# Loading mopshub_lib.sync_detector(fast)
+# Loading mopshub_lib.elink_proc_in_direct(fast)
+# Loading mopshub_lib.fifo_RXelink_wrap(fast)
+# Loading mopshub_lib.fifo_to_elink(fast)
+# Loading mopshub_lib.elink_proc_out(fast)
+# Loading mopshub_lib.elink_proc_out_direct(fast)
+# Loading mopshub_lib.mux4_Nbit(fast)
+# Loading mopshub_lib.triger_counter(fast)
+# Loading mopshub_lib.elink_proc_out_enc8b10b(fast)
+# Loading mopshub_lib.enc8b10b_wrap(fast)
+# Loading mopshub_lib.mux4_Nbit(fast__1)
+# Loading mopshub_lib.mux8_Nbit(fast)
+# Loading mopshub_lib.triger_counter(fast__1)
+# Loading mopshub_lib.monitor_bus(fast)
+# Loading mopshub_lib.buffer_rec_spi_data(fast)
+# Loading mopshub_lib.buffer_tra_spi_data(fast)
+# Loading mopshub_lib.mopshub_core(fast)
+# Loading mopshub_lib.bridge_controller(fast)
+# Loading mopshub_lib.buffer_rec_data(fast)
+# Loading mopshub_lib.buffer_tra_data(fast)
+# Loading mopshub_lib.can_elink_bridge_SM(fast)
+# Loading mopshub_lib.canakari_interface(fast)
+# Loading mopshub_lib.buffer_tristate_busid(fast)
+# Loading mopshub_lib.bus_comp(fast)
+# Loading mopshub_lib.can_interface(fast)
+# Loading mopshub_lib.can_interface_SM(fast)
+# Loading MOPSv2_lib.initialize_block(fast)
+# Loading mopshub_lib.osc_trim_SM(fast)
+# Loading mopshub_lib.timout_rst(fast)
+# Loading mopshub_lib.canakari_top(fast)
+# Loading mopshub_lib.canakari_0_7(fast)
+# Loading mopshub_lib.can(fast)
+# Loading canakari.can2(fast)
+# Loading canakari.resetgen2(fast)
+# Loading canakari.mac2(fast)
+# Loading canakari.reset_mac2(fast)
+# Loading canakari.macfsm2(fast)
+# Loading canakari.biterrordetect2(fast)
+# Loading canakari.counter2(fast)
+# Loading canakari.decapsulation2(fast)
+# Loading canakari.destuffing2(fast)
+# Loading canakari.encapsulation2(fast)
+# Loading canakari.rcrc2(fast)
+# Loading canakari.rcrc_cell2(fast)
+# Loading canakari.recmeslen2(fast)
+# Loading canakari.rshiftreg2(fast)
+# Loading canakari.rshift_cell2(fast)
+# Loading canakari.stuffing2(fast)
+# Loading canakari.tcrc2(fast)
+# Loading canakari.tcrc_cell2(fast)
+# Loading canakari.tshiftreg2(fast)
+# Loading canakari.tshift_cell2(fast)
+# Loading canakari.fsm_register2(fast)
+# Loading canakari.fastshift2(fast)
+# Loading canakari.meslencompare2(fast)
+# Loading canakari.llc2(fast)
+# Loading canakari.llc_fsm2(fast)
+# Loading canakari.equal_id2(fast)
+# Loading canakari.bittiming2(fast)
+# Loading ftrim.Control_Sys(fast)
+# Loading ftrim.PID_Regler(fast)
+# Loading ftrim.Ftrim_En(fast)
+# Loading ftrim.Diff(fast)
+# Loading ftrim.Multi(fast)
+# Loading ftrim.Multi_i(fast)
+# Loading ftrim.Accumulator(fast)
+# Loading ftrim.Add_PID(fast)
+# Loading ftrim.Output_Scaling(fast)
+# Loading ftrim.CLK_Counter(fast)
+# Loading ftrim.Control_FSM(fast)
+# Loading ftrim.Phasenfehler_Reg(fast)
+# Loading ftrim.ready_counter(fast)
+# Loading canakari.bittime2(fast)
+# Loading canakari.sum2(fast)
+# Loading canakari.timecount2(fast)
+# Loading canakari.edgepuffer2(fast)
+# Loading canakari.smpldbit_reg2(fast)
+# Loading canakari.tseg_reg2(fast)
+# Loading canakari.fce2(fast)
+# Loading canakari.faultfsm2(fast)
+# Loading canakari.rec2(fast)
+# Loading canakari.tec2(fast)
+# Loading canakari.erbcount2(fast)
+# Loading canakari.interruptunit2(fast)
+# Loading canakari.iocpu2(fast)
+# Loading canakari.multiplexer2(fast)
+# Loading canakari.read_mux2(fast)
+# Loading canakari.write_demux2(fast)
+# Loading canakari.generalregister2(fast)
+# Loading canakari.recmescontrolreg2(fast)
+# Loading canakari.recarbitreg2(fast)
+# Loading canakari.accmaskreg2(fast)
+# Loading canakari.interrupregister2(fast)
+# Loading canakari.prescalereg2(fast)
+# Loading canakari.recregister2(fast)
+# Loading canakari.transmesconreg2(fast)
+# Loading canakari.transmitreg2(fast)
+# Loading canakari.prescale2(fast)
+# Loading mopshub_lib.node_rec_mux(fast)
+# Loading mopshub_lib.bit_shifter(fast)
+# Loading mopshub_lib.buffer_rec_canakari(fast)
+# Loading mopshub_lib.bus_rec_SM(fast)
+# Loading mopshub_lib.dec1_Nbit(fast)
+# Loading mopshub_lib.dec32_Nbit(fast)
+# Loading mopshub_lib.demux1_1bit(fast__1)
+# Loading mopshub_lib.mux32_Nbit(fast)
+# Loading mopshub_lib.node_tra_demux(fast)
+# Loading mopshub_lib.demux1_Nbit(fast)
+# Loading mopshub_lib.mux1_1bit(fast)
+# Loading work.data_generator(fast)
+# Loading CANdecoder.CANbus_decoder(fast)
+# Loading CANdecoder.CANAkari_interfacedec(fast)
+# Loading CANdecoder.caninterfacedec(fast)
+# Loading CANdecoder.idcompdec(fast)
+# Loading CANdecoder.interfaceSMdec(fast)
+# Loading CANdecoder.bridgeSMdec(fast)
+# Loading CANdecoder.initialize_blockdec(fast)
+# Loading CANdecoder.rec_mes_bufdec(fast)
+# Loading CANdecoder.timoutrstdec(fast)
+# Loading work.can_bus_activity(fast)
+# Loading work.can_net_decoder(fast)
+# Loading work.mops_top_level(fast)
+# Loading CANdecoder.adcdumdata(fast)
+# Loading MOPSv2_lib.top_level(fast)
+# Loading MOPSv2_lib.clkbuffer(fast)
+# Loading MOPSv2_lib.global_resetgen(fast)
+# Loading MOPSv2_lib.delay_cell(fast)
+# Loading MOPSv2_lib.bridge_controller_top(fast)
+# Loading MOPSv2_lib.ADCinterface(fast)
+# Loading MOPSv2_lib.ADCfsm(fast)
+# Loading MOPSv2_lib.adcsel(fast)
+# Loading MOPSv2_lib.CANAkari_interface(fast)
+# Loading MOPSv2_lib.caninterface(fast)
+# Loading MOPSv2_lib.idcomp(fast)
+# Loading MOPSv2_lib.interfaceSM(fast)
+# Loading MOPSv2_lib.bridgeSM(fast)
+# Loading MOPSv2_lib.canopen_block(fast)
+# Loading MOPSv2_lib.ODfsm(fast)
+# Loading MOPSv2_lib.abortcodes(fast)
+# Loading MOPSv2_lib.msgdecode(fast)
+# Loading MOPSv2_lib.odinterface(fast)
+# Loading MOPSv2_lib.count2reload(fast)
+# Loading MOPSv2_lib.ftrim_sel(fast)
+# Loading MOPSv2_lib.od(fast)
+# Loading MOPSv2_lib.OD_MUX(fast)
+# Loading MOPSv2_lib.OD_buf(fast)
+# Loading MOPSv2_lib.OD_control(fast)
+# Loading MOPSv2_lib.rec_mes_buf(fast)
+# Loading MOPSv2_lib.timoutrst(fast)
+# Loading MOPSv2_lib.tra_mes_buf(fast)
+# Loading top_lib.canframegen_sv_unit(fast)
+# Loading top_lib.canframegen(fast)
+# Loading mopshub_lib.clk_div(fast)
+# Loading work.data_generator_SM(fast)
+# Loading work.mopshub_decoder(fast)
+# Loading work.clock_generator(fast)
+# Loading mopshub_lib.clock_divider(fast)
+# Loading mopshub_lib.clock_divider(fast__1)
+# Loading std.standard
+# Loading std.textio(body)
+# Loading ieee.std_logic_1164(body)
+# Loading ieee.numeric_std(body)
+# Loading mopshub_lib.spi_master(behavioral)#1
+# Loading mopshub_lib.dec_8b10b(behavioral)#1
+# Loading mopshub_lib.enc_8b10b(behavioral)#1
+# Loading /eda/mentor/2019-20/RHELx86/HDL-DESIGNER_2019.4/resources/downstream/modelsim/ModelSim_64Bit.dll
+# ** Warning: (vsim-8634) Code was not compiled with coverage options.
+run
+# Frequncy  = 40 MHz, Period = 25.000 ns
+# clk phase = 0 deg
+# clk duty = 50 %
+# 	 initialization [BUS ID  0]:
+# 	 initialization [BUS ID  1]:
+# 	 initialization [BUS ID  2]:
+# 	 initialization [BUS ID  3]:
+# 	 initialization [BUS ID  4]:
+# 	 initialization [BUS ID  5]:
+# 	 initialization [BUS ID  6]:
+# 	 initialization [BUS ID  7]:
+# 	 initialization [BUS ID  8]:
+# 	 initialization [BUS ID  9]:
+# 	 initialization [BUS ID 10]:
+# 	 initialization [BUS ID 11]:
+# 	 initialization [BUS ID 12]:
+# 	 initialization [BUS ID 13]:
+# 	 initialization [BUS ID 14]:
+# 	 initialization [BUS ID 15]:
+# 	 initialization [BUS ID 16]:
+# 	 initialization [BUS ID 17]:
+# 	 initialization [BUS ID 18]:
+# 	 initialization [BUS ID 19]:
+# 	 initialization [BUS ID 20]:
+# 	 initialization [BUS ID 21]:
+# 	 initialization [BUS ID 22]:
+# 	 initialization [BUS ID 23]:
+# 	 initialization [BUS ID 24]:
+# 	 initialization [BUS ID 25]:
+# 	 initialization [BUS ID 26]:
+# 	 initialization [BUS ID 27]:
+# 	 initialization [BUS ID 28]:
+# 	 initialization [BUS ID 29]:
+# 	 initialization [BUS ID 30]:
+# 	 initialization [BUS ID 31]:
+# *****************************************************************************
+# Current simulation time is: 2081768
+# *****************************************************************************
+# 	 Sign In Message    [BUS ID  0]: 	 response 7010500000000000000 	
+# *****************************************************************************
+# Status BAD **************************[RX-TX test [BUS ID  0]****************** Status BAD 0000000000000000000
+# Status BAD **************************[RX-TX test [BUS ID  0]****************** Status BAD 7010500000000000000
+# ************MOPS reponded to a costumom message. The reponse must be checked
+# 	 Receive RX signals [BUS ID   0]: 	 request 0000000000000000000 	 response 7010500000000000000
+# Status GOOD [BUS ID   0]- RX test
+# 	 Receive RX signals [BUS ID   0]: 	 request 6014024001c00000000 	 response 5814324001c0000031c
+# Status GOOD [BUS ID   0]- RX test
+# 	 Receive RX signals [BUS ID   0]: 	 request 6014024001d00000000 	 response 5814324001d0000031d
+# Status GOOD [BUS ID   1]- RX test
+# 	 Receive RX signals [BUS ID   1]: 	 request 6014024001b01000000 	 response 5814324001b0100031b
+# Status GOOD [BUS ID   1]- RX test
+# 	 Receive RX signals [BUS ID   1]: 	 request 6014024001c01000000 	 response 5814324001c0100031c
+# Status GOOD [BUS ID   1]- RX test
+# 	 Receive RX signals [BUS ID   1]: 	 request 6014024001d01000000 	 response 5814324001d0100031d
+# Status GOOD [BUS ID   2]- RX test
+# 	 Receive RX signals [BUS ID   2]: 	 request 6014024001b02000000 	 response 5814324001b0200031b
+# Status GOOD [BUS ID   2]- RX test
+# 	 Receive RX signals [BUS ID   2]: 	 request 6014024001c02000000 	 response 5814324001c0200031c
+# Status GOOD [BUS ID   2]- RX test
+# 	 Receive RX signals [BUS ID   2]: 	 request 6014024001d02000000 	 response 5814324001d0200031d
+# Status GOOD [BUS ID   3]- RX test
+# 	 Receive RX signals [BUS ID   3]: 	 request 6014024001b03000000 	 response 5814324001b0300031b
+# Status GOOD [BUS ID   3]- RX test
+# 	 Receive RX signals [BUS ID   3]: 	 request 6014024001c03000000 	 response 5814324001c0300031c
+# Status GOOD [BUS ID   3]- RX test
+# 	 Receive RX signals [BUS ID   3]: 	 request 6014024001d03000000 	 response 5814324001d0300031d
+# Status GOOD [BUS ID   4]- RX test
+# 	 Receive RX signals [BUS ID   4]: 	 request 6014024001b04000000 	 response 5814324001b0400031b
+# Status GOOD [BUS ID   4]- RX test
+# 	 Receive RX signals [BUS ID   4]: 	 request 6014024001c04000000 	 response 5814324001c0400031c
+# Status GOOD [BUS ID   4]- RX test
+# 	 Receive RX signals [BUS ID   4]: 	 request 6014024001d04000000 	 response 5814324001d0400031d
+# Status GOOD [BUS ID   5]- RX test
+# 	 Receive RX signals [BUS ID   5]: 	 request 6014024001b05000000 	 response 5814324001b0500031b
+# Status GOOD [BUS ID   5]- RX test
+# 	 Receive RX signals [BUS ID   5]: 	 request 6014024001c05000000 	 response 5814324001c0500031c
+# Status GOOD [BUS ID   5]- RX test
+# 	 Receive RX signals [BUS ID   5]: 	 request 6014024001d05000000 	 response 5814324001d0500031d
+# Status GOOD [BUS ID   6]- RX test
+# 	 Receive RX signals [BUS ID   6]: 	 request 6014024001b06000000 	 response 5814324001b0600031b
+# Status GOOD [BUS ID   6]- RX test
+# 	 Receive RX signals [BUS ID   6]: 	 request 6014024001c06000000 	 response 5814324001c0600031c
+# Status GOOD [BUS ID   6]- RX test
+# 	 Receive RX signals [BUS ID   6]: 	 request 6014024001d06000000 	 response 5814324001d0600031d
+add wave -position 11  sim:/tb_mopshub_top/mopshub0/cs_m
+# Status GOOD [BUS ID   7]- RX test
+# 	 Receive RX signals [BUS ID   7]: 	 request 6014024001b07000000 	 response 5814324001b0700031b
+# Status GOOD [BUS ID   7]- RX test
+# 	 Receive RX signals [BUS ID   7]: 	 request 6014024001c07000000 	 response 5814324001c0700031c
+# Status GOOD [BUS ID   7]- RX test
+# 	 Receive RX signals [BUS ID   7]: 	 request 6014024001d07000000 	 response 5814324001d0700031d
+# Status GOOD [BUS ID   8]- RX test
+# 	 Receive RX signals [BUS ID   8]: 	 request 6014024001b08000000 	 response 5814324001b0800031b
+# Status GOOD [BUS ID   8]- RX test
+# 	 Receive RX signals [BUS ID   8]: 	 request 6014024001c08000000 	 response 5814324001c0800031c
+add wave -position 12  sim:/tb_mopshub_top/mopshub0/addr
+# Status GOOD [BUS ID   8]- RX test
+# 	 Receive RX signals [BUS ID   8]: 	 request 6014024001d08000000 	 response 5814324001d0800031d
+# Status GOOD [BUS ID   9]- RX test
+# 	 Receive RX signals [BUS ID   9]: 	 request 6014024001b09000000 	 response 5814324001b0900031b
+# Status GOOD [BUS ID   9]- RX test
+# 	 Receive RX signals [BUS ID   9]: 	 request 6014024001c09000000 	 response 5814324001c0900031c
+# Status GOOD [BUS ID   9]- RX test
+# 	 Receive RX signals [BUS ID   9]: 	 request 6014024001d09000000 	 response 5814324001d0900031d
+add wave -position 13  sim:/tb_mopshub_top/mopshub0/monitor_pp30/data_init
+# Status GOOD [BUS ID  10]- RX test
+# 	 Receive RX signals [BUS ID  10]: 	 request 6014024001b0a000000 	 response 5814324001b0a00031b
+# Status GOOD [BUS ID  10]- RX test
+# 	 Receive RX signals [BUS ID  10]: 	 request 6014024001c0a000000 	 response 5814324001c0a00031c
+restart
+# ** Note: (vsim-12125) Error and warning message counts have been reset to '0' because of 'restart'.
+# ** Note: (vsim-8009) Loading existing optimized design _opt5
+# Loading sv_std.std
+# Loading work.tb_mopshub_top(fast)
+# Loading mopshub_lib.mopshub_top(fast)
+# Loading mopshub_lib.bus_control_SM(fast)
+# Loading mopshub_lib.control_bus(fast)
+# Loading mopshub_lib.bit_counter(fast)
+# Loading mopshub_lib.demux1_1bit(fast)
+# Loading mopshub_lib.initialize_bus_control(fast)
+# Loading mopshub_lib.elink_core(fast)
+# Loading mopshub_lib.buffer_rec_elink(fast)
+# Loading mopshub_lib.buffer_rec_spi(fast)
+# Loading mopshub_lib.buffer_tra_elink(fast)
+# Loading mopshub_lib.buffer_tra_spi(fast)
+# Loading mopshub_lib.elink_interface_rec_SM(fast)
+# Loading mopshub_lib.elink_interface_tra_SM(fast)
+# Loading mopshub_lib.elink_to_fifo(fast)
+# Loading mopshub_lib.elink_proc_in(fast)
+# Loading mopshub_lib.elink_proc_in_dec8b10b(fast)
+# Loading mopshub_lib.bitstream_shift_register(fast)
+# Loading mopshub_lib.dec_8b10b_wrap(fast)
+# Loading mopshub_lib.sync_detector(fast)
+# Loading mopshub_lib.elink_proc_in_direct(fast)
+# Loading mopshub_lib.fifo_RXelink_wrap(fast)
+# Loading mopshub_lib.fifo_to_elink(fast)
+# Loading mopshub_lib.elink_proc_out(fast)
+# Loading mopshub_lib.elink_proc_out_direct(fast)
+# Loading mopshub_lib.mux4_Nbit(fast)
+# Loading mopshub_lib.triger_counter(fast)
+# Loading mopshub_lib.elink_proc_out_enc8b10b(fast)
+# Loading mopshub_lib.enc8b10b_wrap(fast)
+# Loading mopshub_lib.mux4_Nbit(fast__1)
+# Loading mopshub_lib.mux8_Nbit(fast)
+# Loading mopshub_lib.triger_counter(fast__1)
+# Loading mopshub_lib.monitor_bus(fast)
+# Loading mopshub_lib.buffer_rec_spi_data(fast)
+# Loading mopshub_lib.buffer_tra_spi_data(fast)
+# Loading mopshub_lib.mopshub_core(fast)
+# Loading mopshub_lib.bridge_controller(fast)
+# Loading mopshub_lib.buffer_rec_data(fast)
+# Loading mopshub_lib.buffer_tra_data(fast)
+# Loading mopshub_lib.can_elink_bridge_SM(fast)
+# Loading mopshub_lib.canakari_interface(fast)
+# Loading mopshub_lib.buffer_tristate_busid(fast)
+# Loading mopshub_lib.bus_comp(fast)
+# Loading mopshub_lib.can_interface(fast)
+# Loading mopshub_lib.can_interface_SM(fast)
+# Loading MOPSv2_lib.initialize_block(fast)
+# Loading mopshub_lib.osc_trim_SM(fast)
+# Loading mopshub_lib.timout_rst(fast)
+# Loading mopshub_lib.canakari_top(fast)
+# Loading mopshub_lib.canakari_0_7(fast)
+# Loading mopshub_lib.can(fast)
+# Loading canakari.can2(fast)
+# Loading canakari.resetgen2(fast)
+# Loading canakari.mac2(fast)
+# Loading canakari.reset_mac2(fast)
+# Loading canakari.macfsm2(fast)
+# Loading canakari.biterrordetect2(fast)
+# Loading canakari.counter2(fast)
+# Loading canakari.decapsulation2(fast)
+# Loading canakari.destuffing2(fast)
+# Loading canakari.encapsulation2(fast)
+# Loading canakari.rcrc2(fast)
+# Loading canakari.rcrc_cell2(fast)
+# Loading canakari.recmeslen2(fast)
+# Loading canakari.rshiftreg2(fast)
+# Loading canakari.rshift_cell2(fast)
+# Loading canakari.stuffing2(fast)
+# Loading canakari.tcrc2(fast)
+# Loading canakari.tcrc_cell2(fast)
+# Loading canakari.tshiftreg2(fast)
+# Loading canakari.tshift_cell2(fast)
+# Loading canakari.fsm_register2(fast)
+# Loading canakari.fastshift2(fast)
+# Loading canakari.meslencompare2(fast)
+# Loading canakari.llc2(fast)
+# Loading canakari.llc_fsm2(fast)
+# Loading canakari.equal_id2(fast)
+# Loading canakari.bittiming2(fast)
+# Loading ftrim.Control_Sys(fast)
+# Loading ftrim.PID_Regler(fast)
+# Loading ftrim.Ftrim_En(fast)
+# Loading ftrim.Diff(fast)
+# Loading ftrim.Multi(fast)
+# Loading ftrim.Multi_i(fast)
+# Loading ftrim.Accumulator(fast)
+# Loading ftrim.Add_PID(fast)
+# Loading ftrim.Output_Scaling(fast)
+# Loading ftrim.CLK_Counter(fast)
+# Loading ftrim.Control_FSM(fast)
+# Loading ftrim.Phasenfehler_Reg(fast)
+# Loading ftrim.ready_counter(fast)
+# Loading canakari.bittime2(fast)
+# Loading canakari.sum2(fast)
+# Loading canakari.timecount2(fast)
+# Loading canakari.edgepuffer2(fast)
+# Loading canakari.smpldbit_reg2(fast)
+# Loading canakari.tseg_reg2(fast)
+# Loading canakari.fce2(fast)
+# Loading canakari.faultfsm2(fast)
+# Loading canakari.rec2(fast)
+# Loading canakari.tec2(fast)
+# Loading canakari.erbcount2(fast)
+# Loading canakari.interruptunit2(fast)
+# Loading canakari.iocpu2(fast)
+# Loading canakari.multiplexer2(fast)
+# Loading canakari.read_mux2(fast)
+# Loading canakari.write_demux2(fast)
+# Loading canakari.generalregister2(fast)
+# Loading canakari.recmescontrolreg2(fast)
+# Loading canakari.recarbitreg2(fast)
+# Loading canakari.accmaskreg2(fast)
+# Loading canakari.interrupregister2(fast)
+# Loading canakari.prescalereg2(fast)
+# Loading canakari.recregister2(fast)
+# Loading canakari.transmesconreg2(fast)
+# Loading canakari.transmitreg2(fast)
+# Loading canakari.prescale2(fast)
+# Loading mopshub_lib.node_rec_mux(fast)
+# Loading mopshub_lib.bit_shifter(fast)
+# Loading mopshub_lib.buffer_rec_canakari(fast)
+# Loading mopshub_lib.bus_rec_SM(fast)
+# Loading mopshub_lib.dec1_Nbit(fast)
+# Loading mopshub_lib.dec32_Nbit(fast)
+# Loading mopshub_lib.demux1_1bit(fast__1)
+# Loading mopshub_lib.mux32_Nbit(fast)
+# Loading mopshub_lib.node_tra_demux(fast)
+# Loading mopshub_lib.demux1_Nbit(fast)
+# Loading mopshub_lib.mux1_1bit(fast)
+# Loading work.data_generator(fast)
+# Loading CANdecoder.CANbus_decoder(fast)
+# Loading CANdecoder.CANAkari_interfacedec(fast)
+# Loading CANdecoder.caninterfacedec(fast)
+# Loading CANdecoder.idcompdec(fast)
+# Loading CANdecoder.interfaceSMdec(fast)
+# Loading CANdecoder.bridgeSMdec(fast)
+# Loading CANdecoder.initialize_blockdec(fast)
+# Loading CANdecoder.rec_mes_bufdec(fast)
+# Loading CANdecoder.timoutrstdec(fast)
+# Loading work.can_bus_activity(fast)
+# Loading work.can_net_decoder(fast)
+# Loading work.mops_top_level(fast)
+# Loading CANdecoder.adcdumdata(fast)
+# Loading MOPSv2_lib.top_level(fast)
+# Loading MOPSv2_lib.clkbuffer(fast)
+# Loading MOPSv2_lib.global_resetgen(fast)
+# Loading MOPSv2_lib.delay_cell(fast)
+# Loading MOPSv2_lib.bridge_controller_top(fast)
+# Loading MOPSv2_lib.ADCinterface(fast)
+# Loading MOPSv2_lib.ADCfsm(fast)
+# Loading MOPSv2_lib.adcsel(fast)
+# Loading MOPSv2_lib.CANAkari_interface(fast)
+# Loading MOPSv2_lib.caninterface(fast)
+# Loading MOPSv2_lib.idcomp(fast)
+# Loading MOPSv2_lib.interfaceSM(fast)
+# Loading MOPSv2_lib.bridgeSM(fast)
+# Loading MOPSv2_lib.canopen_block(fast)
+# Loading MOPSv2_lib.ODfsm(fast)
+# Loading MOPSv2_lib.abortcodes(fast)
+# Loading MOPSv2_lib.msgdecode(fast)
+# Loading MOPSv2_lib.odinterface(fast)
+# Loading MOPSv2_lib.count2reload(fast)
+# Loading MOPSv2_lib.ftrim_sel(fast)
+# Loading MOPSv2_lib.od(fast)
+# Loading MOPSv2_lib.OD_MUX(fast)
+# Loading MOPSv2_lib.OD_buf(fast)
+# Loading MOPSv2_lib.OD_control(fast)
+# Loading MOPSv2_lib.rec_mes_buf(fast)
+# Loading MOPSv2_lib.timoutrst(fast)
+# Loading MOPSv2_lib.tra_mes_buf(fast)
+# Loading top_lib.canframegen_sv_unit(fast)
+# Loading top_lib.canframegen(fast)
+# Loading mopshub_lib.clk_div(fast)
+# Loading work.data_generator_SM(fast)
+# Loading work.mopshub_decoder(fast)
+# Loading work.clock_generator(fast)
+# Loading mopshub_lib.clock_divider(fast)
+# Loading mopshub_lib.clock_divider(fast__1)
+# Loading /eda/mentor/2019-20/RHELx86/HDL-DESIGNER_2019.4/resources/downstream/modelsim/ModelSim_64Bit.dll
+# ** Warning: (vsim-8634) Code was not compiled with coverage options.
+run
+# Frequncy  = 40 MHz, Period = 25.000 ns
+# clk phase = 0 deg
+# clk duty = 50 %
+# 	 initialization [BUS ID  0]:
+# 	 initialization [BUS ID  1]:
+# 	 initialization [BUS ID  2]:
+# 	 initialization [BUS ID  3]:
+# 	 initialization [BUS ID  4]:
+# 	 initialization [BUS ID  5]:
+# 	 initialization [BUS ID  6]:
+# 	 initialization [BUS ID  7]:
+# 	 initialization [BUS ID  8]:
+# 	 initialization [BUS ID  9]:
+# 	 initialization [BUS ID 10]:
+# 	 initialization [BUS ID 11]:
+# 	 initialization [BUS ID 12]:
+# 	 initialization [BUS ID 13]:
+# 	 initialization [BUS ID 14]:
+# 	 initialization [BUS ID 15]:
+# 	 initialization [BUS ID 16]:
+# 	 initialization [BUS ID 17]:
+# 	 initialization [BUS ID 18]:
+# 	 initialization [BUS ID 19]:
+# 	 initialization [BUS ID 20]:
+# 	 initialization [BUS ID 21]:
+# 	 initialization [BUS ID 22]:
+# 	 initialization [BUS ID 23]:
+# 	 initialization [BUS ID 24]:
+# 	 initialization [BUS ID 25]:
+# 	 initialization [BUS ID 26]:
+# 	 initialization [BUS ID 27]:
+# 	 initialization [BUS ID 28]:
+# 	 initialization [BUS ID 29]:
+# 	 initialization [BUS ID 30]:
+# 	 initialization [BUS ID 31]:
+# *****************************************************************************
+# Current simulation time is: 2081768
+# *****************************************************************************
+# 	 Sign In Message    [BUS ID  0]: 	 response 7010500000000000000 	
+# *****************************************************************************
+# Status BAD **************************[RX-TX test [BUS ID  0]****************** Status BAD 0000000000000000000
+# Status BAD **************************[RX-TX test [BUS ID  0]****************** Status BAD 7010500000000000000
+# ************MOPS reponded to a costumom message. The reponse must be checked
+# 	 Receive RX signals [BUS ID   0]: 	 request 0000000000000000000 	 response 7010500000000000000
+# Status GOOD [BUS ID   0]- RX test
+# 	 Receive RX signals [BUS ID   0]: 	 request 6014024001c00000000 	 response 5814324001c0000031c
+# 0
+# 
+add wave -position 14  sim:/tb_mopshub_top/mopshub0/start_mon_init
+add wave -position 15  sim:/tb_mopshub_top/mopshub0/end_mon_init
+restart
+# ** Note: (vsim-12125) Error and warning message counts have been reset to '0' because of 'restart'.
+# ** Note: (vsim-8009) Loading existing optimized design _opt5
+# Loading sv_std.std
+# Loading work.tb_mopshub_top(fast)
+# Loading mopshub_lib.mopshub_top(fast)
+# Loading mopshub_lib.bus_control_SM(fast)
+# Loading mopshub_lib.control_bus(fast)
+# Loading mopshub_lib.bit_counter(fast)
+# Loading mopshub_lib.demux1_1bit(fast)
+# Loading mopshub_lib.initialize_bus_control(fast)
+# Loading mopshub_lib.elink_core(fast)
+# Loading mopshub_lib.buffer_rec_elink(fast)
+# Loading mopshub_lib.buffer_rec_spi(fast)
+# Loading mopshub_lib.buffer_tra_elink(fast)
+# Loading mopshub_lib.buffer_tra_spi(fast)
+# Loading mopshub_lib.elink_interface_rec_SM(fast)
+# Loading mopshub_lib.elink_interface_tra_SM(fast)
+# Loading mopshub_lib.elink_to_fifo(fast)
+# Loading mopshub_lib.elink_proc_in(fast)
+# Loading mopshub_lib.elink_proc_in_dec8b10b(fast)
+# Loading mopshub_lib.bitstream_shift_register(fast)
+# Loading mopshub_lib.dec_8b10b_wrap(fast)
+# Loading mopshub_lib.sync_detector(fast)
+# Loading mopshub_lib.elink_proc_in_direct(fast)
+# Loading mopshub_lib.fifo_RXelink_wrap(fast)
+# Loading mopshub_lib.fifo_to_elink(fast)
+# Loading mopshub_lib.elink_proc_out(fast)
+# Loading mopshub_lib.elink_proc_out_direct(fast)
+# Loading mopshub_lib.mux4_Nbit(fast)
+# Loading mopshub_lib.triger_counter(fast)
+# Loading mopshub_lib.elink_proc_out_enc8b10b(fast)
+# Loading mopshub_lib.enc8b10b_wrap(fast)
+# Loading mopshub_lib.mux4_Nbit(fast__1)
+# Loading mopshub_lib.mux8_Nbit(fast)
+# Loading mopshub_lib.triger_counter(fast__1)
+# Loading mopshub_lib.monitor_bus(fast)
+# Loading mopshub_lib.buffer_rec_spi_data(fast)
+# Loading mopshub_lib.buffer_tra_spi_data(fast)
+# Loading mopshub_lib.mopshub_core(fast)
+# Loading mopshub_lib.bridge_controller(fast)
+# Loading mopshub_lib.buffer_rec_data(fast)
+# Loading mopshub_lib.buffer_tra_data(fast)
+# Loading mopshub_lib.can_elink_bridge_SM(fast)
+# Loading mopshub_lib.canakari_interface(fast)
+# Loading mopshub_lib.buffer_tristate_busid(fast)
+# Loading mopshub_lib.bus_comp(fast)
+# Loading mopshub_lib.can_interface(fast)
+# Loading mopshub_lib.can_interface_SM(fast)
+# Loading MOPSv2_lib.initialize_block(fast)
+# Loading mopshub_lib.osc_trim_SM(fast)
+# Loading mopshub_lib.timout_rst(fast)
+# Loading mopshub_lib.canakari_top(fast)
+# Loading mopshub_lib.canakari_0_7(fast)
+# Loading mopshub_lib.can(fast)
+# Loading canakari.can2(fast)
+# Loading canakari.resetgen2(fast)
+# Loading canakari.mac2(fast)
+# Loading canakari.reset_mac2(fast)
+# Loading canakari.macfsm2(fast)
+# Loading canakari.biterrordetect2(fast)
+# Loading canakari.counter2(fast)
+# Loading canakari.decapsulation2(fast)
+# Loading canakari.destuffing2(fast)
+# Loading canakari.encapsulation2(fast)
+# Loading canakari.rcrc2(fast)
+# Loading canakari.rcrc_cell2(fast)
+# Loading canakari.recmeslen2(fast)
+# Loading canakari.rshiftreg2(fast)
+# Loading canakari.rshift_cell2(fast)
+# Loading canakari.stuffing2(fast)
+# Loading canakari.tcrc2(fast)
+# Loading canakari.tcrc_cell2(fast)
+# Loading canakari.tshiftreg2(fast)
+# Loading canakari.tshift_cell2(fast)
+# Loading canakari.fsm_register2(fast)
+# Loading canakari.fastshift2(fast)
+# Loading canakari.meslencompare2(fast)
+# Loading canakari.llc2(fast)
+# Loading canakari.llc_fsm2(fast)
+# Loading canakari.equal_id2(fast)
+# Loading canakari.bittiming2(fast)
+# Loading ftrim.Control_Sys(fast)
+# Loading ftrim.PID_Regler(fast)
+# Loading ftrim.Ftrim_En(fast)
+# Loading ftrim.Diff(fast)
+# Loading ftrim.Multi(fast)
+# Loading ftrim.Multi_i(fast)
+# Loading ftrim.Accumulator(fast)
+# Loading ftrim.Add_PID(fast)
+# Loading ftrim.Output_Scaling(fast)
+# Loading ftrim.CLK_Counter(fast)
+# Loading ftrim.Control_FSM(fast)
+# Loading ftrim.Phasenfehler_Reg(fast)
+# Loading ftrim.ready_counter(fast)
+# Loading canakari.bittime2(fast)
+# Loading canakari.sum2(fast)
+# Loading canakari.timecount2(fast)
+# Loading canakari.edgepuffer2(fast)
+# Loading canakari.smpldbit_reg2(fast)
+# Loading canakari.tseg_reg2(fast)
+# Loading canakari.fce2(fast)
+# Loading canakari.faultfsm2(fast)
+# Loading canakari.rec2(fast)
+# Loading canakari.tec2(fast)
+# Loading canakari.erbcount2(fast)
+# Loading canakari.interruptunit2(fast)
+# Loading canakari.iocpu2(fast)
+# Loading canakari.multiplexer2(fast)
+# Loading canakari.read_mux2(fast)
+# Loading canakari.write_demux2(fast)
+# Loading canakari.generalregister2(fast)
+# Loading canakari.recmescontrolreg2(fast)
+# Loading canakari.recarbitreg2(fast)
+# Loading canakari.accmaskreg2(fast)
+# Loading canakari.interrupregister2(fast)
+# Loading canakari.prescalereg2(fast)
+# Loading canakari.recregister2(fast)
+# Loading canakari.transmesconreg2(fast)
+# Loading canakari.transmitreg2(fast)
+# Loading canakari.prescale2(fast)
+# Loading mopshub_lib.node_rec_mux(fast)
+# Loading mopshub_lib.bit_shifter(fast)
+# Loading mopshub_lib.buffer_rec_canakari(fast)
+# Loading mopshub_lib.bus_rec_SM(fast)
+# Loading mopshub_lib.dec1_Nbit(fast)
+# Loading mopshub_lib.dec32_Nbit(fast)
+# Loading mopshub_lib.demux1_1bit(fast__1)
+# Loading mopshub_lib.mux32_Nbit(fast)
+# Loading mopshub_lib.node_tra_demux(fast)
+# Loading mopshub_lib.demux1_Nbit(fast)
+# Loading mopshub_lib.mux1_1bit(fast)
+# Loading work.data_generator(fast)
+# Loading CANdecoder.CANbus_decoder(fast)
+# Loading CANdecoder.CANAkari_interfacedec(fast)
+# Loading CANdecoder.caninterfacedec(fast)
+# Loading CANdecoder.idcompdec(fast)
+# Loading CANdecoder.interfaceSMdec(fast)
+# Loading CANdecoder.bridgeSMdec(fast)
+# Loading CANdecoder.initialize_blockdec(fast)
+# Loading CANdecoder.rec_mes_bufdec(fast)
+# Loading CANdecoder.timoutrstdec(fast)
+# Loading work.can_bus_activity(fast)
+# Loading work.can_net_decoder(fast)
+# Loading work.mops_top_level(fast)
+# Loading CANdecoder.adcdumdata(fast)
+# Loading MOPSv2_lib.top_level(fast)
+# Loading MOPSv2_lib.clkbuffer(fast)
+# Loading MOPSv2_lib.global_resetgen(fast)
+# Loading MOPSv2_lib.delay_cell(fast)
+# Loading MOPSv2_lib.bridge_controller_top(fast)
+# Loading MOPSv2_lib.ADCinterface(fast)
+# Loading MOPSv2_lib.ADCfsm(fast)
+# Loading MOPSv2_lib.adcsel(fast)
+# Loading MOPSv2_lib.CANAkari_interface(fast)
+# Loading MOPSv2_lib.caninterface(fast)
+# Loading MOPSv2_lib.idcomp(fast)
+# Loading MOPSv2_lib.interfaceSM(fast)
+# Loading MOPSv2_lib.bridgeSM(fast)
+# Loading MOPSv2_lib.canopen_block(fast)
+# Loading MOPSv2_lib.ODfsm(fast)
+# Loading MOPSv2_lib.abortcodes(fast)
+# Loading MOPSv2_lib.msgdecode(fast)
+# Loading MOPSv2_lib.odinterface(fast)
+# Loading MOPSv2_lib.count2reload(fast)
+# Loading MOPSv2_lib.ftrim_sel(fast)
+# Loading MOPSv2_lib.od(fast)
+# Loading MOPSv2_lib.OD_MUX(fast)
+# Loading MOPSv2_lib.OD_buf(fast)
+# Loading MOPSv2_lib.OD_control(fast)
+# Loading MOPSv2_lib.rec_mes_buf(fast)
+# Loading MOPSv2_lib.timoutrst(fast)
+# Loading MOPSv2_lib.tra_mes_buf(fast)
+# Loading top_lib.canframegen_sv_unit(fast)
+# Loading top_lib.canframegen(fast)
+# Loading mopshub_lib.clk_div(fast)
+# Loading work.data_generator_SM(fast)
+# Loading work.mopshub_decoder(fast)
+# Loading work.clock_generator(fast)
+# Loading mopshub_lib.clock_divider(fast)
+# Loading mopshub_lib.clock_divider(fast__1)
+# Loading /eda/mentor/2019-20/RHELx86/HDL-DESIGNER_2019.4/resources/downstream/modelsim/ModelSim_64Bit.dll
+# ** Warning: (vsim-8634) Code was not compiled with coverage options.
+run
+# Frequncy  = 40 MHz, Period = 25.000 ns
+# clk phase = 0 deg
+# clk duty = 50 %
+# 	 initialization [BUS ID  0]:
+# 	 initialization [BUS ID  1]:
+# 	 initialization [BUS ID  2]:
+# 	 initialization [BUS ID  3]:
+# 	 initialization [BUS ID  4]:
+# 	 initialization [BUS ID  5]:
+# 	 initialization [BUS ID  6]:
+# 	 initialization [BUS ID  7]:
+# 	 initialization [BUS ID  8]:
+# 	 initialization [BUS ID  9]:
+# 	 initialization [BUS ID 10]:
+# 	 initialization [BUS ID 11]:
+# 	 initialization [BUS ID 12]:
+# 	 initialization [BUS ID 13]:
+# 	 initialization [BUS ID 14]:
+# 	 initialization [BUS ID 15]:
+# 	 initialization [BUS ID 16]:
+# 	 initialization [BUS ID 17]:
+# 	 initialization [BUS ID 18]:
+# 	 initialization [BUS ID 19]:
+# 	 initialization [BUS ID 20]:
+# 	 initialization [BUS ID 21]:
+# 	 initialization [BUS ID 22]:
+# 	 initialization [BUS ID 23]:
+# 	 initialization [BUS ID 24]:
+# 	 initialization [BUS ID 25]:
+# 	 initialization [BUS ID 26]:
+# 	 initialization [BUS ID 27]:
+# 	 initialization [BUS ID 28]:
+# 	 initialization [BUS ID 29]:
+# 	 initialization [BUS ID 30]:
+# 	 initialization [BUS ID 31]:
+# *****************************************************************************
+# Current simulation time is: 2081768
+# *****************************************************************************
+# 	 Sign In Message    [BUS ID  0]: 	 response 7010500000000000000 	
+# *****************************************************************************
+# Status BAD **************************[RX-TX test [BUS ID  0]****************** Status BAD 0000000000000000000
+# Status BAD **************************[RX-TX test [BUS ID  0]****************** Status BAD 7010500000000000000
+# ************MOPS reponded to a costumom message. The reponse must be checked
+# 	 Receive RX signals [BUS ID   0]: 	 request 0000000000000000000 	 response 7010500000000000000
+# Status GOOD [BUS ID   0]- RX test
+# 	 Receive RX signals [BUS ID   0]: 	 request 6014024001c00000000 	 response 5814324001c0000031c
+# Status GOOD [BUS ID   0]- RX test
+# 	 Receive RX signals [BUS ID   0]: 	 request 6014024001d00000000 	 response 5814324001d0000031d
+# 0
+# 
+add wave -position 16  sim:/tb_mopshub_top/mopshub0/cs_m
+add wave -position 17  sim:/tb_mopshub_top/mopshub0/cs_p
+restart
+# ** Note: (vsim-12125) Error and warning message counts have been reset to '0' because of 'restart'.
+# ** Note: (vsim-8009) Loading existing optimized design _opt5
+# Loading sv_std.std
+# Loading work.tb_mopshub_top(fast)
+# Loading mopshub_lib.mopshub_top(fast)
+# Loading mopshub_lib.bus_control_SM(fast)
+# Loading mopshub_lib.control_bus(fast)
+# Loading mopshub_lib.bit_counter(fast)
+# Loading mopshub_lib.demux1_1bit(fast)
+# Loading mopshub_lib.initialize_bus_control(fast)
+# Loading mopshub_lib.elink_core(fast)
+# Loading mopshub_lib.buffer_rec_elink(fast)
+# Loading mopshub_lib.buffer_rec_spi(fast)
+# Loading mopshub_lib.buffer_tra_elink(fast)
+# Loading mopshub_lib.buffer_tra_spi(fast)
+# Loading mopshub_lib.elink_interface_rec_SM(fast)
+# Loading mopshub_lib.elink_interface_tra_SM(fast)
+# Loading mopshub_lib.elink_to_fifo(fast)
+# Loading mopshub_lib.elink_proc_in(fast)
+# Loading mopshub_lib.elink_proc_in_dec8b10b(fast)
+# Loading mopshub_lib.bitstream_shift_register(fast)
+# Loading mopshub_lib.dec_8b10b_wrap(fast)
+# Loading mopshub_lib.sync_detector(fast)
+# Loading mopshub_lib.elink_proc_in_direct(fast)
+# Loading mopshub_lib.fifo_RXelink_wrap(fast)
+# Loading mopshub_lib.fifo_to_elink(fast)
+# Loading mopshub_lib.elink_proc_out(fast)
+# Loading mopshub_lib.elink_proc_out_direct(fast)
+# Loading mopshub_lib.mux4_Nbit(fast)
+# Loading mopshub_lib.triger_counter(fast)
+# Loading mopshub_lib.elink_proc_out_enc8b10b(fast)
+# Loading mopshub_lib.enc8b10b_wrap(fast)
+# Loading mopshub_lib.mux4_Nbit(fast__1)
+# Loading mopshub_lib.mux8_Nbit(fast)
+# Loading mopshub_lib.triger_counter(fast__1)
+# Loading mopshub_lib.monitor_bus(fast)
+# Loading mopshub_lib.buffer_rec_spi_data(fast)
+# Loading mopshub_lib.buffer_tra_spi_data(fast)
+# Loading mopshub_lib.mopshub_core(fast)
+# Loading mopshub_lib.bridge_controller(fast)
+# Loading mopshub_lib.buffer_rec_data(fast)
+# Loading mopshub_lib.buffer_tra_data(fast)
+# Loading mopshub_lib.can_elink_bridge_SM(fast)
+# Loading mopshub_lib.canakari_interface(fast)
+# Loading mopshub_lib.buffer_tristate_busid(fast)
+# Loading mopshub_lib.bus_comp(fast)
+# Loading mopshub_lib.can_interface(fast)
+# Loading mopshub_lib.can_interface_SM(fast)
+# Loading MOPSv2_lib.initialize_block(fast)
+# Loading mopshub_lib.osc_trim_SM(fast)
+# Loading mopshub_lib.timout_rst(fast)
+# Loading mopshub_lib.canakari_top(fast)
+# Loading mopshub_lib.canakari_0_7(fast)
+# Loading mopshub_lib.can(fast)
+# Loading canakari.can2(fast)
+# Loading canakari.resetgen2(fast)
+# Loading canakari.mac2(fast)
+# Loading canakari.reset_mac2(fast)
+# Loading canakari.macfsm2(fast)
+# Loading canakari.biterrordetect2(fast)
+# Loading canakari.counter2(fast)
+# Loading canakari.decapsulation2(fast)
+# Loading canakari.destuffing2(fast)
+# Loading canakari.encapsulation2(fast)
+# Loading canakari.rcrc2(fast)
+# Loading canakari.rcrc_cell2(fast)
+# Loading canakari.recmeslen2(fast)
+# Loading canakari.rshiftreg2(fast)
+# Loading canakari.rshift_cell2(fast)
+# Loading canakari.stuffing2(fast)
+# Loading canakari.tcrc2(fast)
+# Loading canakari.tcrc_cell2(fast)
+# Loading canakari.tshiftreg2(fast)
+# Loading canakari.tshift_cell2(fast)
+# Loading canakari.fsm_register2(fast)
+# Loading canakari.fastshift2(fast)
+# Loading canakari.meslencompare2(fast)
+# Loading canakari.llc2(fast)
+# Loading canakari.llc_fsm2(fast)
+# Loading canakari.equal_id2(fast)
+# Loading canakari.bittiming2(fast)
+# Loading ftrim.Control_Sys(fast)
+# Loading ftrim.PID_Regler(fast)
+# Loading ftrim.Ftrim_En(fast)
+# Loading ftrim.Diff(fast)
+# Loading ftrim.Multi(fast)
+# Loading ftrim.Multi_i(fast)
+# Loading ftrim.Accumulator(fast)
+# Loading ftrim.Add_PID(fast)
+# Loading ftrim.Output_Scaling(fast)
+# Loading ftrim.CLK_Counter(fast)
+# Loading ftrim.Control_FSM(fast)
+# Loading ftrim.Phasenfehler_Reg(fast)
+# Loading ftrim.ready_counter(fast)
+# Loading canakari.bittime2(fast)
+# Loading canakari.sum2(fast)
+# Loading canakari.timecount2(fast)
+# Loading canakari.edgepuffer2(fast)
+# Loading canakari.smpldbit_reg2(fast)
+# Loading canakari.tseg_reg2(fast)
+# Loading canakari.fce2(fast)
+# Loading canakari.faultfsm2(fast)
+# Loading canakari.rec2(fast)
+# Loading canakari.tec2(fast)
+# Loading canakari.erbcount2(fast)
+# Loading canakari.interruptunit2(fast)
+# Loading canakari.iocpu2(fast)
+# Loading canakari.multiplexer2(fast)
+# Loading canakari.read_mux2(fast)
+# Loading canakari.write_demux2(fast)
+# Loading canakari.generalregister2(fast)
+# Loading canakari.recmescontrolreg2(fast)
+# Loading canakari.recarbitreg2(fast)
+# Loading canakari.accmaskreg2(fast)
+# Loading canakari.interrupregister2(fast)
+# Loading canakari.prescalereg2(fast)
+# Loading canakari.recregister2(fast)
+# Loading canakari.transmesconreg2(fast)
+# Loading canakari.transmitreg2(fast)
+# Loading canakari.prescale2(fast)
+# Loading mopshub_lib.node_rec_mux(fast)
+# Loading mopshub_lib.bit_shifter(fast)
+# Loading mopshub_lib.buffer_rec_canakari(fast)
+# Loading mopshub_lib.bus_rec_SM(fast)
+# Loading mopshub_lib.dec1_Nbit(fast)
+# Loading mopshub_lib.dec32_Nbit(fast)
+# Loading mopshub_lib.demux1_1bit(fast__1)
+# Loading mopshub_lib.mux32_Nbit(fast)
+# Loading mopshub_lib.node_tra_demux(fast)
+# Loading mopshub_lib.demux1_Nbit(fast)
+# Loading mopshub_lib.mux1_1bit(fast)
+# Loading work.data_generator(fast)
+# Loading CANdecoder.CANbus_decoder(fast)
+# Loading CANdecoder.CANAkari_interfacedec(fast)
+# Loading CANdecoder.caninterfacedec(fast)
+# Loading CANdecoder.idcompdec(fast)
+# Loading CANdecoder.interfaceSMdec(fast)
+# Loading CANdecoder.bridgeSMdec(fast)
+# Loading CANdecoder.initialize_blockdec(fast)
+# Loading CANdecoder.rec_mes_bufdec(fast)
+# Loading CANdecoder.timoutrstdec(fast)
+# Loading work.can_bus_activity(fast)
+# Loading work.can_net_decoder(fast)
+# Loading work.mops_top_level(fast)
+# Loading CANdecoder.adcdumdata(fast)
+# Loading MOPSv2_lib.top_level(fast)
+# Loading MOPSv2_lib.clkbuffer(fast)
+# Loading MOPSv2_lib.global_resetgen(fast)
+# Loading MOPSv2_lib.delay_cell(fast)
+# Loading MOPSv2_lib.bridge_controller_top(fast)
+# Loading MOPSv2_lib.ADCinterface(fast)
+# Loading MOPSv2_lib.ADCfsm(fast)
+# Loading MOPSv2_lib.adcsel(fast)
+# Loading MOPSv2_lib.CANAkari_interface(fast)
+# Loading MOPSv2_lib.caninterface(fast)
+# Loading MOPSv2_lib.idcomp(fast)
+# Loading MOPSv2_lib.interfaceSM(fast)
+# Loading MOPSv2_lib.bridgeSM(fast)
+# Loading MOPSv2_lib.canopen_block(fast)
+# Loading MOPSv2_lib.ODfsm(fast)
+# Loading MOPSv2_lib.abortcodes(fast)
+# Loading MOPSv2_lib.msgdecode(fast)
+# Loading MOPSv2_lib.odinterface(fast)
+# Loading MOPSv2_lib.count2reload(fast)
+# Loading MOPSv2_lib.ftrim_sel(fast)
+# Loading MOPSv2_lib.od(fast)
+# Loading MOPSv2_lib.OD_MUX(fast)
+# Loading MOPSv2_lib.OD_buf(fast)
+# Loading MOPSv2_lib.OD_control(fast)
+# Loading MOPSv2_lib.rec_mes_buf(fast)
+# Loading MOPSv2_lib.timoutrst(fast)
+# Loading MOPSv2_lib.tra_mes_buf(fast)
+# Loading top_lib.canframegen_sv_unit(fast)
+# Loading top_lib.canframegen(fast)
+# Loading mopshub_lib.clk_div(fast)
+# Loading work.data_generator_SM(fast)
+# Loading work.mopshub_decoder(fast)
+# Loading work.clock_generator(fast)
+# Loading mopshub_lib.clock_divider(fast)
+# Loading mopshub_lib.clock_divider(fast__1)
+# Loading /eda/mentor/2019-20/RHELx86/HDL-DESIGNER_2019.4/resources/downstream/modelsim/ModelSim_64Bit.dll
+# ** Warning: (vsim-8634) Code was not compiled with coverage options.
+run
+# Frequncy  = 40 MHz, Period = 25.000 ns
+# clk phase = 0 deg
+# clk duty = 50 %
+# 	 initialization [BUS ID  0]:
+# 	 initialization [BUS ID  1]:
+# 	 initialization [BUS ID  2]:
+# 	 initialization [BUS ID  3]:
+# 	 initialization [BUS ID  4]:
+# 	 initialization [BUS ID  5]:
+# 	 initialization [BUS ID  6]:
+# 	 initialization [BUS ID  7]:
+# 	 initialization [BUS ID  8]:
+# 	 initialization [BUS ID  9]:
+# 	 initialization [BUS ID 10]:
+# 	 initialization [BUS ID 11]:
+# 	 initialization [BUS ID 12]:
+# 	 initialization [BUS ID 13]:
+# 	 initialization [BUS ID 14]:
+# 	 initialization [BUS ID 15]:
+# 	 initialization [BUS ID 16]:
+# 	 initialization [BUS ID 17]:
+# 	 initialization [BUS ID 18]:
+# 	 initialization [BUS ID 19]:
+# 	 initialization [BUS ID 20]:
+# 	 initialization [BUS ID 21]:
+# 	 initialization [BUS ID 22]:
+# 	 initialization [BUS ID 23]:
+# 	 initialization [BUS ID 24]:
+# 	 initialization [BUS ID 25]:
+# 	 initialization [BUS ID 26]:
+# 	 initialization [BUS ID 27]:
+# 	 initialization [BUS ID 28]:
+# 	 initialization [BUS ID 29]:
+# 	 initialization [BUS ID 30]:
+# 	 initialization [BUS ID 31]:
+# *****************************************************************************
+# Current simulation time is: 2081768
+# *****************************************************************************
+# 	 Sign In Message    [BUS ID  0]: 	 response 7010500000000000000 	
+# *****************************************************************************
+# Status BAD **************************[RX-TX test [BUS ID  0]****************** Status BAD 0000000000000000000
+# Status BAD **************************[RX-TX test [BUS ID  0]****************** Status BAD 7010500000000000000
+# ************MOPS reponded to a costumom message. The reponse must be checked
+# 	 Receive RX signals [BUS ID   0]: 	 request 0000000000000000000 	 response 7010500000000000000
+# Status GOOD [BUS ID   0]- RX test
+# 	 Receive RX signals [BUS ID   0]: 	 request 6014024001c00000000 	 response 5814324001c0000031c
+# Status GOOD [BUS ID   0]- RX test
+# 	 Receive RX signals [BUS ID   0]: 	 request 6014024001d00000000 	 response 5814324001d0000031d
+# Status GOOD [BUS ID   1]- RX test
+# 	 Receive RX signals [BUS ID   1]: 	 request 6014024001b01000000 	 response 5814324001b0100031b
+# Status GOOD [BUS ID   1]- RX test
+# 	 Receive RX signals [BUS ID   1]: 	 request 6014024001c01000000 	 response 5814324001c0100031c
+# 0
+# 
+# hds_restart
+restart -force
+# ** Note: (vsim-12125) Error and warning message counts have been reset to '0' because of 'restart'.
+# ** Note: (vsim-3813) Design is being optimized due to module recompilation...
+# ** Warning: (vsim-3865) Due to PLI being present, global +acc is being enabled automatically. This will cause your simulation to run very slowly. Please use vsim -no_autoacc to disable this feature. This feature is now deprecated and will be removed from future releases.
+# ** Warning: (vopt-10016) Option '-L ieee' was detected by vlog for design-unit 'tb_mopshub_top', but was not detected by vopt. The vlog option will be ignored.
+# ** Warning: (vopt-10017) vopt and vlog detected inconsistent ordering of options -L tsmcdigital_lib, -L top_lib, -L MOPSv2_lib, -L canakari, -L CANdecoder, -L ftrim, -L mopshub_lib and -L mopshub_testbench for design-unit 'tb_mopshub_top'. vopt will ignore the ordering that was given to vlog.
+# ** Warning: (vopt-10016) Option '-L ieee' was detected by vlog for design-unit 'dec32_Nbit', but was not detected by vopt. The vlog option will be ignored.
+# ** Warning: (vopt-10017) vopt and vlog detected inconsistent ordering of options -L tsmcdigital_lib, -L top_lib, -L MOPSv2_lib, -L canakari, -L CANdecoder, -L ftrim, -L mopshub_lib and -L mopshub_testbench for design-unit 'dec32_Nbit'. vopt will ignore the ordering that was given to vlog.
+# ** Warning: (vopt-10016) Option '-L ieee' was detected by vlog for design-unit 'can_bus_activity', but was not detected by vopt. The vlog option will be ignored.
+# ** Warning: (vopt-10017) vopt and vlog detected inconsistent ordering of options -L tsmcdigital_lib, -L top_lib, -L MOPSv2_lib, -L canakari, -L CANdecoder, -L ftrim, -L mopshub_lib and -L mopshub_testbench for design-unit 'can_bus_activity'. vopt will ignore the ordering that was given to vlog.
+# ** Warning: (vopt-10017) vopt and vlog detected inconsistent ordering of options -L tsmcdigital_lib, -L top_lib, -L MOPSv2_lib, -L canakari, -L CANdecoder, -L ftrim and -L mopshub_lib for design-unit 'canframegen'. vopt will ignore the ordering that was given to vlog.
+# ** Warning: (vopt-10017) vopt and vlog detected inconsistent ordering of options -L tsmcdigital_lib, -L top_lib, -L MOPSv2_lib, -L canakari, -L CANdecoder, -L ftrim and -L mopshub_lib for design-unit 'canframegen_sv_unit'. vopt will ignore the ordering that was given to vlog.
+# ** Note: (vopt-143) Recognized 1 FSM in module "bus_control_SM(fast)".
+# Loading sv_std.std
+# Loading work.tb_mopshub_top(fast)
+# Loading mopshub_lib.mopshub_top(fast)
+# Loading mopshub_lib.bus_control_SM(fast)
+# Loading mopshub_lib.control_bus(fast)
+# Loading mopshub_lib.bit_counter(fast)
+# Loading mopshub_lib.demux1_1bit(fast)
+# Loading mopshub_lib.initialize_bus_control(fast)
+# Loading mopshub_lib.elink_core(fast)
+# Loading mopshub_lib.buffer_rec_elink(fast)
+# Loading mopshub_lib.buffer_rec_spi(fast)
+# Loading mopshub_lib.buffer_tra_elink(fast)
+# Loading mopshub_lib.buffer_tra_spi(fast)
+# Loading mopshub_lib.elink_interface_rec_SM(fast)
+# Loading mopshub_lib.elink_interface_tra_SM(fast)
+# Loading mopshub_lib.elink_to_fifo(fast)
+# Loading mopshub_lib.elink_proc_in(fast)
+# Loading mopshub_lib.elink_proc_in_dec8b10b(fast)
+# Loading mopshub_lib.bitstream_shift_register(fast)
+# Loading mopshub_lib.dec_8b10b_wrap(fast)
+# Loading mopshub_lib.sync_detector(fast)
+# Loading mopshub_lib.elink_proc_in_direct(fast)
+# Loading mopshub_lib.fifo_RXelink_wrap(fast)
+# Loading mopshub_lib.fifo_to_elink(fast)
+# Loading mopshub_lib.elink_proc_out(fast)
+# Loading mopshub_lib.elink_proc_out_direct(fast)
+# Loading mopshub_lib.mux4_Nbit(fast)
+# Loading mopshub_lib.triger_counter(fast)
+# Loading mopshub_lib.elink_proc_out_enc8b10b(fast)
+# Loading mopshub_lib.enc8b10b_wrap(fast)
+# Loading mopshub_lib.mux4_Nbit(fast__1)
+# Loading mopshub_lib.mux8_Nbit(fast)
+# Loading mopshub_lib.triger_counter(fast__1)
+# Loading mopshub_lib.monitor_bus(fast)
+# Loading mopshub_lib.buffer_rec_spi_data(fast)
+# Loading mopshub_lib.buffer_tra_spi_data(fast)
+# Loading mopshub_lib.mopshub_core(fast)
+# Loading mopshub_lib.bridge_controller(fast)
+# Loading mopshub_lib.buffer_rec_data(fast)
+# Loading mopshub_lib.buffer_tra_data(fast)
+# Loading mopshub_lib.can_elink_bridge_SM(fast)
+# Loading mopshub_lib.canakari_interface(fast)
+# Loading mopshub_lib.buffer_tristate_busid(fast)
+# Loading mopshub_lib.bus_comp(fast)
+# Loading mopshub_lib.can_interface(fast)
+# Loading mopshub_lib.can_interface_SM(fast)
+# Loading MOPSv2_lib.initialize_block(fast)
+# Loading mopshub_lib.osc_trim_SM(fast)
+# Loading mopshub_lib.timout_rst(fast)
+# Loading mopshub_lib.canakari_top(fast)
+# Loading mopshub_lib.canakari_0_7(fast)
+# Loading mopshub_lib.can(fast)
+# Loading canakari.can2(fast)
+# Loading canakari.resetgen2(fast)
+# Loading canakari.mac2(fast)
+# Loading canakari.reset_mac2(fast)
+# Loading canakari.macfsm2(fast)
+# Loading canakari.biterrordetect2(fast)
+# Loading canakari.counter2(fast)
+# Loading canakari.decapsulation2(fast)
+# Loading canakari.destuffing2(fast)
+# Loading canakari.encapsulation2(fast)
+# Loading canakari.rcrc2(fast)
+# Loading canakari.rcrc_cell2(fast)
+# Loading canakari.recmeslen2(fast)
+# Loading canakari.rshiftreg2(fast)
+# Loading canakari.rshift_cell2(fast)
+# Loading canakari.stuffing2(fast)
+# Loading canakari.tcrc2(fast)
+# Loading canakari.tcrc_cell2(fast)
+# Loading canakari.tshiftreg2(fast)
+# Loading canakari.tshift_cell2(fast)
+# Loading canakari.fsm_register2(fast)
+# Loading canakari.fastshift2(fast)
+# Loading canakari.meslencompare2(fast)
+# Loading canakari.llc2(fast)
+# Loading canakari.llc_fsm2(fast)
+# Loading canakari.equal_id2(fast)
+# Loading canakari.bittiming2(fast)
+# Loading ftrim.Control_Sys(fast)
+# Loading ftrim.PID_Regler(fast)
+# Loading ftrim.Ftrim_En(fast)
+# Loading ftrim.Diff(fast)
+# Loading ftrim.Multi(fast)
+# Loading ftrim.Multi_i(fast)
+# Loading ftrim.Accumulator(fast)
+# Loading ftrim.Add_PID(fast)
+# Loading ftrim.Output_Scaling(fast)
+# Loading ftrim.CLK_Counter(fast)
+# Loading ftrim.Control_FSM(fast)
+# Loading ftrim.Phasenfehler_Reg(fast)
+# Loading ftrim.ready_counter(fast)
+# Loading canakari.bittime2(fast)
+# Loading canakari.sum2(fast)
+# Loading canakari.timecount2(fast)
+# Loading canakari.edgepuffer2(fast)
+# Loading canakari.smpldbit_reg2(fast)
+# Loading canakari.tseg_reg2(fast)
+# Loading canakari.fce2(fast)
+# Loading canakari.faultfsm2(fast)
+# Loading canakari.rec2(fast)
+# Loading canakari.tec2(fast)
+# Loading canakari.erbcount2(fast)
+# Loading canakari.interruptunit2(fast)
+# Loading canakari.iocpu2(fast)
+# Loading canakari.multiplexer2(fast)
+# Loading canakari.read_mux2(fast)
+# Loading canakari.write_demux2(fast)
+# Loading canakari.generalregister2(fast)
+# Loading canakari.recmescontrolreg2(fast)
+# Loading canakari.recarbitreg2(fast)
+# Loading canakari.accmaskreg2(fast)
+# Loading canakari.interrupregister2(fast)
+# Loading canakari.prescalereg2(fast)
+# Loading canakari.recregister2(fast)
+# Loading canakari.transmesconreg2(fast)
+# Loading canakari.transmitreg2(fast)
+# Loading canakari.prescale2(fast)
+# Loading mopshub_lib.node_rec_mux(fast)
+# Loading mopshub_lib.bit_shifter(fast)
+# Loading mopshub_lib.buffer_rec_canakari(fast)
+# Loading mopshub_lib.bus_rec_SM(fast)
+# Loading mopshub_lib.dec1_Nbit(fast)
+# Loading mopshub_lib.dec32_Nbit(fast)
+# Loading mopshub_lib.demux1_1bit(fast__1)
+# Loading mopshub_lib.mux32_Nbit(fast)
+# Loading mopshub_lib.node_tra_demux(fast)
+# Loading mopshub_lib.demux1_Nbit(fast)
+# Loading mopshub_lib.mux1_1bit(fast)
+# Loading work.data_generator(fast)
+# Loading CANdecoder.CANbus_decoder(fast)
+# Loading CANdecoder.CANAkari_interfacedec(fast)
+# Loading CANdecoder.caninterfacedec(fast)
+# Loading CANdecoder.idcompdec(fast)
+# Loading CANdecoder.interfaceSMdec(fast)
+# Loading CANdecoder.bridgeSMdec(fast)
+# Loading CANdecoder.initialize_blockdec(fast)
+# Loading CANdecoder.rec_mes_bufdec(fast)
+# Loading CANdecoder.timoutrstdec(fast)
+# Loading work.can_bus_activity(fast)
+# Loading work.can_net_decoder(fast)
+# Loading work.mops_top_level(fast)
+# Loading CANdecoder.adcdumdata(fast)
+# Loading MOPSv2_lib.top_level(fast)
+# Loading MOPSv2_lib.clkbuffer(fast)
+# Loading MOPSv2_lib.global_resetgen(fast)
+# Loading MOPSv2_lib.delay_cell(fast)
+# Loading MOPSv2_lib.bridge_controller_top(fast)
+# Loading MOPSv2_lib.ADCinterface(fast)
+# Loading MOPSv2_lib.ADCfsm(fast)
+# Loading MOPSv2_lib.adcsel(fast)
+# Loading MOPSv2_lib.CANAkari_interface(fast)
+# Loading MOPSv2_lib.caninterface(fast)
+# Loading MOPSv2_lib.idcomp(fast)
+# Loading MOPSv2_lib.interfaceSM(fast)
+# Loading MOPSv2_lib.bridgeSM(fast)
+# Loading MOPSv2_lib.canopen_block(fast)
+# Loading MOPSv2_lib.ODfsm(fast)
+# Loading MOPSv2_lib.abortcodes(fast)
+# Loading MOPSv2_lib.msgdecode(fast)
+# Loading MOPSv2_lib.odinterface(fast)
+# Loading MOPSv2_lib.count2reload(fast)
+# Loading MOPSv2_lib.ftrim_sel(fast)
+# Loading MOPSv2_lib.od(fast)
+# Loading MOPSv2_lib.OD_MUX(fast)
+# Loading MOPSv2_lib.OD_buf(fast)
+# Loading MOPSv2_lib.OD_control(fast)
+# Loading MOPSv2_lib.rec_mes_buf(fast)
+# Loading MOPSv2_lib.timoutrst(fast)
+# Loading MOPSv2_lib.tra_mes_buf(fast)
+# Loading top_lib.canframegen_sv_unit(fast)
+# Loading top_lib.canframegen(fast)
+# Loading mopshub_lib.clk_div(fast)
+# Loading work.data_generator_SM(fast)
+# Loading work.mopshub_decoder(fast)
+# Loading work.clock_generator(fast)
+# Loading mopshub_lib.clock_divider(fast)
+# Loading mopshub_lib.clock_divider(fast__1)
+# Loading std.standard
+# Loading std.textio(body)
+# Loading ieee.std_logic_1164(body)
+# Loading ieee.numeric_std(body)
+# Loading mopshub_lib.spi_master(behavioral)#1
+# Loading mopshub_lib.dec_8b10b(behavioral)#1
+# Loading mopshub_lib.enc_8b10b(behavioral)#1
+# Loading /eda/mentor/2019-20/RHELx86/HDL-DESIGNER_2019.4/resources/downstream/modelsim/ModelSim_64Bit.dll
+# ** Warning: (vsim-8634) Code was not compiled with coverage options.
+run
+# Frequncy  = 40 MHz, Period = 25.000 ns
+# clk phase = 0 deg
+# clk duty = 50 %
+# 	 initialization [BUS ID  0]:
+# 	 initialization [BUS ID  1]:
+# 	 initialization [BUS ID  2]:
+# 	 initialization [BUS ID  3]:
+# 	 initialization [BUS ID  4]:
+# 	 initialization [BUS ID  5]:
+# 	 initialization [BUS ID  6]:
+# 	 initialization [BUS ID  7]:
+# 	 initialization [BUS ID  8]:
+# 	 initialization [BUS ID  9]:
+# 	 initialization [BUS ID 10]:
+# 	 initialization [BUS ID 11]:
+# 	 initialization [BUS ID 12]:
+# 	 initialization [BUS ID 13]:
+# 	 initialization [BUS ID 14]:
+# 	 initialization [BUS ID 15]:
+# 	 initialization [BUS ID 16]:
+# 	 initialization [BUS ID 17]:
+# 	 initialization [BUS ID 18]:
+# 	 initialization [BUS ID 19]:
+# 	 initialization [BUS ID 20]:
+# 	 initialization [BUS ID 21]:
+# 	 initialization [BUS ID 22]:
+# 	 initialization [BUS ID 23]:
+# 	 initialization [BUS ID 24]:
+# 	 initialization [BUS ID 25]:
+# 	 initialization [BUS ID 26]:
+# 	 initialization [BUS ID 27]:
+# 	 initialization [BUS ID 28]:
+# 	 initialization [BUS ID 29]:
+# 	 initialization [BUS ID 30]:
+# 	 initialization [BUS ID 31]:
+# *****************************************************************************
+# Current simulation time is: 2081768
+# *****************************************************************************
+# 	 Sign In Message    [BUS ID  0]: 	 response 7010500000000000000 	
+# *****************************************************************************
+# Status BAD **************************[RX-TX test [BUS ID  0]****************** Status BAD 0000000000000000000
+# Status BAD **************************[RX-TX test [BUS ID  0]****************** Status BAD 7010500000000000000
+# ************MOPS reponded to a costumom message. The reponse must be checked
+# 	 Receive RX signals [BUS ID   0]: 	 request 0000000000000000000 	 response 7010500000000000000
+# Status GOOD [BUS ID   0]- RX test
+# 	 Receive RX signals [BUS ID   0]: 	 request 6014024001c00000000 	 response 5814324001c0000031c
+# End time: 16:21:24 on Feb 16,2022, Elapsed time: 0:11:09
+# Errors: 0, Warnings: 10
