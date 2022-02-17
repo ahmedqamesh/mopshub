@@ -1,14 +1,12 @@
-
 //
-// Verilog Module mopshub_lib.initialize_bus_control
+// Verilog Module mopshub_lib.initialize_spi_communcation
 //
 // Created:
 //          by - dcs.dcs (chipdev2.physik.uni-wuppertal.de)
-//          at - 11:14:29 02/15/22
+//          at - 10:57:22 02/17/22
 //
 // using Mentor Graphics HDL Designer(TM) 2019.4 (Build 4)
 //
-
 //MCP23s17 SPI command structure
 //[1] Initialization:[0x40 0x00 0x00]Set IODIRA register to 0 (defines ports as outputs):
 //[2] Initialization:[0x40 0x01 0x00]Set IODIRB register to 0 (defines ports as outputs):
@@ -32,10 +30,10 @@
 //[10]Offset   [0x81, 0x00, 0x00, 0x00]
 //[11]Calibrate[0x82, 0x00, 0x00, 0x00]
 //[12]Calibrate[0x85, 0x00, 0x00, 0x00]
-//[13]Calibrate[0x86, 0x00, 0x00, 0x00] 
+//[13]Calibrate[0x86, 0x00, 0x00, 0x00]
 `resetall
 `timescale 1ns/10ps
-module initialize_bus_control( 
+module initialize_spi_communcation( 
    input   wire    [4:0]   addr,       // Address of the Canakari registers
    output  wire    [7:0]  data_init  // Ouput data to be written to the registers
 );
@@ -66,19 +64,16 @@ begin
        5'h11 : data_init_reg = 8'h85;         //calibrate 3  
        5'h12 : data_init_reg = 8'h86;         //calibrate 4 
 
-
-       
        //MCP23s17 SPI command structure
-       5'h13 : data_init_reg = 8'h40;  
-       5'h14 : data_init_reg = 8'h01; 
-       5'h15 : data_init_reg = 8'h13; 
-       5'h16 : data_init_reg = 8'h0C;
-       5'h17 : data_init_reg = 8'h0D;
-       5'h18 : data_init_reg = 8'hFE;
-       5'h19 : data_init_reg = 8'hFF;
-       5'h1A : data_init_reg = 8'h00;
-       
-       
+       5'h13 : data_init_reg = 8'h40;         //01000000   
+       5'h14 : data_init_reg = 8'h01;         //00000001
+       5'h15 : data_init_reg = 8'h13;         //00010011
+       5'h16 : data_init_reg = 8'h0C;         //00001100
+       5'h17 : data_init_reg = 8'h0D;         //00001101
+       5'h18 : data_init_reg = 8'hFE;         //11111110
+       5'h19 : data_init_reg = 8'hFF;         //11111111
+       5'h1A : data_init_reg = 8'h00;         //00000000
+       5'h1B : data_init_reg = 8'h12;         //00010010
 
        default : data_init_reg  = 8'h00;
    endcase 
@@ -86,3 +81,4 @@ end
 
 
 endmodule
+
