@@ -71,19 +71,19 @@ value "/home/dcs/git/mopshub/mopshub_lib/hds/fifo_RXelink_wrap"
 )
 (vvPair
 variable "date"
-value "02/17/22"
+value "02/18/22"
 )
 (vvPair
 variable "day"
-value "Thu"
+value "Fri"
 )
 (vvPair
 variable "day_long"
-value "Thursday"
+value "Friday"
 )
 (vvPair
 variable "dd"
-value "17"
+value "18"
 )
 (vvPair
 variable "entity_name"
@@ -111,7 +111,7 @@ value "dcs"
 )
 (vvPair
 variable "graphical_source_date"
-value "02/17/22"
+value "02/18/22"
 )
 (vvPair
 variable "graphical_source_group"
@@ -123,7 +123,7 @@ value "chipdev2.physik.uni-wuppertal.de"
 )
 (vvPair
 variable "graphical_source_time"
-value "13:17:46"
+value "11:46:02"
 )
 (vvPair
 variable "group"
@@ -243,7 +243,7 @@ value "struct"
 )
 (vvPair
 variable "time"
-value "13:17:46"
+value "11:46:02"
 )
 (vvPair
 variable "unit"
@@ -2107,21 +2107,22 @@ always @ (posedge clk)
   if (!rst) 
   begin
     dout_fifo_reg    <={2'b11,Kchar_comma};
-    dout_rdy_fifo_r <=0;
+    dout_rdy_fifo_r  <=0;
   end
   else
     begin
       if (rd_en_data == 1) 
       begin 
-        dout_fifo_reg  <= dout10bit ;
+        dout_fifo_reg     <= dout10bit ;
         dout_rdy_fifo_r   <= 1'b1;
       end
       else 
       begin
         dout_fifo_reg      <= dout_fifo_reg; 
-        dout_rdy_fifo_r   <= 1'b0;
+        dout_rdy_fifo_r    <= 1'b0;
       end 
     end                                     
+
 
 
 
@@ -3490,11 +3491,11 @@ tm "BdCompilerDirectivesTextMgr"
 associable 1
 )
 windowSize "1912,40,3848,1055"
-viewArea "-25400,2700,58537,44056"
+viewArea "-25400,2700,49972,39836"
 cachedDiagramExtent "-9000,0,68000,51000"
 hasePageBreakOrigin 1
 pageBreakOrigin "-10000,0"
-lastUid 6007,0
+lastUid 6070,0
 defaultCommentText (CommentText
 shape (Rectangle
 layer 0
