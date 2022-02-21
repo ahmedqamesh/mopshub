@@ -2,7 +2,7 @@ import time
 from random import randint
 import logging
 import numpy as np
-
+#Monitoring ADC
 try:
     import spidev
 except Exception as e:
