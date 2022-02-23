@@ -155,7 +155,7 @@ module tb_mopshub_top();
   
   mopshub_top#(
   .n_buses (5'd2),
-  .seialize_data_stream(1))mopshub0(
+  .seialize_data_stream(1'b1))mopshub0(
   .clk(clk_40),
   .clk_80(clk_80),
   .rst(rst),  
@@ -236,7 +236,7 @@ module tb_mopshub_top();
   
   data_generator#(
   .n_buses (5'd2),
-  .seialize_data_stream(1))data_generator0(
+  .seialize_data_stream(1'b1))data_generator0(
   .clk(clk_40),
   .clk_80(clk_80),
   .rst(rst),
