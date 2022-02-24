@@ -16,6 +16,8 @@
 module bitstream_shift_register ( 
   input   wire    [1:0]      din,// Declare input for data to the first flop in the shift register
   input   wire               clk,  // Declare input for the clock to all flops in the shift register
+ // input   wire               en,   // Declare input for enable to switch the shift register on/off
+ // input   wire               dir,  // Declare input to shift in either left [0] or right direction [1]
   input   wire               rst,  // Declare input to reset the register to a default value
   output  wire    [11:0]     dout
   );
@@ -27,6 +29,16 @@ module bitstream_shift_register (
   // If no, then check to see if the shift register is enabled  
   // If no => maintain previous output. If yes, then shift based on the requested direction
   always @ (posedge clk)  
-  if (!rst)  dout_r <= 0;  
-  else       dout_r <= {din, dout_r[11:2]};   //shift to right direction [1]
+  if (!rst)  
+  dout_r <= 0;  
+  else begin  
+//    if (en)  
+ //   case (dir)  
+//      0 :  dout_r <= {dout_r[10:1], din};  
+      //1 :  
+      dout_r <= {din, dout_r[11:2]};  
+ //   endcase  
+//    else  
+ //   dout_r <= dout_r;  
+  end  
 endmodule  
