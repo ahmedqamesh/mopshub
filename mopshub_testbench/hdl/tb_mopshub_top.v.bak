@@ -235,11 +235,11 @@ module tb_mopshub_top();
   .tx31(tx31));
   
   data_generator#(
-  .n_buses (5'd2))data_generator0(
+  .n_buses (5'd2),
+  .seialize_data_stream(1'b1))data_generator0(
   .clk(clk_40),
   .clk_80(clk_80),
   .rst(rst),
-  .seialize_data_stream(1'b1),
   .ext_rst_mops(rst_bus),
   .ext_counter_gen(ext_counter_gen),
   .ext_trim_mops(osc_auto_trim_mopshub),

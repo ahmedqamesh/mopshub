@@ -135,7 +135,7 @@ value "chipdev2.physik.uni-wuppertal.de"
 )
 (vvPair
 variable "graphical_source_time"
-value "14:28:57"
+value "14:35:34"
 )
 (vvPair
 variable "group"
@@ -255,7 +255,7 @@ value "struct"
 )
 (vvPair
 variable "time"
-value "14:28:57"
+value "14:35:34"
 )
 (vvPair
 variable "unit"
@@ -2083,8 +2083,8 @@ assign valid_char_eop   = (ISK_char == 1 & decoder_out == Kchar_eop  ) ? 1:0; //
 always@(posedge clk)
 if (!rst)
 begin
-  dec8b_rdy_r      <= 1'b0;
-  flag_pack       <= 1'b0;
+  dec8b_rdy_r    <= 1'b0;
+  flag_pack      <= 1'b0;
   dec8b_data_r   <= 0;
 end
 else 
@@ -2093,34 +2093,35 @@ begin
   if(dec8b_rdy_r == 1)//always make sure you write only once
   begin
     dec8b_rdy_r   <= 1'b0;
-    flag_pack    <= flag_pack;
+    flag_pack     <= flag_pack;
   end
   else if(flag_pack == 1 && dataout_valid  == 1 && valid_char_comma)// ignore commas
   begin
     dec8b_rdy_r   <= 1'b0;
-    flag_pack    <= flag_pack;
+    flag_pack     <= flag_pack;
   end
   else if(flag_pack == 0 && dataout_valid  == 1 && valid_char_sop)// 03c = 0011 1100 SOP (if 8b10b)
   begin
     dec8b_rdy_r   <= 1'b1;
-    flag_pack    <= 1'b1; //SOP detected. raise the flag, write everything
+    flag_pack     <= 1'b1; //SOP detected. raise the flag, write everything
   end   
   else if(flag_pack == 1 && dataout_valid  == 1 && !valid_char_eop)// not EOP means it is data //flag_pack == 1 && 
   begin
     dec8b_rdy_r   <= 1'b1;
-    flag_pack    <= 1'b1;
+    flag_pack     <= 1'b1;
   end   
   else if(flag_pack == 1 && dataout_valid  == 1 && valid_char_eop)// 0dc = 1101 1100 (if 8b10b)
   begin
-    dec8b_rdy_r   <= 1'b1;
-    flag_pack    <= 1'b0; //EOP detected. drop the flag
+    dec8b_rdy_r    <= 1'b1;
+    flag_pack      <= 1'b0; //EOP detected. drop the flag
   end 
   else
   begin
     dec8b_rdy_r   <= 1'b0;
-    flag_pack    <= flag_pack;
+    flag_pack     <= flag_pack;
   end 
 end
+
 
 
 
@@ -4820,9 +4821,9 @@ uid 4116,0
 va (VaSet
 font "courier,8,0"
 )
-xt "49000,9100,53000,10000"
+xt "47000,9100,51000,10000"
 st "ISK_char"
-blo "49000,9800"
+blo "47000,9800"
 tm "WireNameMgr"
 )
 )
@@ -4943,12 +4944,12 @@ tm "BdCompilerDirectivesTextMgr"
 ]
 associable 1
 )
-windowSize "1912,40,3848,1055"
-viewArea "15592,-9048,90964,28088"
+windowSize "-8,13,1928,1088"
+viewArea "15600,-9000,84120,27160"
 cachedDiagramExtent "-15500,-3000,80000,50000"
 hasePageBreakOrigin 1
 pageBreakOrigin "-80000,-51000"
-lastUid 6883,0
+lastUid 7076,0
 defaultCommentText (CommentText
 shape (Rectangle
 layer 0
