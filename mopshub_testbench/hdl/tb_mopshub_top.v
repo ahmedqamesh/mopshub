@@ -1,9 +1,12 @@
 `resetall
 `timescale 1ns/10ps
 module tb_mopshub_top();
-  wire             clk ;
-  wire             clk_40;
+  wire             clk_m;
+  wire             clk_s;
+  wire             clk_40_s;
+  wire             clk_40_m;
   wire             clk_80;
+  reg             enable_s =1'b0;
   reg             rst   = 1'b0;
   reg             endwait_all = 1'b0;
   wire            rst_bus;
@@ -25,7 +28,7 @@ module tb_mopshub_top();
   wire            trim_sig_end;
   wire            trim_sig_done;
   
-  reg             osc_auto_trim_mopshub =1'b1;
+  reg             osc_auto_trim_mopshub =1'b0;
   wire            ready_osc;
   wire            start_trim_osc;
   wire            end_trim_bus;
@@ -156,14 +159,14 @@ module tb_mopshub_top();
   mopshub_top#(
   .n_buses (5'd2),
   .seialize_data_stream(1'b1))mopshub0(
-  .clk(clk_40),
+  .clk(clk_40_s),
   .clk_80(clk_80),
   .rst(rst),  
   .osc_auto_trim_mopshub(osc_auto_trim_mopshub),                      
   .endwait_all(endwait_all),  
   .tx_elink2bit(tx_mopshub_2bit),
-  .tx_elink1bit(tx_mopshub_1bit),//(rx_din),
-  .rx_elink1bit(rx_mopshub_1bit),//(tx_dout),
+  .tx_elink1bit(tx_mopshub_1bit),
+  .rx_elink1bit(rx_mopshub_1bit),
   .rx_elink2bit(rx_mopshub_2bit),
   .rx_din(rx_din),
   .tx_dout(tx_dout),
@@ -237,7 +240,7 @@ module tb_mopshub_top();
   data_generator#(
   .n_buses (5'd2),
   .seialize_data_stream(1'b1))data_generator0(
-  .clk(clk_40),
+  .clk(clk_40_m),
   .clk_80(clk_80),
   .rst(rst),
   .ext_rst_mops(rst_bus),
@@ -361,35 +364,51 @@ module tb_mopshub_top();
   .tx31(tx31));
   
   
-  //Clock Generators and Dividers
+  //Clock Generators and Dividers master
   clock_generator #(
   .freq(40))
   clock_generator0( 
-  .clk  (clk), 
+  .clk  (clk_m), 
   .enable (1'b1)
   ); 
   
   clock_divider #(28'd4)
   clock_divider4( 
-  .clock_in  (clk), 
-  .clock_out (clk_40)
+  .clock_in  (clk_m), 
+  .clock_out (clk_40_m)
+  ); 
+
+  //Clock Generators and Dividers slave  
+  clock_generator #(
+  .freq(40))
+  clock_generator0s( 
+  .clk  (clk_s), 
+  .enable (1'b1)//enable_s)
+  ); 
+  
+  clock_divider #(28'd4)
+  clock_divider4s( 
+  .clock_in  (clk_s), 
+  .clock_out (clk_40_s)
   ); 
   
   
   clock_divider #(28'd2)
   clock_divider2( 
-  .clock_in  (clk), 
+  .clock_in  (clk_s), 
   .clock_out (clk_80)
   ); 
   /////******* Reset Generator task--low active ****/////
   initial 
   begin
     rst = 1'b0;
+    #1
+    enable_s =1'b1;
     #10
     rst = 1'b1;
   end
   /////*******Start Full SM for Data Generation ****/////
-  always@(posedge clk_40)
+  always@(posedge clk_40_m)
   begin  
     if(trim_sig_done ==1 ||done_trim_osc ==1)
     begin
@@ -398,7 +417,7 @@ module tb_mopshub_top();
     end
     if(sign_on_sig ==1)//start Rx test
     begin
-     test_rx =1'b1;
+     test_tx =1'b1;
      //test_advanced = 1'b1;
     end
     if(test_rx_end ==1)//Done Rx test
@@ -416,7 +435,7 @@ module tb_mopshub_top();
     test_advanced = 1'b0;
   end
   /////******* prints bus activity ******///
-  always@(posedge clk_40)
+  always@(posedge clk_40_m)
   if (!rst) info_debug_sig = "<:RESET>";
   else 
   begin
