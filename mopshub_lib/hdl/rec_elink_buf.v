@@ -11,12 +11,14 @@
 `resetall
 `timescale 1ns/10ps
 
-module buffer_rec_elink( 
+module buffer_rec_elink#(
+   // synopsys template
+   parameter Kchar_sop              = 8'b00111100,
+   parameter Kchar_eop              = 8'b11011100
+)( 
   // Port Declarations
   input   wire    [75:0]  data_rec_in,   // input data from the SCB or Object Dictionary side
   input   wire    [4 :0]  addr, 
-  input   wire    [7:0]   Kchar_eop,
-  input   wire    [7:0]   Kchar_sop,
   output  wire    [7:0]   data_rec_8bitout,   // Output data to be written on the CAN bus
   output  wire    [1:0]   data_rec_delimiter   // Output data to be written on the CAN bus
   );

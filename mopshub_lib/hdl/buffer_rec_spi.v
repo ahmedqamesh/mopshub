@@ -10,12 +10,14 @@
 
 `resetall
 `timescale 1ns/10ps
-module buffer_rec_spi( 
+module buffer_rec_spi#(
+   // synopsys template
+   parameter Kchar_sop              = 8'b00111100,
+   parameter Kchar_eop              = 8'b11011100
+)(  
   // Port Declarations
   input   wire    [31:0]  data_rec_in,   
   input   wire    [4 :0]  addr, 
-  input   wire    [7:0]   Kchar_eop,
-  input   wire    [7:0]   Kchar_sop,
   output  wire    [7:0]   data_rec_8bitout,  
   output  wire    [1:0]   data_rec_delimiter   
   );

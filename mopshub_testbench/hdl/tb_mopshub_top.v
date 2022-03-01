@@ -377,13 +377,18 @@ module tb_mopshub_top();
   .clock_in  (clk_m), 
   .clock_out (clk_40_m)
   ); 
-
+  
+  clock_divider #(28'd2)
+  clock_divider2( 
+  .clock_in  (clk_m), 
+  .clock_out (clk_80)
+  );   
   //Clock Generators and Dividers slave  
   clock_generator #(
   .freq(40))
   clock_generator0s( 
   .clk  (clk_s), 
-  .enable (1'b1)//enable_s)
+  .enable (enable_s)
   ); 
   
   clock_divider #(28'd4)
@@ -392,17 +397,13 @@ module tb_mopshub_top();
   .clock_out (clk_40_s)
   ); 
   
-  
-  clock_divider #(28'd2)
-  clock_divider2( 
-  .clock_in  (clk_s), 
-  .clock_out (clk_80)
-  ); 
+
+
   /////******* Reset Generator task--low active ****/////
   initial 
   begin
     rst = 1'b0;
-    #1
+    #3
     enable_s =1'b1;
     #10
     rst = 1'b1;
@@ -417,7 +418,7 @@ module tb_mopshub_top();
     end
     if(sign_on_sig ==1)//start Rx test
     begin
-     test_tx =1'b1;
+     test_rx =1'b1;
      //test_advanced = 1'b1;
     end
     if(test_rx_end ==1)//Done Rx test
