@@ -1,13 +1,13 @@
 # vsim -f hds_args.tmp -foreign "hdsInit /eda/mentor/2019-20/RHELx86/HDL-DESIGNER_2019.4/resources/downstream/modelsim/ModelSim_64Bit.dll" -pli ""/eda/mentor/2019-20/RHELx86/HDL-DESIGNER_2019.4/resources/downstream/modelsim/ModelSim_64Bit.dll"" 
-# Start time: 21:14:40 on Feb 25,2022
+# Start time: 10:24:53 on Mar 01,2022
 # ** Note: (vsim-3812) Design is being optimized...
 # ** Warning: (vsim-3865) Due to PLI being present, global +acc is being enabled automatically. This will cause your simulation to run very slowly. Please use vsim -no_autoacc to disable this feature. This feature is now deprecated and will be removed from future releases.
 # ** Warning: (vopt-10016) Option '-L ieee' was detected by vlog for design-unit 'tb_mopshub_top', but was not detected by vopt. The vlog option will be ignored.
-# ** Warning: (vopt-10017) vopt and vlog detected inconsistent ordering of options -L tsmcdigital_lib, -L top_lib, -L MOPSv2_lib, -L canakari, -L CANdecoder, -L ftrim, -L mopshub_lib and -L mopshub_testbench for design-unit 'tb_mopshub_top'. vopt will ignore the ordering that was given to vlog.
+# ** Warning: (vopt-10017) vopt and vlog detected inconsistent ordering of options -L top_lib, -L MOPSv2_lib, -L canakari, -L CANdecoder, -L ftrim, -L mopshub_lib and -L mopshub_testbench for design-unit 'tb_mopshub_top'. vopt will ignore the ordering that was given to vlog.
 # ** Warning: (vopt-10016) Option '-L ieee' was detected by vlog for design-unit 'dec32_Nbit', but was not detected by vopt. The vlog option will be ignored.
-# ** Warning: (vopt-10017) vopt and vlog detected inconsistent ordering of options -L tsmcdigital_lib, -L top_lib, -L MOPSv2_lib, -L canakari, -L CANdecoder, -L ftrim, -L mopshub_lib and -L mopshub_testbench for design-unit 'dec32_Nbit'. vopt will ignore the ordering that was given to vlog.
+# ** Warning: (vopt-10017) vopt and vlog detected inconsistent ordering of options -L top_lib, -L MOPSv2_lib, -L canakari, -L CANdecoder, -L ftrim, -L mopshub_lib and -L mopshub_testbench for design-unit 'dec32_Nbit'. vopt will ignore the ordering that was given to vlog.
 # ** Warning: (vopt-10016) Option '-L ieee' was detected by vlog for design-unit 'can_bus_activity', but was not detected by vopt. The vlog option will be ignored.
-# ** Warning: (vopt-10017) vopt and vlog detected inconsistent ordering of options -L tsmcdigital_lib, -L top_lib, -L MOPSv2_lib, -L canakari, -L CANdecoder, -L ftrim, -L mopshub_lib and -L mopshub_testbench for design-unit 'can_bus_activity'. vopt will ignore the ordering that was given to vlog.
+# ** Warning: (vopt-10017) vopt and vlog detected inconsistent ordering of options -L top_lib, -L MOPSv2_lib, -L canakari, -L CANdecoder, -L ftrim, -L mopshub_lib and -L mopshub_testbench for design-unit 'can_bus_activity'. vopt will ignore the ordering that was given to vlog.
 # ** Warning: (vopt-10017) vopt and vlog detected inconsistent ordering of options -L tsmcdigital_lib, -L top_lib, -L MOPSv2_lib, -L canakari, -L CANdecoder, -L ftrim and -L mopshub_lib for design-unit 'canframegen'. vopt will ignore the ordering that was given to vlog.
 # ** Warning: (vopt-10017) vopt and vlog detected inconsistent ordering of options -L tsmcdigital_lib, -L top_lib, -L MOPSv2_lib, -L canakari, -L CANdecoder, -L ftrim and -L mopshub_lib for design-unit 'canframegen_sv_unit'. vopt will ignore the ordering that was given to vlog.
 # ** Note: (vopt-143) Recognized 1 FSM in architecture body "spi_master(Behavioral)".
@@ -248,16 +248,159 @@ run
 # 	 initialization [BUS ID  1]:
 # 	 initialization [BUS ID  2]:
 # *****************************************************************************
-# Current simulation time is: 1267448
-# Status BAD ********************************[TX Test [BUS ID  0]****************** Status BAD
-# 	 Transmit TX signals [BUS ID   0]: 	 request 6014000240f00000000 	 response 0000000000000000000
-# Current simulation time is: 3177512
-# Status BAD ********************************[TX Test [BUS ID  0]****************** Status BAD 6014000401000000000
-# 	 Transmit TX signals [BUS ID   0]: 	 request 6014000401000000000 	 response 5818000240f00020000
+# 	 Oscillator Trimming [BUS ID  0]:
+# 	 Sign In Message[BUS ID  0 (00)]: 	 request 555aaaaaaaaaaaaaaaa 	 response 7010500000000000000 	
+# *****************************************************************************
+# 	 Oscillator Trimming [BUS ID  1]:
+# 	 Sign In Message[BUS ID  1 (01)]: 	 request 555aaaaaaaaaaaaaaaa 	 response 7010500000001000000 	
+# *****************************************************************************
+# 	 Oscillator Trimming [BUS ID  2]:
+# 	 Sign In Message[BUS ID  2 (02)]: 	 request 555aaaaaaaaaaaaaaaa 	 response 7010500000002000000 	
+# *****************************************************************************
+# Status GOOD [BUS ID   0]- RX test
+# 	 Receive RX signals [BUS ID   0]: 	 request 6014024001b00000000 	 response 5814324001b0000031b
+# Status GOOD [BUS ID   0]- RX test
+# 	 Receive RX signals [BUS ID   0]: 	 request 6014024001c00000000 	 response 5814324001c0000031c
+# Status GOOD [BUS ID   0]- RX test
+# 	 Receive RX signals [BUS ID   0]: 	 request 6014024001d00000000 	 response 5814324001d0000031d
+# Status GOOD [BUS ID   1]- RX test
+# 	 Receive RX signals [BUS ID   1]: 	 request 6014024001b01000000 	 response 5814324001b0100031b
+# Status GOOD [BUS ID   1]- RX test
+# 	 Receive RX signals [BUS ID   1]: 	 request 6014024001c01000000 	 response 5814324001c0100031c
+# Status GOOD [BUS ID   1]- RX test
+# 	 Receive RX signals [BUS ID   1]: 	 request 6014024001d01000000 	 response 5814324001d0100031d
+# Status GOOD [BUS ID   2]- RX test
+# 	 Receive RX signals [BUS ID   2]: 	 request 6014024001b02000000 	 response 5814324001b0200031b
+# Status GOOD [BUS ID   2]- RX test
+# 	 Receive RX signals [BUS ID   2]: 	 request 6014024001c02000000 	 response 5814324001c0200031c
+# Status GOOD [BUS ID   2]- RX test
+# 	 Receive RX signals [BUS ID   2]: 	 request 6014024001d02000000 	 response 5814324001d0200031d
+# *****************************************************************************
+# Status GOOD [BUS ID  0] - TX Test
+# 	 Transmit TX signals [BUS ID   0]: 	 request 6014000240f00000000 	 response 5818000240f00020000
+# Status GOOD [BUS ID  0] - TX Test
+# 	 Transmit TX signals [BUS ID   0]: 	 request 6014000401000000000 	 response 5818000401000020000
 # Status GOOD [BUS ID  0] - TX Test
 # 	 Transmit TX signals [BUS ID   0]: 	 request 6014000240a00000000 	 response 5818000240a00020000
 # Status GOOD [BUS ID  1] - TX Test
 # 	 Transmit TX signals [BUS ID   1]: 	 request 6014000240f01000000 	 response 5818000240f01020000
+add wave -position insertpoint  \
+sim:/tb_mopshub_top/clk \
+sim:/tb_mopshub_top/clk_40 \
+sim:/tb_mopshub_top/clk_80 \
+sim:/tb_mopshub_top/rst \
+sim:/tb_mopshub_top/endwait_all \
+sim:/tb_mopshub_top/rst_bus \
+sim:/tb_mopshub_top/ext_counter_gen \
+sim:/tb_mopshub_top/sel_bus \
+sim:/tb_mopshub_top/can_tra_select_dbg \
+sim:/tb_mopshub_top/sign_on_sig \
+sim:/tb_mopshub_top/start_init \
+sim:/tb_mopshub_top/end_init \
+sim:/tb_mopshub_top/info_debug_sig \
+sim:/tb_mopshub_top/bus_dec_data \
+sim:/tb_mopshub_top/bus_id \
+sim:/tb_mopshub_top/adc_ch \
+sim:/tb_mopshub_top/osc_auto_trim \
+sim:/tb_mopshub_top/trim_sig_start \
+sim:/tb_mopshub_top/trim_sig_end \
+sim:/tb_mopshub_top/trim_sig_done \
+sim:/tb_mopshub_top/osc_auto_trim_mopshub \
+sim:/tb_mopshub_top/ready_osc \
+sim:/tb_mopshub_top/start_trim_osc \
+sim:/tb_mopshub_top/end_trim_bus \
+sim:/tb_mopshub_top/done_trim_osc \
+sim:/tb_mopshub_top/power_bus_en \
+sim:/tb_mopshub_top/power_bus_cnt \
+sim:/tb_mopshub_top/test_rx \
+sim:/tb_mopshub_top/test_rx_start \
+sim:/tb_mopshub_top/test_rx_end \
+sim:/tb_mopshub_top/test_tx \
+sim:/tb_mopshub_top/test_tx_start \
+sim:/tb_mopshub_top/test_tx_end \
+sim:/tb_mopshub_top/test_advanced \
+sim:/tb_mopshub_top/costum_msg_end \
+sim:/tb_mopshub_top/data_rec_uplink \
+sim:/tb_mopshub_top/data_tra_emulator_out \
+sim:/tb_mopshub_top/can_rec_select \
+sim:/tb_mopshub_top/data_tra_downlink \
+sim:/tb_mopshub_top/can_tra_select \
+sim:/tb_mopshub_top/data_rec_emulator_in \
+sim:/tb_mopshub_top/irq_elink_tra \
+sim:/tb_mopshub_top/irq_elink_rec \
+sim:/tb_mopshub_top/rx0 \
+sim:/tb_mopshub_top/rx1 \
+sim:/tb_mopshub_top/rx2 \
+sim:/tb_mopshub_top/rx3 \
+sim:/tb_mopshub_top/rx4 \
+sim:/tb_mopshub_top/rx5 \
+sim:/tb_mopshub_top/rx6 \
+sim:/tb_mopshub_top/rx7 \
+sim:/tb_mopshub_top/rx8 \
+sim:/tb_mopshub_top/rx9 \
+sim:/tb_mopshub_top/rx10 \
+sim:/tb_mopshub_top/rx11 \
+sim:/tb_mopshub_top/rx12 \
+sim:/tb_mopshub_top/rx13 \
+sim:/tb_mopshub_top/rx14 \
+sim:/tb_mopshub_top/rx15 \
+sim:/tb_mopshub_top/rx16 \
+sim:/tb_mopshub_top/rx17 \
+sim:/tb_mopshub_top/rx18 \
+sim:/tb_mopshub_top/rx19 \
+sim:/tb_mopshub_top/rx20 \
+sim:/tb_mopshub_top/rx21 \
+sim:/tb_mopshub_top/rx22 \
+sim:/tb_mopshub_top/rx23 \
+sim:/tb_mopshub_top/rx24 \
+sim:/tb_mopshub_top/rx25 \
+sim:/tb_mopshub_top/rx26 \
+sim:/tb_mopshub_top/rx27 \
+sim:/tb_mopshub_top/rx28 \
+sim:/tb_mopshub_top/rx29 \
+sim:/tb_mopshub_top/rx30 \
+sim:/tb_mopshub_top/rx31 \
+sim:/tb_mopshub_top/tx0 \
+sim:/tb_mopshub_top/tx1 \
+sim:/tb_mopshub_top/tx2 \
+sim:/tb_mopshub_top/tx3 \
+sim:/tb_mopshub_top/tx4 \
+sim:/tb_mopshub_top/tx5 \
+sim:/tb_mopshub_top/tx6 \
+sim:/tb_mopshub_top/tx7 \
+sim:/tb_mopshub_top/tx8 \
+sim:/tb_mopshub_top/tx9 \
+sim:/tb_mopshub_top/tx10 \
+sim:/tb_mopshub_top/tx11 \
+sim:/tb_mopshub_top/tx12 \
+sim:/tb_mopshub_top/tx13 \
+sim:/tb_mopshub_top/tx14 \
+sim:/tb_mopshub_top/tx15 \
+sim:/tb_mopshub_top/tx16 \
+sim:/tb_mopshub_top/tx17 \
+sim:/tb_mopshub_top/tx18 \
+sim:/tb_mopshub_top/tx19 \
+sim:/tb_mopshub_top/tx20 \
+sim:/tb_mopshub_top/tx21 \
+sim:/tb_mopshub_top/tx22 \
+sim:/tb_mopshub_top/tx23 \
+sim:/tb_mopshub_top/tx24 \
+sim:/tb_mopshub_top/tx25 \
+sim:/tb_mopshub_top/tx26 \
+sim:/tb_mopshub_top/tx27 \
+sim:/tb_mopshub_top/tx28 \
+sim:/tb_mopshub_top/tx29 \
+sim:/tb_mopshub_top/tx30 \
+sim:/tb_mopshub_top/tx31 \
+sim:/tb_mopshub_top/spi_dat \
+sim:/tb_mopshub_top/tx_mopshub_2bit \
+sim:/tb_mopshub_top/tx_mopshub_1bit \
+sim:/tb_mopshub_top/rx_mopshub_2bit \
+sim:/tb_mopshub_top/rx_mopshub_1bit \
+sim:/tb_mopshub_top/tx_dout \
+sim:/tb_mopshub_top/rx_din \
+sim:/tb_mopshub_top/respmsg \
+sim:/tb_mopshub_top/reqmsg
 # Status GOOD [BUS ID  1] - TX Test
 # 	 Transmit TX signals [BUS ID   1]: 	 request 6014000401001000000 	 response 5818000401001020000
 # Status GOOD [BUS ID  1] - TX Test
@@ -269,5 +412,7 @@ run
 # Status GOOD [BUS ID  2] - TX Test
 # 	 Transmit TX signals [BUS ID   2]: 	 request 6014000240a02000000 	 response 5818000240a02020000
 # *****************************************************************************
-# End time: 09:20:47 on Mar 01,2022, Elapsed time: 84:06:07
+# 0
+# 
+# End time: 10:27:28 on Mar 01,2022, Elapsed time: 0:02:35
 # Errors: 0, Warnings: 38

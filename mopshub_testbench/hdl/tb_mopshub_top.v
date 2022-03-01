@@ -25,7 +25,7 @@ module tb_mopshub_top();
   wire            trim_sig_end;
   wire            trim_sig_done;
   
-  reg             osc_auto_trim_mopshub =1'b0;
+  reg             osc_auto_trim_mopshub =1'b1;
   wire            ready_osc;
   wire            start_trim_osc;
   wire            end_trim_bus;
@@ -398,7 +398,7 @@ module tb_mopshub_top();
     end
     if(sign_on_sig ==1)//start Rx test
     begin
-     test_tx =1'b1;
+     test_rx =1'b1;
      //test_advanced = 1'b1;
     end
     if(test_rx_end ==1)//Done Rx test
