@@ -13,7 +13,8 @@
 module buffer_rec_spi#(
    // synopsys template
    parameter Kchar_sop              = 8'b00111100,
-   parameter Kchar_eop              = 8'b11011100
+   parameter Kchar_eop              = 8'b11011100,
+   parameter Kchar_comma            = 8'b10111100	//K28.5  BC
 )(  
   // Port Declarations
   input   wire    [31:0]  data_rec_in,   
@@ -22,18 +23,18 @@ module buffer_rec_spi#(
   output  wire    [1:0]   data_rec_delimiter   
   );
   // Internal Declarations
-  reg   [7:0] data_rec_reg = 8'h0;
+  reg   [7:0] data_rec_reg = Kchar_comma;
   reg   [1:0] data_delimiter_reg= 2'b11;
   always@(*)
     case(addr)
-      5'b00000  :   data_rec_reg  = 8'h0; 
+      5'b00000  :   data_rec_reg  = Kchar_comma; 
       5'b00001  :   data_rec_reg  = Kchar_sop; //Add SOP
       5'b00010  :   data_rec_reg  = data_rec_in[31:24];    
       5'b00011  :   data_rec_reg  = data_rec_in[23:16];    
       5'b00100  :   data_rec_reg  = data_rec_in[15:8];                                
       5'b00101  :   data_rec_reg  = data_rec_in[7:0];                  
       5'b01100  :   data_rec_reg  = Kchar_eop; //Add EOP
-      default   :   data_rec_reg  = 8'h0;    
+      default   :   data_rec_reg  = Kchar_comma;    
     endcase
   
   

@@ -14,7 +14,8 @@
 module buffer_rec_elink#(
    // synopsys template
    parameter Kchar_sop              = 8'b00111100,
-   parameter Kchar_eop              = 8'b11011100
+   parameter Kchar_eop              = 8'b11011100,
+   parameter Kchar_comma            = 8'b10111100	//K28.5  BC
 )( 
   // Port Declarations
   input   wire    [75:0]  data_rec_in,   // input data from the SCB or Object Dictionary side
@@ -23,11 +24,11 @@ module buffer_rec_elink#(
   output  wire    [1:0]   data_rec_delimiter   // Output data to be written on the CAN bus
   );
   // Internal Declarations
-  reg   [7:0] data_rec_reg = 8'h0;
+  reg   [7:0] data_rec_reg = Kchar_comma;
   reg   [1:0] data_delimiter_reg= 2'b11;
   always@(*)
     case(addr)
-      5'b00000  :   data_rec_reg  = 8'h0; 
+      5'b00000  :   data_rec_reg  = Kchar_comma; 
       5'b00001  :   data_rec_reg  = Kchar_sop; //Add SOP
       
       5'b00010  :   data_rec_reg  = data_rec_in[75:68];    
@@ -42,7 +43,7 @@ module buffer_rec_elink#(
       5'b01011  :   data_rec_reg  = {data_rec_in[3:0],4'h0};
         
       5'b01100  :   data_rec_reg  = Kchar_eop; //Add EOP
-      default   :   data_rec_reg  = 8'h00;    
+      default   :   data_rec_reg  = Kchar_comma;    
     endcase
   
   

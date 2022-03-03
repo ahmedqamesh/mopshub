@@ -71,7 +71,7 @@ value "/home/dcs/git/mopshub/mopshub_lib/hds/fifo_core_wrapper"
 )
 (vvPair
 variable "date"
-value "02/24/22"
+value "03/03/22"
 )
 (vvPair
 variable "day"
@@ -83,7 +83,7 @@ value "Thursday"
 )
 (vvPair
 variable "dd"
-value "24"
+value "03"
 )
 (vvPair
 variable "entity_name"
@@ -111,7 +111,7 @@ value "dcs"
 )
 (vvPair
 variable "graphical_source_date"
-value "02/24/22"
+value "03/03/22"
 )
 (vvPair
 variable "graphical_source_group"
@@ -123,7 +123,7 @@ value "chipdev2.physik.uni-wuppertal.de"
 )
 (vvPair
 variable "graphical_source_time"
-value "17:25:36"
+value "12:33:24"
 )
 (vvPair
 variable "group"
@@ -167,7 +167,7 @@ value "$HDS_PROJECT_DIR/mopshub_lib/svassistant"
 )
 (vvPair
 variable "mm"
-value "02"
+value "03"
 )
 (vvPair
 variable "module_name"
@@ -175,11 +175,11 @@ value "fifo_core_wrapper"
 )
 (vvPair
 variable "month"
-value "Feb"
+value "Mar"
 )
 (vvPair
 variable "month_long"
-value "February"
+value "March"
 )
 (vvPair
 variable "p"
@@ -243,7 +243,7 @@ value "struct"
 )
 (vvPair
 variable "time"
-value "17:25:36"
+value "12:33:24"
 )
 (vvPair
 variable "unit"
@@ -1680,7 +1680,7 @@ font "courier,8,0"
 )
 xt "14176,21576,18176,22476"
 st "
-size=$fifo_size(300)
+size=$fifo_size(280)
 "
 tm "CommentText"
 wrapOption 3
@@ -1876,7 +1876,7 @@ ptn "String"
 uid 3310,0
 pclass "param"
 pname "fifo_size"
-pvalue "300"
+pvalue "280"
 ptn "String"
 )
 *60 (Property
@@ -1992,11 +1992,11 @@ always @ (posedge clk)
   if (!rst) rd_en_data   <=1'b0;
     else    rd_en_data   <= rd_en_s;   
     
-    
+      
 always @ (posedge clk)
   if (!rst) 
   begin 
-  dout_fifo_reg       <={2'b11,Kchar_comma};
+  dout_fifo_reg       <={11,8'b0};
   dout_rdy_fifo_reg   <= 1'b0;
   end
   else
@@ -2012,6 +2012,26 @@ always @ (posedge clk)
         dout_rdy_fifo_reg   <= 1'b0;
       end
     end                                     
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
@@ -2105,7 +2125,7 @@ fg "65535,65535,37120"
 lineColor "0,0,32768"
 lineWidth 2
 )
-xt "45000,23000,48000,32000"
+xt "45000,22000,48000,32000"
 )
 oxt "49000,17000,52000,22000"
 ttg (MlTextGroup
@@ -3392,12 +3412,12 @@ tm "BdCompilerDirectivesTextMgr"
 ]
 associable 1
 )
-windowSize "1912,40,3848,1055"
-viewArea "-600,7100,47364,31516"
+windowSize "-8,13,1928,1088"
+viewArea "-9800,-8300,74137,35996"
 cachedDiagramExtent "-9000,0,71000,51000"
 hasePageBreakOrigin 1
 pageBreakOrigin "-10000,0"
-lastUid 6996,0
+lastUid 7254,0
 defaultCommentText (CommentText
 shape (Rectangle
 layer 0
@@ -4455,7 +4475,7 @@ tm "BdDeclarativeTextMgr"
 )
 commonDM (CommonDM
 ldm (LogicalDM
-suid 100,0
+suid 101,0
 usingSuid 1
 emptyRow *135 (LEmptyRow
 )
@@ -5030,14 +5050,6 @@ tm "GenericValueColHdrMgr"
 *212 (EolColHdr
 tm "GenericEolColHdrMgr"
 )
-*213 (LogGeneric
-generic (GiElement
-name "Kchar_comma"
-type "integer"
-value "8'b10111100"
-)
-uid 6197,0
-)
 ]
 )
 pdm (PhysicalDM
@@ -5045,7 +5057,7 @@ displayShortBounds 1
 editShortBounds 1
 uid 273,0
 optionalChildren [
-*214 (Sheet
+*213 (Sheet
 sheetRow (SheetRow
 headerVa (MVa
 cellColor "49152,49152,49152"
@@ -5062,37 +5074,31 @@ cellColor "39936,56832,65280"
 fontColor "0,0,0"
 font "courier,10,0"
 )
-emptyMRCItem *215 (MRCItem
+emptyMRCItem *214 (MRCItem
 litem &203
-pos 1
+pos 0
 dimension 20
 )
 uid 275,0
 optionalChildren [
-*216 (MRCItem
+*215 (MRCItem
 litem &204
 pos 0
 dimension 20
 uid 276,0
 )
-*217 (MRCItem
+*216 (MRCItem
 litem &205
 pos 1
 dimension 23
 uid 277,0
 )
-*218 (MRCItem
+*217 (MRCItem
 litem &206
 pos 2
 hidden 1
 dimension 20
 uid 278,0
-)
-*219 (MRCItem
-litem &213
-pos 0
-dimension 20
-uid 6198,0
 )
 ]
 )
@@ -5105,31 +5111,31 @@ textAngle 90
 )
 uid 279,0
 optionalChildren [
-*220 (MRCItem
+*218 (MRCItem
 litem &207
 pos 0
 dimension 20
 uid 280,0
 )
-*221 (MRCItem
+*219 (MRCItem
 litem &209
 pos 1
 dimension 50
 uid 281,0
 )
-*222 (MRCItem
+*220 (MRCItem
 litem &210
 pos 2
 dimension 100
 uid 282,0
 )
-*223 (MRCItem
+*221 (MRCItem
 litem &211
 pos 3
 dimension 179
 uid 283,0
 )
-*224 (MRCItem
+*222 (MRCItem
 litem &212
 pos 4
 dimension 80

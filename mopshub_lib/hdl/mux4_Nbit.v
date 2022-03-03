@@ -11,7 +11,8 @@
 `resetall
 `timescale 1ns/10ps
 module mux4_Nbit#(
-  parameter N = 16
+  parameter N = 16,
+  parameter def_value = 8'b0
 )( 
    // Port Declarations
    input   wire    [N-1:0]  data0, 
@@ -22,7 +23,7 @@ module mux4_Nbit#(
    output  wire    [N-1:0]  data_out
 );
 // Internal Declarations
-reg [N-1:0] data_out_reg;
+reg [N-1:0] data_out_reg =def_value;
 assign data_out = data_out_reg;
 // Internal Declarations
 
@@ -45,6 +46,7 @@ begin
    2'b11: begin//Read Comma data
       data_out_reg=data3;
    end
+   default  data_out_reg=def_value;
    endcase
 end
 endmodule
