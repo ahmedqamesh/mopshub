@@ -403,7 +403,7 @@ module tb_mopshub_top();
   initial 
   begin
     rst = 1'b0;
-    #3
+    //#3
     enable_s =1'b1;
     #10
     rst = 1'b1;
