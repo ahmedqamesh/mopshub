@@ -78,22 +78,32 @@ module sys_clk_emci
  );
   // Input buffering
   //------------------------------------
-wire clk_in1_sys_clk_emci;
-wire clk_in2_sys_clk_emci;
-  IBUFDS clkin1_ibufds
-   (.O  (clk_in1_sys_clk_emci),
-    .I  (clk_in1_p_sys),
-    .IB (clk_in1_n_sys));
+  wire clk_in1_sys_clk_emci;
+  wire clk_in2_sys_clk_emci;
 
 
-  BUFG clkout1_buf_emci
-   (.O   (clk_in1_p_sys),
-    .I   (clk_in1_p));
+  wire      clk_in1_p_sys;
+  wire      clk_in1_n_sys;
 
+// Internal Declarations
+   wire clk_local_sig;
 
-  BUFG clkout2_buf_emci
-   (.O   (clk_in1_n_sys),
-    .I   (clk_in1_n));
+  IBUFDS clkin_diff_buff (
+          .I (clk_in1_p),
+          .IB(clk_in1_n),
+          .O (clk_local_sig)
+        );
+        
+
+  BUFG clkin_buf
+   (.O   (clk_in1_sys_clk_emci),
+    .I   (clk_local_sig));
+
+       
+//  IBUFDS clkin1_ibufds
+//   (.O  (clk_in1_sys_clk_emci),
+//    .I  (clk_in1_p_sys),
+//    .IB (clk_in1_n_sys));
 
   // Clocking PRIMITIVE
   //------------------------------------
@@ -128,12 +138,9 @@ wire clk_in2_sys_clk_emci;
   wire        clkfbstopped_unused;
   wire        clkinstopped_unused;
 
-  wire      clk_in1_p_sys;
-  wire      clk_in1_n_sys;
   
-    MMCME4_ADV
-
-  #(.BANDWIDTH            ("OPTIMIZED"),
+    MMCME4_ADV#(
+    .BANDWIDTH            ("OPTIMIZED"),
     .CLKOUT4_CASCADE      ("FALSE"),
     .COMPENSATION         ("AUTO"),
     .STARTUP_WAIT         ("FALSE"),
@@ -151,9 +158,7 @@ wire clk_in2_sys_clk_emci;
     .CLKOUT1_USE_FINE_PS  ("FALSE"),
     .CLKIN1_PERIOD        (12.500))
   
-  mmcme4_adv_inst
-    // Output clocks
-   (
+  mmcme4_adv_inst(    // Output clocks
     .CLKFBOUT            (clkfbout_sys_clk_emci),
     .CLKFBOUTB           (clkfboutb_unused),
     .CLKOUT0             (clk_80_sys_clk_emci),

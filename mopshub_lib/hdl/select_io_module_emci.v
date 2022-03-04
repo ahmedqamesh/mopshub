@@ -27,7 +27,7 @@ module select_io_module_emci(
   wire           rx_elink1bit;
   //define the output rx Signal
   ISERDESE3 #(
-  .DATA_WIDTH(2),                 // Parallel data width (4,8)
+  .DATA_WIDTH(4),                 // Parallel data width (4,8)
   .FIFO_ENABLE("FALSE"),          // Enables the use of the FIFO
   .FIFO_SYNC_MODE("FALSE"),       // Always set to FALSE. TRUE is reserved for later use.
   .IS_CLK_B_INVERTED(1'b0),       // Optional inversion for CLK_B
