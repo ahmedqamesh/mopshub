@@ -11,6 +11,7 @@ except ImportError:
     logging.warning('RPI GPIO could not be imported')
 
 
+
 class PEconfig(MPconfig):
 
     def __init__(self):
