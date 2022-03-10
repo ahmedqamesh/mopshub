@@ -27,8 +27,6 @@ module buffer_tristate_busid(
 
 // Internal Declarations
 reg [4:0] data_tra_reg = 5'h0;
-// Triplication assignment
-wire [4:0] data_tra_regVoted = data_tra_reg;
 always@(posedge clk)
   begin 
    if(!rst)
@@ -40,8 +38,8 @@ always@(posedge clk)
        else if(buffer_en2) data_tra_reg <= data_tra_in2;
        else if(buffer_en3) data_tra_reg <= data_tra_in3;
        else
-         data_tra_reg <= data_tra_regVoted;
+         data_tra_reg <= data_tra_reg;
      end
   end 
-assign data_tra_out = data_tra_regVoted;
+assign data_tra_out = data_tra_reg;
 endmodule

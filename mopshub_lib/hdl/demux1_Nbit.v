@@ -16,7 +16,6 @@ module demux1_Nbit#(
   
   )( 
   input    wire  [4 : 0]           sel,
-
   input    wire  [N-1 : 0]           input_bus,  
   output   wire  [N-1 : 0]            output9, 
   output   wire  [N-1 : 0]            output18, 

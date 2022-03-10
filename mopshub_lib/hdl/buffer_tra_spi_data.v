@@ -28,18 +28,13 @@ reg [7:0] spi_id_reg     = 8'd0;
 reg [7:0] spi_reg_reg    = 8'd0;
 reg [7:0] spi_select_reg = 8'd0;
 
-// Triplication assignment
-wire [7:0] data_tra_regVoted    = data_tra_reg;
-wire [7:0] spi_id_regVoted      = spi_id_reg;
-wire [7:0] spi_reg_regVoted     = spi_reg_reg;
-wire [7:0] spi_select_regVoted  = spi_select_reg;
 
 always@(posedge clk)
 begin 
  if(!rst) spi_id_reg <= 8'd0;
  else
   if(buffer_en) spi_id_reg <= data_tra_in[31:24];
-  else  spi_id_reg <= spi_id_regVoted;
+  else  spi_id_reg <= spi_id_reg;
 end 
 
 always@(posedge clk)
@@ -47,7 +42,7 @@ begin
  if(!rst) spi_select_reg <= 8'd0;
  else
   if(buffer_en) spi_select_reg <= data_tra_in[23:16];
-  else  spi_select_reg <= spi_select_regVoted;
+  else  spi_select_reg <= spi_select_reg;
 end 
 
 always@(posedge clk)
@@ -55,7 +50,7 @@ begin
  if(!rst) spi_reg_reg <= 8'd0;
  else
   if(buffer_en) spi_reg_reg <= data_tra_in[15:8] ;
-  else  spi_reg_reg <= spi_reg_regVoted;
+  else  spi_reg_reg <= spi_reg_reg;
 end 
 
 
@@ -65,11 +60,11 @@ begin
  if(!rst) data_tra_reg <= 8'd0;
  else
   if(buffer_en) data_tra_reg <= data_tra_in[7:0];
-  else  data_tra_reg <= data_tra_regVoted;
+  else  data_tra_reg <= data_tra_reg;
 end 
 
-assign data_tra_out = data_tra_regVoted;
-assign spi_id = spi_id_regVoted;
-assign spi_reg = spi_reg_regVoted;
+assign data_tra_out = data_tra_reg;
+assign spi_id = spi_id_reg;
+assign spi_reg = spi_reg_reg;
 assign spi_select = spi_select_reg;
 endmodule

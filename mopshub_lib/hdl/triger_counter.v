@@ -10,19 +10,18 @@
 
 `resetall
 `timescale 1ns/10ps
-module triger_counter #(
-  parameter cycles_cnt = 3'b100,
-  parameter req_size = 3'b011)
-  (
+module triger_counter (
   input wire rst,
   input wire clk,
   output wire request_trig
   );
   
-  
-  reg   [req_size-1:0] request_cycle_cnt = 0;
-  
-  
+reg  [2:0]  cycles_cnt;
+initial begin 
+    cycles_cnt = 3'b100;
+end
+  reg   [2:0] request_cycle_cnt = 0;
+
   // Counter over the Clock signal
   always @(posedge clk)
   begin
@@ -38,6 +37,6 @@ module triger_counter #(
   end
   // HDL Embedded Text Block 2 Trig_sig
   //  request cycle 5 CLKs
-  assign request_trig = (request_cycle_cnt == cycles_cnt) ? 1:0;  //cycle 5 bitCLKs]
+  assign request_trig = (request_cycle_cnt == cycles_cnt) ? 1:0; 
   
 endmodule

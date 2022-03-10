@@ -20,8 +20,8 @@ module dec1_Nbit (
   output wire   [31:0]  data_rec_in,
   output wire   [31:0]  data_rec_out
 );
-  reg   [31:0]  output_bus_reg = 32'd0;
-  wire [31:0] data_rec_regVoted = output_bus_reg;
+reg   [31:0]  output_bus_reg = 32'd0;
+
 always@(posedge clk)
 begin 
  if(!rst)
@@ -72,8 +72,8 @@ begin
   endcase
   else
   begin 
-   output_bus_reg <= data_rec_regVoted;
+   output_bus_reg <= output_bus_reg;
   end
 end 
-assign data_rec_out = data_rec_regVoted;  
+assign data_rec_out = output_bus_reg;  
 endmodule

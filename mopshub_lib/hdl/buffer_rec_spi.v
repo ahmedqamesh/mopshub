@@ -10,20 +10,18 @@
 
 `resetall
 `timescale 1ns/10ps
-module buffer_rec_spi#(
-   // synopsys template
-   parameter Kchar_sop              = 8'b00111100,
-   parameter Kchar_eop              = 8'b11011100,
-   parameter Kchar_comma            = 8'b10111100	//K28.5  BC
-)(  
+module buffer_rec_spi(  
   // Port Declarations
   input   wire    [31:0]  data_rec_in,   
   input   wire    [4 :0]  addr, 
   output  wire    [7:0]   data_rec_8bitout,  
-  output  wire    [1:0]   data_rec_delimiter   
+  output  wire    [1:0]   data_rec_delimiter,   
+  input   wire    [7 :0]  Kchar_sop,
+  input   wire    [7 :0]  Kchar_eop,
+  input   wire    [7 :0]  Kchar_comma
   );
   // Internal Declarations
-  reg   [7:0] data_rec_reg = Kchar_comma;
+  reg   [7:0] data_rec_reg= 8'b0;
   reg   [1:0] data_delimiter_reg= 2'b11;
   always@(*)
     case(addr)

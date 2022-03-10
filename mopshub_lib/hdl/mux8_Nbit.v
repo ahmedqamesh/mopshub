@@ -10,25 +10,23 @@
 
 `resetall
 `timescale 1ns/10ps
-module mux8_Nbit#(
-  parameter N = 16
-)( 
+module mux8_Nbit( 
    // Port Declarations
-   input   wire    [N-1:0]  data0, 
-   input   wire    [N-1:0]  data1, 
-   input   wire    [N-1:0]  data2, 
-   input   wire    [N-1:0]  data3, 
-   input   wire    [N-1:0]  data4, 
-   input   wire    [N-1:0]  data5, 
-   input   wire    [N-1:0]  data6, 
-   input   wire    [N-1:0]  data7, 
+   input   wire    [1:0]  data0, 
+   input   wire    [1:0]  data1, 
+   input   wire    [1:0]  data2, 
+   input   wire    [1:0]  data3, 
+   input   wire    [1:0]  data4, 
+   input   wire    [1:0]  data5, 
+   input   wire    [1:0]  data6, 
+   input   wire    [1:0]  data7, 
    input   wire    [2:0]    sel, 
-   output  wire    [N-1:0]  data_out
+   output  wire    [1:0]  data_out
 );
 
 
 // Internal Declarations
-reg [N-1:0] data_out_r = 0;
+reg [1:0] data_out_r = 0;
 assign data_out = data_out_r;
 
 always @ (data0, data1, data2, data3, data4, data5, data6, data7,  sel)

@@ -10,21 +10,17 @@
 
 `resetall
 `timescale 1ns/10ps
-module bit_counter #(
-   // synopsys template
-   parameter bit_size = 5
-)
-( 
+module bit_counter( 
    // Port Declarations
    input   wire                    ext_rst, 
    input   wire                    rst, 
-   output  wire    [bit_size-1:0]  data_out, 
+   output  wire    [4:0]  data_out, 
    input   wire                    clk, 
    input   wire                    cnt_enable
 );
 
 // Internal Declarations
-  reg [bit_size-1:0] data_out_reg;
+  reg [4:0] data_out_reg;
   assign data_out = data_out_reg ;
 
   always @(posedge clk)

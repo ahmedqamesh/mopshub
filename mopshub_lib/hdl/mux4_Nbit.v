@@ -10,24 +10,19 @@
 
 `resetall
 `timescale 1ns/10ps
-module mux4_Nbit#(
-  parameter N = 16,
-  parameter def_value = 8'b0
-)( 
+module mux4_Nbit( 
    // Port Declarations
-   input   wire    [N-1:0]  data0, 
-   input   wire    [N-1:0]  data1, 
-   input   wire    [N-1:0]  data2, 
-   input   wire    [N-1:0]  data3,  
+   input   wire    [7:0]  data0, 
+   input   wire    [7:0]  data1, 
+   input   wire    [7:0]  data2, 
+   input   wire    [7:0]  data3,  
    input   wire    [1:0]   sel, 
-   output  wire    [N-1:0]  data_out
+   output  wire    [7:0]  data_out,
+   input   wire    [7:0] def_value
 );
 // Internal Declarations
-reg [N-1:0] data_out_reg =def_value;
+reg [7:0] data_out_reg;
 assign data_out = data_out_reg;
-// Internal Declarations
-
-
 
 /////////////////////////////////////////////////////////////////
 // Flowchart process0

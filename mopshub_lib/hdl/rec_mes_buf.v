@@ -11,9 +11,6 @@ module buffer_rec_data(
    output  wire    [75:0]  data_rec_out    // complete CAN message output. 11-bit ID and 4 data-bytes
 
 );
-
-//tmrg default triplicate
-//tmrg tmr_error false
 // Internal Declarations
 reg [11:0] id = 12'd0;      // CAN ID is 11-bits.  Here 3 Hex values are used to reprent COB-ID
 reg [7:0] b1 = 8'h0 ;       // Data bytes 1...8
@@ -24,17 +21,6 @@ reg [7:0] b5 = 8'h0;
 reg [7:0] b6 = 8'h0;
 reg [7:0] b7 = 8'h0;
 reg [7:0] b8 = 8'h0;
-
-//Triplication signals 
-wire [11:0] idVoted = id;
-wire [7:0] b1Voted  = b1;
-wire [7:0] b2Voted  = b2;
-wire [7:0] b3Voted  = b3;
-wire [7:0] b4Voted  = b4;
-wire [7:0] b5Voted  = b5;
-wire [7:0] b6Voted  = b6;
-wire [7:0] b7Voted  = b7;
-wire [7:0] b8Voted  = b8;
 
 always@(posedge clk)
 begin 
@@ -52,15 +38,6 @@ begin
    end
   else
    begin
-        id <= idVoted;
-        b1 <= b1Voted;
-        b2 <= b2Voted;
-        b3 <= b3Voted;
-        b4 <= b4Voted;
-        b5 <= b5Voted;
-        b6 <= b6Voted;
-        b7 <= b7Voted;
-        b8 <= b8Voted;
    if(buffer_en)
     begin
     case(addr)
@@ -84,15 +61,15 @@ begin
                end             
      default 
       begin
-        id <= idVoted;
-        b1 <= b1Voted;
-        b2 <= b2Voted;
-        b3 <= b3Voted;
-        b4 <= b4Voted;
-        b5 <= b5Voted;
-        b6 <= b6Voted;
-        b7 <= b7Voted;
-        b8 <= b8Voted;
+        id <= id;
+        b1 <= b1;
+        b2 <= b2;
+        b3 <= b3;
+        b4 <= b4;
+        b5 <= b5;
+        b6 <= b6;
+        b7 <= b7;
+        b8 <= b8;
       end 
     endcase
     end        
@@ -100,6 +77,6 @@ begin
 end 
 
 //Output assigments
-assign data_rec_out = {idVoted,b1Voted,b3Voted,b2Voted,b4Voted,b8Voted,b7Voted,b6Voted,b5Voted};
+assign data_rec_out = {id,b1,b3,b2,b4,b8,b7,b6,b5};
 
 endmodule

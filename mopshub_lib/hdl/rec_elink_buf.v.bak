@@ -11,20 +11,18 @@
 `resetall
 `timescale 1ns/10ps
 
-module buffer_rec_elink#(
-   // synopsys template
-   parameter Kchar_sop              = 8'b00111100,
-   parameter Kchar_eop              = 8'b11011100,
-   parameter Kchar_comma            = 8'b10111100	//K28.5  BC
-)( 
+module buffer_rec_elink( 
   // Port Declarations
   input   wire    [75:0]  data_rec_in,   // input data from the SCB or Object Dictionary side
   input   wire    [4 :0]  addr, 
   output  wire    [7:0]   data_rec_8bitout,   // Output data to be written on the CAN bus
-  output  wire    [1:0]   data_rec_delimiter   // Output data to be written on the CAN bus
+  output  wire    [1:0]   data_rec_delimiter,   // Output data to be written on the CAN bus
+  input   wire    [7 :0]  Kchar_sop,
+  input   wire    [7 :0]  Kchar_eop,
+  input   wire    [7 :0]  Kchar_comma
   );
   // Internal Declarations
-  reg   [7:0] data_rec_reg = Kchar_comma;
+  reg   [7:0] data_rec_reg;
   reg   [1:0] data_delimiter_reg= 2'b11;
   always@(*)
     case(addr)

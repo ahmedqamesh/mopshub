@@ -10,11 +10,9 @@
 
 `resetall
 `timescale 1ns/10ps
-module bus_comp #(
-parameter max_bit_size = 5
-)(
-input wire  [max_bit_size-1 :0] can_rec_select,
-input wire  [max_bit_size-1 :0] can_tra_select,
+module bus_comp(
+input wire  [4 :0] can_rec_select,
+input wire  [4:0] can_tra_select,
 output wire   bus_match
 );
 reg bus_match_reg;

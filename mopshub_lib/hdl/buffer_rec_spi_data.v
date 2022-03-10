@@ -30,11 +30,6 @@ reg [7:0] b1 = 8'h0 ;       // Data bytes 1...8
 reg [7:0] b2 = 8'h0;
 reg [7:0] b3 = 8'h0;
 reg end_read_miso_reg = 1'b0;
-//Triplication signals 
-wire [7:0] idVoted = id;
-wire [7:0] b1Voted  = b1;
-wire [7:0] b2Voted  = b2;
-wire [7:0] b3Voted  = b3;
 always@(posedge clk)
 begin 
   if(!rst)
@@ -55,16 +50,16 @@ begin
       end
   else
     begin
-      id <= idVoted;
-      b1 <= b1Voted;
-      b2 <= b2Voted;
-      b3 <= b3Voted;
+      id <= id;
+      b1 <= b1;
+      b2 <= b2;
+      b3 <= b3;
       end_read_miso_reg =1'b0;
     end        
 end 
 
 //Output assigments
 assign end_read_miso = end_read_miso_reg;
-assign data_rec_out = {idVoted,b1Voted,b2Voted,b3Voted};
+assign data_rec_out = {id,b1,b2,b3};
 
 endmodule

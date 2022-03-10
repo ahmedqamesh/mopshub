@@ -10,22 +10,18 @@
 
 `resetall
 `timescale 1ns/10ps
-module bit_shifter#(
-  // synopsys template
-  parameter bit_size = 32
-  )
-  ( 
+module bit_shifter( 
   // Port Declarations
   input   wire                    ext_rst, 
   input   wire                    rst, 
   input   wire                    data_bit, 
-  output  wire    [bit_size-1:0]  data_out, 
+  output  wire    [31:0]          data_out, 
   input   wire                    clk, 
   input   wire                    cnt_enable
   );
   
   // Internal Declarations
-  reg [bit_size-1:0] data_out_reg;
+  reg [31:0] data_out_reg;
   assign data_out = data_out_reg ;
   
   always @(posedge clk)
@@ -37,7 +33,7 @@ module bit_shifter#(
   begin
     if (cnt_enable) 
     begin
-      data_out_reg <= {data_out_reg[bit_size-2:0],data_bit};
+      data_out_reg <= {data_out_reg[30:0],data_bit};
       data_out_reg[0]  <=  data_out_reg[31];
     end
     else

@@ -55,7 +55,7 @@ module select_io_module_emci(
   
   //define the output tx Signal
   OSERDESE3 #(
-  .DATA_WIDTH(2),                 // Parallel Data Width (4-8)
+  .DATA_WIDTH(4),                 // Parallel Data Width (4-8)
   .INIT(1'b0),                    // Initialization value of the OSERDES flip-flops
   .IS_CLKDIV_INVERTED(1'b0),      // Optional inversion for CLKDIV
   .IS_CLK_INVERTED(1'b0),         // Optional inversion for CLK

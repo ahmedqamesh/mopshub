@@ -13,17 +13,13 @@ module buffer_tra_data(
 // Internal Declarations
 reg [75:0] data_tra_reg = 76'd0 ;
 reg [4:0] data_tra_select_reg = 5'd0;
-// Triplication assignment
-wire [75:0] data_tra_regVoted = data_tra_reg;
-wire [4:0] data_tra_select_regVoted = data_tra_select_reg;
-
 
 always@(posedge clk)
 begin 
  if(!rst) data_tra_select_reg <= 5'd0;
  else
   if(buffer_en) data_tra_select_reg <= data_tra_in[28:24];
-  else  data_tra_select_reg <= data_tra_select_regVoted;
+  else  data_tra_select_reg <= data_tra_select_reg;
 end 
 
 always@(posedge clk)
@@ -31,9 +27,9 @@ begin
  if(!rst) data_tra_reg <= 76'd0;
  else
   if(buffer_en) data_tra_reg <= data_tra_in;
-  else  data_tra_reg <= data_tra_regVoted;
+  else  data_tra_reg <= data_tra_reg;
 end 
 
-assign data_tra_out = data_tra_regVoted;
-assign data_tra_select = data_tra_select_regVoted;
+assign data_tra_out = data_tra_reg;
+assign data_tra_select = data_tra_select_reg;
 endmodule
