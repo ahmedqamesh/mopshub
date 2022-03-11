@@ -10,79 +10,77 @@
 
 `resetall
 `timescale 1ns/10ps
-module demux1_Nbit#(
-  parameter def_value = 16'b0,
-  parameter N = 16
-  
-  )( 
-  input    wire  [4 : 0]           sel,
-  input    wire  [N-1 : 0]           input_bus,  
-  output   wire  [N-1 : 0]            output9, 
-  output   wire  [N-1 : 0]            output18, 
-  output   wire  [N-1 : 0]            output19, 
-  output   wire  [N-1 : 0]            output20, 
-  output   wire  [N-1 : 0]            output21, 
-  output   wire  [N-1 : 0]            output22, 
-  output   wire  [N-1 : 0]            output23, 
-  output   wire  [N-1 : 0]            output24, 
-  output   wire  [N-1 : 0]            output4, 
-  output   wire  [N-1 : 0]            output5, 
-  output   wire  [N-1 : 0]            output6, 
-  output   wire  [N-1 : 0]            output7, 
-  output   wire  [N-1 : 0]            output8, 
-  output   wire  [N-1 : 0]            output10, 
-  output   wire  [N-1 : 0]            output11, 
-  output   wire  [N-1 : 0]            output12, 
-  output   wire  [N-1 : 0]            output13, 
-  output   wire  [N-1 : 0]            output14, 
-  output   wire  [N-1 : 0]            output15, 
-  output   wire  [N-1 : 0]            output16, 
-  output   wire  [N-1 : 0]            output17, 
-  output   wire  [N-1 : 0]            output0, 
-  output   wire  [N-1 : 0]            output1, 
-  output   wire  [N-1 : 0]            output2, 
-  output   wire  [N-1 : 0]            output3, 
-  output   wire  [N-1 : 0]            output26, 
-  output   wire  [N-1 : 0]            output27, 
-  output   wire  [N-1 : 0]            output28, 
-  output   wire  [N-1 : 0]            output29, 
-  output   wire  [N-1 : 0]            output30, 
-  output   wire  [N-1 : 0]            output31, 
-  output   wire  [N-1 : 0]            output25
+module demux1_Nbit( 
+  input    wire  [4 : 0]            sel,
+  input    wire  [15 : 0]           input_bus,  
+  output   wire  [15 : 0]            output9, 
+  output   wire  [15 : 0]            output18, 
+  output   wire  [15 : 0]            output19, 
+  output   wire  [15 : 0]            output20, 
+  output   wire  [15 : 0]            output21, 
+  output   wire  [15 : 0]            output22, 
+  output   wire  [15 : 0]            output23, 
+  output   wire  [15 : 0]            output24, 
+  output   wire  [15 : 0]            output4, 
+  output   wire  [15 : 0]            output5, 
+  output   wire  [15 : 0]            output6, 
+  output   wire  [15 : 0]            output7, 
+  output   wire  [15 : 0]            output8, 
+  output   wire  [15 : 0]            output10, 
+  output   wire  [15 : 0]            output11, 
+  output   wire  [15 : 0]            output12, 
+  output   wire  [15 : 0]            output13, 
+  output   wire  [15 : 0]            output14, 
+  output   wire  [15 : 0]            output15, 
+  output   wire  [15 : 0]            output16, 
+  output   wire  [15 : 0]            output17, 
+  output   wire  [15 : 0]            output0, 
+  output   wire  [15 : 0]            output1, 
+  output   wire  [15 : 0]            output2, 
+  output   wire  [15 : 0]            output3, 
+  output   wire  [15 : 0]            output26, 
+  output   wire  [15 : 0]            output27, 
+  output   wire  [15 : 0]            output28, 
+  output   wire  [15 : 0]            output29, 
+  output   wire  [15 : 0]            output30, 
+  output   wire  [15 : 0]            output31, 
+  output   wire  [15 : 0]            output25
   );
+  wire [15 : 0] def_value ;
+  assign def_value = 16'b0;
+  reg  [15 : 0]  output9_reg  = 16'b0;  
+  reg  [15 : 0]  output18_reg = 16'b0;  
+  reg  [15 : 0]  output19_reg = 16'b0;  
+  reg  [15 : 0]  output20_reg = 16'b0;  
+  reg  [15 : 0]  output21_reg = 16'b0;  
+  reg  [15 : 0]  output22_reg = 16'b0;  
+  reg  [15 : 0]  output23_reg = 16'b0;  
+  reg  [15 : 0]  output24_reg = 16'b0;  
+  reg  [15 : 0]  output4_reg  = 16'b0;  
+  reg  [15 : 0]  output5_reg  = 16'b0;  
+  reg  [15 : 0]  output6_reg  = 16'b0;  
+  reg  [15 : 0]  output7_reg  = 16'b0;  
+  reg  [15 : 0]  output8_reg  = 16'b0;  
+  reg  [15 : 0]  output10_reg = 16'b0;  
+  reg  [15 : 0]  output11_reg = 16'b0;  
+  reg  [15 : 0]  output12_reg = 16'b0;  
+  reg  [15 : 0]  output13_reg = 16'b0;  
+  reg  [15 : 0]  output14_reg = 16'b0;  
+  reg  [15 : 0]  output15_reg = 16'b0;  
+  reg  [15 : 0]  output16_reg = 16'b0;  
+  reg  [15 : 0]  output17_reg = 16'b0;  
+  reg  [15 : 0]  output0_reg  = 16'b0;  
+  reg  [15 : 0]  output1_reg  = 16'b0;  
+  reg  [15 : 0]  output2_reg  = 16'b0;  
+  reg  [15 : 0]  output3_reg  = 16'b0;  
+  reg  [15 : 0]  output26_reg = 16'b0;  
+  reg  [15 : 0]  output27_reg = 16'b0;  
+  reg  [15 : 0]  output28_reg = 16'b0;  
+  reg  [15 : 0]  output29_reg = 16'b0;  
+  reg  [15 : 0]  output30_reg = 16'b0;  
+  reg  [15 : 0]  output31_reg = 16'b0;  
+  reg  [15 : 0]  output25_reg = 16'b0;  
   
-  reg  [N-1 : 0]  output9_reg  =def_value; 
-  reg  [N-1 : 0]  output18_reg =def_value; 
-  reg  [N-1 : 0]  output19_reg =def_value; 
-  reg  [N-1 : 0]  output20_reg =def_value; 
-  reg  [N-1 : 0]  output21_reg =def_value; 
-  reg  [N-1 : 0]  output22_reg =def_value; 
-  reg  [N-1 : 0]  output23_reg =def_value; 
-  reg  [N-1 : 0]  output24_reg =def_value; 
-  reg  [N-1 : 0]  output4_reg  =def_value; 
-  reg  [N-1 : 0]  output5_reg  =def_value; 
-  reg  [N-1 : 0]  output6_reg  =def_value; 
-  reg  [N-1 : 0]  output7_reg  =def_value; 
-  reg  [N-1 : 0]  output8_reg  =def_value; 
-  reg  [N-1 : 0]  output10_reg =def_value; 
-  reg  [N-1 : 0]  output11_reg =def_value; 
-  reg  [N-1 : 0]  output12_reg =def_value; 
-  reg  [N-1 : 0]  output13_reg =def_value; 
-  reg  [N-1 : 0]  output14_reg =def_value; 
-  reg  [N-1 : 0]  output15_reg =def_value; 
-  reg  [N-1 : 0]  output16_reg =def_value; 
-  reg  [N-1 : 0]  output17_reg =def_value; 
-  reg  [N-1 : 0]  output0_reg  =def_value; 
-  reg  [N-1 : 0]  output1_reg  =def_value; 
-  reg  [N-1 : 0]  output2_reg  =def_value; 
-  reg  [N-1 : 0]  output3_reg  =def_value; 
-  reg  [N-1 : 0]  output26_reg =def_value; 
-  reg  [N-1 : 0]  output27_reg =def_value; 
-  reg  [N-1 : 0]  output28_reg =def_value; 
-  reg  [N-1 : 0]  output29_reg =def_value; 
-  reg  [N-1 : 0]  output30_reg =def_value; 
-  reg  [N-1 : 0]  output31_reg =def_value; 
-  reg  [N-1 : 0]  output25_reg =def_value; 
   
  assign  output9=output9_reg; 
  assign  output18=output18_reg; 

@@ -10,10 +10,10 @@
 
 `resetall
 `timescale 1ns/10ps
-module mux1_1bit#(
-  parameter def_value = 1'b1
-  )( 
+
+module mux1_1bit( 
   input   wire    [4:0]   sel,
+  input    wire           def_value,
   output  wire            output_port,  
   input   wire            input9, 
   input   wire            input18, 
@@ -48,7 +48,8 @@ module mux1_1bit#(
   input   wire            input31, 
   input   wire            input25
   );
-reg output_port_reg =def_value;   
+reg output_port_reg;
+assign  output_port_reg=1'b0 ;  
 assign output_port = output_port_reg;
   
 always @(*)

@@ -10,9 +10,8 @@
 
 `resetall
 `timescale 1ns/10ps
-module demux1_1bit#(
-  parameter def_value = 1'b1
-  )( 
+module demux1_1bit( 
+  input    wire            def_value,
   input    wire    [4:0]   sel,
   input    wire            input_port,  
   output   wire            output0, 
@@ -48,38 +47,38 @@ module demux1_1bit#(
   output   wire            output30, 
   output   wire            output31
   );
-  reg output9_reg  = def_value; 
-  reg output18_reg = def_value; 
-  reg output19_reg = def_value; 
-  reg output20_reg = def_value; 
-  reg output21_reg = def_value; 
-  reg output22_reg = def_value; 
-  reg output23_reg = def_value; 
-  reg output24_reg = def_value; 
-  reg output4_reg  = def_value; 
-  reg output5_reg  = def_value; 
-  reg output6_reg  = def_value; 
-  reg output7_reg  = def_value; 
-  reg output8_reg  = def_value; 
-  reg output10_reg = def_value; 
-  reg output11_reg = def_value; 
-  reg output12_reg = def_value; 
-  reg output13_reg = def_value; 
-  reg output14_reg = def_value; 
-  reg output15_reg = def_value; 
-  reg output16_reg = def_value; 
-  reg output17_reg = def_value; 
-  reg output0_reg  = def_value; 
-  reg output1_reg  = def_value; 
-  reg output2_reg  = def_value; 
-  reg output3_reg  = def_value; 
-  reg output26_reg = def_value; 
-  reg output27_reg = def_value; 
-  reg output28_reg = def_value; 
-  reg output29_reg = def_value; 
-  reg output30_reg = def_value; 
-  reg output31_reg = def_value; 
-  reg output25_reg = def_value; 
+  reg output9_reg  = 1'b0; 
+  reg output18_reg = 1'b0;  
+  reg output19_reg = 1'b0;  
+  reg output20_reg = 1'b0;  
+  reg output21_reg = 1'b0;  
+  reg output22_reg = 1'b0;  
+  reg output23_reg = 1'b0;  
+  reg output24_reg = 1'b0;  
+  reg output4_reg  = 1'b0;  
+  reg output5_reg  = 1'b0;  
+  reg output6_reg  = 1'b0;  
+  reg output7_reg  = 1'b0;  
+  reg output8_reg  = 1'b0;  
+  reg output10_reg = 1'b0;  
+  reg output11_reg = 1'b0;  
+  reg output12_reg = 1'b0;  
+  reg output13_reg = 1'b0;  
+  reg output14_reg = 1'b0;  
+  reg output15_reg = 1'b0;  
+  reg output16_reg = 1'b0;  
+  reg output17_reg = 1'b0;  
+  reg output0_reg  = 1'b0;  
+  reg output1_reg  = 1'b0;  
+  reg output2_reg  = 1'b0;  
+  reg output3_reg  = 1'b0;  
+  reg output26_reg = 1'b0;  
+  reg output27_reg = 1'b0;  
+  reg output28_reg = 1'b0;  
+  reg output29_reg = 1'b0;  
+  reg output30_reg = 1'b0;  
+  reg output31_reg = 1'b0;  
+  reg output25_reg = 1'b0;  
  
  assign  output9  = output9_reg; 
  assign  output18 = output18_reg; 
