@@ -22,10 +22,20 @@ module buffer_tra_spi(
 );
 
 // Internal Declarations
-reg [7:0] b0 = 8'h00;      // CAN b0 is 11-bits.  Here 3 Hex values are used to reprent COB-b0
-reg [7:0] b1 = 8'h00;         // Data bytes 1...8
-reg [7:0] b2 = 8'h00;   
-reg [7:0] b3 = 8'h00;   
+reg [7:0] b0;      // CAN b0 is 11-bits.  Here 3 Hex values are used to reprent COB-b0
+reg [7:0] b1;         // Data bytes 1...8
+reg [7:0] b2;   
+reg [7:0] b3; 
+
+
+  initial 
+    begin
+      b0 = 8'h00;     
+      b1 = 8'h00;        
+      b2 = 8'h00;  
+      b3 = 8'h00;  
+    end
+      
 always@(posedge clk)
 begin 
   if(!rst)

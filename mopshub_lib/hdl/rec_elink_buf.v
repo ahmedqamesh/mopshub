@@ -22,8 +22,16 @@ module buffer_rec_elink(
   input   wire    [7 :0]  Kchar_comma
   );
   // Internal Declarations
-  reg   [7:0] data_rec_reg= 8'b0;
-  reg   [1:0] data_delimiter_reg= 2'b11;
+  reg   [7:0] data_rec_reg;
+  reg   [1:0] data_delimiter_reg;
+  
+  initial 
+  begin
+  data_rec_reg= 8'b0;
+  data_delimiter_reg= 2'b11;
+  end
+  
+  
   always@(*)
     case(addr)
       5'b00000  :   data_rec_reg  = Kchar_comma; 
@@ -66,6 +74,6 @@ module buffer_rec_elink(
     endcase 
   
   
-  assign data_rec_8bitout = data_rec_reg;//data_rec_regVoted;
-  assign data_rec_delimiter = data_delimiter_reg;//data_rec_regVoted;
+  assign data_rec_8bitout = data_rec_reg;
+  assign data_rec_delimiter = data_delimiter_reg;
 endmodule

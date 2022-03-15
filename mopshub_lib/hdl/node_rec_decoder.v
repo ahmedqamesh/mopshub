@@ -13,6 +13,7 @@
 module dec32_Nbit( 
   input   wire            clk, 
   input   wire            rst, 
+  input   wire            read_can_mode, 
   input   wire            ireqsucrec,   
   input   wire            Input0, 
   input   wire            Input1, 
@@ -49,7 +50,7 @@ module dec32_Nbit(
   output wire   [31:0]  data_tra_out
   
   );
-  reg     [31:0]  output_bus_reg = 32'd0;
+  reg     [31:0]  output_bus_reg ;//= 32'd0;
   wire    [31:0]  irqsucrec_signals;
   assign    irqsucrec_signals[0] = Input0;
   assign    irqsucrec_signals[1] = Input1;
@@ -83,7 +84,9 @@ module dec32_Nbit(
   assign    irqsucrec_signals[29] = Input29;
   assign    irqsucrec_signals[30] = Input30;
   assign    irqsucrec_signals[31] = Input31; 
-assign data_tra_out = output_bus_reg;  
+
+assign data_tra_out = output_bus_reg;
+  
 always@(posedge clk )
 begin 
  if(!rst)

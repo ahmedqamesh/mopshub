@@ -47,38 +47,78 @@ module demux1_1bit(
   output   wire            output30, 
   output   wire            output31
   );
-  reg output9_reg  = 1'b0; 
-  reg output18_reg = 1'b0;  
-  reg output19_reg = 1'b0;  
-  reg output20_reg = 1'b0;  
-  reg output21_reg = 1'b0;  
-  reg output22_reg = 1'b0;  
-  reg output23_reg = 1'b0;  
-  reg output24_reg = 1'b0;  
-  reg output4_reg  = 1'b0;  
-  reg output5_reg  = 1'b0;  
-  reg output6_reg  = 1'b0;  
-  reg output7_reg  = 1'b0;  
-  reg output8_reg  = 1'b0;  
-  reg output10_reg = 1'b0;  
-  reg output11_reg = 1'b0;  
-  reg output12_reg = 1'b0;  
-  reg output13_reg = 1'b0;  
-  reg output14_reg = 1'b0;  
-  reg output15_reg = 1'b0;  
-  reg output16_reg = 1'b0;  
-  reg output17_reg = 1'b0;  
-  reg output0_reg  = 1'b0;  
-  reg output1_reg  = 1'b0;  
-  reg output2_reg  = 1'b0;  
-  reg output3_reg  = 1'b0;  
-  reg output26_reg = 1'b0;  
-  reg output27_reg = 1'b0;  
-  reg output28_reg = 1'b0;  
-  reg output29_reg = 1'b0;  
-  reg output30_reg = 1'b0;  
-  reg output31_reg = 1'b0;  
-  reg output25_reg = 1'b0;  
+  reg output9_reg;
+  reg output18_reg;  
+  reg output19_reg;  
+  reg output20_reg;  
+  reg output21_reg;  
+  reg output22_reg;  
+  reg output23_reg;  
+  reg output24_reg;  
+  reg output4_reg; 
+  reg output5_reg; 
+  reg output6_reg; 
+  reg output7_reg; 
+  reg output8_reg; 
+  reg output10_reg;  
+  reg output11_reg;  
+  reg output12_reg;  
+  reg output13_reg;  
+  reg output14_reg;  
+  reg output15_reg;  
+  reg output16_reg;  
+  reg output17_reg;  
+  reg output0_reg; 
+  reg output1_reg; 
+  reg output2_reg; 
+  reg output3_reg; 
+  reg output26_reg;  
+  reg output27_reg;  
+  reg output28_reg;  
+  reg output29_reg;  
+  reg output30_reg;  
+  reg output31_reg;  
+  reg output25_reg;  
+
+initial 
+  begin
+   output9_reg  = 1'b0; 
+   output18_reg = 1'b0;  
+   output19_reg = 1'b0;  
+   output20_reg = 1'b0;  
+   output21_reg = 1'b0;  
+   output22_reg = 1'b0;  
+   output23_reg = 1'b0;  
+   output24_reg = 1'b0;  
+   output4_reg  = 1'b0;  
+   output5_reg  = 1'b0;  
+   output6_reg  = 1'b0;  
+   output7_reg  = 1'b0;  
+   output8_reg  = 1'b0;  
+   output10_reg = 1'b0;  
+   output11_reg = 1'b0;  
+   output12_reg = 1'b0;  
+   output13_reg = 1'b0;  
+   output14_reg = 1'b0;  
+   output15_reg = 1'b0;  
+   output16_reg = 1'b0;  
+   output17_reg = 1'b0;  
+   output0_reg  = 1'b0;  
+   output1_reg  = 1'b0;  
+   output2_reg  = 1'b0;  
+   output3_reg  = 1'b0;  
+   output26_reg = 1'b0;  
+   output27_reg = 1'b0;  
+   output28_reg = 1'b0;  
+   output29_reg = 1'b0;  
+   output30_reg = 1'b0;  
+   output31_reg = 1'b0;  
+   output25_reg = 1'b0; 
+  end
+  
+
+
+
  
  assign  output9  = output9_reg; 
  assign  output18 = output18_reg; 

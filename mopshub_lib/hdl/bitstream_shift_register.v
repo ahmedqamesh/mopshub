@@ -19,7 +19,9 @@ module bitstream_shift_register (
   input   wire               rst,  // Declare input to reset the register to a default value
   output  wire    [10:0]     dout
   );
-  reg [10:0]  dout_r = 0;
+  reg [10:0]  dout_r;
+  initial dout_r = 11'b0;
+  
   assign dout = dout_r;
   // Declare output to read out the current value of all flops in this register  
   // This always block will "always" be triggered on the rising edge of the clock   

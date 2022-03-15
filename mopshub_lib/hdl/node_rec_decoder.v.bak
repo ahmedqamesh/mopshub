@@ -1,0 +1,107 @@
+//
+// Verilog Module mopshub_lib.node_rec_decoder
+//
+// Created:
+//          by - dcs.dcs (chipdev2.physik.uni-wuppertal.de)
+//          at - 15:06:18 01/13/21
+//
+// using Mentor Graphics HDL Designer(TM) 2019.4 (Build 4)
+//
+
+`resetall
+`timescale 1ns/10ps
+module dec32_Nbit( 
+  input   wire            clk, 
+  input   wire            rst, 
+  input   wire            read_can_mode, 
+  input   wire            ireqsucrec,   
+  input   wire            Input0, 
+  input   wire            Input1, 
+  input   wire            Input2, 
+  input   wire            Input3, 
+  input   wire            Input4, 
+  input   wire            Input5, 
+  input   wire            Input6, 
+  input   wire            Input7, 
+  input   wire            Input8,    
+  input   wire            Input9, 
+  input   wire            Input10, 
+  input   wire            Input11, 
+  input   wire            Input12, 
+  input   wire            Input13, 
+  input   wire            Input14, 
+  input   wire            Input15, 
+  input   wire            Input16, 
+  input   wire            Input17,    
+  input   wire            Input18, 
+  input   wire            Input19, 
+  input   wire            Input20, 
+  input   wire            Input21, 
+  input   wire            Input22, 
+  input   wire            Input23, 
+  input   wire            Input24, 
+  input   wire            Input25,
+  input   wire            Input26, 
+  input   wire            Input27, 
+  input   wire            Input28, 
+  input   wire            Input29, 
+  input   wire            Input30, 
+  input   wire            Input31, 
+  output wire   [31:0]  data_tra_out
+  
+  );
+  reg     [31:0]  output_bus_reg ;//= 32'd0;
+  wire    [31:0]  irqsucrec_signals;
+  assign    output_bus_reg[0] = Input0;
+  assign    output_bus_reg[1] = Input1;
+  assign    output_bus_reg[2] = Input2;
+  assign    output_bus_reg[3] = Input3;
+  assign    output_bus_reg[4] = Input4;
+  assign    output_bus_reg[5] = Input5;
+  assign    output_bus_reg[6] = Input6;
+  assign    output_bus_reg[7] = Input7;
+  assign    output_bus_reg[8] = Input8;   
+  assign    output_bus_reg[9] = Input9;
+  assign    output_bus_reg[10] = Input10;
+  assign    output_bus_reg[11] = Input11;
+  assign    output_bus_reg[12] = Input12;
+  assign    output_bus_reg[13] = Input13;
+  assign    output_bus_reg[14] = Input14;
+  assign    output_bus_reg[15] = Input15;
+  assign    output_bus_reg[16] = Input16;
+  assign    output_bus_reg[17] = Input17;    
+  assign    output_bus_reg[18] = Input18;
+  assign    output_bus_reg[19] = Input19;
+  assign    output_bus_reg[20] = Input20;
+  assign    output_bus_reg[21] = Input21;
+  assign    output_bus_reg[22] = Input22;
+  assign    output_bus_reg[23] = Input23;
+  assign    output_bus_reg[24] = Input24;
+  assign    output_bus_reg[25] = Input25;
+  assign    output_bus_reg[26] = Input26;
+  assign    output_bus_reg[27] = Input27;
+  assign    output_bus_reg[28] = Input28;
+  assign    output_bus_reg[29] = Input29;
+  assign    output_bus_reg[30] = Input30;
+  assign    output_bus_reg[31] = Input31; 
+
+assign data_tra_out = output_bus_reg;
+  
+always@(posedge clk )
+begin 
+ if(!rst)
+  begin
+    output_bus_reg <= 32'd0;
+  end
+ else
+  if(ireqsucrec)//fill the buffer with signals
+  begin
+      output_bus_reg <= irqsucrec_signals;
+    end
+  else
+  begin 
+   output_bus_reg <= output_bus_reg;
+ end
+end    
+endmodule
+  
