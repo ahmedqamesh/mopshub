@@ -52,6 +52,7 @@ module dec32_Nbit(
   );
   reg     [31:0]  output_bus_reg ;//= 32'd0;
   wire    [31:0]  irqsucrec_signals;
+  initial output_bus_reg = 32'd0;
   assign    irqsucrec_signals[0] = Input0;
   assign    irqsucrec_signals[1] = Input1;
   assign    irqsucrec_signals[2] = Input2;

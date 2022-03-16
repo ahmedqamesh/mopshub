@@ -11,9 +11,14 @@ module buffer_tra_data(
 );
 
 // Internal Declarations
-reg [75:0] data_tra_reg = 76'd0 ;
-reg [4:0] data_tra_select_reg = 5'd0;
+reg [75:0] data_tra_reg;
+reg [4:0] data_tra_select_reg;
 
+initial 
+begin 
+  data_tra_reg = 76'd0 ;
+  data_tra_select_reg = 5'd0;
+end
 always@(posedge clk)
 begin 
  if(!rst) data_tra_select_reg <= 5'd0;

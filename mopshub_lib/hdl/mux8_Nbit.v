@@ -26,7 +26,8 @@ module mux8_Nbit(
 
 
 // Internal Declarations
-reg [1:0] data_out_r = 0;
+reg [1:0] data_out_r;
+initial data_out_r = 0;
 assign data_out = data_out_r;
 
 always @ (data0, data1, data2, data3, data4, data5, data6, data7,  sel)

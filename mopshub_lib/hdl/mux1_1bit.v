@@ -48,7 +48,8 @@ module mux1_1bit(
   input   wire            input31, 
   input   wire            input25
   );
-reg output_port_reg =1'b0 ;  
+reg output_port_reg;
+initial  output_port_reg =1'b0;
 assign output_port = output_port_reg;
   
 always @(*)

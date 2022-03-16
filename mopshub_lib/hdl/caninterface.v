@@ -14,8 +14,14 @@ module can_interface(
 );
 
 // Internal Declarations           
-reg  [15:0] write_can_reg = 16'h0000;
-reg  [4 :0] can_tra_reg   = 5'h0;
+reg  [15:0] write_can_reg ;
+reg  [4 :0] can_tra_reg ;
+initial 
+begin
+ write_can_reg = 16'h0000;
+ can_tra_reg   = 5'h0;
+end
+
 wire [15:0] tra_control; 
 wire [15:0] rst_irq;
 wire [15:0] gen_data;

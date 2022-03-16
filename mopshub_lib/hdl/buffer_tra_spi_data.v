@@ -23,11 +23,17 @@ module buffer_tra_spi_data(
 );
 
 // Internal Declarations
-reg [7:0] data_tra_reg   = 8'd0 ;
-reg [7:0] spi_id_reg     = 8'd0;
-reg [7:0] spi_reg_reg    = 8'd0;
-reg [7:0] spi_select_reg = 8'd0;
-
+reg [7:0] data_tra_reg   ;
+reg [7:0] spi_id_reg     ;
+reg [7:0] spi_reg_reg    ;
+reg [7:0] spi_select_reg ;
+initial
+begin
+data_tra_reg   = 8'd0 ;
+spi_id_reg     = 8'd0;
+spi_reg_reg    = 8'd0;
+spi_select_reg = 8'd0; 
+end
 
 always@(posedge clk)
 begin 

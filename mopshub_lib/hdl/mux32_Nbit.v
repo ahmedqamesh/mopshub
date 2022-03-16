@@ -50,7 +50,8 @@ module mux32_Nbit(
   
   
   // Internal Declarations
-  reg [15:0] data_out_r = 16'b0;
+  reg [15:0] data_out_r;
+  initial data_out_r = 16'b0;
   assign data_out = data_out_r;
   /////////////////////////////////////////////////////////////////
   // Flowchart process0

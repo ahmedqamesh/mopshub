@@ -189,7 +189,7 @@ value "chipdev2.physik.uni-wuppertal.de"
 )
 (vvPair
 variable "graphical_source_time"
-value "12:44:08"
+value "12:44:43"
 )
 (vvPair
 variable "group"
@@ -309,7 +309,7 @@ value "struct"
 )
 (vvPair
 variable "time"
-value "12:44:08"
+value "12:44:43"
 )
 (vvPair
 variable "unit"
@@ -16588,25 +16588,25 @@ va (VaSet
 isHidden 1
 font "courier,8,0"
 )
-xt "41200,-126800,58800,-122300"
+xt "41200,-126800,58700,-122300"
 st "
-// Wire_assign 1                                        
+// Wire_assign 1                     
+initial 
+  begin
+  data_2bit_in           = 2'b11;
+  data_2bit_in_serial    = 2'b11;
+  bit_cnt                = 1'b0;
+  dout1bit_r             = 1'b1;
+  end
+                     
 assign start_read_mon         = 1'b0;
 assign rl                     = 1'b1;
 assign endwait_all2           = 1'b0;    // Upon receiving a reset message on the CANbus. FSM goes into a known state
 assign end_cnt                = 1'b0;
 assign clk_en                 = 1'b1;
 assign cnt_done               = 1'b0;
-//assign abort                  = 1'b0;
+assign abort                  = 1'b0;
 
-initial 
-begin
-data_2bit_in           = 2'b11;
-data_2bit_in_serial    = 2'b11;
-bit_cnt                = 1'b0;
-dout1bit_r             = 1'b1;
-abort                  = 1'b0;
-end
 
 "
 tm "HdlTextMgr"

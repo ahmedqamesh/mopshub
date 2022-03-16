@@ -20,7 +20,8 @@ module dec1_Nbit (
   output wire   [31:0]  data_rec_in,
   output wire   [31:0]  data_rec_out
 );
-reg   [31:0]  output_bus_reg = 32'd0;
+reg   [31:0]  output_bus_reg;
+initial output_bus_reg = 32'd0;
 
 always@(posedge clk)
 begin 

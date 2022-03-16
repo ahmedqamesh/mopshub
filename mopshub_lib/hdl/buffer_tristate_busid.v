@@ -26,7 +26,8 @@ module buffer_tristate_busid(
 
 
 // Internal Declarations
-reg [4:0] data_tra_reg = 5'h0;
+reg [4:0] data_tra_reg;
+initial data_tra_reg = 5'h0;
 always@(posedge clk)
   begin 
    if(!rst)

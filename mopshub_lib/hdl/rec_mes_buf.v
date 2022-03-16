@@ -12,15 +12,29 @@ module buffer_rec_data(
 
 );
 // Internal Declarations
-reg [11:0] id = 12'd0;      // CAN ID is 11-bits.  Here 3 Hex values are used to reprent COB-ID
-reg [7:0] b1 = 8'h0 ;       // Data bytes 1...8
-reg [7:0] b2 = 8'h0;
-reg [7:0] b3 = 8'h0;
-reg [7:0] b4 = 8'h0;
-reg [7:0] b5 = 8'h0;
-reg [7:0] b6 = 8'h0;
-reg [7:0] b7 = 8'h0;
-reg [7:0] b8 = 8'h0;
+reg [11:0] id;      // CAN ID is 11-bits.  Here 3 Hex values are used to reprent COB-ID
+reg [7:0] b1 ;       // Data bytes 1...8
+reg [7:0] b2 ;
+reg [7:0] b3 ;
+reg [7:0] b4 ;
+reg [7:0] b5 ;
+reg [7:0] b6 ;
+reg [7:0] b7 ;
+reg [7:0] b8 ;
+
+
+initial 
+begin
+  id = 12'd0;      // CAN ID is 11-bits.  Here 3 Hex values are used to reprent COB-ID
+  b1 = 8'h0 ;       // Data bytes 1...8
+  b2 = 8'h0;
+  b3 = 8'h0;
+  b4 = 8'h0;
+  b5 = 8'h0;
+  b6 = 8'h0;
+  b7 = 8'h0;
+  b8 = 8'h0;
+end
 
 always@(posedge clk)
 begin 

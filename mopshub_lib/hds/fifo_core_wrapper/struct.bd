@@ -71,19 +71,19 @@ value "/home/dcs/git/mopshub/mopshub_lib/hds/fifo_core_wrapper"
 )
 (vvPair
 variable "date"
-value "03/10/22"
+value "03/16/22"
 )
 (vvPair
 variable "day"
-value "Thu"
+value "Wed"
 )
 (vvPair
 variable "day_long"
-value "Thursday"
+value "Wednesday"
 )
 (vvPair
 variable "dd"
-value "10"
+value "16"
 )
 (vvPair
 variable "entity_name"
@@ -111,7 +111,7 @@ value "dcs"
 )
 (vvPair
 variable "graphical_source_date"
-value "03/10/22"
+value "03/16/22"
 )
 (vvPair
 variable "graphical_source_group"
@@ -123,7 +123,7 @@ value "chipdev2.physik.uni-wuppertal.de"
 )
 (vvPair
 variable "graphical_source_time"
-value "13:12:10"
+value "11:49:32"
 )
 (vvPair
 variable "group"
@@ -243,7 +243,7 @@ value "struct"
 )
 (vvPair
 variable "time"
-value "13:12:10"
+value "11:49:32"
 )
 (vvPair
 variable "unit"
@@ -428,7 +428,8 @@ va (VaSet
 font "courier,8,0"
 )
 xt "-7000,5200,5000,6100"
-st "wire        flush_fifo;"
+st "wire        flush_fifo;
+"
 )
 )
 *5 (PortIoOut
@@ -918,7 +919,8 @@ va (VaSet
 font "courier,8,0"
 )
 xt "-7000,10600,4500,11500"
-st "wire        full_fifo;"
+st "wire        full_fifo;
+"
 )
 )
 *20 (Net
@@ -939,7 +941,8 @@ va (VaSet
 font "courier,8,0"
 )
 xt "-7000,8800,4500,9700"
-st "wire [9:0]  dout_fifo;"
+st "wire [9:0]  dout_fifo;
+"
 )
 )
 *21 (PortIoIn
@@ -1003,7 +1006,8 @@ va (VaSet
 font "courier,8,0"
 )
 xt "-7000,3400,1500,4300"
-st "wire        clk;"
+st "wire        clk;
+"
 )
 )
 *23 (MWC
@@ -1411,7 +1415,6 @@ n "clk_en"
 t "wire"
 o 13
 suid 7,0
-iv "1"
 )
 )
 )
@@ -1916,7 +1919,8 @@ va (VaSet
 font "courier,8,0"
 )
 xt "-7000,13300,3000,14200"
-st "wire        aempty;"
+st "wire        aempty;
+"
 )
 )
 *63 (Net
@@ -1934,7 +1938,8 @@ va (VaSet
 font "courier,8,0"
 )
 xt "-7000,14200,2500,15100"
-st "wire        afull;"
+st "wire        afull;
+"
 )
 )
 *64 (Net
@@ -1945,15 +1950,15 @@ n "clk_en"
 t "wire"
 o 13
 suid 61,0
-iv "1"
 )
 declText (MLText
 uid 3210,0
 va (VaSet
 font "courier,8,0"
 )
-xt "-7000,15100,5000,16000"
-st "wire        clk_en = 1;"
+xt "-7000,15100,3000,16000"
+st "wire        clk_en;
+"
 )
 )
 *65 (HdlText
@@ -1982,8 +1987,14 @@ va (VaSet
 isHidden 1
 font "courier,8,0"
 )
-xt "53200,31200,70200,35700"
+xt "53200,31200,70800,35700"
 st "
+initial dout_rdy_fifo_reg  = 1'b0;
+initial rd_en_data         = 1'b0;
+assign  clk_en             = 1;
+
+
+
 assign dout_fifo = dout_fifo_reg;
 assign rdy_fifo  = dout_rdy_fifo_reg;
 assign rd_en_s   = (rd_en && !empty_fifo);
@@ -2012,6 +2023,7 @@ always @ (posedge clk)
         dout_rdy_fifo_reg   <= 1'b0;
       end
     end                                     
+
 
 
 
@@ -2186,7 +2198,8 @@ va (VaSet
 font "courier,8,0"
 )
 xt "-7000,16900,6500,17800"
-st "reg [9:0]   dout_fifo_reg;"
+st "reg [9:0]   dout_fifo_reg;
+"
 )
 )
 *70 (Net
@@ -2205,7 +2218,8 @@ va (VaSet
 font "courier,8,0"
 )
 xt "-7000,16000,4500,16900"
-st "wire [9:0]  dout10bit;"
+st "wire [9:0]  dout10bit;
+"
 )
 )
 *71 (PortIoOut
@@ -2268,7 +2282,8 @@ va (VaSet
 font "courier,8,0"
 )
 xt "-7000,7000,1500,7900"
-st "wire        rst;"
+st "wire        rst;
+"
 )
 )
 *73 (PortIoIn
@@ -2332,7 +2347,8 @@ va (VaSet
 font "courier,8,0"
 )
 xt "-7000,20500,4000,21400"
-st "wire        rst_fifo;"
+st "wire        rst_fifo;
+"
 )
 )
 *75 (Net
@@ -2351,7 +2367,8 @@ va (VaSet
 font "courier,8,0"
 )
 xt "-7000,4300,4000,5200"
-st "wire [9:0]  din_fifo;"
+st "wire [9:0]  din_fifo;
+"
 )
 )
 *76 (Net
@@ -2371,7 +2388,8 @@ va (VaSet
 font "courier,8,0"
 )
 xt "-7000,7900,2500,8800"
-st "wire        wr_en;"
+st "wire        wr_en;
+"
 )
 )
 *77 (Net
@@ -2391,7 +2409,8 @@ va (VaSet
 font "courier,8,0"
 )
 xt "-7000,6100,2500,7000"
-st "wire        rd_en;"
+st "wire        rd_en;
+"
 )
 )
 *78 (Net
@@ -2402,15 +2421,15 @@ n "rd_en_data"
 t "reg"
 o 17
 suid 94,0
-iv "1'b0"
 )
 declText (MLText
 uid 6456,0
 va (VaSet
 font "courier,8,0"
 )
-xt "-7000,18700,8600,19600"
-st "reg         rd_en_data = 1'b0;"
+xt "-7000,18700,5000,19600"
+st "reg         rd_en_data;
+"
 )
 )
 *79 (Net
@@ -2428,7 +2447,8 @@ va (VaSet
 font "courier,8,0"
 )
 xt "-7000,19600,3500,20500"
-st "wire        rd_en_s;"
+st "wire        rd_en_s;
+"
 )
 )
 *80 (Net
@@ -2446,7 +2466,8 @@ va (VaSet
 font "courier,8,0"
 )
 xt "-7000,11500,4000,12400"
-st "wire        rdy_fifo;"
+st "wire        rdy_fifo;
+"
 )
 )
 *81 (PortIoOut
@@ -2502,15 +2523,15 @@ n "dout_rdy_fifo_reg"
 t "reg"
 o 16
 suid 99,0
-iv "1'b0"
 )
 declText (MLText
 uid 6504,0
 va (VaSet
 font "courier,8,0"
 )
-xt "-7000,17800,12100,18700"
-st "reg         dout_rdy_fifo_reg = 1'b0;"
+xt "-7000,17800,8500,18700"
+st "reg         dout_rdy_fifo_reg;
+"
 )
 )
 *83 (Net
@@ -2528,7 +2549,8 @@ va (VaSet
 font "courier,8,0"
 )
 xt "-7000,9700,5000,10600"
-st "wire        empty_fifo;"
+st "wire        empty_fifo;
+"
 )
 )
 *84 (Net
@@ -2547,7 +2569,8 @@ va (VaSet
 font "courier,8,0"
 )
 xt "-7000,2500,5500,3400"
-st "wire [7:0]  Kchar_comma;"
+st "wire [7:0]  Kchar_comma;
+"
 )
 )
 *85 (PortIoIn
@@ -3519,12 +3542,12 @@ tm "BdCompilerDirectivesTextMgr"
 ]
 associable 1
 )
-windowSize "-8,13,1928,1088"
-viewArea "-9800,6500,62146,45644"
+windowSize "1912,40,3848,1055"
+viewArea "4201,6500,71008,39416"
 cachedDiagramExtent "-9000,0,71000,51000"
 hasePageBreakOrigin 1
 pageBreakOrigin "-10000,0"
-lastUid 7400,0
+lastUid 7463,0
 defaultCommentText (CommentText
 shape (Rectangle
 layer 0
@@ -4716,7 +4739,6 @@ n "clk_en"
 t "wire"
 o 13
 suid 61,0
-iv "1"
 )
 )
 uid 3217,0
@@ -4820,7 +4842,6 @@ n "rd_en_data"
 t "reg"
 o 17
 suid 94,0
-iv "1'b0"
 )
 )
 uid 6457,0
@@ -4860,7 +4881,6 @@ n "dout_rdy_fifo_reg"
 t "reg"
 o 16
 suid 99,0
-iv "1'b0"
 )
 )
 uid 6493,0
@@ -4980,19 +5000,19 @@ uid 3206,0
 )
 *184 (MRCItem
 litem &159
-pos 12
+pos 17
 dimension 20
 uid 3218,0
 )
 *185 (MRCItem
 litem &160
-pos 13
+pos 12
 dimension 20
 uid 3798,0
 )
 *186 (MRCItem
 litem &161
-pos 14
+pos 13
 dimension 20
 uid 3816,0
 )
@@ -5004,7 +5024,7 @@ uid 4758,0
 )
 *188 (MRCItem
 litem &163
-pos 15
+pos 14
 dimension 20
 uid 5741,0
 )
@@ -5028,13 +5048,13 @@ uid 6332,0
 )
 *192 (MRCItem
 litem &167
-pos 16
+pos 15
 dimension 20
 uid 6458,0
 )
 *193 (MRCItem
 litem &168
-pos 17
+pos 18
 dimension 20
 uid 6462,0
 )
@@ -5046,7 +5066,7 @@ uid 6482,0
 )
 *195 (MRCItem
 litem &170
-pos 18
+pos 16
 dimension 20
 uid 6494,0
 )

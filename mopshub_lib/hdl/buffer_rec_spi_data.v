@@ -25,11 +25,19 @@ module buffer_rec_spi_data(
 );
 
 // Internal Declarations
-reg [7:0] id = 8'd0;      // CAN ID is 11-bits.  Here 3 Hex values are used to reprent COB-ID
-reg [7:0] b1 = 8'h0 ;       // Data bytes 1...8
-reg [7:0] b2 = 8'h0;
-reg [7:0] b3 = 8'h0;
-reg end_read_miso_reg = 1'b0;
+reg [7:0] id;      // CAN ID is 11-bits.  Here 3 Hex values are used to reprent COB-ID
+reg [7:0] b1 ;       // Data bytes 1...8
+reg [7:0] b2;
+reg [7:0] b3;
+reg end_read_miso_reg;
+initial 
+begin
+  id = 8'h0;
+  b1 = 8'h0;
+  b2 = 8'h0;
+  b3 = 8'h0;
+  end_read_miso_reg = 1'b0;
+end
 always@(posedge clk)
 begin 
   if(!rst)
