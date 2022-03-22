@@ -133,19 +133,19 @@ value "/home/dcs/git/mopshub/mopshub_lib/hds/bridge_controller"
 )
 (vvPair
 variable "date"
-value "03/16/22"
+value "03/22/22"
 )
 (vvPair
 variable "day"
-value "Wed"
+value "Tue"
 )
 (vvPair
 variable "day_long"
-value "Wednesday"
+value "Tuesday"
 )
 (vvPair
 variable "dd"
-value "16"
+value "22"
 )
 (vvPair
 variable "entity_name"
@@ -173,7 +173,7 @@ value "dcs"
 )
 (vvPair
 variable "graphical_source_date"
-value "03/16/22"
+value "03/22/22"
 )
 (vvPair
 variable "graphical_source_group"
@@ -185,7 +185,7 @@ value "chipdev2.physik.uni-wuppertal.de"
 )
 (vvPair
 variable "graphical_source_time"
-value "11:59:01"
+value "13:06:25"
 )
 (vvPair
 variable "group"
@@ -305,7 +305,7 @@ value "struct"
 )
 (vvPair
 variable "time"
-value "11:59:01"
+value "13:06:25"
 )
 (vvPair
 variable "unit"
@@ -7981,12 +7981,11 @@ uid 8082,0
 lang 5
 decl (Decl
 n "time_limit"
-t "wire"
+t "reg"
 b "[31:0]"
 eolc "//corresponds to 5 sec if the FPGA freq is 40Mhz"
 o 86
 suid 131,0
-iv "32'd50000000"
 )
 declText (MLText
 uid 8083,0
@@ -8271,12 +8270,11 @@ uid 8150,0
 lang 5
 decl (Decl
 n "time_limit_trim"
-t "wire"
+t "reg"
 b "[31:0]"
 eolc "//corresponds to 25 msec if the FPGA freq is 40Mhz"
 o 87
 suid 132,0
-iv "32'd10000000"
 )
 declText (MLText
 uid 8151,0
@@ -9285,10 +9283,9 @@ uid 20013,0
 lang 5
 decl (Decl
 n "irq_trim_bus_osc"
-t "wire"
+t "reg"
 o 55
 suid 219,0
-iv "1'b0"
 )
 declText (MLText
 uid 20014,0
@@ -9965,12 +9962,15 @@ va (VaSet
 isHidden 1
 font "courier,8,0"
 )
-xt "80200,13200,97700,17700"
+xt "80200,13200,97800,17700"
 st "
 // Wire_assign 1                     
-assign irq_trim_bus_osc        = 1'b0;                     
-assign time_limit              = 32'd50000000;   //corresponds to 5 sec if the FPGA freq is 40Mhz
-assign time_limit_trim         = 32'd10000000;   //corresponds to 25 msec if the FPGA freq is 40Mhz
+initial
+begin
+  irq_trim_bus_osc        = 1'b0;                     
+  time_limit              = 32'd50000000;   //corresponds to 5 sec if the FPGA freq is 40Mhz
+  time_limit_trim         = 32'd10000000;   //corresponds to 25 msec if the FPGA freq is 40Mhz
+end
 "
 tm "HdlTextMgr"
 wrapOption 3
@@ -14607,11 +14607,11 @@ tm "BdCompilerDirectivesTextMgr"
 associable 1
 )
 windowSize "1912,40,3848,1055"
-viewArea "-76308,-16367,142186,91286"
+viewArea "-76300,-16400,120597,80611"
 cachedDiagramExtent "-74500,-49300,138000,101000"
 hasePageBreakOrigin 1
 pageBreakOrigin "-138000,0"
-lastUid 23454,0
+lastUid 23589,0
 defaultCommentText (CommentText
 shape (Rectangle
 layer 0
@@ -16146,12 +16146,11 @@ lang 5
 m 4
 decl (Decl
 n "time_limit"
-t "wire"
+t "reg"
 b "[31:0]"
 eolc "//corresponds to 5 sec if the FPGA freq is 40Mhz"
 o 86
 suid 131,0
-iv "32'd50000000"
 )
 )
 uid 8094,0
@@ -16162,12 +16161,11 @@ lang 5
 m 4
 decl (Decl
 n "time_limit_trim"
-t "wire"
+t "reg"
 b "[31:0]"
 eolc "//corresponds to 25 msec if the FPGA freq is 40Mhz"
 o 87
 suid 132,0
-iv "32'd10000000"
 )
 )
 uid 8152,0
@@ -16605,10 +16603,9 @@ lang 5
 m 4
 decl (Decl
 n "irq_trim_bus_osc"
-t "wire"
+t "reg"
 o 55
 suid 219,0
-iv "1'b0"
 )
 )
 uid 20021,0

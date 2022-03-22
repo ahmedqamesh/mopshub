@@ -89,19 +89,19 @@ value "/home/dcs/git/mopshub/mopshub_lib/hds/elink_proc_out_enc8b10b"
 )
 (vvPair
 variable "date"
-value "03/10/22"
+value "03/16/22"
 )
 (vvPair
 variable "day"
-value "Thu"
+value "Wed"
 )
 (vvPair
 variable "day_long"
-value "Thursday"
+value "Wednesday"
 )
 (vvPair
 variable "dd"
-value "10"
+value "16"
 )
 (vvPair
 variable "entity_name"
@@ -129,7 +129,7 @@ value "dcs"
 )
 (vvPair
 variable "graphical_source_date"
-value "03/10/22"
+value "03/16/22"
 )
 (vvPair
 variable "graphical_source_group"
@@ -141,7 +141,7 @@ value "chipdev2.physik.uni-wuppertal.de"
 )
 (vvPair
 variable "graphical_source_time"
-value "14:07:34"
+value "11:51:48"
 )
 (vvPair
 variable "group"
@@ -261,7 +261,7 @@ value "struct"
 )
 (vvPair
 variable "time"
-value "14:07:34"
+value "11:51:48"
 )
 (vvPair
 variable "unit"
@@ -341,7 +341,6 @@ t "wire"
 b "[1:0]"
 o 9
 suid 7,0
-iv "2'b0"
 )
 declText (MLText
 uid 22,0
@@ -1748,6 +1747,9 @@ font "courier,8,0"
 )
 xt "45200,15200,62200,19700"
 st "
+assign zeros2bit   = 2'b0;
+initial send_count  = 0;
+
 
   //Fill the register enc10bit_r with data 
 always @(posedge clk)
@@ -1776,6 +1778,7 @@ begin
     send_count <= send_count + 1;
   end
 end                                   
+
 
 
 
@@ -1958,7 +1961,6 @@ t "reg"
 b "[2:0]"
 o 10
 suid 60,0
-iv "0"
 )
 declText (MLText
 uid 3889,0
@@ -3752,12 +3754,12 @@ tm "BdCompilerDirectivesTextMgr"
 ]
 associable 1
 )
-windowSize "3832,13,5768,1088"
-viewArea "-8200,-6404,75737,37892"
+windowSize "1912,40,3848,1055"
+viewArea "-8200,-7705,68885,30275"
 cachedDiagramExtent "-16000,-11000,76000,38800"
 hasePageBreakOrigin 1
 pageBreakOrigin "-79000,-12000"
-lastUid 6304,0
+lastUid 6373,0
 defaultCommentText (CommentText
 shape (Rectangle
 layer 0
@@ -4898,7 +4900,6 @@ t "wire"
 b "[1:0]"
 o 9
 suid 7,0
-iv "2'b0"
 )
 )
 uid 812,0
@@ -4986,7 +4987,6 @@ t "reg"
 b "[2:0]"
 o 10
 suid 60,0
-iv "0"
 )
 )
 uid 4061,0
@@ -5166,13 +5166,13 @@ uid 831,0
 )
 *173 (MRCItem
 litem &153
-pos 7
+pos 8
 dimension 20
 uid 1901,0
 )
 *174 (MRCItem
 litem &154
-pos 8
+pos 7
 dimension 20
 uid 4062,0
 )

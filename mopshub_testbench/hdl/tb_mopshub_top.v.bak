@@ -423,12 +423,12 @@ module tb_mopshub_top();
     end
     if(test_rx_end ==1)//Done Rx test
     begin
-      test_tx =1'b1; 
-     // endwait_all = 1'b1;
-     // #10
-     // endwait_all =1'b0;
-     // #3000
-   //  test_tx =1'b1; 
+      test_rx =1'b0; 
+     endwait_all = 1'b1;
+     #10
+     endwait_all =1'b0;
+     #3000
+     test_tx =1'b1; 
     end
     if (test_tx_end ==1)//Done Tx test
     test_tx =1'b0;

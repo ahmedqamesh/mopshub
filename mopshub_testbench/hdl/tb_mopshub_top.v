@@ -28,7 +28,7 @@ module tb_mopshub_top();
   wire            trim_sig_end;
   wire            trim_sig_done;
   
-  reg             osc_auto_trim_mopshub =1'b0;
+  reg             osc_auto_trim_mopshub =1'b1;
   reg             seialize_data_stream =1'b1;
   wire            ready_osc;
   wire            start_trim_osc;
@@ -424,11 +424,11 @@ module tb_mopshub_top();
     if(test_rx_end ==1)//Done Rx test
     begin
       test_rx =1'b0; 
-     // endwait_all = 1'b1;
-     // #10
-     // endwait_all =1'b0;
-     // #3000
-    test_tx =1'b1; 
+     endwait_all = 1'b1;
+     #10
+     endwait_all =1'b0;
+     #3000
+     test_tx =1'b1; 
     end
     if (test_tx_end ==1)//Done Tx test
     test_tx =1'b0;

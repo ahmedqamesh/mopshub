@@ -137,19 +137,19 @@ value "/home/dcs/git/mopshub/mopshub_lib/hds/mopshub_top"
 )
 (vvPair
 variable "date"
-value "03/16/22"
+value "03/22/22"
 )
 (vvPair
 variable "day"
-value "Wed"
+value "Tue"
 )
 (vvPair
 variable "day_long"
-value "Wednesday"
+value "Tuesday"
 )
 (vvPair
 variable "dd"
-value "16"
+value "22"
 )
 (vvPair
 variable "entity_name"
@@ -177,7 +177,7 @@ value "dcs"
 )
 (vvPair
 variable "graphical_source_date"
-value "03/16/22"
+value "03/22/22"
 )
 (vvPair
 variable "graphical_source_group"
@@ -189,7 +189,7 @@ value "chipdev2.physik.uni-wuppertal.de"
 )
 (vvPair
 variable "graphical_source_time"
-value "12:15:11"
+value "12:03:14"
 )
 (vvPair
 variable "group"
@@ -309,7 +309,7 @@ value "struct"
 )
 (vvPair
 variable "time"
-value "12:15:11"
+value "12:03:14"
 )
 (vvPair
 variable "unit"
@@ -8479,7 +8479,7 @@ thePort (LogicalPort
 lang 5
 decl (Decl
 n "clk_en"
-t "wire"
+t "reg"
 o 100
 suid 5,0
 )
@@ -8782,7 +8782,7 @@ uid 20091,0
 lang 5
 decl (Decl
 n "clk_en"
-t "wire"
+t "reg"
 o 100
 suid 370,0
 )
@@ -8799,7 +8799,7 @@ uid 20117,0
 lang 5
 decl (Decl
 n "rl"
-t "wire"
+t "reg"
 o 132
 suid 372,0
 )
@@ -9104,7 +9104,7 @@ thePort (LogicalPort
 lang 5
 decl (Decl
 n "clk_en"
-t "wire"
+t "reg"
 o 100
 suid 5,0
 )
@@ -9157,7 +9157,7 @@ thePort (LogicalPort
 lang 5
 decl (Decl
 n "rl"
-t "wire"
+t "reg"
 o 132
 suid 6,0
 )
@@ -15925,7 +15925,7 @@ uid 30433,0
 lang 5
 decl (Decl
 n "cnt_done"
-t "wire"
+t "reg"
 o 101
 suid 501,0
 )
@@ -15942,7 +15942,7 @@ uid 30441,0
 lang 5
 decl (Decl
 n "end_cnt"
-t "wire"
+t "reg"
 o 114
 suid 502,0
 )
@@ -16112,7 +16112,7 @@ uid 31386,0
 lang 5
 decl (Decl
 n "start_read_mon"
-t "wire"
+t "reg"
 o 145
 suid 515,0
 )
@@ -16336,7 +16336,7 @@ uid 32146,0
 lang 5
 decl (Decl
 n "abort"
-t "wire"
+t "reg"
 o 150
 suid 521,0
 )
@@ -16370,7 +16370,7 @@ uid 33592,0
 lang 5
 decl (Decl
 n "endwait_all2"
-t "wire"
+t "reg"
 eolc "Upon receiving a reset message on the CANbus. FSM goes into a known state"
 o 3
 suid 525,0
@@ -16597,15 +16597,17 @@ initial
   data_2bit_in_serial    = 2'b11;
   bit_cnt                = 1'b0;
   dout1bit_r             = 1'b1;
+  start_read_mon         = 1'b0;
+  rl                     = 1'b1;
+  endwait_all2           = 1'b0;    // Upon receiving a reset message on the CANbus. FSM goes into a known state
+  end_cnt                = 1'b0;
+  clk_en                 = 1'b1;
+  cnt_done               = 1'b0;
+  abort                  = 1'b0;
   end
                      
-assign start_read_mon         = 1'b0;
-assign rl                     = 1'b1;
-assign endwait_all2           = 1'b0;    // Upon receiving a reset message on the CANbus. FSM goes into a known state
-assign end_cnt                = 1'b0;
-assign clk_en                 = 1'b1;
-assign cnt_done               = 1'b0;
-assign abort                  = 1'b0;
+
+
 
 
 "
@@ -24007,12 +24009,12 @@ tm "BdCompilerDirectivesTextMgr"
 ]
 associable 1
 )
-windowSize "1912,40,3848,1055"
-viewArea "-25600,-162900,87458,-107196"
+windowSize "3832,13,5768,1088"
+viewArea "-25600,-144840,77180,-88920"
 cachedDiagramExtent "-139400,-149900,131400,3600"
 hasePageBreakOrigin 1
 pageBreakOrigin "-207000,-153000"
-lastUid 36984,0
+lastUid 37169,0
 defaultCommentText (CommentText
 shape (Rectangle
 layer 0
@@ -25757,7 +25759,7 @@ lang 5
 m 4
 decl (Decl
 n "clk_en"
-t "wire"
+t "reg"
 o 100
 suid 370,0
 )
@@ -25770,7 +25772,7 @@ lang 5
 m 4
 decl (Decl
 n "rl"
-t "wire"
+t "reg"
 o 132
 suid 372,0
 )
@@ -26775,7 +26777,7 @@ lang 5
 m 4
 decl (Decl
 n "cnt_done"
-t "wire"
+t "reg"
 o 101
 suid 501,0
 )
@@ -26788,7 +26790,7 @@ lang 5
 m 4
 decl (Decl
 n "end_cnt"
-t "wire"
+t "reg"
 o 114
 suid 502,0
 )
@@ -26918,7 +26920,7 @@ lang 5
 m 4
 decl (Decl
 n "start_read_mon"
-t "wire"
+t "reg"
 o 145
 suid 515,0
 )
@@ -26983,7 +26985,7 @@ lang 5
 m 4
 decl (Decl
 n "abort"
-t "wire"
+t "reg"
 o 150
 suid 521,0
 )
@@ -27009,7 +27011,7 @@ lang 5
 m 4
 decl (Decl
 n "endwait_all2"
-t "wire"
+t "reg"
 eolc "Upon receiving a reset message on the CANbus. FSM goes into a known state"
 o 3
 suid 525,0

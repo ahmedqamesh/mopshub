@@ -87,7 +87,7 @@ value "/home/dcs/git/mopshub/mopshub_lib/hds/dec_8b10b_wrap"
 )
 (vvPair
 variable "date"
-value "03/15/22"
+value "03/22/22"
 )
 (vvPair
 variable "day"
@@ -99,7 +99,7 @@ value "Tuesday"
 )
 (vvPair
 variable "dd"
-value "15"
+value "22"
 )
 (vvPair
 variable "entity_name"
@@ -127,7 +127,7 @@ value "dcs"
 )
 (vvPair
 variable "graphical_source_date"
-value "03/15/22"
+value "03/22/22"
 )
 (vvPair
 variable "graphical_source_group"
@@ -139,7 +139,7 @@ value "chipdev2.physik.uni-wuppertal.de"
 )
 (vvPair
 variable "graphical_source_time"
-value "13:08:11"
+value "12:08:33"
 )
 (vvPair
 variable "group"
@@ -259,7 +259,7 @@ value "struct"
 )
 (vvPair
 variable "time"
-value "13:08:11"
+value "12:08:33"
 )
 (vvPair
 variable "unit"
@@ -2500,7 +2500,7 @@ uid 3489,0
 lang 5
 decl (Decl
 n "EOCn"
-t "wire"
+t "reg"
 b "[9:0]"
 eolc "//+K.28.6"
 o 15
@@ -2519,7 +2519,7 @@ uid 3499,0
 lang 5
 decl (Decl
 n "EOCp"
-t "wire"
+t "reg"
 b "[9:0]"
 eolc "//-K.28.6 end-of-chunk characters"
 o 16
@@ -2538,7 +2538,7 @@ uid 3509,0
 lang 5
 decl (Decl
 n "SOCn"
-t "wire"
+t "reg"
 b "[9:0]"
 eolc "//+K.28.1 Ø¹Ø¨Ø¯Ø§ÙÙÙ �sØ§ÙÙØ¯ÙÙ"
 o 28
@@ -2557,7 +2557,7 @@ uid 3519,0
 lang 5
 decl (Decl
 n "SOCp"
-t "wire"
+t "reg"
 b "[9:0]"
 eolc "//-K.28.1"
 o 29
@@ -2576,7 +2576,7 @@ uid 3537,0
 lang 5
 decl (Decl
 n "EOBn"
-t "wire"
+t "reg"
 b "[9:0]"
 eolc "//+K.28.3 "
 o 13
@@ -2595,7 +2595,7 @@ uid 3547,0
 lang 5
 decl (Decl
 n "EOBp"
-t "wire"
+t "reg"
 b "[9:0]"
 eolc "//-K.28.3 "
 o 14
@@ -2614,7 +2614,7 @@ uid 3557,0
 lang 5
 decl (Decl
 n "SOBn"
-t "wire"
+t "reg"
 b "[9:0]"
 eolc "//+K.28.2"
 o 26
@@ -2633,7 +2633,7 @@ uid 3567,0
 lang 5
 decl (Decl
 n "SOBp"
-t "wire"
+t "reg"
 b "[9:0]"
 eolc "//-K.28.2 //start-of-busy and end-of-busy characters"
 o 27
@@ -2967,16 +2967,18 @@ initial
   flag_pack         = 0;
   ISK_r             = 0;
   ISKcode_r         = 2'b0;
+  EOBn              = 10'b1100001100;   //+K.28.3 
+  EOBp              = 10'b0011110011;   //-K.28.3 
+  EOCn              = 10'b1100001001;   //+K.28.6
+  EOCp              = 10'b0011110110;   //-K.28.6 end-of-chunk characters
+  SOBn              = 10'b1100001010;   //+K.28.2
+  SOBp              = 10'b0011110101;   //-K.28.2 //start-of-busy and end-of-busy characters
+  SOCn              = 10'b1100000110;   //+K.28.1 Ø¹Ø¨Ø¯Ø§ÙÙÙ �sØ§ÙÙØ¯ÙÙ
+  SOCp              = 10'b0011111001;   //-K.28.1
   end
                      
-assign EOBn              = 10'b1100001100;   //+K.28.3 
-assign EOBp              = 10'b0011110011;   //-K.28.3 
-assign EOCn              = 10'b1100001001;   //+K.28.6
-assign EOCp              = 10'b0011110110;   //-K.28.6 end-of-chunk characters
-assign SOBn              = 10'b1100001010;   //+K.28.2
-assign SOBp              = 10'b0011110101;   //-K.28.2 //start-of-busy and end-of-busy characters
-assign SOCn              = 10'b1100000110;   //+K.28.1 Ø¹Ø¨Ø¯Ø§ÙÙÙ �sØ§ÙÙØ¯ÙÙ
-assign SOCp              = 10'b0011111001;   //-K.28.1
+
+
 
 
 
@@ -5135,11 +5137,11 @@ tm "BdCompilerDirectivesTextMgr"
 associable 1
 )
 windowSize "3832,13,5768,1088"
-viewArea "-6156,-4835,110944,56961"
+viewArea "-22196,-4800,84010,51248"
 cachedDiagramExtent "-15500,-3000,80000,50000"
 hasePageBreakOrigin 1
 pageBreakOrigin "-80000,-51000"
-lastUid 7908,0
+lastUid 8097,0
 defaultCommentText (CommentText
 shape (Rectangle
 layer 0
@@ -6662,7 +6664,7 @@ lang 5
 m 4
 decl (Decl
 n "EOCn"
-t "wire"
+t "reg"
 b "[9:0]"
 eolc "//+K.28.6"
 o 15
@@ -6678,7 +6680,7 @@ lang 5
 m 4
 decl (Decl
 n "EOCp"
-t "wire"
+t "reg"
 b "[9:0]"
 eolc "//-K.28.6 end-of-chunk characters"
 o 16
@@ -6694,7 +6696,7 @@ lang 5
 m 4
 decl (Decl
 n "SOCn"
-t "wire"
+t "reg"
 b "[9:0]"
 eolc "//+K.28.1 Ø¹Ø¨Ø¯Ø§ÙÙÙ �sØ§ÙÙØ¯ÙÙ"
 o 28
@@ -6710,7 +6712,7 @@ lang 5
 m 4
 decl (Decl
 n "SOCp"
-t "wire"
+t "reg"
 b "[9:0]"
 eolc "//-K.28.1"
 o 29
@@ -6726,7 +6728,7 @@ lang 5
 m 4
 decl (Decl
 n "EOBn"
-t "wire"
+t "reg"
 b "[9:0]"
 eolc "//+K.28.3 "
 o 13
@@ -6742,7 +6744,7 @@ lang 5
 m 4
 decl (Decl
 n "EOBp"
-t "wire"
+t "reg"
 b "[9:0]"
 eolc "//-K.28.3 "
 o 14
@@ -6758,7 +6760,7 @@ lang 5
 m 4
 decl (Decl
 n "SOBn"
-t "wire"
+t "reg"
 b "[9:0]"
 eolc "//+K.28.2"
 o 26
@@ -6774,7 +6776,7 @@ lang 5
 m 4
 decl (Decl
 n "SOBp"
-t "wire"
+t "reg"
 b "[9:0]"
 eolc "//-K.28.2 //start-of-busy and end-of-busy characters"
 o 27

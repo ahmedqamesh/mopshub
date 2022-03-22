@@ -159,7 +159,7 @@ value "/home/dcs/git/mopshub/mopshub_lib/hds/elink_core"
 )
 (vvPair
 variable "date"
-value "03/15/22"
+value "03/22/22"
 )
 (vvPair
 variable "day"
@@ -171,7 +171,7 @@ value "Tuesday"
 )
 (vvPair
 variable "dd"
-value "15"
+value "22"
 )
 (vvPair
 variable "entity_name"
@@ -199,7 +199,7 @@ value "dcs"
 )
 (vvPair
 variable "graphical_source_date"
-value "03/15/22"
+value "03/22/22"
 )
 (vvPair
 variable "graphical_source_group"
@@ -211,7 +211,7 @@ value "chipdev2.physik.uni-wuppertal.de"
 )
 (vvPair
 variable "graphical_source_time"
-value "12:56:42"
+value "12:05:45"
 )
 (vvPair
 variable "group"
@@ -331,7 +331,7 @@ value "struct"
 )
 (vvPair
 variable "time"
-value "12:56:42"
+value "12:05:45"
 )
 (vvPair
 variable "unit"
@@ -8059,7 +8059,7 @@ uid 18931,0
 lang 5
 decl (Decl
 n "time_limit_trim"
-t "wire"
+t "reg"
 b "[31:0]"
 eolc "//corresponds to 25 msec if the FPGA freq is 40Mhz"
 o 58
@@ -8437,8 +8437,9 @@ initial
     spi_power_reg           = 1'b0;
     spi_mon_reg             = 1'b0;
     can_id_reg              = 1'b0;
+    time_limit_trim         = 32'd1000000;   //corresponds to 25 msec if the FPGA freq is 40Mhz
   end
-assign time_limit_trim         = 32'd1000000;   //corresponds to 25 msec if the FPGA freq is 40Mhz
+
 
 
 
@@ -12243,11 +12244,11 @@ tm "BdCompilerDirectivesTextMgr"
 associable 1
 )
 windowSize "3832,13,5768,1088"
-viewArea "-28243,-53145,97354,13137"
+viewArea "-28200,-53100,86571,7468"
 cachedDiagramExtent "-157400,-49900,103000,30000"
 hasePageBreakOrigin 1
 pageBreakOrigin "-207000,-51000"
-lastUid 21091,0
+lastUid 21240,0
 defaultCommentText (CommentText
 shape (Rectangle
 layer 0
@@ -14129,7 +14130,7 @@ lang 5
 m 4
 decl (Decl
 n "time_limit_trim"
-t "wire"
+t "reg"
 b "[31:0]"
 eolc "//corresponds to 25 msec if the FPGA freq is 40Mhz"
 o 58

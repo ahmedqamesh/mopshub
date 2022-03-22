@@ -123,7 +123,7 @@ value "chipdev2.physik.uni-wuppertal.de"
 )
 (vvPair
 variable "graphical_source_time"
-value "11:48:31"
+value "11:49:32"
 )
 (vvPair
 variable "group"
@@ -243,7 +243,7 @@ value "struct"
 )
 (vvPair
 variable "time"
-value "11:48:31"
+value "11:49:32"
 )
 (vvPair
 variable "unit"
@@ -1415,7 +1415,6 @@ n "clk_en"
 t "wire"
 o 13
 suid 7,0
-iv "1"
 )
 )
 )
@@ -1951,15 +1950,14 @@ n "clk_en"
 t "wire"
 o 13
 suid 61,0
-iv "1"
 )
 declText (MLText
 uid 3210,0
 va (VaSet
 font "courier,8,0"
 )
-xt "-7000,15100,5000,16000"
-st "wire        clk_en = 1;
+xt "-7000,15100,3000,16000"
+st "wire        clk_en;
 "
 )
 )
@@ -1989,8 +1987,14 @@ va (VaSet
 isHidden 1
 font "courier,8,0"
 )
-xt "53200,31200,70200,35700"
+xt "53200,31200,70800,35700"
 st "
+initial dout_rdy_fifo_reg  = 1'b0;
+initial rd_en_data         = 1'b0;
+assign  clk_en             = 1;
+
+
+
 assign dout_fifo = dout_fifo_reg;
 assign rdy_fifo  = dout_rdy_fifo_reg;
 assign rd_en_s   = (rd_en && !empty_fifo);
@@ -2019,6 +2023,7 @@ always @ (posedge clk)
         dout_rdy_fifo_reg   <= 1'b0;
       end
     end                                     
+
 
 
 
@@ -2416,15 +2421,14 @@ n "rd_en_data"
 t "reg"
 o 17
 suid 94,0
-iv "1'b0"
 )
 declText (MLText
 uid 6456,0
 va (VaSet
 font "courier,8,0"
 )
-xt "-7000,18700,8600,19600"
-st "reg         rd_en_data = 1'b0;
+xt "-7000,18700,5000,19600"
+st "reg         rd_en_data;
 "
 )
 )
@@ -2519,15 +2523,14 @@ n "dout_rdy_fifo_reg"
 t "reg"
 o 16
 suid 99,0
-iv "1'b0"
 )
 declText (MLText
 uid 6504,0
 va (VaSet
 font "courier,8,0"
 )
-xt "-7000,17800,12100,18700"
-st "reg         dout_rdy_fifo_reg = 1'b0;
+xt "-7000,17800,8500,18700"
+st "reg         dout_rdy_fifo_reg;
 "
 )
 )
@@ -4736,7 +4739,6 @@ n "clk_en"
 t "wire"
 o 13
 suid 61,0
-iv "1"
 )
 )
 uid 3217,0
@@ -4840,7 +4842,6 @@ n "rd_en_data"
 t "reg"
 o 17
 suid 94,0
-iv "1'b0"
 )
 )
 uid 6457,0
@@ -4880,7 +4881,6 @@ n "dout_rdy_fifo_reg"
 t "reg"
 o 16
 suid 99,0
-iv "1'b0"
 )
 )
 uid 6493,0

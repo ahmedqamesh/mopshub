@@ -46,8 +46,8 @@ module demux1_Nbit(
   output   wire  [15 : 0]            output31, 
   output   wire  [15 : 0]            output25
   );
-  wire [15 : 0] def_value ;
-  assign def_value = 16'b0;
+  reg [15 : 0] def_value ;
+  initial def_value = 16'b0;
   reg  [15 : 0]  output9_reg  = 16'b0;  
   reg  [15 : 0]  output18_reg = 16'b0;  
   reg  [15 : 0]  output19_reg = 16'b0;  
