@@ -89,7 +89,7 @@ value "/home/dcs/git/mopshub/mopshub_lib/hds/elink_proc_out_enc8b10b"
 )
 (vvPair
 variable "date"
-value "03/16/22"
+value "04/06/22"
 )
 (vvPair
 variable "day"
@@ -101,7 +101,7 @@ value "Wednesday"
 )
 (vvPair
 variable "dd"
-value "16"
+value "06"
 )
 (vvPair
 variable "entity_name"
@@ -129,7 +129,7 @@ value "dcs"
 )
 (vvPair
 variable "graphical_source_date"
-value "03/16/22"
+value "04/06/22"
 )
 (vvPair
 variable "graphical_source_group"
@@ -141,7 +141,7 @@ value "chipdev2.physik.uni-wuppertal.de"
 )
 (vvPair
 variable "graphical_source_time"
-value "11:51:48"
+value "16:05:06"
 )
 (vvPair
 variable "group"
@@ -185,7 +185,7 @@ value "$HDS_PROJECT_DIR/mopshub_lib/svassistant"
 )
 (vvPair
 variable "mm"
-value "03"
+value "04"
 )
 (vvPair
 variable "module_name"
@@ -193,11 +193,11 @@ value "elink_proc_out_enc8b10b"
 )
 (vvPair
 variable "month"
-value "Mar"
+value "Apr"
 )
 (vvPair
 variable "month_long"
-value "March"
+value "April"
 )
 (vvPair
 variable "p"
@@ -261,7 +261,7 @@ value "struct"
 )
 (vvPair
 variable "time"
-value "11:51:48"
+value "16:05:06"
 )
 (vvPair
 variable "unit"
@@ -337,7 +337,7 @@ uid 21,0
 lang 5
 decl (Decl
 n "zeros2bit"
-t "wire"
+t "reg"
 b "[1:0]"
 o 9
 suid 7,0
@@ -627,16 +627,16 @@ optionalChildren [
 uid 127,0
 sl 0
 ro 270
-xt "29500,25625,31000,26375"
+xt "29500,27625,31000,28375"
 )
 (Line
 uid 128,0
 sl 0
 ro 270
-xt "29000,26000,29500,26000"
+xt "29000,28000,29500,28000"
 pts [
-"29000,26000"
-"29500,26000"
+"29000,28000"
+"29500,28000"
 ]
 )
 ]
@@ -651,9 +651,9 @@ uid 130,0
 va (VaSet
 font "courier,8,0"
 )
-xt "32000,25500,39000,26400"
+xt "32000,27500,39000,28400"
 st "get_data_trig"
-blo "32000,26200"
+blo "32000,28200"
 tm "WireNameMgr"
 )
 )
@@ -1747,15 +1747,14 @@ font "courier,8,0"
 )
 xt "45200,15200,62200,19700"
 st "
-assign zeros2bit   = 2'b0;
-initial send_count  = 0;
-
-
+initial zeros2bit   = 2'b0;
+initial send_count  = 1'b0;
+    
   //Fill the register enc10bit_r with data 
 always @(posedge clk)
 begin
   if (!rst)
-  enc10bit_r <= COMMAn;
+  enc10bit_r <= COMMAp;
   else if (get_data_trig  == 1) //Trigger after cycle 5 CLKs
   begin
     enc10bit_r <= enc10bit;
@@ -1778,6 +1777,10 @@ begin
     send_count <= send_count + 1;
   end
 end                                   
+
+
+
+
 
 
 
@@ -1985,7 +1988,7 @@ va (VaSet
 vasetType 1
 fg "0,65535,0"
 )
-xt "9250,23625,10000,24375"
+xt "9250,25625,10000,26375"
 )
 tg (CPTG
 uid 5925,0
@@ -1996,9 +1999,9 @@ uid 5926,0
 va (VaSet
 font "courier,8,0"
 )
-xt "11000,23550,12500,24450"
+xt "11000,25550,12500,26450"
 st "rst"
-blo "11000,24250"
+blo "11000,26250"
 )
 )
 thePort (LogicalPort
@@ -2023,7 +2026,7 @@ va (VaSet
 vasetType 1
 fg "0,65535,0"
 )
-xt "24000,25625,24750,26375"
+xt "24000,27625,24750,28375"
 )
 tg (CPTG
 uid 5921,0
@@ -2034,10 +2037,10 @@ uid 5922,0
 va (VaSet
 font "courier,8,0"
 )
-xt "16500,25550,23000,26450"
+xt "16500,27550,23000,28450"
 st "request_trig"
 ju 2
-blo "23000,26250"
+blo "23000,28250"
 )
 )
 thePort (LogicalPort
@@ -2063,7 +2066,7 @@ va (VaSet
 vasetType 1
 fg "0,65535,0"
 )
-xt "9250,22625,10000,23375"
+xt "9250,24625,10000,25375"
 )
 tg (CPTG
 uid 5909,0
@@ -2074,9 +2077,9 @@ uid 5910,0
 va (VaSet
 font "courier,8,0"
 )
-xt "11000,22550,12500,23450"
+xt "11000,24550,12500,25450"
 st "clk"
-blo "11000,23250"
+blo "11000,25250"
 )
 )
 thePort (LogicalPort
@@ -2100,7 +2103,7 @@ fg "0,65535,0"
 lineColor "0,32896,0"
 lineWidth 2
 )
-xt "10000,22000,24000,30000"
+xt "10000,24000,24000,32000"
 )
 oxt "17000,5000,31000,15000"
 ttg (MlTextGroup
@@ -2113,9 +2116,9 @@ uid 3986,0
 va (VaSet
 font "courier,8,1"
 )
-xt "15250,22000,21250,22900"
+xt "15250,24000,21250,24900"
 st "mopshub_lib"
-blo "15250,22700"
+blo "15250,24700"
 tm "BdLibraryNameMgr"
 )
 *56 (Text
@@ -2123,9 +2126,9 @@ uid 3987,0
 va (VaSet
 font "courier,8,1"
 )
-xt "15250,22900,22750,23800"
+xt "15250,24900,22750,25800"
 st "triger_counter"
-blo "15250,23600"
+blo "15250,25600"
 tm "CptNameMgr"
 )
 *57 (Text
@@ -2133,9 +2136,9 @@ uid 3988,0
 va (VaSet
 font "courier,8,1"
 )
-xt "15250,23800,23250,24700"
+xt "15250,25800,23250,26700"
 st "triger_counter1"
-blo "15250,24500"
+blo "15250,26500"
 tm "InstanceNameMgr"
 )
 ]
@@ -2150,7 +2153,7 @@ uid 3991,0
 va (VaSet
 font "courier,8,0"
 )
-xt "16000,35200,27100,37000"
+xt "16000,37200,27100,39000"
 )
 header ""
 )
@@ -2164,7 +2167,7 @@ va (VaSet
 vasetType 1
 fg "49152,49152,49152"
 )
-xt "10250,28250,11750,29750"
+xt "10250,30250,11750,31750"
 iconName "VerilogFileViewIcon.png"
 iconMaskName "VerilogFileViewIcon.msk"
 ftype 11
@@ -3170,10 +3173,10 @@ uid 550,0
 va (VaSet
 vasetType 3
 )
-xt "24750,26000,29000,26000"
+xt "24750,28000,29000,28000"
 pts [
-"24750,26000"
-"29000,26000"
+"24750,28000"
+"29000,28000"
 ]
 )
 start &53
@@ -3194,9 +3197,9 @@ va (VaSet
 isHidden 1
 font "courier,8,0"
 )
-xt "26000,25100,33000,26000"
+xt "26000,27100,33000,28000"
 st "get_data_trig"
-blo "26000,25800"
+blo "26000,27800"
 tm "WireNameMgr"
 )
 )
@@ -3359,10 +3362,10 @@ uid 4006,0
 va (VaSet
 vasetType 3
 )
-xt "4000,24000,9250,24000"
+xt "4000,26000,9250,26000"
 pts [
-"4000,24000"
-"9250,24000"
+"4000,26000"
+"9250,26000"
 ]
 )
 end &52
@@ -3381,9 +3384,9 @@ uid 4010,0
 va (VaSet
 font "courier,8,0"
 )
-xt "5000,23100,6500,24000"
+xt "5000,25100,6500,26000"
 st "rst"
-blo "5000,23800"
+blo "5000,25800"
 tm "WireNameMgr"
 )
 )
@@ -3396,10 +3399,10 @@ uid 4012,0
 va (VaSet
 vasetType 3
 )
-xt "4000,23000,9250,23000"
+xt "4000,25000,9250,25000"
 pts [
-"4000,23000"
-"9250,23000"
+"4000,25000"
+"9250,25000"
 ]
 )
 end &54
@@ -3417,9 +3420,9 @@ uid 4016,0
 va (VaSet
 font "courier,8,0"
 )
-xt "5000,22100,6500,23000"
+xt "5000,24100,6500,25000"
 st "clk"
-blo "5000,22800"
+blo "5000,24800"
 tm "WireNameMgr"
 )
 )
@@ -3754,12 +3757,12 @@ tm "BdCompilerDirectivesTextMgr"
 ]
 associable 1
 )
-windowSize "1912,40,3848,1055"
-viewArea "-8200,-7705,68885,30275"
-cachedDiagramExtent "-16000,-11000,76000,38800"
+windowSize "3832,13,5768,1088"
+viewArea "-15120,1926,76697,50380"
+cachedDiagramExtent "-16000,-11000,76000,39000"
 hasePageBreakOrigin 1
 pageBreakOrigin "-79000,-12000"
-lastUid 6373,0
+lastUid 6905,0
 defaultCommentText (CommentText
 shape (Rectangle
 layer 0
@@ -4817,7 +4820,7 @@ tm "BdDeclarativeTextMgr"
 commonDM (CommonDM
 ldm (LogicalDM
 ordering 1
-suid 79,0
+suid 87,0
 usingSuid 1
 emptyRow *131 (LEmptyRow
 )
@@ -4896,7 +4899,7 @@ lang 5
 m 4
 decl (Decl
 n "zeros2bit"
-t "wire"
+t "reg"
 b "[1:0]"
 o 9
 suid 7,0

@@ -72,7 +72,7 @@ value "/home/dcs/git/mopshub/mopshub_lib/hds/sync_detector"
 )
 (vvPair
 variable "date"
-value "03/15/22"
+value "04/05/22"
 )
 (vvPair
 variable "day"
@@ -84,7 +84,7 @@ value "Tuesday"
 )
 (vvPair
 variable "dd"
-value "15"
+value "05"
 )
 (vvPair
 variable "entity_name"
@@ -112,7 +112,7 @@ value "dcs"
 )
 (vvPair
 variable "graphical_source_date"
-value "03/15/22"
+value "04/05/22"
 )
 (vvPair
 variable "graphical_source_group"
@@ -124,7 +124,7 @@ value "chipdev2.physik.uni-wuppertal.de"
 )
 (vvPair
 variable "graphical_source_time"
-value "18:24:31"
+value "16:14:05"
 )
 (vvPair
 variable "group"
@@ -168,7 +168,7 @@ value "$HDS_PROJECT_DIR/mopshub_lib/svassistant"
 )
 (vvPair
 variable "mm"
-value "03"
+value "04"
 )
 (vvPair
 variable "module_name"
@@ -176,11 +176,11 @@ value "sync_detector"
 )
 (vvPair
 variable "month"
-value "Mar"
+value "Apr"
 )
 (vvPair
 variable "month_long"
-value "March"
+value "April"
 )
 (vvPair
 variable "p"
@@ -244,7 +244,7 @@ value "struct"
 )
 (vvPair
 variable "time"
-value "18:24:31"
+value "16:14:05"
 )
 (vvPair
 variable "unit"
@@ -792,7 +792,8 @@ va (VaSet
 font "courier,8,0"
 )
 xt "2000,9900,17500,10800"
-st "wire [1:0]   comma_valid_bits;"
+st "wire [1:0]   comma_valid_bits;
+"
 )
 )
 *17 (PortIoIn
@@ -857,7 +858,8 @@ va (VaSet
 font "courier,8,0"
 )
 xt "2000,1800,15500,2700"
-st "wire [10:0]  bitstream_in;"
+st "wire [10:0]  bitstream_in;
+"
 )
 )
 *19 (PortIoIn
@@ -968,7 +970,8 @@ va (VaSet
 font "courier,8,0"
 )
 xt "2000,10800,17500,11700"
-st "wire [9:0]   bitstream_align1;"
+st "wire [9:0]   bitstream_align1;
+"
 )
 )
 *22 (Net
@@ -988,7 +991,8 @@ va (VaSet
 font "courier,8,0"
 )
 xt "2000,9000,27000,9900"
-st "wire [9:0]   bitstream_align0; //2 words of 10bit"
+st "wire [9:0]   bitstream_align0; //2 words of 10bit
+"
 )
 )
 *23 (Net
@@ -1008,7 +1012,8 @@ va (VaSet
 font "courier,8,0"
 )
 xt "2000,3600,11000,4500"
-st "wire         rst;"
+st "wire         rst;
+"
 )
 )
 *24 (Net
@@ -1028,7 +1033,8 @@ va (VaSet
 font "courier,8,0"
 )
 xt "2000,2700,11000,3600"
-st "wire         clk;"
+st "wire         clk;
+"
 )
 )
 *25 (HdlText
@@ -1067,18 +1073,21 @@ st "
 assign word10b_rdy = alignment_reg[4]; // The data is ready once alignment_sreg == 10000
 assign word10b = word10b_reg;
 always@(posedge clk)
-if (!rst) word10b_reg <= COMMAn;
+if (!rst) word10b_reg <= COMMAp;
 else
 begin
   if(alignment_reg[0] ==1)
     case (align_select)
         1'b0 : word10b_reg   <= bitstream_align0;//when bit0 word got comma => align to bitstream_align_array0
         1'b1 : word10b_reg   <= bitstream_align1;//when bit1 word got comma => align to bitstream_align_array1    
-        default: word10b_reg <= COMMAn;
+        default: word10b_reg <= COMMAp;
     endcase
  else
   word10b_reg <= word10b_reg;
 end
+
+
+
 
 
 
@@ -1251,7 +1260,8 @@ begin
   alignment_reg <= 5'b10000; 
     case (comma_valid_bits)
         2'b01 : align_select <=  1'b0;//when bit0 word got comma => align to bitstream_align0
-        2'b10 : align_select <=  1'b1;//when bit1 word got comma => align to bitstream_align1    
+        2'b10 : align_select <=  1'b1;//when bit1 word got comma => align to bitstream_align1
+        default: align_select <=  1'b0;    
     endcase
   end 
   else
@@ -1260,6 +1270,9 @@ begin
     align_select  <= align_select;
   end 
 end
+
+
+
 
 
 
@@ -1401,7 +1414,8 @@ va (VaSet
 font "courier,8,0"
 )
 xt "2000,12600,19000,13500"
-st "wire         comma_valid_bits_or;"
+st "wire         comma_valid_bits_or;
+"
 )
 )
 *34 (Net
@@ -1419,7 +1433,8 @@ va (VaSet
 font "courier,8,0"
 )
 xt "2000,13500,15500,14400"
-st "reg          align_select;"
+st "reg          align_select;
+"
 )
 )
 *35 (Net
@@ -1437,7 +1452,8 @@ va (VaSet
 font "courier,8,0"
 )
 xt "2000,5400,15000,6300"
-st "wire         word10b_rdy;"
+st "wire         word10b_rdy;
+"
 )
 )
 *36 (PortIoOut
@@ -1501,7 +1517,8 @@ va (VaSet
 font "courier,8,0"
 )
 xt "2000,14400,15000,15300"
-st "reg [9:0]    word10b_reg;"
+st "reg [9:0]    word10b_reg;
+"
 )
 )
 *38 (Net
@@ -1520,7 +1537,8 @@ va (VaSet
 font "courier,8,0"
 )
 xt "2000,4500,13000,5400"
-st "wire [9:0]   word10b;"
+st "wire [9:0]   word10b;
+"
 )
 )
 *39 (PortIoOut
@@ -1584,7 +1602,8 @@ va (VaSet
 font "courier,8,0"
 )
 xt "2000,11700,16000,12600"
-st "reg [4:0]    alignment_reg;"
+st "reg [4:0]    alignment_reg;
+"
 )
 )
 *41 (Net
@@ -1604,7 +1623,8 @@ va (VaSet
 font "courier,8,0"
 )
 xt "2000,6300,29500,7200"
-st "wire [9:0]   COMMAp; //-K.28.5//comma / idle character"
+st "wire [9:0]   COMMAp; //-K.28.5//comma / idle character
+"
 )
 )
 *42 (Net
@@ -1624,7 +1644,8 @@ va (VaSet
 font "courier,8,0"
 )
 xt "2000,7200,17500,8100"
-st "wire [9:0]   COMMAn; //+K.28.5"
+st "wire [9:0]   COMMAn; //+K.28.5
+"
 )
 )
 *43 (PortIoIn
@@ -2142,6 +2163,7 @@ pts [
 end &29
 sat 16
 eat 1
+stc 0
 st 0
 sf 1
 si 0
@@ -2623,12 +2645,12 @@ tm "BdCompilerDirectivesTextMgr"
 ]
 associable 1
 )
-windowSize "1912,40,3848,1055"
-viewArea "37429,11200,93958,39052"
+windowSize "-8,13,1928,1088"
+viewArea "31600,28000,70999,48792"
 cachedDiagramExtent "0,0,93000,52000"
 hasePageBreakOrigin 1
 pageBreakOrigin "0,0"
-lastUid 3665,0
+lastUid 4175,0
 defaultCommentText (CommentText
 shape (Rectangle
 layer 0
@@ -3685,7 +3707,7 @@ tm "BdDeclarativeTextMgr"
 commonDM (CommonDM
 ldm (LogicalDM
 ordering 1
-suid 60,0
+suid 61,0
 usingSuid 1
 emptyRow *98 (LEmptyRow
 )

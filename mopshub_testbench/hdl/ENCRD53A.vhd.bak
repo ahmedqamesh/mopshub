@@ -1,0 +1,761 @@
+--! This file is part of the FELIX firmware distribution (https://gitlab.cern.ch/atlas-tdaq-felix/firmware/).
+--! Copyright (C) 2001-2021 CERN for the benefit of the ATLAS collaboration.
+--! Authors:
+--!               Frans Schreuder
+--!               mtrovato
+--! 
+--!   Licensed under the Apache License, Version 2.0 (the "License");
+--!   you may not use this file except in compliance with the License.
+--!   You may obtain a copy of the License at
+--!
+--!       http://www.apache.org/licenses/LICENSE-2.0
+--!
+--!   Unless required by applicable law or agreed to in writing, software
+--!   distributed under the License is distributed on an "AS IS" BASIS,
+--!   WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+--!   See the License for the specific language governing permissions and
+--!   limitations under the License.
+
+----------------------------------------------------------------------------------
+-- Company: 
+-- Engineer: Alexander Paramonov, Marco Trovato, Tianxing Zheng
+-- 
+-- Create Date: 03/27/2018 09:36:28 PM
+-- Design Name: 
+-- Module Name: 
+-- Project Name: 
+-- Target Devices: 
+-- Tool Versions: 
+-- Description: Module(s) assume that continuous data is received @40 MHz clk.
+-- If bursts of data are interrupted (e.g: command_rdy ____--_----____)
+-- downlink commands may be spoiled
+-- 
+-- Dependencies: 
+-- 
+-- Revision:
+-- Revision 0.01 - File Created
+-- Additional Comments:
+-- 1) adapted EPROC_OUT4_ENCRD53A to axistream. Now operates on a single clk (clk40)
+    --N.B: input 8b rather than 10b
+-- 2) removed commented lines useful for simulation or for deprecated module
+-- (e.g: autozeroing)
+
+-- on clk40 ony
+-- 
+----------------------------------------------------------------------------------
+
+
+library IEEE;
+use IEEE.std_logic_1164.ALL;
+use IEEE.std_logic_UNSIGNED.ALL;
+
+library UNISIM;
+use UNISIM.VCOMPONENTS.all;
+
+library work;
+use work.newtriggerunit;
+use work.sync_timer;
+use work.cmd_top;
+use work.az_controller;
+
+
+entity ENCRD53A is
+  generic (
+    DEBUGGING_RD53                  : boolean := false; --save resources
+    --MT
+    PCIE_ENDPOINT                   : integer := 0;
+    LINK                            : integer := 0;
+    EGROUP                          : integer := 0;
+    EPATH                           : integer := 0        
+    
+  );
+  port ( 
+    clk40       : in std_logic;
+    rst         : in std_logic;
+    trigger     : in std_logic;
+    command_in  : in std_logic_vector(7 downto 0); 
+    command_rdy : in std_logic;     
+    dataout     : out std_logic_vector(3 downto 0);
+    readyout    : out std_logic;
+
+    enAZ_in     : in std_logic; --enable AutoZeroing module for SyncFE
+
+    --calseq from ram
+    CalTrigSeq_in       : in std_logic_vector(15 downto 0);
+    ReadAddrCalTrigSeq_out : out std_logic_vector(4 downto 0);
+    --
+    
+    --debug info/from to regmap
+    ref_cmd_in            : in std_logic_vector(15 downto 0);    
+    cnt_cmd_out            : out std_logic_vector(31 downto 0);
+    cnt_trig_cmd_out       : out std_logic_vector(31 downto 0);
+    ref_dly_genCalTrig_in  : in std_logic_vector(7 downto 0);
+    err_genCalTrig_dly_out : out std_logic_vector(7 downto 0);
+    cnt_time_firstTolastTrig_out : out std_logic_vector(31 downto 0)
+   
+    
+    );
+end ENCRD53A;
+
+architecture Behavioral of ENCRD53A is
+
+
+  
+--    type state_type is (sync_send, trigger_send, az_send, cmd_send);
+
+  --MT 29 Jan 2020 commented out-> obsolete
+  --type state_type is (sync_send, trigger_send, cmd_send);  
+  --signal state: state_type := sync_send;--better to have initial value
+  
+  signal trig_rdy, sync_rdy, cmd_rdy: std_logic;--when sync_rdy, it means we already sent out 32 words and now we need to stop sending cmd and go back to send sync
+  signal trig_data: std_logic_vector(15 downto 0);
+  signal cmd_data: std_logic_vector(15 downto 0);
+  constant sync_pattern: std_logic_vector(15 downto 0):= "1000000101111110";
+  constant noop_pattern: std_logic_vector(15 downto 0):= "0110100101101001";    
+  signal sync_sent_i: std_logic;--=1 when we sent a sync
+  signal cmd_sent_i: std_logic;--=1 when we sent a cmd
+  signal sync_cmd_type: std_logic;    
+  signal ser_data_i :std_logic_vector(15 downto 0);--data to be serialized in
+                                                   --4b before being sent out
+  signal ser_data_v_i : std_logic; --=1 every 4 clk40 (counter=01)  
+  signal dataout_i :std_logic_vector(3 downto 0);--data to be send out
+  signal counter: std_logic_vector (1 downto 0):="00";--word counter, every 4 clk40 circle we send out an word
+  signal az_sent_i : STD_LOGIC;        --=1 when we are sending an az
+  signal az_cmd_type : STD_LOGIC := '0';
+  signal enAZ_viacmd : std_logic; --enable/disable AZ via cmd
+  signal az : STD_LOGIC_VECTOR(15 downto 0) := (others => '0');  --32b AZ
+  --split in tow
+  signal az_rdy : STD_LOGIC := '0';   --16b AZ ready to be sent
+  
+  signal ReadEnable40 : std_logic; --@40MHz
+--  signal command_in40 : std_logic_vector(17 downto 0); --MT Dec 10
+  signal command_in40 : std_logic_vector(15 downto 0);  
+  signal command_rdy40 : std_logic;  --@40MHz
+--  signal command_in40_dly : std_logic_vector(17 downto 0);
+--  signal command_rdy40_dly : std_logic;  --@40MHz
+--  signal cmd_delay_array, cmd_delay_array_tmp : std_logic_vector(3 downto 0);
+--delay amount decided via vio
+  signal rst_fifo : std_logic := '0';
+  signal wr_en_fifo, full_fifo, almost_full_fifo, empty_fifo : std_logic;
+
+  signal count40 : std_logic := '0';
+
+  signal command_rdy20 : std_logic;
+--  signal command_in20 : std_logic_vector(17 downto 0); --MT Dec 10
+  signal command_in20 : std_logic_vector(15 downto 0);  
+
+  signal command_rdy_dly : std_logic;
+  signal startread : std_logic_vector(4 downto 0);
+--
+  --YARR debug info
+  signal cnt_ecr_cmdin20 : std_logic_vector(31 downto 0);
+  signal cnt_bcr_cmdin20 : std_logic_vector(31 downto 0);
+  signal cnt_glbpls_cmdin20 : std_logic_vector(31 downto 0);
+  signal cnt_cal_cmdin20 : std_logic_vector(31 downto 0);
+  signal cnt_wrreg_cmdin20 : std_logic_vector(31 downto 0);
+  signal cnt_rdreg_cmdin20 : std_logic_vector(31 downto 0);
+  signal cnt_noop_cmdin20 : std_logic_vector(31 downto 0);
+  signal cnt_sync_cmdin20 : std_logic_vector(31 downto 0);
+
+  signal cnt_ecr : std_logic_vector(31 downto 0);
+  signal cnt_bcr : std_logic_vector(31 downto 0);
+  signal cnt_glbpls : std_logic_vector(31 downto 0);
+  signal cnt_cal : std_logic_vector(31 downto 0);
+  signal cnt_wrreg : std_logic_vector(31 downto 0);
+  signal cnt_rdreg : std_logic_vector(31 downto 0);
+  signal cnt_noop : std_logic_vector(31 downto 0);
+  signal cnt_sync : std_logic_vector(31 downto 0);
+
+
+  signal cnt_cmd : std_logic_vector(31 downto 0);  
+  signal cnt_trig_cmd : std_logic_vector(31 downto 0);
+  signal cnt_time_firstTolastTrig : std_logic_vector(31 downto 0);
+  signal err_genCalTrig_dly : std_logic_vector(7 downto 0); --increase if cnt_dly doesn't
+  signal cnt_time_twoTrig_ila : std_logic_vector(31 downto 0);
+  signal cnt_genCalTrig_dly_ila : std_logic_vector(7 downto 0);
+  signal cnt_trig_ila : std_logic_vector(31 downto 0);
+  signal state_chkdly_genCalTrig_ila : std_logic_vector(1 downto 0);  
+  signal state_trigTime_ila : std_logic_vector(1 downto 0);
+  signal cnt_genCal_fromSM_ila : std_logic_vector(31 downto 0); --cnt number of
+                                                             --gencal as seen
+                                                             --by SM, sanity check  
+                                                            --
+  signal cnt_datav_fromCal_ila   : std_logic_vector(7 downto 0);
+  signal err_cmdtop_i : std_logic_vector(7 downto 0); --commands in Table 4 or
+                                                    --triggers don't arrive as listed
+  signal warn_cmdtop_i : std_logic_vector(7 downto 0); --+1 commands in Table 4 come with gaps
+
+--ila
+  signal az_count_ila_out : std_logic_vector(9 downto 0);
+  signal az_rdy_ila_out, az_pointer_ila_out, az_state_ila_out, az_out_cnts_ila_out : std_logic;
+
+
+  
+--MT Dec 10
+  --COMPONENT fifo_generator_0_ENCRRD53A
+  --  PORT (
+  --    wr_clk : IN std_logic;
+  --    wr_rst : IN std_logic;
+  --    rd_clk : IN std_logic;
+  --    rd_rst : IN std_logic;
+  --    din : IN std_logic_vector(17 DOWNTO 0);
+  --    wr_en : IN std_logic;
+  --    rd_en : IN std_logic;
+  --    dout : OUT std_logic_vector(17 DOWNTO 0);
+  --    full : OUT std_logic;
+  --    almost_full : OUT std_logic;
+  --    empty : OUT std_logic;
+  --    valid : OUT std_logic    
+  --    );
+  --END COMPONENT;
+
+  
+COMPONENT fifo_generator_0_ENCRRD53A
+  PORT (
+    clk : IN STD_LOGIC;
+    srst : IN STD_LOGIC;
+    din : IN STD_LOGIC_VECTOR(15 DOWNTO 0);
+    wr_en : IN STD_LOGIC;
+    rd_en : IN STD_LOGIC;
+    dout : OUT STD_LOGIC_VECTOR(15 DOWNTO 0);
+    full : OUT STD_LOGIC;
+    almost_full : OUT STD_LOGIC;
+    empty : OUT STD_LOGIC;
+    valid : OUT STD_LOGIC;
+    wr_rst_busy : OUT STD_LOGIC;
+    rd_rst_busy : OUT STD_LOGIC
+  );
+END COMPONENT;
+
+  
+  --debug
+  signal wr_en_debug_cmdcheck : std_logic;
+  signal rd_en_debug_cmdcheck : std_logic;
+  signal din_debug_cmdcheck : std_logic_vector(3 downto 0);
+  signal dout_debug_cmdcheck : std_logic_vector(3 downto 0);  
+  signal rst_debug_cmdcheck : std_logic;
+
+  signal full_debug_cmdcheck, overflow_debug_cmdcheck, empty_debug_cmdcheck, valid_debug_cmdcheck, underflow_debug_cmdcheck, wr_rst_busy_debug_cmdcheck, rd_rst_busy_debug_cmdcheck : std_logic;
+
+  signal rd_en_debug_cmdcheck_tmp, rst_debug_cmdcheck_tmp : std_logic;
+  signal cnt_debug_cmdcheck : std_logic_vector(1 downto 0);
+  type state_debug_cmdcheck_type is (wrenoff, wrenon);   
+    
+  signal state_debug_cmdcheck: state_debug_cmdcheck_type := wrenoff;--better to have initial value
+  
+  COMPONENT fifo_debug_cmdcheck
+  PORT (
+    clk : IN STD_LOGIC;
+    srst : IN STD_LOGIC;
+    din : IN STD_LOGIC_VECTOR(3 DOWNTO 0);
+    wr_en : IN STD_LOGIC;
+    rd_en : IN STD_LOGIC;
+    dout : OUT STD_LOGIC_VECTOR(3 DOWNTO 0);
+    full : OUT STD_LOGIC;
+    overflow : OUT STD_LOGIC;
+    empty : OUT STD_LOGIC;
+    valid : OUT STD_LOGIC;
+    underflow : OUT STD_LOGIC;
+    wr_rst_busy : OUT STD_LOGIC;
+    rd_rst_busy : OUT STD_LOGIC
+  );
+END COMPONENT;
+
+COMPONENT vio_debug_cmdcheck
+  PORT (
+    clk : IN STD_LOGIC;
+    probe_in0 : IN STD_LOGIC_VECTOR(0 DOWNTO 0);
+    probe_in1 : IN STD_LOGIC_VECTOR(0 DOWNTO 0);
+    probe_out0 : OUT STD_LOGIC_VECTOR(0 DOWNTO 0);
+    probe_out1 : OUT STD_LOGIC_VECTOR(0 DOWNTO 0)
+  );
+END COMPONENT;
+
+    signal  frequency_i     : STD_LOGIC_VECTOR(5 downto 0);
+    signal  frequency_cnt_i : STD_LOGIC_VECTOR(11 downto 0);
+    signal  freq_en_i       : STD_LOGIC;
+    signal  cmd_out_cnts_i  : STD_LOGIC_VECTOR(4 downto 0);
+    signal  pointer_i       : STD_LOGIC_VECTOR(4 downto 0);
+    signal  iteration_i     : STD_LOGIC_VECTOR(6 downto 0);
+    signal  cmd_state_is_i  : STD_LOGIC_VECTOR(1 downto 0);
+    signal  cmd_reg0_i      : STD_LOGIC_VECTOR(15 downto 0);
+    signal  cmd_reg1_i      : STD_LOGIC_VECTOR(15 downto 0);
+    signal  cmd_reg2_i      : STD_LOGIC_VECTOR(15 downto 0);
+    signal  cmd_reg3_i      : STD_LOGIC_VECTOR(15 downto 0);
+    signal waitcnt_before_start : STD_LOGIC_VECTOR(5 downto 0);
+
+  --COMPONENT ila_0_RD53A
+  --  PORT (
+  --    clk     : IN std_logic;
+  --    probe0  : IN std_logic_vector(7 DOWNTO 0);
+  --    probe1  : IN std_logic_vector(0 DOWNTO 0);
+  --    probe2  : IN std_logic_vector(0 DOWNTO 0);        
+  --    probe3  : IN std_logic_vector(15 DOWNTO 0);
+  --    probe4  : IN std_logic_vector(0 DOWNTO 0);
+  --    probe5  : IN std_logic_vector(15 DOWNTO 0);
+  --    probe6  : IN std_logic_vector(0 DOWNTO 0);
+  --    probe7  : IN std_logic_vector(0 DOWNTO 0);
+  --    probe8  : IN std_logic_vector(0 DOWNTO 0);                            
+  --    probe9  : IN std_logic_vector(0 DOWNTO 0);
+  --    probe10 : IN std_logic_vector(0 DOWNTO 0);
+  --    probe11 : IN std_logic_vector(1 DOWNTO 0);                            
+  --    probe12 : IN std_logic_vector(0 DOWNTO 0);
+  --    probe13 : IN std_logic_vector(15 DOWNTO 0);
+  --    probe14 : IN std_logic_vector(0 DOWNTO 0);                            
+  --    probe15 : IN std_logic_vector(0 DOWNTO 0);
+  --    probe16 : IN std_logic_vector(0 DOWNTO 0);
+  --    probe17 : IN std_logic_vector(0 DOWNTO 0);
+  --    probe18 : IN std_logic_vector(15 DOWNTO 0);
+  --    probe19 : IN std_logic_vector(0 DOWNTO 0);
+  --    probe20 : IN std_logic_vector(3 DOWNTO 0);
+  --    probe21 : IN std_logic_vector(15 DOWNTO 0);
+  --    probe22 : IN std_logic_vector(0 DOWNTO 0);
+  --    probe23 : IN std_logic_vector(5 DOWNTO 0);
+  --    probe24 : IN std_logic_vector(11 DOWNTO 0);
+  --    probe25 : IN std_logic_vector(0 DOWNTO 0);
+  --    probe26 : IN std_logic_vector(4 DOWNTO 0);
+  --    probe27 : IN std_logic_vector(4 DOWNTO 0);
+  --    probe28 : IN std_logic_vector(6 DOWNTO 0);
+  --    probe29 : IN std_logic_vector(1 DOWNTO 0);
+  --    probe30 : IN std_logic_vector(15 DOWNTO 0);
+  --    probe31 : IN std_logic_vector(15 DOWNTO 0);         
+  --    probe32 : IN std_logic_vector(15 DOWNTO 0);
+  --    probe33 : IN std_logic_vector(15 DOWNTO 0);         
+  --    probe34 : IN std_logic_vector(0 DOWNTO 0) ;
+  --    probe35 : IN std_logic_vector(4 DOWNTO 0) ;
+  --    probe36 : IN std_logic_vector(3 DOWNTO 0) ;
+  --    probe37 : IN std_logic_vector(0 DOWNTO 0) ;
+  --    probe38 : IN std_logic_vector(0 DOWNTO 0) ;
+  --    probe39 : IN std_logic_vector(3 DOWNTO 0) ;
+  --    probe40 : IN std_logic_vector(0 DOWNTO 0) ;
+  --    probe41 : IN std_logic_vector(0 DOWNTO 0) ;
+  --    probe42 : IN std_logic_vector(0 DOWNTO 0) ;
+  --    probe43 : IN std_logic_vector(0 DOWNTO 0) ;
+  --    probe44 : IN std_logic_vector(0 DOWNTO 0) ;
+  --    probe45 : IN std_logic_vector(0 DOWNTO 0) ;
+  --    probe46 : IN std_logic_vector(0 DOWNTO 0) ;
+  --    probe47 : IN std_logic_vector(31 DOWNTO 0) ;
+  --    probe48 : IN std_logic_vector(7 DOWNTO 0) ;
+  --    probe49 : IN std_logic_vector(1 DOWNTO 0) ;
+  --    probe50 : IN std_logic_vector(31 DOWNTO 0) ;
+  --    probe51 : IN std_logic_vector(31 DOWNTO 0) ;
+  --    probe52 : IN std_logic_vector(7 DOWNTO 0) ;
+  --    probe53 : IN std_logic_vector(31 DOWNTO 0) ;
+  --    probe54 : IN std_logic_vector(0 DOWNTO 0) ;
+  --    probe55 : IN std_logic_vector(7 DOWNTO 0) ;
+  --    probe56 : IN std_logic_vector(7 DOWNTO 0) ;
+  --    probe57 : IN std_logic_vector(31 DOWNTO 0);
+  --    probe58 : IN std_logic_vector(31 DOWNTO 0);
+  --    probe59 : IN std_logic_vector(31 DOWNTO 0);
+  --    probe60 : IN std_logic_vector(31 DOWNTO 0);
+  --    probe61 : in std_logic_vector(15 downto 0);
+  --    probe62 : in std_logic_vector(4 downto 0)
+  --    );
+  --END COMPONENT  ;
+
+  --COMPONENT ila_1_RD53A
+  --  PORT (
+  --    clk     : IN std_logic;
+  --    probe0  : IN std_logic_vector(31 DOWNTO 0);
+  --    probe1  : IN std_logic_vector(31 DOWNTO 0);
+  --    probe2  : IN std_logic_vector(31 DOWNTO 0);
+  --    probe3  : IN std_logic_vector(31 DOWNTO 0);
+  --    probe4  : IN std_logic_vector(31 DOWNTO 0);
+  --    probe5  : IN std_logic_vector(31 DOWNTO 0);
+  --    probe6  : IN std_logic_vector(31 DOWNTO 0);
+  --    probe7  : IN std_logic_vector(31 DOWNTO 0);
+  --    probe8  : IN std_logic_vector(31 DOWNTO 0);
+  --    probe9  : IN std_logic_vector(31 DOWNTO 0);
+  --    probe10  : IN std_logic_vector(31 DOWNTO 0);
+  --    probe11  : IN std_logic_vector(31 DOWNTO 0);
+  --    probe12  : IN std_logic_vector(31 DOWNTO 0);
+  --    probe13  : IN std_logic_vector(31 DOWNTO 0);
+  --    probe14  : IN std_logic_vector(31 DOWNTO 0);
+  --    probe15  : IN std_logic_vector(31 DOWNTO 0)      
+
+  --    );
+  --END COMPONENT  ;
+      
+  --
+  signal  ReadAddrCalTrigSeq_tmp : std_logic_vector(4 downto 0);
+begin
+
+
+  readyout <= '1'; --the fifo in this module will take care of traffic control.
+                   --TO DO: remove the FIFO and properly drive readyout
+  
+  process(clk40)  
+  begin              
+    if rising_edge(clk40) then              
+      if(command_rdy = '1') then
+        if(count40 = '0') then  
+          command_in20(15 downto 8) <= command_in(7 downto 0);
+          command_in20(7 downto 0) <= (others => '0');
+          command_rdy20 <= '0';
+          count40 <= '1';
+        else
+          command_in20(7 downto 0) <= command_in(7 downto 0);
+--          command_in20(17 downto 16) <= "00"; --MT Dec 10
+          command_rdy20 <= '1';
+          count40 <= '0';
+        end if;
+      else
+        command_rdy20 <= '0';
+      end if;
+    end if;  --clock
+  end process;
+
+  rst_fifo <= rst; --FS: rst_fifo was not written, assigning rst to it.
+
+  --TO DO : switch a single clock fifo or remove
+  --MT Dec 10
+  --fifo_i : fifo_generator_0_ENCRRD53A
+  --  PORT MAP (
+  --    wr_clk => clk40, 
+  --    wr_rst => rst_fifo,
+  --    rd_clk => clk40,
+  --    rd_rst => rst_fifo,
+  --    din => command_in20,
+  --    wr_en => wr_en_fifo,
+  --    rd_en => ReadEnable40,
+  --    dout => command_in40,
+  --    full => full_fifo,
+  --    almost_full => almost_full_fifo,
+  --    empty => empty_fifo,
+  --    valid => command_rdy40
+  --    );
+
+  fifo_i : fifo_generator_0_ENCRRD53A
+    PORT MAP (
+      clk => clk40, 
+      srst => rst_fifo,
+      din => command_in20,
+      wr_en => wr_en_fifo,
+      rd_en => ReadEnable40,
+      dout => command_in40,
+      full => full_fifo,
+      almost_full => almost_full_fifo,
+      empty => empty_fifo,
+      valid => command_rdy40,
+      wr_rst_busy => open,
+      rd_rst_busy => open      
+      );
+
+  wr_en_fifo <= command_rdy20 and not full_fifo;
+  
+  trig_gen: entity newtriggerunit port map ( 
+    clk40        =>   clk40,
+    rst          =>   rst,
+    trigger      =>   trigger,
+    counter      =>   counter,
+    trigger_rdy  =>   trig_rdy,
+    enc_trig     =>   trig_data      
+    );   
+
+  az_gen: entity az_controller port map (
+        rst           =>   rst, -- or (not enAZ_in),
+        enAZ_viareg   =>   enAZ_in,
+        enAZ_viacmd   =>   enAZ_viacmd,
+        clk40         =>   clk40,
+        az_sent       =>   az_sent_i, -- =1 when az is being sent 
+        az_cmd_type   =>   az_cmd_type,
+        counter       =>   counter,
+
+        az_out        =>   az,
+        az_rdy_out    =>   az_rdy     ,
+        --sync_counter  =>   sync_counter
+        --debug
+        az_count_ila_out => az_count_ila_out,
+        az_rdy_ila_out   => az_rdy_ila_out,
+        pointer_ila_out  => az_pointer_ila_out,
+        state_ila_out    => az_state_ila_out,
+        az_out_cnts_ila_out => az_out_cnts_ila_out
+  ); 
+
+  
+  sync_gen: entity sync_timer port map (
+    clk           =>   clk40,
+    sync_sent     =>   sync_sent_i, -- =1 when sync is sent
+    counter       =>   counter,
+    sync_cmd_type =>   sync_cmd_type,
+    sync_time     =>   sync_rdy      --We need to send a sync
+    ); 
+
+  process(clk40)  
+  begin              
+    if rising_edge(clk40) then
+      command_rdy_dly <= command_rdy;
+      startread(4)    <= startread(3);            
+      startread(3)    <= startread(2);      
+      startread(2)    <= startread(1);
+      startread(1)    <= startread(0);
+
+    end if;  --clock
+  end process;
+  
+  startread(0) <= not command_rdy and (command_rdy_dly); --pulse at the 1->0 transition of command_rdy (ie: no more data arriving for a while)
+  ReadAddrCalTrigSeq_out <= ReadAddrCalTrigSeq_tmp;
+  cmd_gen: entity cmd_top port map (
+    rst           =>   rst,
+    clk40         =>   clk40,
+    startread     =>   startread(4), --MT Dec 9 using 4 to avoid fifo getting empty while processing single wrreg commands
+    ReadEnable    =>   ReadEnable40, --out to FIFO
+    cmd_sent      =>   cmd_sent_i,
+    counter       =>   counter,
+    cmd_in        =>   command_in40, --command_in40_dly, --MT Oct 5 command_in40,     
+    command_rdy   =>   command_rdy40, --command_rdy40_dly, --MT Oct 5 command_rdy40, 
+
+    CalTrigSeq_in =>   CalTrigSeq_in,
+    ReadAddrCalTrigSeq_out => ReadAddrCalTrigSeq_tmp,
+    
+    cmd_data      =>   cmd_data,
+    cmd_ready     =>   cmd_rdy,
+    sync_cmd_type =>   sync_cmd_type,
+    az_cmd_type   =>   az_cmd_type,
+    enAZ_viacmd   =>   enAZ_viacmd,
+    --debug
+    frequency_out     => frequency_i     , 
+    frequency_cnt_out => frequency_cnt_i , 
+    freq_en_out       => freq_en_i       , 
+    cmd_out_cnts_out  => cmd_out_cnts_i  , 
+    pointer_out       => pointer_i       , 
+    iteration_out     => iteration_i     , 
+    cmd_state_is_out  => cmd_state_is_i  , 
+    cmd_reg0_out      => cmd_reg0_i      ,
+    cmd_reg1_out      => cmd_reg1_i      ,
+    cmd_reg2_out      => cmd_reg2_i      ,
+    cmd_reg3_out      => cmd_reg3_i      ,
+    --debug
+    err_cmdtop_out    => err_cmdtop_i    ,
+    warn_cmdtop_out   => warn_cmdtop_i   
+--    waitcnt_before_start_out => waitcnt_before_start
+    
+    );
+  
+  process(clk40)--Word Counter
+  begin
+    if rising_edge (clk40) then
+      if(rst = '1') then
+        counter <= "00";
+      else   
+        counter <= counter + '1';
+      end if;    
+    end if;
+  end process;
+
+  dataout <= dataout_i;
+  process(clk40)--Main State Machine. Priority: trig, sync, cmd
+  --Priority (decreasing): 
+    -- 4) trig, 
+    -- 3) sync, 
+    -- 2) (az (autozero)), 
+    -- 1) cmd
+    -- 0) noop        
+  begin
+    if rising_edge(clk40) then
+      -- When counter is at 00, state changes. When counter is others, send out data
+      case counter is
+        when "00" =>
+          if (rst = '1') then
+            ser_data_i <= sync_pattern;
+            dataout_i    <= sync_pattern(15 downto 12);
+            sync_sent_i <= '1';-- =1 when sync is sent
+            az_sent_i   <= '0';
+            cmd_sent_i<= '0';-- =1 when cmd is sent
+          else 
+            if (trig_rdy = '1') then --priority 4)
+              ser_data_i <= trig_data; -- Immediately take the trig_data
+              dataout_i    <= trig_data(15 downto 12);
+              sync_sent_i <= '0';
+              az_sent_i   <= '0';
+              cmd_sent_i  <= '0';
+            elsif (sync_rdy = '1') then --priority 3)
+              ser_data_i  <= sync_pattern;
+              dataout_i   <= sync_pattern(15 downto 12);
+              sync_sent_i <= '1';
+              az_sent_i   <= '0';
+              cmd_sent_i  <= '0';
+            elsif (az_rdy = '1') then --priority 2)
+              ser_data_i  <= az;
+              dataout_i   <= az(15 downto 12);
+              sync_sent_i <= '0';
+              az_sent_i   <= '1';                            
+              cmd_sent_i  <= '0';                             
+            elsif (cmd_rdy = '1') then --priority 1)
+              ser_data_i  <= cmd_data;
+              dataout_i   <= cmd_data(15 downto 12);
+              sync_sent_i <= '0';
+              az_sent_i   <= '0';                                                   
+              cmd_sent_i  <= '1';                          
+            else --priority 0)
+              ser_data_i  <= noop_pattern;
+              dataout_i   <= noop_pattern(15 downto 12);
+              sync_sent_i <= '0';
+              az_sent_i   <= '0';                            
+              cmd_sent_i  <= '0';                            
+            end if;
+          end if;
+        -- When counter is at 00, state changes. When counter is others, send out data  
+        when "01" =>
+          dataout_i    <= ser_data_i(11 downto 8);
+        when "10" =>            
+          dataout_i    <= ser_data_i(7 downto 4);
+        when "11" =>
+          dataout_i    <= ser_data_i(3 downto 0);
+        when others =>
+          dataout_i    <= "0000";
+      end case;
+    end if;
+  end process;
+
+  ser_data_v_i <= '1' when counter = "01" else '0';
+  g_DebbuggingModule: if DEBUGGING_RD53 = true generate  
+  RD53A_DebuggingModule_i: entity work.RD53A_DebuggingModule port map (
+    rst                         => rst,
+    clk40                       => clk40,
+
+    --command_in                  => command_in20,
+    --command_v                   => command_rdy20,
+    --cnt_ecr_cmdin_out         => cnt_ecr_cmdin20,
+    --cnt_bcr_cmdin_out         => cnt_bcr_cmdin20,
+    --cnt_glbpls_cmdin_out         => cnt_glbpls_cmdin20,
+    --cnt_cal_cmdin_out         => cnt_cal_cmdin20,
+    --cnt_wrreg_cmdin_out         => cnt_wrreg_cmdin20,
+    --cnt_rdreg_cmdin_out         => cnt_rdreg_cmdin20,
+    --cnt_noop_cmdin_out         => cnt_noop_cmdin20,
+    --cnt_sync_cmdin_out         => cnt_sync_cmdin20,        
+
+    
+    data_in                     => ser_data_i,
+    datav_in                    => ser_data_v_i,
+    ref_cmd_in                  => ref_cmd_in,     
+    cnt_cmd_out                 => cnt_cmd, 
+    --cnt_ecr_out         => cnt_ecr,
+    --cnt_bcr_out         => cnt_bcr,
+    --cnt_glbpls_out         => cnt_glbpls,
+    --cnt_cal_out         => cnt_cal,
+    --cnt_wrreg_out         => cnt_wrreg,
+    --cnt_rdreg_out         => cnt_rdreg,
+    --cnt_noop_out         => cnt_noop,
+    --cnt_sync_out         => cnt_sync,        
+    cnt_trig_cmd_out            => cnt_trig_cmd,
+    cnt_time_firstTolastTrig_out => cnt_time_firstTolastTrig,
+    ref_dly_genCalTrig_in       => ref_dly_genCalTrig_in, 
+    err_genCalTrig_dly_out      => err_genCalTrig_dly,
+    
+    --debug
+    state_trigTime_ila          => state_trigTime_ila,
+    cnt_time_twoTrig_ila        => cnt_time_twoTrig_ila,
+    cnt_trig_ila                => cnt_trig_ila,
+    cnt_genCalTrig_dly_ila      => cnt_genCalTrig_dly_ila,    
+    cnt_genCal_fromSM_ila       => cnt_genCal_fromSM_ila,
+    state_chkdly_genCalTrig_ila => state_chkdly_genCalTrig_ila,
+    cnt_datav_fromCal_ila       => cnt_datav_fromCal_ila
+
+    );
+  cnt_cmd_out <= cnt_cmd;
+  cnt_trig_cmd_out <= cnt_trig_cmd;
+  cnt_time_firstTolastTrig_out <= cnt_time_firstTolastTrig;
+  err_genCalTrig_dly_out <= err_genCalTrig_dly;
+  end generate;
+  
+
+  
+    --ila_0_RD53A_in_i : ila_0_RD53A
+    --  PORT MAP (
+    --    clk        => clk40,  
+    --    probe0     => command_in, 
+    --    probe1(0)  => command_rdy,
+    --    probe2(0)  => count40,
+    --    probe3     => command_in20,
+    --    probe4(0)  => command_rdy20,
+    --    probe5     => command_in40,
+    --    probe6(0)  => command_rdy40,        
+    --    probe7(0)  => ReadEnable40,
+    --    probe8(0)  => almost_full_fifo,
+    --    probe9(0)  => full_fifo,
+    --    probe10(0) => trigger,
+    --    probe11    => counter, 
+    --    probe12(0) => trig_rdy,
+    --    probe13    => trig_data, 
+    --    probe14(0) => sync_cmd_type,
+    --    probe15(0) => sync_sent_i,      
+    --    probe16(0) => sync_rdy,
+    --    probe17(0) => cmd_sent_i,
+    --    probe18    => cmd_data, 
+    --    probe19(0) => cmd_rdy,
+    --    probe20    => dataout_i,  
+    --    probe21    => ser_data_i,
+    --    probe22(0) => '0', --epath_almost_full,
+    --    probe23    => frequency_i,
+    --    probe24    => frequency_cnt_i ,
+    --    probe25(0) => freq_en_i       ,
+    --    probe26    => cmd_out_cnts_i  ,
+    --    probe27    => pointer_i       ,
+    --    probe28    => iteration_i     ,
+    --    probe29    => cmd_state_is_i  ,
+    --    probe30    => cmd_reg0_i      ,
+    --    probe31    => cmd_reg1_i      ,         
+    --    probe32    => cmd_reg2_i      ,
+    --    probe33    => cmd_reg3_i      ,
+    --    probe34(0) => empty_fifo      ,
+    --    probe35 => startread, --waitcnt_before_start,
+
+    --    probe36    => din_debug_cmdcheck,       
+    --    probe37(0) => wr_en_debug_cmdcheck,     
+    --    probe38(0) => rd_en_debug_cmdcheck, 
+    --    probe39    => dout_debug_cmdcheck,      
+    --    probe40(0) => full_debug_cmdcheck,      
+    --    probe41(0) => overflow_debug_cmdcheck,  
+    --    probe42(0) => empty_debug_cmdcheck,     
+    --    probe43(0) => valid_debug_cmdcheck,     
+    --    probe44(0) => underflow_debug_cmdcheck, 
+    --    probe45(0) => wr_rst_busy_debug_cmdcheck,        
+    --    probe46(0) => rd_rst_busy_debug_cmdcheck,
+    --    probe47    => cnt_trig_cmd, 
+    --    probe48    => err_genCalTrig_dly,
+    --    probe49 => state_trigTime_ila, 
+    --    probe50 => cnt_time_twoTrig_ila,
+    --    probe51 => cnt_trig_ila,
+    --    probe52 => cnt_genCalTrig_dly_ila,    
+    --    probe53 => cnt_genCal_fromSM_ila, 
+    --    probe54(0) => state_chkdly_genCalTrig_ila,
+    --    probe55    => err_cmdtop_i,
+    --    probe56    => warn_cmdtop_i,
+    --    probe57    => cnt_wrreg,
+    --    probe58    => cnt_wrreg_cmdin20,
+    --    probe59    => cnt_cal,
+    --    probe60    => cnt_cal_cmdin20,
+    --    probe61    => CalTrigSeq_in,
+    --    probe62    => ReadAddrCalTrigSeq_tmp
+        
+        
+    --    );
+
+    --ila_1_RD53A_in_i : ila_1_RD53A
+    --  PORT MAP (
+    --    clk        => clk40,  
+    --    probe0    => cnt_ecr,
+    --    probe1    => cnt_bcr,
+    --    probe2    => cnt_glbpls,
+    --    probe3    => cnt_cal,
+    --    probe4    => cnt_wrreg,
+    --    probe5    => cnt_rdreg,
+    --    probe6    => cnt_noop,
+    --    probe7    => cnt_sync,
+    --    probe8    => cnt_ecr_cmdin20,
+    --    probe9    => cnt_bcr_cmdin20,
+    --    probe10    => cnt_glbpls_cmdin20,
+    --    probe11    => cnt_cal_cmdin20,
+    --    probe12    => cnt_wrreg_cmdin20,
+    --    probe13    => cnt_rdreg_cmdin20,
+    --    probe14    => cnt_noop_cmdin20,
+    --    probe15    => cnt_sync_cmdin20
+    --    );
+--end generate;
+
+  
+
+--  
+  
+end Behavioral;

@@ -36,7 +36,7 @@ module buffer_rec_elink(
     case(addr)
       5'b00000  :   data_rec_reg  = Kchar_comma; 
       5'b00001  :   data_rec_reg  = Kchar_sop; //Add SOP
-      
+      //Send 10 Bytes of Payload
       5'b00010  :   data_rec_reg  = data_rec_in[75:68];    
       5'b00011  :   data_rec_reg  = data_rec_in[67:60];    
       5'b00100  :   data_rec_reg  = data_rec_in[59:52];                                

@@ -323,8 +323,8 @@ reg      [75:0] responsereg = 75'h0;
             failures += 1;
           end
       end
-        {43'h60140??2?0?,3'h0,can_tra_select,8'h0,16'h0}:begin
-          if(responsereg inside{ {43'h58180002?0?,3'h0,can_tra_select,24'h???}})
+        {43'h60140002???,3'h0,can_tra_select,24'h???}:begin
+          if(responsereg inside{ {43'h58180002???,3'h0,can_tra_select,24'h???}})
           $strobe("Status GOOD [BUS ID %d] - TX Test",can_tra_select);
           else
           begin
