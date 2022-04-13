@@ -142,8 +142,6 @@ module tb_mopshub_top();
   wire       tx_mopshub_1bit; 
   wire [1:0] rx_mopshub_2bit; 
   wire       rx_mopshub_1bit;
-  wire       tx_dout;
-  wire       rx_din;
   //Internal assignments  
   assign can_tra_select    = mopshub0.can_tra_select;
   assign can_rec_select    = mopshub0.can_rec_select;
@@ -180,8 +178,6 @@ module tb_mopshub_top();
   .tx_elink1bit(tx_mopshub_1bit),
   .rx_elink1bit(rx_mopshub_1bit),
   .rx_elink2bit(rx_mopshub_2bit),
-  .rx_din(rx_din),
-  .tx_dout(tx_dout),
   .mosi_m(spi_dat),
   .miso_m(spi_dat),        
   .rx0(rx0),        
@@ -305,8 +301,6 @@ module tb_mopshub_top();
   .tx_elink2bit(rx_mopshub_2bit),
   .rx_elink1bit(tx_mopshub_1bit),
   .rx_elink2bit(tx_mopshub_2bit),
-  .rx_din(tx_dout),
-  .tx_dout(rx_din),
   //RX-TX signals
   .rx0(rx0),        
   .rx1(rx1),        

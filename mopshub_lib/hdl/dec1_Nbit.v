@@ -17,7 +17,7 @@ module dec1_Nbit (
   input   wire          rst_bus_sig,
   
   input  wire   [4:0]   bus_rec_select,
-  output wire   [31:0]  data_rec_in,
+  input wire    [31:0]  data_rec_in,
   output wire   [31:0]  data_rec_out
 );
 reg   [31:0]  output_bus_reg;
@@ -25,14 +25,8 @@ initial output_bus_reg = 32'd0;
 
 always@(posedge clk)
 begin 
- if(!rst)
-  begin
-    output_bus_reg <= 32'd0;
-  end
- if(buffer_en)
- begin
-   output_bus_reg  <= data_rec_in;
- end
+ if(!rst)output_bus_reg <= 32'd0;
+ if(buffer_en) output_bus_reg  <= data_rec_in;
  else if(rst_bus_sig)
   case (bus_rec_select)
     5'h0  : output_bus_reg  <= {data_rec_in[31:1 ],1'b0};
