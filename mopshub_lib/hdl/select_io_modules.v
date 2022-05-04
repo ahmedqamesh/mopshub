@@ -51,8 +51,8 @@ module select_io_module(
    
   ISERDESE2_inst (
   .O(),                       // 1-bit output: Combinatorial output
-  .Q1(rx_elink2bit[1]),// Q1 - Q8: 1-bit (each) output: Registered data outputs
-  .Q2(rx_elink2bit[0]),
+  .Q1(rx_elink2bit[0]),// Q1 - Q8: 1-bit (each) output: Registered data outputs
+  .Q2(rx_elink2bit[1]),
   .Q3(),
   .Q4(),
   .Q5(),
