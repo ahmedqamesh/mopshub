@@ -82,8 +82,8 @@ reg      [75:0] responsereg = 75'h0;
     if(reqmsg && test_rx) requestreg <= data_rec_uplink; 
     else if (respmsg && test_rx) $strobeh("\t Receive RX signals [BUS ID %d]: \t request %h \t response %h",bus_id,requestreg,responsereg);
      /////********************************* test TX part  *********************************
-    if (respmsg && (test_mopshub_core || test_tx)) $strobeh("\t Transmit TX signals [BUS ID %d]: \t request %h \t response %h",bus_id,requestreg,responsereg);
-    else if(reqmsg && (test_mopshub_core||test_tx)) requestreg <= data_tra_downlink; 
+    if(reqmsg && (test_mopshub_core||test_tx)) requestreg <= data_tra_downlink;
+    else if (respmsg && (test_mopshub_core || test_tx)) $strobeh("\t Transmit TX signals [BUS ID %d]: \t request %h \t response %h",bus_id,requestreg,responsereg); 
     /////********************************* costumom msg part *********************************
     if (reqmsg  && test_advanced) requestreg <= data_tra_downlink;//bus_dec_data ;
     else if (respmsg && test_advanced) 

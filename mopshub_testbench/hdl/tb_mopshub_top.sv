@@ -21,7 +21,7 @@ module tb_mopshub_top();
   reg             endwait_all = 1'b0;
   wire            rst_bus;
   wire            ext_counter_gen;
-  reg             sel_bus = 1'b0;
+  reg             sel_bus = 1'b1;
   reg     [4:0]   can_tra_select_dbg =5'd1;
   wire            sign_on_sig;
   wire            start_init;

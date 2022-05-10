@@ -13,7 +13,6 @@
 module select_io_ddr_emci(  
   input   wire           clk_rx, 
   input   wire           clk_tx, 
-  input   wire           clk, 
   input   wire           reset, 
   input   wire           rx_elink_n, 
   input   wire           rx_elink_p, 

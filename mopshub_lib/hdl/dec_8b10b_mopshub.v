@@ -154,18 +154,4 @@ module dec_8b10b_mopshub (
 	assign ko = ko_r;
 	assign code_err = code_err_r;
 	
-endmodule// Chuck Benz, Hollis, NH   Copyright (c)2002
-//
-// The information and description contained herein is the
-// property of Chuck Benz.
-//
-// Permission is granted for any reuse of this information
-// and description as long as this copyright notice is
-// preserved.  Modifications may be made as long as this
-// notice is preserved.
-
-// per Widmer and Franaszek
-// Changed to VHDL by Frans Schreuder, original verilog code: http://asics.chuckbenz.com/#My_open_source_8b10b_encoderdecoder
-// Translated back into Verilog by Lucas Schreiter
-
-
+endmodule

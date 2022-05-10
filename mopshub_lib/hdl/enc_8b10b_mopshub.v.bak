@@ -44,9 +44,9 @@ module enc_8b10b_mopshub (
 	wire ao = ai;
 	wire bo = (bi & !l40) | l04;
 	wire co = l04 | ci | (ei & di & !ci & !bi & !ai);
-	wire do = di & ! (ai & bi & ci);
-	wire eo = (ei | l13) & ! (ei & di & !ci & !bi & !ai); 
-	wire io = 	(l22 & !ei) | (ei & !di & !ci & !(ai&bi)) |  // D16, D17, D18
+	wire do = di & (!(ai & bi & ci));
+	wire eo = (ei | l13) & !(ei & di & !ci & !bi & !ai); 
+	wire io = 	(l22 & !ei) | (ei & !di & !ci & !(ai & bi)) |  // D16, D17, D18
 				(ei & l40) | (ki & ei & di & ci & !bi & !ai) | // K.28
 				(ei & !di & ci & !bi & !ai);
 	
@@ -107,7 +107,7 @@ module enc_8b10b_mopshub (
 	wire compls4 = (pd1s4 & !disp6) | (nd1s4 & disp6);
 	wire dispout = disp6 ^ (ndos4 | pdos4);
 	
-	reg dataout_r;
+	reg [9:0] dataout_r;
 	
 	
 	always @ (posedge clk, negedge rst) begin : disp_proc
@@ -116,11 +116,11 @@ module enc_8b10b_mopshub (
 			dataout_r <= 0;
 		end else if (ena == 1) begin
 			dispin <= dispout;
-            dataout_r = {(ao ^ compls4), (bo ^ compls4),
-		                 (co ^ compls4), (do ^ compls4),
+            dataout_r = {(ao ^ compls6), (bo ^ compls6),
+		                 (co ^ compls6), (do ^ compls6),
 		                 (eo ^ compls6), (io ^ compls6),
-		                 (fo ^ compls6), (go ^ compls6),
-		                 (ho ^ compls6), (jo ^ compls6)
+		                 (fo ^ compls4), (go ^ compls4),
+		                 (ho ^ compls4), (jo ^ compls4)
 		                };
 		end
 	end
