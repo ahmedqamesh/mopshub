@@ -79,7 +79,7 @@ wire [9:0] data_outA;
 wire [9:0] data_outB;
 wire [9:0] data_outC;
 
-enc_8b10b enc_8b10b0 (
+enc_8b10b enc_8b10bTMR (
     .rst(rst),
     .clk(clk),
     .ena(data_in_rdy),

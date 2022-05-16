@@ -335,6 +335,99 @@ buffer_tra_dataTMR tra_data_buf0 (
     .data_tra_outC(data_tra_mesC)
     );
 
+//can_elink_bridge_SM can_elink_bridge_SM0( 
+//   .clk                (clkA), 
+//   .end_bus_trim_all   (done_trim_osc_allA), 
+//   .end_init           (end_initA), 
+//   .end_mon_init       (end_mon_initA), 
+//   .end_read_can       (end_readA), 
+//   .end_read_elink     (end_read_elinkA), 
+//   .end_write_can      (end_writeA), 
+//   .end_write_elink    (end_write_elinkA), 
+//   .endwait            (endwaitA), 
+//   .irq_can_rec        (irq_can_recA), 
+//   .irq_can_tra        (irq_can_traA), 
+//   .irq_elink_tra      (irq_elink_tra_activeA), 
+//   .reset_all_done     (reset_all_doneA), 
+//   .reset_irq_can_done (reset_irq_can_doneA), 
+//   .rst                (rstA), 
+//   .timeoutrst         (timeoutrstA),
+//    
+//   .abort_mes          (abort_mesA), 
+//   .end_can_proc       (end_can_proc_mainA), 
+//   .entimeout          (main_entimeoutA), 
+//   .irq_trim_osc       (irq_trim_oscA), 
+//   .read_can_mode      (read_can_modeA), 
+//   .reset_irq_can      (reset_irq_can_mainA), 
+//   .reset_irq_can_all  (reset_irq_can_main_allA), 
+//   .reset_irq_rec_can  (reset_irq_rec_can_mainA), 
+//   .reset_irq_tra_can  (reset_irq_tra_canA), 
+//   .send_mes_can       (send_mes_can_doneA), 
+//   .sign_on_sig        (sign_on_sigA), 
+//   .start_init_can     (start_init_canA), 
+//   .start_mon_init     (start_mon_initA), 
+//   .start_read_can     (start_read_canA), 
+//   .start_read_elink   (start_read_elinkA), 
+//   .start_write_can    (start_writeA), 
+//   .start_write_elink  (start_write_elink_mainA), 
+//   .statedeb           (statedeb_mainA)
+//); 
+//assign abort_mesC = abort_mesA;  
+//assign abort_mesB = abort_mesA;
+//
+//assign end_can_proc_mainC = end_can_proc_mainA;  
+//assign end_can_proc_mainB = end_can_proc_mainA;
+//
+//assign main_entimeoutC = main_entimeoutA;  
+//assign main_entimeoutB = main_entimeoutA;
+//
+//assign irq_trim_oscC = irq_trim_oscA;  
+//assign irq_trim_oscB = irq_trim_oscA;
+//
+//assign read_can_modeC = read_can_modeA;  
+//assign read_can_modeB = read_can_modeA;
+//
+//assign reset_irq_can_mainC = reset_irq_can_mainA;  
+//assign reset_irq_can_mainB = reset_irq_can_mainA;
+//
+//assign reset_irq_can_main_allC = reset_irq_can_main_allA;  
+//assign reset_irq_can_main_allB = reset_irq_can_main_allA;
+//
+//assign reset_irq_rec_can_mainC = reset_irq_rec_can_mainA;  
+//assign reset_irq_rec_can_mainB = reset_irq_rec_can_mainA;
+//
+//assign reset_irq_tra_canC = reset_irq_tra_canA;  
+//assign reset_irq_tra_canB = reset_irq_tra_canA;
+//
+//assign send_mes_can_doneC = send_mes_can_doneA;  
+//assign send_mes_can_doneB = send_mes_can_doneA;
+//
+//assign sign_on_sigC = sign_on_sigA;  
+//assign sign_on_sigB = sign_on_sigA;
+//
+//assign start_init_canC = start_init_canA;  
+//assign start_init_canB = start_init_canA;
+//
+//assign start_mon_initC = start_mon_initA;  
+//assign start_mon_initB = start_mon_initA;
+//
+//assign start_read_canC = start_read_canA;  
+//assign start_read_canB = start_read_canA;
+//
+//assign start_read_elinkC = start_read_elinkA;  
+//assign start_read_elinkB = start_read_elinkA;
+//
+//
+//assign start_writeC = start_writeA;  
+//assign start_writeB = start_writeA;
+//
+//assign start_write_elink_mainC = start_write_elink_mainA;  
+//assign start_write_elink_mainB = start_write_elink_mainA;
+//
+//assign statedeb_mainC = statedeb_mainA;  
+//assign statedeb_mainB = statedeb_mainA;
+//
+//    
 can_elink_bridge_SMTMR can_elink_bridge_SM0 (
     .clkA(clkA),
     .clkB(clkB),

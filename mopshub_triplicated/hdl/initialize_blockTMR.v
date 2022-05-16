@@ -38,8 +38,8 @@ assign data_initC =  data_init_regC;
 always @( * )
   begin
     case (addrA)
-      5'b01111 : data_init_regA =  16'h00FF;
-      5'b01110 : data_init_regA =  16'h00A3;
+      5'b01111 : data_init_regA =  16'h0033;
+      5'b01110 : data_init_regA =  16'h00E3;
       5'b00101 : data_init_regA =  16'h0000;
       5'b00100 : data_init_regA =  16'h0000;
       5'b10010 : data_init_regA =  16'h8070;
@@ -52,8 +52,8 @@ always @( * )
 always @( * )
   begin
     case (addrB)
-      5'b01111 : data_init_regB =  16'h00FF;
-      5'b01110 : data_init_regB =  16'h00A3;
+      5'b01111 : data_init_regB =  16'h0033;
+      5'b01110 : data_init_regB =  16'h00E3;
       5'b00101 : data_init_regB =  16'h0000;
       5'b00100 : data_init_regB =  16'h0000;
       5'b10010 : data_init_regB =  16'h8070;
@@ -66,8 +66,8 @@ always @( * )
 always @( * )
   begin
     case (addrC)
-      5'b01111 : data_init_regC =  16'h00FF;
-      5'b01110 : data_init_regC =  16'h00A3;
+      5'b01111 : data_init_regC =  16'h0033;
+      5'b01110 : data_init_regC =  16'h00E3;
       5'b00101 : data_init_regC =  16'h0000;
       5'b00100 : data_init_regC =  16'h0000;
       5'b10010 : data_init_regC =  16'h8070;

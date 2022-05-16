@@ -12,21 +12,20 @@
 `timescale 1ns/10ps
 module tb_mopshub_top();
   wire             clk_m;
+  wire             clk_mops;
   wire             clk_s;
-  wire             clk_40_s;
   wire             clk_40_m;
   wire             clk_80;
-  reg             enable_s =1'b0;
-  reg             rst   = 1'b0;
-  reg             endwait_all = 1'b0;
-  wire            rst_bus;
-  wire            ext_counter_gen;
-  reg             sel_bus = 1'b1;
-  reg     [4:0]   can_tra_select_dbg =5'd1;
-  wire            sign_on_sig;
-  wire            start_init;
-  wire            end_init;
-  string          info_debug_sig;     
+  reg              rst   = 1'b0;
+  reg              endwait_all = 1'b0;
+  wire             rst_bus;
+  wire             ext_counter_gen;
+  reg              sel_bus = 1'b1;
+  reg     [4:0]    can_tra_select_dbg =5'd1;
+  wire             sign_on_sig;
+  wire             start_init;
+  wire             end_init;
+  string           info_debug_sig;     
   //tbSM signals  
   wire    [75:0]  bus_dec_data;
   wire    [7:0]   bus_id;
@@ -38,8 +37,8 @@ module tb_mopshub_top();
   wire            trim_sig_end;
   wire            trim_sig_done;
   
-  reg             osc_auto_trim_mopshub =1'b0;
-  reg             seialize_data_stream =1'b1;
+  reg             osc_auto_trim_mopshub = 1'b0;
+  reg             seialize_data_stream  = 1'b1;
   wire            ready_osc;
   wire            start_trim_osc;
   wire            end_trim_bus;
@@ -163,13 +162,11 @@ module tb_mopshub_top();
   assign data_rec_emulator_in   = data_generator0.data_rec_76bit_reg;
   assign ready_osc              = data_generator0.ready_osc;
   
-  
-  
   mopshub_top mopshub0(
-  .clk(clk_40_s),
+  .clk(clk_40_m),
   .clk_80(clk_80),
   .rst(rst),
-  .n_buses(5'd2),
+  .n_buses(5'd1),
   .dbg_elink(1'b0), 
   .seialize_data_stream(seialize_data_stream), 
   .osc_auto_trim_mopshub(osc_auto_trim_mopshub),                      
@@ -246,7 +243,8 @@ module tb_mopshub_top();
   .tx31(tx31));
   
   data_generator#(
-  .n_buses (5'd2))data_generator0(
+  .n_buses (5'd1))data_generator0(
+  .clk_mops(clk_mops),
   .clk(clk_40_m),
   .clk_80(clk_80),
   .rst(rst),
@@ -370,44 +368,33 @@ module tb_mopshub_top();
   
   //Clock Generators and Dividers master
   clock_generator #(
-  .freq(40))
+  .freq(160))
   clock_generator0( 
   .clk  (clk_m), 
   .enable (1'b1)
   ); 
-  
+//  clock_divider #(28'd10)
+//  clock_divider_mops( 
+//  .clock_in  (clk_m), 
+//  .clock_out (clk_mops)
+//  ); 
+//    
   clock_divider #(28'd4)
   clock_divider4( 
   .clock_in  (clk_m), 
   .clock_out (clk_40_m)
   ); 
-  
+    
   clock_divider #(28'd2)
   clock_divider2( 
   .clock_in  (clk_m), 
   .clock_out (clk_80)
   );   
-  //Clock Generators and Dividers slave  
-  clock_generator #(
-  .freq(40))
-  clock_generator0s( 
-  .clk  (clk_s), 
-  .enable (enable_s)
-  ); 
-  
-  clock_divider #(28'd4)
-  clock_divider4s( 
-  .clock_in  (clk_s), 
-  .clock_out (clk_40_s)
-  ); 
-  
-
 
   /////******* Reset Generator task--low active ****/////
   initial 
   begin
     rst = 1'b0;
-    enable_s =1'b1;
     #10
     rst = 1'b1;
   end

@@ -12,6 +12,9 @@ module clock_divider #(
 
 // Internal Declarations
   reg[27:0] counter=28'd0;
+  initial begin 
+  $display("New Clock Divided by Factor %0d",DIVISOR);
+  end
   // The frequency of the output clk_out
   //  = The frequency of the input clk_in divided by DIVISOR
   // For example: Fclk_in = 50Mhz, if you want to get 1Hz signal to blink LEDs

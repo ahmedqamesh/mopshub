@@ -35,7 +35,7 @@ assign cmd  = {initi,write,reset_can,trim}; //initi is active high while read an
 always@(*)
 begin
   case(cmd)
-    4'b1000 :  write_can_reg = data_init;              // Initialize  
+    4'b1000 :  write_can_reg = data_init; // Initialize  
     4'b0000 :  begin   // write canakari register 
                 case(addr)
                   5'b01100 : write_can_reg =   {data_tra_mes[74:64],5'h0}; // Transmission Identifier 1 [11+5] 

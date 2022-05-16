@@ -91,7 +91,65 @@ module canTMR(
   output wire  ready_oscB ,
   output wire  ready_oscC 
 );
-
+//can2 canakari_main (
+//    .clock(clockA),
+//    .reset(resetA),
+//    .address(addressA),
+//    .readdata(readdataA),
+//    .writedata(writedataA),
+//    .cs(csA),
+//    .read_n(read_nA),
+//    .write_n(write_nA),
+//    .irq(irqA),
+//    .irqstatus(irqstatusA),
+//    .irqsuctra(irqsuctraA),
+//    .irqsucrec(irqsucrecA),
+//    .rx(rxA),
+//    .tx(txA),
+//    .statedeb(statedebA),
+//    .Prescale_EN_debug(Prescale_EN_debugA),
+//    .bitst(bitstA),
+//    .en_osc_trim(en_osc_trimA),
+//    .Kd(KdA),
+//    .Kp(KpA),
+//    .Ki(KiA),
+//    .ftrim(ftrimA),
+//    .ready_osc(ready_oscA)
+//    );
+//assign txB = txA;
+//assign txC = txA;
+//
+//assign ftrimB = ftrimA;
+//assign ftrimC = ftrimA;
+//    
+//assign ready_oscB = ready_oscA;
+//assign ready_oscC = ready_oscA;
+//
+//assign bitstB = bitstA;
+//assign bitstC = bitstA;
+//
+//assign Prescale_EN_debugB = Prescale_EN_debugA;
+//assign Prescale_EN_debugC = Prescale_EN_debugA;
+//
+//assign statedebB = statedebA;
+//assign statedebC = statedebA;
+//
+//assign irqsucrecB = irqsucrecA;
+//assign irqsucrecC = irqsucrecA;
+//
+//assign irqsuctraB = irqsuctraA;
+//assign irqsuctraC = irqsuctraA;
+//
+//assign irqstatusB = irqstatusA;
+//assign irqstatusC = irqstatusA;
+//
+//assign irqB = irqA;
+//assign irqC = irqA;
+//
+//assign readdataB = readdataA;
+//assign readdataC = readdataA;
+//
+//        
 can2TMR canakari_main (
     .clockA(clockA),
     .clockB(clockB),

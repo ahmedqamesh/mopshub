@@ -30,7 +30,6 @@ module clock_generator#(
     start_delay = quarter * phase/90;
     clk_on      = duty/100.0 * clk_period; 
     clk_off     = (100.0 - duty)/100.0 * clk_period;
-    
    $display("Frequncy  = %0d MHz, Period = %0.3f ns", freq,clk_period);
    $display("clk phase = %0d deg", phase);
    $display("clk duty = %0d %%", duty);

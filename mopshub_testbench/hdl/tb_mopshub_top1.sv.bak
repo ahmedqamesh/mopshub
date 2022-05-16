@@ -29,7 +29,7 @@ module tb_mopshub_top_triplicated();
   wire            trim_sig_done;
   
   reg             osc_auto_trim_mopshub =1'b0;
-  reg             seialize_data_stream =1'b1;
+  reg             seialize_data_stream =1'b0;
   wire            ready_osc;
   wire            start_trim_osc;
   wire            end_trim_bus;
@@ -127,18 +127,31 @@ module tb_mopshub_top_triplicated();
   wire            tx30;
   wire            tx31;
   wire            spi_dat;
-    
-  wire [1:0] tx_mopshub_2bit; 
-  wire       tx_mopshub_1bit;
-   
-  wire [1:0] tx_mopshub_2bitB; 
-  wire       tx_mopshub_1bitB; 
-  
-  wire [1:0] tx_mopshub_2bitC; 
-  wire       tx_mopshub_1bitC; 
-  
   wire [1:0] rx_mopshub_2bit; 
   wire       rx_mopshub_1bit;
+  wire [1:0] tx_mopshub_2bit; 
+  wire       tx_mopshub_1bit; 
+    
+  //Voters
+  wire            tx0A;
+  wire            tx1A;
+  wire            tx0B;
+  wire            tx1B;
+  wire            tx0C;
+  wire            tx1C; 
+  wire    [1:0]   tx_mopshub_2bitA;
+  wire    [1:0]   tx_mopshub_2bitB;
+  wire    [1:0]   tx_mopshub_2bitC;
+  wire            tx_mopshub_1bitA;
+  wire            tx_mopshub_1bitB;
+  wire            tx_mopshub_1bitC;
+    
+  assign tx0 = tx0A;//(tx0A&tx0B) | (tx0A&tx0C) | (tx0B&tx0C);
+  assign tx1 = tx1A;//(tx1A&tx1B) | (tx1A&tx1C) | (tx1B&tx1C);
+  
+  assign tx_mopshub_2bit =  tx_mopshub_2bitA;//(tx_mopshub_2bitA&tx_mopshub_2bitB) | (tx_mopshub_2bitA&tx_mopshub_2bitC) | (tx_mopshub_2bitB&tx_mopshub_2bitC);
+  assign tx_mopshub_1bit =  tx_mopshub_1bitA;//(tx_mopshub_1bitA&tx_mopshub_1bitB) | (tx_mopshub_1bitA&tx_mopshub_1bitC) | (tx_mopshub_1bitB&tx_mopshub_1bitC); 
+   
   //Internal assignments  
   assign can_tra_select    = mopshub_topTMR0.can_tra_selectA;
   assign can_rec_select    = mopshub_topTMR0.can_rec_selectA;
@@ -170,11 +183,12 @@ mopshub_topTMR mopshub_topTMR0(
   .n_busesA(5'd2),
   .seialize_data_streamA(seialize_data_stream), 
   .osc_auto_trim_mopshubA(osc_auto_trim_mopshub),                      
-  .endwait_allA(endwait_all),  
-  .tx_elink2bitA(tx_mopshub_2bit),
-  .tx_elink1bitA(tx_mopshub_1bit),
+  .endwait_allA(endwait_all), 
+  .tx_elink2bitA(tx_mopshub_2bitA),
+  .tx_elink1bitA(tx_mopshub_1bitA),
   .rx_elink1bitA(rx_mopshub_1bit),
   .rx_elink2bitA(rx_mopshub_2bit),
+  .rx_dinA(rx_mopshub_1bit),
   .mosi_mA(spi_dat),
   .miso_mA(spi_dat),        
   .rx0A(rx0),        
@@ -208,9 +222,9 @@ mopshub_topTMR mopshub_topTMR0(
   .rx28A(rx28),        
   .rx29A(rx29),        
   .rx30A(rx30),        
-  .rx31A(rx31),
-  .tx0A(tx0),              
-  .tx1A(tx1),
+  .rx31A(rx31),  
+  .tx0A(tx0A),              
+  .tx1A(tx1A),
   .tx2A(tx2),
   .tx3A(tx3),
   .tx4A(tx4),
@@ -253,43 +267,44 @@ mopshub_topTMR mopshub_topTMR0(
   .tx_elink1bitB(tx_mopshub_1bitB),
   .rx_elink1bitB(rx_mopshub_1bit),
   .rx_elink2bitB(rx_mopshub_2bit),
+  .rx_dinB(rx_mopshub_1bit),
 ////  .mosi_mB(spi_dat),
-////  .miso_mB(spi_dat),        
+   .miso_mB(spi_dat),        
    .rx0B(rx0),        
    .rx1B(rx1),        
    .rx2B(rx2),        
-////   .rx3B(rx3),        
-////   .rx4B(rx4),        
-////   .rx5B(rx5),        
-////   .rx6B(rx6),        
-////   .rx7B(rx7),
-////   .rx8B(rx8),        
-////   .rx9B(rx9),        
-////   .rx10B(rx10),        
-////   .rx11B(rx11),        
-////   .rx12B(rx12),        
-////   .rx13B(rx13),        
-////   .rx14B(rx14),        
-////   .rx15B(rx15), 
-////   .rx16B(rx16),        
-////   .rx17B(rx17),        
-////   .rx18B(rx18),        
-////   .rx19B(rx19),        
-////   .rx20B(rx20),        
-////   .rx21B(rx21), 
-////   .rx22B(rx22),   
-////   .rx23B(rx23),
-////   .rx24B(rx24),        
-////   .rx25B(rx25),        
-////   .rx26B(rx26),        
-////   .rx27B(rx27),        
-////   .rx28B(rx28),        
-////   .rx29B(rx29),        
-////   .rx30B(rx30),        
-////   .rx31B(rx31),
-  .tx0B(tx0),              
-  .tx1B(tx1),
-  .tx2B(tx2),
+   .rx3B(rx3),        
+   .rx4B(rx4),        
+   .rx5B(rx5),        
+   .rx6B(rx6),        
+   .rx7B(rx7),
+   .rx8B(rx8),        
+   .rx9B(rx9),        
+   .rx10B(rx10),        
+   .rx11B(rx11),        
+   .rx12B(rx12),        
+   .rx13B(rx13),        
+   .rx14B(rx14),        
+   .rx15B(rx15), 
+   .rx16B(rx16),        
+   .rx17B(rx17),        
+   .rx18B(rx18),        
+   .rx19B(rx19),        
+   .rx20B(rx20),        
+   .rx21B(rx21), 
+   .rx22B(rx22),   
+   .rx23B(rx23),
+   .rx24B(rx24),        
+   .rx25B(rx25),        
+   .rx26B(rx26),        
+   .rx27B(rx27),        
+   .rx28B(rx28),        
+   .rx29B(rx29),        
+   .rx30B(rx30),        
+   .rx31B(rx31),
+   .tx0B(tx0B),              
+   .tx1B(tx1B),
+//  .tx2B(tx2),
 //  .tx3B(tx3),
 //  .tx4B(tx4),
 //  .tx5B(tx5),
@@ -326,47 +341,48 @@ mopshub_topTMR mopshub_topTMR0(
   .n_busesC(5'd2),
   .seialize_data_streamC(seialize_data_stream), 
   .osc_auto_trim_mopshubC(osc_auto_trim_mopshub),                      
-  .endwait_allC(endwait_all), 
+  .endwait_allC(endwait_all),
   .tx_elink2bitC(tx_mopshub_2bitC),
   .tx_elink1bitC(tx_mopshub_1bitC),
-  .rx_elink1bitC(rx_mopshub_1bit),//
-  .rx_elink2bitC(rx_mopshub_2bit),//
+  .rx_elink1bitC(rx_mopshub_1bit),
+  .rx_elink2bitC(rx_mopshub_2bit),
+  .rx_dinC(rx_mopshub_1bit),
 ////  .mosi_mC(spi_dat),
-////  .miso_mC(spi_dat),        
+   .miso_mC(spi_dat),        
    .rx0C(rx0),    
    .rx1C(rx1),        
-   .rx2C(rx2)        
-////   .rx3C(rx3),        
-////   .rx4C(rx4),        
-////   .rx5C(rx5),        
-////   .rx6C(rx6),        
-////   .rx7C(rx7),
-////   .rx8C(rx8),        
-////   .rx9C(rx9),        
-////   .rx10C(rx10),        
-////   .rx11C(rx11),        
-////   .rx12C(rx12),        
-////   .rx13C(rx13),        
-////   .rx14C(rx14),        
-////   .rx15C(rx15), 
-////   .rx16C(rx16),        
-////   .rx17C(rx17),        
-////   .rx18C(rx18),        
-////   .rx19C(rx19),        
-////   .rx20C(rx20),        
-////   .rx21C(rx21), 
-////   .rx22C(rx22),   
-////   .rx23C(rx23),
-////   .rx24C(rx24),        
-////   .rx25C(rx25),        
-////   .rx26C(rx26),        
-////   .rx27C(rx27),        
-////   .rx28C(rx28),        
-////   .rx29C(rx29),        
-////   .rx30C(rx30),        
-////   .rx31C(rx31),
-   //.tx0C(tx0) ,             
-   //.tx1C(tx1),
+   .rx2C(rx2),        
+   .rx3C(rx3),        
+   .rx4C(rx4),        
+   .rx5C(rx5),        
+   .rx6C(rx6),        
+   .rx7C(rx7),
+   .rx8C(rx8),        
+   .rx9C(rx9),        
+   .rx10C(rx10),        
+   .rx11C(rx11),        
+   .rx12C(rx12),        
+   .rx13C(rx13),        
+   .rx14C(rx14),        
+   .rx15C(rx15), 
+   .rx16C(rx16),        
+   .rx17C(rx17),        
+   .rx18C(rx18),        
+   .rx19C(rx19),        
+   .rx20C(rx20),        
+   .rx21C(rx21), 
+   .rx22C(rx22),   
+   .rx23C(rx23),
+   .rx24C(rx24),        
+   .rx25C(rx25),        
+   .rx26C(rx26),        
+   .rx27C(rx27),        
+   .rx28C(rx28),        
+   .rx29C(rx29),        
+   .rx30C(rx30),        
+   .rx31C(rx31),
+   .tx0C(tx0C) ,             
+   .tx1C(tx1C)
    //.tx2C(tx2),
    //.tx3C(tx3),
   // .tx4C(tx4),
@@ -575,7 +591,7 @@ mopshub_topTMR mopshub_topTMR0(
     end
     if(sign_on_sig ==1)//start Rx test
     begin
-     test_rx =1'b1;
+     test_tx =1'b1;
      //test_advanced = 1'b1;
     end
     if(test_rx_end ==1)//Done Rx test
