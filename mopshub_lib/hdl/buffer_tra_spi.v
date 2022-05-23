@@ -17,13 +17,15 @@ module buffer_tra_spi(
    input   wire           buffer_en,            // enable signal
    input   wire           rst,           // reset active low
    input   wire    [4 :0] addr,        
-   output  wire    [31:0] data_tra_out  // complete CAN message output. 11-bit b0 and 4 data-bytes
-
+   output  wire    [7:0]   spi_id,
+   output  wire    [7:0]   spi_reg,
+   output  wire    [7:0]   spi_select,
+   output  wire    [7:0]   data_tra_out   
 );
 
 // Internal Declarations
-reg [7:0] b0;      // CAN b0 is 11-bits.  Here 3 Hex values are used to reprent COB-b0
-reg [7:0] b1;         // Data bytes 1...8
+reg [7:0] b0;     
+reg [7:0] b1;        
 reg [7:0] b2;   
 reg [7:0] b3; 
 
@@ -48,10 +50,10 @@ begin
    if(buffer_en)
     begin
       case(addr)
-       5'b00010 : b0  <= data_tra_8bitin[7:0];        
-       5'b00011 : b1  <= data_tra_8bitin[7:0];         
-       5'b00100 : b2  <= data_tra_8bitin[7:0];
-       5'b00101 : b3  <= data_tra_8bitin[7:0];                                              
+       5'b00010 : b0  <= data_tra_8bitin[7:0]; //spi_id
+       5'b00011 : b1  <= data_tra_8bitin[7:0]; //spi_select        
+       5'b00100 : b2  <= data_tra_8bitin[7:0]; //spi_reg
+       5'b00101 : b3  <= data_tra_8bitin[7:0]; //data_tra                                            
        default 
         begin
          b0 <= 8'h00;
@@ -71,6 +73,8 @@ begin
 end 
 
 //Output assigments
-assign data_tra_out = {b0,b1,b2,b3};
-
+assign data_tra_out = b3;
+assign spi_reg      = b2;
+assign spi_select   = b1;
+assign spi_id       = b0;
 endmodule

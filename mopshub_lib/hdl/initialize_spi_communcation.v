@@ -50,7 +50,8 @@ begin
        5'h2  : data_init_reg = 8'hFE;          //Init_2    1111 1 110
        5'h3  : data_init_reg = 8'h03;          //reset_1/Conf1   0000 0 [write] 011 [conf reg]
        5'h4  : data_init_reg = 8'h00;          //reset_2/3 0000 0 000
-       5'h6  : data_init_reg = 8'h80;          //reset_4   1 [rs] 0 [rc] 00 0000 [Activate reset Cycle]  
+       5'h5  : data_init_reg = 8'h80;          //reset_4   1 [rs] 0 [rc] 00 0000 [Activate reset Cycle]  
+       5'h6  : data_init_reg = 8'h02;          
        5'h7  : data_init_reg = 8'h0B;          //read RV   0000 1 011  //After this output of ADC is 0000 0000 0100
        5'h8  : data_init_reg = 8'h30;          //Conf3 0011 0000  
        5'h9  : data_init_reg = 8'h05;          //write csr1 00 0 00 101 [1.88] 
