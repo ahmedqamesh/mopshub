@@ -20,7 +20,7 @@ module tb_mopshub_top();
   reg              endwait_all = 1'b0;
   wire             rst_bus;
   wire             ext_counter_gen;
-  reg              sel_bus = 1'b1;
+  reg              sel_bus = 1'b0;
   reg     [4:0]    can_tra_select_dbg =5'd1;
   wire             sign_on_sig;
   wire             start_init;
@@ -408,8 +408,8 @@ module tb_mopshub_top();
     end
     if(sign_on_sig ==1)//start Rx test
     begin
-     //test_rx =1'b1;
-     test_advanced = 1'b1;
+     test_rx =1'b1;
+     //test_advanced = 1'b1;
     end
     if(test_rx_end ==1)//Done Rx test
     begin
