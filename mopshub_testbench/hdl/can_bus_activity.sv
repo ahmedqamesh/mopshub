@@ -84,13 +84,13 @@ reg      [75:0] responsereg = 75'h0;
      /////********************************* test TX part  *********************************
     if(reqmsg && (test_mopshub_core||test_tx)) requestreg <= data_tra_downlink;
     else if (respmsg && (test_mopshub_core || test_tx)) $strobeh("\t Transmit TX signals [BUS ID %d]: \t request %h \t response %h",bus_id,requestreg,responsereg); 
-    /////********************************* costumom msg part *********************************
+    /////********************************* costum msg part *********************************
     if (reqmsg  && test_advanced) requestreg <= data_tra_downlink;//bus_dec_data ;
-    else if (respmsg && test_advanced) 
-      $strobeh("\t Costumom TX signals [BUS ID %d]: \t request %h \t response %h",bus_id,requestreg,responsereg);
+    //else if (respmsg && test_advanced) 
+    //  $strobeh("\t Costumom TX signals [BUS ID %d]: \t request %h \t response %h",bus_id,requestreg,responsereg);
     /////********************************* Default *********************************
     else if (reqmsg  && !test_mopshub_core && !test_tx && !test_rx) requestreg <= data_rec_uplink; 
-    else if (respmsg && !test_mopshub_core && !test_tx && !test_rx)
+    else if (respmsg && !test_mopshub_core && !test_tx && !test_rx&& !test_advanced)
       $strobeh("\t [BUS ID %d]: \t request %h \t response %h",bus_id,requestreg,responsereg);
   end  
   // ### Please start your Verilog code here ### 

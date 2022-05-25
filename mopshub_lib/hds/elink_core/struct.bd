@@ -159,19 +159,19 @@ value "/home/dcs/git/mopshub/mopshub_lib/hds/elink_core"
 )
 (vvPair
 variable "date"
-value "05/24/22"
+value "05/25/22"
 )
 (vvPair
 variable "day"
-value "Tue"
+value "Wed"
 )
 (vvPair
 variable "day_long"
-value "Tuesday"
+value "Wednesday"
 )
 (vvPair
 variable "dd"
-value "24"
+value "25"
 )
 (vvPair
 variable "entity_name"
@@ -199,7 +199,7 @@ value "dcs"
 )
 (vvPair
 variable "graphical_source_date"
-value "05/24/22"
+value "05/25/22"
 )
 (vvPair
 variable "graphical_source_group"
@@ -211,7 +211,7 @@ value "localhost"
 )
 (vvPair
 variable "graphical_source_time"
-value "15:15:29"
+value "10:27:35"
 )
 (vvPair
 variable "group"
@@ -331,7 +331,7 @@ value "struct"
 )
 (vvPair
 variable "time"
-value "15:15:29"
+value "10:27:35"
 )
 (vvPair
 variable "unit"
@@ -4423,10 +4423,11 @@ xt "-41800,12200,-25300,16700"
 st "
 assign data_rec_spi_10bitout = {data_rec_spi_delimiter,data_rec_spi_8bitout};
 assign data_rec_can_10bitout = {data_rec_can_delimiter,data_rec_can_8bitout}; 
-//SPI Port
+//SPI Data
 assign data_rec_spi_10bitout_Active = (spi_can_mode ==1 ||spi_can_irq ==1) ? data_rec_spi_can_10bitout: data_rec_spi_10bitout; 
-//FIFO Data
+//FIFO Rec Data
 assign data_rec_10bitout =(spi_rec_mode ==1) ? data_rec_spi_10bitout_Active: data_rec_can_10bitout; 
+
 
 
 
@@ -5647,6 +5648,7 @@ assign spi_mode = spi_tra_mode || spi_rec_mode || spi_read_mode|| spi_can_mode;
 
 //Part to debug spi from CAN
 assign spi_can_irq = (addr_write == 5'h02 && data_rec_can_8bitout   == 8'h020);
+
 initial spi_can_mode =1'b0;
 initial cnt_out =6'b0;
 initial data_rec_spi_can_10bitout = 10'b0;
@@ -5676,6 +5678,7 @@ begin
   else 
    data_rec_spi_can_10bitout <= data_rec_can_10bitout;
 end
+
 
 
 
@@ -9967,12 +9970,12 @@ va (VaSet
 vasetType 3
 lineWidth 2
 )
-xt "-71250,2000,-50000,21000"
+xt "-71250,8000,-50000,21000"
 pts [
 "-71250,21000"
 "-68000,21000"
-"-68000,2000"
-"-50000,2000"
+"-68000,8000"
+"-50000,8000"
 ]
 )
 start &111
@@ -9992,9 +9995,9 @@ uid 4023,0
 va (VaSet
 font "courier,8,0"
 )
-xt "-67000,1100,-52500,2000"
+xt "-67000,7100,-52500,8000"
 st "data_rec_can_8bitout : [7:0]"
-blo "-67000,1800"
+blo "-67000,7800"
 tm "WireNameMgr"
 )
 )
@@ -10008,12 +10011,12 @@ va (VaSet
 vasetType 3
 lineWidth 2
 )
-xt "-71250,3000,-50000,22000"
+xt "-71250,9000,-50000,22000"
 pts [
 "-71250,22000"
 "-67000,22000"
-"-67000,3000"
-"-50000,3000"
+"-67000,9000"
+"-50000,9000"
 ]
 )
 start &110
@@ -10033,9 +10036,9 @@ uid 4031,0
 va (VaSet
 font "courier,8,0"
 )
-xt "-67000,2100,-51500,3000"
+xt "-67000,8100,-51500,9000"
 st "data_rec_can_delimiter : [1:0]"
-blo "-67000,2800"
+blo "-67000,8800"
 tm "WireNameMgr"
 )
 )
@@ -13831,11 +13834,11 @@ tm "BdCompilerDirectivesTextMgr"
 associable 1
 )
 windowSize "3832,13,5768,1088"
-viewArea "-117605,-53108,-26816,-5196"
+viewArea "-162012,-34452,-59232,19788"
 cachedDiagramExtent "-157400,-49900,103000,55000"
 hasePageBreakOrigin 1
 pageBreakOrigin "-207000,-51000"
-lastUid 24077,0
+lastUid 24266,0
 defaultCommentText (CommentText
 shape (Rectangle
 layer 0

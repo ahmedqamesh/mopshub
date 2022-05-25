@@ -211,7 +211,7 @@ value "localhost"
 )
 (vvPair
 variable "graphical_source_time"
-value "15:11:24"
+value "15:15:29"
 )
 (vvPair
 variable "group"
@@ -331,7 +331,7 @@ value "struct"
 )
 (vvPair
 variable "time"
-value "15:11:24"
+value "15:15:29"
 )
 (vvPair
 variable "unit"
@@ -4814,9 +4814,9 @@ always@(*)
         fifo_data_sop    = 1'b0;
         fifo_data_eop    = 1'b0;
         fifo_data_packet = 1'b1;
-        if (addr_read ==5'h020)//detect the first Byte
+        if (addr_read ==5'h02)//detect the first Byte
           case(data_tra_10bitin[7:0])
-            8'h20 : 
+            8'h020 : 
             begin
               spi_mon_reg   = 1'b1;
               can_id_reg    = 1'b0;
@@ -4867,6 +4867,7 @@ always@(*)
        fifo_data_packet = 1'b0;
       end    
   end
+
 
 
 
@@ -13830,7 +13831,7 @@ tm "BdCompilerDirectivesTextMgr"
 associable 1
 )
 windowSize "3832,13,5768,1088"
-viewArea "-91211,-53108,-422,-5196"
+viewArea "-117605,-53108,-26816,-5196"
 cachedDiagramExtent "-157400,-49900,103000,55000"
 hasePageBreakOrigin 1
 pageBreakOrigin "-207000,-51000"

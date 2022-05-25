@@ -22,11 +22,13 @@
 //[3] Read     [0x0B, 0x00, 0x00, 0x00]
 //[4] Configure[0x03, 0x00, 0x30, 0x00] Configuring to 4 CSRs setups
 //[5] Read     [0x0B, 0x00, 0x00, 0x00]
+
 //[6] Write CSR[0x05]
 //[7] CSR CS0  [00, B] 000 00 000 1011 
 //[8] CSR CS1  [08, B] 000 01 000 1011
 //[8] CSR CS2  [10, B] 000 10 000 1011
 //[9] CSR CS3  [1, 8B] 000 11 000 10////01 Channel-setup registers == [0x05, 0x00, 0xB0, 0x8B, 0x10, 0xB1, 0x8B]
+
 //[10]Offset   [0x81, 0x00, 0x00, 0x00]
 //[11]Calibrate[0x82, 0x00, 0x00, 0x00]
 //[12]Calibrate[0x85, 0x00, 0x00, 0x00]
@@ -60,10 +62,11 @@ begin
        5'hC  : data_init_reg = 8'h10;          //write csr4 0001 0000
        5'hD  : data_init_reg = 8'hB1;          //write csr5 1011 0001 
        5'hE  : data_init_reg = 8'h0D;          //Read csr   
-       5'hF  : data_init_reg = 8'h81;          //calibrate 1    
-       5'h10 : data_init_reg = 8'h82;         //calibrate 2  
-       5'h11 : data_init_reg = 8'h85;         //calibrate 3  
-       5'h12 : data_init_reg = 8'h86;         //calibrate 4 
+       
+       5'hF  : data_init_reg = 8'h81;         //calibrate 0    
+       5'h10 : data_init_reg = 8'h89;         //calibrate 1  
+       5'h11 : data_init_reg = 8'h91;         //calibrate 2  
+       5'h12 : data_init_reg = 8'h99;         //calibrate 3 
 
        //MCP23s17 SPI command structure
        5'h13 : data_init_reg = 8'h40;         //01000000   
@@ -75,7 +78,13 @@ begin
        5'h19 : data_init_reg = 8'hFF;         //11111111
        5'h1A : data_init_reg = 8'h00;         //00000000
        5'h1B : data_init_reg = 8'h12;         //00010010
-
+       
+       
+       5'h1C : data_init_reg = 8'h82;         //Gain calibrate 0   
+       5'h1D : data_init_reg = 8'h8A;         //Gain calibrate 1   
+       5'h1E : data_init_reg = 8'h92;         //Gain calibrate 2   
+       5'h1F : data_init_reg = 8'h9A;         //Gain calibrate 3    
+             
        default : data_init_reg  = 8'h00;
    endcase 
 end 
