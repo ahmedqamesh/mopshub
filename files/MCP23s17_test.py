@@ -75,9 +75,11 @@ class PEconfig(MPconfig):
             self.mp_switch(__channel, self.__bus)
             self.spi.writebytes([0x40, 0x00, 0x00])
             self.spi.writebytes([0x40, 0x01, 0x00])
-            self.spi.writebytes([0x40, 0x13, 0x00])
-            self.spi.writebytes([0x40, 0x0C, 0xFE])
-            self.spi.writebytes([0x40, 0x0D, 0xFF])
+
+            self.spi.writebytes([0x40, 0x13, 0x00])# Set every GPIOB to 0 
+
+            self.spi.writebytes([0x40, 0x0C, 0xFE])# set every channel to high impedance without the first one
+            self.spi.writebytes([0x40, 0x0D, 0xFF])#set every channel to high impedance
         except Exception as e:
             self.logger.exception(e)
 
@@ -153,7 +155,8 @@ class PEconfig(MPconfig):
         except Exception as e:
             self.logger.exception(e)
             return None
-
+# read power status self.spi.writebytes([0x41, 0x12, 0x00])
+# response will be (8bit with the last bit is 1 (enable) or 0 (disabled))
 
 power_signal = PEconfig()
 power_signal.mcp23s17_configure(7)

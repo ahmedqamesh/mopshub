@@ -43,7 +43,7 @@ module tb_mopshub_triplicated();
   wire            ready_osc;
   wire            start_trim_osc;
   wire            end_trim_bus;
-  wire            done_trim_osc;
+  wire            end_power_init;
   
   wire            power_bus_en;
   wire    [4:0]   power_bus_cnt;
@@ -147,7 +147,7 @@ module tb_mopshub_triplicated();
   assign can_rec_select    = mopshub_triplicated0.mopshub_topTMR0.can_rec_selectA;
   assign data_rec_uplink   = mopshub_triplicated0.mopshub_topTMR0.data_rec_uplinkA;
   assign data_tra_downlink = mopshub_triplicated0.mopshub_topTMR0.data_tra_downlinkA;
-  assign done_trim_osc     = mopshub_triplicated0.mopshub_topTMR0.done_trim_oscA;
+  assign end_power_init     = mopshub_triplicated0.mopshub_topTMR0.end_power_initA;
   assign start_init        = mopshub_triplicated0.mopshub_topTMR0.start_initA;
   assign end_init          = mopshub_triplicated0.mopshub_topTMR0.end_initA;
   assign sign_on_sig       = mopshub_triplicated0.mopshub_topTMR0.sign_on_sigA;
@@ -415,7 +415,7 @@ module tb_mopshub_triplicated();
   /////*******Start Full SM for Data Generation ****/////
   always@(posedge clk_40_m)
   begin  
-    if(trim_sig_done ==1 ||done_trim_osc ==1)
+    if(trim_sig_done ==1 ||end_power_init ==1)
     begin
       osc_auto_trim =1'b0;
      // osc_auto_trim_mopshub = 1'b0;

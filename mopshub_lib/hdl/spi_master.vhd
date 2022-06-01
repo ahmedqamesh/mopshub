@@ -9,7 +9,8 @@ entity spi_master is
 	);
 	port (
 		clk : in std_logic := '0';
-		rst : in std_logic := '1';		
+		rst : in std_logic := '0';
+		
 		sck : out std_logic := '0';
 		miso : in std_logic := '0';
 		mosi : out std_logic := '0';

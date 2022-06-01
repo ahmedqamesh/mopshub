@@ -42,7 +42,7 @@ module tb_mopshub_top();
   wire            ready_osc;
   wire            start_trim_osc;
   wire            end_trim_bus;
-  wire            done_trim_osc;
+  wire            end_power_init;
   
   wire            power_bus_en;
   wire    [4:0]   power_bus_cnt;
@@ -135,8 +135,9 @@ module tb_mopshub_top();
   wire            tx29;
   wire            tx30;
   wire            tx31;
-  wire            spi_dat;
-    
+  wire            spi_dat_m;
+  wire            spi_dat_p;
+      
   wire [1:0] tx_mopshub_2bit; 
   wire       tx_mopshub_1bit; 
   wire [1:0] rx_mopshub_2bit; 
@@ -146,7 +147,7 @@ module tb_mopshub_top();
   assign can_rec_select    = mopshub0.can_rec_select;
   assign data_rec_uplink   = mopshub0.data_rec_uplink;
   assign data_tra_downlink = mopshub0.data_tra_downlink;
-  assign done_trim_osc     = mopshub0.done_trim_osc;
+  assign end_power_init     = mopshub0.end_power_init;
   assign start_init        = mopshub0.start_init;
   assign end_init          = mopshub0.end_init;
   assign rst_bus           = mopshub0.rst_bus;
@@ -168,6 +169,7 @@ module tb_mopshub_top();
   .rst(rst),
   .n_buses(5'd1),
   .dbg_elink(1'b0), 
+  .dbg_spi(1'b0),
   .seialize_data_stream(seialize_data_stream), 
   .osc_auto_trim_mopshub(osc_auto_trim_mopshub),                      
   .endwait_all(endwait_all),  
@@ -175,8 +177,10 @@ module tb_mopshub_top();
   .tx_elink1bit(tx_mopshub_1bit),
   .rx_elink1bit(rx_mopshub_1bit),
   .rx_elink2bit(rx_mopshub_2bit),
-  .mosi_m(spi_dat),
-  .miso_m(spi_dat),        
+  .mosi_m(spi_dat_m),
+  .miso_m(spi_dat_m),        
+   .mosi_c(spi_dat_p),
+   .miso_c(spi_dat_p), 
   .rx0(rx0),        
   .rx1(rx1),        
   .rx2(rx2),        
@@ -401,15 +405,15 @@ module tb_mopshub_top();
   /////*******Start Full SM for Data Generation ****/////
   always@(posedge clk_40_m)
   begin  
-    if(trim_sig_done ==1 ||done_trim_osc ==1)
+    if(trim_sig_done ==1 ||end_power_init ==1)
     begin
       osc_auto_trim =1'b0;
      // osc_auto_trim_mopshub = 1'b0;
     end
     if(sign_on_sig ==1)//start Rx test
     begin
-     test_rx =1'b1;
-     //test_advanced = 1'b1;
+    test_rx =1'b1;
+    //test_advanced = 1'b1;
     end
     if(test_rx_end ==1)//Done Rx test
     begin

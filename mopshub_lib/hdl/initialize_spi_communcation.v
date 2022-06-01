@@ -68,7 +68,7 @@ begin
        5'h11 : data_init_reg = 8'h91;         //calibrate 2  
        5'h12 : data_init_reg = 8'h99;         //calibrate 3 
 
-       //MCP23s17 SPI command structure
+       //MCP23s17 SPI command structure powering
        5'h13 : data_init_reg = 8'h40;         //01000000   
        5'h14 : data_init_reg = 8'h01;         //00000001
        5'h15 : data_init_reg = 8'h13;         //00010011
