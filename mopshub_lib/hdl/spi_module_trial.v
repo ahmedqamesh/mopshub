@@ -30,14 +30,14 @@
 //
 ///////////////////////////////////////////////////////////////////////////////
 
-module spi_module_trial
-  #(parameter SPI_MODE = 0,
-    parameter CLKS_PER_HALF_BIT = 2)
-  (
+module spi_master_mopshub#(
+parameter CLKS_PER_HALF_BIT = 2
+
+)(
    // Control/Data Signals,
    input        i_Rst_L,     // FPGA Reset
    input        i_Clk,       // FPGA Clock
-   
+   input SPI_MODE,
    // TX (MOSI) Signals
    input [7:0]  i_TX_Byte,        // Byte to transmit on MOSI
    input        i_TX_DV,          // Data Valid Pulse with i_TX_Byte

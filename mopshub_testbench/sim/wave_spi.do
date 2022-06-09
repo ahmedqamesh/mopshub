@@ -1,14 +1,14 @@
 onerror {resume}
 quietly WaveActivateNextPane {} 0
-add wave -noupdate -expand -group Power /tb_mopshub_top/mopshub0/power_bus_cnt
-add wave -noupdate -expand -group Power /tb_mopshub_top/mopshub0/start_mon_init
-add wave -noupdate -expand -group Power /tb_mopshub_top/mopshub0/addr_spi
-add wave -noupdate -expand -group Power /tb_mopshub_top/mopshub0/power_bus_en
-add wave -noupdate -expand -group Power /tb_mopshub_top/mopshub0/cs_active_c
-add wave -noupdate -expand -group Power /tb_mopshub_top/mopshub0/power_bus_en_done
-add wave -noupdate -expand -group Power /tb_mopshub_top/clk_40_m
-add wave -noupdate -expand -group Power /tb_mopshub_top/mopshub0/sck_c
-add wave -noupdate -expand -group Power /tb_mopshub_top/mopshub0/mosi_c
+add wave -noupdate -group Power /tb_mopshub_top/mopshub0/power_bus_cnt
+add wave -noupdate -group Power /tb_mopshub_top/mopshub0/start_mon_init
+add wave -noupdate -group Power /tb_mopshub_top/mopshub0/addr_spi
+add wave -noupdate -group Power /tb_mopshub_top/mopshub0/power_bus_en
+add wave -noupdate -group Power /tb_mopshub_top/mopshub0/cs_active_c
+add wave -noupdate -group Power /tb_mopshub_top/mopshub0/power_bus_en_done
+add wave -noupdate -group Power /tb_mopshub_top/clk_40_m
+add wave -noupdate -group Power /tb_mopshub_top/mopshub0/sck_c
+add wave -noupdate -group Power /tb_mopshub_top/mopshub0/mosi_c
 add wave -noupdate -group CAN_Rx /tb_mopshub_top/data_generator0/test_simult
 add wave -noupdate -group CAN_Rx /tb_mopshub_top/data_generator0/custommsg
 add wave -noupdate -group CAN_Rx /tb_mopshub_top/rx0
@@ -60,8 +60,16 @@ add wave -noupdate -group elink_spi_rec /tb_mopshub_top/mopshub0/monitor_pp30/cs
 add wave -noupdate -group elink_spi_rec /tb_mopshub_top/mopshub0/monitor_pp30/cs
 add wave -noupdate -group elink_spi_rec /tb_mopshub_top/mopshub0/elink_core0/spi_rec_mode
 add wave -noupdate -group elink_spi_rec /tb_mopshub_top/mopshub0/elink_core0/data_rec_10bitout
+add wave -noupdate /tb_mopshub_top/info_debug_sig
+add wave -noupdate /tb_mopshub_top/mopshub0/control_bus0/addr
+add wave -noupdate /tb_mopshub_top/mopshub0/control_bus0/sck
+add wave -noupdate /tb_mopshub_top/mopshub0/control_bus0/txdat
+add wave -noupdate /tb_mopshub_top/mopshub0/control_bus0/w_Master_TX_Ready
+add wave -noupdate /tb_mopshub_top/mopshub0/control_bus0/rxdat
+add wave -noupdate /tb_mopshub_top/mopshub0/control_bus0/o_RX_DV
+add wave -noupdate /tb_mopshub_top/mopshub0/control_bus0/transceive
 TreeUpdate [SetDefaultTree]
-WaveRestoreCursors {{Cursor 1} {98424 ns} 0} {{Cursor 2} {2740719 ns} 0}
+WaveRestoreCursors {{Cursor 1} {23856 ns} 0} {{Cursor 2} {2740719 ns} 0}
 quietly wave cursor active 1
 configure wave -namecolwidth 219
 configure wave -valuecolwidth 100
@@ -77,4 +85,4 @@ configure wave -griddelta 40
 configure wave -timeline 0
 configure wave -timelineunits ns
 update
-WaveRestoreZoom {0 ns} {105 us}
+WaveRestoreZoom {11509 ns} {43838 ns}
