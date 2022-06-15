@@ -167,7 +167,7 @@ module tb_mopshub_top();
   .clk(clk_40_m),
   .clk_80(clk_80),
   .rst(rst),
-  .n_buses(5'd1),
+  .n_buses(5'd31),
   .dbg_elink(1'b0), 
   .dbg_spi(1'b0),
   .seialize_data_stream(seialize_data_stream), 
