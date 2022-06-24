@@ -168,19 +168,19 @@ value "/home/dcs/git/mopshub/mopshub_lib/hds/elink_core"
 )
 (vvPair
 variable "date"
-value "05/30/22"
+value "06/23/22"
 )
 (vvPair
 variable "day"
-value "Mon"
+value "Thu"
 )
 (vvPair
 variable "day_long"
-value "Monday"
+value "Thursday"
 )
 (vvPair
 variable "dd"
-value "30"
+value "23"
 )
 (vvPair
 variable "entity_name"
@@ -208,7 +208,7 @@ value "dcs"
 )
 (vvPair
 variable "graphical_source_date"
-value "05/30/22"
+value "06/23/22"
 )
 (vvPair
 variable "graphical_source_group"
@@ -216,11 +216,11 @@ value "dcs"
 )
 (vvPair
 variable "graphical_source_host"
-value "localhost"
+value "chipdev2.physik.uni-wuppertal.de"
 )
 (vvPair
 variable "graphical_source_time"
-value "14:53:05"
+value "13:46:27"
 )
 (vvPair
 variable "group"
@@ -228,7 +228,7 @@ value "dcs"
 )
 (vvPair
 variable "host"
-value "localhost"
+value "chipdev2.physik.uni-wuppertal.de"
 )
 (vvPair
 variable "language"
@@ -264,7 +264,7 @@ value "$HDS_PROJECT_DIR/mopshub_lib/svassistant"
 )
 (vvPair
 variable "mm"
-value "05"
+value "06"
 )
 (vvPair
 variable "module_name"
@@ -272,11 +272,11 @@ value "elink_core"
 )
 (vvPair
 variable "month"
-value "May"
+value "Jun"
 )
 (vvPair
 variable "month_long"
-value "May"
+value "June"
 )
 (vvPair
 variable "p"
@@ -340,7 +340,7 @@ value "struct"
 )
 (vvPair
 variable "time"
-value "14:53:05"
+value "13:46:27"
 )
 (vvPair
 variable "unit"
@@ -976,7 +976,7 @@ va (VaSet
 vasetType 1
 fg "0,65535,0"
 )
-xt "-10750,-18375,-10000,-17625"
+xt "-10750,-24375,-10000,-23625"
 )
 tg (CPTG
 uid 13153,0
@@ -987,9 +987,9 @@ uid 13154,0
 va (VaSet
 font "courier,8,0"
 )
-xt "-9000,-18450,-2000,-17550"
+xt "-9000,-24450,-2000,-23550"
 st "rx_fifo_empty"
-blo "-9000,-17750"
+blo "-9000,-23750"
 )
 )
 thePort (LogicalPort
@@ -1215,9 +1215,9 @@ uid 184,0
 va (VaSet
 font "courier,8,1"
 )
-xt "3750,-29900,9750,-29000"
+xt "-9250,-17900,-3250,-17000"
 st "MOPSHUB_LIB"
-blo "3750,-29200"
+blo "-9250,-17200"
 tm "BdLibraryNameMgr"
 )
 *27 (Text
@@ -1225,9 +1225,9 @@ uid 185,0
 va (VaSet
 font "courier,8,1"
 )
-xt "3750,-29000,10750,-28100"
+xt "-9250,-17000,-2250,-16100"
 st "elink_to_fifo"
-blo "3750,-28300"
+blo "-9250,-16300"
 tm "CptNameMgr"
 )
 *28 (Text
@@ -1235,9 +1235,9 @@ uid 186,0
 va (VaSet
 font "courier,8,1"
 )
-xt "3750,-28100,11250,-27200"
+xt "-9250,-16100,-1750,-15200"
 st "elink_to_fifo0"
-blo "3750,-27400"
+blo "-9250,-15400"
 tm "InstanceNameMgr"
 )
 ]
@@ -4405,7 +4405,7 @@ n "addr_write"
 t "wire"
 b "[4:0]"
 eolc "request to caninterface block"
-o 27
+o 36
 suid 79,0
 )
 declText (MLText
@@ -4424,7 +4424,7 @@ lang 5
 decl (Decl
 n "cs_ewrite"
 t "wire"
-o 28
+o 37
 suid 80,0
 )
 declText (MLText
@@ -4475,6 +4475,7 @@ assign spi_can_irq = (addr_write == 5'h02 && data_rec_can_8bitout   == 8'h020);
 assign data_rec_spi_10bitout_Active = (spi_can_mode ==1 ||spi_can_irq ==1) ? data_rec_spi_can_10bitout: data_rec_spi_10bitout; 
 //FIFO Rec Data
 assign data_rec_10bitout =(spi_rec_mode ==1|| spi_can_mode ==1||spi_can_irq ==1) ? data_rec_spi_10bitout_Active: data_rec_can_10bitout; 
+
 
 
 
@@ -4689,7 +4690,7 @@ decl (Decl
 n "data_rec_10bitout"
 t "wire"
 b "[9:0]"
-o 29
+o 38
 suid 81,0
 )
 declText (MLText
@@ -4746,7 +4747,7 @@ lang 5
 decl (Decl
 n "cs_eread"
 t "wire"
-o 35
+o 44
 suid 87,0
 )
 declText (MLText
@@ -4765,7 +4766,7 @@ lang 5
 decl (Decl
 n "fifo_data_packet"
 t "reg"
-o 36
+o 45
 suid 88,0
 )
 declText (MLText
@@ -4784,7 +4785,7 @@ lang 5
 decl (Decl
 n "fifo_data_sop"
 t "reg"
-o 37
+o 46
 suid 90,0
 )
 declText (MLText
@@ -4803,7 +4804,7 @@ lang 5
 decl (Decl
 n "fifo_data_eop"
 t "reg"
-o 38
+o 47
 suid 91,0
 )
 declText (MLText
@@ -4852,6 +4853,7 @@ assign can_id      = can_id_reg;
 assign spi_mon_id  = spi_mon_reg;
 assign spi_power   = spi_power_reg;
 assign spi_can_id  = spi_can_reg;
+
 always@(*) 
   begin
   if(cs_eread && data_tra_10bitin == {2'b10,Kchar_sop})// 0x3c = 0011 1100 SOP (if 8b10b)
@@ -4871,7 +4873,7 @@ always@(*)
         fifo_data_packet = 1'b1;
         if (addr_read ==5'h02)//detect the first Byte
           case(data_tra_10bitin[7:0])
-            8'h020 : 
+            8'h020 : //Identify SPI mon
             begin
               can_id_reg    = 1'b0;
               spi_power_reg = 1'b0;
@@ -4886,14 +4888,14 @@ always@(*)
                   spi_can_reg   = 1'b0; 
                 end
             end
-            8'h090 : 
+            8'h090 : //Identify SPI powering 
             begin
               spi_mon_reg   = 1'b0;
               spi_can_reg   = 1'b0;
               can_id_reg    = 1'b0;
               spi_power_reg = 1'b1;
             end
-            8'h000 :begin 
+            8'h000 :begin  //Identify CAN
                 can_id_reg     = 1'b1;
                 spi_mon_reg    = 1'b0;
                 spi_power_reg  = 1'b1;
@@ -4937,6 +4939,9 @@ always@(*)
        fifo_data_packet = 1'b0;
       end    
   end
+
+
+
 
 
 
@@ -5506,7 +5511,7 @@ n "addr_read"
 t "wire"
 b "[4:0]"
 eolc "request to caninterface block"
-o 43
+o 51
 suid 93,0
 )
 declText (MLText
@@ -5526,7 +5531,7 @@ decl (Decl
 n "data_tra_10bitin"
 t "wire"
 b "[9:0]"
-o 44
+o 52
 suid 96,0
 )
 declText (MLText
@@ -6053,7 +6058,7 @@ lang 5
 decl (Decl
 n "buffer_elink_en"
 t "wire"
-o 45
+o 53
 suid 111,0
 )
 declText (MLText
@@ -6406,7 +6411,7 @@ decl (Decl
 n "timeoutrst"
 t "wire"
 eolc "timeout reset signal to the state machine in case bridge controller is not respoding for a specified time"
-o 25
+o 24
 suid 124,0
 )
 declText (MLText
@@ -6424,7 +6429,7 @@ decl (Decl
 n "statedeb_rec"
 t "wire"
 b "[5:0]"
-o 46
+o 54
 suid 128,0
 )
 declText (MLText
@@ -6442,7 +6447,7 @@ decl (Decl
 n "statedeb_tra"
 t "wire"
 b "[6:0]"
-o 47
+o 55
 suid 130,0
 )
 declText (MLText
@@ -6459,7 +6464,7 @@ lang 5
 decl (Decl
 n "buffer_rec_en"
 t "wire"
-o 48
+o 56
 suid 131,0
 )
 declText (MLText
@@ -6567,7 +6572,7 @@ lang 5
 decl (Decl
 n "rx_fifo_empty"
 t "wire"
-o 49
+o 57
 suid 150,0
 )
 declText (MLText
@@ -6584,7 +6589,7 @@ lang 5
 decl (Decl
 n "tx_fifo_empty"
 t "wire"
-o 50
+o 58
 suid 151,0
 )
 declText (MLText
@@ -6601,7 +6606,7 @@ lang 5
 decl (Decl
 n "can_id"
 t "wire"
-o 51
+o 59
 suid 152,0
 )
 declText (MLText
@@ -7055,7 +7060,7 @@ lang 5
 decl (Decl
 n "buffer_elink_spi_en"
 t "wire"
-o 53
+o 61
 suid 156,0
 )
 declText (MLText
@@ -7181,7 +7186,7 @@ lang 5
 decl (Decl
 n "buffer_spi_tra_en"
 t "wire"
-o 21
+o 34
 suid 160,0
 )
 declText (MLText
@@ -7244,7 +7249,7 @@ lang 5
 decl (Decl
 n "buffer_spi_rec_en"
 t "wire"
-o 54
+o 62
 suid 162,0
 )
 declText (MLText
@@ -7264,7 +7269,7 @@ decl (Decl
 n "data_rec_spi_in"
 t "wire"
 b "[31:0]"
-o 22
+o 21
 suid 165,0
 )
 declText (MLText
@@ -7281,7 +7286,7 @@ lang 5
 decl (Decl
 n "end_write_elink_spi"
 t "wire"
-o 23
+o 22
 suid 166,0
 )
 declText (MLText
@@ -7298,7 +7303,7 @@ lang 5
 decl (Decl
 n "start_write_elink_spi"
 t "wire"
-o 24
+o 23
 suid 167,0
 )
 declText (MLText
@@ -7769,7 +7774,7 @@ decl (Decl
 n "data_rec_spi_8bitout"
 t "wire"
 b "[7:0]"
-o 56
+o 64
 suid 168,0
 )
 declText (MLText
@@ -7787,7 +7792,7 @@ decl (Decl
 n "data_rec_spi_delimiter"
 t "wire"
 b "[1:0]"
-o 57
+o 65
 suid 169,0
 )
 declText (MLText
@@ -7804,7 +7809,7 @@ lang 5
 decl (Decl
 n "can_id_reg"
 t "reg"
-o 42
+o 50
 suid 174,0
 )
 declText (MLText
@@ -7822,7 +7827,7 @@ decl (Decl
 n "entimeout_elink_rec"
 t "wire"
 eolc "enable for timeout reset counter "
-o 60
+o 68
 suid 182,0
 )
 declText (MLText
@@ -7840,7 +7845,7 @@ decl (Decl
 n "entimeout_elink_tra"
 t "wire"
 eolc "enable for timeout reset counter "
-o 61
+o 69
 suid 183,0
 )
 declText (MLText
@@ -7903,7 +7908,7 @@ lang 5
 decl (Decl
 n "spi_mon_reg"
 t "reg"
-o 40
+o 49
 suid 184,0
 )
 declText (MLText
@@ -7920,7 +7925,7 @@ lang 5
 decl (Decl
 n "spi_power_reg"
 t "reg"
-o 39
+o 48
 suid 186,0
 )
 declText (MLText
@@ -7937,7 +7942,7 @@ lang 5
 decl (Decl
 n "spi_power"
 t "wire"
-o 59
+o 67
 suid 187,0
 )
 declText (MLText
@@ -7954,7 +7959,7 @@ lang 5
 decl (Decl
 n "abort"
 t "wire"
-o 62
+o 26
 suid 189,0
 )
 declText (MLText
@@ -8287,7 +8292,7 @@ n "time_limit_trim"
 t "reg"
 b "[31:0]"
 eolc "//corresponds to 25 msec if the FPGA freq is 40Mhz"
-o 63
+o 70
 suid 193,0
 )
 declText (MLText
@@ -8307,7 +8312,7 @@ decl (Decl
 n "timeoutrst_elink_tra"
 t "wire"
 eolc "timeout reset signal to the state machine in case bridge controller is not respoding for a specified time"
-o 26
+o 35
 suid 194,0
 )
 declText (MLText
@@ -8495,7 +8500,7 @@ fg "65535,65535,37120"
 lineColor "0,0,32768"
 lineWidth 2
 )
-xt "48000,-2000,55000,7000"
+xt "48000,0,55000,7000"
 )
 oxt "41000,7000,48000,13000"
 ttg (MlTextGroup
@@ -8508,9 +8513,9 @@ uid 20448,0
 va (VaSet
 font "courier,8,1"
 )
-xt "48250,-900,51250,0"
+xt "48250,100,51250,1000"
 st "K_Code"
-blo "48250,-200"
+blo "48250,800"
 tm "HdlTextNameMgr"
 )
 *244 (Text
@@ -8518,9 +8523,9 @@ uid 20449,0
 va (VaSet
 font "courier,8,1"
 )
-xt "48250,0,49250,900"
+xt "48250,1000,49250,1900"
 st "11"
-blo "48250,700"
+blo "48250,1700"
 tm "HdlTextNumberMgr"
 )
 ]
@@ -8546,7 +8551,7 @@ decl (Decl
 n "Kchar_comma"
 t "reg"
 b "[7:0]"
-o 64
+o 71
 suid 196,0
 )
 declText (MLText
@@ -8564,7 +8569,7 @@ decl (Decl
 n "Kchar_eop"
 t "reg"
 b "[7:0]"
-o 65
+o 72
 suid 199,0
 )
 declText (MLText
@@ -8582,7 +8587,7 @@ decl (Decl
 n "Kchar_sop"
 t "reg"
 b "[7:0]"
-o 66
+o 73
 suid 200,0
 )
 declText (MLText
@@ -8600,7 +8605,7 @@ decl (Decl
 n "COMMAn"
 t "reg"
 b "[9:0]"
-o 67
+o 74
 suid 202,0
 )
 declText (MLText
@@ -8618,7 +8623,7 @@ decl (Decl
 n "COMMAp"
 t "reg"
 b "[9:0]"
-o 68
+o 75
 suid 203,0
 )
 declText (MLText
@@ -8646,7 +8651,7 @@ fg "65535,65535,65535"
 lineColor "0,0,32768"
 lineWidth 2
 )
-xt "56000,-3000,74000,2000"
+xt "56000,-1000,74000,4000"
 )
 oxt "0,0,18000,5000"
 text (MLText
@@ -8655,18 +8660,21 @@ va (VaSet
 isHidden 1
 font "courier,8,0"
 )
-xt "56200,-2800,73700,1700"
+xt "56200,-800,73700,3700"
 st "
 // Wire_assign 1                     
 initial 
   begin
     fifo_data_sop           = 1'b0;
     fifo_data_eop           = 1'b0;
+    fifo_data_packet        = 1'b0;
     spi_power_reg           = 1'b0;
     spi_mon_reg             = 1'b0;
+    spi_can_reg             = 1'b0;
     can_id_reg              = 1'b0;
     time_limit_trim         = 32'd1000000;   //corresponds to 25 msec if the FPGA freq is 40Mhz
   end
+
 
 
 
@@ -8689,7 +8697,7 @@ fg "65535,65535,37120"
 lineColor "0,0,32768"
 lineWidth 2
 )
-xt "48000,-9000,55000,-3000"
+xt "48000,-7000,55000,-1000"
 )
 oxt "0,0,8000,10000"
 ttg (MlTextGroup
@@ -8702,9 +8710,9 @@ uid 21085,0
 va (VaSet
 font "courier,8,1"
 )
-xt "48250,-5900,54750,-5000"
+xt "48250,-3900,54750,-3000"
 st "Wire_assign1"
-blo "48250,-5200"
+blo "48250,-3200"
 tm "HdlTextNameMgr"
 )
 *253 (Text
@@ -8712,9 +8720,9 @@ uid 21086,0
 va (VaSet
 font "courier,8,1"
 )
-xt "48250,-5000,48750,-4100"
+xt "48250,-3000,48750,-2100"
 st "2"
-blo "48250,-4300"
+blo "48250,-2300"
 tm "HdlTextNumberMgr"
 )
 ]
@@ -8726,7 +8734,7 @@ va (VaSet
 vasetType 1
 fg "49152,49152,49152"
 )
-xt "48250,-4750,49750,-3250"
+xt "48250,-2750,49750,-1250"
 iconName "TextFile.png"
 iconMaskName "TextFile.msk"
 ftype 21
@@ -8740,7 +8748,7 @@ decl (Decl
 n "data_10bit_in_dbg"
 t "wire"
 b "[9:0]"
-o 69
+o 27
 suid 204,0
 )
 declText (MLText
@@ -8757,7 +8765,7 @@ lang 5
 decl (Decl
 n "dbg_elink"
 t "wire"
-o 70
+o 28
 suid 205,0
 )
 declText (MLText
@@ -8774,7 +8782,7 @@ lang 5
 decl (Decl
 n "rdy_dbg"
 t "wire"
-o 71
+o 29
 suid 207,0
 )
 declText (MLText
@@ -8932,7 +8940,7 @@ t "wire"
 b "[7:0]"
 preAdd 0
 posAdd 0
-o 72
+o 30
 suid 208,0
 )
 declText (MLText
@@ -9060,7 +9068,7 @@ decl (Decl
 n "spi_tra_mon_reg"
 t "wire"
 b "[7:0]"
-o 41
+o 25
 suid 213,0
 )
 declText (MLText
@@ -9080,7 +9088,7 @@ t "wire"
 b "[7:0]"
 preAdd 0
 posAdd 0
-o 73
+o 31
 suid 214,0
 )
 declText (MLText
@@ -9143,7 +9151,7 @@ lang 5
 decl (Decl
 n "spi_rec_mode"
 t "wire"
-o 58
+o 66
 suid 215,0
 )
 declText (MLText
@@ -9160,7 +9168,7 @@ lang 5
 decl (Decl
 n "spi_tra_mode"
 t "wire"
-o 74
+o 76
 suid 216,0
 )
 declText (MLText
@@ -9177,7 +9185,7 @@ lang 5
 decl (Decl
 n "spi_mode"
 t "wire"
-o 75
+o 77
 suid 219,0
 )
 declText (MLText
@@ -9194,7 +9202,7 @@ lang 5
 decl (Decl
 n "spi_read_mode"
 t "wire"
-o 77
+o 32
 suid 220,0
 )
 declText (MLText
@@ -9301,7 +9309,7 @@ lang 5
 decl (Decl
 n "dbg_spi"
 t "wire"
-o 78
+o 33
 suid 221,0
 )
 declText (MLText
@@ -9319,7 +9327,7 @@ decl (Decl
 n "data_rec_can_8bitout"
 t "wire"
 b "[7:0]"
-o 33
+o 42
 suid 229,0
 )
 declText (MLText
@@ -9337,7 +9345,7 @@ decl (Decl
 n "data_rec_can_delimiter"
 t "wire"
 b "[1:0]"
-o 34
+o 43
 suid 230,0
 )
 declText (MLText
@@ -9355,7 +9363,7 @@ decl (Decl
 n "data_rec_spi_10bitout"
 t "wire"
 b "[9:0]"
-o 32
+o 41
 suid 231,0
 )
 declText (MLText
@@ -9373,7 +9381,7 @@ decl (Decl
 n "data_rec_can_10bitout"
 t "wire"
 b "[9:0]"
-o 31
+o 40
 suid 232,0
 )
 declText (MLText
@@ -9391,7 +9399,7 @@ decl (Decl
 n "data_rec_spi_can_10bitout"
 t "wire"
 b "[9:0]"
-o 55
+o 63
 suid 233,0
 )
 declText (MLText
@@ -9408,7 +9416,7 @@ lang 5
 decl (Decl
 n "spi_can_irq"
 t "wire"
-o 76
+o 78
 suid 235,0
 )
 declText (MLText
@@ -9443,7 +9451,7 @@ decl (Decl
 n "data_rec_spi_10bitout_Active"
 t "wire"
 b "[9:0]"
-o 30
+o 39
 suid 237,0
 )
 declText (MLText
@@ -9460,7 +9468,7 @@ lang 5
 decl (Decl
 n "spi_mon_id"
 t "wire"
-o 52
+o 60
 suid 238,0
 )
 declText (MLText
@@ -11761,10 +11769,10 @@ uid 13158,0
 va (VaSet
 vasetType 3
 )
-xt "-27000,-18000,-10750,-12000"
+xt "-27000,-24000,-10750,-12000"
 pts [
-"-10750,-18000"
-"-27000,-18000"
+"-10750,-24000"
+"-27000,-24000"
 "-27000,-12000"
 ]
 )
@@ -11783,9 +11791,9 @@ uid 13162,0
 va (VaSet
 font "courier,8,0"
 )
-xt "-18000,-18900,-11000,-18000"
+xt "-18000,-24900,-11000,-24000"
 st "rx_fifo_empty"
-blo "-18000,-18200"
+blo "-18000,-24200"
 tm "WireNameMgr"
 )
 )
@@ -14550,12 +14558,12 @@ tm "BdCompilerDirectivesTextMgr"
 ]
 associable 1
 )
-windowSize "3832,13,5768,1088"
-viewArea "-121985,-52910,-27770,-3190"
+windowSize "1912,40,3848,1055"
+viewArea "-61900,-19930,51158,37622"
 cachedDiagramExtent "-157400,-49900,103000,55000"
 hasePageBreakOrigin 1
 pageBreakOrigin "-207000,-51000"
-lastUid 25574,0
+lastUid 26816,0
 defaultCommentText (CommentText
 shape (Rectangle
 layer 0
@@ -15617,7 +15625,7 @@ tm "BdDeclarativeTextMgr"
 commonDM (CommonDM
 ldm (LogicalDM
 ordering 1
-suid 242,0
+suid 247,0
 usingSuid 1
 emptyRow *447 (LEmptyRow
 )
@@ -15670,7 +15678,7 @@ decl (Decl
 n "data_rec_10bitout"
 t "wire"
 b "[9:0]"
-o 29
+o 38
 suid 81,0
 )
 )
@@ -15683,7 +15691,7 @@ m 4
 decl (Decl
 n "cs_eread"
 t "wire"
-o 35
+o 44
 suid 87,0
 )
 )
@@ -15696,7 +15704,7 @@ m 4
 decl (Decl
 n "fifo_data_packet"
 t "reg"
-o 36
+o 45
 suid 88,0
 )
 )
@@ -15709,7 +15717,7 @@ m 4
 decl (Decl
 n "fifo_data_sop"
 t "reg"
-o 37
+o 46
 suid 90,0
 )
 )
@@ -15722,7 +15730,7 @@ m 4
 decl (Decl
 n "fifo_data_eop"
 t "reg"
-o 38
+o 47
 suid 91,0
 )
 )
@@ -15737,7 +15745,7 @@ n "addr_read"
 t "wire"
 b "[4:0]"
 eolc "request to caninterface block"
-o 43
+o 51
 suid 93,0
 )
 )
@@ -15751,7 +15759,7 @@ decl (Decl
 n "data_tra_10bitin"
 t "wire"
 b "[9:0]"
-o 44
+o 52
 suid 96,0
 )
 )
@@ -15764,7 +15772,7 @@ m 4
 decl (Decl
 n "buffer_elink_en"
 t "wire"
-o 45
+o 53
 suid 111,0
 )
 )
@@ -15777,7 +15785,7 @@ decl (Decl
 n "timeoutrst"
 t "wire"
 eolc "timeout reset signal to the state machine in case bridge controller is not respoding for a specified time"
-o 25
+o 24
 suid 124,0
 )
 )
@@ -15791,7 +15799,7 @@ decl (Decl
 n "statedeb_rec"
 t "wire"
 b "[5:0]"
-o 46
+o 54
 suid 128,0
 )
 )
@@ -15805,7 +15813,7 @@ decl (Decl
 n "statedeb_tra"
 t "wire"
 b "[6:0]"
-o 47
+o 55
 suid 130,0
 )
 )
@@ -15818,7 +15826,7 @@ m 4
 decl (Decl
 n "buffer_rec_en"
 t "wire"
-o 48
+o 56
 suid 131,0
 )
 )
@@ -15831,7 +15839,7 @@ m 4
 decl (Decl
 n "rx_fifo_empty"
 t "wire"
-o 49
+o 57
 suid 150,0
 )
 )
@@ -15844,7 +15852,7 @@ m 4
 decl (Decl
 n "tx_fifo_empty"
 t "wire"
-o 50
+o 58
 suid 151,0
 )
 )
@@ -15857,7 +15865,7 @@ m 4
 decl (Decl
 n "can_id"
 t "wire"
-o 51
+o 59
 suid 152,0
 )
 )
@@ -15871,7 +15879,7 @@ m 4
 decl (Decl
 n "buffer_elink_spi_en"
 t "wire"
-o 53
+o 61
 suid 156,0
 )
 )
@@ -15884,7 +15892,7 @@ m 4
 decl (Decl
 n "buffer_spi_rec_en"
 t "wire"
-o 54
+o 62
 suid 162,0
 )
 )
@@ -15898,7 +15906,7 @@ decl (Decl
 n "data_rec_spi_8bitout"
 t "wire"
 b "[7:0]"
-o 56
+o 64
 suid 168,0
 )
 )
@@ -15912,7 +15920,7 @@ decl (Decl
 n "data_rec_spi_delimiter"
 t "wire"
 b "[1:0]"
-o 57
+o 65
 suid 169,0
 )
 )
@@ -15925,7 +15933,7 @@ m 4
 decl (Decl
 n "can_id_reg"
 t "reg"
-o 42
+o 50
 suid 174,0
 )
 )
@@ -15939,7 +15947,7 @@ decl (Decl
 n "entimeout_elink_rec"
 t "wire"
 eolc "enable for timeout reset counter "
-o 60
+o 68
 suid 182,0
 )
 )
@@ -15953,7 +15961,7 @@ decl (Decl
 n "entimeout_elink_tra"
 t "wire"
 eolc "enable for timeout reset counter "
-o 61
+o 69
 suid 183,0
 )
 )
@@ -15966,7 +15974,7 @@ m 4
 decl (Decl
 n "cs_ewrite"
 t "wire"
-o 28
+o 37
 suid 80,0
 )
 )
@@ -15981,18 +15989,488 @@ n "addr_write"
 t "wire"
 b "[4:0]"
 eolc "request to caninterface block"
-o 27
+o 36
 suid 79,0
 )
 )
 uid 4036,0
 )
-*486 (LGroup
+*486 (LeafLogPort
+port (LogicalPort
+lang 5
+m 4
+decl (Decl
+n "spi_mon_reg"
+t "reg"
+o 49
+suid 184,0
+)
+)
+uid 17519,0
+)
+*487 (LeafLogPort
+port (LogicalPort
+lang 5
+m 4
+decl (Decl
+n "spi_power_reg"
+t "reg"
+o 48
+suid 186,0
+)
+)
+uid 17539,0
+)
+*488 (LeafLogPort
+port (LogicalPort
+lang 5
+m 4
+decl (Decl
+n "spi_power"
+t "wire"
+o 67
+suid 187,0
+)
+)
+uid 17541,0
+)
+*489 (LeafLogPort
+port (LogicalPort
+lang 5
+decl (Decl
+n "abort"
+t "wire"
+o 26
+suid 189,0
+)
+)
+uid 17732,0
+)
+*490 (LeafLogPort
+port (LogicalPort
+lang 5
+m 4
+decl (Decl
+n "time_limit_trim"
+t "reg"
+b "[31:0]"
+eolc "//corresponds to 25 msec if the FPGA freq is 40Mhz"
+o 70
+suid 193,0
+)
+)
+uid 18941,0
+)
+*491 (LeafLogPort
+port (LogicalPort
+lang 5
+m 4
+decl (Decl
+n "timeoutrst_elink_tra"
+t "wire"
+eolc "timeout reset signal to the state machine in case bridge controller is not respoding for a specified time"
+o 35
+suid 194,0
+)
+)
+uid 18943,0
+)
+*492 (LeafLogPort
+port (LogicalPort
+lang 5
+m 4
+decl (Decl
+n "Kchar_comma"
+t "reg"
+b "[7:0]"
+o 71
+suid 196,0
+)
+)
+uid 20463,0
+)
+*493 (LeafLogPort
+port (LogicalPort
+lang 5
+m 4
+decl (Decl
+n "Kchar_eop"
+t "reg"
+b "[7:0]"
+o 72
+suid 199,0
+)
+)
+uid 20517,0
+)
+*494 (LeafLogPort
+port (LogicalPort
+lang 5
+m 4
+decl (Decl
+n "Kchar_sop"
+t "reg"
+b "[7:0]"
+o 73
+suid 200,0
+)
+)
+uid 20519,0
+)
+*495 (LeafLogPort
+port (LogicalPort
+lang 5
+m 4
+decl (Decl
+n "COMMAn"
+t "reg"
+b "[9:0]"
+o 74
+suid 202,0
+)
+)
+uid 20879,0
+)
+*496 (LeafLogPort
+port (LogicalPort
+lang 5
+m 4
+decl (Decl
+n "COMMAp"
+t "reg"
+b "[9:0]"
+o 75
+suid 203,0
+)
+)
+uid 20881,0
+)
+*497 (LeafLogPort
+port (LogicalPort
+lang 5
+decl (Decl
+n "data_10bit_in_dbg"
+t "wire"
+b "[9:0]"
+o 27
+suid 204,0
+)
+)
+uid 21462,0
+)
+*498 (LeafLogPort
+port (LogicalPort
+lang 5
+decl (Decl
+n "dbg_elink"
+t "wire"
+o 28
+suid 205,0
+)
+)
+uid 21464,0
+)
+*499 (LeafLogPort
+port (LogicalPort
+lang 5
+decl (Decl
+n "rdy_dbg"
+t "wire"
+o 29
+suid 207,0
+)
+)
+uid 21468,0
+)
+*500 (LeafLogPort
+port (LogicalPort
+lang 5
+m 1
+decl (Decl
+n "spi_id"
+t "wire"
+b "[7:0]"
+preAdd 0
+posAdd 0
+o 30
+suid 208,0
+)
+)
+uid 22575,0
+)
+*501 (LeafLogPort
+port (LogicalPort
+lang 5
+m 1
+decl (Decl
+n "data_tra_mon_spi"
+t "wire"
+b "[7:0]"
+o 19
+suid 212,0
+)
+)
+uid 22577,0
+)
+*502 (LeafLogPort
+port (LogicalPort
+lang 5
+m 1
+decl (Decl
+n "spi_tra_mon_reg"
+t "wire"
+b "[7:0]"
+o 25
+suid 213,0
+)
+)
+uid 22579,0
+)
+*503 (LeafLogPort
+port (LogicalPort
+lang 5
+m 1
+decl (Decl
+n "spi_tra_mon_select"
+t "wire"
+b "[7:0]"
+o 31
+suid 214,0
+)
+)
+uid 22581,0
+)
+*504 (LeafLogPort
+port (LogicalPort
+lang 5
+m 4
+decl (Decl
+n "spi_rec_mode"
+t "wire"
+o 66
+suid 215,0
+)
+)
+uid 23058,0
+)
+*505 (LeafLogPort
+port (LogicalPort
+lang 5
+m 4
+decl (Decl
+n "spi_tra_mode"
+t "wire"
+o 76
+suid 216,0
+)
+)
+uid 23068,0
+)
+*506 (LeafLogPort
+port (LogicalPort
+lang 5
+m 4
+decl (Decl
+n "spi_mode"
+t "wire"
+o 77
+suid 219,0
+)
+)
+uid 23239,0
+)
+*507 (LeafLogPort
+port (LogicalPort
+lang 5
+decl (Decl
+n "spi_read_mode"
+t "wire"
+o 32
+suid 220,0
+)
+)
+uid 23257,0
+)
+*508 (LeafLogPort
+port (LogicalPort
+lang 5
+decl (Decl
+n "dbg_spi"
+t "wire"
+o 33
+suid 221,0
+)
+)
+uid 23440,0
+)
+*509 (LeafLogPort
+port (LogicalPort
+lang 5
+m 4
+decl (Decl
+n "data_rec_can_8bitout"
+t "wire"
+b "[7:0]"
+o 42
+suid 229,0
+)
+)
+uid 23833,0
+)
+*510 (LeafLogPort
+port (LogicalPort
+lang 5
+m 4
+decl (Decl
+n "data_rec_can_delimiter"
+t "wire"
+b "[1:0]"
+o 43
+suid 230,0
+)
+)
+uid 23835,0
+)
+*511 (LeafLogPort
+port (LogicalPort
+lang 5
+m 4
+decl (Decl
+n "data_rec_spi_10bitout"
+t "wire"
+b "[9:0]"
+o 41
+suid 231,0
+)
+)
+uid 23837,0
+)
+*512 (LeafLogPort
+port (LogicalPort
+lang 5
+m 4
+decl (Decl
+n "data_rec_can_10bitout"
+t "wire"
+b "[9:0]"
+o 40
+suid 232,0
+)
+)
+uid 23839,0
+)
+*513 (LeafLogPort
+port (LogicalPort
+lang 5
+m 4
+decl (Decl
+n "data_rec_spi_can_10bitout"
+t "wire"
+b "[9:0]"
+o 63
+suid 233,0
+)
+)
+uid 23841,0
+)
+*514 (LeafLogPort
+port (LogicalPort
+lang 5
+m 4
+decl (Decl
+n "spi_can_irq"
+t "wire"
+o 78
+suid 235,0
+)
+)
+uid 23871,0
+)
+*515 (LeafLogPort
+port (LogicalPort
+lang 5
+m 4
+decl (Decl
+n "spi_can_mode"
+t "wire"
+o 79
+suid 236,0
+)
+)
+uid 23875,0
+)
+*516 (LeafLogPort
+port (LogicalPort
+lang 5
+m 4
+decl (Decl
+n "data_rec_spi_10bitout_Active"
+t "wire"
+b "[9:0]"
+o 39
+suid 237,0
+)
+)
+uid 23887,0
+)
+*517 (LeafLogPort
+port (LogicalPort
+lang 5
+m 4
+decl (Decl
+n "spi_mon_id"
+t "wire"
+o 60
+suid 238,0
+)
+)
+uid 24468,0
+)
+*518 (LeafLogPort
+port (LogicalPort
+lang 5
+m 4
+decl (Decl
+n "spi_can_id"
+t "wire"
+o 80
+suid 241,0
+)
+)
+uid 24992,0
+)
+*519 (LeafLogPort
+port (LogicalPort
+lang 5
+m 4
+decl (Decl
+n "spi_can_reg"
+t "reg"
+o 81
+suid 242,0
+)
+)
+uid 24994,0
+)
+*520 (LeafLogPort
+port (LogicalPort
+lang 5
+m 4
+decl (Decl
+n "buffer_spi_tra_en"
+t "wire"
+o 34
+suid 160,0
+)
+)
+uid 13964,0
+)
+*521 (LGroup
 name "top"
 comment ""
-uid 16865,0
+uid 26540,0
 optionalChildren [
-*487 (LeafLogPort
+*522 (LeafLogPort
 port (LogicalPort
 lang 5
 decl (Decl
@@ -16004,7 +16482,7 @@ suid 23,0
 )
 uid 577,0
 )
-*488 (LeafLogPort
+*523 (LeafLogPort
 port (LogicalPort
 lang 5
 decl (Decl
@@ -16020,12 +16498,12 @@ uid 854,0
 )
 ]
 )
-*489 (LGroup
+*524 (LGroup
 name "elink"
 comment ""
-uid 16866,0
+uid 26541,0
 optionalChildren [
-*490 (LeafLogPort
+*525 (LeafLogPort
 port (LogicalPort
 lang 5
 m 1
@@ -16038,7 +16516,7 @@ suid 45,0
 )
 uid 892,0
 )
-*491 (LeafLogPort
+*526 (LeafLogPort
 port (LogicalPort
 lang 5
 decl (Decl
@@ -16051,7 +16529,7 @@ suid 60,0
 )
 uid 2113,0
 )
-*492 (LeafLogPort
+*527 (LeafLogPort
 port (LogicalPort
 lang 5
 decl (Decl
@@ -16063,7 +16541,7 @@ suid 62,0
 )
 uid 2201,0
 )
-*493 (LeafLogPort
+*528 (LeafLogPort
 port (LogicalPort
 lang 5
 m 1
@@ -16076,7 +16554,7 @@ suid 75,0
 )
 uid 3561,0
 )
-*494 (LeafLogPort
+*529 (LeafLogPort
 port (LogicalPort
 lang 5
 m 1
@@ -16089,7 +16567,7 @@ suid 84,0
 )
 uid 4236,0
 )
-*495 (LeafLogPort
+*530 (LeafLogPort
 port (LogicalPort
 lang 5
 m 1
@@ -16102,7 +16580,7 @@ suid 86,0
 )
 uid 4238,0
 )
-*496 (LeafLogPort
+*531 (LeafLogPort
 port (LogicalPort
 lang 5
 m 1
@@ -16115,7 +16593,7 @@ suid 101,0
 )
 uid 4336,0
 )
-*497 (LeafLogPort
+*532 (LeafLogPort
 port (LogicalPort
 lang 5
 decl (Decl
@@ -16127,7 +16605,7 @@ suid 102,0
 )
 uid 4338,0
 )
-*498 (LeafLogPort
+*533 (LeafLogPort
 port (LogicalPort
 lang 5
 m 1
@@ -16140,7 +16618,7 @@ suid 103,0
 )
 uid 4340,0
 )
-*499 (LeafLogPort
+*534 (LeafLogPort
 port (LogicalPort
 lang 5
 decl (Decl
@@ -16153,7 +16631,7 @@ suid 115,0
 )
 uid 8730,0
 )
-*500 (LeafLogPort
+*535 (LeafLogPort
 port (LogicalPort
 lang 5
 m 1
@@ -16167,7 +16645,7 @@ suid 116,0
 )
 uid 8732,0
 )
-*501 (LeafLogPort
+*536 (LeafLogPort
 port (LogicalPort
 lang 5
 decl (Decl
@@ -16179,7 +16657,7 @@ suid 118,0
 )
 uid 8758,0
 )
-*502 (LeafLogPort
+*537 (LeafLogPort
 port (LogicalPort
 lang 5
 m 1
@@ -16192,7 +16670,7 @@ suid 121,0
 )
 uid 9625,0
 )
-*503 (LeafLogPort
+*538 (LeafLogPort
 port (LogicalPort
 lang 5
 m 1
@@ -16207,12 +16685,12 @@ uid 9639,0
 )
 ]
 )
-*504 (LGroup
+*539 (LGroup
 name "can"
 comment ""
-uid 16867,0
+uid 26542,0
 optionalChildren [
-*505 (LeafLogPort
+*540 (LeafLogPort
 port (LogicalPort
 lang 5
 m 1
@@ -16226,7 +16704,7 @@ suid 92,0
 )
 uid 4250,0
 )
-*506 (LeafLogPort
+*541 (LeafLogPort
 port (LogicalPort
 lang 5
 m 1
@@ -16241,12 +16719,12 @@ uid 6758,0
 )
 ]
 )
-*507 (LGroup
+*542 (LGroup
 name "spi"
 comment ""
-uid 16868,0
+uid 26543,0
 optionalChildren [
-*508 (LeafLogPort
+*543 (LeafLogPort
 port (LogicalPort
 lang 5
 m 1
@@ -16259,515 +16737,45 @@ suid 159,0
 )
 uid 13698,0
 )
-*509 (LeafLogPort
-port (LogicalPort
-lang 5
-m 4
-decl (Decl
-n "buffer_spi_tra_en"
-t "wire"
-o 21
-suid 160,0
-)
-)
-uid 13964,0
-)
-*510 (LeafLogPort
+*544 (LeafLogPort
 port (LogicalPort
 lang 5
 decl (Decl
 n "data_rec_spi_in"
 t "wire"
 b "[31:0]"
-o 22
+o 21
 suid 165,0
 )
 )
 uid 14050,0
 )
-*511 (LeafLogPort
+*545 (LeafLogPort
 port (LogicalPort
 lang 5
 m 1
 decl (Decl
 n "end_write_elink_spi"
 t "wire"
-o 23
+o 22
 suid 166,0
 )
 )
 uid 14221,0
 )
-*512 (LeafLogPort
+*546 (LeafLogPort
 port (LogicalPort
 lang 5
 decl (Decl
 n "start_write_elink_spi"
 t "wire"
-o 24
+o 23
 suid 167,0
 )
 )
 uid 14223,0
 )
 ]
-)
-*513 (LeafLogPort
-port (LogicalPort
-lang 5
-m 4
-decl (Decl
-n "spi_mon_reg"
-t "reg"
-o 40
-suid 184,0
-)
-)
-uid 17519,0
-)
-*514 (LeafLogPort
-port (LogicalPort
-lang 5
-m 4
-decl (Decl
-n "spi_power_reg"
-t "reg"
-o 39
-suid 186,0
-)
-)
-uid 17539,0
-)
-*515 (LeafLogPort
-port (LogicalPort
-lang 5
-m 4
-decl (Decl
-n "spi_power"
-t "wire"
-o 59
-suid 187,0
-)
-)
-uid 17541,0
-)
-*516 (LeafLogPort
-port (LogicalPort
-lang 5
-decl (Decl
-n "abort"
-t "wire"
-o 62
-suid 189,0
-)
-)
-uid 17732,0
-)
-*517 (LeafLogPort
-port (LogicalPort
-lang 5
-m 4
-decl (Decl
-n "time_limit_trim"
-t "reg"
-b "[31:0]"
-eolc "//corresponds to 25 msec if the FPGA freq is 40Mhz"
-o 63
-suid 193,0
-)
-)
-uid 18941,0
-)
-*518 (LeafLogPort
-port (LogicalPort
-lang 5
-m 4
-decl (Decl
-n "timeoutrst_elink_tra"
-t "wire"
-eolc "timeout reset signal to the state machine in case bridge controller is not respoding for a specified time"
-o 26
-suid 194,0
-)
-)
-uid 18943,0
-)
-*519 (LeafLogPort
-port (LogicalPort
-lang 5
-m 4
-decl (Decl
-n "Kchar_comma"
-t "reg"
-b "[7:0]"
-o 64
-suid 196,0
-)
-)
-uid 20463,0
-)
-*520 (LeafLogPort
-port (LogicalPort
-lang 5
-m 4
-decl (Decl
-n "Kchar_eop"
-t "reg"
-b "[7:0]"
-o 65
-suid 199,0
-)
-)
-uid 20517,0
-)
-*521 (LeafLogPort
-port (LogicalPort
-lang 5
-m 4
-decl (Decl
-n "Kchar_sop"
-t "reg"
-b "[7:0]"
-o 66
-suid 200,0
-)
-)
-uid 20519,0
-)
-*522 (LeafLogPort
-port (LogicalPort
-lang 5
-m 4
-decl (Decl
-n "COMMAn"
-t "reg"
-b "[9:0]"
-o 67
-suid 202,0
-)
-)
-uid 20879,0
-)
-*523 (LeafLogPort
-port (LogicalPort
-lang 5
-m 4
-decl (Decl
-n "COMMAp"
-t "reg"
-b "[9:0]"
-o 68
-suid 203,0
-)
-)
-uid 20881,0
-)
-*524 (LeafLogPort
-port (LogicalPort
-lang 5
-decl (Decl
-n "data_10bit_in_dbg"
-t "wire"
-b "[9:0]"
-o 69
-suid 204,0
-)
-)
-uid 21462,0
-)
-*525 (LeafLogPort
-port (LogicalPort
-lang 5
-decl (Decl
-n "dbg_elink"
-t "wire"
-o 70
-suid 205,0
-)
-)
-uid 21464,0
-)
-*526 (LeafLogPort
-port (LogicalPort
-lang 5
-decl (Decl
-n "rdy_dbg"
-t "wire"
-o 71
-suid 207,0
-)
-)
-uid 21468,0
-)
-*527 (LeafLogPort
-port (LogicalPort
-lang 5
-m 1
-decl (Decl
-n "spi_id"
-t "wire"
-b "[7:0]"
-preAdd 0
-posAdd 0
-o 72
-suid 208,0
-)
-)
-uid 22575,0
-)
-*528 (LeafLogPort
-port (LogicalPort
-lang 5
-m 1
-decl (Decl
-n "data_tra_mon_spi"
-t "wire"
-b "[7:0]"
-o 19
-suid 212,0
-)
-)
-uid 22577,0
-)
-*529 (LeafLogPort
-port (LogicalPort
-lang 5
-m 1
-decl (Decl
-n "spi_tra_mon_reg"
-t "wire"
-b "[7:0]"
-o 41
-suid 213,0
-)
-)
-uid 22579,0
-)
-*530 (LeafLogPort
-port (LogicalPort
-lang 5
-m 1
-decl (Decl
-n "spi_tra_mon_select"
-t "wire"
-b "[7:0]"
-o 73
-suid 214,0
-)
-)
-uid 22581,0
-)
-*531 (LeafLogPort
-port (LogicalPort
-lang 5
-m 4
-decl (Decl
-n "spi_rec_mode"
-t "wire"
-o 58
-suid 215,0
-)
-)
-uid 23058,0
-)
-*532 (LeafLogPort
-port (LogicalPort
-lang 5
-m 4
-decl (Decl
-n "spi_tra_mode"
-t "wire"
-o 74
-suid 216,0
-)
-)
-uid 23068,0
-)
-*533 (LeafLogPort
-port (LogicalPort
-lang 5
-m 4
-decl (Decl
-n "spi_mode"
-t "wire"
-o 75
-suid 219,0
-)
-)
-uid 23239,0
-)
-*534 (LeafLogPort
-port (LogicalPort
-lang 5
-decl (Decl
-n "spi_read_mode"
-t "wire"
-o 77
-suid 220,0
-)
-)
-uid 23257,0
-)
-*535 (LeafLogPort
-port (LogicalPort
-lang 5
-decl (Decl
-n "dbg_spi"
-t "wire"
-o 78
-suid 221,0
-)
-)
-uid 23440,0
-)
-*536 (LeafLogPort
-port (LogicalPort
-lang 5
-m 4
-decl (Decl
-n "data_rec_can_8bitout"
-t "wire"
-b "[7:0]"
-o 33
-suid 229,0
-)
-)
-uid 23833,0
-)
-*537 (LeafLogPort
-port (LogicalPort
-lang 5
-m 4
-decl (Decl
-n "data_rec_can_delimiter"
-t "wire"
-b "[1:0]"
-o 34
-suid 230,0
-)
-)
-uid 23835,0
-)
-*538 (LeafLogPort
-port (LogicalPort
-lang 5
-m 4
-decl (Decl
-n "data_rec_spi_10bitout"
-t "wire"
-b "[9:0]"
-o 32
-suid 231,0
-)
-)
-uid 23837,0
-)
-*539 (LeafLogPort
-port (LogicalPort
-lang 5
-m 4
-decl (Decl
-n "data_rec_can_10bitout"
-t "wire"
-b "[9:0]"
-o 31
-suid 232,0
-)
-)
-uid 23839,0
-)
-*540 (LeafLogPort
-port (LogicalPort
-lang 5
-m 4
-decl (Decl
-n "data_rec_spi_can_10bitout"
-t "wire"
-b "[9:0]"
-o 55
-suid 233,0
-)
-)
-uid 23841,0
-)
-*541 (LeafLogPort
-port (LogicalPort
-lang 5
-m 4
-decl (Decl
-n "spi_can_irq"
-t "wire"
-o 76
-suid 235,0
-)
-)
-uid 23871,0
-)
-*542 (LeafLogPort
-port (LogicalPort
-lang 5
-m 4
-decl (Decl
-n "spi_can_mode"
-t "wire"
-o 79
-suid 236,0
-)
-)
-uid 23875,0
-)
-*543 (LeafLogPort
-port (LogicalPort
-lang 5
-m 4
-decl (Decl
-n "data_rec_spi_10bitout_Active"
-t "wire"
-b "[9:0]"
-o 30
-suid 237,0
-)
-)
-uid 23887,0
-)
-*544 (LeafLogPort
-port (LogicalPort
-lang 5
-m 4
-decl (Decl
-n "spi_mon_id"
-t "wire"
-o 52
-suid 238,0
-)
-)
-uid 24468,0
-)
-*545 (LeafLogPort
-port (LogicalPort
-lang 5
-m 4
-decl (Decl
-n "spi_can_id"
-t "wire"
-o 80
-suid 241,0
-)
-)
-uid 24992,0
-)
-*546 (LeafLogPort
-port (LogicalPort
-lang 5
-m 4
-decl (Decl
-n "spi_can_reg"
-t "reg"
-o 81
-suid 242,0
-)
-)
-uid 24994,0
 )
 ]
 )
@@ -16820,171 +16828,169 @@ dimension 20
 uid 74,0
 )
 *552 (MRCItem
-litem &487
+litem &522
 pos 0
-relPos 0
 dimension 20
 uid 578,0
 )
 *553 (MRCItem
-litem &488
+litem &523
 pos 1
-relPos 1
 dimension 20
 uid 855,0
 )
 *554 (MRCItem
-litem &490
+litem &525
 pos 2
 dimension 20
 uid 893,0
 )
 *555 (MRCItem
-litem &491
+litem &526
 pos 3
 dimension 20
 uid 2114,0
 )
 *556 (MRCItem
-litem &492
+litem &527
 pos 4
 dimension 20
 uid 2202,0
 )
 *557 (MRCItem
-litem &493
+litem &528
 pos 5
 dimension 20
 uid 3562,0
 )
 *558 (MRCItem
 litem &485
-pos 24
+pos 34
 dimension 20
 uid 4037,0
 )
 *559 (MRCItem
 litem &484
-pos 25
+pos 35
 dimension 20
 uid 4039,0
 )
 *560 (MRCItem
 litem &462
-pos 26
+pos 36
 dimension 20
 uid 4041,0
 )
 *561 (MRCItem
-litem &494
+litem &529
 pos 6
 dimension 20
 uid 4237,0
 )
 *562 (MRCItem
-litem &495
+litem &530
 pos 7
 dimension 20
 uid 4239,0
 )
 *563 (MRCItem
 litem &463
-pos 27
+pos 37
 dimension 20
 uid 4241,0
 )
 *564 (MRCItem
 litem &464
-pos 28
+pos 55
 dimension 20
 uid 4243,0
 )
 *565 (MRCItem
 litem &465
-pos 47
+pos 56
 dimension 20
 uid 4247,0
 )
 *566 (MRCItem
 litem &466
-pos 48
+pos 57
 dimension 20
 uid 4249,0
 )
 *567 (MRCItem
-litem &505
+litem &540
 pos 11
 dimension 20
 uid 4251,0
 )
 *568 (MRCItem
 litem &467
-pos 29
+pos 38
 dimension 20
 uid 4253,0
 )
 *569 (MRCItem
 litem &468
-pos 30
+pos 39
 dimension 20
 uid 4257,0
 )
 *570 (MRCItem
-litem &496
+litem &531
 pos 8
 dimension 20
 uid 4337,0
 )
 *571 (MRCItem
-litem &497
+litem &532
 pos 9
 dimension 20
 uid 4339,0
 )
 *572 (MRCItem
-litem &498
+litem &533
 pos 10
 dimension 20
 uid 4341,0
 )
 *573 (MRCItem
 litem &469
-pos 31
+pos 40
 dimension 20
 uid 6743,0
 )
 *574 (MRCItem
-litem &506
+litem &541
 pos 12
 dimension 20
 uid 6759,0
 )
 *575 (MRCItem
-litem &499
+litem &534
 pos 13
 dimension 20
 uid 8731,0
 )
 *576 (MRCItem
-litem &500
+litem &535
 pos 14
 dimension 20
 uid 8733,0
 )
 *577 (MRCItem
-litem &501
+litem &536
 pos 15
 dimension 20
 uid 8759,0
 )
 *578 (MRCItem
-litem &502
+litem &537
 pos 16
 dimension 20
 uid 9626,0
 )
 *579 (MRCItem
-litem &503
+litem &538
 pos 17
 dimension 20
 uid 9640,0
@@ -16997,318 +17003,313 @@ uid 10566,0
 )
 *581 (MRCItem
 litem &471
-pos 32
+pos 41
 dimension 20
 uid 11045,0
 )
 *582 (MRCItem
 litem &472
-pos 33
+pos 42
 dimension 20
 uid 11047,0
 )
 *583 (MRCItem
 litem &473
-pos 34
+pos 43
 dimension 20
 uid 11057,0
 )
 *584 (MRCItem
 litem &474
-pos 35
+pos 44
 dimension 20
 uid 13166,0
 )
 *585 (MRCItem
 litem &475
-pos 36
+pos 45
 dimension 20
 uid 13168,0
 )
 *586 (MRCItem
 litem &476
-pos 37
+pos 46
 dimension 20
 uid 13289,0
 )
 *587 (MRCItem
 litem &477
-pos 38
+pos 47
 dimension 20
 uid 13665,0
 )
 *588 (MRCItem
-litem &508
+litem &543
 pos 19
-relPos 0
 dimension 20
 uid 13699,0
 )
 *589 (MRCItem
-litem &509
-pos 20
-relPos 1
+litem &520
+pos 33
 dimension 20
 uid 13965,0
 )
 *590 (MRCItem
 litem &478
-pos 39
+pos 48
 dimension 20
 uid 14009,0
 )
 *591 (MRCItem
-litem &510
-pos 21
-relPos 2
+litem &544
+pos 20
 dimension 20
 uid 14051,0
 )
 *592 (MRCItem
-litem &511
-pos 22
-relPos 3
+litem &545
+pos 21
 dimension 20
 uid 14222,0
 )
 *593 (MRCItem
-litem &512
-pos 23
-relPos 4
+litem &546
+pos 22
 dimension 20
 uid 14224,0
 )
 *594 (MRCItem
 litem &479
-pos 40
+pos 49
 dimension 20
 uid 14932,0
 )
 *595 (MRCItem
 litem &480
-pos 41
+pos 50
 dimension 20
 uid 14934,0
 )
 *596 (MRCItem
 litem &481
-pos 49
+pos 59
 dimension 20
 uid 16140,0
 )
 *597 (MRCItem
 litem &482
-pos 42
+pos 51
 dimension 20
 uid 16520,0
 )
 *598 (MRCItem
 litem &483
-pos 43
+pos 52
 dimension 20
 uid 16522,0
 )
 *599 (MRCItem
-litem &513
-pos 50
+litem &486
+pos 60
 dimension 20
 uid 17520,0
 )
 *600 (MRCItem
-litem &514
-pos 52
+litem &487
+pos 61
 dimension 20
 uid 17540,0
 )
 *601 (MRCItem
-litem &515
-pos 44
+litem &488
+pos 53
 dimension 20
 uid 17542,0
 )
 *602 (MRCItem
-litem &516
-pos 45
+litem &489
+pos 23
 dimension 20
 uid 17733,0
 )
 *603 (MRCItem
-litem &517
-pos 51
+litem &490
+pos 58
 dimension 20
 uid 18942,0
 )
 *604 (MRCItem
-litem &518
-pos 46
+litem &491
+pos 54
 dimension 20
 uid 18944,0
 )
 *605 (MRCItem
-litem &519
-pos 56
+litem &492
+pos 63
 dimension 20
 uid 20464,0
 )
 *606 (MRCItem
-litem &520
-pos 57
+litem &493
+pos 64
 dimension 20
 uid 20518,0
 )
 *607 (MRCItem
-litem &521
-pos 58
+litem &494
+pos 65
 dimension 20
 uid 20520,0
 )
 *608 (MRCItem
-litem &522
-pos 59
+litem &495
+pos 66
 dimension 20
 uid 20880,0
 )
 *609 (MRCItem
-litem &523
-pos 60
+litem &496
+pos 67
 dimension 20
 uid 20882,0
 )
 *610 (MRCItem
-litem &524
-pos 53
+litem &497
+pos 24
 dimension 20
 uid 21463,0
 )
 *611 (MRCItem
-litem &525
-pos 54
+litem &498
+pos 25
 dimension 20
 uid 21465,0
 )
 *612 (MRCItem
-litem &526
-pos 55
+litem &499
+pos 26
 dimension 20
 uid 21469,0
 )
 *613 (MRCItem
-litem &527
-pos 61
+litem &500
+pos 27
 dimension 20
 uid 22576,0
 )
 *614 (MRCItem
-litem &528
-pos 62
+litem &501
+pos 28
 dimension 20
 uid 22578,0
 )
 *615 (MRCItem
-litem &529
-pos 63
+litem &502
+pos 29
 dimension 20
 uid 22580,0
 )
 *616 (MRCItem
-litem &530
-pos 64
+litem &503
+pos 30
 dimension 20
 uid 22582,0
 )
 *617 (MRCItem
-litem &531
-pos 65
+litem &504
+pos 68
 dimension 20
 uid 23059,0
 )
 *618 (MRCItem
-litem &532
-pos 66
+litem &505
+pos 69
 dimension 20
 uid 23069,0
 )
 *619 (MRCItem
-litem &533
-pos 67
+litem &506
+pos 70
 dimension 20
 uid 23240,0
 )
 *620 (MRCItem
-litem &534
-pos 68
+litem &507
+pos 31
 dimension 20
 uid 23258,0
 )
 *621 (MRCItem
-litem &535
-pos 69
+litem &508
+pos 32
 dimension 20
 uid 23441,0
 )
 *622 (MRCItem
-litem &536
-pos 70
+litem &509
+pos 71
 dimension 20
 uid 23834,0
 )
 *623 (MRCItem
-litem &537
-pos 71
+litem &510
+pos 72
 dimension 20
 uid 23836,0
 )
 *624 (MRCItem
-litem &538
-pos 72
+litem &511
+pos 73
 dimension 20
 uid 23838,0
 )
 *625 (MRCItem
-litem &539
-pos 73
+litem &512
+pos 74
 dimension 20
 uid 23840,0
 )
 *626 (MRCItem
-litem &540
-pos 74
+litem &513
+pos 75
 dimension 20
 uid 23842,0
 )
 *627 (MRCItem
-litem &541
-pos 75
+litem &514
+pos 76
 dimension 20
 uid 23872,0
 )
 *628 (MRCItem
-litem &542
-pos 76
+litem &515
+pos 77
 dimension 20
 uid 23876,0
 )
 *629 (MRCItem
-litem &543
-pos 77
+litem &516
+pos 78
 dimension 20
 uid 23888,0
 )
 *630 (MRCItem
-litem &544
-pos 78
+litem &517
+pos 79
 dimension 20
 uid 24469,0
 )
 *631 (MRCItem
-litem &545
-pos 79
+litem &518
+pos 80
 dimension 20
 uid 24993,0
 )
 *632 (MRCItem
-litem &546
-pos 80
+litem &519
+pos 62
 dimension 20
 uid 24995,0
 )

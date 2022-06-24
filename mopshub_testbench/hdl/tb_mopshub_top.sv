@@ -13,15 +13,13 @@
 module tb_mopshub_top();
   wire             clk_m;
   wire             clk_mops;
-  wire             clk_s;
   wire             clk_40_m;
-  wire             clk_80;
   reg              rst   = 1'b0;
   reg              endwait_all = 1'b0;
   wire             rst_bus;
   wire             ext_counter_gen;
   reg              sel_bus = 1'b0;
-  reg     [4:0]    can_tra_select_dbg =5'd1;
+  reg     [4:0]    can_tra_select_dbg =5'd0;
   wire             sign_on_sig;
   wire             start_init;
   wire             end_init;
@@ -38,7 +36,6 @@ module tb_mopshub_top();
   wire            trim_sig_done;
   
   reg             osc_auto_trim_mopshub = 1'b0;
-  reg             seialize_data_stream  = 1'b1;
   wire            ready_osc;
   wire            start_trim_osc;
   wire            end_trim_bus;
@@ -165,17 +162,13 @@ module tb_mopshub_top();
   
   mopshub_top mopshub0(
   .clk(clk_40_m),
-  .clk_80(clk_80),
   .rst(rst),
   .n_buses(5'd31),
   .dbg_elink(1'b0), 
   .dbg_spi(1'b0),
-  .seialize_data_stream(seialize_data_stream), 
   .osc_auto_trim_mopshub(osc_auto_trim_mopshub),                      
   .endwait_all(endwait_all),  
   .tx_elink2bit(tx_mopshub_2bit),
-  .tx_elink1bit(tx_mopshub_1bit),
-  .rx_elink1bit(rx_mopshub_1bit),
   .rx_elink2bit(rx_mopshub_2bit),
   .mosi_m(spi_dat_m),
   .miso_m(spi_dat_m),        
@@ -247,12 +240,10 @@ module tb_mopshub_top();
   .tx31(tx31));
   
   data_generator#(
-  .n_buses (5'd1))data_generator0(
+  .n_buses (5'd31))data_generator0(
   .clk_mops(clk_mops),
   .clk(clk_40_m),
-  .clk_80(clk_80),
   .rst(rst),
-  .seialize_data_stream(seialize_data_stream), 
   .ext_rst_mops(rst_bus),
   .ext_counter_gen(ext_counter_gen),
   .ext_trim_mops(osc_auto_trim_mopshub),
@@ -299,9 +290,7 @@ module tb_mopshub_top();
   .end_trim_bus(end_trim_bus),
   .start_trim_osc(start_trim_osc),
   //ElinkSignals
-  .tx_elink1bit(rx_mopshub_1bit),
   .tx_elink2bit(rx_mopshub_2bit),
-  .rx_elink1bit(tx_mopshub_1bit),
   .rx_elink2bit(tx_mopshub_2bit),
   //RX-TX signals
   .rx0(rx0),        
@@ -388,12 +377,6 @@ module tb_mopshub_top();
   .clock_in  (clk_m), 
   .clock_out (clk_40_m)
   ); 
-    
-  clock_divider #(28'd2)
-  clock_divider2( 
-  .clock_in  (clk_m), 
-  .clock_out (clk_80)
-  );   
 
   /////******* Reset Generator task--low active ****/////
   initial 
@@ -412,8 +395,8 @@ module tb_mopshub_top();
     end
     if(sign_on_sig ==1)//start Rx test
     begin
-    test_rx =1'b1;
-    //test_advanced = 1'b1;
+    //test_rx =1'b1;
+    test_advanced = 1'b1;
     end
     if(test_rx_end ==1)//Done Rx test
     begin
