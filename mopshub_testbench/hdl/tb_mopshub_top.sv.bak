@@ -14,13 +14,13 @@ module tb_mopshub_top();
   wire             clk_m;
   wire             clk_mops;
   wire             clk_40_m;
-  wire             clk_80;
   reg              rst   = 1'b0;
   reg              endwait_all = 1'b0;
   wire             rst_bus;
   wire             ext_counter_gen;
   reg              sel_bus = 1'b0;
   reg     [4:0]    can_tra_select_dbg =5'd0;
+  reg     [4:0]    n_buses =5'd31;
   wire             sign_on_sig;
   wire             start_init;
   wire             end_init;
@@ -163,9 +163,8 @@ module tb_mopshub_top();
   
   mopshub_top mopshub0(
   .clk(clk_40_m),
-  .clk_80(clk_80),
   .rst(rst),
-  .n_buses(5'd31),
+  .n_buses(n_buses),
   .dbg_elink(1'b0), 
   .dbg_spi(1'b0),
   .osc_auto_trim_mopshub(osc_auto_trim_mopshub),                      
@@ -242,10 +241,9 @@ module tb_mopshub_top();
   .tx31(tx31));
   
   data_generator#(
-  .n_buses (5'd31))data_generator0(
+  .n_buses (n_buses))data_generator0(
   .clk_mops(clk_mops),
   .clk(clk_40_m),
-  .clk_80(clk_80),
   .rst(rst),
   .ext_rst_mops(rst_bus),
   .ext_counter_gen(ext_counter_gen),
@@ -380,12 +378,6 @@ module tb_mopshub_top();
   .clock_in  (clk_m), 
   .clock_out (clk_40_m)
   ); 
-    
-  clock_divider #(28'd2)
-  clock_divider2( 
-  .clock_in  (clk_m), 
-  .clock_out (clk_80)
-  );   
 
   /////******* Reset Generator task--low active ****/////
   initial 
@@ -404,8 +396,8 @@ module tb_mopshub_top();
     end
     if(sign_on_sig ==1)//start Rx test
     begin
-    //test_rx =1'b1;
-    test_advanced = 1'b1;
+    test_rx =1'b1;
+    //test_advanced = 1'b1;
     end
     if(test_rx_end ==1)//Done Rx test
     begin

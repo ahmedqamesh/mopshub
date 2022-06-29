@@ -13,8 +13,6 @@
 module dec32_Nbit( 
   input   wire            clk, 
   input   wire            rst, 
-  input   wire            read_can_mode, 
-  input   wire            ireqsucrec,   
   input   wire            Input0, 
   input   wire            Input1, 
   input   wire            Input2, 
@@ -94,15 +92,7 @@ begin
   begin
     output_bus_reg <= 32'd0;
   end
- else
-  if(ireqsucrec)//fill the buffer with signals
-  begin
-      output_bus_reg <= irqsucrec_signals;
-    end
-  else
-  begin 
-   output_bus_reg <= output_bus_reg;
- end
+ else output_bus_reg <= irqsucrec_signals; //fill the array with signals
 end    
 endmodule
   

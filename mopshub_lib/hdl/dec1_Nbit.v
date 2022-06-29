@@ -28,47 +28,42 @@ begin
  if(!rst)output_bus_reg <= 32'd0;
  if(buffer_en) output_bus_reg  <= data_rec_in;
  else if(rst_bus_sig)
-  case (bus_rec_select)
-    5'h0  : output_bus_reg  <= {data_rec_in[31:1 ],1'b0};
-    5'h1  : output_bus_reg  <= {data_rec_in[31:2 ],1'b0, data_rec_in[0]};
-    5'h2  : output_bus_reg  <= {data_rec_in[31:3 ],1'b0, data_rec_in[1 :0]};
-    5'h3  : output_bus_reg  <= {data_rec_in[31:4 ],1'b0, data_rec_in[2 :0]};   
-    5'h4  : output_bus_reg  <= {data_rec_in[31:5 ],1'b0, data_rec_in[3 :0]};   
-    5'h5  : output_bus_reg  <= {data_rec_in[31:6 ],1'b0, data_rec_in[4 :0]};    
-    5'h6  : output_bus_reg  <= {data_rec_in[31:7 ],1'b0, data_rec_in[5 :0]};  
-    5'h7  : output_bus_reg  <= {data_rec_in[31:8 ],1'b0, data_rec_in[6 :0]};
-    5'h8  : output_bus_reg  <= {data_rec_in[31:9 ],1'b0, data_rec_in[7 :0]};    
-    5'h9  : output_bus_reg  <= {data_rec_in[31:10],1'b0, data_rec_in[8 :0]};     
-    5'hA  : output_bus_reg  <= {data_rec_in[31:11],1'b0, data_rec_in[9 :0]};  
-    5'hB  : output_bus_reg  <= {data_rec_in[31:12],1'b0, data_rec_in[10:0]};     
-    5'hC  : output_bus_reg  <= {data_rec_in[31:13],1'b0, data_rec_in[11:0]};  
-    5'hD  : output_bus_reg  <= {data_rec_in[31:14],1'b0, data_rec_in[12:0]};
-    5'hE  : output_bus_reg  <= {data_rec_in[31:15],1'b0, data_rec_in[13:0]};
-    5'hF  : output_bus_reg  <= {data_rec_in[31:16],1'b0, data_rec_in[14:0]};
-    5'h10 : output_bus_reg  <= {data_rec_in[31:17],1'b0, data_rec_in[15:0]};
-    5'h11 : output_bus_reg  <= {data_rec_in[31:18],1'b0, data_rec_in[16:0]};
-    5'h12 : output_bus_reg  <= {data_rec_in[31:19],1'b0, data_rec_in[17:0]};
-    5'h13 : output_bus_reg  <= {data_rec_in[31:20],1'b0, data_rec_in[18:0]};
-    5'h14 : output_bus_reg  <= {data_rec_in[31:21],1'b0, data_rec_in[19:0]};
-    5'h15 : output_bus_reg  <= {data_rec_in[31:22],1'b0, data_rec_in[20:0]};
-    5'h16 : output_bus_reg  <= {data_rec_in[31:23],1'b0, data_rec_in[21:0]};
-    5'h17 : output_bus_reg  <= {data_rec_in[31:24],1'b0, data_rec_in[22:0]};
-    5'h18 : output_bus_reg  <= {data_rec_in[31:25],1'b0, data_rec_in[23:0]};
-    5'h19 : output_bus_reg  <= {data_rec_in[31:26],1'b0, data_rec_in[24:0]}; 
-    5'h1A : output_bus_reg  <= {data_rec_in[31:27],1'b0, data_rec_in[25:0]};
-    5'h1B : output_bus_reg  <= {data_rec_in[31:28],1'b0, data_rec_in[26:0]};
-    5'h1C : output_bus_reg  <= {data_rec_in[31:29],1'b0, data_rec_in[27:0]}; 
-    5'h1D : output_bus_reg  <= {data_rec_in[31:30],1'b0, data_rec_in[28:0]}; 
-    5'h1E : output_bus_reg  <= {data_rec_in[31   ],1'b0, data_rec_in[29:0]};    
-    5'h1F : output_bus_reg  <= {1'b0, data_rec_in[30:0]};          
-    default: begin 
-      output_bus_reg  <=  32'd0;
-    end    
-  endcase
-  else
-  begin 
-   output_bus_reg <= output_bus_reg;
-  end
+    case (bus_rec_select)
+      5'h0  : output_bus_reg  <= {data_rec_in[31:1 ],1'b0};
+      5'h1  : output_bus_reg  <= {data_rec_in[31:2 ],1'b0, data_rec_in[0]};
+      5'h2  : output_bus_reg  <= {data_rec_in[31:3 ],1'b0, data_rec_in[1 :0]};
+      5'h3  : output_bus_reg  <= {data_rec_in[31:4 ],1'b0, data_rec_in[2 :0]};   
+      5'h4  : output_bus_reg  <= {data_rec_in[31:5 ],1'b0, data_rec_in[3 :0]};   
+      5'h5  : output_bus_reg  <= {data_rec_in[31:6 ],1'b0, data_rec_in[4 :0]};    
+      5'h6  : output_bus_reg  <= {data_rec_in[31:7 ],1'b0, data_rec_in[5 :0]};  
+      5'h7  : output_bus_reg  <= {data_rec_in[31:8 ],1'b0, data_rec_in[6 :0]};
+      5'h8  : output_bus_reg  <= {data_rec_in[31:9 ],1'b0, data_rec_in[7 :0]};    
+      5'h9  : output_bus_reg  <= {data_rec_in[31:10],1'b0, data_rec_in[8 :0]};     
+      5'hA  : output_bus_reg  <= {data_rec_in[31:11],1'b0, data_rec_in[9 :0]};  
+      5'hB  : output_bus_reg  <= {data_rec_in[31:12],1'b0, data_rec_in[10:0]};     
+      5'hC  : output_bus_reg  <= {data_rec_in[31:13],1'b0, data_rec_in[11:0]};  
+      5'hD  : output_bus_reg  <= {data_rec_in[31:14],1'b0, data_rec_in[12:0]};
+      5'hE  : output_bus_reg  <= {data_rec_in[31:15],1'b0, data_rec_in[13:0]};
+      5'hF  : output_bus_reg  <= {data_rec_in[31:16],1'b0, data_rec_in[14:0]};
+      5'h10 : output_bus_reg  <= {data_rec_in[31:17],1'b0, data_rec_in[15:0]};
+      5'h11 : output_bus_reg  <= {data_rec_in[31:18],1'b0, data_rec_in[16:0]};
+      5'h12 : output_bus_reg  <= {data_rec_in[31:19],1'b0, data_rec_in[17:0]};
+      5'h13 : output_bus_reg  <= {data_rec_in[31:20],1'b0, data_rec_in[18:0]};
+      5'h14 : output_bus_reg  <= {data_rec_in[31:21],1'b0, data_rec_in[19:0]};
+      5'h15 : output_bus_reg  <= {data_rec_in[31:22],1'b0, data_rec_in[20:0]};
+      5'h16 : output_bus_reg  <= {data_rec_in[31:23],1'b0, data_rec_in[21:0]};
+      5'h17 : output_bus_reg  <= {data_rec_in[31:24],1'b0, data_rec_in[22:0]};
+      5'h18 : output_bus_reg  <= {data_rec_in[31:25],1'b0, data_rec_in[23:0]};
+      5'h19 : output_bus_reg  <= {data_rec_in[31:26],1'b0, data_rec_in[24:0]}; 
+      5'h1A : output_bus_reg  <= {data_rec_in[31:27],1'b0, data_rec_in[25:0]};
+      5'h1B : output_bus_reg  <= {data_rec_in[31:28],1'b0, data_rec_in[26:0]};
+      5'h1C : output_bus_reg  <= {data_rec_in[31:29],1'b0, data_rec_in[27:0]}; 
+      5'h1D : output_bus_reg  <= {data_rec_in[31:30],1'b0, data_rec_in[28:0]}; 
+      5'h1E : output_bus_reg  <= {data_rec_in[31   ],1'b0, data_rec_in[29:0]};    
+      5'h1F : output_bus_reg  <= {1'b0, data_rec_in[30:0]};          
+      default: output_bus_reg  <=  32'd0;
+    endcase
+  else output_bus_reg <= output_bus_reg;
 end 
 assign data_rec_out = output_bus_reg;  
 endmodule
