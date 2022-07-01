@@ -77,7 +77,7 @@ begin
        5'h18 : data_init_reg = 8'hFE;         //11111110
        5'h19 : data_init_reg = 8'hFF;         //11111111
        5'h1A : data_init_reg = 8'h00;         //00000000
-       5'h1B : data_init_reg = 8'h12;         //00010010
+       5'h1B : data_init_reg = 8'h12;         //00010010 //09
        
        
        5'h1C : data_init_reg = 8'h82;         //Gain calibrate 0   

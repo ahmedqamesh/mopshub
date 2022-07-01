@@ -20,8 +20,6 @@ module can_bus_activity (
    //Step name
    input wire       start_init,
    input wire       end_init,
-   input wire       trim_sig_start,
-   input wire       trim_sig_end, 
 
    input wire       test_tx,
    input wire       test_tx_start,
@@ -37,8 +35,7 @@ module can_bus_activity (
    input wire       test_advanced,
    input wire       costum_msg_start,
    input wire       costum_msg_end,
-      
-   input wire       osc_auto_trim, 
+    
    input wire       osc_auto_trim_mopshub,     
    input wire       end_trim_bus,
    input wire       start_trim_osc,
@@ -62,21 +59,21 @@ reg      [75:0] responsereg = 75'h0;
   begin
     responsereg <= data_rec_uplink;
     if(start_init)     $strobeh("\t initialization [BUS ID %d]:",can_tra_select); 
-    if(trim_sig_start) $strobeh("\t Oscillator Trimming [BUS ID %d]:",bus_id);  
+   // if(trim_sig_start) $strobeh("\t Oscillator Trimming [BUS ID %d]:",bus_id);  
     if(start_trim_osc) $strobeh("\t Oscillator Trimming [BUS ID %d]:",power_bus_cnt);         
        /////*********************************  Sign In message print *********************************
     if(end_trim_bus)
       $strobeh("\t Sign In Message[BUS ID %d (%h)]: \t request %h \t response %h \t",can_rec_select,can_rec_select,requestreg,responsereg);
-    if(test_rx_end || end_init ||test_tx_end ||(end_trim_bus||trim_sig_end || costum_msg_end ))
+    if(test_rx_end || end_init ||test_tx_end ||end_trim_bus|| costum_msg_end)
     begin 
       $strobe("*****************************************************************************");
     end         
     /////*********************************  Test Osc Trim  Response part  *********************************
-    if((reqmsg|| start_trim_osc ) && (osc_auto_trim ||osc_auto_trim_mopshub) && !test_rx && !test_mopshub_core )
+    if((reqmsg|| start_trim_osc ) && osc_auto_trim_mopshub && !test_rx && !test_mopshub_core )
     begin
       requestreg <= {76'h555aaaaaaaaaaaaaaaa};  
     end 
-    if(respmsg && osc_auto_trim && !test_rx && !test_mopshub_core )
+    if(respmsg && osc_auto_trim_mopshub && !test_rx && !test_mopshub_core )
       $strobeh("\t Oscillator Trimming [BUS ID %d]: \t request %h \t response %h",bus_id,requestreg,responsereg);   
      /////********************************* test RX part  *********************************
     if(reqmsg && test_rx) requestreg <= data_rec_uplink; 

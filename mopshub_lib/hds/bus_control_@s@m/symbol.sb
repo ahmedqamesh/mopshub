@@ -11,7 +11,7 @@ appVersion "2019.4 (Build 4)"
 model (Symbol
 commonDM (CommonDM
 ldm (LogicalDM
-suid 110,0
+suid 111,0
 usingSuid 1
 emptyRow *1 (LEmptyRow
 )
@@ -142,7 +142,7 @@ uid 10251,0
 *22 (LGroup
 name "mon"
 comment ""
-uid 11408,0
+uid 11550,0
 optionalChildren [
 *23 (LogPort
 port (LogicalPort
@@ -164,7 +164,7 @@ m 1
 decl (Decl
 n "cs_m"
 t "reg"
-o 22
+o 21
 suid 80,0
 )
 )
@@ -185,26 +185,234 @@ uid 9550,0
 ]
 )
 *26 (LGroup
-name "can"
+name "spi"
 comment ""
-uid 11409,0
+uid 11551,0
 optionalChildren [
 *27 (LogPort
 port (LogicalPort
 lang 5
-m 1
 decl (Decl
-n "addr"
-t "reg"
-b "[4:0]"
-eolc "request to caninterface block"
-o 20
-suid 18,0
+n "irq_spi_tra"
+t "wire"
+o 11
+suid 89,0
 )
 )
-uid 403,0
+uid 10283,0
 )
 *28 (LogPort
+port (LogicalPort
+lang 5
+m 1
+decl (Decl
+n "spi_cs"
+t "reg"
+o 29
+suid 90,0
+)
+)
+uid 10285,0
+)
+*29 (LogPort
+port (LogicalPort
+lang 5
+m 1
+decl (Decl
+n "start_read_miso"
+t "reg"
+o 34
+suid 91,0
+)
+)
+uid 10287,0
+)
+*30 (LogPort
+port (LogicalPort
+lang 5
+decl (Decl
+n "end_read_miso"
+t "wire"
+o 9
+suid 92,0
+)
+)
+uid 10289,0
+)
+*31 (LogPort
+port (LogicalPort
+lang 5
+m 1
+decl (Decl
+n "start_write_elink_spi"
+t "reg"
+o 35
+suid 93,0
+)
+)
+uid 10291,0
+)
+*32 (LogPort
+port (LogicalPort
+lang 5
+decl (Decl
+n "end_write_elink_spi"
+t "wire"
+o 10
+suid 94,0
+)
+)
+uid 10293,0
+)
+*33 (LogPort
+port (LogicalPort
+lang 5
+m 1
+decl (Decl
+n "end_spi_proc"
+t "reg"
+o 24
+suid 95,0
+)
+)
+uid 10295,0
+)
+*34 (LogPort
+port (LogicalPort
+lang 5
+m 1
+decl (Decl
+n "read_spi_mode"
+t "reg"
+o 27
+suid 96,0
+)
+)
+uid 10297,0
+)
+*35 (LogPort
+port (LogicalPort
+lang 5
+decl (Decl
+n "start_read_power"
+t "wire"
+o 18
+suid 100,0
+)
+)
+uid 10441,0
+)
+*36 (LogPort
+port (LogicalPort
+lang 5
+decl (Decl
+n "busy_p"
+t "wire"
+o 3
+suid 101,0
+)
+)
+uid 10556,0
+)
+*37 (LogPort
+port (LogicalPort
+lang 5
+m 1
+decl (Decl
+n "transcieve_p"
+t "reg"
+o 38
+suid 102,0
+)
+)
+uid 10752,0
+)
+*38 (LogPort
+port (LogicalPort
+lang 5
+m 1
+decl (Decl
+n "transcieve_m"
+t "reg"
+o 37
+suid 103,0
+)
+)
+uid 10894,0
+)
+*39 (LogPort
+port (LogicalPort
+lang 5
+decl (Decl
+n "busy_m"
+t "wire"
+o 2
+suid 104,0
+)
+)
+uid 10928,0
+)
+*40 (LogPort
+port (LogicalPort
+lang 5
+m 1
+decl (Decl
+n "start_mon_cnt"
+t "reg"
+o 32
+suid 108,0
+)
+)
+uid 11253,0
+)
+*41 (LogPort
+port (LogicalPort
+lang 5
+decl (Decl
+n "end_mon_cnt"
+t "wire"
+o 7
+suid 109,0
+)
+)
+uid 11255,0
+)
+*42 (LogPort
+port (LogicalPort
+lang 5
+m 1
+decl (Decl
+n "rst_mon_cnt"
+t "reg"
+o 28
+suid 110,0
+)
+)
+uid 11321,0
+)
+*43 (LogPort
+port (LogicalPort
+lang 5
+m 1
+decl (Decl
+n "data_init"
+t "reg"
+b "[7:0]"
+eolc "request to caninterface block"
+o 23
+suid 111,0
+)
+)
+uid 11436,0
+)
+]
+)
+*44 (LGroup
+name "can"
+comment ""
+uid 11552,0
+optionalChildren [
+*45 (LogPort
 port (LogicalPort
 lang 5
 decl (Decl
@@ -217,20 +425,20 @@ suid 34,0
 )
 uid 2919,0
 )
-*29 (LogPort
+*46 (LogPort
 port (LogicalPort
 lang 5
 m 1
 decl (Decl
 n "cs_p"
 t "reg"
-o 23
+o 22
 suid 74,0
 )
 )
 uid 8207,0
 )
-*30 (LogPort
+*47 (LogPort
 port (LogicalPort
 lang 5
 m 1
@@ -238,13 +446,13 @@ decl (Decl
 n "bus_en_done"
 t "reg"
 eolc "indication to bridge FSM when initialization is finished "
-o 21
+o 20
 suid 77,0
 )
 )
 uid 8324,0
 )
-*31 (LogPort
+*48 (LogPort
 port (LogicalPort
 lang 5
 decl (Decl
@@ -259,12 +467,12 @@ uid 9548,0
 )
 ]
 )
-*32 (LGroup
+*49 (LGroup
 name "top"
 comment ""
-uid 11410,0
+uid 11553,0
 optionalChildren [
-*33 (LogPort
+*50 (LogPort
 port (LogicalPort
 lang 5
 decl (Decl
@@ -277,7 +485,7 @@ suid 23,0
 )
 uid 1301,0
 )
-*34 (LogPort
+*51 (LogPort
 port (LogicalPort
 lang 5
 m 1
@@ -292,7 +500,7 @@ suid 39,0
 )
 uid 3603,0
 )
-*35 (LogPort
+*52 (LogPort
 port (LogicalPort
 lang 5
 decl (Decl
@@ -305,7 +513,7 @@ suid 6,0
 )
 uid 168,0
 )
-*36 (LogPort
+*53 (LogPort
 port (LogicalPort
 lang 5
 decl (Decl
@@ -318,7 +526,7 @@ suid 4,0
 )
 uid 164,0
 )
-*37 (LogPort
+*54 (LogPort
 port (LogicalPort
 lang 5
 m 1
@@ -333,218 +541,10 @@ uid 8008,0
 )
 ]
 )
-*38 (LGroup
-name "spi"
-comment ""
-uid 11411,0
-optionalChildren [
-*39 (LogPort
-port (LogicalPort
-lang 5
-decl (Decl
-n "irq_spi_tra"
-t "wire"
-o 11
-suid 89,0
-)
-)
-uid 10283,0
-)
-*40 (LogPort
-port (LogicalPort
-lang 5
-m 1
-decl (Decl
-n "spi_cs"
-t "reg"
-o 29
-suid 90,0
-)
-)
-uid 10285,0
-)
-*41 (LogPort
-port (LogicalPort
-lang 5
-m 1
-decl (Decl
-n "start_read_miso"
-t "reg"
-o 34
-suid 91,0
-)
-)
-uid 10287,0
-)
-*42 (LogPort
-port (LogicalPort
-lang 5
-decl (Decl
-n "end_read_miso"
-t "wire"
-o 9
-suid 92,0
-)
-)
-uid 10289,0
-)
-*43 (LogPort
-port (LogicalPort
-lang 5
-m 1
-decl (Decl
-n "start_write_elink_spi"
-t "reg"
-o 35
-suid 93,0
-)
-)
-uid 10291,0
-)
-*44 (LogPort
-port (LogicalPort
-lang 5
-decl (Decl
-n "end_write_elink_spi"
-t "wire"
-o 10
-suid 94,0
-)
-)
-uid 10293,0
-)
-*45 (LogPort
-port (LogicalPort
-lang 5
-m 1
-decl (Decl
-n "end_spi_proc"
-t "reg"
-o 24
-suid 95,0
-)
-)
-uid 10295,0
-)
-*46 (LogPort
-port (LogicalPort
-lang 5
-m 1
-decl (Decl
-n "read_spi_mode"
-t "reg"
-o 27
-suid 96,0
-)
-)
-uid 10297,0
-)
-*47 (LogPort
-port (LogicalPort
-lang 5
-decl (Decl
-n "start_read_power"
-t "wire"
-o 18
-suid 100,0
-)
-)
-uid 10441,0
-)
-*48 (LogPort
-port (LogicalPort
-lang 5
-decl (Decl
-n "busy_p"
-t "wire"
-o 3
-suid 101,0
-)
-)
-uid 10556,0
-)
-*49 (LogPort
-port (LogicalPort
-lang 5
-m 1
-decl (Decl
-n "transcieve_p"
-t "reg"
-o 38
-suid 102,0
-)
-)
-uid 10752,0
-)
-*50 (LogPort
-port (LogicalPort
-lang 5
-m 1
-decl (Decl
-n "transcieve_m"
-t "reg"
-o 37
-suid 103,0
-)
-)
-uid 10894,0
-)
-*51 (LogPort
-port (LogicalPort
-lang 5
-decl (Decl
-n "busy_m"
-t "wire"
-o 2
-suid 104,0
-)
-)
-uid 10928,0
-)
-*52 (LogPort
-port (LogicalPort
-lang 5
-m 1
-decl (Decl
-n "start_mon_cnt"
-t "reg"
-o 32
-suid 108,0
-)
-)
-uid 11253,0
-)
-*53 (LogPort
-port (LogicalPort
-lang 5
-decl (Decl
-n "end_mon_cnt"
-t "wire"
-o 7
-suid 109,0
-)
-)
-uid 11255,0
-)
-*54 (LogPort
-port (LogicalPort
-lang 5
-m 1
-decl (Decl
-n "rst_mon_cnt"
-t "reg"
-o 28
-suid 110,0
-)
-)
-uid 11321,0
-)
-]
-)
 *55 (LGroup
 name "elink"
 comment ""
-uid 11412,0
+uid 11554,0
 optionalChildren [
 *56 (LogPort
 port (LogicalPort
@@ -626,232 +626,232 @@ dimension 20
 uid 79,0
 )
 *63 (MRCItem
-litem &36
+litem &53
 pos 0
 dimension 20
 uid 165,0
 )
 *64 (MRCItem
-litem &35
+litem &52
 pos 1
 dimension 20
 uid 169,0
 )
 *65 (MRCItem
-litem &27
-pos 8
-dimension 20
-uid 402,0
-)
-*66 (MRCItem
-litem &33
+litem &50
 pos 2
 dimension 20
 uid 1300,0
 )
-*67 (MRCItem
-litem &28
+*66 (MRCItem
+litem &45
 pos 3
 dimension 20
 uid 2918,0
 )
-*68 (MRCItem
-litem &34
+*67 (MRCItem
+litem &51
 pos 5
 dimension 20
 uid 3602,0
 )
-*69 (MRCItem
+*68 (MRCItem
 litem &15
-pos 10
+pos 9
 dimension 20
 uid 7763,0
 )
-*70 (MRCItem
-litem &37
+*69 (MRCItem
+litem &54
 pos 4
 dimension 20
 uid 8007,0
 )
-*71 (MRCItem
-litem &29
-pos 9
+*70 (MRCItem
+litem &46
+pos 8
 dimension 20
 uid 8206,0
 )
-*72 (MRCItem
-litem &30
+*71 (MRCItem
+litem &47
 pos 7
 dimension 20
 uid 8323,0
 )
-*73 (MRCItem
+*72 (MRCItem
 litem &23
-pos 12
+pos 11
 dimension 20
 uid 8327,0
 )
-*74 (MRCItem
+*73 (MRCItem
 litem &24
-pos 13
+pos 12
 dimension 20
 uid 8444,0
 )
-*75 (MRCItem
+*74 (MRCItem
 litem &16
-pos 14
+pos 13
 dimension 20
 uid 8526,0
 )
-*76 (MRCItem
+*75 (MRCItem
 litem &17
-pos 15
+pos 14
 dimension 20
 uid 8528,0
 )
-*77 (MRCItem
+*76 (MRCItem
 litem &18
-pos 16
+pos 15
 dimension 20
 uid 8565,0
 )
-*78 (MRCItem
-litem &31
+*77 (MRCItem
+litem &48
 pos 6
 dimension 20
 uid 9547,0
 )
-*79 (MRCItem
+*78 (MRCItem
 litem &25
-pos 11
+pos 10
 dimension 20
 uid 9549,0
 )
-*80 (MRCItem
+*79 (MRCItem
 litem &19
-pos 17
+pos 16
 dimension 20
 uid 9986,0
 )
-*81 (MRCItem
+*80 (MRCItem
 litem &20
-pos 18
+pos 17
 dimension 20
 uid 9988,0
 )
-*82 (MRCItem
+*81 (MRCItem
 litem &21
-pos 19
+pos 18
 dimension 20
 uid 10250,0
 )
-*83 (MRCItem
-litem &39
-pos 23
+*82 (MRCItem
+litem &27
+pos 22
 dimension 20
 uid 10282,0
 )
-*84 (MRCItem
-litem &40
-pos 25
+*83 (MRCItem
+litem &28
+pos 24
 dimension 20
 uid 10284,0
 )
-*85 (MRCItem
-litem &41
-pos 26
+*84 (MRCItem
+litem &29
+pos 25
 dimension 20
 uid 10286,0
 )
-*86 (MRCItem
-litem &42
-pos 20
+*85 (MRCItem
+litem &30
+pos 19
 dimension 20
 uid 10288,0
 )
-*87 (MRCItem
-litem &43
-pos 27
+*86 (MRCItem
+litem &31
+pos 26
 dimension 20
 uid 10290,0
 )
-*88 (MRCItem
-litem &44
-pos 22
+*87 (MRCItem
+litem &32
+pos 21
 dimension 20
 uid 10292,0
 )
-*89 (MRCItem
-litem &45
-pos 21
+*88 (MRCItem
+litem &33
+pos 20
 dimension 20
 uid 10294,0
 )
-*90 (MRCItem
-litem &46
-pos 24
+*89 (MRCItem
+litem &34
+pos 23
 dimension 20
 uid 10296,0
 )
-*91 (MRCItem
+*90 (MRCItem
 litem &56
-pos 28
+pos 27
 dimension 20
 uid 10298,0
 )
-*92 (MRCItem
+*91 (MRCItem
 litem &57
-pos 29
+pos 28
 dimension 20
 uid 10379,0
 )
-*93 (MRCItem
-litem &47
-pos 30
+*92 (MRCItem
+litem &35
+pos 29
 dimension 20
 uid 10440,0
 )
-*94 (MRCItem
-litem &48
-pos 31
+*93 (MRCItem
+litem &36
+pos 30
 dimension 20
 uid 10555,0
 )
-*95 (MRCItem
-litem &49
-pos 32
+*94 (MRCItem
+litem &37
+pos 31
 dimension 20
 uid 10751,0
 )
-*96 (MRCItem
-litem &50
-pos 33
+*95 (MRCItem
+litem &38
+pos 32
 dimension 20
 uid 10893,0
 )
-*97 (MRCItem
-litem &51
-pos 34
+*96 (MRCItem
+litem &39
+pos 33
 dimension 20
 uid 10927,0
 )
-*98 (MRCItem
-litem &52
-pos 35
+*97 (MRCItem
+litem &40
+pos 34
 dimension 20
 uid 11252,0
 )
-*99 (MRCItem
-litem &53
-pos 37
+*98 (MRCItem
+litem &41
+pos 36
 dimension 20
 uid 11254,0
 )
-*100 (MRCItem
-litem &54
-pos 36
+*99 (MRCItem
+litem &42
+pos 35
 dimension 20
 uid 11320,0
+)
+*100 (MRCItem
+litem &43
+pos 37
+dimension 20
+uid 11435,0
 )
 ]
 )
@@ -1110,19 +1110,19 @@ value "/home/dcs/git/mopshub/mopshub_lib/hds/bus_control_SM"
 )
 (vvPair
 variable "date"
-value "06/29/22"
+value "07/01/22"
 )
 (vvPair
 variable "day"
-value "Wed"
+value "Fri"
 )
 (vvPair
 variable "day_long"
-value "Wednesday"
+value "Friday"
 )
 (vvPair
 variable "dd"
-value "29"
+value "01"
 )
 (vvPair
 variable "entity_name"
@@ -1150,7 +1150,7 @@ value "dcs"
 )
 (vvPair
 variable "graphical_source_date"
-value "06/29/22"
+value "07/01/22"
 )
 (vvPair
 variable "graphical_source_group"
@@ -1162,7 +1162,7 @@ value "chipdev2.physik.uni-wuppertal.de"
 )
 (vvPair
 variable "graphical_source_time"
-value "10:29:08"
+value "10:40:32"
 )
 (vvPair
 variable "group"
@@ -1206,7 +1206,7 @@ value "$HDS_PROJECT_DIR/mopshub_lib/svassistant"
 )
 (vvPair
 variable "mm"
-value "06"
+value "07"
 )
 (vvPair
 variable "module_name"
@@ -1214,11 +1214,11 @@ value "bus_control_SM"
 )
 (vvPair
 variable "month"
-value "Jun"
+value "Jul"
 )
 (vvPair
 variable "month_long"
-value "June"
+value "July"
 )
 (vvPair
 variable "p"
@@ -1282,7 +1282,7 @@ value "symbol"
 )
 (vvPair
 variable "time"
-value "10:29:08"
+value "10:40:32"
 )
 (vvPair
 variable "unit"
@@ -1411,55 +1411,6 @@ suid 6,0
 )
 )
 *133 (CptPort
-uid 404,0
-ps "OnEdgeStrategy"
-shape (Triangle
-uid 405,0
-ro 270
-va (VaSet
-vasetType 1
-fg "0,65535,0"
-)
-xt "88250,14625,89000,15375"
-)
-tg (CPTG
-uid 406,0
-ps "CptPortTextPlaceStrategy"
-stg "VerticalLayoutStrategy"
-f (Text
-uid 407,0
-va (VaSet
-font "courier,8,0"
-)
-xt "90000,14550,92000,15450"
-st "addr"
-blo "90000,15250"
-tm "CptPortNameMgr"
-)
-)
-dt (MLText
-uid 408,0
-va (VaSet
-font "courier,8,0"
-)
-xt "2000,20700,30500,21600"
-st "output reg [4:0]  addr; // request to caninterface block
-"
-)
-thePort (LogicalPort
-lang 5
-m 1
-decl (Decl
-n "addr"
-t "reg"
-b "[4:0]"
-eolc "request to caninterface block"
-o 20
-suid 18,0
-)
-)
-)
-*134 (CptPort
 uid 1302,0
 ps "OnEdgeStrategy"
 shape (Triangle
@@ -1506,7 +1457,7 @@ suid 23,0
 )
 )
 )
-*135 (CptPort
+*134 (CptPort
 uid 2920,0
 ps "OnEdgeStrategy"
 shape (Triangle
@@ -1554,7 +1505,7 @@ suid 34,0
 )
 )
 )
-*136 (CptPort
+*135 (CptPort
 uid 3604,0
 ps "OnEdgeStrategy"
 shape (Triangle
@@ -1604,7 +1555,7 @@ suid 39,0
 )
 )
 )
-*137 (CptPort
+*136 (CptPort
 uid 7767,0
 ps "OnEdgeStrategy"
 shape (Triangle
@@ -1652,7 +1603,7 @@ suid 69,0
 )
 )
 )
-*138 (CptPort
+*137 (CptPort
 uid 8011,0
 ps "OnEdgeStrategy"
 shape (Triangle
@@ -1700,7 +1651,7 @@ suid 73,0
 )
 )
 )
-*139 (CptPort
+*138 (CptPort
 uid 8210,0
 ps "OnEdgeStrategy"
 shape (Triangle
@@ -1733,7 +1684,7 @@ uid 8214,0
 va (VaSet
 font "courier,8,0"
 )
-xt "2000,23400,14000,24300"
+xt "2000,22500,14000,23400"
 st "output reg        cs_p;
 "
 )
@@ -1743,12 +1694,12 @@ m 1
 decl (Decl
 n "cs_p"
 t "reg"
-o 23
+o 22
 suid 74,0
 )
 )
 )
-*140 (CptPort
+*139 (CptPort
 uid 8332,0
 ps "OnEdgeStrategy"
 shape (Triangle
@@ -1796,7 +1747,7 @@ suid 79,0
 )
 )
 )
-*141 (CptPort
+*140 (CptPort
 uid 8337,0
 ps "OnEdgeStrategy"
 shape (Triangle
@@ -1829,7 +1780,7 @@ uid 8341,0
 va (VaSet
 font "courier,8,0"
 )
-xt "2000,21600,48000,22500"
+xt "2000,20700,48000,21600"
 st "output reg        bus_en_done; // indication to bridge FSM when initialization is finished 
 "
 )
@@ -1840,12 +1791,12 @@ decl (Decl
 n "bus_en_done"
 t "reg"
 eolc "indication to bridge FSM when initialization is finished "
-o 21
+o 20
 suid 77,0
 )
 )
 )
-*142 (CptPort
+*141 (CptPort
 uid 8449,0
 ps "OnEdgeStrategy"
 shape (Triangle
@@ -1878,7 +1829,7 @@ uid 8453,0
 va (VaSet
 font "courier,8,0"
 )
-xt "2000,22500,14000,23400"
+xt "2000,21600,14000,22500"
 st "output reg        cs_m;
 "
 )
@@ -1888,12 +1839,12 @@ m 1
 decl (Decl
 n "cs_m"
 t "reg"
-o 22
+o 21
 suid 80,0
 )
 )
 )
-*143 (CptPort
+*142 (CptPort
 uid 8533,0
 ps "OnEdgeStrategy"
 shape (Triangle
@@ -1941,7 +1892,7 @@ suid 81,0
 )
 )
 )
-*144 (CptPort
+*143 (CptPort
 uid 8538,0
 ps "OnEdgeStrategy"
 shape (Triangle
@@ -1987,7 +1938,7 @@ suid 82,0
 )
 )
 )
-*145 (CptPort
+*144 (CptPort
 uid 8570,0
 ps "OnEdgeStrategy"
 shape (Triangle
@@ -2033,7 +1984,7 @@ suid 83,0
 )
 )
 )
-*146 (CptPort
+*145 (CptPort
 uid 9554,0
 ps "OnEdgeStrategy"
 shape (Triangle
@@ -2079,7 +2030,7 @@ suid 85,0
 )
 )
 )
-*147 (CptPort
+*146 (CptPort
 uid 9559,0
 ps "OnEdgeStrategy"
 shape (Triangle
@@ -2126,7 +2077,7 @@ suid 84,0
 )
 )
 )
-*148 (CptPort
+*147 (CptPort
 uid 9993,0
 ps "OnEdgeStrategy"
 shape (Triangle
@@ -2172,7 +2123,7 @@ suid 86,0
 )
 )
 )
-*149 (CptPort
+*148 (CptPort
 uid 9998,0
 ps "OnEdgeStrategy"
 shape (Triangle
@@ -2218,7 +2169,7 @@ suid 87,0
 )
 )
 )
-*150 (CptPort
+*149 (CptPort
 uid 10255,0
 ps "OnEdgeStrategy"
 shape (Triangle
@@ -2264,7 +2215,7 @@ suid 88,0
 )
 )
 )
-*151 (CptPort
+*150 (CptPort
 uid 10307,0
 ps "OnEdgeStrategy"
 shape (Triangle
@@ -2310,7 +2261,7 @@ suid 89,0
 )
 )
 )
-*152 (CptPort
+*151 (CptPort
 uid 10312,0
 ps "OnEdgeStrategy"
 shape (Triangle
@@ -2358,7 +2309,7 @@ suid 90,0
 )
 )
 )
-*153 (CptPort
+*152 (CptPort
 uid 10317,0
 ps "OnEdgeStrategy"
 shape (Triangle
@@ -2406,7 +2357,7 @@ suid 91,0
 )
 )
 )
-*154 (CptPort
+*153 (CptPort
 uid 10322,0
 ps "OnEdgeStrategy"
 shape (Triangle
@@ -2452,7 +2403,7 @@ suid 92,0
 )
 )
 )
-*155 (CptPort
+*154 (CptPort
 uid 10327,0
 ps "OnEdgeStrategy"
 shape (Triangle
@@ -2500,7 +2451,7 @@ suid 93,0
 )
 )
 )
-*156 (CptPort
+*155 (CptPort
 uid 10332,0
 ps "OnEdgeStrategy"
 shape (Triangle
@@ -2546,7 +2497,7 @@ suid 94,0
 )
 )
 )
-*157 (CptPort
+*156 (CptPort
 uid 10337,0
 ps "OnEdgeStrategy"
 shape (Triangle
@@ -2594,7 +2545,7 @@ suid 95,0
 )
 )
 )
-*158 (CptPort
+*157 (CptPort
 uid 10342,0
 ps "OnEdgeStrategy"
 shape (Triangle
@@ -2642,7 +2593,7 @@ suid 96,0
 )
 )
 )
-*159 (CptPort
+*158 (CptPort
 uid 10347,0
 ps "OnEdgeStrategy"
 shape (Triangle
@@ -2691,7 +2642,7 @@ suid 97,0
 )
 )
 )
-*160 (CptPort
+*159 (CptPort
 uid 10386,0
 ps "OnEdgeStrategy"
 shape (Triangle
@@ -2738,7 +2689,7 @@ suid 99,0
 )
 )
 )
-*161 (CptPort
+*160 (CptPort
 uid 10447,0
 ps "OnEdgeStrategy"
 shape (Triangle
@@ -2784,7 +2735,7 @@ suid 100,0
 )
 )
 )
-*162 (CptPort
+*161 (CptPort
 uid 10562,0
 ps "OnEdgeStrategy"
 shape (Triangle
@@ -2830,7 +2781,7 @@ suid 101,0
 )
 )
 )
-*163 (CptPort
+*162 (CptPort
 uid 10758,0
 ps "OnEdgeStrategy"
 shape (Triangle
@@ -2878,7 +2829,7 @@ suid 102,0
 )
 )
 )
-*164 (CptPort
+*163 (CptPort
 uid 10900,0
 ps "OnEdgeStrategy"
 shape (Triangle
@@ -2926,7 +2877,7 @@ suid 103,0
 )
 )
 )
-*165 (CptPort
+*164 (CptPort
 uid 10934,0
 ps "OnEdgeStrategy"
 shape (Triangle
@@ -2972,7 +2923,7 @@ suid 104,0
 )
 )
 )
-*166 (CptPort
+*165 (CptPort
 uid 11261,0
 ps "OnEdgeStrategy"
 shape (Triangle
@@ -3020,7 +2971,7 @@ suid 108,0
 )
 )
 )
-*167 (CptPort
+*166 (CptPort
 uid 11266,0
 ps "OnEdgeStrategy"
 shape (Triangle
@@ -3066,7 +3017,7 @@ suid 109,0
 )
 )
 )
-*168 (CptPort
+*167 (CptPort
 uid 11327,0
 ps "OnEdgeStrategy"
 shape (Triangle
@@ -3114,6 +3065,56 @@ suid 110,0
 )
 )
 )
+*168 (CptPort
+uid 11442,0
+ps "OnEdgeStrategy"
+shape (Triangle
+uid 11443,0
+ro 90
+va (VaSet
+vasetType 1
+fg "0,65535,0"
+)
+xt "113000,54625,113750,55375"
+)
+tg (CPTG
+uid 11444,0
+ps "CptPortTextPlaceStrategy"
+stg "RightVerticalLayoutStrategy"
+f (Text
+uid 11445,0
+va (VaSet
+font "courier,8,0"
+)
+xt "107500,54550,112000,55450"
+st "data_init"
+ju 2
+blo "112000,55250"
+tm "CptPortNameMgr"
+)
+)
+dt (MLText
+uid 11446,0
+va (VaSet
+font "courier,8,0"
+)
+xt "2000,23400,33000,24300"
+st "output reg [7:0]  data_init; // request to caninterface block
+"
+)
+thePort (LogicalPort
+lang 5
+m 1
+decl (Decl
+n "data_init"
+t "reg"
+b "[7:0]"
+eolc "request to caninterface block"
+o 23
+suid 111,0
+)
+)
+)
 ]
 shape (Rectangle
 uid 2969,0
@@ -3123,7 +3124,7 @@ fg "0,65535,0"
 lineColor "0,32896,0"
 lineWidth 2
 )
-xt "89000,9000,113000,55000"
+xt "89000,9000,113000,56000"
 )
 oxt "15000,-3000,30000,22000"
 biTextGroup (BiTextGroup
@@ -3827,7 +3828,7 @@ xt "2000,2700,2000,2700"
 tm "SyDeclarativeTextMgr"
 )
 )
-lastUid 11412,0
+lastUid 11554,0
 okToSyncOnLoad 1
 OkToSyncGenericsOnLoad 1
 activeModelName "Symbol:CDM"

@@ -28,13 +28,7 @@ module tb_mopshub_top();
   wire    [75:0]  bus_dec_data;
   wire    [7:0]   bus_id;
   int             adc_ch;
-  
-  //Automated trimming signals
-  reg             osc_auto_trim =1'b0; ////Active high. Enable /disable automated trimming. If disabled then take care of ftrim_pads_reg
-  wire            trim_sig_start;
-  wire            trim_sig_end;
-  wire            trim_sig_done;
-  
+
   reg             osc_auto_trim_mopshub = 1'b0;
   wire            ready_osc;
   wire            start_trim_osc;
@@ -57,11 +51,10 @@ module tb_mopshub_top();
 
   // MOPSHUB signals
   wire    [75:0]  data_rec_uplink;
-  wire    [75:0]  data_tra_emulator_out;
   wire    [4 :0]  can_rec_select;
   wire    [75:0]  data_tra_downlink;
   wire    [4 :0]  can_tra_select;
-  wire    [75:0]  data_rec_emulator_in;
+
   wire            irq_elink_tra;
   wire            irq_elink_rec;
   
@@ -136,9 +129,8 @@ module tb_mopshub_top();
   wire            spi_dat_p;
       
   wire [1:0] tx_mopshub_2bit; 
-  wire       tx_mopshub_1bit; 
   wire [1:0] rx_mopshub_2bit; 
-  wire       rx_mopshub_1bit;
+
   //Internal assignments  
   assign can_tra_select    = mopshub0.can_tra_select;
   assign can_rec_select    = mopshub0.can_rec_select;
@@ -156,14 +148,12 @@ module tb_mopshub_top();
   assign irq_elink_tra     = mopshub0.irq_elink_tra;
   assign irq_elink_rec     = mopshub0.irq_elink_rec;
   assign ext_counter_gen   = mopshub0.ext_counter_gen;
-  assign data_tra_emulator_out  = data_generator0.data_tra_76bit_reg;
-  assign data_rec_emulator_in   = data_generator0.data_rec_76bit_reg;
   assign ready_osc              = data_generator0.ready_osc;
   
   mopshub_top mopshub0(
   .clk(clk_40_m),
   .rst(rst),
-  .n_buses(5'd31),
+  .n_buses(5'd1),
   .dbg_elink(1'b0), 
   .dbg_spi(1'b0),
   .osc_auto_trim_mopshub(osc_auto_trim_mopshub),                      
@@ -240,21 +230,15 @@ module tb_mopshub_top();
   .tx31(tx31));
   
   data_generator#(
-  .n_buses (5'd31))data_generator0(
+  .n_buses (5'd1))data_generator0(
   .clk_mops(clk_mops),
   .clk(clk_40_m),
   .rst(rst),
   .ext_rst_mops(rst_bus),
   .ext_counter_gen(ext_counter_gen),
   .ext_trim_mops(osc_auto_trim_mopshub),
-  .loop_en(1'b0),
   //Start SM
   .start_data_gen(sign_on_sig),
-  //OScillation Triming Signals
-  .osc_auto_trim(osc_auto_trim),
-  .trim_sig_start(trim_sig_start),
-  .trim_sig_end (trim_sig_end),
-  .trim_sig_done(trim_sig_done),
   //Read ADC channels from MOPS and send it to MOPSHUB rx
   .test_rx(test_rx),
   .test_tx(test_tx),
@@ -388,10 +372,9 @@ module tb_mopshub_top();
   /////*******Start Full SM for Data Generation ****/////
   always@(posedge clk_40_m)
   begin  
-    if(trim_sig_done ==1 ||end_power_init ==1)
+    if(end_power_init ==1)
     begin
-      osc_auto_trim =1'b0;
-     // osc_auto_trim_mopshub = 1'b0;
+      osc_auto_trim_mopshub = 1'b0;
     end
     if(sign_on_sig ==1)//start Rx test
     begin
@@ -420,12 +403,12 @@ module tb_mopshub_top();
     if(start_init) info_debug_sig = "<:initialization:>";    
     /////*********************************Oscillator Trimming*********************************///// 
     if(start_trim_osc) info_debug_sig = {"<:Oscillator Trimming [BUS ID ",$sformatf("%h",power_bus_cnt)," ]:>"};
-    if(trim_sig_start) info_debug_sig = {"<:Oscillator Trimming [BUS ID ",$sformatf("%h",bus_id)," ]:>"};  
+    //if(trim_sig_start) info_debug_sig = {"<:Oscillator Trimming [BUS ID ",$sformatf("%h",bus_id)," ]:>"};  
     /////*********************************  RX Test    *********************************///// 
     if(test_rx_start)  info_debug_sig = $sformatf("<:RX signals   [BUS ID %d ]  :>",bus_id);
     /////*********************************  TX Test    *********************************/////     
     if (test_tx_start) info_debug_sig = $sformatf("<:TX signals  [BUS ID %d ]  :>",bus_id);    
     if (test_advanced) info_debug_sig = $sformatf("<:Costum Message  [BUS ID %d ]  :>",bus_id); 
-    if (test_tx_end || test_rx_end ||end_init||end_trim_bus||trim_sig_end ||costum_msg_end)  info_debug_sig = {""};    
+    if (test_tx_end || test_rx_end ||end_init||end_trim_bus||costum_msg_end)  info_debug_sig = {""};    
   end
 endmodule 

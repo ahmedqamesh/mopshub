@@ -11,7 +11,7 @@ appVersion "2019.4 (Build 4)"
 model (Symbol
 commonDM (CommonDM
 ldm (LogicalDM
-suid 30,0
+suid 31,0
 usingSuid 1
 emptyRow *1 (LEmptyRow
 )
@@ -59,7 +59,7 @@ lang 5
 decl (Decl
 n "clk"
 t "wire"
-o 2
+o 1
 suid 1,0
 )
 )
@@ -132,19 +132,6 @@ uid 432,0
 port (LogicalPort
 lang 5
 decl (Decl
-n "addr"
-t "wire"
-b "[4:0]"
-o 1
-suid 19,0
-)
-)
-uid 1005,0
-)
-*22 (LogPort
-port (LogicalPort
-lang 5
-decl (Decl
 n "n_buses"
 t "wire"
 b "[4:0]"
@@ -154,7 +141,7 @@ suid 22,0
 )
 uid 1224,0
 )
-*23 (LogPort
+*22 (LogPort
 port (LogicalPort
 lang 5
 decl (Decl
@@ -166,7 +153,7 @@ suid 23,0
 )
 uid 1473,0
 )
-*24 (LogPort
+*23 (LogPort
 port (LogicalPort
 lang 5
 decl (Decl
@@ -179,7 +166,7 @@ suid 24,0
 )
 uid 1524,0
 )
-*25 (LogPort
+*24 (LogPort
 port (LogicalPort
 lang 5
 m 1
@@ -192,7 +179,7 @@ suid 26,0
 )
 uid 2726,0
 )
-*26 (LogPort
+*25 (LogPort
 port (LogicalPort
 lang 5
 decl (Decl
@@ -204,7 +191,7 @@ suid 27,0
 )
 uid 2777,0
 )
-*27 (LogPort
+*26 (LogPort
 port (LogicalPort
 lang 5
 m 1
@@ -218,7 +205,7 @@ suid 28,0
 )
 uid 3532,0
 )
-*28 (LogPort
+*27 (LogPort
 port (LogicalPort
 lang 5
 decl (Decl
@@ -230,7 +217,7 @@ suid 29,0
 )
 uid 3671,0
 )
-*29 (LogPort
+*28 (LogPort
 port (LogicalPort
 lang 5
 decl (Decl
@@ -241,6 +228,19 @@ suid 30,0
 )
 )
 uid 3673,0
+)
+*29 (LogPort
+port (LogicalPort
+lang 5
+decl (Decl
+n "data_init"
+t "wire"
+b "[7:0]"
+o 2
+suid 31,0
+)
+)
+uid 3707,0
 )
 ]
 )
@@ -332,55 +332,55 @@ uid 431,0
 litem &21
 pos 7
 dimension 20
-uid 1004,0
+uid 1223,0
 )
 *42 (MRCItem
 litem &22
 pos 8
 dimension 20
-uid 1223,0
+uid 1472,0
 )
 *43 (MRCItem
 litem &23
 pos 9
 dimension 20
-uid 1472,0
+uid 1523,0
 )
 *44 (MRCItem
 litem &24
 pos 10
 dimension 20
-uid 1523,0
+uid 2725,0
 )
 *45 (MRCItem
 litem &25
-pos 11
-dimension 20
-uid 2725,0
-)
-*46 (MRCItem
-litem &26
 pos 6
 dimension 20
 uid 2776,0
+)
+*46 (MRCItem
+litem &26
+pos 11
+dimension 20
+uid 3531,0
 )
 *47 (MRCItem
 litem &27
 pos 12
 dimension 20
-uid 3531,0
+uid 3670,0
 )
 *48 (MRCItem
 litem &28
 pos 13
 dimension 20
-uid 3670,0
+uid 3672,0
 )
 *49 (MRCItem
 litem &29
 pos 14
 dimension 20
-uid 3672,0
+uid 3706,0
 )
 ]
 )
@@ -639,19 +639,19 @@ value "/home/dcs/git/mopshub/mopshub_lib/hds/control_bus"
 )
 (vvPair
 variable "date"
-value "06/29/22"
+value "07/01/22"
 )
 (vvPair
 variable "day"
-value "Wed"
+value "Fri"
 )
 (vvPair
 variable "day_long"
-value "Wednesday"
+value "Friday"
 )
 (vvPair
 variable "dd"
-value "29"
+value "01"
 )
 (vvPair
 variable "entity_name"
@@ -679,7 +679,7 @@ value "dcs"
 )
 (vvPair
 variable "graphical_source_date"
-value "06/29/22"
+value "07/01/22"
 )
 (vvPair
 variable "graphical_source_group"
@@ -691,7 +691,7 @@ value "chipdev2.physik.uni-wuppertal.de"
 )
 (vvPair
 variable "graphical_source_time"
-value "09:45:30"
+value "10:13:39"
 )
 (vvPair
 variable "group"
@@ -735,7 +735,7 @@ value "$HDS_PROJECT_DIR/mopshub_lib/svassistant"
 )
 (vvPair
 variable "mm"
-value "06"
+value "07"
 )
 (vvPair
 variable "module_name"
@@ -743,11 +743,11 @@ value "control_bus"
 )
 (vvPair
 variable "month"
-value "Jun"
+value "Jul"
 )
 (vvPair
 variable "month_long"
-value "June"
+value "July"
 )
 (vvPair
 variable "p"
@@ -811,7 +811,7 @@ value "symbol"
 )
 (vvPair
 variable "time"
-value "09:45:30"
+value "10:13:39"
 )
 (vvPair
 variable "unit"
@@ -877,7 +877,7 @@ uid 124,0
 va (VaSet
 font "courier,8,0"
 )
-xt "2000,4500,14000,5400"
+xt "2000,3600,14000,4500"
 st "input  wire        clk;
 "
 )
@@ -886,7 +886,7 @@ lang 5
 decl (Decl
 n "clk"
 t "wire"
-o 2
+o 1
 suid 1,0
 )
 )
@@ -1128,53 +1128,6 @@ suid 16,0
 )
 )
 *86 (CptPort
-uid 1008,0
-ps "OnEdgeStrategy"
-shape (Triangle
-uid 1009,0
-ro 90
-va (VaSet
-vasetType 1
-fg "0,65535,0"
-)
-xt "14250,14625,15000,15375"
-)
-tg (CPTG
-uid 1010,0
-ps "CptPortTextPlaceStrategy"
-stg "VerticalLayoutStrategy"
-f (Text
-uid 1011,0
-va (VaSet
-font "courier,8,0"
-)
-xt "16000,14550,22500,15450"
-st "addr : [4:0]"
-blo "16000,15250"
-tm "CptPortNameMgr"
-)
-)
-dt (MLText
-uid 1012,0
-va (VaSet
-font "courier,8,0"
-)
-xt "2000,3600,14500,4500"
-st "input  wire [4:0]  addr;
-"
-)
-thePort (LogicalPort
-lang 5
-decl (Decl
-n "addr"
-t "wire"
-b "[4:0]"
-o 1
-suid 19,0
-)
-)
-)
-*87 (CptPort
 uid 1225,0
 ps "OnEdgeStrategy"
 shape (Triangle
@@ -1221,7 +1174,7 @@ suid 22,0
 )
 )
 )
-*88 (CptPort
+*87 (CptPort
 uid 1474,0
 ps "OnEdgeStrategy"
 shape (Triangle
@@ -1267,7 +1220,7 @@ suid 23,0
 )
 )
 )
-*89 (CptPort
+*88 (CptPort
 uid 1525,0
 ps "OnEdgeStrategy"
 shape (Triangle
@@ -1314,7 +1267,7 @@ suid 24,0
 )
 )
 )
-*90 (CptPort
+*89 (CptPort
 uid 2727,0
 ps "OnEdgeStrategy"
 shape (Triangle
@@ -1362,7 +1315,7 @@ suid 26,0
 )
 )
 )
-*91 (CptPort
+*90 (CptPort
 uid 2778,0
 ps "OnEdgeStrategy"
 shape (Triangle
@@ -1408,7 +1361,7 @@ suid 27,0
 )
 )
 )
-*92 (CptPort
+*91 (CptPort
 uid 3533,0
 ps "OnEdgeStrategy"
 shape (Triangle
@@ -1457,7 +1410,7 @@ suid 28,0
 )
 )
 )
-*93 (CptPort
+*92 (CptPort
 uid 3674,0
 ps "OnEdgeStrategy"
 shape (Triangle
@@ -1503,7 +1456,7 @@ suid 29,0
 )
 )
 )
-*94 (CptPort
+*93 (CptPort
 uid 3679,0
 ps "OnEdgeStrategy"
 shape (Triangle
@@ -1546,6 +1499,53 @@ n "rst_osc_cnt"
 t "wire"
 o 7
 suid 30,0
+)
+)
+)
+*94 (CptPort
+uid 3708,0
+ps "OnEdgeStrategy"
+shape (Triangle
+uid 3709,0
+ro 90
+va (VaSet
+vasetType 1
+fg "0,65535,0"
+)
+xt "14250,23625,15000,24375"
+)
+tg (CPTG
+uid 3710,0
+ps "CptPortTextPlaceStrategy"
+stg "VerticalLayoutStrategy"
+f (Text
+uid 3711,0
+va (VaSet
+font "courier,8,0"
+)
+xt "16000,23550,25000,24450"
+st "data_init : [7:0]"
+blo "16000,24250"
+tm "CptPortNameMgr"
+)
+)
+dt (MLText
+uid 3712,0
+va (VaSet
+font "courier,8,0"
+)
+xt "2000,4500,17000,5400"
+st "input  wire [7:0]  data_init;
+"
+)
+thePort (LogicalPort
+lang 5
+decl (Decl
+n "data_init"
+t "wire"
+b "[7:0]"
+o 2
+suid 31,0
 )
 )
 )
@@ -2260,7 +2260,7 @@ xt "2000,2700,2000,2700"
 tm "SyDeclarativeTextMgr"
 )
 )
-lastUid 3683,0
+lastUid 3712,0
 okToSyncOnLoad 1
 OkToSyncGenericsOnLoad 1
 activeModelName "Symbol:CDM"
