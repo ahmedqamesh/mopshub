@@ -30,7 +30,7 @@ begin
  else if(rst_bus_sig)
     case (bus_rec_select)
       5'h0  : output_bus_reg  <= {data_rec_in[31:1 ],1'b0};
-      5'h1  : output_bus_reg  <= {data_rec_in[31:2 ],1'b0, data_rec_in[0]};
+      5'h1  : output_bus_reg  <= {data_rec_in[31:2 ],1'b0, data_rec_in[0   ]};
       5'h2  : output_bus_reg  <= {data_rec_in[31:3 ],1'b0, data_rec_in[1 :0]};
       5'h3  : output_bus_reg  <= {data_rec_in[31:4 ],1'b0, data_rec_in[2 :0]};   
       5'h4  : output_bus_reg  <= {data_rec_in[31:5 ],1'b0, data_rec_in[3 :0]};   

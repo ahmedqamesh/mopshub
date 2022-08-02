@@ -83,7 +83,6 @@ module dec32_Nbit(
   assign    irqsucrec_signals[29] = Input29;
   assign    irqsucrec_signals[30] = Input30;
   assign    irqsucrec_signals[31] = Input31; 
-
 assign data_tra_out = output_bus_reg;
   
 always@(posedge clk )

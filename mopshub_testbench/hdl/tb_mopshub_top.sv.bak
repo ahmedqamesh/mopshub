@@ -51,11 +51,10 @@ module tb_mopshub_top();
 
   // MOPSHUB signals
   wire    [75:0]  data_rec_uplink;
-  wire    [75:0]  data_tra_emulator_out;
   wire    [4 :0]  can_rec_select;
   wire    [75:0]  data_tra_downlink;
   wire    [4 :0]  can_tra_select;
-  wire    [75:0]  data_rec_emulator_in;
+
   wire            irq_elink_tra;
   wire            irq_elink_rec;
   
@@ -149,9 +148,7 @@ module tb_mopshub_top();
   assign irq_elink_tra     = mopshub0.irq_elink_tra;
   assign irq_elink_rec     = mopshub0.irq_elink_rec;
   assign ext_counter_gen   = mopshub0.ext_counter_gen;
-  assign data_tra_emulator_out  = data_generator0.data_tra_76bit_reg;
-  assign data_rec_emulator_in   = data_generator0.data_rec_76bit_reg;
-  assign ready_osc              = data_generator0.ready_osc;
+  assign ready_osc         = data_generator0.ready_osc;
   
   mopshub_top mopshub0(
   .clk(clk_40_m),

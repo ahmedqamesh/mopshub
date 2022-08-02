@@ -29,7 +29,7 @@ always @(posedge clk)
   begin
     if (!rst) output_reg <=  1'b0; 
     else if (set_buffer) output_reg <= set_buffer;    //Set the irqsucrec buffer    
-    else if (rst_buffer && bus_rec_select == bus_id) output_reg = 1'b0;  //Restst the irqsucrec buffer
+    else if (rst_buffer) output_reg = 1'b0; // && bus_rec_select == bus_id) output_reg = 1'b0;  //Restst the irqsucrec buffer
     else output_reg <= output_reg;
   end
 

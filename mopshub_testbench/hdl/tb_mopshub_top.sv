@@ -29,7 +29,7 @@ module tb_mopshub_top();
   wire    [7:0]   bus_id;
   int             adc_ch;
 
-  reg             osc_auto_trim_mopshub = 1'b0;
+  reg             osc_auto_trim_mopshub = 1'b1;
   wire            ready_osc;
   wire            start_trim_osc;
   wire            end_trim_bus;
@@ -148,7 +148,7 @@ module tb_mopshub_top();
   assign irq_elink_tra     = mopshub0.irq_elink_tra;
   assign irq_elink_rec     = mopshub0.irq_elink_rec;
   assign ext_counter_gen   = mopshub0.ext_counter_gen;
-  assign ready_osc              = data_generator0.ready_osc;
+  assign ready_osc         = data_generator0.ready_osc;
   
   mopshub_top mopshub0(
   .clk(clk_40_m),

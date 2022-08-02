@@ -21,21 +21,12 @@ module buffer_rec_canakari(
 // Internal Declarations
 reg [4:0] data_tra_reg;
 
-always@(posedge clk or negedge rst)
+always@(posedge clk)
 begin 
- if(!rst)
-  begin
-    data_tra_reg <= 5'd0;
-  end
+ if(!rst) data_tra_reg <= 5'd0;
  else
-  if(buffer_en)
-  begin
-      data_tra_reg <= data_tra_in;
-    end
-  else
-  begin 
-   data_tra_reg <= data_tra_reg;
- end
+  if(buffer_en) data_tra_reg <= data_tra_in;
+  else data_tra_reg <= data_tra_reg;
 end 
 assign data_tra_out = data_tra_reg;
 endmodule
