@@ -1,13 +1,3 @@
-//
-// Verilog Module mopshub_lib.buffer_tra_spi
-//
-// Created:
-//          by - dcs.dcs (chipdev2.physik.uni-wuppertal.de)
-//          at - 11:52:34 01/27/22
-//
-// using Mentor Graphics HDL Designer(TM) 2019.4 (Build 4)
-//
-
 `resetall
 `timescale 1ns/10ps
 module buffer_tra_spi(
