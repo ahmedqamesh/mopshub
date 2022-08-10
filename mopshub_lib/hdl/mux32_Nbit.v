@@ -28,22 +28,6 @@ module mux32_Nbit(
   input   wire    [15:0]  data13, 
   input   wire    [15:0]  data14, 
   input   wire    [15:0]  data15, 
-  input   wire    [15:0]  data16, 
-  input   wire    [15:0]  data17, 
-  input   wire    [15:0]  data18, 
-  input   wire    [15:0]  data19, 
-  input   wire    [15:0]  data20, 
-  input   wire    [15:0]  data21, 
-  input   wire    [15:0]  data22, 
-  input   wire    [15:0]  data23, 
-  input   wire    [15:0]  data24, 
-  input   wire    [15:0]  data25, 
-  input   wire    [15:0]  data26, 
-  input   wire    [15:0]  data27, 
-  input   wire    [15:0]  data28, 
-  input   wire    [15:0]  data29, 
-  input   wire    [15:0]  data30, 
-  input   wire    [15:0]  data31,  
   input   wire    [4:0]   sel, 
   output  wire    [15:0]  data_out
   );
@@ -75,24 +59,6 @@ module mux32_Nbit(
       5'b1101 : data_out_r=data13;
       5'b1110 : data_out_r=data14;    
       5'b1111 : data_out_r=data15;
-      
-      5'b10000  : data_out_r=data16;
-      5'b10001  : data_out_r=data17;
-      5'b10010  : data_out_r=data18;
-      5'b10011  : data_out_r=data19;
-      5'b10100  : data_out_r=data20;
-      5'b10101  : data_out_r=data21;
-      5'b10110  : data_out_r=data22;
-      5'b10111  : data_out_r=data23;
-            
-      5'b11000  : data_out_r=data24;
-      5'b11001  : data_out_r=data25;
-      5'b11010  : data_out_r=data26;
-      5'b11011  : data_out_r=data27;
-      5'b11100  : data_out_r=data28;
-      5'b11101  : data_out_r=data29;
-      5'b11110  : data_out_r=data30;
-      5'b11111  : data_out_r=data31;
       
       default : data_out_r=16'b0;
       

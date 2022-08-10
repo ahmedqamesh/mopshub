@@ -153,7 +153,7 @@ module tb_mopshub_top();
   mopshub_top mopshub0(
   .clk(clk_40_m),
   .rst(rst),
-  .n_buses(5'd1),
+  .n_buses(5'd15),
   .dbg_elink(1'b0), 
   .dbg_spi(1'b0),
   .osc_auto_trim_mopshub(osc_auto_trim_mopshub),                      
@@ -230,7 +230,7 @@ module tb_mopshub_top();
   .tx31(tx31));
   
   data_generator#(
-  .n_buses (5'd1))data_generator0(
+  .n_buses (5'd15))data_generator0(
   .clk_mops(clk_mops),
   .clk(clk_40_m),
   .rst(rst),
