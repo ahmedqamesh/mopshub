@@ -115,7 +115,7 @@ module tb_mopshub_top();
   assign power_bus_cnt     = mopshub0.power_bus_cnt;  
   assign irq_elink_tra     = mopshub0.irq_elink_tra;
   assign irq_elink_rec     = mopshub0.irq_elink_rec;
-  assign ext_counter_gen   = mopshub0.ext_counter_gen;
+  assign start_osc_cnt   = mopshub0.start_osc_cnt;
   assign ready_osc         = data_generator0.ready_osc;
   
   mopshub_top mopshub0(
@@ -171,7 +171,7 @@ module tb_mopshub_top();
   .clk(clk_40_m),
   .rst(rst),
   .ext_rst_mops(rst_bus),
-  .ext_counter_gen(ext_counter_gen),
+  .start_osc_cnt(start_osc_cnt),
   .ext_trim_mops(osc_auto_trim_mopshub),
   //Start SM
   .start_data_gen(sign_on_sig),

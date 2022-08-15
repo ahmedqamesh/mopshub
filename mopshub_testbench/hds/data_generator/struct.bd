@@ -151,19 +151,19 @@ value "/home/dcs/git/mopshub/mopshub_testbench/hds/data_generator"
 )
 (vvPair
 variable "date"
-value "08/01/22"
+value "08/11/22"
 )
 (vvPair
 variable "day"
-value "Mon"
+value "Thu"
 )
 (vvPair
 variable "day_long"
-value "Monday"
+value "Thursday"
 )
 (vvPair
 variable "dd"
-value "01"
+value "11"
 )
 (vvPair
 variable "entity_name"
@@ -191,7 +191,7 @@ value "dcs"
 )
 (vvPair
 variable "graphical_source_date"
-value "08/01/22"
+value "08/11/22"
 )
 (vvPair
 variable "graphical_source_group"
@@ -203,7 +203,7 @@ value "chipdev2.physik.uni-wuppertal.de"
 )
 (vvPair
 variable "graphical_source_time"
-value "12:30:07"
+value "13:33:21"
 )
 (vvPair
 variable "group"
@@ -323,7 +323,7 @@ value "struct"
 )
 (vvPair
 variable "time"
-value "12:30:07"
+value "13:33:21"
 )
 (vvPair
 variable "unit"
@@ -1228,9 +1228,9 @@ fg "26368,26368,26368"
 bg "49152,49152,49152"
 font "courier,8,0"
 )
-xt "4200,46200,21700,50700"
+xt "4200,46200,20700,50700"
 st "
-assign counter_en = (ext_counter_gen ||counter_gen_en);
+assign counter_en = (start_osc_cnt ||counter_gen_en);
 always @(posedge clk)
   begin
     if (!rst) cnt_done <= 0;
@@ -1240,6 +1240,7 @@ always @(posedge clk)
        default: cnt_done <= 0;
       endcase
 end
+
 
 
 
@@ -16691,24 +16692,7 @@ font "courier,8,0"
 )
 )
 )
-*505 (Net
-uid 51998,0
-lang 5
-decl (Decl
-n "ext_counter_gen"
-t "wire"
-o 105
-suid 501,0
-)
-declText (MLText
-uid 51999,0
-va (VaSet
-isHidden 1
-font "courier,8,0"
-)
-)
-)
-*506 (PortIoIn
+*505 (PortIoIn
 uid 52000,0
 shape (CompositeShape
 uid 52001,0
@@ -16746,15 +16730,15 @@ uid 52005,0
 va (VaSet
 font "courier,8,0"
 )
-xt "-22000,39550,-14000,40450"
-st "ext_counter_gen"
+xt "-21000,39550,-14000,40450"
+st "start_osc_cnt"
 ju 2
 blo "-14000,40250"
 tm "WireNameMgr"
 )
 )
 )
-*507 (Net
+*506 (Net
 uid 52440,0
 lang 5
 decl (Decl
@@ -16772,7 +16756,7 @@ font "courier,8,0"
 )
 )
 )
-*508 (Net
+*507 (Net
 uid 52707,0
 lang 5
 decl (Decl
@@ -16789,7 +16773,7 @@ font "courier,8,0"
 )
 )
 )
-*509 (Net
+*508 (Net
 uid 52719,0
 lang 5
 decl (Decl
@@ -16806,7 +16790,7 @@ font "courier,8,0"
 )
 )
 )
-*510 (Net
+*509 (Net
 uid 53169,0
 lang 5
 decl (Decl
@@ -16824,7 +16808,7 @@ font "courier,8,0"
 )
 )
 )
-*511 (Net
+*510 (Net
 uid 53412,0
 lang 5
 decl (Decl
@@ -16841,7 +16825,7 @@ font "courier,8,0"
 )
 )
 )
-*512 (Net
+*511 (Net
 uid 53418,0
 lang 5
 decl (Decl
@@ -16858,7 +16842,7 @@ font "courier,8,0"
 )
 )
 )
-*513 (Net
+*512 (Net
 uid 57647,0
 lang 5
 decl (Decl
@@ -16875,7 +16859,7 @@ font "courier,8,0"
 )
 )
 )
-*514 (Net
+*513 (Net
 uid 58326,0
 lang 5
 decl (Decl
@@ -16892,7 +16876,7 @@ font "courier,8,0"
 )
 )
 )
-*515 (PortIoIn
+*514 (PortIoIn
 uid 58334,0
 shape (CompositeShape
 uid 58335,0
@@ -16938,7 +16922,7 @@ tm "WireNameMgr"
 )
 )
 )
-*516 (PortIoIn
+*515 (PortIoIn
 uid 61147,0
 shape (CompositeShape
 uid 61148,0
@@ -16981,6 +16965,23 @@ st "ext_rst_mops"
 ju 2
 blo "15000,16250"
 tm "WireNameMgr"
+)
+)
+)
+*516 (Net
+uid 61885,0
+lang 5
+decl (Decl
+n "start_osc_cnt"
+t "wire"
+o 105
+suid 525,0
+)
+declText (MLText
+uid 61886,0
+va (VaSet
+isHidden 1
+font "courier,8,0"
 )
 )
 )
@@ -20464,7 +20465,7 @@ pts [
 "28250,16000"
 ]
 )
-start &516
+start &515
 end &232
 sat 32
 eat 32
@@ -21841,7 +21842,7 @@ blo "-6000,53800"
 tm "WireNameMgr"
 )
 )
-on &509
+on &508
 )
 *647 (Wire
 uid 42482,0
@@ -24264,7 +24265,7 @@ pts [
 ]
 )
 start &23
-end &506
+end &505
 sat 1
 eat 32
 stc 0
@@ -24281,13 +24282,13 @@ va (VaSet
 isHidden 1
 font "courier,8,0"
 )
-xt "-15000,39100,-7000,40000"
-st "ext_counter_gen"
+xt "-15000,39100,-8000,40000"
+st "start_osc_cnt"
 blo "-15000,39800"
 tm "WireNameMgr"
 )
 )
-on &505
+on &516
 )
 *709 (Wire
 uid 52442,0
@@ -24325,7 +24326,7 @@ blo "-6000,52800"
 tm "WireNameMgr"
 )
 )
-on &507
+on &506
 )
 *710 (Wire
 uid 52709,0
@@ -24363,7 +24364,7 @@ blo "25250,54800"
 tm "WireNameMgr"
 )
 )
-on &508
+on &507
 )
 *711 (Wire
 uid 53161,0
@@ -24404,7 +24405,7 @@ blo "13000,52800"
 tm "WireNameMgr"
 )
 )
-on &510
+on &509
 )
 *712 (Wire
 uid 53414,0
@@ -24442,7 +24443,7 @@ blo "-22250,56800"
 tm "WireNameMgr"
 )
 )
-on &511
+on &510
 )
 *713 (Wire
 uid 53420,0
@@ -24480,7 +24481,7 @@ blo "-22250,57800"
 tm "WireNameMgr"
 )
 )
-on &512
+on &511
 )
 *714 (Wire
 uid 54965,0
@@ -24553,7 +24554,7 @@ blo "-22250,41800"
 tm "WireNameMgr"
 )
 )
-on &513
+on &512
 )
 *716 (Wire
 uid 58328,0
@@ -24568,7 +24569,7 @@ pts [
 "28250,6000"
 ]
 )
-start &515
+start &514
 end &312
 sat 32
 eat 32
@@ -24592,7 +24593,7 @@ blo "27000,5800"
 tm "WireNameMgr"
 )
 )
-on &514
+on &513
 )
 ]
 bg "65535,65535,65535"
@@ -24709,12 +24710,12 @@ tm "BdCompilerDirectivesTextMgr"
 ]
 associable 1
 )
-windowSize "3832,13,5768,1088"
-viewArea "-33104,-17436,90232,47652"
+windowSize "1912,40,3848,1055"
+viewArea "-38457,26243,33900,61893"
 cachedDiagramExtent "-71000,-11900,73500,102000"
 hasePageBreakOrigin 1
 pageBreakOrigin "-138000,-51000"
-lastUid 61709,0
+lastUid 61888,0
 defaultCommentText (CommentText
 shape (Rectangle
 layer 0
@@ -25776,7 +25777,7 @@ tm "BdDeclarativeTextMgr"
 commonDM (CommonDM
 ldm (LogicalDM
 ordering 1
-suid 524,0
+suid 525,0
 usingSuid 1
 emptyRow *748 (LEmptyRow
 )
@@ -27602,18 +27603,6 @@ uid 48797,0
 *900 (LeafLogPort
 port (LogicalPort
 lang 5
-decl (Decl
-n "ext_counter_gen"
-t "wire"
-o 105
-suid 501,0
-)
-)
-uid 52006,0
-)
-*901 (LeafLogPort
-port (LogicalPort
-lang 5
 m 4
 decl (Decl
 n "rand_rec_in"
@@ -27625,7 +27614,7 @@ suid 503,0
 )
 uid 52450,0
 )
-*902 (LeafLogPort
+*901 (LeafLogPort
 port (LogicalPort
 lang 5
 m 4
@@ -27638,7 +27627,7 @@ suid 506,0
 )
 uid 52721,0
 )
-*903 (LeafLogPort
+*902 (LeafLogPort
 port (LogicalPort
 lang 5
 m 4
@@ -27651,7 +27640,7 @@ suid 507,0
 )
 uid 52723,0
 )
-*904 (LeafLogPort
+*903 (LeafLogPort
 port (LogicalPort
 lang 5
 m 4
@@ -27665,7 +27654,7 @@ suid 509,0
 )
 uid 53175,0
 )
-*905 (LeafLogPort
+*904 (LeafLogPort
 port (LogicalPort
 lang 5
 m 4
@@ -27678,7 +27667,7 @@ suid 510,0
 )
 uid 53424,0
 )
-*906 (LeafLogPort
+*905 (LeafLogPort
 port (LogicalPort
 lang 5
 m 4
@@ -27691,7 +27680,7 @@ suid 511,0
 )
 uid 53426,0
 )
-*907 (LeafLogPort
+*906 (LeafLogPort
 port (LogicalPort
 lang 5
 m 4
@@ -27704,7 +27693,7 @@ suid 516,0
 )
 uid 57653,0
 )
-*908 (LeafLogPort
+*907 (LeafLogPort
 port (LogicalPort
 lang 5
 decl (Decl
@@ -27715,6 +27704,18 @@ suid 519,0
 )
 )
 uid 58340,0
+)
+*908 (LeafLogPort
+port (LogicalPort
+lang 5
+decl (Decl
+n "start_osc_cnt"
+t "wire"
+o 105
+suid 525,0
+)
+)
+uid 61887,0
 )
 ]
 )
@@ -27768,7 +27769,7 @@ uid 74,0
 )
 *914 (MRCItem
 litem &763
-pos 106
+pos 105
 dimension 20
 uid 1012,0
 )
@@ -27786,7 +27787,7 @@ uid 1306,0
 )
 *917 (MRCItem
 litem &766
-pos 107
+pos 106
 dimension 20
 uid 2252,0
 )
@@ -27798,7 +27799,7 @@ uid 2384,0
 )
 *919 (MRCItem
 litem &768
-pos 108
+pos 107
 dimension 20
 uid 2398,0
 )
@@ -27828,91 +27829,91 @@ uid 6010,0
 )
 *924 (MRCItem
 litem &773
-pos 109
+pos 108
 dimension 20
 uid 6622,0
 )
 *925 (MRCItem
 litem &774
-pos 110
+pos 109
 dimension 20
 uid 6624,0
 )
 *926 (MRCItem
 litem &775
-pos 111
+pos 110
 dimension 20
 uid 6626,0
 )
 *927 (MRCItem
 litem &776
-pos 112
+pos 111
 dimension 20
 uid 6628,0
 )
 *928 (MRCItem
 litem &777
-pos 113
+pos 112
 dimension 20
 uid 6630,0
 )
 *929 (MRCItem
 litem &778
-pos 114
+pos 113
 dimension 20
 uid 6632,0
 )
 *930 (MRCItem
 litem &779
-pos 115
+pos 114
 dimension 20
 uid 6634,0
 )
 *931 (MRCItem
 litem &780
-pos 116
+pos 115
 dimension 20
 uid 6636,0
 )
 *932 (MRCItem
 litem &781
-pos 117
+pos 116
 dimension 20
 uid 6638,0
 )
 *933 (MRCItem
 litem &782
-pos 118
+pos 117
 dimension 20
 uid 6664,0
 )
 *934 (MRCItem
 litem &783
-pos 119
+pos 118
 dimension 20
 uid 6666,0
 )
 *935 (MRCItem
 litem &784
-pos 120
+pos 119
 dimension 20
 uid 6668,0
 )
 *936 (MRCItem
 litem &785
-pos 121
+pos 120
 dimension 20
 uid 6980,0
 )
 *937 (MRCItem
 litem &786
-pos 122
+pos 121
 dimension 20
 uid 7139,0
 )
 *938 (MRCItem
 litem &787
-pos 123
+pos 122
 dimension 20
 uid 7295,0
 )
@@ -27924,13 +27925,13 @@ uid 7520,0
 )
 *940 (MRCItem
 litem &789
-pos 124
+pos 123
 dimension 20
 uid 7873,0
 )
 *941 (MRCItem
 litem &790
-pos 125
+pos 124
 dimension 20
 uid 10529,0
 )
@@ -27948,7 +27949,7 @@ uid 11278,0
 )
 *944 (MRCItem
 litem &793
-pos 126
+pos 125
 dimension 20
 uid 11352,0
 )
@@ -27972,7 +27973,7 @@ uid 12014,0
 )
 *948 (MRCItem
 litem &797
-pos 127
+pos 126
 dimension 20
 uid 12350,0
 )
@@ -27990,19 +27991,19 @@ uid 12356,0
 )
 *951 (MRCItem
 litem &800
-pos 128
+pos 127
 dimension 20
 uid 13020,0
 )
 *952 (MRCItem
 litem &801
-pos 129
+pos 128
 dimension 20
 uid 13040,0
 )
 *953 (MRCItem
 litem &802
-pos 130
+pos 129
 dimension 20
 uid 13543,0
 )
@@ -28038,7 +28039,7 @@ uid 17341,0
 )
 *959 (MRCItem
 litem &808
-pos 131
+pos 130
 dimension 20
 uid 17556,0
 )
@@ -28086,7 +28087,7 @@ uid 20980,0
 )
 *967 (MRCItem
 litem &816
-pos 132
+pos 131
 dimension 20
 uid 20990,0
 )
@@ -28104,7 +28105,7 @@ uid 21808,0
 )
 *970 (MRCItem
 litem &819
-pos 133
+pos 132
 dimension 20
 uid 22449,0
 )
@@ -28188,19 +28189,19 @@ uid 23819,0
 )
 *984 (MRCItem
 litem &833
-pos 134
+pos 133
 dimension 20
 uid 24046,0
 )
 *985 (MRCItem
 litem &834
-pos 135
+pos 134
 dimension 20
 uid 24062,0
 )
 *986 (MRCItem
 litem &835
-pos 136
+pos 135
 dimension 20
 uid 26258,0
 )
@@ -28272,7 +28273,7 @@ uid 38598,0
 )
 *998 (MRCItem
 litem &847
-pos 137
+pos 136
 dimension 20
 uid 39392,0
 )
@@ -28284,7 +28285,7 @@ uid 42210,0
 )
 *1000 (MRCItem
 litem &849
-pos 138
+pos 137
 dimension 20
 uid 42499,0
 )
@@ -28590,57 +28591,57 @@ uid 48798,0
 )
 *1051 (MRCItem
 litem &900
-pos 104
+pos 138
 dimension 20
-uid 52007,0
+uid 52451,0
 )
 *1052 (MRCItem
 litem &901
 pos 139
 dimension 20
-uid 52451,0
+uid 52722,0
 )
 *1053 (MRCItem
 litem &902
 pos 140
 dimension 20
-uid 52722,0
+uid 52724,0
 )
 *1054 (MRCItem
 litem &903
 pos 141
 dimension 20
-uid 52724,0
+uid 53176,0
 )
 *1055 (MRCItem
 litem &904
 pos 142
 dimension 20
-uid 53176,0
+uid 53425,0
 )
 *1056 (MRCItem
 litem &905
 pos 143
 dimension 20
-uid 53425,0
+uid 53427,0
 )
 *1057 (MRCItem
 litem &906
 pos 144
 dimension 20
-uid 53427,0
+uid 57654,0
 )
 *1058 (MRCItem
 litem &907
-pos 145
+pos 104
 dimension 20
-uid 57654,0
+uid 58341,0
 )
 *1059 (MRCItem
 litem &908
-pos 105
+pos 145
 dimension 20
-uid 58341,0
+uid 61888,0
 )
 ]
 )
