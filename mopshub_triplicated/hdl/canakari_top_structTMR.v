@@ -6,2964 +6,533 @@
  *                                                                                                  *
  * user    : lucas                                                                                  *
  * host    : DESKTOP-BFDSFP2                                                                        *
- * date    : 03/04/2022 20:08:32                                                                    *
+ * date    : 16/08/2022 12:58:13                                                                    *
  *                                                                                                  *
- * workdir : /mnt/c/Users/Lucas/Desktop/mopshub_triplication/triplicated/mopshub_top_canakari_ftrim/hdl *
- * cmd     : /mnt/c/Users/Lucas/Desktop/mopshub_triplication/tmrg-master/bin/tmrg -vv -c tmrg.cfg   *
+ * workdir : /mnt/c/Users/Lucas/Desktop/mopshub_triplication/mopshub_top_board_canakari_ftrim/hdl   *
+ * cmd     : /mnt/c/Users/Lucas/Desktop/mopshub_triplication/tmrg-master/bin/tmrg -c tmrg.cfg -vvv  *
  * tmrg rev:                                                                                        *
  *                                                                                                  *
  * src file: canakari_top_struct.v                                                                  *
  *           Git SHA           : File not in git repository!                                        *
- *           Modification time : 2022-03-28 21:55:53                                                *
- *           File Size         : 29622                                                              *
- *           MD5 hash          : 8f82e3b369f263f1781574cf2fee6ede                                   *
+ *           Modification time : 2022-08-16 09:58:03.878179                                         *
+ *           File Size         : 15189                                                              *
+ *           MD5 hash          : be30c4e7422485a9add52d7c30993cbc                                   *
  *                                                                                                  *
  ****************************************************************************************************/
 
 module canakari_topTMR(
-  input wire  clkA ,
-  input wire  clkB ,
-  input wire  clkC ,
-  input wire  rstA ,
-  input wire  rstB ,
-  input wire  rstC ,
-  input wire [4:0] addressA ,
-  input wire [4:0] addressB ,
-  input wire [4:0] addressC ,
-  input wire [4:0] bus_tra_selectA ,
-  input wire [4:0] bus_tra_selectB ,
-  input wire [4:0] bus_tra_selectC ,
-  input wire [15:0] writedataA ,
-  input wire [15:0] writedataB ,
-  input wire [15:0] writedataC ,
-  input wire  write_n_sigA ,
-  input wire  write_n_sigB ,
-  input wire  write_n_sigC ,
-  output wire  irq_can_traA ,
-  output wire  irq_can_traB ,
-  output wire  irq_can_traC ,
-  output wire  irq_can_recA ,
-  output wire  irq_can_recB ,
-  output wire  irq_can_recC ,
-  input wire  rx10A ,
-  input wire  rx10B ,
-  input wire  rx10C ,
-  input wire  rx18A ,
-  input wire  rx18B ,
-  input wire  rx18C ,
-  input wire  rx26A ,
-  input wire  rx26B ,
-  input wire  rx26C ,
-  input wire  rx2A ,
-  input wire  rx2B ,
-  input wire  rx2C ,
-  input wire  rx11A ,
-  input wire  rx11B ,
-  input wire  rx11C ,
-  input wire  rx19A ,
-  input wire  rx19B ,
-  input wire  rx19C ,
-  input wire  rx27A ,
-  input wire  rx27B ,
-  input wire  rx27C ,
-  input wire  rx3A ,
-  input wire  rx3B ,
-  input wire  rx3C ,
-  input wire  rx13A ,
-  input wire  rx13B ,
-  input wire  rx13C ,
-  input wire  rx21A ,
-  input wire  rx21B ,
-  input wire  rx21C ,
-  input wire  rx29A ,
-  input wire  rx29B ,
-  input wire  rx29C ,
-  input wire  rx5A ,
-  input wire  rx5B ,
-  input wire  rx5C ,
-  input wire  rx14A ,
-  input wire  rx14B ,
-  input wire  rx14C ,
-  input wire  rx22A ,
-  input wire  rx22B ,
-  input wire  rx22C ,
-  input wire  rx30A ,
-  input wire  rx30B ,
-  input wire  rx30C ,
-  input wire  rx6A ,
-  input wire  rx6B ,
-  input wire  rx6C ,
-  input wire  rx15A ,
-  input wire  rx15B ,
-  input wire  rx15C ,
-  input wire  rx23A ,
-  input wire  rx23B ,
-  input wire  rx23C ,
-  input wire  rx31A ,
-  input wire  rx31B ,
-  input wire  rx31C ,
-  input wire  rx7A ,
-  input wire  rx7B ,
-  input wire  rx7C ,
-  output wire  tx9A ,
-  output wire  tx9B ,
-  output wire  tx9C ,
-  output wire  tx17A ,
-  output wire  tx17B ,
-  output wire  tx17C ,
-  output wire  tx25A ,
-  output wire  tx25B ,
-  output wire  tx25C ,
-  output wire  tx1A ,
-  output wire  tx1B ,
-  output wire  tx1C ,
-  output wire  tx10A ,
-  output wire  tx10B ,
-  output wire  tx10C ,
-  output wire  tx18A ,
-  output wire  tx18B ,
-  output wire  tx18C ,
-  output wire  tx26A ,
-  output wire  tx26B ,
-  output wire  tx26C ,
-  output wire  tx2A ,
-  output wire  tx2B ,
-  output wire  tx2C ,
-  output wire  tx11A ,
-  output wire  tx11B ,
-  output wire  tx11C ,
-  output wire  tx19A ,
-  output wire  tx19B ,
-  output wire  tx19C ,
-  output wire  tx27A ,
-  output wire  tx27B ,
-  output wire  tx27C ,
-  output wire  tx3A ,
-  output wire  tx3B ,
-  output wire  tx3C ,
-  output wire  tx13A ,
-  output wire  tx13B ,
-  output wire  tx13C ,
-  output wire  tx21A ,
-  output wire  tx21B ,
-  output wire  tx21C ,
-  output wire  tx29A ,
-  output wire  tx29B ,
-  output wire  tx29C ,
-  output wire  tx5A ,
-  output wire  tx5B ,
-  output wire  tx5C ,
-  output wire  tx22A ,
-  output wire  tx22B ,
-  output wire  tx22C ,
-  output wire  tx30A ,
-  output wire  tx30B ,
-  output wire  tx30C ,
-  output wire  tx6A ,
-  output wire  tx6B ,
-  output wire  tx6C ,
-  output wire  tx14A ,
-  output wire  tx14B ,
-  output wire  tx14C ,
-  output wire  tx23A ,
-  output wire  tx23B ,
-  output wire  tx23C ,
-  output wire  tx31A ,
-  output wire  tx31B ,
-  output wire  tx31C ,
-  output wire  tx7A ,
-  output wire  tx7B ,
-  output wire  tx7C ,
-  output wire  tx15A ,
-  output wire  tx15B ,
-  output wire  tx15C ,
-  input wire  rx17A ,
-  input wire  rx17B ,
-  input wire  rx17C ,
-  input wire  rx25A ,
-  input wire  rx25B ,
-  input wire  rx25C ,
-  input wire  rx1A ,
-  input wire  rx1B ,
-  input wire  rx1C ,
-  input wire  rx9A ,
-  input wire  rx9B ,
-  input wire  rx9C ,
-  output wire [4:0] bus_rec_selectA ,
-  output wire [4:0] bus_rec_selectB ,
-  output wire [4:0] bus_rec_selectC ,
-  input wire  endwaitA ,
-  input wire  endwaitB ,
-  input wire  endwaitC ,
-  input wire  read_n_sigA ,
-  input wire  read_n_sigB ,
-  input wire  read_n_sigC ,
-  input wire  enable_cs_sigA ,
-  input wire  enable_cs_sigB ,
-  input wire  enable_cs_sigC ,
-  output wire [15:0] readdataA ,
-  output wire [15:0] readdataB ,
-  output wire [15:0] readdataC ,
-  input wire  rx16A ,
-  input wire  rx16B ,
-  input wire  rx16C ,
-  input wire  rx24A ,
-  input wire  rx24B ,
-  input wire  rx24C ,
-  input wire  rx0A ,
-  input wire  rx0B ,
-  input wire  rx0C ,
-  input wire  rx8A ,
-  input wire  rx8B ,
-  input wire  rx8C ,
-  output wire  tx8A ,
-  output wire  tx8B ,
-  output wire  tx8C ,
-  output wire  tx16A ,
-  output wire  tx16B ,
-  output wire  tx16C ,
-  output wire  tx24A ,
-  output wire  tx24B ,
-  output wire  tx24C ,
-  output wire  tx0A ,
-  output wire  tx0B ,
-  output wire  tx0C ,
-  input wire  main_timeoutrstA ,
-  input wire  main_timeoutrstB ,
-  input wire  main_timeoutrstC ,
-  input wire  rx20A ,
-  input wire  rx20B ,
-  input wire  rx20C ,
-  input wire  rx28A ,
-  input wire  rx28B ,
-  input wire  rx28C ,
-  input wire  rx4A ,
-  input wire  rx4B ,
-  input wire  rx4C ,
-  input wire  rx12A ,
-  input wire  rx12B ,
-  input wire  rx12C ,
-  output wire  tx12A ,
-  output wire  tx12B ,
-  output wire  tx12C ,
-  output wire  tx28A ,
-  output wire  tx28B ,
-  output wire  tx28C ,
-  output wire  tx4A ,
-  output wire  tx4B ,
-  output wire  tx4C ,
-  output wire  tx20A ,
-  output wire  tx20B ,
-  output wire  tx20C ,
-  input wire  end_can_procA ,
-  input wire  end_can_procB ,
-  input wire  end_can_procC ,
-  input wire  read_can_modeA ,
-  input wire  read_can_modeB ,
-  input wire  read_can_modeC 
+  input wire  clk ,
+  input wire  rst ,
+  input wire [4:0] address ,
+  input wire [4:0] bus_tra_select ,
+  input wire [15:0] writedata ,
+  input wire  write_n_sig ,
+  output wire  irq_can_tra ,
+  output wire  irq_can_rec ,
+  input wire  rx10 ,
+  input wire  rx2 ,
+  input wire  rx11 ,
+  input wire  rx3 ,
+  input wire  rx13 ,
+  input wire  rx5 ,
+  input wire  rx14 ,
+  input wire  rx6 ,
+  input wire  rx15 ,
+  input wire  rx7 ,
+  output wire  tx9 ,
+  output wire  tx1 ,
+  output wire  tx10 ,
+  output wire  tx2 ,
+  output wire  tx11 ,
+  output wire  tx3 ,
+  output wire  tx13 ,
+  output wire  tx5 ,
+  output wire  tx6 ,
+  output wire  tx14 ,
+  output wire  tx7 ,
+  output wire  tx15 ,
+  input wire  rx1 ,
+  input wire  rx9 ,
+  output wire [4:0] bus_rec_select ,
+  input wire  endwait ,
+  input wire  read_n_sig ,
+  input wire  enable_cs_sig ,
+  output wire [15:0] readdata ,
+  input wire  rx0 ,
+  input wire  rx8 ,
+  output wire  tx8 ,
+  output wire  tx0 ,
+  input wire  main_timeoutrst ,
+  input wire  rx4 ,
+  input wire  rx12 ,
+  output wire  tx12 ,
+  output wire  tx4 ,
+  input wire  end_can_proc 
 );
-wire irqsucrec8A;
-wire irqsucrec8B;
-wire irqsucrec8C;
-wire irqsucrec16A;
-wire irqsucrec16B;
-wire irqsucrec16C;
-wire irqsucrec0A;
-wire irqsucrec0B;
-wire irqsucrec0C;
-wire irqsucrec9A;
-wire irqsucrec9B;
-wire irqsucrec9C;
-wire irqsucrec17A;
-wire irqsucrec17B;
-wire irqsucrec17C;
-wire irqsucrec1A;
-wire irqsucrec1B;
-wire irqsucrec1C;
-wire irqsucrec10A;
-wire irqsucrec10B;
-wire irqsucrec10C;
-wire irqsucrec18A;
-wire irqsucrec18B;
-wire irqsucrec18C;
-wire irqsucrec2A;
-wire irqsucrec2B;
-wire irqsucrec2C;
-wire irqsucrec11A;
-wire irqsucrec11B;
-wire irqsucrec11C;
-wire irqsucrec19A;
-wire irqsucrec19B;
-wire irqsucrec19C;
-wire irqsucrec3A;
-wire irqsucrec3B;
-wire irqsucrec3C;
-wire irqsucrec13A;
-wire irqsucrec13B;
-wire irqsucrec13C;
-wire irqsucrec21A;
-wire irqsucrec21B;
-wire irqsucrec21C;
-wire irqsucrec5A;
-wire irqsucrec5B;
-wire irqsucrec5C;
-wire irqsucrec15A;
-wire irqsucrec15B;
-wire irqsucrec15C;
-wire irqsucrec23A;
-wire irqsucrec23B;
-wire irqsucrec23C;
-wire irqsucrec7A;
-wire irqsucrec7B;
-wire irqsucrec7C;
-wire irqsucrec14A;
-wire irqsucrec14B;
-wire irqsucrec14C;
-wire irqsucrec22A;
-wire irqsucrec22B;
-wire irqsucrec22C;
-wire irqsucrec6A;
-wire irqsucrec6B;
-wire irqsucrec6C;
-wire read_n8A;
-wire read_n8B;
-wire read_n8C;
-wire read_n16A;
-wire read_n16B;
-wire read_n16C;
-wire read_n0A;
-wire read_n0B;
-wire read_n0C;
-wire read_n9A;
-wire read_n9B;
-wire read_n9C;
-wire read_n17A;
-wire read_n17B;
-wire read_n17C;
-wire read_n1A;
-wire read_n1B;
-wire read_n1C;
-wire read_n10A;
-wire read_n10B;
-wire read_n10C;
-wire read_n18A;
-wire read_n18B;
-wire read_n18C;
-wire read_n2A;
-wire read_n2B;
-wire read_n2C;
-wire read_n11A;
-wire read_n11B;
-wire read_n11C;
-wire read_n19A;
-wire read_n19B;
-wire read_n19C;
-wire read_n3A;
-wire read_n3B;
-wire read_n3C;
-wire read_n13A;
-wire read_n13B;
-wire read_n13C;
-wire read_n21A;
-wire read_n21B;
-wire read_n21C;
-wire read_n5A;
-wire read_n5B;
-wire read_n5C;
-wire read_n14A;
-wire read_n14B;
-wire read_n14C;
-wire read_n22A;
-wire read_n22B;
-wire read_n22C;
-wire read_n6A;
-wire read_n6B;
-wire read_n6C;
-wire read_n15A;
-wire read_n15B;
-wire read_n15C;
-wire read_n23A;
-wire read_n23B;
-wire read_n23C;
-wire read_n7A;
-wire read_n7B;
-wire read_n7C;
-wire write_n8A;
-wire write_n8B;
-wire write_n8C;
-wire write_n16A;
-wire write_n16B;
-wire write_n16C;
-wire write_n0A;
-wire write_n0B;
-wire write_n0C;
-wire irqsuctra1A;
-wire irqsuctra1B;
-wire irqsuctra1C;
-wire irqsuctra2A;
-wire irqsuctra2B;
-wire irqsuctra2C;
-wire irqsuctra3A;
-wire irqsuctra3B;
-wire irqsuctra3C;
-wire irqsuctra4A;
-wire irqsuctra4B;
-wire irqsuctra4C;
-wire irqsuctra5A;
-wire irqsuctra5B;
-wire irqsuctra5C;
-wire irqsuctra6A;
-wire irqsuctra6B;
-wire irqsuctra6C;
-wire irqsuctra7A;
-wire irqsuctra7B;
-wire irqsuctra7C;
-wire irqsuctra0A;
-wire irqsuctra0B;
-wire irqsuctra0C;
-wire [15:0] writedata8A;
-wire [15:0] writedata8B;
-wire [15:0] writedata8C;
-wire [15:0] writedata16A;
-wire [15:0] writedata16B;
-wire [15:0] writedata16C;
-wire [15:0] writedata0A;
-wire [15:0] writedata0B;
-wire [15:0] writedata0C;
-wire [15:0] writedata9A;
-wire [15:0] writedata9B;
-wire [15:0] writedata9C;
-wire [15:0] writedata17A;
-wire [15:0] writedata17B;
-wire [15:0] writedata17C;
-wire [15:0] writedata1A;
-wire [15:0] writedata1B;
-wire [15:0] writedata1C;
-wire [15:0] writedata10A;
-wire [15:0] writedata10B;
-wire [15:0] writedata10C;
-wire [15:0] writedata18A;
-wire [15:0] writedata18B;
-wire [15:0] writedata18C;
-wire [15:0] writedata2A;
-wire [15:0] writedata2B;
-wire [15:0] writedata2C;
-wire [15:0] writedata11A;
-wire [15:0] writedata11B;
-wire [15:0] writedata11C;
-wire [15:0] writedata19A;
-wire [15:0] writedata19B;
-wire [15:0] writedata19C;
-wire [15:0] writedata3A;
-wire [15:0] writedata3B;
-wire [15:0] writedata3C;
-wire [15:0] writedata12A;
-wire [15:0] writedata12B;
-wire [15:0] writedata12C;
-wire [15:0] writedata20A;
-wire [15:0] writedata20B;
-wire [15:0] writedata20C;
-wire [15:0] writedata4A;
-wire [15:0] writedata4B;
-wire [15:0] writedata4C;
-wire [15:0] writedata13A;
-wire [15:0] writedata13B;
-wire [15:0] writedata13C;
-wire [15:0] writedata21A;
-wire [15:0] writedata21B;
-wire [15:0] writedata21C;
-wire [15:0] writedata5A;
-wire [15:0] writedata5B;
-wire [15:0] writedata5C;
-wire [15:0] writedata14A;
-wire [15:0] writedata14B;
-wire [15:0] writedata14C;
-wire [15:0] writedata22A;
-wire [15:0] writedata22B;
-wire [15:0] writedata22C;
-wire [15:0] writedata6A;
-wire [15:0] writedata6B;
-wire [15:0] writedata6C;
-wire [15:0] writedata15A;
-wire [15:0] writedata15B;
-wire [15:0] writedata15C;
-wire [15:0] writedata23A;
-wire [15:0] writedata23B;
-wire [15:0] writedata23C;
-wire [15:0] writedata7A;
-wire [15:0] writedata7B;
-wire [15:0] writedata7C;
-wire write_n9A;
-wire write_n9B;
-wire write_n9C;
-wire write_n17A;
-wire write_n17B;
-wire write_n17C;
-wire write_n1A;
-wire write_n1B;
-wire write_n1C;
-wire write_n10A;
-wire write_n10B;
-wire write_n10C;
-wire write_n18A;
-wire write_n18B;
-wire write_n18C;
-wire write_n2A;
-wire write_n2B;
-wire write_n2C;
-wire write_n11A;
-wire write_n11B;
-wire write_n11C;
-wire write_n19A;
-wire write_n19B;
-wire write_n19C;
-wire write_n3A;
-wire write_n3B;
-wire write_n3C;
-wire write_n12A;
-wire write_n12B;
-wire write_n12C;
-wire write_n20A;
-wire write_n20B;
-wire write_n20C;
-wire write_n4A;
-wire write_n4B;
-wire write_n4C;
-wire write_n13A;
-wire write_n13B;
-wire write_n13C;
-wire write_n21A;
-wire write_n21B;
-wire write_n21C;
-wire write_n5A;
-wire write_n5B;
-wire write_n5C;
-wire write_n14A;
-wire write_n14B;
-wire write_n14C;
-wire write_n6A;
-wire write_n6B;
-wire write_n6C;
-wire write_n22A;
-wire write_n22B;
-wire write_n22C;
-wire write_n15A;
-wire write_n15B;
-wire write_n15C;
-wire write_n7A;
-wire write_n7B;
-wire write_n7C;
-wire write_n23A;
-wire write_n23B;
-wire write_n23C;
-wire cs8A;
-wire cs8B;
-wire cs8C;
-wire cs16A;
-wire cs16B;
-wire cs16C;
-wire cs24A;
-wire cs24B;
-wire cs24C;
-wire cs0A;
-wire cs0B;
-wire cs0C;
-wire cs_rec0A;
-wire cs_rec0B;
-wire cs_rec0C;
-wire cs_rec1A;
-wire cs_rec1B;
-wire cs_rec1C;
-wire cs_rec2A;
-wire cs_rec2B;
-wire cs_rec2C;
-wire cs_rec3A;
-wire cs_rec3B;
-wire cs_rec3C;
-wire cs_rec4A;
-wire cs_rec4B;
-wire cs_rec4C;
-wire cs_rec5A;
-wire cs_rec5B;
-wire cs_rec5C;
-wire cs_rec6A;
-wire cs_rec6B;
-wire cs_rec6C;
-wire cs_rec7A;
-wire cs_rec7B;
-wire cs_rec7C;
-wire cs_tra0A;
-wire cs_tra0B;
-wire cs_tra0C;
-wire ireqsucrecA;
-wire ireqsucrecB;
-wire ireqsucrecC;
-wire cs9A;
-wire cs9B;
-wire cs9C;
-wire cs17A;
-wire cs17B;
-wire cs17C;
-wire cs25A;
-wire cs25B;
-wire cs25C;
-wire cs1A;
-wire cs1B;
-wire cs1C;
-wire cs10A;
-wire cs10B;
-wire cs10C;
-wire cs18A;
-wire cs18B;
-wire cs18C;
-wire cs26A;
-wire cs26B;
-wire cs26C;
-wire cs2A;
-wire cs2B;
-wire cs2C;
-wire cs13A;
-wire cs13B;
-wire cs13C;
-wire cs21A;
-wire cs21B;
-wire cs21C;
-wire cs29A;
-wire cs29B;
-wire cs29C;
-wire cs5A;
-wire cs5B;
-wire cs5C;
-wire cs14A;
-wire cs14B;
-wire cs14C;
-wire cs22A;
-wire cs22B;
-wire cs22C;
-wire cs30A;
-wire cs30B;
-wire cs30C;
-wire cs6A;
-wire cs6B;
-wire cs6C;
-wire cs15A;
-wire cs15B;
-wire cs15C;
-wire cs23A;
-wire cs23B;
-wire cs23C;
-wire cs31A;
-wire cs31B;
-wire cs31C;
-wire cs7A;
-wire cs7B;
-wire cs7C;
-wire cs12A;
-wire cs12B;
-wire cs12C;
-wire cs20A;
-wire cs20B;
-wire cs20C;
-wire cs28A;
-wire cs28B;
-wire cs28C;
-wire cs4A;
-wire cs4B;
-wire cs4C;
-wire cs11A;
-wire cs11B;
-wire cs11C;
-wire cs19A;
-wire cs19B;
-wire cs19C;
-wire cs27A;
-wire cs27B;
-wire cs27C;
-wire cs3A;
-wire cs3B;
-wire cs3C;
-wire cs_tra1A;
-wire cs_tra1B;
-wire cs_tra1C;
-wire cs_tra2A;
-wire cs_tra2B;
-wire cs_tra2C;
-wire cs_tra3A;
-wire cs_tra3B;
-wire cs_tra3C;
-wire cs_tra4A;
-wire cs_tra4B;
-wire cs_tra4C;
-wire cs_tra5A;
-wire cs_tra5B;
-wire cs_tra5C;
-wire cs_tra6A;
-wire cs_tra6B;
-wire cs_tra6C;
-wire cs_tra7A;
-wire cs_tra7B;
-wire cs_tra7C;
-wire irqsuctra10A;
-wire irqsuctra10B;
-wire irqsuctra10C;
-wire irqsuctra11A;
-wire irqsuctra11B;
-wire irqsuctra11C;
-wire irqsuctra12A;
-wire irqsuctra12B;
-wire irqsuctra12C;
-wire irqsuctra13A;
-wire irqsuctra13B;
-wire irqsuctra13C;
-wire irqsuctra14A;
-wire irqsuctra14B;
-wire irqsuctra14C;
-wire irqsuctra16A;
-wire irqsuctra16B;
-wire irqsuctra16C;
-wire irqsuctra17A;
-wire irqsuctra17B;
-wire irqsuctra17C;
-wire irqsuctra18A;
-wire irqsuctra18B;
-wire irqsuctra18C;
-wire irqsuctra19A;
-wire irqsuctra19B;
-wire irqsuctra19C;
-wire irqsuctra20A;
-wire irqsuctra20B;
-wire irqsuctra20C;
-wire irqsuctra21A;
-wire irqsuctra21B;
-wire irqsuctra21C;
-wire irqsuctra22A;
-wire irqsuctra22B;
-wire irqsuctra22C;
-wire irqsuctra23A;
-wire irqsuctra23B;
-wire irqsuctra23C;
-wire irqsuctra8A;
-wire irqsuctra8B;
-wire irqsuctra8C;
-wire irqsuctra9A;
-wire irqsuctra9B;
-wire irqsuctra9C;
-wire irqsucrec12A;
-wire irqsucrec12B;
-wire irqsucrec12C;
-wire irqsucrec20A;
-wire irqsucrec20B;
-wire irqsucrec20C;
-wire irqsucrec4A;
-wire irqsucrec4B;
-wire irqsucrec4C;
-wire read_n12A;
-wire read_n12B;
-wire read_n12C;
-wire read_n4A;
-wire read_n4B;
-wire read_n4C;
-wire read_n20A;
-wire read_n20B;
-wire read_n20C;
-wire [15:0] readdata12A;
-wire [15:0] readdata12B;
-wire [15:0] readdata12C;
-wire [15:0] readdata20A;
-wire [15:0] readdata20B;
-wire [15:0] readdata20C;
-wire [15:0] readdata4A;
-wire [15:0] readdata4B;
-wire [15:0] readdata4C;
-wire [15:0] readdata5A;
-wire [15:0] readdata5B;
-wire [15:0] readdata5C;
-wire [15:0] readdata21A;
-wire [15:0] readdata21B;
-wire [15:0] readdata21C;
-wire [15:0] readdata13A;
-wire [15:0] readdata13B;
-wire [15:0] readdata13C;
-wire [15:0] readdata0A;
-wire [15:0] readdata0B;
-wire [15:0] readdata0C;
-wire [15:0] readdata16A;
-wire [15:0] readdata16B;
-wire [15:0] readdata16C;
-wire [15:0] readdata8A;
-wire [15:0] readdata8B;
-wire [15:0] readdata8C;
-wire [15:0] readdata1A;
-wire [15:0] readdata1B;
-wire [15:0] readdata1C;
-wire [15:0] readdata17A;
-wire [15:0] readdata17B;
-wire [15:0] readdata17C;
-wire [15:0] readdata9A;
-wire [15:0] readdata9B;
-wire [15:0] readdata9C;
-wire [15:0] readdata2A;
-wire [15:0] readdata2B;
-wire [15:0] readdata2C;
-wire [15:0] readdata18A;
-wire [15:0] readdata18B;
-wire [15:0] readdata18C;
-wire [15:0] readdata10A;
-wire [15:0] readdata10B;
-wire [15:0] readdata10C;
-wire [15:0] readdata3A;
-wire [15:0] readdata3B;
-wire [15:0] readdata3C;
-wire [15:0] readdata19A;
-wire [15:0] readdata19B;
-wire [15:0] readdata19C;
-wire [15:0] readdata11A;
-wire [15:0] readdata11B;
-wire [15:0] readdata11C;
-wire [15:0] readdata6A;
-wire [15:0] readdata6B;
-wire [15:0] readdata6C;
-wire [15:0] readdata22A;
-wire [15:0] readdata22B;
-wire [15:0] readdata22C;
-wire [15:0] readdata14A;
-wire [15:0] readdata14B;
-wire [15:0] readdata14C;
-wire [15:0] readdata7A;
-wire [15:0] readdata7B;
-wire [15:0] readdata7C;
-wire [15:0] readdata23A;
-wire [15:0] readdata23B;
-wire [15:0] readdata23C;
-wire [15:0] readdata15A;
-wire [15:0] readdata15B;
-wire [15:0] readdata15C;
-wire cs_rec10A;
-wire cs_rec10B;
-wire cs_rec10C;
-wire cs_rec11A;
-wire cs_rec11B;
-wire cs_rec11C;
-wire cs_rec12A;
-wire cs_rec12B;
-wire cs_rec12C;
-wire cs_rec13A;
-wire cs_rec13B;
-wire cs_rec13C;
-wire cs_rec14A;
-wire cs_rec14B;
-wire cs_rec14C;
-wire cs_rec15A;
-wire cs_rec15B;
-wire cs_rec15C;
-wire cs_rec8A;
-wire cs_rec8B;
-wire cs_rec8C;
-wire cs_rec9A;
-wire cs_rec9B;
-wire cs_rec9C;
-wire cs_tra10A;
-wire cs_tra10B;
-wire cs_tra10C;
-wire cs_tra11A;
-wire cs_tra11B;
-wire cs_tra11C;
-wire cs_tra12A;
-wire cs_tra12B;
-wire cs_tra12C;
-wire cs_tra13A;
-wire cs_tra13B;
-wire cs_tra13C;
-wire cs_tra14A;
-wire cs_tra14B;
-wire cs_tra14C;
-wire cs_tra15A;
-wire cs_tra15B;
-wire cs_tra15C;
-wire cs_tra8A;
-wire cs_tra8B;
-wire cs_tra8C;
-wire cs_tra9A;
-wire cs_tra9B;
-wire cs_tra9C;
-wire irqsuctra15A;
-wire irqsuctra15B;
-wire irqsuctra15C;
-wire cs_rec16A;
-wire cs_rec16B;
-wire cs_rec16C;
-wire cs_rec17A;
-wire cs_rec17B;
-wire cs_rec17C;
-wire cs_rec18A;
-wire cs_rec18B;
-wire cs_rec18C;
-wire cs_rec19A;
-wire cs_rec19B;
-wire cs_rec19C;
-wire cs_rec20A;
-wire cs_rec20B;
-wire cs_rec20C;
-wire cs_rec21A;
-wire cs_rec21B;
-wire cs_rec21C;
-wire cs_rec22A;
-wire cs_rec22B;
-wire cs_rec22C;
-wire cs_rec23A;
-wire cs_rec23B;
-wire cs_rec23C;
-wire cs_tra16A;
-wire cs_tra16B;
-wire cs_tra16C;
-wire cs_tra17A;
-wire cs_tra17B;
-wire cs_tra17C;
-wire cs_tra18A;
-wire cs_tra18B;
-wire cs_tra18C;
-wire cs_tra19A;
-wire cs_tra19B;
-wire cs_tra19C;
-wire cs_tra20A;
-wire cs_tra20B;
-wire cs_tra20C;
-wire cs_tra21A;
-wire cs_tra21B;
-wire cs_tra21C;
-wire cs_tra22A;
-wire cs_tra22B;
-wire cs_tra22C;
-wire cs_tra23A;
-wire cs_tra23B;
-wire cs_tra23C;
-wire cs_tra24A;
-wire cs_tra24B;
-wire cs_tra24C;
-wire cs_tra25A;
-wire cs_tra25B;
-wire cs_tra25C;
-wire cs_tra26A;
-wire cs_tra26B;
-wire cs_tra26C;
-wire cs_tra27A;
-wire cs_tra27B;
-wire cs_tra27C;
-wire cs_tra28A;
-wire cs_tra28B;
-wire cs_tra28C;
-wire cs_tra29A;
-wire cs_tra29B;
-wire cs_tra29C;
-wire cs_tra30A;
-wire cs_tra30B;
-wire cs_tra30C;
-wire cs_tra31A;
-wire cs_tra31B;
-wire cs_tra31C;
-wire write_n24A;
-wire write_n24B;
-wire write_n24C;
-wire write_n25A;
-wire write_n25B;
-wire write_n25C;
-wire write_n26A;
-wire write_n26B;
-wire write_n26C;
-wire write_n27A;
-wire write_n27B;
-wire write_n27C;
-wire write_n28A;
-wire write_n28B;
-wire write_n28C;
-wire write_n29A;
-wire write_n29B;
-wire write_n29C;
-wire write_n30A;
-wire write_n30B;
-wire write_n30C;
-wire write_n31A;
-wire write_n31B;
-wire write_n31C;
-wire [15:0] writedata24A;
-wire [15:0] writedata24B;
-wire [15:0] writedata24C;
-wire [15:0] writedata25A;
-wire [15:0] writedata25B;
-wire [15:0] writedata25C;
-wire [15:0] writedata26A;
-wire [15:0] writedata26B;
-wire [15:0] writedata26C;
-wire [15:0] writedata27A;
-wire [15:0] writedata27B;
-wire [15:0] writedata27C;
-wire [15:0] writedata28A;
-wire [15:0] writedata28B;
-wire [15:0] writedata28C;
-wire [15:0] writedata29A;
-wire [15:0] writedata29B;
-wire [15:0] writedata29C;
-wire [15:0] writedata30A;
-wire [15:0] writedata30B;
-wire [15:0] writedata30C;
-wire [15:0] writedata31A;
-wire [15:0] writedata31B;
-wire [15:0] writedata31C;
-wire irqsuctra24A;
-wire irqsuctra24B;
-wire irqsuctra24C;
-wire irqsuctra25A;
-wire irqsuctra25B;
-wire irqsuctra25C;
-wire irqsuctra26A;
-wire irqsuctra26B;
-wire irqsuctra26C;
-wire irqsuctra27A;
-wire irqsuctra27B;
-wire irqsuctra27C;
-wire irqsuctra28A;
-wire irqsuctra28B;
-wire irqsuctra28C;
-wire irqsuctra29A;
-wire irqsuctra29B;
-wire irqsuctra29C;
-wire irqsuctra30A;
-wire irqsuctra30B;
-wire irqsuctra30C;
-wire irqsuctra31A;
-wire irqsuctra31B;
-wire irqsuctra31C;
-wire [15:0] readdata24A;
-wire [15:0] readdata24B;
-wire [15:0] readdata24C;
-wire [15:0] readdata25A;
-wire [15:0] readdata25B;
-wire [15:0] readdata25C;
-wire [15:0] readdata26A;
-wire [15:0] readdata26B;
-wire [15:0] readdata26C;
-wire [15:0] readdata27A;
-wire [15:0] readdata27B;
-wire [15:0] readdata27C;
-wire [15:0] readdata28A;
-wire [15:0] readdata28B;
-wire [15:0] readdata28C;
-wire [15:0] readdata29A;
-wire [15:0] readdata29B;
-wire [15:0] readdata29C;
-wire [15:0] readdata30A;
-wire [15:0] readdata30B;
-wire [15:0] readdata30C;
-wire [15:0] readdata31A;
-wire [15:0] readdata31B;
-wire [15:0] readdata31C;
-wire read_n24A;
-wire read_n24B;
-wire read_n24C;
-wire read_n25A;
-wire read_n25B;
-wire read_n25C;
-wire read_n26A;
-wire read_n26B;
-wire read_n26C;
-wire read_n27A;
-wire read_n27B;
-wire read_n27C;
-wire read_n28A;
-wire read_n28B;
-wire read_n28C;
-wire read_n29A;
-wire read_n29B;
-wire read_n29C;
-wire read_n30A;
-wire read_n30B;
-wire read_n30C;
-wire read_n31A;
-wire read_n31B;
-wire read_n31C;
-wire cs_rec24A;
-wire cs_rec24B;
-wire cs_rec24C;
-wire cs_rec25A;
-wire cs_rec25B;
-wire cs_rec25C;
-wire cs_rec26A;
-wire cs_rec26B;
-wire cs_rec26C;
-wire cs_rec27A;
-wire cs_rec27B;
-wire cs_rec27C;
-wire cs_rec28A;
-wire cs_rec28B;
-wire cs_rec28C;
-wire cs_rec29A;
-wire cs_rec29B;
-wire cs_rec29C;
-wire cs_rec30A;
-wire cs_rec30B;
-wire cs_rec30C;
-wire cs_rec31A;
-wire cs_rec31B;
-wire cs_rec31C;
-wire irqsucrec24A;
-wire irqsucrec24B;
-wire irqsucrec24C;
-wire irqsucrec25A;
-wire irqsucrec25B;
-wire irqsucrec25C;
-wire irqsucrec26A;
-wire irqsucrec26B;
-wire irqsucrec26C;
-wire irqsucrec27A;
-wire irqsucrec27B;
-wire irqsucrec27C;
-wire irqsucrec28A;
-wire irqsucrec28B;
-wire irqsucrec28C;
-wire irqsucrec29A;
-wire irqsucrec29B;
-wire irqsucrec29C;
-wire irqsucrec30A;
-wire irqsucrec30B;
-wire irqsucrec30C;
-wire irqsucrec31A;
-wire irqsucrec31B;
-wire irqsucrec31C;
+wire irqsucrec8;
+wire irqsucrec0;
+wire irqsucrec9;
+wire irqsucrec1;
+wire irqsucrec10;
+wire irqsucrec2;
+wire irqsucrec11;
+wire irqsucrec3;
+wire irqsucrec13;
+wire irqsucrec5;
+wire irqsucrec15;
+wire irqsucrec7;
+wire irqsucrec14;
+wire irqsucrec6;
+wire read_n8;
+wire read_n0;
+wire read_n9;
+wire read_n1;
+wire read_n10;
+wire read_n2;
+wire read_n11;
+wire read_n3;
+wire read_n13;
+wire read_n5;
+wire read_n14;
+wire read_n6;
+wire read_n15;
+wire read_n7;
+wire write_n8;
+wire write_n0;
+wire irqsuctra1;
+wire irqsuctra2;
+wire irqsuctra3;
+wire irqsuctra4;
+wire irqsuctra5;
+wire irqsuctra6;
+wire irqsuctra7;
+wire irqsuctra0;
+wire [15:0] writedata8;
+wire [15:0] writedata0;
+wire [15:0] writedata9;
+wire [15:0] writedata1;
+wire [15:0] writedata10;
+wire [15:0] writedata2;
+wire [15:0] writedata11;
+wire [15:0] writedata3;
+wire [15:0] writedata12;
+wire [15:0] writedata4;
+wire [15:0] writedata13;
+wire [15:0] writedata5;
+wire [15:0] writedata14;
+wire [15:0] writedata6;
+wire [15:0] writedata15;
+wire [15:0] writedata7;
+wire write_n9;
+wire write_n1;
+wire write_n10;
+wire write_n2;
+wire write_n11;
+wire write_n3;
+wire write_n12;
+wire write_n4;
+wire write_n13;
+wire write_n5;
+wire write_n14;
+wire write_n6;
+wire write_n15;
+wire write_n7;
+wire cs8;
+wire cs0;
+wire cs_rec0;
+wire cs_rec1;
+wire cs_rec2;
+wire cs_rec3;
+wire cs_rec4;
+wire cs_rec5;
+wire cs_rec6;
+wire cs_rec7;
+wire cs_tra0;
+wire cs9;
+wire cs1;
+wire cs10;
+wire cs2;
+wire cs13;
+wire cs5;
+wire cs14;
+wire cs6;
+wire cs15;
+wire cs7;
+wire cs12;
+wire cs4;
+wire cs11;
+wire cs3;
+wire cs_tra1;
+wire cs_tra2;
+wire cs_tra3;
+wire cs_tra4;
+wire cs_tra5;
+wire cs_tra6;
+wire cs_tra7;
+wire irqsuctra10;
+wire irqsuctra11;
+wire irqsuctra12;
+wire irqsuctra13;
+wire irqsuctra14;
+wire irqsuctra8;
+wire irqsuctra9;
+wire irqsucrec12;
+wire irqsucrec4;
+wire read_n12;
+wire read_n4;
+wire [15:0] readdata12;
+wire [15:0] readdata4;
+wire [15:0] readdata5;
+wire [15:0] readdata13;
+wire [15:0] readdata0;
+wire [15:0] readdata8;
+wire [15:0] readdata1;
+wire [15:0] readdata9;
+wire [15:0] readdata2;
+wire [15:0] readdata10;
+wire [15:0] readdata3;
+wire [15:0] readdata11;
+wire [15:0] readdata6;
+wire [15:0] readdata14;
+wire [15:0] readdata7;
+wire [15:0] readdata15;
+wire cs_rec10;
+wire cs_rec11;
+wire cs_rec12;
+wire cs_rec13;
+wire cs_rec14;
+wire cs_rec15;
+wire cs_rec8;
+wire cs_rec9;
+wire cs_tra10;
+wire cs_tra11;
+wire cs_tra12;
+wire cs_tra13;
+wire cs_tra14;
+wire cs_tra15;
+wire cs_tra8;
+wire cs_tra9;
+wire irqsuctra15;
 
 canakari_0_7TMR cancari_block0_7 (
-    .addressA(addressA),
-    .addressB(addressB),
-    .addressC(addressC),
-    .clkA(clkA),
-    .clkB(clkB),
-    .clkC(clkC),
-    .cs0A(cs0A),
-    .cs0B(cs0B),
-    .cs0C(cs0C),
-    .cs1A(cs1A),
-    .cs1B(cs1B),
-    .cs1C(cs1C),
-    .cs2A(cs2A),
-    .cs2B(cs2B),
-    .cs2C(cs2C),
-    .cs3A(cs3A),
-    .cs3B(cs3B),
-    .cs3C(cs3C),
-    .cs4A(cs4A),
-    .cs4B(cs4B),
-    .cs4C(cs4C),
-    .cs5A(cs5A),
-    .cs5B(cs5B),
-    .cs5C(cs5C),
-    .cs6A(cs6A),
-    .cs6B(cs6B),
-    .cs6C(cs6C),
-    .cs7A(cs7A),
-    .cs7B(cs7B),
-    .cs7C(cs7C),
-    .read_n0A(read_n0A),
-    .read_n0B(read_n0B),
-    .read_n0C(read_n0C),
-    .read_n1A(read_n1A),
-    .read_n1B(read_n1B),
-    .read_n1C(read_n1C),
-    .read_n2A(read_n2A),
-    .read_n2B(read_n2B),
-    .read_n2C(read_n2C),
-    .read_n3A(read_n3A),
-    .read_n3B(read_n3B),
-    .read_n3C(read_n3C),
-    .read_n4A(read_n4A),
-    .read_n4B(read_n4B),
-    .read_n4C(read_n4C),
-    .read_n5A(read_n5A),
-    .read_n5B(read_n5B),
-    .read_n5C(read_n5C),
-    .read_n6A(read_n6A),
-    .read_n6B(read_n6B),
-    .read_n6C(read_n6C),
-    .read_n7A(read_n7A),
-    .read_n7B(read_n7B),
-    .read_n7C(read_n7C),
-    .rstA(rstA),
-    .rstB(rstB),
-    .rstC(rstC),
-    .rx0A(rx0A),
-    .rx0B(rx0B),
-    .rx0C(rx0C),
-    .rx1A(rx1A),
-    .rx1B(rx1B),
-    .rx1C(rx1C),
-    .rx2A(rx2A),
-    .rx2B(rx2B),
-    .rx2C(rx2C),
-    .rx3A(rx3A),
-    .rx3B(rx3B),
-    .rx3C(rx3C),
-    .rx4A(rx4A),
-    .rx4B(rx4B),
-    .rx4C(rx4C),
-    .rx5A(rx5A),
-    .rx5B(rx5B),
-    .rx5C(rx5C),
-    .rx6A(rx6A),
-    .rx6B(rx6B),
-    .rx6C(rx6C),
-    .rx7A(rx7A),
-    .rx7B(rx7B),
-    .rx7C(rx7C),
-    .write_n0A(write_n0A),
-    .write_n0B(write_n0B),
-    .write_n0C(write_n0C),
-    .write_n1A(write_n1A),
-    .write_n1B(write_n1B),
-    .write_n1C(write_n1C),
-    .write_n2A(write_n2A),
-    .write_n2B(write_n2B),
-    .write_n2C(write_n2C),
-    .write_n3A(write_n3A),
-    .write_n3B(write_n3B),
-    .write_n3C(write_n3C),
-    .write_n4A(write_n4A),
-    .write_n4B(write_n4B),
-    .write_n4C(write_n4C),
-    .write_n5A(write_n5A),
-    .write_n5B(write_n5B),
-    .write_n5C(write_n5C),
-    .write_n6A(write_n6A),
-    .write_n6B(write_n6B),
-    .write_n6C(write_n6C),
-    .write_n7A(write_n7A),
-    .write_n7B(write_n7B),
-    .write_n7C(write_n7C),
-    .writedata0A(writedata0A),
-    .writedata0B(writedata0B),
-    .writedata0C(writedata0C),
-    .writedata1A(writedata1A),
-    .writedata1B(writedata1B),
-    .writedata1C(writedata1C),
-    .writedata2A(writedata2A),
-    .writedata2B(writedata2B),
-    .writedata2C(writedata2C),
-    .writedata3A(writedata3A),
-    .writedata3B(writedata3B),
-    .writedata3C(writedata3C),
-    .writedata4A(writedata4A),
-    .writedata4B(writedata4B),
-    .writedata4C(writedata4C),
-    .writedata5A(writedata5A),
-    .writedata5B(writedata5B),
-    .writedata5C(writedata5C),
-    .writedata6A(writedata6A),
-    .writedata6B(writedata6B),
-    .writedata6C(writedata6C),
-    .writedata7A(writedata7A),
-    .writedata7B(writedata7B),
-    .writedata7C(writedata7C),
-    .irqsucrec0A(irqsucrec0A),
-    .irqsucrec0B(irqsucrec0B),
-    .irqsucrec0C(irqsucrec0C),
-    .irqsucrec1A(irqsucrec1A),
-    .irqsucrec1B(irqsucrec1B),
-    .irqsucrec1C(irqsucrec1C),
-    .irqsucrec2A(irqsucrec2A),
-    .irqsucrec2B(irqsucrec2B),
-    .irqsucrec2C(irqsucrec2C),
-    .irqsucrec3A(irqsucrec3A),
-    .irqsucrec3B(irqsucrec3B),
-    .irqsucrec3C(irqsucrec3C),
-    .irqsucrec4A(irqsucrec4A),
-    .irqsucrec4B(irqsucrec4B),
-    .irqsucrec4C(irqsucrec4C),
-    .irqsucrec5A(irqsucrec5A),
-    .irqsucrec5B(irqsucrec5B),
-    .irqsucrec5C(irqsucrec5C),
-    .irqsucrec6A(irqsucrec6A),
-    .irqsucrec6B(irqsucrec6B),
-    .irqsucrec6C(irqsucrec6C),
-    .irqsucrec7A(irqsucrec7A),
-    .irqsucrec7B(irqsucrec7B),
-    .irqsucrec7C(irqsucrec7C),
-    .irqsuctra0A(irqsuctra0A),
-    .irqsuctra0B(irqsuctra0B),
-    .irqsuctra0C(irqsuctra0C),
-    .irqsuctra1A(irqsuctra1A),
-    .irqsuctra1B(irqsuctra1B),
-    .irqsuctra1C(irqsuctra1C),
-    .irqsuctra2A(irqsuctra2A),
-    .irqsuctra2B(irqsuctra2B),
-    .irqsuctra2C(irqsuctra2C),
-    .irqsuctra3A(irqsuctra3A),
-    .irqsuctra3B(irqsuctra3B),
-    .irqsuctra3C(irqsuctra3C),
-    .irqsuctra4A(irqsuctra4A),
-    .irqsuctra4B(irqsuctra4B),
-    .irqsuctra4C(irqsuctra4C),
-    .irqsuctra5A(irqsuctra5A),
-    .irqsuctra5B(irqsuctra5B),
-    .irqsuctra5C(irqsuctra5C),
-    .irqsuctra6A(irqsuctra6A),
-    .irqsuctra6B(irqsuctra6B),
-    .irqsuctra6C(irqsuctra6C),
-    .irqsuctra7A(irqsuctra7A),
-    .irqsuctra7B(irqsuctra7B),
-    .irqsuctra7C(irqsuctra7C),
-    .readdata0A(readdata0A),
-    .readdata0B(readdata0B),
-    .readdata0C(readdata0C),
-    .readdata1A(readdata1A),
-    .readdata1B(readdata1B),
-    .readdata1C(readdata1C),
-    .readdata2A(readdata2A),
-    .readdata2B(readdata2B),
-    .readdata2C(readdata2C),
-    .readdata3A(readdata3A),
-    .readdata3B(readdata3B),
-    .readdata3C(readdata3C),
-    .readdata4A(readdata4A),
-    .readdata4B(readdata4B),
-    .readdata4C(readdata4C),
-    .readdata5A(readdata5A),
-    .readdata5B(readdata5B),
-    .readdata5C(readdata5C),
-    .readdata6A(readdata6A),
-    .readdata6B(readdata6B),
-    .readdata6C(readdata6C),
-    .readdata7A(readdata7A),
-    .readdata7B(readdata7B),
-    .readdata7C(readdata7C),
-    .tx0A(tx0A),
-    .tx0B(tx0B),
-    .tx0C(tx0C),
-    .tx1A(tx1A),
-    .tx1B(tx1B),
-    .tx1C(tx1C),
-    .tx2A(tx2A),
-    .tx2B(tx2B),
-    .tx2C(tx2C),
-    .tx3A(tx3A),
-    .tx3B(tx3B),
-    .tx3C(tx3C),
-    .tx4A(tx4A),
-    .tx4B(tx4B),
-    .tx4C(tx4C),
-    .tx5A(tx5A),
-    .tx5B(tx5B),
-    .tx5C(tx5C),
-    .tx6A(tx6A),
-    .tx6B(tx6B),
-    .tx6C(tx6C),
-    .tx7A(tx7A),
-    .tx7B(tx7B),
-    .tx7C(tx7C)
+    .address(address),
+    .clk(clk),
+    .cs0(cs0),
+    .cs1(cs1),
+    .cs2(cs2),
+    .cs3(cs3),
+    .cs4(cs4),
+    .cs5(cs5),
+    .cs6(cs6),
+    .cs7(cs7),
+    .read_n0(read_n0),
+    .read_n1(read_n1),
+    .read_n2(read_n2),
+    .read_n3(read_n3),
+    .read_n4(read_n4),
+    .read_n5(read_n5),
+    .read_n6(read_n6),
+    .read_n7(read_n7),
+    .rst(rst),
+    .rx0(rx0),
+    .rx1(rx1),
+    .rx2(rx2),
+    .rx3(rx3),
+    .rx4(rx4),
+    .rx5(rx5),
+    .rx6(rx6),
+    .rx7(rx7),
+    .write_n0(write_n0),
+    .write_n1(write_n1),
+    .write_n2(write_n2),
+    .write_n3(write_n3),
+    .write_n4(write_n4),
+    .write_n5(write_n5),
+    .write_n6(write_n6),
+    .write_n7(write_n7),
+    .writedata0(writedata0),
+    .writedata1(writedata1),
+    .writedata2(writedata2),
+    .writedata3(writedata3),
+    .writedata4(writedata4),
+    .writedata5(writedata5),
+    .writedata6(writedata6),
+    .writedata7(writedata7),
+    .irqsucrec0(irqsucrec0),
+    .irqsucrec1(irqsucrec1),
+    .irqsucrec2(irqsucrec2),
+    .irqsucrec3(irqsucrec3),
+    .irqsucrec4(irqsucrec4),
+    .irqsucrec5(irqsucrec5),
+    .irqsucrec6(irqsucrec6),
+    .irqsucrec7(irqsucrec7),
+    .irqsuctra0(irqsuctra0),
+    .irqsuctra1(irqsuctra1),
+    .irqsuctra2(irqsuctra2),
+    .irqsuctra3(irqsuctra3),
+    .irqsuctra4(irqsuctra4),
+    .irqsuctra5(irqsuctra5),
+    .irqsuctra6(irqsuctra6),
+    .irqsuctra7(irqsuctra7),
+    .readdata0(readdata0),
+    .readdata1(readdata1),
+    .readdata2(readdata2),
+    .readdata3(readdata3),
+    .readdata4(readdata4),
+    .readdata5(readdata5),
+    .readdata6(readdata6),
+    .readdata7(readdata7),
+    .tx0(tx0),
+    .tx1(tx1),
+    .tx2(tx2),
+    .tx3(tx3),
+    .tx4(tx4),
+    .tx5(tx5),
+    .tx6(tx6),
+    .tx7(tx7)
     );
 
 canakari_0_7TMR cancari_block8_15 (
-    .addressA(addressA),
-    .addressB(addressB),
-    .addressC(addressC),
-    .clkA(clkA),
-    .clkB(clkB),
-    .clkC(clkC),
-    .cs0A(cs8A),
-    .cs0B(cs8B),
-    .cs0C(cs8C),
-    .cs1A(cs9A),
-    .cs1B(cs9B),
-    .cs1C(cs9C),
-    .cs2A(cs10A),
-    .cs2B(cs10B),
-    .cs2C(cs10C),
-    .cs3A(cs11A),
-    .cs3B(cs11B),
-    .cs3C(cs11C),
-    .cs4A(cs12A),
-    .cs4B(cs12B),
-    .cs4C(cs12C),
-    .cs5A(cs13A),
-    .cs5B(cs13B),
-    .cs5C(cs13C),
-    .cs6A(cs14A),
-    .cs6B(cs14B),
-    .cs6C(cs14C),
-    .cs7A(cs15A),
-    .cs7B(cs15B),
-    .cs7C(cs15C),
-    .read_n0A(read_n8A),
-    .read_n0B(read_n8B),
-    .read_n0C(read_n8C),
-    .read_n1A(read_n9A),
-    .read_n1B(read_n9B),
-    .read_n1C(read_n9C),
-    .read_n2A(read_n10A),
-    .read_n2B(read_n10B),
-    .read_n2C(read_n10C),
-    .read_n3A(read_n11A),
-    .read_n3B(read_n11B),
-    .read_n3C(read_n11C),
-    .read_n4A(read_n12A),
-    .read_n4B(read_n12B),
-    .read_n4C(read_n12C),
-    .read_n5A(read_n13A),
-    .read_n5B(read_n13B),
-    .read_n5C(read_n13C),
-    .read_n6A(read_n14A),
-    .read_n6B(read_n14B),
-    .read_n6C(read_n14C),
-    .read_n7A(read_n15A),
-    .read_n7B(read_n15B),
-    .read_n7C(read_n15C),
-    .rstA(rstA),
-    .rstB(rstB),
-    .rstC(rstC),
-    .rx0A(rx8A),
-    .rx0B(rx8B),
-    .rx0C(rx8C),
-    .rx1A(rx9A),
-    .rx1B(rx9B),
-    .rx1C(rx9C),
-    .rx2A(rx10A),
-    .rx2B(rx10B),
-    .rx2C(rx10C),
-    .rx3A(rx11A),
-    .rx3B(rx11B),
-    .rx3C(rx11C),
-    .rx4A(rx12A),
-    .rx4B(rx12B),
-    .rx4C(rx12C),
-    .rx5A(rx13A),
-    .rx5B(rx13B),
-    .rx5C(rx13C),
-    .rx6A(rx14A),
-    .rx6B(rx14B),
-    .rx6C(rx14C),
-    .rx7A(rx15A),
-    .rx7B(rx15B),
-    .rx7C(rx15C),
-    .write_n0A(write_n8A),
-    .write_n0B(write_n8B),
-    .write_n0C(write_n8C),
-    .write_n1A(write_n9A),
-    .write_n1B(write_n9B),
-    .write_n1C(write_n9C),
-    .write_n2A(write_n10A),
-    .write_n2B(write_n10B),
-    .write_n2C(write_n10C),
-    .write_n3A(write_n11A),
-    .write_n3B(write_n11B),
-    .write_n3C(write_n11C),
-    .write_n4A(write_n12A),
-    .write_n4B(write_n12B),
-    .write_n4C(write_n12C),
-    .write_n5A(write_n13A),
-    .write_n5B(write_n13B),
-    .write_n5C(write_n13C),
-    .write_n6A(write_n14A),
-    .write_n6B(write_n14B),
-    .write_n6C(write_n14C),
-    .write_n7A(write_n15A),
-    .write_n7B(write_n15B),
-    .write_n7C(write_n15C),
-    .writedata0A(writedata8A),
-    .writedata0B(writedata8B),
-    .writedata0C(writedata8C),
-    .writedata1A(writedata9A),
-    .writedata1B(writedata9B),
-    .writedata1C(writedata9C),
-    .writedata2A(writedata10A),
-    .writedata2B(writedata10B),
-    .writedata2C(writedata10C),
-    .writedata3A(writedata11A),
-    .writedata3B(writedata11B),
-    .writedata3C(writedata11C),
-    .writedata4A(writedata12A),
-    .writedata4B(writedata12B),
-    .writedata4C(writedata12C),
-    .writedata5A(writedata13A),
-    .writedata5B(writedata13B),
-    .writedata5C(writedata13C),
-    .writedata6A(writedata14A),
-    .writedata6B(writedata14B),
-    .writedata6C(writedata14C),
-    .writedata7A(writedata15A),
-    .writedata7B(writedata15B),
-    .writedata7C(writedata15C),
-    .irqsucrec0A(irqsucrec8A),
-    .irqsucrec0B(irqsucrec8B),
-    .irqsucrec0C(irqsucrec8C),
-    .irqsucrec1A(irqsucrec9A),
-    .irqsucrec1B(irqsucrec9B),
-    .irqsucrec1C(irqsucrec9C),
-    .irqsucrec2A(irqsucrec10A),
-    .irqsucrec2B(irqsucrec10B),
-    .irqsucrec2C(irqsucrec10C),
-    .irqsucrec3A(irqsucrec11A),
-    .irqsucrec3B(irqsucrec11B),
-    .irqsucrec3C(irqsucrec11C),
-    .irqsucrec4A(irqsucrec12A),
-    .irqsucrec4B(irqsucrec12B),
-    .irqsucrec4C(irqsucrec12C),
-    .irqsucrec5A(irqsucrec13A),
-    .irqsucrec5B(irqsucrec13B),
-    .irqsucrec5C(irqsucrec13C),
-    .irqsucrec6A(irqsucrec14A),
-    .irqsucrec6B(irqsucrec14B),
-    .irqsucrec6C(irqsucrec14C),
-    .irqsucrec7A(irqsucrec15A),
-    .irqsucrec7B(irqsucrec15B),
-    .irqsucrec7C(irqsucrec15C),
-    .irqsuctra0A(irqsuctra8A),
-    .irqsuctra0B(irqsuctra8B),
-    .irqsuctra0C(irqsuctra8C),
-    .irqsuctra1A(irqsuctra9A),
-    .irqsuctra1B(irqsuctra9B),
-    .irqsuctra1C(irqsuctra9C),
-    .irqsuctra2A(irqsuctra10A),
-    .irqsuctra2B(irqsuctra10B),
-    .irqsuctra2C(irqsuctra10C),
-    .irqsuctra3A(irqsuctra11A),
-    .irqsuctra3B(irqsuctra11B),
-    .irqsuctra3C(irqsuctra11C),
-    .irqsuctra4A(irqsuctra12A),
-    .irqsuctra4B(irqsuctra12B),
-    .irqsuctra4C(irqsuctra12C),
-    .irqsuctra5A(irqsuctra13A),
-    .irqsuctra5B(irqsuctra13B),
-    .irqsuctra5C(irqsuctra13C),
-    .irqsuctra6A(irqsuctra14A),
-    .irqsuctra6B(irqsuctra14B),
-    .irqsuctra6C(irqsuctra14C),
-    .irqsuctra7A(irqsuctra15A),
-    .irqsuctra7B(irqsuctra15B),
-    .irqsuctra7C(irqsuctra15C),
-    .readdata0A(readdata8A),
-    .readdata0B(readdata8B),
-    .readdata0C(readdata8C),
-    .readdata1A(readdata9A),
-    .readdata1B(readdata9B),
-    .readdata1C(readdata9C),
-    .readdata2A(readdata10A),
-    .readdata2B(readdata10B),
-    .readdata2C(readdata10C),
-    .readdata3A(readdata11A),
-    .readdata3B(readdata11B),
-    .readdata3C(readdata11C),
-    .readdata4A(readdata12A),
-    .readdata4B(readdata12B),
-    .readdata4C(readdata12C),
-    .readdata5A(readdata13A),
-    .readdata5B(readdata13B),
-    .readdata5C(readdata13C),
-    .readdata6A(readdata14A),
-    .readdata6B(readdata14B),
-    .readdata6C(readdata14C),
-    .readdata7A(readdata15A),
-    .readdata7B(readdata15B),
-    .readdata7C(readdata15C),
-    .tx0A(tx8A),
-    .tx0B(tx8B),
-    .tx0C(tx8C),
-    .tx1A(tx9A),
-    .tx1B(tx9B),
-    .tx1C(tx9C),
-    .tx2A(tx10A),
-    .tx2B(tx10B),
-    .tx2C(tx10C),
-    .tx3A(tx11A),
-    .tx3B(tx11B),
-    .tx3C(tx11C),
-    .tx4A(tx12A),
-    .tx4B(tx12B),
-    .tx4C(tx12C),
-    .tx5A(tx13A),
-    .tx5B(tx13B),
-    .tx5C(tx13C),
-    .tx6A(tx14A),
-    .tx6B(tx14B),
-    .tx6C(tx14C),
-    .tx7A(tx15A),
-    .tx7B(tx15B),
-    .tx7C(tx15C)
-    );
-
-canakari_0_7TMR cancari_block16_23 (
-    .addressA(addressA),
-    .addressB(addressB),
-    .addressC(addressC),
-    .clkA(clkA),
-    .clkB(clkB),
-    .clkC(clkC),
-    .cs0A(cs16A),
-    .cs0B(cs16B),
-    .cs0C(cs16C),
-    .cs1A(cs17A),
-    .cs1B(cs17B),
-    .cs1C(cs17C),
-    .cs2A(cs18A),
-    .cs2B(cs18B),
-    .cs2C(cs18C),
-    .cs3A(cs19A),
-    .cs3B(cs19B),
-    .cs3C(cs19C),
-    .cs4A(cs20A),
-    .cs4B(cs20B),
-    .cs4C(cs20C),
-    .cs5A(cs21A),
-    .cs5B(cs21B),
-    .cs5C(cs21C),
-    .cs6A(cs22A),
-    .cs6B(cs22B),
-    .cs6C(cs22C),
-    .cs7A(cs23A),
-    .cs7B(cs23B),
-    .cs7C(cs23C),
-    .read_n0A(read_n16A),
-    .read_n0B(read_n16B),
-    .read_n0C(read_n16C),
-    .read_n1A(read_n17A),
-    .read_n1B(read_n17B),
-    .read_n1C(read_n17C),
-    .read_n2A(read_n18A),
-    .read_n2B(read_n18B),
-    .read_n2C(read_n18C),
-    .read_n3A(read_n19A),
-    .read_n3B(read_n19B),
-    .read_n3C(read_n19C),
-    .read_n4A(read_n20A),
-    .read_n4B(read_n20B),
-    .read_n4C(read_n20C),
-    .read_n5A(read_n21A),
-    .read_n5B(read_n21B),
-    .read_n5C(read_n21C),
-    .read_n6A(read_n22A),
-    .read_n6B(read_n22B),
-    .read_n6C(read_n22C),
-    .read_n7A(read_n23A),
-    .read_n7B(read_n23B),
-    .read_n7C(read_n23C),
-    .rstA(rstA),
-    .rstB(rstB),
-    .rstC(rstC),
-    .rx0A(rx16A),
-    .rx0B(rx16B),
-    .rx0C(rx16C),
-    .rx1A(rx17A),
-    .rx1B(rx17B),
-    .rx1C(rx17C),
-    .rx2A(rx18A),
-    .rx2B(rx18B),
-    .rx2C(rx18C),
-    .rx3A(rx19A),
-    .rx3B(rx19B),
-    .rx3C(rx19C),
-    .rx4A(rx20A),
-    .rx4B(rx20B),
-    .rx4C(rx20C),
-    .rx5A(rx21A),
-    .rx5B(rx21B),
-    .rx5C(rx21C),
-    .rx6A(rx22A),
-    .rx6B(rx22B),
-    .rx6C(rx22C),
-    .rx7A(rx23A),
-    .rx7B(rx23B),
-    .rx7C(rx23C),
-    .write_n0A(write_n16A),
-    .write_n0B(write_n16B),
-    .write_n0C(write_n16C),
-    .write_n1A(write_n17A),
-    .write_n1B(write_n17B),
-    .write_n1C(write_n17C),
-    .write_n2A(write_n18A),
-    .write_n2B(write_n18B),
-    .write_n2C(write_n18C),
-    .write_n3A(write_n19A),
-    .write_n3B(write_n19B),
-    .write_n3C(write_n19C),
-    .write_n4A(write_n20A),
-    .write_n4B(write_n20B),
-    .write_n4C(write_n20C),
-    .write_n5A(write_n21A),
-    .write_n5B(write_n21B),
-    .write_n5C(write_n21C),
-    .write_n6A(write_n22A),
-    .write_n6B(write_n22B),
-    .write_n6C(write_n22C),
-    .write_n7A(write_n23A),
-    .write_n7B(write_n23B),
-    .write_n7C(write_n23C),
-    .writedata0A(writedata16A),
-    .writedata0B(writedata16B),
-    .writedata0C(writedata16C),
-    .writedata1A(writedata17A),
-    .writedata1B(writedata17B),
-    .writedata1C(writedata17C),
-    .writedata2A(writedata18A),
-    .writedata2B(writedata18B),
-    .writedata2C(writedata18C),
-    .writedata3A(writedata19A),
-    .writedata3B(writedata19B),
-    .writedata3C(writedata19C),
-    .writedata4A(writedata20A),
-    .writedata4B(writedata20B),
-    .writedata4C(writedata20C),
-    .writedata5A(writedata21A),
-    .writedata5B(writedata21B),
-    .writedata5C(writedata21C),
-    .writedata6A(writedata22A),
-    .writedata6B(writedata22B),
-    .writedata6C(writedata22C),
-    .writedata7A(writedata23A),
-    .writedata7B(writedata23B),
-    .writedata7C(writedata23C),
-    .irqsucrec0A(irqsucrec16A),
-    .irqsucrec0B(irqsucrec16B),
-    .irqsucrec0C(irqsucrec16C),
-    .irqsucrec1A(irqsucrec17A),
-    .irqsucrec1B(irqsucrec17B),
-    .irqsucrec1C(irqsucrec17C),
-    .irqsucrec2A(irqsucrec18A),
-    .irqsucrec2B(irqsucrec18B),
-    .irqsucrec2C(irqsucrec18C),
-    .irqsucrec3A(irqsucrec19A),
-    .irqsucrec3B(irqsucrec19B),
-    .irqsucrec3C(irqsucrec19C),
-    .irqsucrec4A(irqsucrec20A),
-    .irqsucrec4B(irqsucrec20B),
-    .irqsucrec4C(irqsucrec20C),
-    .irqsucrec5A(irqsucrec21A),
-    .irqsucrec5B(irqsucrec21B),
-    .irqsucrec5C(irqsucrec21C),
-    .irqsucrec6A(irqsucrec22A),
-    .irqsucrec6B(irqsucrec22B),
-    .irqsucrec6C(irqsucrec22C),
-    .irqsucrec7A(irqsucrec23A),
-    .irqsucrec7B(irqsucrec23B),
-    .irqsucrec7C(irqsucrec23C),
-    .irqsuctra0A(irqsuctra16A),
-    .irqsuctra0B(irqsuctra16B),
-    .irqsuctra0C(irqsuctra16C),
-    .irqsuctra1A(irqsuctra17A),
-    .irqsuctra1B(irqsuctra17B),
-    .irqsuctra1C(irqsuctra17C),
-    .irqsuctra2A(irqsuctra18A),
-    .irqsuctra2B(irqsuctra18B),
-    .irqsuctra2C(irqsuctra18C),
-    .irqsuctra3A(irqsuctra19A),
-    .irqsuctra3B(irqsuctra19B),
-    .irqsuctra3C(irqsuctra19C),
-    .irqsuctra4A(irqsuctra20A),
-    .irqsuctra4B(irqsuctra20B),
-    .irqsuctra4C(irqsuctra20C),
-    .irqsuctra5A(irqsuctra21A),
-    .irqsuctra5B(irqsuctra21B),
-    .irqsuctra5C(irqsuctra21C),
-    .irqsuctra6A(irqsuctra22A),
-    .irqsuctra6B(irqsuctra22B),
-    .irqsuctra6C(irqsuctra22C),
-    .irqsuctra7A(irqsuctra23A),
-    .irqsuctra7B(irqsuctra23B),
-    .irqsuctra7C(irqsuctra23C),
-    .readdata0A(readdata16A),
-    .readdata0B(readdata16B),
-    .readdata0C(readdata16C),
-    .readdata1A(readdata17A),
-    .readdata1B(readdata17B),
-    .readdata1C(readdata17C),
-    .readdata2A(readdata18A),
-    .readdata2B(readdata18B),
-    .readdata2C(readdata18C),
-    .readdata3A(readdata19A),
-    .readdata3B(readdata19B),
-    .readdata3C(readdata19C),
-    .readdata4A(readdata20A),
-    .readdata4B(readdata20B),
-    .readdata4C(readdata20C),
-    .readdata5A(readdata21A),
-    .readdata5B(readdata21B),
-    .readdata5C(readdata21C),
-    .readdata6A(readdata22A),
-    .readdata6B(readdata22B),
-    .readdata6C(readdata22C),
-    .readdata7A(readdata23A),
-    .readdata7B(readdata23B),
-    .readdata7C(readdata23C),
-    .tx0A(tx16A),
-    .tx0B(tx16B),
-    .tx0C(tx16C),
-    .tx1A(tx17A),
-    .tx1B(tx17B),
-    .tx1C(tx17C),
-    .tx2A(tx18A),
-    .tx2B(tx18B),
-    .tx2C(tx18C),
-    .tx3A(tx19A),
-    .tx3B(tx19B),
-    .tx3C(tx19C),
-    .tx4A(tx20A),
-    .tx4B(tx20B),
-    .tx4C(tx20C),
-    .tx5A(tx21A),
-    .tx5B(tx21B),
-    .tx5C(tx21C),
-    .tx6A(tx22A),
-    .tx6B(tx22B),
-    .tx6C(tx22C),
-    .tx7A(tx23A),
-    .tx7B(tx23B),
-    .tx7C(tx23C)
-    );
-
-canakari_0_7TMR cancari_block24_31 (
-    .addressA(addressA),
-    .addressB(addressB),
-    .addressC(addressC),
-    .clkA(clkA),
-    .clkB(clkB),
-    .clkC(clkC),
-    .cs0A(cs24A),
-    .cs0B(cs24B),
-    .cs0C(cs24C),
-    .cs1A(cs25A),
-    .cs1B(cs25B),
-    .cs1C(cs25C),
-    .cs2A(cs26A),
-    .cs2B(cs26B),
-    .cs2C(cs26C),
-    .cs3A(cs27A),
-    .cs3B(cs27B),
-    .cs3C(cs27C),
-    .cs4A(cs28A),
-    .cs4B(cs28B),
-    .cs4C(cs28C),
-    .cs5A(cs29A),
-    .cs5B(cs29B),
-    .cs5C(cs29C),
-    .cs6A(cs30A),
-    .cs6B(cs30B),
-    .cs6C(cs30C),
-    .cs7A(cs31A),
-    .cs7B(cs31B),
-    .cs7C(cs31C),
-    .read_n0A(read_n24A),
-    .read_n0B(read_n24B),
-    .read_n0C(read_n24C),
-    .read_n1A(read_n25A),
-    .read_n1B(read_n25B),
-    .read_n1C(read_n25C),
-    .read_n2A(read_n26A),
-    .read_n2B(read_n26B),
-    .read_n2C(read_n26C),
-    .read_n3A(read_n27A),
-    .read_n3B(read_n27B),
-    .read_n3C(read_n27C),
-    .read_n4A(read_n28A),
-    .read_n4B(read_n28B),
-    .read_n4C(read_n28C),
-    .read_n5A(read_n29A),
-    .read_n5B(read_n29B),
-    .read_n5C(read_n29C),
-    .read_n6A(read_n30A),
-    .read_n6B(read_n30B),
-    .read_n6C(read_n30C),
-    .read_n7A(read_n31A),
-    .read_n7B(read_n31B),
-    .read_n7C(read_n31C),
-    .rstA(rstA),
-    .rstB(rstB),
-    .rstC(rstC),
-    .rx0A(rx24A),
-    .rx0B(rx24B),
-    .rx0C(rx24C),
-    .rx1A(rx25A),
-    .rx1B(rx25B),
-    .rx1C(rx25C),
-    .rx2A(rx26A),
-    .rx2B(rx26B),
-    .rx2C(rx26C),
-    .rx3A(rx27A),
-    .rx3B(rx27B),
-    .rx3C(rx27C),
-    .rx4A(rx28A),
-    .rx4B(rx28B),
-    .rx4C(rx28C),
-    .rx5A(rx29A),
-    .rx5B(rx29B),
-    .rx5C(rx29C),
-    .rx6A(rx30A),
-    .rx6B(rx30B),
-    .rx6C(rx30C),
-    .rx7A(rx31A),
-    .rx7B(rx31B),
-    .rx7C(rx31C),
-    .write_n0A(write_n24A),
-    .write_n0B(write_n24B),
-    .write_n0C(write_n24C),
-    .write_n1A(write_n25A),
-    .write_n1B(write_n25B),
-    .write_n1C(write_n25C),
-    .write_n2A(write_n26A),
-    .write_n2B(write_n26B),
-    .write_n2C(write_n26C),
-    .write_n3A(write_n27A),
-    .write_n3B(write_n27B),
-    .write_n3C(write_n27C),
-    .write_n4A(write_n28A),
-    .write_n4B(write_n28B),
-    .write_n4C(write_n28C),
-    .write_n5A(write_n29A),
-    .write_n5B(write_n29B),
-    .write_n5C(write_n29C),
-    .write_n6A(write_n30A),
-    .write_n6B(write_n30B),
-    .write_n6C(write_n30C),
-    .write_n7A(write_n31A),
-    .write_n7B(write_n31B),
-    .write_n7C(write_n31C),
-    .writedata0A(writedata24A),
-    .writedata0B(writedata24B),
-    .writedata0C(writedata24C),
-    .writedata1A(writedata25A),
-    .writedata1B(writedata25B),
-    .writedata1C(writedata25C),
-    .writedata2A(writedata26A),
-    .writedata2B(writedata26B),
-    .writedata2C(writedata26C),
-    .writedata3A(writedata27A),
-    .writedata3B(writedata27B),
-    .writedata3C(writedata27C),
-    .writedata4A(writedata28A),
-    .writedata4B(writedata28B),
-    .writedata4C(writedata28C),
-    .writedata5A(writedata29A),
-    .writedata5B(writedata29B),
-    .writedata5C(writedata29C),
-    .writedata6A(writedata30A),
-    .writedata6B(writedata30B),
-    .writedata6C(writedata30C),
-    .writedata7A(writedata31A),
-    .writedata7B(writedata31B),
-    .writedata7C(writedata31C),
-    .irqsucrec0A(irqsucrec24A),
-    .irqsucrec0B(irqsucrec24B),
-    .irqsucrec0C(irqsucrec24C),
-    .irqsucrec1A(irqsucrec25A),
-    .irqsucrec1B(irqsucrec25B),
-    .irqsucrec1C(irqsucrec25C),
-    .irqsucrec2A(irqsucrec26A),
-    .irqsucrec2B(irqsucrec26B),
-    .irqsucrec2C(irqsucrec26C),
-    .irqsucrec3A(irqsucrec27A),
-    .irqsucrec3B(irqsucrec27B),
-    .irqsucrec3C(irqsucrec27C),
-    .irqsucrec4A(irqsucrec28A),
-    .irqsucrec4B(irqsucrec28B),
-    .irqsucrec4C(irqsucrec28C),
-    .irqsucrec5A(irqsucrec29A),
-    .irqsucrec5B(irqsucrec29B),
-    .irqsucrec5C(irqsucrec29C),
-    .irqsucrec6A(irqsucrec30A),
-    .irqsucrec6B(irqsucrec30B),
-    .irqsucrec6C(irqsucrec30C),
-    .irqsucrec7A(irqsucrec31A),
-    .irqsucrec7B(irqsucrec31B),
-    .irqsucrec7C(irqsucrec31C),
-    .irqsuctra0A(irqsuctra24A),
-    .irqsuctra0B(irqsuctra24B),
-    .irqsuctra0C(irqsuctra24C),
-    .irqsuctra1A(irqsuctra25A),
-    .irqsuctra1B(irqsuctra25B),
-    .irqsuctra1C(irqsuctra25C),
-    .irqsuctra2A(irqsuctra26A),
-    .irqsuctra2B(irqsuctra26B),
-    .irqsuctra2C(irqsuctra26C),
-    .irqsuctra3A(irqsuctra27A),
-    .irqsuctra3B(irqsuctra27B),
-    .irqsuctra3C(irqsuctra27C),
-    .irqsuctra4A(irqsuctra28A),
-    .irqsuctra4B(irqsuctra28B),
-    .irqsuctra4C(irqsuctra28C),
-    .irqsuctra5A(irqsuctra29A),
-    .irqsuctra5B(irqsuctra29B),
-    .irqsuctra5C(irqsuctra29C),
-    .irqsuctra6A(irqsuctra30A),
-    .irqsuctra6B(irqsuctra30B),
-    .irqsuctra6C(irqsuctra30C),
-    .irqsuctra7A(irqsuctra31A),
-    .irqsuctra7B(irqsuctra31B),
-    .irqsuctra7C(irqsuctra31C),
-    .readdata0A(readdata24A),
-    .readdata0B(readdata24B),
-    .readdata0C(readdata24C),
-    .readdata1A(readdata25A),
-    .readdata1B(readdata25B),
-    .readdata1C(readdata25C),
-    .readdata2A(readdata26A),
-    .readdata2B(readdata26B),
-    .readdata2C(readdata26C),
-    .readdata3A(readdata27A),
-    .readdata3B(readdata27B),
-    .readdata3C(readdata27C),
-    .readdata4A(readdata28A),
-    .readdata4B(readdata28B),
-    .readdata4C(readdata28C),
-    .readdata5A(readdata29A),
-    .readdata5B(readdata29B),
-    .readdata5C(readdata29C),
-    .readdata6A(readdata30A),
-    .readdata6B(readdata30B),
-    .readdata6C(readdata30C),
-    .readdata7A(readdata31A),
-    .readdata7B(readdata31B),
-    .readdata7C(readdata31C),
-    .tx0A(tx24A),
-    .tx0B(tx24B),
-    .tx0C(tx24C),
-    .tx1A(tx25A),
-    .tx1B(tx25B),
-    .tx1C(tx25C),
-    .tx2A(tx26A),
-    .tx2B(tx26B),
-    .tx2C(tx26C),
-    .tx3A(tx27A),
-    .tx3B(tx27B),
-    .tx3C(tx27C),
-    .tx4A(tx28A),
-    .tx4B(tx28B),
-    .tx4C(tx28C),
-    .tx5A(tx29A),
-    .tx5B(tx29B),
-    .tx5C(tx29C),
-    .tx6A(tx30A),
-    .tx6B(tx30B),
-    .tx6C(tx30C),
-    .tx7A(tx31A),
-    .tx7B(tx31B),
-    .tx7C(tx31C)
+    .address(address),
+    .clk(clk),
+    .cs0(cs8),
+    .cs1(cs9),
+    .cs2(cs10),
+    .cs3(cs11),
+    .cs4(cs12),
+    .cs5(cs13),
+    .cs6(cs14),
+    .cs7(cs15),
+    .read_n0(read_n8),
+    .read_n1(read_n9),
+    .read_n2(read_n10),
+    .read_n3(read_n11),
+    .read_n4(read_n12),
+    .read_n5(read_n13),
+    .read_n6(read_n14),
+    .read_n7(read_n15),
+    .rst(rst),
+    .rx0(rx8),
+    .rx1(rx9),
+    .rx2(rx10),
+    .rx3(rx11),
+    .rx4(rx12),
+    .rx5(rx13),
+    .rx6(rx14),
+    .rx7(rx15),
+    .write_n0(write_n8),
+    .write_n1(write_n9),
+    .write_n2(write_n10),
+    .write_n3(write_n11),
+    .write_n4(write_n12),
+    .write_n5(write_n13),
+    .write_n6(write_n14),
+    .write_n7(write_n15),
+    .writedata0(writedata8),
+    .writedata1(writedata9),
+    .writedata2(writedata10),
+    .writedata3(writedata11),
+    .writedata4(writedata12),
+    .writedata5(writedata13),
+    .writedata6(writedata14),
+    .writedata7(writedata15),
+    .irqsucrec0(irqsucrec8),
+    .irqsucrec1(irqsucrec9),
+    .irqsucrec2(irqsucrec10),
+    .irqsucrec3(irqsucrec11),
+    .irqsucrec4(irqsucrec12),
+    .irqsucrec5(irqsucrec13),
+    .irqsucrec6(irqsucrec14),
+    .irqsucrec7(irqsucrec15),
+    .irqsuctra0(irqsuctra8),
+    .irqsuctra1(irqsuctra9),
+    .irqsuctra2(irqsuctra10),
+    .irqsuctra3(irqsuctra11),
+    .irqsuctra4(irqsuctra12),
+    .irqsuctra5(irqsuctra13),
+    .irqsuctra6(irqsuctra14),
+    .irqsuctra7(irqsuctra15),
+    .readdata0(readdata8),
+    .readdata1(readdata9),
+    .readdata2(readdata10),
+    .readdata3(readdata11),
+    .readdata4(readdata12),
+    .readdata5(readdata13),
+    .readdata6(readdata14),
+    .readdata7(readdata15),
+    .tx0(tx8),
+    .tx1(tx9),
+    .tx2(tx10),
+    .tx3(tx11),
+    .tx4(tx12),
+    .tx5(tx13),
+    .tx6(tx14),
+    .tx7(tx15)
     );
 
 node_rec_muxTMR node_rec_mux0 (
-    .clkA(clkA),
-    .clkB(clkB),
-    .clkC(clkC),
-    .enable_cs_sigA(enable_cs_sigA),
-    .enable_cs_sigB(enable_cs_sigB),
-    .enable_cs_sigC(enable_cs_sigC),
-    .end_can_procA(end_can_procA),
-    .end_can_procB(end_can_procB),
-    .end_can_procC(end_can_procC),
-    .endwaitA(endwaitA),
-    .endwaitB(endwaitB),
-    .endwaitC(endwaitC),
-    .ireqsucrecA(ireqsucrecA),
-    .ireqsucrecB(ireqsucrecB),
-    .ireqsucrecC(ireqsucrecC),
-    .irqsucrec0A(irqsucrec0A),
-    .irqsucrec0B(irqsucrec0B),
-    .irqsucrec0C(irqsucrec0C),
-    .irqsucrec1A(irqsucrec1A),
-    .irqsucrec1B(irqsucrec1B),
-    .irqsucrec1C(irqsucrec1C),
-    .irqsucrec10A(irqsucrec10A),
-    .irqsucrec10B(irqsucrec10B),
-    .irqsucrec10C(irqsucrec10C),
-    .irqsucrec11A(irqsucrec11A),
-    .irqsucrec11B(irqsucrec11B),
-    .irqsucrec11C(irqsucrec11C),
-    .irqsucrec12A(irqsucrec12A),
-    .irqsucrec12B(irqsucrec12B),
-    .irqsucrec12C(irqsucrec12C),
-    .irqsucrec13A(irqsucrec13A),
-    .irqsucrec13B(irqsucrec13B),
-    .irqsucrec13C(irqsucrec13C),
-    .irqsucrec14A(irqsucrec14A),
-    .irqsucrec14B(irqsucrec14B),
-    .irqsucrec14C(irqsucrec14C),
-    .irqsucrec15A(irqsucrec15A),
-    .irqsucrec15B(irqsucrec15B),
-    .irqsucrec15C(irqsucrec15C),
-    .irqsucrec16A(irqsucrec16A),
-    .irqsucrec16B(irqsucrec16B),
-    .irqsucrec16C(irqsucrec16C),
-    .irqsucrec17A(irqsucrec17A),
-    .irqsucrec17B(irqsucrec17B),
-    .irqsucrec17C(irqsucrec17C),
-    .irqsucrec18A(irqsucrec18A),
-    .irqsucrec18B(irqsucrec18B),
-    .irqsucrec18C(irqsucrec18C),
-    .irqsucrec19A(irqsucrec19A),
-    .irqsucrec19B(irqsucrec19B),
-    .irqsucrec19C(irqsucrec19C),
-    .irqsucrec2A(irqsucrec2A),
-    .irqsucrec2B(irqsucrec2B),
-    .irqsucrec2C(irqsucrec2C),
-    .irqsucrec20A(irqsucrec20A),
-    .irqsucrec20B(irqsucrec20B),
-    .irqsucrec20C(irqsucrec20C),
-    .irqsucrec21A(irqsucrec21A),
-    .irqsucrec21B(irqsucrec21B),
-    .irqsucrec21C(irqsucrec21C),
-    .irqsucrec22A(irqsucrec22A),
-    .irqsucrec22B(irqsucrec22B),
-    .irqsucrec22C(irqsucrec22C),
-    .irqsucrec23A(irqsucrec23A),
-    .irqsucrec23B(irqsucrec23B),
-    .irqsucrec23C(irqsucrec23C),
-    .irqsucrec24A(irqsucrec24A),
-    .irqsucrec24B(irqsucrec24B),
-    .irqsucrec24C(irqsucrec24C),
-    .irqsucrec25A(irqsucrec25A),
-    .irqsucrec25B(irqsucrec25B),
-    .irqsucrec25C(irqsucrec25C),
-    .irqsucrec26A(irqsucrec26A),
-    .irqsucrec26B(irqsucrec26B),
-    .irqsucrec26C(irqsucrec26C),
-    .irqsucrec27A(irqsucrec27A),
-    .irqsucrec27B(irqsucrec27B),
-    .irqsucrec27C(irqsucrec27C),
-    .irqsucrec28A(irqsucrec28A),
-    .irqsucrec28B(irqsucrec28B),
-    .irqsucrec28C(irqsucrec28C),
-    .irqsucrec29A(irqsucrec29A),
-    .irqsucrec29B(irqsucrec29B),
-    .irqsucrec29C(irqsucrec29C),
-    .irqsucrec3A(irqsucrec3A),
-    .irqsucrec3B(irqsucrec3B),
-    .irqsucrec3C(irqsucrec3C),
-    .irqsucrec30A(irqsucrec30A),
-    .irqsucrec30B(irqsucrec30B),
-    .irqsucrec30C(irqsucrec30C),
-    .irqsucrec31A(irqsucrec31A),
-    .irqsucrec31B(irqsucrec31B),
-    .irqsucrec31C(irqsucrec31C),
-    .irqsucrec4A(irqsucrec4A),
-    .irqsucrec4B(irqsucrec4B),
-    .irqsucrec4C(irqsucrec4C),
-    .irqsucrec5A(irqsucrec5A),
-    .irqsucrec5B(irqsucrec5B),
-    .irqsucrec5C(irqsucrec5C),
-    .irqsucrec6A(irqsucrec6A),
-    .irqsucrec6B(irqsucrec6B),
-    .irqsucrec6C(irqsucrec6C),
-    .irqsucrec7A(irqsucrec7A),
-    .irqsucrec7B(irqsucrec7B),
-    .irqsucrec7C(irqsucrec7C),
-    .irqsucrec8A(irqsucrec8A),
-    .irqsucrec8B(irqsucrec8B),
-    .irqsucrec8C(irqsucrec8C),
-    .irqsucrec9A(irqsucrec9A),
-    .irqsucrec9B(irqsucrec9B),
-    .irqsucrec9C(irqsucrec9C),
-    .main_timeoutrstA(main_timeoutrstA),
-    .main_timeoutrstB(main_timeoutrstB),
-    .main_timeoutrstC(main_timeoutrstC),
-    .read_can_modeA(read_can_modeA),
-    .read_can_modeB(read_can_modeB),
-    .read_can_modeC(read_can_modeC),
-    .read_n_sigA(read_n_sigA),
-    .read_n_sigB(read_n_sigB),
-    .read_n_sigC(read_n_sigC),
-    .readdata0A(readdata0A),
-    .readdata0B(readdata0B),
-    .readdata0C(readdata0C),
-    .readdata1A(readdata1A),
-    .readdata1B(readdata1B),
-    .readdata1C(readdata1C),
-    .readdata10A(readdata10A),
-    .readdata10B(readdata10B),
-    .readdata10C(readdata10C),
-    .readdata11A(readdata11A),
-    .readdata11B(readdata11B),
-    .readdata11C(readdata11C),
-    .readdata12A(readdata12A),
-    .readdata12B(readdata12B),
-    .readdata12C(readdata12C),
-    .readdata13A(readdata13A),
-    .readdata13B(readdata13B),
-    .readdata13C(readdata13C),
-    .readdata14A(readdata14A),
-    .readdata14B(readdata14B),
-    .readdata14C(readdata14C),
-    .readdata15A(readdata15A),
-    .readdata15B(readdata15B),
-    .readdata15C(readdata15C),
-    .readdata16A(readdata16A),
-    .readdata16B(readdata16B),
-    .readdata16C(readdata16C),
-    .readdata17A(readdata17A),
-    .readdata17B(readdata17B),
-    .readdata17C(readdata17C),
-    .readdata18A(readdata18A),
-    .readdata18B(readdata18B),
-    .readdata18C(readdata18C),
-    .readdata19A(readdata19A),
-    .readdata19B(readdata19B),
-    .readdata19C(readdata19C),
-    .readdata2A(readdata2A),
-    .readdata2B(readdata2B),
-    .readdata2C(readdata2C),
-    .readdata20A(readdata20A),
-    .readdata20B(readdata20B),
-    .readdata20C(readdata20C),
-    .readdata21A(readdata21A),
-    .readdata21B(readdata21B),
-    .readdata21C(readdata21C),
-    .readdata22A(readdata22A),
-    .readdata22B(readdata22B),
-    .readdata22C(readdata22C),
-    .readdata23A(readdata23A),
-    .readdata23B(readdata23B),
-    .readdata23C(readdata23C),
-    .readdata24A(readdata24A),
-    .readdata24B(readdata24B),
-    .readdata24C(readdata24C),
-    .readdata25A(readdata25A),
-    .readdata25B(readdata25B),
-    .readdata25C(readdata25C),
-    .readdata26A(readdata26A),
-    .readdata26B(readdata26B),
-    .readdata26C(readdata26C),
-    .readdata27A(readdata27A),
-    .readdata27B(readdata27B),
-    .readdata27C(readdata27C),
-    .readdata28A(readdata28A),
-    .readdata28B(readdata28B),
-    .readdata28C(readdata28C),
-    .readdata29A(readdata29A),
-    .readdata29B(readdata29B),
-    .readdata29C(readdata29C),
-    .readdata3A(readdata3A),
-    .readdata3B(readdata3B),
-    .readdata3C(readdata3C),
-    .readdata30A(readdata30A),
-    .readdata30B(readdata30B),
-    .readdata30C(readdata30C),
-    .readdata31A(readdata31A),
-    .readdata31B(readdata31B),
-    .readdata31C(readdata31C),
-    .readdata4A(readdata4A),
-    .readdata4B(readdata4B),
-    .readdata4C(readdata4C),
-    .readdata5A(readdata5A),
-    .readdata5B(readdata5B),
-    .readdata5C(readdata5C),
-    .readdata6A(readdata6A),
-    .readdata6B(readdata6B),
-    .readdata6C(readdata6C),
-    .readdata7A(readdata7A),
-    .readdata7B(readdata7B),
-    .readdata7C(readdata7C),
-    .readdata8A(readdata8A),
-    .readdata8B(readdata8B),
-    .readdata8C(readdata8C),
-    .readdata9A(readdata9A),
-    .readdata9B(readdata9B),
-    .readdata9C(readdata9C),
-    .rstA(rstA),
-    .rstB(rstB),
-    .rstC(rstC),
-    .bus_rec_selectA(bus_rec_selectA),
-    .bus_rec_selectB(bus_rec_selectB),
-    .bus_rec_selectC(bus_rec_selectC),
-    .cs_rec0A(cs_rec0A),
-    .cs_rec0B(cs_rec0B),
-    .cs_rec0C(cs_rec0C),
-    .cs_rec1A(cs_rec1A),
-    .cs_rec1B(cs_rec1B),
-    .cs_rec1C(cs_rec1C),
-    .cs_rec10A(cs_rec10A),
-    .cs_rec10B(cs_rec10B),
-    .cs_rec10C(cs_rec10C),
-    .cs_rec11A(cs_rec11A),
-    .cs_rec11B(cs_rec11B),
-    .cs_rec11C(cs_rec11C),
-    .cs_rec12A(cs_rec12A),
-    .cs_rec12B(cs_rec12B),
-    .cs_rec12C(cs_rec12C),
-    .cs_rec13A(cs_rec13A),
-    .cs_rec13B(cs_rec13B),
-    .cs_rec13C(cs_rec13C),
-    .cs_rec14A(cs_rec14A),
-    .cs_rec14B(cs_rec14B),
-    .cs_rec14C(cs_rec14C),
-    .cs_rec15A(cs_rec15A),
-    .cs_rec15B(cs_rec15B),
-    .cs_rec15C(cs_rec15C),
-    .cs_rec16A(cs_rec16A),
-    .cs_rec16B(cs_rec16B),
-    .cs_rec16C(cs_rec16C),
-    .cs_rec17A(cs_rec17A),
-    .cs_rec17B(cs_rec17B),
-    .cs_rec17C(cs_rec17C),
-    .cs_rec18A(cs_rec18A),
-    .cs_rec18B(cs_rec18B),
-    .cs_rec18C(cs_rec18C),
-    .cs_rec19A(cs_rec19A),
-    .cs_rec19B(cs_rec19B),
-    .cs_rec19C(cs_rec19C),
-    .cs_rec2A(cs_rec2A),
-    .cs_rec2B(cs_rec2B),
-    .cs_rec2C(cs_rec2C),
-    .cs_rec20A(cs_rec20A),
-    .cs_rec20B(cs_rec20B),
-    .cs_rec20C(cs_rec20C),
-    .cs_rec21A(cs_rec21A),
-    .cs_rec21B(cs_rec21B),
-    .cs_rec21C(cs_rec21C),
-    .cs_rec22A(cs_rec22A),
-    .cs_rec22B(cs_rec22B),
-    .cs_rec22C(cs_rec22C),
-    .cs_rec23A(cs_rec23A),
-    .cs_rec23B(cs_rec23B),
-    .cs_rec23C(cs_rec23C),
-    .cs_rec24A(cs_rec24A),
-    .cs_rec24B(cs_rec24B),
-    .cs_rec24C(cs_rec24C),
-    .cs_rec25A(cs_rec25A),
-    .cs_rec25B(cs_rec25B),
-    .cs_rec25C(cs_rec25C),
-    .cs_rec26A(cs_rec26A),
-    .cs_rec26B(cs_rec26B),
-    .cs_rec26C(cs_rec26C),
-    .cs_rec27A(cs_rec27A),
-    .cs_rec27B(cs_rec27B),
-    .cs_rec27C(cs_rec27C),
-    .cs_rec28A(cs_rec28A),
-    .cs_rec28B(cs_rec28B),
-    .cs_rec28C(cs_rec28C),
-    .cs_rec29A(cs_rec29A),
-    .cs_rec29B(cs_rec29B),
-    .cs_rec29C(cs_rec29C),
-    .cs_rec3A(cs_rec3A),
-    .cs_rec3B(cs_rec3B),
-    .cs_rec3C(cs_rec3C),
-    .cs_rec30A(cs_rec30A),
-    .cs_rec30B(cs_rec30B),
-    .cs_rec30C(cs_rec30C),
-    .cs_rec31A(cs_rec31A),
-    .cs_rec31B(cs_rec31B),
-    .cs_rec31C(cs_rec31C),
-    .cs_rec4A(cs_rec4A),
-    .cs_rec4B(cs_rec4B),
-    .cs_rec4C(cs_rec4C),
-    .cs_rec5A(cs_rec5A),
-    .cs_rec5B(cs_rec5B),
-    .cs_rec5C(cs_rec5C),
-    .cs_rec6A(cs_rec6A),
-    .cs_rec6B(cs_rec6B),
-    .cs_rec6C(cs_rec6C),
-    .cs_rec7A(cs_rec7A),
-    .cs_rec7B(cs_rec7B),
-    .cs_rec7C(cs_rec7C),
-    .cs_rec8A(cs_rec8A),
-    .cs_rec8B(cs_rec8B),
-    .cs_rec8C(cs_rec8C),
-    .cs_rec9A(cs_rec9A),
-    .cs_rec9B(cs_rec9B),
-    .cs_rec9C(cs_rec9C),
-    .irq_can_recA(irq_can_recA),
-    .irq_can_recB(irq_can_recB),
-    .irq_can_recC(irq_can_recC),
-    .read_n0A(read_n0A),
-    .read_n0B(read_n0B),
-    .read_n0C(read_n0C),
-    .read_n1A(read_n1A),
-    .read_n1B(read_n1B),
-    .read_n1C(read_n1C),
-    .read_n10A(read_n10A),
-    .read_n10B(read_n10B),
-    .read_n10C(read_n10C),
-    .read_n11A(read_n11A),
-    .read_n11B(read_n11B),
-    .read_n11C(read_n11C),
-    .read_n12A(read_n12A),
-    .read_n12B(read_n12B),
-    .read_n12C(read_n12C),
-    .read_n13A(read_n13A),
-    .read_n13B(read_n13B),
-    .read_n13C(read_n13C),
-    .read_n14A(read_n14A),
-    .read_n14B(read_n14B),
-    .read_n14C(read_n14C),
-    .read_n15A(read_n15A),
-    .read_n15B(read_n15B),
-    .read_n15C(read_n15C),
-    .read_n16A(read_n16A),
-    .read_n16B(read_n16B),
-    .read_n16C(read_n16C),
-    .read_n17A(read_n17A),
-    .read_n17B(read_n17B),
-    .read_n17C(read_n17C),
-    .read_n18A(read_n18A),
-    .read_n18B(read_n18B),
-    .read_n18C(read_n18C),
-    .read_n19A(read_n19A),
-    .read_n19B(read_n19B),
-    .read_n19C(read_n19C),
-    .read_n2A(read_n2A),
-    .read_n2B(read_n2B),
-    .read_n2C(read_n2C),
-    .read_n20A(read_n20A),
-    .read_n20B(read_n20B),
-    .read_n20C(read_n20C),
-    .read_n21A(read_n21A),
-    .read_n21B(read_n21B),
-    .read_n21C(read_n21C),
-    .read_n22A(read_n22A),
-    .read_n22B(read_n22B),
-    .read_n22C(read_n22C),
-    .read_n23A(read_n23A),
-    .read_n23B(read_n23B),
-    .read_n23C(read_n23C),
-    .read_n24A(read_n24A),
-    .read_n24B(read_n24B),
-    .read_n24C(read_n24C),
-    .read_n25A(read_n25A),
-    .read_n25B(read_n25B),
-    .read_n25C(read_n25C),
-    .read_n26A(read_n26A),
-    .read_n26B(read_n26B),
-    .read_n26C(read_n26C),
-    .read_n27A(read_n27A),
-    .read_n27B(read_n27B),
-    .read_n27C(read_n27C),
-    .read_n28A(read_n28A),
-    .read_n28B(read_n28B),
-    .read_n28C(read_n28C),
-    .read_n29A(read_n29A),
-    .read_n29B(read_n29B),
-    .read_n29C(read_n29C),
-    .read_n3A(read_n3A),
-    .read_n3B(read_n3B),
-    .read_n3C(read_n3C),
-    .read_n30A(read_n30A),
-    .read_n30B(read_n30B),
-    .read_n30C(read_n30C),
-    .read_n31A(read_n31A),
-    .read_n31B(read_n31B),
-    .read_n31C(read_n31C),
-    .read_n4A(read_n4A),
-    .read_n4B(read_n4B),
-    .read_n4C(read_n4C),
-    .read_n5A(read_n5A),
-    .read_n5B(read_n5B),
-    .read_n5C(read_n5C),
-    .read_n6A(read_n6A),
-    .read_n6B(read_n6B),
-    .read_n6C(read_n6C),
-    .read_n7A(read_n7A),
-    .read_n7B(read_n7B),
-    .read_n7C(read_n7C),
-    .read_n8A(read_n8A),
-    .read_n8B(read_n8B),
-    .read_n8C(read_n8C),
-    .read_n9A(read_n9A),
-    .read_n9B(read_n9B),
-    .read_n9C(read_n9C),
-    .readdataA(readdataA),
-    .readdataB(readdataB),
-    .readdataC(readdataC)
+    .clk(clk),
+    .enable_cs_sig(enable_cs_sig),
+    .end_can_proc(end_can_proc),
+    .endwait(endwait),
+    .irqsucrec0(irqsucrec0),
+    .irqsucrec1(irqsucrec1),
+    .irqsucrec10(irqsucrec10),
+    .irqsucrec11(irqsucrec11),
+    .irqsucrec12(irqsucrec12),
+    .irqsucrec13(irqsucrec13),
+    .irqsucrec14(irqsucrec14),
+    .irqsucrec15(irqsucrec15),
+    .irqsucrec2(irqsucrec2),
+    .irqsucrec3(irqsucrec3),
+    .irqsucrec4(irqsucrec4),
+    .irqsucrec5(irqsucrec5),
+    .irqsucrec6(irqsucrec6),
+    .irqsucrec7(irqsucrec7),
+    .irqsucrec8(irqsucrec8),
+    .irqsucrec9(irqsucrec9),
+    .main_timeoutrst(main_timeoutrst),
+    .read_n_sig(read_n_sig),
+    .readdata0(readdata0),
+    .readdata1(readdata1),
+    .readdata10(readdata10),
+    .readdata11(readdata11),
+    .readdata12(readdata12),
+    .readdata13(readdata13),
+    .readdata14(readdata14),
+    .readdata15(readdata15),
+    .readdata2(readdata2),
+    .readdata3(readdata3),
+    .readdata4(readdata4),
+    .readdata5(readdata5),
+    .readdata6(readdata6),
+    .readdata7(readdata7),
+    .readdata8(readdata8),
+    .readdata9(readdata9),
+    .rst(rst),
+    .bus_rec_select(bus_rec_select),
+    .cs_rec0(cs_rec0),
+    .cs_rec1(cs_rec1),
+    .cs_rec10(cs_rec10),
+    .cs_rec11(cs_rec11),
+    .cs_rec12(cs_rec12),
+    .cs_rec13(cs_rec13),
+    .cs_rec14(cs_rec14),
+    .cs_rec15(cs_rec15),
+    .cs_rec2(cs_rec2),
+    .cs_rec3(cs_rec3),
+    .cs_rec4(cs_rec4),
+    .cs_rec5(cs_rec5),
+    .cs_rec6(cs_rec6),
+    .cs_rec7(cs_rec7),
+    .cs_rec8(cs_rec8),
+    .cs_rec9(cs_rec9),
+    .irq_can_rec(irq_can_rec),
+    .read_n0(read_n0),
+    .read_n1(read_n1),
+    .read_n10(read_n10),
+    .read_n11(read_n11),
+    .read_n12(read_n12),
+    .read_n13(read_n13),
+    .read_n14(read_n14),
+    .read_n15(read_n15),
+    .read_n2(read_n2),
+    .read_n3(read_n3),
+    .read_n4(read_n4),
+    .read_n5(read_n5),
+    .read_n6(read_n6),
+    .read_n7(read_n7),
+    .read_n8(read_n8),
+    .read_n9(read_n9),
+    .readdata(readdata)
     );
 
 node_tra_demuxTMR node_tra_demux0 (
-    .bus_tra_selectA(bus_tra_selectA),
-    .bus_tra_selectB(bus_tra_selectB),
-    .bus_tra_selectC(bus_tra_selectC),
-    .enable_cs_sigA(enable_cs_sigA),
-    .enable_cs_sigB(enable_cs_sigB),
-    .enable_cs_sigC(enable_cs_sigC),
-    .cs_tra0A(cs_tra0A),
-    .cs_tra0B(cs_tra0B),
-    .cs_tra0C(cs_tra0C),
-    .cs_tra1A(cs_tra1A),
-    .cs_tra1B(cs_tra1B),
-    .cs_tra1C(cs_tra1C),
-    .cs_tra10A(cs_tra10A),
-    .cs_tra10B(cs_tra10B),
-    .cs_tra10C(cs_tra10C),
-    .cs_tra11A(cs_tra11A),
-    .cs_tra11B(cs_tra11B),
-    .cs_tra11C(cs_tra11C),
-    .cs_tra12A(cs_tra12A),
-    .cs_tra12B(cs_tra12B),
-    .cs_tra12C(cs_tra12C),
-    .cs_tra13A(cs_tra13A),
-    .cs_tra13B(cs_tra13B),
-    .cs_tra13C(cs_tra13C),
-    .cs_tra14A(cs_tra14A),
-    .cs_tra14B(cs_tra14B),
-    .cs_tra14C(cs_tra14C),
-    .cs_tra15A(cs_tra15A),
-    .cs_tra15B(cs_tra15B),
-    .cs_tra15C(cs_tra15C),
-    .cs_tra16A(cs_tra16A),
-    .cs_tra16B(cs_tra16B),
-    .cs_tra16C(cs_tra16C),
-    .cs_tra17A(cs_tra17A),
-    .cs_tra17B(cs_tra17B),
-    .cs_tra17C(cs_tra17C),
-    .cs_tra18A(cs_tra18A),
-    .cs_tra18B(cs_tra18B),
-    .cs_tra18C(cs_tra18C),
-    .cs_tra19A(cs_tra19A),
-    .cs_tra19B(cs_tra19B),
-    .cs_tra19C(cs_tra19C),
-    .cs_tra2A(cs_tra2A),
-    .cs_tra2B(cs_tra2B),
-    .cs_tra2C(cs_tra2C),
-    .cs_tra20A(cs_tra20A),
-    .cs_tra20B(cs_tra20B),
-    .cs_tra20C(cs_tra20C),
-    .cs_tra21A(cs_tra21A),
-    .cs_tra21B(cs_tra21B),
-    .cs_tra21C(cs_tra21C),
-    .cs_tra22A(cs_tra22A),
-    .cs_tra22B(cs_tra22B),
-    .cs_tra22C(cs_tra22C),
-    .cs_tra23A(cs_tra23A),
-    .cs_tra23B(cs_tra23B),
-    .cs_tra23C(cs_tra23C),
-    .cs_tra24A(cs_tra24A),
-    .cs_tra24B(cs_tra24B),
-    .cs_tra24C(cs_tra24C),
-    .cs_tra25A(cs_tra25A),
-    .cs_tra25B(cs_tra25B),
-    .cs_tra25C(cs_tra25C),
-    .cs_tra26A(cs_tra26A),
-    .cs_tra26B(cs_tra26B),
-    .cs_tra26C(cs_tra26C),
-    .cs_tra27A(cs_tra27A),
-    .cs_tra27B(cs_tra27B),
-    .cs_tra27C(cs_tra27C),
-    .cs_tra28A(cs_tra28A),
-    .cs_tra28B(cs_tra28B),
-    .cs_tra28C(cs_tra28C),
-    .cs_tra29A(cs_tra29A),
-    .cs_tra29B(cs_tra29B),
-    .cs_tra29C(cs_tra29C),
-    .cs_tra3A(cs_tra3A),
-    .cs_tra3B(cs_tra3B),
-    .cs_tra3C(cs_tra3C),
-    .cs_tra30A(cs_tra30A),
-    .cs_tra30B(cs_tra30B),
-    .cs_tra30C(cs_tra30C),
-    .cs_tra31A(cs_tra31A),
-    .cs_tra31B(cs_tra31B),
-    .cs_tra31C(cs_tra31C),
-    .cs_tra4A(cs_tra4A),
-    .cs_tra4B(cs_tra4B),
-    .cs_tra4C(cs_tra4C),
-    .cs_tra5A(cs_tra5A),
-    .cs_tra5B(cs_tra5B),
-    .cs_tra5C(cs_tra5C),
-    .cs_tra6A(cs_tra6A),
-    .cs_tra6B(cs_tra6B),
-    .cs_tra6C(cs_tra6C),
-    .cs_tra7A(cs_tra7A),
-    .cs_tra7B(cs_tra7B),
-    .cs_tra7C(cs_tra7C),
-    .cs_tra8A(cs_tra8A),
-    .cs_tra8B(cs_tra8B),
-    .cs_tra8C(cs_tra8C),
-    .cs_tra9A(cs_tra9A),
-    .cs_tra9B(cs_tra9B),
-    .cs_tra9C(cs_tra9C),
-    .write_n_sigA(write_n_sigA),
-    .write_n_sigB(write_n_sigB),
-    .write_n_sigC(write_n_sigC),
-    .writedataA(writedataA),
-    .writedataB(writedataB),
-    .writedataC(writedataC),
-    .irq_can_traA(irq_can_traA),
-    .irq_can_traB(irq_can_traB),
-    .irq_can_traC(irq_can_traC),
-    .write_n0A(write_n0A),
-    .write_n0B(write_n0B),
-    .write_n0C(write_n0C),
-    .write_n1A(write_n1A),
-    .write_n1B(write_n1B),
-    .write_n1C(write_n1C),
-    .write_n2A(write_n2A),
-    .write_n2B(write_n2B),
-    .write_n2C(write_n2C),
-    .write_n3A(write_n3A),
-    .write_n3B(write_n3B),
-    .write_n3C(write_n3C),
-    .write_n4A(write_n4A),
-    .write_n4B(write_n4B),
-    .write_n4C(write_n4C),
-    .write_n5A(write_n5A),
-    .write_n5B(write_n5B),
-    .write_n5C(write_n5C),
-    .write_n6A(write_n6A),
-    .write_n6B(write_n6B),
-    .write_n6C(write_n6C),
-    .write_n7A(write_n7A),
-    .write_n7B(write_n7B),
-    .write_n7C(write_n7C),
-    .writedata0A(writedata0A),
-    .writedata0B(writedata0B),
-    .writedata0C(writedata0C),
-    .writedata1A(writedata1A),
-    .writedata1B(writedata1B),
-    .writedata1C(writedata1C),
-    .writedata2A(writedata2A),
-    .writedata2B(writedata2B),
-    .writedata2C(writedata2C),
-    .writedata3A(writedata3A),
-    .writedata3B(writedata3B),
-    .writedata3C(writedata3C),
-    .writedata4A(writedata4A),
-    .writedata4B(writedata4B),
-    .writedata4C(writedata4C),
-    .writedata5A(writedata5A),
-    .writedata5B(writedata5B),
-    .writedata5C(writedata5C),
-    .writedata6A(writedata6A),
-    .writedata6B(writedata6B),
-    .writedata6C(writedata6C),
-    .writedata7A(writedata7A),
-    .writedata7B(writedata7B),
-    .writedata7C(writedata7C),
-    .irqsuctra0A(irqsuctra0A),
-    .irqsuctra0B(irqsuctra0B),
-    .irqsuctra0C(irqsuctra0C),
-    .write_n8A(write_n8A),
-    .write_n8B(write_n8B),
-    .write_n8C(write_n8C),
-    .write_n9A(write_n9A),
-    .write_n9B(write_n9B),
-    .write_n9C(write_n9C),
-    .write_n10A(write_n10A),
-    .write_n10B(write_n10B),
-    .write_n10C(write_n10C),
-    .write_n11A(write_n11A),
-    .write_n11B(write_n11B),
-    .write_n11C(write_n11C),
-    .write_n12A(write_n12A),
-    .write_n12B(write_n12B),
-    .write_n12C(write_n12C),
-    .write_n13A(write_n13A),
-    .write_n13B(write_n13B),
-    .write_n13C(write_n13C),
-    .write_n14A(write_n14A),
-    .write_n14B(write_n14B),
-    .write_n14C(write_n14C),
-    .write_n15A(write_n15A),
-    .write_n15B(write_n15B),
-    .write_n15C(write_n15C),
-    .write_n16A(write_n16A),
-    .write_n16B(write_n16B),
-    .write_n16C(write_n16C),
-    .write_n17A(write_n17A),
-    .write_n17B(write_n17B),
-    .write_n17C(write_n17C),
-    .write_n18A(write_n18A),
-    .write_n18B(write_n18B),
-    .write_n18C(write_n18C),
-    .write_n19A(write_n19A),
-    .write_n19B(write_n19B),
-    .write_n19C(write_n19C),
-    .write_n20A(write_n20A),
-    .write_n20B(write_n20B),
-    .write_n20C(write_n20C),
-    .write_n21A(write_n21A),
-    .write_n21B(write_n21B),
-    .write_n21C(write_n21C),
-    .write_n22A(write_n22A),
-    .write_n22B(write_n22B),
-    .write_n22C(write_n22C),
-    .write_n23A(write_n23A),
-    .write_n23B(write_n23B),
-    .write_n23C(write_n23C),
-    .write_n24A(write_n24A),
-    .write_n24B(write_n24B),
-    .write_n24C(write_n24C),
-    .write_n25A(write_n25A),
-    .write_n25B(write_n25B),
-    .write_n25C(write_n25C),
-    .write_n26A(write_n26A),
-    .write_n26B(write_n26B),
-    .write_n26C(write_n26C),
-    .write_n27A(write_n27A),
-    .write_n27B(write_n27B),
-    .write_n27C(write_n27C),
-    .write_n28A(write_n28A),
-    .write_n28B(write_n28B),
-    .write_n28C(write_n28C),
-    .write_n29A(write_n29A),
-    .write_n29B(write_n29B),
-    .write_n29C(write_n29C),
-    .write_n30A(write_n30A),
-    .write_n30B(write_n30B),
-    .write_n30C(write_n30C),
-    .write_n31A(write_n31A),
-    .write_n31B(write_n31B),
-    .write_n31C(write_n31C),
-    .writedata8A(writedata8A),
-    .writedata8B(writedata8B),
-    .writedata8C(writedata8C),
-    .writedata9A(writedata9A),
-    .writedata9B(writedata9B),
-    .writedata9C(writedata9C),
-    .writedata10A(writedata10A),
-    .writedata10B(writedata10B),
-    .writedata10C(writedata10C),
-    .writedata11A(writedata11A),
-    .writedata11B(writedata11B),
-    .writedata11C(writedata11C),
-    .writedata12A(writedata12A),
-    .writedata12B(writedata12B),
-    .writedata12C(writedata12C),
-    .writedata13A(writedata13A),
-    .writedata13B(writedata13B),
-    .writedata13C(writedata13C),
-    .writedata14A(writedata14A),
-    .writedata14B(writedata14B),
-    .writedata14C(writedata14C),
-    .writedata15A(writedata15A),
-    .writedata15B(writedata15B),
-    .writedata15C(writedata15C),
-    .writedata16A(writedata16A),
-    .writedata16B(writedata16B),
-    .writedata16C(writedata16C),
-    .irqsuctra1A(irqsuctra1A),
-    .irqsuctra1B(irqsuctra1B),
-    .irqsuctra1C(irqsuctra1C),
-    .writedata17A(writedata17A),
-    .writedata17B(writedata17B),
-    .writedata17C(writedata17C),
-    .irqsuctra2A(irqsuctra2A),
-    .irqsuctra2B(irqsuctra2B),
-    .irqsuctra2C(irqsuctra2C),
-    .irqsuctra3A(irqsuctra3A),
-    .irqsuctra3B(irqsuctra3B),
-    .irqsuctra3C(irqsuctra3C),
-    .writedata18A(writedata18A),
-    .writedata18B(writedata18B),
-    .writedata18C(writedata18C),
-    .irqsuctra4A(irqsuctra4A),
-    .irqsuctra4B(irqsuctra4B),
-    .irqsuctra4C(irqsuctra4C),
-    .writedata19A(writedata19A),
-    .writedata19B(writedata19B),
-    .writedata19C(writedata19C),
-    .irqsuctra5A(irqsuctra5A),
-    .irqsuctra5B(irqsuctra5B),
-    .irqsuctra5C(irqsuctra5C),
-    .writedata20A(writedata20A),
-    .writedata20B(writedata20B),
-    .writedata20C(writedata20C),
-    .irqsuctra6A(irqsuctra6A),
-    .irqsuctra6B(irqsuctra6B),
-    .irqsuctra6C(irqsuctra6C),
-    .writedata21A(writedata21A),
-    .writedata21B(writedata21B),
-    .writedata21C(writedata21C),
-    .writedata22A(writedata22A),
-    .writedata22B(writedata22B),
-    .writedata22C(writedata22C),
-    .irqsuctra7A(irqsuctra7A),
-    .irqsuctra7B(irqsuctra7B),
-    .irqsuctra7C(irqsuctra7C),
-    .irqsuctra8A(irqsuctra8A),
-    .irqsuctra8B(irqsuctra8B),
-    .irqsuctra8C(irqsuctra8C),
-    .writedata23A(writedata23A),
-    .writedata23B(writedata23B),
-    .writedata23C(writedata23C),
-    .irqsuctra9A(irqsuctra9A),
-    .irqsuctra9B(irqsuctra9B),
-    .irqsuctra9C(irqsuctra9C),
-    .writedata24A(writedata24A),
-    .writedata24B(writedata24B),
-    .writedata24C(writedata24C),
-    .irqsuctra10A(irqsuctra10A),
-    .irqsuctra10B(irqsuctra10B),
-    .irqsuctra10C(irqsuctra10C),
-    .writedata25A(writedata25A),
-    .writedata25B(writedata25B),
-    .writedata25C(writedata25C),
-    .irqsuctra11A(irqsuctra11A),
-    .irqsuctra11B(irqsuctra11B),
-    .irqsuctra11C(irqsuctra11C),
-    .writedata26A(writedata26A),
-    .writedata26B(writedata26B),
-    .writedata26C(writedata26C),
-    .irqsuctra12A(irqsuctra12A),
-    .irqsuctra12B(irqsuctra12B),
-    .irqsuctra12C(irqsuctra12C),
-    .writedata27A(writedata27A),
-    .writedata27B(writedata27B),
-    .writedata27C(writedata27C),
-    .writedata28A(writedata28A),
-    .writedata28B(writedata28B),
-    .writedata28C(writedata28C),
-    .irqsuctra13A(irqsuctra13A),
-    .irqsuctra13B(irqsuctra13B),
-    .irqsuctra13C(irqsuctra13C),
-    .writedata29A(writedata29A),
-    .writedata29B(writedata29B),
-    .writedata29C(writedata29C),
-    .irqsuctra14A(irqsuctra14A),
-    .irqsuctra14B(irqsuctra14B),
-    .irqsuctra14C(irqsuctra14C),
-    .writedata30A(writedata30A),
-    .writedata30B(writedata30B),
-    .writedata30C(writedata30C),
-    .irqsuctra15A(irqsuctra15A),
-    .irqsuctra15B(irqsuctra15B),
-    .irqsuctra15C(irqsuctra15C),
-    .writedata31A(writedata31A),
-    .writedata31B(writedata31B),
-    .writedata31C(writedata31C),
-    .irqsuctra17A(irqsuctra17A),
-    .irqsuctra17B(irqsuctra17B),
-    .irqsuctra17C(irqsuctra17C),
-    .irqsuctra18A(irqsuctra18A),
-    .irqsuctra18B(irqsuctra18B),
-    .irqsuctra18C(irqsuctra18C),
-    .irqsuctra19A(irqsuctra19A),
-    .irqsuctra19B(irqsuctra19B),
-    .irqsuctra19C(irqsuctra19C),
-    .irqsuctra20A(irqsuctra20A),
-    .irqsuctra20B(irqsuctra20B),
-    .irqsuctra20C(irqsuctra20C),
-    .irqsuctra21A(irqsuctra21A),
-    .irqsuctra21B(irqsuctra21B),
-    .irqsuctra21C(irqsuctra21C),
-    .irqsuctra16A(irqsuctra16A),
-    .irqsuctra16B(irqsuctra16B),
-    .irqsuctra16C(irqsuctra16C),
-    .irqsuctra22A(irqsuctra22A),
-    .irqsuctra22B(irqsuctra22B),
-    .irqsuctra22C(irqsuctra22C),
-    .irqsuctra23A(irqsuctra23A),
-    .irqsuctra23B(irqsuctra23B),
-    .irqsuctra23C(irqsuctra23C),
-    .irqsuctra24A(irqsuctra24A),
-    .irqsuctra24B(irqsuctra24B),
-    .irqsuctra24C(irqsuctra24C),
-    .irqsuctra25A(irqsuctra25A),
-    .irqsuctra25B(irqsuctra25B),
-    .irqsuctra25C(irqsuctra25C),
-    .irqsuctra26A(irqsuctra26A),
-    .irqsuctra26B(irqsuctra26B),
-    .irqsuctra26C(irqsuctra26C),
-    .irqsuctra27A(irqsuctra27A),
-    .irqsuctra27B(irqsuctra27B),
-    .irqsuctra27C(irqsuctra27C),
-    .irqsuctra28A(irqsuctra28A),
-    .irqsuctra28B(irqsuctra28B),
-    .irqsuctra28C(irqsuctra28C),
-    .irqsuctra29A(irqsuctra29A),
-    .irqsuctra29B(irqsuctra29B),
-    .irqsuctra29C(irqsuctra29C),
-    .irqsuctra30A(irqsuctra30A),
-    .irqsuctra30B(irqsuctra30B),
-    .irqsuctra30C(irqsuctra30C),
-    .irqsuctra31A(irqsuctra31A),
-    .irqsuctra31B(irqsuctra31B),
-    .irqsuctra31C(irqsuctra31C)
+    .bus_tra_select(bus_tra_select),
+    .enable_cs_sig(enable_cs_sig),
+    .cs_tra0(cs_tra0),
+    .cs_tra1(cs_tra1),
+    .cs_tra10(cs_tra10),
+    .cs_tra11(cs_tra11),
+    .cs_tra12(cs_tra12),
+    .cs_tra13(cs_tra13),
+    .cs_tra14(cs_tra14),
+    .cs_tra15(cs_tra15),
+    .cs_tra2(cs_tra2),
+    .cs_tra3(cs_tra3),
+    .cs_tra4(cs_tra4),
+    .cs_tra5(cs_tra5),
+    .cs_tra6(cs_tra6),
+    .cs_tra7(cs_tra7),
+    .cs_tra8(cs_tra8),
+    .cs_tra9(cs_tra9),
+    .write_n_sig(write_n_sig),
+    .writedata(writedata),
+    .irq_can_tra(irq_can_tra),
+    .write_n0(write_n0),
+    .write_n1(write_n1),
+    .write_n2(write_n2),
+    .write_n3(write_n3),
+    .write_n4(write_n4),
+    .write_n5(write_n5),
+    .write_n6(write_n6),
+    .write_n7(write_n7),
+    .writedata0(writedata0),
+    .writedata1(writedata1),
+    .writedata2(writedata2),
+    .writedata3(writedata3),
+    .writedata4(writedata4),
+    .writedata5(writedata5),
+    .writedata6(writedata6),
+    .writedata7(writedata7),
+    .irqsuctra0(irqsuctra0),
+    .write_n8(write_n8),
+    .write_n9(write_n9),
+    .write_n10(write_n10),
+    .write_n11(write_n11),
+    .write_n12(write_n12),
+    .write_n13(write_n13),
+    .write_n14(write_n14),
+    .write_n15(write_n15),
+    .writedata8(writedata8),
+    .writedata9(writedata9),
+    .writedata10(writedata10),
+    .writedata11(writedata11),
+    .writedata12(writedata12),
+    .writedata13(writedata13),
+    .writedata14(writedata14),
+    .writedata15(writedata15),
+    .irqsuctra1(irqsuctra1),
+    .irqsuctra2(irqsuctra2),
+    .irqsuctra3(irqsuctra3),
+    .irqsuctra4(irqsuctra4),
+    .irqsuctra5(irqsuctra5),
+    .irqsuctra6(irqsuctra6),
+    .irqsuctra7(irqsuctra7),
+    .irqsuctra8(irqsuctra8),
+    .irqsuctra9(irqsuctra9),
+    .irqsuctra10(irqsuctra10),
+    .irqsuctra11(irqsuctra11),
+    .irqsuctra12(irqsuctra12),
+    .irqsuctra13(irqsuctra13),
+    .irqsuctra14(irqsuctra14),
+    .irqsuctra15(irqsuctra15)
     );
-assign cs0A =  cs_rec0A|cs_tra0A;
-assign cs0B =  cs_rec0B|cs_tra0B;
-assign cs0C =  cs_rec0C|cs_tra0C;
-assign cs1A =  cs_rec1A|cs_tra1A;
-assign cs1B =  cs_rec1B|cs_tra1B;
-assign cs1C =  cs_rec1C|cs_tra1C;
-assign cs2A =  cs_rec2A|cs_tra2A;
-assign cs2B =  cs_rec2B|cs_tra2B;
-assign cs2C =  cs_rec2C|cs_tra2C;
-assign cs3A =  cs_rec3A|cs_tra3A;
-assign cs3B =  cs_rec3B|cs_tra3B;
-assign cs3C =  cs_rec3C|cs_tra3C;
-assign cs4A =  cs_rec4A|cs_tra4A;
-assign cs4B =  cs_rec4B|cs_tra4B;
-assign cs4C =  cs_rec4C|cs_tra4C;
-assign cs5A =  cs_rec5A|cs_tra5A;
-assign cs5B =  cs_rec5B|cs_tra5B;
-assign cs5C =  cs_rec5C|cs_tra5C;
-assign cs6A =  cs_rec6A|cs_tra6A;
-assign cs6B =  cs_rec6B|cs_tra6B;
-assign cs6C =  cs_rec6C|cs_tra6C;
-assign cs7A =  cs_rec7A|cs_tra7A;
-assign cs7B =  cs_rec7B|cs_tra7B;
-assign cs7C =  cs_rec7C|cs_tra7C;
-assign cs8A =  cs_rec8A|cs_tra8A;
-assign cs8B =  cs_rec8B|cs_tra8B;
-assign cs8C =  cs_rec8C|cs_tra8C;
-assign cs9A =  cs_rec9A|cs_tra9A;
-assign cs9B =  cs_rec9B|cs_tra9B;
-assign cs9C =  cs_rec9C|cs_tra9C;
-assign cs10A =  cs_rec10A|cs_tra10A;
-assign cs10B =  cs_rec10B|cs_tra10B;
-assign cs10C =  cs_rec10C|cs_tra10C;
-assign cs11A =  cs_rec11A|cs_tra11A;
-assign cs11B =  cs_rec11B|cs_tra11B;
-assign cs11C =  cs_rec11C|cs_tra11C;
-assign cs12A =  cs_rec12A|cs_tra12A;
-assign cs12B =  cs_rec12B|cs_tra12B;
-assign cs12C =  cs_rec12C|cs_tra12C;
-assign cs13A =  cs_rec13A|cs_tra13A;
-assign cs13B =  cs_rec13B|cs_tra13B;
-assign cs13C =  cs_rec13C|cs_tra13C;
-assign cs14A =  cs_rec14A|cs_tra14A;
-assign cs14B =  cs_rec14B|cs_tra14B;
-assign cs14C =  cs_rec14C|cs_tra14C;
-assign cs15A =  cs_rec15A|cs_tra15A;
-assign cs15B =  cs_rec15B|cs_tra15B;
-assign cs15C =  cs_rec15C|cs_tra15C;
-assign cs16A =  cs_rec16A|cs_tra16A;
-assign cs16B =  cs_rec16B|cs_tra16B;
-assign cs16C =  cs_rec16C|cs_tra16C;
-assign cs17A =  cs_rec17A|cs_tra17A;
-assign cs17B =  cs_rec17B|cs_tra17B;
-assign cs17C =  cs_rec17C|cs_tra17C;
-assign cs18A =  cs_rec18A|cs_tra18A;
-assign cs18B =  cs_rec18B|cs_tra18B;
-assign cs18C =  cs_rec18C|cs_tra18C;
-assign cs19A =  cs_rec19A|cs_tra19A;
-assign cs19B =  cs_rec19B|cs_tra19B;
-assign cs19C =  cs_rec19C|cs_tra19C;
-assign cs20A =  cs_rec20A|cs_tra20A;
-assign cs20B =  cs_rec20B|cs_tra20B;
-assign cs20C =  cs_rec20C|cs_tra20C;
-assign cs21A =  cs_rec21A|cs_tra21A;
-assign cs21B =  cs_rec21B|cs_tra21B;
-assign cs21C =  cs_rec21C|cs_tra21C;
-assign cs22A =  cs_rec22A|cs_tra22A;
-assign cs22B =  cs_rec22B|cs_tra22B;
-assign cs22C =  cs_rec22C|cs_tra22C;
-assign cs23A =  cs_rec23A|cs_tra23A;
-assign cs23B =  cs_rec23B|cs_tra23B;
-assign cs23C =  cs_rec23C|cs_tra23C;
-assign cs24A =  cs_rec24A|cs_tra24A;
-assign cs24B =  cs_rec24B|cs_tra24B;
-assign cs24C =  cs_rec24C|cs_tra24C;
-assign cs25A =  cs_rec25A|cs_tra25A;
-assign cs25B =  cs_rec25B|cs_tra25B;
-assign cs25C =  cs_rec25C|cs_tra25C;
-assign cs26A =  cs_rec26A|cs_tra26A;
-assign cs26B =  cs_rec26B|cs_tra26B;
-assign cs26C =  cs_rec26C|cs_tra26C;
-assign cs27A =  cs_rec27A|cs_tra27A;
-assign cs27B =  cs_rec27B|cs_tra27B;
-assign cs27C =  cs_rec27C|cs_tra27C;
-assign cs28A =  cs_rec28A|cs_tra28A;
-assign cs28B =  cs_rec28B|cs_tra28B;
-assign cs28C =  cs_rec28C|cs_tra28C;
-assign cs29A =  cs_rec29A|cs_tra29A;
-assign cs29B =  cs_rec29B|cs_tra29B;
-assign cs29C =  cs_rec29C|cs_tra29C;
-assign cs30A =  cs_rec30A|cs_tra30A;
-assign cs30B =  cs_rec30B|cs_tra30B;
-assign cs30C =  cs_rec30C|cs_tra30C;
-assign cs31A =  cs_rec31A|cs_tra31A;
-assign cs31B =  cs_rec31B|cs_tra31B;
-assign cs31C =  cs_rec31C|cs_tra31C;
-assign ireqsucrecA =  irqsucrec0A|irqsucrec1A|irqsucrec2A|irqsucrec3A|irqsucrec4A|irqsucrec5A|irqsucrec6A|irqsucrec7A|irqsucrec8A|irqsucrec9A|irqsucrec10A|irqsucrec11A|irqsucrec12A|irqsucrec13A|irqsucrec14A|irqsucrec15A|irqsucrec16A|irqsucrec17A|irqsucrec18A|irqsucrec19A|irqsucrec20A|irqsucrec21A|irqsucrec22A|irqsucrec23A|irqsucrec24A|irqsucrec25A|irqsucrec26A|irqsucrec27A|irqsucrec28A|irqsucrec29A|irqsucrec30A|irqsucrec31A;
-assign ireqsucrecB =  irqsucrec0B|irqsucrec1B|irqsucrec2B|irqsucrec3B|irqsucrec4B|irqsucrec5B|irqsucrec6B|irqsucrec7B|irqsucrec8B|irqsucrec9B|irqsucrec10B|irqsucrec11B|irqsucrec12B|irqsucrec13B|irqsucrec14B|irqsucrec15B|irqsucrec16B|irqsucrec17B|irqsucrec18B|irqsucrec19B|irqsucrec20B|irqsucrec21B|irqsucrec22B|irqsucrec23B|irqsucrec24B|irqsucrec25B|irqsucrec26B|irqsucrec27B|irqsucrec28B|irqsucrec29B|irqsucrec30B|irqsucrec31B;
-assign ireqsucrecC =  irqsucrec0C|irqsucrec1C|irqsucrec2C|irqsucrec3C|irqsucrec4C|irqsucrec5C|irqsucrec6C|irqsucrec7C|irqsucrec8C|irqsucrec9C|irqsucrec10C|irqsucrec11C|irqsucrec12C|irqsucrec13C|irqsucrec14C|irqsucrec15C|irqsucrec16C|irqsucrec17C|irqsucrec18C|irqsucrec19C|irqsucrec20C|irqsucrec21C|irqsucrec22C|irqsucrec23C|irqsucrec24C|irqsucrec25C|irqsucrec26C|irqsucrec27C|irqsucrec28C|irqsucrec29C|irqsucrec30C|irqsucrec31C;
+assign cs0 =  cs_rec0|cs_tra0;
+assign cs1 =  cs_rec1|cs_tra1;
+assign cs2 =  cs_rec2|cs_tra2;
+assign cs3 =  cs_rec3|cs_tra3;
+assign cs4 =  cs_rec4|cs_tra4;
+assign cs5 =  cs_rec5|cs_tra5;
+assign cs6 =  cs_rec6|cs_tra6;
+assign cs7 =  cs_rec7|cs_tra7;
+assign cs8 =  cs_rec8|cs_tra8;
+assign cs9 =  cs_rec9|cs_tra9;
+assign cs10 =  cs_rec10|cs_tra10;
+assign cs11 =  cs_rec11|cs_tra11;
+assign cs12 =  cs_rec12|cs_tra12;
+assign cs13 =  cs_rec13|cs_tra13;
+assign cs14 =  cs_rec14|cs_tra14;
+assign cs15 =  cs_rec15|cs_tra15;
 endmodule
 

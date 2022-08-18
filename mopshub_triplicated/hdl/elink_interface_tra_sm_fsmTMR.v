@@ -6,54 +6,33 @@
  *                                                                                                  *
  * user    : lucas                                                                                  *
  * host    : DESKTOP-BFDSFP2                                                                        *
- * date    : 03/04/2022 20:08:34                                                                    *
+ * date    : 16/08/2022 12:58:17                                                                    *
  *                                                                                                  *
- * workdir : /mnt/c/Users/Lucas/Desktop/mopshub_triplication/triplicated/mopshub_top_canakari_ftrim/hdl *
- * cmd     : /mnt/c/Users/Lucas/Desktop/mopshub_triplication/tmrg-master/bin/tmrg -vv -c tmrg.cfg   *
+ * workdir : /mnt/c/Users/Lucas/Desktop/mopshub_triplication/mopshub_top_board_canakari_ftrim/hdl   *
+ * cmd     : /mnt/c/Users/Lucas/Desktop/mopshub_triplication/tmrg-master/bin/tmrg -c tmrg.cfg -vvv  *
  * tmrg rev:                                                                                        *
  *                                                                                                  *
  * src file: elink_interface_tra_sm_fsm.v                                                           *
  *           Git SHA           : File not in git repository!                                        *
- *           Modification time : 2022-03-28 21:55:54                                                *
- *           File Size         : 13186                                                              *
- *           MD5 hash          : a991e19411be2ec4575edd46d0646570                                   *
+ *           Modification time : 2022-08-16 10:13:15.886338                                         *
+ *           File Size         : 19052                                                              *
+ *           MD5 hash          : 33e5c2315400ca5f67031837b933f683                                   *
  *                                                                                                  *
  ****************************************************************************************************/
 
 module elink_interface_tra_SMTMR(
-  input wire  abortA ,
-  input wire  abortB ,
-  input wire  abortC ,
-  input wire  can_idA ,
-  input wire  can_idB ,
-  input wire  can_idC ,
-  input wire  clkA ,
-  input wire  clkB ,
-  input wire  clkC ,
-  input wire  fifo_data_eopA ,
-  input wire  fifo_data_eopB ,
-  input wire  fifo_data_eopC ,
-  input wire  fifo_data_sopA ,
-  input wire  fifo_data_sopB ,
-  input wire  fifo_data_sopC ,
-  input wire  fifo_elink_rdyA ,
-  input wire  fifo_elink_rdyB ,
-  input wire  fifo_elink_rdyC ,
-  input wire  fifo_packet_rdyA ,
-  input wire  fifo_packet_rdyB ,
-  input wire  fifo_packet_rdyC ,
-  input wire  rstA ,
-  input wire  rstB ,
-  input wire  rstC ,
-  input wire  spi_monA ,
-  input wire  spi_monB ,
-  input wire  spi_monC ,
-  input wire  start_read_elinkA ,
-  input wire  start_read_elinkB ,
-  input wire  start_read_elinkC ,
-  input wire  timeoutrstA ,
-  input wire  timeoutrstB ,
-  input wire  timeoutrstC ,
+  input wire  abort ,
+  input wire  can_id ,
+  input wire  clk ,
+  input wire  fifo_data_eop ,
+  input wire  fifo_data_sop ,
+  input wire  fifo_elink_rdy ,
+  input wire  fifo_packet_rdy ,
+  input wire  rst ,
+  input wire  spi_can_id ,
+  input wire  spi_mon_id ,
+  input wire  start_read_elink ,
+  input wire  timeoutrst ,
   output reg [4:0] addr_readA ,
   output reg [4:0] addr_readB ,
   output reg [4:0] addr_readC ,
@@ -84,6 +63,9 @@ module elink_interface_tra_SMTMR(
   output reg  irq_spi_traA ,
   output reg  irq_spi_traB ,
   output reg  irq_spi_traC ,
+  output reg  spi_tra_modeA ,
+  output reg  spi_tra_modeB ,
+  output reg  spi_tra_modeC ,
   output reg [6:0] statedebA ,
   output reg [6:0] statedebB ,
   output reg [6:0] statedebC 
@@ -126,6 +108,66 @@ parameter ST_GOToWait1 =6'd34;
 parameter SPI3 =6'd35;
 parameter store_SPI3 =6'd36;
 parameter ST_wait_eop1 =6'd37;
+parameter ST_skip_msg =6'd38;
+parameter RB10 =6'd39;
+parameter store_RB10 =6'd40;
+parameter RB11 =6'd41;
+parameter RB12 =6'd42;
+parameter store_RB11 =6'd43;
+parameter store_RB12 =6'd44;
+parameter store_RB13 =6'd45;
+parameter RB13 =6'd46;
+parameter store_RB14 =6'd47;
+parameter RB14 =6'd48;
+parameter store_RB15 =6'd49;
+parameter RB15 =6'd50;
+parameter store_RB16 =6'd51;
+parameter RB16 =6'd52;
+parameter store_RB17 =6'd53;
+parameter store_RB18 =6'd54;
+parameter RB17 =6'd55;
+parameter store_RB19 =6'd56;
+parameter RB18 =6'd57;
+parameter ST_wait_eop2 =6'd58;
+parameter ST_end_read_en2 =6'd59;
+parameter ST_GOToWait2 =6'd60;
+parameter ST_en_buffer2 =6'd61;
+wire timeoutrstC;
+wire timeoutrstB;
+wire timeoutrstA;
+wire start_read_elinkC;
+wire start_read_elinkB;
+wire start_read_elinkA;
+wire spi_mon_idC;
+wire spi_mon_idB;
+wire spi_mon_idA;
+wire spi_can_idC;
+wire spi_can_idB;
+wire spi_can_idA;
+wire rstC;
+wire rstB;
+wire rstA;
+wire fifo_packet_rdyC;
+wire fifo_packet_rdyB;
+wire fifo_packet_rdyA;
+wire fifo_elink_rdyC;
+wire fifo_elink_rdyB;
+wire fifo_elink_rdyA;
+wire fifo_data_sopC;
+wire fifo_data_sopB;
+wire fifo_data_sopA;
+wire fifo_data_eopC;
+wire fifo_data_eopB;
+wire fifo_data_eopA;
+wire clkC;
+wire clkB;
+wire clkA;
+wire can_idC;
+wire can_idB;
+wire can_idA;
+wire abortC;
+wire abortB;
+wire abortA;
 reg  [5:0] current_stateA ;
 reg  [5:0] next_stateA ;
 reg  [5:0] current_stateB ;
@@ -133,7 +175,7 @@ reg  [5:0] next_stateB ;
 reg  [5:0] current_stateC ;
 reg  [5:0] next_stateC ;
 
-always @( can_idA or current_stateA or fifo_data_eopA or fifo_data_sopA or fifo_elink_rdyA or fifo_packet_rdyA or rstA or spi_monA or start_read_elinkA )
+always @( can_idA or current_stateA or fifo_data_eopA or fifo_data_sopA or fifo_elink_rdyA or fifo_packet_rdyA or rstA or spi_can_idA or spi_mon_idA or start_read_elinkA )
   begin : next_state_block_procA
     case (current_stateA)
       ST_waittoact : 
@@ -290,10 +332,13 @@ always @( can_idA or current_stateA or fifo_data_eopA or fifo_data_sopA or fifo_
           if (can_idA==1)
             next_stateA =  store_RB0;
           else
-            if ((spi_monA==1)&&(fifo_packet_rdyA==1))
+            if ((spi_mon_idA==1)&&(fifo_packet_rdyA==1))
               next_stateA =  store_SPI0;
             else
-              next_stateA =  RB0;
+              if (spi_can_idA==1)
+                next_stateA =  store_RB13;
+              else
+                next_stateA =  RB0;
         end
       store_SPI0 : 
         begin
@@ -357,11 +402,125 @@ always @( can_idA or current_stateA or fifo_data_eopA or fifo_data_sopA or fifo_
           else
             next_stateA =  ST_wait_eop1;
         end
+      ST_skip_msg : 
+        begin
+          next_stateA =  ST_waittoact;
+        end
+      RB10 : 
+        begin
+          next_stateA =  store_RB10;
+        end
+      store_RB10 : 
+        begin
+          if (fifo_elink_rdyA&&fifo_packet_rdyA==1)
+            next_stateA =  RB11;
+          else
+            next_stateA =  store_RB10;
+        end
+      RB11 : 
+        begin
+          next_stateA =  store_RB11;
+        end
+      RB12 : 
+        begin
+          next_stateA =  store_RB12;
+        end
+      store_RB11 : 
+        begin
+          if (fifo_elink_rdyA&&fifo_packet_rdyA==1)
+            next_stateA =  RB12;
+          else
+            next_stateA =  store_RB11;
+        end
+      store_RB12 : 
+        begin
+          next_stateA =  RB14;
+        end
+      store_RB13 : 
+        begin
+          if (fifo_elink_rdyA&&fifo_packet_rdyA==1)
+            next_stateA =  RB13;
+          else
+            next_stateA =  store_RB13;
+        end
+      RB13 : 
+        begin
+          next_stateA =  store_RB14;
+        end
+      store_RB14 : 
+        begin
+          if (fifo_elink_rdyA&&fifo_packet_rdyA==1)
+            next_stateA =  RB10;
+          else
+            next_stateA =  store_RB14;
+        end
+      RB14 : 
+        begin
+          next_stateA =  store_RB15;
+        end
+      store_RB15 : 
+        begin
+          next_stateA =  RB15;
+        end
+      RB15 : 
+        begin
+          next_stateA =  store_RB16;
+        end
+      store_RB16 : 
+        begin
+          next_stateA =  RB16;
+        end
+      RB16 : 
+        begin
+          next_stateA =  store_RB17;
+        end
+      store_RB17 : 
+        begin
+          next_stateA =  RB17;
+        end
+      store_RB18 : 
+        begin
+          next_stateA =  RB18;
+        end
+      RB17 : 
+        begin
+          next_stateA =  store_RB18;
+        end
+      store_RB19 : 
+        begin
+          next_stateA =  ST_wait_eop2;
+        end
+      RB18 : 
+        begin
+          next_stateA =  store_RB19;
+        end
+      ST_wait_eop2 : 
+        begin
+          if (fifo_data_eopA==1)
+            next_stateA =  ST_end_read_en2;
+          else
+            next_stateA =  ST_wait_eop2;
+        end
+      ST_end_read_en2 : 
+        begin
+          if (start_read_elinkA==1)
+            next_stateA =  ST_en_buffer2;
+          else
+            next_stateA =  ST_end_read_en2;
+        end
+      ST_GOToWait2 : 
+        begin
+          next_stateA =  ST_waittoact;
+        end
+      ST_en_buffer2 : 
+        begin
+          next_stateA =  ST_GOToWait2;
+        end
       default : next_stateA =  ST_reset;
     endcase
   end
 
-always @( can_idB or current_stateB or fifo_data_eopB or fifo_data_sopB or fifo_elink_rdyB or fifo_packet_rdyB or rstB or spi_monB or start_read_elinkB )
+always @( can_idB or current_stateB or fifo_data_eopB or fifo_data_sopB or fifo_elink_rdyB or fifo_packet_rdyB or rstB or spi_can_idB or spi_mon_idB or start_read_elinkB )
   begin : next_state_block_procB
     case (current_stateB)
       ST_waittoact : 
@@ -518,10 +677,13 @@ always @( can_idB or current_stateB or fifo_data_eopB or fifo_data_sopB or fifo_
           if (can_idB==1)
             next_stateB =  store_RB0;
           else
-            if ((spi_monB==1)&&(fifo_packet_rdyB==1))
+            if ((spi_mon_idB==1)&&(fifo_packet_rdyB==1))
               next_stateB =  store_SPI0;
             else
-              next_stateB =  RB0;
+              if (spi_can_idB==1)
+                next_stateB =  store_RB13;
+              else
+                next_stateB =  RB0;
         end
       store_SPI0 : 
         begin
@@ -585,11 +747,125 @@ always @( can_idB or current_stateB or fifo_data_eopB or fifo_data_sopB or fifo_
           else
             next_stateB =  ST_wait_eop1;
         end
+      ST_skip_msg : 
+        begin
+          next_stateB =  ST_waittoact;
+        end
+      RB10 : 
+        begin
+          next_stateB =  store_RB10;
+        end
+      store_RB10 : 
+        begin
+          if (fifo_elink_rdyB&&fifo_packet_rdyB==1)
+            next_stateB =  RB11;
+          else
+            next_stateB =  store_RB10;
+        end
+      RB11 : 
+        begin
+          next_stateB =  store_RB11;
+        end
+      RB12 : 
+        begin
+          next_stateB =  store_RB12;
+        end
+      store_RB11 : 
+        begin
+          if (fifo_elink_rdyB&&fifo_packet_rdyB==1)
+            next_stateB =  RB12;
+          else
+            next_stateB =  store_RB11;
+        end
+      store_RB12 : 
+        begin
+          next_stateB =  RB14;
+        end
+      store_RB13 : 
+        begin
+          if (fifo_elink_rdyB&&fifo_packet_rdyB==1)
+            next_stateB =  RB13;
+          else
+            next_stateB =  store_RB13;
+        end
+      RB13 : 
+        begin
+          next_stateB =  store_RB14;
+        end
+      store_RB14 : 
+        begin
+          if (fifo_elink_rdyB&&fifo_packet_rdyB==1)
+            next_stateB =  RB10;
+          else
+            next_stateB =  store_RB14;
+        end
+      RB14 : 
+        begin
+          next_stateB =  store_RB15;
+        end
+      store_RB15 : 
+        begin
+          next_stateB =  RB15;
+        end
+      RB15 : 
+        begin
+          next_stateB =  store_RB16;
+        end
+      store_RB16 : 
+        begin
+          next_stateB =  RB16;
+        end
+      RB16 : 
+        begin
+          next_stateB =  store_RB17;
+        end
+      store_RB17 : 
+        begin
+          next_stateB =  RB17;
+        end
+      store_RB18 : 
+        begin
+          next_stateB =  RB18;
+        end
+      RB17 : 
+        begin
+          next_stateB =  store_RB18;
+        end
+      store_RB19 : 
+        begin
+          next_stateB =  ST_wait_eop2;
+        end
+      RB18 : 
+        begin
+          next_stateB =  store_RB19;
+        end
+      ST_wait_eop2 : 
+        begin
+          if (fifo_data_eopB==1)
+            next_stateB =  ST_end_read_en2;
+          else
+            next_stateB =  ST_wait_eop2;
+        end
+      ST_end_read_en2 : 
+        begin
+          if (start_read_elinkB==1)
+            next_stateB =  ST_en_buffer2;
+          else
+            next_stateB =  ST_end_read_en2;
+        end
+      ST_GOToWait2 : 
+        begin
+          next_stateB =  ST_waittoact;
+        end
+      ST_en_buffer2 : 
+        begin
+          next_stateB =  ST_GOToWait2;
+        end
       default : next_stateB =  ST_reset;
     endcase
   end
 
-always @( can_idC or current_stateC or fifo_data_eopC or fifo_data_sopC or fifo_elink_rdyC or fifo_packet_rdyC or rstC or spi_monC or start_read_elinkC )
+always @( can_idC or current_stateC or fifo_data_eopC or fifo_data_sopC or fifo_elink_rdyC or fifo_packet_rdyC or rstC or spi_can_idC or spi_mon_idC or start_read_elinkC )
   begin : next_state_block_procC
     case (current_stateC)
       ST_waittoact : 
@@ -746,10 +1022,13 @@ always @( can_idC or current_stateC or fifo_data_eopC or fifo_data_sopC or fifo_
           if (can_idC==1)
             next_stateC =  store_RB0;
           else
-            if ((spi_monC==1)&&(fifo_packet_rdyC==1))
+            if ((spi_mon_idC==1)&&(fifo_packet_rdyC==1))
               next_stateC =  store_SPI0;
             else
-              next_stateC =  RB0;
+              if (spi_can_idC==1)
+                next_stateC =  store_RB13;
+              else
+                next_stateC =  RB0;
         end
       store_SPI0 : 
         begin
@@ -813,6 +1092,120 @@ always @( can_idC or current_stateC or fifo_data_eopC or fifo_data_sopC or fifo_
           else
             next_stateC =  ST_wait_eop1;
         end
+      ST_skip_msg : 
+        begin
+          next_stateC =  ST_waittoact;
+        end
+      RB10 : 
+        begin
+          next_stateC =  store_RB10;
+        end
+      store_RB10 : 
+        begin
+          if (fifo_elink_rdyC&&fifo_packet_rdyC==1)
+            next_stateC =  RB11;
+          else
+            next_stateC =  store_RB10;
+        end
+      RB11 : 
+        begin
+          next_stateC =  store_RB11;
+        end
+      RB12 : 
+        begin
+          next_stateC =  store_RB12;
+        end
+      store_RB11 : 
+        begin
+          if (fifo_elink_rdyC&&fifo_packet_rdyC==1)
+            next_stateC =  RB12;
+          else
+            next_stateC =  store_RB11;
+        end
+      store_RB12 : 
+        begin
+          next_stateC =  RB14;
+        end
+      store_RB13 : 
+        begin
+          if (fifo_elink_rdyC&&fifo_packet_rdyC==1)
+            next_stateC =  RB13;
+          else
+            next_stateC =  store_RB13;
+        end
+      RB13 : 
+        begin
+          next_stateC =  store_RB14;
+        end
+      store_RB14 : 
+        begin
+          if (fifo_elink_rdyC&&fifo_packet_rdyC==1)
+            next_stateC =  RB10;
+          else
+            next_stateC =  store_RB14;
+        end
+      RB14 : 
+        begin
+          next_stateC =  store_RB15;
+        end
+      store_RB15 : 
+        begin
+          next_stateC =  RB15;
+        end
+      RB15 : 
+        begin
+          next_stateC =  store_RB16;
+        end
+      store_RB16 : 
+        begin
+          next_stateC =  RB16;
+        end
+      RB16 : 
+        begin
+          next_stateC =  store_RB17;
+        end
+      store_RB17 : 
+        begin
+          next_stateC =  RB17;
+        end
+      store_RB18 : 
+        begin
+          next_stateC =  RB18;
+        end
+      RB17 : 
+        begin
+          next_stateC =  store_RB18;
+        end
+      store_RB19 : 
+        begin
+          next_stateC =  ST_wait_eop2;
+        end
+      RB18 : 
+        begin
+          next_stateC =  store_RB19;
+        end
+      ST_wait_eop2 : 
+        begin
+          if (fifo_data_eopC==1)
+            next_stateC =  ST_end_read_en2;
+          else
+            next_stateC =  ST_wait_eop2;
+        end
+      ST_end_read_en2 : 
+        begin
+          if (start_read_elinkC==1)
+            next_stateC =  ST_en_buffer2;
+          else
+            next_stateC =  ST_end_read_en2;
+        end
+      ST_GOToWait2 : 
+        begin
+          next_stateC =  ST_waittoact;
+        end
+      ST_en_buffer2 : 
+        begin
+          next_stateC =  ST_GOToWait2;
+        end
       default : next_stateC =  ST_reset;
     endcase
   end
@@ -829,6 +1222,7 @@ always @( current_stateA )
     entimeoutA =  1;
     irq_elink_traA =  0;
     irq_spi_traA =  0;
+    spi_tra_modeA =  0;
     case (current_stateA)
       ST_waittoact : 
         begin
@@ -837,6 +1231,7 @@ always @( current_stateA )
       ST_reset : 
         begin
           entimeoutA =  0;
+          spi_tra_modeA =  0;
         end
       RB2 : 
         begin
@@ -979,60 +1374,196 @@ always @( current_stateA )
           addr_readA =  5'b00010;
           buffer_elink_spi_enA =  1;
           cs_ereadA =  1;
+          spi_tra_modeA =  1;
         end
       SPI1 : 
         begin
           addr_readA =  5'b00011;
           cs_ereadA =  1;
+          spi_tra_modeA =  1;
         end
       store_SPI1 : 
         begin
           addr_readA =  5'b00011;
           cs_ereadA =  1;
           buffer_elink_spi_enA =  1;
+          spi_tra_modeA =  1;
         end
       SPI2 : 
         begin
           addr_readA =  5'b00100;
           cs_ereadA =  1;
+          spi_tra_modeA =  1;
         end
       store_SPI2 : 
         begin
           addr_readA =  5'b00100;
           cs_ereadA =  1;
           buffer_elink_spi_enA =  1;
+          spi_tra_modeA =  1;
         end
       ST_end_read_en1 : 
         begin
           addr_readA =  5'b00000;
           irq_spi_traA =  1'b1;
+          spi_tra_modeA =  1;
         end
       ST_en_buffer1 : 
         begin
           addr_readA =  5'b00000;
           buffer_spi_enA =  1;
+          spi_tra_modeA =  1;
         end
       ST_GOToWait1 : 
         begin
           end_read_elinkA =  1;
           addr_readA =  5'b00000;
+          spi_tra_modeA =  1;
         end
       SPI3 : 
         begin
           addr_readA =  5'b00101;
           cs_ereadA =  1;
+          spi_tra_modeA =  1;
         end
       store_SPI3 : 
         begin
           addr_readA =  5'b00101;
           cs_ereadA =  1;
           buffer_elink_spi_enA =  1;
+          spi_tra_modeA =  1;
         end
       ST_wait_eop1 : 
         begin
           addr_readA =  5'b00000;
           cs_ereadA =  1;
           buffer_elink_spi_enA =  0;
+          spi_tra_modeA =  1;
+        end
+      RB10 : 
+        begin
+          addr_readA =  5'b00100;
+          cs_ereadA =  1;
+        end
+      store_RB10 : 
+        begin
+          addr_readA =  5'b00100;
+          cs_ereadA =  1;
+          buffer_elink_enA =  1;
+        end
+      RB11 : 
+        begin
+          addr_readA =  5'b00101;
+          cs_ereadA =  1;
+        end
+      RB12 : 
+        begin
+          addr_readA =  5'b00110;
+          cs_ereadA =  1;
+        end
+      store_RB11 : 
+        begin
+          addr_readA =  5'b00101;
+          cs_ereadA =  1;
+          buffer_elink_enA =  1;
+        end
+      store_RB12 : 
+        begin
+          addr_readA =  5'b00110;
+          cs_ereadA =  1;
+          buffer_elink_enA =  1;
+        end
+      store_RB13 : 
+        begin
+          addr_readA =  5'b00010;
+          buffer_elink_enA =  1;
+          cs_ereadA =  1;
+        end
+      RB13 : 
+        begin
+          addr_readA =  5'b00011;
+          cs_ereadA =  1;
+        end
+      store_RB14 : 
+        begin
+          addr_readA =  5'b00011;
+          cs_ereadA =  1;
+          buffer_elink_enA =  1;
+        end
+      RB14 : 
+        begin
+          addr_readA =  5'b00111;
+          cs_ereadA =  1;
+        end
+      store_RB15 : 
+        begin
+          addr_readA =  5'b00111;
+          cs_ereadA =  1;
+          buffer_elink_enA =  1;
+        end
+      RB15 : 
+        begin
+          addr_readA =  5'b01000;
+          cs_ereadA =  1;
+        end
+      store_RB16 : 
+        begin
+          addr_readA =  5'b01000;
+          cs_ereadA =  1;
+          buffer_elink_enA =  1;
+        end
+      RB16 : 
+        begin
+          addr_readA =  5'b01001;
+          cs_ereadA =  1;
+        end
+      store_RB17 : 
+        begin
+          addr_readA =  5'b01001;
+          cs_ereadA =  1;
+          buffer_elink_enA =  1;
+        end
+      store_RB18 : 
+        begin
+          addr_readA =  5'b01010;
+          cs_ereadA =  1;
+          buffer_elink_enA =  1;
+        end
+      RB17 : 
+        begin
+          addr_readA =  5'b01010;
+          cs_ereadA =  1;
+        end
+      store_RB19 : 
+        begin
+          addr_readA =  5'b01011;
+          cs_ereadA =  1;
+          buffer_elink_enA =  1;
+        end
+      RB18 : 
+        begin
+          addr_readA =  5'b01011;
+          cs_ereadA =  1;
+        end
+      ST_wait_eop2 : 
+        begin
+          addr_readA =  5'b00000;
+          cs_ereadA =  1;
+        end
+      ST_end_read_en2 : 
+        begin
+          addr_readA =  5'b00000;
+          irq_elink_traA =  1'b1;
+        end
+      ST_GOToWait2 : 
+        begin
+          end_read_elinkA =  1;
+          addr_readA =  5'b00000;
+        end
+      ST_en_buffer2 : 
+        begin
+          addr_readA =  5'b00000;
+          buffer_tra_enA =  1;
         end
     endcase
   end
@@ -1049,6 +1580,7 @@ always @( current_stateB )
     entimeoutB =  1;
     irq_elink_traB =  0;
     irq_spi_traB =  0;
+    spi_tra_modeB =  0;
     case (current_stateB)
       ST_waittoact : 
         begin
@@ -1057,6 +1589,7 @@ always @( current_stateB )
       ST_reset : 
         begin
           entimeoutB =  0;
+          spi_tra_modeB =  0;
         end
       RB2 : 
         begin
@@ -1199,60 +1732,196 @@ always @( current_stateB )
           addr_readB =  5'b00010;
           buffer_elink_spi_enB =  1;
           cs_ereadB =  1;
+          spi_tra_modeB =  1;
         end
       SPI1 : 
         begin
           addr_readB =  5'b00011;
           cs_ereadB =  1;
+          spi_tra_modeB =  1;
         end
       store_SPI1 : 
         begin
           addr_readB =  5'b00011;
           cs_ereadB =  1;
           buffer_elink_spi_enB =  1;
+          spi_tra_modeB =  1;
         end
       SPI2 : 
         begin
           addr_readB =  5'b00100;
           cs_ereadB =  1;
+          spi_tra_modeB =  1;
         end
       store_SPI2 : 
         begin
           addr_readB =  5'b00100;
           cs_ereadB =  1;
           buffer_elink_spi_enB =  1;
+          spi_tra_modeB =  1;
         end
       ST_end_read_en1 : 
         begin
           addr_readB =  5'b00000;
           irq_spi_traB =  1'b1;
+          spi_tra_modeB =  1;
         end
       ST_en_buffer1 : 
         begin
           addr_readB =  5'b00000;
           buffer_spi_enB =  1;
+          spi_tra_modeB =  1;
         end
       ST_GOToWait1 : 
         begin
           end_read_elinkB =  1;
           addr_readB =  5'b00000;
+          spi_tra_modeB =  1;
         end
       SPI3 : 
         begin
           addr_readB =  5'b00101;
           cs_ereadB =  1;
+          spi_tra_modeB =  1;
         end
       store_SPI3 : 
         begin
           addr_readB =  5'b00101;
           cs_ereadB =  1;
           buffer_elink_spi_enB =  1;
+          spi_tra_modeB =  1;
         end
       ST_wait_eop1 : 
         begin
           addr_readB =  5'b00000;
           cs_ereadB =  1;
           buffer_elink_spi_enB =  0;
+          spi_tra_modeB =  1;
+        end
+      RB10 : 
+        begin
+          addr_readB =  5'b00100;
+          cs_ereadB =  1;
+        end
+      store_RB10 : 
+        begin
+          addr_readB =  5'b00100;
+          cs_ereadB =  1;
+          buffer_elink_enB =  1;
+        end
+      RB11 : 
+        begin
+          addr_readB =  5'b00101;
+          cs_ereadB =  1;
+        end
+      RB12 : 
+        begin
+          addr_readB =  5'b00110;
+          cs_ereadB =  1;
+        end
+      store_RB11 : 
+        begin
+          addr_readB =  5'b00101;
+          cs_ereadB =  1;
+          buffer_elink_enB =  1;
+        end
+      store_RB12 : 
+        begin
+          addr_readB =  5'b00110;
+          cs_ereadB =  1;
+          buffer_elink_enB =  1;
+        end
+      store_RB13 : 
+        begin
+          addr_readB =  5'b00010;
+          buffer_elink_enB =  1;
+          cs_ereadB =  1;
+        end
+      RB13 : 
+        begin
+          addr_readB =  5'b00011;
+          cs_ereadB =  1;
+        end
+      store_RB14 : 
+        begin
+          addr_readB =  5'b00011;
+          cs_ereadB =  1;
+          buffer_elink_enB =  1;
+        end
+      RB14 : 
+        begin
+          addr_readB =  5'b00111;
+          cs_ereadB =  1;
+        end
+      store_RB15 : 
+        begin
+          addr_readB =  5'b00111;
+          cs_ereadB =  1;
+          buffer_elink_enB =  1;
+        end
+      RB15 : 
+        begin
+          addr_readB =  5'b01000;
+          cs_ereadB =  1;
+        end
+      store_RB16 : 
+        begin
+          addr_readB =  5'b01000;
+          cs_ereadB =  1;
+          buffer_elink_enB =  1;
+        end
+      RB16 : 
+        begin
+          addr_readB =  5'b01001;
+          cs_ereadB =  1;
+        end
+      store_RB17 : 
+        begin
+          addr_readB =  5'b01001;
+          cs_ereadB =  1;
+          buffer_elink_enB =  1;
+        end
+      store_RB18 : 
+        begin
+          addr_readB =  5'b01010;
+          cs_ereadB =  1;
+          buffer_elink_enB =  1;
+        end
+      RB17 : 
+        begin
+          addr_readB =  5'b01010;
+          cs_ereadB =  1;
+        end
+      store_RB19 : 
+        begin
+          addr_readB =  5'b01011;
+          cs_ereadB =  1;
+          buffer_elink_enB =  1;
+        end
+      RB18 : 
+        begin
+          addr_readB =  5'b01011;
+          cs_ereadB =  1;
+        end
+      ST_wait_eop2 : 
+        begin
+          addr_readB =  5'b00000;
+          cs_ereadB =  1;
+        end
+      ST_end_read_en2 : 
+        begin
+          addr_readB =  5'b00000;
+          irq_elink_traB =  1'b1;
+        end
+      ST_GOToWait2 : 
+        begin
+          end_read_elinkB =  1;
+          addr_readB =  5'b00000;
+        end
+      ST_en_buffer2 : 
+        begin
+          addr_readB =  5'b00000;
+          buffer_tra_enB =  1;
         end
     endcase
   end
@@ -1269,6 +1938,7 @@ always @( current_stateC )
     entimeoutC =  1;
     irq_elink_traC =  0;
     irq_spi_traC =  0;
+    spi_tra_modeC =  0;
     case (current_stateC)
       ST_waittoact : 
         begin
@@ -1277,6 +1947,7 @@ always @( current_stateC )
       ST_reset : 
         begin
           entimeoutC =  0;
+          spi_tra_modeC =  0;
         end
       RB2 : 
         begin
@@ -1419,60 +2090,196 @@ always @( current_stateC )
           addr_readC =  5'b00010;
           buffer_elink_spi_enC =  1;
           cs_ereadC =  1;
+          spi_tra_modeC =  1;
         end
       SPI1 : 
         begin
           addr_readC =  5'b00011;
           cs_ereadC =  1;
+          spi_tra_modeC =  1;
         end
       store_SPI1 : 
         begin
           addr_readC =  5'b00011;
           cs_ereadC =  1;
           buffer_elink_spi_enC =  1;
+          spi_tra_modeC =  1;
         end
       SPI2 : 
         begin
           addr_readC =  5'b00100;
           cs_ereadC =  1;
+          spi_tra_modeC =  1;
         end
       store_SPI2 : 
         begin
           addr_readC =  5'b00100;
           cs_ereadC =  1;
           buffer_elink_spi_enC =  1;
+          spi_tra_modeC =  1;
         end
       ST_end_read_en1 : 
         begin
           addr_readC =  5'b00000;
           irq_spi_traC =  1'b1;
+          spi_tra_modeC =  1;
         end
       ST_en_buffer1 : 
         begin
           addr_readC =  5'b00000;
           buffer_spi_enC =  1;
+          spi_tra_modeC =  1;
         end
       ST_GOToWait1 : 
         begin
           end_read_elinkC =  1;
           addr_readC =  5'b00000;
+          spi_tra_modeC =  1;
         end
       SPI3 : 
         begin
           addr_readC =  5'b00101;
           cs_ereadC =  1;
+          spi_tra_modeC =  1;
         end
       store_SPI3 : 
         begin
           addr_readC =  5'b00101;
           cs_ereadC =  1;
           buffer_elink_spi_enC =  1;
+          spi_tra_modeC =  1;
         end
       ST_wait_eop1 : 
         begin
           addr_readC =  5'b00000;
           cs_ereadC =  1;
           buffer_elink_spi_enC =  0;
+          spi_tra_modeC =  1;
+        end
+      RB10 : 
+        begin
+          addr_readC =  5'b00100;
+          cs_ereadC =  1;
+        end
+      store_RB10 : 
+        begin
+          addr_readC =  5'b00100;
+          cs_ereadC =  1;
+          buffer_elink_enC =  1;
+        end
+      RB11 : 
+        begin
+          addr_readC =  5'b00101;
+          cs_ereadC =  1;
+        end
+      RB12 : 
+        begin
+          addr_readC =  5'b00110;
+          cs_ereadC =  1;
+        end
+      store_RB11 : 
+        begin
+          addr_readC =  5'b00101;
+          cs_ereadC =  1;
+          buffer_elink_enC =  1;
+        end
+      store_RB12 : 
+        begin
+          addr_readC =  5'b00110;
+          cs_ereadC =  1;
+          buffer_elink_enC =  1;
+        end
+      store_RB13 : 
+        begin
+          addr_readC =  5'b00010;
+          buffer_elink_enC =  1;
+          cs_ereadC =  1;
+        end
+      RB13 : 
+        begin
+          addr_readC =  5'b00011;
+          cs_ereadC =  1;
+        end
+      store_RB14 : 
+        begin
+          addr_readC =  5'b00011;
+          cs_ereadC =  1;
+          buffer_elink_enC =  1;
+        end
+      RB14 : 
+        begin
+          addr_readC =  5'b00111;
+          cs_ereadC =  1;
+        end
+      store_RB15 : 
+        begin
+          addr_readC =  5'b00111;
+          cs_ereadC =  1;
+          buffer_elink_enC =  1;
+        end
+      RB15 : 
+        begin
+          addr_readC =  5'b01000;
+          cs_ereadC =  1;
+        end
+      store_RB16 : 
+        begin
+          addr_readC =  5'b01000;
+          cs_ereadC =  1;
+          buffer_elink_enC =  1;
+        end
+      RB16 : 
+        begin
+          addr_readC =  5'b01001;
+          cs_ereadC =  1;
+        end
+      store_RB17 : 
+        begin
+          addr_readC =  5'b01001;
+          cs_ereadC =  1;
+          buffer_elink_enC =  1;
+        end
+      store_RB18 : 
+        begin
+          addr_readC =  5'b01010;
+          cs_ereadC =  1;
+          buffer_elink_enC =  1;
+        end
+      RB17 : 
+        begin
+          addr_readC =  5'b01010;
+          cs_ereadC =  1;
+        end
+      store_RB19 : 
+        begin
+          addr_readC =  5'b01011;
+          cs_ereadC =  1;
+          buffer_elink_enC =  1;
+        end
+      RB18 : 
+        begin
+          addr_readC =  5'b01011;
+          cs_ereadC =  1;
+        end
+      ST_wait_eop2 : 
+        begin
+          addr_readC =  5'b00000;
+          cs_ereadC =  1;
+        end
+      ST_end_read_en2 : 
+        begin
+          addr_readC =  5'b00000;
+          irq_elink_traC =  1'b1;
+        end
+      ST_GOToWait2 : 
+        begin
+          end_read_elinkC =  1;
+          addr_readC =  5'b00000;
+        end
+      ST_en_buffer2 : 
+        begin
+          addr_readC =  5'b00000;
+          buffer_tra_enC =  1;
         end
     endcase
   end
@@ -1486,12 +2293,12 @@ always @( posedge clkA )
     else
       if (timeoutrstA)
         begin
-          current_stateA <= ST_reset;
+          current_stateA <= ST_skip_msg;
         end
       else
         if (abortA)
           begin
-            current_stateA <= ST_reset;
+            current_stateA <= ST_skip_msg;
           end
         else
           begin
@@ -1508,12 +2315,12 @@ always @( posedge clkB )
     else
       if (timeoutrstB)
         begin
-          current_stateB <= ST_reset;
+          current_stateB <= ST_skip_msg;
         end
       else
         if (abortB)
           begin
-            current_stateB <= ST_reset;
+            current_stateB <= ST_skip_msg;
           end
         else
           begin
@@ -1530,12 +2337,12 @@ always @( posedge clkC )
     else
       if (timeoutrstC)
         begin
-          current_stateC <= ST_reset;
+          current_stateC <= ST_skip_msg;
         end
       else
         if (abortC)
           begin
-            current_stateC <= ST_reset;
+            current_stateC <= ST_skip_msg;
           end
         else
           begin
@@ -1560,5 +2367,89 @@ always @( current_stateC )
     statedebC =  7'b0;
     statedebC[5:0]  =  current_stateC;
   end
+
+fanout abortFanout (
+    .in(abort),
+    .outA(abortA),
+    .outB(abortB),
+    .outC(abortC)
+    );
+
+fanout can_idFanout (
+    .in(can_id),
+    .outA(can_idA),
+    .outB(can_idB),
+    .outC(can_idC)
+    );
+
+fanout clkFanout (
+    .in(clk),
+    .outA(clkA),
+    .outB(clkB),
+    .outC(clkC)
+    );
+
+fanout fifo_data_eopFanout (
+    .in(fifo_data_eop),
+    .outA(fifo_data_eopA),
+    .outB(fifo_data_eopB),
+    .outC(fifo_data_eopC)
+    );
+
+fanout fifo_data_sopFanout (
+    .in(fifo_data_sop),
+    .outA(fifo_data_sopA),
+    .outB(fifo_data_sopB),
+    .outC(fifo_data_sopC)
+    );
+
+fanout fifo_elink_rdyFanout (
+    .in(fifo_elink_rdy),
+    .outA(fifo_elink_rdyA),
+    .outB(fifo_elink_rdyB),
+    .outC(fifo_elink_rdyC)
+    );
+
+fanout fifo_packet_rdyFanout (
+    .in(fifo_packet_rdy),
+    .outA(fifo_packet_rdyA),
+    .outB(fifo_packet_rdyB),
+    .outC(fifo_packet_rdyC)
+    );
+
+fanout rstFanout (
+    .in(rst),
+    .outA(rstA),
+    .outB(rstB),
+    .outC(rstC)
+    );
+
+fanout spi_can_idFanout (
+    .in(spi_can_id),
+    .outA(spi_can_idA),
+    .outB(spi_can_idB),
+    .outC(spi_can_idC)
+    );
+
+fanout spi_mon_idFanout (
+    .in(spi_mon_id),
+    .outA(spi_mon_idA),
+    .outB(spi_mon_idB),
+    .outC(spi_mon_idC)
+    );
+
+fanout start_read_elinkFanout (
+    .in(start_read_elink),
+    .outA(start_read_elinkA),
+    .outB(start_read_elinkB),
+    .outC(start_read_elinkC)
+    );
+
+fanout timeoutrstFanout (
+    .in(timeoutrst),
+    .outA(timeoutrstA),
+    .outB(timeoutrstB),
+    .outC(timeoutrstC)
+    );
 endmodule
 

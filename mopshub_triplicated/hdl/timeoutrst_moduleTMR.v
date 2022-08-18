@@ -6,58 +6,54 @@
  *                                                                                                  *
  * user    : lucas                                                                                  *
  * host    : DESKTOP-BFDSFP2                                                                        *
- * date    : 03/04/2022 20:08:57                                                                    *
+ * date    : 16/08/2022 12:58:39                                                                    *
  *                                                                                                  *
- * workdir : /mnt/c/Users/Lucas/Desktop/mopshub_triplication/triplicated/mopshub_top_canakari_ftrim/hdl *
- * cmd     : /mnt/c/Users/Lucas/Desktop/mopshub_triplication/tmrg-master/bin/tmrg -vv -c tmrg.cfg   *
+ * workdir : /mnt/c/Users/Lucas/Desktop/mopshub_triplication/mopshub_top_board_canakari_ftrim/hdl   *
+ * cmd     : /mnt/c/Users/Lucas/Desktop/mopshub_triplication/tmrg-master/bin/tmrg -c tmrg.cfg -vvv  *
  * tmrg rev:                                                                                        *
  *                                                                                                  *
  * src file: timeoutrst_module.v                                                                    *
  *           Git SHA           : File not in git repository!                                        *
- *           Modification time : 2022-03-28 18:42:43                                                *
- *           File Size         : 854                                                                *
- *           MD5 hash          : f40cb05eb68c7e91007699a6f5753fdb                                   *
+ *           Modification time : 2022-08-12 11:28:18                                                *
+ *           File Size         : 814                                                                *
+ *           MD5 hash          : 23b82a1f7eb4b0298f54586684b68009                                   *
  *                                                                                                  *
  ****************************************************************************************************/
 
 module timout_rstTMR(
-  input wire  clkA ,
-  input wire  clkB ,
-  input wire  clkC ,
-  input wire  entimeoutA ,
-  input wire  entimeoutB ,
-  input wire  entimeoutC ,
-  input wire [31:0] time_limitA ,
-  input wire [31:0] time_limitB ,
-  input wire [31:0] time_limitC ,
-  input wire  rstA ,
-  input wire  rstB ,
-  input wire  rstC ,
-  output wire  timeoutrstA ,
-  output wire  timeoutrstB ,
-  output wire  timeoutrstC 
+  input wire  clk ,
+  input wire  entimeout ,
+  input wire [31:0] time_limit ,
+  input wire  rst ,
+  output wire  timeoutrst 
 );
-wor timeoutrstregTmrErrorC;
-wire timeoutrstregVotedC;
-wor counterTmrErrorC;
-wire [31:0] counterVotedC;
-wor timeoutrstregTmrErrorB;
-wire timeoutrstregVotedB;
-wor counterTmrErrorB;
-wire [31:0] counterVotedB;
-wor timeoutrstregTmrErrorA;
-wire timeoutrstregVotedA;
-wor counterTmrErrorA;
-wire [31:0] counterVotedA;
+wire timeoutrstC;
+wire timeoutrstB;
+wire timeoutrstA;
+wire [31:0] time_limitC;
+wire [31:0] time_limitB;
+wire [31:0] time_limitA;
+wire rstC;
+wire rstB;
+wire rstA;
+wire entimeoutC;
+wire entimeoutB;
+wire entimeoutA;
+wire [31:0] counter_vC;
+wire [31:0] counter_vB;
+wire [31:0] counter_vA;
+wire clkC;
+wire clkB;
+wire clkA;
+wor counterTmrError;
+wire [31:0] counter;
 reg  [31:0] counterA ;
 reg  [31:0] counterB ;
 reg  [31:0] counterC ;
 reg  timeoutrstregA ;
 reg  timeoutrstregB ;
 reg  timeoutrstregC ;
-assign timeoutrstA =  timeoutrstregVotedA;
-assign timeoutrstB =  timeoutrstregVotedB;
-assign timeoutrstC =  timeoutrstregVotedC;
+wire [31:0] counter_v =  counter;
 
 always @( posedge clkA )
   begin
@@ -68,7 +64,7 @@ always @( posedge clkA )
     else
       begin
         if (entimeoutA&!timeoutrstA)
-          counterA <= {counterVotedA+1};
+          counterA <= {counter_vA+1};
         else
           begin
             counterA <= 0;
@@ -85,7 +81,7 @@ always @( posedge clkB )
     else
       begin
         if (entimeoutB&!timeoutrstB)
-          counterB <= {counterVotedB+1};
+          counterB <= {counter_vB+1};
         else
           begin
             counterB <= 0;
@@ -102,7 +98,7 @@ always @( posedge clkC )
     else
       begin
         if (entimeoutC&!timeoutrstC)
-          counterC <= {counterVotedC+1};
+          counterC <= {counter_vC+1};
         else
           begin
             counterC <= 0;
@@ -112,7 +108,7 @@ always @( posedge clkC )
 
 always @( posedge clkA )
   begin
-    if (counterVotedA>=time_limitA)
+    if (counter_vA>=time_limitA)
       timeoutrstregA <= 1'b1;
     else
       timeoutrstregA <= 1'b0;
@@ -120,7 +116,7 @@ always @( posedge clkA )
 
 always @( posedge clkB )
   begin
-    if (counterVotedB>=time_limitB)
+    if (counter_vB>=time_limitB)
       timeoutrstregB <= 1'b1;
     else
       timeoutrstregB <= 1'b0;
@@ -128,58 +124,60 @@ always @( posedge clkB )
 
 always @( posedge clkC )
   begin
-    if (counterVotedC>=time_limitC)
+    if (counter_vC>=time_limitC)
       timeoutrstregC <= 1'b1;
     else
       timeoutrstregC <= 1'b0;
   end
 
-majorityVoter #(.WIDTH(32)) counterVoterA (
+majorityVoter #(.WIDTH(32)) counterVoter (
     .inA(counterA),
     .inB(counterB),
     .inC(counterC),
-    .out(counterVotedA),
-    .tmrErr(counterTmrErrorA)
+    .out(counter),
+    .tmrErr(counterTmrError)
     );
 
-majorityVoter timeoutrstregVoterA (
-    .inA(timeoutrstregA),
-    .inB(timeoutrstregB),
-    .inC(timeoutrstregC),
-    .out(timeoutrstregVotedA),
-    .tmrErr(timeoutrstregTmrErrorA)
+fanout clkFanout (
+    .in(clk),
+    .outA(clkA),
+    .outB(clkB),
+    .outC(clkC)
     );
 
-majorityVoter #(.WIDTH(32)) counterVoterB (
-    .inA(counterA),
-    .inB(counterB),
-    .inC(counterC),
-    .out(counterVotedB),
-    .tmrErr(counterTmrErrorB)
+fanout #(.WIDTH(32)) counter_vFanout (
+    .in(counter_v),
+    .outA(counter_vA),
+    .outB(counter_vB),
+    .outC(counter_vC)
     );
 
-majorityVoter timeoutrstregVoterB (
-    .inA(timeoutrstregA),
-    .inB(timeoutrstregB),
-    .inC(timeoutrstregC),
-    .out(timeoutrstregVotedB),
-    .tmrErr(timeoutrstregTmrErrorB)
+fanout entimeoutFanout (
+    .in(entimeout),
+    .outA(entimeoutA),
+    .outB(entimeoutB),
+    .outC(entimeoutC)
     );
 
-majorityVoter #(.WIDTH(32)) counterVoterC (
-    .inA(counterA),
-    .inB(counterB),
-    .inC(counterC),
-    .out(counterVotedC),
-    .tmrErr(counterTmrErrorC)
+fanout rstFanout (
+    .in(rst),
+    .outA(rstA),
+    .outB(rstB),
+    .outC(rstC)
     );
 
-majorityVoter timeoutrstregVoterC (
-    .inA(timeoutrstregA),
-    .inB(timeoutrstregB),
-    .inC(timeoutrstregC),
-    .out(timeoutrstregVotedC),
-    .tmrErr(timeoutrstregTmrErrorC)
+fanout #(.WIDTH(32)) time_limitFanout (
+    .in(time_limit),
+    .outA(time_limitA),
+    .outB(time_limitB),
+    .outC(time_limitC)
+    );
+
+fanout timeoutrstFanout (
+    .in(timeoutrst),
+    .outA(timeoutrstA),
+    .outB(timeoutrstB),
+    .outC(timeoutrstC)
     );
 endmodule
 

@@ -6,39 +6,27 @@
  *                                                                                                  *
  * user    : lucas                                                                                  *
  * host    : DESKTOP-BFDSFP2                                                                        *
- * date    : 03/04/2022 20:08:34                                                                    *
+ * date    : 16/08/2022 12:58:17                                                                    *
  *                                                                                                  *
- * workdir : /mnt/c/Users/Lucas/Desktop/mopshub_triplication/triplicated/mopshub_top_canakari_ftrim/hdl *
- * cmd     : /mnt/c/Users/Lucas/Desktop/mopshub_triplication/tmrg-master/bin/tmrg -vv -c tmrg.cfg   *
+ * workdir : /mnt/c/Users/Lucas/Desktop/mopshub_triplication/mopshub_top_board_canakari_ftrim/hdl   *
+ * cmd     : /mnt/c/Users/Lucas/Desktop/mopshub_triplication/tmrg-master/bin/tmrg -c tmrg.cfg -vvv  *
  * tmrg rev:                                                                                        *
  *                                                                                                  *
  * src file: elink_interface_rec_sm_fsm.v                                                           *
  *           Git SHA           : File not in git repository!                                        *
- *           Modification time : 2022-03-28 21:55:54                                                *
- *           File Size         : 12084                                                              *
- *           MD5 hash          : 367fb320960acdfb09c1d28dc943ea33                                   *
+ *           Modification time : 2022-08-16 10:11:19.770054                                         *
+ *           File Size         : 12185                                                              *
+ *           MD5 hash          : 6180bf172ff03d329f94e7530685d528                                   *
  *                                                                                                  *
  ****************************************************************************************************/
 
 module elink_interface_rec_SMTMR(
-  input wire  abortA ,
-  input wire  abortB ,
-  input wire  abortC ,
-  input wire  clkA ,
-  input wire  clkB ,
-  input wire  clkC ,
-  input wire  rstA ,
-  input wire  rstB ,
-  input wire  rstC ,
-  input wire  start_write_elinkA ,
-  input wire  start_write_elinkB ,
-  input wire  start_write_elinkC ,
-  input wire  start_write_elink_spiA ,
-  input wire  start_write_elink_spiB ,
-  input wire  start_write_elink_spiC ,
-  input wire  timeoutrstA ,
-  input wire  timeoutrstB ,
-  input wire  timeoutrstC ,
+  input wire  abort ,
+  input wire  clk ,
+  input wire  rst ,
+  input wire  start_write_elink ,
+  input wire  start_write_elink_spi ,
+  input wire  timeoutrst ,
   output reg [4:0] addr_writeA ,
   output reg [4:0] addr_writeB ,
   output reg [4:0] addr_writeC ,
@@ -63,9 +51,9 @@ module elink_interface_rec_SMTMR(
   output reg  irq_elink_recA ,
   output reg  irq_elink_recB ,
   output reg  irq_elink_recC ,
-  output reg  spi_modeA ,
-  output reg  spi_modeB ,
-  output reg  spi_modeC ,
+  output reg  spi_rec_modeA ,
+  output reg  spi_rec_modeB ,
+  output reg  spi_rec_modeC ,
   output reg [5:0] statedebA ,
   output reg [5:0] statedebB ,
   output reg [5:0] statedebC 
@@ -116,6 +104,24 @@ parameter W_SOP1 =6'd42;
 parameter W_Eop1 =6'd43;
 parameter store_comma =6'd44;
 parameter store_comma1 =6'd45;
+wire timeoutrstC;
+wire timeoutrstB;
+wire timeoutrstA;
+wire start_write_elink_spiC;
+wire start_write_elink_spiB;
+wire start_write_elink_spiA;
+wire start_write_elinkC;
+wire start_write_elinkB;
+wire start_write_elinkA;
+wire rstC;
+wire rstB;
+wire rstA;
+wire clkC;
+wire clkB;
+wire clkA;
+wire abortC;
+wire abortB;
+wire abortA;
 reg  [5:0] current_stateA ;
 reg  [5:0] next_stateA ;
 reg  [5:0] current_stateB ;
@@ -733,7 +739,7 @@ always @( current_stateA )
     end_write_elink_spiA =  0;
     entimeoutA =  1;
     irq_elink_recA =  0;
-    spi_modeA =  0;
+    spi_rec_modeA =  0;
     case (current_stateA)
       ST_waittoact : 
         begin
@@ -741,7 +747,7 @@ always @( current_stateA )
         end
       ST_reset : 
         begin
-          spi_modeA =  0;
+          spi_rec_modeA =  0;
           entimeoutA =  0;
         end
       ST_end_write_en : 
@@ -874,87 +880,87 @@ always @( current_stateA )
       ST_end_write_en1 : 
         begin
           end_write_elink_spiA =  1;
-          spi_modeA =  1;
+          spi_rec_modeA =  1;
         end
       store_SPI0 : 
         begin
           addr_writeA =  5'b00010;
           cs_ewriteA =  1;
           buffer_spi_rec_enA =  1;
-          spi_modeA =  1;
+          spi_rec_modeA =  1;
         end
       store_SPI1 : 
         begin
           addr_writeA =  5'b00011;
           cs_ewriteA =  1;
           buffer_spi_rec_enA =  1;
-          spi_modeA =  1;
+          spi_rec_modeA =  1;
         end
       ST_wait_eop2 : 
         begin
           addr_writeA =  5'b00000;
           irq_elink_recA =  1;
-          spi_modeA =  1;
+          spi_rec_modeA =  1;
         end
       store_SPI2 : 
         begin
           addr_writeA =  5'b00100;
           cs_ewriteA =  1;
           buffer_spi_rec_enA =  1;
-          spi_modeA =  1;
+          spi_rec_modeA =  1;
         end
       store_SPI3 : 
         begin
           addr_writeA =  5'b00101;
           cs_ewriteA =  1;
           buffer_spi_rec_enA =  1;
-          spi_modeA =  1;
+          spi_rec_modeA =  1;
         end
       st_write_data1 : 
         begin
-          spi_modeA =  1;
+          spi_rec_modeA =  1;
         end
       store_SOP1 : 
         begin
           addr_writeA =  5'b00001;
           cs_ewriteA =  1;
-          spi_modeA =  1;
+          spi_rec_modeA =  1;
         end
       store_Eop1 : 
         begin
           addr_writeA =  5'b01100;
           cs_ewriteA =  1;
-          spi_modeA =  1;
+          spi_rec_modeA =  1;
         end
       SPI0 : 
         begin
           addr_writeA =  5'b00010;
-          spi_modeA =  1;
+          spi_rec_modeA =  1;
         end
       SPI1 : 
         begin
           addr_writeA =  5'b00011;
-          spi_modeA =  1;
+          spi_rec_modeA =  1;
         end
       SPI2 : 
         begin
           addr_writeA =  5'b00100;
-          spi_modeA =  1;
+          spi_rec_modeA =  1;
         end
       SPI3 : 
         begin
           addr_writeA =  5'b00101;
-          spi_modeA =  1;
+          spi_rec_modeA =  1;
         end
       W_SOP1 : 
         begin
           addr_writeA =  5'b00001;
-          spi_modeA =  1;
+          spi_rec_modeA =  1;
         end
       W_Eop1 : 
         begin
           addr_writeA =  5'b01100;
-          spi_modeA =  1;
+          spi_rec_modeA =  1;
         end
       store_comma : 
         begin
@@ -965,7 +971,7 @@ always @( current_stateA )
         begin
           addr_writeA =  5'b00000;
           cs_ewriteA =  1;
-          spi_modeA =  1;
+          spi_rec_modeA =  1;
         end
     endcase
   end
@@ -980,7 +986,7 @@ always @( current_stateB )
     end_write_elink_spiB =  0;
     entimeoutB =  1;
     irq_elink_recB =  0;
-    spi_modeB =  0;
+    spi_rec_modeB =  0;
     case (current_stateB)
       ST_waittoact : 
         begin
@@ -988,7 +994,7 @@ always @( current_stateB )
         end
       ST_reset : 
         begin
-          spi_modeB =  0;
+          spi_rec_modeB =  0;
           entimeoutB =  0;
         end
       ST_end_write_en : 
@@ -1121,87 +1127,87 @@ always @( current_stateB )
       ST_end_write_en1 : 
         begin
           end_write_elink_spiB =  1;
-          spi_modeB =  1;
+          spi_rec_modeB =  1;
         end
       store_SPI0 : 
         begin
           addr_writeB =  5'b00010;
           cs_ewriteB =  1;
           buffer_spi_rec_enB =  1;
-          spi_modeB =  1;
+          spi_rec_modeB =  1;
         end
       store_SPI1 : 
         begin
           addr_writeB =  5'b00011;
           cs_ewriteB =  1;
           buffer_spi_rec_enB =  1;
-          spi_modeB =  1;
+          spi_rec_modeB =  1;
         end
       ST_wait_eop2 : 
         begin
           addr_writeB =  5'b00000;
           irq_elink_recB =  1;
-          spi_modeB =  1;
+          spi_rec_modeB =  1;
         end
       store_SPI2 : 
         begin
           addr_writeB =  5'b00100;
           cs_ewriteB =  1;
           buffer_spi_rec_enB =  1;
-          spi_modeB =  1;
+          spi_rec_modeB =  1;
         end
       store_SPI3 : 
         begin
           addr_writeB =  5'b00101;
           cs_ewriteB =  1;
           buffer_spi_rec_enB =  1;
-          spi_modeB =  1;
+          spi_rec_modeB =  1;
         end
       st_write_data1 : 
         begin
-          spi_modeB =  1;
+          spi_rec_modeB =  1;
         end
       store_SOP1 : 
         begin
           addr_writeB =  5'b00001;
           cs_ewriteB =  1;
-          spi_modeB =  1;
+          spi_rec_modeB =  1;
         end
       store_Eop1 : 
         begin
           addr_writeB =  5'b01100;
           cs_ewriteB =  1;
-          spi_modeB =  1;
+          spi_rec_modeB =  1;
         end
       SPI0 : 
         begin
           addr_writeB =  5'b00010;
-          spi_modeB =  1;
+          spi_rec_modeB =  1;
         end
       SPI1 : 
         begin
           addr_writeB =  5'b00011;
-          spi_modeB =  1;
+          spi_rec_modeB =  1;
         end
       SPI2 : 
         begin
           addr_writeB =  5'b00100;
-          spi_modeB =  1;
+          spi_rec_modeB =  1;
         end
       SPI3 : 
         begin
           addr_writeB =  5'b00101;
-          spi_modeB =  1;
+          spi_rec_modeB =  1;
         end
       W_SOP1 : 
         begin
           addr_writeB =  5'b00001;
-          spi_modeB =  1;
+          spi_rec_modeB =  1;
         end
       W_Eop1 : 
         begin
           addr_writeB =  5'b01100;
-          spi_modeB =  1;
+          spi_rec_modeB =  1;
         end
       store_comma : 
         begin
@@ -1212,7 +1218,7 @@ always @( current_stateB )
         begin
           addr_writeB =  5'b00000;
           cs_ewriteB =  1;
-          spi_modeB =  1;
+          spi_rec_modeB =  1;
         end
     endcase
   end
@@ -1227,7 +1233,7 @@ always @( current_stateC )
     end_write_elink_spiC =  0;
     entimeoutC =  1;
     irq_elink_recC =  0;
-    spi_modeC =  0;
+    spi_rec_modeC =  0;
     case (current_stateC)
       ST_waittoact : 
         begin
@@ -1235,7 +1241,7 @@ always @( current_stateC )
         end
       ST_reset : 
         begin
-          spi_modeC =  0;
+          spi_rec_modeC =  0;
           entimeoutC =  0;
         end
       ST_end_write_en : 
@@ -1368,87 +1374,87 @@ always @( current_stateC )
       ST_end_write_en1 : 
         begin
           end_write_elink_spiC =  1;
-          spi_modeC =  1;
+          spi_rec_modeC =  1;
         end
       store_SPI0 : 
         begin
           addr_writeC =  5'b00010;
           cs_ewriteC =  1;
           buffer_spi_rec_enC =  1;
-          spi_modeC =  1;
+          spi_rec_modeC =  1;
         end
       store_SPI1 : 
         begin
           addr_writeC =  5'b00011;
           cs_ewriteC =  1;
           buffer_spi_rec_enC =  1;
-          spi_modeC =  1;
+          spi_rec_modeC =  1;
         end
       ST_wait_eop2 : 
         begin
           addr_writeC =  5'b00000;
           irq_elink_recC =  1;
-          spi_modeC =  1;
+          spi_rec_modeC =  1;
         end
       store_SPI2 : 
         begin
           addr_writeC =  5'b00100;
           cs_ewriteC =  1;
           buffer_spi_rec_enC =  1;
-          spi_modeC =  1;
+          spi_rec_modeC =  1;
         end
       store_SPI3 : 
         begin
           addr_writeC =  5'b00101;
           cs_ewriteC =  1;
           buffer_spi_rec_enC =  1;
-          spi_modeC =  1;
+          spi_rec_modeC =  1;
         end
       st_write_data1 : 
         begin
-          spi_modeC =  1;
+          spi_rec_modeC =  1;
         end
       store_SOP1 : 
         begin
           addr_writeC =  5'b00001;
           cs_ewriteC =  1;
-          spi_modeC =  1;
+          spi_rec_modeC =  1;
         end
       store_Eop1 : 
         begin
           addr_writeC =  5'b01100;
           cs_ewriteC =  1;
-          spi_modeC =  1;
+          spi_rec_modeC =  1;
         end
       SPI0 : 
         begin
           addr_writeC =  5'b00010;
-          spi_modeC =  1;
+          spi_rec_modeC =  1;
         end
       SPI1 : 
         begin
           addr_writeC =  5'b00011;
-          spi_modeC =  1;
+          spi_rec_modeC =  1;
         end
       SPI2 : 
         begin
           addr_writeC =  5'b00100;
-          spi_modeC =  1;
+          spi_rec_modeC =  1;
         end
       SPI3 : 
         begin
           addr_writeC =  5'b00101;
-          spi_modeC =  1;
+          spi_rec_modeC =  1;
         end
       W_SOP1 : 
         begin
           addr_writeC =  5'b00001;
-          spi_modeC =  1;
+          spi_rec_modeC =  1;
         end
       W_Eop1 : 
         begin
           addr_writeC =  5'b01100;
-          spi_modeC =  1;
+          spi_rec_modeC =  1;
         end
       store_comma : 
         begin
@@ -1459,7 +1465,7 @@ always @( current_stateC )
         begin
           addr_writeC =  5'b00000;
           cs_ewriteC =  1;
-          spi_modeC =  1;
+          spi_rec_modeC =  1;
         end
     endcase
   end
@@ -1538,5 +1544,47 @@ always @( current_stateB )
 
 always @( current_stateC )
   statedebC =  current_stateC;
+
+fanout abortFanout (
+    .in(abort),
+    .outA(abortA),
+    .outB(abortB),
+    .outC(abortC)
+    );
+
+fanout clkFanout (
+    .in(clk),
+    .outA(clkA),
+    .outB(clkB),
+    .outC(clkC)
+    );
+
+fanout rstFanout (
+    .in(rst),
+    .outA(rstA),
+    .outB(rstB),
+    .outC(rstC)
+    );
+
+fanout start_write_elinkFanout (
+    .in(start_write_elink),
+    .outA(start_write_elinkA),
+    .outB(start_write_elinkB),
+    .outC(start_write_elinkC)
+    );
+
+fanout start_write_elink_spiFanout (
+    .in(start_write_elink_spi),
+    .outA(start_write_elink_spiA),
+    .outB(start_write_elink_spiB),
+    .outC(start_write_elink_spiC)
+    );
+
+fanout timeoutrstFanout (
+    .in(timeoutrst),
+    .outA(timeoutrstA),
+    .outB(timeoutrstB),
+    .outC(timeoutrstC)
+    );
 endmodule
 

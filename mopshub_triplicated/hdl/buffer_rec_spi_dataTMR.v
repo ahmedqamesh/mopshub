@@ -6,49 +6,74 @@
  *                                                                                                  *
  * user    : lucas                                                                                  *
  * host    : DESKTOP-BFDSFP2                                                                        *
- * date    : 03/04/2022 20:08:31                                                                    *
+ * date    : 16/08/2022 12:58:09                                                                    *
  *                                                                                                  *
- * workdir : /mnt/c/Users/Lucas/Desktop/mopshub_triplication/triplicated/mopshub_top_canakari_ftrim/hdl *
- * cmd     : /mnt/c/Users/Lucas/Desktop/mopshub_triplication/tmrg-master/bin/tmrg -vv -c tmrg.cfg   *
+ * workdir : /mnt/c/Users/Lucas/Desktop/mopshub_triplication/mopshub_top_board_canakari_ftrim/hdl   *
+ * cmd     : /mnt/c/Users/Lucas/Desktop/mopshub_triplication/tmrg-master/bin/tmrg -c tmrg.cfg -vvv  *
  * tmrg rev:                                                                                        *
  *                                                                                                  *
  * src file: buffer_rec_spi_data.v                                                                  *
  *           Git SHA           : File not in git repository!                                        *
- *           Modification time : 2022-03-28 18:32:11                                                *
- *           File Size         : 1892                                                               *
- *           MD5 hash          : 49fb55593ef8cec98e4454390c846a4e                                   *
+ *           Modification time : 2022-08-12 09:43:42                                                *
+ *           File Size         : 1961                                                               *
+ *           MD5 hash          : e9689900020a44893739defba0ab9212                                   *
  *                                                                                                  *
  ****************************************************************************************************/
 
 module buffer_rec_spi_dataTMR(
-  input wire  clkA ,
-  input wire  clkB ,
-  input wire  clkC ,
-  input wire  rstA ,
-  input wire  rstB ,
-  input wire  rstC ,
-  input wire  buffer_enA ,
-  input wire  buffer_enB ,
-  input wire  buffer_enC ,
-  input wire [7:0] spi_id_inA ,
-  input wire [7:0] spi_id_inB ,
-  input wire [7:0] spi_id_inC ,
-  input wire [7:0] spi_regA ,
-  input wire [7:0] spi_regB ,
-  input wire [7:0] spi_regC ,
-  input wire [7:0] data_rec_inA ,
-  input wire [7:0] data_rec_inB ,
-  input wire [7:0] data_rec_inC ,
-  input wire [7:0] spi_selectA ,
-  input wire [7:0] spi_selectB ,
-  input wire [7:0] spi_selectC ,
-  output wire  end_read_misoA ,
-  output wire  end_read_misoB ,
-  output wire  end_read_misoC ,
-  output wire [31:0] data_rec_outA ,
-  output wire [31:0] data_rec_outB ,
-  output wire [31:0] data_rec_outC 
+  input wire  clk ,
+  input wire  rst ,
+  input wire  buffer_en ,
+  input wire [7:0] spi_id_in ,
+  input wire [7:0] spi_reg ,
+  input wire [7:0] data_rec_in ,
+  input wire [7:0] spi_select ,
+  output wire  end_read_miso ,
+  output wire [31:0] data_rec_out 
 );
+wire [7:0] spi_selectC;
+wire [7:0] spi_selectB;
+wire [7:0] spi_selectA;
+wire [7:0] spi_regC;
+wire [7:0] spi_regB;
+wire [7:0] spi_regA;
+wire [7:0] spi_id_inC;
+wire [7:0] spi_id_inB;
+wire [7:0] spi_id_inA;
+wire rstC;
+wire rstB;
+wire rstA;
+wire id_vC;
+wire id_vB;
+wire id_vA;
+wire [7:0] data_rec_inC;
+wire [7:0] data_rec_inB;
+wire [7:0] data_rec_inA;
+wire clkC;
+wire clkB;
+wire clkA;
+wire buffer_enC;
+wire buffer_enB;
+wire buffer_enA;
+wire b3_vC;
+wire b3_vB;
+wire b3_vA;
+wire b2_vC;
+wire b2_vB;
+wire b2_vA;
+wire b1_vC;
+wire b1_vB;
+wire b1_vA;
+wor idTmrError;
+wire [7:0] id;
+wor end_read_miso_regTmrError;
+wire end_read_miso_reg;
+wor b3TmrError;
+wire [7:0] b3;
+wor b2TmrError;
+wire [7:0] b2;
+wor b1TmrError;
+wire [7:0] b1;
 reg  [7:0] idA ;
 reg  [7:0] idB ;
 reg  [7:0] idC ;
@@ -88,6 +113,10 @@ initial
     b3C =  8'h0;
     end_read_miso_regC =  1'b0;
   end
+wire id_v =  id;
+wire b1_v =  b1;
+wire b2_v =  b2;
+wire b3_v =  b3;
 
 always @( posedge clkA )
   begin
@@ -109,10 +138,10 @@ always @( posedge clkA )
       end
     else
       begin
-        idA <= idA;
-        b1A <= b1A;
-        b2A <= b2A;
-        b3A <= b3A;
+        idA <= id_vA;
+        b1A <= b1_vA;
+        b2A <= b2_vA;
+        b3A <= b3_vA;
         end_read_miso_regA =  1'b0;
       end
   end
@@ -137,10 +166,10 @@ always @( posedge clkB )
       end
     else
       begin
-        idB <= idB;
-        b1B <= b1B;
-        b2B <= b2B;
-        b3B <= b3B;
+        idB <= id_vB;
+        b1B <= b1_vB;
+        b2B <= b2_vB;
+        b3B <= b3_vB;
         end_read_miso_regB =  1'b0;
       end
   end
@@ -165,18 +194,131 @@ always @( posedge clkC )
       end
     else
       begin
-        idC <= idC;
-        b1C <= b1C;
-        b2C <= b2C;
-        b3C <= b3C;
+        idC <= id_vC;
+        b1C <= b1_vC;
+        b2C <= b2_vC;
+        b3C <= b3_vC;
         end_read_miso_regC =  1'b0;
       end
   end
-assign end_read_misoA =  end_read_miso_regA;
-assign end_read_misoB =  end_read_miso_regB;
-assign end_read_misoC =  end_read_miso_regC;
-assign data_rec_outA =  {idA,b1A,b2A,b3A};
-assign data_rec_outB =  {idB,b1B,b2B,b3B};
-assign data_rec_outC =  {idC,b1C,b2C,b3C};
+assign end_read_miso =  end_read_miso_reg;
+assign data_rec_out =  {id,b1,b2,b3};
+
+majorityVoter #(.WIDTH(8)) b1Voter (
+    .inA(b1A),
+    .inB(b1B),
+    .inC(b1C),
+    .out(b1),
+    .tmrErr(b1TmrError)
+    );
+
+majorityVoter #(.WIDTH(8)) b2Voter (
+    .inA(b2A),
+    .inB(b2B),
+    .inC(b2C),
+    .out(b2),
+    .tmrErr(b2TmrError)
+    );
+
+majorityVoter #(.WIDTH(8)) b3Voter (
+    .inA(b3A),
+    .inB(b3B),
+    .inC(b3C),
+    .out(b3),
+    .tmrErr(b3TmrError)
+    );
+
+majorityVoter end_read_miso_regVoter (
+    .inA(end_read_miso_regA),
+    .inB(end_read_miso_regB),
+    .inC(end_read_miso_regC),
+    .out(end_read_miso_reg),
+    .tmrErr(end_read_miso_regTmrError)
+    );
+
+majorityVoter #(.WIDTH(8)) idVoter (
+    .inA(idA),
+    .inB(idB),
+    .inC(idC),
+    .out(id),
+    .tmrErr(idTmrError)
+    );
+
+fanout b1_vFanout (
+    .in(b1_v),
+    .outA(b1_vA),
+    .outB(b1_vB),
+    .outC(b1_vC)
+    );
+
+fanout b2_vFanout (
+    .in(b2_v),
+    .outA(b2_vA),
+    .outB(b2_vB),
+    .outC(b2_vC)
+    );
+
+fanout b3_vFanout (
+    .in(b3_v),
+    .outA(b3_vA),
+    .outB(b3_vB),
+    .outC(b3_vC)
+    );
+
+fanout buffer_enFanout (
+    .in(buffer_en),
+    .outA(buffer_enA),
+    .outB(buffer_enB),
+    .outC(buffer_enC)
+    );
+
+fanout clkFanout (
+    .in(clk),
+    .outA(clkA),
+    .outB(clkB),
+    .outC(clkC)
+    );
+
+fanout #(.WIDTH(8)) data_rec_inFanout (
+    .in(data_rec_in),
+    .outA(data_rec_inA),
+    .outB(data_rec_inB),
+    .outC(data_rec_inC)
+    );
+
+fanout id_vFanout (
+    .in(id_v),
+    .outA(id_vA),
+    .outB(id_vB),
+    .outC(id_vC)
+    );
+
+fanout rstFanout (
+    .in(rst),
+    .outA(rstA),
+    .outB(rstB),
+    .outC(rstC)
+    );
+
+fanout #(.WIDTH(8)) spi_id_inFanout (
+    .in(spi_id_in),
+    .outA(spi_id_inA),
+    .outB(spi_id_inB),
+    .outC(spi_id_inC)
+    );
+
+fanout #(.WIDTH(8)) spi_regFanout (
+    .in(spi_reg),
+    .outA(spi_regA),
+    .outB(spi_regB),
+    .outC(spi_regC)
+    );
+
+fanout #(.WIDTH(8)) spi_selectFanout (
+    .in(spi_select),
+    .outA(spi_selectA),
+    .outB(spi_selectB),
+    .outC(spi_selectC)
+    );
 endmodule
 

@@ -6,43 +6,49 @@
  *                                                                                                  *
  * user    : lucas                                                                                  *
  * host    : DESKTOP-BFDSFP2                                                                        *
- * date    : 03/04/2022 20:08:30                                                                    *
+ * date    : 16/08/2022 12:58:07                                                                    *
  *                                                                                                  *
- * workdir : /mnt/c/Users/Lucas/Desktop/mopshub_triplication/triplicated/mopshub_top_canakari_ftrim/hdl *
- * cmd     : /mnt/c/Users/Lucas/Desktop/mopshub_triplication/tmrg-master/bin/tmrg -vv -c tmrg.cfg   *
+ * workdir : /mnt/c/Users/Lucas/Desktop/mopshub_triplication/mopshub_top_board_canakari_ftrim/hdl   *
+ * cmd     : /mnt/c/Users/Lucas/Desktop/mopshub_triplication/tmrg-master/bin/tmrg -c tmrg.cfg -vvv  *
  * tmrg rev:                                                                                        *
  *                                                                                                  *
  * src file: bit_counter.v                                                                          *
  *           Git SHA           : File not in git repository!                                        *
- *           Modification time : 2022-03-28 18:30:57                                                *
- *           File Size         : 776                                                                *
- *           MD5 hash          : ddda6e16eb4ba79dfff89131a9eb1739                                   *
+ *           Modification time : 2022-08-12 09:47:50                                                *
+ *           File Size         : 971                                                                *
+ *           MD5 hash          : 7e994576ee7bdfbbbe33c29e84b9bf29                                   *
  *                                                                                                  *
  ****************************************************************************************************/
 
 module bit_counterTMR(
-  input wire  ext_rstA ,
-  input wire  ext_rstB ,
-  input wire  ext_rstC ,
-  input wire  rstA ,
-  input wire  rstB ,
-  input wire  rstC ,
-  output wire [4:0] data_outA ,
-  output wire [4:0] data_outB ,
-  output wire [4:0] data_outC ,
-  input wire  clkA ,
-  input wire  clkB ,
-  input wire  clkC ,
-  input wire  cnt_enableA ,
-  input wire  cnt_enableB ,
-  input wire  cnt_enableC 
+  input wire  ext_rst ,
+  input wire  rst ,
+  output wire [4:0] data_out ,
+  input wire  clk ,
+  input wire  cnt_enable 
 );
+wire rstC;
+wire rstB;
+wire rstA;
+wire ext_rstC;
+wire ext_rstB;
+wire ext_rstA;
+wire [4:0] data_out_reg_vC;
+wire [4:0] data_out_reg_vB;
+wire [4:0] data_out_reg_vA;
+wire cnt_enableC;
+wire cnt_enableB;
+wire cnt_enableA;
+wire clkC;
+wire clkB;
+wire clkA;
+wor data_out_regTmrError;
+wire [4:0] data_out_reg;
 reg  [4:0] data_out_regA ;
 reg  [4:0] data_out_regB ;
 reg  [4:0] data_out_regC ;
-assign data_outA =  data_out_regA;
-assign data_outB =  data_out_regB;
-assign data_outC =  data_out_regC;
+assign data_out =  data_out_reg;
+wire [4:0] data_out_reg_v =  data_out_reg;
 
 always @( posedge clkA )
   if (!rstA|ext_rstA)
@@ -53,6 +59,10 @@ always @( posedge clkA )
     if (cnt_enableA)
       begin
         data_out_regA <= data_out_regA+1;
+      end
+    else
+      begin
+        data_out_regA <= data_out_reg_vA;
       end
 
 always @( posedge clkB )
@@ -65,6 +75,10 @@ always @( posedge clkB )
       begin
         data_out_regB <= data_out_regB+1;
       end
+    else
+      begin
+        data_out_regB <= data_out_reg_vB;
+      end
 
 always @( posedge clkC )
   if (!rstC|ext_rstC)
@@ -76,5 +90,52 @@ always @( posedge clkC )
       begin
         data_out_regC <= data_out_regC+1;
       end
+    else
+      begin
+        data_out_regC <= data_out_reg_vC;
+      end
+
+majorityVoter #(.WIDTH(5)) data_out_regVoter (
+    .inA(data_out_regA),
+    .inB(data_out_regB),
+    .inC(data_out_regC),
+    .out(data_out_reg),
+    .tmrErr(data_out_regTmrError)
+    );
+
+fanout clkFanout (
+    .in(clk),
+    .outA(clkA),
+    .outB(clkB),
+    .outC(clkC)
+    );
+
+fanout cnt_enableFanout (
+    .in(cnt_enable),
+    .outA(cnt_enableA),
+    .outB(cnt_enableB),
+    .outC(cnt_enableC)
+    );
+
+fanout #(.WIDTH(5)) data_out_reg_vFanout (
+    .in(data_out_reg_v),
+    .outA(data_out_reg_vA),
+    .outB(data_out_reg_vB),
+    .outC(data_out_reg_vC)
+    );
+
+fanout ext_rstFanout (
+    .in(ext_rst),
+    .outA(ext_rstA),
+    .outB(ext_rstB),
+    .outC(ext_rstC)
+    );
+
+fanout rstFanout (
+    .in(rst),
+    .outA(rstA),
+    .outB(rstB),
+    .outC(rstC)
+    );
 endmodule
 

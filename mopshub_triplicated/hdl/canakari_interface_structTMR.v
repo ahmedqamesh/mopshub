@@ -6,312 +6,204 @@
  *                                                                                                  *
  * user    : lucas                                                                                  *
  * host    : DESKTOP-BFDSFP2                                                                        *
- * date    : 03/04/2022 20:08:32                                                                    *
+ * date    : 16/08/2022 12:58:13                                                                    *
  *                                                                                                  *
- * workdir : /mnt/c/Users/Lucas/Desktop/mopshub_triplication/triplicated/mopshub_top_canakari_ftrim/hdl *
- * cmd     : /mnt/c/Users/Lucas/Desktop/mopshub_triplication/tmrg-master/bin/tmrg -vv -c tmrg.cfg   *
+ * workdir : /mnt/c/Users/Lucas/Desktop/mopshub_triplication/mopshub_top_board_canakari_ftrim/hdl   *
+ * cmd     : /mnt/c/Users/Lucas/Desktop/mopshub_triplication/tmrg-master/bin/tmrg -c tmrg.cfg -vvv  *
  * tmrg rev:                                                                                        *
  *                                                                                                  *
  * src file: canakari_interface_struct.v                                                            *
  *           Git SHA           : File not in git repository!                                        *
- *           Modification time : 2022-03-28 21:55:50                                                *
- *           File Size         : 6481                                                               *
- *           MD5 hash          : b483db5769e4e5b02152bc42b475ccad                                   *
+ *           Modification time : 2022-08-16 09:57:42.510871                                         *
+ *           File Size         : 6523                                                               *
+ *           MD5 hash          : d8e7249d11e74099a9235e3ef27d5fd9                                   *
  *                                                                                                  *
  ****************************************************************************************************/
 
 module canakari_interfaceTMR(
-  input wire  abortA ,
-  input wire  abortB ,
-  input wire  abortC ,
-  input wire [4:0] can_rec_selectA ,
-  input wire [4:0] can_rec_selectB ,
-  input wire [4:0] can_rec_selectC ,
-  input wire  clkA ,
-  input wire  clkB ,
-  input wire  clkC ,
-  input wire [75:0] data_tra_mesA ,
-  input wire [75:0] data_tra_mesB ,
-  input wire [75:0] data_tra_mesC ,
-  input wire [4:0] data_tra_selectA ,
-  input wire [4:0] data_tra_selectB ,
-  input wire [4:0] data_tra_selectC ,
-  input wire  end_can_procA ,
-  input wire  end_can_procB ,
-  input wire  end_can_procC ,
-  input wire  initA ,
-  input wire  initB ,
-  input wire  initC ,
-  input wire [4:0] n_busesA ,
-  input wire [4:0] n_busesB ,
-  input wire [4:0] n_busesC ,
-  input wire [4:0] power_bus_cntA ,
-  input wire [4:0] power_bus_cntB ,
-  input wire [4:0] power_bus_cntC ,
-  input wire  reset_irq_canA ,
-  input wire  reset_irq_canB ,
-  input wire  reset_irq_canC ,
-  input wire  reset_irq_can_allA ,
-  input wire  reset_irq_can_allB ,
-  input wire  reset_irq_can_allC ,
-  input wire  reset_irq_osc_canA ,
-  input wire  reset_irq_osc_canB ,
-  input wire  reset_irq_osc_canC ,
-  input wire  reset_irq_rec_canA ,
-  input wire  reset_irq_rec_canB ,
-  input wire  reset_irq_rec_canC ,
-  input wire  reset_irq_tra_canA ,
-  input wire  reset_irq_tra_canB ,
-  input wire  reset_irq_tra_canC ,
-  input wire  rstA ,
-  input wire  rstB ,
-  input wire  rstC ,
-  input wire  send_mesA ,
-  input wire  send_mesB ,
-  input wire  send_mesC ,
-  input wire  start_readA ,
-  input wire  start_readB ,
-  input wire  start_readC ,
-  input wire  start_trim_oscA ,
-  input wire  start_trim_oscB ,
-  input wire  start_trim_oscC ,
-  input wire  start_writeA ,
-  input wire  start_writeB ,
-  input wire  start_writeC ,
-  input wire  timeoutrstA ,
-  input wire  timeoutrstB ,
-  input wire  timeoutrstC ,
-  output wire [4:0] addr_canA ,
-  output wire [4:0] addr_canB ,
-  output wire [4:0] addr_canC ,
-  output wire  bus_matchA ,
-  output wire  bus_matchB ,
-  output wire  bus_matchC ,
-  output wire [4:0] can_tra_selectA ,
-  output wire [4:0] can_tra_selectB ,
-  output wire [4:0] can_tra_selectC ,
-  output wire  cs_canA ,
-  output wire  cs_canB ,
-  output wire  cs_canC ,
-  output wire  en_rec_regA ,
-  output wire  en_rec_regB ,
-  output wire  en_rec_regC ,
-  output wire  end_initA ,
-  output wire  end_initB ,
-  output wire  end_initC ,
-  output wire  end_readA ,
-  output wire  end_readB ,
-  output wire  end_readC ,
-  output wire  end_trim_oscA ,
-  output wire  end_trim_oscB ,
-  output wire  end_trim_oscC ,
-  output wire  end_writeA ,
-  output wire  end_writeB ,
-  output wire  end_writeC ,
-  output wire  read_sig_can_nA ,
-  output wire  read_sig_can_nB ,
-  output wire  read_sig_can_nC ,
-  output wire  reset_all_doneA ,
-  output wire  reset_all_doneB ,
-  output wire  reset_all_doneC ,
-  output wire  reset_irq_can_doneA ,
-  output wire  reset_irq_can_doneB ,
-  output wire  reset_irq_can_doneC ,
-  output wire  start_initA ,
-  output wire  start_initB ,
-  output wire  start_initC ,
-  output wire [5:0] statedebcanA ,
-  output wire [5:0] statedebcanB ,
-  output wire [5:0] statedebcanC ,
-  output wire [15:0] write_canA ,
-  output wire [15:0] write_canB ,
-  output wire [15:0] write_canC ,
-  output wire  write_sig_can_nA ,
-  output wire  write_sig_can_nB ,
-  output wire  write_sig_can_nC 
+  input wire  abort ,
+  input wire [4:0] can_rec_select ,
+  input wire  clk ,
+  input wire [75:0] data_tra_mes ,
+  input wire [4:0] data_tra_select ,
+  input wire  end_can_proc ,
+  input wire  init ,
+  input wire [4:0] n_buses ,
+  input wire [4:0] power_bus_cnt ,
+  input wire  reset_irq_can ,
+  input wire  reset_irq_can_all ,
+  input wire  reset_irq_osc_can ,
+  input wire  reset_irq_rec_can ,
+  input wire  reset_irq_tra_can ,
+  input wire  rst ,
+  input wire  send_mes ,
+  input wire  start_read ,
+  input wire  start_trim_osc ,
+  input wire  start_write ,
+  input wire  timeoutrst ,
+  output wire [4:0] addr_can ,
+  output wire  bus_match ,
+  output wire [4:0] can_tra_select ,
+  output wire  cs_can ,
+  output wire  en_rec_reg ,
+  output wire  end_init ,
+  output wire  end_read ,
+  output wire  end_trim_osc ,
+  output wire  end_write ,
+  output wire  read_sig_can_n ,
+  output wire  reset_all_done ,
+  output wire  reset_irq_can_done ,
+  output wire  start_init ,
+  output wire [5:0] statedebcan ,
+  output wire [15:0] write_can ,
+  output wire  write_sig_can_n 
 );
-wire [3:0] cmdA;
-wire [3:0] cmdB;
-wire [3:0] cmdC;
-wire cnt_osc_selectA;
-wire cnt_osc_selectB;
-wire cnt_osc_selectC;
-wire cnt_selectA;
-wire cnt_selectB;
-wire cnt_selectC;
-wire [15:0] data_initA;
-wire [15:0] data_initB;
-wire [15:0] data_initC;
-wire [4:0] data_tra_select_cntA;
-wire [4:0] data_tra_select_cntB;
-wire [4:0] data_tra_select_cntC;
-reg  end_cntA ;
-reg  end_cntB ;
-reg  end_cntC ;
-wire initiA;
-wire initiB;
-wire initiC;
-wire reset_irq_can_activeA;
-wire reset_irq_can_activeB;
-wire reset_irq_can_activeC;
-wire reset_sig_can_allA;
-wire reset_sig_can_allB;
-wire reset_sig_can_allC;
-wire reset_sig_can_nA;
-wire reset_sig_can_nB;
-wire reset_sig_can_nC;
-wire rst_cntA;
-wire rst_cntB;
-wire rst_cntC;
-wire set_bus_idA;
-wire set_bus_idB;
-wire set_bus_idC;
-wire start_cntA;
-wire start_cntB;
-wire start_cntC;
-wire tra_selectA;
-wire tra_selectB;
-wire tra_selectC;
-wire trimA;
+wor write_sig_can_nTmrError;
+wire write_sig_can_nB;
+wire write_sig_can_nC;
+wire write_sig_can_nA;
+wor trimTmrError;
 wire trimB;
 wire trimC;
+wire trimA;
+wor statedebcanTmrError;
+wire [5:0] statedebcanB;
+wire [5:0] statedebcanC;
+wire [5:0] statedebcanA;
+wor start_initTmrError;
+wire start_initB;
+wire start_initC;
+wire start_initA;
+wor set_bus_idTmrError;
+wire set_bus_idB;
+wire set_bus_idC;
+wire set_bus_idA;
+wor rst_cntTmrError;
+wire rst_cntB;
+wire rst_cntC;
+wire rst_cntA;
+wor reset_sig_can_nTmrError;
+wire reset_sig_can_nB;
+wire reset_sig_can_nC;
+wire reset_sig_can_nA;
+wor reset_sig_can_allTmrError;
+wire reset_sig_can_allB;
+wire reset_sig_can_allC;
+wire reset_sig_can_allA;
+wor reset_irq_can_doneTmrError;
+wire reset_irq_can_doneB;
+wire reset_irq_can_doneC;
+wire reset_irq_can_doneA;
+wor reset_all_doneTmrError;
+wire reset_all_doneB;
+wire reset_all_doneC;
+wire reset_all_doneA;
+wor read_sig_can_nTmrError;
+wire read_sig_can_nB;
+wire read_sig_can_nC;
+wire read_sig_can_nA;
+wor initiTmrError;
+wire initiB;
+wire initiC;
+wire initiA;
+wor end_writeTmrError;
+wire end_writeB;
+wire end_writeC;
+wire end_writeA;
+wor end_trim_oscTmrError;
+wire end_trim_oscB;
+wire end_trim_oscC;
+wire end_trim_oscA;
+wor end_readTmrError;
+wire end_readB;
+wire end_readC;
+wire end_readA;
+wor end_initTmrError;
+wire end_initB;
+wire end_initC;
+wire end_initA;
+wor en_rec_regTmrError;
+wire en_rec_regB;
+wire en_rec_regC;
+wire en_rec_regA;
+wor cs_canTmrError;
+wire cs_canB;
+wire cs_canC;
+wire cs_canA;
+wor addr_canTmrError;
+wire [4:0] addr_canB;
+wire [4:0] addr_canC;
+wire [4:0] addr_canA;
+wire [3:0] cmd;
+wire cnt_osc_select;
+wire cnt_select;
+wire [15:0] data_init;
+wire [4:0] data_tra_select_cnt;
+reg  end_cnt ;
+wire initi;
+wire reset_irq_can_active;
+wire reset_sig_can_all;
+wire reset_sig_can_n;
+wire rst_cnt;
+wire set_bus_id;
+wire start_cnt;
+wire tra_select;
+wire trim;
 
 bit_counterTMR bit_counter0 (
-    .ext_rstA(rst_cntA),
-    .ext_rstB(rst_cntB),
-    .ext_rstC(rst_cntC),
-    .rstA(rstA),
-    .rstB(rstB),
-    .rstC(rstC),
-    .data_outA(data_tra_select_cntA),
-    .data_outB(data_tra_select_cntB),
-    .data_outC(data_tra_select_cntC),
-    .clkA(clkA),
-    .clkB(clkB),
-    .clkC(clkC),
-    .cnt_enableA(start_cntA),
-    .cnt_enableB(start_cntB),
-    .cnt_enableC(start_cntC)
+    .ext_rst(rst_cnt),
+    .rst(rst),
+    .data_out(data_tra_select_cnt),
+    .clk(clk),
+    .cnt_enable(start_cnt)
     );
 
 buffer_tristate_busidTMR buffer_tristate_busid0 (
-    .clkA(clkA),
-    .clkB(clkB),
-    .clkC(clkC),
-    .rstA(rstA),
-    .rstB(rstB),
-    .rstC(rstC),
-    .data_tra_in0A(can_rec_selectA),
-    .data_tra_in0B(can_rec_selectB),
-    .data_tra_in0C(can_rec_selectC),
-    .data_tra_in1A(data_tra_selectA),
-    .data_tra_in1B(data_tra_selectB),
-    .data_tra_in1C(data_tra_selectC),
-    .data_tra_in2A(data_tra_select_cntA),
-    .data_tra_in2B(data_tra_select_cntB),
-    .data_tra_in2C(data_tra_select_cntC),
-    .data_tra_in3A(power_bus_cntA),
-    .data_tra_in3B(power_bus_cntB),
-    .data_tra_in3C(power_bus_cntC),
-    .buffer_en0A(reset_irq_rec_canA),
-    .buffer_en0B(reset_irq_rec_canB),
-    .buffer_en0C(reset_irq_rec_canC),
-    .buffer_en1A(tra_selectA),
-    .buffer_en1B(tra_selectB),
-    .buffer_en1C(tra_selectC),
-    .buffer_en2A(cnt_selectA),
-    .buffer_en2B(cnt_selectB),
-    .buffer_en2C(cnt_selectC),
-    .buffer_en3A(cnt_osc_selectA),
-    .buffer_en3B(cnt_osc_selectB),
-    .buffer_en3C(cnt_osc_selectC),
-    .data_tra_outA(can_tra_selectA),
-    .data_tra_outB(can_tra_selectB),
-    .data_tra_outC(can_tra_selectC)
+    .clk(clk),
+    .rst(rst),
+    .data_tra_in0(can_rec_select),
+    .data_tra_in1(data_tra_select),
+    .data_tra_in2(data_tra_select_cnt),
+    .data_tra_in3(power_bus_cnt),
+    .buffer_en0(reset_irq_rec_can),
+    .buffer_en1(tra_select),
+    .buffer_en2(cnt_select),
+    .buffer_en3(cnt_osc_select),
+    .data_tra_out(can_tra_select)
     );
 
 bus_compTMR bus_comp0 (
-    .can_rec_selectA(can_rec_selectA),
-    .can_rec_selectB(can_rec_selectB),
-    .can_rec_selectC(can_rec_selectC),
-    .can_tra_selectA(can_tra_selectA),
-    .can_tra_selectB(can_tra_selectB),
-    .can_tra_selectC(can_tra_selectC),
-    .bus_matchA(bus_matchA),
-    .bus_matchB(bus_matchB),
-    .bus_matchC(bus_matchC)
+    .can_rec_select(can_rec_select),
+    .can_tra_select(can_tra_select),
+    .bus_match(bus_match)
     );
 
 can_interfaceTMR can_interface0 (
-    .addrA(addr_canA),
-    .addrB(addr_canB),
-    .addrC(addr_canC),
-    .data_initA(data_initA),
-    .data_initB(data_initB),
-    .data_initC(data_initC),
-    .initiA(initiA),
-    .initiB(initiB),
-    .initiC(initiC),
-    .writeA(write_sig_can_nA),
-    .writeB(write_sig_can_nB),
-    .writeC(write_sig_can_nC),
-    .reset_canA(reset_sig_can_nA),
-    .reset_canB(reset_sig_can_nB),
-    .reset_canC(reset_sig_can_nC),
-    .trimA(trimA),
-    .trimB(trimB),
-    .trimC(trimC),
-    .data_tra_mesA(data_tra_mesA),
-    .data_tra_mesB(data_tra_mesB),
-    .data_tra_mesC(data_tra_mesC),
-    .cmdA(cmdA),
-    .cmdB(cmdB),
-    .cmdC(cmdC),
-    .write_canA(write_canA),
-    .write_canB(write_canB),
-    .write_canC(write_canC)
+    .addr(addr_can),
+    .data_init(data_init),
+    .initi(initi),
+    .write(write_sig_can_n),
+    .reset_can(reset_sig_can_n),
+    .trim(trim),
+    .data_tra_mes(data_tra_mes),
+    .cmd(cmd),
+    .write_can(write_can)
     );
 
 can_interface_SMTMR interface_SM0 (
-    .abortA(abortA),
-    .abortB(abortB),
-    .abortC(abortC),
-    .clkA(clkA),
-    .clkB(clkB),
-    .clkC(clkC),
-    .end_can_procA(end_can_procA),
-    .end_can_procB(end_can_procB),
-    .end_can_procC(end_can_procC),
-    .end_cntA(end_cntA),
-    .end_cntB(end_cntB),
-    .end_cntC(end_cntC),
-    .initA(initA),
-    .initB(initB),
-    .initC(initC),
-    .reset_irq_canA(reset_irq_can_activeA),
-    .reset_irq_canB(reset_irq_can_activeB),
-    .reset_irq_canC(reset_irq_can_activeC),
-    .reset_irq_can_allA(reset_irq_can_allA),
-    .reset_irq_can_allB(reset_irq_can_allB),
-    .reset_irq_can_allC(reset_irq_can_allC),
-    .rstA(rstA),
-    .rstB(rstB),
-    .rstC(rstC),
-    .send_mesA(send_mesA),
-    .send_mesB(send_mesB),
-    .send_mesC(send_mesC),
-    .start_osc_trimA(start_trim_oscA),
-    .start_osc_trimB(start_trim_oscB),
-    .start_osc_trimC(start_trim_oscC),
-    .start_readA(start_readA),
-    .start_readB(start_readB),
-    .start_readC(start_readC),
-    .start_writeA(start_writeA),
-    .start_writeB(start_writeB),
-    .start_writeC(start_writeC),
-    .timeoutrstA(timeoutrstA),
-    .timeoutrstB(timeoutrstB),
-    .timeoutrstC(timeoutrstC),
+    .abort(abort),
+    .clk(clk),
+    .end_can_proc(end_can_proc),
+    .end_cnt(end_cnt),
+    .init(init),
+    .reset_irq_can(reset_irq_can_active),
+    .reset_irq_can_all(reset_irq_can_all),
+    .rst(rst),
+    .send_mes(send_mes),
+    .start_osc_trim(start_trim_osc),
+    .start_read(start_read),
+    .start_write(start_write),
+    .timeoutrst(timeoutrst),
     .addrA(addr_canA),
     .addrB(addr_canB),
     .addrC(addr_canC),
@@ -357,9 +249,7 @@ can_interface_SMTMR interface_SM0 (
     .set_bus_idA(set_bus_idA),
     .set_bus_idB(set_bus_idB),
     .set_bus_idC(set_bus_idC),
-    .start_cntA(start_cntA),
-    .start_cntB(start_cntB),
-    .start_cntC(start_cntC),
+    .start_cnt(start_cnt),
     .start_initA(start_initA),
     .start_initB(start_initB),
     .start_initC(start_initC),
@@ -374,64 +264,178 @@ can_interface_SMTMR interface_SM0 (
     .writeC(write_sig_can_nC)
     );
 
-initialize_blockTMR initialize_block0 (
-    .addrA(addr_canA),
-    .addrB(addr_canB),
-    .addrC(addr_canC),
-    .data_initA(data_initA),
-    .data_initB(data_initB),
-    .data_initC(data_initC)
+initialize_block_mopshubTMR initialize_block_mopshub0 (
+    .addr(addr_can),
+    .data_init(data_init)
     );
-assign tra_selectA =  (set_bus_idA||reset_irq_tra_canA);
-assign tra_selectB =  (set_bus_idB||reset_irq_tra_canB);
-assign tra_selectC =  (set_bus_idC||reset_irq_tra_canC);
-assign cnt_selectA =  (initA||reset_sig_can_allA);
-assign cnt_selectB =  (initB||reset_sig_can_allB);
-assign cnt_selectC =  (initC||reset_sig_can_allC);
-assign cnt_osc_selectA =  (start_trim_oscA||reset_irq_osc_canA);
-assign cnt_osc_selectB =  (start_trim_oscB||reset_irq_osc_canB);
-assign cnt_osc_selectC =  (start_trim_oscC||reset_irq_osc_canC);
-assign reset_irq_can_activeA =  (reset_irq_canA||reset_irq_osc_canA);
-assign reset_irq_can_activeB =  (reset_irq_canB||reset_irq_osc_canB);
-assign reset_irq_can_activeC =  (reset_irq_canC||reset_irq_osc_canC);
+assign tra_select =  (set_bus_id||reset_irq_tra_can);
+assign cnt_select =  (init||reset_sig_can_all);
+assign cnt_osc_select =  (start_trim_osc||reset_irq_osc_can);
+assign reset_irq_can_active =  (reset_irq_can||reset_irq_osc_can);
 initial
-  end_cntA =  1'b0;
-initial
-  end_cntB =  1'b0;
-initial
-  end_cntC =  1'b0;
+  end_cnt =  1'b0;
 
-always @( posedge clkA )
+always @( posedge clk )
   begin
-    if (!rstA)
-      end_cntA <= 0;
+    if (!rst)
+      end_cnt <= 0;
     else
-      case (data_tra_select_cntA)
-        n_busesA : end_cntA <= 1;
-        default : end_cntA <= 0;
+      case (data_tra_select_cnt)
+        n_buses : end_cnt <= 1;
+        default : end_cnt <= 0;
       endcase
   end
 
-always @( posedge clkB )
-  begin
-    if (!rstB)
-      end_cntB <= 0;
-    else
-      case (data_tra_select_cntB)
-        n_busesB : end_cntB <= 1;
-        default : end_cntB <= 0;
-      endcase
-  end
+majorityVoter #(.WIDTH(5)) addr_canVoter (
+    .inA(addr_canA),
+    .inB(addr_canB),
+    .inC(addr_canC),
+    .out(addr_can),
+    .tmrErr(addr_canTmrError)
+    );
 
-always @( posedge clkC )
-  begin
-    if (!rstC)
-      end_cntC <= 0;
-    else
-      case (data_tra_select_cntC)
-        n_busesC : end_cntC <= 1;
-        default : end_cntC <= 0;
-      endcase
-  end
+majorityVoter cs_canVoter (
+    .inA(cs_canA),
+    .inB(cs_canB),
+    .inC(cs_canC),
+    .out(cs_can),
+    .tmrErr(cs_canTmrError)
+    );
+
+majorityVoter en_rec_regVoter (
+    .inA(en_rec_regA),
+    .inB(en_rec_regB),
+    .inC(en_rec_regC),
+    .out(en_rec_reg),
+    .tmrErr(en_rec_regTmrError)
+    );
+
+majorityVoter end_initVoter (
+    .inA(end_initA),
+    .inB(end_initB),
+    .inC(end_initC),
+    .out(end_init),
+    .tmrErr(end_initTmrError)
+    );
+
+majorityVoter end_readVoter (
+    .inA(end_readA),
+    .inB(end_readB),
+    .inC(end_readC),
+    .out(end_read),
+    .tmrErr(end_readTmrError)
+    );
+
+majorityVoter end_trim_oscVoter (
+    .inA(end_trim_oscA),
+    .inB(end_trim_oscB),
+    .inC(end_trim_oscC),
+    .out(end_trim_osc),
+    .tmrErr(end_trim_oscTmrError)
+    );
+
+majorityVoter end_writeVoter (
+    .inA(end_writeA),
+    .inB(end_writeB),
+    .inC(end_writeC),
+    .out(end_write),
+    .tmrErr(end_writeTmrError)
+    );
+
+majorityVoter initiVoter (
+    .inA(initiA),
+    .inB(initiB),
+    .inC(initiC),
+    .out(initi),
+    .tmrErr(initiTmrError)
+    );
+
+majorityVoter read_sig_can_nVoter (
+    .inA(read_sig_can_nA),
+    .inB(read_sig_can_nB),
+    .inC(read_sig_can_nC),
+    .out(read_sig_can_n),
+    .tmrErr(read_sig_can_nTmrError)
+    );
+
+majorityVoter reset_all_doneVoter (
+    .inA(reset_all_doneA),
+    .inB(reset_all_doneB),
+    .inC(reset_all_doneC),
+    .out(reset_all_done),
+    .tmrErr(reset_all_doneTmrError)
+    );
+
+majorityVoter reset_irq_can_doneVoter (
+    .inA(reset_irq_can_doneA),
+    .inB(reset_irq_can_doneB),
+    .inC(reset_irq_can_doneC),
+    .out(reset_irq_can_done),
+    .tmrErr(reset_irq_can_doneTmrError)
+    );
+
+majorityVoter reset_sig_can_allVoter (
+    .inA(reset_sig_can_allA),
+    .inB(reset_sig_can_allB),
+    .inC(reset_sig_can_allC),
+    .out(reset_sig_can_all),
+    .tmrErr(reset_sig_can_allTmrError)
+    );
+
+majorityVoter reset_sig_can_nVoter (
+    .inA(reset_sig_can_nA),
+    .inB(reset_sig_can_nB),
+    .inC(reset_sig_can_nC),
+    .out(reset_sig_can_n),
+    .tmrErr(reset_sig_can_nTmrError)
+    );
+
+majorityVoter rst_cntVoter (
+    .inA(rst_cntA),
+    .inB(rst_cntB),
+    .inC(rst_cntC),
+    .out(rst_cnt),
+    .tmrErr(rst_cntTmrError)
+    );
+
+majorityVoter set_bus_idVoter (
+    .inA(set_bus_idA),
+    .inB(set_bus_idB),
+    .inC(set_bus_idC),
+    .out(set_bus_id),
+    .tmrErr(set_bus_idTmrError)
+    );
+
+majorityVoter start_initVoter (
+    .inA(start_initA),
+    .inB(start_initB),
+    .inC(start_initC),
+    .out(start_init),
+    .tmrErr(start_initTmrError)
+    );
+
+majorityVoter #(.WIDTH(6)) statedebcanVoter (
+    .inA(statedebcanA),
+    .inB(statedebcanB),
+    .inC(statedebcanC),
+    .out(statedebcan),
+    .tmrErr(statedebcanTmrError)
+    );
+
+majorityVoter trimVoter (
+    .inA(trimA),
+    .inB(trimB),
+    .inC(trimC),
+    .out(trim),
+    .tmrErr(trimTmrError)
+    );
+
+majorityVoter write_sig_can_nVoter (
+    .inA(write_sig_can_nA),
+    .inB(write_sig_can_nB),
+    .inC(write_sig_can_nC),
+    .out(write_sig_can_n),
+    .tmrErr(write_sig_can_nTmrError)
+    );
 endmodule
 

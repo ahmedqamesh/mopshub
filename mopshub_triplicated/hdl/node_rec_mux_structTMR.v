@@ -6,1089 +6,638 @@
  *                                                                                                  *
  * user    : lucas                                                                                  *
  * host    : DESKTOP-BFDSFP2                                                                        *
- * date    : 03/04/2022 20:08:55                                                                    *
+ * date    : 16/08/2022 12:58:33                                                                    *
  *                                                                                                  *
- * workdir : /mnt/c/Users/Lucas/Desktop/mopshub_triplication/triplicated/mopshub_top_canakari_ftrim/hdl *
- * cmd     : /mnt/c/Users/Lucas/Desktop/mopshub_triplication/tmrg-master/bin/tmrg -vv -c tmrg.cfg   *
+ * workdir : /mnt/c/Users/Lucas/Desktop/mopshub_triplication/mopshub_top_board_canakari_ftrim/hdl   *
+ * cmd     : /mnt/c/Users/Lucas/Desktop/mopshub_triplication/tmrg-master/bin/tmrg -c tmrg.cfg -vvv  *
  * tmrg rev:                                                                                        *
  *                                                                                                  *
  * src file: node_rec_mux_struct.v                                                                  *
  *           Git SHA           : File not in git repository!                                        *
- *           Modification time : 2022-03-28 21:55:52                                                *
- *           File Size         : 13034                                                              *
- *           MD5 hash          : 2a4920770be1043111f097301e1a6d70                                   *
+ *           Modification time : 2022-08-16 10:22:33.816782                                         *
+ *           File Size         : 26650                                                              *
+ *           MD5 hash          : 36ad2d4b7736e5a8d47dbcccfd3b2a5a                                   *
  *                                                                                                  *
  ****************************************************************************************************/
 
 module node_rec_muxTMR(
-  input wire  clkA ,
-  input wire  clkB ,
-  input wire  clkC ,
-  input wire  enable_cs_sigA ,
-  input wire  enable_cs_sigB ,
-  input wire  enable_cs_sigC ,
-  input wire  end_can_procA ,
-  input wire  end_can_procB ,
-  input wire  end_can_procC ,
-  input wire  endwaitA ,
-  input wire  endwaitB ,
-  input wire  endwaitC ,
-  input wire  ireqsucrecA ,
-  input wire  ireqsucrecB ,
-  input wire  ireqsucrecC ,
-  input wire  irqsucrec0A ,
-  input wire  irqsucrec0B ,
-  input wire  irqsucrec0C ,
-  input wire  irqsucrec1A ,
-  input wire  irqsucrec1B ,
-  input wire  irqsucrec1C ,
-  input wire  irqsucrec10A ,
-  input wire  irqsucrec10B ,
-  input wire  irqsucrec10C ,
-  input wire  irqsucrec11A ,
-  input wire  irqsucrec11B ,
-  input wire  irqsucrec11C ,
-  input wire  irqsucrec12A ,
-  input wire  irqsucrec12B ,
-  input wire  irqsucrec12C ,
-  input wire  irqsucrec13A ,
-  input wire  irqsucrec13B ,
-  input wire  irqsucrec13C ,
-  input wire  irqsucrec14A ,
-  input wire  irqsucrec14B ,
-  input wire  irqsucrec14C ,
-  input wire  irqsucrec15A ,
-  input wire  irqsucrec15B ,
-  input wire  irqsucrec15C ,
-  input wire  irqsucrec16A ,
-  input wire  irqsucrec16B ,
-  input wire  irqsucrec16C ,
-  input wire  irqsucrec17A ,
-  input wire  irqsucrec17B ,
-  input wire  irqsucrec17C ,
-  input wire  irqsucrec18A ,
-  input wire  irqsucrec18B ,
-  input wire  irqsucrec18C ,
-  input wire  irqsucrec19A ,
-  input wire  irqsucrec19B ,
-  input wire  irqsucrec19C ,
-  input wire  irqsucrec2A ,
-  input wire  irqsucrec2B ,
-  input wire  irqsucrec2C ,
-  input wire  irqsucrec20A ,
-  input wire  irqsucrec20B ,
-  input wire  irqsucrec20C ,
-  input wire  irqsucrec21A ,
-  input wire  irqsucrec21B ,
-  input wire  irqsucrec21C ,
-  input wire  irqsucrec22A ,
-  input wire  irqsucrec22B ,
-  input wire  irqsucrec22C ,
-  input wire  irqsucrec23A ,
-  input wire  irqsucrec23B ,
-  input wire  irqsucrec23C ,
-  input wire  irqsucrec24A ,
-  input wire  irqsucrec24B ,
-  input wire  irqsucrec24C ,
-  input wire  irqsucrec25A ,
-  input wire  irqsucrec25B ,
-  input wire  irqsucrec25C ,
-  input wire  irqsucrec26A ,
-  input wire  irqsucrec26B ,
-  input wire  irqsucrec26C ,
-  input wire  irqsucrec27A ,
-  input wire  irqsucrec27B ,
-  input wire  irqsucrec27C ,
-  input wire  irqsucrec28A ,
-  input wire  irqsucrec28B ,
-  input wire  irqsucrec28C ,
-  input wire  irqsucrec29A ,
-  input wire  irqsucrec29B ,
-  input wire  irqsucrec29C ,
-  input wire  irqsucrec3A ,
-  input wire  irqsucrec3B ,
-  input wire  irqsucrec3C ,
-  input wire  irqsucrec30A ,
-  input wire  irqsucrec30B ,
-  input wire  irqsucrec30C ,
-  input wire  irqsucrec31A ,
-  input wire  irqsucrec31B ,
-  input wire  irqsucrec31C ,
-  input wire  irqsucrec4A ,
-  input wire  irqsucrec4B ,
-  input wire  irqsucrec4C ,
-  input wire  irqsucrec5A ,
-  input wire  irqsucrec5B ,
-  input wire  irqsucrec5C ,
-  input wire  irqsucrec6A ,
-  input wire  irqsucrec6B ,
-  input wire  irqsucrec6C ,
-  input wire  irqsucrec7A ,
-  input wire  irqsucrec7B ,
-  input wire  irqsucrec7C ,
-  input wire  irqsucrec8A ,
-  input wire  irqsucrec8B ,
-  input wire  irqsucrec8C ,
-  input wire  irqsucrec9A ,
-  input wire  irqsucrec9B ,
-  input wire  irqsucrec9C ,
-  input wire  main_timeoutrstA ,
-  input wire  main_timeoutrstB ,
-  input wire  main_timeoutrstC ,
-  input wire  read_can_modeA ,
-  input wire  read_can_modeB ,
-  input wire  read_can_modeC ,
-  input wire  read_n_sigA ,
-  input wire  read_n_sigB ,
-  input wire  read_n_sigC ,
-  input wire [15:0] readdata0A ,
-  input wire [15:0] readdata0B ,
-  input wire [15:0] readdata0C ,
-  input wire [15:0] readdata1A ,
-  input wire [15:0] readdata1B ,
-  input wire [15:0] readdata1C ,
-  input wire [15:0] readdata10A ,
-  input wire [15:0] readdata10B ,
-  input wire [15:0] readdata10C ,
-  input wire [15:0] readdata11A ,
-  input wire [15:0] readdata11B ,
-  input wire [15:0] readdata11C ,
-  input wire [15:0] readdata12A ,
-  input wire [15:0] readdata12B ,
-  input wire [15:0] readdata12C ,
-  input wire [15:0] readdata13A ,
-  input wire [15:0] readdata13B ,
-  input wire [15:0] readdata13C ,
-  input wire [15:0] readdata14A ,
-  input wire [15:0] readdata14B ,
-  input wire [15:0] readdata14C ,
-  input wire [15:0] readdata15A ,
-  input wire [15:0] readdata15B ,
-  input wire [15:0] readdata15C ,
-  input wire [15:0] readdata16A ,
-  input wire [15:0] readdata16B ,
-  input wire [15:0] readdata16C ,
-  input wire [15:0] readdata17A ,
-  input wire [15:0] readdata17B ,
-  input wire [15:0] readdata17C ,
-  input wire [15:0] readdata18A ,
-  input wire [15:0] readdata18B ,
-  input wire [15:0] readdata18C ,
-  input wire [15:0] readdata19A ,
-  input wire [15:0] readdata19B ,
-  input wire [15:0] readdata19C ,
-  input wire [15:0] readdata2A ,
-  input wire [15:0] readdata2B ,
-  input wire [15:0] readdata2C ,
-  input wire [15:0] readdata20A ,
-  input wire [15:0] readdata20B ,
-  input wire [15:0] readdata20C ,
-  input wire [15:0] readdata21A ,
-  input wire [15:0] readdata21B ,
-  input wire [15:0] readdata21C ,
-  input wire [15:0] readdata22A ,
-  input wire [15:0] readdata22B ,
-  input wire [15:0] readdata22C ,
-  input wire [15:0] readdata23A ,
-  input wire [15:0] readdata23B ,
-  input wire [15:0] readdata23C ,
-  input wire [15:0] readdata24A ,
-  input wire [15:0] readdata24B ,
-  input wire [15:0] readdata24C ,
-  input wire [15:0] readdata25A ,
-  input wire [15:0] readdata25B ,
-  input wire [15:0] readdata25C ,
-  input wire [15:0] readdata26A ,
-  input wire [15:0] readdata26B ,
-  input wire [15:0] readdata26C ,
-  input wire [15:0] readdata27A ,
-  input wire [15:0] readdata27B ,
-  input wire [15:0] readdata27C ,
-  input wire [15:0] readdata28A ,
-  input wire [15:0] readdata28B ,
-  input wire [15:0] readdata28C ,
-  input wire [15:0] readdata29A ,
-  input wire [15:0] readdata29B ,
-  input wire [15:0] readdata29C ,
-  input wire [15:0] readdata3A ,
-  input wire [15:0] readdata3B ,
-  input wire [15:0] readdata3C ,
-  input wire [15:0] readdata30A ,
-  input wire [15:0] readdata30B ,
-  input wire [15:0] readdata30C ,
-  input wire [15:0] readdata31A ,
-  input wire [15:0] readdata31B ,
-  input wire [15:0] readdata31C ,
-  input wire [15:0] readdata4A ,
-  input wire [15:0] readdata4B ,
-  input wire [15:0] readdata4C ,
-  input wire [15:0] readdata5A ,
-  input wire [15:0] readdata5B ,
-  input wire [15:0] readdata5C ,
-  input wire [15:0] readdata6A ,
-  input wire [15:0] readdata6B ,
-  input wire [15:0] readdata6C ,
-  input wire [15:0] readdata7A ,
-  input wire [15:0] readdata7B ,
-  input wire [15:0] readdata7C ,
-  input wire [15:0] readdata8A ,
-  input wire [15:0] readdata8B ,
-  input wire [15:0] readdata8C ,
-  input wire [15:0] readdata9A ,
-  input wire [15:0] readdata9B ,
-  input wire [15:0] readdata9C ,
-  input wire  rstA ,
-  input wire  rstB ,
-  input wire  rstC ,
-  output wire [4:0] bus_rec_selectA ,
-  output wire [4:0] bus_rec_selectB ,
-  output wire [4:0] bus_rec_selectC ,
-  output wire  cs_rec0A ,
-  output wire  cs_rec0B ,
-  output wire  cs_rec0C ,
-  output wire  cs_rec1A ,
-  output wire  cs_rec1B ,
-  output wire  cs_rec1C ,
-  output wire  cs_rec10A ,
-  output wire  cs_rec10B ,
-  output wire  cs_rec10C ,
-  output wire  cs_rec11A ,
-  output wire  cs_rec11B ,
-  output wire  cs_rec11C ,
-  output wire  cs_rec12A ,
-  output wire  cs_rec12B ,
-  output wire  cs_rec12C ,
-  output wire  cs_rec13A ,
-  output wire  cs_rec13B ,
-  output wire  cs_rec13C ,
-  output wire  cs_rec14A ,
-  output wire  cs_rec14B ,
-  output wire  cs_rec14C ,
-  output wire  cs_rec15A ,
-  output wire  cs_rec15B ,
-  output wire  cs_rec15C ,
-  output wire  cs_rec16A ,
-  output wire  cs_rec16B ,
-  output wire  cs_rec16C ,
-  output wire  cs_rec17A ,
-  output wire  cs_rec17B ,
-  output wire  cs_rec17C ,
-  output wire  cs_rec18A ,
-  output wire  cs_rec18B ,
-  output wire  cs_rec18C ,
-  output wire  cs_rec19A ,
-  output wire  cs_rec19B ,
-  output wire  cs_rec19C ,
-  output wire  cs_rec2A ,
-  output wire  cs_rec2B ,
-  output wire  cs_rec2C ,
-  output wire  cs_rec20A ,
-  output wire  cs_rec20B ,
-  output wire  cs_rec20C ,
-  output wire  cs_rec21A ,
-  output wire  cs_rec21B ,
-  output wire  cs_rec21C ,
-  output wire  cs_rec22A ,
-  output wire  cs_rec22B ,
-  output wire  cs_rec22C ,
-  output wire  cs_rec23A ,
-  output wire  cs_rec23B ,
-  output wire  cs_rec23C ,
-  output wire  cs_rec24A ,
-  output wire  cs_rec24B ,
-  output wire  cs_rec24C ,
-  output wire  cs_rec25A ,
-  output wire  cs_rec25B ,
-  output wire  cs_rec25C ,
-  output wire  cs_rec26A ,
-  output wire  cs_rec26B ,
-  output wire  cs_rec26C ,
-  output wire  cs_rec27A ,
-  output wire  cs_rec27B ,
-  output wire  cs_rec27C ,
-  output wire  cs_rec28A ,
-  output wire  cs_rec28B ,
-  output wire  cs_rec28C ,
-  output wire  cs_rec29A ,
-  output wire  cs_rec29B ,
-  output wire  cs_rec29C ,
-  output wire  cs_rec3A ,
-  output wire  cs_rec3B ,
-  output wire  cs_rec3C ,
-  output wire  cs_rec30A ,
-  output wire  cs_rec30B ,
-  output wire  cs_rec30C ,
-  output wire  cs_rec31A ,
-  output wire  cs_rec31B ,
-  output wire  cs_rec31C ,
-  output wire  cs_rec4A ,
-  output wire  cs_rec4B ,
-  output wire  cs_rec4C ,
-  output wire  cs_rec5A ,
-  output wire  cs_rec5B ,
-  output wire  cs_rec5C ,
-  output wire  cs_rec6A ,
-  output wire  cs_rec6B ,
-  output wire  cs_rec6C ,
-  output wire  cs_rec7A ,
-  output wire  cs_rec7B ,
-  output wire  cs_rec7C ,
-  output wire  cs_rec8A ,
-  output wire  cs_rec8B ,
-  output wire  cs_rec8C ,
-  output wire  cs_rec9A ,
-  output wire  cs_rec9B ,
-  output wire  cs_rec9C ,
-  output wire  irq_can_recA ,
-  output wire  irq_can_recB ,
-  output wire  irq_can_recC ,
-  output wire  read_n0A ,
-  output wire  read_n0B ,
-  output wire  read_n0C ,
-  output wire  read_n1A ,
-  output wire  read_n1B ,
-  output wire  read_n1C ,
-  output wire  read_n10A ,
-  output wire  read_n10B ,
-  output wire  read_n10C ,
-  output wire  read_n11A ,
-  output wire  read_n11B ,
-  output wire  read_n11C ,
-  output wire  read_n12A ,
-  output wire  read_n12B ,
-  output wire  read_n12C ,
-  output wire  read_n13A ,
-  output wire  read_n13B ,
-  output wire  read_n13C ,
-  output wire  read_n14A ,
-  output wire  read_n14B ,
-  output wire  read_n14C ,
-  output wire  read_n15A ,
-  output wire  read_n15B ,
-  output wire  read_n15C ,
-  output wire  read_n16A ,
-  output wire  read_n16B ,
-  output wire  read_n16C ,
-  output wire  read_n17A ,
-  output wire  read_n17B ,
-  output wire  read_n17C ,
-  output wire  read_n18A ,
-  output wire  read_n18B ,
-  output wire  read_n18C ,
-  output wire  read_n19A ,
-  output wire  read_n19B ,
-  output wire  read_n19C ,
-  output wire  read_n2A ,
-  output wire  read_n2B ,
-  output wire  read_n2C ,
-  output wire  read_n20A ,
-  output wire  read_n20B ,
-  output wire  read_n20C ,
-  output wire  read_n21A ,
-  output wire  read_n21B ,
-  output wire  read_n21C ,
-  output wire  read_n22A ,
-  output wire  read_n22B ,
-  output wire  read_n22C ,
-  output wire  read_n23A ,
-  output wire  read_n23B ,
-  output wire  read_n23C ,
-  output wire  read_n24A ,
-  output wire  read_n24B ,
-  output wire  read_n24C ,
-  output wire  read_n25A ,
-  output wire  read_n25B ,
-  output wire  read_n25C ,
-  output wire  read_n26A ,
-  output wire  read_n26B ,
-  output wire  read_n26C ,
-  output wire  read_n27A ,
-  output wire  read_n27B ,
-  output wire  read_n27C ,
-  output wire  read_n28A ,
-  output wire  read_n28B ,
-  output wire  read_n28C ,
-  output wire  read_n29A ,
-  output wire  read_n29B ,
-  output wire  read_n29C ,
-  output wire  read_n3A ,
-  output wire  read_n3B ,
-  output wire  read_n3C ,
-  output wire  read_n30A ,
-  output wire  read_n30B ,
-  output wire  read_n30C ,
-  output wire  read_n31A ,
-  output wire  read_n31B ,
-  output wire  read_n31C ,
-  output wire  read_n4A ,
-  output wire  read_n4B ,
-  output wire  read_n4C ,
-  output wire  read_n5A ,
-  output wire  read_n5B ,
-  output wire  read_n5C ,
-  output wire  read_n6A ,
-  output wire  read_n6B ,
-  output wire  read_n6C ,
-  output wire  read_n7A ,
-  output wire  read_n7B ,
-  output wire  read_n7C ,
-  output wire  read_n8A ,
-  output wire  read_n8B ,
-  output wire  read_n8C ,
-  output wire  read_n9A ,
-  output wire  read_n9B ,
-  output wire  read_n9C ,
-  output wire [15:0] readdataA ,
-  output wire [15:0] readdataB ,
-  output wire [15:0] readdataC 
+  input wire  clk ,
+  input wire  enable_cs_sig ,
+  input wire  end_can_proc ,
+  input wire  endwait ,
+  input wire  irqsucrec0 ,
+  input wire  irqsucrec1 ,
+  input wire  irqsucrec10 ,
+  input wire  irqsucrec11 ,
+  input wire  irqsucrec12 ,
+  input wire  irqsucrec13 ,
+  input wire  irqsucrec14 ,
+  input wire  irqsucrec15 ,
+  input wire  irqsucrec2 ,
+  input wire  irqsucrec3 ,
+  input wire  irqsucrec4 ,
+  input wire  irqsucrec5 ,
+  input wire  irqsucrec6 ,
+  input wire  irqsucrec7 ,
+  input wire  irqsucrec8 ,
+  input wire  irqsucrec9 ,
+  input wire  main_timeoutrst ,
+  input wire  read_n_sig ,
+  input wire [15:0] readdata0 ,
+  input wire [15:0] readdata1 ,
+  input wire [15:0] readdata10 ,
+  input wire [15:0] readdata11 ,
+  input wire [15:0] readdata12 ,
+  input wire [15:0] readdata13 ,
+  input wire [15:0] readdata14 ,
+  input wire [15:0] readdata15 ,
+  input wire [15:0] readdata2 ,
+  input wire [15:0] readdata3 ,
+  input wire [15:0] readdata4 ,
+  input wire [15:0] readdata5 ,
+  input wire [15:0] readdata6 ,
+  input wire [15:0] readdata7 ,
+  input wire [15:0] readdata8 ,
+  input wire [15:0] readdata9 ,
+  input wire  rst ,
+  output wire [4:0] bus_rec_select ,
+  output wire  cs_rec0 ,
+  output wire  cs_rec1 ,
+  output wire  cs_rec10 ,
+  output wire  cs_rec11 ,
+  output wire  cs_rec12 ,
+  output wire  cs_rec13 ,
+  output wire  cs_rec14 ,
+  output wire  cs_rec15 ,
+  output wire  cs_rec2 ,
+  output wire  cs_rec3 ,
+  output wire  cs_rec4 ,
+  output wire  cs_rec5 ,
+  output wire  cs_rec6 ,
+  output wire  cs_rec7 ,
+  output wire  cs_rec8 ,
+  output wire  cs_rec9 ,
+  output wire  irq_can_rec ,
+  output wire  read_n0 ,
+  output wire  read_n1 ,
+  output wire  read_n10 ,
+  output wire  read_n11 ,
+  output wire  read_n12 ,
+  output wire  read_n13 ,
+  output wire  read_n14 ,
+  output wire  read_n15 ,
+  output wire  read_n2 ,
+  output wire  read_n3 ,
+  output wire  read_n4 ,
+  output wire  read_n5 ,
+  output wire  read_n6 ,
+  output wire  read_n7 ,
+  output wire  read_n8 ,
+  output wire  read_n9 ,
+  output wire [15:0] readdata 
 );
-wire [31:0] can_rec_counterA;
-wire [31:0] can_rec_counterB;
-wire [31:0] can_rec_counterC;
-wire canakari_entimeoutA;
+wire rstC;
+wire rstB;
+wire rstA;
+wire ireqsucrecC;
+wire ireqsucrecB;
+wire ireqsucrecA;
+wire clkC;
+wire clkB;
+wire clkA;
+wor wenaTmrError;
+wire wena;
+wor time_limitTmrError;
+wire [31:0] time_limit;
+wor start_bus_loopTmrError;
+wire start_bus_loopB;
+wire start_bus_loopC;
+wire start_bus_loopA;
+wor read_irqsucrecTmrError;
+wire read_irqsucrecB;
+wire read_irqsucrecC;
+wire read_irqsucrecA;
+wor irq_can_recTmrError;
+wire irq_can_recB;
+wire irq_can_recC;
+wire irq_can_recA;
+wor fifo_read_enTmrError;
+wire fifo_read_enB;
+wire fifo_read_enC;
+wire fifo_read_enA;
+wor end_choose_busTmrError;
+wire end_choose_busB;
+wire end_choose_busC;
+wire end_choose_busA;
+wor done_bus_loopTmrError;
+wire done_bus_loopB;
+wire done_bus_loopC;
+wire done_bus_loopA;
+wor def_value_1TmrError;
+wire def_value_1;
+wor def_value_0TmrError;
+wire def_value_0;
+wor canakari_entimeoutTmrError;
 wire canakari_entimeoutB;
 wire canakari_entimeoutC;
-wire canakari_timeoutrstA;
-wire canakari_timeoutrstB;
-wire canakari_timeoutrstC;
-wire cs_signal_readA;
-wire cs_signal_readB;
-wire cs_signal_readC;
-reg  data_bitA ;
-reg  data_bitB ;
-reg  data_bitC ;
-wire [31:0] data_rec_outA;
-wire [31:0] data_rec_outB;
-wire [31:0] data_rec_outC;
-wire [4:0] data_tra_inA;
-wire [4:0] data_tra_inB;
-wire [4:0] data_tra_inC;
+wire canakari_entimeoutA;
+wor bus_rec_selectTmrError;
+wire [4:0] bus_rec_selectB;
+wire [4:0] bus_rec_selectC;
+wire [4:0] bus_rec_selectA;
+wire a_fifo_empty;
+wire canakari_entimeout;
+wire canakari_timeoutrst;
+wire cs_signal_read;
+wire [15:0] data_rec_out;
 reg  def_value_0A ;
 reg  def_value_0B ;
 reg  def_value_0C ;
 reg  def_value_1A ;
 reg  def_value_1B ;
 reg  def_value_1C ;
-wire done_bus_loopA;
-wire done_bus_loopB;
-wire done_bus_loopC;
-wire en_irqsucrec_readA;
-wire en_irqsucrec_readB;
-wire en_irqsucrec_readC;
-reg  end_can_proc2A ;
-reg  end_can_proc2B ;
-reg  end_can_proc2C ;
-wire end_choose_busA;
-wire end_choose_busB;
-wire end_choose_busC;
-wire [31:0] irqsucrec_signalsA;
-wire [31:0] irqsucrec_signalsB;
-wire [31:0] irqsucrec_signalsC;
-wire start_bus_loopA;
-wire start_bus_loopB;
-wire start_bus_loopC;
+wire done_bus_loop;
+wire end_choose_bus;
+wire [15:0] ffout;
+wire fifo_read_en;
+wire ireqsucrec;
+wire [15:0] irqsucrec_signals;
+wire read_irqsucrec;
+wire start_bus_loop;
 reg  [31:0] time_limitA ;
 reg  [31:0] time_limitB ;
 reg  [31:0] time_limitC ;
-wire timeoutrstA;
-wire timeoutrstB;
-wire timeoutrstC;
-
-bit_shifterTMR bit_shifter (
-    .ext_rstA(done_bus_loopA),
-    .ext_rstB(done_bus_loopB),
-    .ext_rstC(done_bus_loopC),
-    .rstA(rstA),
-    .rstB(rstB),
-    .rstC(rstC),
-    .data_bitA(data_bitA),
-    .data_bitB(data_bitB),
-    .data_bitC(data_bitC),
-    .data_outA(can_rec_counterA),
-    .data_outB(can_rec_counterB),
-    .data_outC(can_rec_counterC),
-    .clkA(clkA),
-    .clkB(clkB),
-    .clkC(clkC),
-    .cnt_enableA(start_bus_loopA),
-    .cnt_enableB(start_bus_loopB),
-    .cnt_enableC(start_bus_loopC)
-    );
-
-buffer_rec_canakariTMR canakari_rec_buffer_can (
-    .clkA(clkA),
-    .clkB(clkB),
-    .clkC(clkC),
-    .data_tra_inA(data_tra_inA),
-    .data_tra_inB(data_tra_inB),
-    .data_tra_inC(data_tra_inC),
-    .buffer_enA(irq_can_recA),
-    .buffer_enB(irq_can_recB),
-    .buffer_enC(irq_can_recC),
-    .rstA(rstA),
-    .rstB(rstB),
-    .rstC(rstC),
-    .data_tra_outA(bus_rec_selectA),
-    .data_tra_outB(bus_rec_selectB),
-    .data_tra_outC(bus_rec_selectC)
-    );
+wire timeoutrst;
+reg  wenaA ;
+reg  wenaB ;
+reg  wenaC ;
+reg  [15:0] mw_spi_bus_fiforeg_cval0 ;
+reg  [15:0] mw_spi_bus_fiforeg_cval1 ;
+reg  [15:0] mw_spi_bus_fiforeg_cval2 ;
+reg  [15:0] mw_spi_bus_fiforeg_cval3 ;
+reg  [15:0] mw_spi_bus_fiforeg_cval4 ;
+reg  [15:0] mw_spi_bus_fiforeg_cval5 ;
+reg  [15:0] mw_spi_bus_fiforeg_cval6 ;
+reg  [15:0] mw_spi_bus_fiforeg_cval7 ;
+reg  [15:0] mw_spi_bus_fiforeg_cval8 ;
+reg  [15:0] mw_spi_bus_fiforeg_cval9 ;
+reg  [15:0] mw_spi_bus_fiforeg_cval10 ;
+reg  [15:0] mw_spi_bus_fiforeg_cval11 ;
+reg  [15:0] mw_spi_bus_fiforeg_cval12 ;
+reg  [15:0] mw_spi_bus_fiforeg_cval13 ;
+reg  [15:0] mw_spi_bus_fiforeg_cval14 ;
+reg  [15:0] mw_spi_bus_fiforeg_cval15 ;
+reg  [15:0] mw_spi_bus_fiforeg_cval16 ;
+reg  [15:0] mw_spi_bus_fiforeg_cval17 ;
+reg  [15:0] mw_spi_bus_fiforeg_cval18 ;
+reg  [15:0] mw_spi_bus_fiforeg_cval19 ;
+reg  [15:0] mw_spi_bus_fiforeg_cval20 ;
+reg  [15:0] mw_spi_bus_fiforeg_cval21 ;
+reg  [15:0] mw_spi_bus_fiforeg_cval22 ;
+reg  [15:0] mw_spi_bus_fiforeg_cval23 ;
+reg  [15:0] mw_spi_bus_fiforeg_cval24 ;
+reg  [15:0] mw_spi_bus_fiforeg_cval25 ;
+reg  [15:0] mw_spi_bus_fiforeg_cval26 ;
+reg  [15:0] mw_spi_bus_fiforeg_cval27 ;
+reg  [15:0] mw_spi_bus_fiforeg_cval28 ;
+reg  [15:0] mw_spi_bus_fiforeg_cval29 ;
+reg  [15:0] mw_spi_bus_fiforeg_cval30 ;
+reg  [15:0] mw_spi_bus_fiforeg_cval31 ;
+reg  [15:0] mw_spi_bus_fiforeg_cval32 ;
+wire [15:0] mw_spi_bus_fiforeg_nval0;
+wire [15:0] mw_spi_bus_fiforeg_nval1;
+wire [15:0] mw_spi_bus_fiforeg_nval2;
+wire [15:0] mw_spi_bus_fiforeg_nval3;
+wire [15:0] mw_spi_bus_fiforeg_nval4;
+wire [15:0] mw_spi_bus_fiforeg_nval5;
+wire [15:0] mw_spi_bus_fiforeg_nval6;
+wire [15:0] mw_spi_bus_fiforeg_nval7;
+wire [15:0] mw_spi_bus_fiforeg_nval8;
+wire [15:0] mw_spi_bus_fiforeg_nval9;
+wire [15:0] mw_spi_bus_fiforeg_nval10;
+wire [15:0] mw_spi_bus_fiforeg_nval11;
+wire [15:0] mw_spi_bus_fiforeg_nval12;
+wire [15:0] mw_spi_bus_fiforeg_nval13;
+wire [15:0] mw_spi_bus_fiforeg_nval14;
+wire [15:0] mw_spi_bus_fiforeg_nval15;
+wire [15:0] mw_spi_bus_fiforeg_nval16;
+wire [15:0] mw_spi_bus_fiforeg_nval17;
+wire [15:0] mw_spi_bus_fiforeg_nval18;
+wire [15:0] mw_spi_bus_fiforeg_nval19;
+wire [15:0] mw_spi_bus_fiforeg_nval20;
+wire [15:0] mw_spi_bus_fiforeg_nval21;
+wire [15:0] mw_spi_bus_fiforeg_nval22;
+wire [15:0] mw_spi_bus_fiforeg_nval23;
+wire [15:0] mw_spi_bus_fiforeg_nval24;
+wire [15:0] mw_spi_bus_fiforeg_nval25;
+wire [15:0] mw_spi_bus_fiforeg_nval26;
+wire [15:0] mw_spi_bus_fiforeg_nval27;
+wire [15:0] mw_spi_bus_fiforeg_nval28;
+wire [15:0] mw_spi_bus_fiforeg_nval29;
+wire [15:0] mw_spi_bus_fiforeg_nval30;
+wire [15:0] mw_spi_bus_fiforeg_nval31;
+wire [15:0] mw_spi_bus_fiforeg_nval32;
+wire mw_spi_bus_fifotemp_rena;
+wire mw_spi_bus_fifotemp_wena;
+wire mw_spi_bus_fifotemp_full;
+wire mw_spi_bus_fifotemp_empty;
+reg  [5:0] mw_spi_bus_fifoaddr_cval ;
+wire [5:0] mw_spi_bus_fifoaddr_nval;
 
 bus_rec_SMTMR bus_rec_SM0 (
-    .bus_rec_selectA(data_tra_inA),
-    .bus_rec_selectB(data_tra_inB),
-    .bus_rec_selectC(data_tra_inC),
-    .entimeoutA(canakari_entimeoutA),
-    .entimeoutB(canakari_entimeoutB),
-    .entimeoutC(canakari_entimeoutC),
-    .can_recA(irqsucrec_signalsA),
-    .can_recB(irqsucrec_signalsB),
-    .can_recC(irqsucrec_signalsC),
-    .irq_can_recA(irq_can_recA),
-    .irq_can_recB(irq_can_recB),
-    .irq_can_recC(irq_can_recC),
-    .clkA(clkA),
-    .clkB(clkB),
-    .clkC(clkC),
-    .end_choose_busA(end_choose_busA),
-    .end_choose_busB(end_choose_busB),
-    .end_choose_busC(end_choose_busC),
-    .endwaitA(endwaitA),
-    .endwaitB(endwaitB),
-    .endwaitC(endwaitC),
-    .start_bus_loopA(start_bus_loopA),
-    .start_bus_loopB(start_bus_loopB),
-    .start_bus_loopC(start_bus_loopC),
-    .ireqsucrecA(ireqsucrecA),
-    .ireqsucrecB(ireqsucrecB),
-    .ireqsucrecC(ireqsucrecC),
-    .rstA(rstA),
-    .rstB(rstB),
-    .rstC(rstC),
-    .done_bus_loopA(done_bus_loopA),
-    .done_bus_loopB(done_bus_loopB),
-    .done_bus_loopC(done_bus_loopC),
-    .can_rec_counterA(can_rec_counterA),
-    .can_rec_counterB(can_rec_counterB),
-    .can_rec_counterC(can_rec_counterC),
-    .en_irqsucrec_readA(en_irqsucrec_readA),
-    .en_irqsucrec_readB(en_irqsucrec_readB),
-    .en_irqsucrec_readC(en_irqsucrec_readC),
-    .timeoutrstA(canakari_timeoutrstA),
-    .timeoutrstB(canakari_timeoutrstB),
-    .timeoutrstC(canakari_timeoutrstC),
-    .can_rec_updateA(data_rec_outA),
-    .can_rec_updateB(data_rec_outB),
-    .can_rec_updateC(data_rec_outC),
-    .end_can_procA(end_can_proc2A),
-    .end_can_procB(end_can_proc2B),
-    .end_can_procC(end_can_proc2C)
-    );
-
-dec1_NbitTMR dec1_Nbit_rec (
-    .clkA(clkA),
-    .clkB(clkB),
-    .clkC(clkC),
-    .rstA(rstA),
-    .rstB(rstB),
-    .rstC(rstC),
-    .buffer_enA(en_irqsucrec_readA),
-    .buffer_enB(en_irqsucrec_readB),
-    .buffer_enC(en_irqsucrec_readC),
-    .rst_bus_sigA(end_choose_busA),
-    .rst_bus_sigB(end_choose_busB),
-    .rst_bus_sigC(end_choose_busC),
     .bus_rec_selectA(bus_rec_selectA),
     .bus_rec_selectB(bus_rec_selectB),
     .bus_rec_selectC(bus_rec_selectC),
-    .data_rec_inA(irqsucrec_signalsA),
-    .data_rec_inB(irqsucrec_signalsB),
-    .data_rec_inC(irqsucrec_signalsC),
-    .data_rec_outA(data_rec_outA),
-    .data_rec_outB(data_rec_outB),
-    .data_rec_outC(data_rec_outC)
-    );
-
-dec32_NbitTMR dec32_ireqsucrec (
-    .clkA(clkA),
-    .clkB(clkB),
-    .clkC(clkC),
-    .rstA(rstA),
-    .rstB(rstB),
-    .rstC(rstC),
-    .read_can_modeA(read_can_modeA),
-    .read_can_modeB(read_can_modeB),
-    .read_can_modeC(read_can_modeC),
-    .ireqsucrecA(ireqsucrecA),
-    .ireqsucrecB(ireqsucrecB),
-    .ireqsucrecC(ireqsucrecC),
-    .Input0A(irqsucrec0A),
-    .Input0B(irqsucrec0B),
-    .Input0C(irqsucrec0C),
-    .Input1A(irqsucrec1A),
-    .Input1B(irqsucrec1B),
-    .Input1C(irqsucrec1C),
-    .Input2A(irqsucrec2A),
-    .Input2B(irqsucrec2B),
-    .Input2C(irqsucrec2C),
-    .Input3A(irqsucrec3A),
-    .Input3B(irqsucrec3B),
-    .Input3C(irqsucrec3C),
-    .Input4A(irqsucrec4A),
-    .Input4B(irqsucrec4B),
-    .Input4C(irqsucrec4C),
-    .Input5A(irqsucrec5A),
-    .Input5B(irqsucrec5B),
-    .Input5C(irqsucrec5C),
-    .Input6A(irqsucrec6A),
-    .Input6B(irqsucrec6B),
-    .Input6C(irqsucrec6C),
-    .Input7A(irqsucrec7A),
-    .Input7B(irqsucrec7B),
-    .Input7C(irqsucrec7C),
-    .Input8A(irqsucrec8A),
-    .Input8B(irqsucrec8B),
-    .Input8C(irqsucrec8C),
-    .Input9A(irqsucrec9A),
-    .Input9B(irqsucrec9B),
-    .Input9C(irqsucrec9C),
-    .Input10A(irqsucrec10A),
-    .Input10B(irqsucrec10B),
-    .Input10C(irqsucrec10C),
-    .Input11A(irqsucrec11A),
-    .Input11B(irqsucrec11B),
-    .Input11C(irqsucrec11C),
-    .Input12A(irqsucrec12A),
-    .Input12B(irqsucrec12B),
-    .Input12C(irqsucrec12C),
-    .Input13A(irqsucrec13A),
-    .Input13B(irqsucrec13B),
-    .Input13C(irqsucrec13C),
-    .Input14A(irqsucrec14A),
-    .Input14B(irqsucrec14B),
-    .Input14C(irqsucrec14C),
-    .Input15A(irqsucrec15A),
-    .Input15B(irqsucrec15B),
-    .Input15C(irqsucrec15C),
-    .Input16A(irqsucrec16A),
-    .Input16B(irqsucrec16B),
-    .Input16C(irqsucrec16C),
-    .Input17A(irqsucrec17A),
-    .Input17B(irqsucrec17B),
-    .Input17C(irqsucrec17C),
-    .Input18A(irqsucrec18A),
-    .Input18B(irqsucrec18B),
-    .Input18C(irqsucrec18C),
-    .Input19A(irqsucrec19A),
-    .Input19B(irqsucrec19B),
-    .Input19C(irqsucrec19C),
-    .Input20A(irqsucrec20A),
-    .Input20B(irqsucrec20B),
-    .Input20C(irqsucrec20C),
-    .Input21A(irqsucrec21A),
-    .Input21B(irqsucrec21B),
-    .Input21C(irqsucrec21C),
-    .Input22A(irqsucrec22A),
-    .Input22B(irqsucrec22B),
-    .Input22C(irqsucrec22C),
-    .Input23A(irqsucrec23A),
-    .Input23B(irqsucrec23B),
-    .Input23C(irqsucrec23C),
-    .Input24A(irqsucrec24A),
-    .Input24B(irqsucrec24B),
-    .Input24C(irqsucrec24C),
-    .Input25A(irqsucrec25A),
-    .Input25B(irqsucrec25B),
-    .Input25C(irqsucrec25C),
-    .Input26A(irqsucrec26A),
-    .Input26B(irqsucrec26B),
-    .Input26C(irqsucrec26C),
-    .Input27A(irqsucrec27A),
-    .Input27B(irqsucrec27B),
-    .Input27C(irqsucrec27C),
-    .Input28A(irqsucrec28A),
-    .Input28B(irqsucrec28B),
-    .Input28C(irqsucrec28C),
-    .Input29A(irqsucrec29A),
-    .Input29B(irqsucrec29B),
-    .Input29C(irqsucrec29C),
-    .Input30A(irqsucrec30A),
-    .Input30B(irqsucrec30B),
-    .Input30C(irqsucrec30C),
-    .Input31A(irqsucrec31A),
-    .Input31B(irqsucrec31B),
-    .Input31C(irqsucrec31C),
-    .data_tra_outA(irqsucrec_signalsA),
-    .data_tra_outB(irqsucrec_signalsB),
-    .data_tra_outC(irqsucrec_signalsC)
-    );
-
-demux1_1bitTMR demux1_1bit_cs_rec (
-    .def_valueA(def_value_0A),
-    .def_valueB(def_value_0B),
-    .def_valueC(def_value_0C),
-    .selA(bus_rec_selectA),
-    .selB(bus_rec_selectB),
-    .selC(bus_rec_selectC),
-    .input_portA(cs_signal_readA),
-    .input_portB(cs_signal_readB),
-    .input_portC(cs_signal_readC),
-    .output0A(cs_rec0A),
-    .output0B(cs_rec0B),
-    .output0C(cs_rec0C),
-    .output1A(cs_rec1A),
-    .output1B(cs_rec1B),
-    .output1C(cs_rec1C),
-    .output2A(cs_rec2A),
-    .output2B(cs_rec2B),
-    .output2C(cs_rec2C),
-    .output3A(cs_rec3A),
-    .output3B(cs_rec3B),
-    .output3C(cs_rec3C),
-    .output4A(cs_rec4A),
-    .output4B(cs_rec4B),
-    .output4C(cs_rec4C),
-    .output5A(cs_rec5A),
-    .output5B(cs_rec5B),
-    .output5C(cs_rec5C),
-    .output6A(cs_rec6A),
-    .output6B(cs_rec6B),
-    .output6C(cs_rec6C),
-    .output7A(cs_rec7A),
-    .output7B(cs_rec7B),
-    .output7C(cs_rec7C),
-    .output8A(cs_rec8A),
-    .output8B(cs_rec8B),
-    .output8C(cs_rec8C),
-    .output9A(cs_rec9A),
-    .output9B(cs_rec9B),
-    .output9C(cs_rec9C),
-    .output10A(cs_rec10A),
-    .output10B(cs_rec10B),
-    .output10C(cs_rec10C),
-    .output11A(cs_rec11A),
-    .output11B(cs_rec11B),
-    .output11C(cs_rec11C),
-    .output12A(cs_rec12A),
-    .output12B(cs_rec12B),
-    .output12C(cs_rec12C),
-    .output13A(cs_rec13A),
-    .output13B(cs_rec13B),
-    .output13C(cs_rec13C),
-    .output14A(cs_rec14A),
-    .output14B(cs_rec14B),
-    .output14C(cs_rec14C),
-    .output15A(cs_rec15A),
-    .output15B(cs_rec15B),
-    .output15C(cs_rec15C),
-    .output16A(cs_rec16A),
-    .output16B(cs_rec16B),
-    .output16C(cs_rec16C),
-    .output17A(cs_rec17A),
-    .output17B(cs_rec17B),
-    .output17C(cs_rec17C),
-    .output18A(cs_rec18A),
-    .output18B(cs_rec18B),
-    .output18C(cs_rec18C),
-    .output19A(cs_rec19A),
-    .output19B(cs_rec19B),
-    .output19C(cs_rec19C),
-    .output20A(cs_rec20A),
-    .output20B(cs_rec20B),
-    .output20C(cs_rec20C),
-    .output21A(cs_rec21A),
-    .output21B(cs_rec21B),
-    .output21C(cs_rec21C),
-    .output22A(cs_rec22A),
-    .output22B(cs_rec22B),
-    .output22C(cs_rec22C),
-    .output23A(cs_rec23A),
-    .output23B(cs_rec23B),
-    .output23C(cs_rec23C),
-    .output24A(cs_rec24A),
-    .output24B(cs_rec24B),
-    .output24C(cs_rec24C),
-    .output25A(cs_rec25A),
-    .output25B(cs_rec25B),
-    .output25C(cs_rec25C),
-    .output26A(cs_rec26A),
-    .output26B(cs_rec26B),
-    .output26C(cs_rec26C),
-    .output27A(cs_rec27A),
-    .output27B(cs_rec27B),
-    .output27C(cs_rec27C),
-    .output28A(cs_rec28A),
-    .output28B(cs_rec28B),
-    .output28C(cs_rec28C),
-    .output29A(cs_rec29A),
-    .output29B(cs_rec29B),
-    .output29C(cs_rec29C),
-    .output30A(cs_rec30A),
-    .output30B(cs_rec30B),
-    .output30C(cs_rec30C),
-    .output31A(cs_rec31A),
-    .output31B(cs_rec31B),
-    .output31C(cs_rec31C)
-    );
-
-demux1_1bitTMR demux1_read_n (
-    .def_valueA(def_value_1A),
-    .def_valueB(def_value_1B),
-    .def_valueC(def_value_1C),
-    .selA(bus_rec_selectA),
-    .selB(bus_rec_selectB),
-    .selC(bus_rec_selectC),
-    .input_portA(read_n_sigA),
-    .input_portB(read_n_sigB),
-    .input_portC(read_n_sigC),
-    .output0A(read_n0A),
-    .output0B(read_n0B),
-    .output0C(read_n0C),
-    .output1A(read_n1A),
-    .output1B(read_n1B),
-    .output1C(read_n1C),
-    .output2A(read_n2A),
-    .output2B(read_n2B),
-    .output2C(read_n2C),
-    .output3A(read_n3A),
-    .output3B(read_n3B),
-    .output3C(read_n3C),
-    .output4A(read_n4A),
-    .output4B(read_n4B),
-    .output4C(read_n4C),
-    .output5A(read_n5A),
-    .output5B(read_n5B),
-    .output5C(read_n5C),
-    .output6A(read_n6A),
-    .output6B(read_n6B),
-    .output6C(read_n6C),
-    .output7A(read_n7A),
-    .output7B(read_n7B),
-    .output7C(read_n7C),
-    .output8A(read_n8A),
-    .output8B(read_n8B),
-    .output8C(read_n8C),
-    .output9A(read_n9A),
-    .output9B(read_n9B),
-    .output9C(read_n9C),
-    .output10A(read_n10A),
-    .output10B(read_n10B),
-    .output10C(read_n10C),
-    .output11A(read_n11A),
-    .output11B(read_n11B),
-    .output11C(read_n11C),
-    .output12A(read_n12A),
-    .output12B(read_n12B),
-    .output12C(read_n12C),
-    .output13A(read_n13A),
-    .output13B(read_n13B),
-    .output13C(read_n13C),
-    .output14A(read_n14A),
-    .output14B(read_n14B),
-    .output14C(read_n14C),
-    .output15A(read_n15A),
-    .output15B(read_n15B),
-    .output15C(read_n15C),
-    .output16A(read_n16A),
-    .output16B(read_n16B),
-    .output16C(read_n16C),
-    .output17A(read_n17A),
-    .output17B(read_n17B),
-    .output17C(read_n17C),
-    .output18A(read_n18A),
-    .output18B(read_n18B),
-    .output18C(read_n18C),
-    .output19A(read_n19A),
-    .output19B(read_n19B),
-    .output19C(read_n19C),
-    .output20A(read_n20A),
-    .output20B(read_n20B),
-    .output20C(read_n20C),
-    .output21A(read_n21A),
-    .output21B(read_n21B),
-    .output21C(read_n21C),
-    .output22A(read_n22A),
-    .output22B(read_n22B),
-    .output22C(read_n22C),
-    .output23A(read_n23A),
-    .output23B(read_n23B),
-    .output23C(read_n23C),
-    .output24A(read_n24A),
-    .output24B(read_n24B),
-    .output24C(read_n24C),
-    .output25A(read_n25A),
-    .output25B(read_n25B),
-    .output25C(read_n25C),
-    .output26A(read_n26A),
-    .output26B(read_n26B),
-    .output26C(read_n26C),
-    .output27A(read_n27A),
-    .output27B(read_n27B),
-    .output27C(read_n27C),
-    .output28A(read_n28A),
-    .output28B(read_n28B),
-    .output28C(read_n28C),
-    .output29A(read_n29A),
-    .output29B(read_n29B),
-    .output29C(read_n29C),
-    .output30A(read_n30A),
-    .output30B(read_n30B),
-    .output30C(read_n30C),
-    .output31A(read_n31A),
-    .output31B(read_n31B),
-    .output31C(read_n31C)
-    );
-
-mux32_NbitTMR mux32_Nbit_readdata (
-    .data0A(readdata0A),
-    .data0B(readdata0B),
-    .data0C(readdata0C),
-    .data1A(readdata1A),
-    .data1B(readdata1B),
-    .data1C(readdata1C),
-    .data2A(readdata2A),
-    .data2B(readdata2B),
-    .data2C(readdata2C),
-    .data3A(readdata3A),
-    .data3B(readdata3B),
-    .data3C(readdata3C),
-    .data4A(readdata4A),
-    .data4B(readdata4B),
-    .data4C(readdata4C),
-    .data5A(readdata5A),
-    .data5B(readdata5B),
-    .data5C(readdata5C),
-    .data6A(readdata6A),
-    .data6B(readdata6B),
-    .data6C(readdata6C),
-    .data7A(readdata7A),
-    .data7B(readdata7B),
-    .data7C(readdata7C),
-    .data8A(readdata8A),
-    .data8B(readdata8B),
-    .data8C(readdata8C),
-    .data9A(readdata9A),
-    .data9B(readdata9B),
-    .data9C(readdata9C),
-    .data10A(readdata10A),
-    .data10B(readdata10B),
-    .data10C(readdata10C),
-    .data11A(readdata11A),
-    .data11B(readdata11B),
-    .data11C(readdata11C),
-    .data12A(readdata12A),
-    .data12B(readdata12B),
-    .data12C(readdata12C),
-    .data13A(readdata13A),
-    .data13B(readdata13B),
-    .data13C(readdata13C),
-    .data14A(readdata14A),
-    .data14B(readdata14B),
-    .data14C(readdata14C),
-    .data15A(readdata15A),
-    .data15B(readdata15B),
-    .data15C(readdata15C),
-    .data16A(readdata16A),
-    .data16B(readdata16B),
-    .data16C(readdata16C),
-    .data17A(readdata17A),
-    .data17B(readdata17B),
-    .data17C(readdata17C),
-    .data18A(readdata18A),
-    .data18B(readdata18B),
-    .data18C(readdata18C),
-    .data19A(readdata19A),
-    .data19B(readdata19B),
-    .data19C(readdata19C),
-    .data20A(readdata20A),
-    .data20B(readdata20B),
-    .data20C(readdata20C),
-    .data21A(readdata21A),
-    .data21B(readdata21B),
-    .data21C(readdata21C),
-    .data22A(readdata22A),
-    .data22B(readdata22B),
-    .data22C(readdata22C),
-    .data23A(readdata23A),
-    .data23B(readdata23B),
-    .data23C(readdata23C),
-    .data24A(readdata24A),
-    .data24B(readdata24B),
-    .data24C(readdata24C),
-    .data25A(readdata25A),
-    .data25B(readdata25B),
-    .data25C(readdata25C),
-    .data26A(readdata26A),
-    .data26B(readdata26B),
-    .data26C(readdata26C),
-    .data27A(readdata27A),
-    .data27B(readdata27B),
-    .data27C(readdata27C),
-    .data28A(readdata28A),
-    .data28B(readdata28B),
-    .data28C(readdata28C),
-    .data29A(readdata29A),
-    .data29B(readdata29B),
-    .data29C(readdata29C),
-    .data30A(readdata30A),
-    .data30B(readdata30B),
-    .data30C(readdata30C),
-    .data31A(readdata31A),
-    .data31B(readdata31B),
-    .data31C(readdata31C),
-    .selA(bus_rec_selectA),
-    .selB(bus_rec_selectB),
-    .selC(bus_rec_selectC),
-    .data_outA(readdataA),
-    .data_outB(readdataB),
-    .data_outC(readdataC)
-    );
-
-timout_rstTMR timout_rst1 (
-    .clkA(clkA),
-    .clkB(clkB),
-    .clkC(clkC),
     .entimeoutA(canakari_entimeoutA),
     .entimeoutB(canakari_entimeoutB),
     .entimeoutC(canakari_entimeoutC),
-    .time_limitA(time_limitA),
-    .time_limitB(time_limitB),
-    .time_limitC(time_limitC),
-    .rstA(rstA),
-    .rstB(rstB),
-    .rstC(rstC),
-    .timeoutrstA(timeoutrstA),
-    .timeoutrstB(timeoutrstB),
-    .timeoutrstC(timeoutrstC)
+    .can_rec(data_rec_out),
+    .irq_can_recA(irq_can_recA),
+    .irq_can_recB(irq_can_recB),
+    .irq_can_recC(irq_can_recC),
+    .clk(clk),
+    .end_choose_busA(end_choose_busA),
+    .end_choose_busB(end_choose_busB),
+    .end_choose_busC(end_choose_busC),
+    .endwait(endwait),
+    .start_bus_loopA(start_bus_loopA),
+    .start_bus_loopB(start_bus_loopB),
+    .start_bus_loopC(start_bus_loopC),
+    .ireqsucrec(a_fifo_empty),
+    .rst(rst),
+    .done_bus_loopA(done_bus_loopA),
+    .done_bus_loopB(done_bus_loopB),
+    .done_bus_loopC(done_bus_loopC),
+    .read_irqsucrecA(read_irqsucrecA),
+    .read_irqsucrecB(read_irqsucrecB),
+    .read_irqsucrecC(read_irqsucrecC),
+    .timeoutrst(canakari_timeoutrst),
+    .end_can_proc(end_can_proc),
+    .fifo_read_enA(fifo_read_enA),
+    .fifo_read_enB(fifo_read_enB),
+    .fifo_read_enC(fifo_read_enC)
+    );
+
+dec1_NbitTMR dec1_Nbit_rec (
+    .clk(clk),
+    .rst(rst),
+    .buffer_en(read_irqsucrec),
+    .rst_bus_sig(end_choose_bus),
+    .bus_rec_select(bus_rec_select),
+    .data_rec_in(ffout),
+    .data_rec_out(data_rec_out)
+    );
+
+dec32_NbitTMR dec32_ireqsucrec (
+    .clk(clk),
+    .rst(rst),
+    .Input0(irqsucrec0),
+    .Input1(irqsucrec1),
+    .Input2(irqsucrec2),
+    .Input3(irqsucrec3),
+    .Input4(irqsucrec4),
+    .Input5(irqsucrec5),
+    .Input6(irqsucrec6),
+    .Input7(irqsucrec7),
+    .Input8(irqsucrec8),
+    .Input9(irqsucrec9),
+    .Input10(irqsucrec10),
+    .Input11(irqsucrec11),
+    .Input12(irqsucrec12),
+    .Input13(irqsucrec13),
+    .Input14(irqsucrec14),
+    .Input15(irqsucrec15),
+    .data_tra_out(irqsucrec_signals)
+    );
+
+demux1_1bitTMR demux1_1bit_cs_rec (
+    .def_value(def_value_0),
+    .sel(bus_rec_select),
+    .input_port(cs_signal_read),
+    .output0(cs_rec0),
+    .output1(cs_rec1),
+    .output2(cs_rec2),
+    .output3(cs_rec3),
+    .output4(cs_rec4),
+    .output5(cs_rec5),
+    .output6(cs_rec6),
+    .output7(cs_rec7),
+    .output8(cs_rec8),
+    .output9(cs_rec9),
+    .output10(cs_rec10),
+    .output11(cs_rec11),
+    .output12(cs_rec12),
+    .output13(cs_rec13),
+    .output14(cs_rec14),
+    .output15(cs_rec15)
+    );
+
+demux1_1bitTMR demux1_read_n (
+    .def_value(def_value_1),
+    .sel(bus_rec_select),
+    .input_port(read_n_sig),
+    .output0(read_n0),
+    .output1(read_n1),
+    .output2(read_n2),
+    .output3(read_n3),
+    .output4(read_n4),
+    .output5(read_n5),
+    .output6(read_n6),
+    .output7(read_n7),
+    .output8(read_n8),
+    .output9(read_n9),
+    .output10(read_n10),
+    .output11(read_n11),
+    .output12(read_n12),
+    .output13(read_n13),
+    .output14(read_n14),
+    .output15(read_n15)
+    );
+
+mux32_NbitTMR mux32_Nbit_readdata (
+    .data0(readdata0),
+    .data1(readdata1),
+    .data2(readdata2),
+    .data3(readdata3),
+    .data4(readdata4),
+    .data5(readdata5),
+    .data6(readdata6),
+    .data7(readdata7),
+    .data8(readdata8),
+    .data9(readdata9),
+    .data10(readdata10),
+    .data11(readdata11),
+    .data12(readdata12),
+    .data13(readdata13),
+    .data14(readdata14),
+    .data15(readdata15),
+    .sel(bus_rec_select),
+    .data_out(readdata)
+    );
+
+timout_rstTMR timout_rst1 (
+    .clk(clk),
+    .entimeout(canakari_entimeout),
+    .time_limit(time_limit),
+    .rst(rst),
+    .timeoutrst(timeoutrst)
     );
 initial
   begin
-    data_bitA =  1;
     def_value_0A =  1'b0;
     def_value_1A =  1'b1;
-    end_can_proc2A =  1'b1;
     time_limitA =  32'd25000000;
   end
 initial
   begin
-    data_bitB =  1;
     def_value_0B =  1'b0;
     def_value_1B =  1'b1;
-    end_can_proc2B =  1'b1;
     time_limitB =  32'd25000000;
   end
 initial
   begin
-    data_bitC =  1;
     def_value_0C =  1'b0;
     def_value_1C =  1'b1;
-    end_can_proc2C =  1'b1;
     time_limitC =  32'd25000000;
   end
-assign cs_signal_readA =  (enable_cs_sigA&&!read_n_sigA);
-assign cs_signal_readB =  (enable_cs_sigB&&!read_n_sigB);
-assign cs_signal_readC =  (enable_cs_sigC&&!read_n_sigC);
-assign canakari_timeoutrstA =  (main_timeoutrstA||timeoutrstA);
-assign canakari_timeoutrstB =  (main_timeoutrstB||timeoutrstB);
-assign canakari_timeoutrstC =  (main_timeoutrstC||timeoutrstC);
+assign ireqsucrec =  irqsucrec0|irqsucrec1|irqsucrec2|irqsucrec3|irqsucrec4|irqsucrec5|irqsucrec6|irqsucrec7|irqsucrec8|irqsucrec9|irqsucrec10|irqsucrec11|irqsucrec12|irqsucrec13|irqsucrec14|irqsucrec15;
+
+always @( posedge clkA )
+  begin
+    if (!rstA)
+      wenaA <= 0;
+    else
+      if (ireqsucrecA)
+        wenaA <= 1;
+      else
+        wenaA <= 0;
+  end
+
+always @( posedge clkB )
+  begin
+    if (!rstB)
+      wenaB <= 0;
+    else
+      if (ireqsucrecB)
+        wenaB <= 1;
+      else
+        wenaB <= 0;
+  end
+
+always @( posedge clkC )
+  begin
+    if (!rstC)
+      wenaC <= 0;
+    else
+      if (ireqsucrecC)
+        wenaC <= 1;
+      else
+        wenaC <= 0;
+  end
+assign cs_signal_read =  (enable_cs_sig&&!read_n_sig);
+assign canakari_timeoutrst =  (main_timeoutrst||timeoutrst);
+assign ffout =  mw_spi_bus_fiforeg_cval0;
+assign a_fifo_empty =  ~(mw_spi_bus_fifotemp_empty);
+assign mw_spi_bus_fifotemp_rena =  rst&fifo_read_en&~mw_spi_bus_fifotemp_empty;
+assign mw_spi_bus_fifotemp_wena =  rst&wena&~mw_spi_bus_fifotemp_full;
+assign mw_spi_bus_fifotemp_empty =  (mw_spi_bus_fifoaddr_cval==0);
+assign mw_spi_bus_fifotemp_full =  (mw_spi_bus_fifoaddr_cval==32);
+assign mw_spi_bus_fifoaddr_nval =  (~ rst ) ? 0 : mw_spi_bus_fifotemp_wena ? mw_spi_bus_fifotemp_rena ? mw_spi_bus_fifoaddr_cval : mw_spi_bus_fifoaddr_cval+1'b1 : mw_spi_bus_fifotemp_rena ? mw_spi_bus_fifoaddr_cval-1'b1 : mw_spi_bus_fifoaddr_cval;
+
+always @( posedge clk )
+  begin : spi_bus_fifoseq_proc
+    if (def_value_1)
+      mw_spi_bus_fifoaddr_cval =  mw_spi_bus_fifoaddr_nval;
+  end
+
+always @( posedge clk )
+  begin : spi_bus_fifomove_proc
+    if (def_value_1)
+      begin
+        mw_spi_bus_fiforeg_cval0[15:0]  =  mw_spi_bus_fiforeg_nval0[15:0] ;
+        mw_spi_bus_fiforeg_cval1[15:0]  =  mw_spi_bus_fiforeg_nval1[15:0] ;
+        mw_spi_bus_fiforeg_cval2[15:0]  =  mw_spi_bus_fiforeg_nval2[15:0] ;
+        mw_spi_bus_fiforeg_cval3[15:0]  =  mw_spi_bus_fiforeg_nval3[15:0] ;
+        mw_spi_bus_fiforeg_cval4[15:0]  =  mw_spi_bus_fiforeg_nval4[15:0] ;
+        mw_spi_bus_fiforeg_cval5[15:0]  =  mw_spi_bus_fiforeg_nval5[15:0] ;
+        mw_spi_bus_fiforeg_cval6[15:0]  =  mw_spi_bus_fiforeg_nval6[15:0] ;
+        mw_spi_bus_fiforeg_cval7[15:0]  =  mw_spi_bus_fiforeg_nval7[15:0] ;
+        mw_spi_bus_fiforeg_cval8[15:0]  =  mw_spi_bus_fiforeg_nval8[15:0] ;
+        mw_spi_bus_fiforeg_cval9[15:0]  =  mw_spi_bus_fiforeg_nval9[15:0] ;
+        mw_spi_bus_fiforeg_cval10[15:0]  =  mw_spi_bus_fiforeg_nval10[15:0] ;
+        mw_spi_bus_fiforeg_cval11[15:0]  =  mw_spi_bus_fiforeg_nval11[15:0] ;
+        mw_spi_bus_fiforeg_cval12[15:0]  =  mw_spi_bus_fiforeg_nval12[15:0] ;
+        mw_spi_bus_fiforeg_cval13[15:0]  =  mw_spi_bus_fiforeg_nval13[15:0] ;
+        mw_spi_bus_fiforeg_cval14[15:0]  =  mw_spi_bus_fiforeg_nval14[15:0] ;
+        mw_spi_bus_fiforeg_cval15[15:0]  =  mw_spi_bus_fiforeg_nval15[15:0] ;
+        mw_spi_bus_fiforeg_cval16[15:0]  =  mw_spi_bus_fiforeg_nval16[15:0] ;
+        mw_spi_bus_fiforeg_cval17[15:0]  =  mw_spi_bus_fiforeg_nval17[15:0] ;
+        mw_spi_bus_fiforeg_cval18[15:0]  =  mw_spi_bus_fiforeg_nval18[15:0] ;
+        mw_spi_bus_fiforeg_cval19[15:0]  =  mw_spi_bus_fiforeg_nval19[15:0] ;
+        mw_spi_bus_fiforeg_cval20[15:0]  =  mw_spi_bus_fiforeg_nval20[15:0] ;
+        mw_spi_bus_fiforeg_cval21[15:0]  =  mw_spi_bus_fiforeg_nval21[15:0] ;
+        mw_spi_bus_fiforeg_cval22[15:0]  =  mw_spi_bus_fiforeg_nval22[15:0] ;
+        mw_spi_bus_fiforeg_cval23[15:0]  =  mw_spi_bus_fiforeg_nval23[15:0] ;
+        mw_spi_bus_fiforeg_cval24[15:0]  =  mw_spi_bus_fiforeg_nval24[15:0] ;
+        mw_spi_bus_fiforeg_cval25[15:0]  =  mw_spi_bus_fiforeg_nval25[15:0] ;
+        mw_spi_bus_fiforeg_cval26[15:0]  =  mw_spi_bus_fiforeg_nval26[15:0] ;
+        mw_spi_bus_fiforeg_cval27[15:0]  =  mw_spi_bus_fiforeg_nval27[15:0] ;
+        mw_spi_bus_fiforeg_cval28[15:0]  =  mw_spi_bus_fiforeg_nval28[15:0] ;
+        mw_spi_bus_fiforeg_cval29[15:0]  =  mw_spi_bus_fiforeg_nval29[15:0] ;
+        mw_spi_bus_fiforeg_cval30[15:0]  =  mw_spi_bus_fiforeg_nval30[15:0] ;
+        mw_spi_bus_fiforeg_cval31[15:0]  =  mw_spi_bus_fiforeg_nval31[15:0] ;
+        mw_spi_bus_fiforeg_cval32[15:0]  =  mw_spi_bus_fiforeg_nval32[15:0] ;
+      end
+  end
+assign mw_spi_bus_fiforeg_nval0[15:0]  =  mw_spi_bus_fifotemp_wena ? mw_spi_bus_fifotemp_rena ? (mw_spi_bus_fifoaddr_cval==0) ? irqsucrec_signals : mw_spi_bus_fiforeg_cval1[15:0]  : mw_spi_bus_fiforeg_cval0[15:0]  : mw_spi_bus_fifotemp_rena ? mw_spi_bus_fiforeg_cval1[15:0]  : mw_spi_bus_fiforeg_cval0[15:0] ;
+assign mw_spi_bus_fiforeg_nval1[15:0]  =  mw_spi_bus_fifotemp_wena ? mw_spi_bus_fifotemp_rena ? (mw_spi_bus_fifoaddr_cval==1) ? irqsucrec_signals : mw_spi_bus_fiforeg_cval2[15:0]  : (mw_spi_bus_fifoaddr_cval==0) ? irqsucrec_signals : mw_spi_bus_fiforeg_cval1[15:0]  : mw_spi_bus_fifotemp_rena ? mw_spi_bus_fiforeg_cval2[15:0]  : mw_spi_bus_fiforeg_cval1[15:0] ;
+assign mw_spi_bus_fiforeg_nval2[15:0]  =  mw_spi_bus_fifotemp_wena ? mw_spi_bus_fifotemp_rena ? (mw_spi_bus_fifoaddr_cval==2) ? irqsucrec_signals : mw_spi_bus_fiforeg_cval3[15:0]  : (mw_spi_bus_fifoaddr_cval==1) ? irqsucrec_signals : mw_spi_bus_fiforeg_cval2[15:0]  : mw_spi_bus_fifotemp_rena ? mw_spi_bus_fiforeg_cval3[15:0]  : mw_spi_bus_fiforeg_cval2[15:0] ;
+assign mw_spi_bus_fiforeg_nval3[15:0]  =  mw_spi_bus_fifotemp_wena ? mw_spi_bus_fifotemp_rena ? (mw_spi_bus_fifoaddr_cval==3) ? irqsucrec_signals : mw_spi_bus_fiforeg_cval4[15:0]  : (mw_spi_bus_fifoaddr_cval==2) ? irqsucrec_signals : mw_spi_bus_fiforeg_cval3[15:0]  : mw_spi_bus_fifotemp_rena ? mw_spi_bus_fiforeg_cval4[15:0]  : mw_spi_bus_fiforeg_cval3[15:0] ;
+assign mw_spi_bus_fiforeg_nval4[15:0]  =  mw_spi_bus_fifotemp_wena ? mw_spi_bus_fifotemp_rena ? (mw_spi_bus_fifoaddr_cval==4) ? irqsucrec_signals : mw_spi_bus_fiforeg_cval5[15:0]  : (mw_spi_bus_fifoaddr_cval==3) ? irqsucrec_signals : mw_spi_bus_fiforeg_cval4[15:0]  : mw_spi_bus_fifotemp_rena ? mw_spi_bus_fiforeg_cval5[15:0]  : mw_spi_bus_fiforeg_cval4[15:0] ;
+assign mw_spi_bus_fiforeg_nval5[15:0]  =  mw_spi_bus_fifotemp_wena ? mw_spi_bus_fifotemp_rena ? (mw_spi_bus_fifoaddr_cval==5) ? irqsucrec_signals : mw_spi_bus_fiforeg_cval6[15:0]  : (mw_spi_bus_fifoaddr_cval==4) ? irqsucrec_signals : mw_spi_bus_fiforeg_cval5[15:0]  : mw_spi_bus_fifotemp_rena ? mw_spi_bus_fiforeg_cval6[15:0]  : mw_spi_bus_fiforeg_cval5[15:0] ;
+assign mw_spi_bus_fiforeg_nval6[15:0]  =  mw_spi_bus_fifotemp_wena ? mw_spi_bus_fifotemp_rena ? (mw_spi_bus_fifoaddr_cval==6) ? irqsucrec_signals : mw_spi_bus_fiforeg_cval7[15:0]  : (mw_spi_bus_fifoaddr_cval==5) ? irqsucrec_signals : mw_spi_bus_fiforeg_cval6[15:0]  : mw_spi_bus_fifotemp_rena ? mw_spi_bus_fiforeg_cval7[15:0]  : mw_spi_bus_fiforeg_cval6[15:0] ;
+assign mw_spi_bus_fiforeg_nval7[15:0]  =  mw_spi_bus_fifotemp_wena ? mw_spi_bus_fifotemp_rena ? (mw_spi_bus_fifoaddr_cval==7) ? irqsucrec_signals : mw_spi_bus_fiforeg_cval8[15:0]  : (mw_spi_bus_fifoaddr_cval==6) ? irqsucrec_signals : mw_spi_bus_fiforeg_cval7[15:0]  : mw_spi_bus_fifotemp_rena ? mw_spi_bus_fiforeg_cval8[15:0]  : mw_spi_bus_fiforeg_cval7[15:0] ;
+assign mw_spi_bus_fiforeg_nval8[15:0]  =  mw_spi_bus_fifotemp_wena ? mw_spi_bus_fifotemp_rena ? (mw_spi_bus_fifoaddr_cval==8) ? irqsucrec_signals : mw_spi_bus_fiforeg_cval9[15:0]  : (mw_spi_bus_fifoaddr_cval==7) ? irqsucrec_signals : mw_spi_bus_fiforeg_cval8[15:0]  : mw_spi_bus_fifotemp_rena ? mw_spi_bus_fiforeg_cval9[15:0]  : mw_spi_bus_fiforeg_cval8[15:0] ;
+assign mw_spi_bus_fiforeg_nval9[15:0]  =  mw_spi_bus_fifotemp_wena ? mw_spi_bus_fifotemp_rena ? (mw_spi_bus_fifoaddr_cval==9) ? irqsucrec_signals : mw_spi_bus_fiforeg_cval10[15:0]  : (mw_spi_bus_fifoaddr_cval==8) ? irqsucrec_signals : mw_spi_bus_fiforeg_cval9[15:0]  : mw_spi_bus_fifotemp_rena ? mw_spi_bus_fiforeg_cval10[15:0]  : mw_spi_bus_fiforeg_cval9[15:0] ;
+assign mw_spi_bus_fiforeg_nval10[15:0]  =  mw_spi_bus_fifotemp_wena ? mw_spi_bus_fifotemp_rena ? (mw_spi_bus_fifoaddr_cval==10) ? irqsucrec_signals : mw_spi_bus_fiforeg_cval11[15:0]  : (mw_spi_bus_fifoaddr_cval==9) ? irqsucrec_signals : mw_spi_bus_fiforeg_cval10[15:0]  : mw_spi_bus_fifotemp_rena ? mw_spi_bus_fiforeg_cval11[15:0]  : mw_spi_bus_fiforeg_cval10[15:0] ;
+assign mw_spi_bus_fiforeg_nval11[15:0]  =  mw_spi_bus_fifotemp_wena ? mw_spi_bus_fifotemp_rena ? (mw_spi_bus_fifoaddr_cval==11) ? irqsucrec_signals : mw_spi_bus_fiforeg_cval12[15:0]  : (mw_spi_bus_fifoaddr_cval==10) ? irqsucrec_signals : mw_spi_bus_fiforeg_cval11[15:0]  : mw_spi_bus_fifotemp_rena ? mw_spi_bus_fiforeg_cval12[15:0]  : mw_spi_bus_fiforeg_cval11[15:0] ;
+assign mw_spi_bus_fiforeg_nval12[15:0]  =  mw_spi_bus_fifotemp_wena ? mw_spi_bus_fifotemp_rena ? (mw_spi_bus_fifoaddr_cval==12) ? irqsucrec_signals : mw_spi_bus_fiforeg_cval13[15:0]  : (mw_spi_bus_fifoaddr_cval==11) ? irqsucrec_signals : mw_spi_bus_fiforeg_cval12[15:0]  : mw_spi_bus_fifotemp_rena ? mw_spi_bus_fiforeg_cval13[15:0]  : mw_spi_bus_fiforeg_cval12[15:0] ;
+assign mw_spi_bus_fiforeg_nval13[15:0]  =  mw_spi_bus_fifotemp_wena ? mw_spi_bus_fifotemp_rena ? (mw_spi_bus_fifoaddr_cval==13) ? irqsucrec_signals : mw_spi_bus_fiforeg_cval14[15:0]  : (mw_spi_bus_fifoaddr_cval==12) ? irqsucrec_signals : mw_spi_bus_fiforeg_cval13[15:0]  : mw_spi_bus_fifotemp_rena ? mw_spi_bus_fiforeg_cval14[15:0]  : mw_spi_bus_fiforeg_cval13[15:0] ;
+assign mw_spi_bus_fiforeg_nval14[15:0]  =  mw_spi_bus_fifotemp_wena ? mw_spi_bus_fifotemp_rena ? (mw_spi_bus_fifoaddr_cval==14) ? irqsucrec_signals : mw_spi_bus_fiforeg_cval15[15:0]  : (mw_spi_bus_fifoaddr_cval==13) ? irqsucrec_signals : mw_spi_bus_fiforeg_cval14[15:0]  : mw_spi_bus_fifotemp_rena ? mw_spi_bus_fiforeg_cval15[15:0]  : mw_spi_bus_fiforeg_cval14[15:0] ;
+assign mw_spi_bus_fiforeg_nval15[15:0]  =  mw_spi_bus_fifotemp_wena ? mw_spi_bus_fifotemp_rena ? (mw_spi_bus_fifoaddr_cval==15) ? irqsucrec_signals : mw_spi_bus_fiforeg_cval16[15:0]  : (mw_spi_bus_fifoaddr_cval==14) ? irqsucrec_signals : mw_spi_bus_fiforeg_cval15[15:0]  : mw_spi_bus_fifotemp_rena ? mw_spi_bus_fiforeg_cval16[15:0]  : mw_spi_bus_fiforeg_cval15[15:0] ;
+assign mw_spi_bus_fiforeg_nval16[15:0]  =  mw_spi_bus_fifotemp_wena ? mw_spi_bus_fifotemp_rena ? (mw_spi_bus_fifoaddr_cval==16) ? irqsucrec_signals : mw_spi_bus_fiforeg_cval17[15:0]  : (mw_spi_bus_fifoaddr_cval==15) ? irqsucrec_signals : mw_spi_bus_fiforeg_cval16[15:0]  : mw_spi_bus_fifotemp_rena ? mw_spi_bus_fiforeg_cval17[15:0]  : mw_spi_bus_fiforeg_cval16[15:0] ;
+assign mw_spi_bus_fiforeg_nval17[15:0]  =  mw_spi_bus_fifotemp_wena ? mw_spi_bus_fifotemp_rena ? (mw_spi_bus_fifoaddr_cval==17) ? irqsucrec_signals : mw_spi_bus_fiforeg_cval18[15:0]  : (mw_spi_bus_fifoaddr_cval==16) ? irqsucrec_signals : mw_spi_bus_fiforeg_cval17[15:0]  : mw_spi_bus_fifotemp_rena ? mw_spi_bus_fiforeg_cval18[15:0]  : mw_spi_bus_fiforeg_cval17[15:0] ;
+assign mw_spi_bus_fiforeg_nval18[15:0]  =  mw_spi_bus_fifotemp_wena ? mw_spi_bus_fifotemp_rena ? (mw_spi_bus_fifoaddr_cval==18) ? irqsucrec_signals : mw_spi_bus_fiforeg_cval19[15:0]  : (mw_spi_bus_fifoaddr_cval==17) ? irqsucrec_signals : mw_spi_bus_fiforeg_cval18[15:0]  : mw_spi_bus_fifotemp_rena ? mw_spi_bus_fiforeg_cval19[15:0]  : mw_spi_bus_fiforeg_cval18[15:0] ;
+assign mw_spi_bus_fiforeg_nval19[15:0]  =  mw_spi_bus_fifotemp_wena ? mw_spi_bus_fifotemp_rena ? (mw_spi_bus_fifoaddr_cval==19) ? irqsucrec_signals : mw_spi_bus_fiforeg_cval20[15:0]  : (mw_spi_bus_fifoaddr_cval==18) ? irqsucrec_signals : mw_spi_bus_fiforeg_cval19[15:0]  : mw_spi_bus_fifotemp_rena ? mw_spi_bus_fiforeg_cval20[15:0]  : mw_spi_bus_fiforeg_cval19[15:0] ;
+assign mw_spi_bus_fiforeg_nval20[15:0]  =  mw_spi_bus_fifotemp_wena ? mw_spi_bus_fifotemp_rena ? (mw_spi_bus_fifoaddr_cval==20) ? irqsucrec_signals : mw_spi_bus_fiforeg_cval21[15:0]  : (mw_spi_bus_fifoaddr_cval==19) ? irqsucrec_signals : mw_spi_bus_fiforeg_cval20[15:0]  : mw_spi_bus_fifotemp_rena ? mw_spi_bus_fiforeg_cval21[15:0]  : mw_spi_bus_fiforeg_cval20[15:0] ;
+assign mw_spi_bus_fiforeg_nval21[15:0]  =  mw_spi_bus_fifotemp_wena ? mw_spi_bus_fifotemp_rena ? (mw_spi_bus_fifoaddr_cval==21) ? irqsucrec_signals : mw_spi_bus_fiforeg_cval22[15:0]  : (mw_spi_bus_fifoaddr_cval==20) ? irqsucrec_signals : mw_spi_bus_fiforeg_cval21[15:0]  : mw_spi_bus_fifotemp_rena ? mw_spi_bus_fiforeg_cval22[15:0]  : mw_spi_bus_fiforeg_cval21[15:0] ;
+assign mw_spi_bus_fiforeg_nval22[15:0]  =  mw_spi_bus_fifotemp_wena ? mw_spi_bus_fifotemp_rena ? (mw_spi_bus_fifoaddr_cval==22) ? irqsucrec_signals : mw_spi_bus_fiforeg_cval23[15:0]  : (mw_spi_bus_fifoaddr_cval==21) ? irqsucrec_signals : mw_spi_bus_fiforeg_cval22[15:0]  : mw_spi_bus_fifotemp_rena ? mw_spi_bus_fiforeg_cval23[15:0]  : mw_spi_bus_fiforeg_cval22[15:0] ;
+assign mw_spi_bus_fiforeg_nval23[15:0]  =  mw_spi_bus_fifotemp_wena ? mw_spi_bus_fifotemp_rena ? (mw_spi_bus_fifoaddr_cval==23) ? irqsucrec_signals : mw_spi_bus_fiforeg_cval24[15:0]  : (mw_spi_bus_fifoaddr_cval==22) ? irqsucrec_signals : mw_spi_bus_fiforeg_cval23[15:0]  : mw_spi_bus_fifotemp_rena ? mw_spi_bus_fiforeg_cval24[15:0]  : mw_spi_bus_fiforeg_cval23[15:0] ;
+assign mw_spi_bus_fiforeg_nval24[15:0]  =  mw_spi_bus_fifotemp_wena ? mw_spi_bus_fifotemp_rena ? (mw_spi_bus_fifoaddr_cval==24) ? irqsucrec_signals : mw_spi_bus_fiforeg_cval25[15:0]  : (mw_spi_bus_fifoaddr_cval==23) ? irqsucrec_signals : mw_spi_bus_fiforeg_cval24[15:0]  : mw_spi_bus_fifotemp_rena ? mw_spi_bus_fiforeg_cval25[15:0]  : mw_spi_bus_fiforeg_cval24[15:0] ;
+assign mw_spi_bus_fiforeg_nval25[15:0]  =  mw_spi_bus_fifotemp_wena ? mw_spi_bus_fifotemp_rena ? (mw_spi_bus_fifoaddr_cval==25) ? irqsucrec_signals : mw_spi_bus_fiforeg_cval26[15:0]  : (mw_spi_bus_fifoaddr_cval==24) ? irqsucrec_signals : mw_spi_bus_fiforeg_cval25[15:0]  : mw_spi_bus_fifotemp_rena ? mw_spi_bus_fiforeg_cval26[15:0]  : mw_spi_bus_fiforeg_cval25[15:0] ;
+assign mw_spi_bus_fiforeg_nval26[15:0]  =  mw_spi_bus_fifotemp_wena ? mw_spi_bus_fifotemp_rena ? (mw_spi_bus_fifoaddr_cval==26) ? irqsucrec_signals : mw_spi_bus_fiforeg_cval27[15:0]  : (mw_spi_bus_fifoaddr_cval==25) ? irqsucrec_signals : mw_spi_bus_fiforeg_cval26[15:0]  : mw_spi_bus_fifotemp_rena ? mw_spi_bus_fiforeg_cval27[15:0]  : mw_spi_bus_fiforeg_cval26[15:0] ;
+assign mw_spi_bus_fiforeg_nval27[15:0]  =  mw_spi_bus_fifotemp_wena ? mw_spi_bus_fifotemp_rena ? (mw_spi_bus_fifoaddr_cval==27) ? irqsucrec_signals : mw_spi_bus_fiforeg_cval28[15:0]  : (mw_spi_bus_fifoaddr_cval==26) ? irqsucrec_signals : mw_spi_bus_fiforeg_cval27[15:0]  : mw_spi_bus_fifotemp_rena ? mw_spi_bus_fiforeg_cval28[15:0]  : mw_spi_bus_fiforeg_cval27[15:0] ;
+assign mw_spi_bus_fiforeg_nval28[15:0]  =  mw_spi_bus_fifotemp_wena ? mw_spi_bus_fifotemp_rena ? (mw_spi_bus_fifoaddr_cval==28) ? irqsucrec_signals : mw_spi_bus_fiforeg_cval29[15:0]  : (mw_spi_bus_fifoaddr_cval==27) ? irqsucrec_signals : mw_spi_bus_fiforeg_cval28[15:0]  : mw_spi_bus_fifotemp_rena ? mw_spi_bus_fiforeg_cval29[15:0]  : mw_spi_bus_fiforeg_cval28[15:0] ;
+assign mw_spi_bus_fiforeg_nval29[15:0]  =  mw_spi_bus_fifotemp_wena ? mw_spi_bus_fifotemp_rena ? (mw_spi_bus_fifoaddr_cval==29) ? irqsucrec_signals : mw_spi_bus_fiforeg_cval30[15:0]  : (mw_spi_bus_fifoaddr_cval==28) ? irqsucrec_signals : mw_spi_bus_fiforeg_cval29[15:0]  : mw_spi_bus_fifotemp_rena ? mw_spi_bus_fiforeg_cval30[15:0]  : mw_spi_bus_fiforeg_cval29[15:0] ;
+assign mw_spi_bus_fiforeg_nval30[15:0]  =  mw_spi_bus_fifotemp_wena ? mw_spi_bus_fifotemp_rena ? (mw_spi_bus_fifoaddr_cval==30) ? irqsucrec_signals : mw_spi_bus_fiforeg_cval31[15:0]  : (mw_spi_bus_fifoaddr_cval==29) ? irqsucrec_signals : mw_spi_bus_fiforeg_cval30[15:0]  : mw_spi_bus_fifotemp_rena ? mw_spi_bus_fiforeg_cval31[15:0]  : mw_spi_bus_fiforeg_cval30[15:0] ;
+assign mw_spi_bus_fiforeg_nval31[15:0]  =  mw_spi_bus_fifotemp_wena ? mw_spi_bus_fifotemp_rena ? (mw_spi_bus_fifoaddr_cval==31) ? irqsucrec_signals : mw_spi_bus_fiforeg_cval32[15:0]  : (mw_spi_bus_fifoaddr_cval==30) ? irqsucrec_signals : mw_spi_bus_fiforeg_cval31[15:0]  : mw_spi_bus_fifotemp_rena ? mw_spi_bus_fiforeg_cval32[15:0]  : mw_spi_bus_fiforeg_cval31[15:0] ;
+assign mw_spi_bus_fiforeg_nval32[15:0]  =  mw_spi_bus_fifotemp_wena ? mw_spi_bus_fifotemp_rena ? mw_spi_bus_fiforeg_cval32[15:0]  : (mw_spi_bus_fifoaddr_cval==31) ? irqsucrec_signals : mw_spi_bus_fiforeg_cval32[15:0]  : mw_spi_bus_fifotemp_rena ? mw_spi_bus_fiforeg_cval32[15:0]  : mw_spi_bus_fiforeg_cval32[15:0] ;
+
+majorityVoter #(.WIDTH(5)) bus_rec_selectVoter (
+    .inA(bus_rec_selectA),
+    .inB(bus_rec_selectB),
+    .inC(bus_rec_selectC),
+    .out(bus_rec_select),
+    .tmrErr(bus_rec_selectTmrError)
+    );
+
+majorityVoter canakari_entimeoutVoter (
+    .inA(canakari_entimeoutA),
+    .inB(canakari_entimeoutB),
+    .inC(canakari_entimeoutC),
+    .out(canakari_entimeout),
+    .tmrErr(canakari_entimeoutTmrError)
+    );
+
+majorityVoter def_value_0Voter (
+    .inA(def_value_0A),
+    .inB(def_value_0B),
+    .inC(def_value_0C),
+    .out(def_value_0),
+    .tmrErr(def_value_0TmrError)
+    );
+
+majorityVoter def_value_1Voter (
+    .inA(def_value_1A),
+    .inB(def_value_1B),
+    .inC(def_value_1C),
+    .out(def_value_1),
+    .tmrErr(def_value_1TmrError)
+    );
+
+majorityVoter done_bus_loopVoter (
+    .inA(done_bus_loopA),
+    .inB(done_bus_loopB),
+    .inC(done_bus_loopC),
+    .out(done_bus_loop),
+    .tmrErr(done_bus_loopTmrError)
+    );
+
+majorityVoter end_choose_busVoter (
+    .inA(end_choose_busA),
+    .inB(end_choose_busB),
+    .inC(end_choose_busC),
+    .out(end_choose_bus),
+    .tmrErr(end_choose_busTmrError)
+    );
+
+majorityVoter fifo_read_enVoter (
+    .inA(fifo_read_enA),
+    .inB(fifo_read_enB),
+    .inC(fifo_read_enC),
+    .out(fifo_read_en),
+    .tmrErr(fifo_read_enTmrError)
+    );
+
+majorityVoter irq_can_recVoter (
+    .inA(irq_can_recA),
+    .inB(irq_can_recB),
+    .inC(irq_can_recC),
+    .out(irq_can_rec),
+    .tmrErr(irq_can_recTmrError)
+    );
+
+majorityVoter read_irqsucrecVoter (
+    .inA(read_irqsucrecA),
+    .inB(read_irqsucrecB),
+    .inC(read_irqsucrecC),
+    .out(read_irqsucrec),
+    .tmrErr(read_irqsucrecTmrError)
+    );
+
+majorityVoter start_bus_loopVoter (
+    .inA(start_bus_loopA),
+    .inB(start_bus_loopB),
+    .inC(start_bus_loopC),
+    .out(start_bus_loop),
+    .tmrErr(start_bus_loopTmrError)
+    );
+
+majorityVoter #(.WIDTH(32)) time_limitVoter (
+    .inA(time_limitA),
+    .inB(time_limitB),
+    .inC(time_limitC),
+    .out(time_limit),
+    .tmrErr(time_limitTmrError)
+    );
+
+majorityVoter wenaVoter (
+    .inA(wenaA),
+    .inB(wenaB),
+    .inC(wenaC),
+    .out(wena),
+    .tmrErr(wenaTmrError)
+    );
+
+fanout clkFanout (
+    .in(clk),
+    .outA(clkA),
+    .outB(clkB),
+    .outC(clkC)
+    );
+
+fanout ireqsucrecFanout (
+    .in(ireqsucrec),
+    .outA(ireqsucrecA),
+    .outB(ireqsucrecB),
+    .outC(ireqsucrecC)
+    );
+
+fanout rstFanout (
+    .in(rst),
+    .outA(rstA),
+    .outB(rstB),
+    .outC(rstC)
+    );
 endmodule
 

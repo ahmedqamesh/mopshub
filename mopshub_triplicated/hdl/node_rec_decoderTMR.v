@@ -6,294 +6,137 @@
  *                                                                                                  *
  * user    : lucas                                                                                  *
  * host    : DESKTOP-BFDSFP2                                                                        *
- * date    : 03/04/2022 20:08:54                                                                    *
+ * date    : 16/08/2022 12:58:32                                                                    *
  *                                                                                                  *
- * workdir : /mnt/c/Users/Lucas/Desktop/mopshub_triplication/triplicated/mopshub_top_canakari_ftrim/hdl *
- * cmd     : /mnt/c/Users/Lucas/Desktop/mopshub_triplication/tmrg-master/bin/tmrg -vv -c tmrg.cfg   *
+ * workdir : /mnt/c/Users/Lucas/Desktop/mopshub_triplication/mopshub_top_board_canakari_ftrim/hdl   *
+ * cmd     : /mnt/c/Users/Lucas/Desktop/mopshub_triplication/tmrg-master/bin/tmrg -c tmrg.cfg -vvv  *
  * tmrg rev:                                                                                        *
  *                                                                                                  *
  * src file: node_rec_decoder.v                                                                     *
  *           Git SHA           : File not in git repository!                                        *
- *           Modification time : 2022-03-28 18:35:17                                                *
- *           File Size         : 3433                                                               *
- *           MD5 hash          : 504bfaf8d69062685682847730dffdd0                                   *
+ *           Modification time : 2022-08-12 10:17:11                                                *
+ *           File Size         : 2135                                                               *
+ *           MD5 hash          : dca4c942aff2e8fa347f1a5e8f43601b                                   *
  *                                                                                                  *
  ****************************************************************************************************/
 
 module dec32_NbitTMR(
-  input wire  clkA ,
-  input wire  clkB ,
-  input wire  clkC ,
-  input wire  rstA ,
-  input wire  rstB ,
-  input wire  rstC ,
-  input wire  read_can_modeA ,
-  input wire  read_can_modeB ,
-  input wire  read_can_modeC ,
-  input wire  ireqsucrecA ,
-  input wire  ireqsucrecB ,
-  input wire  ireqsucrecC ,
-  input wire  Input0A ,
-  input wire  Input0B ,
-  input wire  Input0C ,
-  input wire  Input1A ,
-  input wire  Input1B ,
-  input wire  Input1C ,
-  input wire  Input2A ,
-  input wire  Input2B ,
-  input wire  Input2C ,
-  input wire  Input3A ,
-  input wire  Input3B ,
-  input wire  Input3C ,
-  input wire  Input4A ,
-  input wire  Input4B ,
-  input wire  Input4C ,
-  input wire  Input5A ,
-  input wire  Input5B ,
-  input wire  Input5C ,
-  input wire  Input6A ,
-  input wire  Input6B ,
-  input wire  Input6C ,
-  input wire  Input7A ,
-  input wire  Input7B ,
-  input wire  Input7C ,
-  input wire  Input8A ,
-  input wire  Input8B ,
-  input wire  Input8C ,
-  input wire  Input9A ,
-  input wire  Input9B ,
-  input wire  Input9C ,
-  input wire  Input10A ,
-  input wire  Input10B ,
-  input wire  Input10C ,
-  input wire  Input11A ,
-  input wire  Input11B ,
-  input wire  Input11C ,
-  input wire  Input12A ,
-  input wire  Input12B ,
-  input wire  Input12C ,
-  input wire  Input13A ,
-  input wire  Input13B ,
-  input wire  Input13C ,
-  input wire  Input14A ,
-  input wire  Input14B ,
-  input wire  Input14C ,
-  input wire  Input15A ,
-  input wire  Input15B ,
-  input wire  Input15C ,
-  input wire  Input16A ,
-  input wire  Input16B ,
-  input wire  Input16C ,
-  input wire  Input17A ,
-  input wire  Input17B ,
-  input wire  Input17C ,
-  input wire  Input18A ,
-  input wire  Input18B ,
-  input wire  Input18C ,
-  input wire  Input19A ,
-  input wire  Input19B ,
-  input wire  Input19C ,
-  input wire  Input20A ,
-  input wire  Input20B ,
-  input wire  Input20C ,
-  input wire  Input21A ,
-  input wire  Input21B ,
-  input wire  Input21C ,
-  input wire  Input22A ,
-  input wire  Input22B ,
-  input wire  Input22C ,
-  input wire  Input23A ,
-  input wire  Input23B ,
-  input wire  Input23C ,
-  input wire  Input24A ,
-  input wire  Input24B ,
-  input wire  Input24C ,
-  input wire  Input25A ,
-  input wire  Input25B ,
-  input wire  Input25C ,
-  input wire  Input26A ,
-  input wire  Input26B ,
-  input wire  Input26C ,
-  input wire  Input27A ,
-  input wire  Input27B ,
-  input wire  Input27C ,
-  input wire  Input28A ,
-  input wire  Input28B ,
-  input wire  Input28C ,
-  input wire  Input29A ,
-  input wire  Input29B ,
-  input wire  Input29C ,
-  input wire  Input30A ,
-  input wire  Input30B ,
-  input wire  Input30C ,
-  input wire  Input31A ,
-  input wire  Input31B ,
-  input wire  Input31C ,
-  output wire [31:0] data_tra_outA ,
-  output wire [31:0] data_tra_outB ,
-  output wire [31:0] data_tra_outC 
+  input wire  clk ,
+  input wire  rst ,
+  input wire  Input0 ,
+  input wire  Input1 ,
+  input wire  Input2 ,
+  input wire  Input3 ,
+  input wire  Input4 ,
+  input wire  Input5 ,
+  input wire  Input6 ,
+  input wire  Input7 ,
+  input wire  Input8 ,
+  input wire  Input9 ,
+  input wire  Input10 ,
+  input wire  Input11 ,
+  input wire  Input12 ,
+  input wire  Input13 ,
+  input wire  Input14 ,
+  input wire  Input15 ,
+  output wire [15:0] data_tra_out 
 );
-reg  [31:0] output_bus_regA ;
-reg  [31:0] output_bus_regB ;
-reg  [31:0] output_bus_regC ;
-wire [31:0] irqsucrec_signalsA;
-wire [31:0] irqsucrec_signalsB;
-wire [31:0] irqsucrec_signalsC;
+wire rstC;
+wire rstB;
+wire rstA;
+wire [15:0] irqsucrec_signalsC;
+wire [15:0] irqsucrec_signalsB;
+wire [15:0] irqsucrec_signalsA;
+wire clkC;
+wire clkB;
+wire clkA;
+wor output_bus_regTmrError;
+wire [15:0] output_bus_reg;
+reg  [15:0] output_bus_regA ;
+reg  [15:0] output_bus_regB ;
+reg  [15:0] output_bus_regC ;
+wire [15:0] irqsucrec_signals;
 initial
-  output_bus_regA =  32'd0;
+  output_bus_regA =  16'd0;
 initial
-  output_bus_regB =  32'd0;
+  output_bus_regB =  16'd0;
 initial
-  output_bus_regC =  32'd0;
-assign irqsucrec_signalsA[0]  =  Input0A;
-assign irqsucrec_signalsB[0]  =  Input0B;
-assign irqsucrec_signalsC[0]  =  Input0C;
-assign irqsucrec_signalsA[1]  =  Input1A;
-assign irqsucrec_signalsB[1]  =  Input1B;
-assign irqsucrec_signalsC[1]  =  Input1C;
-assign irqsucrec_signalsA[2]  =  Input2A;
-assign irqsucrec_signalsB[2]  =  Input2B;
-assign irqsucrec_signalsC[2]  =  Input2C;
-assign irqsucrec_signalsA[3]  =  Input3A;
-assign irqsucrec_signalsB[3]  =  Input3B;
-assign irqsucrec_signalsC[3]  =  Input3C;
-assign irqsucrec_signalsA[4]  =  Input4A;
-assign irqsucrec_signalsB[4]  =  Input4B;
-assign irqsucrec_signalsC[4]  =  Input4C;
-assign irqsucrec_signalsA[5]  =  Input5A;
-assign irqsucrec_signalsB[5]  =  Input5B;
-assign irqsucrec_signalsC[5]  =  Input5C;
-assign irqsucrec_signalsA[6]  =  Input6A;
-assign irqsucrec_signalsB[6]  =  Input6B;
-assign irqsucrec_signalsC[6]  =  Input6C;
-assign irqsucrec_signalsA[7]  =  Input7A;
-assign irqsucrec_signalsB[7]  =  Input7B;
-assign irqsucrec_signalsC[7]  =  Input7C;
-assign irqsucrec_signalsA[8]  =  Input8A;
-assign irqsucrec_signalsB[8]  =  Input8B;
-assign irqsucrec_signalsC[8]  =  Input8C;
-assign irqsucrec_signalsA[9]  =  Input9A;
-assign irqsucrec_signalsB[9]  =  Input9B;
-assign irqsucrec_signalsC[9]  =  Input9C;
-assign irqsucrec_signalsA[10]  =  Input10A;
-assign irqsucrec_signalsB[10]  =  Input10B;
-assign irqsucrec_signalsC[10]  =  Input10C;
-assign irqsucrec_signalsA[11]  =  Input11A;
-assign irqsucrec_signalsB[11]  =  Input11B;
-assign irqsucrec_signalsC[11]  =  Input11C;
-assign irqsucrec_signalsA[12]  =  Input12A;
-assign irqsucrec_signalsB[12]  =  Input12B;
-assign irqsucrec_signalsC[12]  =  Input12C;
-assign irqsucrec_signalsA[13]  =  Input13A;
-assign irqsucrec_signalsB[13]  =  Input13B;
-assign irqsucrec_signalsC[13]  =  Input13C;
-assign irqsucrec_signalsA[14]  =  Input14A;
-assign irqsucrec_signalsB[14]  =  Input14B;
-assign irqsucrec_signalsC[14]  =  Input14C;
-assign irqsucrec_signalsA[15]  =  Input15A;
-assign irqsucrec_signalsB[15]  =  Input15B;
-assign irqsucrec_signalsC[15]  =  Input15C;
-assign irqsucrec_signalsA[16]  =  Input16A;
-assign irqsucrec_signalsB[16]  =  Input16B;
-assign irqsucrec_signalsC[16]  =  Input16C;
-assign irqsucrec_signalsA[17]  =  Input17A;
-assign irqsucrec_signalsB[17]  =  Input17B;
-assign irqsucrec_signalsC[17]  =  Input17C;
-assign irqsucrec_signalsA[18]  =  Input18A;
-assign irqsucrec_signalsB[18]  =  Input18B;
-assign irqsucrec_signalsC[18]  =  Input18C;
-assign irqsucrec_signalsA[19]  =  Input19A;
-assign irqsucrec_signalsB[19]  =  Input19B;
-assign irqsucrec_signalsC[19]  =  Input19C;
-assign irqsucrec_signalsA[20]  =  Input20A;
-assign irqsucrec_signalsB[20]  =  Input20B;
-assign irqsucrec_signalsC[20]  =  Input20C;
-assign irqsucrec_signalsA[21]  =  Input21A;
-assign irqsucrec_signalsB[21]  =  Input21B;
-assign irqsucrec_signalsC[21]  =  Input21C;
-assign irqsucrec_signalsA[22]  =  Input22A;
-assign irqsucrec_signalsB[22]  =  Input22B;
-assign irqsucrec_signalsC[22]  =  Input22C;
-assign irqsucrec_signalsA[23]  =  Input23A;
-assign irqsucrec_signalsB[23]  =  Input23B;
-assign irqsucrec_signalsC[23]  =  Input23C;
-assign irqsucrec_signalsA[24]  =  Input24A;
-assign irqsucrec_signalsB[24]  =  Input24B;
-assign irqsucrec_signalsC[24]  =  Input24C;
-assign irqsucrec_signalsA[25]  =  Input25A;
-assign irqsucrec_signalsB[25]  =  Input25B;
-assign irqsucrec_signalsC[25]  =  Input25C;
-assign irqsucrec_signalsA[26]  =  Input26A;
-assign irqsucrec_signalsB[26]  =  Input26B;
-assign irqsucrec_signalsC[26]  =  Input26C;
-assign irqsucrec_signalsA[27]  =  Input27A;
-assign irqsucrec_signalsB[27]  =  Input27B;
-assign irqsucrec_signalsC[27]  =  Input27C;
-assign irqsucrec_signalsA[28]  =  Input28A;
-assign irqsucrec_signalsB[28]  =  Input28B;
-assign irqsucrec_signalsC[28]  =  Input28C;
-assign irqsucrec_signalsA[29]  =  Input29A;
-assign irqsucrec_signalsB[29]  =  Input29B;
-assign irqsucrec_signalsC[29]  =  Input29C;
-assign irqsucrec_signalsA[30]  =  Input30A;
-assign irqsucrec_signalsB[30]  =  Input30B;
-assign irqsucrec_signalsC[30]  =  Input30C;
-assign irqsucrec_signalsA[31]  =  Input31A;
-assign irqsucrec_signalsB[31]  =  Input31B;
-assign irqsucrec_signalsC[31]  =  Input31C;
-assign data_tra_outA =  output_bus_regA;
-assign data_tra_outB =  output_bus_regB;
-assign data_tra_outC =  output_bus_regC;
+  output_bus_regC =  16'd0;
+assign irqsucrec_signals[0]  =  Input0;
+assign irqsucrec_signals[1]  =  Input1;
+assign irqsucrec_signals[2]  =  Input2;
+assign irqsucrec_signals[3]  =  Input3;
+assign irqsucrec_signals[4]  =  Input4;
+assign irqsucrec_signals[5]  =  Input5;
+assign irqsucrec_signals[6]  =  Input6;
+assign irqsucrec_signals[7]  =  Input7;
+assign irqsucrec_signals[8]  =  Input8;
+assign irqsucrec_signals[9]  =  Input9;
+assign irqsucrec_signals[10]  =  Input10;
+assign irqsucrec_signals[11]  =  Input11;
+assign irqsucrec_signals[12]  =  Input12;
+assign irqsucrec_signals[13]  =  Input13;
+assign irqsucrec_signals[14]  =  Input14;
+assign irqsucrec_signals[15]  =  Input15;
+assign data_tra_out =  output_bus_reg;
 
 always @( posedge clkA )
   begin
     if (!rstA)
       begin
-        output_bus_regA <= 32'd0;
+        output_bus_regA <= 16'd0;
       end
     else
-      if (ireqsucrecA)
-        begin
-          output_bus_regA <= irqsucrec_signalsA;
-        end
-      else
-        begin
-          output_bus_regA <= output_bus_regA;
-        end
+      output_bus_regA <= irqsucrec_signalsA;
   end
 
 always @( posedge clkB )
   begin
     if (!rstB)
       begin
-        output_bus_regB <= 32'd0;
+        output_bus_regB <= 16'd0;
       end
     else
-      if (ireqsucrecB)
-        begin
-          output_bus_regB <= irqsucrec_signalsB;
-        end
-      else
-        begin
-          output_bus_regB <= output_bus_regB;
-        end
+      output_bus_regB <= irqsucrec_signalsB;
   end
 
 always @( posedge clkC )
   begin
     if (!rstC)
       begin
-        output_bus_regC <= 32'd0;
+        output_bus_regC <= 16'd0;
       end
     else
-      if (ireqsucrecC)
-        begin
-          output_bus_regC <= irqsucrec_signalsC;
-        end
-      else
-        begin
-          output_bus_regC <= output_bus_regC;
-        end
+      output_bus_regC <= irqsucrec_signalsC;
   end
+
+majorityVoter #(.WIDTH(16)) output_bus_regVoter (
+    .inA(output_bus_regA),
+    .inB(output_bus_regB),
+    .inC(output_bus_regC),
+    .out(output_bus_reg),
+    .tmrErr(output_bus_regTmrError)
+    );
+
+fanout clkFanout (
+    .in(clk),
+    .outA(clkA),
+    .outB(clkB),
+    .outC(clkC)
+    );
+
+fanout #(.WIDTH(16)) irqsucrec_signalsFanout (
+    .in(irqsucrec_signals),
+    .outA(irqsucrec_signalsA),
+    .outB(irqsucrec_signalsB),
+    .outC(irqsucrec_signalsC)
+    );
+
+fanout rstFanout (
+    .in(rst),
+    .outA(rstA),
+    .outB(rstB),
+    .outC(rstC)
+    );
 endmodule
 

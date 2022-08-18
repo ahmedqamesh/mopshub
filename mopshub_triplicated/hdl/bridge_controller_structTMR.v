@@ -6,477 +6,317 @@
  *                                                                                                  *
  * user    : lucas                                                                                  *
  * host    : DESKTOP-BFDSFP2                                                                        *
- * date    : 03/04/2022 20:08:31                                                                    *
+ * date    : 16/08/2022 12:58:08                                                                    *
  *                                                                                                  *
- * workdir : /mnt/c/Users/Lucas/Desktop/mopshub_triplication/triplicated/mopshub_top_canakari_ftrim/hdl *
- * cmd     : /mnt/c/Users/Lucas/Desktop/mopshub_triplication/tmrg-master/bin/tmrg -vv -c tmrg.cfg   *
+ * workdir : /mnt/c/Users/Lucas/Desktop/mopshub_triplication/mopshub_top_board_canakari_ftrim/hdl   *
+ * cmd     : /mnt/c/Users/Lucas/Desktop/mopshub_triplication/tmrg-master/bin/tmrg -c tmrg.cfg -vvv  *
  * tmrg rev:                                                                                        *
  *                                                                                                  *
  * src file: bridge_controller_struct.v                                                             *
  *           Git SHA           : File not in git repository!                                        *
- *           Modification time : 2022-03-28 21:55:51                                                *
- *           File Size         : 11074                                                              *
- *           MD5 hash          : e8983d55b327414ca342dd7967ed294a                                   *
+ *           Modification time : 2022-08-11 10:33:14                                                *
+ *           File Size         : 11020                                                              *
+ *           MD5 hash          : 09f241cb414f679b89e84d0f313b8145                                   *
  *                                                                                                  *
  ****************************************************************************************************/
 
+`resetall 
+`timescale  1ns/10ps
 module bridge_controllerTMR(
-  input wire  buffer_enA ,
-  input wire  buffer_enB ,
-  input wire  buffer_enC ,
-  input wire [4:0] can_rec_selectA ,
-  input wire [4:0] can_rec_selectB ,
-  input wire [4:0] can_rec_selectC ,
-  input wire  clkA ,
-  input wire  clkB ,
-  input wire  clkC ,
-  input wire [75:0] data_tra_downlinkA ,
-  input wire [75:0] data_tra_downlinkB ,
-  input wire [75:0] data_tra_downlinkC ,
-  input wire  end_mon_initA ,
-  input wire  end_mon_initB ,
-  input wire  end_mon_initC ,
-  input wire  end_osc_cntA ,
-  input wire  end_osc_cntB ,
-  input wire  end_osc_cntC ,
-  input wire  end_read_elinkA ,
-  input wire  end_read_elinkB ,
-  input wire  end_read_elinkC ,
-  input wire  end_write_elinkA ,
-  input wire  end_write_elinkB ,
-  input wire  end_write_elinkC ,
-  input wire  endwaitA ,
-  input wire  endwaitB ,
-  input wire  endwaitC ,
-  input wire  irq_can_recA ,
-  input wire  irq_can_recB ,
-  input wire  irq_can_recC ,
-  input wire  irq_can_traA ,
-  input wire  irq_can_traB ,
-  input wire  irq_can_traC ,
-  input wire  irq_elink_traA ,
-  input wire  irq_elink_traB ,
-  input wire  irq_elink_traC ,
-  input wire [4:0] n_busesA ,
-  input wire [4:0] n_busesB ,
-  input wire [4:0] n_busesC ,
-  input wire  osc_auto_trim_mopshubA ,
-  input wire  osc_auto_trim_mopshubB ,
-  input wire  osc_auto_trim_mopshubC ,
-  input wire [4:0] power_bus_cntA ,
-  input wire [4:0] power_bus_cntB ,
-  input wire [4:0] power_bus_cntC ,
-  input wire  power_bus_en_doneA ,
-  input wire  power_bus_en_doneB ,
-  input wire  power_bus_en_doneC ,
-  input wire [15:0] read_canA ,
-  input wire [15:0] read_canB ,
-  input wire [15:0] read_canC ,
-  input wire  rstA ,
-  input wire  rstB ,
-  input wire  rstC ,
-  output wire [4:0] addr_canA ,
-  output wire [4:0] addr_canB ,
-  output wire [4:0] addr_canC ,
-  output wire [4:0] can_tra_selectA ,
-  output wire [4:0] can_tra_selectB ,
-  output wire [4:0] can_tra_selectC ,
-  output wire [75:0] data_rec_uplinkA ,
-  output wire [75:0] data_rec_uplinkB ,
-  output wire [75:0] data_rec_uplinkC ,
-  output wire  done_trim_osc_allA ,
-  output wire  done_trim_osc_allB ,
-  output wire  done_trim_osc_allC ,
-  output wire  enable_csA ,
-  output wire  enable_csB ,
-  output wire  enable_csC ,
-  output wire  end_can_procA ,
-  output wire  end_can_procB ,
-  output wire  end_can_procC ,
-  output wire  end_initA ,
-  output wire  end_initB ,
-  output wire  end_initC ,
-  output wire  end_trim_busA ,
-  output wire  end_trim_busB ,
-  output wire  end_trim_busC ,
-  output wire  ext_counter_genA ,
-  output wire  ext_counter_genB ,
-  output wire  ext_counter_genC ,
-  output wire  power_bus_enA ,
-  output wire  power_bus_enB ,
-  output wire  power_bus_enC ,
-  output wire  read_can_modeA ,
-  output wire  read_can_modeB ,
-  output wire  read_can_modeC ,
-  output wire  read_sig_can_nA ,
-  output wire  read_sig_can_nB ,
-  output wire  read_sig_can_nC ,
-  output wire  rst_busA ,
-  output wire  rst_busB ,
-  output wire  rst_busC ,
-  output wire  rst_osc_cntA ,
-  output wire  rst_osc_cntB ,
-  output wire  rst_osc_cntC ,
-  output wire  sign_on_sigA ,
-  output wire  sign_on_sigB ,
-  output wire  sign_on_sigC ,
-  output wire  start_initA ,
-  output wire  start_initB ,
-  output wire  start_initC ,
-  output wire  start_mon_initA ,
-  output wire  start_mon_initB ,
-  output wire  start_mon_initC ,
-  output wire  start_osc_cntA ,
-  output wire  start_osc_cntB ,
-  output wire  start_osc_cntC ,
-  output wire  start_read_elinkA ,
-  output wire  start_read_elinkB ,
-  output wire  start_read_elinkC ,
-  output wire  start_trim_ackA ,
-  output wire  start_trim_ackB ,
-  output wire  start_trim_ackC ,
-  output wire  start_write_elinkA ,
-  output wire  start_write_elinkB ,
-  output wire  start_write_elinkC ,
-  output wire  timeoutrstA ,
-  output wire  timeoutrstB ,
-  output wire  timeoutrstC ,
-  output wire [15:0] write_canA ,
-  output wire [15:0] write_canB ,
-  output wire [15:0] write_canC ,
-  output wire  write_sig_can_nA ,
-  output wire  write_sig_can_nB ,
-  output wire  write_sig_can_nC 
+  input wire  buffer_en ,
+  input wire [4:0] can_rec_select ,
+  input wire  clk ,
+  input wire [75:0] data_tra_downlink ,
+  input wire  end_mon_init ,
+  input wire  end_osc_cnt ,
+  input wire  end_read_elink ,
+  input wire  end_write_elink ,
+  input wire  endwait ,
+  input wire  irq_can_rec ,
+  input wire  irq_can_tra ,
+  input wire  irq_elink_tra ,
+  input wire [4:0] n_buses ,
+  input wire  osc_auto_trim_mopshub ,
+  input wire [4:0] power_bus_cnt ,
+  input wire  power_bus_en_done ,
+  input wire [15:0] read_can ,
+  input wire  rst ,
+  output wire [4:0] addr_can ,
+  output wire [4:0] can_tra_select ,
+  output wire [75:0] data_rec_uplink ,
+  output wire  enable_cs ,
+  output wire  end_can_proc ,
+  output wire  end_init ,
+  output wire  end_power_init ,
+  output wire  end_trim_bus ,
+  output wire  ext_counter_gen ,
+  output wire  power_bus_en ,
+  output wire  read_can_mode ,
+  output wire  read_sig_can_n ,
+  output wire  rst_bus ,
+  output wire  rst_osc_cnt ,
+  output wire  sign_on_sig ,
+  output wire  start_init ,
+  output wire  start_mon_init ,
+  output wire  start_osc_cnt ,
+  output wire  start_power_init ,
+  output wire  start_read_elink ,
+  output wire  start_trim_ack ,
+  output wire  start_write_elink ,
+  output wire  timeoutrst ,
+  output wire [15:0] write_can ,
+  output wire  write_sig_can_n 
 );
-wire abort_mesA;
-wire abort_mesB;
-wire abort_mesC;
-wire bus_matchA;
-wire bus_matchB;
-wire bus_matchC;
-wire [75:0] data_tra_mesA;
-wire [75:0] data_tra_mesB;
-wire [75:0] data_tra_mesC;
-wire [4:0] data_tra_selectA;
-wire [4:0] data_tra_selectB;
-wire [4:0] data_tra_selectC;
-wire en_rec_regA;
-wire en_rec_regB;
-wire en_rec_regC;
-wire end_can_proc_mainA;
-wire end_can_proc_mainB;
-wire end_can_proc_mainC;
-wire end_can_proc_trimA;
-wire end_can_proc_trimB;
-wire end_can_proc_trimC;
-wire end_cnt_dbgA;
-wire end_cnt_dbgB;
-wire end_cnt_dbgC;
-wire end_readA;
-wire end_readB;
-wire end_readC;
-wire end_trim_oscA;
-wire end_trim_oscB;
-wire end_trim_oscC;
-wire end_writeA;
-wire end_writeB;
-wire end_writeC;
-wire entimeout_trimA;
-wire entimeout_trimB;
-wire entimeout_trimC;
-wire irq_can_ackA;
+wor time_limit_trimTmrError;
+wire [31:0] time_limit_trim;
+wor time_limitTmrError;
+wire [31:0] time_limit;
+wor statedeb_osc_trimTmrError;
+wire [5:0] statedeb_osc_trimB;
+wire [5:0] statedeb_osc_trimC;
+wire [5:0] statedeb_osc_trimA;
+wor statedeb_mainTmrError;
+wire [5:0] statedeb_mainB;
+wire [5:0] statedeb_mainC;
+wire [5:0] statedeb_mainA;
+wor start_write_elink_trimTmrError;
+wire start_write_elink_trimB;
+wire start_write_elink_trimC;
+wire start_write_elink_trimA;
+wor start_write_elink_mainTmrError;
+wire start_write_elink_mainB;
+wire start_write_elink_mainC;
+wire start_write_elink_mainA;
+wor start_writeTmrError;
+wire start_writeB;
+wire start_writeC;
+wire start_writeA;
+wor start_trim_oscTmrError;
+wire start_trim_oscB;
+wire start_trim_oscC;
+wire start_trim_oscA;
+wor start_trim_ackTmrError;
+wire start_trim_ackB;
+wire start_trim_ackC;
+wire start_trim_ackA;
+wor start_read_elinkTmrError;
+wire start_read_elinkB;
+wire start_read_elinkC;
+wire start_read_elinkA;
+wor start_read_can_trimTmrError;
+wire start_read_can_trimB;
+wire start_read_can_trimC;
+wire start_read_can_trimA;
+wor start_read_canTmrError;
+wire start_read_canB;
+wire start_read_canC;
+wire start_read_canA;
+wor start_power_initTmrError;
+wire start_power_initB;
+wire start_power_initC;
+wire start_power_initA;
+wor start_osc_cntTmrError;
+wire start_osc_cntB;
+wire start_osc_cntC;
+wire start_osc_cntA;
+wor start_mon_initTmrError;
+wire start_mon_initB;
+wire start_mon_initC;
+wire start_mon_initA;
+wor start_init_canTmrError;
+wire start_init_canB;
+wire start_init_canC;
+wire start_init_canA;
+wor skip_osc_trimTmrError;
+wire skip_osc_trimB;
+wire skip_osc_trimC;
+wire skip_osc_trimA;
+wor sign_on_sigTmrError;
+wire sign_on_sigB;
+wire sign_on_sigC;
+wire sign_on_sigA;
+wor send_mes_can_trimTmrError;
+wire send_mes_can_trimB;
+wire send_mes_can_trimC;
+wire send_mes_can_trimA;
+wor send_mes_can_doneTmrError;
+wire send_mes_can_doneB;
+wire send_mes_can_doneC;
+wire send_mes_can_doneA;
+wor rst_osc_cntTmrError;
+wire rst_osc_cntB;
+wire rst_osc_cntC;
+wire rst_osc_cntA;
+wor rst_busTmrError;
+wire rst_busB;
+wire rst_busC;
+wire rst_busA;
+wor reset_irq_tra_canTmrError;
+wire reset_irq_tra_canB;
+wire reset_irq_tra_canC;
+wire reset_irq_tra_canA;
+wor reset_irq_rec_can_trimTmrError;
+wire reset_irq_rec_can_trimB;
+wire reset_irq_rec_can_trimC;
+wire reset_irq_rec_can_trimA;
+wor reset_irq_rec_can_mainTmrError;
+wire reset_irq_rec_can_mainB;
+wire reset_irq_rec_can_mainC;
+wire reset_irq_rec_can_mainA;
+wor reset_irq_osc_canTmrError;
+wire reset_irq_osc_canB;
+wire reset_irq_osc_canC;
+wire reset_irq_osc_canA;
+wor reset_irq_can_trimTmrError;
+wire reset_irq_can_trimB;
+wire reset_irq_can_trimC;
+wire reset_irq_can_trimA;
+wor reset_irq_can_main_allTmrError;
+wire reset_irq_can_main_allB;
+wire reset_irq_can_main_allC;
+wire reset_irq_can_main_allA;
+wor reset_irq_can_mainTmrError;
+wire reset_irq_can_mainB;
+wire reset_irq_can_mainC;
+wire reset_irq_can_mainA;
+wor read_can_modeTmrError;
+wire read_can_modeB;
+wire read_can_modeC;
+wire read_can_modeA;
+wor power_bus_enTmrError;
+wire power_bus_enB;
+wire power_bus_enC;
+wire power_bus_enA;
+wor osc_trim_modeTmrError;
+wire osc_trim_modeB;
+wire osc_trim_modeC;
+wire osc_trim_modeA;
+wor main_entimeoutTmrError;
+wire main_entimeoutB;
+wire main_entimeoutC;
+wire main_entimeoutA;
+wor irq_trim_bus_oscTmrError;
+wire irq_trim_bus_osc;
+wor irq_can_ackTmrError;
 wire irq_can_ackB;
 wire irq_can_ackC;
-wire irq_elink_tra_activeA;
-wire irq_elink_tra_activeB;
-wire irq_elink_tra_activeC;
+wire irq_can_ackA;
+wor ext_counter_genTmrError;
+wire ext_counter_genB;
+wire ext_counter_genC;
+wire ext_counter_genA;
+wor entimeout_trimTmrError;
+wire entimeout_trimB;
+wire entimeout_trimC;
+wire entimeout_trimA;
+wor end_trim_busTmrError;
+wire end_trim_busB;
+wire end_trim_busC;
+wire end_trim_busA;
+wor end_power_initTmrError;
+wire end_power_initB;
+wire end_power_initC;
+wire end_power_initA;
+wor end_can_proc_trimTmrError;
+wire end_can_proc_trimB;
+wire end_can_proc_trimC;
+wire end_can_proc_trimA;
+wor end_can_proc_mainTmrError;
+wire end_can_proc_mainB;
+wire end_can_proc_mainC;
+wire end_can_proc_mainA;
+wor abort_mesTmrError;
+wire abort_mesB;
+wire abort_mesC;
+wire abort_mesA;
+wire abort_mes;
+wire bus_match;
+wire [75:0] data_tra_mes;
+wire [4:0] data_tra_select;
+wire en_rec_reg;
+wire end_can_proc_main;
+wire end_can_proc_trim;
+wire end_read;
+wire end_trim_osc;
+wire end_write;
+wire entimeout_trim;
+wire irq_can_ack;
+wire irq_elink_tra_active;
 reg  irq_trim_bus_oscA ;
 reg  irq_trim_bus_oscB ;
 reg  irq_trim_bus_oscC ;
-wire irq_trim_oscA;
-wire irq_trim_oscB;
-wire irq_trim_oscC;
-wire main_entimeoutA;
-wire main_entimeoutB;
-wire main_entimeoutC;
-wire osc_trim_modeA;
-wire osc_trim_modeB;
-wire osc_trim_modeC;
-wire reset_all_doneA;
-wire reset_all_doneB;
-wire reset_all_doneC;
-wire reset_irq_canA;
-wire reset_irq_canB;
-wire reset_irq_canC;
-wire reset_irq_can_doneA;
-wire reset_irq_can_doneB;
-wire reset_irq_can_doneC;
-wire reset_irq_can_mainA;
-wire reset_irq_can_mainB;
-wire reset_irq_can_mainC;
-wire reset_irq_can_main_allA;
-wire reset_irq_can_main_allB;
-wire reset_irq_can_main_allC;
-wire reset_irq_can_trimA;
-wire reset_irq_can_trimB;
-wire reset_irq_can_trimC;
-wire reset_irq_osc_canA;
-wire reset_irq_osc_canB;
-wire reset_irq_osc_canC;
-wire reset_irq_rec_canA;
-wire reset_irq_rec_canB;
-wire reset_irq_rec_canC;
-wire reset_irq_rec_can_mainA;
-wire reset_irq_rec_can_mainB;
-wire reset_irq_rec_can_mainC;
-wire reset_irq_rec_can_trimA;
-wire reset_irq_rec_can_trimB;
-wire reset_irq_rec_can_trimC;
-wire reset_irq_tra_canA;
-wire reset_irq_tra_canB;
-wire reset_irq_tra_canC;
-wire send_mesA;
-wire send_mesB;
-wire send_mesC;
-wire send_mes_can_doneA;
-wire send_mes_can_doneB;
-wire send_mes_can_doneC;
-wire send_mes_can_trimA;
-wire send_mes_can_trimB;
-wire send_mes_can_trimC;
-wire skip_osc_trimA;
-wire skip_osc_trimB;
-wire skip_osc_trimC;
-wire start_init_canA;
-wire start_init_canB;
-wire start_init_canC;
-wire start_readA;
-wire start_readB;
-wire start_readC;
-wire start_read_canA;
-wire start_read_canB;
-wire start_read_canC;
-wire start_read_can_trimA;
-wire start_read_can_trimB;
-wire start_read_can_trimC;
-wire start_trim_oscA;
-wire start_trim_oscB;
-wire start_trim_oscC;
-wire start_writeA;
-wire start_writeB;
-wire start_writeC;
-wire start_write_elink_mainA;
-wire start_write_elink_mainB;
-wire start_write_elink_mainC;
-wire start_write_elink_trimA;
-wire start_write_elink_trimB;
-wire start_write_elink_trimC;
-wire [5:0] statedeb_canA;
-wire [5:0] statedeb_canB;
-wire [5:0] statedeb_canC;
-wire [5:0] statedeb_mainA;
-wire [5:0] statedeb_mainB;
-wire [5:0] statedeb_mainC;
-wire [5:0] statedeb_osc_trimA;
-wire [5:0] statedeb_osc_trimB;
-wire [5:0] statedeb_osc_trimC;
+wire main_entimeout;
+wire osc_trim_mode;
+wire reset_all_done;
+wire reset_irq_can;
+wire reset_irq_can_done;
+wire reset_irq_can_main;
+wire reset_irq_can_main_all;
+wire reset_irq_can_trim;
+wire reset_irq_osc_can;
+wire reset_irq_rec_can;
+wire reset_irq_rec_can_main;
+wire reset_irq_rec_can_trim;
+wire reset_irq_tra_can;
+wire send_mes;
+wire send_mes_can_done;
+wire send_mes_can_trim;
+wire skip_osc_trim;
+wire start_init_can;
+wire start_read;
+wire start_read_can;
+wire start_read_can_trim;
+wire start_trim_osc;
+wire start_write;
+wire start_write_elink_main;
+wire start_write_elink_trim;
+wire [5:0] statedeb_can;
+wire [5:0] statedeb_main;
+wire [5:0] statedeb_osc_trim;
 reg  [31:0] time_limitA ;
 reg  [31:0] time_limitB ;
 reg  [31:0] time_limitC ;
 reg  [31:0] time_limit_trimA ;
 reg  [31:0] time_limit_trimB ;
 reg  [31:0] time_limit_trimC ;
-wire timeoutrst_trimA;
-wire timeoutrst_trimB;
-wire timeoutrst_trimC;
+wire timeoutrst_trim;
 
 buffer_rec_dataTMR rec_data_buf0 (
-    .clkA(clkA),
-    .clkB(clkB),
-    .clkC(clkC),
-    .data_rec_inA(read_canA),
-    .data_rec_inB(read_canB),
-    .data_rec_inC(read_canC),
-    .can_rec_selectA(can_rec_selectA),
-    .can_rec_selectB(can_rec_selectB),
-    .can_rec_selectC(can_rec_selectC),
-    .buffer_enA(en_rec_regA),
-    .buffer_enB(en_rec_regB),
-    .buffer_enC(en_rec_regC),
-    .rstA(rstA),
-    .rstB(rstB),
-    .rstC(rstC),
-    .addrA(addr_canA),
-    .addrB(addr_canB),
-    .addrC(addr_canC),
-    .data_rec_outA(data_rec_uplinkA),
-    .data_rec_outB(data_rec_uplinkB),
-    .data_rec_outC(data_rec_uplinkC)
+    .clk(clk),
+    .data_rec_in(read_can),
+    .can_rec_select(can_rec_select),
+    .buffer_en(en_rec_reg),
+    .rst(rst),
+    .addr(addr_can),
+    .data_rec_out(data_rec_uplink)
     );
 
 buffer_tra_dataTMR tra_data_buf0 (
-    .clkA(clkA),
-    .clkB(clkB),
-    .clkC(clkC),
-    .data_tra_inA(data_tra_downlinkA),
-    .data_tra_inB(data_tra_downlinkB),
-    .data_tra_inC(data_tra_downlinkC),
-    .buffer_enA(buffer_enA),
-    .buffer_enB(buffer_enB),
-    .buffer_enC(buffer_enC),
-    .rstA(rstA),
-    .rstB(rstB),
-    .rstC(rstC),
-    .data_tra_selectA(data_tra_selectA),
-    .data_tra_selectB(data_tra_selectB),
-    .data_tra_selectC(data_tra_selectC),
-    .data_tra_outA(data_tra_mesA),
-    .data_tra_outB(data_tra_mesB),
-    .data_tra_outC(data_tra_mesC)
+    .clk(clk),
+    .data_tra_in(data_tra_downlink),
+    .buffer_en(buffer_en),
+    .rst(rst),
+    .data_tra_select(data_tra_select),
+    .data_tra_out(data_tra_mes)
     );
 
-//can_elink_bridge_SM can_elink_bridge_SM0( 
-//   .clk                (clkA), 
-//   .end_bus_trim_all   (done_trim_osc_allA), 
-//   .end_init           (end_initA), 
-//   .end_mon_init       (end_mon_initA), 
-//   .end_read_can       (end_readA), 
-//   .end_read_elink     (end_read_elinkA), 
-//   .end_write_can      (end_writeA), 
-//   .end_write_elink    (end_write_elinkA), 
-//   .endwait            (endwaitA), 
-//   .irq_can_rec        (irq_can_recA), 
-//   .irq_can_tra        (irq_can_traA), 
-//   .irq_elink_tra      (irq_elink_tra_activeA), 
-//   .reset_all_done     (reset_all_doneA), 
-//   .reset_irq_can_done (reset_irq_can_doneA), 
-//   .rst                (rstA), 
-//   .timeoutrst         (timeoutrstA),
-//    
-//   .abort_mes          (abort_mesA), 
-//   .end_can_proc       (end_can_proc_mainA), 
-//   .entimeout          (main_entimeoutA), 
-//   .irq_trim_osc       (irq_trim_oscA), 
-//   .read_can_mode      (read_can_modeA), 
-//   .reset_irq_can      (reset_irq_can_mainA), 
-//   .reset_irq_can_all  (reset_irq_can_main_allA), 
-//   .reset_irq_rec_can  (reset_irq_rec_can_mainA), 
-//   .reset_irq_tra_can  (reset_irq_tra_canA), 
-//   .send_mes_can       (send_mes_can_doneA), 
-//   .sign_on_sig        (sign_on_sigA), 
-//   .start_init_can     (start_init_canA), 
-//   .start_mon_init     (start_mon_initA), 
-//   .start_read_can     (start_read_canA), 
-//   .start_read_elink   (start_read_elinkA), 
-//   .start_write_can    (start_writeA), 
-//   .start_write_elink  (start_write_elink_mainA), 
-//   .statedeb           (statedeb_mainA)
-//); 
-//assign abort_mesC = abort_mesA;  
-//assign abort_mesB = abort_mesA;
-//
-//assign end_can_proc_mainC = end_can_proc_mainA;  
-//assign end_can_proc_mainB = end_can_proc_mainA;
-//
-//assign main_entimeoutC = main_entimeoutA;  
-//assign main_entimeoutB = main_entimeoutA;
-//
-//assign irq_trim_oscC = irq_trim_oscA;  
-//assign irq_trim_oscB = irq_trim_oscA;
-//
-//assign read_can_modeC = read_can_modeA;  
-//assign read_can_modeB = read_can_modeA;
-//
-//assign reset_irq_can_mainC = reset_irq_can_mainA;  
-//assign reset_irq_can_mainB = reset_irq_can_mainA;
-//
-//assign reset_irq_can_main_allC = reset_irq_can_main_allA;  
-//assign reset_irq_can_main_allB = reset_irq_can_main_allA;
-//
-//assign reset_irq_rec_can_mainC = reset_irq_rec_can_mainA;  
-//assign reset_irq_rec_can_mainB = reset_irq_rec_can_mainA;
-//
-//assign reset_irq_tra_canC = reset_irq_tra_canA;  
-//assign reset_irq_tra_canB = reset_irq_tra_canA;
-//
-//assign send_mes_can_doneC = send_mes_can_doneA;  
-//assign send_mes_can_doneB = send_mes_can_doneA;
-//
-//assign sign_on_sigC = sign_on_sigA;  
-//assign sign_on_sigB = sign_on_sigA;
-//
-//assign start_init_canC = start_init_canA;  
-//assign start_init_canB = start_init_canA;
-//
-//assign start_mon_initC = start_mon_initA;  
-//assign start_mon_initB = start_mon_initA;
-//
-//assign start_read_canC = start_read_canA;  
-//assign start_read_canB = start_read_canA;
-//
-//assign start_read_elinkC = start_read_elinkA;  
-//assign start_read_elinkB = start_read_elinkA;
-//
-//
-//assign start_writeC = start_writeA;  
-//assign start_writeB = start_writeA;
-//
-//assign start_write_elink_mainC = start_write_elink_mainA;  
-//assign start_write_elink_mainB = start_write_elink_mainA;
-//
-//assign statedeb_mainC = statedeb_mainA;  
-//assign statedeb_mainB = statedeb_mainA;
-//
-//    
 can_elink_bridge_SMTMR can_elink_bridge_SM0 (
-    .clkA(clkA),
-    .clkB(clkB),
-    .clkC(clkC),
-    .end_bus_trim_allA(done_trim_osc_allA),
-    .end_bus_trim_allB(done_trim_osc_allB),
-    .end_bus_trim_allC(done_trim_osc_allC),
-    .end_initA(end_initA),
-    .end_initB(end_initB),
-    .end_initC(end_initC),
-    .end_mon_initA(end_mon_initA),
-    .end_mon_initB(end_mon_initB),
-    .end_mon_initC(end_mon_initC),
-    .end_read_canA(end_readA),
-    .end_read_canB(end_readB),
-    .end_read_canC(end_readC),
-    .end_read_elinkA(end_read_elinkA),
-    .end_read_elinkB(end_read_elinkB),
-    .end_read_elinkC(end_read_elinkC),
-    .end_write_canA(end_writeA),
-    .end_write_canB(end_writeB),
-    .end_write_canC(end_writeC),
-    .end_write_elinkA(end_write_elinkA),
-    .end_write_elinkB(end_write_elinkB),
-    .end_write_elinkC(end_write_elinkC),
-    .endwaitA(endwaitA),
-    .endwaitB(endwaitB),
-    .endwaitC(endwaitC),
-    .irq_can_recA(irq_can_recA),
-    .irq_can_recB(irq_can_recB),
-    .irq_can_recC(irq_can_recC),
-    .irq_can_traA(irq_can_traA),
-    .irq_can_traB(irq_can_traB),
-    .irq_can_traC(irq_can_traC),
-    .irq_elink_traA(irq_elink_tra_activeA),
-    .irq_elink_traB(irq_elink_tra_activeB),
-    .irq_elink_traC(irq_elink_tra_activeC),
-    .reset_all_doneA(reset_all_doneA),
-    .reset_all_doneB(reset_all_doneB),
-    .reset_all_doneC(reset_all_doneC),
-    .reset_irq_can_doneA(reset_irq_can_doneA),
-    .reset_irq_can_doneB(reset_irq_can_doneB),
-    .reset_irq_can_doneC(reset_irq_can_doneC),
-    .rstA(rstA),
-    .rstB(rstB),
-    .rstC(rstC),
-    .timeoutrstA(timeoutrstA),
-    .timeoutrstB(timeoutrstB),
-    .timeoutrstC(timeoutrstC),
+    .clk(clk),
+    .end_init(end_init),
+    .end_mon_init(end_mon_init),
+    .end_power_init(end_power_init),
+    .end_read_can(end_read),
+    .end_read_elink(end_read_elink),
+    .end_write_can(end_write),
+    .end_write_elink(end_write_elink),
+    .endwait(endwait),
+    .irq_can_rec(irq_can_rec),
+    .irq_can_tra(irq_can_tra),
+    .irq_elink_tra(irq_elink_tra_active),
+    .reset_all_done(reset_all_done),
+    .reset_irq_can_done(reset_irq_can_done),
+    .rst(rst),
+    .timeoutrst(timeoutrst),
     .abort_mesA(abort_mesA),
     .abort_mesB(abort_mesB),
     .abort_mesC(abort_mesC),
@@ -486,9 +326,6 @@ can_elink_bridge_SMTMR can_elink_bridge_SM0 (
     .entimeoutA(main_entimeoutA),
     .entimeoutB(main_entimeoutB),
     .entimeoutC(main_entimeoutC),
-    .irq_trim_oscA(irq_trim_oscA),
-    .irq_trim_oscB(irq_trim_oscB),
-    .irq_trim_oscC(irq_trim_oscC),
     .read_can_modeA(read_can_modeA),
     .read_can_modeB(read_can_modeB),
     .read_can_modeC(read_can_modeC),
@@ -516,6 +353,9 @@ can_elink_bridge_SMTMR can_elink_bridge_SM0 (
     .start_mon_initA(start_mon_initA),
     .start_mon_initB(start_mon_initB),
     .start_mon_initC(start_mon_initC),
+    .start_power_initA(start_power_initA),
+    .start_power_initB(start_power_initB),
+    .start_power_initC(start_power_initC),
     .start_read_canA(start_read_canA),
     .start_read_canB(start_read_canB),
     .start_read_canC(start_read_canC),
@@ -534,171 +374,66 @@ can_elink_bridge_SMTMR can_elink_bridge_SM0 (
     );
 
 canakari_interfaceTMR canakari_interface0 (
-    .abortA(abort_mesA),
-    .abortB(abort_mesB),
-    .abortC(abort_mesC),
-    .can_rec_selectA(can_rec_selectA),
-    .can_rec_selectB(can_rec_selectB),
-    .can_rec_selectC(can_rec_selectC),
-    .clkA(clkA),
-    .clkB(clkB),
-    .clkC(clkC),
-    .data_tra_mesA(data_tra_mesA),
-    .data_tra_mesB(data_tra_mesB),
-    .data_tra_mesC(data_tra_mesC),
-    .data_tra_selectA(data_tra_selectA),
-    .data_tra_selectB(data_tra_selectB),
-    .data_tra_selectC(data_tra_selectC),
-    .end_can_procA(end_can_procA),
-    .end_can_procB(end_can_procB),
-    .end_can_procC(end_can_procC),
-    .initA(start_init_canA),
-    .initB(start_init_canB),
-    .initC(start_init_canC),
-    .n_busesA(n_busesA),
-    .n_busesB(n_busesB),
-    .n_busesC(n_busesC),
-    .power_bus_cntA(power_bus_cntA),
-    .power_bus_cntB(power_bus_cntB),
-    .power_bus_cntC(power_bus_cntC),
-    .reset_irq_canA(reset_irq_canA),
-    .reset_irq_canB(reset_irq_canB),
-    .reset_irq_canC(reset_irq_canC),
-    .reset_irq_can_allA(reset_irq_can_main_allA),
-    .reset_irq_can_allB(reset_irq_can_main_allB),
-    .reset_irq_can_allC(reset_irq_can_main_allC),
-    .reset_irq_osc_canA(reset_irq_osc_canA),
-    .reset_irq_osc_canB(reset_irq_osc_canB),
-    .reset_irq_osc_canC(reset_irq_osc_canC),
-    .reset_irq_rec_canA(reset_irq_rec_canA),
-    .reset_irq_rec_canB(reset_irq_rec_canB),
-    .reset_irq_rec_canC(reset_irq_rec_canC),
-    .reset_irq_tra_canA(reset_irq_tra_canA),
-    .reset_irq_tra_canB(reset_irq_tra_canB),
-    .reset_irq_tra_canC(reset_irq_tra_canC),
-    .rstA(rstA),
-    .rstB(rstB),
-    .rstC(rstC),
-    .send_mesA(send_mesA),
-    .send_mesB(send_mesB),
-    .send_mesC(send_mesC),
-    .start_readA(start_readA),
-    .start_readB(start_readB),
-    .start_readC(start_readC),
-    .start_trim_oscA(start_trim_oscA),
-    .start_trim_oscB(start_trim_oscB),
-    .start_trim_oscC(start_trim_oscC),
-    .start_writeA(start_writeA),
-    .start_writeB(start_writeB),
-    .start_writeC(start_writeC),
-    .timeoutrstA(timeoutrstA),
-    .timeoutrstB(timeoutrstB),
-    .timeoutrstC(timeoutrstC),
-    .addr_canA(addr_canA),
-    .addr_canB(addr_canB),
-    .addr_canC(addr_canC),
-    .bus_matchA(bus_matchA),
-    .bus_matchB(bus_matchB),
-    .bus_matchC(bus_matchC),
-    .can_tra_selectA(can_tra_selectA),
-    .can_tra_selectB(can_tra_selectB),
-    .can_tra_selectC(can_tra_selectC),
-    .cs_canA(enable_csA),
-    .cs_canB(enable_csB),
-    .cs_canC(enable_csC),
-    .en_rec_regA(en_rec_regA),
-    .en_rec_regB(en_rec_regB),
-    .en_rec_regC(en_rec_regC),
-    .end_initA(end_initA),
-    .end_initB(end_initB),
-    .end_initC(end_initC),
-    .end_readA(end_readA),
-    .end_readB(end_readB),
-    .end_readC(end_readC),
-    .end_trim_oscA(end_trim_oscA),
-    .end_trim_oscB(end_trim_oscB),
-    .end_trim_oscC(end_trim_oscC),
-    .end_writeA(end_writeA),
-    .end_writeB(end_writeB),
-    .end_writeC(end_writeC),
-    .read_sig_can_nA(read_sig_can_nA),
-    .read_sig_can_nB(read_sig_can_nB),
-    .read_sig_can_nC(read_sig_can_nC),
-    .reset_all_doneA(reset_all_doneA),
-    .reset_all_doneB(reset_all_doneB),
-    .reset_all_doneC(reset_all_doneC),
-    .reset_irq_can_doneA(reset_irq_can_doneA),
-    .reset_irq_can_doneB(reset_irq_can_doneB),
-    .reset_irq_can_doneC(reset_irq_can_doneC),
-    .start_initA(start_initA),
-    .start_initB(start_initB),
-    .start_initC(start_initC),
-    .statedebcanA(statedeb_canA),
-    .statedebcanB(statedeb_canB),
-    .statedebcanC(statedeb_canC),
-    .write_canA(write_canA),
-    .write_canB(write_canB),
-    .write_canC(write_canC),
-    .write_sig_can_nA(write_sig_can_nA),
-    .write_sig_can_nB(write_sig_can_nB),
-    .write_sig_can_nC(write_sig_can_nC)
+    .abort(abort_mes),
+    .can_rec_select(can_rec_select),
+    .clk(clk),
+    .data_tra_mes(data_tra_mes),
+    .data_tra_select(data_tra_select),
+    .end_can_proc(end_can_proc),
+    .init(start_init_can),
+    .n_buses(n_buses),
+    .power_bus_cnt(power_bus_cnt),
+    .reset_irq_can(reset_irq_can),
+    .reset_irq_can_all(reset_irq_can_main_all),
+    .reset_irq_osc_can(reset_irq_osc_can),
+    .reset_irq_rec_can(reset_irq_rec_can),
+    .reset_irq_tra_can(reset_irq_tra_can),
+    .rst(rst),
+    .send_mes(send_mes),
+    .start_read(start_read),
+    .start_trim_osc(start_trim_osc),
+    .start_write(start_write),
+    .timeoutrst(timeoutrst),
+    .addr_can(addr_can),
+    .bus_match(bus_match),
+    .can_tra_select(can_tra_select),
+    .cs_can(enable_cs),
+    .en_rec_reg(en_rec_reg),
+    .end_init(end_init),
+    .end_read(end_read),
+    .end_trim_osc(end_trim_osc),
+    .end_write(end_write),
+    .read_sig_can_n(read_sig_can_n),
+    .reset_all_done(reset_all_done),
+    .reset_irq_can_done(reset_irq_can_done),
+    .start_init(start_init),
+    .statedebcan(statedeb_can),
+    .write_can(write_can),
+    .write_sig_can_n(write_sig_can_n)
     );
 
 osc_trim_SMTMR osc_trim_SM0 (
-    .abortA(abort_mesA),
-    .abortB(abort_mesB),
-    .abortC(abort_mesC),
-    .clkA(clkA),
-    .clkB(clkB),
-    .clkC(clkC),
-    .end_cnt_dbgA(end_cnt_dbgA),
-    .end_cnt_dbgB(end_cnt_dbgB),
-    .end_cnt_dbgC(end_cnt_dbgC),
-    .end_osc_cntA(end_osc_cntA),
-    .end_osc_cntB(end_osc_cntB),
-    .end_osc_cntC(end_osc_cntC),
-    .end_read_canA(end_readA),
-    .end_read_canB(end_readB),
-    .end_read_canC(end_readC),
-    .end_write_canA(end_writeA),
-    .end_write_canB(end_writeB),
-    .end_write_canC(end_writeC),
-    .end_write_elinkA(end_write_elinkA),
-    .end_write_elinkB(end_write_elinkB),
-    .end_write_elinkC(end_write_elinkC),
-    .irq_can_recA(irq_can_recA),
-    .irq_can_recB(irq_can_recB),
-    .irq_can_recC(irq_can_recC),
-    .irq_can_traA(irq_can_traA),
-    .irq_can_traB(irq_can_traB),
-    .irq_can_traC(irq_can_traC),
-    .irq_trim_bus_oscA(irq_trim_bus_oscA),
-    .irq_trim_bus_oscB(irq_trim_bus_oscB),
-    .irq_trim_bus_oscC(irq_trim_bus_oscC),
-    .irq_trim_oscA(irq_trim_oscA),
-    .irq_trim_oscB(irq_trim_oscB),
-    .irq_trim_oscC(irq_trim_oscC),
-    .osc_auto_trim_mopshubA(osc_auto_trim_mopshubA),
-    .osc_auto_trim_mopshubB(osc_auto_trim_mopshubB),
-    .osc_auto_trim_mopshubC(osc_auto_trim_mopshubC),
-    .power_bus_en_doneA(power_bus_en_doneA),
-    .power_bus_en_doneB(power_bus_en_doneB),
-    .power_bus_en_doneC(power_bus_en_doneC),
-    .reset_irq_can_doneA(reset_irq_can_doneA),
-    .reset_irq_can_doneB(reset_irq_can_doneB),
-    .reset_irq_can_doneC(reset_irq_can_doneC),
-    .rstA(rstA),
-    .rstB(rstB),
-    .rstC(rstC),
-    .timeoutrstA(timeoutrst_trimA),
-    .timeoutrstB(timeoutrst_trimB),
-    .timeoutrstC(timeoutrst_trimC),
-    .done_trim_osc_allA(done_trim_osc_allA),
-    .done_trim_osc_allB(done_trim_osc_allB),
-    .done_trim_osc_allC(done_trim_osc_allC),
+    .abort(abort_mes),
+    .clk(clk),
+    .end_osc_cnt(end_osc_cnt),
+    .end_read_can(end_read),
+    .end_write_can(end_write),
+    .end_write_elink(end_write_elink),
+    .irq_can_rec(irq_can_rec),
+    .irq_can_tra(irq_can_tra),
+    .irq_trim_bus_osc(irq_trim_bus_osc),
+    .osc_auto_trim_mopshub(osc_auto_trim_mopshub),
+    .power_bus_en_done(power_bus_en_done),
+    .reset_irq_can_done(reset_irq_can_done),
+    .rst(rst),
+    .start_power_init(start_power_init),
+    .timeoutrst(timeoutrst_trim),
     .end_can_procA(end_can_proc_trimA),
     .end_can_procB(end_can_proc_trimB),
     .end_can_procC(end_can_proc_trimC),
+    .end_power_initA(end_power_initA),
+    .end_power_initB(end_power_initB),
+    .end_power_initC(end_power_initC),
     .end_trim_busA(end_trim_busA),
     .end_trim_busB(end_trim_busB),
     .end_trim_busC(end_trim_busC),
@@ -759,61 +494,27 @@ osc_trim_SMTMR osc_trim_SM0 (
     );
 
 timout_rstTMR timout_rst0 (
-    .clkA(clkA),
-    .clkB(clkB),
-    .clkC(clkC),
-    .entimeoutA(main_entimeoutA),
-    .entimeoutB(main_entimeoutB),
-    .entimeoutC(main_entimeoutC),
-    .time_limitA(time_limitA),
-    .time_limitB(time_limitB),
-    .time_limitC(time_limitC),
-    .rstA(rstA),
-    .rstB(rstB),
-    .rstC(rstC),
-    .timeoutrstA(timeoutrstA),
-    .timeoutrstB(timeoutrstB),
-    .timeoutrstC(timeoutrstC)
+    .clk(clk),
+    .entimeout(main_entimeout),
+    .time_limit(time_limit),
+    .rst(rst),
+    .timeoutrst(timeoutrst)
     );
 
 timout_rstTMR timout_rst1 (
-    .clkA(clkA),
-    .clkB(clkB),
-    .clkC(clkC),
-    .entimeoutA(entimeout_trimA),
-    .entimeoutB(entimeout_trimB),
-    .entimeoutC(entimeout_trimC),
-    .time_limitA(time_limit_trimA),
-    .time_limitB(time_limit_trimB),
-    .time_limitC(time_limit_trimC),
-    .rstA(rstA),
-    .rstB(rstB),
-    .rstC(rstC),
-    .timeoutrstA(timeoutrst_trimA),
-    .timeoutrstB(timeoutrst_trimB),
-    .timeoutrstC(timeoutrst_trimC)
+    .clk(clk),
+    .entimeout(entimeout_trim),
+    .time_limit(time_limit_trim),
+    .rst(rst),
+    .timeoutrst(timeoutrst_trim)
     );
-assign irq_elink_tra_activeA =  (irq_elink_traA&!osc_trim_modeA&!read_can_modeA);
-assign irq_elink_tra_activeB =  (irq_elink_traB&!osc_trim_modeB&!read_can_modeB);
-assign irq_elink_tra_activeC =  (irq_elink_traC&!osc_trim_modeC&!read_can_modeC);
-assign start_write_elinkA =  (start_write_elink_mainA||start_write_elink_trimA);
-assign start_write_elinkB =  (start_write_elink_mainB||start_write_elink_trimB);
-assign start_write_elinkC =  (start_write_elink_mainC||start_write_elink_trimC);
-assign send_mesA =  send_mes_can_doneA||send_mes_can_trimA;
-assign send_mesB =  send_mes_can_doneB||send_mes_can_trimB;
-assign send_mesC =  send_mes_can_doneC||send_mes_can_trimC;
-assign reset_irq_canA =  reset_irq_can_trimA||reset_irq_can_mainA;
-assign reset_irq_canB =  reset_irq_can_trimB||reset_irq_can_mainB;
-assign reset_irq_canC =  reset_irq_can_trimC||reset_irq_can_mainC;
-assign start_readA =  start_read_canA||start_read_can_trimA;
-assign start_readB =  start_read_canB||start_read_can_trimB;
-assign start_readC =  start_read_canC||start_read_can_trimC;
-assign reset_irq_rec_canA =  reset_irq_rec_can_mainA||reset_irq_rec_can_trimA;
-assign reset_irq_rec_canB =  reset_irq_rec_can_mainB||reset_irq_rec_can_trimB;
-assign reset_irq_rec_canC =  reset_irq_rec_can_mainC||reset_irq_rec_can_trimC;
-assign end_can_procA =  end_can_proc_mainA||end_can_proc_trimA;
-assign end_can_procB =  end_can_proc_mainB||end_can_proc_trimB;
-assign end_can_procC =  end_can_proc_mainC||end_can_proc_trimC;
+assign irq_elink_tra_active =  (irq_elink_tra&!osc_trim_mode&!read_can_mode);
+assign start_write_elink =  (start_write_elink_main||start_write_elink_trim);
+assign send_mes =  send_mes_can_done||send_mes_can_trim;
+assign reset_irq_can =  reset_irq_can_trim||reset_irq_can_main;
+assign start_read =  start_read_can||start_read_can_trim;
+assign reset_irq_rec_can =  reset_irq_rec_can_main||reset_irq_rec_can_trim;
+assign end_can_proc =  end_can_proc_main||end_can_proc_trim;
 initial
   begin
     irq_trim_bus_oscA =  1'b0;
@@ -832,5 +533,341 @@ initial
     time_limitC =  32'd50000000;
     time_limit_trimC =  32'd10000000;
   end
+
+majorityVoter abort_mesVoter (
+    .inA(abort_mesA),
+    .inB(abort_mesB),
+    .inC(abort_mesC),
+    .out(abort_mes),
+    .tmrErr(abort_mesTmrError)
+    );
+
+majorityVoter end_can_proc_mainVoter (
+    .inA(end_can_proc_mainA),
+    .inB(end_can_proc_mainB),
+    .inC(end_can_proc_mainC),
+    .out(end_can_proc_main),
+    .tmrErr(end_can_proc_mainTmrError)
+    );
+
+majorityVoter end_can_proc_trimVoter (
+    .inA(end_can_proc_trimA),
+    .inB(end_can_proc_trimB),
+    .inC(end_can_proc_trimC),
+    .out(end_can_proc_trim),
+    .tmrErr(end_can_proc_trimTmrError)
+    );
+
+majorityVoter end_power_initVoter (
+    .inA(end_power_initA),
+    .inB(end_power_initB),
+    .inC(end_power_initC),
+    .out(end_power_init),
+    .tmrErr(end_power_initTmrError)
+    );
+
+majorityVoter end_trim_busVoter (
+    .inA(end_trim_busA),
+    .inB(end_trim_busB),
+    .inC(end_trim_busC),
+    .out(end_trim_bus),
+    .tmrErr(end_trim_busTmrError)
+    );
+
+majorityVoter entimeout_trimVoter (
+    .inA(entimeout_trimA),
+    .inB(entimeout_trimB),
+    .inC(entimeout_trimC),
+    .out(entimeout_trim),
+    .tmrErr(entimeout_trimTmrError)
+    );
+
+majorityVoter ext_counter_genVoter (
+    .inA(ext_counter_genA),
+    .inB(ext_counter_genB),
+    .inC(ext_counter_genC),
+    .out(ext_counter_gen),
+    .tmrErr(ext_counter_genTmrError)
+    );
+
+majorityVoter irq_can_ackVoter (
+    .inA(irq_can_ackA),
+    .inB(irq_can_ackB),
+    .inC(irq_can_ackC),
+    .out(irq_can_ack),
+    .tmrErr(irq_can_ackTmrError)
+    );
+
+majorityVoter irq_trim_bus_oscVoter (
+    .inA(irq_trim_bus_oscA),
+    .inB(irq_trim_bus_oscB),
+    .inC(irq_trim_bus_oscC),
+    .out(irq_trim_bus_osc),
+    .tmrErr(irq_trim_bus_oscTmrError)
+    );
+
+majorityVoter main_entimeoutVoter (
+    .inA(main_entimeoutA),
+    .inB(main_entimeoutB),
+    .inC(main_entimeoutC),
+    .out(main_entimeout),
+    .tmrErr(main_entimeoutTmrError)
+    );
+
+majorityVoter osc_trim_modeVoter (
+    .inA(osc_trim_modeA),
+    .inB(osc_trim_modeB),
+    .inC(osc_trim_modeC),
+    .out(osc_trim_mode),
+    .tmrErr(osc_trim_modeTmrError)
+    );
+
+majorityVoter power_bus_enVoter (
+    .inA(power_bus_enA),
+    .inB(power_bus_enB),
+    .inC(power_bus_enC),
+    .out(power_bus_en),
+    .tmrErr(power_bus_enTmrError)
+    );
+
+majorityVoter read_can_modeVoter (
+    .inA(read_can_modeA),
+    .inB(read_can_modeB),
+    .inC(read_can_modeC),
+    .out(read_can_mode),
+    .tmrErr(read_can_modeTmrError)
+    );
+
+majorityVoter reset_irq_can_mainVoter (
+    .inA(reset_irq_can_mainA),
+    .inB(reset_irq_can_mainB),
+    .inC(reset_irq_can_mainC),
+    .out(reset_irq_can_main),
+    .tmrErr(reset_irq_can_mainTmrError)
+    );
+
+majorityVoter reset_irq_can_main_allVoter (
+    .inA(reset_irq_can_main_allA),
+    .inB(reset_irq_can_main_allB),
+    .inC(reset_irq_can_main_allC),
+    .out(reset_irq_can_main_all),
+    .tmrErr(reset_irq_can_main_allTmrError)
+    );
+
+majorityVoter reset_irq_can_trimVoter (
+    .inA(reset_irq_can_trimA),
+    .inB(reset_irq_can_trimB),
+    .inC(reset_irq_can_trimC),
+    .out(reset_irq_can_trim),
+    .tmrErr(reset_irq_can_trimTmrError)
+    );
+
+majorityVoter reset_irq_osc_canVoter (
+    .inA(reset_irq_osc_canA),
+    .inB(reset_irq_osc_canB),
+    .inC(reset_irq_osc_canC),
+    .out(reset_irq_osc_can),
+    .tmrErr(reset_irq_osc_canTmrError)
+    );
+
+majorityVoter reset_irq_rec_can_mainVoter (
+    .inA(reset_irq_rec_can_mainA),
+    .inB(reset_irq_rec_can_mainB),
+    .inC(reset_irq_rec_can_mainC),
+    .out(reset_irq_rec_can_main),
+    .tmrErr(reset_irq_rec_can_mainTmrError)
+    );
+
+majorityVoter reset_irq_rec_can_trimVoter (
+    .inA(reset_irq_rec_can_trimA),
+    .inB(reset_irq_rec_can_trimB),
+    .inC(reset_irq_rec_can_trimC),
+    .out(reset_irq_rec_can_trim),
+    .tmrErr(reset_irq_rec_can_trimTmrError)
+    );
+
+majorityVoter reset_irq_tra_canVoter (
+    .inA(reset_irq_tra_canA),
+    .inB(reset_irq_tra_canB),
+    .inC(reset_irq_tra_canC),
+    .out(reset_irq_tra_can),
+    .tmrErr(reset_irq_tra_canTmrError)
+    );
+
+majorityVoter rst_busVoter (
+    .inA(rst_busA),
+    .inB(rst_busB),
+    .inC(rst_busC),
+    .out(rst_bus),
+    .tmrErr(rst_busTmrError)
+    );
+
+majorityVoter rst_osc_cntVoter (
+    .inA(rst_osc_cntA),
+    .inB(rst_osc_cntB),
+    .inC(rst_osc_cntC),
+    .out(rst_osc_cnt),
+    .tmrErr(rst_osc_cntTmrError)
+    );
+
+majorityVoter send_mes_can_doneVoter (
+    .inA(send_mes_can_doneA),
+    .inB(send_mes_can_doneB),
+    .inC(send_mes_can_doneC),
+    .out(send_mes_can_done),
+    .tmrErr(send_mes_can_doneTmrError)
+    );
+
+majorityVoter send_mes_can_trimVoter (
+    .inA(send_mes_can_trimA),
+    .inB(send_mes_can_trimB),
+    .inC(send_mes_can_trimC),
+    .out(send_mes_can_trim),
+    .tmrErr(send_mes_can_trimTmrError)
+    );
+
+majorityVoter sign_on_sigVoter (
+    .inA(sign_on_sigA),
+    .inB(sign_on_sigB),
+    .inC(sign_on_sigC),
+    .out(sign_on_sig),
+    .tmrErr(sign_on_sigTmrError)
+    );
+
+majorityVoter skip_osc_trimVoter (
+    .inA(skip_osc_trimA),
+    .inB(skip_osc_trimB),
+    .inC(skip_osc_trimC),
+    .out(skip_osc_trim),
+    .tmrErr(skip_osc_trimTmrError)
+    );
+
+majorityVoter start_init_canVoter (
+    .inA(start_init_canA),
+    .inB(start_init_canB),
+    .inC(start_init_canC),
+    .out(start_init_can),
+    .tmrErr(start_init_canTmrError)
+    );
+
+majorityVoter start_mon_initVoter (
+    .inA(start_mon_initA),
+    .inB(start_mon_initB),
+    .inC(start_mon_initC),
+    .out(start_mon_init),
+    .tmrErr(start_mon_initTmrError)
+    );
+
+majorityVoter start_osc_cntVoter (
+    .inA(start_osc_cntA),
+    .inB(start_osc_cntB),
+    .inC(start_osc_cntC),
+    .out(start_osc_cnt),
+    .tmrErr(start_osc_cntTmrError)
+    );
+
+majorityVoter start_power_initVoter (
+    .inA(start_power_initA),
+    .inB(start_power_initB),
+    .inC(start_power_initC),
+    .out(start_power_init),
+    .tmrErr(start_power_initTmrError)
+    );
+
+majorityVoter start_read_canVoter (
+    .inA(start_read_canA),
+    .inB(start_read_canB),
+    .inC(start_read_canC),
+    .out(start_read_can),
+    .tmrErr(start_read_canTmrError)
+    );
+
+majorityVoter start_read_can_trimVoter (
+    .inA(start_read_can_trimA),
+    .inB(start_read_can_trimB),
+    .inC(start_read_can_trimC),
+    .out(start_read_can_trim),
+    .tmrErr(start_read_can_trimTmrError)
+    );
+
+majorityVoter start_read_elinkVoter (
+    .inA(start_read_elinkA),
+    .inB(start_read_elinkB),
+    .inC(start_read_elinkC),
+    .out(start_read_elink),
+    .tmrErr(start_read_elinkTmrError)
+    );
+
+majorityVoter start_trim_ackVoter (
+    .inA(start_trim_ackA),
+    .inB(start_trim_ackB),
+    .inC(start_trim_ackC),
+    .out(start_trim_ack),
+    .tmrErr(start_trim_ackTmrError)
+    );
+
+majorityVoter start_trim_oscVoter (
+    .inA(start_trim_oscA),
+    .inB(start_trim_oscB),
+    .inC(start_trim_oscC),
+    .out(start_trim_osc),
+    .tmrErr(start_trim_oscTmrError)
+    );
+
+majorityVoter start_writeVoter (
+    .inA(start_writeA),
+    .inB(start_writeB),
+    .inC(start_writeC),
+    .out(start_write),
+    .tmrErr(start_writeTmrError)
+    );
+
+majorityVoter start_write_elink_mainVoter (
+    .inA(start_write_elink_mainA),
+    .inB(start_write_elink_mainB),
+    .inC(start_write_elink_mainC),
+    .out(start_write_elink_main),
+    .tmrErr(start_write_elink_mainTmrError)
+    );
+
+majorityVoter start_write_elink_trimVoter (
+    .inA(start_write_elink_trimA),
+    .inB(start_write_elink_trimB),
+    .inC(start_write_elink_trimC),
+    .out(start_write_elink_trim),
+    .tmrErr(start_write_elink_trimTmrError)
+    );
+
+majorityVoter #(.WIDTH(6)) statedeb_mainVoter (
+    .inA(statedeb_mainA),
+    .inB(statedeb_mainB),
+    .inC(statedeb_mainC),
+    .out(statedeb_main),
+    .tmrErr(statedeb_mainTmrError)
+    );
+
+majorityVoter #(.WIDTH(6)) statedeb_osc_trimVoter (
+    .inA(statedeb_osc_trimA),
+    .inB(statedeb_osc_trimB),
+    .inC(statedeb_osc_trimC),
+    .out(statedeb_osc_trim),
+    .tmrErr(statedeb_osc_trimTmrError)
+    );
+
+majorityVoter #(.WIDTH(32)) time_limitVoter (
+    .inA(time_limitA),
+    .inB(time_limitB),
+    .inC(time_limitC),
+    .out(time_limit),
+    .tmrErr(time_limitTmrError)
+    );
+
+majorityVoter #(.WIDTH(32)) time_limit_trimVoter (
+    .inA(time_limit_trimA),
+    .inB(time_limit_trimB),
+    .inC(time_limit_trimC),
+    .out(time_limit_trim),
+    .tmrErr(time_limit_trimTmrError)
+    );
 endmodule
 

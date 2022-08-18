@@ -6,127 +6,97 @@
  *                                                                                                  *
  * user    : lucas                                                                                  *
  * host    : DESKTOP-BFDSFP2                                                                        *
- * date    : 03/04/2022 20:08:54                                                                    *
+ * date    : 16/08/2022 12:58:32                                                                    *
  *                                                                                                  *
- * workdir : /mnt/c/Users/Lucas/Desktop/mopshub_triplication/triplicated/mopshub_top_canakari_ftrim/hdl *
- * cmd     : /mnt/c/Users/Lucas/Desktop/mopshub_triplication/tmrg-master/bin/tmrg -vv -c tmrg.cfg   *
+ * workdir : /mnt/c/Users/Lucas/Desktop/mopshub_triplication/mopshub_top_board_canakari_ftrim/hdl   *
+ * cmd     : /mnt/c/Users/Lucas/Desktop/mopshub_triplication/tmrg-master/bin/tmrg -c tmrg.cfg -vvv  *
  * tmrg rev:                                                                                        *
  *                                                                                                  *
  * src file: mux1_1bit.v                                                                            *
  *           Git SHA           : File not in git repository!                                        *
- *           Modification time : 2022-03-28 18:40:17                                                *
- *           File Size         : 3140                                                               *
- *           MD5 hash          : 53447a4813e2a569a5823792859d1f66                                   *
+ *           Modification time : 2022-08-12 11:12:02                                                *
+ *           File Size         : 2072                                                               *
+ *           MD5 hash          : e179db39d96a39874a7b95c14f2bd2fe                                   *
  *                                                                                                  *
  ****************************************************************************************************/
 
 module mux1_1bitTMR(
-  input wire [4:0] selA ,
-  input wire [4:0] selB ,
-  input wire [4:0] selC ,
-  input wire  def_valueA ,
-  input wire  def_valueB ,
-  input wire  def_valueC ,
-  output wire  output_portA ,
-  output wire  output_portB ,
-  output wire  output_portC ,
-  input wire  input9A ,
-  input wire  input9B ,
-  input wire  input9C ,
-  input wire  input18A ,
-  input wire  input18B ,
-  input wire  input18C ,
-  input wire  input19A ,
-  input wire  input19B ,
-  input wire  input19C ,
-  input wire  input20A ,
-  input wire  input20B ,
-  input wire  input20C ,
-  input wire  input21A ,
-  input wire  input21B ,
-  input wire  input21C ,
-  input wire  input22A ,
-  input wire  input22B ,
-  input wire  input22C ,
-  input wire  input23A ,
-  input wire  input23B ,
-  input wire  input23C ,
-  input wire  input24A ,
-  input wire  input24B ,
-  input wire  input24C ,
-  input wire  input4A ,
-  input wire  input4B ,
-  input wire  input4C ,
-  input wire  input5A ,
-  input wire  input5B ,
-  input wire  input5C ,
-  input wire  input6A ,
-  input wire  input6B ,
-  input wire  input6C ,
-  input wire  input7A ,
-  input wire  input7B ,
-  input wire  input7C ,
-  input wire  input8A ,
-  input wire  input8B ,
-  input wire  input8C ,
-  input wire  input10A ,
-  input wire  input10B ,
-  input wire  input10C ,
-  input wire  input11A ,
-  input wire  input11B ,
-  input wire  input11C ,
-  input wire  input12A ,
-  input wire  input12B ,
-  input wire  input12C ,
-  input wire  input13A ,
-  input wire  input13B ,
-  input wire  input13C ,
-  input wire  input14A ,
-  input wire  input14B ,
-  input wire  input14C ,
-  input wire  input15A ,
-  input wire  input15B ,
-  input wire  input15C ,
-  input wire  input16A ,
-  input wire  input16B ,
-  input wire  input16C ,
-  input wire  input17A ,
-  input wire  input17B ,
-  input wire  input17C ,
-  input wire  input0A ,
-  input wire  input0B ,
-  input wire  input0C ,
-  input wire  input1A ,
-  input wire  input1B ,
-  input wire  input1C ,
-  input wire  input2A ,
-  input wire  input2B ,
-  input wire  input2C ,
-  input wire  input3A ,
-  input wire  input3B ,
-  input wire  input3C ,
-  input wire  input26A ,
-  input wire  input26B ,
-  input wire  input26C ,
-  input wire  input27A ,
-  input wire  input27B ,
-  input wire  input27C ,
-  input wire  input28A ,
-  input wire  input28B ,
-  input wire  input28C ,
-  input wire  input29A ,
-  input wire  input29B ,
-  input wire  input29C ,
-  input wire  input30A ,
-  input wire  input30B ,
-  input wire  input30C ,
-  input wire  input31A ,
-  input wire  input31B ,
-  input wire  input31C ,
-  input wire  input25A ,
-  input wire  input25B ,
-  input wire  input25C 
+  input wire [4:0] sel ,
+  input wire  def_value ,
+  output wire  output_port ,
+  input wire  input0 ,
+  input wire  input1 ,
+  input wire  input2 ,
+  input wire  input3 ,
+  input wire  input4 ,
+  input wire  input5 ,
+  input wire  input6 ,
+  input wire  input7 ,
+  input wire  input8 ,
+  input wire  input9 ,
+  input wire  input10 ,
+  input wire  input11 ,
+  input wire  input12 ,
+  input wire  input13 ,
+  input wire  input14 ,
+  input wire  input15 
 );
+wire [4:0] selC;
+wire [4:0] selB;
+wire [4:0] selA;
+wire input9C;
+wire input9B;
+wire input9A;
+wire input8C;
+wire input8B;
+wire input8A;
+wire input7C;
+wire input7B;
+wire input7A;
+wire input6C;
+wire input6B;
+wire input6A;
+wire input5C;
+wire input5B;
+wire input5A;
+wire input4C;
+wire input4B;
+wire input4A;
+wire input3C;
+wire input3B;
+wire input3A;
+wire input2C;
+wire input2B;
+wire input2A;
+wire input1C;
+wire input1B;
+wire input1A;
+wire input15C;
+wire input15B;
+wire input15A;
+wire input14C;
+wire input14B;
+wire input14A;
+wire input13C;
+wire input13B;
+wire input13A;
+wire input12C;
+wire input12B;
+wire input12A;
+wire input11C;
+wire input11B;
+wire input11A;
+wire input10C;
+wire input10B;
+wire input10A;
+wire input0C;
+wire input0B;
+wire input0A;
+wire def_valueC;
+wire def_valueB;
+wire def_valueA;
+wor output_port_regTmrError;
+wire output_port_reg;
 reg  output_port_regA ;
 reg  output_port_regB ;
 reg  output_port_regC ;
@@ -136,9 +106,7 @@ initial
   output_port_regB =  1'b0;
 initial
   output_port_regC =  1'b0;
-assign output_portA =  output_port_regA;
-assign output_portB =  output_port_regB;
-assign output_portC =  output_port_regC;
+assign output_port =  output_port_reg;
 
 always @( * )
   begin
@@ -160,22 +128,6 @@ always @( * )
       5'hD : output_port_regA =  input13A;
       5'hE : output_port_regA =  input14A;
       5'hF : output_port_regA =  input15A;
-      5'h10 : output_port_regA =  input16A;
-      5'h11 : output_port_regA =  input17A;
-      5'h12 : output_port_regA =  input18A;
-      5'h13 : output_port_regA =  input19A;
-      5'h14 : output_port_regA =  input20A;
-      5'h15 : output_port_regA =  input21A;
-      5'h16 : output_port_regA =  input22A;
-      5'h17 : output_port_regA =  input23A;
-      5'h18 : output_port_regA =  input24A;
-      5'h19 : output_port_regA =  input25A;
-      5'h1A : output_port_regA =  input26A;
-      5'h1B : output_port_regA =  input27A;
-      5'h1C : output_port_regA =  input28A;
-      5'h1D : output_port_regA =  input29A;
-      5'h1E : output_port_regA =  input30A;
-      5'h1F : output_port_regA =  input31A;
       default : output_port_regA =  def_valueA;
     endcase
   end
@@ -200,22 +152,6 @@ always @( * )
       5'hD : output_port_regB =  input13B;
       5'hE : output_port_regB =  input14B;
       5'hF : output_port_regB =  input15B;
-      5'h10 : output_port_regB =  input16B;
-      5'h11 : output_port_regB =  input17B;
-      5'h12 : output_port_regB =  input18B;
-      5'h13 : output_port_regB =  input19B;
-      5'h14 : output_port_regB =  input20B;
-      5'h15 : output_port_regB =  input21B;
-      5'h16 : output_port_regB =  input22B;
-      5'h17 : output_port_regB =  input23B;
-      5'h18 : output_port_regB =  input24B;
-      5'h19 : output_port_regB =  input25B;
-      5'h1A : output_port_regB =  input26B;
-      5'h1B : output_port_regB =  input27B;
-      5'h1C : output_port_regB =  input28B;
-      5'h1D : output_port_regB =  input29B;
-      5'h1E : output_port_regB =  input30B;
-      5'h1F : output_port_regB =  input31B;
       default : output_port_regB =  def_valueB;
     endcase
   end
@@ -240,24 +176,142 @@ always @( * )
       5'hD : output_port_regC =  input13C;
       5'hE : output_port_regC =  input14C;
       5'hF : output_port_regC =  input15C;
-      5'h10 : output_port_regC =  input16C;
-      5'h11 : output_port_regC =  input17C;
-      5'h12 : output_port_regC =  input18C;
-      5'h13 : output_port_regC =  input19C;
-      5'h14 : output_port_regC =  input20C;
-      5'h15 : output_port_regC =  input21C;
-      5'h16 : output_port_regC =  input22C;
-      5'h17 : output_port_regC =  input23C;
-      5'h18 : output_port_regC =  input24C;
-      5'h19 : output_port_regC =  input25C;
-      5'h1A : output_port_regC =  input26C;
-      5'h1B : output_port_regC =  input27C;
-      5'h1C : output_port_regC =  input28C;
-      5'h1D : output_port_regC =  input29C;
-      5'h1E : output_port_regC =  input30C;
-      5'h1F : output_port_regC =  input31C;
       default : output_port_regC =  def_valueC;
     endcase
   end
+
+majorityVoter output_port_regVoter (
+    .inA(output_port_regA),
+    .inB(output_port_regB),
+    .inC(output_port_regC),
+    .out(output_port_reg),
+    .tmrErr(output_port_regTmrError)
+    );
+
+fanout def_valueFanout (
+    .in(def_value),
+    .outA(def_valueA),
+    .outB(def_valueB),
+    .outC(def_valueC)
+    );
+
+fanout input0Fanout (
+    .in(input0),
+    .outA(input0A),
+    .outB(input0B),
+    .outC(input0C)
+    );
+
+fanout input10Fanout (
+    .in(input10),
+    .outA(input10A),
+    .outB(input10B),
+    .outC(input10C)
+    );
+
+fanout input11Fanout (
+    .in(input11),
+    .outA(input11A),
+    .outB(input11B),
+    .outC(input11C)
+    );
+
+fanout input12Fanout (
+    .in(input12),
+    .outA(input12A),
+    .outB(input12B),
+    .outC(input12C)
+    );
+
+fanout input13Fanout (
+    .in(input13),
+    .outA(input13A),
+    .outB(input13B),
+    .outC(input13C)
+    );
+
+fanout input14Fanout (
+    .in(input14),
+    .outA(input14A),
+    .outB(input14B),
+    .outC(input14C)
+    );
+
+fanout input15Fanout (
+    .in(input15),
+    .outA(input15A),
+    .outB(input15B),
+    .outC(input15C)
+    );
+
+fanout input1Fanout (
+    .in(input1),
+    .outA(input1A),
+    .outB(input1B),
+    .outC(input1C)
+    );
+
+fanout input2Fanout (
+    .in(input2),
+    .outA(input2A),
+    .outB(input2B),
+    .outC(input2C)
+    );
+
+fanout input3Fanout (
+    .in(input3),
+    .outA(input3A),
+    .outB(input3B),
+    .outC(input3C)
+    );
+
+fanout input4Fanout (
+    .in(input4),
+    .outA(input4A),
+    .outB(input4B),
+    .outC(input4C)
+    );
+
+fanout input5Fanout (
+    .in(input5),
+    .outA(input5A),
+    .outB(input5B),
+    .outC(input5C)
+    );
+
+fanout input6Fanout (
+    .in(input6),
+    .outA(input6A),
+    .outB(input6B),
+    .outC(input6C)
+    );
+
+fanout input7Fanout (
+    .in(input7),
+    .outA(input7A),
+    .outB(input7B),
+    .outC(input7C)
+    );
+
+fanout input8Fanout (
+    .in(input8),
+    .outA(input8A),
+    .outB(input8B),
+    .outC(input8C)
+    );
+
+fanout input9Fanout (
+    .in(input9),
+    .outA(input9A),
+    .outB(input9B),
+    .outC(input9C)
+    );
+
+fanout #(.WIDTH(5)) selFanout (
+    .in(sel),
+    .outA(selA),
+    .outB(selB),
+    .outC(selC)
+    );
 endmodule
 

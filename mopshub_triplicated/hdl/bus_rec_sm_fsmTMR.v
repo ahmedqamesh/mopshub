@@ -6,17 +6,17 @@
  *                                                                                                  *
  * user    : lucas                                                                                  *
  * host    : DESKTOP-BFDSFP2                                                                        *
- * date    : 03/04/2022 20:08:31                                                                    *
+ * date    : 16/08/2022 12:58:12                                                                    *
  *                                                                                                  *
- * workdir : /mnt/c/Users/Lucas/Desktop/mopshub_triplication/triplicated/mopshub_top_canakari_ftrim/hdl *
- * cmd     : /mnt/c/Users/Lucas/Desktop/mopshub_triplication/tmrg-master/bin/tmrg -vv -c tmrg.cfg   *
+ * workdir : /mnt/c/Users/Lucas/Desktop/mopshub_triplication/mopshub_top_board_canakari_ftrim/hdl   *
+ * cmd     : /mnt/c/Users/Lucas/Desktop/mopshub_triplication/tmrg-master/bin/tmrg -c tmrg.cfg -vvv  *
  * tmrg rev:                                                                                        *
  *                                                                                                  *
  * src file: bus_rec_sm_fsm.v                                                                       *
  *           Git SHA           : File not in git repository!                                        *
- *           Modification time : 2022-03-28 21:55:52                                                *
- *           File Size         : 19099                                                              *
- *           MD5 hash          : 9d3c6e8d5b3b93dab7f0bdbcbdbf33e9                                   *
+ *           Modification time : 2022-08-16 09:46:38.762958                                         *
+ *           File Size         : 12653                                                              *
+ *           MD5 hash          : a97c8ae87766c4e4126945c239d241aa                                   *
  *                                                                                                  *
  ****************************************************************************************************/
 
@@ -27,483 +27,157 @@ module bus_rec_SMTMR(
   output reg  entimeoutA ,
   output reg  entimeoutB ,
   output reg  entimeoutC ,
-  input wire [31:0] can_recA ,
-  input wire [31:0] can_recB ,
-  input wire [31:0] can_recC ,
+  input wire [15:0] can_rec ,
   output reg  irq_can_recA ,
   output reg  irq_can_recB ,
   output reg  irq_can_recC ,
-  input wire  clkA ,
-  input wire  clkB ,
-  input wire  clkC ,
+  input wire  clk ,
   output reg  end_choose_busA ,
   output reg  end_choose_busB ,
   output reg  end_choose_busC ,
-  input wire  endwaitA ,
-  input wire  endwaitB ,
-  input wire  endwaitC ,
+  input wire  endwait ,
   output reg  start_bus_loopA ,
   output reg  start_bus_loopB ,
   output reg  start_bus_loopC ,
-  input wire  ireqsucrecA ,
-  input wire  ireqsucrecB ,
-  input wire  ireqsucrecC ,
-  input wire  rstA ,
-  input wire  rstB ,
-  input wire  rstC ,
+  input wire  ireqsucrec ,
+  input wire  rst ,
   output reg  done_bus_loopA ,
   output reg  done_bus_loopB ,
   output reg  done_bus_loopC ,
-  input wire [31:0] can_rec_counterA ,
-  input wire [31:0] can_rec_counterB ,
-  input wire [31:0] can_rec_counterC ,
-  output reg  en_irqsucrec_readA ,
-  output reg  en_irqsucrec_readB ,
-  output reg  en_irqsucrec_readC ,
-  input wire  timeoutrstA ,
-  input wire  timeoutrstB ,
-  input wire  timeoutrstC ,
-  input wire [31:0] can_rec_updateA ,
-  input wire [31:0] can_rec_updateB ,
-  input wire [31:0] can_rec_updateC ,
-  input wire  end_can_procA ,
-  input wire  end_can_procB ,
-  input wire  end_can_procC 
+  output reg  read_irqsucrecA ,
+  output reg  read_irqsucrecB ,
+  output reg  read_irqsucrecC ,
+  input wire  timeoutrst ,
+  input wire  end_can_proc ,
+  output reg  fifo_read_enA ,
+  output reg  fifo_read_enB ,
+  output reg  fifo_read_enC 
 );
-parameter ST_Bus_Loop =7'd0;
-parameter canbus1 =7'd1;
-parameter canbus2 =7'd2;
-parameter canbus3 =7'd3;
-parameter canbus4 =7'd4;
-parameter canbus5 =7'd5;
-parameter canbus6 =7'd6;
-parameter canbus7 =7'd7;
-parameter canbus8 =7'd8;
-parameter canbus9 =7'd9;
-parameter canbus10 =7'd10;
-parameter canbus11 =7'd11;
-parameter canbus12 =7'd12;
-parameter canbus13 =7'd13;
-parameter canbus14 =7'd14;
-parameter canbus15 =7'd15;
-parameter canbus16 =7'd16;
-parameter canbus17 =7'd17;
-parameter canbus18 =7'd18;
-parameter canbus19 =7'd19;
-parameter canbus20 =7'd20;
-parameter canbus21 =7'd21;
-parameter canbus22 =7'd22;
-parameter canbus23 =7'd23;
-parameter canbus24 =7'd24;
-parameter canbus25 =7'd25;
-parameter canbus26 =7'd26;
-parameter canbus27 =7'd27;
-parameter canbus28 =7'd28;
-parameter canbus29 =7'd29;
-parameter canbus30 =7'd30;
-parameter canbus31 =7'd31;
-parameter ST_Reset_Bus =7'd32;
-parameter donebus1 =7'd33;
-parameter donebus2 =7'd34;
-parameter donebus3 =7'd35;
-parameter donebus4 =7'd36;
-parameter donebus5 =7'd37;
-parameter donebus6 =7'd38;
-parameter donebus7 =7'd39;
-parameter donebus8 =7'd40;
-parameter donebus9 =7'd41;
-parameter donebus10 =7'd42;
-parameter donebus11 =7'd43;
-parameter donebus12 =7'd44;
-parameter donebus13 =7'd45;
-parameter donebus14 =7'd46;
-parameter donebus15 =7'd47;
-parameter donebus16 =7'd48;
-parameter donebus17 =7'd49;
-parameter donebus18 =7'd50;
-parameter donebus19 =7'd51;
-parameter donebus20 =7'd52;
-parameter donebus21 =7'd53;
-parameter donebus22 =7'd54;
-parameter donebus23 =7'd55;
-parameter donebus24 =7'd56;
-parameter donebus25 =7'd57;
-parameter donebus26 =7'd58;
-parameter donebus27 =7'd59;
-parameter donebus28 =7'd60;
-parameter donebus29 =7'd61;
-parameter donebus30 =7'd62;
-parameter donebus31 =7'd63;
-parameter ST_Reset_Loop =7'd64;
-parameter ST_End_Read =7'd65;
-parameter ST_Wait_Suc_Rec =7'd66;
-parameter canbus0 =7'd67;
-parameter donebus0 =7'd68;
-parameter Wait_rec1 =7'd69;
-parameter Wait_rec0 =7'd70;
-parameter Wait_rec2 =7'd71;
-reg  [6:0] current_stateA ;
-reg  [6:0] next_stateA ;
-reg  [6:0] current_stateB ;
-reg  [6:0] next_stateB ;
-reg  [6:0] current_stateC ;
-reg  [6:0] next_stateC ;
+parameter ST_Bus_Loop =6'd0;
+parameter ST_Reset_Bus =6'd1;
+parameter ST_Reset_Loop =6'd2;
+parameter ST_Wait_Suc_Rec =6'd3;
+parameter canbus1 =6'd4;
+parameter donebus1 =6'd5;
+parameter canbus2 =6'd6;
+parameter donebus2 =6'd7;
+parameter canbus3 =6'd8;
+parameter canbus4 =6'd9;
+parameter donebus4 =6'd10;
+parameter canbus5 =6'd11;
+parameter donebus5 =6'd12;
+parameter canbus6 =6'd13;
+parameter donebus6 =6'd14;
+parameter canbus7 =6'd15;
+parameter donebus7 =6'd16;
+parameter canbus8 =6'd17;
+parameter donebus8 =6'd18;
+parameter canbus9 =6'd19;
+parameter donebus9 =6'd20;
+parameter canbus10 =6'd21;
+parameter donebus10 =6'd22;
+parameter canbus11 =6'd23;
+parameter donebus11 =6'd24;
+parameter canbus12 =6'd25;
+parameter donebus12 =6'd26;
+parameter canbus13 =6'd27;
+parameter donebus13 =6'd28;
+parameter canbus14 =6'd29;
+parameter donebus14 =6'd30;
+parameter canbus15 =6'd31;
+parameter donebus15 =6'd32;
+parameter canbus0 =6'd33;
+parameter donebus0 =6'd34;
+parameter donebus32 =6'd35;
+parameter ST_Wait_Suc_Rec1 =6'd36;
+parameter s32 =6'd37;
+wire timeoutrstC;
+wire timeoutrstB;
+wire timeoutrstA;
+wire rstC;
+wire rstB;
+wire rstA;
+wire ireqsucrecC;
+wire ireqsucrecB;
+wire ireqsucrecA;
+wire endwaitC;
+wire endwaitB;
+wire endwaitA;
+wire end_can_procC;
+wire end_can_procB;
+wire end_can_procA;
+wire clkC;
+wire clkB;
+wire clkA;
+wire [15:0] can_recC;
+wire [15:0] can_recB;
+wire [15:0] can_recA;
+reg  [5:0] current_stateA ;
+reg  [5:0] next_stateA ;
+reg  [5:0] current_stateB ;
+reg  [5:0] next_stateB ;
+reg  [5:0] current_stateC ;
+reg  [5:0] next_stateC ;
 
-always @( can_recA or can_rec_counterA or can_rec_updateA or current_stateA or end_can_procA or ireqsucrecA or rstA )
+always @( can_recA or current_stateA or end_can_procA or ireqsucrecA or rstA )
   begin : next_state_block_procA
     case (current_stateA)
       ST_Bus_Loop : 
         begin
-          if (can_rec_counterA[0] &&can_recA[0] )
+          if (can_recA[0] )
             next_stateA =  canbus0;
           else
-            if (can_rec_updateA==32'b0)
-              next_stateA =  ST_End_Read;
+            if (can_recA==16'b0)
+              next_stateA =  ST_Wait_Suc_Rec;
             else
-              if ((can_rec_counterA[1] &&can_recA[1] ))
+              if (can_recA[1] )
                 next_stateA =  canbus1;
               else
-                if ((can_rec_counterA[2] &&can_recA[2] ))
+                if (can_recA[2] )
                   next_stateA =  canbus2;
                 else
-                  if ((can_rec_counterA[3] &&can_recA[3] ))
+                  if (can_recA[3] )
                     next_stateA =  canbus3;
                   else
-                    if ((can_rec_counterA[4] &&can_recA[4] ))
+                    if (can_recA[4] )
                       next_stateA =  canbus4;
                     else
-                      if ((can_rec_counterA[5] &&can_recA[5] ))
+                      if (can_recA[5] )
                         next_stateA =  canbus5;
                       else
-                        if ((can_rec_counterA[6] &&can_recA[6] ))
+                        if (can_recA[6] )
                           next_stateA =  canbus6;
                         else
-                          if ((can_rec_counterA[7] &&can_recA[7] ))
+                          if (can_recA[7] )
                             next_stateA =  canbus7;
                           else
-                            if ((can_rec_counterA[8] &&can_recA[8] ))
+                            if (can_recA[8] )
                               next_stateA =  canbus8;
                             else
-                              if ((can_rec_counterA[9] &&can_recA[9] ))
+                              if (can_recA[9] )
                                 next_stateA =  canbus9;
                               else
-                                if ((can_rec_counterA[10] &&can_recA[10] ))
+                                if (can_recA[10] )
                                   next_stateA =  canbus10;
                                 else
-                                  if ((can_rec_counterA[11] &&can_recA[11] ))
+                                  if (can_recA[11] )
                                     next_stateA =  canbus11;
                                   else
-                                    if ((can_rec_counterA[12] &&can_recA[12] ))
+                                    if (can_recA[12] )
                                       next_stateA =  canbus12;
                                     else
-                                      if ((can_rec_counterA[13] &&can_recA[13] ))
+                                      if (can_recA[13] )
                                         next_stateA =  canbus13;
                                       else
-                                        if ((can_rec_counterA[14] &&can_recA[14] ))
+                                        if (can_recA[14] )
                                           next_stateA =  canbus14;
                                         else
-                                          if ((can_rec_counterA[15] &&can_recA[15] ))
+                                          if (can_recA[15] )
                                             next_stateA =  canbus15;
                                           else
-                                            if ((can_rec_counterA[16] &&can_recA[16] ))
-                                              next_stateA =  canbus16;
-                                            else
-                                              if ((can_rec_counterA[17] &&can_recA[17] ))
-                                                next_stateA =  canbus17;
-                                              else
-                                                if ((can_rec_counterA[18] &&can_recA[18] ))
-                                                  next_stateA =  canbus18;
-                                                else
-                                                  if ((can_rec_counterA[19] &&can_recA[19] ))
-                                                    next_stateA =  canbus19;
-                                                  else
-                                                    if ((can_rec_counterA[20] &&can_recA[20] ))
-                                                      next_stateA =  canbus20;
-                                                    else
-                                                      if ((can_rec_counterA[21] &&can_recA[21] ))
-                                                        next_stateA =  canbus21;
-                                                      else
-                                                        if ((can_rec_counterA[22] &&can_recA[22] ))
-                                                          next_stateA =  canbus22;
-                                                        else
-                                                          if ((can_rec_counterA[23] &&can_recA[23] ))
-                                                            next_stateA =  canbus23;
-                                                          else
-                                                            if ((can_rec_counterA[24] &&can_recA[24] ))
-                                                              next_stateA =  canbus24;
-                                                            else
-                                                              if ((can_rec_counterA[25] &&can_recA[25] ))
-                                                                next_stateA =  canbus25;
-                                                              else
-                                                                if ((can_rec_counterA[26] &&can_recA[26] ))
-                                                                  next_stateA =  canbus26;
-                                                                else
-                                                                  if ((can_rec_counterA[27] &&can_recA[27] ))
-                                                                    next_stateA =  canbus27;
-                                                                  else
-                                                                    if ((can_rec_counterA[28] &&can_recA[28] ))
-                                                                      next_stateA =  canbus28;
-                                                                    else
-                                                                      if ((can_rec_counterA[29] &&can_recA[29] ))
-                                                                        next_stateA =  canbus29;
-                                                                      else
-                                                                        if ((can_rec_counterA[30] &&can_recA[30] ))
-                                                                          next_stateA =  canbus30;
-                                                                        else
-                                                                          if ((can_rec_counterA[31] &&can_recA[31] ))
-                                                                            next_stateA =  canbus31;
-                                                                          else
-                                                                            next_stateA =  ST_Bus_Loop;
-        end
-      canbus1 : 
-        begin
-          next_stateA =  Wait_rec1;
-        end
-      canbus2 : 
-        begin
-          next_stateA =  Wait_rec2;
-        end
-      canbus3 : 
-        begin
-          next_stateA =  donebus3;
-        end
-      canbus4 : 
-        begin
-          next_stateA =  donebus4;
-        end
-      canbus5 : 
-        begin
-          next_stateA =  donebus5;
-        end
-      canbus6 : 
-        begin
-          next_stateA =  donebus6;
-        end
-      canbus7 : 
-        begin
-          next_stateA =  donebus7;
-        end
-      canbus8 : 
-        begin
-          next_stateA =  donebus8;
-        end
-      canbus9 : 
-        begin
-          next_stateA =  donebus9;
-        end
-      canbus10 : 
-        begin
-          next_stateA =  donebus10;
-        end
-      canbus11 : 
-        begin
-          next_stateA =  donebus11;
-        end
-      canbus12 : 
-        begin
-          next_stateA =  donebus12;
-        end
-      canbus13 : 
-        begin
-          next_stateA =  donebus13;
-        end
-      canbus14 : 
-        begin
-          next_stateA =  donebus14;
-        end
-      canbus15 : 
-        begin
-          next_stateA =  donebus15;
-        end
-      canbus16 : 
-        begin
-          next_stateA =  donebus16;
-        end
-      canbus17 : 
-        begin
-          next_stateA =  donebus17;
-        end
-      canbus18 : 
-        begin
-          next_stateA =  donebus18;
-        end
-      canbus19 : 
-        begin
-          next_stateA =  donebus19;
-        end
-      canbus20 : 
-        begin
-          next_stateA =  donebus20;
-        end
-      canbus21 : 
-        begin
-          next_stateA =  donebus21;
-        end
-      canbus22 : 
-        begin
-          next_stateA =  donebus22;
-        end
-      canbus23 : 
-        begin
-          next_stateA =  donebus23;
-        end
-      canbus24 : 
-        begin
-          next_stateA =  donebus24;
-        end
-      canbus25 : 
-        begin
-          next_stateA =  donebus25;
-        end
-      canbus26 : 
-        begin
-          next_stateA =  donebus26;
-        end
-      canbus27 : 
-        begin
-          next_stateA =  donebus27;
-        end
-      canbus28 : 
-        begin
-          next_stateA =  donebus28;
-        end
-      canbus29 : 
-        begin
-          next_stateA =  donebus29;
-        end
-      canbus30 : 
-        begin
-          next_stateA =  donebus30;
-        end
-      canbus31 : 
-        begin
-          next_stateA =  donebus31;
+                                            next_stateA =  ST_Bus_Loop;
         end
       ST_Reset_Bus : 
-        begin
-          next_stateA =  ST_Bus_Loop;
-        end
-      donebus1 : 
-        begin
-          next_stateA =  ST_Bus_Loop;
-        end
-      donebus2 : 
-        begin
-          next_stateA =  ST_Bus_Loop;
-        end
-      donebus3 : 
-        begin
-          next_stateA =  ST_Bus_Loop;
-        end
-      donebus4 : 
-        begin
-          next_stateA =  ST_Bus_Loop;
-        end
-      donebus5 : 
-        begin
-          next_stateA =  ST_Bus_Loop;
-        end
-      donebus6 : 
-        begin
-          next_stateA =  ST_Bus_Loop;
-        end
-      donebus7 : 
-        begin
-          next_stateA =  ST_Bus_Loop;
-        end
-      donebus8 : 
-        begin
-          next_stateA =  ST_Bus_Loop;
-        end
-      donebus9 : 
-        begin
-          next_stateA =  ST_Bus_Loop;
-        end
-      donebus10 : 
-        begin
-          next_stateA =  ST_Bus_Loop;
-        end
-      donebus11 : 
-        begin
-          next_stateA =  ST_Bus_Loop;
-        end
-      donebus12 : 
-        begin
-          next_stateA =  ST_Bus_Loop;
-        end
-      donebus13 : 
-        begin
-          next_stateA =  ST_Bus_Loop;
-        end
-      donebus14 : 
-        begin
-          next_stateA =  ST_Bus_Loop;
-        end
-      donebus15 : 
-        begin
-          next_stateA =  ST_Bus_Loop;
-        end
-      donebus16 : 
-        begin
-          next_stateA =  ST_Bus_Loop;
-        end
-      donebus17 : 
-        begin
-          next_stateA =  ST_Bus_Loop;
-        end
-      donebus18 : 
-        begin
-          next_stateA =  ST_Bus_Loop;
-        end
-      donebus19 : 
-        begin
-          next_stateA =  ST_Bus_Loop;
-        end
-      donebus20 : 
-        begin
-          next_stateA =  ST_Bus_Loop;
-        end
-      donebus21 : 
-        begin
-          next_stateA =  ST_Bus_Loop;
-        end
-      donebus22 : 
-        begin
-          next_stateA =  ST_Bus_Loop;
-        end
-      donebus23 : 
-        begin
-          next_stateA =  ST_Bus_Loop;
-        end
-      donebus24 : 
-        begin
-          next_stateA =  ST_Bus_Loop;
-        end
-      donebus25 : 
-        begin
-          next_stateA =  ST_Bus_Loop;
-        end
-      donebus26 : 
-        begin
-          next_stateA =  ST_Bus_Loop;
-        end
-      donebus27 : 
-        begin
-          next_stateA =  ST_Bus_Loop;
-        end
-      donebus28 : 
-        begin
-          next_stateA =  ST_Bus_Loop;
-        end
-      donebus29 : 
-        begin
-          next_stateA =  ST_Bus_Loop;
-        end
-      donebus30 : 
-        begin
-          next_stateA =  ST_Bus_Loop;
-        end
-      donebus31 : 
         begin
           next_stateA =  ST_Bus_Loop;
         end
@@ -514,405 +188,260 @@ always @( can_recA or can_rec_counterA or can_rec_updateA or current_stateA or e
           else
             next_stateA =  ST_Reset_Loop;
         end
-      ST_End_Read : 
-        begin
-          next_stateA =  ST_Wait_Suc_Rec;
-        end
       ST_Wait_Suc_Rec : 
         begin
-          if (ireqsucrecA==1)
-            next_stateA =  ST_Reset_Bus;
+          next_stateA =  ST_Wait_Suc_Rec1;
+        end
+      canbus1 : 
+        begin
+          if (end_can_procA==1)
+            next_stateA =  donebus1;
           else
-            next_stateA =  ST_Wait_Suc_Rec;
+            next_stateA =  canbus1;
+        end
+      donebus1 : 
+        begin
+          next_stateA =  ST_Bus_Loop;
+        end
+      canbus2 : 
+        begin
+          if (end_can_procA==1)
+            next_stateA =  donebus2;
+          else
+            next_stateA =  canbus2;
+        end
+      donebus2 : 
+        begin
+          next_stateA =  ST_Bus_Loop;
+        end
+      canbus3 : 
+        begin
+          if (end_can_procA==1)
+            next_stateA =  donebus32;
+          else
+            next_stateA =  canbus3;
+        end
+      canbus4 : 
+        begin
+          if (end_can_procA==1)
+            next_stateA =  donebus4;
+          else
+            next_stateA =  canbus4;
+        end
+      donebus4 : 
+        begin
+          next_stateA =  ST_Bus_Loop;
+        end
+      canbus5 : 
+        begin
+          if (end_can_procA==1)
+            next_stateA =  donebus5;
+          else
+            next_stateA =  canbus5;
+        end
+      donebus5 : 
+        begin
+          next_stateA =  ST_Bus_Loop;
+        end
+      canbus6 : 
+        begin
+          if (end_can_procA==1)
+            next_stateA =  donebus6;
+          else
+            next_stateA =  canbus6;
+        end
+      donebus6 : 
+        begin
+          next_stateA =  ST_Bus_Loop;
+        end
+      canbus7 : 
+        begin
+          if (end_can_procA==1)
+            next_stateA =  donebus7;
+          else
+            next_stateA =  canbus7;
+        end
+      donebus7 : 
+        begin
+          next_stateA =  ST_Bus_Loop;
+        end
+      canbus8 : 
+        begin
+          if (end_can_procA==1)
+            next_stateA =  donebus8;
+          else
+            next_stateA =  canbus8;
+        end
+      donebus8 : 
+        begin
+          next_stateA =  ST_Bus_Loop;
+        end
+      canbus9 : 
+        begin
+          if (end_can_procA==1)
+            next_stateA =  donebus9;
+          else
+            next_stateA =  canbus9;
+        end
+      donebus9 : 
+        begin
+          next_stateA =  ST_Bus_Loop;
+        end
+      canbus10 : 
+        begin
+          if (end_can_procA==1)
+            next_stateA =  donebus10;
+          else
+            next_stateA =  canbus10;
+        end
+      donebus10 : 
+        begin
+          next_stateA =  ST_Bus_Loop;
+        end
+      canbus11 : 
+        begin
+          if (end_can_procA==1)
+            next_stateA =  donebus11;
+          else
+            next_stateA =  canbus11;
+        end
+      donebus11 : 
+        begin
+          next_stateA =  ST_Bus_Loop;
+        end
+      canbus12 : 
+        begin
+          if (end_can_procA==1)
+            next_stateA =  donebus12;
+          else
+            next_stateA =  canbus12;
+        end
+      donebus12 : 
+        begin
+          next_stateA =  ST_Bus_Loop;
+        end
+      canbus13 : 
+        begin
+          if (end_can_procA==1)
+            next_stateA =  donebus13;
+          else
+            next_stateA =  canbus13;
+        end
+      donebus13 : 
+        begin
+          next_stateA =  ST_Bus_Loop;
+        end
+      canbus14 : 
+        begin
+          if (end_can_procA==1)
+            next_stateA =  donebus14;
+          else
+            next_stateA =  canbus14;
+        end
+      donebus14 : 
+        begin
+          next_stateA =  ST_Bus_Loop;
+        end
+      canbus15 : 
+        begin
+          if (end_can_procA==1)
+            next_stateA =  donebus15;
+          else
+            next_stateA =  canbus15;
+        end
+      donebus15 : 
+        begin
+          next_stateA =  ST_Bus_Loop;
         end
       canbus0 : 
         begin
-          next_stateA =  Wait_rec0;
+          if (end_can_procA==1)
+            next_stateA =  donebus0;
+          else
+            next_stateA =  canbus0;
         end
       donebus0 : 
         begin
           next_stateA =  ST_Bus_Loop;
         end
-      Wait_rec1 : 
+      donebus32 : 
         begin
-          if (end_can_procA==1)
-            next_stateA =  donebus1;
-          else
-            next_stateA =  Wait_rec1;
+          next_stateA =  ST_Bus_Loop;
         end
-      Wait_rec0 : 
+      ST_Wait_Suc_Rec1 : 
         begin
-          if (end_can_procA==1)
-            next_stateA =  donebus0;
+          if (ireqsucrecA==1)
+            next_stateA =  s32;
           else
-            next_stateA =  Wait_rec0;
+            next_stateA =  ST_Wait_Suc_Rec1;
         end
-      Wait_rec2 : 
+      s32 : 
         begin
-          if (end_can_procA==1)
-            next_stateA =  donebus2;
-          else
-            next_stateA =  Wait_rec2;
+          next_stateA =  ST_Reset_Bus;
         end
       default : next_stateA =  ST_Reset_Loop;
     endcase
   end
 
-always @( can_recB or can_rec_counterB or can_rec_updateB or current_stateB or end_can_procB or ireqsucrecB or rstB )
+always @( can_recB or current_stateB or end_can_procB or ireqsucrecB or rstB )
   begin : next_state_block_procB
     case (current_stateB)
       ST_Bus_Loop : 
         begin
-          if (can_rec_counterB[0] &&can_recB[0] )
+          if (can_recB[0] )
             next_stateB =  canbus0;
           else
-            if (can_rec_updateB==32'b0)
-              next_stateB =  ST_End_Read;
+            if (can_recB==16'b0)
+              next_stateB =  ST_Wait_Suc_Rec;
             else
-              if ((can_rec_counterB[1] &&can_recB[1] ))
+              if (can_recB[1] )
                 next_stateB =  canbus1;
               else
-                if ((can_rec_counterB[2] &&can_recB[2] ))
+                if (can_recB[2] )
                   next_stateB =  canbus2;
                 else
-                  if ((can_rec_counterB[3] &&can_recB[3] ))
+                  if (can_recB[3] )
                     next_stateB =  canbus3;
                   else
-                    if ((can_rec_counterB[4] &&can_recB[4] ))
+                    if (can_recB[4] )
                       next_stateB =  canbus4;
                     else
-                      if ((can_rec_counterB[5] &&can_recB[5] ))
+                      if (can_recB[5] )
                         next_stateB =  canbus5;
                       else
-                        if ((can_rec_counterB[6] &&can_recB[6] ))
+                        if (can_recB[6] )
                           next_stateB =  canbus6;
                         else
-                          if ((can_rec_counterB[7] &&can_recB[7] ))
+                          if (can_recB[7] )
                             next_stateB =  canbus7;
                           else
-                            if ((can_rec_counterB[8] &&can_recB[8] ))
+                            if (can_recB[8] )
                               next_stateB =  canbus8;
                             else
-                              if ((can_rec_counterB[9] &&can_recB[9] ))
+                              if (can_recB[9] )
                                 next_stateB =  canbus9;
                               else
-                                if ((can_rec_counterB[10] &&can_recB[10] ))
+                                if (can_recB[10] )
                                   next_stateB =  canbus10;
                                 else
-                                  if ((can_rec_counterB[11] &&can_recB[11] ))
+                                  if (can_recB[11] )
                                     next_stateB =  canbus11;
                                   else
-                                    if ((can_rec_counterB[12] &&can_recB[12] ))
+                                    if (can_recB[12] )
                                       next_stateB =  canbus12;
                                     else
-                                      if ((can_rec_counterB[13] &&can_recB[13] ))
+                                      if (can_recB[13] )
                                         next_stateB =  canbus13;
                                       else
-                                        if ((can_rec_counterB[14] &&can_recB[14] ))
+                                        if (can_recB[14] )
                                           next_stateB =  canbus14;
                                         else
-                                          if ((can_rec_counterB[15] &&can_recB[15] ))
+                                          if (can_recB[15] )
                                             next_stateB =  canbus15;
                                           else
-                                            if ((can_rec_counterB[16] &&can_recB[16] ))
-                                              next_stateB =  canbus16;
-                                            else
-                                              if ((can_rec_counterB[17] &&can_recB[17] ))
-                                                next_stateB =  canbus17;
-                                              else
-                                                if ((can_rec_counterB[18] &&can_recB[18] ))
-                                                  next_stateB =  canbus18;
-                                                else
-                                                  if ((can_rec_counterB[19] &&can_recB[19] ))
-                                                    next_stateB =  canbus19;
-                                                  else
-                                                    if ((can_rec_counterB[20] &&can_recB[20] ))
-                                                      next_stateB =  canbus20;
-                                                    else
-                                                      if ((can_rec_counterB[21] &&can_recB[21] ))
-                                                        next_stateB =  canbus21;
-                                                      else
-                                                        if ((can_rec_counterB[22] &&can_recB[22] ))
-                                                          next_stateB =  canbus22;
-                                                        else
-                                                          if ((can_rec_counterB[23] &&can_recB[23] ))
-                                                            next_stateB =  canbus23;
-                                                          else
-                                                            if ((can_rec_counterB[24] &&can_recB[24] ))
-                                                              next_stateB =  canbus24;
-                                                            else
-                                                              if ((can_rec_counterB[25] &&can_recB[25] ))
-                                                                next_stateB =  canbus25;
-                                                              else
-                                                                if ((can_rec_counterB[26] &&can_recB[26] ))
-                                                                  next_stateB =  canbus26;
-                                                                else
-                                                                  if ((can_rec_counterB[27] &&can_recB[27] ))
-                                                                    next_stateB =  canbus27;
-                                                                  else
-                                                                    if ((can_rec_counterB[28] &&can_recB[28] ))
-                                                                      next_stateB =  canbus28;
-                                                                    else
-                                                                      if ((can_rec_counterB[29] &&can_recB[29] ))
-                                                                        next_stateB =  canbus29;
-                                                                      else
-                                                                        if ((can_rec_counterB[30] &&can_recB[30] ))
-                                                                          next_stateB =  canbus30;
-                                                                        else
-                                                                          if ((can_rec_counterB[31] &&can_recB[31] ))
-                                                                            next_stateB =  canbus31;
-                                                                          else
-                                                                            next_stateB =  ST_Bus_Loop;
-        end
-      canbus1 : 
-        begin
-          next_stateB =  Wait_rec1;
-        end
-      canbus2 : 
-        begin
-          next_stateB =  Wait_rec2;
-        end
-      canbus3 : 
-        begin
-          next_stateB =  donebus3;
-        end
-      canbus4 : 
-        begin
-          next_stateB =  donebus4;
-        end
-      canbus5 : 
-        begin
-          next_stateB =  donebus5;
-        end
-      canbus6 : 
-        begin
-          next_stateB =  donebus6;
-        end
-      canbus7 : 
-        begin
-          next_stateB =  donebus7;
-        end
-      canbus8 : 
-        begin
-          next_stateB =  donebus8;
-        end
-      canbus9 : 
-        begin
-          next_stateB =  donebus9;
-        end
-      canbus10 : 
-        begin
-          next_stateB =  donebus10;
-        end
-      canbus11 : 
-        begin
-          next_stateB =  donebus11;
-        end
-      canbus12 : 
-        begin
-          next_stateB =  donebus12;
-        end
-      canbus13 : 
-        begin
-          next_stateB =  donebus13;
-        end
-      canbus14 : 
-        begin
-          next_stateB =  donebus14;
-        end
-      canbus15 : 
-        begin
-          next_stateB =  donebus15;
-        end
-      canbus16 : 
-        begin
-          next_stateB =  donebus16;
-        end
-      canbus17 : 
-        begin
-          next_stateB =  donebus17;
-        end
-      canbus18 : 
-        begin
-          next_stateB =  donebus18;
-        end
-      canbus19 : 
-        begin
-          next_stateB =  donebus19;
-        end
-      canbus20 : 
-        begin
-          next_stateB =  donebus20;
-        end
-      canbus21 : 
-        begin
-          next_stateB =  donebus21;
-        end
-      canbus22 : 
-        begin
-          next_stateB =  donebus22;
-        end
-      canbus23 : 
-        begin
-          next_stateB =  donebus23;
-        end
-      canbus24 : 
-        begin
-          next_stateB =  donebus24;
-        end
-      canbus25 : 
-        begin
-          next_stateB =  donebus25;
-        end
-      canbus26 : 
-        begin
-          next_stateB =  donebus26;
-        end
-      canbus27 : 
-        begin
-          next_stateB =  donebus27;
-        end
-      canbus28 : 
-        begin
-          next_stateB =  donebus28;
-        end
-      canbus29 : 
-        begin
-          next_stateB =  donebus29;
-        end
-      canbus30 : 
-        begin
-          next_stateB =  donebus30;
-        end
-      canbus31 : 
-        begin
-          next_stateB =  donebus31;
+                                            next_stateB =  ST_Bus_Loop;
         end
       ST_Reset_Bus : 
-        begin
-          next_stateB =  ST_Bus_Loop;
-        end
-      donebus1 : 
-        begin
-          next_stateB =  ST_Bus_Loop;
-        end
-      donebus2 : 
-        begin
-          next_stateB =  ST_Bus_Loop;
-        end
-      donebus3 : 
-        begin
-          next_stateB =  ST_Bus_Loop;
-        end
-      donebus4 : 
-        begin
-          next_stateB =  ST_Bus_Loop;
-        end
-      donebus5 : 
-        begin
-          next_stateB =  ST_Bus_Loop;
-        end
-      donebus6 : 
-        begin
-          next_stateB =  ST_Bus_Loop;
-        end
-      donebus7 : 
-        begin
-          next_stateB =  ST_Bus_Loop;
-        end
-      donebus8 : 
-        begin
-          next_stateB =  ST_Bus_Loop;
-        end
-      donebus9 : 
-        begin
-          next_stateB =  ST_Bus_Loop;
-        end
-      donebus10 : 
-        begin
-          next_stateB =  ST_Bus_Loop;
-        end
-      donebus11 : 
-        begin
-          next_stateB =  ST_Bus_Loop;
-        end
-      donebus12 : 
-        begin
-          next_stateB =  ST_Bus_Loop;
-        end
-      donebus13 : 
-        begin
-          next_stateB =  ST_Bus_Loop;
-        end
-      donebus14 : 
-        begin
-          next_stateB =  ST_Bus_Loop;
-        end
-      donebus15 : 
-        begin
-          next_stateB =  ST_Bus_Loop;
-        end
-      donebus16 : 
-        begin
-          next_stateB =  ST_Bus_Loop;
-        end
-      donebus17 : 
-        begin
-          next_stateB =  ST_Bus_Loop;
-        end
-      donebus18 : 
-        begin
-          next_stateB =  ST_Bus_Loop;
-        end
-      donebus19 : 
-        begin
-          next_stateB =  ST_Bus_Loop;
-        end
-      donebus20 : 
-        begin
-          next_stateB =  ST_Bus_Loop;
-        end
-      donebus21 : 
-        begin
-          next_stateB =  ST_Bus_Loop;
-        end
-      donebus22 : 
-        begin
-          next_stateB =  ST_Bus_Loop;
-        end
-      donebus23 : 
-        begin
-          next_stateB =  ST_Bus_Loop;
-        end
-      donebus24 : 
-        begin
-          next_stateB =  ST_Bus_Loop;
-        end
-      donebus25 : 
-        begin
-          next_stateB =  ST_Bus_Loop;
-        end
-      donebus26 : 
-        begin
-          next_stateB =  ST_Bus_Loop;
-        end
-      donebus27 : 
-        begin
-          next_stateB =  ST_Bus_Loop;
-        end
-      donebus28 : 
-        begin
-          next_stateB =  ST_Bus_Loop;
-        end
-      donebus29 : 
-        begin
-          next_stateB =  ST_Bus_Loop;
-        end
-      donebus30 : 
-        begin
-          next_stateB =  ST_Bus_Loop;
-        end
-      donebus31 : 
         begin
           next_stateB =  ST_Bus_Loop;
         end
@@ -923,405 +452,260 @@ always @( can_recB or can_rec_counterB or can_rec_updateB or current_stateB or e
           else
             next_stateB =  ST_Reset_Loop;
         end
-      ST_End_Read : 
-        begin
-          next_stateB =  ST_Wait_Suc_Rec;
-        end
       ST_Wait_Suc_Rec : 
         begin
-          if (ireqsucrecB==1)
-            next_stateB =  ST_Reset_Bus;
+          next_stateB =  ST_Wait_Suc_Rec1;
+        end
+      canbus1 : 
+        begin
+          if (end_can_procB==1)
+            next_stateB =  donebus1;
           else
-            next_stateB =  ST_Wait_Suc_Rec;
+            next_stateB =  canbus1;
+        end
+      donebus1 : 
+        begin
+          next_stateB =  ST_Bus_Loop;
+        end
+      canbus2 : 
+        begin
+          if (end_can_procB==1)
+            next_stateB =  donebus2;
+          else
+            next_stateB =  canbus2;
+        end
+      donebus2 : 
+        begin
+          next_stateB =  ST_Bus_Loop;
+        end
+      canbus3 : 
+        begin
+          if (end_can_procB==1)
+            next_stateB =  donebus32;
+          else
+            next_stateB =  canbus3;
+        end
+      canbus4 : 
+        begin
+          if (end_can_procB==1)
+            next_stateB =  donebus4;
+          else
+            next_stateB =  canbus4;
+        end
+      donebus4 : 
+        begin
+          next_stateB =  ST_Bus_Loop;
+        end
+      canbus5 : 
+        begin
+          if (end_can_procB==1)
+            next_stateB =  donebus5;
+          else
+            next_stateB =  canbus5;
+        end
+      donebus5 : 
+        begin
+          next_stateB =  ST_Bus_Loop;
+        end
+      canbus6 : 
+        begin
+          if (end_can_procB==1)
+            next_stateB =  donebus6;
+          else
+            next_stateB =  canbus6;
+        end
+      donebus6 : 
+        begin
+          next_stateB =  ST_Bus_Loop;
+        end
+      canbus7 : 
+        begin
+          if (end_can_procB==1)
+            next_stateB =  donebus7;
+          else
+            next_stateB =  canbus7;
+        end
+      donebus7 : 
+        begin
+          next_stateB =  ST_Bus_Loop;
+        end
+      canbus8 : 
+        begin
+          if (end_can_procB==1)
+            next_stateB =  donebus8;
+          else
+            next_stateB =  canbus8;
+        end
+      donebus8 : 
+        begin
+          next_stateB =  ST_Bus_Loop;
+        end
+      canbus9 : 
+        begin
+          if (end_can_procB==1)
+            next_stateB =  donebus9;
+          else
+            next_stateB =  canbus9;
+        end
+      donebus9 : 
+        begin
+          next_stateB =  ST_Bus_Loop;
+        end
+      canbus10 : 
+        begin
+          if (end_can_procB==1)
+            next_stateB =  donebus10;
+          else
+            next_stateB =  canbus10;
+        end
+      donebus10 : 
+        begin
+          next_stateB =  ST_Bus_Loop;
+        end
+      canbus11 : 
+        begin
+          if (end_can_procB==1)
+            next_stateB =  donebus11;
+          else
+            next_stateB =  canbus11;
+        end
+      donebus11 : 
+        begin
+          next_stateB =  ST_Bus_Loop;
+        end
+      canbus12 : 
+        begin
+          if (end_can_procB==1)
+            next_stateB =  donebus12;
+          else
+            next_stateB =  canbus12;
+        end
+      donebus12 : 
+        begin
+          next_stateB =  ST_Bus_Loop;
+        end
+      canbus13 : 
+        begin
+          if (end_can_procB==1)
+            next_stateB =  donebus13;
+          else
+            next_stateB =  canbus13;
+        end
+      donebus13 : 
+        begin
+          next_stateB =  ST_Bus_Loop;
+        end
+      canbus14 : 
+        begin
+          if (end_can_procB==1)
+            next_stateB =  donebus14;
+          else
+            next_stateB =  canbus14;
+        end
+      donebus14 : 
+        begin
+          next_stateB =  ST_Bus_Loop;
+        end
+      canbus15 : 
+        begin
+          if (end_can_procB==1)
+            next_stateB =  donebus15;
+          else
+            next_stateB =  canbus15;
+        end
+      donebus15 : 
+        begin
+          next_stateB =  ST_Bus_Loop;
         end
       canbus0 : 
         begin
-          next_stateB =  Wait_rec0;
+          if (end_can_procB==1)
+            next_stateB =  donebus0;
+          else
+            next_stateB =  canbus0;
         end
       donebus0 : 
         begin
           next_stateB =  ST_Bus_Loop;
         end
-      Wait_rec1 : 
+      donebus32 : 
         begin
-          if (end_can_procB==1)
-            next_stateB =  donebus1;
-          else
-            next_stateB =  Wait_rec1;
+          next_stateB =  ST_Bus_Loop;
         end
-      Wait_rec0 : 
+      ST_Wait_Suc_Rec1 : 
         begin
-          if (end_can_procB==1)
-            next_stateB =  donebus0;
+          if (ireqsucrecB==1)
+            next_stateB =  s32;
           else
-            next_stateB =  Wait_rec0;
+            next_stateB =  ST_Wait_Suc_Rec1;
         end
-      Wait_rec2 : 
+      s32 : 
         begin
-          if (end_can_procB==1)
-            next_stateB =  donebus2;
-          else
-            next_stateB =  Wait_rec2;
+          next_stateB =  ST_Reset_Bus;
         end
       default : next_stateB =  ST_Reset_Loop;
     endcase
   end
 
-always @( can_recC or can_rec_counterC or can_rec_updateC or current_stateC or end_can_procC or ireqsucrecC or rstC )
+always @( can_recC or current_stateC or end_can_procC or ireqsucrecC or rstC )
   begin : next_state_block_procC
     case (current_stateC)
       ST_Bus_Loop : 
         begin
-          if (can_rec_counterC[0] &&can_recC[0] )
+          if (can_recC[0] )
             next_stateC =  canbus0;
           else
-            if (can_rec_updateC==32'b0)
-              next_stateC =  ST_End_Read;
+            if (can_recC==16'b0)
+              next_stateC =  ST_Wait_Suc_Rec;
             else
-              if ((can_rec_counterC[1] &&can_recC[1] ))
+              if (can_recC[1] )
                 next_stateC =  canbus1;
               else
-                if ((can_rec_counterC[2] &&can_recC[2] ))
+                if (can_recC[2] )
                   next_stateC =  canbus2;
                 else
-                  if ((can_rec_counterC[3] &&can_recC[3] ))
+                  if (can_recC[3] )
                     next_stateC =  canbus3;
                   else
-                    if ((can_rec_counterC[4] &&can_recC[4] ))
+                    if (can_recC[4] )
                       next_stateC =  canbus4;
                     else
-                      if ((can_rec_counterC[5] &&can_recC[5] ))
+                      if (can_recC[5] )
                         next_stateC =  canbus5;
                       else
-                        if ((can_rec_counterC[6] &&can_recC[6] ))
+                        if (can_recC[6] )
                           next_stateC =  canbus6;
                         else
-                          if ((can_rec_counterC[7] &&can_recC[7] ))
+                          if (can_recC[7] )
                             next_stateC =  canbus7;
                           else
-                            if ((can_rec_counterC[8] &&can_recC[8] ))
+                            if (can_recC[8] )
                               next_stateC =  canbus8;
                             else
-                              if ((can_rec_counterC[9] &&can_recC[9] ))
+                              if (can_recC[9] )
                                 next_stateC =  canbus9;
                               else
-                                if ((can_rec_counterC[10] &&can_recC[10] ))
+                                if (can_recC[10] )
                                   next_stateC =  canbus10;
                                 else
-                                  if ((can_rec_counterC[11] &&can_recC[11] ))
+                                  if (can_recC[11] )
                                     next_stateC =  canbus11;
                                   else
-                                    if ((can_rec_counterC[12] &&can_recC[12] ))
+                                    if (can_recC[12] )
                                       next_stateC =  canbus12;
                                     else
-                                      if ((can_rec_counterC[13] &&can_recC[13] ))
+                                      if (can_recC[13] )
                                         next_stateC =  canbus13;
                                       else
-                                        if ((can_rec_counterC[14] &&can_recC[14] ))
+                                        if (can_recC[14] )
                                           next_stateC =  canbus14;
                                         else
-                                          if ((can_rec_counterC[15] &&can_recC[15] ))
+                                          if (can_recC[15] )
                                             next_stateC =  canbus15;
                                           else
-                                            if ((can_rec_counterC[16] &&can_recC[16] ))
-                                              next_stateC =  canbus16;
-                                            else
-                                              if ((can_rec_counterC[17] &&can_recC[17] ))
-                                                next_stateC =  canbus17;
-                                              else
-                                                if ((can_rec_counterC[18] &&can_recC[18] ))
-                                                  next_stateC =  canbus18;
-                                                else
-                                                  if ((can_rec_counterC[19] &&can_recC[19] ))
-                                                    next_stateC =  canbus19;
-                                                  else
-                                                    if ((can_rec_counterC[20] &&can_recC[20] ))
-                                                      next_stateC =  canbus20;
-                                                    else
-                                                      if ((can_rec_counterC[21] &&can_recC[21] ))
-                                                        next_stateC =  canbus21;
-                                                      else
-                                                        if ((can_rec_counterC[22] &&can_recC[22] ))
-                                                          next_stateC =  canbus22;
-                                                        else
-                                                          if ((can_rec_counterC[23] &&can_recC[23] ))
-                                                            next_stateC =  canbus23;
-                                                          else
-                                                            if ((can_rec_counterC[24] &&can_recC[24] ))
-                                                              next_stateC =  canbus24;
-                                                            else
-                                                              if ((can_rec_counterC[25] &&can_recC[25] ))
-                                                                next_stateC =  canbus25;
-                                                              else
-                                                                if ((can_rec_counterC[26] &&can_recC[26] ))
-                                                                  next_stateC =  canbus26;
-                                                                else
-                                                                  if ((can_rec_counterC[27] &&can_recC[27] ))
-                                                                    next_stateC =  canbus27;
-                                                                  else
-                                                                    if ((can_rec_counterC[28] &&can_recC[28] ))
-                                                                      next_stateC =  canbus28;
-                                                                    else
-                                                                      if ((can_rec_counterC[29] &&can_recC[29] ))
-                                                                        next_stateC =  canbus29;
-                                                                      else
-                                                                        if ((can_rec_counterC[30] &&can_recC[30] ))
-                                                                          next_stateC =  canbus30;
-                                                                        else
-                                                                          if ((can_rec_counterC[31] &&can_recC[31] ))
-                                                                            next_stateC =  canbus31;
-                                                                          else
-                                                                            next_stateC =  ST_Bus_Loop;
-        end
-      canbus1 : 
-        begin
-          next_stateC =  Wait_rec1;
-        end
-      canbus2 : 
-        begin
-          next_stateC =  Wait_rec2;
-        end
-      canbus3 : 
-        begin
-          next_stateC =  donebus3;
-        end
-      canbus4 : 
-        begin
-          next_stateC =  donebus4;
-        end
-      canbus5 : 
-        begin
-          next_stateC =  donebus5;
-        end
-      canbus6 : 
-        begin
-          next_stateC =  donebus6;
-        end
-      canbus7 : 
-        begin
-          next_stateC =  donebus7;
-        end
-      canbus8 : 
-        begin
-          next_stateC =  donebus8;
-        end
-      canbus9 : 
-        begin
-          next_stateC =  donebus9;
-        end
-      canbus10 : 
-        begin
-          next_stateC =  donebus10;
-        end
-      canbus11 : 
-        begin
-          next_stateC =  donebus11;
-        end
-      canbus12 : 
-        begin
-          next_stateC =  donebus12;
-        end
-      canbus13 : 
-        begin
-          next_stateC =  donebus13;
-        end
-      canbus14 : 
-        begin
-          next_stateC =  donebus14;
-        end
-      canbus15 : 
-        begin
-          next_stateC =  donebus15;
-        end
-      canbus16 : 
-        begin
-          next_stateC =  donebus16;
-        end
-      canbus17 : 
-        begin
-          next_stateC =  donebus17;
-        end
-      canbus18 : 
-        begin
-          next_stateC =  donebus18;
-        end
-      canbus19 : 
-        begin
-          next_stateC =  donebus19;
-        end
-      canbus20 : 
-        begin
-          next_stateC =  donebus20;
-        end
-      canbus21 : 
-        begin
-          next_stateC =  donebus21;
-        end
-      canbus22 : 
-        begin
-          next_stateC =  donebus22;
-        end
-      canbus23 : 
-        begin
-          next_stateC =  donebus23;
-        end
-      canbus24 : 
-        begin
-          next_stateC =  donebus24;
-        end
-      canbus25 : 
-        begin
-          next_stateC =  donebus25;
-        end
-      canbus26 : 
-        begin
-          next_stateC =  donebus26;
-        end
-      canbus27 : 
-        begin
-          next_stateC =  donebus27;
-        end
-      canbus28 : 
-        begin
-          next_stateC =  donebus28;
-        end
-      canbus29 : 
-        begin
-          next_stateC =  donebus29;
-        end
-      canbus30 : 
-        begin
-          next_stateC =  donebus30;
-        end
-      canbus31 : 
-        begin
-          next_stateC =  donebus31;
+                                            next_stateC =  ST_Bus_Loop;
         end
       ST_Reset_Bus : 
-        begin
-          next_stateC =  ST_Bus_Loop;
-        end
-      donebus1 : 
-        begin
-          next_stateC =  ST_Bus_Loop;
-        end
-      donebus2 : 
-        begin
-          next_stateC =  ST_Bus_Loop;
-        end
-      donebus3 : 
-        begin
-          next_stateC =  ST_Bus_Loop;
-        end
-      donebus4 : 
-        begin
-          next_stateC =  ST_Bus_Loop;
-        end
-      donebus5 : 
-        begin
-          next_stateC =  ST_Bus_Loop;
-        end
-      donebus6 : 
-        begin
-          next_stateC =  ST_Bus_Loop;
-        end
-      donebus7 : 
-        begin
-          next_stateC =  ST_Bus_Loop;
-        end
-      donebus8 : 
-        begin
-          next_stateC =  ST_Bus_Loop;
-        end
-      donebus9 : 
-        begin
-          next_stateC =  ST_Bus_Loop;
-        end
-      donebus10 : 
-        begin
-          next_stateC =  ST_Bus_Loop;
-        end
-      donebus11 : 
-        begin
-          next_stateC =  ST_Bus_Loop;
-        end
-      donebus12 : 
-        begin
-          next_stateC =  ST_Bus_Loop;
-        end
-      donebus13 : 
-        begin
-          next_stateC =  ST_Bus_Loop;
-        end
-      donebus14 : 
-        begin
-          next_stateC =  ST_Bus_Loop;
-        end
-      donebus15 : 
-        begin
-          next_stateC =  ST_Bus_Loop;
-        end
-      donebus16 : 
-        begin
-          next_stateC =  ST_Bus_Loop;
-        end
-      donebus17 : 
-        begin
-          next_stateC =  ST_Bus_Loop;
-        end
-      donebus18 : 
-        begin
-          next_stateC =  ST_Bus_Loop;
-        end
-      donebus19 : 
-        begin
-          next_stateC =  ST_Bus_Loop;
-        end
-      donebus20 : 
-        begin
-          next_stateC =  ST_Bus_Loop;
-        end
-      donebus21 : 
-        begin
-          next_stateC =  ST_Bus_Loop;
-        end
-      donebus22 : 
-        begin
-          next_stateC =  ST_Bus_Loop;
-        end
-      donebus23 : 
-        begin
-          next_stateC =  ST_Bus_Loop;
-        end
-      donebus24 : 
-        begin
-          next_stateC =  ST_Bus_Loop;
-        end
-      donebus25 : 
-        begin
-          next_stateC =  ST_Bus_Loop;
-        end
-      donebus26 : 
-        begin
-          next_stateC =  ST_Bus_Loop;
-        end
-      donebus27 : 
-        begin
-          next_stateC =  ST_Bus_Loop;
-        end
-      donebus28 : 
-        begin
-          next_stateC =  ST_Bus_Loop;
-        end
-      donebus29 : 
-        begin
-          next_stateC =  ST_Bus_Loop;
-        end
-      donebus30 : 
-        begin
-          next_stateC =  ST_Bus_Loop;
-        end
-      donebus31 : 
         begin
           next_stateC =  ST_Bus_Loop;
         end
@@ -1332,45 +716,196 @@ always @( can_recC or can_rec_counterC or can_rec_updateC or current_stateC or e
           else
             next_stateC =  ST_Reset_Loop;
         end
-      ST_End_Read : 
-        begin
-          next_stateC =  ST_Wait_Suc_Rec;
-        end
       ST_Wait_Suc_Rec : 
         begin
-          if (ireqsucrecC==1)
-            next_stateC =  ST_Reset_Bus;
+          next_stateC =  ST_Wait_Suc_Rec1;
+        end
+      canbus1 : 
+        begin
+          if (end_can_procC==1)
+            next_stateC =  donebus1;
           else
-            next_stateC =  ST_Wait_Suc_Rec;
+            next_stateC =  canbus1;
+        end
+      donebus1 : 
+        begin
+          next_stateC =  ST_Bus_Loop;
+        end
+      canbus2 : 
+        begin
+          if (end_can_procC==1)
+            next_stateC =  donebus2;
+          else
+            next_stateC =  canbus2;
+        end
+      donebus2 : 
+        begin
+          next_stateC =  ST_Bus_Loop;
+        end
+      canbus3 : 
+        begin
+          if (end_can_procC==1)
+            next_stateC =  donebus32;
+          else
+            next_stateC =  canbus3;
+        end
+      canbus4 : 
+        begin
+          if (end_can_procC==1)
+            next_stateC =  donebus4;
+          else
+            next_stateC =  canbus4;
+        end
+      donebus4 : 
+        begin
+          next_stateC =  ST_Bus_Loop;
+        end
+      canbus5 : 
+        begin
+          if (end_can_procC==1)
+            next_stateC =  donebus5;
+          else
+            next_stateC =  canbus5;
+        end
+      donebus5 : 
+        begin
+          next_stateC =  ST_Bus_Loop;
+        end
+      canbus6 : 
+        begin
+          if (end_can_procC==1)
+            next_stateC =  donebus6;
+          else
+            next_stateC =  canbus6;
+        end
+      donebus6 : 
+        begin
+          next_stateC =  ST_Bus_Loop;
+        end
+      canbus7 : 
+        begin
+          if (end_can_procC==1)
+            next_stateC =  donebus7;
+          else
+            next_stateC =  canbus7;
+        end
+      donebus7 : 
+        begin
+          next_stateC =  ST_Bus_Loop;
+        end
+      canbus8 : 
+        begin
+          if (end_can_procC==1)
+            next_stateC =  donebus8;
+          else
+            next_stateC =  canbus8;
+        end
+      donebus8 : 
+        begin
+          next_stateC =  ST_Bus_Loop;
+        end
+      canbus9 : 
+        begin
+          if (end_can_procC==1)
+            next_stateC =  donebus9;
+          else
+            next_stateC =  canbus9;
+        end
+      donebus9 : 
+        begin
+          next_stateC =  ST_Bus_Loop;
+        end
+      canbus10 : 
+        begin
+          if (end_can_procC==1)
+            next_stateC =  donebus10;
+          else
+            next_stateC =  canbus10;
+        end
+      donebus10 : 
+        begin
+          next_stateC =  ST_Bus_Loop;
+        end
+      canbus11 : 
+        begin
+          if (end_can_procC==1)
+            next_stateC =  donebus11;
+          else
+            next_stateC =  canbus11;
+        end
+      donebus11 : 
+        begin
+          next_stateC =  ST_Bus_Loop;
+        end
+      canbus12 : 
+        begin
+          if (end_can_procC==1)
+            next_stateC =  donebus12;
+          else
+            next_stateC =  canbus12;
+        end
+      donebus12 : 
+        begin
+          next_stateC =  ST_Bus_Loop;
+        end
+      canbus13 : 
+        begin
+          if (end_can_procC==1)
+            next_stateC =  donebus13;
+          else
+            next_stateC =  canbus13;
+        end
+      donebus13 : 
+        begin
+          next_stateC =  ST_Bus_Loop;
+        end
+      canbus14 : 
+        begin
+          if (end_can_procC==1)
+            next_stateC =  donebus14;
+          else
+            next_stateC =  canbus14;
+        end
+      donebus14 : 
+        begin
+          next_stateC =  ST_Bus_Loop;
+        end
+      canbus15 : 
+        begin
+          if (end_can_procC==1)
+            next_stateC =  donebus15;
+          else
+            next_stateC =  canbus15;
+        end
+      donebus15 : 
+        begin
+          next_stateC =  ST_Bus_Loop;
         end
       canbus0 : 
         begin
-          next_stateC =  Wait_rec0;
+          if (end_can_procC==1)
+            next_stateC =  donebus0;
+          else
+            next_stateC =  canbus0;
         end
       donebus0 : 
         begin
           next_stateC =  ST_Bus_Loop;
         end
-      Wait_rec1 : 
+      donebus32 : 
         begin
-          if (end_can_procC==1)
-            next_stateC =  donebus1;
-          else
-            next_stateC =  Wait_rec1;
+          next_stateC =  ST_Bus_Loop;
         end
-      Wait_rec0 : 
+      ST_Wait_Suc_Rec1 : 
         begin
-          if (end_can_procC==1)
-            next_stateC =  donebus0;
+          if (ireqsucrecC==1)
+            next_stateC =  s32;
           else
-            next_stateC =  Wait_rec0;
+            next_stateC =  ST_Wait_Suc_Rec1;
         end
-      Wait_rec2 : 
+      s32 : 
         begin
-          if (end_can_procC==1)
-            next_stateC =  donebus2;
-          else
-            next_stateC =  Wait_rec2;
+          next_stateC =  ST_Reset_Bus;
         end
       default : next_stateC =  ST_Reset_Loop;
     endcase
@@ -1384,296 +919,18 @@ always @( current_stateA )
     end_choose_busA =  0;
     start_bus_loopA =  0;
     done_bus_loopA =  0;
-    en_irqsucrec_readA =  0;
+    read_irqsucrecA =  0;
+    fifo_read_enA =  0;
     case (current_stateA)
       ST_Bus_Loop : 
         begin
           start_bus_loopA =  1;
         end
-      canbus1 : 
-        begin
-          bus_rec_selectA =  5'b00001;
-          irq_can_recA =  1;
-        end
-      canbus2 : 
-        begin
-          bus_rec_selectA =  5'b00010;
-          irq_can_recA =  1;
-        end
-      canbus3 : 
-        begin
-          bus_rec_selectA =  5'b00011;
-          irq_can_recA =  1;
-        end
-      canbus4 : 
-        begin
-          bus_rec_selectA =  5'b00100;
-          irq_can_recA =  1;
-        end
-      canbus5 : 
-        begin
-          bus_rec_selectA =  5'b00101;
-          irq_can_recA =  1;
-        end
-      canbus6 : 
-        begin
-          bus_rec_selectA =  5'b00110;
-          irq_can_recA =  1;
-        end
-      canbus7 : 
-        begin
-          bus_rec_selectA =  5'b00111;
-          irq_can_recA =  1;
-        end
-      canbus8 : 
-        begin
-          bus_rec_selectA =  5'b01000;
-          irq_can_recA =  1;
-        end
-      canbus9 : 
-        begin
-          bus_rec_selectA =  5'b01001;
-          irq_can_recA =  1;
-        end
-      canbus10 : 
-        begin
-          bus_rec_selectA =  5'b01010;
-          irq_can_recA =  1;
-        end
-      canbus11 : 
-        begin
-          bus_rec_selectA =  5'b01011;
-          irq_can_recA =  1;
-        end
-      canbus12 : 
-        begin
-          bus_rec_selectA =  5'b01100;
-          irq_can_recA =  1;
-        end
-      canbus13 : 
-        begin
-          bus_rec_selectA =  5'b01101;
-          irq_can_recA =  1;
-        end
-      canbus14 : 
-        begin
-          bus_rec_selectA =  5'b01110;
-          irq_can_recA =  1;
-        end
-      canbus15 : 
-        begin
-          bus_rec_selectA =  5'b01111;
-          irq_can_recA =  1;
-        end
-      canbus16 : 
-        begin
-          bus_rec_selectA =  5'b10000;
-          irq_can_recA =  1;
-        end
-      canbus17 : 
-        begin
-          bus_rec_selectA =  5'b10001;
-          irq_can_recA =  1;
-        end
-      canbus18 : 
-        begin
-          bus_rec_selectA =  5'b10010;
-          irq_can_recA =  1;
-        end
-      canbus19 : 
-        begin
-          bus_rec_selectA =  5'b10011;
-          irq_can_recA =  1;
-        end
-      canbus20 : 
-        begin
-          bus_rec_selectA =  5'b10100;
-          irq_can_recA =  1;
-        end
-      canbus21 : 
-        begin
-          bus_rec_selectA =  5'b10101;
-          irq_can_recA =  1;
-        end
-      canbus22 : 
-        begin
-          bus_rec_selectA =  5'b10110;
-          irq_can_recA =  1;
-        end
-      canbus23 : 
-        begin
-          bus_rec_selectA =  5'b10111;
-          irq_can_recA =  1;
-        end
-      canbus24 : 
-        begin
-          bus_rec_selectA =  5'b11000;
-          irq_can_recA =  1;
-        end
-      canbus25 : 
-        begin
-          bus_rec_selectA =  5'b11001;
-          irq_can_recA =  1;
-        end
-      canbus26 : 
-        begin
-          bus_rec_selectA =  5'b11010;
-          irq_can_recA =  1;
-        end
-      canbus27 : 
-        begin
-          bus_rec_selectA =  5'b11011;
-          irq_can_recA =  1;
-        end
-      canbus28 : 
-        begin
-          bus_rec_selectA =  5'b11100;
-          irq_can_recA =  1;
-        end
-      canbus29 : 
-        begin
-          bus_rec_selectA =  5'b11101;
-          irq_can_recA =  1;
-        end
-      canbus30 : 
-        begin
-          bus_rec_selectA =  5'b11110;
-          irq_can_recA =  1;
-        end
-      canbus31 : 
-        begin
-          bus_rec_selectA =  5'b11111;
-          irq_can_recA =  1;
-        end
       ST_Reset_Bus : 
         begin
-          en_irqsucrec_readA =  1;
+          read_irqsucrecA =  1;
           done_bus_loopA =  0;
           end_choose_busA =  0;
-        end
-      donebus1 : 
-        begin
-          end_choose_busA =  1;
-        end
-      donebus2 : 
-        begin
-          end_choose_busA =  1;
-        end
-      donebus3 : 
-        begin
-          end_choose_busA =  1;
-        end
-      donebus4 : 
-        begin
-          end_choose_busA =  1;
-        end
-      donebus5 : 
-        begin
-          end_choose_busA =  1;
-        end
-      donebus6 : 
-        begin
-          end_choose_busA =  1;
-        end
-      donebus7 : 
-        begin
-          end_choose_busA =  1;
-        end
-      donebus8 : 
-        begin
-          end_choose_busA =  1;
-        end
-      donebus9 : 
-        begin
-          end_choose_busA =  1;
-        end
-      donebus10 : 
-        begin
-          end_choose_busA =  1;
-        end
-      donebus11 : 
-        begin
-          end_choose_busA =  1;
-        end
-      donebus12 : 
-        begin
-          end_choose_busA =  1;
-        end
-      donebus13 : 
-        begin
-          end_choose_busA =  1;
-        end
-      donebus14 : 
-        begin
-          end_choose_busA =  1;
-        end
-      donebus15 : 
-        begin
-          end_choose_busA =  1;
-        end
-      donebus16 : 
-        begin
-          end_choose_busA =  1;
-        end
-      donebus17 : 
-        begin
-          end_choose_busA =  1;
-        end
-      donebus18 : 
-        begin
-          end_choose_busA =  1;
-        end
-      donebus19 : 
-        begin
-          end_choose_busA =  1;
-        end
-      donebus20 : 
-        begin
-          end_choose_busA =  1;
-        end
-      donebus21 : 
-        begin
-          end_choose_busA =  1;
-        end
-      donebus22 : 
-        begin
-          end_choose_busA =  1;
-        end
-      donebus23 : 
-        begin
-          end_choose_busA =  1;
-        end
-      donebus24 : 
-        begin
-          end_choose_busA =  1;
-        end
-      donebus25 : 
-        begin
-          end_choose_busA =  1;
-        end
-      donebus26 : 
-        begin
-          end_choose_busA =  1;
-        end
-      donebus27 : 
-        begin
-          end_choose_busA =  1;
-        end
-      donebus28 : 
-        begin
-          end_choose_busA =  1;
-        end
-      donebus29 : 
-        begin
-          end_choose_busA =  1;
-        end
-      donebus30 : 
-        begin
-          end_choose_busA =  1;
-        end
-      donebus31 : 
-        begin
-          end_choose_busA =  1;
         end
       ST_Reset_Loop : 
         begin
@@ -1681,16 +938,156 @@ always @( current_stateA )
           done_bus_loopA =  0;
           entimeoutA =  0;
           end_choose_busA =  0;
-          en_irqsucrec_readA =  0;
-        end
-      ST_End_Read : 
-        begin
-          done_bus_loopA =  1;
+          read_irqsucrecA =  0;
         end
       ST_Wait_Suc_Rec : 
         begin
-          entimeoutA =  0;
           done_bus_loopA =  1;
+        end
+      canbus1 : 
+        begin
+          bus_rec_selectA =  5'b00001;
+          irq_can_recA =  1;
+        end
+      donebus1 : 
+        begin
+          end_choose_busA =  1;
+          bus_rec_selectA =  5'b1;
+        end
+      canbus2 : 
+        begin
+          bus_rec_selectA =  5'd2;
+          irq_can_recA =  1;
+        end
+      donebus2 : 
+        begin
+          end_choose_busA =  1;
+          bus_rec_selectA =  5'd2;
+        end
+      canbus3 : 
+        begin
+          bus_rec_selectA =  5'd3;
+          irq_can_recA =  1;
+        end
+      canbus4 : 
+        begin
+          bus_rec_selectA =  5'd4;
+          irq_can_recA =  1;
+        end
+      donebus4 : 
+        begin
+          end_choose_busA =  1;
+          bus_rec_selectA =  5'd4;
+        end
+      canbus5 : 
+        begin
+          bus_rec_selectA =  5'd5;
+          irq_can_recA =  1;
+        end
+      donebus5 : 
+        begin
+          end_choose_busA =  1;
+          bus_rec_selectA =  5'd5;
+        end
+      canbus6 : 
+        begin
+          bus_rec_selectA =  5'd6;
+          irq_can_recA =  1;
+        end
+      donebus6 : 
+        begin
+          end_choose_busA =  1;
+          bus_rec_selectA =  5'd6;
+        end
+      canbus7 : 
+        begin
+          bus_rec_selectA =  5'd7;
+          irq_can_recA =  1;
+        end
+      donebus7 : 
+        begin
+          end_choose_busA =  1;
+          bus_rec_selectA =  5'd7;
+        end
+      canbus8 : 
+        begin
+          bus_rec_selectA =  5'd8;
+          irq_can_recA =  1;
+        end
+      donebus8 : 
+        begin
+          end_choose_busA =  1;
+          bus_rec_selectA =  5'd8;
+        end
+      canbus9 : 
+        begin
+          bus_rec_selectA =  5'd9;
+          irq_can_recA =  1;
+        end
+      donebus9 : 
+        begin
+          bus_rec_selectA =  5'd9;
+          end_choose_busA =  1;
+        end
+      canbus10 : 
+        begin
+          bus_rec_selectA =  5'd10;
+          irq_can_recA =  1;
+        end
+      donebus10 : 
+        begin
+          bus_rec_selectA =  5'd10;
+          end_choose_busA =  1;
+        end
+      canbus11 : 
+        begin
+          bus_rec_selectA =  5'd11;
+          irq_can_recA =  1;
+        end
+      donebus11 : 
+        begin
+          end_choose_busA =  1;
+          bus_rec_selectA =  5'd11;
+        end
+      canbus12 : 
+        begin
+          bus_rec_selectA =  5'd12;
+          irq_can_recA =  1;
+        end
+      donebus12 : 
+        begin
+          end_choose_busA =  1;
+          bus_rec_selectA =  5'd12;
+        end
+      canbus13 : 
+        begin
+          bus_rec_selectA =  5'd13;
+          irq_can_recA =  1;
+        end
+      donebus13 : 
+        begin
+          end_choose_busA =  1;
+          bus_rec_selectA =  5'd13;
+        end
+      canbus14 : 
+        begin
+          bus_rec_selectA =  5'd14;
+          irq_can_recA =  1;
+        end
+      donebus14 : 
+        begin
+          end_choose_busA =  1;
+          bus_rec_selectA =  5'd14;
+        end
+      canbus15 : 
+        begin
+          bus_rec_selectA =  5'd15;
+          irq_can_recA =  1;
+        end
+      donebus15 : 
+        begin
+          end_choose_busA =  1;
+          bus_rec_selectA =  5'd15;
         end
       canbus0 : 
         begin
@@ -1700,18 +1097,20 @@ always @( current_stateA )
       donebus0 : 
         begin
           end_choose_busA =  1;
-        end
-      Wait_rec1 : 
-        begin
-          bus_rec_selectA =  5'b00001;
-        end
-      Wait_rec0 : 
-        begin
           bus_rec_selectA =  5'b0;
         end
-      Wait_rec2 : 
+      donebus32 : 
         begin
-          bus_rec_selectA =  5'b00010;
+          end_choose_busA =  1;
+          bus_rec_selectA =  5'd3;
+        end
+      ST_Wait_Suc_Rec1 : 
+        begin
+          entimeoutA =  0;
+        end
+      s32 : 
+        begin
+          fifo_read_enA =  1;
         end
     endcase
   end
@@ -1724,296 +1123,18 @@ always @( current_stateB )
     end_choose_busB =  0;
     start_bus_loopB =  0;
     done_bus_loopB =  0;
-    en_irqsucrec_readB =  0;
+    read_irqsucrecB =  0;
+    fifo_read_enB =  0;
     case (current_stateB)
       ST_Bus_Loop : 
         begin
           start_bus_loopB =  1;
         end
-      canbus1 : 
-        begin
-          bus_rec_selectB =  5'b00001;
-          irq_can_recB =  1;
-        end
-      canbus2 : 
-        begin
-          bus_rec_selectB =  5'b00010;
-          irq_can_recB =  1;
-        end
-      canbus3 : 
-        begin
-          bus_rec_selectB =  5'b00011;
-          irq_can_recB =  1;
-        end
-      canbus4 : 
-        begin
-          bus_rec_selectB =  5'b00100;
-          irq_can_recB =  1;
-        end
-      canbus5 : 
-        begin
-          bus_rec_selectB =  5'b00101;
-          irq_can_recB =  1;
-        end
-      canbus6 : 
-        begin
-          bus_rec_selectB =  5'b00110;
-          irq_can_recB =  1;
-        end
-      canbus7 : 
-        begin
-          bus_rec_selectB =  5'b00111;
-          irq_can_recB =  1;
-        end
-      canbus8 : 
-        begin
-          bus_rec_selectB =  5'b01000;
-          irq_can_recB =  1;
-        end
-      canbus9 : 
-        begin
-          bus_rec_selectB =  5'b01001;
-          irq_can_recB =  1;
-        end
-      canbus10 : 
-        begin
-          bus_rec_selectB =  5'b01010;
-          irq_can_recB =  1;
-        end
-      canbus11 : 
-        begin
-          bus_rec_selectB =  5'b01011;
-          irq_can_recB =  1;
-        end
-      canbus12 : 
-        begin
-          bus_rec_selectB =  5'b01100;
-          irq_can_recB =  1;
-        end
-      canbus13 : 
-        begin
-          bus_rec_selectB =  5'b01101;
-          irq_can_recB =  1;
-        end
-      canbus14 : 
-        begin
-          bus_rec_selectB =  5'b01110;
-          irq_can_recB =  1;
-        end
-      canbus15 : 
-        begin
-          bus_rec_selectB =  5'b01111;
-          irq_can_recB =  1;
-        end
-      canbus16 : 
-        begin
-          bus_rec_selectB =  5'b10000;
-          irq_can_recB =  1;
-        end
-      canbus17 : 
-        begin
-          bus_rec_selectB =  5'b10001;
-          irq_can_recB =  1;
-        end
-      canbus18 : 
-        begin
-          bus_rec_selectB =  5'b10010;
-          irq_can_recB =  1;
-        end
-      canbus19 : 
-        begin
-          bus_rec_selectB =  5'b10011;
-          irq_can_recB =  1;
-        end
-      canbus20 : 
-        begin
-          bus_rec_selectB =  5'b10100;
-          irq_can_recB =  1;
-        end
-      canbus21 : 
-        begin
-          bus_rec_selectB =  5'b10101;
-          irq_can_recB =  1;
-        end
-      canbus22 : 
-        begin
-          bus_rec_selectB =  5'b10110;
-          irq_can_recB =  1;
-        end
-      canbus23 : 
-        begin
-          bus_rec_selectB =  5'b10111;
-          irq_can_recB =  1;
-        end
-      canbus24 : 
-        begin
-          bus_rec_selectB =  5'b11000;
-          irq_can_recB =  1;
-        end
-      canbus25 : 
-        begin
-          bus_rec_selectB =  5'b11001;
-          irq_can_recB =  1;
-        end
-      canbus26 : 
-        begin
-          bus_rec_selectB =  5'b11010;
-          irq_can_recB =  1;
-        end
-      canbus27 : 
-        begin
-          bus_rec_selectB =  5'b11011;
-          irq_can_recB =  1;
-        end
-      canbus28 : 
-        begin
-          bus_rec_selectB =  5'b11100;
-          irq_can_recB =  1;
-        end
-      canbus29 : 
-        begin
-          bus_rec_selectB =  5'b11101;
-          irq_can_recB =  1;
-        end
-      canbus30 : 
-        begin
-          bus_rec_selectB =  5'b11110;
-          irq_can_recB =  1;
-        end
-      canbus31 : 
-        begin
-          bus_rec_selectB =  5'b11111;
-          irq_can_recB =  1;
-        end
       ST_Reset_Bus : 
         begin
-          en_irqsucrec_readB =  1;
+          read_irqsucrecB =  1;
           done_bus_loopB =  0;
           end_choose_busB =  0;
-        end
-      donebus1 : 
-        begin
-          end_choose_busB =  1;
-        end
-      donebus2 : 
-        begin
-          end_choose_busB =  1;
-        end
-      donebus3 : 
-        begin
-          end_choose_busB =  1;
-        end
-      donebus4 : 
-        begin
-          end_choose_busB =  1;
-        end
-      donebus5 : 
-        begin
-          end_choose_busB =  1;
-        end
-      donebus6 : 
-        begin
-          end_choose_busB =  1;
-        end
-      donebus7 : 
-        begin
-          end_choose_busB =  1;
-        end
-      donebus8 : 
-        begin
-          end_choose_busB =  1;
-        end
-      donebus9 : 
-        begin
-          end_choose_busB =  1;
-        end
-      donebus10 : 
-        begin
-          end_choose_busB =  1;
-        end
-      donebus11 : 
-        begin
-          end_choose_busB =  1;
-        end
-      donebus12 : 
-        begin
-          end_choose_busB =  1;
-        end
-      donebus13 : 
-        begin
-          end_choose_busB =  1;
-        end
-      donebus14 : 
-        begin
-          end_choose_busB =  1;
-        end
-      donebus15 : 
-        begin
-          end_choose_busB =  1;
-        end
-      donebus16 : 
-        begin
-          end_choose_busB =  1;
-        end
-      donebus17 : 
-        begin
-          end_choose_busB =  1;
-        end
-      donebus18 : 
-        begin
-          end_choose_busB =  1;
-        end
-      donebus19 : 
-        begin
-          end_choose_busB =  1;
-        end
-      donebus20 : 
-        begin
-          end_choose_busB =  1;
-        end
-      donebus21 : 
-        begin
-          end_choose_busB =  1;
-        end
-      donebus22 : 
-        begin
-          end_choose_busB =  1;
-        end
-      donebus23 : 
-        begin
-          end_choose_busB =  1;
-        end
-      donebus24 : 
-        begin
-          end_choose_busB =  1;
-        end
-      donebus25 : 
-        begin
-          end_choose_busB =  1;
-        end
-      donebus26 : 
-        begin
-          end_choose_busB =  1;
-        end
-      donebus27 : 
-        begin
-          end_choose_busB =  1;
-        end
-      donebus28 : 
-        begin
-          end_choose_busB =  1;
-        end
-      donebus29 : 
-        begin
-          end_choose_busB =  1;
-        end
-      donebus30 : 
-        begin
-          end_choose_busB =  1;
-        end
-      donebus31 : 
-        begin
-          end_choose_busB =  1;
         end
       ST_Reset_Loop : 
         begin
@@ -2021,16 +1142,156 @@ always @( current_stateB )
           done_bus_loopB =  0;
           entimeoutB =  0;
           end_choose_busB =  0;
-          en_irqsucrec_readB =  0;
-        end
-      ST_End_Read : 
-        begin
-          done_bus_loopB =  1;
+          read_irqsucrecB =  0;
         end
       ST_Wait_Suc_Rec : 
         begin
-          entimeoutB =  0;
           done_bus_loopB =  1;
+        end
+      canbus1 : 
+        begin
+          bus_rec_selectB =  5'b00001;
+          irq_can_recB =  1;
+        end
+      donebus1 : 
+        begin
+          end_choose_busB =  1;
+          bus_rec_selectB =  5'b1;
+        end
+      canbus2 : 
+        begin
+          bus_rec_selectB =  5'd2;
+          irq_can_recB =  1;
+        end
+      donebus2 : 
+        begin
+          end_choose_busB =  1;
+          bus_rec_selectB =  5'd2;
+        end
+      canbus3 : 
+        begin
+          bus_rec_selectB =  5'd3;
+          irq_can_recB =  1;
+        end
+      canbus4 : 
+        begin
+          bus_rec_selectB =  5'd4;
+          irq_can_recB =  1;
+        end
+      donebus4 : 
+        begin
+          end_choose_busB =  1;
+          bus_rec_selectB =  5'd4;
+        end
+      canbus5 : 
+        begin
+          bus_rec_selectB =  5'd5;
+          irq_can_recB =  1;
+        end
+      donebus5 : 
+        begin
+          end_choose_busB =  1;
+          bus_rec_selectB =  5'd5;
+        end
+      canbus6 : 
+        begin
+          bus_rec_selectB =  5'd6;
+          irq_can_recB =  1;
+        end
+      donebus6 : 
+        begin
+          end_choose_busB =  1;
+          bus_rec_selectB =  5'd6;
+        end
+      canbus7 : 
+        begin
+          bus_rec_selectB =  5'd7;
+          irq_can_recB =  1;
+        end
+      donebus7 : 
+        begin
+          end_choose_busB =  1;
+          bus_rec_selectB =  5'd7;
+        end
+      canbus8 : 
+        begin
+          bus_rec_selectB =  5'd8;
+          irq_can_recB =  1;
+        end
+      donebus8 : 
+        begin
+          end_choose_busB =  1;
+          bus_rec_selectB =  5'd8;
+        end
+      canbus9 : 
+        begin
+          bus_rec_selectB =  5'd9;
+          irq_can_recB =  1;
+        end
+      donebus9 : 
+        begin
+          bus_rec_selectB =  5'd9;
+          end_choose_busB =  1;
+        end
+      canbus10 : 
+        begin
+          bus_rec_selectB =  5'd10;
+          irq_can_recB =  1;
+        end
+      donebus10 : 
+        begin
+          bus_rec_selectB =  5'd10;
+          end_choose_busB =  1;
+        end
+      canbus11 : 
+        begin
+          bus_rec_selectB =  5'd11;
+          irq_can_recB =  1;
+        end
+      donebus11 : 
+        begin
+          end_choose_busB =  1;
+          bus_rec_selectB =  5'd11;
+        end
+      canbus12 : 
+        begin
+          bus_rec_selectB =  5'd12;
+          irq_can_recB =  1;
+        end
+      donebus12 : 
+        begin
+          end_choose_busB =  1;
+          bus_rec_selectB =  5'd12;
+        end
+      canbus13 : 
+        begin
+          bus_rec_selectB =  5'd13;
+          irq_can_recB =  1;
+        end
+      donebus13 : 
+        begin
+          end_choose_busB =  1;
+          bus_rec_selectB =  5'd13;
+        end
+      canbus14 : 
+        begin
+          bus_rec_selectB =  5'd14;
+          irq_can_recB =  1;
+        end
+      donebus14 : 
+        begin
+          end_choose_busB =  1;
+          bus_rec_selectB =  5'd14;
+        end
+      canbus15 : 
+        begin
+          bus_rec_selectB =  5'd15;
+          irq_can_recB =  1;
+        end
+      donebus15 : 
+        begin
+          end_choose_busB =  1;
+          bus_rec_selectB =  5'd15;
         end
       canbus0 : 
         begin
@@ -2040,18 +1301,20 @@ always @( current_stateB )
       donebus0 : 
         begin
           end_choose_busB =  1;
-        end
-      Wait_rec1 : 
-        begin
-          bus_rec_selectB =  5'b00001;
-        end
-      Wait_rec0 : 
-        begin
           bus_rec_selectB =  5'b0;
         end
-      Wait_rec2 : 
+      donebus32 : 
         begin
-          bus_rec_selectB =  5'b00010;
+          end_choose_busB =  1;
+          bus_rec_selectB =  5'd3;
+        end
+      ST_Wait_Suc_Rec1 : 
+        begin
+          entimeoutB =  0;
+        end
+      s32 : 
+        begin
+          fifo_read_enB =  1;
         end
     endcase
   end
@@ -2064,296 +1327,18 @@ always @( current_stateC )
     end_choose_busC =  0;
     start_bus_loopC =  0;
     done_bus_loopC =  0;
-    en_irqsucrec_readC =  0;
+    read_irqsucrecC =  0;
+    fifo_read_enC =  0;
     case (current_stateC)
       ST_Bus_Loop : 
         begin
           start_bus_loopC =  1;
         end
-      canbus1 : 
-        begin
-          bus_rec_selectC =  5'b00001;
-          irq_can_recC =  1;
-        end
-      canbus2 : 
-        begin
-          bus_rec_selectC =  5'b00010;
-          irq_can_recC =  1;
-        end
-      canbus3 : 
-        begin
-          bus_rec_selectC =  5'b00011;
-          irq_can_recC =  1;
-        end
-      canbus4 : 
-        begin
-          bus_rec_selectC =  5'b00100;
-          irq_can_recC =  1;
-        end
-      canbus5 : 
-        begin
-          bus_rec_selectC =  5'b00101;
-          irq_can_recC =  1;
-        end
-      canbus6 : 
-        begin
-          bus_rec_selectC =  5'b00110;
-          irq_can_recC =  1;
-        end
-      canbus7 : 
-        begin
-          bus_rec_selectC =  5'b00111;
-          irq_can_recC =  1;
-        end
-      canbus8 : 
-        begin
-          bus_rec_selectC =  5'b01000;
-          irq_can_recC =  1;
-        end
-      canbus9 : 
-        begin
-          bus_rec_selectC =  5'b01001;
-          irq_can_recC =  1;
-        end
-      canbus10 : 
-        begin
-          bus_rec_selectC =  5'b01010;
-          irq_can_recC =  1;
-        end
-      canbus11 : 
-        begin
-          bus_rec_selectC =  5'b01011;
-          irq_can_recC =  1;
-        end
-      canbus12 : 
-        begin
-          bus_rec_selectC =  5'b01100;
-          irq_can_recC =  1;
-        end
-      canbus13 : 
-        begin
-          bus_rec_selectC =  5'b01101;
-          irq_can_recC =  1;
-        end
-      canbus14 : 
-        begin
-          bus_rec_selectC =  5'b01110;
-          irq_can_recC =  1;
-        end
-      canbus15 : 
-        begin
-          bus_rec_selectC =  5'b01111;
-          irq_can_recC =  1;
-        end
-      canbus16 : 
-        begin
-          bus_rec_selectC =  5'b10000;
-          irq_can_recC =  1;
-        end
-      canbus17 : 
-        begin
-          bus_rec_selectC =  5'b10001;
-          irq_can_recC =  1;
-        end
-      canbus18 : 
-        begin
-          bus_rec_selectC =  5'b10010;
-          irq_can_recC =  1;
-        end
-      canbus19 : 
-        begin
-          bus_rec_selectC =  5'b10011;
-          irq_can_recC =  1;
-        end
-      canbus20 : 
-        begin
-          bus_rec_selectC =  5'b10100;
-          irq_can_recC =  1;
-        end
-      canbus21 : 
-        begin
-          bus_rec_selectC =  5'b10101;
-          irq_can_recC =  1;
-        end
-      canbus22 : 
-        begin
-          bus_rec_selectC =  5'b10110;
-          irq_can_recC =  1;
-        end
-      canbus23 : 
-        begin
-          bus_rec_selectC =  5'b10111;
-          irq_can_recC =  1;
-        end
-      canbus24 : 
-        begin
-          bus_rec_selectC =  5'b11000;
-          irq_can_recC =  1;
-        end
-      canbus25 : 
-        begin
-          bus_rec_selectC =  5'b11001;
-          irq_can_recC =  1;
-        end
-      canbus26 : 
-        begin
-          bus_rec_selectC =  5'b11010;
-          irq_can_recC =  1;
-        end
-      canbus27 : 
-        begin
-          bus_rec_selectC =  5'b11011;
-          irq_can_recC =  1;
-        end
-      canbus28 : 
-        begin
-          bus_rec_selectC =  5'b11100;
-          irq_can_recC =  1;
-        end
-      canbus29 : 
-        begin
-          bus_rec_selectC =  5'b11101;
-          irq_can_recC =  1;
-        end
-      canbus30 : 
-        begin
-          bus_rec_selectC =  5'b11110;
-          irq_can_recC =  1;
-        end
-      canbus31 : 
-        begin
-          bus_rec_selectC =  5'b11111;
-          irq_can_recC =  1;
-        end
       ST_Reset_Bus : 
         begin
-          en_irqsucrec_readC =  1;
+          read_irqsucrecC =  1;
           done_bus_loopC =  0;
           end_choose_busC =  0;
-        end
-      donebus1 : 
-        begin
-          end_choose_busC =  1;
-        end
-      donebus2 : 
-        begin
-          end_choose_busC =  1;
-        end
-      donebus3 : 
-        begin
-          end_choose_busC =  1;
-        end
-      donebus4 : 
-        begin
-          end_choose_busC =  1;
-        end
-      donebus5 : 
-        begin
-          end_choose_busC =  1;
-        end
-      donebus6 : 
-        begin
-          end_choose_busC =  1;
-        end
-      donebus7 : 
-        begin
-          end_choose_busC =  1;
-        end
-      donebus8 : 
-        begin
-          end_choose_busC =  1;
-        end
-      donebus9 : 
-        begin
-          end_choose_busC =  1;
-        end
-      donebus10 : 
-        begin
-          end_choose_busC =  1;
-        end
-      donebus11 : 
-        begin
-          end_choose_busC =  1;
-        end
-      donebus12 : 
-        begin
-          end_choose_busC =  1;
-        end
-      donebus13 : 
-        begin
-          end_choose_busC =  1;
-        end
-      donebus14 : 
-        begin
-          end_choose_busC =  1;
-        end
-      donebus15 : 
-        begin
-          end_choose_busC =  1;
-        end
-      donebus16 : 
-        begin
-          end_choose_busC =  1;
-        end
-      donebus17 : 
-        begin
-          end_choose_busC =  1;
-        end
-      donebus18 : 
-        begin
-          end_choose_busC =  1;
-        end
-      donebus19 : 
-        begin
-          end_choose_busC =  1;
-        end
-      donebus20 : 
-        begin
-          end_choose_busC =  1;
-        end
-      donebus21 : 
-        begin
-          end_choose_busC =  1;
-        end
-      donebus22 : 
-        begin
-          end_choose_busC =  1;
-        end
-      donebus23 : 
-        begin
-          end_choose_busC =  1;
-        end
-      donebus24 : 
-        begin
-          end_choose_busC =  1;
-        end
-      donebus25 : 
-        begin
-          end_choose_busC =  1;
-        end
-      donebus26 : 
-        begin
-          end_choose_busC =  1;
-        end
-      donebus27 : 
-        begin
-          end_choose_busC =  1;
-        end
-      donebus28 : 
-        begin
-          end_choose_busC =  1;
-        end
-      donebus29 : 
-        begin
-          end_choose_busC =  1;
-        end
-      donebus30 : 
-        begin
-          end_choose_busC =  1;
-        end
-      donebus31 : 
-        begin
-          end_choose_busC =  1;
         end
       ST_Reset_Loop : 
         begin
@@ -2361,16 +1346,156 @@ always @( current_stateC )
           done_bus_loopC =  0;
           entimeoutC =  0;
           end_choose_busC =  0;
-          en_irqsucrec_readC =  0;
-        end
-      ST_End_Read : 
-        begin
-          done_bus_loopC =  1;
+          read_irqsucrecC =  0;
         end
       ST_Wait_Suc_Rec : 
         begin
-          entimeoutC =  0;
           done_bus_loopC =  1;
+        end
+      canbus1 : 
+        begin
+          bus_rec_selectC =  5'b00001;
+          irq_can_recC =  1;
+        end
+      donebus1 : 
+        begin
+          end_choose_busC =  1;
+          bus_rec_selectC =  5'b1;
+        end
+      canbus2 : 
+        begin
+          bus_rec_selectC =  5'd2;
+          irq_can_recC =  1;
+        end
+      donebus2 : 
+        begin
+          end_choose_busC =  1;
+          bus_rec_selectC =  5'd2;
+        end
+      canbus3 : 
+        begin
+          bus_rec_selectC =  5'd3;
+          irq_can_recC =  1;
+        end
+      canbus4 : 
+        begin
+          bus_rec_selectC =  5'd4;
+          irq_can_recC =  1;
+        end
+      donebus4 : 
+        begin
+          end_choose_busC =  1;
+          bus_rec_selectC =  5'd4;
+        end
+      canbus5 : 
+        begin
+          bus_rec_selectC =  5'd5;
+          irq_can_recC =  1;
+        end
+      donebus5 : 
+        begin
+          end_choose_busC =  1;
+          bus_rec_selectC =  5'd5;
+        end
+      canbus6 : 
+        begin
+          bus_rec_selectC =  5'd6;
+          irq_can_recC =  1;
+        end
+      donebus6 : 
+        begin
+          end_choose_busC =  1;
+          bus_rec_selectC =  5'd6;
+        end
+      canbus7 : 
+        begin
+          bus_rec_selectC =  5'd7;
+          irq_can_recC =  1;
+        end
+      donebus7 : 
+        begin
+          end_choose_busC =  1;
+          bus_rec_selectC =  5'd7;
+        end
+      canbus8 : 
+        begin
+          bus_rec_selectC =  5'd8;
+          irq_can_recC =  1;
+        end
+      donebus8 : 
+        begin
+          end_choose_busC =  1;
+          bus_rec_selectC =  5'd8;
+        end
+      canbus9 : 
+        begin
+          bus_rec_selectC =  5'd9;
+          irq_can_recC =  1;
+        end
+      donebus9 : 
+        begin
+          bus_rec_selectC =  5'd9;
+          end_choose_busC =  1;
+        end
+      canbus10 : 
+        begin
+          bus_rec_selectC =  5'd10;
+          irq_can_recC =  1;
+        end
+      donebus10 : 
+        begin
+          bus_rec_selectC =  5'd10;
+          end_choose_busC =  1;
+        end
+      canbus11 : 
+        begin
+          bus_rec_selectC =  5'd11;
+          irq_can_recC =  1;
+        end
+      donebus11 : 
+        begin
+          end_choose_busC =  1;
+          bus_rec_selectC =  5'd11;
+        end
+      canbus12 : 
+        begin
+          bus_rec_selectC =  5'd12;
+          irq_can_recC =  1;
+        end
+      donebus12 : 
+        begin
+          end_choose_busC =  1;
+          bus_rec_selectC =  5'd12;
+        end
+      canbus13 : 
+        begin
+          bus_rec_selectC =  5'd13;
+          irq_can_recC =  1;
+        end
+      donebus13 : 
+        begin
+          end_choose_busC =  1;
+          bus_rec_selectC =  5'd13;
+        end
+      canbus14 : 
+        begin
+          bus_rec_selectC =  5'd14;
+          irq_can_recC =  1;
+        end
+      donebus14 : 
+        begin
+          end_choose_busC =  1;
+          bus_rec_selectC =  5'd14;
+        end
+      canbus15 : 
+        begin
+          bus_rec_selectC =  5'd15;
+          irq_can_recC =  1;
+        end
+      donebus15 : 
+        begin
+          end_choose_busC =  1;
+          bus_rec_selectC =  5'd15;
         end
       canbus0 : 
         begin
@@ -2380,18 +1505,20 @@ always @( current_stateC )
       donebus0 : 
         begin
           end_choose_busC =  1;
-        end
-      Wait_rec1 : 
-        begin
-          bus_rec_selectC =  5'b00001;
-        end
-      Wait_rec0 : 
-        begin
           bus_rec_selectC =  5'b0;
         end
-      Wait_rec2 : 
+      donebus32 : 
         begin
-          bus_rec_selectC =  5'b00010;
+          end_choose_busC =  1;
+          bus_rec_selectC =  5'd3;
+        end
+      ST_Wait_Suc_Rec1 : 
+        begin
+          entimeoutC =  0;
+        end
+      s32 : 
+        begin
+          fifo_read_enC =  1;
         end
     endcase
   end
@@ -2467,5 +1594,54 @@ always @( posedge clkC or posedge endwaitC )
             end
       end
   end
+
+fanout #(.WIDTH(16)) can_recFanout (
+    .in(can_rec),
+    .outA(can_recA),
+    .outB(can_recB),
+    .outC(can_recC)
+    );
+
+fanout clkFanout (
+    .in(clk),
+    .outA(clkA),
+    .outB(clkB),
+    .outC(clkC)
+    );
+
+fanout end_can_procFanout (
+    .in(end_can_proc),
+    .outA(end_can_procA),
+    .outB(end_can_procB),
+    .outC(end_can_procC)
+    );
+
+fanout endwaitFanout (
+    .in(endwait),
+    .outA(endwaitA),
+    .outB(endwaitB),
+    .outC(endwaitC)
+    );
+
+fanout ireqsucrecFanout (
+    .in(ireqsucrec),
+    .outA(ireqsucrecA),
+    .outB(ireqsucrecB),
+    .outC(ireqsucrecC)
+    );
+
+fanout rstFanout (
+    .in(rst),
+    .outA(rstA),
+    .outB(rstB),
+    .outC(rstC)
+    );
+
+fanout timeoutrstFanout (
+    .in(timeoutrst),
+    .outA(timeoutrstA),
+    .outB(timeoutrstB),
+    .outC(timeoutrstC)
+    );
 endmodule
 

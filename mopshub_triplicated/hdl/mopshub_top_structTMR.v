@@ -6,555 +6,282 @@
  *                                                                                                  *
  * user    : lucas                                                                                  *
  * host    : DESKTOP-BFDSFP2                                                                        *
- * date    : 03/04/2022 20:08:54                                                                    *
+ * date    : 16/08/2022 12:58:32                                                                    *
  *                                                                                                  *
- * workdir : /mnt/c/Users/Lucas/Desktop/mopshub_triplication/triplicated/mopshub_top_canakari_ftrim/hdl *
- * cmd     : /mnt/c/Users/Lucas/Desktop/mopshub_triplication/tmrg-master/bin/tmrg -vv -c tmrg.cfg   *
+ * workdir : /mnt/c/Users/Lucas/Desktop/mopshub_triplication/mopshub_top_board_canakari_ftrim/hdl   *
+ * cmd     : /mnt/c/Users/Lucas/Desktop/mopshub_triplication/tmrg-master/bin/tmrg -c tmrg.cfg -vvv  *
  * tmrg rev:                                                                                        *
  *                                                                                                  *
  * src file: mopshub_top_struct.v                                                                   *
  *           Git SHA           : File not in git repository!                                        *
- *           Modification time : 2022-03-28 21:55:55                                                *
- *           File Size         : 15561                                                              *
- *           MD5 hash          : 0857e0a589c6524d7c2a37d969cb4dfc                                   *
+ *           Modification time : 2022-08-16 10:21:02.552596                                         *
+ *           File Size         : 12344                                                              *
+ *           MD5 hash          : 13941355689a5af4c7804cf5793b8f77                                   *
  *                                                                                                  *
  ****************************************************************************************************/
 
-module mopshub_topTMR( 
-   input   wire           clkA, 
-   input   wire           clkB, 
-   input   wire           clkC, 
-   input   wire           clk_80A, 
-   input   wire           clk_80B, 
-   input   wire           clk_80C, 
-   input   wire           endwait_allA, 
-   input   wire           endwait_allB, 
-   input   wire           endwait_allC, 
-   input   wire           miso_cA, 
-   input   wire           miso_cB, 
-   input   wire           miso_cC, 
-   input   wire           miso_mA, 
-   input   wire           miso_mB, 
-   input   wire           miso_mC, 
-   input   wire    [4:0]  n_busesA, 
-   input   wire    [4:0]  n_busesB, 
-   input   wire    [4:0]  n_busesC, 
-   input   wire           osc_auto_trim_mopshubA, 
-   input   wire           osc_auto_trim_mopshubB, 
-   input   wire           osc_auto_trim_mopshubC, 
-   input   wire           rstA, 
-   input   wire           rstB, 
-   input   wire           rstC, 
-   input   wire           rx0A, 
-   input   wire           rx0B, 
-   input   wire           rx0C, 
-   input   wire           rx1A, 
-   input   wire           rx1B, 
-   input   wire           rx1C, 
-   input   wire           rx10A, 
-   input   wire           rx10B, 
-   input   wire           rx10C, 
-   input   wire           rx11A, 
-   input   wire           rx11B, 
-   input   wire           rx11C, 
-   input   wire           rx12A, 
-   input   wire           rx12B, 
-   input   wire           rx12C, 
-   input   wire           rx13A, 
-   input   wire           rx13B, 
-   input   wire           rx13C, 
-   input   wire           rx14A, 
-   input   wire           rx14B, 
-   input   wire           rx14C, 
-   input   wire           rx15A, 
-   input   wire           rx15B, 
-   input   wire           rx15C, 
-   input   wire           rx16A, 
-   input   wire           rx16B, 
-   input   wire           rx16C, 
-   input   wire           rx17A, 
-   input   wire           rx17B, 
-   input   wire           rx17C, 
-   input   wire           rx18A, 
-   input   wire           rx18B, 
-   input   wire           rx18C, 
-   input   wire           rx19A, 
-   input   wire           rx19B, 
-   input   wire           rx19C, 
-   input   wire           rx2A, 
-   input   wire           rx2B, 
-   input   wire           rx2C, 
-   input   wire           rx20A, 
-   input   wire           rx20B, 
-   input   wire           rx20C, 
-   input   wire           rx21A, 
-   input   wire           rx21B, 
-   input   wire           rx21C, 
-   input   wire           rx22A, 
-   input   wire           rx22B, 
-   input   wire           rx22C, 
-   input   wire           rx23A, 
-   input   wire           rx23B, 
-   input   wire           rx23C, 
-   input   wire           rx24A, 
-   input   wire           rx24B, 
-   input   wire           rx24C, 
-   input   wire           rx25A, 
-   input   wire           rx25B, 
-   input   wire           rx25C, 
-   input   wire           rx26A, 
-   input   wire           rx26B, 
-   input   wire           rx26C, 
-   input   wire           rx27A, 
-   input   wire           rx27B, 
-   input   wire           rx27C, 
-   input   wire           rx28A, 
-   input   wire           rx28B, 
-   input   wire           rx28C, 
-   input   wire           rx29A, 
-   input   wire           rx29B, 
-   input   wire           rx29C, 
-   input   wire           rx3A, 
-   input   wire           rx3B, 
-   input   wire           rx3C, 
-   input   wire           rx30A, 
-   input   wire           rx30B, 
-   input   wire           rx30C, 
-   input   wire           rx31A, 
-   input   wire           rx31B, 
-   input   wire           rx31C, 
-   input   wire           rx4A, 
-   input   wire           rx4B, 
-   input   wire           rx4C, 
-   input   wire           rx5A, 
-   input   wire           rx5B, 
-   input   wire           rx5C, 
-   input   wire           rx6A, 
-   input   wire           rx6B, 
-   input   wire           rx6C, 
-   input   wire           rx7A, 
-   input   wire           rx7B, 
-   input   wire           rx7C, 
-   input   wire           rx8A, 
-   input   wire           rx8B, 
-   input   wire           rx8C, 
-   input   wire           rx9A, 
-   input   wire           rx9B, 
-   input   wire           rx9C, 
-   input   wire           rx_dinA, 
-   input   wire           rx_dinB, 
-   input   wire           rx_dinC, 
-   input   wire           rx_elink1bitA, 
-   input   wire           rx_elink1bitB, 
-   input   wire           rx_elink1bitC, 
-   input   wire    [1:0]  rx_elink2bitA, 
-   input   wire    [1:0]  rx_elink2bitB, 
-   input   wire    [1:0]  rx_elink2bitC, 
-   input   wire           seialize_data_streamA, 
-   input   wire           seialize_data_streamB, 
-   input   wire           seialize_data_streamC, 
-   output  wire           cs_active_cA, 
-   output  wire           cs_active_cB, 
-   output  wire           cs_active_cC, 
-   output  wire           cs_active_mA, 
-   output  wire           cs_active_mB, 
-   output  wire           cs_active_mC, 
-   output  wire           irq_can_recA, 
-   output  wire           irq_can_recB, 
-   output  wire           irq_can_recC, 
-   output  wire           irq_can_traA, 
-   output  wire           irq_can_traB, 
-   output  wire           irq_can_traC, 
-   output  wire           irq_elink_recA, 
-   output  wire           irq_elink_recB, 
-   output  wire           irq_elink_recC, 
-   output  wire           irq_elink_traA, 
-   output  wire           irq_elink_traB, 
-   output  wire           irq_elink_traC, 
-   output  wire           mosi_cA, 
-   output  wire           mosi_cB, 
-   output  wire           mosi_cC, 
-   output  wire           mosi_mA, 
-   output  wire           mosi_mB, 
-   output  wire           mosi_mC, 
-   output  wire    [4:0]  power_bus_cntA, 
-   output  wire    [4:0]  power_bus_cntB, 
-   output  wire    [4:0]  power_bus_cntC, 
-   output  wire           rst_busA, 
-   output  wire           rst_busB, 
-   output  wire           rst_busC, 
-   output  wire           rx_data_rdyA, 
-   output  wire           rx_data_rdyB, 
-   output  wire           rx_data_rdyC, 
-   output  wire           rx_fifo_fullA, 
-   output  wire           rx_fifo_fullB, 
-   output  wire           rx_fifo_fullC, 
-   output  wire           sck_cA, 
-   output  wire           sck_cB, 
-   output  wire           sck_cC, 
-   output  wire           sck_mA, 
-   output  wire           sck_mB, 
-   output  wire           sck_mC, 
-   output  wire           tx0A, 
-   output  wire           tx0B, 
-   output  wire           tx0C, 
-   output  wire           tx1A, 
-   output  wire           tx1B, 
-   output  wire           tx1C, 
-   output  wire           tx10A, 
-   output  wire           tx10B, 
-   output  wire           tx10C, 
-   output  wire           tx11A, 
-   output  wire           tx11B, 
-   output  wire           tx11C, 
-   output  wire           tx12A, 
-   output  wire           tx12B, 
-   output  wire           tx12C, 
-   output  wire           tx13A, 
-   output  wire           tx13B, 
-   output  wire           tx13C, 
-   output  wire           tx14A, 
-   output  wire           tx14B, 
-   output  wire           tx14C, 
-   output  wire           tx15A, 
-   output  wire           tx15B, 
-   output  wire           tx15C, 
-   output  wire           tx16A, 
-   output  wire           tx16B, 
-   output  wire           tx16C, 
-   output  wire           tx17A, 
-   output  wire           tx17B, 
-   output  wire           tx17C, 
-   output  wire           tx18A, 
-   output  wire           tx18B, 
-   output  wire           tx18C, 
-   output  wire           tx19A, 
-   output  wire           tx19B, 
-   output  wire           tx19C, 
-   output  wire           tx2A, 
-   output  wire           tx2B, 
-   output  wire           tx2C, 
-   output  wire           tx20A, 
-   output  wire           tx20B, 
-   output  wire           tx20C, 
-   output  wire           tx21A, 
-   output  wire           tx21B, 
-   output  wire           tx21C, 
-   output  wire           tx22A, 
-   output  wire           tx22B, 
-   output  wire           tx22C, 
-   output  wire           tx23A, 
-   output  wire           tx23B, 
-   output  wire           tx23C, 
-   output  wire           tx24A, 
-   output  wire           tx24B, 
-   output  wire           tx24C, 
-   output  wire           tx25A, 
-   output  wire           tx25B, 
-   output  wire           tx25C, 
-   output  wire           tx26A, 
-   output  wire           tx26B, 
-   output  wire           tx26C, 
-   output  wire           tx27A, 
-   output  wire           tx27B, 
-   output  wire           tx27C, 
-   output  wire           tx28A, 
-   output  wire           tx28B, 
-   output  wire           tx28C, 
-   output  wire           tx29A, 
-   output  wire           tx29B, 
-   output  wire           tx29C, 
-   output  wire           tx3A, 
-   output  wire           tx3B, 
-   output  wire           tx3C, 
-   output  wire           tx30A, 
-   output  wire           tx30B, 
-   output  wire           tx30C, 
-   output  wire           tx31A, 
-   output  wire           tx31B, 
-   output  wire           tx31C, 
-   output  wire           tx4A, 
-   output  wire           tx4B, 
-   output  wire           tx4C, 
-   output  wire           tx5A, 
-   output  wire           tx5B, 
-   output  wire           tx5C, 
-   output  wire           tx6A, 
-   output  wire           tx6B, 
-   output  wire           tx6C, 
-   output  wire           tx7A, 
-   output  wire           tx7B, 
-   output  wire           tx7C, 
-   output  wire           tx8A, 
-   output  wire           tx8B, 
-   output  wire           tx8C, 
-   output  wire           tx9A, 
-   output  wire           tx9B, 
-   output  wire           tx9C, 
-   output  wire           tx_data_rdyA, 
-   output  wire           tx_data_rdyB, 
-   output  wire           tx_data_rdyC, 
-   output  wire           tx_doutA, 
-   output  wire           tx_doutB, 
-   output  wire           tx_doutC, 
-   output  wire           tx_efifo_fullA, 
-   output  wire           tx_efifo_fullB, 
-   output  wire           tx_efifo_fullC, 
-   output  wire           tx_elink1bitA, 
-   output  wire           tx_elink1bitB, 
-   output  wire           tx_elink1bitC, 
-   output  wire    [1:0]  tx_elink2bitA, 
-   output  wire    [1:0]  tx_elink2bitB, 
-   output  wire    [1:0]  tx_elink2bitC
+module mopshub_topTMR(
+  input wire  clk ,
+  input wire [9:0] data_10bit_in_dbg ,
+  input wire  dbg_elink ,
+  input wire  dbg_spi ,
+  input wire  endwait_all ,
+  input wire  miso_c ,
+  input wire  miso_m ,
+  input wire [4:0] n_buses ,
+  input wire  osc_auto_trim_mopshub ,
+  input wire  rdy_dbg ,
+  input wire  rst ,
+  input wire  rx0 ,
+  input wire  rx1 ,
+  input wire  rx10 ,
+  input wire  rx11 ,
+  input wire  rx12 ,
+  input wire  rx13 ,
+  input wire  rx14 ,
+  input wire  rx15 ,
+  input wire  rx2 ,
+  input wire  rx3 ,
+  input wire  rx4 ,
+  input wire  rx5 ,
+  input wire  rx6 ,
+  input wire  rx7 ,
+  input wire  rx8 ,
+  input wire  rx9 ,
+  input wire [1:0] rx_elink2bit ,
+  output wire  cs_active_c ,
+  output wire  cs_active_m ,
+  output wire  irq_can_rec ,
+  output wire  irq_can_tra ,
+  output wire  irq_elink_rec ,
+  output wire  irq_elink_tra ,
+  output wire [4:0] mon_bus_cnt ,
+  output wire  mosi_c ,
+  output wire  mosi_m ,
+  output wire [4:0] power_bus_cnt ,
+  output wire  rst_bus ,
+  output wire  rx_data_rdy ,
+  output wire  rx_fifo_full ,
+  output wire  sck_c ,
+  output wire  sck_m ,
+  output wire  tx0 ,
+  output wire  tx1 ,
+  output wire  tx10 ,
+  output wire  tx11 ,
+  output wire  tx12 ,
+  output wire  tx13 ,
+  output wire  tx14 ,
+  output wire  tx15 ,
+  output wire  tx2 ,
+  output wire  tx3 ,
+  output wire  tx4 ,
+  output wire  tx5 ,
+  output wire  tx6 ,
+  output wire  tx7 ,
+  output wire  tx8 ,
+  output wire  tx9 ,
+  output wire  tx_data_rdy ,
+  output wire  tx_efifo_full ,
+  output wire [1:0] tx_elink2bit 
 );
-
-
-// Internal Declarations
+wor transcieve_pTmrError;
+wire transcieve_pB;
+wire transcieve_pC;
+wire transcieve_pA;
+wor transcieve_mTmrError;
+wire transcieve_mB;
+wire transcieve_mC;
+wire transcieve_mA;
+wor statedebTmrError;
+wire [8:0] statedebB;
+wire [8:0] statedebC;
+wire [8:0] statedebA;
+wor start_write_elink_spiTmrError;
+wire start_write_elink_spiB;
+wire start_write_elink_spiC;
+wire start_write_elink_spiA;
+wor start_read_monTmrError;
+wire start_read_mon;
+wor start_read_misoTmrError;
+wire start_read_misoB;
+wire start_read_misoC;
+wire start_read_misoA;
+wor start_read_elink_spiTmrError;
+wire start_read_elink_spiB;
+wire start_read_elink_spiC;
+wire start_read_elink_spiA;
+wor start_mon_cntTmrError;
+wire start_mon_cntB;
+wire start_mon_cntC;
+wire start_mon_cntA;
+wor start_init_spiTmrError;
+wire start_init_spiB;
+wire start_init_spiC;
+wire start_init_spiA;
+wor start_cntTmrError;
+wire start_cntB;
+wire start_cntC;
+wire start_cntA;
+wor spi_read_modeTmrError;
+wire spi_read_modeB;
+wire spi_read_modeC;
+wire spi_read_modeA;
+wor spi_csTmrError;
+wire spi_csB;
+wire spi_csC;
+wire spi_csA;
+wor rst_mon_cntTmrError;
+wire rst_mon_cntB;
+wire rst_mon_cntC;
+wire rst_mon_cntA;
+wor power_bus_en_doneTmrError;
+wire power_bus_en_doneB;
+wire power_bus_en_doneC;
+wire power_bus_en_doneA;
+wor entimeoutTmrError;
+wire entimeoutB;
+wire entimeoutC;
+wire entimeoutA;
+wor endwait_all2TmrError;
+wire endwait_all2;
+wor end_spi_procTmrError;
+wire end_spi_procB;
+wire end_spi_procC;
+wire end_spi_procA;
+wor end_osc_cntTmrError;
+wire end_osc_cntB;
+wire end_osc_cntC;
+wire end_osc_cntA;
+wor end_mon_initTmrError;
+wire end_mon_initB;
+wire end_mon_initC;
+wire end_mon_initA;
+wor end_mon_cntTmrError;
+wire end_mon_cntB;
+wire end_mon_cntC;
+wire end_mon_cntA;
+wor end_cntTmrError;
+wire end_cnt;
+wor data_initTmrError;
+wire [7:0] data_initB;
+wire [7:0] data_initC;
+wire [7:0] data_initA;
+wor cs_active_mTmrError;
+wire cs_active_mB;
+wire cs_active_mC;
+wire cs_active_mA;
+wor cs_active_cTmrError;
+wire cs_active_cB;
+wire cs_active_cC;
+wire cs_active_cA;
+wor cnt_doneTmrError;
+wire cnt_done;
+wor abortTmrError;
+wire abort;
 reg  abortA ;
 reg  abortB ;
 reg  abortC ;
-wire [4:0] addrA;
-wire [4:0] addrB;
-wire [4:0] addrC;
-reg  bit_cntA ;
-reg  bit_cntB ;
-reg  bit_cntC ;
-wire buffer_enA;
-wire buffer_enB;
-wire buffer_enC;
-wire buffer_spi_tra_enA;
-wire buffer_spi_tra_enB;
-wire buffer_spi_tra_enC;
-wire [4:0] can_rec_selectA;
-wire [4:0] can_rec_selectB;
-wire [4:0] can_rec_selectC;
-wire [4:0] can_tra_selectA;
-wire [4:0] can_tra_selectB;
-wire [4:0] can_tra_selectC;
-reg  clk_enA ;
-reg  clk_enB ;
-reg  clk_enC ;
+wire buffer_en;
+wire busy_c;
+wire busy_m;
+wire [4:0] can_rec_select;
+wire [4:0] can_tra_select;
 reg  cnt_doneA ;
 reg  cnt_doneB ;
 reg  cnt_doneC ;
-wire cs_mA;
-wire cs_mB;
-wire cs_mC;
-wire cs_pA;
-wire cs_pB;
-wire cs_pC;
-reg  [1:0] data_2bit_inA ;
-reg  [1:0] data_2bit_inB ;
-reg  [1:0] data_2bit_inC ;
-wire [1:0] data_2bit_in_activeA;
-wire [1:0] data_2bit_in_activeB;
-wire [1:0] data_2bit_in_activeC;
-reg  [1:0] data_2bit_in_serialA ;
-reg  [1:0] data_2bit_in_serialB ;
-reg  [1:0] data_2bit_in_serialC ;
-wire [1:0] data_2bit_inbA;
-wire [1:0] data_2bit_inbB;
-wire [1:0] data_2bit_inbC;
-wire [1:0] data_2bit_outA;
-wire [1:0] data_2bit_outB;
-wire [1:0] data_2bit_outC;
-wire [31:0] data_rec_spiA;
-wire [31:0] data_rec_spiB;
-wire [31:0] data_rec_spiC;
-wire [75:0] data_rec_uplinkA;
-wire [75:0] data_rec_uplinkB;
-wire [75:0] data_rec_uplinkC;
-wire [75:0] data_tra_downlinkA;
-wire [75:0] data_tra_downlinkB;
-wire [75:0] data_tra_downlinkC;
-wire [31:0] data_tra_spiA;
-wire [31:0] data_tra_spiB;
-wire [31:0] data_tra_spiC;
-wire done_trim_oscA;
-wire done_trim_oscB;
-wire done_trim_oscC;
-reg  dout1bit_rA ;
-reg  dout1bit_rB ;
-reg  dout1bit_rC ;
+wire [7:0] data_init;
+wire [31:0] data_rec_spi;
+wire [75:0] data_rec_uplink;
+wire [75:0] data_tra_downlink;
+wire [7:0] data_tra_spi;
+wire [7:0] data_tra_spi_out =  8'b0;
 reg  end_cntA ;
 reg  end_cntB ;
 reg  end_cntC ;
-wire end_initA;
-wire end_initB;
-wire end_initC;
-wire end_mon_initA;
-wire end_mon_initB;
-wire end_mon_initC;
-wire end_osc_cntA;
-wire end_osc_cntB;
-wire end_osc_cntC;
-wire end_read_elinkA;
-wire end_read_elinkB;
-wire end_read_elinkC;
-wire end_read_misoA;
-wire end_read_misoB;
-wire end_read_misoC;
-wire end_spi_procA;
-wire end_spi_procB;
-wire end_spi_procC;
-wire end_trim_busA;
-wire end_trim_busB;
-wire end_trim_busC;
-wire end_write_elinkA;
-wire end_write_elinkB;
-wire end_write_elinkC;
-wire end_write_elink_spiA;
-wire end_write_elink_spiB;
-wire end_write_elink_spiC;
+wire end_init;
+wire end_mon_cnt;
+wire end_mon_init;
+wire end_osc_cnt;
+wire end_power_init;
+wire end_read_elink;
+wire end_read_miso;
+wire end_spi_proc;
+wire end_trim_bus;
+wire end_write_elink;
+wire end_write_elink_spi;
 reg  endwait_all2A ;
 reg  endwait_all2B ;
 reg  endwait_all2C ;
-wire entimeoutA;
-wire entimeoutB;
-wire entimeoutC;
-wire ext_counter_genA;
-wire ext_counter_genB;
-wire ext_counter_genC;
-wire irq_spi_traA;
-wire irq_spi_traB;
-wire irq_spi_traC;
-wire main_timeoutrstA;
-wire main_timeoutrstB;
-wire main_timeoutrstC;
-wire power_bus_enA;
-wire power_bus_enB;
-wire power_bus_enC;
-wire power_bus_en_doneA;
-wire power_bus_en_doneB;
-wire power_bus_en_doneC;
-wire read_spi_modeA;
-wire read_spi_modeB;
-wire read_spi_modeC;
-reg  rlA ;
-reg  rlB ;
-reg  rlC ;
-wire rst_osc_cntA;
-wire rst_osc_cntB;
-wire rst_osc_cntC;
-wire sign_on_sigA;
-wire sign_on_sigB;
-wire sign_on_sigC;
-wire spi_csA;
-wire spi_csB;
-wire spi_csC;
-wire start_cntA;
-wire start_cntB;
-wire start_cntC;
-wire start_initA;
-wire start_initB;
-wire start_initC;
-wire start_init_spiA;
-wire start_init_spiB;
-wire start_init_spiC;
-wire start_mon_initA;
-wire start_mon_initB;
-wire start_mon_initC;
-wire start_osc_cntA;
-wire start_osc_cntB;
-wire start_osc_cntC;
-wire start_read_elinkA;
-wire start_read_elinkB;
-wire start_read_elinkC;
-wire start_read_elink_canA;
-wire start_read_elink_canB;
-wire start_read_elink_canC;
-wire start_read_elink_spiA;
-wire start_read_elink_spiB;
-wire start_read_elink_spiC;
-wire start_read_misoA;
-wire start_read_misoB;
-wire start_read_misoC;
+wire entimeout;
+wire ext_counter_gen;
+wire irq_spi_tra;
+wire main_timeoutrst;
+wire power_bus_en;
+wire power_bus_en_done;
+wire rst_mon_cnt;
+wire rst_osc_cnt;
+wire sign_on_sig;
+wire spi_cs;
+wire [7:0] spi_id;
+wire spi_read_mode;
+wire [7:0] spi_tra_mon_reg;
+wire [7:0] spi_tra_mon_select;
+wire start_cnt;
+wire start_init;
+wire start_init_spi;
+wire start_mon_cnt;
+wire start_mon_init;
+wire start_osc_cnt;
+wire start_power_init;
+wire start_power_off;
+wire start_power_on;
+wire start_read_elink;
+wire start_read_elink_can;
+wire start_read_elink_spi;
+wire start_read_miso;
 reg  start_read_monA ;
 reg  start_read_monB ;
 reg  start_read_monC ;
-wire start_trim_ackA;
-wire start_trim_ackB;
-wire start_trim_ackC;
-wire start_write_elink_spiA;
-wire start_write_elink_spiB;
-wire start_write_elink_spiC;
-wire start_write_linkA;
-wire start_write_linkB;
-wire start_write_linkC;
-wire [6:0] statedebA;
-wire [6:0] statedebB;
-wire [6:0] statedebC;
-reg  [1:0] mw_tx_shiftreg_cvalA ;
-reg  [1:0] mw_tx_shiftreg_cvalB ;
-reg  [1:0] mw_tx_shiftreg_cvalC ;
-wire [1:0] mw_tx_shiftreg_nvalA;
-wire [1:0] mw_tx_shiftreg_nvalB;
-wire [1:0] mw_tx_shiftreg_nvalC;
-reg  [1:0] mw_rx_shiftreg_cvalA ;
-reg  [1:0] mw_rx_shiftreg_cvalB ;
-reg  [1:0] mw_rx_shiftreg_cvalC ;
-wire [1:0] mw_rx_shiftreg_nvalA;
-wire [1:0] mw_rx_shiftreg_nvalB;
-wire [1:0] mw_rx_shiftreg_nvalC;
+wire start_read_power;
+wire start_trim_ack;
+wire start_write_elink;
+wire start_write_elink_spi;
+wire [8:0] statedeb;
+wire transcieve_m;
+wire transcieve_p;
 
-bus_control_SMTMR bus_control_SM (
-    .abortA(abortA),
-    .abortB(abortB),
-    .abortC(abortC),
-    .clkA(clkA),
-    .clkB(clkB),
-    .clkC(clkC),
-    .cnt_doneA(cnt_doneA),
-    .cnt_doneB(cnt_doneB),
-    .cnt_doneC(cnt_doneC),
-    .end_cntA(end_cntA),
-    .end_cntB(end_cntB),
-    .end_cntC(end_cntC),
-    .end_read_elinkA(end_read_elinkA),
-    .end_read_elinkB(end_read_elinkB),
-    .end_read_elinkC(end_read_elinkC),
-    .end_read_misoA(end_read_misoA),
-    .end_read_misoB(end_read_misoB),
-    .end_read_misoC(end_read_misoC),
-    .end_write_elink_spiA(end_write_elink_spiA),
-    .end_write_elink_spiB(end_write_elink_spiB),
-    .end_write_elink_spiC(end_write_elink_spiC),
-    .irq_spi_traA(irq_spi_traA),
-    .irq_spi_traB(irq_spi_traB),
-    .irq_spi_traC(irq_spi_traC),
-    .rstA(rstA),
-    .rstB(rstB),
-    .rstC(rstC),
-    .start_bus_initA(power_bus_enA),
-    .start_bus_initB(power_bus_enB),
-    .start_bus_initC(power_bus_enC),
-    .start_mon_initA(start_mon_initA),
-    .start_mon_initB(start_mon_initB),
-    .start_mon_initC(start_mon_initC),
-    .start_power_offA(),
-    .start_power_offB(),
-    .start_power_offC(),
-    .start_power_onA(),
-    .start_power_onB(),
-    .start_power_onC(),
-    .start_read_monA(start_read_monA),
-    .start_read_monB(start_read_monB),
-    .start_read_monC(start_read_monC),
-    .timeoutrstA(main_timeoutrstA),
-    .timeoutrstB(main_timeoutrstB),
-    .timeoutrstC(main_timeoutrstC),
-    .addrA(addrA),
-    .addrB(addrB),
-    .addrC(addrC),
+bus_control_SMTMR SPI_control_SM (
+    .abort(abort),
+    .busy_m(busy_m),
+    .busy_p(busy_c),
+    .clk(clk),
+    .cnt_done(cnt_done),
+    .end_cnt(end_cnt),
+    .end_mon_cnt(end_mon_cnt),
+    .end_read_elink(end_read_elink),
+    .end_read_miso(end_read_miso),
+    .end_write_elink_spi(end_write_elink_spi),
+    .irq_spi_tra(irq_spi_tra),
+    .rst(rst),
+    .start_bus_init(power_bus_en),
+    .start_mon_init(start_mon_init),
+    .start_power_off(start_power_off),
+    .start_power_on(start_power_on),
+    .start_read_mon(start_read_mon),
+    .start_read_power(start_read_power),
+    .timeoutrst(main_timeoutrst),
     .bus_en_doneA(power_bus_en_doneA),
     .bus_en_doneB(power_bus_en_doneB),
     .bus_en_doneC(power_bus_en_doneC),
-    .cs_mA(cs_mA),
-    .cs_mB(cs_mB),
-    .cs_mC(cs_mC),
-    .cs_pA(cs_pA),
-    .cs_pB(cs_pB),
-    .cs_pC(cs_pC),
+    .cs_mA(cs_active_mA),
+    .cs_mB(cs_active_mB),
+    .cs_mC(cs_active_mC),
+    .cs_pA(cs_active_cA),
+    .cs_pB(cs_active_cB),
+    .cs_pC(cs_active_cC),
+    .data_initA(data_initA),
+    .data_initB(data_initB),
+    .data_initC(data_initC),
     .end_spi_procA(end_spi_procA),
     .end_spi_procB(end_spi_procB),
     .end_spi_procC(end_spi_procC),
@@ -564,9 +291,12 @@ bus_control_SMTMR bus_control_SM (
     .mon_en_doneA(end_mon_initA),
     .mon_en_doneB(end_mon_initB),
     .mon_en_doneC(end_mon_initC),
-    .read_spi_modeA(read_spi_modeA),
-    .read_spi_modeB(read_spi_modeB),
-    .read_spi_modeC(read_spi_modeC),
+    .read_spi_modeA(spi_read_modeA),
+    .read_spi_modeB(spi_read_modeB),
+    .read_spi_modeC(spi_read_modeC),
+    .rst_mon_cntA(rst_mon_cntA),
+    .rst_mon_cntB(rst_mon_cntB),
+    .rst_mon_cntC(rst_mon_cntC),
     .spi_csA(spi_csA),
     .spi_csB(spi_csB),
     .spi_csC(spi_csC),
@@ -576,6 +306,9 @@ bus_control_SMTMR bus_control_SM (
     .start_initA(start_init_spiA),
     .start_initB(start_init_spiB),
     .start_initC(start_init_spiC),
+    .start_mon_cntA(start_mon_cntA),
+    .start_mon_cntB(start_mon_cntB),
+    .start_mon_cntC(start_mon_cntC),
     .start_read_elinkA(start_read_elink_spiA),
     .start_read_elinkB(start_read_elink_spiB),
     .start_read_elinkC(start_read_elink_spiC),
@@ -587,695 +320,401 @@ bus_control_SMTMR bus_control_SM (
     .start_write_elink_spiC(start_write_elink_spiC),
     .statedebA(statedebA),
     .statedebB(statedebB),
-    .statedebC(statedebC)
+    .statedebC(statedebC),
+    .transcieve_mA(transcieve_mA),
+    .transcieve_mB(transcieve_mB),
+    .transcieve_mC(transcieve_mC),
+    .transcieve_pA(transcieve_pA),
+    .transcieve_pB(transcieve_pB),
+    .transcieve_pC(transcieve_pC)
     );
 
 control_busTMR control_bus0 (
-    .addrA(addrA),
-    .addrB(addrB),
-    .addrC(addrC),
-    .clkA(clkA),
-    .clkB(clkB),
-    .clkC(clkC),
-    .csA(),
-    .csB(),
-    .csC(),
-    .cs_pA(cs_pA),
-    .cs_pB(cs_pB),
-    .cs_pC(cs_pC),
-    .misoA(miso_cA),
-    .misoB(miso_cB),
-    .misoC(miso_cC),
-    .n_busesA(n_busesA),
-    .n_busesB(n_busesB),
-    .n_busesC(n_busesC),
-    .power_bus_enA(power_bus_enA),
-    .power_bus_enB(power_bus_enB),
-    .power_bus_enC(power_bus_enC),
-    .rstA(rstA),
-    .rstB(rstB),
-    .rstC(rstC),
-    .rst_cnt_oscA(rst_osc_cntA),
-    .rst_cnt_oscB(rst_osc_cntB),
-    .rst_cnt_oscC(rst_osc_cntC),
-    .start_cnt_oscA(start_osc_cntA),
-    .start_cnt_oscB(start_osc_cntB),
-    .start_cnt_oscC(start_osc_cntC),
-    .cs_activeA(cs_active_cA),
-    .cs_activeB(cs_active_cB),
-    .cs_activeC(cs_active_cC),
+    .clk(clk),
+    .data_init(data_init),
+    .data_tra_spi_out(data_tra_spi_out),
+    .miso(miso_c),
+    .n_buses(n_buses),
+    .rst(rst),
+    .rst_osc_cnt(rst_osc_cnt),
+    .start_osc_cnt(start_osc_cnt),
+    .start_power_init(start_power_init),
+    .transceive(transcieve_p),
     .end_osc_cntA(end_osc_cntA),
     .end_osc_cntB(end_osc_cntB),
     .end_osc_cntC(end_osc_cntC),
-    .mosiA(mosi_cA),
-    .mosiB(mosi_cB),
-    .mosiC(mosi_cC),
-    .power_bus_cntA(power_bus_cntA),
-    .power_bus_cntB(power_bus_cntB),
-    .power_bus_cntC(power_bus_cntC),
-    .sckA(sck_cA),
-    .sckB(sck_cB),
-    .sckC(sck_cC)
+    .mosi(mosi_c),
+    .power_bus_cnt_active(power_bus_cnt),
+    .sck(sck_c),
+    .w_Master_TX_Ready(busy_c)
     );
 
 elink_coreTMR elink_core0 (
-    .clkA(clkA),
-    .clkB(clkB),
-    .clkC(clkC),
-    .rstA(rstA),
-    .rstB(rstB),
-    .rstC(rstC),
-    .rx_fifo_fullA(rx_fifo_fullA),
-    .rx_fifo_fullB(rx_fifo_fullB),
-    .rx_fifo_fullC(rx_fifo_fullC),
-    .data_rec_uplinkA(data_rec_uplinkA),
-    .data_rec_uplinkB(data_rec_uplinkB),
-    .data_rec_uplinkC(data_rec_uplinkC),
-    .start_write_elinkA(start_write_linkA),
-    .start_write_elinkB(start_write_linkB),
-    .start_write_elinkC(start_write_linkC),
-    .tx_efifo_fullA(tx_efifo_fullA),
-    .tx_efifo_fullB(tx_efifo_fullB),
-    .tx_efifo_fullC(tx_efifo_fullC),
-    .irq_elink_recA(irq_elink_recA),
-    .irq_elink_recB(irq_elink_recB),
-    .irq_elink_recC(irq_elink_recC),
-    .irq_elink_traA(irq_elink_traA),
-    .irq_elink_traB(irq_elink_traB),
-    .irq_elink_traC(irq_elink_traC),
-    .end_write_elinkA(end_write_elinkA),
-    .end_write_elinkB(end_write_elinkB),
-    .end_write_elinkC(end_write_elinkC),
-    .start_read_elinkA(start_read_elinkA),
-    .start_read_elinkB(start_read_elinkB),
-    .start_read_elinkC(start_read_elinkC),
-    .end_read_elinkA(end_read_elinkA),
-    .end_read_elinkB(end_read_elinkB),
-    .end_read_elinkC(end_read_elinkC),
-    .data_2bit_inA(data_2bit_in_activeA),
-    .data_2bit_inB(data_2bit_in_activeB),
-    .data_2bit_inC(data_2bit_in_activeC),
-    .data_2bit_outA(data_2bit_outA),
-    .data_2bit_outB(data_2bit_outB),
-    .data_2bit_outC(data_2bit_outC),
-    .fifo_flushA(endwait_all2A),
-    .fifo_flushB(endwait_all2B),
-    .fifo_flushC(endwait_all2C),
-    .tx_data_rdyA(tx_data_rdyA),
-    .tx_data_rdyB(tx_data_rdyB),
-    .tx_data_rdyC(tx_data_rdyC),
-    .rx_data_rdyA(rx_data_rdyA),
-    .rx_data_rdyB(rx_data_rdyB),
-    .rx_data_rdyC(rx_data_rdyC),
-    .data_tra_outA(data_tra_downlinkA),
-    .data_tra_outB(data_tra_downlinkB),
-    .data_tra_outC(data_tra_downlinkC),
-    .buffer_tra_enA(buffer_enA),
-    .buffer_tra_enB(buffer_enB),
-    .buffer_tra_enC(buffer_enC),
-    .data_tra_spi_outA(data_tra_spiA),
-    .data_tra_spi_outB(data_tra_spiB),
-    .data_tra_spi_outC(data_tra_spiC),
-    .irq_spi_traA(irq_spi_traA),
-    .irq_spi_traB(irq_spi_traB),
-    .irq_spi_traC(irq_spi_traC),
-    .buffer_spi_tra_enA(buffer_spi_tra_enA),
-    .buffer_spi_tra_enB(buffer_spi_tra_enB),
-    .buffer_spi_tra_enC(buffer_spi_tra_enC),
-    .data_rec_spi_inA(data_rec_spiA),
-    .data_rec_spi_inB(data_rec_spiB),
-    .data_rec_spi_inC(data_rec_spiC),
-    .end_write_elink_spiA(end_write_elink_spiA),
-    .end_write_elink_spiB(end_write_elink_spiB),
-    .end_write_elink_spiC(end_write_elink_spiC),
-    .start_write_elink_spiA(start_write_elink_spiA),
-    .start_write_elink_spiB(start_write_elink_spiB),
-    .start_write_elink_spiC(start_write_elink_spiC),
-    .timeoutrstA(main_timeoutrstA),
-    .timeoutrstB(main_timeoutrstB),
-    .timeoutrstC(main_timeoutrstC),
-    .abortA(abortA),
-    .abortB(abortB),
-    .abortC(abortC)
+    .clk(clk),
+    .rst(rst),
+    .rx_fifo_full(rx_fifo_full),
+    .data_rec_uplink(data_rec_uplink),
+    .start_write_elink(start_write_elink),
+    .tx_efifo_full(tx_efifo_full),
+    .irq_elink_rec(irq_elink_rec),
+    .irq_elink_tra(irq_elink_tra),
+    .end_write_elink(end_write_elink),
+    .start_read_elink(start_read_elink),
+    .end_read_elink(end_read_elink),
+    .data_2bit_in(rx_elink2bit),
+    .data_2bit_out(tx_elink2bit),
+    .fifo_flush(endwait_all2),
+    .tx_data_rdy(tx_data_rdy),
+    .rx_data_rdy(rx_data_rdy),
+    .data_tra_out(data_tra_downlink),
+    .buffer_tra_en(buffer_en),
+    .data_tra_mon_spi(data_tra_spi),
+    .irq_spi_tra(irq_spi_tra),
+    .data_rec_spi_in(data_rec_spi),
+    .end_write_elink_spi(end_write_elink_spi),
+    .start_write_elink_spi(start_write_elink_spi),
+    .timeoutrst(main_timeoutrst),
+    .spi_tra_mon_reg(spi_tra_mon_reg),
+    .abort(abort),
+    .data_10bit_in_dbg(data_10bit_in_dbg),
+    .dbg_elink(dbg_elink),
+    .rdy_dbg(rdy_dbg),
+    .spi_id(spi_id),
+    .spi_tra_mon_select(spi_tra_mon_select),
+    .spi_read_mode(spi_read_mode),
+    .dbg_spi(dbg_spi)
     );
 
 monitor_busTMR monitor_pp30 (
-    .addrA(addrA),
-    .addrB(addrB),
-    .addrC(addrC),
-    .buffer_spi_tra_enA(buffer_spi_tra_enA),
-    .buffer_spi_tra_enB(buffer_spi_tra_enB),
-    .buffer_spi_tra_enC(buffer_spi_tra_enC),
-    .clkA(clkA),
-    .clkB(clkB),
-    .clkC(clkC),
-    .csA(spi_csA),
-    .csB(spi_csB),
-    .csC(spi_csC),
-    .cs_mA(cs_mA),
-    .cs_mB(cs_mB),
-    .cs_mC(cs_mC),
-    .data_tra_spiA(data_tra_spiA),
-    .data_tra_spiB(data_tra_spiB),
-    .data_tra_spiC(data_tra_spiC),
-    .misoA(miso_mA),
-    .misoB(miso_mB),
-    .misoC(miso_mC),
-    .rstA(rstA),
-    .rstB(rstB),
-    .rstC(rstC),
-    .start_read_misoA(start_read_misoA),
-    .start_read_misoB(start_read_misoB),
-    .start_read_misoC(start_read_misoC),
-    .cs_activeA(cs_active_mA),
-    .cs_activeB(cs_active_mB),
-    .cs_activeC(cs_active_mC),
-    .data_rec_spiA(data_rec_spiA),
-    .data_rec_spiB(data_rec_spiB),
-    .data_rec_spiC(data_rec_spiC),
-    .end_read_misoA(end_read_misoA),
-    .end_read_misoB(end_read_misoB),
-    .end_read_misoC(end_read_misoC),
-    .mosiA(mosi_mA),
-    .mosiB(mosi_mB),
-    .mosiC(mosi_mC),
-    .sckA(sck_mA),
-    .sckB(sck_mB),
-    .sckC(sck_mC)
+    .clk(clk),
+    .data_init(data_init),
+    .data_tra_spi_out(data_tra_spi),
+    .miso(miso_m),
+    .n_buses(n_buses),
+    .rst(rst),
+    .rst_mon_cnt(rst_mon_cnt),
+    .spi_id(spi_id),
+    .spi_reg(spi_tra_mon_reg),
+    .spi_select(spi_tra_mon_select),
+    .start_mon_cnt(start_mon_cnt),
+    .start_mon_init(start_mon_init),
+    .start_read_miso(start_read_miso),
+    .transceive(transcieve_m),
+    .data_rec_spi_in(data_rec_spi),
+    .end_mon_cntA(end_mon_cntA),
+    .end_mon_cntB(end_mon_cntB),
+    .end_mon_cntC(end_mon_cntC),
+    .end_read_miso(end_read_miso),
+    .mon_bus_cnt_active(mon_bus_cnt),
+    .mosi(mosi_m),
+    .sck(sck_m),
+    .w_Master_TX_Ready(busy_m)
     );
 
 mopshub_coreTMR mopshub_core0 (
-    .buffer_enA(buffer_enA),
-    .buffer_enB(buffer_enB),
-    .buffer_enC(buffer_enC),
-    .clkA(clkA),
-    .clkB(clkB),
-    .clkC(clkC),
-    .data_tra_downlinkA(data_tra_downlinkA),
-    .data_tra_downlinkB(data_tra_downlinkB),
-    .data_tra_downlinkC(data_tra_downlinkC),
-    .end_mon_initA(end_mon_initA),
-    .end_mon_initB(end_mon_initB),
-    .end_mon_initC(end_mon_initC),
-    .end_osc_cntA(end_osc_cntA),
-    .end_osc_cntB(end_osc_cntB),
-    .end_osc_cntC(end_osc_cntC),
-    .end_read_elinkA(end_read_elinkA),
-    .end_read_elinkB(end_read_elinkB),
-    .end_read_elinkC(end_read_elinkC),
-    .end_write_elinkA(end_write_elinkA),
-    .end_write_elinkB(end_write_elinkB),
-    .end_write_elinkC(end_write_elinkC),
-    .endwait_allA(endwait_allA),
-    .endwait_allB(endwait_allB),
-    .endwait_allC(endwait_allC),
-    .irq_elink_traA(irq_elink_traA),
-    .irq_elink_traB(irq_elink_traB),
-    .irq_elink_traC(irq_elink_traC),
-    .n_busesA(n_busesA),
-    .n_busesB(n_busesB),
-    .n_busesC(n_busesC),
-    .osc_auto_trim_mopshubA(osc_auto_trim_mopshubA),
-    .osc_auto_trim_mopshubB(osc_auto_trim_mopshubB),
-    .osc_auto_trim_mopshubC(osc_auto_trim_mopshubC),
-    .power_bus_cntA(power_bus_cntA),
-    .power_bus_cntB(power_bus_cntB),
-    .power_bus_cntC(power_bus_cntC),
-    .power_bus_en_doneA(power_bus_en_doneA),
-    .power_bus_en_doneB(power_bus_en_doneB),
-    .power_bus_en_doneC(power_bus_en_doneC),
-    .rstA(rstA),
-    .rstB(rstB),
-    .rstC(rstC),
-    .rx0A(rx0A),
-    .rx0B(rx0B),
-    .rx0C(rx0C),
-    .rx1A(rx1A),
-    .rx1B(rx1B),
-    .rx1C(rx1C),
-    .rx10A(rx10A),
-    .rx10B(rx10B),
-    .rx10C(rx10C),
-    .rx11A(rx11A),
-    .rx11B(rx11B),
-    .rx11C(rx11C),
-    .rx12A(rx12A),
-    .rx12B(rx12B),
-    .rx12C(rx12C),
-    .rx13A(rx13A),
-    .rx13B(rx13B),
-    .rx13C(rx13C),
-    .rx14A(rx14A),
-    .rx14B(rx14B),
-    .rx14C(rx14C),
-    .rx15A(rx15A),
-    .rx15B(rx15B),
-    .rx15C(rx15C),
-    .rx16A(rx16A),
-    .rx16B(rx16B),
-    .rx16C(rx16C),
-    .rx17A(rx17A),
-    .rx17B(rx17B),
-    .rx17C(rx17C),
-    .rx18A(rx18A),
-    .rx18B(rx18B),
-    .rx18C(rx18C),
-    .rx19A(rx19A),
-    .rx19B(rx19B),
-    .rx19C(rx19C),
-    .rx2A(rx2A),
-    .rx2B(rx2B),
-    .rx2C(rx2C),
-    .rx20A(rx20A),
-    .rx20B(rx20B),
-    .rx20C(rx20C),
-    .rx21A(rx21A),
-    .rx21B(rx21B),
-    .rx21C(rx21C),
-    .rx22A(rx22A),
-    .rx22B(rx22B),
-    .rx22C(rx22C),
-    .rx23A(rx23A),
-    .rx23B(rx23B),
-    .rx23C(rx23C),
-    .rx24A(rx24A),
-    .rx24B(rx24B),
-    .rx24C(rx24C),
-    .rx25A(rx25A),
-    .rx25B(rx25B),
-    .rx25C(rx25C),
-    .rx26A(rx26A),
-    .rx26B(rx26B),
-    .rx26C(rx26C),
-    .rx27A(rx27A),
-    .rx27B(rx27B),
-    .rx27C(rx27C),
-    .rx28A(rx28A),
-    .rx28B(rx28B),
-    .rx28C(rx28C),
-    .rx29A(rx29A),
-    .rx29B(rx29B),
-    .rx29C(rx29C),
-    .rx3A(rx3A),
-    .rx3B(rx3B),
-    .rx3C(rx3C),
-    .rx30A(rx30A),
-    .rx30B(rx30B),
-    .rx30C(rx30C),
-    .rx31A(rx31A),
-    .rx31B(rx31B),
-    .rx31C(rx31C),
-    .rx4A(rx4A),
-    .rx4B(rx4B),
-    .rx4C(rx4C),
-    .rx5A(rx5A),
-    .rx5B(rx5B),
-    .rx5C(rx5C),
-    .rx6A(rx6A),
-    .rx6B(rx6B),
-    .rx6C(rx6C),
-    .rx7A(rx7A),
-    .rx7B(rx7B),
-    .rx7C(rx7C),
-    .rx8A(rx8A),
-    .rx8B(rx8B),
-    .rx8C(rx8C),
-    .rx9A(rx9A),
-    .rx9B(rx9B),
-    .rx9C(rx9C),
-    .can_rec_selectA(can_rec_selectA),
-    .can_rec_selectB(can_rec_selectB),
-    .can_rec_selectC(can_rec_selectC),
-    .can_tra_selectA(can_tra_selectA),
-    .can_tra_selectB(can_tra_selectB),
-    .can_tra_selectC(can_tra_selectC),
-    .data_rec_uplinkA(data_rec_uplinkA),
-    .data_rec_uplinkB(data_rec_uplinkB),
-    .data_rec_uplinkC(data_rec_uplinkC),
-    .done_trim_osc_allA(done_trim_oscA),
-    .done_trim_osc_allB(done_trim_oscB),
-    .done_trim_osc_allC(done_trim_oscC),
-    .end_initA(end_initA),
-    .end_initB(end_initB),
-    .end_initC(end_initC),
-    .end_trim_busA(end_trim_busA),
-    .end_trim_busB(end_trim_busB),
-    .end_trim_busC(end_trim_busC),
-    .ext_counter_genA(ext_counter_genA),
-    .ext_counter_genB(ext_counter_genB),
-    .ext_counter_genC(ext_counter_genC),
-    .irq_can_recA(irq_can_recA),
-    .irq_can_recB(irq_can_recB),
-    .irq_can_recC(irq_can_recC),
-    .irq_can_traA(irq_can_traA),
-    .irq_can_traB(irq_can_traB),
-    .irq_can_traC(irq_can_traC),
-    .main_timeoutrstA(main_timeoutrstA),
-    .main_timeoutrstB(main_timeoutrstB),
-    .main_timeoutrstC(main_timeoutrstC),
-    .power_bus_enA(power_bus_enA),
-    .power_bus_enB(power_bus_enB),
-    .power_bus_enC(power_bus_enC),
-    .rst_busA(rst_busA),
-    .rst_busB(rst_busB),
-    .rst_busC(rst_busC),
-    .rst_osc_cntA(rst_osc_cntA),
-    .rst_osc_cntB(rst_osc_cntB),
-    .rst_osc_cntC(rst_osc_cntC),
-    .sign_on_sigA(sign_on_sigA),
-    .sign_on_sigB(sign_on_sigB),
-    .sign_on_sigC(sign_on_sigC),
-    .start_initA(start_initA),
-    .start_initB(start_initB),
-    .start_initC(start_initC),
-    .start_mon_initA(start_mon_initA),
-    .start_mon_initB(start_mon_initB),
-    .start_mon_initC(start_mon_initC),
-    .start_osc_cntA(start_osc_cntA),
-    .start_osc_cntB(start_osc_cntB),
-    .start_osc_cntC(start_osc_cntC),
-    .start_read_elinkA(start_read_elink_canA),
-    .start_read_elinkB(start_read_elink_canB),
-    .start_read_elinkC(start_read_elink_canC),
-    .start_trim_ackA(start_trim_ackA),
-    .start_trim_ackB(start_trim_ackB),
-    .start_trim_ackC(start_trim_ackC),
-    .start_write_elinkA(start_write_linkA),
-    .start_write_elinkB(start_write_linkB),
-    .start_write_elinkC(start_write_linkC),
-    .tx0A(tx0A),
-    .tx0B(tx0B),
-    .tx0C(tx0C),
-    .tx1A(tx1A),
-    .tx1B(tx1B),
-    .tx1C(tx1C),
-    .tx10A(tx10A),
-    .tx10B(tx10B),
-    .tx10C(tx10C),
-    .tx11A(tx11A),
-    .tx11B(tx11B),
-    .tx11C(tx11C),
-    .tx12A(tx12A),
-    .tx12B(tx12B),
-    .tx12C(tx12C),
-    .tx13A(tx13A),
-    .tx13B(tx13B),
-    .tx13C(tx13C),
-    .tx14A(tx14A),
-    .tx14B(tx14B),
-    .tx14C(tx14C),
-    .tx15A(tx15A),
-    .tx15B(tx15B),
-    .tx15C(tx15C),
-    .tx16A(tx16A),
-    .tx16B(tx16B),
-    .tx16C(tx16C),
-    .tx17A(tx17A),
-    .tx17B(tx17B),
-    .tx17C(tx17C),
-    .tx18A(tx18A),
-    .tx18B(tx18B),
-    .tx18C(tx18C),
-    .tx19A(tx19A),
-    .tx19B(tx19B),
-    .tx19C(tx19C),
-    .tx2A(tx2A),
-    .tx2B(tx2B),
-    .tx2C(tx2C),
-    .tx20A(tx20A),
-    .tx20B(tx20B),
-    .tx20C(tx20C),
-    .tx21A(tx21A),
-    .tx21B(tx21B),
-    .tx21C(tx21C),
-    .tx22A(tx22A),
-    .tx22B(tx22B),
-    .tx22C(tx22C),
-    .tx23A(tx23A),
-    .tx23B(tx23B),
-    .tx23C(tx23C),
-    .tx24A(tx24A),
-    .tx24B(tx24B),
-    .tx24C(tx24C),
-    .tx25A(tx25A),
-    .tx25B(tx25B),
-    .tx25C(tx25C),
-    .tx26A(tx26A),
-    .tx26B(tx26B),
-    .tx26C(tx26C),
-    .tx27A(tx27A),
-    .tx27B(tx27B),
-    .tx27C(tx27C),
-    .tx28A(tx28A),
-    .tx28B(tx28B),
-    .tx28C(tx28C),
-    .tx29A(tx29A),
-    .tx29B(tx29B),
-    .tx29C(tx29C),
-    .tx3A(tx3A),
-    .tx3B(tx3B),
-    .tx3C(tx3C),
-    .tx30A(tx30A),
-    .tx30B(tx30B),
-    .tx30C(tx30C),
-    .tx31A(tx31A),
-    .tx31B(tx31B),
-    .tx31C(tx31C),
-    .tx4A(tx4A),
-    .tx4B(tx4B),
-    .tx4C(tx4C),
-    .tx5A(tx5A),
-    .tx5B(tx5B),
-    .tx5C(tx5C),
-    .tx6A(tx6A),
-    .tx6B(tx6B),
-    .tx6C(tx6C),
-    .tx7A(tx7A),
-    .tx7B(tx7B),
-    .tx7C(tx7C),
-    .tx8A(tx8A),
-    .tx8B(tx8B),
-    .tx8C(tx8C),
-    .tx9A(tx9A),
-    .tx9B(tx9B),
-    .tx9C(tx9C)
+    .buffer_en(buffer_en),
+    .clk(clk),
+    .data_tra_downlink(data_tra_downlink),
+    .end_mon_init(end_mon_init),
+    .end_osc_cnt(end_osc_cnt),
+    .end_read_elink(end_read_elink),
+    .end_write_elink(end_write_elink),
+    .endwait_all(endwait_all),
+    .irq_elink_tra(irq_elink_tra),
+    .n_buses(n_buses),
+    .osc_auto_trim_mopshub(osc_auto_trim_mopshub),
+    .power_bus_cnt(power_bus_cnt),
+    .power_bus_en_done(power_bus_en_done),
+    .rst(rst),
+    .rx0(rx0),
+    .rx1(rx1),
+    .rx10(rx10),
+    .rx11(rx11),
+    .rx12(rx12),
+    .rx13(rx13),
+    .rx14(rx14),
+    .rx15(rx15),
+    .rx2(rx2),
+    .rx3(rx3),
+    .rx4(rx4),
+    .rx5(rx5),
+    .rx6(rx6),
+    .rx7(rx7),
+    .rx8(rx8),
+    .rx9(rx9),
+    .can_rec_select(can_rec_select),
+    .can_tra_select(can_tra_select),
+    .data_rec_uplink(data_rec_uplink),
+    .end_init(end_init),
+    .end_power_init(end_power_init),
+    .end_trim_bus(end_trim_bus),
+    .ext_counter_gen(ext_counter_gen),
+    .irq_can_rec(irq_can_rec),
+    .irq_can_tra(irq_can_tra),
+    .main_timeoutrst(main_timeoutrst),
+    .power_bus_en(power_bus_en),
+    .rst_bus(rst_bus),
+    .rst_osc_cnt(rst_osc_cnt),
+    .sign_on_sig(sign_on_sig),
+    .start_init(start_init),
+    .start_mon_init(start_mon_init),
+    .start_osc_cnt(start_osc_cnt),
+    .start_power_init(start_power_init),
+    .start_read_elink(start_read_elink_can),
+    .start_trim_ack(start_trim_ack),
+    .start_write_elink(start_write_elink),
+    .tx0(tx0),
+    .tx1(tx1),
+    .tx10(tx10),
+    .tx11(tx11),
+    .tx12(tx12),
+    .tx13(tx13),
+    .tx14(tx14),
+    .tx15(tx15),
+    .tx2(tx2),
+    .tx3(tx3),
+    .tx4(tx4),
+    .tx5(tx5),
+    .tx6(tx6),
+    .tx7(tx7),
+    .tx8(tx8),
+    .tx9(tx9)
     );
-
-
+assign start_read_power =  1'b0;
+assign start_power_on =  1'b0;
+assign start_power_off =  1'b0;
 initial
   begin
-    data_2bit_inA =  2'b11;
-    data_2bit_in_serialA =  2'b11;
-    bit_cntA =  1'b0;
-    dout1bit_rA =  1'b1;
     start_read_monA =  1'b0;
-    rlA =  1'b1;
     endwait_all2A =  1'b0;
     end_cntA =  1'b0;
-    clk_enA =  1'b1;
     cnt_doneA =  1'b0;
     abortA =  1'b0;
   end
 initial
   begin
-    data_2bit_inB =  2'b11;
-    data_2bit_in_serialB =  2'b11;
-    bit_cntB =  1'b0;
-    dout1bit_rB =  1'b1;
     start_read_monB =  1'b0;
-    rlB =  1'b1;
     endwait_all2B =  1'b0;
     end_cntB =  1'b0;
-    clk_enB =  1'b1;
     cnt_doneB =  1'b0;
     abortB =  1'b0;
   end
 initial
   begin
-    data_2bit_inC =  2'b11;
-    data_2bit_in_serialC =  2'b11;
-    bit_cntC =  1'b0;
-    dout1bit_rC =  1'b1;
     start_read_monC =  1'b0;
-    rlC =  1'b1;
     endwait_all2C =  1'b0;
     end_cntC =  1'b0;
-    clk_enC =  1'b1;
     cnt_doneC =  1'b0;
     abortC =  1'b0;
   end
-assign tx_elink2bitA =  data_2bit_outA;
-assign tx_elink2bitB =  data_2bit_outB;
-assign tx_elink2bitC =  data_2bit_outC;
-assign tx_elink1bitA =  dout1bit_rA;
-assign tx_elink1bitB =  dout1bit_rB;
-assign tx_elink1bitC =  dout1bit_rC;
+assign start_read_elink =  (start_read_elink_spi||start_read_elink_can);
 
-always @( posedge clk_80A )
-  bit_cntA <= !bit_cntA;
+majorityVoter abortVoter (
+    .inA(abortA),
+    .inB(abortB),
+    .inC(abortC),
+    .out(abort),
+    .tmrErr(abortTmrError)
+    );
 
-always @( posedge clk_80B )
-  bit_cntB <= !bit_cntB;
+majorityVoter cnt_doneVoter (
+    .inA(cnt_doneA),
+    .inB(cnt_doneB),
+    .inC(cnt_doneC),
+    .out(cnt_done),
+    .tmrErr(cnt_doneTmrError)
+    );
 
-always @( posedge clk_80C )
-  bit_cntC <= !bit_cntC;
+majorityVoter cs_active_cVoter (
+    .inA(cs_active_cA),
+    .inB(cs_active_cB),
+    .inC(cs_active_cC),
+    .out(cs_active_c),
+    .tmrErr(cs_active_cTmrError)
+    );
 
-always @( posedge clk_80A )
-  if (!rstA)
-    dout1bit_rA <= 1'b1;
-  else
-    begin
-      if (bit_cntA==0)
-        dout1bit_rA <= data_2bit_outA[0] ;
-      else
-        dout1bit_rA <= data_2bit_outA[1] ;
-    end
+majorityVoter cs_active_mVoter (
+    .inA(cs_active_mA),
+    .inB(cs_active_mB),
+    .inC(cs_active_mC),
+    .out(cs_active_m),
+    .tmrErr(cs_active_mTmrError)
+    );
 
-always @( posedge clk_80B )
-  if (!rstB)
-    dout1bit_rB <= 1'b1;
-  else
-    begin
-      if (bit_cntB==0)
-        dout1bit_rB <= data_2bit_outB[0] ;
-      else
-        dout1bit_rB <= data_2bit_outB[1] ;
-    end
+majorityVoter #(.WIDTH(8)) data_initVoter (
+    .inA(data_initA),
+    .inB(data_initB),
+    .inC(data_initC),
+    .out(data_init),
+    .tmrErr(data_initTmrError)
+    );
 
-always @( posedge clk_80C )
-  if (!rstC)
-    dout1bit_rC <= 1'b1;
-  else
-    begin
-      if (bit_cntC==0)
-        dout1bit_rC <= data_2bit_outC[0] ;
-      else
-        dout1bit_rC <= data_2bit_outC[1] ;
-    end
-assign data_2bit_in_activeA =  (seialize_data_streamA==1) ? data_2bit_in_serialA : data_2bit_inA;
-assign data_2bit_in_activeB =  (seialize_data_streamB==1) ? data_2bit_in_serialB : data_2bit_inB;
-assign data_2bit_in_activeC =  (seialize_data_streamC==1) ? data_2bit_in_serialC : data_2bit_inC;
+majorityVoter end_cntVoter (
+    .inA(end_cntA),
+    .inB(end_cntB),
+    .inC(end_cntC),
+    .out(end_cnt),
+    .tmrErr(end_cntTmrError)
+    );
 
-always @( posedge clkA )
-  if (!rstA)
-    data_2bit_inA <= 2'b11;
-  else
-    data_2bit_inA <= rx_elink2bitA;
+majorityVoter end_mon_cntVoter (
+    .inA(end_mon_cntA),
+    .inB(end_mon_cntB),
+    .inC(end_mon_cntC),
+    .out(end_mon_cnt),
+    .tmrErr(end_mon_cntTmrError)
+    );
 
-always @( posedge clkB )
-  if (!rstB)
-    data_2bit_inB <= 2'b11;
-  else
-    data_2bit_inB <= rx_elink2bitB;
+majorityVoter end_mon_initVoter (
+    .inA(end_mon_initA),
+    .inB(end_mon_initB),
+    .inC(end_mon_initC),
+    .out(end_mon_init),
+    .tmrErr(end_mon_initTmrError)
+    );
 
-always @( posedge clkC )
-  if (!rstC)
-    data_2bit_inC <= 2'b11;
-  else
-    data_2bit_inC <= rx_elink2bitC;
+majorityVoter end_osc_cntVoter (
+    .inA(end_osc_cntA),
+    .inB(end_osc_cntB),
+    .inC(end_osc_cntC),
+    .out(end_osc_cnt),
+    .tmrErr(end_osc_cntTmrError)
+    );
 
-always @( posedge clk_80A )
-  if (!rstA)
-    data_2bit_in_serialA <= 2'b11;
-  else
-    data_2bit_in_serialA <= {data_2bit_in_serialA[0] ,rx_elink1bitA};
+majorityVoter end_spi_procVoter (
+    .inA(end_spi_procA),
+    .inB(end_spi_procB),
+    .inC(end_spi_procC),
+    .out(end_spi_proc),
+    .tmrErr(end_spi_procTmrError)
+    );
 
-always @( posedge clk_80B )
-  if (!rstB)
-    data_2bit_in_serialB <= 2'b11;
-  else
-    data_2bit_in_serialB <= {data_2bit_in_serialB[0] ,rx_elink1bitB};
+majorityVoter endwait_all2Voter (
+    .inA(endwait_all2A),
+    .inB(endwait_all2B),
+    .inC(endwait_all2C),
+    .out(endwait_all2),
+    .tmrErr(endwait_all2TmrError)
+    );
 
-always @( posedge clk_80C )
-  if (!rstC)
-    data_2bit_in_serialC <= 2'b11;
-  else
-    data_2bit_in_serialC <= {data_2bit_in_serialC[0] ,rx_elink1bitC};
-assign start_read_elinkA =  (start_read_elink_spiA||start_read_elink_canA);
-assign start_read_elinkB =  (start_read_elink_spiB||start_read_elink_canB);
-assign start_read_elinkC =  (start_read_elink_spiC||start_read_elink_canC);
-assign tx_doutA =  (bit_cntA) ? mw_tx_shiftreg_cvalA[0]  : mw_tx_shiftreg_cvalA[1] ;
-assign tx_doutB =  (bit_cntB) ? mw_tx_shiftreg_cvalB[0]  : mw_tx_shiftreg_cvalB[1] ;
-assign tx_doutC =  (bit_cntC) ? mw_tx_shiftreg_cvalC[0]  : mw_tx_shiftreg_cvalC[1] ;
+majorityVoter entimeoutVoter (
+    .inA(entimeoutA),
+    .inB(entimeoutB),
+    .inC(entimeoutC),
+    .out(entimeout),
+    .tmrErr(entimeoutTmrError)
+    );
 
-always @( posedge clk_80A )
-  begin : tx_shiftseq_procA
-    if (clk_enA)
-      mw_tx_shiftreg_cvalA =  mw_tx_shiftreg_nvalA;
-  end
+majorityVoter power_bus_en_doneVoter (
+    .inA(power_bus_en_doneA),
+    .inB(power_bus_en_doneB),
+    .inC(power_bus_en_doneC),
+    .out(power_bus_en_done),
+    .tmrErr(power_bus_en_doneTmrError)
+    );
 
-always @( posedge clk_80B )
-  begin : tx_shiftseq_procB
-    if (clk_enB)
-      mw_tx_shiftreg_cvalB =  mw_tx_shiftreg_nvalB;
-  end
+majorityVoter rst_mon_cntVoter (
+    .inA(rst_mon_cntA),
+    .inB(rst_mon_cntB),
+    .inC(rst_mon_cntC),
+    .out(rst_mon_cnt),
+    .tmrErr(rst_mon_cntTmrError)
+    );
 
-always @( posedge clk_80C )
-  begin : tx_shiftseq_procC
-    if (clk_enC)
-      mw_tx_shiftreg_cvalC =  mw_tx_shiftreg_nvalC;
-  end
-assign mw_tx_shiftreg_nvalA =  (~ rstA ) ? 2'd0 : clkA ? data_2bit_outA : bit_cntA ? {mw_tx_shiftreg_cvalA[1] ,mw_tx_shiftreg_cvalA}>>1 : mw_tx_shiftreg_cvalA<<1;
-assign mw_tx_shiftreg_nvalB =  (~ rstB ) ? 2'd0 : clkB ? data_2bit_outB : bit_cntB ? {mw_tx_shiftreg_cvalB[1] ,mw_tx_shiftreg_cvalB}>>1 : mw_tx_shiftreg_cvalB<<1;
-assign mw_tx_shiftreg_nvalC =  (~ rstC ) ? 2'd0 : clkC ? data_2bit_outC : bit_cntC ? {mw_tx_shiftreg_cvalC[1] ,mw_tx_shiftreg_cvalC}>>1 : mw_tx_shiftreg_cvalC<<1;
-assign data_2bit_inbA =  mw_rx_shiftreg_cvalA;
-assign data_2bit_inbB =  mw_rx_shiftreg_cvalB;
-assign data_2bit_inbC =  mw_rx_shiftreg_cvalC;
+majorityVoter spi_csVoter (
+    .inA(spi_csA),
+    .inB(spi_csB),
+    .inC(spi_csC),
+    .out(spi_cs),
+    .tmrErr(spi_csTmrError)
+    );
 
-always @( posedge clk_80A )
-  begin : rx_shiftseq_procA
-    if (clk_enA)
-      mw_rx_shiftreg_cvalA =  mw_rx_shiftreg_nvalA;
-  end
+majorityVoter spi_read_modeVoter (
+    .inA(spi_read_modeA),
+    .inB(spi_read_modeB),
+    .inC(spi_read_modeC),
+    .out(spi_read_mode),
+    .tmrErr(spi_read_modeTmrError)
+    );
 
-always @( posedge clk_80B )
-  begin : rx_shiftseq_procB
-    if (clk_enB)
-      mw_rx_shiftreg_cvalB =  mw_rx_shiftreg_nvalB;
-  end
+majorityVoter start_cntVoter (
+    .inA(start_cntA),
+    .inB(start_cntB),
+    .inC(start_cntC),
+    .out(start_cnt),
+    .tmrErr(start_cntTmrError)
+    );
 
-always @( posedge clk_80C )
-  begin : rx_shiftseq_procC
-    if (clk_enC)
-      mw_rx_shiftreg_cvalC =  mw_rx_shiftreg_nvalC;
-  end
-assign mw_rx_shiftreg_nvalA =  (~ rstA ) ? 2'd0 : rlA ? {rx_dinA,mw_rx_shiftreg_cvalA}>>1 : {mw_rx_shiftreg_cvalA,rx_dinA};
-assign mw_rx_shiftreg_nvalB =  (~ rstB ) ? 2'd0 : rlB ? {rx_dinB,mw_rx_shiftreg_cvalB}>>1 : {mw_rx_shiftreg_cvalB,rx_dinB};
-assign mw_rx_shiftreg_nvalC =  (~ rstC ) ? 2'd0 : rlC ? {rx_dinC,mw_rx_shiftreg_cvalC}>>1 : {mw_rx_shiftreg_cvalC,rx_dinC};
+majorityVoter start_init_spiVoter (
+    .inA(start_init_spiA),
+    .inB(start_init_spiB),
+    .inC(start_init_spiC),
+    .out(start_init_spi),
+    .tmrErr(start_init_spiTmrError)
+    );
+
+majorityVoter start_mon_cntVoter (
+    .inA(start_mon_cntA),
+    .inB(start_mon_cntB),
+    .inC(start_mon_cntC),
+    .out(start_mon_cnt),
+    .tmrErr(start_mon_cntTmrError)
+    );
+
+majorityVoter start_read_elink_spiVoter (
+    .inA(start_read_elink_spiA),
+    .inB(start_read_elink_spiB),
+    .inC(start_read_elink_spiC),
+    .out(start_read_elink_spi),
+    .tmrErr(start_read_elink_spiTmrError)
+    );
+
+majorityVoter start_read_misoVoter (
+    .inA(start_read_misoA),
+    .inB(start_read_misoB),
+    .inC(start_read_misoC),
+    .out(start_read_miso),
+    .tmrErr(start_read_misoTmrError)
+    );
+
+majorityVoter start_read_monVoter (
+    .inA(start_read_monA),
+    .inB(start_read_monB),
+    .inC(start_read_monC),
+    .out(start_read_mon),
+    .tmrErr(start_read_monTmrError)
+    );
+
+majorityVoter start_write_elink_spiVoter (
+    .inA(start_write_elink_spiA),
+    .inB(start_write_elink_spiB),
+    .inC(start_write_elink_spiC),
+    .out(start_write_elink_spi),
+    .tmrErr(start_write_elink_spiTmrError)
+    );
+
+majorityVoter #(.WIDTH(9)) statedebVoter (
+    .inA(statedebA),
+    .inB(statedebB),
+    .inC(statedebC),
+    .out(statedeb),
+    .tmrErr(statedebTmrError)
+    );
+
+majorityVoter transcieve_mVoter (
+    .inA(transcieve_mA),
+    .inB(transcieve_mB),
+    .inC(transcieve_mC),
+    .out(transcieve_m),
+    .tmrErr(transcieve_mTmrError)
+    );
+
+majorityVoter transcieve_pVoter (
+    .inA(transcieve_pA),
+    .inB(transcieve_pB),
+    .inC(transcieve_pC),
+    .out(transcieve_p),
+    .tmrErr(transcieve_pTmrError)
+    );
 endmodule
 
-
-
-// /mnt/c/Users/Lucas/Desktop/mopshub_triplication/tmrg-master/tmrg/../common/voter.v
-module majorityVoter #(
-  parameter WIDTH = 1
-)( 
-  input wire  [WIDTH-1:0] inA,
-  input wire  [WIDTH-1:0] inB,
-  input wire  [WIDTH-1:0] inC,
-  output wire [WIDTH-1:0] out,
-  output reg              tmrErr
-);
-  assign out = (inA&inB) | (inA&inC) | (inB&inC);
-  always @(inA or inB or inC) begin
-    if (inA!=inB || inA!=inC || inB!=inC)
-      tmrErr = 1;
-    else
-      tmrErr = 0;
-  end
-endmodule
-
-
-// /mnt/c/Users/Lucas/Desktop/mopshub_triplication/tmrg-master/tmrg/../common/fanout.v
-module fanout #(
-  parameter WIDTH = 1
-)(
-  input wire  [WIDTH-1:0] in,
-  output wire [WIDTH-1:0] outA,
-  output wire [WIDTH-1:0] outB,
-  output wire [WIDTH-1:0] outC
-);
-  assign outA = in;
-  assign outB = in;
-  assign outC = in;
-endmodule

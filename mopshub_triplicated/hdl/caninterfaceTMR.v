@@ -6,49 +6,48 @@
  *                                                                                                  *
  * user    : lucas                                                                                  *
  * host    : DESKTOP-BFDSFP2                                                                        *
- * date    : 03/04/2022 20:08:32                                                                    *
+ * date    : 16/08/2022 12:58:13                                                                    *
  *                                                                                                  *
- * workdir : /mnt/c/Users/Lucas/Desktop/mopshub_triplication/triplicated/mopshub_top_canakari_ftrim/hdl *
- * cmd     : /mnt/c/Users/Lucas/Desktop/mopshub_triplication/tmrg-master/bin/tmrg -vv -c tmrg.cfg   *
+ * workdir : /mnt/c/Users/Lucas/Desktop/mopshub_triplication/mopshub_top_board_canakari_ftrim/hdl   *
+ * cmd     : /mnt/c/Users/Lucas/Desktop/mopshub_triplication/tmrg-master/bin/tmrg -c tmrg.cfg -vvv  *
  * tmrg rev:                                                                                        *
  *                                                                                                  *
  * src file: caninterface.v                                                                         *
  *           Git SHA           : File not in git repository!                                        *
- *           Modification time : 2022-03-28 18:33:59                                                *
- *           File Size         : 3789                                                               *
- *           MD5 hash          : b9cfa7105695bbc7271c8cf13caa91be                                   *
+ *           Modification time : 2022-08-12 10:06:10                                                *
+ *           File Size         : 4142                                                               *
+ *           MD5 hash          : d3b029b2e70312bba62f4a95fc1f9c79                                   *
  *                                                                                                  *
  ****************************************************************************************************/
 
 module can_interfaceTMR(
-  input wire [4:0] addrA ,
-  input wire [4:0] addrB ,
-  input wire [4:0] addrC ,
-  input wire [15:0] data_initA ,
-  input wire [15:0] data_initB ,
-  input wire [15:0] data_initC ,
-  input wire  initiA ,
-  input wire  initiB ,
-  input wire  initiC ,
-  input wire  writeA ,
-  input wire  writeB ,
-  input wire  writeC ,
-  input wire  reset_canA ,
-  input wire  reset_canB ,
-  input wire  reset_canC ,
-  input wire  trimA ,
-  input wire  trimB ,
-  input wire  trimC ,
-  input wire [75:0] data_tra_mesA ,
-  input wire [75:0] data_tra_mesB ,
-  input wire [75:0] data_tra_mesC ,
-  output wire [3:0] cmdA ,
-  output wire [3:0] cmdB ,
-  output wire [3:0] cmdC ,
-  output wire [15:0] write_canA ,
-  output wire [15:0] write_canB ,
-  output wire [15:0] write_canC 
+  input wire [4:0] addr ,
+  input wire [15:0] data_init ,
+  input wire  initi ,
+  input wire  write ,
+  input wire  reset_can ,
+  input wire  trim ,
+  input wire [75:0] data_tra_mes ,
+  output wire [3:0] cmd ,
+  output wire [15:0] write_can 
 );
+wire [15:0] rst_irqC;
+wire [15:0] rst_irqB;
+wire [15:0] rst_irqA;
+wire [75:0] data_tra_mesC;
+wire [75:0] data_tra_mesB;
+wire [75:0] data_tra_mesA;
+wire [15:0] data_initC;
+wire [15:0] data_initB;
+wire [15:0] data_initA;
+wire [3:0] cmdC;
+wire [3:0] cmdB;
+wire [3:0] cmdA;
+wire [4:0] addrC;
+wire [4:0] addrB;
+wire [4:0] addrA;
+wor write_can_regTmrError;
+wire [15:0] write_can_reg;
 reg  [15:0] write_can_regA ;
 reg  [15:0] write_can_regB ;
 reg  [15:0] write_can_regC ;
@@ -58,9 +57,7 @@ reg  [4:0] can_tra_regC ;
 reg  [15:0] tra_controlA ;
 reg  [15:0] tra_controlB ;
 reg  [15:0] tra_controlC ;
-reg  [15:0] rst_irqA ;
-reg  [15:0] rst_irqB ;
-reg  [15:0] rst_irqC ;
+reg  [15:0] rst_irq ;
 reg  [15:0] gen_dataA ;
 reg  [15:0] gen_dataB ;
 reg  [15:0] gen_dataC ;
@@ -69,37 +66,15 @@ reg  [75:0] trim_dataB ;
 reg  [75:0] trim_dataC ;
 initial
   begin
-    write_can_regA =  16'h0000;
-    can_tra_regA =  5'h0;
-    tra_controlA =  16'h8008;
-    rst_irqA =  16'h8070;
-    gen_dataA =  16'h9C;
-    trim_dataA =  {12'h555,64'hAAAAAAAAAAAAAAAA};
+    write_can_reg =  16'h0000;
+    can_tra_reg =  5'h0;
+    tra_control =  16'h8008;
+    rst_irq =  16'h8070;
+    gen_data =  16'h9C;
+    trim_data =  {12'h555,64'hAAAAAAAAAAAAAAAA};
   end
-initial
-  begin
-    write_can_regB =  16'h0000;
-    can_tra_regB =  5'h0;
-    tra_controlB =  16'h8008;
-    rst_irqB =  16'h8070;
-    gen_dataB =  16'h9C;
-    trim_dataB =  {12'h555,64'hAAAAAAAAAAAAAAAA};
-  end
-initial
-  begin
-    write_can_regC =  16'h0000;
-    can_tra_regC =  5'h0;
-    tra_controlC =  16'h8008;
-    rst_irqC =  16'h8070;
-    gen_dataC =  16'h9C;
-    trim_dataC =  {12'h555,64'hAAAAAAAAAAAAAAAA};
-  end
-assign write_canA =  write_can_regA;
-assign write_canB =  write_can_regB;
-assign write_canC =  write_can_regC;
-assign cmdA =  {initiA,writeA,reset_canA,trimA};
-assign cmdB =  {initiB,writeB,reset_canB,trimB};
-assign cmdC =  {initiC,writeC,reset_canC,trimC};
+assign write_can =  write_can_reg;
+assign cmd =  {initi,write,reset_can,trim};
 
 always @( * )
   begin
@@ -226,5 +201,48 @@ always @( * )
       default : write_can_regC =  16'h0;
     endcase
   end
+
+majorityVoter #(.WIDTH(16)) write_can_regVoter (
+    .inA(write_can_regA),
+    .inB(write_can_regB),
+    .inC(write_can_regC),
+    .out(write_can_reg),
+    .tmrErr(write_can_regTmrError)
+    );
+
+fanout #(.WIDTH(5)) addrFanout (
+    .in(addr),
+    .outA(addrA),
+    .outB(addrB),
+    .outC(addrC)
+    );
+
+fanout #(.WIDTH(4)) cmdFanout (
+    .in(cmd),
+    .outA(cmdA),
+    .outB(cmdB),
+    .outC(cmdC)
+    );
+
+fanout #(.WIDTH(16)) data_initFanout (
+    .in(data_init),
+    .outA(data_initA),
+    .outB(data_initB),
+    .outC(data_initC)
+    );
+
+fanout #(.WIDTH(76)) data_tra_mesFanout (
+    .in(data_tra_mes),
+    .outA(data_tra_mesA),
+    .outB(data_tra_mesB),
+    .outC(data_tra_mesC)
+    );
+
+fanout #(.WIDTH(16)) rst_irqFanout (
+    .in(rst_irq),
+    .outA(rst_irqA),
+    .outB(rst_irqB),
+    .outC(rst_irqC)
+    );
 endmodule
 

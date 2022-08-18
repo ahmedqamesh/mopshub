@@ -6,141 +6,67 @@
  *                                                                                                  *
  * user    : lucas                                                                                  *
  * host    : DESKTOP-BFDSFP2                                                                        *
- * date    : 03/04/2022 20:08:34                                                                    *
+ * date    : 16/08/2022 12:58:17                                                                    *
  *                                                                                                  *
- * workdir : /mnt/c/Users/Lucas/Desktop/mopshub_triplication/triplicated/mopshub_top_canakari_ftrim/hdl *
- * cmd     : /mnt/c/Users/Lucas/Desktop/mopshub_triplication/tmrg-master/bin/tmrg -vv -c tmrg.cfg   *
+ * workdir : /mnt/c/Users/Lucas/Desktop/mopshub_triplication/mopshub_top_board_canakari_ftrim/hdl   *
+ * cmd     : /mnt/c/Users/Lucas/Desktop/mopshub_triplication/tmrg-master/bin/tmrg -c tmrg.cfg -vvv  *
  * tmrg rev:                                                                                        *
  *                                                                                                  *
  * src file: elink_proc_in_dec8b10b_struct.v                                                        *
  *           Git SHA           : File not in git repository!                                        *
- *           Modification time : 2022-03-28 21:55:54                                                *
+ *           Modification time : 2022-08-16 10:13:33.061254                                         *
  *           File Size         : 1721                                                               *
- *           MD5 hash          : 87c42339056d1f4472da3dcd3c16cead                                   *
+ *           MD5 hash          : a776e57db9b5d9dab86fe548d49073e9                                   *
  *                                                                                                  *
  ****************************************************************************************************/
 
 module elink_proc_in_dec8b10bTMR(
-  input wire [1:0] DATA_INA ,
-  input wire [1:0] DATA_INB ,
-  input wire [1:0] DATA_INC ,
-  input wire  clkA ,
-  input wire  clkB ,
-  input wire  clkC ,
-  output wire [1:0] ISKA ,
-  output wire [1:0] ISKB ,
-  output wire [1:0] ISKC ,
-  input wire  rstA ,
-  input wire  rstB ,
-  input wire  rstC ,
-  output wire [7:0] dec8b_dataA ,
-  output wire [7:0] dec8b_dataB ,
-  output wire [7:0] dec8b_dataC ,
-  output wire  dec8b_rdyA ,
-  output wire  dec8b_rdyB ,
-  output wire  dec8b_rdyC ,
-  input wire [9:0] COMMAnA ,
-  input wire [9:0] COMMAnB ,
-  input wire [9:0] COMMAnC ,
-  input wire [9:0] COMMApA ,
-  input wire [9:0] COMMApB ,
-  input wire [9:0] COMMApC ,
-  input wire [7:0] Kchar_commaA ,
-  input wire [7:0] Kchar_commaB ,
-  input wire [7:0] Kchar_commaC ,
-  input wire [7:0] Kchar_eopA ,
-  input wire [7:0] Kchar_eopB ,
-  input wire [7:0] Kchar_eopC ,
-  input wire [7:0] Kchar_sopA ,
-  input wire [7:0] Kchar_sopB ,
-  input wire [7:0] Kchar_sopC 
+  input wire [1:0] DATA_IN ,
+  input wire  clk ,
+  output wire [1:0] ISK ,
+  input wire  rst ,
+  output wire [7:0] dec8b_data ,
+  output wire  dec8b_rdy ,
+  input wire [9:0] COMMAn ,
+  input wire [9:0] COMMAp ,
+  input wire [7:0] Kchar_comma ,
+  input wire [7:0] Kchar_eop ,
+  input wire [7:0] Kchar_sop 
 );
-wire [10:0] bitstream_inA;
-wire [10:0] bitstream_inB;
-wire [10:0] bitstream_inC;
-wire word10b_rdyA;
-wire word10b_rdyB;
-wire word10b_rdyC;
-wire [9:0] word10bA;
-wire [9:0] word10bB;
-wire [9:0] word10bC;
+wire [10:0] bitstream_in;
+wire word10b_rdy;
+wire [9:0] word10b;
 
 bitstream_shift_registerTMR bitstream_deserializer00 (
-    .dinA(DATA_INA),
-    .dinB(DATA_INB),
-    .dinC(DATA_INC),
-    .clkA(clkA),
-    .clkB(clkB),
-    .clkC(clkC),
-    .rstA(rstA),
-    .rstB(rstB),
-    .rstC(rstC),
-    .doutA(bitstream_inA),
-    .doutB(bitstream_inB),
-    .doutC(bitstream_inC)
+    .din(DATA_IN),
+    .clk(clk),
+    .rst(rst),
+    .dout(bitstream_in)
     );
 
 dec_8b10b_wrapTMR dec_8b10b_wrap0 (
-    .COMMAnA(COMMAnA),
-    .COMMAnB(COMMAnB),
-    .COMMAnC(COMMAnC),
-    .COMMApA(COMMApA),
-    .COMMApB(COMMApB),
-    .COMMApC(COMMApC),
-    .Kchar_commaA(Kchar_commaA),
-    .Kchar_commaB(Kchar_commaB),
-    .Kchar_commaC(Kchar_commaC),
-    .Kchar_eopA(Kchar_eopA),
-    .Kchar_eopB(Kchar_eopB),
-    .Kchar_eopC(Kchar_eopC),
-    .Kchar_sopA(Kchar_sopA),
-    .Kchar_sopB(Kchar_sopB),
-    .Kchar_sopC(Kchar_sopC),
-    .clkA(clkA),
-    .clkB(clkB),
-    .clkC(clkC),
-    .datain_validA(word10b_rdyA),
-    .datain_validB(word10b_rdyB),
-    .datain_validC(word10b_rdyC),
-    .enc10b_data_inA(word10bA),
-    .enc10b_data_inB(word10bB),
-    .enc10b_data_inC(word10bC),
-    .rstA(rstA),
-    .rstB(rstB),
-    .rstC(rstC),
-    .ISKA(ISKA),
-    .ISKB(ISKB),
-    .ISKC(ISKC),
-    .dec8b_data_outA(dec8b_dataA),
-    .dec8b_data_outB(dec8b_dataB),
-    .dec8b_data_outC(dec8b_dataC),
-    .dec8b_rdyA(dec8b_rdyA),
-    .dec8b_rdyB(dec8b_rdyB),
-    .dec8b_rdyC(dec8b_rdyC)
+    .COMMAn(COMMAn),
+    .COMMAp(COMMAp),
+    .Kchar_comma(Kchar_comma),
+    .Kchar_eop(Kchar_eop),
+    .Kchar_sop(Kchar_sop),
+    .clk(clk),
+    .datain_valid(word10b_rdy),
+    .enc10b_data_in(word10b),
+    .rst(rst),
+    .ISK(ISK),
+    .dec8b_data_out(dec8b_data),
+    .dec8b_rdy(dec8b_rdy)
     );
 
 sync_detectorTMR sync_detector0 (
-    .bitstream_inA(bitstream_inA),
-    .bitstream_inB(bitstream_inB),
-    .bitstream_inC(bitstream_inC),
-    .clkA(clkA),
-    .clkB(clkB),
-    .clkC(clkC),
-    .rstA(rstA),
-    .rstB(rstB),
-    .rstC(rstC),
-    .word10bA(word10bA),
-    .word10bB(word10bB),
-    .word10bC(word10bC),
-    .word10b_rdyA(word10b_rdyA),
-    .word10b_rdyB(word10b_rdyB),
-    .word10b_rdyC(word10b_rdyC),
-    .COMMApA(COMMApA),
-    .COMMApB(COMMApB),
-    .COMMApC(COMMApC),
-    .COMMAnA(COMMAnA),
-    .COMMAnB(COMMAnB),
-    .COMMAnC(COMMAnC)
+    .bitstream_in(bitstream_in),
+    .clk(clk),
+    .rst(rst),
+    .word10b(word10b),
+    .word10b_rdy(word10b_rdy),
+    .COMMAp(COMMAp),
+    .COMMAn(COMMAn)
     );
 endmodule
 

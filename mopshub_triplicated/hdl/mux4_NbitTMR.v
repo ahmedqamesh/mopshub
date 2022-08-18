@@ -6,49 +6,53 @@
  *                                                                                                  *
  * user    : lucas                                                                                  *
  * host    : DESKTOP-BFDSFP2                                                                        *
- * date    : 03/04/2022 20:08:54                                                                    *
+ * date    : 16/08/2022 12:58:32                                                                    *
  *                                                                                                  *
- * workdir : /mnt/c/Users/Lucas/Desktop/mopshub_triplication/triplicated/mopshub_top_canakari_ftrim/hdl *
- * cmd     : /mnt/c/Users/Lucas/Desktop/mopshub_triplication/tmrg-master/bin/tmrg -vv -c tmrg.cfg   *
+ * workdir : /mnt/c/Users/Lucas/Desktop/mopshub_triplication/mopshub_top_board_canakari_ftrim/hdl   *
+ * cmd     : /mnt/c/Users/Lucas/Desktop/mopshub_triplication/tmrg-master/bin/tmrg -c tmrg.cfg -vvv  *
  * tmrg rev:                                                                                        *
  *                                                                                                  *
  * src file: mux4_Nbit.v                                                                            *
  *           Git SHA           : File not in git repository!                                        *
- *           Modification time : 2022-03-28 18:40:32                                                *
- *           File Size         : 1068                                                               *
- *           MD5 hash          : bc9d210ca9bfa1acadd0ed036321a053                                   *
+ *           Modification time : 2022-08-12 11:15:45                                                *
+ *           File Size         : 1282                                                               *
+ *           MD5 hash          : e9430d31bd4bfd59cf13495627b44d0e                                   *
  *                                                                                                  *
  ****************************************************************************************************/
 
 module mux4_NbitTMR(
-  input wire [7:0] data0A ,
-  input wire [7:0] data0B ,
-  input wire [7:0] data0C ,
-  input wire [7:0] data1A ,
-  input wire [7:0] data1B ,
-  input wire [7:0] data1C ,
-  input wire [7:0] data2A ,
-  input wire [7:0] data2B ,
-  input wire [7:0] data2C ,
-  input wire [7:0] data3A ,
-  input wire [7:0] data3B ,
-  input wire [7:0] data3C ,
-  input wire [1:0] selA ,
-  input wire [1:0] selB ,
-  input wire [1:0] selC ,
-  output wire [7:0] data_outA ,
-  output wire [7:0] data_outB ,
-  output wire [7:0] data_outC ,
-  input wire [7:0] def_valueA ,
-  input wire [7:0] def_valueB ,
-  input wire [7:0] def_valueC 
+  input wire [7:0] data0 ,
+  input wire [7:0] data1 ,
+  input wire [7:0] data2 ,
+  input wire [7:0] data3 ,
+  input wire [1:0] sel ,
+  output wire [7:0] data_out ,
+  input wire [7:0] def_value 
 );
+wire [1:0] selC;
+wire [1:0] selB;
+wire [1:0] selA;
+wire [7:0] def_valueC;
+wire [7:0] def_valueB;
+wire [7:0] def_valueA;
+wire [7:0] data3C;
+wire [7:0] data3B;
+wire [7:0] data3A;
+wire [7:0] data2C;
+wire [7:0] data2B;
+wire [7:0] data2A;
+wire [7:0] data1C;
+wire [7:0] data1B;
+wire [7:0] data1A;
+wire [7:0] data0C;
+wire [7:0] data0B;
+wire [7:0] data0A;
+wor data_out_regTmrError;
+wire [7:0] data_out_reg;
 reg  [7:0] data_out_regA ;
 reg  [7:0] data_out_regB ;
 reg  [7:0] data_out_regC ;
-assign data_outA =  data_out_regA;
-assign data_outB =  data_out_regB;
-assign data_outC =  data_out_regC;
+assign data_out =  data_out_reg;
 
 always @( data0A or data1A or data2A or data3A or selA )
   begin
@@ -118,5 +122,55 @@ always @( data0C or data1C or data2C or data3C or selC )
       default data_out_regC =  def_valueC; 
     endcase
   end
+
+majorityVoter #(.WIDTH(8)) data_out_regVoter (
+    .inA(data_out_regA),
+    .inB(data_out_regB),
+    .inC(data_out_regC),
+    .out(data_out_reg),
+    .tmrErr(data_out_regTmrError)
+    );
+
+fanout #(.WIDTH(8)) data0Fanout (
+    .in(data0),
+    .outA(data0A),
+    .outB(data0B),
+    .outC(data0C)
+    );
+
+fanout #(.WIDTH(8)) data1Fanout (
+    .in(data1),
+    .outA(data1A),
+    .outB(data1B),
+    .outC(data1C)
+    );
+
+fanout #(.WIDTH(8)) data2Fanout (
+    .in(data2),
+    .outA(data2A),
+    .outB(data2B),
+    .outC(data2C)
+    );
+
+fanout #(.WIDTH(8)) data3Fanout (
+    .in(data3),
+    .outA(data3A),
+    .outB(data3B),
+    .outC(data3C)
+    );
+
+fanout #(.WIDTH(8)) def_valueFanout (
+    .in(def_value),
+    .outA(def_valueA),
+    .outB(def_valueB),
+    .outC(def_valueC)
+    );
+
+fanout #(.WIDTH(2)) selFanout (
+    .in(sel),
+    .outA(selA),
+    .outB(selB),
+    .outC(selC)
+    );
 endmodule
 

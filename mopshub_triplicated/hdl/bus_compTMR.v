@@ -6,37 +6,37 @@
  *                                                                                                  *
  * user    : lucas                                                                                  *
  * host    : DESKTOP-BFDSFP2                                                                        *
- * date    : 03/04/2022 20:08:31                                                                    *
+ * date    : 16/08/2022 12:58:09                                                                    *
  *                                                                                                  *
- * workdir : /mnt/c/Users/Lucas/Desktop/mopshub_triplication/triplicated/mopshub_top_canakari_ftrim/hdl *
- * cmd     : /mnt/c/Users/Lucas/Desktop/mopshub_triplication/tmrg-master/bin/tmrg -vv -c tmrg.cfg   *
+ * workdir : /mnt/c/Users/Lucas/Desktop/mopshub_triplication/mopshub_top_board_canakari_ftrim/hdl   *
+ * cmd     : /mnt/c/Users/Lucas/Desktop/mopshub_triplication/tmrg-master/bin/tmrg -c tmrg.cfg -vvv  *
  * tmrg rev:                                                                                        *
  *                                                                                                  *
  * src file: bus_comp.v                                                                             *
  *           Git SHA           : File not in git repository!                                        *
- *           Modification time : 2022-03-28 18:33:03                                                *
- *           File Size         : 533                                                                *
- *           MD5 hash          : 160baaadef62680c3030addf1c83262d                                   *
+ *           Modification time : 2022-08-12 10:00:43                                                *
+ *           File Size         : 748                                                                *
+ *           MD5 hash          : c027361f29e995ef0a6fc8c964138ddf                                   *
  *                                                                                                  *
  ****************************************************************************************************/
 
 module bus_compTMR(
-  input wire [4:0] can_rec_selectA ,
-  input wire [4:0] can_rec_selectB ,
-  input wire [4:0] can_rec_selectC ,
-  input wire [4:0] can_tra_selectA ,
-  input wire [4:0] can_tra_selectB ,
-  input wire [4:0] can_tra_selectC ,
-  output wire  bus_matchA ,
-  output wire  bus_matchB ,
-  output wire  bus_matchC 
+  input wire [4:0] can_rec_select ,
+  input wire [4:0] can_tra_select ,
+  output wire  bus_match 
 );
+wire [4:0] can_tra_selectC;
+wire [4:0] can_tra_selectB;
+wire [4:0] can_tra_selectA;
+wire [4:0] can_rec_selectC;
+wire [4:0] can_rec_selectB;
+wire [4:0] can_rec_selectA;
+wor bus_match_regTmrError;
+wire bus_match_reg;
 reg  bus_match_regA ;
 reg  bus_match_regB ;
 reg  bus_match_regC ;
-assign bus_matchA =  bus_match_regA;
-assign bus_matchB =  bus_match_regB;
-assign bus_matchC =  bus_match_regC;
+assign bus_match =  bus_match_reg;
 
 always @( * )
   begin
@@ -61,5 +61,27 @@ always @( * )
     else
       bus_match_regC <= 1'b0;
   end
+
+majorityVoter bus_match_regVoter (
+    .inA(bus_match_regA),
+    .inB(bus_match_regB),
+    .inC(bus_match_regC),
+    .out(bus_match_reg),
+    .tmrErr(bus_match_regTmrError)
+    );
+
+fanout #(.WIDTH(5)) can_rec_selectFanout (
+    .in(can_rec_select),
+    .outA(can_rec_selectA),
+    .outB(can_rec_selectB),
+    .outC(can_rec_selectC)
+    );
+
+fanout #(.WIDTH(5)) can_tra_selectFanout (
+    .in(can_tra_select),
+    .outA(can_tra_selectA),
+    .outB(can_tra_selectB),
+    .outC(can_tra_selectC)
+    );
 endmodule
 

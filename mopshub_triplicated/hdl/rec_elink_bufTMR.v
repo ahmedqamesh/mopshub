@@ -6,43 +6,48 @@
  *                                                                                                  *
  * user    : lucas                                                                                  *
  * host    : DESKTOP-BFDSFP2                                                                        *
- * date    : 03/04/2022 20:08:55                                                                    *
+ * date    : 16/08/2022 12:58:37                                                                    *
  *                                                                                                  *
- * workdir : /mnt/c/Users/Lucas/Desktop/mopshub_triplication/triplicated/mopshub_top_canakari_ftrim/hdl *
- * cmd     : /mnt/c/Users/Lucas/Desktop/mopshub_triplication/tmrg-master/bin/tmrg -vv -c tmrg.cfg   *
+ * workdir : /mnt/c/Users/Lucas/Desktop/mopshub_triplication/mopshub_top_board_canakari_ftrim/hdl   *
+ * cmd     : /mnt/c/Users/Lucas/Desktop/mopshub_triplication/tmrg-master/bin/tmrg -c tmrg.cfg -vvv  *
  * tmrg rev:                                                                                        *
  *                                                                                                  *
  * src file: rec_elink_buf.v                                                                        *
  *           Git SHA           : File not in git repository!                                        *
- *           Modification time : 2022-03-28 18:31:54                                                *
- *           File Size         : 2729                                                               *
- *           MD5 hash          : 1d6136cc4f01af322c9620f5ac0b32a3                                   *
+ *           Modification time : 2022-08-12 09:45:12                                                *
+ *           File Size         : 3007                                                               *
+ *           MD5 hash          : 38b2d657a5e2e2fc444deaae4eb578a2                                   *
  *                                                                                                  *
  ****************************************************************************************************/
 
 module buffer_rec_elinkTMR(
-  input wire [75:0] data_rec_inA ,
-  input wire [75:0] data_rec_inB ,
-  input wire [75:0] data_rec_inC ,
-  input wire [4:0] addrA ,
-  input wire [4:0] addrB ,
-  input wire [4:0] addrC ,
-  output wire [7:0] data_rec_8bitoutA ,
-  output wire [7:0] data_rec_8bitoutB ,
-  output wire [7:0] data_rec_8bitoutC ,
-  output wire [1:0] data_rec_delimiterA ,
-  output wire [1:0] data_rec_delimiterB ,
-  output wire [1:0] data_rec_delimiterC ,
-  input wire [7:0] Kchar_sopA ,
-  input wire [7:0] Kchar_sopB ,
-  input wire [7:0] Kchar_sopC ,
-  input wire [7:0] Kchar_eopA ,
-  input wire [7:0] Kchar_eopB ,
-  input wire [7:0] Kchar_eopC ,
-  input wire [7:0] Kchar_commaA ,
-  input wire [7:0] Kchar_commaB ,
-  input wire [7:0] Kchar_commaC 
+  input wire [75:0] data_rec_in ,
+  input wire [4:0] addr ,
+  output wire [7:0] data_rec_8bitout ,
+  output wire [1:0] data_rec_delimiter ,
+  input wire [7:0] Kchar_sop ,
+  input wire [7:0] Kchar_eop ,
+  input wire [7:0] Kchar_comma 
 );
+wire [75:0] data_rec_inC;
+wire [75:0] data_rec_inB;
+wire [75:0] data_rec_inA;
+wire [4:0] addrC;
+wire [4:0] addrB;
+wire [4:0] addrA;
+wire [7:0] Kchar_sopC;
+wire [7:0] Kchar_sopB;
+wire [7:0] Kchar_sopA;
+wire [7:0] Kchar_eopC;
+wire [7:0] Kchar_eopB;
+wire [7:0] Kchar_eopA;
+wire [7:0] Kchar_commaC;
+wire [7:0] Kchar_commaB;
+wire [7:0] Kchar_commaA;
+wor data_rec_regTmrError;
+wire [7:0] data_rec_reg;
+wor data_delimiter_regTmrError;
+wire [1:0] data_delimiter_reg;
 reg  [7:0] data_rec_regA ;
 reg  [7:0] data_rec_regB ;
 reg  [7:0] data_rec_regC ;
@@ -172,11 +177,58 @@ always @( * )
     5'b01100 : data_delimiter_regC =  2'b01;
     default : data_delimiter_regC =  2'b11;
   endcase
-assign data_rec_8bitoutA =  data_rec_regA;
-assign data_rec_8bitoutB =  data_rec_regB;
-assign data_rec_8bitoutC =  data_rec_regC;
-assign data_rec_delimiterA =  data_delimiter_regA;
-assign data_rec_delimiterB =  data_delimiter_regB;
-assign data_rec_delimiterC =  data_delimiter_regC;
+assign data_rec_8bitout =  data_rec_reg;
+assign data_rec_delimiter =  data_delimiter_reg;
+
+majorityVoter #(.WIDTH(2)) data_delimiter_regVoter (
+    .inA(data_delimiter_regA),
+    .inB(data_delimiter_regB),
+    .inC(data_delimiter_regC),
+    .out(data_delimiter_reg),
+    .tmrErr(data_delimiter_regTmrError)
+    );
+
+majorityVoter #(.WIDTH(8)) data_rec_regVoter (
+    .inA(data_rec_regA),
+    .inB(data_rec_regB),
+    .inC(data_rec_regC),
+    .out(data_rec_reg),
+    .tmrErr(data_rec_regTmrError)
+    );
+
+fanout #(.WIDTH(8)) Kchar_commaFanout (
+    .in(Kchar_comma),
+    .outA(Kchar_commaA),
+    .outB(Kchar_commaB),
+    .outC(Kchar_commaC)
+    );
+
+fanout #(.WIDTH(8)) Kchar_eopFanout (
+    .in(Kchar_eop),
+    .outA(Kchar_eopA),
+    .outB(Kchar_eopB),
+    .outC(Kchar_eopC)
+    );
+
+fanout #(.WIDTH(8)) Kchar_sopFanout (
+    .in(Kchar_sop),
+    .outA(Kchar_sopA),
+    .outB(Kchar_sopB),
+    .outC(Kchar_sopC)
+    );
+
+fanout #(.WIDTH(5)) addrFanout (
+    .in(addr),
+    .outA(addrA),
+    .outB(addrB),
+    .outC(addrC)
+    );
+
+fanout #(.WIDTH(76)) data_rec_inFanout (
+    .in(data_rec_in),
+    .outA(data_rec_inA),
+    .outB(data_rec_inB),
+    .outC(data_rec_inC)
+    );
 endmodule
 

@@ -6,75 +6,42 @@
  *                                                                                                  *
  * user    : lucas                                                                                  *
  * host    : DESKTOP-BFDSFP2                                                                        *
- * date    : 03/04/2022 20:08:55                                                                    *
+ * date    : 16/08/2022 12:58:34                                                                    *
  *                                                                                                  *
- * workdir : /mnt/c/Users/Lucas/Desktop/mopshub_triplication/triplicated/mopshub_top_canakari_ftrim/hdl *
- * cmd     : /mnt/c/Users/Lucas/Desktop/mopshub_triplication/tmrg-master/bin/tmrg -vv -c tmrg.cfg   *
+ * workdir : /mnt/c/Users/Lucas/Desktop/mopshub_triplication/mopshub_top_board_canakari_ftrim/hdl   *
+ * cmd     : /mnt/c/Users/Lucas/Desktop/mopshub_triplication/tmrg-master/bin/tmrg -c tmrg.cfg -vvv  *
  * tmrg rev:                                                                                        *
  *                                                                                                  *
  * src file: osc_trim_sm_fsm.v                                                                      *
  *           Git SHA           : File not in git repository!                                        *
- *           Modification time : 2022-03-28 21:55:51                                                *
- *           File Size         : 14992                                                              *
- *           MD5 hash          : 0a4ca912eb38394d43e99f0f023d3310                                   *
+ *           Modification time : 2022-08-16 10:26:45.647089                                         *
+ *           File Size         : 14897                                                              *
+ *           MD5 hash          : 0deceef1b40100885744a8a014a58a67                                   *
  *                                                                                                  *
  ****************************************************************************************************/
 
 module osc_trim_SMTMR(
-  input wire  abortA ,
-  input wire  abortB ,
-  input wire  abortC ,
-  input wire  clkA ,
-  input wire  clkB ,
-  input wire  clkC ,
-  input wire  end_cnt_dbgA ,
-  input wire  end_cnt_dbgB ,
-  input wire  end_cnt_dbgC ,
-  input wire  end_osc_cntA ,
-  input wire  end_osc_cntB ,
-  input wire  end_osc_cntC ,
-  input wire  end_read_canA ,
-  input wire  end_read_canB ,
-  input wire  end_read_canC ,
-  input wire  end_write_canA ,
-  input wire  end_write_canB ,
-  input wire  end_write_canC ,
-  input wire  end_write_elinkA ,
-  input wire  end_write_elinkB ,
-  input wire  end_write_elinkC ,
-  input wire  irq_can_recA ,
-  input wire  irq_can_recB ,
-  input wire  irq_can_recC ,
-  input wire  irq_can_traA ,
-  input wire  irq_can_traB ,
-  input wire  irq_can_traC ,
-  input wire  irq_trim_bus_oscA ,
-  input wire  irq_trim_bus_oscB ,
-  input wire  irq_trim_bus_oscC ,
-  input wire  irq_trim_oscA ,
-  input wire  irq_trim_oscB ,
-  input wire  irq_trim_oscC ,
-  input wire  osc_auto_trim_mopshubA ,
-  input wire  osc_auto_trim_mopshubB ,
-  input wire  osc_auto_trim_mopshubC ,
-  input wire  power_bus_en_doneA ,
-  input wire  power_bus_en_doneB ,
-  input wire  power_bus_en_doneC ,
-  input wire  reset_irq_can_doneA ,
-  input wire  reset_irq_can_doneB ,
-  input wire  reset_irq_can_doneC ,
-  input wire  rstA ,
-  input wire  rstB ,
-  input wire  rstC ,
-  input wire  timeoutrstA ,
-  input wire  timeoutrstB ,
-  input wire  timeoutrstC ,
-  output reg  done_trim_osc_allA ,
-  output reg  done_trim_osc_allB ,
-  output reg  done_trim_osc_allC ,
+  input wire  abort ,
+  input wire  clk ,
+  input wire  end_osc_cnt ,
+  input wire  end_read_can ,
+  input wire  end_write_can ,
+  input wire  end_write_elink ,
+  input wire  irq_can_rec ,
+  input wire  irq_can_tra ,
+  input wire  irq_trim_bus_osc ,
+  input wire  osc_auto_trim_mopshub ,
+  input wire  power_bus_en_done ,
+  input wire  reset_irq_can_done ,
+  input wire  rst ,
+  input wire  start_power_init ,
+  input wire  timeoutrst ,
   output reg  end_can_procA ,
   output reg  end_can_procB ,
   output reg  end_can_procC ,
+  output reg  end_power_initA ,
+  output reg  end_power_initB ,
+  output reg  end_power_initC ,
   output reg  end_trim_busA ,
   output reg  end_trim_busB ,
   output reg  end_trim_busC ,
@@ -180,6 +147,51 @@ parameter Wait_W_SPI =6'd43;
 parameter Wait_W_SPI1 =6'd44;
 parameter ST_MOPS_dbg2 =6'd45;
 parameter Count_gen_dbg =6'd46;
+wire timeoutrstC;
+wire timeoutrstB;
+wire timeoutrstA;
+wire start_power_initC;
+wire start_power_initB;
+wire start_power_initA;
+wire rstC;
+wire rstB;
+wire rstA;
+wire reset_irq_can_doneC;
+wire reset_irq_can_doneB;
+wire reset_irq_can_doneA;
+wire power_bus_en_doneC;
+wire power_bus_en_doneB;
+wire power_bus_en_doneA;
+wire osc_auto_trim_mopshubC;
+wire osc_auto_trim_mopshubB;
+wire osc_auto_trim_mopshubA;
+wire irq_trim_bus_oscC;
+wire irq_trim_bus_oscB;
+wire irq_trim_bus_oscA;
+wire irq_can_traC;
+wire irq_can_traB;
+wire irq_can_traA;
+wire irq_can_recC;
+wire irq_can_recB;
+wire irq_can_recA;
+wire end_write_elinkC;
+wire end_write_elinkB;
+wire end_write_elinkA;
+wire end_write_canC;
+wire end_write_canB;
+wire end_write_canA;
+wire end_read_canC;
+wire end_read_canB;
+wire end_read_canA;
+wire end_osc_cntC;
+wire end_osc_cntB;
+wire end_osc_cntA;
+wire clkC;
+wire clkB;
+wire clkA;
+wire abortC;
+wire abortB;
+wire abortA;
 reg  [5:0] current_stateA ;
 reg  [5:0] next_stateA ;
 reg  [5:0] current_stateB ;
@@ -187,12 +199,12 @@ reg  [5:0] next_stateB ;
 reg  [5:0] current_stateC ;
 reg  [5:0] next_stateC ;
 
-always @( current_stateA or end_cnt_dbgA or end_osc_cntA or end_read_canA or end_write_canA or end_write_elinkA or irq_can_recA or irq_can_traA or irq_trim_bus_oscA or irq_trim_oscA or osc_auto_trim_mopshubA or power_bus_en_doneA or reset_irq_can_doneA or rstA )
+always @( current_stateA or end_osc_cntA or end_read_canA or end_write_canA or end_write_elinkA or irq_can_recA or irq_can_traA or irq_trim_bus_oscA or osc_auto_trim_mopshubA or power_bus_en_doneA or reset_irq_can_doneA or rstA or start_power_initA )
   begin : next_state_block_procA
     case (current_stateA)
       waittoact : 
         begin
-          if (irq_trim_oscA==1)
+          if (start_power_initA==1)
             next_stateA =  Check_Trim;
           else
             if (irq_trim_bus_oscA==1)
@@ -234,7 +246,7 @@ always @( current_stateA or end_cnt_dbgA or end_osc_cntA or end_read_canA or end
         end
       Break_Loop : 
         begin
-          if (end_osc_cntA==1|end_cnt_dbgA==1)
+          if (end_osc_cntA==1)
             next_stateA =  ST_CountRst;
           else
             next_stateA =  Count_gen_dbg;
@@ -347,7 +359,7 @@ always @( current_stateA or end_cnt_dbgA or end_osc_cntA or end_read_canA or end
         end
       Break_Loop1 : 
         begin
-          if (end_osc_cntA==1|end_cnt_dbgA==1)
+          if (end_osc_cntA==1)
             next_stateA =  ST_CountRst1;
           else
             next_stateA =  Count_gen_dbg1;
@@ -466,12 +478,12 @@ always @( current_stateA or end_cnt_dbgA or end_osc_cntA or end_read_canA or end
     endcase
   end
 
-always @( current_stateB or end_cnt_dbgB or end_osc_cntB or end_read_canB or end_write_canB or end_write_elinkB or irq_can_recB or irq_can_traB or irq_trim_bus_oscB or irq_trim_oscB or osc_auto_trim_mopshubB or power_bus_en_doneB or reset_irq_can_doneB or rstB )
+always @( current_stateB or end_osc_cntB or end_read_canB or end_write_canB or end_write_elinkB or irq_can_recB or irq_can_traB or irq_trim_bus_oscB or osc_auto_trim_mopshubB or power_bus_en_doneB or reset_irq_can_doneB or rstB or start_power_initB )
   begin : next_state_block_procB
     case (current_stateB)
       waittoact : 
         begin
-          if (irq_trim_oscB==1)
+          if (start_power_initB==1)
             next_stateB =  Check_Trim;
           else
             if (irq_trim_bus_oscB==1)
@@ -513,7 +525,7 @@ always @( current_stateB or end_cnt_dbgB or end_osc_cntB or end_read_canB or end
         end
       Break_Loop : 
         begin
-          if (end_osc_cntB==1|end_cnt_dbgB==1)
+          if (end_osc_cntB==1)
             next_stateB =  ST_CountRst;
           else
             next_stateB =  Count_gen_dbg;
@@ -626,7 +638,7 @@ always @( current_stateB or end_cnt_dbgB or end_osc_cntB or end_read_canB or end
         end
       Break_Loop1 : 
         begin
-          if (end_osc_cntB==1|end_cnt_dbgB==1)
+          if (end_osc_cntB==1)
             next_stateB =  ST_CountRst1;
           else
             next_stateB =  Count_gen_dbg1;
@@ -745,12 +757,12 @@ always @( current_stateB or end_cnt_dbgB or end_osc_cntB or end_read_canB or end
     endcase
   end
 
-always @( current_stateC or end_cnt_dbgC or end_osc_cntC or end_read_canC or end_write_canC or end_write_elinkC or irq_can_recC or irq_can_traC or irq_trim_bus_oscC or irq_trim_oscC or osc_auto_trim_mopshubC or power_bus_en_doneC or reset_irq_can_doneC or rstC )
+always @( current_stateC or end_osc_cntC or end_read_canC or end_write_canC or end_write_elinkC or irq_can_recC or irq_can_traC or irq_trim_bus_oscC or osc_auto_trim_mopshubC or power_bus_en_doneC or reset_irq_can_doneC or rstC or start_power_initC )
   begin : next_state_block_procC
     case (current_stateC)
       waittoact : 
         begin
-          if (irq_trim_oscC==1)
+          if (start_power_initC==1)
             next_stateC =  Check_Trim;
           else
             if (irq_trim_bus_oscC==1)
@@ -792,7 +804,7 @@ always @( current_stateC or end_cnt_dbgC or end_osc_cntC or end_read_canC or end
         end
       Break_Loop : 
         begin
-          if (end_osc_cntC==1|end_cnt_dbgC==1)
+          if (end_osc_cntC==1)
             next_stateC =  ST_CountRst;
           else
             next_stateC =  Count_gen_dbg;
@@ -905,7 +917,7 @@ always @( current_stateC or end_cnt_dbgC or end_osc_cntC or end_read_canC or end
         end
       Break_Loop1 : 
         begin
-          if (end_osc_cntC==1|end_cnt_dbgC==1)
+          if (end_osc_cntC==1)
             next_stateC =  ST_CountRst1;
           else
             next_stateC =  Count_gen_dbg1;
@@ -1026,8 +1038,8 @@ always @( current_stateC or end_cnt_dbgC or end_osc_cntC or end_read_canC or end
 
 always @( current_stateA )
   begin : output_block_procA
-    done_trim_osc_allA =  0;
     end_can_procA =  0;
+    end_power_initA =  0;
     end_trim_busA =  0;
     entimeout_trimA =  1;
     ext_counter_genA =  0;
@@ -1119,7 +1131,7 @@ always @( current_stateA )
         end
       ST_Done_Trim : 
         begin
-          done_trim_osc_allA =  1;
+          end_power_initA =  1;
         end
       ST_Skip_Bus1 : 
         begin
@@ -1155,7 +1167,7 @@ always @( current_stateA )
         end
       ST_Done_Trim1 : 
         begin
-          done_trim_osc_allA =  1;
+          end_power_initA =  1;
         end
       Read_Resp1 : 
         begin
@@ -1216,8 +1228,8 @@ always @( current_stateA )
 
 always @( current_stateB )
   begin : output_block_procB
-    done_trim_osc_allB =  0;
     end_can_procB =  0;
+    end_power_initB =  0;
     end_trim_busB =  0;
     entimeout_trimB =  1;
     ext_counter_genB =  0;
@@ -1309,7 +1321,7 @@ always @( current_stateB )
         end
       ST_Done_Trim : 
         begin
-          done_trim_osc_allB =  1;
+          end_power_initB =  1;
         end
       ST_Skip_Bus1 : 
         begin
@@ -1345,7 +1357,7 @@ always @( current_stateB )
         end
       ST_Done_Trim1 : 
         begin
-          done_trim_osc_allB =  1;
+          end_power_initB =  1;
         end
       Read_Resp1 : 
         begin
@@ -1406,8 +1418,8 @@ always @( current_stateB )
 
 always @( current_stateC )
   begin : output_block_procC
-    done_trim_osc_allC =  0;
     end_can_procC =  0;
+    end_power_initC =  0;
     end_trim_busC =  0;
     entimeout_trimC =  1;
     ext_counter_genC =  0;
@@ -1499,7 +1511,7 @@ always @( current_stateC )
         end
       ST_Done_Trim : 
         begin
-          done_trim_osc_allC =  1;
+          end_power_initC =  1;
         end
       ST_Skip_Bus1 : 
         begin
@@ -1535,7 +1547,7 @@ always @( current_stateC )
         end
       ST_Done_Trim1 : 
         begin
-          done_trim_osc_allC =  1;
+          end_power_initC =  1;
         end
       Read_Resp1 : 
         begin
@@ -1665,5 +1677,110 @@ always @( posedge clkC or negedge rstC )
             end
       end
   end
+
+fanout abortFanout (
+    .in(abort),
+    .outA(abortA),
+    .outB(abortB),
+    .outC(abortC)
+    );
+
+fanout clkFanout (
+    .in(clk),
+    .outA(clkA),
+    .outB(clkB),
+    .outC(clkC)
+    );
+
+fanout end_osc_cntFanout (
+    .in(end_osc_cnt),
+    .outA(end_osc_cntA),
+    .outB(end_osc_cntB),
+    .outC(end_osc_cntC)
+    );
+
+fanout end_read_canFanout (
+    .in(end_read_can),
+    .outA(end_read_canA),
+    .outB(end_read_canB),
+    .outC(end_read_canC)
+    );
+
+fanout end_write_canFanout (
+    .in(end_write_can),
+    .outA(end_write_canA),
+    .outB(end_write_canB),
+    .outC(end_write_canC)
+    );
+
+fanout end_write_elinkFanout (
+    .in(end_write_elink),
+    .outA(end_write_elinkA),
+    .outB(end_write_elinkB),
+    .outC(end_write_elinkC)
+    );
+
+fanout irq_can_recFanout (
+    .in(irq_can_rec),
+    .outA(irq_can_recA),
+    .outB(irq_can_recB),
+    .outC(irq_can_recC)
+    );
+
+fanout irq_can_traFanout (
+    .in(irq_can_tra),
+    .outA(irq_can_traA),
+    .outB(irq_can_traB),
+    .outC(irq_can_traC)
+    );
+
+fanout irq_trim_bus_oscFanout (
+    .in(irq_trim_bus_osc),
+    .outA(irq_trim_bus_oscA),
+    .outB(irq_trim_bus_oscB),
+    .outC(irq_trim_bus_oscC)
+    );
+
+fanout osc_auto_trim_mopshubFanout (
+    .in(osc_auto_trim_mopshub),
+    .outA(osc_auto_trim_mopshubA),
+    .outB(osc_auto_trim_mopshubB),
+    .outC(osc_auto_trim_mopshubC)
+    );
+
+fanout power_bus_en_doneFanout (
+    .in(power_bus_en_done),
+    .outA(power_bus_en_doneA),
+    .outB(power_bus_en_doneB),
+    .outC(power_bus_en_doneC)
+    );
+
+fanout reset_irq_can_doneFanout (
+    .in(reset_irq_can_done),
+    .outA(reset_irq_can_doneA),
+    .outB(reset_irq_can_doneB),
+    .outC(reset_irq_can_doneC)
+    );
+
+fanout rstFanout (
+    .in(rst),
+    .outA(rstA),
+    .outB(rstB),
+    .outC(rstC)
+    );
+
+fanout start_power_initFanout (
+    .in(start_power_init),
+    .outA(start_power_initA),
+    .outB(start_power_initB),
+    .outC(start_power_initC)
+    );
+
+fanout timeoutrstFanout (
+    .in(timeoutrst),
+    .outA(timeoutrstA),
+    .outB(timeoutrstB),
+    .outC(timeoutrstC)
+    );
 endmodule
 

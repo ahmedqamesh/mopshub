@@ -6,60 +6,34 @@
  *                                                                                                  *
  * user    : lucas                                                                                  *
  * host    : DESKTOP-BFDSFP2                                                                        *
- * date    : 03/04/2022 20:08:32                                                                    *
+ * date    : 16/08/2022 12:58:13                                                                    *
  *                                                                                                  *
- * workdir : /mnt/c/Users/Lucas/Desktop/mopshub_triplication/triplicated/mopshub_top_canakari_ftrim/hdl *
- * cmd     : /mnt/c/Users/Lucas/Desktop/mopshub_triplication/tmrg-master/bin/tmrg -vv -c tmrg.cfg   *
+ * workdir : /mnt/c/Users/Lucas/Desktop/mopshub_triplication/mopshub_top_board_canakari_ftrim/hdl   *
+ * cmd     : /mnt/c/Users/Lucas/Desktop/mopshub_triplication/tmrg-master/bin/tmrg -c tmrg.cfg -vvv  *
  * tmrg rev:                                                                                        *
  *                                                                                                  *
  * src file: can_interface_sm_fsm.v                                                                 *
  *           Git SHA           : File not in git repository!                                        *
- *           Modification time : 2022-03-28 21:55:50                                                *
- *           File Size         : 16718                                                              *
- *           MD5 hash          : 3d3277ff9b467294dab808130f034bf2                                   *
+ *           Modification time : 2022-08-16 09:51:05.990170                                         *
+ *           File Size         : 16766                                                              *
+ *           MD5 hash          : 066a0348c3eb7e8edc6f1e756a884829                                   *
  *                                                                                                  *
  ****************************************************************************************************/
 
 module can_interface_SMTMR(
-  input wire  abortA ,
-  input wire  abortB ,
-  input wire  abortC ,
-  input wire  clkA ,
-  input wire  clkB ,
-  input wire  clkC ,
-  input wire  end_can_procA ,
-  input wire  end_can_procB ,
-  input wire  end_can_procC ,
-  input wire  end_cntA ,
-  input wire  end_cntB ,
-  input wire  end_cntC ,
-  input wire  initA ,
-  input wire  initB ,
-  input wire  initC ,
-  input wire  reset_irq_canA ,
-  input wire  reset_irq_canB ,
-  input wire  reset_irq_canC ,
-  input wire  reset_irq_can_allA ,
-  input wire  reset_irq_can_allB ,
-  input wire  reset_irq_can_allC ,
-  input wire  rstA ,
-  input wire  rstB ,
-  input wire  rstC ,
-  input wire  send_mesA ,
-  input wire  send_mesB ,
-  input wire  send_mesC ,
-  input wire  start_osc_trimA ,
-  input wire  start_osc_trimB ,
-  input wire  start_osc_trimC ,
-  input wire  start_readA ,
-  input wire  start_readB ,
-  input wire  start_readC ,
-  input wire  start_writeA ,
-  input wire  start_writeB ,
-  input wire  start_writeC ,
-  input wire  timeoutrstA ,
-  input wire  timeoutrstB ,
-  input wire  timeoutrstC ,
+  input wire  abort ,
+  input wire  clk ,
+  input wire  end_can_proc ,
+  input wire  end_cnt ,
+  input wire  init ,
+  input wire  reset_irq_can ,
+  input wire  reset_irq_can_all ,
+  input wire  rst ,
+  input wire  send_mes ,
+  input wire  start_osc_trim ,
+  input wire  start_read ,
+  input wire  start_write ,
+  input wire  timeoutrst ,
   output reg [4:0] addrA ,
   output reg [4:0] addrB ,
   output reg [4:0] addrC ,
@@ -105,9 +79,7 @@ module can_interface_SMTMR(
   output reg  set_bus_idA ,
   output reg  set_bus_idB ,
   output reg  set_bus_idC ,
-  output reg  start_cntA ,
-  output reg  start_cntB ,
-  output reg  start_cntC ,
+  output reg  start_cnt ,
   output reg  start_initA ,
   output reg  start_initB ,
   output reg  start_initC ,
@@ -171,6 +143,44 @@ parameter set_d4 =6'd46;
 parameter set_d2 =6'd47;
 parameter Set_bus_Id2 =6'd48;
 parameter Wait_bits =6'd49;
+wire timeoutrstC;
+wire timeoutrstB;
+wire timeoutrstA;
+wire start_writeC;
+wire start_writeB;
+wire start_writeA;
+wire start_readC;
+wire start_readB;
+wire start_readA;
+wire start_osc_trimC;
+wire start_osc_trimB;
+wire start_osc_trimA;
+wire send_mesC;
+wire send_mesB;
+wire send_mesA;
+wire rstC;
+wire rstB;
+wire rstA;
+wire reset_irq_can_allC;
+wire reset_irq_can_allB;
+wire reset_irq_can_allA;
+wire reset_irq_canC;
+wire reset_irq_canB;
+wire reset_irq_canA;
+wire initC;
+wire initB;
+wire initA;
+wire end_cntC;
+wire end_cntB;
+wire end_cntA;
+wire clkC;
+wire clkB;
+wire clkA;
+wire abortC;
+wire abortB;
+wire abortA;
+wor current_stateTmrError;
+wire [5:0] current_state;
 reg  [5:0] current_stateA ;
 reg  [5:0] next_stateA ;
 reg  [5:0] current_stateB ;
@@ -991,926 +1001,310 @@ always @( csm_timeoutC or current_stateC or end_cntC or initC or reset_irq_canC 
     endcase
   end
 
-always @( current_stateA )
-  begin : output_block_procA
-    addrA =  5'b11111;
-    cs_canA =  0;
-    en_rec_regA =  0;
-    end_initA =  0;
-    end_osc_trimA =  0;
-    end_readA =  0;
-    end_writeA =  0;
-    initiA =  0;
-    readA =  1;
-    reset_all_doneA =  0;
-    reset_irq_can_doneA =  0;
-    reset_sig_canA =  0;
-    reset_sig_can_allA =  0;
-    rst_cntA =  0;
-    set_bus_idA =  0;
-    start_cntA =  0;
-    start_initA =  0;
-    trimA =  0;
-    writeA =  1;
-    case (current_stateA)
+always @( current_state )
+  begin : output_block_proc
+    addr =  5'b11111;
+    cs_can =  0;
+    en_rec_reg =  0;
+    end_init =  0;
+    end_osc_trim =  0;
+    end_read =  0;
+    end_write =  0;
+    initi =  0;
+    read =  1;
+    reset_all_done =  0;
+    reset_irq_can_done =  0;
+    reset_sig_can =  0;
+    reset_sig_can_all =  0;
+    rst_cnt =  0;
+    set_bus_id =  0;
+    start_cnt =  0;
+    start_init =  0;
+    trim =  0;
+    write =  1;
+    case (current_state)
       prescalar : 
         begin
-          initiA =  1;
-          addrA =  5'b01111;
-          writeA =  0;
-          cs_canA =  1;
+          initi =  1;
+          addr =  5'b01111;
+          write =  0;
+          cs_can =  1;
         end
       general : 
         begin
-          initiA =  1;
-          addrA =  5'b01110;
-          writeA =  0;
-          cs_canA =  1;
+          initi =  1;
+          addr =  5'b01110;
+          write =  0;
+          cs_can =  1;
         end
       encom : 
         begin
-          initiA =  1;
-          addrA =  5'b10010;
-          writeA =  0;
-          cs_canA =  1;
+          initi =  1;
+          addr =  5'b10010;
+          write =  0;
+          cs_can =  1;
         end
       accmask : 
         begin
-          initiA =  1;
-          addrA =  5'b10001;
-          writeA =  0;
-          cs_canA =  1;
+          initi =  1;
+          addr =  5'b10001;
+          write =  0;
+          cs_can =  1;
         end
       accmask1 : 
         begin
-          initiA =  1;
-          addrA =  5'b10000;
-          writeA =  0;
-          cs_canA =  1;
+          initi =  1;
+          addr =  5'b10000;
+          write =  0;
+          cs_can =  1;
         end
       idr3 : 
         begin
-          addrA =  5'b00101;
-          initiA =  1;
-          writeA =  0;
-          cs_canA =  1;
+          addr =  5'b00101;
+          initi =  1;
+          write =  0;
+          cs_can =  1;
         end
       idr4 : 
         begin
-          initiA =  1;
-          addrA =  5'b00100;
-          writeA =  0;
-          cs_canA =  1;
+          initi =  1;
+          addr =  5'b00100;
+          write =  0;
+          cs_can =  1;
         end
       endinit : 
         begin
-          end_initA =  1;
+          end_init =  1;
         end
       start : 
         begin
-          start_initA =  1;
+          start_init =  1;
         end
       RB1 : 
         begin
-          readA =  0;
-          addrA =  5'b00011;
-          cs_canA =  1;
+          read =  0;
+          addr =  5'b00011;
+          cs_can =  1;
         end
       store_RB1 : 
         begin
-          readA =  0;
-          addrA =  5'b00011;
-          cs_canA =  1;
-          en_rec_regA =  1;
+          read =  0;
+          addr =  5'b00011;
+          cs_can =  1;
+          en_rec_reg =  1;
         end
       store_idr1 : 
         begin
-          readA =  0;
-          addrA =  5'b00101;
-          cs_canA =  1;
-          en_rec_regA =  1;
+          read =  0;
+          addr =  5'b00101;
+          cs_can =  1;
+          en_rec_reg =  1;
         end
       idr1 : 
         begin
-          readA =  0;
-          addrA =  5'b00101;
-          cs_canA =  1;
+          read =  0;
+          addr =  5'b00101;
+          cs_can =  1;
         end
       RB2 : 
         begin
-          readA =  0;
-          addrA =  5'b00010;
-          cs_canA =  1;
+          read =  0;
+          addr =  5'b00010;
+          cs_can =  1;
         end
       store_RB2 : 
         begin
-          readA =  0;
-          addrA =  5'b00010;
-          cs_canA =  1;
-          en_rec_regA =  1;
+          read =  0;
+          addr =  5'b00010;
+          cs_can =  1;
+          en_rec_reg =  1;
         end
       RB3 : 
         begin
-          readA =  0;
-          addrA =  5'b00001;
-          cs_canA =  1;
+          read =  0;
+          addr =  5'b00001;
+          cs_can =  1;
         end
       RB4 : 
         begin
-          readA =  0;
-          addrA =  5'b00000;
-          cs_canA =  1;
+          read =  0;
+          addr =  5'b00000;
+          cs_can =  1;
         end
       store_RB3 : 
         begin
-          readA =  0;
-          addrA =  5'b00001;
-          cs_canA =  1;
-          en_rec_regA =  1;
+          read =  0;
+          addr =  5'b00001;
+          cs_can =  1;
+          en_rec_reg =  1;
         end
       end_readst : 
         begin
-          end_readA =  1;
-          addrA =  5'b11111;
+          end_read =  1;
+          addr =  5'b11111;
         end
       store_RB4 : 
         begin
-          readA =  0;
-          addrA =  5'b00000;
-          cs_canA =  1;
-          en_rec_regA =  1;
+          read =  0;
+          addr =  5'b00000;
+          cs_can =  1;
+          en_rec_reg =  1;
         end
       set_d3 : 
         begin
-          writeA =  0;
-          addrA =  5'b01000;
-          cs_canA =  1;
-          set_bus_idA =  1;
+          write =  0;
+          addr =  5'b01000;
+          cs_can =  1;
+          set_bus_id =  1;
         end
       set_d1 : 
         begin
-          writeA =  0;
-          addrA =  5'b01010;
-          cs_canA =  1;
-          set_bus_idA =  1;
+          write =  0;
+          addr =  5'b01010;
+          cs_can =  1;
+          set_bus_id =  1;
         end
       set_gen : 
         begin
-          writeA =  0;
-          addrA =  5'b01110;
-          cs_canA =  1;
-          set_bus_idA =  1;
+          write =  0;
+          addr =  5'b01110;
+          cs_can =  1;
+          set_bus_id =  1;
         end
       rstirq : 
         begin
-          writeA =  0;
-          reset_sig_canA =  1;
-          cs_canA =  1;
-          addrA =  5'b10010;
-          reset_irq_can_doneA =  1;
+          write =  0;
+          reset_sig_can =  1;
+          cs_can =  1;
+          addr =  5'b10010;
+          reset_irq_can_done =  1;
         end
       general2 : 
         begin
-          writeA =  0;
-          reset_sig_canA =  1;
-          cs_canA =  1;
-          addrA =  5'b01110;
+          write =  0;
+          reset_sig_can =  1;
+          cs_can =  1;
+          addr =  5'b01110;
         end
       ST_CountRst : 
         begin
-          rst_cntA =  1;
+          rst_cnt =  1;
         end
       rstirq1 : 
         begin
-          writeA =  0;
-          cs_canA =  1;
-          addrA =  5'b10010;
-          reset_sig_canA =  1;
-          reset_sig_can_allA =  1;
+          write =  0;
+          cs_can =  1;
+          addr =  5'b10010;
+          reset_sig_can =  1;
+          reset_sig_can_all =  1;
         end
       general3 : 
         begin
-          writeA =  0;
-          cs_canA =  1;
-          addrA =  5'b01110;
-          reset_sig_canA =  1;
-          reset_sig_can_allA =  1;
+          write =  0;
+          cs_can =  1;
+          addr =  5'b01110;
+          reset_sig_can =  1;
+          reset_sig_can_all =  1;
         end
       start1 : 
         begin
-          start_cntA =  1;
+          start_cnt =  1;
         end
       ST_CountRst1 : 
         begin
-          rst_cntA =  1;
-          reset_all_doneA =  1;
+          rst_cnt =  1;
+          reset_all_done =  1;
         end
       ST_Start_Cnt : 
         begin
-          start_cntA =  1;
+          start_cnt =  1;
         end
       finishtrim : 
         begin
-          end_osc_trimA =  1;
+          end_osc_trim =  1;
         end
       general4 : 
         begin
-          writeA =  0;
-          trimA =  1;
-          addrA =  5'b01110;
-          cs_canA =  1;
+          write =  0;
+          trim =  1;
+          addr =  5'b01110;
+          cs_can =  1;
         end
       id2 : 
         begin
-          writeA =  0;
-          trimA =  1;
-          addrA =  5'b01100;
-          cs_canA =  1;
+          write =  0;
+          trim =  1;
+          addr =  5'b01100;
+          cs_can =  1;
         end
       d5 : 
         begin
-          writeA =  0;
-          trimA =  1;
-          addrA =  5'b01010;
-          cs_canA =  1;
+          write =  0;
+          trim =  1;
+          addr =  5'b01010;
+          cs_can =  1;
         end
       d6 : 
         begin
-          writeA =  0;
-          trimA =  1;
-          addrA =  5'b01001;
-          cs_canA =  1;
+          write =  0;
+          trim =  1;
+          addr =  5'b01001;
+          cs_can =  1;
         end
       d7 : 
         begin
-          writeA =  0;
-          trimA =  1;
-          addrA =  5'b01000;
-          cs_canA =  1;
+          write =  0;
+          trim =  1;
+          addr =  5'b01000;
+          cs_can =  1;
         end
       d8 : 
         begin
-          writeA =  0;
-          trimA =  1;
-          addrA =  5'b00111;
-          end_writeA =  1;
-          cs_canA =  1;
+          write =  0;
+          trim =  1;
+          addr =  5'b00111;
+          end_write =  1;
+          cs_can =  1;
         end
       tc1 : 
         begin
-          writeA =  0;
-          trimA =  1;
-          addrA =  5'b01101;
-          cs_canA =  1;
+          write =  0;
+          trim =  1;
+          addr =  5'b01101;
+          cs_can =  1;
         end
       set_id1 : 
         begin
-          writeA =  0;
-          addrA =  5'b01100;
-          cs_canA =  1;
-          set_bus_idA =  1;
+          write =  0;
+          addr =  5'b01100;
+          cs_can =  1;
+          set_bus_id =  1;
         end
       set_tc : 
         begin
-          writeA =  0;
-          addrA =  5'b01101;
-          cs_canA =  1;
-          set_bus_idA =  1;
+          write =  0;
+          addr =  5'b01101;
+          cs_can =  1;
+          set_bus_id =  1;
         end
       set_d4 : 
         begin
-          writeA =  0;
-          addrA =  5'b00111;
-          cs_canA =  1;
-          end_writeA =  1;
-          set_bus_idA =  1;
+          write =  0;
+          addr =  5'b00111;
+          cs_can =  1;
+          end_write =  1;
+          set_bus_id =  1;
         end
       set_d2 : 
         begin
-          writeA =  0;
-          addrA =  5'b01001;
-          cs_canA =  1;
-          set_bus_idA =  1;
+          write =  0;
+          addr =  5'b01001;
+          cs_can =  1;
+          set_bus_id =  1;
         end
       Set_bus_Id2 : 
         begin
-          set_bus_idA =  1;
-        end
-    endcase
-  end
-
-always @( current_stateB )
-  begin : output_block_procB
-    addrB =  5'b11111;
-    cs_canB =  0;
-    en_rec_regB =  0;
-    end_initB =  0;
-    end_osc_trimB =  0;
-    end_readB =  0;
-    end_writeB =  0;
-    initiB =  0;
-    readB =  1;
-    reset_all_doneB =  0;
-    reset_irq_can_doneB =  0;
-    reset_sig_canB =  0;
-    reset_sig_can_allB =  0;
-    rst_cntB =  0;
-    set_bus_idB =  0;
-    start_cntB =  0;
-    start_initB =  0;
-    trimB =  0;
-    writeB =  1;
-    case (current_stateB)
-      prescalar : 
-        begin
-          initiB =  1;
-          addrB =  5'b01111;
-          writeB =  0;
-          cs_canB =  1;
-        end
-      general : 
-        begin
-          initiB =  1;
-          addrB =  5'b01110;
-          writeB =  0;
-          cs_canB =  1;
-        end
-      encom : 
-        begin
-          initiB =  1;
-          addrB =  5'b10010;
-          writeB =  0;
-          cs_canB =  1;
-        end
-      accmask : 
-        begin
-          initiB =  1;
-          addrB =  5'b10001;
-          writeB =  0;
-          cs_canB =  1;
-        end
-      accmask1 : 
-        begin
-          initiB =  1;
-          addrB =  5'b10000;
-          writeB =  0;
-          cs_canB =  1;
-        end
-      idr3 : 
-        begin
-          addrB =  5'b00101;
-          initiB =  1;
-          writeB =  0;
-          cs_canB =  1;
-        end
-      idr4 : 
-        begin
-          initiB =  1;
-          addrB =  5'b00100;
-          writeB =  0;
-          cs_canB =  1;
-        end
-      endinit : 
-        begin
-          end_initB =  1;
-        end
-      start : 
-        begin
-          start_initB =  1;
-        end
-      RB1 : 
-        begin
-          readB =  0;
-          addrB =  5'b00011;
-          cs_canB =  1;
-        end
-      store_RB1 : 
-        begin
-          readB =  0;
-          addrB =  5'b00011;
-          cs_canB =  1;
-          en_rec_regB =  1;
-        end
-      store_idr1 : 
-        begin
-          readB =  0;
-          addrB =  5'b00101;
-          cs_canB =  1;
-          en_rec_regB =  1;
-        end
-      idr1 : 
-        begin
-          readB =  0;
-          addrB =  5'b00101;
-          cs_canB =  1;
-        end
-      RB2 : 
-        begin
-          readB =  0;
-          addrB =  5'b00010;
-          cs_canB =  1;
-        end
-      store_RB2 : 
-        begin
-          readB =  0;
-          addrB =  5'b00010;
-          cs_canB =  1;
-          en_rec_regB =  1;
-        end
-      RB3 : 
-        begin
-          readB =  0;
-          addrB =  5'b00001;
-          cs_canB =  1;
-        end
-      RB4 : 
-        begin
-          readB =  0;
-          addrB =  5'b00000;
-          cs_canB =  1;
-        end
-      store_RB3 : 
-        begin
-          readB =  0;
-          addrB =  5'b00001;
-          cs_canB =  1;
-          en_rec_regB =  1;
-        end
-      end_readst : 
-        begin
-          end_readB =  1;
-          addrB =  5'b11111;
-        end
-      store_RB4 : 
-        begin
-          readB =  0;
-          addrB =  5'b00000;
-          cs_canB =  1;
-          en_rec_regB =  1;
-        end
-      set_d3 : 
-        begin
-          writeB =  0;
-          addrB =  5'b01000;
-          cs_canB =  1;
-          set_bus_idB =  1;
-        end
-      set_d1 : 
-        begin
-          writeB =  0;
-          addrB =  5'b01010;
-          cs_canB =  1;
-          set_bus_idB =  1;
-        end
-      set_gen : 
-        begin
-          writeB =  0;
-          addrB =  5'b01110;
-          cs_canB =  1;
-          set_bus_idB =  1;
-        end
-      rstirq : 
-        begin
-          writeB =  0;
-          reset_sig_canB =  1;
-          cs_canB =  1;
-          addrB =  5'b10010;
-          reset_irq_can_doneB =  1;
-        end
-      general2 : 
-        begin
-          writeB =  0;
-          reset_sig_canB =  1;
-          cs_canB =  1;
-          addrB =  5'b01110;
-        end
-      ST_CountRst : 
-        begin
-          rst_cntB =  1;
-        end
-      rstirq1 : 
-        begin
-          writeB =  0;
-          cs_canB =  1;
-          addrB =  5'b10010;
-          reset_sig_canB =  1;
-          reset_sig_can_allB =  1;
-        end
-      general3 : 
-        begin
-          writeB =  0;
-          cs_canB =  1;
-          addrB =  5'b01110;
-          reset_sig_canB =  1;
-          reset_sig_can_allB =  1;
-        end
-      start1 : 
-        begin
-          start_cntB =  1;
-        end
-      ST_CountRst1 : 
-        begin
-          rst_cntB =  1;
-          reset_all_doneB =  1;
-        end
-      ST_Start_Cnt : 
-        begin
-          start_cntB =  1;
-        end
-      finishtrim : 
-        begin
-          end_osc_trimB =  1;
-        end
-      general4 : 
-        begin
-          writeB =  0;
-          trimB =  1;
-          addrB =  5'b01110;
-          cs_canB =  1;
-        end
-      id2 : 
-        begin
-          writeB =  0;
-          trimB =  1;
-          addrB =  5'b01100;
-          cs_canB =  1;
-        end
-      d5 : 
-        begin
-          writeB =  0;
-          trimB =  1;
-          addrB =  5'b01010;
-          cs_canB =  1;
-        end
-      d6 : 
-        begin
-          writeB =  0;
-          trimB =  1;
-          addrB =  5'b01001;
-          cs_canB =  1;
-        end
-      d7 : 
-        begin
-          writeB =  0;
-          trimB =  1;
-          addrB =  5'b01000;
-          cs_canB =  1;
-        end
-      d8 : 
-        begin
-          writeB =  0;
-          trimB =  1;
-          addrB =  5'b00111;
-          end_writeB =  1;
-          cs_canB =  1;
-        end
-      tc1 : 
-        begin
-          writeB =  0;
-          trimB =  1;
-          addrB =  5'b01101;
-          cs_canB =  1;
-        end
-      set_id1 : 
-        begin
-          writeB =  0;
-          addrB =  5'b01100;
-          cs_canB =  1;
-          set_bus_idB =  1;
-        end
-      set_tc : 
-        begin
-          writeB =  0;
-          addrB =  5'b01101;
-          cs_canB =  1;
-          set_bus_idB =  1;
-        end
-      set_d4 : 
-        begin
-          writeB =  0;
-          addrB =  5'b00111;
-          cs_canB =  1;
-          end_writeB =  1;
-          set_bus_idB =  1;
-        end
-      set_d2 : 
-        begin
-          writeB =  0;
-          addrB =  5'b01001;
-          cs_canB =  1;
-          set_bus_idB =  1;
-        end
-      Set_bus_Id2 : 
-        begin
-          set_bus_idB =  1;
-        end
-    endcase
-  end
-
-always @( current_stateC )
-  begin : output_block_procC
-    addrC =  5'b11111;
-    cs_canC =  0;
-    en_rec_regC =  0;
-    end_initC =  0;
-    end_osc_trimC =  0;
-    end_readC =  0;
-    end_writeC =  0;
-    initiC =  0;
-    readC =  1;
-    reset_all_doneC =  0;
-    reset_irq_can_doneC =  0;
-    reset_sig_canC =  0;
-    reset_sig_can_allC =  0;
-    rst_cntC =  0;
-    set_bus_idC =  0;
-    start_cntC =  0;
-    start_initC =  0;
-    trimC =  0;
-    writeC =  1;
-    case (current_stateC)
-      prescalar : 
-        begin
-          initiC =  1;
-          addrC =  5'b01111;
-          writeC =  0;
-          cs_canC =  1;
-        end
-      general : 
-        begin
-          initiC =  1;
-          addrC =  5'b01110;
-          writeC =  0;
-          cs_canC =  1;
-        end
-      encom : 
-        begin
-          initiC =  1;
-          addrC =  5'b10010;
-          writeC =  0;
-          cs_canC =  1;
-        end
-      accmask : 
-        begin
-          initiC =  1;
-          addrC =  5'b10001;
-          writeC =  0;
-          cs_canC =  1;
-        end
-      accmask1 : 
-        begin
-          initiC =  1;
-          addrC =  5'b10000;
-          writeC =  0;
-          cs_canC =  1;
-        end
-      idr3 : 
-        begin
-          addrC =  5'b00101;
-          initiC =  1;
-          writeC =  0;
-          cs_canC =  1;
-        end
-      idr4 : 
-        begin
-          initiC =  1;
-          addrC =  5'b00100;
-          writeC =  0;
-          cs_canC =  1;
-        end
-      endinit : 
-        begin
-          end_initC =  1;
-        end
-      start : 
-        begin
-          start_initC =  1;
-        end
-      RB1 : 
-        begin
-          readC =  0;
-          addrC =  5'b00011;
-          cs_canC =  1;
-        end
-      store_RB1 : 
-        begin
-          readC =  0;
-          addrC =  5'b00011;
-          cs_canC =  1;
-          en_rec_regC =  1;
-        end
-      store_idr1 : 
-        begin
-          readC =  0;
-          addrC =  5'b00101;
-          cs_canC =  1;
-          en_rec_regC =  1;
-        end
-      idr1 : 
-        begin
-          readC =  0;
-          addrC =  5'b00101;
-          cs_canC =  1;
-        end
-      RB2 : 
-        begin
-          readC =  0;
-          addrC =  5'b00010;
-          cs_canC =  1;
-        end
-      store_RB2 : 
-        begin
-          readC =  0;
-          addrC =  5'b00010;
-          cs_canC =  1;
-          en_rec_regC =  1;
-        end
-      RB3 : 
-        begin
-          readC =  0;
-          addrC =  5'b00001;
-          cs_canC =  1;
-        end
-      RB4 : 
-        begin
-          readC =  0;
-          addrC =  5'b00000;
-          cs_canC =  1;
-        end
-      store_RB3 : 
-        begin
-          readC =  0;
-          addrC =  5'b00001;
-          cs_canC =  1;
-          en_rec_regC =  1;
-        end
-      end_readst : 
-        begin
-          end_readC =  1;
-          addrC =  5'b11111;
-        end
-      store_RB4 : 
-        begin
-          readC =  0;
-          addrC =  5'b00000;
-          cs_canC =  1;
-          en_rec_regC =  1;
-        end
-      set_d3 : 
-        begin
-          writeC =  0;
-          addrC =  5'b01000;
-          cs_canC =  1;
-          set_bus_idC =  1;
-        end
-      set_d1 : 
-        begin
-          writeC =  0;
-          addrC =  5'b01010;
-          cs_canC =  1;
-          set_bus_idC =  1;
-        end
-      set_gen : 
-        begin
-          writeC =  0;
-          addrC =  5'b01110;
-          cs_canC =  1;
-          set_bus_idC =  1;
-        end
-      rstirq : 
-        begin
-          writeC =  0;
-          reset_sig_canC =  1;
-          cs_canC =  1;
-          addrC =  5'b10010;
-          reset_irq_can_doneC =  1;
-        end
-      general2 : 
-        begin
-          writeC =  0;
-          reset_sig_canC =  1;
-          cs_canC =  1;
-          addrC =  5'b01110;
-        end
-      ST_CountRst : 
-        begin
-          rst_cntC =  1;
-        end
-      rstirq1 : 
-        begin
-          writeC =  0;
-          cs_canC =  1;
-          addrC =  5'b10010;
-          reset_sig_canC =  1;
-          reset_sig_can_allC =  1;
-        end
-      general3 : 
-        begin
-          writeC =  0;
-          cs_canC =  1;
-          addrC =  5'b01110;
-          reset_sig_canC =  1;
-          reset_sig_can_allC =  1;
-        end
-      start1 : 
-        begin
-          start_cntC =  1;
-        end
-      ST_CountRst1 : 
-        begin
-          rst_cntC =  1;
-          reset_all_doneC =  1;
-        end
-      ST_Start_Cnt : 
-        begin
-          start_cntC =  1;
-        end
-      finishtrim : 
-        begin
-          end_osc_trimC =  1;
-        end
-      general4 : 
-        begin
-          writeC =  0;
-          trimC =  1;
-          addrC =  5'b01110;
-          cs_canC =  1;
-        end
-      id2 : 
-        begin
-          writeC =  0;
-          trimC =  1;
-          addrC =  5'b01100;
-          cs_canC =  1;
-        end
-      d5 : 
-        begin
-          writeC =  0;
-          trimC =  1;
-          addrC =  5'b01010;
-          cs_canC =  1;
-        end
-      d6 : 
-        begin
-          writeC =  0;
-          trimC =  1;
-          addrC =  5'b01001;
-          cs_canC =  1;
-        end
-      d7 : 
-        begin
-          writeC =  0;
-          trimC =  1;
-          addrC =  5'b01000;
-          cs_canC =  1;
-        end
-      d8 : 
-        begin
-          writeC =  0;
-          trimC =  1;
-          addrC =  5'b00111;
-          end_writeC =  1;
-          cs_canC =  1;
-        end
-      tc1 : 
-        begin
-          writeC =  0;
-          trimC =  1;
-          addrC =  5'b01101;
-          cs_canC =  1;
-        end
-      set_id1 : 
-        begin
-          writeC =  0;
-          addrC =  5'b01100;
-          cs_canC =  1;
-          set_bus_idC =  1;
-        end
-      set_tc : 
-        begin
-          writeC =  0;
-          addrC =  5'b01101;
-          cs_canC =  1;
-          set_bus_idC =  1;
-        end
-      set_d4 : 
-        begin
-          writeC =  0;
-          addrC =  5'b00111;
-          cs_canC =  1;
-          end_writeC =  1;
-          set_bus_idC =  1;
-        end
-      set_d2 : 
-        begin
-          writeC =  0;
-          addrC =  5'b01001;
-          cs_canC =  1;
-          set_bus_idC =  1;
-        end
-      Set_bus_Id2 : 
-        begin
-          set_bus_idC =  1;
+          set_bus_id =  1;
         end
     endcase
   end
@@ -2085,5 +1479,97 @@ always @( current_stateB )
 
 always @( current_stateC )
   statedebC =  current_stateC;
+
+majorityVoter #(.WIDTH(6)) current_stateVoter (
+    .inA(current_stateA),
+    .inB(current_stateB),
+    .inC(current_stateC),
+    .out(current_state),
+    .tmrErr(current_stateTmrError)
+    );
+
+fanout abortFanout (
+    .in(abort),
+    .outA(abortA),
+    .outB(abortB),
+    .outC(abortC)
+    );
+
+fanout clkFanout (
+    .in(clk),
+    .outA(clkA),
+    .outB(clkB),
+    .outC(clkC)
+    );
+
+fanout end_cntFanout (
+    .in(end_cnt),
+    .outA(end_cntA),
+    .outB(end_cntB),
+    .outC(end_cntC)
+    );
+
+fanout initFanout (
+    .in(init),
+    .outA(initA),
+    .outB(initB),
+    .outC(initC)
+    );
+
+fanout reset_irq_canFanout (
+    .in(reset_irq_can),
+    .outA(reset_irq_canA),
+    .outB(reset_irq_canB),
+    .outC(reset_irq_canC)
+    );
+
+fanout reset_irq_can_allFanout (
+    .in(reset_irq_can_all),
+    .outA(reset_irq_can_allA),
+    .outB(reset_irq_can_allB),
+    .outC(reset_irq_can_allC)
+    );
+
+fanout rstFanout (
+    .in(rst),
+    .outA(rstA),
+    .outB(rstB),
+    .outC(rstC)
+    );
+
+fanout send_mesFanout (
+    .in(send_mes),
+    .outA(send_mesA),
+    .outB(send_mesB),
+    .outC(send_mesC)
+    );
+
+fanout start_osc_trimFanout (
+    .in(start_osc_trim),
+    .outA(start_osc_trimA),
+    .outB(start_osc_trimB),
+    .outC(start_osc_trimC)
+    );
+
+fanout start_readFanout (
+    .in(start_read),
+    .outA(start_readA),
+    .outB(start_readB),
+    .outC(start_readC)
+    );
+
+fanout start_writeFanout (
+    .in(start_write),
+    .outA(start_writeA),
+    .outB(start_writeB),
+    .outC(start_writeC)
+    );
+
+fanout timeoutrstFanout (
+    .in(timeoutrst),
+    .outA(timeoutrstA),
+    .outB(timeoutrstB),
+    .outC(timeoutrstC)
+    );
 endmodule
 

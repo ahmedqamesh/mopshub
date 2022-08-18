@@ -6,52 +6,61 @@
  *                                                                                                  *
  * user    : lucas                                                                                  *
  * host    : DESKTOP-BFDSFP2                                                                        *
- * date    : 03/04/2022 20:08:54                                                                    *
+ * date    : 16/08/2022 12:58:32                                                                    *
  *                                                                                                  *
- * workdir : /mnt/c/Users/Lucas/Desktop/mopshub_triplication/triplicated/mopshub_top_canakari_ftrim/hdl *
- * cmd     : /mnt/c/Users/Lucas/Desktop/mopshub_triplication/tmrg-master/bin/tmrg -vv -c tmrg.cfg   *
+ * workdir : /mnt/c/Users/Lucas/Desktop/mopshub_triplication/mopshub_top_board_canakari_ftrim/hdl   *
+ * cmd     : /mnt/c/Users/Lucas/Desktop/mopshub_triplication/tmrg-master/bin/tmrg -c tmrg.cfg -vvv  *
  * tmrg rev:                                                                                        *
  *                                                                                                  *
  * src file: mux8_Nbit.v                                                                            *
  *           Git SHA           : File not in git repository!                                        *
- *           Modification time : 2022-03-28 18:40:40                                                *
- *           File Size         : 1109                                                               *
- *           MD5 hash          : 1f99770d1fd5d361a197503f44ed89f0                                   *
+ *           Modification time : 2022-08-12 11:17:09                                                *
+ *           File Size         : 1318                                                               *
+ *           MD5 hash          : e50118c52d03321f6891169d9b5da319                                   *
  *                                                                                                  *
  ****************************************************************************************************/
 
 module mux8_NbitTMR(
-  input wire [1:0] data0A ,
-  input wire [1:0] data0B ,
-  input wire [1:0] data0C ,
-  input wire [1:0] data1A ,
-  input wire [1:0] data1B ,
-  input wire [1:0] data1C ,
-  input wire [1:0] data2A ,
-  input wire [1:0] data2B ,
-  input wire [1:0] data2C ,
-  input wire [1:0] data3A ,
-  input wire [1:0] data3B ,
-  input wire [1:0] data3C ,
-  input wire [1:0] data4A ,
-  input wire [1:0] data4B ,
-  input wire [1:0] data4C ,
-  input wire [1:0] data5A ,
-  input wire [1:0] data5B ,
-  input wire [1:0] data5C ,
-  input wire [1:0] data6A ,
-  input wire [1:0] data6B ,
-  input wire [1:0] data6C ,
-  input wire [1:0] data7A ,
-  input wire [1:0] data7B ,
-  input wire [1:0] data7C ,
-  input wire [2:0] selA ,
-  input wire [2:0] selB ,
-  input wire [2:0] selC ,
-  output wire [1:0] data_outA ,
-  output wire [1:0] data_outB ,
-  output wire [1:0] data_outC 
+  input wire [1:0] data0 ,
+  input wire [1:0] data1 ,
+  input wire [1:0] data2 ,
+  input wire [1:0] data3 ,
+  input wire [1:0] data4 ,
+  input wire [1:0] data5 ,
+  input wire [1:0] data6 ,
+  input wire [1:0] data7 ,
+  input wire [2:0] sel ,
+  output wire [1:0] data_out 
 );
+wire [2:0] selC;
+wire [2:0] selB;
+wire [2:0] selA;
+wire [1:0] data7C;
+wire [1:0] data7B;
+wire [1:0] data7A;
+wire [1:0] data6C;
+wire [1:0] data6B;
+wire [1:0] data6A;
+wire [1:0] data5C;
+wire [1:0] data5B;
+wire [1:0] data5A;
+wire [1:0] data4C;
+wire [1:0] data4B;
+wire [1:0] data4A;
+wire [1:0] data3C;
+wire [1:0] data3B;
+wire [1:0] data3A;
+wire [1:0] data2C;
+wire [1:0] data2B;
+wire [1:0] data2A;
+wire [1:0] data1C;
+wire [1:0] data1B;
+wire [1:0] data1A;
+wire [1:0] data0C;
+wire [1:0] data0B;
+wire [1:0] data0A;
+wor data_out_rTmrError;
+wire [1:0] data_out_r;
 reg  [1:0] data_out_rA ;
 reg  [1:0] data_out_rB ;
 reg  [1:0] data_out_rC ;
@@ -61,9 +70,7 @@ initial
   data_out_rB =  0;
 initial
   data_out_rC =  0;
-assign data_outA =  data_out_rA;
-assign data_outB =  data_out_rB;
-assign data_outC =  data_out_rC;
+assign data_out =  data_out_r;
 
 always @( data0A or data1A or data2A or data3A or data4A or data5A or data6A or data7A or selA )
   begin
@@ -109,5 +116,76 @@ always @( data0C or data1C or data2C or data3C or data4C or data5C or data6C or 
       default : data_out_rC =  0;
     endcase
   end
+
+majorityVoter #(.WIDTH(2)) data_out_rVoter (
+    .inA(data_out_rA),
+    .inB(data_out_rB),
+    .inC(data_out_rC),
+    .out(data_out_r),
+    .tmrErr(data_out_rTmrError)
+    );
+
+fanout #(.WIDTH(2)) data0Fanout (
+    .in(data0),
+    .outA(data0A),
+    .outB(data0B),
+    .outC(data0C)
+    );
+
+fanout #(.WIDTH(2)) data1Fanout (
+    .in(data1),
+    .outA(data1A),
+    .outB(data1B),
+    .outC(data1C)
+    );
+
+fanout #(.WIDTH(2)) data2Fanout (
+    .in(data2),
+    .outA(data2A),
+    .outB(data2B),
+    .outC(data2C)
+    );
+
+fanout #(.WIDTH(2)) data3Fanout (
+    .in(data3),
+    .outA(data3A),
+    .outB(data3B),
+    .outC(data3C)
+    );
+
+fanout #(.WIDTH(2)) data4Fanout (
+    .in(data4),
+    .outA(data4A),
+    .outB(data4B),
+    .outC(data4C)
+    );
+
+fanout #(.WIDTH(2)) data5Fanout (
+    .in(data5),
+    .outA(data5A),
+    .outB(data5B),
+    .outC(data5C)
+    );
+
+fanout #(.WIDTH(2)) data6Fanout (
+    .in(data6),
+    .outA(data6A),
+    .outB(data6B),
+    .outC(data6C)
+    );
+
+fanout #(.WIDTH(2)) data7Fanout (
+    .in(data7),
+    .outA(data7A),
+    .outB(data7B),
+    .outC(data7C)
+    );
+
+fanout #(.WIDTH(3)) selFanout (
+    .in(sel),
+    .outA(selA),
+    .outB(selB),
+    .outC(selC)
+    );
 endmodule
 

@@ -6,150 +6,126 @@
  *                                                                                                  *
  * user    : lucas                                                                                  *
  * host    : DESKTOP-BFDSFP2                                                                        *
- * date    : 03/04/2022 20:08:32                                                                    *
+ * date    : 16/08/2022 12:58:13                                                                    *
  *                                                                                                  *
- * workdir : /mnt/c/Users/Lucas/Desktop/mopshub_triplication/triplicated/mopshub_top_canakari_ftrim/hdl *
- * cmd     : /mnt/c/Users/Lucas/Desktop/mopshub_triplication/tmrg-master/bin/tmrg -vv -c tmrg.cfg   *
+ * workdir : /mnt/c/Users/Lucas/Desktop/mopshub_triplication/mopshub_top_board_canakari_ftrim/hdl   *
+ * cmd     : /mnt/c/Users/Lucas/Desktop/mopshub_triplication/tmrg-master/bin/tmrg -c tmrg.cfg -vvv  *
  * tmrg rev:                                                                                        *
  *                                                                                                  *
  * src file: can_struct.v                                                                           *
  *           Git SHA           : File not in git repository!                                        *
- *           Modification time : 2022-03-28 21:55:52                                                *
- *           File Size         : 2119                                                               *
- *           MD5 hash          : 8f54e8fc2e7cf216c637f61e00a349d2                                   *
+ *           Modification time : 2022-08-16 09:57:04.252634                                         *
+ *           File Size         : 2096                                                               *
+ *           MD5 hash          : c6a5028ef3fab2192201d27b0a04a8d7                                   *
  *                                                                                                  *
  ****************************************************************************************************/
 
 module canTMR(
-  input wire  clockA ,
-  input wire  clockB ,
-  input wire  clockC ,
-  input wire  resetA ,
-  input wire  resetB ,
-  input wire  resetC ,
-  input wire [4:0] addressA ,
-  input wire [4:0] addressB ,
-  input wire [4:0] addressC ,
-  input wire [15:0] writedataA ,
-  input wire [15:0] writedataB ,
-  input wire [15:0] writedataC ,
-  input wire  csA ,
-  input wire  csB ,
-  input wire  csC ,
-  input wire  read_nA ,
-  input wire  read_nB ,
-  input wire  read_nC ,
-  input wire  write_nA ,
-  input wire  write_nB ,
-  input wire  write_nC ,
-  input wire  rxA ,
-  input wire  rxB ,
-  input wire  rxC ,
-  input wire  en_osc_trimA ,
-  input wire  en_osc_trimB ,
-  input wire  en_osc_trimC ,
-  input wire [7:0] KdA ,
-  input wire [7:0] KdB ,
-  input wire [7:0] KdC ,
-  input wire [7:0] KpA ,
-  input wire [7:0] KpB ,
-  input wire [7:0] KpC ,
-  input wire [7:0] KiA ,
-  input wire [7:0] KiB ,
-  input wire [7:0] KiC ,
-  output wire [15:0] readdataA ,
-  output wire [15:0] readdataB ,
-  output wire [15:0] readdataC ,
-  output wire  irqA ,
-  output wire  irqB ,
-  output wire  irqC ,
-  output wire  irqstatusA ,
-  output wire  irqstatusB ,
-  output wire  irqstatusC ,
-  output wire  irqsuctraA ,
-  output wire  irqsuctraB ,
-  output wire  irqsuctraC ,
-  output wire  irqsucrecA ,
-  output wire  irqsucrecB ,
-  output wire  irqsucrecC ,
-  output wire  txA ,
-  output wire  txB ,
-  output wire  txC ,
-  output wire [7:0] statedebA ,
-  output wire [7:0] statedebB ,
-  output wire [7:0] statedebC ,
-  output wire  Prescale_EN_debugA ,
-  output wire  Prescale_EN_debugB ,
-  output wire  Prescale_EN_debugC ,
-  output wire [6:0] bitstA ,
-  output wire [6:0] bitstB ,
-  output wire [6:0] bitstC ,
-  output wire [5:0] ftrimA ,
-  output wire [5:0] ftrimB ,
-  output wire [5:0] ftrimC ,
-  output wire  ready_oscA ,
-  output wire  ready_oscB ,
-  output wire  ready_oscC 
+  input wire  clock ,
+  input wire  reset ,
+  input wire [4:0] address ,
+  input wire [15:0] writedata ,
+  input wire  cs ,
+  input wire  read_n ,
+  input wire  write_n ,
+  input wire  rx ,
+  input wire  en_osc_trim ,
+  input wire [7:0] Kd ,
+  input wire [7:0] Kp ,
+  input wire [7:0] Ki ,
+  output wire [15:0] readdata ,
+  output wire  irq ,
+  output wire  irqstatus ,
+  output wire  irqsuctra ,
+  output wire  irqsucrec ,
+  output wire  tx ,
+  output wire [7:0] statedeb ,
+  output wire  Prescale_EN_debug ,
+  output wire [6:0] bitst ,
+  output wire [5:0] ftrim ,
+  output wire  ready_osc 
 );
-//can2 canakari_main (
-//    .clock(clockA),
-//    .reset(resetA),
-//    .address(addressA),
-//    .readdata(readdataA),
-//    .writedata(writedataA),
-//    .cs(csA),
-//    .read_n(read_nA),
-//    .write_n(write_nA),
-//    .irq(irqA),
-//    .irqstatus(irqstatusA),
-//    .irqsuctra(irqsuctraA),
-//    .irqsucrec(irqsucrecA),
-//    .rx(rxA),
-//    .tx(txA),
-//    .statedeb(statedebA),
-//    .Prescale_EN_debug(Prescale_EN_debugA),
-//    .bitst(bitstA),
-//    .en_osc_trim(en_osc_trimA),
-//    .Kd(KdA),
-//    .Kp(KpA),
-//    .Ki(KiA),
-//    .ftrim(ftrimA),
-//    .ready_osc(ready_oscA)
-//    );
-//assign txB = txA;
-//assign txC = txA;
-//
-//assign ftrimB = ftrimA;
-//assign ftrimC = ftrimA;
-//    
-//assign ready_oscB = ready_oscA;
-//assign ready_oscC = ready_oscA;
-//
-//assign bitstB = bitstA;
-//assign bitstC = bitstA;
-//
-//assign Prescale_EN_debugB = Prescale_EN_debugA;
-//assign Prescale_EN_debugC = Prescale_EN_debugA;
-//
-//assign statedebB = statedebA;
-//assign statedebC = statedebA;
-//
-//assign irqsucrecB = irqsucrecA;
-//assign irqsucrecC = irqsucrecA;
-//
-//assign irqsuctraB = irqsuctraA;
-//assign irqsuctraC = irqsuctraA;
-//
-//assign irqstatusB = irqstatusA;
-//assign irqstatusC = irqstatusA;
-//
-//assign irqB = irqA;
-//assign irqC = irqA;
-//
-//assign readdataB = readdataA;
-//assign readdataC = readdataA;
-//
-//        
+wire [15:0] writedataC;
+wire [15:0] writedataB;
+wire [15:0] writedataA;
+wire write_nC;
+wire write_nB;
+wire write_nA;
+wire rxC;
+wire rxB;
+wire rxA;
+wire resetC;
+wire resetB;
+wire resetA;
+wire read_nC;
+wire read_nB;
+wire read_nA;
+wire en_osc_trimC;
+wire en_osc_trimB;
+wire en_osc_trimA;
+wire csC;
+wire csB;
+wire csA;
+wire clockC;
+wire clockB;
+wire clockA;
+wire [4:0] addressC;
+wire [4:0] addressB;
+wire [4:0] addressA;
+wire [7:0] KpC;
+wire [7:0] KpB;
+wire [7:0] KpA;
+wire [7:0] KiC;
+wire [7:0] KiB;
+wire [7:0] KiA;
+wire [7:0] KdC;
+wire [7:0] KdB;
+wire [7:0] KdA;
+wor txTmrError;
+wire txB;
+wire txC;
+wire txA;
+wor statedebTmrError;
+wire [7:0] statedebB;
+wire [7:0] statedebC;
+wire [7:0] statedebA;
+wor ready_oscTmrError;
+wire ready_oscB;
+wire ready_oscC;
+wire ready_oscA;
+wor readdataTmrError;
+wire [15:0] readdataB;
+wire [15:0] readdataC;
+wire [15:0] readdataA;
+wor irqsuctraTmrError;
+wire irqsuctraB;
+wire irqsuctraC;
+wire irqsuctraA;
+wor irqsucrecTmrError;
+wire irqsucrecB;
+wire irqsucrecC;
+wire irqsucrecA;
+wor irqstatusTmrError;
+wire irqstatusB;
+wire irqstatusC;
+wire irqstatusA;
+wor irqTmrError;
+wire irqB;
+wire irqC;
+wire irqA;
+wor ftrimTmrError;
+wire [5:0] ftrimB;
+wire [5:0] ftrimC;
+wire [5:0] ftrimA;
+wor bitstTmrError;
+wire [6:0] bitstB;
+wire [6:0] bitstC;
+wire [6:0] bitstA;
+wor Prescale_EN_debugTmrError;
+wire Prescale_EN_debugB;
+wire Prescale_EN_debugC;
+wire Prescale_EN_debugA;
+
 can2TMR canakari_main (
     .clockA(clockA),
     .clockB(clockB),
@@ -220,6 +196,178 @@ can2TMR canakari_main (
     .ready_oscA(ready_oscA),
     .ready_oscB(ready_oscB),
     .ready_oscC(ready_oscC)
+    );
+
+majorityVoter Prescale_EN_debugVoter (
+    .inA(Prescale_EN_debugA),
+    .inB(Prescale_EN_debugB),
+    .inC(Prescale_EN_debugC),
+    .out(Prescale_EN_debug),
+    .tmrErr(Prescale_EN_debugTmrError)
+    );
+
+majorityVoter #(.WIDTH(7)) bitstVoter (
+    .inA(bitstA),
+    .inB(bitstB),
+    .inC(bitstC),
+    .out(bitst),
+    .tmrErr(bitstTmrError)
+    );
+
+majorityVoter #(.WIDTH(6)) ftrimVoter (
+    .inA(ftrimA),
+    .inB(ftrimB),
+    .inC(ftrimC),
+    .out(ftrim),
+    .tmrErr(ftrimTmrError)
+    );
+
+majorityVoter irqVoter (
+    .inA(irqA),
+    .inB(irqB),
+    .inC(irqC),
+    .out(irq),
+    .tmrErr(irqTmrError)
+    );
+
+majorityVoter irqstatusVoter (
+    .inA(irqstatusA),
+    .inB(irqstatusB),
+    .inC(irqstatusC),
+    .out(irqstatus),
+    .tmrErr(irqstatusTmrError)
+    );
+
+majorityVoter irqsucrecVoter (
+    .inA(irqsucrecA),
+    .inB(irqsucrecB),
+    .inC(irqsucrecC),
+    .out(irqsucrec),
+    .tmrErr(irqsucrecTmrError)
+    );
+
+majorityVoter irqsuctraVoter (
+    .inA(irqsuctraA),
+    .inB(irqsuctraB),
+    .inC(irqsuctraC),
+    .out(irqsuctra),
+    .tmrErr(irqsuctraTmrError)
+    );
+
+majorityVoter #(.WIDTH(16)) readdataVoter (
+    .inA(readdataA),
+    .inB(readdataB),
+    .inC(readdataC),
+    .out(readdata),
+    .tmrErr(readdataTmrError)
+    );
+
+majorityVoter ready_oscVoter (
+    .inA(ready_oscA),
+    .inB(ready_oscB),
+    .inC(ready_oscC),
+    .out(ready_osc),
+    .tmrErr(ready_oscTmrError)
+    );
+
+majorityVoter #(.WIDTH(8)) statedebVoter (
+    .inA(statedebA),
+    .inB(statedebB),
+    .inC(statedebC),
+    .out(statedeb),
+    .tmrErr(statedebTmrError)
+    );
+
+majorityVoter txVoter (
+    .inA(txA),
+    .inB(txB),
+    .inC(txC),
+    .out(tx),
+    .tmrErr(txTmrError)
+    );
+
+fanout #(.WIDTH(8)) KdFanout (
+    .in(Kd),
+    .outA(KdA),
+    .outB(KdB),
+    .outC(KdC)
+    );
+
+fanout #(.WIDTH(8)) KiFanout (
+    .in(Ki),
+    .outA(KiA),
+    .outB(KiB),
+    .outC(KiC)
+    );
+
+fanout #(.WIDTH(8)) KpFanout (
+    .in(Kp),
+    .outA(KpA),
+    .outB(KpB),
+    .outC(KpC)
+    );
+
+fanout #(.WIDTH(5)) addressFanout (
+    .in(address),
+    .outA(addressA),
+    .outB(addressB),
+    .outC(addressC)
+    );
+
+fanout clockFanout (
+    .in(clock),
+    .outA(clockA),
+    .outB(clockB),
+    .outC(clockC)
+    );
+
+fanout csFanout (
+    .in(cs),
+    .outA(csA),
+    .outB(csB),
+    .outC(csC)
+    );
+
+fanout en_osc_trimFanout (
+    .in(en_osc_trim),
+    .outA(en_osc_trimA),
+    .outB(en_osc_trimB),
+    .outC(en_osc_trimC)
+    );
+
+fanout read_nFanout (
+    .in(read_n),
+    .outA(read_nA),
+    .outB(read_nB),
+    .outC(read_nC)
+    );
+
+fanout resetFanout (
+    .in(reset),
+    .outA(resetA),
+    .outB(resetB),
+    .outC(resetC)
+    );
+
+fanout rxFanout (
+    .in(rx),
+    .outA(rxA),
+    .outB(rxB),
+    .outC(rxC)
+    );
+
+fanout write_nFanout (
+    .in(write_n),
+    .outA(write_nA),
+    .outB(write_nB),
+    .outC(write_nC)
+    );
+
+fanout #(.WIDTH(16)) writedataFanout (
+    .in(writedata),
+    .outA(writedataA),
+    .outB(writedataB),
+    .outC(writedataC)
     );
 endmodule
 

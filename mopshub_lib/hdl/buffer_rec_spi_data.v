@@ -32,7 +32,7 @@ always@(posedge clk)
 begin 
   if(!rst)
    begin 
-   id <= 8'h000;
+   id <= 8'h00;
    b1 <= 8'h00;
    b2 <= 8'h00;
    b3 <= 8'h00;

@@ -6,34 +6,40 @@
  *                                                                                                  *
  * user    : lucas                                                                                  *
  * host    : DESKTOP-BFDSFP2                                                                        *
- * date    : 03/04/2022 20:08:30                                                                    *
+ * date    : 16/08/2022 12:58:07                                                                    *
  *                                                                                                  *
- * workdir : /mnt/c/Users/Lucas/Desktop/mopshub_triplication/triplicated/mopshub_top_canakari_ftrim/hdl *
- * cmd     : /mnt/c/Users/Lucas/Desktop/mopshub_triplication/tmrg-master/bin/tmrg -vv -c tmrg.cfg   *
+ * workdir : /mnt/c/Users/Lucas/Desktop/mopshub_triplication/mopshub_top_board_canakari_ftrim/hdl   *
+ * cmd     : /mnt/c/Users/Lucas/Desktop/mopshub_triplication/tmrg-master/bin/tmrg -c tmrg.cfg -vvv  *
  * tmrg rev:                                                                                        *
  *                                                                                                  *
  * src file: bitstream_shift_register.v                                                             *
  *           Git SHA           : File not in git repository!                                        *
- *           Modification time : 2022-03-28 18:31:14                                                *
- *           File Size         : 1507                                                               *
- *           MD5 hash          : e8fb51c1f267a6ecd383ecef52b55a4b                                   *
+ *           Modification time : 2022-08-12 09:46:43                                                *
+ *           File Size         : 1660                                                               *
+ *           MD5 hash          : b054ead72f6c903cc9ad94d87eea22eb                                   *
  *                                                                                                  *
  ****************************************************************************************************/
 
 module bitstream_shift_registerTMR(
-  input wire [1:0] dinA ,
-  input wire [1:0] dinB ,
-  input wire [1:0] dinC ,
-  input wire  clkA ,
-  input wire  clkB ,
-  input wire  clkC ,
-  input wire  rstA ,
-  input wire  rstB ,
-  input wire  rstC ,
-  output wire [10:0] doutA ,
-  output wire [10:0] doutB ,
-  output wire [10:0] doutC 
+  input wire [1:0] din ,
+  input wire  clk ,
+  input wire  rst ,
+  output wire [10:0] dout 
 );
+wire rstC;
+wire rstB;
+wire rstA;
+wire [10:0] dout_r_vC;
+wire [10:0] dout_r_vB;
+wire [10:0] dout_r_vA;
+wire [1:0] dinC;
+wire [1:0] dinB;
+wire [1:0] dinA;
+wire clkC;
+wire clkB;
+wire clkA;
+wor dout_rTmrError;
+wire [10:0] dout_r;
 reg  [10:0] dout_rA ;
 reg  [10:0] dout_rB ;
 reg  [10:0] dout_rC ;
@@ -43,26 +49,61 @@ initial
   dout_rB =  11'b0;
 initial
   dout_rC =  11'b0;
-assign doutA =  dout_rA;
-assign doutB =  dout_rB;
-assign doutC =  dout_rC;
+assign dout =  dout_r;
+wire [10:0] dout_r_v =  dout_r;
 
 always @( posedge clkA )
   if (!rstA)
     dout_rA <= 0;
   else
-    dout_rA <= {dinA,dout_rA[10:2] };
+    dout_rA <= {dinA,dout_r_vA[10:2] };
 
 always @( posedge clkB )
   if (!rstB)
     dout_rB <= 0;
   else
-    dout_rB <= {dinB,dout_rB[10:2] };
+    dout_rB <= {dinB,dout_r_vB[10:2] };
 
 always @( posedge clkC )
   if (!rstC)
     dout_rC <= 0;
   else
-    dout_rC <= {dinC,dout_rC[10:2] };
+    dout_rC <= {dinC,dout_r_vC[10:2] };
+
+majorityVoter #(.WIDTH(11)) dout_rVoter (
+    .inA(dout_rA),
+    .inB(dout_rB),
+    .inC(dout_rC),
+    .out(dout_r),
+    .tmrErr(dout_rTmrError)
+    );
+
+fanout clkFanout (
+    .in(clk),
+    .outA(clkA),
+    .outB(clkB),
+    .outC(clkC)
+    );
+
+fanout #(.WIDTH(2)) dinFanout (
+    .in(din),
+    .outA(dinA),
+    .outB(dinB),
+    .outC(dinC)
+    );
+
+fanout #(.WIDTH(11)) dout_r_vFanout (
+    .in(dout_r_v),
+    .outA(dout_r_vA),
+    .outB(dout_r_vB),
+    .outC(dout_r_vC)
+    );
+
+fanout rstFanout (
+    .in(rst),
+    .outA(rstA),
+    .outB(rstB),
+    .outC(rstC)
+    );
 endmodule
 

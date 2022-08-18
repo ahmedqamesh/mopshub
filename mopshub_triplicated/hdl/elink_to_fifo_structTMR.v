@@ -6,141 +6,65 @@
  *                                                                                                  *
  * user    : lucas                                                                                  *
  * host    : DESKTOP-BFDSFP2                                                                        *
- * date    : 03/04/2022 20:08:34                                                                    *
+ * date    : 16/08/2022 12:58:17                                                                    *
  *                                                                                                  *
- * workdir : /mnt/c/Users/Lucas/Desktop/mopshub_triplication/triplicated/mopshub_top_canakari_ftrim/hdl *
- * cmd     : /mnt/c/Users/Lucas/Desktop/mopshub_triplication/tmrg-master/bin/tmrg -vv -c tmrg.cfg   *
+ * workdir : /mnt/c/Users/Lucas/Desktop/mopshub_triplication/mopshub_top_board_canakari_ftrim/hdl   *
+ * cmd     : /mnt/c/Users/Lucas/Desktop/mopshub_triplication/tmrg-master/bin/tmrg -c tmrg.cfg -vvv  *
  * tmrg rev:                                                                                        *
  *                                                                                                  *
  * src file: elink_to_fifo_struct.v                                                                 *
  *           Git SHA           : File not in git repository!                                        *
- *           Modification time : 2022-03-28 21:55:54                                                *
+ *           Modification time : 2022-08-16 10:14:37.547920                                         *
  *           File Size         : 1748                                                               *
- *           MD5 hash          : c657fc506133d770a76b1f08d15a0f42                                   *
+ *           MD5 hash          : 5640f05cb47239c9904fb86b833f20c5                                   *
  *                                                                                                  *
  ****************************************************************************************************/
 
 module elink_to_fifoTMR(
-  input wire  fifo_flushA ,
-  input wire  fifo_flushB ,
-  input wire  fifo_flushC ,
-  output wire  fifo_fullA ,
-  output wire  fifo_fullB ,
-  output wire  fifo_fullC ,
-  output wire [9:0] fifo_doutA ,
-  output wire [9:0] fifo_doutB ,
-  output wire [9:0] fifo_doutC ,
-  input wire  clkA ,
-  input wire  clkB ,
-  input wire  clkC ,
-  input wire  fifo_rd_enA ,
-  input wire  fifo_rd_enB ,
-  input wire  fifo_rd_enC ,
-  input wire [1:0] data_2bit_inA ,
-  input wire [1:0] data_2bit_inB ,
-  input wire [1:0] data_2bit_inC ,
-  input wire  rstA ,
-  input wire  rstB ,
-  input wire  rstC ,
-  output wire  rx_fifo_emptyA ,
-  output wire  rx_fifo_emptyB ,
-  output wire  rx_fifo_emptyC ,
-  input wire [9:0] COMMAnA ,
-  input wire [9:0] COMMAnB ,
-  input wire [9:0] COMMAnC ,
-  input wire [9:0] COMMApA ,
-  input wire [9:0] COMMApB ,
-  input wire [9:0] COMMApC ,
-  input wire [7:0] Kchar_commaA ,
-  input wire [7:0] Kchar_commaB ,
-  input wire [7:0] Kchar_commaC ,
-  input wire [7:0] Kchar_eopA ,
-  input wire [7:0] Kchar_eopB ,
-  input wire [7:0] Kchar_eopC ,
-  input wire [7:0] Kchar_sopA ,
-  input wire [7:0] Kchar_sopB ,
-  input wire [7:0] Kchar_sopC 
+  input wire  fifo_flush ,
+  output wire  fifo_full ,
+  output wire [9:0] fifo_dout ,
+  input wire  clk ,
+  input wire  fifo_rd_en ,
+  input wire [1:0] data_2bit_in ,
+  input wire  rst ,
+  output wire  rx_fifo_empty ,
+  input wire [9:0] COMMAn ,
+  input wire [9:0] COMMAp ,
+  input wire [7:0] Kchar_comma ,
+  input wire [7:0] Kchar_eop ,
+  input wire [7:0] Kchar_sop 
 );
-wire [9:0] dec10b_OutA;
-wire [9:0] dec10b_OutB;
-wire [9:0] dec10b_OutC;
-wire dec10b_rdyA;
-wire dec10b_rdyB;
-wire dec10b_rdyC;
-wire rdy_fifoA;
-wire rdy_fifoB;
-wire rdy_fifoC;
+wire [9:0] dec10b_Out;
+wire dec10b_rdy;
+wire rdy_fifo;
 
 elink_proc_in_dec8b10bTMR elink_proc_in_dec8b10b0 (
-    .DATA_INA(data_2bit_inA),
-    .DATA_INB(data_2bit_inB),
-    .DATA_INC(data_2bit_inC),
-    .clkA(clkA),
-    .clkB(clkB),
-    .clkC(clkC),
-    .ISKA(dec10b_OutA[9:8] ),
-    .ISKB(dec10b_OutB[9:8] ),
-    .ISKC(dec10b_OutC[9:8] ),
-    .rstA(rstA),
-    .rstB(rstB),
-    .rstC(rstC),
-    .dec8b_dataA(dec10b_OutA[7:0] ),
-    .dec8b_dataB(dec10b_OutB[7:0] ),
-    .dec8b_dataC(dec10b_OutC[7:0] ),
-    .dec8b_rdyA(dec10b_rdyA),
-    .dec8b_rdyB(dec10b_rdyB),
-    .dec8b_rdyC(dec10b_rdyC),
-    .COMMAnA(COMMAnA),
-    .COMMAnB(COMMAnB),
-    .COMMAnC(COMMAnC),
-    .COMMApA(COMMApA),
-    .COMMApB(COMMApB),
-    .COMMApC(COMMApC),
-    .Kchar_commaA(Kchar_commaA),
-    .Kchar_commaB(Kchar_commaB),
-    .Kchar_commaC(Kchar_commaC),
-    .Kchar_eopA(Kchar_eopA),
-    .Kchar_eopB(Kchar_eopB),
-    .Kchar_eopC(Kchar_eopC),
-    .Kchar_sopA(Kchar_sopA),
-    .Kchar_sopB(Kchar_sopB),
-    .Kchar_sopC(Kchar_sopC)
+    .DATA_IN(data_2bit_in),
+    .clk(clk),
+    .ISK(dec10b_Out[9:8] ),
+    .rst(rst),
+    .dec8b_data(dec10b_Out[7:0] ),
+    .dec8b_rdy(dec10b_rdy),
+    .COMMAn(COMMAn),
+    .COMMAp(COMMAp),
+    .Kchar_comma(Kchar_comma),
+    .Kchar_eop(Kchar_eop),
+    .Kchar_sop(Kchar_sop)
     );
 
 fifo_core_wrapperTMR fifo_core_wrap_rx (
-    .Kchar_commaA(Kchar_commaA),
-    .Kchar_commaB(Kchar_commaB),
-    .Kchar_commaC(Kchar_commaC),
-    .clkA(clkA),
-    .clkB(clkB),
-    .clkC(clkC),
-    .din_fifoA(dec10b_OutA),
-    .din_fifoB(dec10b_OutB),
-    .din_fifoC(dec10b_OutC),
-    .flush_fifoA(fifo_flushA),
-    .flush_fifoB(fifo_flushB),
-    .flush_fifoC(fifo_flushC),
-    .rd_enA(fifo_rd_enA),
-    .rd_enB(fifo_rd_enB),
-    .rd_enC(fifo_rd_enC),
-    .rstA(rstA),
-    .rstB(rstB),
-    .rstC(rstC),
-    .wr_enA(dec10b_rdyA),
-    .wr_enB(dec10b_rdyB),
-    .wr_enC(dec10b_rdyC),
-    .dout_fifoA(fifo_doutA),
-    .dout_fifoB(fifo_doutB),
-    .dout_fifoC(fifo_doutC),
-    .empty_fifoA(rx_fifo_emptyA),
-    .empty_fifoB(rx_fifo_emptyB),
-    .empty_fifoC(rx_fifo_emptyC),
-    .full_fifoA(fifo_fullA),
-    .full_fifoB(fifo_fullB),
-    .full_fifoC(fifo_fullC),
-    .rdy_fifoA(rdy_fifoA),
-    .rdy_fifoB(rdy_fifoB),
-    .rdy_fifoC(rdy_fifoC)
+    .Kchar_comma(Kchar_comma),
+    .clk(clk),
+    .din_fifo(dec10b_Out),
+    .flush_fifo(fifo_flush),
+    .rd_en(fifo_rd_en),
+    .rst(rst),
+    .wr_en(dec10b_rdy),
+    .dout_fifo(fifo_dout),
+    .empty_fifo(rx_fifo_empty),
+    .full_fifo(fifo_full),
+    .rdy_fifo(rdy_fifo)
     );
 endmodule
 

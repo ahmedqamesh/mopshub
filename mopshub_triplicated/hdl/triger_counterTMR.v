@@ -6,36 +6,46 @@
  *                                                                                                  *
  * user    : lucas                                                                                  *
  * host    : DESKTOP-BFDSFP2                                                                        *
- * date    : 03/04/2022 20:08:57                                                                    *
+ * date    : 16/08/2022 12:58:39                                                                    *
  *                                                                                                  *
- * workdir : /mnt/c/Users/Lucas/Desktop/mopshub_triplication/triplicated/mopshub_top_canakari_ftrim/hdl *
- * cmd     : /mnt/c/Users/Lucas/Desktop/mopshub_triplication/tmrg-master/bin/tmrg -vv -c tmrg.cfg   *
+ * workdir : /mnt/c/Users/Lucas/Desktop/mopshub_triplication/mopshub_top_board_canakari_ftrim/hdl   *
+ * cmd     : /mnt/c/Users/Lucas/Desktop/mopshub_triplication/tmrg-master/bin/tmrg -c tmrg.cfg -vvv  *
  * tmrg rev:                                                                                        *
  *                                                                                                  *
  * src file: triger_counter.v                                                                       *
  *           Git SHA           : File not in git repository!                                        *
- *           Modification time : 2022-03-28 22:03:48                                                *
- *           File Size         : 858                                                                *
- *           MD5 hash          : a1e61cb447e6902aefd8641a6a627f94                                   *
+ *           Modification time : 2022-08-12 11:32:09                                                *
+ *           File Size         : 1076                                                               *
+ *           MD5 hash          : f9d87c9a64fedbce5933b0a61b37a85d                                   *
  *                                                                                                  *
  ****************************************************************************************************/
 
 module triger_counterTMR(
-  input wire  rstA ,
-  input wire  rstB ,
-  input wire  rstC ,
-  input wire  clkA ,
-  input wire  clkB ,
-  input wire  clkC ,
-  output wire  request_trigA ,
-  output wire  request_trigB ,
-  output wire  request_trigC 
+  input wire  rst ,
+  input wire  clk ,
+  output wire  request_trig 
 );
+wire rstC;
+wire rstB;
+wire rstA;
+wire request_trigC;
+wire request_trigB;
+wire request_trigA;
+wire request_cycle_cnt_vC;
+wire request_cycle_cnt_vB;
+wire request_cycle_cnt_vA;
+wire clkC;
+wire clkB;
+wire clkA;
+wor request_cycle_cntTmrError;
+wire [2:0] request_cycle_cnt;
+wor cycles_cntTmrError;
+wire [2:0] cycles_cnt;
 reg  [2:0] cycles_cntA ;
-reg  [2:0] request_cycle_cntA ;
 reg  [2:0] cycles_cntB ;
-reg  [2:0] request_cycle_cntB ;
 reg  [2:0] cycles_cntC ;
+reg  [2:0] request_cycle_cntA ;
+reg  [2:0] request_cycle_cntB ;
 reg  [2:0] request_cycle_cntC ;
 initial
   begin
@@ -52,6 +62,7 @@ initial
     cycles_cntC =  3'b100;
     request_cycle_cntC =  0;
   end
+wire request_cycle_cnt_v =  request_cycle_cnt;
 
 always @( posedge clkA )
   begin
@@ -62,7 +73,7 @@ always @( posedge clkA )
         if (request_trigA==1)
           request_cycle_cntA <= 3'b0;
         else
-          request_cycle_cntA <= request_cycle_cntA+1'b1;
+          request_cycle_cntA <= request_cycle_cnt_vA+1'b1;
       end
   end
 
@@ -75,7 +86,7 @@ always @( posedge clkB )
         if (request_trigB==1)
           request_cycle_cntB <= 3'b0;
         else
-          request_cycle_cntB <= request_cycle_cntB+1'b1;
+          request_cycle_cntB <= request_cycle_cnt_vB+1'b1;
       end
   end
 
@@ -88,11 +99,53 @@ always @( posedge clkC )
         if (request_trigC==1)
           request_cycle_cntC <= 3'b0;
         else
-          request_cycle_cntC <= request_cycle_cntC+1'b1;
+          request_cycle_cntC <= request_cycle_cnt_vC+1'b1;
       end
   end
-assign request_trigA =  (request_cycle_cntA==cycles_cntA) ? 1 : 0;
-assign request_trigB =  (request_cycle_cntB==cycles_cntB) ? 1 : 0;
-assign request_trigC =  (request_cycle_cntC==cycles_cntC) ? 1 : 0;
+assign request_trig =  (request_cycle_cnt==cycles_cnt) ? 1 : 0;
+
+majorityVoter #(.WIDTH(3)) cycles_cntVoter (
+    .inA(cycles_cntA),
+    .inB(cycles_cntB),
+    .inC(cycles_cntC),
+    .out(cycles_cnt),
+    .tmrErr(cycles_cntTmrError)
+    );
+
+majorityVoter #(.WIDTH(3)) request_cycle_cntVoter (
+    .inA(request_cycle_cntA),
+    .inB(request_cycle_cntB),
+    .inC(request_cycle_cntC),
+    .out(request_cycle_cnt),
+    .tmrErr(request_cycle_cntTmrError)
+    );
+
+fanout clkFanout (
+    .in(clk),
+    .outA(clkA),
+    .outB(clkB),
+    .outC(clkC)
+    );
+
+fanout request_cycle_cnt_vFanout (
+    .in(request_cycle_cnt_v),
+    .outA(request_cycle_cnt_vA),
+    .outB(request_cycle_cnt_vB),
+    .outC(request_cycle_cnt_vC)
+    );
+
+fanout request_trigFanout (
+    .in(request_trig),
+    .outA(request_trigA),
+    .outB(request_trigB),
+    .outC(request_trigC)
+    );
+
+fanout rstFanout (
+    .in(rst),
+    .outA(rstA),
+    .outB(rstB),
+    .outC(rstC)
+    );
 endmodule
 

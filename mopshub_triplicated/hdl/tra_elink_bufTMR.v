@@ -6,40 +6,46 @@
  *                                                                                                  *
  * user    : lucas                                                                                  *
  * host    : DESKTOP-BFDSFP2                                                                        *
- * date    : 03/04/2022 20:08:57                                                                    *
+ * date    : 16/08/2022 12:58:39                                                                    *
  *                                                                                                  *
- * workdir : /mnt/c/Users/Lucas/Desktop/mopshub_triplication/triplicated/mopshub_top_canakari_ftrim/hdl *
- * cmd     : /mnt/c/Users/Lucas/Desktop/mopshub_triplication/tmrg-master/bin/tmrg -vv -c tmrg.cfg   *
+ * workdir : /mnt/c/Users/Lucas/Desktop/mopshub_triplication/mopshub_top_board_canakari_ftrim/hdl   *
+ * cmd     : /mnt/c/Users/Lucas/Desktop/mopshub_triplication/tmrg-master/bin/tmrg -c tmrg.cfg -vvv  *
  * tmrg rev:                                                                                        *
  *                                                                                                  *
  * src file: tra_elink_buf.v                                                                        *
  *           Git SHA           : File not in git repository!                                        *
- *           Modification time : 2022-03-28 18:32:33                                                *
- *           File Size         : 2702                                                               *
- *           MD5 hash          : e5cb0b05e92a65d96bf4c2e7e1d77551                                   *
+ *           Modification time : 2022-08-12 09:55:50                                                *
+ *           File Size         : 3282                                                               *
+ *           MD5 hash          : 7be2863c34ada41617ff1d8e2911f0f0                                   *
  *                                                                                                  *
  ****************************************************************************************************/
 
 module buffer_tra_elinkTMR(
-  input wire  clkA ,
-  input wire  clkB ,
-  input wire  clkC ,
-  input wire [7:0] data_tra_8bitinA ,
-  input wire [7:0] data_tra_8bitinB ,
-  input wire [7:0] data_tra_8bitinC ,
-  input wire  buffer_enA ,
-  input wire  buffer_enB ,
-  input wire  buffer_enC ,
-  input wire  rstA ,
-  input wire  rstB ,
-  input wire  rstC ,
-  input wire [4:0] addrA ,
-  input wire [4:0] addrB ,
-  input wire [4:0] addrC ,
-  output wire [75:0] data_tra_outA ,
-  output wire [75:0] data_tra_outB ,
-  output wire [75:0] data_tra_outC 
+  input wire  clk ,
+  input wire [7:0] data_tra_8bitin ,
+  input wire  buffer_en ,
+  input wire  rst ,
+  input wire [4:0] addr ,
+  output wire [75:0] data_tra_out 
 );
+wor b8TmrError;
+wire [7:0] b8;
+wor b7TmrError;
+wire [7:0] b7;
+wor b6TmrError;
+wire [7:0] b6;
+wor b5TmrError;
+wire [7:0] b5;
+wor b4TmrError;
+wire [7:0] b4;
+wor b3TmrError;
+wire [7:0] b3;
+wor b2TmrError;
+wire [7:0] b2;
+wor b1TmrError;
+wire [7:0] b1;
+wor b0TmrError;
+wire [7:0] b0;
 reg  [7:0] b0A ;
 reg  [7:0] b0B ;
 reg  [7:0] b0C ;
@@ -67,221 +73,159 @@ reg  [7:0] b7C ;
 reg  [7:0] b8A ;
 reg  [7:0] b8B ;
 reg  [7:0] b8C ;
-reg  [7:0] b9A ;
-reg  [7:0] b9B ;
-reg  [7:0] b9C ;
+reg  [7:0] b9 ;
 initial
   begin
-    b0A =  8'h00;
-    b1A =  8'h00;
-    b2A =  8'h00;
-    b3A =  8'h00;
-    b4A =  8'h00;
-    b5A =  8'h00;
-    b6A =  8'h00;
-    b7A =  8'h00;
-    b8A =  8'h00;
-    b9A =  8'h00;
+    b0 =  8'h00;
+    b1 =  8'h00;
+    b2 =  8'h00;
+    b3 =  8'h00;
+    b4 =  8'h00;
+    b5 =  8'h00;
+    b6 =  8'h00;
+    b7 =  8'h00;
+    b8 =  8'h00;
+    b9 =  8'h00;
   end
-initial
-  begin
-    b0B =  8'h00;
-    b1B =  8'h00;
-    b2B =  8'h00;
-    b3B =  8'h00;
-    b4B =  8'h00;
-    b5B =  8'h00;
-    b6B =  8'h00;
-    b7B =  8'h00;
-    b8B =  8'h00;
-    b9B =  8'h00;
-  end
-initial
-  begin
-    b0C =  8'h00;
-    b1C =  8'h00;
-    b2C =  8'h00;
-    b3C =  8'h00;
-    b4C =  8'h00;
-    b5C =  8'h00;
-    b6C =  8'h00;
-    b7C =  8'h00;
-    b8C =  8'h00;
-    b9C =  8'h00;
-  end
+wire [7:0] b0_v =  b0;
+wire [7:0] b1_v =  b1;
+wire [7:0] b2_v =  b2;
+wire [7:0] b3_v =  b3;
+wire [7:0] b4_v =  b4;
+wire [7:0] b5_v =  b5;
+wire [7:0] b6_v =  b6;
+wire [7:0] b7_v =  b7;
+wire [7:0] b8_v =  b8;
+wire [7:0] b9_v =  b9;
 
-always @( posedge clkA )
+always @( posedge clk )
   begin
-    if (!rstA)
+    if (!rst)
       begin
-        b0A <= 8'h00;
-        b1A <= 8'h00;
-        b2A <= 8'h00;
-        b3A <= 8'h00;
-        b4A <= 8'h00;
-        b5A <= 8'h00;
-        b6A <= 8'h00;
-        b7A <= 8'h00;
-        b8A <= 8'h00;
-        b9A <= 8'h00;
+        b0 <= 8'h00;
+        b1 <= 8'h00;
+        b2 <= 8'h00;
+        b3 <= 8'h00;
+        b4 <= 8'h00;
+        b5 <= 8'h00;
+        b6 <= 8'h00;
+        b7 <= 8'h00;
+        b8 <= 8'h00;
+        b9 <= 8'h00;
       end
-    if (buffer_enA)
+    if (buffer_en)
       begin
-        case (addrA)
-          5'b00010 : b0A <= data_tra_8bitinA[7:0] ;
-          5'b00011 : b1A <= data_tra_8bitinA[7:0] ;
-          5'b00100 : b2A <= data_tra_8bitinA[7:0] ;
-          5'b00101 : b3A <= data_tra_8bitinA[7:0] ;
-          5'b00110 : b4A <= data_tra_8bitinA[7:0] ;
-          5'b00111 : b5A <= data_tra_8bitinA[7:0] ;
-          5'b01000 : b6A <= data_tra_8bitinA[7:0] ;
-          5'b01001 : b7A <= data_tra_8bitinA[7:0] ;
-          5'b01010 : b8A <= data_tra_8bitinA[7:0] ;
-          5'b01011 : b9A <= data_tra_8bitinA[7:0] ;
+        case (addr)
+          5'b00010 : b0 <= data_tra_8bitin[7:0] ;
+          5'b00011 : b1 <= data_tra_8bitin[7:0] ;
+          5'b00100 : b2 <= data_tra_8bitin[7:0] ;
+          5'b00101 : b3 <= data_tra_8bitin[7:0] ;
+          5'b00110 : b4 <= data_tra_8bitin[7:0] ;
+          5'b00111 : b5 <= data_tra_8bitin[7:0] ;
+          5'b01000 : b6 <= data_tra_8bitin[7:0] ;
+          5'b01001 : b7 <= data_tra_8bitin[7:0] ;
+          5'b01010 : b8 <= data_tra_8bitin[7:0] ;
+          5'b01011 : b9 <= data_tra_8bitin[7:0] ;
           default begin
-  b0A <= 8'h00;
-  b1A <= 8'h00;
-  b2A <= 8'h00;
-  b3A <= 8'h00;
-  b4A <= 8'h00;
-  b5A <= 8'h00;
-  b6A <= 8'h00;
-  b7A <= 8'h00;
-  b8A <= 8'h00;
-  b9A <= 8'h00;
+  b0 <= 8'h00;
+  b1 <= 8'h00;
+  b2 <= 8'h00;
+  b3 <= 8'h00;
+  b4 <= 8'h00;
+  b5 <= 8'h00;
+  b6 <= 8'h00;
+  b7 <= 8'h00;
+  b8 <= 8'h00;
+  b9 <= 8'h00;
 end 
         endcase
       end
     else
       begin
-        b0A <= b0A;
-        b1A <= b1A;
-        b2A <= b2A;
-        b3A <= b3A;
-        b4A <= b4A;
-        b5A <= b5A;
-        b6A <= b6A;
-        b7A <= b7A;
-        b8A <= b8A;
-        b9A <= b9A;
+        b0 <= b0_v;
+        b1 <= b1_v;
+        b2 <= b2_v;
+        b3 <= b3_v;
+        b4 <= b4_v;
+        b5 <= b5_v;
+        b6 <= b6_v;
+        b7 <= b7_v;
+        b8 <= b8_v;
+        b9 <= b9_v;
       end
   end
+assign data_tra_out =  {b0,b1,b2,b3,b4,b5,b6,b7,b8,b9[7:4] };
 
-always @( posedge clkB )
-  begin
-    if (!rstB)
-      begin
-        b0B <= 8'h00;
-        b1B <= 8'h00;
-        b2B <= 8'h00;
-        b3B <= 8'h00;
-        b4B <= 8'h00;
-        b5B <= 8'h00;
-        b6B <= 8'h00;
-        b7B <= 8'h00;
-        b8B <= 8'h00;
-        b9B <= 8'h00;
-      end
-    if (buffer_enB)
-      begin
-        case (addrB)
-          5'b00010 : b0B <= data_tra_8bitinB[7:0] ;
-          5'b00011 : b1B <= data_tra_8bitinB[7:0] ;
-          5'b00100 : b2B <= data_tra_8bitinB[7:0] ;
-          5'b00101 : b3B <= data_tra_8bitinB[7:0] ;
-          5'b00110 : b4B <= data_tra_8bitinB[7:0] ;
-          5'b00111 : b5B <= data_tra_8bitinB[7:0] ;
-          5'b01000 : b6B <= data_tra_8bitinB[7:0] ;
-          5'b01001 : b7B <= data_tra_8bitinB[7:0] ;
-          5'b01010 : b8B <= data_tra_8bitinB[7:0] ;
-          5'b01011 : b9B <= data_tra_8bitinB[7:0] ;
-          default begin
-  b0B <= 8'h00;
-  b1B <= 8'h00;
-  b2B <= 8'h00;
-  b3B <= 8'h00;
-  b4B <= 8'h00;
-  b5B <= 8'h00;
-  b6B <= 8'h00;
-  b7B <= 8'h00;
-  b8B <= 8'h00;
-  b9B <= 8'h00;
-end 
-        endcase
-      end
-    else
-      begin
-        b0B <= b0B;
-        b1B <= b1B;
-        b2B <= b2B;
-        b3B <= b3B;
-        b4B <= b4B;
-        b5B <= b5B;
-        b6B <= b6B;
-        b7B <= b7B;
-        b8B <= b8B;
-        b9B <= b9B;
-      end
-  end
+majorityVoter #(.WIDTH(8)) b0Voter (
+    .inA(b0A),
+    .inB(b0B),
+    .inC(b0C),
+    .out(b0),
+    .tmrErr(b0TmrError)
+    );
 
-always @( posedge clkC )
-  begin
-    if (!rstC)
-      begin
-        b0C <= 8'h00;
-        b1C <= 8'h00;
-        b2C <= 8'h00;
-        b3C <= 8'h00;
-        b4C <= 8'h00;
-        b5C <= 8'h00;
-        b6C <= 8'h00;
-        b7C <= 8'h00;
-        b8C <= 8'h00;
-        b9C <= 8'h00;
-      end
-    if (buffer_enC)
-      begin
-        case (addrC)
-          5'b00010 : b0C <= data_tra_8bitinC[7:0] ;
-          5'b00011 : b1C <= data_tra_8bitinC[7:0] ;
-          5'b00100 : b2C <= data_tra_8bitinC[7:0] ;
-          5'b00101 : b3C <= data_tra_8bitinC[7:0] ;
-          5'b00110 : b4C <= data_tra_8bitinC[7:0] ;
-          5'b00111 : b5C <= data_tra_8bitinC[7:0] ;
-          5'b01000 : b6C <= data_tra_8bitinC[7:0] ;
-          5'b01001 : b7C <= data_tra_8bitinC[7:0] ;
-          5'b01010 : b8C <= data_tra_8bitinC[7:0] ;
-          5'b01011 : b9C <= data_tra_8bitinC[7:0] ;
-          default begin
-  b0C <= 8'h00;
-  b1C <= 8'h00;
-  b2C <= 8'h00;
-  b3C <= 8'h00;
-  b4C <= 8'h00;
-  b5C <= 8'h00;
-  b6C <= 8'h00;
-  b7C <= 8'h00;
-  b8C <= 8'h00;
-  b9C <= 8'h00;
-end 
-        endcase
-      end
-    else
-      begin
-        b0C <= b0C;
-        b1C <= b1C;
-        b2C <= b2C;
-        b3C <= b3C;
-        b4C <= b4C;
-        b5C <= b5C;
-        b6C <= b6C;
-        b7C <= b7C;
-        b8C <= b8C;
-        b9C <= b9C;
-      end
-  end
-assign data_tra_outA =  {b0A,b1A,b2A,b3A,b4A,b5A,b6A,b7A,b8A,b9A[7:4] };
-assign data_tra_outB =  {b0B,b1B,b2B,b3B,b4B,b5B,b6B,b7B,b8B,b9B[7:4] };
-assign data_tra_outC =  {b0C,b1C,b2C,b3C,b4C,b5C,b6C,b7C,b8C,b9C[7:4] };
+majorityVoter #(.WIDTH(8)) b1Voter (
+    .inA(b1A),
+    .inB(b1B),
+    .inC(b1C),
+    .out(b1),
+    .tmrErr(b1TmrError)
+    );
+
+majorityVoter #(.WIDTH(8)) b2Voter (
+    .inA(b2A),
+    .inB(b2B),
+    .inC(b2C),
+    .out(b2),
+    .tmrErr(b2TmrError)
+    );
+
+majorityVoter #(.WIDTH(8)) b3Voter (
+    .inA(b3A),
+    .inB(b3B),
+    .inC(b3C),
+    .out(b3),
+    .tmrErr(b3TmrError)
+    );
+
+majorityVoter #(.WIDTH(8)) b4Voter (
+    .inA(b4A),
+    .inB(b4B),
+    .inC(b4C),
+    .out(b4),
+    .tmrErr(b4TmrError)
+    );
+
+majorityVoter #(.WIDTH(8)) b5Voter (
+    .inA(b5A),
+    .inB(b5B),
+    .inC(b5C),
+    .out(b5),
+    .tmrErr(b5TmrError)
+    );
+
+majorityVoter #(.WIDTH(8)) b6Voter (
+    .inA(b6A),
+    .inB(b6B),
+    .inC(b6C),
+    .out(b6),
+    .tmrErr(b6TmrError)
+    );
+
+majorityVoter #(.WIDTH(8)) b7Voter (
+    .inA(b7A),
+    .inB(b7B),
+    .inC(b7C),
+    .out(b7),
+    .tmrErr(b7TmrError)
+    );
+
+majorityVoter #(.WIDTH(8)) b8Voter (
+    .inA(b8A),
+    .inB(b8B),
+    .inC(b8C),
+    .out(b8),
+    .tmrErr(b8TmrError)
+    );
 endmodule
 

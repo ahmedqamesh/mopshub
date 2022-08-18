@@ -6,43 +6,92 @@
  *                                                                                                  *
  * user    : lucas                                                                                  *
  * host    : DESKTOP-BFDSFP2                                                                        *
- * date    : 03/04/2022 20:08:56                                                                    *
+ * date    : 16/08/2022 12:58:37                                                                    *
  *                                                                                                  *
- * workdir : /mnt/c/Users/Lucas/Desktop/mopshub_triplication/triplicated/mopshub_top_canakari_ftrim/hdl *
- * cmd     : /mnt/c/Users/Lucas/Desktop/mopshub_triplication/tmrg-master/bin/tmrg -vv -c tmrg.cfg   *
+ * workdir : /mnt/c/Users/Lucas/Desktop/mopshub_triplication/mopshub_top_board_canakari_ftrim/hdl   *
+ * cmd     : /mnt/c/Users/Lucas/Desktop/mopshub_triplication/tmrg-master/bin/tmrg -c tmrg.cfg -vvv  *
  * tmrg rev:                                                                                        *
  *                                                                                                  *
  * src file: rec_mes_buf.v                                                                          *
  *           Git SHA           : File not in git repository!                                        *
- *           Modification time : 2022-03-28 18:31:46                                                *
- *           File Size         : 2555                                                               *
- *           MD5 hash          : 07c2b28f35c0a1a5203bfffac1092770                                   *
+ *           Modification time : 2022-08-12 09:45:37                                                *
+ *           File Size         : 3169                                                               *
+ *           MD5 hash          : 91399f1d75c3050b5ae1939eec750ef8                                   *
  *                                                                                                  *
  ****************************************************************************************************/
 
 module buffer_rec_dataTMR(
-  input wire  clkA ,
-  input wire  clkB ,
-  input wire  clkC ,
-  input wire [15:0] data_rec_inA ,
-  input wire [15:0] data_rec_inB ,
-  input wire [15:0] data_rec_inC ,
-  input wire [4:0] can_rec_selectA ,
-  input wire [4:0] can_rec_selectB ,
-  input wire [4:0] can_rec_selectC ,
-  input wire  buffer_enA ,
-  input wire  buffer_enB ,
-  input wire  buffer_enC ,
-  input wire  rstA ,
-  input wire  rstB ,
-  input wire  rstC ,
-  input wire [4:0] addrA ,
-  input wire [4:0] addrB ,
-  input wire [4:0] addrC ,
-  output wire [75:0] data_rec_outA ,
-  output wire [75:0] data_rec_outB ,
-  output wire [75:0] data_rec_outC 
+  input wire  clk ,
+  input wire [15:0] data_rec_in ,
+  input wire [4:0] can_rec_select ,
+  input wire  buffer_en ,
+  input wire  rst ,
+  input wire [4:0] addr ,
+  output wire [75:0] data_rec_out 
 );
+wire rstC;
+wire rstB;
+wire rstA;
+wire id_vC;
+wire id_vB;
+wire id_vA;
+wire [15:0] data_rec_inC;
+wire [15:0] data_rec_inB;
+wire [15:0] data_rec_inA;
+wire clkC;
+wire clkB;
+wire clkA;
+wire [4:0] can_rec_selectC;
+wire [4:0] can_rec_selectB;
+wire [4:0] can_rec_selectA;
+wire buffer_enC;
+wire buffer_enB;
+wire buffer_enA;
+wire b8_vC;
+wire b8_vB;
+wire b8_vA;
+wire b7_vC;
+wire b7_vB;
+wire b7_vA;
+wire b6_vC;
+wire b6_vB;
+wire b6_vA;
+wire b5_vC;
+wire b5_vB;
+wire b5_vA;
+wire b4_vC;
+wire b4_vB;
+wire b4_vA;
+wire b3_vC;
+wire b3_vB;
+wire b3_vA;
+wire b2_vC;
+wire b2_vB;
+wire b2_vA;
+wire b1_vC;
+wire b1_vB;
+wire b1_vA;
+wire [4:0] addrC;
+wire [4:0] addrB;
+wire [4:0] addrA;
+wor idTmrError;
+wire [11:0] id;
+wor b8TmrError;
+wire [7:0] b8;
+wor b7TmrError;
+wire [7:0] b7;
+wor b6TmrError;
+wire [7:0] b6;
+wor b5TmrError;
+wire [7:0] b5;
+wor b4TmrError;
+wire [7:0] b4;
+wor b3TmrError;
+wire [7:0] b3;
+wor b2TmrError;
+wire [7:0] b2;
+wor b1TmrError;
+wire [7:0] b1;
 reg  [11:0] idA ;
 reg  [11:0] idB ;
 reg  [11:0] idC ;
@@ -106,6 +155,15 @@ initial
     b7C =  8'h0;
     b8C =  8'h0;
   end
+wire id_v =  id;
+wire b1_v =  b1;
+wire b2_v =  b2;
+wire b3_v =  b3;
+wire b4_v =  b4;
+wire b5_v =  b5;
+wire b6_v =  b6;
+wire b7_v =  b7;
+wire b8_v =  b8;
 
 always @( posedge clkA )
   begin
@@ -159,6 +217,18 @@ always @( posedge clkA )
   b8A <= b8A;
 end 
             endcase
+          end
+        else
+          begin
+            idA <= id_vA;
+            b1A <= b1_vA;
+            b2A <= b2_vA;
+            b3A <= b3_vA;
+            b4A <= b4_vA;
+            b5A <= b5_vA;
+            b6A <= b6_vA;
+            b7A <= b7_vA;
+            b8A <= b8_vA;
           end
       end
   end
@@ -216,6 +286,18 @@ always @( posedge clkB )
 end 
             endcase
           end
+        else
+          begin
+            idB <= id_vB;
+            b1B <= b1_vB;
+            b2B <= b2_vB;
+            b3B <= b3_vB;
+            b4B <= b4_vB;
+            b5B <= b5_vB;
+            b6B <= b6_vB;
+            b7B <= b7_vB;
+            b8B <= b8_vB;
+          end
       end
   end
 
@@ -272,10 +354,197 @@ always @( posedge clkC )
 end 
             endcase
           end
+        else
+          begin
+            idC <= id_vC;
+            b1C <= b1_vC;
+            b2C <= b2_vC;
+            b3C <= b3_vC;
+            b4C <= b4_vC;
+            b5C <= b5_vC;
+            b6C <= b6_vC;
+            b7C <= b7_vC;
+            b8C <= b8_vC;
+          end
       end
   end
-assign data_rec_outA =  {idA,b1A,b3A,b2A,b4A,b8A,b7A,b6A,b5A};
-assign data_rec_outB =  {idB,b1B,b3B,b2B,b4B,b8B,b7B,b6B,b5B};
-assign data_rec_outC =  {idC,b1C,b3C,b2C,b4C,b8C,b7C,b6C,b5C};
+assign data_rec_out =  {id,b1,b3,b2,b4,b8,b7,b6,b5};
+
+majorityVoter #(.WIDTH(8)) b1Voter (
+    .inA(b1A),
+    .inB(b1B),
+    .inC(b1C),
+    .out(b1),
+    .tmrErr(b1TmrError)
+    );
+
+majorityVoter #(.WIDTH(8)) b2Voter (
+    .inA(b2A),
+    .inB(b2B),
+    .inC(b2C),
+    .out(b2),
+    .tmrErr(b2TmrError)
+    );
+
+majorityVoter #(.WIDTH(8)) b3Voter (
+    .inA(b3A),
+    .inB(b3B),
+    .inC(b3C),
+    .out(b3),
+    .tmrErr(b3TmrError)
+    );
+
+majorityVoter #(.WIDTH(8)) b4Voter (
+    .inA(b4A),
+    .inB(b4B),
+    .inC(b4C),
+    .out(b4),
+    .tmrErr(b4TmrError)
+    );
+
+majorityVoter #(.WIDTH(8)) b5Voter (
+    .inA(b5A),
+    .inB(b5B),
+    .inC(b5C),
+    .out(b5),
+    .tmrErr(b5TmrError)
+    );
+
+majorityVoter #(.WIDTH(8)) b6Voter (
+    .inA(b6A),
+    .inB(b6B),
+    .inC(b6C),
+    .out(b6),
+    .tmrErr(b6TmrError)
+    );
+
+majorityVoter #(.WIDTH(8)) b7Voter (
+    .inA(b7A),
+    .inB(b7B),
+    .inC(b7C),
+    .out(b7),
+    .tmrErr(b7TmrError)
+    );
+
+majorityVoter #(.WIDTH(8)) b8Voter (
+    .inA(b8A),
+    .inB(b8B),
+    .inC(b8C),
+    .out(b8),
+    .tmrErr(b8TmrError)
+    );
+
+majorityVoter #(.WIDTH(12)) idVoter (
+    .inA(idA),
+    .inB(idB),
+    .inC(idC),
+    .out(id),
+    .tmrErr(idTmrError)
+    );
+
+fanout #(.WIDTH(5)) addrFanout (
+    .in(addr),
+    .outA(addrA),
+    .outB(addrB),
+    .outC(addrC)
+    );
+
+fanout b1_vFanout (
+    .in(b1_v),
+    .outA(b1_vA),
+    .outB(b1_vB),
+    .outC(b1_vC)
+    );
+
+fanout b2_vFanout (
+    .in(b2_v),
+    .outA(b2_vA),
+    .outB(b2_vB),
+    .outC(b2_vC)
+    );
+
+fanout b3_vFanout (
+    .in(b3_v),
+    .outA(b3_vA),
+    .outB(b3_vB),
+    .outC(b3_vC)
+    );
+
+fanout b4_vFanout (
+    .in(b4_v),
+    .outA(b4_vA),
+    .outB(b4_vB),
+    .outC(b4_vC)
+    );
+
+fanout b5_vFanout (
+    .in(b5_v),
+    .outA(b5_vA),
+    .outB(b5_vB),
+    .outC(b5_vC)
+    );
+
+fanout b6_vFanout (
+    .in(b6_v),
+    .outA(b6_vA),
+    .outB(b6_vB),
+    .outC(b6_vC)
+    );
+
+fanout b7_vFanout (
+    .in(b7_v),
+    .outA(b7_vA),
+    .outB(b7_vB),
+    .outC(b7_vC)
+    );
+
+fanout b8_vFanout (
+    .in(b8_v),
+    .outA(b8_vA),
+    .outB(b8_vB),
+    .outC(b8_vC)
+    );
+
+fanout buffer_enFanout (
+    .in(buffer_en),
+    .outA(buffer_enA),
+    .outB(buffer_enB),
+    .outC(buffer_enC)
+    );
+
+fanout #(.WIDTH(5)) can_rec_selectFanout (
+    .in(can_rec_select),
+    .outA(can_rec_selectA),
+    .outB(can_rec_selectB),
+    .outC(can_rec_selectC)
+    );
+
+fanout clkFanout (
+    .in(clk),
+    .outA(clkA),
+    .outB(clkB),
+    .outC(clkC)
+    );
+
+fanout #(.WIDTH(16)) data_rec_inFanout (
+    .in(data_rec_in),
+    .outA(data_rec_inA),
+    .outB(data_rec_inB),
+    .outC(data_rec_inC)
+    );
+
+fanout id_vFanout (
+    .in(id_v),
+    .outA(id_vA),
+    .outB(id_vB),
+    .outC(id_vC)
+    );
+
+fanout rstFanout (
+    .in(rst),
+    .outA(rstA),
+    .outB(rstB),
+    .outC(rstC)
+    );
 endmodule
 

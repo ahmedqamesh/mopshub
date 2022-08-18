@@ -6,40 +6,66 @@
  *                                                                                                  *
  * user    : lucas                                                                                  *
  * host    : DESKTOP-BFDSFP2                                                                        *
- * date    : 03/04/2022 20:08:31                                                                    *
+ * date    : 16/08/2022 12:58:09                                                                    *
  *                                                                                                  *
- * workdir : /mnt/c/Users/Lucas/Desktop/mopshub_triplication/triplicated/mopshub_top_canakari_ftrim/hdl *
- * cmd     : /mnt/c/Users/Lucas/Desktop/mopshub_triplication/tmrg-master/bin/tmrg -vv -c tmrg.cfg   *
+ * workdir : /mnt/c/Users/Lucas/Desktop/mopshub_triplication/mopshub_top_board_canakari_ftrim/hdl   *
+ * cmd     : /mnt/c/Users/Lucas/Desktop/mopshub_triplication/tmrg-master/bin/tmrg -c tmrg.cfg -vvv  *
  * tmrg rev:                                                                                        *
  *                                                                                                  *
  * src file: buffer_tra_spi.v                                                                       *
  *           Git SHA           : File not in git repository!                                        *
- *           Modification time : 2022-03-28 18:32:41                                                *
- *           File Size         : 1743                                                               *
- *           MD5 hash          : 2a46499405e90df9f01abfa34c63d0d3                                   *
+ *           Modification time : 2022-08-12 09:54:50                                                *
+ *           File Size         : 1865                                                               *
+ *           MD5 hash          : f1f0020d5fae34882168b98c109dea05                                   *
  *                                                                                                  *
  ****************************************************************************************************/
 
 module buffer_tra_spiTMR(
-  input wire  clkA ,
-  input wire  clkB ,
-  input wire  clkC ,
-  input wire [7:0] data_tra_8bitinA ,
-  input wire [7:0] data_tra_8bitinB ,
-  input wire [7:0] data_tra_8bitinC ,
-  input wire  buffer_enA ,
-  input wire  buffer_enB ,
-  input wire  buffer_enC ,
-  input wire  rstA ,
-  input wire  rstB ,
-  input wire  rstC ,
-  input wire [4:0] addrA ,
-  input wire [4:0] addrB ,
-  input wire [4:0] addrC ,
-  output wire [31:0] data_tra_outA ,
-  output wire [31:0] data_tra_outB ,
-  output wire [31:0] data_tra_outC 
+  input wire  clk ,
+  input wire [7:0] data_tra_8bitin ,
+  input wire  buffer_en ,
+  input wire  rst ,
+  input wire [4:0] addr ,
+  output wire [7:0] spi_id ,
+  output wire [7:0] spi_reg ,
+  output wire [7:0] spi_select ,
+  output wire [7:0] data_tra_out 
 );
+wire rstC;
+wire rstB;
+wire rstA;
+wire [7:0] data_tra_8bitinC;
+wire [7:0] data_tra_8bitinB;
+wire [7:0] data_tra_8bitinA;
+wire clkC;
+wire clkB;
+wire clkA;
+wire buffer_enC;
+wire buffer_enB;
+wire buffer_enA;
+wire [7:0] b3_vC;
+wire [7:0] b3_vB;
+wire [7:0] b3_vA;
+wire [7:0] b2_vC;
+wire [7:0] b2_vB;
+wire [7:0] b2_vA;
+wire [7:0] b1_vC;
+wire [7:0] b1_vB;
+wire [7:0] b1_vA;
+wire [7:0] b0_vC;
+wire [7:0] b0_vB;
+wire [7:0] b0_vA;
+wire [4:0] addrC;
+wire [4:0] addrB;
+wire [4:0] addrA;
+wor b3TmrError;
+wire [7:0] b3;
+wor b2TmrError;
+wire [7:0] b2;
+wor b1TmrError;
+wire [7:0] b1;
+wor b0TmrError;
+wire [7:0] b0;
 reg  [7:0] b0A ;
 reg  [7:0] b0B ;
 reg  [7:0] b0C ;
@@ -73,6 +99,10 @@ initial
     b2C =  8'h00;
     b3C =  8'h00;
   end
+wire [7:0] b0_v =  b0;
+wire [7:0] b1_v =  b1;
+wire [7:0] b2_v =  b2;
+wire [7:0] b3_v =  b3;
 
 always @( posedge clkA )
   begin
@@ -100,10 +130,10 @@ end
       end
     else
       begin
-        b0A <= b0A;
-        b1A <= b1A;
-        b2A <= b2A;
-        b3A <= b3A;
+        b0A <= b0_vA;
+        b1A <= b1_vA;
+        b2A <= b2_vA;
+        b3A <= b3_vA;
       end
   end
 
@@ -133,10 +163,10 @@ end
       end
     else
       begin
-        b0B <= b0B;
-        b1B <= b1B;
-        b2B <= b2B;
-        b3B <= b3B;
+        b0B <= b0_vB;
+        b1B <= b1_vB;
+        b2B <= b2_vB;
+        b3B <= b3_vB;
       end
   end
 
@@ -166,14 +196,110 @@ end
       end
     else
       begin
-        b0C <= b0C;
-        b1C <= b1C;
-        b2C <= b2C;
-        b3C <= b3C;
+        b0C <= b0_vC;
+        b1C <= b1_vC;
+        b2C <= b2_vC;
+        b3C <= b3_vC;
       end
   end
-assign data_tra_outA =  {b0A,b1A,b2A,b3A};
-assign data_tra_outB =  {b0B,b1B,b2B,b3B};
-assign data_tra_outC =  {b0C,b1C,b2C,b3C};
+assign data_tra_out =  b3;
+assign spi_reg =  b2;
+assign spi_select =  b1;
+assign spi_id =  b0;
+
+majorityVoter #(.WIDTH(8)) b0Voter (
+    .inA(b0A),
+    .inB(b0B),
+    .inC(b0C),
+    .out(b0),
+    .tmrErr(b0TmrError)
+    );
+
+majorityVoter #(.WIDTH(8)) b1Voter (
+    .inA(b1A),
+    .inB(b1B),
+    .inC(b1C),
+    .out(b1),
+    .tmrErr(b1TmrError)
+    );
+
+majorityVoter #(.WIDTH(8)) b2Voter (
+    .inA(b2A),
+    .inB(b2B),
+    .inC(b2C),
+    .out(b2),
+    .tmrErr(b2TmrError)
+    );
+
+majorityVoter #(.WIDTH(8)) b3Voter (
+    .inA(b3A),
+    .inB(b3B),
+    .inC(b3C),
+    .out(b3),
+    .tmrErr(b3TmrError)
+    );
+
+fanout #(.WIDTH(5)) addrFanout (
+    .in(addr),
+    .outA(addrA),
+    .outB(addrB),
+    .outC(addrC)
+    );
+
+fanout #(.WIDTH(8)) b0_vFanout (
+    .in(b0_v),
+    .outA(b0_vA),
+    .outB(b0_vB),
+    .outC(b0_vC)
+    );
+
+fanout #(.WIDTH(8)) b1_vFanout (
+    .in(b1_v),
+    .outA(b1_vA),
+    .outB(b1_vB),
+    .outC(b1_vC)
+    );
+
+fanout #(.WIDTH(8)) b2_vFanout (
+    .in(b2_v),
+    .outA(b2_vA),
+    .outB(b2_vB),
+    .outC(b2_vC)
+    );
+
+fanout #(.WIDTH(8)) b3_vFanout (
+    .in(b3_v),
+    .outA(b3_vA),
+    .outB(b3_vB),
+    .outC(b3_vC)
+    );
+
+fanout buffer_enFanout (
+    .in(buffer_en),
+    .outA(buffer_enA),
+    .outB(buffer_enB),
+    .outC(buffer_enC)
+    );
+
+fanout clkFanout (
+    .in(clk),
+    .outA(clkA),
+    .outB(clkB),
+    .outC(clkC)
+    );
+
+fanout #(.WIDTH(8)) data_tra_8bitinFanout (
+    .in(data_tra_8bitin),
+    .outA(data_tra_8bitinA),
+    .outB(data_tra_8bitinB),
+    .outC(data_tra_8bitinC)
+    );
+
+fanout rstFanout (
+    .in(rst),
+    .outA(rstA),
+    .outB(rstB),
+    .outC(rstC)
+    );
 endmodule
 

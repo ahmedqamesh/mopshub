@@ -6,55 +6,68 @@
  *                                                                                                  *
  * user    : lucas                                                                                  *
  * host    : DESKTOP-BFDSFP2                                                                        *
- * date    : 03/04/2022 20:08:31                                                                    *
+ * date    : 16/08/2022 12:58:09                                                                    *
  *                                                                                                  *
- * workdir : /mnt/c/Users/Lucas/Desktop/mopshub_triplication/triplicated/mopshub_top_canakari_ftrim/hdl *
- * cmd     : /mnt/c/Users/Lucas/Desktop/mopshub_triplication/tmrg-master/bin/tmrg -vv -c tmrg.cfg   *
+ * workdir : /mnt/c/Users/Lucas/Desktop/mopshub_triplication/mopshub_top_board_canakari_ftrim/hdl   *
+ * cmd     : /mnt/c/Users/Lucas/Desktop/mopshub_triplication/tmrg-master/bin/tmrg -c tmrg.cfg -vvv  *
  * tmrg rev:                                                                                        *
  *                                                                                                  *
  * src file: buffer_tristate_busid.v                                                                *
  *           Git SHA           : File not in git repository!                                        *
- *           Modification time : 2022-03-28 18:32:55                                                *
- *           File Size         : 1314                                                               *
- *           MD5 hash          : 9e7a8df4050993e7cc234169b148f574                                   *
+ *           Modification time : 2022-08-12 09:58:15                                                *
+ *           File Size         : 1472                                                               *
+ *           MD5 hash          : eda2e86997f07863e6a97a1fd0f23e4b                                   *
  *                                                                                                  *
  ****************************************************************************************************/
 
 module buffer_tristate_busidTMR(
-  input wire  clkA ,
-  input wire  clkB ,
-  input wire  clkC ,
-  input wire  rstA ,
-  input wire  rstB ,
-  input wire  rstC ,
-  input wire [4:0] data_tra_in0A ,
-  input wire [4:0] data_tra_in0B ,
-  input wire [4:0] data_tra_in0C ,
-  input wire [4:0] data_tra_in1A ,
-  input wire [4:0] data_tra_in1B ,
-  input wire [4:0] data_tra_in1C ,
-  input wire [4:0] data_tra_in2A ,
-  input wire [4:0] data_tra_in2B ,
-  input wire [4:0] data_tra_in2C ,
-  input wire [4:0] data_tra_in3A ,
-  input wire [4:0] data_tra_in3B ,
-  input wire [4:0] data_tra_in3C ,
-  input wire  buffer_en0A ,
-  input wire  buffer_en0B ,
-  input wire  buffer_en0C ,
-  input wire  buffer_en1A ,
-  input wire  buffer_en1B ,
-  input wire  buffer_en1C ,
-  input wire  buffer_en2A ,
-  input wire  buffer_en2B ,
-  input wire  buffer_en2C ,
-  input wire  buffer_en3A ,
-  input wire  buffer_en3B ,
-  input wire  buffer_en3C ,
-  output wire [4:0] data_tra_outA ,
-  output wire [4:0] data_tra_outB ,
-  output wire [4:0] data_tra_outC 
+  input wire  clk ,
+  input wire  rst ,
+  input wire [4:0] data_tra_in0 ,
+  input wire [4:0] data_tra_in1 ,
+  input wire [4:0] data_tra_in2 ,
+  input wire [4:0] data_tra_in3 ,
+  input wire  buffer_en0 ,
+  input wire  buffer_en1 ,
+  input wire  buffer_en2 ,
+  input wire  buffer_en3 ,
+  output wire [4:0] data_tra_out 
 );
+wire rstC;
+wire rstB;
+wire rstA;
+wire [4:0] data_tra_reg_vC;
+wire [4:0] data_tra_reg_vB;
+wire [4:0] data_tra_reg_vA;
+wire [4:0] data_tra_in3C;
+wire [4:0] data_tra_in3B;
+wire [4:0] data_tra_in3A;
+wire [4:0] data_tra_in2C;
+wire [4:0] data_tra_in2B;
+wire [4:0] data_tra_in2A;
+wire [4:0] data_tra_in1C;
+wire [4:0] data_tra_in1B;
+wire [4:0] data_tra_in1A;
+wire [4:0] data_tra_in0C;
+wire [4:0] data_tra_in0B;
+wire [4:0] data_tra_in0A;
+wire clkC;
+wire clkB;
+wire clkA;
+wire buffer_en3C;
+wire buffer_en3B;
+wire buffer_en3A;
+wire buffer_en2C;
+wire buffer_en2B;
+wire buffer_en2A;
+wire buffer_en1C;
+wire buffer_en1B;
+wire buffer_en1A;
+wire buffer_en0C;
+wire buffer_en0B;
+wire buffer_en0A;
+wor data_tra_regTmrError;
+wire [4:0] data_tra_reg;
 reg  [4:0] data_tra_regA ;
 reg  [4:0] data_tra_regB ;
 reg  [4:0] data_tra_regC ;
@@ -64,6 +77,7 @@ initial
   data_tra_regB =  5'h0;
 initial
   data_tra_regC =  5'h0;
+wire [4:0] data_tra_reg_v =  data_tra_reg;
 
 always @( posedge clkA )
   begin
@@ -83,7 +97,7 @@ always @( posedge clkA )
               if (buffer_en3A)
                 data_tra_regA <= data_tra_in3A;
               else
-                data_tra_regA <= data_tra_regA;
+                data_tra_regA <= data_tra_reg_vA;
       end
   end
 
@@ -105,7 +119,7 @@ always @( posedge clkB )
               if (buffer_en3B)
                 data_tra_regB <= data_tra_in3B;
               else
-                data_tra_regB <= data_tra_regB;
+                data_tra_regB <= data_tra_reg_vB;
       end
   end
 
@@ -127,11 +141,94 @@ always @( posedge clkC )
               if (buffer_en3C)
                 data_tra_regC <= data_tra_in3C;
               else
-                data_tra_regC <= data_tra_regC;
+                data_tra_regC <= data_tra_reg_vC;
       end
   end
-assign data_tra_outA =  data_tra_regA;
-assign data_tra_outB =  data_tra_regB;
-assign data_tra_outC =  data_tra_regC;
+assign data_tra_out =  data_tra_reg;
+
+majorityVoter #(.WIDTH(5)) data_tra_regVoter (
+    .inA(data_tra_regA),
+    .inB(data_tra_regB),
+    .inC(data_tra_regC),
+    .out(data_tra_reg),
+    .tmrErr(data_tra_regTmrError)
+    );
+
+fanout buffer_en0Fanout (
+    .in(buffer_en0),
+    .outA(buffer_en0A),
+    .outB(buffer_en0B),
+    .outC(buffer_en0C)
+    );
+
+fanout buffer_en1Fanout (
+    .in(buffer_en1),
+    .outA(buffer_en1A),
+    .outB(buffer_en1B),
+    .outC(buffer_en1C)
+    );
+
+fanout buffer_en2Fanout (
+    .in(buffer_en2),
+    .outA(buffer_en2A),
+    .outB(buffer_en2B),
+    .outC(buffer_en2C)
+    );
+
+fanout buffer_en3Fanout (
+    .in(buffer_en3),
+    .outA(buffer_en3A),
+    .outB(buffer_en3B),
+    .outC(buffer_en3C)
+    );
+
+fanout clkFanout (
+    .in(clk),
+    .outA(clkA),
+    .outB(clkB),
+    .outC(clkC)
+    );
+
+fanout #(.WIDTH(5)) data_tra_in0Fanout (
+    .in(data_tra_in0),
+    .outA(data_tra_in0A),
+    .outB(data_tra_in0B),
+    .outC(data_tra_in0C)
+    );
+
+fanout #(.WIDTH(5)) data_tra_in1Fanout (
+    .in(data_tra_in1),
+    .outA(data_tra_in1A),
+    .outB(data_tra_in1B),
+    .outC(data_tra_in1C)
+    );
+
+fanout #(.WIDTH(5)) data_tra_in2Fanout (
+    .in(data_tra_in2),
+    .outA(data_tra_in2A),
+    .outB(data_tra_in2B),
+    .outC(data_tra_in2C)
+    );
+
+fanout #(.WIDTH(5)) data_tra_in3Fanout (
+    .in(data_tra_in3),
+    .outA(data_tra_in3A),
+    .outB(data_tra_in3B),
+    .outC(data_tra_in3C)
+    );
+
+fanout #(.WIDTH(5)) data_tra_reg_vFanout (
+    .in(data_tra_reg_v),
+    .outA(data_tra_reg_vA),
+    .outB(data_tra_reg_vB),
+    .outC(data_tra_reg_vC)
+    );
+
+fanout rstFanout (
+    .in(rst),
+    .outA(rstA),
+    .outB(rstB),
+    .outC(rstC)
+    );
 endmodule
 

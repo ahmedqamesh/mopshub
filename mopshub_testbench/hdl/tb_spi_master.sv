@@ -32,8 +32,8 @@ module tb_spi_master ();
   always #(MAIN_CLK_DELAY) r_Clk = ~r_Clk;
 
   // Instantiate UUT
-  spi_module_trial 
-  #(.SPI_MODE(SPI_MODE),
+  spi_master_mopshub 
+  #(
     .CLKS_PER_HALF_BIT(CLKS_PER_HALF_BIT)) SPI_Master_UUT
   (
    // Control/Data Signals,

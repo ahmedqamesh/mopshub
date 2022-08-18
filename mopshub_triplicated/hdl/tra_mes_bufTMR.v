@@ -6,40 +6,50 @@
  *                                                                                                  *
  * user    : lucas                                                                                  *
  * host    : DESKTOP-BFDSFP2                                                                        *
- * date    : 03/04/2022 20:08:57                                                                    *
+ * date    : 16/08/2022 12:58:39                                                                    *
  *                                                                                                  *
- * workdir : /mnt/c/Users/Lucas/Desktop/mopshub_triplication/triplicated/mopshub_top_canakari_ftrim/hdl *
- * cmd     : /mnt/c/Users/Lucas/Desktop/mopshub_triplication/tmrg-master/bin/tmrg -vv -c tmrg.cfg   *
+ * workdir : /mnt/c/Users/Lucas/Desktop/mopshub_triplication/mopshub_top_board_canakari_ftrim/hdl   *
+ * cmd     : /mnt/c/Users/Lucas/Desktop/mopshub_triplication/tmrg-master/bin/tmrg -c tmrg.cfg -vvv  *
  * tmrg rev:                                                                                        *
  *                                                                                                  *
  * src file: tra_mes_buf.v                                                                          *
  *           Git SHA           : File not in git repository!                                        *
- *           Modification time : 2022-03-28 18:32:19                                                *
- *           File Size         : 998                                                                *
- *           MD5 hash          : d5507212e51efd09e7f6ed2e1ac689dd                                   *
+ *           Modification time : 2022-08-12 09:39:50                                                *
+ *           File Size         : 1266                                                               *
+ *           MD5 hash          : 42d5b5484dbb28ec5a8c427a9c9eb283                                   *
  *                                                                                                  *
  ****************************************************************************************************/
 
 module buffer_tra_dataTMR(
-  input wire  clkA ,
-  input wire  clkB ,
-  input wire  clkC ,
-  input wire [75:0] data_tra_inA ,
-  input wire [75:0] data_tra_inB ,
-  input wire [75:0] data_tra_inC ,
-  input wire  buffer_enA ,
-  input wire  buffer_enB ,
-  input wire  buffer_enC ,
-  input wire  rstA ,
-  input wire  rstB ,
-  input wire  rstC ,
-  output wire [4:0] data_tra_selectA ,
-  output wire [4:0] data_tra_selectB ,
-  output wire [4:0] data_tra_selectC ,
-  output wire [75:0] data_tra_outA ,
-  output wire [75:0] data_tra_outB ,
-  output wire [75:0] data_tra_outC 
+  input wire  clk ,
+  input wire [75:0] data_tra_in ,
+  input wire  buffer_en ,
+  input wire  rst ,
+  output wire [4:0] data_tra_select ,
+  output wire [75:0] data_tra_out 
 );
+wire rstC;
+wire rstB;
+wire rstA;
+wire [4:0] data_tra_select_reg_vC;
+wire [4:0] data_tra_select_reg_vB;
+wire [4:0] data_tra_select_reg_vA;
+wire [75:0] data_tra_reg_vC;
+wire [75:0] data_tra_reg_vB;
+wire [75:0] data_tra_reg_vA;
+wire [75:0] data_tra_inC;
+wire [75:0] data_tra_inB;
+wire [75:0] data_tra_inA;
+wire clkC;
+wire clkB;
+wire clkA;
+wire buffer_enC;
+wire buffer_enB;
+wire buffer_enA;
+wor data_tra_select_regTmrError;
+wire [4:0] data_tra_select_reg;
+wor data_tra_regTmrError;
+wire [75:0] data_tra_reg;
 reg  [75:0] data_tra_regA ;
 reg  [75:0] data_tra_regB ;
 reg  [75:0] data_tra_regC ;
@@ -61,6 +71,8 @@ initial
     data_tra_regC =  76'd0;
     data_tra_select_regC =  5'd0;
   end
+wire [75:0] data_tra_reg_v =  data_tra_reg;
+wire [4:0] data_tra_select_reg_v =  data_tra_select_reg;
 
 always @( posedge clkA )
   begin
@@ -70,7 +82,7 @@ always @( posedge clkA )
       if (buffer_enA)
         data_tra_select_regA <= data_tra_inA[28:24] ;
       else
-        data_tra_select_regA <= data_tra_select_regA;
+        data_tra_select_regA <= data_tra_select_reg_vA;
   end
 
 always @( posedge clkB )
@@ -81,7 +93,7 @@ always @( posedge clkB )
       if (buffer_enB)
         data_tra_select_regB <= data_tra_inB[28:24] ;
       else
-        data_tra_select_regB <= data_tra_select_regB;
+        data_tra_select_regB <= data_tra_select_reg_vB;
   end
 
 always @( posedge clkC )
@@ -92,7 +104,7 @@ always @( posedge clkC )
       if (buffer_enC)
         data_tra_select_regC <= data_tra_inC[28:24] ;
       else
-        data_tra_select_regC <= data_tra_select_regC;
+        data_tra_select_regC <= data_tra_select_reg_vC;
   end
 
 always @( posedge clkA )
@@ -103,7 +115,7 @@ always @( posedge clkA )
       if (buffer_enA)
         data_tra_regA <= data_tra_inA;
       else
-        data_tra_regA <= data_tra_regA;
+        data_tra_regA <= data_tra_reg_vA;
   end
 
 always @( posedge clkB )
@@ -114,7 +126,7 @@ always @( posedge clkB )
       if (buffer_enB)
         data_tra_regB <= data_tra_inB;
       else
-        data_tra_regB <= data_tra_regB;
+        data_tra_regB <= data_tra_reg_vB;
   end
 
 always @( posedge clkC )
@@ -125,13 +137,67 @@ always @( posedge clkC )
       if (buffer_enC)
         data_tra_regC <= data_tra_inC;
       else
-        data_tra_regC <= data_tra_regC;
+        data_tra_regC <= data_tra_reg_vC;
   end
-assign data_tra_outA =  data_tra_regA;
-assign data_tra_outB =  data_tra_regB;
-assign data_tra_outC =  data_tra_regC;
-assign data_tra_selectA =  data_tra_select_regA;
-assign data_tra_selectB =  data_tra_select_regB;
-assign data_tra_selectC =  data_tra_select_regC;
+assign data_tra_out =  data_tra_reg;
+assign data_tra_select =  data_tra_select_reg;
+
+majorityVoter #(.WIDTH(76)) data_tra_regVoter (
+    .inA(data_tra_regA),
+    .inB(data_tra_regB),
+    .inC(data_tra_regC),
+    .out(data_tra_reg),
+    .tmrErr(data_tra_regTmrError)
+    );
+
+majorityVoter #(.WIDTH(5)) data_tra_select_regVoter (
+    .inA(data_tra_select_regA),
+    .inB(data_tra_select_regB),
+    .inC(data_tra_select_regC),
+    .out(data_tra_select_reg),
+    .tmrErr(data_tra_select_regTmrError)
+    );
+
+fanout buffer_enFanout (
+    .in(buffer_en),
+    .outA(buffer_enA),
+    .outB(buffer_enB),
+    .outC(buffer_enC)
+    );
+
+fanout clkFanout (
+    .in(clk),
+    .outA(clkA),
+    .outB(clkB),
+    .outC(clkC)
+    );
+
+fanout #(.WIDTH(76)) data_tra_inFanout (
+    .in(data_tra_in),
+    .outA(data_tra_inA),
+    .outB(data_tra_inB),
+    .outC(data_tra_inC)
+    );
+
+fanout #(.WIDTH(76)) data_tra_reg_vFanout (
+    .in(data_tra_reg_v),
+    .outA(data_tra_reg_vA),
+    .outB(data_tra_reg_vB),
+    .outC(data_tra_reg_vC)
+    );
+
+fanout #(.WIDTH(5)) data_tra_select_reg_vFanout (
+    .in(data_tra_select_reg_v),
+    .outA(data_tra_select_reg_vA),
+    .outB(data_tra_select_reg_vB),
+    .outC(data_tra_select_reg_vC)
+    );
+
+fanout rstFanout (
+    .in(rst),
+    .outA(rstA),
+    .outB(rstB),
+    .outC(rstC)
+    );
 endmodule
 

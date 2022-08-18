@@ -6,58 +6,55 @@
  *                                                                                                  *
  * user    : lucas                                                                                  *
  * host    : DESKTOP-BFDSFP2                                                                        *
- * date    : 03/04/2022 20:08:34                                                                    *
+ * date    : 16/08/2022 12:58:17                                                                    *
  *                                                                                                  *
- * workdir : /mnt/c/Users/Lucas/Desktop/mopshub_triplication/triplicated/mopshub_top_canakari_ftrim/hdl *
- * cmd     : /mnt/c/Users/Lucas/Desktop/mopshub_triplication/tmrg-master/bin/tmrg -vv -c tmrg.cfg   *
+ * workdir : /mnt/c/Users/Lucas/Desktop/mopshub_triplication/mopshub_top_board_canakari_ftrim/hdl   *
+ * cmd     : /mnt/c/Users/Lucas/Desktop/mopshub_triplication/tmrg-master/bin/tmrg -c tmrg.cfg -vvv  *
  * tmrg rev:                                                                                        *
  *                                                                                                  *
  * src file: elink_proc_out_enc8b10b_struct.v                                                       *
  *           Git SHA           : File not in git repository!                                        *
- *           Modification time : 2022-03-28 21:55:54                                                *
- *           File Size         : 3342                                                               *
- *           MD5 hash          : 6fd2661bb9b498a90ac1f4f350eec83b                                   *
+ *           Modification time : 2022-08-16 10:13:46.651898                                         *
+ *           File Size         : 3352                                                               *
+ *           MD5 hash          : 7022543a2166b3d545c087813b557080                                   *
  *                                                                                                  *
  ****************************************************************************************************/
 
 module elink_proc_out_enc8b10bTMR(
-  input wire  clkA ,
-  input wire  clkB ,
-  input wire  clkC ,
-  input wire [9:0] data_10bit_inA ,
-  input wire [9:0] data_10bit_inB ,
-  input wire [9:0] data_10bit_inC ,
-  input wire  data_in_rdyA ,
-  input wire  data_in_rdyB ,
-  input wire  data_in_rdyC ,
-  input wire  rstA ,
-  input wire  rstB ,
-  input wire  rstC ,
-  output wire  get_data_trigA ,
-  output wire  get_data_trigB ,
-  output wire  get_data_trigC ,
-  output wire [1:0] data_2bit_outA ,
-  output wire [1:0] data_2bit_outB ,
-  output wire [1:0] data_2bit_outC ,
-  input wire [9:0] COMMAnA ,
-  input wire [9:0] COMMAnB ,
-  input wire [9:0] COMMAnC ,
-  input wire [9:0] COMMApA ,
-  input wire [9:0] COMMApB ,
-  input wire [9:0] COMMApC ,
-  input wire [7:0] Kchar_commaA ,
-  input wire [7:0] Kchar_commaB ,
-  input wire [7:0] Kchar_commaC ,
-  input wire [7:0] Kchar_eopA ,
-  input wire [7:0] Kchar_eopB ,
-  input wire [7:0] Kchar_eopC ,
-  input wire [7:0] Kchar_sopA ,
-  input wire [7:0] Kchar_sopB ,
-  input wire [7:0] Kchar_sopC 
+  input wire  clk ,
+  input wire [9:0] data_10bit_in ,
+  input wire  data_in_rdy ,
+  input wire  rst ,
+  output wire  get_data_trig ,
+  output wire [1:0] data_2bit_out ,
+  input wire [9:0] COMMAn ,
+  input wire [9:0] COMMAp ,
+  input wire [7:0] Kchar_comma ,
+  input wire [7:0] Kchar_eop ,
+  input wire [7:0] Kchar_sop 
 );
-wire [9:0] enc10bitA;
-wire [9:0] enc10bitB;
+wire rstC;
+wire rstB;
+wire rstA;
+wire get_data_trigC;
+wire get_data_trigB;
+wire get_data_trigA;
 wire [9:0] enc10bitC;
+wire [9:0] enc10bitB;
+wire [9:0] enc10bitA;
+wire clkC;
+wire clkB;
+wire clkA;
+wire [9:0] COMMApC;
+wire [9:0] COMMApB;
+wire [9:0] COMMApA;
+wor zeros2bitTmrError;
+wire [1:0] zeros2bit;
+wor send_countTmrError;
+wire [2:0] send_count;
+wor enc10bit_rTmrError;
+wire [9:0] enc10bit_r;
+wire [9:0] enc10bit;
 reg  [9:0] enc10bit_rA ;
 reg  [9:0] enc10bit_rB ;
 reg  [9:0] enc10bit_rC ;
@@ -69,84 +66,36 @@ reg  [2:0] send_countB ;
 reg  [2:0] send_countC ;
 
 enc8b10b_wrapTMR enc8b10b_wrap10 (
-    .clkA(clkA),
-    .clkB(clkB),
-    .clkC(clkC),
-    .rstA(rstA),
-    .rstB(rstB),
-    .rstC(rstC),
-    .data_codeA(data_10bit_inA[9:8] ),
-    .data_codeB(data_10bit_inB[9:8] ),
-    .data_codeC(data_10bit_inC[9:8] ),
-    .data_inA(data_10bit_inA[7:0] ),
-    .data_inB(data_10bit_inB[7:0] ),
-    .data_inC(data_10bit_inC[7:0] ),
-    .data_in_rdyA(data_in_rdyA),
-    .data_in_rdyB(data_in_rdyB),
-    .data_in_rdyC(data_in_rdyC),
-    .enc_10b_data_outA(enc10bitA),
-    .enc_10b_data_outB(enc10bitB),
-    .enc_10b_data_outC(enc10bitC),
-    .Kchar_commaA(Kchar_commaA),
-    .Kchar_commaB(Kchar_commaB),
-    .Kchar_commaC(Kchar_commaC),
-    .Kchar_eopA(Kchar_eopA),
-    .Kchar_eopB(Kchar_eopB),
-    .Kchar_eopC(Kchar_eopC),
-    .Kchar_sopA(Kchar_sopA),
-    .Kchar_sopB(Kchar_sopB),
-    .Kchar_sopC(Kchar_sopC),
-    .COMMApA(COMMApA),
-    .COMMApB(COMMApB),
-    .COMMApC(COMMApC),
-    .COMMAnA(COMMAnA),
-    .COMMAnB(COMMAnB),
-    .COMMAnC(COMMAnC)
+    .clk(clk),
+    .rst(rst),
+    .data_code(data_10bit_in[9:8] ),
+    .data_in(data_10bit_in[7:0] ),
+    .data_in_rdy(data_in_rdy),
+    .enc_10b_data_out(enc10bit),
+    .Kchar_comma(Kchar_comma),
+    .Kchar_eop(Kchar_eop),
+    .Kchar_sop(Kchar_sop),
+    .COMMAp(COMMAp),
+    .COMMAn(COMMAn)
     );
 
 mux8_NbitTMR bitMUX (
-    .data0A(enc10bit_rA[1:0] ),
-    .data0B(enc10bit_rB[1:0] ),
-    .data0C(enc10bit_rC[1:0] ),
-    .data1A(enc10bit_rA[3:2] ),
-    .data1B(enc10bit_rB[3:2] ),
-    .data1C(enc10bit_rC[3:2] ),
-    .data2A(enc10bit_rA[5:4] ),
-    .data2B(enc10bit_rB[5:4] ),
-    .data2C(enc10bit_rC[5:4] ),
-    .data3A(enc10bit_rA[7:6] ),
-    .data3B(enc10bit_rB[7:6] ),
-    .data3C(enc10bit_rC[7:6] ),
-    .data4A(enc10bit_rA[9:8] ),
-    .data4B(enc10bit_rB[9:8] ),
-    .data4C(enc10bit_rC[9:8] ),
-    .data5A(zeros2bitA),
-    .data5B(zeros2bitB),
-    .data5C(zeros2bitC),
-    .data6A(zeros2bitA),
-    .data6B(zeros2bitB),
-    .data6C(zeros2bitC),
-    .data7A(zeros2bitA),
-    .data7B(zeros2bitB),
-    .data7C(zeros2bitC),
-    .selA(send_countA),
-    .selB(send_countB),
-    .selC(send_countC),
-    .data_outA(data_2bit_outA),
-    .data_outB(data_2bit_outB),
-    .data_outC(data_2bit_outC)
+    .data0(enc10bit_r[1:0] ),
+    .data1(enc10bit_r[3:2] ),
+    .data2(enc10bit_r[5:4] ),
+    .data3(enc10bit_r[7:6] ),
+    .data4(enc10bit_r[9:8] ),
+    .data5(zeros2bit),
+    .data6(zeros2bit),
+    .data7(zeros2bit),
+    .sel(send_count),
+    .data_out(data_2bit_out)
     );
 
 triger_counterTMR triger_counter1 (
-    .rstA(rstA),
-    .rstB(rstB),
-    .rstC(rstC),
-    .clkA(clkA),
-    .clkB(clkB),
-    .clkC(clkC),
-    .request_trigA(get_data_trigA),
-    .request_trigB(get_data_trigB),
-    .request_trigC(get_data_trigC)
+    .rst(rst),
+    .clk(clk),
+    .request_trig(get_data_trig)
     );
 initial
   zeros2bitA =  2'b0;
@@ -155,16 +104,16 @@ initial
 initial
   zeros2bitC =  2'b0;
 initial
-  send_countA =  0;
+  send_countA =  1'b0;
 initial
-  send_countB =  0;
+  send_countB =  1'b0;
 initial
-  send_countC =  0;
+  send_countC =  1'b0;
 
 always @( posedge clkA )
   begin
     if (!rstA)
-      enc10bit_rA <= COMMAnA;
+      enc10bit_rA <= COMMApA;
     else
       if (get_data_trigA==1)
         begin
@@ -175,7 +124,7 @@ always @( posedge clkA )
 always @( posedge clkB )
   begin
     if (!rstB)
-      enc10bit_rB <= COMMAnB;
+      enc10bit_rB <= COMMApB;
     else
       if (get_data_trigB==1)
         begin
@@ -186,7 +135,7 @@ always @( posedge clkB )
 always @( posedge clkC )
   begin
     if (!rstC)
-      enc10bit_rC <= COMMAnC;
+      enc10bit_rC <= COMMApC;
     else
       if (get_data_trigC==1)
         begin
@@ -232,5 +181,64 @@ always @( posedge clkC )
           send_countC <= send_countC+1;
       end
   end
+
+majorityVoter #(.WIDTH(10)) enc10bit_rVoter (
+    .inA(enc10bit_rA),
+    .inB(enc10bit_rB),
+    .inC(enc10bit_rC),
+    .out(enc10bit_r),
+    .tmrErr(enc10bit_rTmrError)
+    );
+
+majorityVoter #(.WIDTH(3)) send_countVoter (
+    .inA(send_countA),
+    .inB(send_countB),
+    .inC(send_countC),
+    .out(send_count),
+    .tmrErr(send_countTmrError)
+    );
+
+majorityVoter #(.WIDTH(2)) zeros2bitVoter (
+    .inA(zeros2bitA),
+    .inB(zeros2bitB),
+    .inC(zeros2bitC),
+    .out(zeros2bit),
+    .tmrErr(zeros2bitTmrError)
+    );
+
+fanout #(.WIDTH(10)) COMMApFanout (
+    .in(COMMAp),
+    .outA(COMMApA),
+    .outB(COMMApB),
+    .outC(COMMApC)
+    );
+
+fanout clkFanout (
+    .in(clk),
+    .outA(clkA),
+    .outB(clkB),
+    .outC(clkC)
+    );
+
+fanout #(.WIDTH(10)) enc10bitFanout (
+    .in(enc10bit),
+    .outA(enc10bitA),
+    .outB(enc10bitB),
+    .outC(enc10bitC)
+    );
+
+fanout get_data_trigFanout (
+    .in(get_data_trig),
+    .outA(get_data_trigA),
+    .outB(get_data_trigB),
+    .outC(get_data_trigC)
+    );
+
+fanout rstFanout (
+    .in(rst),
+    .outA(rstA),
+    .outB(rstB),
+    .outC(rstC)
+    );
 endmodule
 
