@@ -16,26 +16,23 @@ module triger_counter (
   output wire request_trig
   );
   
-reg  [2:0]  cycles_cnt;
-initial begin 
-    cycles_cnt = 3'b100;
+reg   [2:0]  cycles_cnt;
+reg   [2:0] request_cycle_cnt;
+initial 
+begin
+cycles_cnt = 3'b100;
+request_cycle_cnt = 3'b000;
 end
-  reg   [2:0] request_cycle_cnt = 0;
 
   // Counter over the Clock signal
   always @(posedge clk)
   begin
-    if (!rst)
-    request_cycle_cnt <= 3'b0;
-    else 
+    if (!rst) request_cycle_cnt <= 3'b0;
     begin
-      if  (request_trig == 1)
-      request_cycle_cnt <= 3'b0;
-      else
-      request_cycle_cnt <= request_cycle_cnt + 1'b1;
+      if  (request_trig == 1) request_cycle_cnt <= 3'b0;
+      else request_cycle_cnt <= request_cycle_cnt + 1'b1;
     end
   end
-  // HDL Embedded Text Block 2 Trig_sig
   //  request cycle 5 CLKs
   assign request_trig = (request_cycle_cnt == cycles_cnt) ? 1:0; 
   

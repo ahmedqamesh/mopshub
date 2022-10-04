@@ -28,7 +28,7 @@ module tb_mopshub_top();
   wire    [7:0]   bus_id;
   int             adc_ch;
 
-  reg             osc_auto_trim_mopshub = 1'b0;
+  reg             osc_auto_trim_mopshub = 1'b1;
   wire            ready_osc;
   wire            start_trim_osc;
   wire            end_trim_bus;
@@ -283,7 +283,7 @@ module tb_mopshub_top();
     end
     if(test_rx_end ==1)//Done Rx test
     begin
-      test_rx =1'b0; 
+     test_rx =1'b0; 
      endwait_all = 1'b1;
      #10
      endwait_all =1'b0;

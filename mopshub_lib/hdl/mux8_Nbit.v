@@ -20,7 +20,7 @@ module mux8_Nbit(
    input   wire    [1:0]  data5, 
    input   wire    [1:0]  data6, 
    input   wire    [1:0]  data7, 
-   input   wire    [2:0]    sel, 
+   input   wire    [2:0]  sel, 
    output  wire    [1:0]  data_out
 );
 
