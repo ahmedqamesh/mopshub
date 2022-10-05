@@ -28,7 +28,7 @@ module tb_mopshub_top();
   wire    [7:0]   bus_id;
   int             adc_ch;
 
-  reg             osc_auto_trim_mopshub = 1'b1;
+  reg             osc_auto_trim_mopshub = 1'b0;
   wire            ready_osc;
   wire            start_trim_osc;
   wire            end_trim_bus;
@@ -120,7 +120,7 @@ module tb_mopshub_top();
   mopshub_top mopshub0(
   .clk(clk_40_m),
   .rst(rst),
-  .n_buses(5'd15),
+  .n_buses(5'd2),
   .dbg_elink(1'b0), 
   .dbg_spi(1'b0),
   .osc_auto_trim_mopshub(osc_auto_trim_mopshub),                      
@@ -165,7 +165,7 @@ module tb_mopshub_top();
   .tx15(tx15));
   
   data_generator#(
-  .n_buses (5'd15))data_generator0(
+  .n_buses (5'd2))data_generator0(
   .clk_mops(clk_mops),
   .clk(clk_40_m),
   .rst(rst),
