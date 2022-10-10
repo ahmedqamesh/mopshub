@@ -6,17 +6,17 @@
  *                                                                                                  *
  * user    : lucas                                                                                  *
  * host    : DESKTOP-BFDSFP2                                                                        *
- * date    : 16/08/2022 12:58:20                                                                    *
+ * date    : 06/10/2022 13:52:49                                                                    *
  *                                                                                                  *
- * workdir : /mnt/c/Users/Lucas/Desktop/mopshub_triplication/mopshub_top_board_canakari_ftrim/hdl   *
- * cmd     : /mnt/c/Users/Lucas/Desktop/mopshub_triplication/tmrg-master/bin/tmrg -c tmrg.cfg -vvv  *
+ * workdir : /mnt/c/Users/Lucas/Documents/GitHub/mopshub_triplicated/triplicated/mopshub_top_board/hdl *
+ * cmd     : /mnt/c/Users/Lucas/Desktop/mopshub_triplication/tmrg-master/bin/tmrg -vv -c tmrg.cfg   *
  * tmrg rev:                                                                                        *
  *                                                                                                  *
  * src file: fifo_core_wrapper_struct.v                                                             *
- *           Git SHA           : File not in git repository!                                        *
- *           Modification time : 2022-08-16 10:16:17.101905                                         *
- *           File Size         : 169508                                                             *
- *           MD5 hash          : c1d5b3ce07722082f0c63baa1c33b8ea                                   *
+ *           Git SHA           : c110441b08b692cc54ebd4a3b84a2599430e8f93                           *
+ *           Modification time : 2022-10-06 09:16:41                                                *
+ *           File Size         : 169541                                                             *
+ *           MD5 hash          : 49ac26f205a7cd0f1707e47e81ab404f                                   *
  *                                                                                                  *
  ****************************************************************************************************/
 
@@ -33,42 +33,13 @@ module fifo_core_wrapperTMR(
   output wire  full_fifo ,
   output wire  rdy_fifo 
 );
-wire rstC;
-wire rstB;
-wire rstA;
-wire rd_en_sC;
-wire rd_en_sB;
-wire rd_en_sA;
-wire [9:0] dout10bitC;
-wire [9:0] dout10bitB;
-wire [9:0] dout10bitA;
-wire clkC;
-wire clkB;
-wire clkA;
-wire [7:0] Kchar_commaC;
-wire [7:0] Kchar_commaB;
-wire [7:0] Kchar_commaA;
-wor dout_rdy_fifo_regTmrError;
-wire dout_rdy_fifo_reg;
-wor dout_fifo_regTmrError;
-wire [9:0] dout_fifo_reg;
-wor clk_enTmrError;
-wire clk_en;
 wire aempty;
 wire afull;
-reg  clk_enA ;
-reg  clk_enB ;
-reg  clk_enC ;
+reg  clk_en ;
 wire [9:0] dout10bit;
-reg  [9:0] dout_fifo_regA ;
-reg  [9:0] dout_fifo_regB ;
-reg  [9:0] dout_fifo_regC ;
-reg  dout_rdy_fifo_regA ;
-reg  dout_rdy_fifo_regB ;
-reg  dout_rdy_fifo_regC ;
-reg  rd_en_dataA ;
-reg  rd_en_dataB ;
-reg  rd_en_dataC ;
+reg  [9:0] dout_fifo_reg ;
+reg  dout_rdy_fifo_reg ;
+reg  rd_en_data ;
 wire rd_en_s;
 wire rst_fifo;
 reg  [9:0] mw_fifo_downstream_ipreg_cval0 ;
@@ -640,103 +611,39 @@ wire mw_fifo_downstream_iptemp_empty;
 reg  [8:0] mw_fifo_downstream_ipaddr_cval ;
 wire [8:0] mw_fifo_downstream_ipaddr_nval;
 initial
-  dout_rdy_fifo_regA =  1'b0;
+  dout_rdy_fifo_reg =  1'b0;
 initial
-  dout_rdy_fifo_regB =  1'b0;
+  rd_en_data =  1'b0;
 initial
-  dout_rdy_fifo_regC =  1'b0;
-initial
-  rd_en_dataA =  1'b0;
-initial
-  rd_en_dataB =  1'b0;
-initial
-  rd_en_dataC =  1'b0;
-initial
-  clk_enA =  1;
-initial
-  clk_enB =  1;
-initial
-  clk_enC =  1;
+  clk_en =  1;
 assign dout_fifo =  dout_fifo_reg;
 assign rdy_fifo =  dout_rdy_fifo_reg;
 assign rd_en_s =  (rd_en&&!empty_fifo);
 assign rst_fifo =  (rst&&!flush_fifo);
 
-always @( posedge clkA )
-  if (!rstA)
-    rd_en_dataA <= 1'b0;
+always @( posedge clk )
+  if (!rst)
+    rd_en_data <= 1'b0;
   else
-    rd_en_dataA <= rd_en_sA;
+    rd_en_data <= rd_en_s;
 
-always @( posedge clkB )
-  if (!rstB)
-    rd_en_dataB <= 1'b0;
-  else
-    rd_en_dataB <= rd_en_sB;
-
-always @( posedge clkC )
-  if (!rstC)
-    rd_en_dataC <= 1'b0;
-  else
-    rd_en_dataC <= rd_en_sC;
-
-always @( posedge clkA )
-  if (!rstA)
+always @( posedge clk )
+  if (!rst)
     begin
-      dout_fifo_regA <= {2'b11,Kchar_commaA};
-      dout_rdy_fifo_regA <= 1'b0;
+      dout_fifo_reg <= {2'b11,Kchar_comma};
+      dout_rdy_fifo_reg <= 1'b0;
     end
   else
     begin
-      if (rd_en_dataA==1)
+      if (rd_en_data==1)
         begin
-          dout_fifo_regA <= dout10bitA;
-          dout_rdy_fifo_regA <= 1'b1;
+          dout_fifo_reg <= dout10bit;
+          dout_rdy_fifo_reg <= 1'b1;
         end
       else
         begin
-          dout_fifo_regA <= dout_fifo_regA;
-          dout_rdy_fifo_regA <= 1'b0;
-        end
-    end
-
-always @( posedge clkB )
-  if (!rstB)
-    begin
-      dout_fifo_regB <= {2'b11,Kchar_commaB};
-      dout_rdy_fifo_regB <= 1'b0;
-    end
-  else
-    begin
-      if (rd_en_dataB==1)
-        begin
-          dout_fifo_regB <= dout10bitB;
-          dout_rdy_fifo_regB <= 1'b1;
-        end
-      else
-        begin
-          dout_fifo_regB <= dout_fifo_regB;
-          dout_rdy_fifo_regB <= 1'b0;
-        end
-    end
-
-always @( posedge clkC )
-  if (!rstC)
-    begin
-      dout_fifo_regC <= {2'b11,Kchar_commaC};
-      dout_rdy_fifo_regC <= 1'b0;
-    end
-  else
-    begin
-      if (rd_en_dataC==1)
-        begin
-          dout_fifo_regC <= dout10bitC;
-          dout_rdy_fifo_regC <= 1'b1;
-        end
-      else
-        begin
-          dout_fifo_regC <= dout_fifo_regC;
-          dout_rdy_fifo_regC <= 1'b0;
+          dout_fifo_reg <= dout_fifo_reg;
+          dout_rdy_fifo_reg <= 1'b0;
         end
     end
 assign full_fifo =  mw_fifo_downstream_iptemp_full;
@@ -1324,64 +1231,5 @@ assign mw_fifo_downstream_ipreg_nval277[9:0]  =  mw_fifo_downstream_iptemp_wena 
 assign mw_fifo_downstream_ipreg_nval278[9:0]  =  mw_fifo_downstream_iptemp_wena ? mw_fifo_downstream_iptemp_rena ? (mw_fifo_downstream_ipaddr_cval==278) ? din_fifo : mw_fifo_downstream_ipreg_cval279[9:0]  : (mw_fifo_downstream_ipaddr_cval==277) ? din_fifo : mw_fifo_downstream_ipreg_cval278[9:0]  : mw_fifo_downstream_iptemp_rena ? mw_fifo_downstream_ipreg_cval279[9:0]  : mw_fifo_downstream_ipreg_cval278[9:0] ;
 assign mw_fifo_downstream_ipreg_nval279[9:0]  =  mw_fifo_downstream_iptemp_wena ? mw_fifo_downstream_iptemp_rena ? (mw_fifo_downstream_ipaddr_cval==279) ? din_fifo : mw_fifo_downstream_ipreg_cval280[9:0]  : (mw_fifo_downstream_ipaddr_cval==278) ? din_fifo : mw_fifo_downstream_ipreg_cval279[9:0]  : mw_fifo_downstream_iptemp_rena ? mw_fifo_downstream_ipreg_cval280[9:0]  : mw_fifo_downstream_ipreg_cval279[9:0] ;
 assign mw_fifo_downstream_ipreg_nval280[9:0]  =  mw_fifo_downstream_iptemp_wena ? mw_fifo_downstream_iptemp_rena ? mw_fifo_downstream_ipreg_cval280[9:0]  : (mw_fifo_downstream_ipaddr_cval==279) ? din_fifo : mw_fifo_downstream_ipreg_cval280[9:0]  : mw_fifo_downstream_iptemp_rena ? mw_fifo_downstream_ipreg_cval280[9:0]  : mw_fifo_downstream_ipreg_cval280[9:0] ;
-
-majorityVoter clk_enVoter (
-    .inA(clk_enA),
-    .inB(clk_enB),
-    .inC(clk_enC),
-    .out(clk_en),
-    .tmrErr(clk_enTmrError)
-    );
-
-majorityVoter #(.WIDTH(10)) dout_fifo_regVoter (
-    .inA(dout_fifo_regA),
-    .inB(dout_fifo_regB),
-    .inC(dout_fifo_regC),
-    .out(dout_fifo_reg),
-    .tmrErr(dout_fifo_regTmrError)
-    );
-
-majorityVoter dout_rdy_fifo_regVoter (
-    .inA(dout_rdy_fifo_regA),
-    .inB(dout_rdy_fifo_regB),
-    .inC(dout_rdy_fifo_regC),
-    .out(dout_rdy_fifo_reg),
-    .tmrErr(dout_rdy_fifo_regTmrError)
-    );
-
-fanout #(.WIDTH(8)) Kchar_commaFanout (
-    .in(Kchar_comma),
-    .outA(Kchar_commaA),
-    .outB(Kchar_commaB),
-    .outC(Kchar_commaC)
-    );
-
-fanout clkFanout (
-    .in(clk),
-    .outA(clkA),
-    .outB(clkB),
-    .outC(clkC)
-    );
-
-fanout #(.WIDTH(10)) dout10bitFanout (
-    .in(dout10bit),
-    .outA(dout10bitA),
-    .outB(dout10bitB),
-    .outC(dout10bitC)
-    );
-
-fanout rd_en_sFanout (
-    .in(rd_en_s),
-    .outA(rd_en_sA),
-    .outB(rd_en_sB),
-    .outC(rd_en_sC)
-    );
-
-fanout rstFanout (
-    .in(rst),
-    .outA(rstA),
-    .outB(rstB),
-    .outC(rstC)
-    );
 endmodule
 

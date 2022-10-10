@@ -6,55 +6,56 @@
  *                                                                                                  *
  * user    : lucas                                                                                  *
  * host    : DESKTOP-BFDSFP2                                                                        *
- * date    : 16/08/2022 12:58:39                                                                    *
+ * date    : 06/10/2022 13:53:08                                                                    *
  *                                                                                                  *
- * workdir : /mnt/c/Users/Lucas/Desktop/mopshub_triplication/mopshub_top_board_canakari_ftrim/hdl   *
- * cmd     : /mnt/c/Users/Lucas/Desktop/mopshub_triplication/tmrg-master/bin/tmrg -c tmrg.cfg -vvv  *
+ * workdir : /mnt/c/Users/Lucas/Documents/GitHub/mopshub_triplicated/triplicated/mopshub_top_board/hdl *
+ * cmd     : /mnt/c/Users/Lucas/Desktop/mopshub_triplication/tmrg-master/bin/tmrg -vv -c tmrg.cfg   *
  * tmrg rev:                                                                                        *
  *                                                                                                  *
  * src file: tseg_reg2.v                                                                            *
- *           Git SHA           : File not in git repository!                                        *
- *           Modification time : 2022-03-29 13:49:21                                                *
- *           File Size         : 2220                                                               *
- *           MD5 hash          : 5deb88b2550709824f15c027eba323bc                                   *
+ *           Git SHA           : c110441b08b692cc54ebd4a3b84a2599430e8f93                           *
+ *           Modification time : 2022-08-25 11:05:33                                                *
+ *           File Size         : 2173                                                               *
+ *           MD5 hash          : 455263157183046a2bec8106b6d3b3b8                                   *
  *                                                                                                  *
  ****************************************************************************************************/
 
 module tseg_reg2TMR(
-  input wire  clockA ,
-  input wire  clockB ,
-  input wire  clockC ,
-  input wire  resetA ,
-  input wire  resetB ,
-  input wire  resetC ,
-  input wire [1:0] ctrlA ,
-  input wire [1:0] ctrlB ,
-  input wire [1:0] ctrlC ,
-  input wire [2:0] tseg1A ,
-  input wire [2:0] tseg1B ,
-  input wire [2:0] tseg1C ,
-  input wire [4:0] tseg1pcountA ,
-  input wire [4:0] tseg1pcountB ,
-  input wire [4:0] tseg1pcountC ,
-  input wire [4:0] tseg1p1psjwA ,
-  input wire [4:0] tseg1p1psjwB ,
-  input wire [4:0] tseg1p1psjwC ,
-  output wire [4:0] tseg1mplA ,
-  output wire [4:0] tseg1mplB ,
-  output wire [4:0] tseg1mplC 
+  input wire  clock ,
+  input wire  reset ,
+  input wire [1:0] ctrl ,
+  input wire [2:0] tseg1 ,
+  input wire [4:0] tseg1pcount ,
+  input wire [4:0] tseg1p1psjw ,
+  output wire [4:0] tseg1mpl 
 );
-wor tseg1mpl_iTmrErrorC;
-wire [4:0] tseg1mpl_iVotedC;
-wor tseg1mpl_iTmrErrorB;
-wire [4:0] tseg1mpl_iVotedB;
-wor tseg1mpl_iTmrErrorA;
-wire [4:0] tseg1mpl_iVotedA;
+wire [4:0] tseg1pcountC;
+wire [4:0] tseg1pcountB;
+wire [4:0] tseg1pcountA;
+wire [4:0] tseg1p1psjwC;
+wire [4:0] tseg1p1psjwB;
+wire [4:0] tseg1p1psjwA;
+wire [4:0] tseg1mplC;
+wire [4:0] tseg1mplB;
+wire [4:0] tseg1mplA;
+wire [2:0] tseg1C;
+wire [2:0] tseg1B;
+wire [2:0] tseg1A;
+wire resetC;
+wire resetB;
+wire resetA;
+wire [1:0] ctrlC;
+wire [1:0] ctrlB;
+wire [1:0] ctrlA;
+wire clockC;
+wire clockB;
+wire clockA;
+wor tseg1mpl_iTmrError;
+wire [4:0] tseg1mpl_i;
 reg  [4:0] tseg1mpl_iA ;
 reg  [4:0] tseg1mpl_iB ;
 reg  [4:0] tseg1mpl_iC ;
-assign tseg1mplA =  tseg1mpl_iVotedA;
-assign tseg1mplB =  tseg1mpl_iVotedB;
-assign tseg1mplC =  tseg1mpl_iVotedC;
+assign tseg1mpl =  tseg1mpl_i;
 
 always @( posedge clockA or negedge resetA )
   begin
@@ -66,7 +67,7 @@ always @( posedge clockA or negedge resetA )
           2'b01 : tseg1mpl_iA <= {2'b00,tseg1A};
           2'b10 : tseg1mpl_iA <= tseg1pcountA;
           2'b11 : tseg1mpl_iA <= tseg1p1psjwA;
-          default : tseg1mpl_iA <= tseg1mpl_iVotedA;
+          default : tseg1mpl_iA <= tseg1mplA;
         endcase
       end
   end
@@ -81,7 +82,7 @@ always @( posedge clockB or negedge resetB )
           2'b01 : tseg1mpl_iB <= {2'b00,tseg1B};
           2'b10 : tseg1mpl_iB <= tseg1pcountB;
           2'b11 : tseg1mpl_iB <= tseg1p1psjwB;
-          default : tseg1mpl_iB <= tseg1mpl_iVotedB;
+          default : tseg1mpl_iB <= tseg1mplB;
         endcase
       end
   end
@@ -96,33 +97,66 @@ always @( posedge clockC or negedge resetC )
           2'b01 : tseg1mpl_iC <= {2'b00,tseg1C};
           2'b10 : tseg1mpl_iC <= tseg1pcountC;
           2'b11 : tseg1mpl_iC <= tseg1p1psjwC;
-          default : tseg1mpl_iC <= tseg1mpl_iVotedC;
+          default : tseg1mpl_iC <= tseg1mplC;
         endcase
       end
   end
 
-majorityVoter #(.WIDTH(5)) tseg1mpl_iVoterA (
+majorityVoter #(.WIDTH(5)) tseg1mpl_iVoter (
     .inA(tseg1mpl_iA),
     .inB(tseg1mpl_iB),
     .inC(tseg1mpl_iC),
-    .out(tseg1mpl_iVotedA),
-    .tmrErr(tseg1mpl_iTmrErrorA)
+    .out(tseg1mpl_i),
+    .tmrErr(tseg1mpl_iTmrError)
     );
 
-majorityVoter #(.WIDTH(5)) tseg1mpl_iVoterB (
-    .inA(tseg1mpl_iA),
-    .inB(tseg1mpl_iB),
-    .inC(tseg1mpl_iC),
-    .out(tseg1mpl_iVotedB),
-    .tmrErr(tseg1mpl_iTmrErrorB)
+fanout clockFanout (
+    .in(clock),
+    .outA(clockA),
+    .outB(clockB),
+    .outC(clockC)
     );
 
-majorityVoter #(.WIDTH(5)) tseg1mpl_iVoterC (
-    .inA(tseg1mpl_iA),
-    .inB(tseg1mpl_iB),
-    .inC(tseg1mpl_iC),
-    .out(tseg1mpl_iVotedC),
-    .tmrErr(tseg1mpl_iTmrErrorC)
+fanout #(.WIDTH(2)) ctrlFanout (
+    .in(ctrl),
+    .outA(ctrlA),
+    .outB(ctrlB),
+    .outC(ctrlC)
+    );
+
+fanout resetFanout (
+    .in(reset),
+    .outA(resetA),
+    .outB(resetB),
+    .outC(resetC)
+    );
+
+fanout #(.WIDTH(3)) tseg1Fanout (
+    .in(tseg1),
+    .outA(tseg1A),
+    .outB(tseg1B),
+    .outC(tseg1C)
+    );
+
+fanout #(.WIDTH(5)) tseg1mplFanout (
+    .in(tseg1mpl),
+    .outA(tseg1mplA),
+    .outB(tseg1mplB),
+    .outC(tseg1mplC)
+    );
+
+fanout #(.WIDTH(5)) tseg1p1psjwFanout (
+    .in(tseg1p1psjw),
+    .outA(tseg1p1psjwA),
+    .outB(tseg1p1psjwB),
+    .outC(tseg1p1psjwC)
+    );
+
+fanout #(.WIDTH(5)) tseg1pcountFanout (
+    .in(tseg1pcount),
+    .outA(tseg1pcountA),
+    .outB(tseg1pcountB),
+    .outC(tseg1pcountC)
     );
 endmodule
 

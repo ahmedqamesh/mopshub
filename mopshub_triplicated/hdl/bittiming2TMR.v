@@ -6,136 +6,72 @@
  *                                                                                                  *
  * user    : lucas                                                                                  *
  * host    : DESKTOP-BFDSFP2                                                                        *
- * date    : 16/08/2022 12:58:08                                                                    *
+ * date    : 06/10/2022 13:52:37                                                                    *
  *                                                                                                  *
- * workdir : /mnt/c/Users/Lucas/Desktop/mopshub_triplication/mopshub_top_board_canakari_ftrim/hdl   *
- * cmd     : /mnt/c/Users/Lucas/Desktop/mopshub_triplication/tmrg-master/bin/tmrg -c tmrg.cfg -vvv  *
+ * workdir : /mnt/c/Users/Lucas/Documents/GitHub/mopshub_triplicated/triplicated/mopshub_top_board/hdl *
+ * cmd     : /mnt/c/Users/Lucas/Desktop/mopshub_triplication/tmrg-master/bin/tmrg -vv -c tmrg.cfg   *
  * tmrg rev:                                                                                        *
  *                                                                                                  *
  * src file: bittiming2.v                                                                           *
- *           Git SHA           : File not in git repository!                                        *
- *           Modification time : 2022-03-29 13:49:21                                                *
- *           File Size         : 8124                                                               *
- *           MD5 hash          : 5a125ab4ac9480ce3381bd0cd037dffc                                   *
+ *           Git SHA           : c110441b08b692cc54ebd4a3b84a2599430e8f93                           *
+ *           Modification time : 2022-08-23 20:01:21                                                *
+ *           File Size         : 8112                                                               *
+ *           MD5 hash          : cb60e71f17db088057814d44b4734001                                   *
  *                                                                                                  *
  ****************************************************************************************************/
 
 module bittiming2TMR(
-  input wire  clockA ,
-  input wire  clockB ,
-  input wire  clockC ,
-  input wire  Prescale_ENA ,
-  input wire  Prescale_ENB ,
-  input wire  Prescale_ENC ,
-  input wire  resetA ,
-  input wire  resetB ,
-  input wire  resetC ,
-  input wire  hardsyncA ,
-  input wire  hardsyncB ,
-  input wire  hardsyncC ,
-  input wire  rxA ,
-  input wire  rxB ,
-  input wire  rxC ,
-  input wire [2:0] tseg1A ,
-  input wire [2:0] tseg1B ,
-  input wire [2:0] tseg1C ,
-  input wire [2:0] tseg2A ,
-  input wire [2:0] tseg2B ,
-  input wire [2:0] tseg2C ,
-  input wire [2:0] sjwA ,
-  input wire [2:0] sjwB ,
-  input wire [2:0] sjwC ,
-  input wire  en_osc_trimA ,
-  input wire  en_osc_trimB ,
-  input wire  en_osc_trimC ,
-  input wire [7:0] KdA ,
-  input wire [7:0] KdB ,
-  input wire [7:0] KdC ,
-  input wire [7:0] KpA ,
-  input wire [7:0] KpB ,
-  input wire [7:0] KpC ,
-  input wire [7:0] KiA ,
-  input wire [7:0] KiB ,
-  input wire [7:0] KiC ,
-  output wire [5:0] ftrimA ,
-  output wire [5:0] ftrimB ,
-  output wire [5:0] ftrimC ,
-  output wire  ready_oscA ,
-  output wire  ready_oscB ,
-  output wire  ready_oscC ,
-  output wire  sendpointA ,
-  output wire  sendpointB ,
-  output wire  sendpointC ,
-  output wire  smplpointA ,
-  output wire  smplpointB ,
-  output wire  smplpointC ,
-  output wire  smpledbitA ,
-  output wire  smpledbitB ,
-  output wire  smpledbitC ,
-  output wire [6:0] bitstA ,
-  output wire [6:0] bitstB ,
-  output wire [6:0] bitstC 
+  input wire  clock ,
+  input wire  Prescale_EN ,
+  input wire  reset ,
+  input wire  hardsync ,
+  input wire  rx ,
+  input wire [2:0] tseg1 ,
+  input wire [2:0] tseg2 ,
+  input wire [2:0] sjw ,
+  input wire  en_osc_trim ,
+  input wire [7:0] Kd ,
+  input wire [7:0] Kp ,
+  input wire [7:0] Ki ,
+  output wire [5:0] ftrim ,
+  output wire  ready_osc ,
+  output wire  sendpoint ,
+  output wire  smplpoint ,
+  output wire  smpledbit ,
+  output wire [6:0] bitst 
 );
-wor rxfTmrErrorC;
-wire rxfVotedC;
-wor rxfTmrErrorB;
-wire rxfVotedB;
-wor rxfTmrErrorA;
-wire rxfVotedA;
-wire [4:0] tseg1pcountA;
-wire [4:0] tseg1pcountB;
-wire [4:0] tseg1pcountC;
-wire [4:0] tseg1p1psjwA;
-wire [4:0] tseg1p1psjwB;
-wire [4:0] tseg1p1psjwC;
-wire notnullA;
-wire notnullB;
-wire notnullC;
-wire gtsjwp1A;
-wire gtsjwp1B;
-wire gtsjwp1C;
-wire gttseg1p1A;
-wire gttseg1p1B;
-wire gttseg1p1C;
-wire cpsgetseg1ptseg2p2A;
-wire cpsgetseg1ptseg2p2B;
-wire cpsgetseg1ptseg2p2C;
-wire cetseg1ptseg2p1A;
-wire cetseg1ptseg2p1B;
-wire cetseg1ptseg2p1C;
-wire countesmpltimeA;
-wire countesmpltimeB;
-wire countesmpltimeC;
-wire pufferA;
-wire pufferB;
-wire pufferC;
-wire [4:0] tseg1mplA;
-wire [4:0] tseg1mplB;
-wire [4:0] tseg1mplC;
-wire incrementA;
-wire incrementB;
-wire incrementC;
-wire setctzeroA;
-wire setctzeroB;
-wire setctzeroC;
-wire setctotwoA;
-wire setctotwoB;
-wire setctotwoC;
-wire [3:0] countA;
-wire [3:0] countB;
-wire [3:0] countC;
-wire [1:0] smpldbit_reg_ctrlA;
-wire [1:0] smpldbit_reg_ctrlB;
-wire [1:0] smpldbit_reg_ctrlC;
-wire [1:0] tseg_reg_ctrlA;
-wire [1:0] tseg_reg_ctrlB;
-wire [1:0] tseg_reg_ctrlC;
-wire [2:0] deblatchA;
-wire [2:0] deblatchB;
-wire [2:0] deblatchC;
+wire rxC;
+wire rxB;
+wire rxA;
+wire resetC;
+wire resetB;
+wire resetA;
+wire clockC;
+wire clockB;
+wire clockA;
+wor rxfTmrError;
+wire rxf;
+wire [4:0] tseg1pcount;
+wire [4:0] tseg1p1psjw;
+wire notnull;
+wire gtsjwp1;
+wire gttseg1p1;
+wire cpsgetseg1ptseg2p2;
+wire cetseg1ptseg2p1;
+wire countesmpltime;
+wire puffer;
+wire [4:0] tseg1mpl;
+wire increment;
+wire setctzero;
+wire setctotwo;
+wire [3:0] count;
+wire [1:0] smpldbit_reg_ctrl;
+wire [1:0] tseg_reg_ctrl;
+wire [2:0] deblatch;
 reg  rxfA ;
 reg  rxfB ;
 reg  rxfC ;
+wire rxfV =  rxf;
 
 always @( posedge clockA or negedge resetA )
   begin
@@ -160,266 +96,127 @@ always @( posedge clockC or negedge resetC )
     else
       rxfC <= rxC;
   end
-assign deblatchA[0]  =  Prescale_ENA;
-assign deblatchB[0]  =  Prescale_ENB;
-assign deblatchC[0]  =  Prescale_ENC;
-assign deblatchA[2:1]  =  tseg_reg_ctrlA;
-assign deblatchB[2:1]  =  tseg_reg_ctrlB;
-assign deblatchC[2:1]  =  tseg_reg_ctrlC;
-assign bitstA[6:4]  =  deblatchA;
-assign bitstB[6:4]  =  deblatchB;
-assign bitstC[6:4]  =  deblatchC;
+assign deblatch[0]  =  Prescale_EN;
+assign deblatch[2:1]  =  tseg_reg_ctrl;
+assign bitst[6:4]  =  deblatch;
 
 Control_SysTMR freqTrim (
-    .FtrimA(ftrimA),
-    .FtrimB(ftrimB),
-    .FtrimC(ftrimC),
-    .readyA(ready_oscA),
-    .readyB(ready_oscB),
-    .readyC(ready_oscC),
-    .CLKA(clockA),
-    .CLKB(clockB),
-    .CLKC(clockC),
-    .E1A(countA),
-    .E1B(countB),
-    .E1C(countC),
-    .KdA(KdA),
-    .KdB(KdB),
-    .KdC(KdC),
-    .KiA(KiA),
-    .KiB(KiB),
-    .KiC(KiC),
-    .KpA(KpA),
-    .KpB(KpB),
-    .KpC(KpC),
-    .Prescale_EnA(Prescale_ENA),
-    .Prescale_EnB(Prescale_ENB),
-    .Prescale_EnC(Prescale_ENC),
-    .PufferA(pufferA),
-    .PufferB(pufferB),
-    .PufferC(pufferC),
-    .ResetA(resetA),
-    .ResetB(resetB),
-    .ResetC(resetC),
-    .RxA(rxA),
-    .RxB(rxB),
-    .RxC(rxC),
-    .activeA(en_osc_trimA),
-    .activeB(en_osc_trimB),
-    .activeC(en_osc_trimC)
+    .Ftrim(ftrim),
+    .ready(ready_osc),
+    .CLK(clock),
+    .E1(count),
+    .Kd(Kd),
+    .Ki(Ki),
+    .Kp(Kp),
+    .Prescale_En(Prescale_EN),
+    .Puffer(puffer),
+    .Reset(reset),
+    .Rx(rx),
+    .active(en_osc_trim)
     );
 
 bittime2TMR bittiming (
-    .clockA(clockA),
-    .clockB(clockB),
-    .clockC(clockC),
-    .Prescale_ENA(Prescale_ENA),
-    .Prescale_ENB(Prescale_ENB),
-    .Prescale_ENC(Prescale_ENC),
-    .resetA(resetA),
-    .resetB(resetB),
-    .resetC(resetC),
-    .hardsyncA(hardsyncA),
-    .hardsyncB(hardsyncB),
-    .hardsyncC(hardsyncC),
-    .notnullA(notnullA),
-    .notnullB(notnullB),
-    .notnullC(notnullC),
-    .gtsjwp1A(gtsjwp1A),
-    .gtsjwp1B(gtsjwp1B),
-    .gtsjwp1C(gtsjwp1C),
-    .gttseg1p1A(gttseg1p1A),
-    .gttseg1p1B(gttseg1p1B),
-    .gttseg1p1C(gttseg1p1C),
-    .cpsgetseg1ptseg2p2A(cpsgetseg1ptseg2p2A),
-    .cpsgetseg1ptseg2p2B(cpsgetseg1ptseg2p2B),
-    .cpsgetseg1ptseg2p2C(cpsgetseg1ptseg2p2C),
-    .cetseg1ptseg2p1A(cetseg1ptseg2p1A),
-    .cetseg1ptseg2p1B(cetseg1ptseg2p1B),
-    .cetseg1ptseg2p1C(cetseg1ptseg2p1C),
-    .countesmpltimeA(countesmpltimeA),
-    .countesmpltimeB(countesmpltimeB),
-    .countesmpltimeC(countesmpltimeC),
-    .pufferA(pufferA),
-    .pufferB(pufferB),
-    .pufferC(pufferC),
-    .rxA(rxfVotedA),
-    .rxB(rxfVotedB),
-    .rxC(rxfVotedC),
-    .incrementA(incrementA),
-    .incrementB(incrementB),
-    .incrementC(incrementC),
-    .setctzeroA(setctzeroA),
-    .setctzeroB(setctzeroB),
-    .setctzeroC(setctzeroC),
-    .setctotwoA(setctotwoA),
-    .setctotwoB(setctotwoB),
-    .setctotwoC(setctotwoC),
-    .sendpointA(sendpointA),
-    .sendpointB(sendpointB),
-    .sendpointC(sendpointC),
-    .smplpointA(smplpointA),
-    .smplpointB(smplpointB),
-    .smplpointC(smplpointC),
-    .smpldbit_reg_ctrlA(smpldbit_reg_ctrlA),
-    .smpldbit_reg_ctrlB(smpldbit_reg_ctrlB),
-    .smpldbit_reg_ctrlC(smpldbit_reg_ctrlC),
-    .tseg_reg_ctrlA(tseg_reg_ctrlA),
-    .tseg_reg_ctrlB(tseg_reg_ctrlB),
-    .tseg_reg_ctrlC(tseg_reg_ctrlC),
-    .bitstA(bitstA[3:0] ),
-    .bitstB(bitstB[3:0] ),
-    .bitstC(bitstC[3:0] )
+    .clock(clock),
+    .Prescale_EN(Prescale_EN),
+    .reset(reset),
+    .hardsync(hardsync),
+    .notnull(notnull),
+    .gtsjwp1(gtsjwp1),
+    .gttseg1p1(gttseg1p1),
+    .cpsgetseg1ptseg2p2(cpsgetseg1ptseg2p2),
+    .cetseg1ptseg2p1(cetseg1ptseg2p1),
+    .countesmpltime(countesmpltime),
+    .puffer(puffer),
+    .rx(rxfV),
+    .increment(increment),
+    .setctzero(setctzero),
+    .setctotwo(setctotwo),
+    .sendpoint(sendpoint),
+    .smplpoint(smplpoint),
+    .smpldbit_reg_ctrl(smpldbit_reg_ctrl),
+    .tseg_reg_ctrl(tseg_reg_ctrl),
+    .bitst(bitst[3:0] )
     );
 
 sum2TMR aritmetic (
-    .countA(countA),
-    .countB(countB),
-    .countC(countC),
-    .tseg1orgA(tseg1A),
-    .tseg1orgB(tseg1B),
-    .tseg1orgC(tseg1C),
-    .tseg1mplA(tseg1mplA),
-    .tseg1mplB(tseg1mplB),
-    .tseg1mplC(tseg1mplC),
-    .tseg2A(tseg2A),
-    .tseg2B(tseg2B),
-    .tseg2C(tseg2C),
-    .sjwA(sjwA),
-    .sjwB(sjwB),
-    .sjwC(sjwC),
-    .notnullA(notnullA),
-    .notnullB(notnullB),
-    .notnullC(notnullC),
-    .gtsjwp1A(gtsjwp1A),
-    .gtsjwp1B(gtsjwp1B),
-    .gtsjwp1C(gtsjwp1C),
-    .gttseg1p1A(gttseg1p1A),
-    .gttseg1p1B(gttseg1p1B),
-    .gttseg1p1C(gttseg1p1C),
-    .cpsgetseg1ptseg2p2A(cpsgetseg1ptseg2p2A),
-    .cpsgetseg1ptseg2p2B(cpsgetseg1ptseg2p2B),
-    .cpsgetseg1ptseg2p2C(cpsgetseg1ptseg2p2C),
-    .cetseg1ptseg2p1A(cetseg1ptseg2p1A),
-    .cetseg1ptseg2p1B(cetseg1ptseg2p1B),
-    .cetseg1ptseg2p1C(cetseg1ptseg2p1C),
-    .countesmpltimeA(countesmpltimeA),
-    .countesmpltimeB(countesmpltimeB),
-    .countesmpltimeC(countesmpltimeC),
-    .tseg1p1psjwA(tseg1p1psjwA),
-    .tseg1p1psjwB(tseg1p1psjwB),
-    .tseg1p1psjwC(tseg1p1psjwC),
-    .tseg1pcountA(tseg1pcountA),
-    .tseg1pcountB(tseg1pcountB),
-    .tseg1pcountC(tseg1pcountC)
+    .count(count),
+    .tseg1org(tseg1),
+    .tseg1mpl(tseg1mpl),
+    .tseg2(tseg2),
+    .sjw(sjw),
+    .notnull(notnull),
+    .gtsjwp1(gtsjwp1),
+    .gttseg1p1(gttseg1p1),
+    .cpsgetseg1ptseg2p2(cpsgetseg1ptseg2p2),
+    .cetseg1ptseg2p1(cetseg1ptseg2p1),
+    .countesmpltime(countesmpltime),
+    .tseg1p1psjw(tseg1p1psjw),
+    .tseg1pcount(tseg1pcount)
     );
 
 timecount2TMR counter (
-    .clockA(clockA),
-    .clockB(clockB),
-    .clockC(clockC),
-    .Prescale_ENA(Prescale_ENA),
-    .Prescale_ENB(Prescale_ENB),
-    .Prescale_ENC(Prescale_ENC),
-    .resetA(resetA),
-    .resetB(resetB),
-    .resetC(resetC),
-    .incrementA(incrementA),
-    .incrementB(incrementB),
-    .incrementC(incrementC),
-    .setctzeroA(setctzeroA),
-    .setctzeroB(setctzeroB),
-    .setctzeroC(setctzeroC),
-    .setctotwoA(setctotwoA),
-    .setctotwoB(setctotwoB),
-    .setctotwoC(setctotwoC),
-    .countoA(countA),
-    .countoB(countB),
-    .countoC(countC)
+    .clock(clock),
+    .Prescale_EN(Prescale_EN),
+    .reset(reset),
+    .increment(increment),
+    .setctzero(setctzero),
+    .setctotwo(setctotwo),
+    .counto(count)
     );
 
 edgepuffer2TMR flipflop (
-    .clockA(clockA),
-    .clockB(clockB),
-    .clockC(clockC),
-    .Prescale_ENA(Prescale_ENA),
-    .Prescale_ENB(Prescale_ENB),
-    .Prescale_ENC(Prescale_ENC),
-    .resetA(resetA),
-    .resetB(resetB),
-    .resetC(resetC),
-    .rxA(rxfVotedA),
-    .rxB(rxfVotedB),
-    .rxC(rxfVotedC),
-    .pufferA(pufferA),
-    .pufferB(pufferB),
-    .pufferC(pufferC)
+    .clock(clock),
+    .Prescale_EN(Prescale_EN),
+    .reset(reset),
+    .rx(rxfV),
+    .puffer(puffer)
     );
 
 smpldbit_reg2TMR smpldbit_reg_i (
-    .clockA(clockA),
-    .clockB(clockB),
-    .clockC(clockC),
-    .resetA(resetA),
-    .resetB(resetB),
-    .resetC(resetC),
-    .ctrlA(smpldbit_reg_ctrlA),
-    .ctrlB(smpldbit_reg_ctrlB),
-    .ctrlC(smpldbit_reg_ctrlC),
-    .smpldbitA(smpledbitA),
-    .smpldbitB(smpledbitB),
-    .smpldbitC(smpledbitC),
-    .pufferA(pufferA),
-    .pufferB(pufferB),
-    .pufferC(pufferC)
+    .clock(clock),
+    .reset(reset),
+    .ctrl(smpldbit_reg_ctrl),
+    .smpldbit(smpledbit),
+    .puffer(puffer)
     );
 
 tseg_reg2TMR tseg_reg_i (
-    .clockA(clockA),
-    .clockB(clockB),
-    .clockC(clockC),
-    .resetA(resetA),
-    .resetB(resetB),
-    .resetC(resetC),
-    .ctrlA(tseg_reg_ctrlA),
-    .ctrlB(tseg_reg_ctrlB),
-    .ctrlC(tseg_reg_ctrlC),
-    .tseg1A(tseg1A),
-    .tseg1B(tseg1B),
-    .tseg1C(tseg1C),
-    .tseg1pcountA(tseg1pcountA),
-    .tseg1pcountB(tseg1pcountB),
-    .tseg1pcountC(tseg1pcountC),
-    .tseg1p1psjwA(tseg1p1psjwA),
-    .tseg1p1psjwB(tseg1p1psjwB),
-    .tseg1p1psjwC(tseg1p1psjwC),
-    .tseg1mplA(tseg1mplA),
-    .tseg1mplB(tseg1mplB),
-    .tseg1mplC(tseg1mplC)
+    .clock(clock),
+    .reset(reset),
+    .ctrl(tseg_reg_ctrl),
+    .tseg1(tseg1),
+    .tseg1pcount(tseg1pcount),
+    .tseg1p1psjw(tseg1p1psjw),
+    .tseg1mpl(tseg1mpl)
     );
 
-majorityVoter rxfVoterA (
+majorityVoter rxfVoter (
     .inA(rxfA),
     .inB(rxfB),
     .inC(rxfC),
-    .out(rxfVotedA),
-    .tmrErr(rxfTmrErrorA)
+    .out(rxf),
+    .tmrErr(rxfTmrError)
     );
 
-majorityVoter rxfVoterB (
-    .inA(rxfA),
-    .inB(rxfB),
-    .inC(rxfC),
-    .out(rxfVotedB),
-    .tmrErr(rxfTmrErrorB)
+fanout clockFanout (
+    .in(clock),
+    .outA(clockA),
+    .outB(clockB),
+    .outC(clockC)
     );
 
-majorityVoter rxfVoterC (
-    .inA(rxfA),
-    .inB(rxfB),
-    .inC(rxfC),
-    .out(rxfVotedC),
-    .tmrErr(rxfTmrErrorC)
+fanout resetFanout (
+    .in(reset),
+    .outA(resetA),
+    .outB(resetB),
+    .outC(resetC)
+    );
+
+fanout rxFanout (
+    .in(rx),
+    .outA(rxA),
+    .outB(rxB),
+    .outC(rxC)
     );
 endmodule
 

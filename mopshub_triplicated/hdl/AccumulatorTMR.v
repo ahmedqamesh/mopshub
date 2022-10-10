@@ -6,17 +6,17 @@
  *                                                                                                  *
  * user    : lucas                                                                                  *
  * host    : DESKTOP-BFDSFP2                                                                        *
- * date    : 16/08/2022 12:58:06                                                                    *
+ * date    : 06/10/2022 13:52:31                                                                    *
  *                                                                                                  *
- * workdir : /mnt/c/Users/Lucas/Desktop/mopshub_triplication/mopshub_top_board_canakari_ftrim/hdl   *
- * cmd     : /mnt/c/Users/Lucas/Desktop/mopshub_triplication/tmrg-master/bin/tmrg -c tmrg.cfg -vvv  *
+ * workdir : /mnt/c/Users/Lucas/Documents/GitHub/mopshub_triplicated/triplicated/mopshub_top_board/hdl *
+ * cmd     : /mnt/c/Users/Lucas/Desktop/mopshub_triplication/tmrg-master/bin/tmrg -vv -c tmrg.cfg   *
  * tmrg rev:                                                                                        *
  *                                                                                                  *
  * src file: Accumulator.v                                                                          *
- *           Git SHA           : File not in git repository!                                        *
- *           Modification time : 2022-03-29 13:49:21                                                *
- *           File Size         : 1146                                                               *
- *           MD5 hash          : d28c93e1a457554fc6e36a957a366042                                   *
+ *           Git SHA           : c110441b08b692cc54ebd4a3b84a2599430e8f93                           *
+ *           Modification time : 2022-08-30 11:26:16                                                *
+ *           File Size         : 1103                                                               *
+ *           MD5 hash          : 64b212a2bf13103e19eb196498ab6a10                                   *
  *                                                                                                  *
  ****************************************************************************************************/
 
@@ -24,88 +24,52 @@ module AccumulatorTMR #(
   parameter  WidthA  = 8,
   parameter  WidthAcc  = WidthA+1
 )(
-  input wire  clk_iA ,
-  input wire  clk_iB ,
-  input wire  clk_iC ,
-  input wire  rst_niA ,
-  input wire  rst_niB ,
-  input wire  rst_niC ,
-  input wire  EnableA ,
-  input wire  EnableB ,
-  input wire  EnableC ,
-  input wire signed [WidthA-1:0] a_iA ,
-  input wire signed [WidthA-1:0] a_iB ,
-  input wire signed [WidthA-1:0] a_iC ,
-  output reg signed [WidthAcc-1:0] sum_oA ,
-  output reg signed [WidthAcc-1:0] sum_oB ,
-  output reg signed [WidthAcc-1:0] sum_oC 
+  input wire  clk_i ,
+  input wire  rst_ni ,
+  input wire  Enable ,
+  input wire signed [WidthA-1:0] a_i ,
+  output reg signed [WidthAcc-1:0] sum_o 
 );
 localparam Max =(2**(WidthAcc-1))-1;
 localparam Min =-(2**(WidthAcc-1));
-wor accTmrErrorC;
-wire signed  [WidthAcc-1:0] accVotedC;
-wor accTmrErrorB;
-wire signed  [WidthAcc-1:0] accVotedB;
-wor accTmrErrorA;
-wire signed  [WidthAcc-1:0] accVotedA;
+wire signed  [WidthAcc-1:0] sum_oC;
+wire signed  [WidthAcc-1:0] sum_oB;
+wire signed  [WidthAcc-1:0] sum_oA;
+wire rst_niC;
+wire rst_niB;
+wire rst_niA;
+wire clk_iC;
+wire clk_iB;
+wire clk_iA;
+wire signed  [WidthAcc-1:0] accVC;
+wire signed  [WidthAcc-1:0] accVB;
+wire signed  [WidthAcc-1:0] accVA;
+wire EnableC;
+wire EnableB;
+wire EnableA;
+wor accTmrError;
+wire signed  [WidthAcc-1:0] acc;
 reg signed  [WidthAcc-1:0] accA ;
 reg signed  [WidthAcc-1:0] accB ;
 reg signed  [WidthAcc-1:0] accC ;
-reg signed  [WidthAcc-1:0] acc_addedA ;
-reg signed  [WidthAcc-1:0] acc_addedB ;
-reg signed  [WidthAcc-1:0] acc_addedC ;
+wire signed [WidthAcc-1:0] accV =  acc;
+reg signed  [WidthAcc-1:0] acc_added ;
 
 always @*
   begin
-    acc_addedA =  accVotedA+{a_iA[7] ,a_iA};
-    if (accVotedA>0&&a_iA>0&&acc_addedA<0)
+    acc_added =  accV+{a_i[7] ,a_i};
+    if (accV>0&&a_i>0&&acc_added<0)
       begin
-        sum_oA =  Max;
+        sum_o =  Max;
       end
     else
-      if (accVotedA<0&&a_iA<0&&acc_addedA>0)
+      if (accV<0&&a_i<0&&acc_added>0)
         begin
-          sum_oA =  Min;
+          sum_o =  Min;
         end
       else
         begin
-          sum_oA =  acc_addedA;
-        end
-  end
-
-always @*
-  begin
-    acc_addedB =  accVotedB+{a_iB[7] ,a_iB};
-    if (accVotedB>0&&a_iB>0&&acc_addedB<0)
-      begin
-        sum_oB =  Max;
-      end
-    else
-      if (accVotedB<0&&a_iB<0&&acc_addedB>0)
-        begin
-          sum_oB =  Min;
-        end
-      else
-        begin
-          sum_oB =  acc_addedB;
-        end
-  end
-
-always @*
-  begin
-    acc_addedC =  accVotedC+{a_iC[7] ,a_iC};
-    if (accVotedC>0&&a_iC>0&&acc_addedC<0)
-      begin
-        sum_oC =  Max;
-      end
-    else
-      if (accVotedC<0&&a_iC<0&&acc_addedC>0)
-        begin
-          sum_oC =  Min;
-        end
-      else
-        begin
-          sum_oC =  acc_addedC;
+          sum_o =  acc_added;
         end
   end
 
@@ -122,7 +86,7 @@ always @( posedge clk_iA or negedge rst_niA )
         end
       else
         begin
-          accA <= accVotedA;
+          accA <= accVA;
         end
   end
 
@@ -139,7 +103,7 @@ always @( posedge clk_iB or negedge rst_niB )
         end
       else
         begin
-          accB <= accVotedB;
+          accB <= accVB;
         end
   end
 
@@ -156,32 +120,51 @@ always @( posedge clk_iC or negedge rst_niC )
         end
       else
         begin
-          accC <= accVotedC;
+          accC <= accVC;
         end
   end
 
-majorityVoter #(.WIDTH(((WidthAcc-1)>(0)) ? ((WidthAcc-1)-(0)+1) : ((0)-(WidthAcc-1)+1))) accVoterA (
+majorityVoter #(.WIDTH(((WidthAcc-1)>(0)) ? ((WidthAcc-1)-(0)+1) : ((0)-(WidthAcc-1)+1))) accVoter (
     .inA(accA),
     .inB(accB),
     .inC(accC),
-    .out(accVotedA),
-    .tmrErr(accTmrErrorA)
+    .out(acc),
+    .tmrErr(accTmrError)
     );
 
-majorityVoter #(.WIDTH(((WidthAcc-1)>(0)) ? ((WidthAcc-1)-(0)+1) : ((0)-(WidthAcc-1)+1))) accVoterB (
-    .inA(accA),
-    .inB(accB),
-    .inC(accC),
-    .out(accVotedB),
-    .tmrErr(accTmrErrorB)
+fanout EnableFanout (
+    .in(Enable),
+    .outA(EnableA),
+    .outB(EnableB),
+    .outC(EnableC)
     );
 
-majorityVoter #(.WIDTH(((WidthAcc-1)>(0)) ? ((WidthAcc-1)-(0)+1) : ((0)-(WidthAcc-1)+1))) accVoterC (
-    .inA(accA),
-    .inB(accB),
-    .inC(accC),
-    .out(accVotedC),
-    .tmrErr(accTmrErrorC)
+fanout #(.WIDTH(((WidthAcc-1)>(0)) ? ((WidthAcc-1)-(0)+1) : ((0)-(WidthAcc-1)+1))) accVFanout (
+    .in(accV),
+    .outA(accVA),
+    .outB(accVB),
+    .outC(accVC)
+    );
+
+fanout clk_iFanout (
+    .in(clk_i),
+    .outA(clk_iA),
+    .outB(clk_iB),
+    .outC(clk_iC)
+    );
+
+fanout rst_niFanout (
+    .in(rst_ni),
+    .outA(rst_niA),
+    .outB(rst_niB),
+    .outC(rst_niC)
+    );
+
+fanout #(.WIDTH(((WidthAcc-1)>(0)) ? ((WidthAcc-1)-(0)+1) : ((0)-(WidthAcc-1)+1))) sum_oFanout (
+    .in(sum_o),
+    .outA(sum_oA),
+    .outB(sum_oB),
+    .outC(sum_oC)
     );
 endmodule
 

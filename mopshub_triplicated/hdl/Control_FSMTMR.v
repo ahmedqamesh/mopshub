@@ -6,45 +6,29 @@
  *                                                                                                  *
  * user    : lucas                                                                                  *
  * host    : DESKTOP-BFDSFP2                                                                        *
- * date    : 16/08/2022 12:58:06                                                                    *
+ * date    : 06/10/2022 13:52:32                                                                    *
  *                                                                                                  *
- * workdir : /mnt/c/Users/Lucas/Desktop/mopshub_triplication/mopshub_top_board_canakari_ftrim/hdl   *
- * cmd     : /mnt/c/Users/Lucas/Desktop/mopshub_triplication/tmrg-master/bin/tmrg -c tmrg.cfg -vvv  *
+ * workdir : /mnt/c/Users/Lucas/Documents/GitHub/mopshub_triplicated/triplicated/mopshub_top_board/hdl *
+ * cmd     : /mnt/c/Users/Lucas/Desktop/mopshub_triplication/tmrg-master/bin/tmrg -vv -c tmrg.cfg   *
  * tmrg rev:                                                                                        *
  *                                                                                                  *
  * src file: Control_FSM.v                                                                          *
- *           Git SHA           : File not in git repository!                                        *
- *           Modification time : 2022-03-29 13:49:21                                                *
- *           File Size         : 2120                                                               *
- *           MD5 hash          : cace735803be1009a4ec62b82b023009                                   *
+ *           Git SHA           : c110441b08b692cc54ebd4a3b84a2599430e8f93                           *
+ *           Modification time : 2022-08-30 13:44:36                                                *
+ *           File Size         : 2127                                                               *
+ *           MD5 hash          : 85076bdd4b43b14747e8a775802f448e                                   *
  *                                                                                                  *
  ****************************************************************************************************/
 
 module Control_FSMTMR(
-  input wire  CLKA ,
-  input wire  CLKB ,
-  input wire  CLKC ,
-  input wire  ResetA ,
-  input wire  ResetB ,
-  input wire  ResetC ,
-  input wire  RxA ,
-  input wire  RxB ,
-  input wire  RxC ,
-  input wire  PufferA ,
-  input wire  PufferB ,
-  input wire  PufferC ,
-  input wire  activeA ,
-  input wire  activeB ,
-  input wire  activeC ,
-  input wire [3:0] E1A ,
-  input wire [3:0] E1B ,
-  input wire [3:0] E1C ,
-  output reg [2:0] ctrlA ,
-  output reg [2:0] ctrlB ,
-  output reg [2:0] ctrlC ,
-  output reg  EnableA ,
-  output reg  EnableB ,
-  output reg  EnableC 
+  input wire  CLK ,
+  input wire  Reset ,
+  input wire  Rx ,
+  input wire  Puffer ,
+  input wire  active ,
+  input wire [3:0] E1 ,
+  output reg [2:0] ctrl ,
+  output reg  Enable 
 );
 parameter [2:0] Normal =3'd0;
 parameter [2:0] ResetZ =3'd1;
@@ -52,21 +36,22 @@ parameter [2:0] NegPhasFehler =3'd2;
 parameter [2:0] PosPhasFehler =3'd3;
 parameter [2:0] Synchronisation =3'd4;
 parameter [2:0] Idle =3'd5;
-wor current_stateTmrErrorC;
-wire [3:0] current_stateVotedC;
-wor current_stateTmrErrorB;
-wire [3:0] current_stateVotedB;
-wor current_stateTmrErrorA;
-wire [3:0] current_stateVotedA;
+wire [3:0] next_stateC;
+wire [3:0] next_stateB;
+wire [3:0] next_stateA;
+wire ResetC;
+wire ResetB;
+wire ResetA;
+wire CLKC;
+wire CLKB;
+wire CLKA;
+wor current_stateTmrError;
+wire [3:0] current_state;
 reg  [3:0] current_stateA ;
-reg  [3:0] next_stateA ;
 reg  [3:0] current_stateB ;
-reg  [3:0] next_stateB ;
 reg  [3:0] current_stateC ;
-reg  [3:0] next_stateC ;
-reg  [3:0] StatusA ;
-reg  [3:0] StatusB ;
-reg  [3:0] StatusC ;
+reg  [3:0] next_state ;
+wire [3:0] current_stateV =  current_state;
 
 always @( posedge CLKA or negedge ResetA )
   begin
@@ -92,238 +77,103 @@ always @( posedge CLKC or negedge ResetC )
       current_stateC <= next_stateC;
   end
 
-always @( current_stateVotedA or RxA or PufferA or E1A or activeA )
+always @( current_stateV or Rx or Puffer or E1 or active )
   begin
-    EnableA =  0;
-    case (current_stateVotedA)
+    Enable =  0;
+    case (current_stateV)
       ResetZ : 
         begin
-          ctrlA =  3'd0;
-          EnableA =  0;
-          next_stateA =  Idle;
+          ctrl =  3'd0;
+          Enable =  0;
+          next_state =  Idle;
         end
       Idle : 
         begin
-          ctrlA =  3'd0;
-          EnableA =  0;
-          if ((~ ( RxA==1'b0&&PufferA==1'b1 ) )&&activeA==1'b1)
-            next_stateA =  Normal;
+          ctrl =  3'd0;
+          Enable =  0;
+          if ((~ ( Rx==1'b0&&Puffer==1'b1 ) )&&active==1'b1)
+            next_state =  Normal;
           else
-            next_stateA =  Idle;
+            next_state =  Idle;
         end
       Normal : 
         begin
-          ctrlA =  3'd4;
-          EnableA =  0;
-          if (activeA==1'b0)
-            next_stateA =  Idle;
+          ctrl =  3'd4;
+          Enable =  0;
+          if (active==1'b0)
+            next_state =  Idle;
           else
-            if (RxA==1'b0&&PufferA==1'b1&&E1A<=5&&E1A>0)
+            if (Rx==1'b0&&Puffer==1'b1&&E1<=5&&E1>0)
               begin
-                next_stateA =  PosPhasFehler;
+                next_state =  PosPhasFehler;
               end
             else
-              if (RxA==1'b0&&PufferA==1'b1&&E1A>5)
+              if (Rx==1'b0&&Puffer==1'b1&&E1>5)
                 begin
-                  next_stateA =  NegPhasFehler;
+                  next_state =  NegPhasFehler;
                 end
               else
-                if (RxA==1'b0&&PufferA==1'b1&&E1A==0)
+                if (Rx==1'b0&&Puffer==1'b1&&E1==0)
                   begin
-                    next_stateA =  Synchronisation;
+                    next_state =  Synchronisation;
                   end
                 else
-                  next_stateA =  Normal;
+                  next_state =  Normal;
         end
       PosPhasFehler : 
         begin
-          ctrlA =  3'd1;
-          EnableA =  1;
-          next_stateA =  Idle;
+          ctrl =  3'd1;
+          Enable =  1;
+          next_state =  Idle;
         end
       NegPhasFehler : 
         begin
-          ctrlA =  3'd2;
-          EnableA =  1;
-          next_stateA =  Idle;
+          ctrl =  3'd2;
+          Enable =  1;
+          next_state =  Idle;
         end
       Synchronisation : 
         begin
-          ctrlA =  3'd3;
-          EnableA =  1;
-          next_stateA =  Idle;
+          ctrl =  3'd3;
+          Enable =  1;
+          next_state =  Idle;
         end
       default : 
         begin
-          ctrlA =  3'd0;
-          EnableA =  0;
-          next_stateA =  ResetZ;
+          ctrl =  3'd0;
+          Enable =  0;
+          next_state =  ResetZ;
         end
     endcase
   end
 
-always @( current_stateVotedB or RxB or PufferB or E1B or activeB )
-  begin
-    EnableB =  0;
-    case (current_stateVotedB)
-      ResetZ : 
-        begin
-          ctrlB =  3'd0;
-          EnableB =  0;
-          next_stateB =  Idle;
-        end
-      Idle : 
-        begin
-          ctrlB =  3'd0;
-          EnableB =  0;
-          if ((~ ( RxB==1'b0&&PufferB==1'b1 ) )&&activeB==1'b1)
-            next_stateB =  Normal;
-          else
-            next_stateB =  Idle;
-        end
-      Normal : 
-        begin
-          ctrlB =  3'd4;
-          EnableB =  0;
-          if (activeB==1'b0)
-            next_stateB =  Idle;
-          else
-            if (RxB==1'b0&&PufferB==1'b1&&E1B<=5&&E1B>0)
-              begin
-                next_stateB =  PosPhasFehler;
-              end
-            else
-              if (RxB==1'b0&&PufferB==1'b1&&E1B>5)
-                begin
-                  next_stateB =  NegPhasFehler;
-                end
-              else
-                if (RxB==1'b0&&PufferB==1'b1&&E1B==0)
-                  begin
-                    next_stateB =  Synchronisation;
-                  end
-                else
-                  next_stateB =  Normal;
-        end
-      PosPhasFehler : 
-        begin
-          ctrlB =  3'd1;
-          EnableB =  1;
-          next_stateB =  Idle;
-        end
-      NegPhasFehler : 
-        begin
-          ctrlB =  3'd2;
-          EnableB =  1;
-          next_stateB =  Idle;
-        end
-      Synchronisation : 
-        begin
-          ctrlB =  3'd3;
-          EnableB =  1;
-          next_stateB =  Idle;
-        end
-      default : 
-        begin
-          ctrlB =  3'd0;
-          EnableB =  0;
-          next_stateB =  ResetZ;
-        end
-    endcase
-  end
-
-always @( current_stateVotedC or RxC or PufferC or E1C or activeC )
-  begin
-    EnableC =  0;
-    case (current_stateVotedC)
-      ResetZ : 
-        begin
-          ctrlC =  3'd0;
-          EnableC =  0;
-          next_stateC =  Idle;
-        end
-      Idle : 
-        begin
-          ctrlC =  3'd0;
-          EnableC =  0;
-          if ((~ ( RxC==1'b0&&PufferC==1'b1 ) )&&activeC==1'b1)
-            next_stateC =  Normal;
-          else
-            next_stateC =  Idle;
-        end
-      Normal : 
-        begin
-          ctrlC =  3'd4;
-          EnableC =  0;
-          if (activeC==1'b0)
-            next_stateC =  Idle;
-          else
-            if (RxC==1'b0&&PufferC==1'b1&&E1C<=5&&E1C>0)
-              begin
-                next_stateC =  PosPhasFehler;
-              end
-            else
-              if (RxC==1'b0&&PufferC==1'b1&&E1C>5)
-                begin
-                  next_stateC =  NegPhasFehler;
-                end
-              else
-                if (RxC==1'b0&&PufferC==1'b1&&E1C==0)
-                  begin
-                    next_stateC =  Synchronisation;
-                  end
-                else
-                  next_stateC =  Normal;
-        end
-      PosPhasFehler : 
-        begin
-          ctrlC =  3'd1;
-          EnableC =  1;
-          next_stateC =  Idle;
-        end
-      NegPhasFehler : 
-        begin
-          ctrlC =  3'd2;
-          EnableC =  1;
-          next_stateC =  Idle;
-        end
-      Synchronisation : 
-        begin
-          ctrlC =  3'd3;
-          EnableC =  1;
-          next_stateC =  Idle;
-        end
-      default : 
-        begin
-          ctrlC =  3'd0;
-          EnableC =  0;
-          next_stateC =  ResetZ;
-        end
-    endcase
-  end
-
-majorityVoter #(.WIDTH(4)) current_stateVoterA (
+majorityVoter #(.WIDTH(4)) current_stateVoter (
     .inA(current_stateA),
     .inB(current_stateB),
     .inC(current_stateC),
-    .out(current_stateVotedA),
-    .tmrErr(current_stateTmrErrorA)
+    .out(current_state),
+    .tmrErr(current_stateTmrError)
     );
 
-majorityVoter #(.WIDTH(4)) current_stateVoterB (
-    .inA(current_stateA),
-    .inB(current_stateB),
-    .inC(current_stateC),
-    .out(current_stateVotedB),
-    .tmrErr(current_stateTmrErrorB)
+fanout CLKFanout (
+    .in(CLK),
+    .outA(CLKA),
+    .outB(CLKB),
+    .outC(CLKC)
     );
 
-majorityVoter #(.WIDTH(4)) current_stateVoterC (
-    .inA(current_stateA),
-    .inB(current_stateB),
-    .inC(current_stateC),
-    .out(current_stateVotedC),
-    .tmrErr(current_stateTmrErrorC)
+fanout ResetFanout (
+    .in(Reset),
+    .outA(ResetA),
+    .outB(ResetB),
+    .outC(ResetC)
+    );
+
+fanout #(.WIDTH(4)) next_stateFanout (
+    .in(next_state),
+    .outA(next_stateA),
+    .outB(next_stateB),
+    .outC(next_stateC)
     );
 endmodule
 

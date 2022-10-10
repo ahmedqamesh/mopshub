@@ -6,22 +6,22 @@
  *                                                                                                  *
  * user    : lucas                                                                                  *
  * host    : DESKTOP-BFDSFP2                                                                        *
- * date    : 16/08/2022 12:58:32                                                                    *
+ * date    : 06/10/2022 13:52:54                                                                    *
  *                                                                                                  *
- * workdir : /mnt/c/Users/Lucas/Desktop/mopshub_triplication/mopshub_top_board_canakari_ftrim/hdl   *
- * cmd     : /mnt/c/Users/Lucas/Desktop/mopshub_triplication/tmrg-master/bin/tmrg -c tmrg.cfg -vvv  *
+ * workdir : /mnt/c/Users/Lucas/Documents/GitHub/mopshub_triplicated/triplicated/mopshub_top_board/hdl *
+ * cmd     : /mnt/c/Users/Lucas/Desktop/mopshub_triplication/tmrg-master/bin/tmrg -vv -c tmrg.cfg   *
  * tmrg rev:                                                                                        *
  *                                                                                                  *
  * src file: mopshub_top_board_struct.v                                                             *
- *           Git SHA           : File not in git repository!                                        *
- *           Modification time : 2022-08-16 12:24:41.395532                                         *
- *           File Size         : 9369                                                               *
- *           MD5 hash          : c078e8200ec842dabbf2e89c189c8070                                   *
+ *           Git SHA           : c110441b08b692cc54ebd4a3b84a2599430e8f93 ( M mopshub_top_board_struct.v) *
+ *           Modification time : 2022-10-06 13:25:18                                                *
+ *           File Size         : 9414                                                               *
+ *           MD5 hash          : e0bd0acfdaa8d7dac69567e032a1cfe1                                   *
  *                                                                                                  *
  ****************************************************************************************************/
 
 module mopshub_top_boardTMR(
-  input wire  clk ,
+  input wire  clk_40 ,
   input wire  clk_m ,
   input wire  locked ,
   input wire  miso_c ,
@@ -89,32 +89,12 @@ module mopshub_top_boardTMR(
   output wire  tx_data_rdy ,
   output wire [1:0] tx_elink2bit 
 );
-wor state_oTmrError;
-wire [3:0] state_oB;
-wire [3:0] state_oC;
-wire [3:0] state_oA;
-wor rdy_dbgTmrError;
-wire rdy_dbgB;
-wire rdy_dbgC;
-wire rdy_dbgA;
-wor irq_elink_dbg_inTmrError;
-wire irq_elink_dbg_inB;
-wire irq_elink_dbg_inC;
-wire irq_elink_dbg_inA;
-wor def_value_1TmrError;
-wire def_value_1;
-wor data_10bit_in_dbgTmrError;
-wire [9:0] data_10bit_in_dbgB;
-wire [9:0] data_10bit_in_dbgC;
-wire [9:0] data_10bit_in_dbgA;
 wire cs_active_c;
 wire cs_active_m;
 wire [9:0] data_10bit_in_dbg;
 wire dbg_elink =  1'b0;
 wire dbg_spi =  1'b0;
-reg  def_value_1A ;
-reg  def_value_1B ;
-reg  def_value_1C ;
+reg  def_value_1 ;
 wire endwait_all =  1'b0;
 wire irq_can_rec_in;
 wire irq_can_tra_in;
@@ -200,45 +180,25 @@ demux1_1bitTMR cs_active_c_mux1 (
     );
 
 elink_data_gen_SMTMR elink_data_gen_dbg (
-    .clk(clk),
+    .clk(clk_40),
     .rst(rst),
-    .irq_elink_traA(),
-    .irq_elink_traB(),
-    .irq_elink_traC(),
-    .state_oA(state_oA),
-    .state_oB(state_oB),
-    .state_oC(state_oC),
+    .irq_elink_tra(),
+    .state_o(state_o),
     .start_read_elink(),
-    .end_read_elinkA(),
-    .end_read_elinkB(),
-    .end_read_elinkC(),
+    .end_read_elink(),
     .cnt_done(),
-    .buffer_enA(),
-    .buffer_enB(),
-    .buffer_enC(),
-    .data_tra_inA(),
-    .data_tra_inB(),
-    .data_tra_inC(),
-    .rst_cntA(),
-    .rst_cntB(),
-    .rst_cntC(),
-    .counter_gen_enA(),
-    .counter_gen_enB(),
-    .counter_gen_enC(),
+    .buffer_en(),
+    .data_tra_in(),
+    .rst_cnt(),
+    .counter_gen_en(),
     .test_can_core(test_can_core),
-    .data_10bit_in_dbgA(data_10bit_in_dbgA),
-    .data_10bit_in_dbgB(data_10bit_in_dbgB),
-    .data_10bit_in_dbgC(data_10bit_in_dbgC),
-    .rdy_dbgA(rdy_dbgA),
-    .rdy_dbgB(rdy_dbgB),
-    .rdy_dbgC(rdy_dbgC),
-    .irq_elink_dbgA(irq_elink_dbg_inA),
-    .irq_elink_dbgB(irq_elink_dbg_inB),
-    .irq_elink_dbgC(irq_elink_dbg_inC)
+    .data_10bit_in_dbg(data_10bit_in_dbg),
+    .rdy_dbg(rdy_dbg),
+    .irq_elink_dbg(irq_elink_dbg_in)
     );
 
 mopshub_topTMR mopshub_top_0 (
-    .clk(clk),
+    .clk(clk_40),
     .data_10bit_in_dbg(data_10bit_in_dbg),
     .dbg_elink(dbg_elink),
     .dbg_spi(dbg_spi),
@@ -310,7 +270,7 @@ output_diff_buff_clkTMR output_diff_buff_clk0 (
     );
 
 top_led_for_synthTMR top_led_for_synth0 (
-    .clk(clk),
+    .clk(clk_40),
     .irq_can_rec_in(irq_can_rec_in),
     .irq_can_tra_in(irq_can_tra_in),
     .irq_elink_dbg_in(irq_elink_dbg_in_active),
@@ -333,52 +293,8 @@ top_led_for_synthTMR top_led_for_synth0 (
     );
 assign rst =  1'b1;
 initial
-  def_value_1A =  1'b1;
-initial
-  def_value_1B =  1'b1;
-initial
-  def_value_1C =  1'b1;
+  def_value_1 =  1'b1;
 assign irq_elink_dbg_in_active =  dbg_elink&&irq_elink_dbg_in;
-
-majorityVoter #(.WIDTH(10)) data_10bit_in_dbgVoter (
-    .inA(data_10bit_in_dbgA),
-    .inB(data_10bit_in_dbgB),
-    .inC(data_10bit_in_dbgC),
-    .out(data_10bit_in_dbg),
-    .tmrErr(data_10bit_in_dbgTmrError)
-    );
-
-majorityVoter def_value_1Voter (
-    .inA(def_value_1A),
-    .inB(def_value_1B),
-    .inC(def_value_1C),
-    .out(def_value_1),
-    .tmrErr(def_value_1TmrError)
-    );
-
-majorityVoter irq_elink_dbg_inVoter (
-    .inA(irq_elink_dbg_inA),
-    .inB(irq_elink_dbg_inB),
-    .inC(irq_elink_dbg_inC),
-    .out(irq_elink_dbg_in),
-    .tmrErr(irq_elink_dbg_inTmrError)
-    );
-
-majorityVoter rdy_dbgVoter (
-    .inA(rdy_dbgA),
-    .inB(rdy_dbgB),
-    .inC(rdy_dbgC),
-    .out(rdy_dbg),
-    .tmrErr(rdy_dbgTmrError)
-    );
-
-majorityVoter #(.WIDTH(4)) state_oVoter (
-    .inA(state_oA),
-    .inB(state_oB),
-    .inC(state_oC),
-    .out(state_o),
-    .tmrErr(state_oTmrError)
-    );
 endmodule
 
 

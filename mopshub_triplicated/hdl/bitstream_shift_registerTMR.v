@@ -6,17 +6,17 @@
  *                                                                                                  *
  * user    : lucas                                                                                  *
  * host    : DESKTOP-BFDSFP2                                                                        *
- * date    : 16/08/2022 12:58:07                                                                    *
+ * date    : 06/10/2022 13:52:36                                                                    *
  *                                                                                                  *
- * workdir : /mnt/c/Users/Lucas/Desktop/mopshub_triplication/mopshub_top_board_canakari_ftrim/hdl   *
- * cmd     : /mnt/c/Users/Lucas/Desktop/mopshub_triplication/tmrg-master/bin/tmrg -c tmrg.cfg -vvv  *
+ * workdir : /mnt/c/Users/Lucas/Documents/GitHub/mopshub_triplicated/triplicated/mopshub_top_board/hdl *
+ * cmd     : /mnt/c/Users/Lucas/Desktop/mopshub_triplication/tmrg-master/bin/tmrg -vv -c tmrg.cfg   *
  * tmrg rev:                                                                                        *
  *                                                                                                  *
  * src file: bitstream_shift_register.v                                                             *
- *           Git SHA           : File not in git repository!                                        *
- *           Modification time : 2022-08-12 09:46:43                                                *
- *           File Size         : 1660                                                               *
- *           MD5 hash          : b054ead72f6c903cc9ad94d87eea22eb                                   *
+ *           Git SHA           : c110441b08b692cc54ebd4a3b84a2599430e8f93                           *
+ *           Modification time : 2022-10-05 20:23:16                                                *
+ *           File Size         : 1587                                                               *
+ *           MD5 hash          : 067edeebdc7f09a053f66c4245e50a64                                   *
  *                                                                                                  *
  ****************************************************************************************************/
 
@@ -29,9 +29,9 @@ module bitstream_shift_registerTMR(
 wire rstC;
 wire rstB;
 wire rstA;
-wire [10:0] dout_r_vC;
-wire [10:0] dout_r_vB;
-wire [10:0] dout_r_vA;
+wire [10:0] doutC;
+wire [10:0] doutB;
+wire [10:0] doutA;
 wire [1:0] dinC;
 wire [1:0] dinB;
 wire [1:0] dinA;
@@ -50,25 +50,24 @@ initial
 initial
   dout_rC =  11'b0;
 assign dout =  dout_r;
-wire [10:0] dout_r_v =  dout_r;
 
 always @( posedge clkA )
   if (!rstA)
     dout_rA <= 0;
   else
-    dout_rA <= {dinA,dout_r_vA[10:2] };
+    dout_rA <= {dinA,doutA[10:2] };
 
 always @( posedge clkB )
   if (!rstB)
     dout_rB <= 0;
   else
-    dout_rB <= {dinB,dout_r_vB[10:2] };
+    dout_rB <= {dinB,doutB[10:2] };
 
 always @( posedge clkC )
   if (!rstC)
     dout_rC <= 0;
   else
-    dout_rC <= {dinC,dout_r_vC[10:2] };
+    dout_rC <= {dinC,doutC[10:2] };
 
 majorityVoter #(.WIDTH(11)) dout_rVoter (
     .inA(dout_rA),
@@ -92,11 +91,11 @@ fanout #(.WIDTH(2)) dinFanout (
     .outC(dinC)
     );
 
-fanout #(.WIDTH(11)) dout_r_vFanout (
-    .in(dout_r_v),
-    .outA(dout_r_vA),
-    .outB(dout_r_vB),
-    .outC(dout_r_vC)
+fanout #(.WIDTH(11)) doutFanout (
+    .in(dout),
+    .outA(doutA),
+    .outB(doutB),
+    .outC(doutC)
     );
 
 fanout rstFanout (

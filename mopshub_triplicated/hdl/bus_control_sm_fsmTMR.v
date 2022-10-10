@@ -6,17 +6,17 @@
  *                                                                                                  *
  * user    : lucas                                                                                  *
  * host    : DESKTOP-BFDSFP2                                                                        *
- * date    : 16/08/2022 12:58:12                                                                    *
+ * date    : 06/10/2022 13:52:39                                                                    *
  *                                                                                                  *
- * workdir : /mnt/c/Users/Lucas/Desktop/mopshub_triplication/mopshub_top_board_canakari_ftrim/hdl   *
- * cmd     : /mnt/c/Users/Lucas/Desktop/mopshub_triplication/tmrg-master/bin/tmrg -c tmrg.cfg -vvv  *
+ * workdir : /mnt/c/Users/Lucas/Documents/GitHub/mopshub_triplicated/triplicated/mopshub_top_board/hdl *
+ * cmd     : /mnt/c/Users/Lucas/Desktop/mopshub_triplication/tmrg-master/bin/tmrg -vv -c tmrg.cfg   *
  * tmrg rev:                                                                                        *
  *                                                                                                  *
  * src file: bus_control_sm_fsm.v                                                                   *
- *           Git SHA           : File not in git repository!                                        *
- *           Modification time : 2022-08-16 09:40:28.259547                                         *
- *           File Size         : 68223                                                              *
- *           MD5 hash          : d0919f15612d1658e7eb67df1cbef2fb                                   *
+ *           Git SHA           : c110441b08b692cc54ebd4a3b84a2599430e8f93                           *
+ *           Modification time : 2022-10-06 08:58:04                                                *
+ *           File Size         : 68251                                                              *
+ *           MD5 hash          : de744cad6b05c7c60e21ba3623130ace                                   *
  *                                                                                                  *
  ****************************************************************************************************/
 
@@ -40,63 +40,25 @@ module bus_control_SMTMR(
   input wire  start_read_mon ,
   input wire  start_read_power ,
   input wire  timeoutrst ,
-  output reg  bus_en_doneA ,
-  output reg  bus_en_doneB ,
-  output reg  bus_en_doneC ,
-  output reg  cs_mA ,
-  output reg  cs_mB ,
-  output reg  cs_mC ,
-  output reg  cs_pA ,
-  output reg  cs_pB ,
-  output reg  cs_pC ,
-  output reg [7:0] data_initA ,
-  output reg [7:0] data_initB ,
-  output reg [7:0] data_initC ,
-  output reg  end_spi_procA ,
-  output reg  end_spi_procB ,
-  output reg  end_spi_procC ,
-  output reg  entimeoutA ,
-  output reg  entimeoutB ,
-  output reg  entimeoutC ,
-  output reg  mon_en_doneA ,
-  output reg  mon_en_doneB ,
-  output reg  mon_en_doneC ,
-  output reg  read_spi_modeA ,
-  output reg  read_spi_modeB ,
-  output reg  read_spi_modeC ,
-  output reg  rst_mon_cntA ,
-  output reg  rst_mon_cntB ,
-  output reg  rst_mon_cntC ,
-  output reg  spi_csA ,
-  output reg  spi_csB ,
-  output reg  spi_csC ,
-  output reg  start_cntA ,
-  output reg  start_cntB ,
-  output reg  start_cntC ,
-  output reg  start_initA ,
-  output reg  start_initB ,
-  output reg  start_initC ,
-  output reg  start_mon_cntA ,
-  output reg  start_mon_cntB ,
-  output reg  start_mon_cntC ,
-  output reg  start_read_elinkA ,
-  output reg  start_read_elinkB ,
-  output reg  start_read_elinkC ,
-  output reg  start_read_misoA ,
-  output reg  start_read_misoB ,
-  output reg  start_read_misoC ,
-  output reg  start_write_elink_spiA ,
-  output reg  start_write_elink_spiB ,
-  output reg  start_write_elink_spiC ,
-  output reg [8:0] statedebA ,
-  output reg [8:0] statedebB ,
-  output reg [8:0] statedebC ,
-  output reg  transcieve_mA ,
-  output reg  transcieve_mB ,
-  output reg  transcieve_mC ,
-  output reg  transcieve_pA ,
-  output reg  transcieve_pB ,
-  output reg  transcieve_pC 
+  output reg  bus_en_done ,
+  output reg  cs_m ,
+  output reg  cs_p ,
+  output reg [7:0] data_init ,
+  output reg  end_spi_proc ,
+  output reg  entimeout ,
+  output reg  mon_en_done ,
+  output reg  read_spi_mode ,
+  output reg  rst_mon_cnt ,
+  output reg  spi_cs ,
+  output reg  start_cnt ,
+  output reg  start_init ,
+  output reg  start_mon_cnt ,
+  output reg  start_read_elink ,
+  output reg  start_read_miso ,
+  output reg  start_write_elink_spi ,
+  output reg [8:0] statedeb ,
+  output reg  transcieve_m ,
+  output reg  transcieve_p 
 );
 parameter waittoact =9'd0;
 parameter reset =9'd1;
@@ -371,9307 +333,3049 @@ parameter st_GPIOA26 =9'd269;
 parameter w_busy50 =9'd270;
 parameter w_busy51 =9'd271;
 parameter w_busy52 =9'd272;
-wire timeoutrstC;
-wire timeoutrstB;
-wire timeoutrstA;
-wire start_read_powerC;
-wire start_read_powerB;
-wire start_read_powerA;
-wire start_read_monC;
-wire start_read_monB;
-wire start_read_monA;
-wire start_power_onC;
-wire start_power_onB;
-wire start_power_onA;
-wire start_power_offC;
-wire start_power_offB;
-wire start_power_offA;
-wire start_mon_initC;
-wire start_mon_initB;
-wire start_mon_initA;
-wire start_bus_initC;
-wire start_bus_initB;
-wire start_bus_initA;
-wire rstC;
-wire rstB;
-wire rstA;
-wire irq_spi_traC;
-wire irq_spi_traB;
-wire irq_spi_traA;
-wire end_write_elink_spiC;
-wire end_write_elink_spiB;
-wire end_write_elink_spiA;
-wire end_read_misoC;
-wire end_read_misoB;
-wire end_read_misoA;
-wire end_read_elinkC;
-wire end_read_elinkB;
-wire end_read_elinkA;
-wire end_mon_cntC;
-wire end_mon_cntB;
-wire end_mon_cntA;
-wire clkC;
-wire clkB;
-wire clkA;
-wire busy_pC;
-wire busy_pB;
-wire busy_pA;
-wire busy_mC;
-wire busy_mB;
-wire busy_mA;
-wire abortC;
-wire abortB;
-wire abortA;
-reg  [8:0] current_stateA ;
-reg  [8:0] next_stateA ;
-reg  [8:0] current_stateB ;
-reg  [8:0] next_stateB ;
-reg  [8:0] current_stateC ;
-reg  [8:0] next_stateC ;
-reg  [5:0] csm_timerA ;
-reg  [5:0] csm_timerB ;
-reg  [5:0] csm_timerC ;
-reg  [5:0] csm_next_timerA ;
-reg  [5:0] csm_next_timerB ;
-reg  [5:0] csm_next_timerC ;
-reg  csm_timeoutA ;
-reg  csm_timeoutB ;
-reg  csm_timeoutC ;
-reg  csm_to_CS_lowA ;
-reg  csm_to_CS_lowB ;
-reg  csm_to_CS_lowC ;
-reg  csm_to_Read_MisoA ;
-reg  csm_to_Read_MisoB ;
-reg  csm_to_Read_MisoC ;
+reg  [8:0] current_state ;
+reg  [8:0] next_state ;
+reg  [5:0] csm_timer ;
+reg  [5:0] csm_next_timer ;
+reg  csm_timeout ;
+reg  csm_to_CS_low ;
+reg  csm_to_Read_Miso ;
 
-always @( busy_mA or busy_pA or csm_timeoutA or current_stateA or end_mon_cntA or end_read_elinkA or end_read_misoA or end_write_elink_spiA or irq_spi_traA or rstA or start_bus_initA or start_mon_initA or start_power_offA or start_power_onA or start_read_monA or start_read_powerA )
-  begin : next_state_block_procA
-    csm_to_CS_lowA =  1'b0;
-    csm_to_Read_MisoA =  1'b0;
-    case (current_stateA)
+always @( busy_m or busy_p or csm_timeout or current_state or end_mon_cnt or end_read_elink or end_read_miso or end_write_elink_spi or irq_spi_tra or rst or start_bus_init or start_mon_init or start_power_off or start_power_on or start_read_mon or start_read_power )
+  begin : next_state_block_proc
+    csm_to_CS_low =  1'b0;
+    csm_to_Read_Miso =  1'b0;
+    case (current_state)
       waittoact : 
         begin
-          if (start_bus_initA==1)
-            next_stateA =  start;
+          if (start_bus_init==1)
+            next_state =  start;
           else
-            if (start_mon_initA==1)
-              next_stateA =  start1;
+            if (start_mon_init==1)
+              next_state =  start1;
             else
-              if (start_power_onA==1)
-                next_stateA =  st_GPIOA12;
+              if (start_power_on==1)
+                next_state =  st_GPIOA12;
               else
-                if (start_power_offA==1)
-                  next_stateA =  st_GPIOA21;
+                if (start_power_off==1)
+                  next_state =  st_GPIOA21;
                 else
-                  if (start_read_monA==1)
-                    next_stateA =  ST_Read_reg3;
+                  if (start_read_mon==1)
+                    next_state =  ST_Read_reg3;
                   else
-                    if (irq_spi_traA==1)
-                      next_stateA =  read_elink_mes1;
+                    if (irq_spi_tra==1)
+                      next_state =  read_elink_mes1;
                     else
-                      if (start_read_powerA==1)
-                        next_stateA =  st_GPIOA9;
+                      if (start_read_power==1)
+                        next_state =  st_GPIOA9;
                       else
-                        next_stateA =  waittoact;
+                        next_state =  waittoact;
         end
       reset : 
         begin
-          if (rstA==1)
-            next_stateA =  waittoact;
+          if (rst==1)
+            next_state =  waittoact;
           else
-            next_stateA =  reset;
+            next_state =  reset;
         end
       start : 
         begin
-          next_stateA =  ST_IODIRA0;
+          next_state =  ST_IODIRA0;
         end
       endinit1 : 
         begin
-          next_stateA =  waittoact;
+          next_state =  waittoact;
         end
       start1 : 
         begin
-          next_stateA =  ST_Init_0;
+          next_state =  ST_Init_0;
         end
       ST_Read_reg : 
         begin
-          next_stateA =  St_wait16;
+          next_state =  St_wait16;
         end
       st_GPIOA : 
         begin
-          next_stateA =  w_busy15;
+          next_state =  w_busy15;
         end
       st_GPIOA1 : 
         begin
-          next_stateA =  w_busy16;
+          next_state =  w_busy16;
         end
       st_GPIOA2 : 
         begin
-          next_stateA =  w_busy17;
+          next_state =  w_busy17;
         end
       End_Select : 
         begin
-          next_stateA =  waittoact;
+          next_state =  waittoact;
         end
       Write_Mosi : 
         begin
-          next_stateA =  CS_low;
-          csm_to_CS_lowA =  1'b1;
+          next_state =  CS_low;
+          csm_to_CS_low =  1'b1;
         end
       read_elink_mes1 : 
         begin
-          if (end_read_elinkA==1)
-            next_stateA =  Write_Mosi;
+          if (end_read_elink==1)
+            next_state =  Write_Mosi;
           else
-            next_stateA =  read_elink_mes1;
+            next_state =  read_elink_mes1;
         end
       CS_low : 
         begin
-          if (csm_timeoutA)
+          if (csm_timeout)
             begin
-              next_stateA =  Read_Miso;
-              csm_to_Read_MisoA =  1'b1;
+              next_state =  Read_Miso;
+              csm_to_Read_Miso =  1'b1;
             end
           else
-            next_stateA =  CS_low;
+            next_state =  CS_low;
         end
       Read_Miso : 
         begin
-          if (csm_timeoutA)
-            next_stateA =  Wait_Miso;
+          if (csm_timeout)
+            next_state =  Wait_Miso;
           else
-            next_stateA =  Read_Miso;
+            next_state =  Read_Miso;
         end
       Done : 
         begin
-          next_stateA =  waittoact;
+          next_state =  waittoact;
         end
       write_elink : 
         begin
-          if (end_write_elink_spiA==1)
-            next_stateA =  Done;
+          if (end_write_elink_spi==1)
+            next_state =  Done;
           else
-            next_stateA =  write_elink;
+            next_state =  write_elink;
         end
       Wait_Miso : 
         begin
-          if (end_read_misoA==1)
-            next_stateA =  write_elink;
+          if (end_read_miso==1)
+            next_state =  write_elink;
           else
-            next_stateA =  Wait_Miso;
+            next_state =  Wait_Miso;
         end
       Offset_cal0 : 
         begin
-          next_stateA =  St_wait32;
+          next_state =  St_wait32;
         end
       Offset__cal1 : 
         begin
-          next_stateA =  St_wait33;
+          next_state =  St_wait33;
         end
       Offset__cal2 : 
         begin
-          next_stateA =  St_wait40;
+          next_state =  St_wait40;
         end
       Offset__cal3 : 
         begin
-          next_stateA =  St_wait44;
+          next_state =  St_wait44;
         end
       Gain_cal0 : 
         begin
-          next_stateA =  St_wait50;
+          next_state =  St_wait50;
         end
       Gain_cal1 : 
         begin
-          next_stateA =  St_wait51;
+          next_state =  St_wait51;
         end
       Gain_cal2 : 
         begin
-          next_stateA =  St_wait54;
+          next_state =  St_wait54;
         end
       Gain_cal3 : 
         begin
-          next_stateA =  St_wait57;
+          next_state =  St_wait57;
         end
       write_csrs7 : 
         begin
-          next_stateA =  St_wait31;
+          next_state =  St_wait31;
         end
       write_csrs6 : 
         begin
-          next_stateA =  St_wait30;
+          next_state =  St_wait30;
         end
       write_csrs5 : 
         begin
-          next_stateA =  St_wait29;
+          next_state =  St_wait29;
         end
       write_csrs4 : 
         begin
-          next_stateA =  St_wait28;
+          next_state =  St_wait28;
         end
       write_csrs0 : 
         begin
-          next_stateA =  St_wait25;
+          next_state =  St_wait25;
         end
       write_csrs1 : 
         begin
-          next_stateA =  St_wait26;
+          next_state =  St_wait26;
         end
       write_csrs2 : 
         begin
-          next_stateA =  St_wait27;
+          next_state =  St_wait27;
         end
       ST_Config4 : 
         begin
-          next_stateA =  St_wait20;
+          next_state =  St_wait20;
         end
       ST_Config3 : 
         begin
-          next_stateA =  St_wait19;
+          next_state =  St_wait19;
         end
       ST_Config1 : 
         begin
-          next_stateA =  St_wait18;
+          next_state =  St_wait18;
         end
       ST_Config2 : 
         begin
-          next_stateA =  St_wait17;
+          next_state =  St_wait17;
         end
       ST_Rest_2 : 
         begin
-          next_stateA =  St_wait1;
+          next_state =  St_wait1;
         end
       ST_Rest_4 : 
         begin
-          next_stateA =  St_wait6;
+          next_state =  St_wait6;
         end
       ST_Rest_1 : 
         begin
-          next_stateA =  St_wait;
+          next_state =  St_wait;
         end
       St_wait : 
         begin
-          if (busy_mA==1)
-            next_stateA =  ST_Rest_2;
+          if (busy_m==1)
+            next_state =  ST_Rest_2;
           else
-            next_stateA =  St_wait;
+            next_state =  St_wait;
         end
       ST_Rest_RS_1 : 
         begin
-          next_stateA =  St_wait7;
+          next_state =  St_wait7;
         end
       ST_Rest_RS_2 : 
         begin
-          next_stateA =  St_wait8;
+          next_state =  St_wait8;
         end
       st_GPIOA9 : 
         begin
-          next_stateA =  st_GPIOA10;
+          next_state =  st_GPIOA10;
         end
       st_GPIOA10 : 
         begin
-          next_stateA =  st_GPIOA11;
+          next_state =  st_GPIOA11;
         end
       st_GPIOA11 : 
         begin
-          next_stateA =  waittoact;
+          next_state =  waittoact;
         end
       w_busy15 : 
         begin
-          if (busy_pA==1)
-            next_stateA =  st_GPIOA1;
+          if (busy_p==1)
+            next_state =  st_GPIOA1;
           else
-            next_stateA =  w_busy15;
+            next_state =  w_busy15;
         end
       w_busy16 : 
         begin
-          if (busy_pA==1)
-            next_stateA =  st_GPIOA2;
+          if (busy_p==1)
+            next_state =  st_GPIOA2;
           else
-            next_stateA =  w_busy16;
+            next_state =  w_busy16;
         end
       w_busy17 : 
         begin
-          if (busy_pA==1)
-            next_stateA =  CS_high5;
+          if (busy_p==1)
+            next_state =  CS_high5;
           else
-            next_stateA =  w_busy17;
+            next_state =  w_busy17;
         end
       ST_IODIRA0 : 
         begin
-          next_stateA =  w_busy0;
+          next_state =  w_busy0;
         end
       w_busy0 : 
         begin
-          if (busy_pA==1)
-            next_stateA =  ST_IODIRA1;
+          if (busy_p==1)
+            next_state =  ST_IODIRA1;
           else
-            next_stateA =  w_busy0;
+            next_state =  w_busy0;
         end
       ST_IODIRA1 : 
         begin
-          next_stateA =  w_busy1;
+          next_state =  w_busy1;
         end
       w_busy1 : 
         begin
-          if (busy_pA==1)
-            next_stateA =  ST_IODIRA2;
+          if (busy_p==1)
+            next_state =  ST_IODIRA2;
           else
-            next_stateA =  w_busy1;
+            next_state =  w_busy1;
         end
       ST_IODIRA2 : 
         begin
-          next_stateA =  w_busy2;
+          next_state =  w_busy2;
         end
       w_busy2 : 
         begin
-          if (busy_pA==1)
-            next_stateA =  CS_high0;
+          if (busy_p==1)
+            next_state =  CS_high0;
           else
-            next_stateA =  w_busy2;
+            next_state =  w_busy2;
         end
       w_busy5 : 
         begin
-          if (busy_pA==1)
-            next_stateA =  CS_high1;
+          if (busy_p==1)
+            next_state =  CS_high1;
           else
-            next_stateA =  w_busy5;
+            next_state =  w_busy5;
         end
       st_IODIRB1 : 
         begin
-          next_stateA =  w_busy4;
+          next_state =  w_busy4;
         end
       st_IODIRB2 : 
         begin
-          next_stateA =  w_busy5;
+          next_state =  w_busy5;
         end
       st_IODIRB : 
         begin
-          next_stateA =  w_busy3;
+          next_state =  w_busy3;
         end
       w_busy3 : 
         begin
-          if (busy_pA==1)
-            next_stateA =  st_IODIRB1;
+          if (busy_p==1)
+            next_state =  st_IODIRB1;
           else
-            next_stateA =  w_busy3;
+            next_state =  w_busy3;
         end
       w_busy4 : 
         begin
-          if (busy_pA==1)
-            next_stateA =  st_IODIRB2;
+          if (busy_p==1)
+            next_state =  st_IODIRB2;
           else
-            next_stateA =  w_busy4;
+            next_state =  w_busy4;
         end
       w_busy7 : 
         begin
-          if (busy_pA==1)
-            next_stateA =  st_GPIOB2;
+          if (busy_p==1)
+            next_state =  st_GPIOB2;
           else
-            next_stateA =  w_busy7;
+            next_state =  w_busy7;
         end
       st_GPIOB2 : 
         begin
-          next_stateA =  w_busy8;
+          next_state =  w_busy8;
         end
       st_GPIOB1 : 
         begin
-          next_stateA =  w_busy7;
+          next_state =  w_busy7;
         end
       w_busy8 : 
         begin
-          if (busy_pA==1)
-            next_stateA =  CS_high2;
+          if (busy_p==1)
+            next_state =  CS_high2;
           else
-            next_stateA =  w_busy8;
+            next_state =  w_busy8;
         end
       w_busy6 : 
         begin
-          if (busy_pA==1)
-            next_stateA =  st_GPIOB1;
+          if (busy_p==1)
+            next_state =  st_GPIOB1;
           else
-            next_stateA =  w_busy6;
+            next_state =  w_busy6;
         end
       st_GPIOB0 : 
         begin
-          next_stateA =  w_busy6;
+          next_state =  w_busy6;
         end
       st_GPPUA : 
         begin
-          next_stateA =  w_busy9;
+          next_state =  w_busy9;
         end
       w_busy11 : 
         begin
-          if (busy_pA==1)
-            next_stateA =  st_GPPUA2;
+          if (busy_p==1)
+            next_state =  st_GPPUA2;
           else
-            next_stateA =  w_busy11;
+            next_state =  w_busy11;
         end
       w_busy9 : 
         begin
-          if (busy_pA==1)
-            next_stateA =  st_GPPUA1;
+          if (busy_p==1)
+            next_state =  st_GPPUA1;
           else
-            next_stateA =  w_busy9;
+            next_state =  w_busy9;
         end
       st_GPPUA2 : 
         begin
-          next_stateA =  w_busy10;
+          next_state =  w_busy10;
         end
       st_GPPUA1 : 
         begin
-          next_stateA =  w_busy11;
+          next_state =  w_busy11;
         end
       w_busy10 : 
         begin
-          if (busy_pA==1)
-            next_stateA =  CS_high3;
+          if (busy_p==1)
+            next_state =  CS_high3;
           else
-            next_stateA =  w_busy10;
+            next_state =  w_busy10;
         end
       st_GPPUB1 : 
         begin
-          next_stateA =  w_busy13;
+          next_state =  w_busy13;
         end
       w_busy13 : 
         begin
-          if (busy_pA==1)
-            next_stateA =  st_GPPUB2;
+          if (busy_p==1)
+            next_state =  st_GPPUB2;
           else
-            next_stateA =  w_busy13;
+            next_state =  w_busy13;
         end
       w_busy12 : 
         begin
-          if (busy_pA==1)
-            next_stateA =  st_GPPUB1;
+          if (busy_p==1)
+            next_state =  st_GPPUB1;
           else
-            next_stateA =  w_busy12;
+            next_state =  w_busy12;
         end
       st_GPPUB2 : 
         begin
-          next_stateA =  w_busy14;
+          next_state =  w_busy14;
         end
       w_busy14 : 
         begin
-          if (busy_pA==1)
-            next_stateA =  CS_high4;
+          if (busy_p==1)
+            next_state =  CS_high4;
           else
-            next_stateA =  w_busy14;
+            next_state =  w_busy14;
         end
       st_GPPUB : 
         begin
-          next_stateA =  w_busy12;
+          next_state =  w_busy12;
         end
       CS_high0 : 
         begin
-          next_stateA =  w_busy26;
+          next_state =  w_busy26;
         end
       CS_high1 : 
         begin
-          next_stateA =  w_busy27;
+          next_state =  w_busy27;
         end
       CS_high2 : 
         begin
-          next_stateA =  w_busy28;
+          next_state =  w_busy28;
         end
       CS_high3 : 
         begin
-          next_stateA =  w_busy29;
+          next_state =  w_busy29;
         end
       CS_high4 : 
         begin
-          next_stateA =  w_busy30;
+          next_state =  w_busy30;
         end
       CS_high5 : 
         begin
-          next_stateA =  w_busy31;
+          next_state =  w_busy31;
         end
       w_busy26 : 
         begin
-          if (busy_pA==1)
-            next_stateA =  st_IODIRB;
+          if (busy_p==1)
+            next_state =  st_IODIRB;
           else
-            next_stateA =  w_busy26;
+            next_state =  w_busy26;
         end
       w_busy27 : 
         begin
-          if (busy_pA==1)
-            next_stateA =  st_GPIOB0;
+          if (busy_p==1)
+            next_state =  st_GPIOB0;
           else
-            next_stateA =  w_busy27;
+            next_state =  w_busy27;
         end
       w_busy28 : 
         begin
-          if (busy_pA==1)
-            next_stateA =  st_GPPUA;
+          if (busy_p==1)
+            next_state =  st_GPPUA;
           else
-            next_stateA =  w_busy28;
+            next_state =  w_busy28;
         end
       w_busy29 : 
         begin
-          if (busy_pA==1)
-            next_stateA =  st_GPPUB;
+          if (busy_p==1)
+            next_state =  st_GPPUB;
           else
-            next_stateA =  w_busy29;
+            next_state =  w_busy29;
         end
       w_busy30 : 
         begin
-          if (busy_pA==1)
-            next_stateA =  st_GPIOA;
+          if (busy_p==1)
+            next_state =  st_GPIOA;
           else
-            next_stateA =  w_busy30;
+            next_state =  w_busy30;
         end
       w_busy31 : 
         begin
-          if (busy_pA==1)
-            next_stateA =  st_GPIOA15;
+          if (busy_p==1)
+            next_state =  st_GPIOA15;
           else
-            next_stateA =  w_busy31;
+            next_state =  w_busy31;
         end
       CS_high7 : 
         begin
-          next_stateA =  w_busy32;
+          next_state =  w_busy32;
         end
       w_busy32 : 
         begin
-          if (busy_mA==1)
-            next_stateA =  ST_Rest_1;
+          if (busy_m==1)
+            next_state =  ST_Rest_1;
           else
-            next_stateA =  w_busy32;
+            next_state =  w_busy32;
         end
       ST_Init_0 : 
         begin
-          next_stateA =  ST_wait_0;
+          next_state =  ST_wait_0;
         end
       ST_wait_0 : 
         begin
-          if (busy_mA==1)
-            next_stateA =  ST_Init_1;
+          if (busy_m==1)
+            next_state =  ST_Init_1;
           else
-            next_stateA =  ST_wait_0;
+            next_state =  ST_wait_0;
         end
       ST_Init_1 : 
         begin
-          next_stateA =  ST_wait_1;
+          next_state =  ST_wait_1;
         end
       ST_wait_1 : 
         begin
-          if (busy_mA==1)
-            next_stateA =  ST_Init_2;
+          if (busy_m==1)
+            next_state =  ST_Init_2;
           else
-            next_stateA =  ST_wait_1;
+            next_state =  ST_wait_1;
         end
       ST_Init_2 : 
         begin
-          next_stateA =  ST_wait_2;
+          next_state =  ST_wait_2;
         end
       ST_wait_2 : 
         begin
-          if (busy_mA==1)
-            next_stateA =  ST_Init_3;
+          if (busy_m==1)
+            next_state =  ST_Init_3;
           else
-            next_stateA =  ST_wait_2;
+            next_state =  ST_wait_2;
         end
       ST_Init_3 : 
         begin
-          next_stateA =  ST_wait_3;
+          next_state =  ST_wait_3;
         end
       ST_wait_3 : 
         begin
-          if (busy_mA==1)
-            next_stateA =  ST_Init_4;
+          if (busy_m==1)
+            next_state =  ST_Init_4;
           else
-            next_stateA =  ST_wait_3;
+            next_state =  ST_wait_3;
         end
       ST_Init_4 : 
         begin
-          next_stateA =  ST_wait_4;
+          next_state =  ST_wait_4;
         end
       ST_wait_4 : 
         begin
-          if (busy_mA==1)
-            next_stateA =  ST_Init_5;
+          if (busy_m==1)
+            next_state =  ST_Init_5;
           else
-            next_stateA =  ST_wait_4;
+            next_state =  ST_wait_4;
         end
       ST_Init_5 : 
         begin
-          next_stateA =  ST_wait_5;
+          next_state =  ST_wait_5;
         end
       ST_wait_5 : 
         begin
-          if (busy_mA==1)
-            next_stateA =  ST_Init_6;
+          if (busy_m==1)
+            next_state =  ST_Init_6;
           else
-            next_stateA =  ST_wait_5;
+            next_state =  ST_wait_5;
         end
       ST_Init_6 : 
         begin
-          next_stateA =  ST_wait_6;
+          next_state =  ST_wait_6;
         end
       ST_wait_6 : 
         begin
-          if (busy_mA==1)
-            next_stateA =  ST_Init_7;
+          if (busy_m==1)
+            next_state =  ST_Init_7;
           else
-            next_stateA =  ST_wait_6;
+            next_state =  ST_wait_6;
         end
       ST_Init_7 : 
         begin
-          next_stateA =  ST_wait_7;
+          next_state =  ST_wait_7;
         end
       ST_wait_7 : 
         begin
-          if (busy_mA==1)
-            next_stateA =  ST_Init_8;
+          if (busy_m==1)
+            next_state =  ST_Init_8;
           else
-            next_stateA =  ST_wait_7;
+            next_state =  ST_wait_7;
         end
       ST_Init_8 : 
         begin
-          next_stateA =  ST_wait_8;
+          next_state =  ST_wait_8;
         end
       ST_wait_8 : 
         begin
-          if (busy_mA==1)
-            next_stateA =  ST_Init_9;
+          if (busy_m==1)
+            next_state =  ST_Init_9;
           else
-            next_stateA =  ST_wait_8;
+            next_state =  ST_wait_8;
         end
       ST_Init_9 : 
         begin
-          next_stateA =  ST_wait_9;
+          next_state =  ST_wait_9;
         end
       ST_wait_9 : 
         begin
-          if (busy_mA==1)
-            next_stateA =  ST_Init_10;
+          if (busy_m==1)
+            next_state =  ST_Init_10;
           else
-            next_stateA =  ST_wait_9;
+            next_state =  ST_wait_9;
         end
       ST_Init_10 : 
         begin
-          next_stateA =  ST_wait_10;
+          next_state =  ST_wait_10;
         end
       ST_wait_10 : 
         begin
-          if (busy_mA==1)
-            next_stateA =  ST_Init_11;
+          if (busy_m==1)
+            next_state =  ST_Init_11;
           else
-            next_stateA =  ST_wait_10;
+            next_state =  ST_wait_10;
         end
       ST_Init_11 : 
         begin
-          next_stateA =  ST_wait_11;
+          next_state =  ST_wait_11;
         end
       ST_wait_11 : 
         begin
-          if (busy_mA==1)
-            next_stateA =  ST_Init_12;
+          if (busy_m==1)
+            next_state =  ST_Init_12;
           else
-            next_stateA =  ST_wait_11;
+            next_state =  ST_wait_11;
         end
       ST_Init_12 : 
         begin
-          next_stateA =  ST_wait_12;
+          next_state =  ST_wait_12;
         end
       ST_wait_12 : 
         begin
-          if (busy_mA==1)
-            next_stateA =  ST_Init_13;
+          if (busy_m==1)
+            next_state =  ST_Init_13;
           else
-            next_stateA =  ST_wait_12;
+            next_state =  ST_wait_12;
         end
       ST_Init_13 : 
         begin
-          next_stateA =  ST_wait_13;
+          next_state =  ST_wait_13;
         end
       ST_wait_13 : 
         begin
-          if (busy_mA==1)
-            next_stateA =  ST_Init_14;
+          if (busy_m==1)
+            next_state =  ST_Init_14;
           else
-            next_stateA =  ST_wait_13;
+            next_state =  ST_wait_13;
         end
       ST_Init_14 : 
         begin
-          next_stateA =  ST_wait_14;
+          next_state =  ST_wait_14;
         end
       ST_wait_14 : 
         begin
-          if (busy_mA==1)
-            next_stateA =  st_Init_2;
+          if (busy_m==1)
+            next_state =  st_Init_2;
           else
-            next_stateA =  ST_wait_14;
+            next_state =  ST_wait_14;
         end
       st_Init_2 : 
         begin
-          next_stateA =  ST_wait_15;
+          next_state =  ST_wait_15;
         end
       ST_wait_15 : 
         begin
-          if (busy_mA==1)
-            next_stateA =  CS_high7;
+          if (busy_m==1)
+            next_state =  CS_high7;
           else
-            next_stateA =  ST_wait_15;
+            next_state =  ST_wait_15;
         end
       CS_high8 : 
         begin
-          next_stateA =  w_busy33;
+          next_state =  w_busy33;
         end
       w_busy33 : 
         begin
-          if (busy_mA==1)
-            next_stateA =  ST_Read_reg;
+          if (busy_m==1)
+            next_state =  ST_Read_reg;
           else
-            next_stateA =  w_busy33;
+            next_state =  w_busy33;
         end
       ST_Rest_3 : 
         begin
-          next_stateA =  St_wait5;
+          next_state =  St_wait5;
         end
       ST_Rest_RS_3 : 
         begin
-          next_stateA =  St_wait9;
+          next_state =  St_wait9;
         end
       ST_Rest_RS_4 : 
         begin
-          next_stateA =  St_wait10;
+          next_state =  St_wait10;
         end
       St_wait1 : 
         begin
-          if (busy_mA==1)
-            next_stateA =  ST_Rest_3;
+          if (busy_m==1)
+            next_state =  ST_Rest_3;
           else
-            next_stateA =  St_wait1;
+            next_state =  St_wait1;
         end
       St_wait5 : 
         begin
-          next_stateA =  ST_Rest_4;
+          next_state =  ST_Rest_4;
         end
       St_wait6 : 
         begin
-          if (busy_mA==1)
-            next_stateA =  ST_Rest_RS_1;
+          if (busy_m==1)
+            next_state =  ST_Rest_RS_1;
           else
-            next_stateA =  St_wait6;
+            next_state =  St_wait6;
         end
       St_wait7 : 
         begin
-          if (busy_mA==1)
-            next_stateA =  ST_Rest_RS_2;
+          if (busy_m==1)
+            next_state =  ST_Rest_RS_2;
           else
-            next_stateA =  St_wait7;
+            next_state =  St_wait7;
         end
       St_wait8 : 
         begin
-          if (busy_mA==1)
-            next_stateA =  ST_Rest_RS_3;
+          if (busy_m==1)
+            next_state =  ST_Rest_RS_3;
           else
-            next_stateA =  St_wait8;
+            next_state =  St_wait8;
         end
       St_wait9 : 
         begin
-          if (busy_mA==1)
-            next_stateA =  ST_Rest_RS_4;
+          if (busy_m==1)
+            next_state =  ST_Rest_RS_4;
           else
-            next_stateA =  St_wait9;
+            next_state =  St_wait9;
         end
       St_wait10 : 
         begin
-          if (busy_mA==1)
-            next_stateA =  CS_high8;
+          if (busy_m==1)
+            next_state =  CS_high8;
           else
-            next_stateA =  St_wait10;
+            next_state =  St_wait10;
         end
       CS_high9 : 
         begin
-          next_stateA =  w_busy34;
+          next_state =  w_busy34;
         end
       w_busy34 : 
         begin
-          if (busy_mA==1)
-            next_stateA =  ST_Config1;
+          if (busy_m==1)
+            next_state =  ST_Config1;
           else
-            next_stateA =  w_busy34;
+            next_state =  w_busy34;
         end
       St_wait13 : 
         begin
-          if (busy_mA==1)
-            next_stateA =  ST_Rest_RS_6;
+          if (busy_m==1)
+            next_state =  ST_Rest_RS_6;
           else
-            next_stateA =  St_wait13;
+            next_state =  St_wait13;
         end
       ST_Rest_RS_6 : 
         begin
-          next_stateA =  St_wait14;
+          next_state =  St_wait14;
         end
       ST_Rest_RS_7 : 
         begin
-          next_stateA =  St_wait13;
+          next_state =  St_wait13;
         end
       St_wait14 : 
         begin
-          if (busy_mA==1)
-            next_stateA =  ST_Rest_RS_8;
+          if (busy_m==1)
+            next_state =  ST_Rest_RS_8;
           else
-            next_stateA =  St_wait14;
+            next_state =  St_wait14;
         end
       ST_Rest_RS_8 : 
         begin
-          next_stateA =  St_wait15;
+          next_state =  St_wait15;
         end
       St_wait15 : 
         begin
-          if (busy_mA==1)
-            next_stateA =  CS_high9;
+          if (busy_m==1)
+            next_state =  CS_high9;
           else
-            next_stateA =  St_wait15;
+            next_state =  St_wait15;
         end
       St_wait16 : 
         begin
-          if (busy_mA==1)
-            next_stateA =  ST_Rest_RS_7;
+          if (busy_m==1)
+            next_state =  ST_Rest_RS_7;
           else
-            next_stateA =  St_wait16;
+            next_state =  St_wait16;
         end
       CS_high10 : 
         begin
-          next_stateA =  w_busy35;
+          next_state =  w_busy35;
         end
       w_busy35 : 
         begin
-          if (busy_mA==1)
-            next_stateA =  ST_Read_reg2;
+          if (busy_m==1)
+            next_state =  ST_Read_reg2;
           else
-            next_stateA =  w_busy35;
+            next_state =  w_busy35;
         end
       CS_high12 : 
         begin
-          next_stateA =  w_busy36;
+          next_state =  w_busy36;
         end
       w_busy36 : 
         begin
-          if (busy_mA==1)
-            next_stateA =  write_csrs0;
+          if (busy_m==1)
+            next_state =  write_csrs0;
           else
-            next_stateA =  w_busy36;
+            next_state =  w_busy36;
         end
       CS_high13 : 
         begin
-          next_stateA =  w_busy37;
+          next_state =  w_busy37;
         end
       w_busy37 : 
         begin
-          if (busy_mA==1)
-            next_stateA =  Offset_cal0;
+          if (busy_m==1)
+            next_state =  Offset_cal0;
           else
-            next_stateA =  w_busy37;
+            next_state =  w_busy37;
         end
       w_busy38 : 
         begin
-          if (busy_mA==1)
-            next_stateA =  Gain_cal0;
+          if (busy_m==1)
+            next_state =  Gain_cal0;
           else
-            next_stateA =  w_busy38;
+            next_state =  w_busy38;
         end
       CS_high14 : 
         begin
-          next_stateA =  w_busy38;
+          next_state =  w_busy38;
         end
       CS_high15 : 
         begin
-          next_stateA =  w_busy39;
+          next_state =  w_busy39;
         end
       w_busy39 : 
         begin
-          if (busy_mA==1)
-            next_stateA =  Break_Loop;
+          if (busy_m==1)
+            next_state =  Break_Loop;
           else
-            next_stateA =  w_busy39;
+            next_state =  w_busy39;
         end
       St_wait17 : 
         begin
-          if (busy_mA==1)
-            next_stateA =  ST_Config3;
+          if (busy_m==1)
+            next_state =  ST_Config3;
           else
-            next_stateA =  St_wait17;
+            next_state =  St_wait17;
         end
       St_wait18 : 
         begin
-          if (busy_mA==1)
-            next_stateA =  ST_Config2;
+          if (busy_m==1)
+            next_state =  ST_Config2;
           else
-            next_stateA =  St_wait18;
+            next_state =  St_wait18;
         end
       St_wait19 : 
         begin
-          if (busy_mA==1)
-            next_stateA =  ST_Config4;
+          if (busy_m==1)
+            next_state =  ST_Config4;
           else
-            next_stateA =  St_wait19;
+            next_state =  St_wait19;
         end
       St_wait20 : 
         begin
-          if (busy_mA==1)
-            next_stateA =  CS_high10;
+          if (busy_m==1)
+            next_state =  CS_high10;
           else
-            next_stateA =  St_wait20;
+            next_state =  St_wait20;
         end
       St_wait32 : 
         begin
-          if (busy_mA==1)
-            next_stateA =  ST_Config5;
+          if (busy_m==1)
+            next_state =  ST_Config5;
           else
-            next_stateA =  St_wait32;
+            next_state =  St_wait32;
         end
       St_wait33 : 
         begin
-          if (busy_mA==1)
-            next_stateA =  ST_Config8;
+          if (busy_m==1)
+            next_state =  ST_Config8;
           else
-            next_stateA =  St_wait33;
+            next_state =  St_wait33;
         end
       St_wait34 : 
         begin
-          if (busy_mA==1)
-            next_stateA =  Offset__cal1;
+          if (busy_m==1)
+            next_state =  Offset__cal1;
           else
-            next_stateA =  St_wait34;
+            next_state =  St_wait34;
         end
       ST_Config5 : 
         begin
-          next_stateA =  St_wait35;
+          next_state =  St_wait35;
         end
       ST_Config6 : 
         begin
-          next_stateA =  St_wait34;
+          next_state =  St_wait34;
         end
       St_wait35 : 
         begin
-          if (busy_mA==1)
-            next_stateA =  ST_Config7;
+          if (busy_m==1)
+            next_state =  ST_Config7;
           else
-            next_stateA =  St_wait35;
+            next_state =  St_wait35;
         end
       ST_Config7 : 
         begin
-          next_stateA =  St_wait36;
+          next_state =  St_wait36;
         end
       St_wait36 : 
         begin
-          if (busy_mA==1)
-            next_stateA =  ST_Config6;
+          if (busy_m==1)
+            next_state =  ST_Config6;
           else
-            next_stateA =  St_wait36;
+            next_state =  St_wait36;
         end
       ST_Config8 : 
         begin
-          next_stateA =  St_wait37;
+          next_state =  St_wait37;
         end
       St_wait37 : 
         begin
-          if (busy_mA==1)
-            next_stateA =  ST_Config9;
+          if (busy_m==1)
+            next_state =  ST_Config9;
           else
-            next_stateA =  St_wait37;
+            next_state =  St_wait37;
         end
       ST_Config9 : 
         begin
-          next_stateA =  St_wait38;
+          next_state =  St_wait38;
         end
       St_wait38 : 
         begin
-          if (busy_mA==1)
-            next_stateA =  ST_Config10;
+          if (busy_m==1)
+            next_state =  ST_Config10;
           else
-            next_stateA =  St_wait38;
+            next_state =  St_wait38;
         end
       ST_Config10 : 
         begin
-          next_stateA =  St_wait39;
+          next_state =  St_wait39;
         end
       St_wait39 : 
         begin
-          if (busy_mA==1)
-            next_stateA =  Offset__cal2;
+          if (busy_m==1)
+            next_state =  Offset__cal2;
           else
-            next_stateA =  St_wait39;
+            next_state =  St_wait39;
         end
       St_wait40 : 
         begin
-          if (busy_mA==1)
-            next_stateA =  ST_Config11;
+          if (busy_m==1)
+            next_state =  ST_Config11;
           else
-            next_stateA =  St_wait40;
+            next_state =  St_wait40;
         end
       ST_Config11 : 
         begin
-          next_stateA =  St_wait41;
+          next_state =  St_wait41;
         end
       St_wait41 : 
         begin
-          if (busy_mA==1)
-            next_stateA =  ST_Config12;
+          if (busy_m==1)
+            next_state =  ST_Config12;
           else
-            next_stateA =  St_wait41;
+            next_state =  St_wait41;
         end
       ST_Config12 : 
         begin
-          next_stateA =  St_wait42;
+          next_state =  St_wait42;
         end
       St_wait42 : 
         begin
-          if (busy_mA==1)
-            next_stateA =  ST_Config13;
+          if (busy_m==1)
+            next_state =  ST_Config13;
           else
-            next_stateA =  St_wait42;
+            next_state =  St_wait42;
         end
       ST_Config13 : 
         begin
-          next_stateA =  St_wait43;
+          next_state =  St_wait43;
         end
       St_wait43 : 
         begin
-          if (busy_mA==1)
-            next_stateA =  Offset__cal3;
+          if (busy_m==1)
+            next_state =  Offset__cal3;
           else
-            next_stateA =  St_wait43;
+            next_state =  St_wait43;
         end
       St_wait44 : 
         begin
-          if (busy_mA==1)
-            next_stateA =  ST_Config14;
+          if (busy_m==1)
+            next_state =  ST_Config14;
           else
-            next_stateA =  St_wait44;
+            next_state =  St_wait44;
         end
       ST_Config14 : 
         begin
-          next_stateA =  St_wait45;
+          next_state =  St_wait45;
         end
       St_wait45 : 
         begin
-          if (busy_mA==1)
-            next_stateA =  ST_Config15;
+          if (busy_m==1)
+            next_state =  ST_Config15;
           else
-            next_stateA =  St_wait45;
+            next_state =  St_wait45;
         end
       ST_Config15 : 
         begin
-          next_stateA =  St_wait46;
+          next_state =  St_wait46;
         end
       St_wait46 : 
         begin
-          if (busy_mA==1)
-            next_stateA =  ST_Config16;
+          if (busy_m==1)
+            next_state =  ST_Config16;
           else
-            next_stateA =  St_wait46;
+            next_state =  St_wait46;
         end
       ST_Config16 : 
         begin
-          next_stateA =  St_wait47;
+          next_state =  St_wait47;
         end
       St_wait47 : 
         begin
-          if (busy_mA==1)
-            next_stateA =  CS_high14;
+          if (busy_m==1)
+            next_state =  CS_high14;
           else
-            next_stateA =  St_wait47;
+            next_state =  St_wait47;
         end
       St_wait25 : 
         begin
-          if (busy_mA==1)
-            next_stateA =  write_csrs1;
+          if (busy_m==1)
+            next_state =  write_csrs1;
           else
-            next_stateA =  St_wait25;
+            next_state =  St_wait25;
         end
       St_wait26 : 
         begin
-          if (busy_mA==1)
-            next_stateA =  write_csrs2;
+          if (busy_m==1)
+            next_state =  write_csrs2;
           else
-            next_stateA =  St_wait26;
+            next_state =  St_wait26;
         end
       St_wait27 : 
         begin
-          if (busy_mA==1)
-            next_stateA =  write_csrs4;
+          if (busy_m==1)
+            next_state =  write_csrs4;
           else
-            next_stateA =  St_wait27;
+            next_state =  St_wait27;
         end
       St_wait28 : 
         begin
-          if (busy_mA==1)
-            next_stateA =  write_csrs5;
+          if (busy_m==1)
+            next_state =  write_csrs5;
           else
-            next_stateA =  St_wait28;
+            next_state =  St_wait28;
         end
       St_wait29 : 
         begin
-          if (busy_mA==1)
-            next_stateA =  write_csrs6;
+          if (busy_m==1)
+            next_state =  write_csrs6;
           else
-            next_stateA =  St_wait29;
+            next_state =  St_wait29;
         end
       St_wait30 : 
         begin
-          if (busy_mA==1)
-            next_stateA =  write_csrs7;
+          if (busy_m==1)
+            next_state =  write_csrs7;
           else
-            next_stateA =  St_wait30;
+            next_state =  St_wait30;
         end
       St_wait31 : 
         begin
-          if (busy_mA==1)
-            next_stateA =  CS_high13;
+          if (busy_m==1)
+            next_state =  CS_high13;
           else
-            next_stateA =  St_wait31;
+            next_state =  St_wait31;
         end
       ST_Read_reg2 : 
         begin
-          next_stateA =  St_wait24;
+          next_state =  St_wait24;
         end
       St_wait21 : 
         begin
-          if (busy_mA==1)
-            next_stateA =  ST_Rest_RS_9;
+          if (busy_m==1)
+            next_state =  ST_Rest_RS_9;
           else
-            next_stateA =  St_wait21;
+            next_state =  St_wait21;
         end
       ST_Rest_RS_9 : 
         begin
-          next_stateA =  St_wait22;
+          next_state =  St_wait22;
         end
       ST_Rest_RS_10 : 
         begin
-          next_stateA =  St_wait21;
+          next_state =  St_wait21;
         end
       St_wait22 : 
         begin
-          if (busy_mA==1)
-            next_stateA =  ST_Rest_RS_11;
+          if (busy_m==1)
+            next_state =  ST_Rest_RS_11;
           else
-            next_stateA =  St_wait22;
+            next_state =  St_wait22;
         end
       ST_Rest_RS_11 : 
         begin
-          next_stateA =  St_wait23;
+          next_state =  St_wait23;
         end
       St_wait23 : 
         begin
-          if (busy_mA==1)
-            next_stateA =  CS_high12;
+          if (busy_m==1)
+            next_state =  CS_high12;
           else
-            next_stateA =  St_wait23;
+            next_state =  St_wait23;
         end
       St_wait24 : 
         begin
-          if (busy_mA==1)
-            next_stateA =  ST_Rest_RS_10;
+          if (busy_m==1)
+            next_state =  ST_Rest_RS_10;
           else
-            next_stateA =  St_wait24;
+            next_state =  St_wait24;
         end
       ST_Config17 : 
         begin
-          next_stateA =  St_wait48;
+          next_state =  St_wait48;
         end
       St_wait48 : 
         begin
-          if (busy_mA==1)
-            next_stateA =  ST_Config18;
+          if (busy_m==1)
+            next_state =  ST_Config18;
           else
-            next_stateA =  St_wait48;
+            next_state =  St_wait48;
         end
       ST_Config18 : 
         begin
-          next_stateA =  St_wait49;
+          next_state =  St_wait49;
         end
       St_wait49 : 
         begin
-          if (busy_mA==1)
-            next_stateA =  Gain_cal1;
+          if (busy_m==1)
+            next_state =  Gain_cal1;
           else
-            next_stateA =  St_wait49;
+            next_state =  St_wait49;
         end
       St_wait50 : 
         begin
-          if (busy_mA==1)
-            next_stateA =  ST_Config17;
+          if (busy_m==1)
+            next_state =  ST_Config17;
           else
-            next_stateA =  St_wait50;
+            next_state =  St_wait50;
         end
       St_wait51 : 
         begin
-          if (busy_mA==1)
-            next_stateA =  ST_Config19;
+          if (busy_m==1)
+            next_state =  ST_Config19;
           else
-            next_stateA =  St_wait51;
+            next_state =  St_wait51;
         end
       ST_Config19 : 
         begin
-          next_stateA =  St_wait52;
+          next_state =  St_wait52;
         end
       St_wait52 : 
         begin
-          if (busy_mA==1)
-            next_stateA =  ST_Config20;
+          if (busy_m==1)
+            next_state =  ST_Config20;
           else
-            next_stateA =  St_wait52;
+            next_state =  St_wait52;
         end
       ST_Config20 : 
         begin
-          next_stateA =  St_wait53;
+          next_state =  St_wait53;
         end
       St_wait53 : 
         begin
-          if (busy_mA==1)
-            next_stateA =  Gain_cal2;
+          if (busy_m==1)
+            next_state =  Gain_cal2;
           else
-            next_stateA =  St_wait53;
+            next_state =  St_wait53;
         end
       St_wait54 : 
         begin
-          if (busy_mA==1)
-            next_stateA =  ST_Config21;
+          if (busy_m==1)
+            next_state =  ST_Config21;
           else
-            next_stateA =  St_wait54;
+            next_state =  St_wait54;
         end
       ST_Config21 : 
         begin
-          next_stateA =  St_wait55;
+          next_state =  St_wait55;
         end
       St_wait55 : 
         begin
-          if (busy_mA==1)
-            next_stateA =  ST_Config22;
+          if (busy_m==1)
+            next_state =  ST_Config22;
           else
-            next_stateA =  St_wait55;
+            next_state =  St_wait55;
         end
       ST_Config22 : 
         begin
-          next_stateA =  St_wait56;
+          next_state =  St_wait56;
         end
       St_wait56 : 
         begin
-          if (busy_mA==1)
-            next_stateA =  Gain_cal3;
+          if (busy_m==1)
+            next_state =  Gain_cal3;
           else
-            next_stateA =  St_wait56;
+            next_state =  St_wait56;
         end
       St_wait57 : 
         begin
-          if (busy_mA==1)
-            next_stateA =  ST_Config23;
+          if (busy_m==1)
+            next_state =  ST_Config23;
           else
-            next_stateA =  St_wait57;
+            next_state =  St_wait57;
         end
       ST_Config23 : 
         begin
-          next_stateA =  St_wait58;
+          next_state =  St_wait58;
         end
       St_wait58 : 
         begin
-          if (busy_mA==1)
-            next_stateA =  ST_Config24;
+          if (busy_m==1)
+            next_state =  ST_Config24;
           else
-            next_stateA =  St_wait58;
+            next_state =  St_wait58;
         end
       ST_Config24 : 
         begin
-          next_stateA =  St_wait59;
+          next_state =  St_wait59;
         end
       St_wait59 : 
         begin
-          if (busy_mA==1)
-            next_stateA =  CS_high15;
+          if (busy_m==1)
+            next_state =  CS_high15;
           else
-            next_stateA =  St_wait59;
+            next_state =  St_wait59;
         end
       Break_Loop : 
         begin
-          if (end_mon_cntA)
-            next_stateA =  ST_CountRst;
+          if (end_mon_cnt)
+            next_state =  ST_CountRst;
           else
-            next_stateA =  ST_Start_Cnt;
+            next_state =  ST_Start_Cnt;
         end
       ST_CountRst : 
         begin
-          next_stateA =  endinit1;
+          next_state =  endinit1;
         end
       ST_Start_Cnt : 
         begin
-          next_stateA =  ST_Init_0;
+          next_state =  ST_Init_0;
         end
       ST_Read_reg3 : 
         begin
-          next_stateA =  St_wait63;
+          next_state =  St_wait63;
         end
       St_wait60 : 
         begin
-          if (busy_mA==1)
-            next_stateA =  ST_Rest_RS_12;
+          if (busy_m==1)
+            next_state =  ST_Rest_RS_12;
           else
-            next_stateA =  St_wait60;
+            next_state =  St_wait60;
         end
       ST_Rest_RS_12 : 
         begin
-          next_stateA =  St_wait61;
+          next_state =  St_wait61;
         end
       ST_Rest_RS_13 : 
         begin
-          next_stateA =  St_wait60;
+          next_state =  St_wait60;
         end
       St_wait61 : 
         begin
-          if (busy_mA==1)
-            next_stateA =  ST_Rest_RS_14;
+          if (busy_m==1)
+            next_state =  ST_Rest_RS_14;
           else
-            next_stateA =  St_wait61;
+            next_state =  St_wait61;
         end
       ST_Rest_RS_14 : 
         begin
-          next_stateA =  St_wait62;
+          next_state =  St_wait62;
         end
       St_wait62 : 
         begin
-          if (busy_mA==1)
-            next_stateA =  waittoact;
+          if (busy_m==1)
+            next_state =  waittoact;
           else
-            next_stateA =  St_wait62;
+            next_state =  St_wait62;
         end
       St_wait63 : 
         begin
-          if (busy_mA==1)
-            next_stateA =  ST_Rest_RS_13;
+          if (busy_m==1)
+            next_state =  ST_Rest_RS_13;
           else
-            next_stateA =  St_wait63;
+            next_state =  St_wait63;
         end
       CS_high16 : 
         begin
-          next_stateA =  w_busy43;
+          next_state =  w_busy43;
         end
       w_busy43 : 
         begin
-          if (busy_pA==1)
-            next_stateA =  End_Select;
+          if (busy_p==1)
+            next_state =  End_Select;
           else
-            next_stateA =  w_busy43;
+            next_state =  w_busy43;
         end
       st_GPIOA15 : 
         begin
-          next_stateA =  w_busy40;
+          next_state =  w_busy40;
         end
       st_GPIOA16 : 
         begin
-          next_stateA =  w_busy41;
+          next_state =  w_busy41;
         end
       st_GPIOA17 : 
         begin
-          next_stateA =  w_busy42;
+          next_state =  w_busy42;
         end
       w_busy40 : 
         begin
-          if (busy_pA==1)
-            next_stateA =  st_GPIOA16;
+          if (busy_p==1)
+            next_state =  st_GPIOA16;
           else
-            next_stateA =  w_busy40;
+            next_state =  w_busy40;
         end
       w_busy41 : 
         begin
-          if (busy_pA==1)
-            next_stateA =  st_GPIOA17;
+          if (busy_p==1)
+            next_state =  st_GPIOA17;
           else
-            next_stateA =  w_busy41;
+            next_state =  w_busy41;
         end
       w_busy42 : 
         begin
-          if (busy_pA==1)
-            next_stateA =  CS_high16;
+          if (busy_p==1)
+            next_state =  CS_high16;
           else
-            next_stateA =  w_busy42;
+            next_state =  w_busy42;
         end
       CS_high6 : 
         begin
-          next_stateA =  w_busy44;
+          next_state =  w_busy44;
         end
       w_busy44 : 
         begin
-          if (busy_pA==1)
-            next_stateA =  st_GPIOA18;
+          if (busy_p==1)
+            next_state =  st_GPIOA18;
           else
-            next_stateA =  w_busy44;
+            next_state =  w_busy44;
         end
       CS_high17 : 
         begin
-          next_stateA =  w_busy48;
+          next_state =  w_busy48;
         end
       w_busy48 : 
         begin
-          if (busy_pA==1)
-            next_stateA =  waittoact;
+          if (busy_p==1)
+            next_state =  waittoact;
           else
-            next_stateA =  w_busy48;
+            next_state =  w_busy48;
         end
       st_GPIOA12 : 
         begin
-          next_stateA =  w_busy18;
+          next_state =  w_busy18;
         end
       st_GPIOA13 : 
         begin
-          next_stateA =  w_busy19;
+          next_state =  w_busy19;
         end
       st_GPIOA14 : 
         begin
-          next_stateA =  w_busy20;
+          next_state =  w_busy20;
         end
       w_busy18 : 
         begin
-          if (busy_pA==1)
-            next_stateA =  st_GPIOA13;
+          if (busy_p==1)
+            next_state =  st_GPIOA13;
           else
-            next_stateA =  w_busy18;
+            next_state =  w_busy18;
         end
       w_busy19 : 
         begin
-          if (busy_pA==1)
-            next_stateA =  st_GPIOA14;
+          if (busy_p==1)
+            next_state =  st_GPIOA14;
           else
-            next_stateA =  w_busy19;
+            next_state =  w_busy19;
         end
       w_busy20 : 
         begin
-          if (busy_pA==1)
-            next_stateA =  CS_high6;
+          if (busy_p==1)
+            next_state =  CS_high6;
           else
-            next_stateA =  w_busy20;
+            next_state =  w_busy20;
         end
       st_GPIOA18 : 
         begin
-          next_stateA =  w_busy45;
+          next_state =  w_busy45;
         end
       st_GPIOA19 : 
         begin
-          next_stateA =  w_busy46;
+          next_state =  w_busy46;
         end
       st_GPIOA20 : 
         begin
-          next_stateA =  w_busy47;
+          next_state =  w_busy47;
         end
       w_busy45 : 
         begin
-          if (busy_pA==1)
-            next_stateA =  st_GPIOA19;
+          if (busy_p==1)
+            next_state =  st_GPIOA19;
           else
-            next_stateA =  w_busy45;
+            next_state =  w_busy45;
         end
       w_busy46 : 
         begin
-          if (busy_pA==1)
-            next_stateA =  st_GPIOA20;
+          if (busy_p==1)
+            next_state =  st_GPIOA20;
           else
-            next_stateA =  w_busy46;
+            next_state =  w_busy46;
         end
       w_busy47 : 
         begin
-          if (busy_pA==1)
-            next_stateA =  CS_high17;
+          if (busy_p==1)
+            next_state =  CS_high17;
           else
-            next_stateA =  w_busy47;
+            next_state =  w_busy47;
         end
       CS_high11 : 
         begin
-          next_stateA =  w_busy49;
+          next_state =  w_busy49;
         end
       w_busy49 : 
         begin
-          if (busy_pA==1)
-            next_stateA =  st_GPIOA24;
+          if (busy_p==1)
+            next_state =  st_GPIOA24;
           else
-            next_stateA =  w_busy49;
+            next_state =  w_busy49;
         end
       CS_high18 : 
         begin
-          next_stateA =  w_busy53;
+          next_state =  w_busy53;
         end
       w_busy53 : 
         begin
-          if (busy_pA==1)
-            next_stateA =  waittoact;
+          if (busy_p==1)
+            next_state =  waittoact;
           else
-            next_stateA =  w_busy53;
+            next_state =  w_busy53;
         end
       st_GPIOA21 : 
         begin
-          next_stateA =  w_busy21;
+          next_state =  w_busy21;
         end
       st_GPIOA22 : 
         begin
-          next_stateA =  w_busy22;
+          next_state =  w_busy22;
         end
       st_GPIOA23 : 
         begin
-          next_stateA =  w_busy23;
+          next_state =  w_busy23;
         end
       w_busy21 : 
         begin
-          if (busy_pA==1)
-            next_stateA =  st_GPIOA22;
+          if (busy_p==1)
+            next_state =  st_GPIOA22;
           else
-            next_stateA =  w_busy21;
+            next_state =  w_busy21;
         end
       w_busy22 : 
         begin
-          if (busy_pA==1)
-            next_stateA =  st_GPIOA23;
+          if (busy_p==1)
+            next_state =  st_GPIOA23;
           else
-            next_stateA =  w_busy22;
+            next_state =  w_busy22;
         end
       w_busy23 : 
         begin
-          if (busy_pA==1)
-            next_stateA =  CS_high11;
+          if (busy_p==1)
+            next_state =  CS_high11;
           else
-            next_stateA =  w_busy23;
+            next_state =  w_busy23;
         end
       st_GPIOA24 : 
         begin
-          next_stateA =  w_busy50;
+          next_state =  w_busy50;
         end
       st_GPIOA25 : 
         begin
-          next_stateA =  w_busy51;
+          next_state =  w_busy51;
         end
       st_GPIOA26 : 
         begin
-          next_stateA =  w_busy52;
+          next_state =  w_busy52;
         end
       w_busy50 : 
         begin
-          if (busy_pA==1)
-            next_stateA =  st_GPIOA25;
+          if (busy_p==1)
+            next_state =  st_GPIOA25;
           else
-            next_stateA =  w_busy50;
+            next_state =  w_busy50;
         end
       w_busy51 : 
         begin
-          if (busy_pA==1)
-            next_stateA =  st_GPIOA26;
+          if (busy_p==1)
+            next_state =  st_GPIOA26;
           else
-            next_stateA =  w_busy51;
+            next_state =  w_busy51;
         end
       w_busy52 : 
         begin
-          if (busy_pA==1)
-            next_stateA =  CS_high18;
+          if (busy_p==1)
+            next_state =  CS_high18;
           else
-            next_stateA =  w_busy52;
+            next_state =  w_busy52;
         end
-      default : next_stateA =  reset;
+      default : next_state =  reset;
     endcase
   end
 
-always @( busy_mB or busy_pB or csm_timeoutB or current_stateB or end_mon_cntB or end_read_elinkB or end_read_misoB or end_write_elink_spiB or irq_spi_traB or rstB or start_bus_initB or start_mon_initB or start_power_offB or start_power_onB or start_read_monB or start_read_powerB )
-  begin : next_state_block_procB
-    csm_to_CS_lowB =  1'b0;
-    csm_to_Read_MisoB =  1'b0;
-    case (current_stateB)
+always @( current_state )
+  begin : output_block_proc
+    bus_en_done =  0;
+    cs_m =  1;
+    cs_p =  1;
+    data_init =  8'b0;
+    end_spi_proc =  0;
+    entimeout =  1;
+    mon_en_done =  0;
+    read_spi_mode =  0;
+    rst_mon_cnt =  0;
+    spi_cs =  1;
+    start_cnt =  0;
+    start_init =  0;
+    start_mon_cnt =  0;
+    start_read_elink =  0;
+    start_read_miso =  0;
+    start_write_elink_spi =  0;
+    transcieve_m =  0;
+    transcieve_p =  0;
+    case (current_state)
       waittoact : 
         begin
-          if (start_bus_initB==1)
-            next_stateB =  start;
-          else
-            if (start_mon_initB==1)
-              next_stateB =  start1;
-            else
-              if (start_power_onB==1)
-                next_stateB =  st_GPIOA12;
-              else
-                if (start_power_offB==1)
-                  next_stateB =  st_GPIOA21;
-                else
-                  if (start_read_monB==1)
-                    next_stateB =  ST_Read_reg3;
-                  else
-                    if (irq_spi_traB==1)
-                      next_stateB =  read_elink_mes1;
-                    else
-                      if (start_read_powerB==1)
-                        next_stateB =  st_GPIOA9;
-                      else
-                        next_stateB =  waittoact;
+          entimeout =  0;
         end
       reset : 
         begin
-          if (rstB==1)
-            next_stateB =  waittoact;
-          else
-            next_stateB =  reset;
+          read_spi_mode =  0;
         end
       start : 
         begin
-          next_stateB =  ST_IODIRA0;
+          start_init =  1;
         end
       endinit1 : 
         begin
-          next_stateB =  waittoact;
+          mon_en_done =  1;
         end
       start1 : 
         begin
-          next_stateB =  ST_Init_0;
+          start_init =  1;
         end
       ST_Read_reg : 
         begin
-          next_stateB =  St_wait16;
+          data_init =  8'h0B;
+          cs_m =  0;
+          transcieve_m =  1;
         end
       st_GPIOA : 
         begin
-          next_stateB =  w_busy15;
+          data_init =  8'h40;
+          cs_p =  0;
+          transcieve_p =  1;
         end
       st_GPIOA1 : 
         begin
-          next_stateB =  w_busy16;
+          data_init =  8'h12;
+          cs_p =  0;
+          transcieve_p =  1;
         end
       st_GPIOA2 : 
         begin
-          next_stateB =  w_busy17;
+          data_init =  8'h01;
+          cs_p =  0;
+          transcieve_p =  1;
         end
       End_Select : 
         begin
-          next_stateB =  waittoact;
+          bus_en_done =  1;
         end
       Write_Mosi : 
         begin
-          next_stateB =  CS_low;
-          csm_to_CS_lowB =  1'b1;
+          spi_cs =  0;
+          read_spi_mode =  1;
         end
       read_elink_mes1 : 
         begin
-          if (end_read_elinkB==1)
-            next_stateB =  Write_Mosi;
-          else
-            next_stateB =  read_elink_mes1;
+          start_read_elink =  1;
+          read_spi_mode =  1;
         end
       CS_low : 
         begin
-          if (csm_timeoutB)
-            begin
-              next_stateB =  Read_Miso;
-              csm_to_Read_MisoB =  1'b1;
-            end
-          else
-            next_stateB =  CS_low;
+          spi_cs =  0;
+          read_spi_mode =  1;
         end
       Read_Miso : 
         begin
-          if (csm_timeoutB)
-            next_stateB =  Wait_Miso;
-          else
-            next_stateB =  Read_Miso;
+          start_read_miso =  1;
+          spi_cs =  0;
+          read_spi_mode =  1;
         end
       Done : 
         begin
-          next_stateB =  waittoact;
+          end_spi_proc =  1;
+          read_spi_mode =  1;
         end
       write_elink : 
         begin
-          if (end_write_elink_spiB==1)
-            next_stateB =  Done;
-          else
-            next_stateB =  write_elink;
+          start_write_elink_spi =  1;
+          read_spi_mode =  1;
         end
       Wait_Miso : 
         begin
-          if (end_read_misoB==1)
-            next_stateB =  write_elink;
-          else
-            next_stateB =  Wait_Miso;
+          read_spi_mode =  1;
         end
       Offset_cal0 : 
         begin
-          next_stateB =  St_wait32;
+          data_init =  8'h81;
+          cs_m =  0;
+          transcieve_m =  1;
         end
       Offset__cal1 : 
         begin
-          next_stateB =  St_wait33;
+          data_init =  8'h89;
+          cs_m =  0;
+          transcieve_m =  1;
         end
       Offset__cal2 : 
         begin
-          next_stateB =  St_wait40;
+          data_init =  8'h91;
+          cs_m =  0;
+          transcieve_m =  1;
         end
       Offset__cal3 : 
         begin
-          next_stateB =  St_wait44;
+          data_init =  8'h99;
+          cs_m =  0;
+          transcieve_m =  1;
         end
       Gain_cal0 : 
         begin
-          next_stateB =  St_wait50;
+          data_init =  8'h82;
+          cs_m =  0;
+          transcieve_m =  1;
         end
       Gain_cal1 : 
         begin
-          next_stateB =  St_wait51;
+          data_init =  8'h8A;
+          cs_m =  0;
+          transcieve_m =  1;
         end
       Gain_cal2 : 
         begin
-          next_stateB =  St_wait54;
+          data_init =  8'h92;
+          cs_m =  0;
+          transcieve_m =  1;
         end
       Gain_cal3 : 
         begin
-          next_stateB =  St_wait57;
+          data_init =  8'h9A;
+          cs_m =  0;
+          transcieve_m =  1;
         end
       write_csrs7 : 
         begin
-          next_stateB =  St_wait31;
+          data_init =  8'h8B;
+          cs_m =  0;
+          transcieve_m =  1;
         end
       write_csrs6 : 
         begin
-          next_stateB =  St_wait30;
+          data_init =  8'hB1;
+          cs_m =  0;
+          transcieve_m =  1;
         end
       write_csrs5 : 
         begin
-          next_stateB =  St_wait29;
+          data_init =  8'h10;
+          cs_m =  0;
+          transcieve_m =  1;
         end
       write_csrs4 : 
         begin
-          next_stateB =  St_wait28;
+          data_init =  8'h8B;
+          cs_m =  0;
+          transcieve_m =  1;
         end
       write_csrs0 : 
         begin
-          next_stateB =  St_wait25;
+          data_init =  8'h05;
+          cs_m =  0;
+          transcieve_m =  1;
         end
       write_csrs1 : 
         begin
-          next_stateB =  St_wait26;
+          data_init =  8'h00;
+          cs_m =  0;
+          transcieve_m =  1;
         end
       write_csrs2 : 
         begin
-          next_stateB =  St_wait27;
+          data_init =  8'hB0;
+          cs_m =  0;
+          transcieve_m =  1;
         end
       ST_Config4 : 
         begin
-          next_stateB =  St_wait20;
+          data_init =  8'h00;
+          cs_m =  0;
+          transcieve_m =  1;
         end
       ST_Config3 : 
         begin
-          next_stateB =  St_wait19;
+          data_init =  8'h30;
+          cs_m =  0;
+          transcieve_m =  1;
         end
       ST_Config1 : 
         begin
-          next_stateB =  St_wait18;
+          data_init =  8'h03;
+          cs_m =  0;
+          transcieve_m =  1;
         end
       ST_Config2 : 
         begin
-          next_stateB =  St_wait17;
+          data_init =  8'h00;
+          cs_m =  0;
+          transcieve_m =  1;
         end
       ST_Rest_2 : 
         begin
-          next_stateB =  St_wait1;
+          data_init =  8'h00;
+          cs_m =  0;
+          transcieve_m =  1;
         end
       ST_Rest_4 : 
         begin
-          next_stateB =  St_wait6;
+          data_init =  8'h80;
+          cs_m =  0;
+          transcieve_m =  1;
         end
       ST_Rest_1 : 
         begin
-          next_stateB =  St_wait;
+          data_init =  8'h03;
+          cs_m =  0;
+          transcieve_m =  1;
         end
       St_wait : 
         begin
-          if (busy_mB==1)
-            next_stateB =  ST_Rest_2;
-          else
-            next_stateB =  St_wait;
+          data_init =  8'h03;
+          cs_m =  0;
         end
       ST_Rest_RS_1 : 
         begin
-          next_stateB =  St_wait7;
+          data_init =  8'h03;
+          cs_m =  0;
+          transcieve_m =  1;
         end
       ST_Rest_RS_2 : 
         begin
-          next_stateB =  St_wait8;
+          data_init =  8'h00;
+          cs_m =  0;
+          transcieve_m =  1;
         end
       st_GPIOA9 : 
         begin
-          next_stateB =  st_GPIOA10;
+          data_init =  8'h40;
+          cs_p =  0;
         end
       st_GPIOA10 : 
         begin
-          next_stateB =  st_GPIOA11;
+          data_init =  8'h12;
+          cs_p =  0;
         end
       st_GPIOA11 : 
         begin
-          next_stateB =  waittoact;
+          data_init =  8'h00;
+          cs_p =  0;
         end
       w_busy15 : 
         begin
-          if (busy_pB==1)
-            next_stateB =  st_GPIOA1;
-          else
-            next_stateB =  w_busy15;
+          data_init =  8'h40;
+          cs_p =  0;
         end
       w_busy16 : 
         begin
-          if (busy_pB==1)
-            next_stateB =  st_GPIOA2;
-          else
-            next_stateB =  w_busy16;
+          data_init =  8'h12;
+          cs_p =  0;
         end
       w_busy17 : 
         begin
-          if (busy_pB==1)
-            next_stateB =  CS_high5;
-          else
-            next_stateB =  w_busy17;
+          data_init =  8'h01;
+          cs_p =  0;
         end
       ST_IODIRA0 : 
         begin
-          next_stateB =  w_busy0;
+          data_init =  8'h40;
+          cs_p =  0;
+          transcieve_p =  1;
         end
       w_busy0 : 
         begin
-          if (busy_pB==1)
-            next_stateB =  ST_IODIRA1;
-          else
-            next_stateB =  w_busy0;
+          data_init =  8'h40;
+          cs_p =  0;
         end
       ST_IODIRA1 : 
         begin
-          next_stateB =  w_busy1;
+          data_init =  8'h00;
+          cs_p =  0;
+          transcieve_p =  1;
         end
       w_busy1 : 
         begin
-          if (busy_pB==1)
-            next_stateB =  ST_IODIRA2;
-          else
-            next_stateB =  w_busy1;
+          cs_p =  0;
+          data_init =  8'h00;
         end
       ST_IODIRA2 : 
         begin
-          next_stateB =  w_busy2;
+          data_init =  8'h00;
+          cs_p =  0;
+          transcieve_p =  1;
         end
       w_busy2 : 
         begin
-          if (busy_pB==1)
-            next_stateB =  CS_high0;
-          else
-            next_stateB =  w_busy2;
+          data_init =  8'h00;
+          cs_p =  0;
         end
       w_busy5 : 
         begin
-          if (busy_pB==1)
-            next_stateB =  CS_high1;
-          else
-            next_stateB =  w_busy5;
+          data_init =  8'h00;
+          cs_p =  0;
         end
       st_IODIRB1 : 
         begin
-          next_stateB =  w_busy4;
+          data_init =  8'h01;
+          cs_p =  0;
+          transcieve_p =  1;
         end
       st_IODIRB2 : 
         begin
-          next_stateB =  w_busy5;
+          data_init =  8'h00;
+          cs_p =  0;
+          transcieve_p =  1;
         end
       st_IODIRB : 
         begin
-          next_stateB =  w_busy3;
+          data_init =  8'h40;
+          cs_p =  0;
+          transcieve_p =  1;
         end
       w_busy3 : 
         begin
-          if (busy_pB==1)
-            next_stateB =  st_IODIRB1;
-          else
-            next_stateB =  w_busy3;
+          data_init =  8'h40;
+          cs_p =  0;
         end
       w_busy4 : 
         begin
-          if (busy_pB==1)
-            next_stateB =  st_IODIRB2;
-          else
-            next_stateB =  w_busy4;
+          data_init =  8'h01;
+          cs_p =  0;
         end
       w_busy7 : 
         begin
-          if (busy_pB==1)
-            next_stateB =  st_GPIOB2;
-          else
-            next_stateB =  w_busy7;
+          data_init =  8'h13;
+          cs_p =  0;
         end
       st_GPIOB2 : 
         begin
-          next_stateB =  w_busy8;
+          data_init =  8'h00;
+          cs_p =  0;
+          transcieve_p =  1;
         end
       st_GPIOB1 : 
         begin
-          next_stateB =  w_busy7;
+          data_init =  8'h13;
+          cs_p =  0;
+          transcieve_p =  1;
         end
       w_busy8 : 
         begin
-          if (busy_pB==1)
-            next_stateB =  CS_high2;
-          else
-            next_stateB =  w_busy8;
+          data_init =  8'h00;
+          cs_p =  0;
         end
       w_busy6 : 
         begin
-          if (busy_pB==1)
-            next_stateB =  st_GPIOB1;
-          else
-            next_stateB =  w_busy6;
+          data_init =  8'h40;
+          cs_p =  0;
         end
       st_GPIOB0 : 
         begin
-          next_stateB =  w_busy6;
+          data_init =  8'h40;
+          cs_p =  0;
+          transcieve_p =  1;
         end
       st_GPPUA : 
         begin
-          next_stateB =  w_busy9;
+          data_init =  8'h40;
+          cs_p =  0;
+          transcieve_p =  1;
         end
       w_busy11 : 
         begin
-          if (busy_pB==1)
-            next_stateB =  st_GPPUA2;
-          else
-            next_stateB =  w_busy11;
+          data_init =  8'h0C;
+          cs_p =  0;
         end
       w_busy9 : 
         begin
-          if (busy_pB==1)
-            next_stateB =  st_GPPUA1;
-          else
-            next_stateB =  w_busy9;
+          cs_p =  0;
+          data_init =  8'h40;
         end
       st_GPPUA2 : 
         begin
-          next_stateB =  w_busy10;
+          data_init =  8'hFE;
+          cs_p =  0;
+          transcieve_p =  1;
         end
       st_GPPUA1 : 
         begin
-          next_stateB =  w_busy11;
+          data_init =  8'h0C;
+          cs_p =  0;
+          transcieve_p =  1;
         end
       w_busy10 : 
         begin
-          if (busy_pB==1)
-            next_stateB =  CS_high3;
-          else
-            next_stateB =  w_busy10;
+          data_init =  8'hFE;
+          cs_p =  0;
         end
       st_GPPUB1 : 
         begin
-          next_stateB =  w_busy13;
+          data_init =  8'h0D;
+          cs_p =  0;
+          transcieve_p =  1;
         end
       w_busy13 : 
         begin
-          if (busy_pB==1)
-            next_stateB =  st_GPPUB2;
-          else
-            next_stateB =  w_busy13;
+          data_init =  8'h0D;
+          cs_p =  0;
         end
       w_busy12 : 
         begin
-          if (busy_pB==1)
-            next_stateB =  st_GPPUB1;
-          else
-            next_stateB =  w_busy12;
+          data_init =  8'h40;
+          cs_p =  0;
         end
       st_GPPUB2 : 
         begin
-          next_stateB =  w_busy14;
+          data_init =  8'hFF;
+          cs_p =  0;
+          transcieve_p =  1;
         end
       w_busy14 : 
         begin
-          if (busy_pB==1)
-            next_stateB =  CS_high4;
-          else
-            next_stateB =  w_busy14;
+          data_init =  8'hFF;
+          cs_p =  0;
         end
       st_GPPUB : 
         begin
-          next_stateB =  w_busy12;
+          data_init =  8'h40;
+          cs_p =  0;
+          transcieve_p =  1;
         end
       CS_high0 : 
         begin
-          next_stateB =  w_busy26;
+          cs_p =  1;
+          transcieve_p =  1;
         end
       CS_high1 : 
         begin
-          next_stateB =  w_busy27;
+          cs_p =  1;
+          transcieve_p =  1;
         end
       CS_high2 : 
         begin
-          next_stateB =  w_busy28;
+          cs_p =  1;
+          transcieve_p =  1;
         end
       CS_high3 : 
         begin
-          next_stateB =  w_busy29;
+          cs_p =  1;
+          transcieve_p =  1;
         end
       CS_high4 : 
         begin
-          next_stateB =  w_busy30;
+          cs_p =  1;
+          transcieve_p =  1;
         end
       CS_high5 : 
         begin
-          next_stateB =  w_busy31;
+          cs_p =  1;
+          transcieve_p =  1;
         end
       w_busy26 : 
         begin
-          if (busy_pB==1)
-            next_stateB =  st_IODIRB;
-          else
-            next_stateB =  w_busy26;
+          cs_p =  1;
         end
       w_busy27 : 
         begin
-          if (busy_pB==1)
-            next_stateB =  st_GPIOB0;
-          else
-            next_stateB =  w_busy27;
+          cs_p =  1;
         end
       w_busy28 : 
         begin
-          if (busy_pB==1)
-            next_stateB =  st_GPPUA;
-          else
-            next_stateB =  w_busy28;
+          cs_p =  1;
         end
       w_busy29 : 
         begin
-          if (busy_pB==1)
-            next_stateB =  st_GPPUB;
-          else
-            next_stateB =  w_busy29;
+          cs_p =  1;
         end
       w_busy30 : 
         begin
-          if (busy_pB==1)
-            next_stateB =  st_GPIOA;
-          else
-            next_stateB =  w_busy30;
+          cs_p =  1;
         end
       w_busy31 : 
         begin
-          if (busy_pB==1)
-            next_stateB =  st_GPIOA15;
-          else
-            next_stateB =  w_busy31;
+          cs_p =  1;
         end
       CS_high7 : 
         begin
-          next_stateB =  w_busy32;
+          cs_m =  1;
+          transcieve_m =  1;
         end
       w_busy32 : 
         begin
-          if (busy_mB==1)
-            next_stateB =  ST_Rest_1;
-          else
-            next_stateB =  w_busy32;
+          cs_m =  1;
         end
       ST_Init_0 : 
         begin
-          next_stateB =  ST_wait_0;
+          data_init =  8'hFF;
+          cs_m =  0;
+          transcieve_m =  1;
         end
       ST_wait_0 : 
         begin
-          if (busy_mB==1)
-            next_stateB =  ST_Init_1;
-          else
-            next_stateB =  ST_wait_0;
+          data_init =  8'hFF;
+          cs_m =  0;
         end
       ST_Init_1 : 
         begin
-          next_stateB =  ST_wait_1;
+          data_init =  8'hFF;
+          cs_m =  0;
+          transcieve_m =  1;
         end
       ST_wait_1 : 
         begin
-          if (busy_mB==1)
-            next_stateB =  ST_Init_2;
-          else
-            next_stateB =  ST_wait_1;
+          data_init =  8'hFF;
+          cs_m =  0;
         end
       ST_Init_2 : 
         begin
-          next_stateB =  ST_wait_2;
+          data_init =  8'hFF;
+          cs_m =  0;
+          transcieve_m =  1;
         end
       ST_wait_2 : 
         begin
-          if (busy_mB==1)
-            next_stateB =  ST_Init_3;
-          else
-            next_stateB =  ST_wait_2;
+          data_init =  8'hFF;
+          cs_m =  0;
         end
       ST_Init_3 : 
         begin
-          next_stateB =  ST_wait_3;
+          data_init =  8'hFF;
+          cs_m =  0;
+          transcieve_m =  1;
         end
       ST_wait_3 : 
         begin
-          if (busy_mB==1)
-            next_stateB =  ST_Init_4;
-          else
-            next_stateB =  ST_wait_3;
+          data_init =  8'hFF;
+          cs_m =  0;
         end
       ST_Init_4 : 
         begin
-          next_stateB =  ST_wait_4;
+          data_init =  8'hFF;
+          cs_m =  0;
+          transcieve_m =  1;
         end
       ST_wait_4 : 
         begin
-          if (busy_mB==1)
-            next_stateB =  ST_Init_5;
-          else
-            next_stateB =  ST_wait_4;
+          data_init =  8'hFF;
+          cs_m =  0;
         end
       ST_Init_5 : 
         begin
-          next_stateB =  ST_wait_5;
+          data_init =  8'hFF;
+          cs_m =  0;
+          transcieve_m =  1;
         end
       ST_wait_5 : 
         begin
-          if (busy_mB==1)
-            next_stateB =  ST_Init_6;
-          else
-            next_stateB =  ST_wait_5;
+          data_init =  8'hFF;
+          cs_m =  0;
         end
       ST_Init_6 : 
         begin
-          next_stateB =  ST_wait_6;
+          data_init =  8'hFF;
+          cs_m =  0;
+          transcieve_m =  1;
         end
       ST_wait_6 : 
         begin
-          if (busy_mB==1)
-            next_stateB =  ST_Init_7;
-          else
-            next_stateB =  ST_wait_6;
+          data_init =  8'hFF;
+          cs_m =  0;
         end
       ST_Init_7 : 
         begin
-          next_stateB =  ST_wait_7;
+          data_init =  8'hFF;
+          cs_m =  0;
+          transcieve_m =  1;
         end
       ST_wait_7 : 
         begin
-          if (busy_mB==1)
-            next_stateB =  ST_Init_8;
-          else
-            next_stateB =  ST_wait_7;
+          data_init =  8'hFF;
+          cs_m =  0;
         end
       ST_Init_8 : 
         begin
-          next_stateB =  ST_wait_8;
+          data_init =  8'hFF;
+          cs_m =  0;
+          transcieve_m =  1;
         end
       ST_wait_8 : 
         begin
-          if (busy_mB==1)
-            next_stateB =  ST_Init_9;
-          else
-            next_stateB =  ST_wait_8;
+          data_init =  8'hFF;
+          cs_m =  0;
         end
       ST_Init_9 : 
         begin
-          next_stateB =  ST_wait_9;
+          data_init =  8'hFF;
+          cs_m =  0;
+          transcieve_m =  1;
         end
       ST_wait_9 : 
         begin
-          if (busy_mB==1)
-            next_stateB =  ST_Init_10;
-          else
-            next_stateB =  ST_wait_9;
+          data_init =  8'hFF;
+          cs_m =  0;
         end
       ST_Init_10 : 
         begin
-          next_stateB =  ST_wait_10;
+          data_init =  8'hFF;
+          cs_m =  0;
+          transcieve_m =  1;
         end
       ST_wait_10 : 
         begin
-          if (busy_mB==1)
-            next_stateB =  ST_Init_11;
-          else
-            next_stateB =  ST_wait_10;
+          data_init =  8'hFF;
+          cs_m =  0;
         end
       ST_Init_11 : 
         begin
-          next_stateB =  ST_wait_11;
+          data_init =  8'hFF;
+          cs_m =  0;
+          transcieve_m =  1;
         end
       ST_wait_11 : 
         begin
-          if (busy_mB==1)
-            next_stateB =  ST_Init_12;
-          else
-            next_stateB =  ST_wait_11;
+          data_init =  8'hFF;
+          cs_m =  0;
         end
       ST_Init_12 : 
         begin
-          next_stateB =  ST_wait_12;
+          data_init =  8'hFF;
+          cs_m =  0;
+          transcieve_m =  1;
         end
       ST_wait_12 : 
         begin
-          if (busy_mB==1)
-            next_stateB =  ST_Init_13;
-          else
-            next_stateB =  ST_wait_12;
+          data_init =  8'hFF;
+          cs_m =  0;
         end
       ST_Init_13 : 
         begin
-          next_stateB =  ST_wait_13;
+          data_init =  8'hFF;
+          cs_m =  0;
+          transcieve_m =  1;
         end
       ST_wait_13 : 
         begin
-          if (busy_mB==1)
-            next_stateB =  ST_Init_14;
-          else
-            next_stateB =  ST_wait_13;
+          data_init =  8'hFF;
+          cs_m =  0;
         end
       ST_Init_14 : 
         begin
-          next_stateB =  ST_wait_14;
+          data_init =  8'hFF;
+          cs_m =  0;
+          transcieve_m =  1;
         end
       ST_wait_14 : 
         begin
-          if (busy_mB==1)
-            next_stateB =  st_Init_2;
-          else
-            next_stateB =  ST_wait_14;
+          data_init =  8'hFF;
+          cs_m =  0;
         end
       st_Init_2 : 
         begin
-          next_stateB =  ST_wait_15;
+          data_init =  8'hFE;
+          cs_m =  0;
+          transcieve_m =  1;
         end
       ST_wait_15 : 
         begin
-          if (busy_mB==1)
-            next_stateB =  CS_high7;
-          else
-            next_stateB =  ST_wait_15;
+          data_init =  8'hFE;
+          cs_m =  0;
         end
       CS_high8 : 
         begin
-          next_stateB =  w_busy33;
+          cs_m =  1;
+          transcieve_m =  1;
         end
       w_busy33 : 
         begin
-          if (busy_mB==1)
-            next_stateB =  ST_Read_reg;
-          else
-            next_stateB =  w_busy33;
+          cs_m =  1;
         end
       ST_Rest_3 : 
         begin
-          next_stateB =  St_wait5;
+          data_init =  8'h00;
+          cs_m =  0;
+          transcieve_m =  1;
         end
       ST_Rest_RS_3 : 
         begin
-          next_stateB =  St_wait9;
+          data_init =  8'h00;
+          cs_m =  0;
+          transcieve_m =  1;
         end
       ST_Rest_RS_4 : 
         begin
-          next_stateB =  St_wait10;
+          data_init =  8'h00;
+          cs_m =  0;
+          transcieve_m =  1;
         end
       St_wait1 : 
         begin
-          if (busy_mB==1)
-            next_stateB =  ST_Rest_3;
-          else
-            next_stateB =  St_wait1;
+          data_init =  8'h00;
+          cs_m =  0;
         end
       St_wait5 : 
         begin
-          next_stateB =  ST_Rest_4;
+          data_init =  8'h00;
+          cs_m =  0;
         end
       St_wait6 : 
         begin
-          if (busy_mB==1)
-            next_stateB =  ST_Rest_RS_1;
-          else
-            next_stateB =  St_wait6;
+          data_init =  8'h80;
+          cs_m =  0;
         end
       St_wait7 : 
         begin
-          if (busy_mB==1)
-            next_stateB =  ST_Rest_RS_2;
-          else
-            next_stateB =  St_wait7;
+          data_init =  8'h03;
+          cs_m =  0;
         end
       St_wait8 : 
         begin
-          if (busy_mB==1)
-            next_stateB =  ST_Rest_RS_3;
-          else
-            next_stateB =  St_wait8;
+          data_init =  8'h00;
+          cs_m =  0;
         end
       St_wait9 : 
         begin
-          if (busy_mB==1)
-            next_stateB =  ST_Rest_RS_4;
-          else
-            next_stateB =  St_wait9;
+          data_init =  8'h00;
+          cs_m =  0;
         end
       St_wait10 : 
         begin
-          if (busy_mB==1)
-            next_stateB =  CS_high8;
-          else
-            next_stateB =  St_wait10;
+          data_init =  8'h00;
+          cs_m =  0;
         end
       CS_high9 : 
         begin
-          next_stateB =  w_busy34;
+          cs_m =  1;
+          transcieve_m =  1;
         end
       w_busy34 : 
         begin
-          if (busy_mB==1)
-            next_stateB =  ST_Config1;
-          else
-            next_stateB =  w_busy34;
+          cs_m =  1;
         end
       St_wait13 : 
         begin
-          if (busy_mB==1)
-            next_stateB =  ST_Rest_RS_6;
-          else
-            next_stateB =  St_wait13;
+          data_init =  8'h00;
+          cs_m =  0;
         end
       ST_Rest_RS_6 : 
         begin
-          next_stateB =  St_wait14;
+          data_init =  8'h00;
+          cs_m =  0;
+          transcieve_m =  1;
         end
       ST_Rest_RS_7 : 
         begin
-          next_stateB =  St_wait13;
+          data_init =  8'h00;
+          cs_m =  0;
+          transcieve_m =  1;
         end
       St_wait14 : 
         begin
-          if (busy_mB==1)
-            next_stateB =  ST_Rest_RS_8;
-          else
-            next_stateB =  St_wait14;
+          data_init =  8'h00;
+          cs_m =  0;
         end
       ST_Rest_RS_8 : 
         begin
-          next_stateB =  St_wait15;
+          data_init =  8'h00;
+          cs_m =  0;
+          transcieve_m =  1;
         end
       St_wait15 : 
         begin
-          if (busy_mB==1)
-            next_stateB =  CS_high9;
-          else
-            next_stateB =  St_wait15;
+          data_init =  8'h00;
+          cs_m =  0;
         end
       St_wait16 : 
         begin
-          if (busy_mB==1)
-            next_stateB =  ST_Rest_RS_7;
-          else
-            next_stateB =  St_wait16;
+          data_init =  8'h0B;
+          cs_m =  0;
         end
       CS_high10 : 
         begin
-          next_stateB =  w_busy35;
+          cs_m =  1;
+          transcieve_m =  1;
         end
       w_busy35 : 
         begin
-          if (busy_mB==1)
-            next_stateB =  ST_Read_reg2;
-          else
-            next_stateB =  w_busy35;
+          cs_m =  1;
         end
       CS_high12 : 
         begin
-          next_stateB =  w_busy36;
+          cs_m =  1;
+          transcieve_m =  1;
         end
       w_busy36 : 
         begin
-          if (busy_mB==1)
-            next_stateB =  write_csrs0;
-          else
-            next_stateB =  w_busy36;
+          cs_m =  1;
         end
       CS_high13 : 
         begin
-          next_stateB =  w_busy37;
+          cs_m =  1;
+          transcieve_m =  1;
         end
       w_busy37 : 
         begin
-          if (busy_mB==1)
-            next_stateB =  Offset_cal0;
-          else
-            next_stateB =  w_busy37;
+          cs_m =  1;
         end
       w_busy38 : 
         begin
-          if (busy_mB==1)
-            next_stateB =  Gain_cal0;
-          else
-            next_stateB =  w_busy38;
+          cs_m =  1;
         end
       CS_high14 : 
         begin
-          next_stateB =  w_busy38;
+          cs_m =  1;
+          transcieve_m =  1;
         end
       CS_high15 : 
         begin
-          next_stateB =  w_busy39;
+          cs_m =  1;
+          transcieve_m =  1;
         end
       w_busy39 : 
         begin
-          if (busy_mB==1)
-            next_stateB =  Break_Loop;
-          else
-            next_stateB =  w_busy39;
+          cs_m =  1;
         end
       St_wait17 : 
         begin
-          if (busy_mB==1)
-            next_stateB =  ST_Config3;
-          else
-            next_stateB =  St_wait17;
+          data_init =  8'h00;
+          cs_m =  0;
         end
       St_wait18 : 
         begin
-          if (busy_mB==1)
-            next_stateB =  ST_Config2;
-          else
-            next_stateB =  St_wait18;
+          data_init =  8'h03;
+          cs_m =  0;
         end
       St_wait19 : 
         begin
-          if (busy_mB==1)
-            next_stateB =  ST_Config4;
-          else
-            next_stateB =  St_wait19;
+          data_init =  8'h30;
+          cs_m =  0;
         end
       St_wait20 : 
         begin
-          if (busy_mB==1)
-            next_stateB =  CS_high10;
-          else
-            next_stateB =  St_wait20;
+          data_init =  8'h00;
+          cs_m =  0;
         end
       St_wait32 : 
         begin
-          if (busy_mB==1)
-            next_stateB =  ST_Config5;
-          else
-            next_stateB =  St_wait32;
+          data_init =  8'h81;
+          cs_m =  0;
         end
       St_wait33 : 
         begin
-          if (busy_mB==1)
-            next_stateB =  ST_Config8;
-          else
-            next_stateB =  St_wait33;
+          data_init =  8'h89;
+          cs_m =  0;
         end
       St_wait34 : 
         begin
-          if (busy_mB==1)
-            next_stateB =  Offset__cal1;
-          else
-            next_stateB =  St_wait34;
+          data_init =  8'h00;
+          cs_m =  0;
         end
       ST_Config5 : 
         begin
-          next_stateB =  St_wait35;
+          data_init =  8'h00;
+          cs_m =  0;
+          transcieve_m =  1;
         end
       ST_Config6 : 
         begin
-          next_stateB =  St_wait34;
+          data_init =  8'h00;
+          cs_m =  0;
+          transcieve_m =  1;
         end
       St_wait35 : 
         begin
-          if (busy_mB==1)
-            next_stateB =  ST_Config7;
-          else
-            next_stateB =  St_wait35;
+          data_init =  8'h00;
+          cs_m =  0;
         end
       ST_Config7 : 
         begin
-          next_stateB =  St_wait36;
+          data_init =  8'h30;
+          cs_m =  0;
+          transcieve_m =  1;
         end
       St_wait36 : 
         begin
-          if (busy_mB==1)
-            next_stateB =  ST_Config6;
-          else
-            next_stateB =  St_wait36;
+          data_init =  8'h30;
+          cs_m =  0;
         end
       ST_Config8 : 
         begin
-          next_stateB =  St_wait37;
+          data_init =  8'h00;
+          cs_m =  0;
+          transcieve_m =  1;
         end
       St_wait37 : 
         begin
-          if (busy_mB==1)
-            next_stateB =  ST_Config9;
-          else
-            next_stateB =  St_wait37;
+          data_init =  8'h00;
+          cs_m =  0;
         end
       ST_Config9 : 
         begin
-          next_stateB =  St_wait38;
+          data_init =  8'h30;
+          cs_m =  0;
+          transcieve_m =  1;
         end
       St_wait38 : 
         begin
-          if (busy_mB==1)
-            next_stateB =  ST_Config10;
-          else
-            next_stateB =  St_wait38;
+          data_init =  8'h30;
+          cs_m =  0;
         end
       ST_Config10 : 
         begin
-          next_stateB =  St_wait39;
+          data_init =  8'h00;
+          cs_m =  0;
+          transcieve_m =  1;
         end
       St_wait39 : 
         begin
-          if (busy_mB==1)
-            next_stateB =  Offset__cal2;
-          else
-            next_stateB =  St_wait39;
+          data_init =  8'h00;
+          cs_m =  0;
         end
       St_wait40 : 
         begin
-          if (busy_mB==1)
-            next_stateB =  ST_Config11;
-          else
-            next_stateB =  St_wait40;
+          data_init =  8'h91;
+          cs_m =  0;
         end
       ST_Config11 : 
         begin
-          next_stateB =  St_wait41;
+          data_init =  8'h00;
+          cs_m =  0;
+          transcieve_m =  1;
         end
       St_wait41 : 
         begin
-          if (busy_mB==1)
-            next_stateB =  ST_Config12;
-          else
-            next_stateB =  St_wait41;
+          data_init =  8'h00;
+          cs_m =  0;
         end
       ST_Config12 : 
         begin
-          next_stateB =  St_wait42;
+          data_init =  8'h30;
+          cs_m =  0;
+          transcieve_m =  1;
         end
       St_wait42 : 
         begin
-          if (busy_mB==1)
-            next_stateB =  ST_Config13;
-          else
-            next_stateB =  St_wait42;
+          data_init =  8'h30;
+          cs_m =  0;
         end
       ST_Config13 : 
         begin
-          next_stateB =  St_wait43;
+          data_init =  8'h00;
+          cs_m =  0;
+          transcieve_m =  1;
         end
       St_wait43 : 
         begin
-          if (busy_mB==1)
-            next_stateB =  Offset__cal3;
-          else
-            next_stateB =  St_wait43;
+          data_init =  8'h00;
+          cs_m =  0;
         end
       St_wait44 : 
         begin
-          if (busy_mB==1)
-            next_stateB =  ST_Config14;
-          else
-            next_stateB =  St_wait44;
+          data_init =  8'h99;
+          cs_m =  0;
         end
       ST_Config14 : 
         begin
-          next_stateB =  St_wait45;
+          data_init =  8'h00;
+          cs_m =  0;
+          transcieve_m =  1;
         end
       St_wait45 : 
         begin
-          if (busy_mB==1)
-            next_stateB =  ST_Config15;
-          else
-            next_stateB =  St_wait45;
+          data_init =  8'h00;
+          cs_m =  0;
         end
       ST_Config15 : 
         begin
-          next_stateB =  St_wait46;
+          data_init =  8'h30;
+          cs_m =  0;
+          transcieve_m =  1;
         end
       St_wait46 : 
         begin
-          if (busy_mB==1)
-            next_stateB =  ST_Config16;
-          else
-            next_stateB =  St_wait46;
+          data_init =  8'h30;
+          cs_m =  0;
         end
       ST_Config16 : 
         begin
-          next_stateB =  St_wait47;
+          data_init =  8'h00;
+          cs_m =  0;
+          transcieve_m =  1;
         end
       St_wait47 : 
         begin
-          if (busy_mB==1)
-            next_stateB =  CS_high14;
-          else
-            next_stateB =  St_wait47;
+          data_init =  8'h00;
+          cs_m =  0;
         end
       St_wait25 : 
         begin
-          if (busy_mB==1)
-            next_stateB =  write_csrs1;
-          else
-            next_stateB =  St_wait25;
+          data_init =  8'h05;
+          cs_m =  0;
         end
       St_wait26 : 
         begin
-          if (busy_mB==1)
-            next_stateB =  write_csrs2;
-          else
-            next_stateB =  St_wait26;
+          data_init =  8'h00;
+          cs_m =  0;
         end
       St_wait27 : 
         begin
-          if (busy_mB==1)
-            next_stateB =  write_csrs4;
-          else
-            next_stateB =  St_wait27;
+          data_init =  8'hB0;
+          cs_m =  0;
         end
       St_wait28 : 
         begin
-          if (busy_mB==1)
-            next_stateB =  write_csrs5;
-          else
-            next_stateB =  St_wait28;
+          data_init =  8'h8B;
+          cs_m =  0;
         end
       St_wait29 : 
         begin
-          if (busy_mB==1)
-            next_stateB =  write_csrs6;
-          else
-            next_stateB =  St_wait29;
+          data_init =  8'h10;
+          cs_m =  0;
         end
       St_wait30 : 
         begin
-          if (busy_mB==1)
-            next_stateB =  write_csrs7;
-          else
-            next_stateB =  St_wait30;
+          data_init =  8'hB1;
+          cs_m =  0;
         end
       St_wait31 : 
         begin
-          if (busy_mB==1)
-            next_stateB =  CS_high13;
-          else
-            next_stateB =  St_wait31;
+          data_init =  8'h8B;
+          cs_m =  0;
         end
       ST_Read_reg2 : 
         begin
-          next_stateB =  St_wait24;
+          data_init =  8'h0B;
+          cs_m =  0;
+          transcieve_m =  1;
         end
       St_wait21 : 
         begin
-          if (busy_mB==1)
-            next_stateB =  ST_Rest_RS_9;
-          else
-            next_stateB =  St_wait21;
+          data_init =  8'h00;
+          cs_m =  0;
         end
       ST_Rest_RS_9 : 
         begin
-          next_stateB =  St_wait22;
+          data_init =  8'h00;
+          cs_m =  0;
+          transcieve_m =  1;
         end
       ST_Rest_RS_10 : 
         begin
-          next_stateB =  St_wait21;
+          data_init =  8'h00;
+          cs_m =  0;
+          transcieve_m =  1;
         end
       St_wait22 : 
         begin
-          if (busy_mB==1)
-            next_stateB =  ST_Rest_RS_11;
-          else
-            next_stateB =  St_wait22;
+          data_init =  8'h00;
+          cs_m =  0;
         end
       ST_Rest_RS_11 : 
         begin
-          next_stateB =  St_wait23;
+          data_init =  8'h00;
+          cs_m =  0;
+          transcieve_m =  1;
         end
       St_wait23 : 
         begin
-          if (busy_mB==1)
-            next_stateB =  CS_high12;
-          else
-            next_stateB =  St_wait23;
+          data_init =  8'h00;
+          cs_m =  0;
         end
       St_wait24 : 
         begin
-          if (busy_mB==1)
-            next_stateB =  ST_Rest_RS_10;
-          else
-            next_stateB =  St_wait24;
+          data_init =  8'h0B;
+          cs_m =  0;
         end
       ST_Config17 : 
         begin
-          next_stateB =  St_wait48;
+          data_init =  8'h00;
+          cs_m =  0;
+          transcieve_m =  1;
         end
       St_wait48 : 
         begin
-          if (busy_mB==1)
-            next_stateB =  ST_Config18;
-          else
-            next_stateB =  St_wait48;
+          data_init =  8'h00;
+          cs_m =  0;
         end
       ST_Config18 : 
         begin
-          next_stateB =  St_wait49;
+          data_init =  8'h30;
+          cs_m =  0;
+          transcieve_m =  1;
         end
       St_wait49 : 
         begin
-          if (busy_mB==1)
-            next_stateB =  Gain_cal1;
-          else
-            next_stateB =  St_wait49;
+          data_init =  8'h30;
+          cs_m =  0;
         end
       St_wait50 : 
         begin
-          if (busy_mB==1)
-            next_stateB =  ST_Config17;
-          else
-            next_stateB =  St_wait50;
+          data_init =  8'h82;
+          cs_m =  0;
         end
       St_wait51 : 
         begin
-          if (busy_mB==1)
-            next_stateB =  ST_Config19;
-          else
-            next_stateB =  St_wait51;
+          data_init =  8'h8A;
+          cs_m =  0;
         end
       ST_Config19 : 
         begin
-          next_stateB =  St_wait52;
+          data_init =  8'h00;
+          cs_m =  0;
+          transcieve_m =  1;
         end
       St_wait52 : 
         begin
-          if (busy_mB==1)
-            next_stateB =  ST_Config20;
-          else
-            next_stateB =  St_wait52;
+          data_init =  8'h00;
+          cs_m =  0;
         end
       ST_Config20 : 
         begin
-          next_stateB =  St_wait53;
+          data_init =  8'h30;
+          cs_m =  0;
+          transcieve_m =  1;
         end
       St_wait53 : 
         begin
-          if (busy_mB==1)
-            next_stateB =  Gain_cal2;
-          else
-            next_stateB =  St_wait53;
+          data_init =  8'h30;
+          cs_m =  0;
         end
       St_wait54 : 
         begin
-          if (busy_mB==1)
-            next_stateB =  ST_Config21;
-          else
-            next_stateB =  St_wait54;
+          data_init =  8'h92;
+          cs_m =  0;
         end
       ST_Config21 : 
         begin
-          next_stateB =  St_wait55;
+          data_init =  8'h00;
+          cs_m =  0;
+          transcieve_m =  1;
         end
       St_wait55 : 
         begin
-          if (busy_mB==1)
-            next_stateB =  ST_Config22;
-          else
-            next_stateB =  St_wait55;
+          data_init =  8'h00;
+          cs_m =  0;
         end
       ST_Config22 : 
         begin
-          next_stateB =  St_wait56;
+          data_init =  8'h30;
+          cs_m =  0;
+          transcieve_m =  1;
         end
       St_wait56 : 
         begin
-          if (busy_mB==1)
-            next_stateB =  Gain_cal3;
-          else
-            next_stateB =  St_wait56;
+          data_init =  8'h30;
+          cs_m =  0;
         end
       St_wait57 : 
         begin
-          if (busy_mB==1)
-            next_stateB =  ST_Config23;
-          else
-            next_stateB =  St_wait57;
+          data_init =  8'h9A;
+          cs_m =  0;
         end
       ST_Config23 : 
         begin
-          next_stateB =  St_wait58;
+          data_init =  8'h00;
+          cs_m =  0;
+          transcieve_m =  1;
         end
       St_wait58 : 
         begin
-          if (busy_mB==1)
-            next_stateB =  ST_Config24;
-          else
-            next_stateB =  St_wait58;
+          data_init =  8'h00;
+          cs_m =  0;
         end
       ST_Config24 : 
         begin
-          next_stateB =  St_wait59;
+          data_init =  8'h30;
+          cs_m =  0;
+          transcieve_m =  1;
         end
       St_wait59 : 
         begin
-          if (busy_mB==1)
-            next_stateB =  CS_high15;
-          else
-            next_stateB =  St_wait59;
-        end
-      Break_Loop : 
-        begin
-          if (end_mon_cntB)
-            next_stateB =  ST_CountRst;
-          else
-            next_stateB =  ST_Start_Cnt;
+          data_init =  8'h30;
+          cs_m =  0;
         end
       ST_CountRst : 
         begin
-          next_stateB =  endinit1;
+          rst_mon_cnt =  1;
         end
       ST_Start_Cnt : 
         begin
-          next_stateB =  ST_Init_0;
+          start_mon_cnt =  1;
         end
       ST_Read_reg3 : 
         begin
-          next_stateB =  St_wait63;
+          data_init =  8'h0B;
+          cs_m =  0;
+          transcieve_m =  1;
         end
       St_wait60 : 
         begin
-          if (busy_mB==1)
-            next_stateB =  ST_Rest_RS_12;
-          else
-            next_stateB =  St_wait60;
+          data_init =  8'h00;
+          cs_m =  0;
         end
       ST_Rest_RS_12 : 
         begin
-          next_stateB =  St_wait61;
+          data_init =  8'h00;
+          cs_m =  0;
+          transcieve_m =  1;
         end
       ST_Rest_RS_13 : 
         begin
-          next_stateB =  St_wait60;
+          data_init =  8'h00;
+          cs_m =  0;
+          transcieve_m =  1;
         end
       St_wait61 : 
         begin
-          if (busy_mB==1)
-            next_stateB =  ST_Rest_RS_14;
-          else
-            next_stateB =  St_wait61;
+          data_init =  8'h00;
+          cs_m =  0;
         end
       ST_Rest_RS_14 : 
         begin
-          next_stateB =  St_wait62;
+          data_init =  8'h00;
+          cs_m =  0;
+          transcieve_m =  1;
         end
       St_wait62 : 
         begin
-          if (busy_mB==1)
-            next_stateB =  waittoact;
-          else
-            next_stateB =  St_wait62;
+          data_init =  8'h00;
+          cs_m =  0;
         end
       St_wait63 : 
         begin
-          if (busy_mB==1)
-            next_stateB =  ST_Rest_RS_13;
-          else
-            next_stateB =  St_wait63;
+          data_init =  8'h0B;
+          cs_m =  0;
         end
       CS_high16 : 
         begin
-          next_stateB =  w_busy43;
+          cs_p =  1;
+          transcieve_p =  1;
         end
       w_busy43 : 
         begin
-          if (busy_pB==1)
-            next_stateB =  End_Select;
-          else
-            next_stateB =  w_busy43;
+          cs_p =  1;
         end
       st_GPIOA15 : 
         begin
-          next_stateB =  w_busy40;
+          data_init =  8'h40;
+          cs_p =  0;
+          transcieve_p =  1;
         end
       st_GPIOA16 : 
         begin
-          next_stateB =  w_busy41;
+          data_init =  8'h09;
+          cs_p =  0;
+          transcieve_p =  1;
         end
       st_GPIOA17 : 
         begin
-          next_stateB =  w_busy42;
+          data_init =  8'h01;
+          cs_p =  0;
+          transcieve_p =  1;
         end
       w_busy40 : 
         begin
-          if (busy_pB==1)
-            next_stateB =  st_GPIOA16;
-          else
-            next_stateB =  w_busy40;
+          data_init =  8'h40;
+          cs_p =  0;
         end
       w_busy41 : 
         begin
-          if (busy_pB==1)
-            next_stateB =  st_GPIOA17;
-          else
-            next_stateB =  w_busy41;
+          data_init =  8'h09;
+          cs_p =  0;
         end
       w_busy42 : 
         begin
-          if (busy_pB==1)
-            next_stateB =  CS_high16;
-          else
-            next_stateB =  w_busy42;
+          data_init =  8'h01;
+          cs_p =  0;
         end
       CS_high6 : 
         begin
-          next_stateB =  w_busy44;
+          cs_p =  1;
+          transcieve_p =  1;
         end
       w_busy44 : 
         begin
-          if (busy_pB==1)
-            next_stateB =  st_GPIOA18;
-          else
-            next_stateB =  w_busy44;
+          cs_p =  1;
         end
       CS_high17 : 
         begin
-          next_stateB =  w_busy48;
+          cs_p =  1;
+          transcieve_p =  1;
         end
       w_busy48 : 
         begin
-          if (busy_pB==1)
-            next_stateB =  waittoact;
-          else
-            next_stateB =  w_busy48;
+          cs_p =  1;
         end
       st_GPIOA12 : 
         begin
-          next_stateB =  w_busy18;
+          data_init =  8'h40;
+          cs_p =  0;
+          transcieve_p =  1;
         end
       st_GPIOA13 : 
         begin
-          next_stateB =  w_busy19;
+          data_init =  8'h12;
+          cs_p =  0;
+          transcieve_p =  1;
         end
       st_GPIOA14 : 
         begin
-          next_stateB =  w_busy20;
+          data_init =  8'h01;
+          cs_p =  0;
+          transcieve_p =  1;
         end
       w_busy18 : 
         begin
-          if (busy_pB==1)
-            next_stateB =  st_GPIOA13;
-          else
-            next_stateB =  w_busy18;
+          data_init =  8'h40;
+          cs_p =  0;
         end
       w_busy19 : 
         begin
-          if (busy_pB==1)
-            next_stateB =  st_GPIOA14;
-          else
-            next_stateB =  w_busy19;
+          data_init =  8'h12;
+          cs_p =  0;
         end
       w_busy20 : 
         begin
-          if (busy_pB==1)
-            next_stateB =  CS_high6;
-          else
-            next_stateB =  w_busy20;
+          data_init =  8'h01;
+          cs_p =  0;
         end
       st_GPIOA18 : 
         begin
-          next_stateB =  w_busy45;
+          data_init =  8'h40;
+          cs_p =  0;
+          transcieve_p =  1;
         end
       st_GPIOA19 : 
         begin
-          next_stateB =  w_busy46;
+          data_init =  8'h09;
+          cs_p =  0;
+          transcieve_p =  1;
         end
       st_GPIOA20 : 
         begin
-          next_stateB =  w_busy47;
+          data_init =  8'h01;
+          cs_p =  0;
+          transcieve_p =  1;
         end
       w_busy45 : 
         begin
-          if (busy_pB==1)
-            next_stateB =  st_GPIOA19;
-          else
-            next_stateB =  w_busy45;
+          data_init =  8'h40;
+          cs_p =  0;
         end
       w_busy46 : 
         begin
-          if (busy_pB==1)
-            next_stateB =  st_GPIOA20;
-          else
-            next_stateB =  w_busy46;
+          data_init =  8'h09;
+          cs_p =  0;
         end
       w_busy47 : 
         begin
-          if (busy_pB==1)
-            next_stateB =  CS_high17;
-          else
-            next_stateB =  w_busy47;
+          data_init =  8'h01;
+          cs_p =  0;
         end
       CS_high11 : 
         begin
-          next_stateB =  w_busy49;
+          cs_p =  1;
+          transcieve_p =  1;
         end
       w_busy49 : 
         begin
-          if (busy_pB==1)
-            next_stateB =  st_GPIOA24;
-          else
-            next_stateB =  w_busy49;
+          cs_p =  1;
         end
       CS_high18 : 
         begin
-          next_stateB =  w_busy53;
+          cs_p =  1;
+          transcieve_p =  1;
         end
       w_busy53 : 
         begin
-          if (busy_pB==1)
-            next_stateB =  waittoact;
-          else
-            next_stateB =  w_busy53;
+          cs_p =  1;
         end
       st_GPIOA21 : 
         begin
-          next_stateB =  w_busy21;
+          data_init =  8'h40;
+          cs_p =  0;
+          transcieve_p =  1;
         end
       st_GPIOA22 : 
         begin
-          next_stateB =  w_busy22;
+          data_init =  8'h12;
+          cs_p =  0;
+          transcieve_p =  1;
         end
       st_GPIOA23 : 
         begin
-          next_stateB =  w_busy23;
+          data_init =  8'h00;
+          cs_p =  0;
+          transcieve_p =  1;
         end
       w_busy21 : 
         begin
-          if (busy_pB==1)
-            next_stateB =  st_GPIOA22;
-          else
-            next_stateB =  w_busy21;
+          data_init =  8'h40;
+          cs_p =  0;
         end
       w_busy22 : 
         begin
-          if (busy_pB==1)
-            next_stateB =  st_GPIOA23;
-          else
-            next_stateB =  w_busy22;
+          data_init =  8'h12;
+          cs_p =  0;
         end
       w_busy23 : 
         begin
-          if (busy_pB==1)
-            next_stateB =  CS_high11;
-          else
-            next_stateB =  w_busy23;
+          data_init =  8'h00;
+          cs_p =  0;
         end
       st_GPIOA24 : 
         begin
-          next_stateB =  w_busy50;
+          data_init =  8'h40;
+          cs_p =  0;
+          transcieve_p =  1;
         end
       st_GPIOA25 : 
         begin
-          next_stateB =  w_busy51;
+          data_init =  8'h09;
+          cs_p =  0;
+          transcieve_p =  1;
         end
       st_GPIOA26 : 
         begin
-          next_stateB =  w_busy52;
+          data_init =  8'h00;
+          cs_p =  0;
+          transcieve_p =  1;
         end
       w_busy50 : 
         begin
-          if (busy_pB==1)
-            next_stateB =  st_GPIOA25;
-          else
-            next_stateB =  w_busy50;
+          data_init =  8'h40;
+          cs_p =  0;
         end
       w_busy51 : 
         begin
-          if (busy_pB==1)
-            next_stateB =  st_GPIOA26;
-          else
-            next_stateB =  w_busy51;
+          data_init =  8'h09;
+          cs_p =  0;
         end
       w_busy52 : 
         begin
-          if (busy_pB==1)
-            next_stateB =  CS_high18;
-          else
-            next_stateB =  w_busy52;
-        end
-      default : next_stateB =  reset;
-    endcase
-  end
-
-always @( busy_mC or busy_pC or csm_timeoutC or current_stateC or end_mon_cntC or end_read_elinkC or end_read_misoC or end_write_elink_spiC or irq_spi_traC or rstC or start_bus_initC or start_mon_initC or start_power_offC or start_power_onC or start_read_monC or start_read_powerC )
-  begin : next_state_block_procC
-    csm_to_CS_lowC =  1'b0;
-    csm_to_Read_MisoC =  1'b0;
-    case (current_stateC)
-      waittoact : 
-        begin
-          if (start_bus_initC==1)
-            next_stateC =  start;
-          else
-            if (start_mon_initC==1)
-              next_stateC =  start1;
-            else
-              if (start_power_onC==1)
-                next_stateC =  st_GPIOA12;
-              else
-                if (start_power_offC==1)
-                  next_stateC =  st_GPIOA21;
-                else
-                  if (start_read_monC==1)
-                    next_stateC =  ST_Read_reg3;
-                  else
-                    if (irq_spi_traC==1)
-                      next_stateC =  read_elink_mes1;
-                    else
-                      if (start_read_powerC==1)
-                        next_stateC =  st_GPIOA9;
-                      else
-                        next_stateC =  waittoact;
-        end
-      reset : 
-        begin
-          if (rstC==1)
-            next_stateC =  waittoact;
-          else
-            next_stateC =  reset;
-        end
-      start : 
-        begin
-          next_stateC =  ST_IODIRA0;
-        end
-      endinit1 : 
-        begin
-          next_stateC =  waittoact;
-        end
-      start1 : 
-        begin
-          next_stateC =  ST_Init_0;
-        end
-      ST_Read_reg : 
-        begin
-          next_stateC =  St_wait16;
-        end
-      st_GPIOA : 
-        begin
-          next_stateC =  w_busy15;
-        end
-      st_GPIOA1 : 
-        begin
-          next_stateC =  w_busy16;
-        end
-      st_GPIOA2 : 
-        begin
-          next_stateC =  w_busy17;
-        end
-      End_Select : 
-        begin
-          next_stateC =  waittoact;
-        end
-      Write_Mosi : 
-        begin
-          next_stateC =  CS_low;
-          csm_to_CS_lowC =  1'b1;
-        end
-      read_elink_mes1 : 
-        begin
-          if (end_read_elinkC==1)
-            next_stateC =  Write_Mosi;
-          else
-            next_stateC =  read_elink_mes1;
-        end
-      CS_low : 
-        begin
-          if (csm_timeoutC)
-            begin
-              next_stateC =  Read_Miso;
-              csm_to_Read_MisoC =  1'b1;
-            end
-          else
-            next_stateC =  CS_low;
-        end
-      Read_Miso : 
-        begin
-          if (csm_timeoutC)
-            next_stateC =  Wait_Miso;
-          else
-            next_stateC =  Read_Miso;
-        end
-      Done : 
-        begin
-          next_stateC =  waittoact;
-        end
-      write_elink : 
-        begin
-          if (end_write_elink_spiC==1)
-            next_stateC =  Done;
-          else
-            next_stateC =  write_elink;
-        end
-      Wait_Miso : 
-        begin
-          if (end_read_misoC==1)
-            next_stateC =  write_elink;
-          else
-            next_stateC =  Wait_Miso;
-        end
-      Offset_cal0 : 
-        begin
-          next_stateC =  St_wait32;
-        end
-      Offset__cal1 : 
-        begin
-          next_stateC =  St_wait33;
-        end
-      Offset__cal2 : 
-        begin
-          next_stateC =  St_wait40;
-        end
-      Offset__cal3 : 
-        begin
-          next_stateC =  St_wait44;
-        end
-      Gain_cal0 : 
-        begin
-          next_stateC =  St_wait50;
-        end
-      Gain_cal1 : 
-        begin
-          next_stateC =  St_wait51;
-        end
-      Gain_cal2 : 
-        begin
-          next_stateC =  St_wait54;
-        end
-      Gain_cal3 : 
-        begin
-          next_stateC =  St_wait57;
-        end
-      write_csrs7 : 
-        begin
-          next_stateC =  St_wait31;
-        end
-      write_csrs6 : 
-        begin
-          next_stateC =  St_wait30;
-        end
-      write_csrs5 : 
-        begin
-          next_stateC =  St_wait29;
-        end
-      write_csrs4 : 
-        begin
-          next_stateC =  St_wait28;
-        end
-      write_csrs0 : 
-        begin
-          next_stateC =  St_wait25;
-        end
-      write_csrs1 : 
-        begin
-          next_stateC =  St_wait26;
-        end
-      write_csrs2 : 
-        begin
-          next_stateC =  St_wait27;
-        end
-      ST_Config4 : 
-        begin
-          next_stateC =  St_wait20;
-        end
-      ST_Config3 : 
-        begin
-          next_stateC =  St_wait19;
-        end
-      ST_Config1 : 
-        begin
-          next_stateC =  St_wait18;
-        end
-      ST_Config2 : 
-        begin
-          next_stateC =  St_wait17;
-        end
-      ST_Rest_2 : 
-        begin
-          next_stateC =  St_wait1;
-        end
-      ST_Rest_4 : 
-        begin
-          next_stateC =  St_wait6;
-        end
-      ST_Rest_1 : 
-        begin
-          next_stateC =  St_wait;
-        end
-      St_wait : 
-        begin
-          if (busy_mC==1)
-            next_stateC =  ST_Rest_2;
-          else
-            next_stateC =  St_wait;
-        end
-      ST_Rest_RS_1 : 
-        begin
-          next_stateC =  St_wait7;
-        end
-      ST_Rest_RS_2 : 
-        begin
-          next_stateC =  St_wait8;
-        end
-      st_GPIOA9 : 
-        begin
-          next_stateC =  st_GPIOA10;
-        end
-      st_GPIOA10 : 
-        begin
-          next_stateC =  st_GPIOA11;
-        end
-      st_GPIOA11 : 
-        begin
-          next_stateC =  waittoact;
-        end
-      w_busy15 : 
-        begin
-          if (busy_pC==1)
-            next_stateC =  st_GPIOA1;
-          else
-            next_stateC =  w_busy15;
-        end
-      w_busy16 : 
-        begin
-          if (busy_pC==1)
-            next_stateC =  st_GPIOA2;
-          else
-            next_stateC =  w_busy16;
-        end
-      w_busy17 : 
-        begin
-          if (busy_pC==1)
-            next_stateC =  CS_high5;
-          else
-            next_stateC =  w_busy17;
-        end
-      ST_IODIRA0 : 
-        begin
-          next_stateC =  w_busy0;
-        end
-      w_busy0 : 
-        begin
-          if (busy_pC==1)
-            next_stateC =  ST_IODIRA1;
-          else
-            next_stateC =  w_busy0;
-        end
-      ST_IODIRA1 : 
-        begin
-          next_stateC =  w_busy1;
-        end
-      w_busy1 : 
-        begin
-          if (busy_pC==1)
-            next_stateC =  ST_IODIRA2;
-          else
-            next_stateC =  w_busy1;
-        end
-      ST_IODIRA2 : 
-        begin
-          next_stateC =  w_busy2;
-        end
-      w_busy2 : 
-        begin
-          if (busy_pC==1)
-            next_stateC =  CS_high0;
-          else
-            next_stateC =  w_busy2;
-        end
-      w_busy5 : 
-        begin
-          if (busy_pC==1)
-            next_stateC =  CS_high1;
-          else
-            next_stateC =  w_busy5;
-        end
-      st_IODIRB1 : 
-        begin
-          next_stateC =  w_busy4;
-        end
-      st_IODIRB2 : 
-        begin
-          next_stateC =  w_busy5;
-        end
-      st_IODIRB : 
-        begin
-          next_stateC =  w_busy3;
-        end
-      w_busy3 : 
-        begin
-          if (busy_pC==1)
-            next_stateC =  st_IODIRB1;
-          else
-            next_stateC =  w_busy3;
-        end
-      w_busy4 : 
-        begin
-          if (busy_pC==1)
-            next_stateC =  st_IODIRB2;
-          else
-            next_stateC =  w_busy4;
-        end
-      w_busy7 : 
-        begin
-          if (busy_pC==1)
-            next_stateC =  st_GPIOB2;
-          else
-            next_stateC =  w_busy7;
-        end
-      st_GPIOB2 : 
-        begin
-          next_stateC =  w_busy8;
-        end
-      st_GPIOB1 : 
-        begin
-          next_stateC =  w_busy7;
-        end
-      w_busy8 : 
-        begin
-          if (busy_pC==1)
-            next_stateC =  CS_high2;
-          else
-            next_stateC =  w_busy8;
-        end
-      w_busy6 : 
-        begin
-          if (busy_pC==1)
-            next_stateC =  st_GPIOB1;
-          else
-            next_stateC =  w_busy6;
-        end
-      st_GPIOB0 : 
-        begin
-          next_stateC =  w_busy6;
-        end
-      st_GPPUA : 
-        begin
-          next_stateC =  w_busy9;
-        end
-      w_busy11 : 
-        begin
-          if (busy_pC==1)
-            next_stateC =  st_GPPUA2;
-          else
-            next_stateC =  w_busy11;
-        end
-      w_busy9 : 
-        begin
-          if (busy_pC==1)
-            next_stateC =  st_GPPUA1;
-          else
-            next_stateC =  w_busy9;
-        end
-      st_GPPUA2 : 
-        begin
-          next_stateC =  w_busy10;
-        end
-      st_GPPUA1 : 
-        begin
-          next_stateC =  w_busy11;
-        end
-      w_busy10 : 
-        begin
-          if (busy_pC==1)
-            next_stateC =  CS_high3;
-          else
-            next_stateC =  w_busy10;
-        end
-      st_GPPUB1 : 
-        begin
-          next_stateC =  w_busy13;
-        end
-      w_busy13 : 
-        begin
-          if (busy_pC==1)
-            next_stateC =  st_GPPUB2;
-          else
-            next_stateC =  w_busy13;
-        end
-      w_busy12 : 
-        begin
-          if (busy_pC==1)
-            next_stateC =  st_GPPUB1;
-          else
-            next_stateC =  w_busy12;
-        end
-      st_GPPUB2 : 
-        begin
-          next_stateC =  w_busy14;
-        end
-      w_busy14 : 
-        begin
-          if (busy_pC==1)
-            next_stateC =  CS_high4;
-          else
-            next_stateC =  w_busy14;
-        end
-      st_GPPUB : 
-        begin
-          next_stateC =  w_busy12;
-        end
-      CS_high0 : 
-        begin
-          next_stateC =  w_busy26;
-        end
-      CS_high1 : 
-        begin
-          next_stateC =  w_busy27;
-        end
-      CS_high2 : 
-        begin
-          next_stateC =  w_busy28;
-        end
-      CS_high3 : 
-        begin
-          next_stateC =  w_busy29;
-        end
-      CS_high4 : 
-        begin
-          next_stateC =  w_busy30;
-        end
-      CS_high5 : 
-        begin
-          next_stateC =  w_busy31;
-        end
-      w_busy26 : 
-        begin
-          if (busy_pC==1)
-            next_stateC =  st_IODIRB;
-          else
-            next_stateC =  w_busy26;
-        end
-      w_busy27 : 
-        begin
-          if (busy_pC==1)
-            next_stateC =  st_GPIOB0;
-          else
-            next_stateC =  w_busy27;
-        end
-      w_busy28 : 
-        begin
-          if (busy_pC==1)
-            next_stateC =  st_GPPUA;
-          else
-            next_stateC =  w_busy28;
-        end
-      w_busy29 : 
-        begin
-          if (busy_pC==1)
-            next_stateC =  st_GPPUB;
-          else
-            next_stateC =  w_busy29;
-        end
-      w_busy30 : 
-        begin
-          if (busy_pC==1)
-            next_stateC =  st_GPIOA;
-          else
-            next_stateC =  w_busy30;
-        end
-      w_busy31 : 
-        begin
-          if (busy_pC==1)
-            next_stateC =  st_GPIOA15;
-          else
-            next_stateC =  w_busy31;
-        end
-      CS_high7 : 
-        begin
-          next_stateC =  w_busy32;
-        end
-      w_busy32 : 
-        begin
-          if (busy_mC==1)
-            next_stateC =  ST_Rest_1;
-          else
-            next_stateC =  w_busy32;
-        end
-      ST_Init_0 : 
-        begin
-          next_stateC =  ST_wait_0;
-        end
-      ST_wait_0 : 
-        begin
-          if (busy_mC==1)
-            next_stateC =  ST_Init_1;
-          else
-            next_stateC =  ST_wait_0;
-        end
-      ST_Init_1 : 
-        begin
-          next_stateC =  ST_wait_1;
-        end
-      ST_wait_1 : 
-        begin
-          if (busy_mC==1)
-            next_stateC =  ST_Init_2;
-          else
-            next_stateC =  ST_wait_1;
-        end
-      ST_Init_2 : 
-        begin
-          next_stateC =  ST_wait_2;
-        end
-      ST_wait_2 : 
-        begin
-          if (busy_mC==1)
-            next_stateC =  ST_Init_3;
-          else
-            next_stateC =  ST_wait_2;
-        end
-      ST_Init_3 : 
-        begin
-          next_stateC =  ST_wait_3;
-        end
-      ST_wait_3 : 
-        begin
-          if (busy_mC==1)
-            next_stateC =  ST_Init_4;
-          else
-            next_stateC =  ST_wait_3;
-        end
-      ST_Init_4 : 
-        begin
-          next_stateC =  ST_wait_4;
-        end
-      ST_wait_4 : 
-        begin
-          if (busy_mC==1)
-            next_stateC =  ST_Init_5;
-          else
-            next_stateC =  ST_wait_4;
-        end
-      ST_Init_5 : 
-        begin
-          next_stateC =  ST_wait_5;
-        end
-      ST_wait_5 : 
-        begin
-          if (busy_mC==1)
-            next_stateC =  ST_Init_6;
-          else
-            next_stateC =  ST_wait_5;
-        end
-      ST_Init_6 : 
-        begin
-          next_stateC =  ST_wait_6;
-        end
-      ST_wait_6 : 
-        begin
-          if (busy_mC==1)
-            next_stateC =  ST_Init_7;
-          else
-            next_stateC =  ST_wait_6;
-        end
-      ST_Init_7 : 
-        begin
-          next_stateC =  ST_wait_7;
-        end
-      ST_wait_7 : 
-        begin
-          if (busy_mC==1)
-            next_stateC =  ST_Init_8;
-          else
-            next_stateC =  ST_wait_7;
-        end
-      ST_Init_8 : 
-        begin
-          next_stateC =  ST_wait_8;
-        end
-      ST_wait_8 : 
-        begin
-          if (busy_mC==1)
-            next_stateC =  ST_Init_9;
-          else
-            next_stateC =  ST_wait_8;
-        end
-      ST_Init_9 : 
-        begin
-          next_stateC =  ST_wait_9;
-        end
-      ST_wait_9 : 
-        begin
-          if (busy_mC==1)
-            next_stateC =  ST_Init_10;
-          else
-            next_stateC =  ST_wait_9;
-        end
-      ST_Init_10 : 
-        begin
-          next_stateC =  ST_wait_10;
-        end
-      ST_wait_10 : 
-        begin
-          if (busy_mC==1)
-            next_stateC =  ST_Init_11;
-          else
-            next_stateC =  ST_wait_10;
-        end
-      ST_Init_11 : 
-        begin
-          next_stateC =  ST_wait_11;
-        end
-      ST_wait_11 : 
-        begin
-          if (busy_mC==1)
-            next_stateC =  ST_Init_12;
-          else
-            next_stateC =  ST_wait_11;
-        end
-      ST_Init_12 : 
-        begin
-          next_stateC =  ST_wait_12;
-        end
-      ST_wait_12 : 
-        begin
-          if (busy_mC==1)
-            next_stateC =  ST_Init_13;
-          else
-            next_stateC =  ST_wait_12;
-        end
-      ST_Init_13 : 
-        begin
-          next_stateC =  ST_wait_13;
-        end
-      ST_wait_13 : 
-        begin
-          if (busy_mC==1)
-            next_stateC =  ST_Init_14;
-          else
-            next_stateC =  ST_wait_13;
-        end
-      ST_Init_14 : 
-        begin
-          next_stateC =  ST_wait_14;
-        end
-      ST_wait_14 : 
-        begin
-          if (busy_mC==1)
-            next_stateC =  st_Init_2;
-          else
-            next_stateC =  ST_wait_14;
-        end
-      st_Init_2 : 
-        begin
-          next_stateC =  ST_wait_15;
-        end
-      ST_wait_15 : 
-        begin
-          if (busy_mC==1)
-            next_stateC =  CS_high7;
-          else
-            next_stateC =  ST_wait_15;
-        end
-      CS_high8 : 
-        begin
-          next_stateC =  w_busy33;
-        end
-      w_busy33 : 
-        begin
-          if (busy_mC==1)
-            next_stateC =  ST_Read_reg;
-          else
-            next_stateC =  w_busy33;
-        end
-      ST_Rest_3 : 
-        begin
-          next_stateC =  St_wait5;
-        end
-      ST_Rest_RS_3 : 
-        begin
-          next_stateC =  St_wait9;
-        end
-      ST_Rest_RS_4 : 
-        begin
-          next_stateC =  St_wait10;
-        end
-      St_wait1 : 
-        begin
-          if (busy_mC==1)
-            next_stateC =  ST_Rest_3;
-          else
-            next_stateC =  St_wait1;
-        end
-      St_wait5 : 
-        begin
-          next_stateC =  ST_Rest_4;
-        end
-      St_wait6 : 
-        begin
-          if (busy_mC==1)
-            next_stateC =  ST_Rest_RS_1;
-          else
-            next_stateC =  St_wait6;
-        end
-      St_wait7 : 
-        begin
-          if (busy_mC==1)
-            next_stateC =  ST_Rest_RS_2;
-          else
-            next_stateC =  St_wait7;
-        end
-      St_wait8 : 
-        begin
-          if (busy_mC==1)
-            next_stateC =  ST_Rest_RS_3;
-          else
-            next_stateC =  St_wait8;
-        end
-      St_wait9 : 
-        begin
-          if (busy_mC==1)
-            next_stateC =  ST_Rest_RS_4;
-          else
-            next_stateC =  St_wait9;
-        end
-      St_wait10 : 
-        begin
-          if (busy_mC==1)
-            next_stateC =  CS_high8;
-          else
-            next_stateC =  St_wait10;
-        end
-      CS_high9 : 
-        begin
-          next_stateC =  w_busy34;
-        end
-      w_busy34 : 
-        begin
-          if (busy_mC==1)
-            next_stateC =  ST_Config1;
-          else
-            next_stateC =  w_busy34;
-        end
-      St_wait13 : 
-        begin
-          if (busy_mC==1)
-            next_stateC =  ST_Rest_RS_6;
-          else
-            next_stateC =  St_wait13;
-        end
-      ST_Rest_RS_6 : 
-        begin
-          next_stateC =  St_wait14;
-        end
-      ST_Rest_RS_7 : 
-        begin
-          next_stateC =  St_wait13;
-        end
-      St_wait14 : 
-        begin
-          if (busy_mC==1)
-            next_stateC =  ST_Rest_RS_8;
-          else
-            next_stateC =  St_wait14;
-        end
-      ST_Rest_RS_8 : 
-        begin
-          next_stateC =  St_wait15;
-        end
-      St_wait15 : 
-        begin
-          if (busy_mC==1)
-            next_stateC =  CS_high9;
-          else
-            next_stateC =  St_wait15;
-        end
-      St_wait16 : 
-        begin
-          if (busy_mC==1)
-            next_stateC =  ST_Rest_RS_7;
-          else
-            next_stateC =  St_wait16;
-        end
-      CS_high10 : 
-        begin
-          next_stateC =  w_busy35;
-        end
-      w_busy35 : 
-        begin
-          if (busy_mC==1)
-            next_stateC =  ST_Read_reg2;
-          else
-            next_stateC =  w_busy35;
-        end
-      CS_high12 : 
-        begin
-          next_stateC =  w_busy36;
-        end
-      w_busy36 : 
-        begin
-          if (busy_mC==1)
-            next_stateC =  write_csrs0;
-          else
-            next_stateC =  w_busy36;
-        end
-      CS_high13 : 
-        begin
-          next_stateC =  w_busy37;
-        end
-      w_busy37 : 
-        begin
-          if (busy_mC==1)
-            next_stateC =  Offset_cal0;
-          else
-            next_stateC =  w_busy37;
-        end
-      w_busy38 : 
-        begin
-          if (busy_mC==1)
-            next_stateC =  Gain_cal0;
-          else
-            next_stateC =  w_busy38;
-        end
-      CS_high14 : 
-        begin
-          next_stateC =  w_busy38;
-        end
-      CS_high15 : 
-        begin
-          next_stateC =  w_busy39;
-        end
-      w_busy39 : 
-        begin
-          if (busy_mC==1)
-            next_stateC =  Break_Loop;
-          else
-            next_stateC =  w_busy39;
-        end
-      St_wait17 : 
-        begin
-          if (busy_mC==1)
-            next_stateC =  ST_Config3;
-          else
-            next_stateC =  St_wait17;
-        end
-      St_wait18 : 
-        begin
-          if (busy_mC==1)
-            next_stateC =  ST_Config2;
-          else
-            next_stateC =  St_wait18;
-        end
-      St_wait19 : 
-        begin
-          if (busy_mC==1)
-            next_stateC =  ST_Config4;
-          else
-            next_stateC =  St_wait19;
-        end
-      St_wait20 : 
-        begin
-          if (busy_mC==1)
-            next_stateC =  CS_high10;
-          else
-            next_stateC =  St_wait20;
-        end
-      St_wait32 : 
-        begin
-          if (busy_mC==1)
-            next_stateC =  ST_Config5;
-          else
-            next_stateC =  St_wait32;
-        end
-      St_wait33 : 
-        begin
-          if (busy_mC==1)
-            next_stateC =  ST_Config8;
-          else
-            next_stateC =  St_wait33;
-        end
-      St_wait34 : 
-        begin
-          if (busy_mC==1)
-            next_stateC =  Offset__cal1;
-          else
-            next_stateC =  St_wait34;
-        end
-      ST_Config5 : 
-        begin
-          next_stateC =  St_wait35;
-        end
-      ST_Config6 : 
-        begin
-          next_stateC =  St_wait34;
-        end
-      St_wait35 : 
-        begin
-          if (busy_mC==1)
-            next_stateC =  ST_Config7;
-          else
-            next_stateC =  St_wait35;
-        end
-      ST_Config7 : 
-        begin
-          next_stateC =  St_wait36;
-        end
-      St_wait36 : 
-        begin
-          if (busy_mC==1)
-            next_stateC =  ST_Config6;
-          else
-            next_stateC =  St_wait36;
-        end
-      ST_Config8 : 
-        begin
-          next_stateC =  St_wait37;
-        end
-      St_wait37 : 
-        begin
-          if (busy_mC==1)
-            next_stateC =  ST_Config9;
-          else
-            next_stateC =  St_wait37;
-        end
-      ST_Config9 : 
-        begin
-          next_stateC =  St_wait38;
-        end
-      St_wait38 : 
-        begin
-          if (busy_mC==1)
-            next_stateC =  ST_Config10;
-          else
-            next_stateC =  St_wait38;
-        end
-      ST_Config10 : 
-        begin
-          next_stateC =  St_wait39;
-        end
-      St_wait39 : 
-        begin
-          if (busy_mC==1)
-            next_stateC =  Offset__cal2;
-          else
-            next_stateC =  St_wait39;
-        end
-      St_wait40 : 
-        begin
-          if (busy_mC==1)
-            next_stateC =  ST_Config11;
-          else
-            next_stateC =  St_wait40;
-        end
-      ST_Config11 : 
-        begin
-          next_stateC =  St_wait41;
-        end
-      St_wait41 : 
-        begin
-          if (busy_mC==1)
-            next_stateC =  ST_Config12;
-          else
-            next_stateC =  St_wait41;
-        end
-      ST_Config12 : 
-        begin
-          next_stateC =  St_wait42;
-        end
-      St_wait42 : 
-        begin
-          if (busy_mC==1)
-            next_stateC =  ST_Config13;
-          else
-            next_stateC =  St_wait42;
-        end
-      ST_Config13 : 
-        begin
-          next_stateC =  St_wait43;
-        end
-      St_wait43 : 
-        begin
-          if (busy_mC==1)
-            next_stateC =  Offset__cal3;
-          else
-            next_stateC =  St_wait43;
-        end
-      St_wait44 : 
-        begin
-          if (busy_mC==1)
-            next_stateC =  ST_Config14;
-          else
-            next_stateC =  St_wait44;
-        end
-      ST_Config14 : 
-        begin
-          next_stateC =  St_wait45;
-        end
-      St_wait45 : 
-        begin
-          if (busy_mC==1)
-            next_stateC =  ST_Config15;
-          else
-            next_stateC =  St_wait45;
-        end
-      ST_Config15 : 
-        begin
-          next_stateC =  St_wait46;
-        end
-      St_wait46 : 
-        begin
-          if (busy_mC==1)
-            next_stateC =  ST_Config16;
-          else
-            next_stateC =  St_wait46;
-        end
-      ST_Config16 : 
-        begin
-          next_stateC =  St_wait47;
-        end
-      St_wait47 : 
-        begin
-          if (busy_mC==1)
-            next_stateC =  CS_high14;
-          else
-            next_stateC =  St_wait47;
-        end
-      St_wait25 : 
-        begin
-          if (busy_mC==1)
-            next_stateC =  write_csrs1;
-          else
-            next_stateC =  St_wait25;
-        end
-      St_wait26 : 
-        begin
-          if (busy_mC==1)
-            next_stateC =  write_csrs2;
-          else
-            next_stateC =  St_wait26;
-        end
-      St_wait27 : 
-        begin
-          if (busy_mC==1)
-            next_stateC =  write_csrs4;
-          else
-            next_stateC =  St_wait27;
-        end
-      St_wait28 : 
-        begin
-          if (busy_mC==1)
-            next_stateC =  write_csrs5;
-          else
-            next_stateC =  St_wait28;
-        end
-      St_wait29 : 
-        begin
-          if (busy_mC==1)
-            next_stateC =  write_csrs6;
-          else
-            next_stateC =  St_wait29;
-        end
-      St_wait30 : 
-        begin
-          if (busy_mC==1)
-            next_stateC =  write_csrs7;
-          else
-            next_stateC =  St_wait30;
-        end
-      St_wait31 : 
-        begin
-          if (busy_mC==1)
-            next_stateC =  CS_high13;
-          else
-            next_stateC =  St_wait31;
-        end
-      ST_Read_reg2 : 
-        begin
-          next_stateC =  St_wait24;
-        end
-      St_wait21 : 
-        begin
-          if (busy_mC==1)
-            next_stateC =  ST_Rest_RS_9;
-          else
-            next_stateC =  St_wait21;
-        end
-      ST_Rest_RS_9 : 
-        begin
-          next_stateC =  St_wait22;
-        end
-      ST_Rest_RS_10 : 
-        begin
-          next_stateC =  St_wait21;
-        end
-      St_wait22 : 
-        begin
-          if (busy_mC==1)
-            next_stateC =  ST_Rest_RS_11;
-          else
-            next_stateC =  St_wait22;
-        end
-      ST_Rest_RS_11 : 
-        begin
-          next_stateC =  St_wait23;
-        end
-      St_wait23 : 
-        begin
-          if (busy_mC==1)
-            next_stateC =  CS_high12;
-          else
-            next_stateC =  St_wait23;
-        end
-      St_wait24 : 
-        begin
-          if (busy_mC==1)
-            next_stateC =  ST_Rest_RS_10;
-          else
-            next_stateC =  St_wait24;
-        end
-      ST_Config17 : 
-        begin
-          next_stateC =  St_wait48;
-        end
-      St_wait48 : 
-        begin
-          if (busy_mC==1)
-            next_stateC =  ST_Config18;
-          else
-            next_stateC =  St_wait48;
-        end
-      ST_Config18 : 
-        begin
-          next_stateC =  St_wait49;
-        end
-      St_wait49 : 
-        begin
-          if (busy_mC==1)
-            next_stateC =  Gain_cal1;
-          else
-            next_stateC =  St_wait49;
-        end
-      St_wait50 : 
-        begin
-          if (busy_mC==1)
-            next_stateC =  ST_Config17;
-          else
-            next_stateC =  St_wait50;
-        end
-      St_wait51 : 
-        begin
-          if (busy_mC==1)
-            next_stateC =  ST_Config19;
-          else
-            next_stateC =  St_wait51;
-        end
-      ST_Config19 : 
-        begin
-          next_stateC =  St_wait52;
-        end
-      St_wait52 : 
-        begin
-          if (busy_mC==1)
-            next_stateC =  ST_Config20;
-          else
-            next_stateC =  St_wait52;
-        end
-      ST_Config20 : 
-        begin
-          next_stateC =  St_wait53;
-        end
-      St_wait53 : 
-        begin
-          if (busy_mC==1)
-            next_stateC =  Gain_cal2;
-          else
-            next_stateC =  St_wait53;
-        end
-      St_wait54 : 
-        begin
-          if (busy_mC==1)
-            next_stateC =  ST_Config21;
-          else
-            next_stateC =  St_wait54;
-        end
-      ST_Config21 : 
-        begin
-          next_stateC =  St_wait55;
-        end
-      St_wait55 : 
-        begin
-          if (busy_mC==1)
-            next_stateC =  ST_Config22;
-          else
-            next_stateC =  St_wait55;
-        end
-      ST_Config22 : 
-        begin
-          next_stateC =  St_wait56;
-        end
-      St_wait56 : 
-        begin
-          if (busy_mC==1)
-            next_stateC =  Gain_cal3;
-          else
-            next_stateC =  St_wait56;
-        end
-      St_wait57 : 
-        begin
-          if (busy_mC==1)
-            next_stateC =  ST_Config23;
-          else
-            next_stateC =  St_wait57;
-        end
-      ST_Config23 : 
-        begin
-          next_stateC =  St_wait58;
-        end
-      St_wait58 : 
-        begin
-          if (busy_mC==1)
-            next_stateC =  ST_Config24;
-          else
-            next_stateC =  St_wait58;
-        end
-      ST_Config24 : 
-        begin
-          next_stateC =  St_wait59;
-        end
-      St_wait59 : 
-        begin
-          if (busy_mC==1)
-            next_stateC =  CS_high15;
-          else
-            next_stateC =  St_wait59;
-        end
-      Break_Loop : 
-        begin
-          if (end_mon_cntC)
-            next_stateC =  ST_CountRst;
-          else
-            next_stateC =  ST_Start_Cnt;
-        end
-      ST_CountRst : 
-        begin
-          next_stateC =  endinit1;
-        end
-      ST_Start_Cnt : 
-        begin
-          next_stateC =  ST_Init_0;
-        end
-      ST_Read_reg3 : 
-        begin
-          next_stateC =  St_wait63;
-        end
-      St_wait60 : 
-        begin
-          if (busy_mC==1)
-            next_stateC =  ST_Rest_RS_12;
-          else
-            next_stateC =  St_wait60;
-        end
-      ST_Rest_RS_12 : 
-        begin
-          next_stateC =  St_wait61;
-        end
-      ST_Rest_RS_13 : 
-        begin
-          next_stateC =  St_wait60;
-        end
-      St_wait61 : 
-        begin
-          if (busy_mC==1)
-            next_stateC =  ST_Rest_RS_14;
-          else
-            next_stateC =  St_wait61;
-        end
-      ST_Rest_RS_14 : 
-        begin
-          next_stateC =  St_wait62;
-        end
-      St_wait62 : 
-        begin
-          if (busy_mC==1)
-            next_stateC =  waittoact;
-          else
-            next_stateC =  St_wait62;
-        end
-      St_wait63 : 
-        begin
-          if (busy_mC==1)
-            next_stateC =  ST_Rest_RS_13;
-          else
-            next_stateC =  St_wait63;
-        end
-      CS_high16 : 
-        begin
-          next_stateC =  w_busy43;
-        end
-      w_busy43 : 
-        begin
-          if (busy_pC==1)
-            next_stateC =  End_Select;
-          else
-            next_stateC =  w_busy43;
-        end
-      st_GPIOA15 : 
-        begin
-          next_stateC =  w_busy40;
-        end
-      st_GPIOA16 : 
-        begin
-          next_stateC =  w_busy41;
-        end
-      st_GPIOA17 : 
-        begin
-          next_stateC =  w_busy42;
-        end
-      w_busy40 : 
-        begin
-          if (busy_pC==1)
-            next_stateC =  st_GPIOA16;
-          else
-            next_stateC =  w_busy40;
-        end
-      w_busy41 : 
-        begin
-          if (busy_pC==1)
-            next_stateC =  st_GPIOA17;
-          else
-            next_stateC =  w_busy41;
-        end
-      w_busy42 : 
-        begin
-          if (busy_pC==1)
-            next_stateC =  CS_high16;
-          else
-            next_stateC =  w_busy42;
-        end
-      CS_high6 : 
-        begin
-          next_stateC =  w_busy44;
-        end
-      w_busy44 : 
-        begin
-          if (busy_pC==1)
-            next_stateC =  st_GPIOA18;
-          else
-            next_stateC =  w_busy44;
-        end
-      CS_high17 : 
-        begin
-          next_stateC =  w_busy48;
-        end
-      w_busy48 : 
-        begin
-          if (busy_pC==1)
-            next_stateC =  waittoact;
-          else
-            next_stateC =  w_busy48;
-        end
-      st_GPIOA12 : 
-        begin
-          next_stateC =  w_busy18;
-        end
-      st_GPIOA13 : 
-        begin
-          next_stateC =  w_busy19;
-        end
-      st_GPIOA14 : 
-        begin
-          next_stateC =  w_busy20;
-        end
-      w_busy18 : 
-        begin
-          if (busy_pC==1)
-            next_stateC =  st_GPIOA13;
-          else
-            next_stateC =  w_busy18;
-        end
-      w_busy19 : 
-        begin
-          if (busy_pC==1)
-            next_stateC =  st_GPIOA14;
-          else
-            next_stateC =  w_busy19;
-        end
-      w_busy20 : 
-        begin
-          if (busy_pC==1)
-            next_stateC =  CS_high6;
-          else
-            next_stateC =  w_busy20;
-        end
-      st_GPIOA18 : 
-        begin
-          next_stateC =  w_busy45;
-        end
-      st_GPIOA19 : 
-        begin
-          next_stateC =  w_busy46;
-        end
-      st_GPIOA20 : 
-        begin
-          next_stateC =  w_busy47;
-        end
-      w_busy45 : 
-        begin
-          if (busy_pC==1)
-            next_stateC =  st_GPIOA19;
-          else
-            next_stateC =  w_busy45;
-        end
-      w_busy46 : 
-        begin
-          if (busy_pC==1)
-            next_stateC =  st_GPIOA20;
-          else
-            next_stateC =  w_busy46;
-        end
-      w_busy47 : 
-        begin
-          if (busy_pC==1)
-            next_stateC =  CS_high17;
-          else
-            next_stateC =  w_busy47;
-        end
-      CS_high11 : 
-        begin
-          next_stateC =  w_busy49;
-        end
-      w_busy49 : 
-        begin
-          if (busy_pC==1)
-            next_stateC =  st_GPIOA24;
-          else
-            next_stateC =  w_busy49;
-        end
-      CS_high18 : 
-        begin
-          next_stateC =  w_busy53;
-        end
-      w_busy53 : 
-        begin
-          if (busy_pC==1)
-            next_stateC =  waittoact;
-          else
-            next_stateC =  w_busy53;
-        end
-      st_GPIOA21 : 
-        begin
-          next_stateC =  w_busy21;
-        end
-      st_GPIOA22 : 
-        begin
-          next_stateC =  w_busy22;
-        end
-      st_GPIOA23 : 
-        begin
-          next_stateC =  w_busy23;
-        end
-      w_busy21 : 
-        begin
-          if (busy_pC==1)
-            next_stateC =  st_GPIOA22;
-          else
-            next_stateC =  w_busy21;
-        end
-      w_busy22 : 
-        begin
-          if (busy_pC==1)
-            next_stateC =  st_GPIOA23;
-          else
-            next_stateC =  w_busy22;
-        end
-      w_busy23 : 
-        begin
-          if (busy_pC==1)
-            next_stateC =  CS_high11;
-          else
-            next_stateC =  w_busy23;
-        end
-      st_GPIOA24 : 
-        begin
-          next_stateC =  w_busy50;
-        end
-      st_GPIOA25 : 
-        begin
-          next_stateC =  w_busy51;
-        end
-      st_GPIOA26 : 
-        begin
-          next_stateC =  w_busy52;
-        end
-      w_busy50 : 
-        begin
-          if (busy_pC==1)
-            next_stateC =  st_GPIOA25;
-          else
-            next_stateC =  w_busy50;
-        end
-      w_busy51 : 
-        begin
-          if (busy_pC==1)
-            next_stateC =  st_GPIOA26;
-          else
-            next_stateC =  w_busy51;
-        end
-      w_busy52 : 
-        begin
-          if (busy_pC==1)
-            next_stateC =  CS_high18;
-          else
-            next_stateC =  w_busy52;
-        end
-      default : next_stateC =  reset;
-    endcase
-  end
-
-always @( current_stateA )
-  begin : output_block_procA
-    bus_en_doneA =  0;
-    cs_mA =  1;
-    cs_pA =  1;
-    data_initA =  8'b0;
-    end_spi_procA =  0;
-    entimeoutA =  1;
-    mon_en_doneA =  0;
-    read_spi_modeA =  0;
-    rst_mon_cntA =  0;
-    spi_csA =  1;
-    start_cntA =  0;
-    start_initA =  0;
-    start_mon_cntA =  0;
-    start_read_elinkA =  0;
-    start_read_misoA =  0;
-    start_write_elink_spiA =  0;
-    transcieve_mA =  0;
-    transcieve_pA =  0;
-    case (current_stateA)
-      waittoact : 
-        begin
-          entimeoutA =  0;
-        end
-      reset : 
-        begin
-          read_spi_modeA =  0;
-        end
-      start : 
-        begin
-          start_initA =  1;
-        end
-      endinit1 : 
-        begin
-          mon_en_doneA =  1;
-        end
-      start1 : 
-        begin
-          start_initA =  1;
-        end
-      ST_Read_reg : 
-        begin
-          data_initA =  8'h0B;
-          cs_mA =  0;
-          transcieve_mA =  1;
-        end
-      st_GPIOA : 
-        begin
-          data_initA =  8'h40;
-          cs_pA =  0;
-          transcieve_pA =  1;
-        end
-      st_GPIOA1 : 
-        begin
-          data_initA =  8'h12;
-          cs_pA =  0;
-          transcieve_pA =  1;
-        end
-      st_GPIOA2 : 
-        begin
-          data_initA =  8'h01;
-          cs_pA =  0;
-          transcieve_pA =  1;
-        end
-      End_Select : 
-        begin
-          bus_en_doneA =  1;
-        end
-      Write_Mosi : 
-        begin
-          spi_csA =  0;
-          read_spi_modeA =  1;
-        end
-      read_elink_mes1 : 
-        begin
-          start_read_elinkA =  1;
-          read_spi_modeA =  1;
-        end
-      CS_low : 
-        begin
-          spi_csA =  0;
-          read_spi_modeA =  1;
-        end
-      Read_Miso : 
-        begin
-          start_read_misoA =  1;
-          spi_csA =  0;
-          read_spi_modeA =  1;
-        end
-      Done : 
-        begin
-          end_spi_procA =  1;
-          read_spi_modeA =  1;
-        end
-      write_elink : 
-        begin
-          start_write_elink_spiA =  1;
-          read_spi_modeA =  1;
-        end
-      Wait_Miso : 
-        begin
-          read_spi_modeA =  1;
-        end
-      Offset_cal0 : 
-        begin
-          data_initA =  8'h81;
-          cs_mA =  0;
-          transcieve_mA =  1;
-        end
-      Offset__cal1 : 
-        begin
-          data_initA =  8'h89;
-          cs_mA =  0;
-          transcieve_mA =  1;
-        end
-      Offset__cal2 : 
-        begin
-          data_initA =  8'h91;
-          cs_mA =  0;
-          transcieve_mA =  1;
-        end
-      Offset__cal3 : 
-        begin
-          data_initA =  8'h99;
-          cs_mA =  0;
-          transcieve_mA =  1;
-        end
-      Gain_cal0 : 
-        begin
-          data_initA =  8'h82;
-          cs_mA =  0;
-          transcieve_mA =  1;
-        end
-      Gain_cal1 : 
-        begin
-          data_initA =  8'h8A;
-          cs_mA =  0;
-          transcieve_mA =  1;
-        end
-      Gain_cal2 : 
-        begin
-          data_initA =  8'h92;
-          cs_mA =  0;
-          transcieve_mA =  1;
-        end
-      Gain_cal3 : 
-        begin
-          data_initA =  8'h9A;
-          cs_mA =  0;
-          transcieve_mA =  1;
-        end
-      write_csrs7 : 
-        begin
-          data_initA =  8'h8B;
-          cs_mA =  0;
-          transcieve_mA =  1;
-        end
-      write_csrs6 : 
-        begin
-          data_initA =  8'hB1;
-          cs_mA =  0;
-          transcieve_mA =  1;
-        end
-      write_csrs5 : 
-        begin
-          data_initA =  8'h10;
-          cs_mA =  0;
-          transcieve_mA =  1;
-        end
-      write_csrs4 : 
-        begin
-          data_initA =  8'h8B;
-          cs_mA =  0;
-          transcieve_mA =  1;
-        end
-      write_csrs0 : 
-        begin
-          data_initA =  8'h05;
-          cs_mA =  0;
-          transcieve_mA =  1;
-        end
-      write_csrs1 : 
-        begin
-          data_initA =  8'h00;
-          cs_mA =  0;
-          transcieve_mA =  1;
-        end
-      write_csrs2 : 
-        begin
-          data_initA =  8'hB0;
-          cs_mA =  0;
-          transcieve_mA =  1;
-        end
-      ST_Config4 : 
-        begin
-          data_initA =  8'h00;
-          cs_mA =  0;
-          transcieve_mA =  1;
-        end
-      ST_Config3 : 
-        begin
-          data_initA =  8'h30;
-          cs_mA =  0;
-          transcieve_mA =  1;
-        end
-      ST_Config1 : 
-        begin
-          data_initA =  8'h03;
-          cs_mA =  0;
-          transcieve_mA =  1;
-        end
-      ST_Config2 : 
-        begin
-          data_initA =  8'h00;
-          cs_mA =  0;
-          transcieve_mA =  1;
-        end
-      ST_Rest_2 : 
-        begin
-          data_initA =  8'h00;
-          cs_mA =  0;
-          transcieve_mA =  1;
-        end
-      ST_Rest_4 : 
-        begin
-          data_initA =  8'h80;
-          cs_mA =  0;
-          transcieve_mA =  1;
-        end
-      ST_Rest_1 : 
-        begin
-          data_initA =  8'h03;
-          cs_mA =  0;
-          transcieve_mA =  1;
-        end
-      St_wait : 
-        begin
-          data_initA =  8'h03;
-          cs_mA =  0;
-        end
-      ST_Rest_RS_1 : 
-        begin
-          data_initA =  8'h03;
-          cs_mA =  0;
-          transcieve_mA =  1;
-        end
-      ST_Rest_RS_2 : 
-        begin
-          data_initA =  8'h00;
-          cs_mA =  0;
-          transcieve_mA =  1;
-        end
-      st_GPIOA9 : 
-        begin
-          data_initA =  8'h40;
-          cs_pA =  0;
-        end
-      st_GPIOA10 : 
-        begin
-          data_initA =  8'h12;
-          cs_pA =  0;
-        end
-      st_GPIOA11 : 
-        begin
-          data_initA =  8'h00;
-          cs_pA =  0;
-        end
-      w_busy15 : 
-        begin
-          data_initA =  8'h40;
-          cs_pA =  0;
-        end
-      w_busy16 : 
-        begin
-          data_initA =  8'h12;
-          cs_pA =  0;
-        end
-      w_busy17 : 
-        begin
-          data_initA =  8'h01;
-          cs_pA =  0;
-        end
-      ST_IODIRA0 : 
-        begin
-          data_initA =  8'h40;
-          cs_pA =  0;
-          transcieve_pA =  1;
-        end
-      w_busy0 : 
-        begin
-          data_initA =  8'h40;
-          cs_pA =  0;
-        end
-      ST_IODIRA1 : 
-        begin
-          data_initA =  8'h00;
-          cs_pA =  0;
-          transcieve_pA =  1;
-        end
-      w_busy1 : 
-        begin
-          cs_pA =  0;
-          data_initA =  8'h00;
-        end
-      ST_IODIRA2 : 
-        begin
-          data_initA =  8'h00;
-          cs_pA =  0;
-          transcieve_pA =  1;
-        end
-      w_busy2 : 
-        begin
-          data_initA =  8'h00;
-          cs_pA =  0;
-        end
-      w_busy5 : 
-        begin
-          data_initA =  8'h00;
-          cs_pA =  0;
-        end
-      st_IODIRB1 : 
-        begin
-          data_initA =  8'h01;
-          cs_pA =  0;
-          transcieve_pA =  1;
-        end
-      st_IODIRB2 : 
-        begin
-          data_initA =  8'h00;
-          cs_pA =  0;
-          transcieve_pA =  1;
-        end
-      st_IODIRB : 
-        begin
-          data_initA =  8'h40;
-          cs_pA =  0;
-          transcieve_pA =  1;
-        end
-      w_busy3 : 
-        begin
-          data_initA =  8'h40;
-          cs_pA =  0;
-        end
-      w_busy4 : 
-        begin
-          data_initA =  8'h01;
-          cs_pA =  0;
-        end
-      w_busy7 : 
-        begin
-          data_initA =  8'h13;
-          cs_pA =  0;
-        end
-      st_GPIOB2 : 
-        begin
-          data_initA =  8'h00;
-          cs_pA =  0;
-          transcieve_pA =  1;
-        end
-      st_GPIOB1 : 
-        begin
-          data_initA =  8'h13;
-          cs_pA =  0;
-          transcieve_pA =  1;
-        end
-      w_busy8 : 
-        begin
-          data_initA =  8'h00;
-          cs_pA =  0;
-        end
-      w_busy6 : 
-        begin
-          data_initA =  8'h40;
-          cs_pA =  0;
-        end
-      st_GPIOB0 : 
-        begin
-          data_initA =  8'h40;
-          cs_pA =  0;
-          transcieve_pA =  1;
-        end
-      st_GPPUA : 
-        begin
-          data_initA =  8'h40;
-          cs_pA =  0;
-          transcieve_pA =  1;
-        end
-      w_busy11 : 
-        begin
-          data_initA =  8'h0C;
-          cs_pA =  0;
-        end
-      w_busy9 : 
-        begin
-          cs_pA =  0;
-          data_initA =  8'h40;
-        end
-      st_GPPUA2 : 
-        begin
-          data_initA =  8'hFE;
-          cs_pA =  0;
-          transcieve_pA =  1;
-        end
-      st_GPPUA1 : 
-        begin
-          data_initA =  8'h0C;
-          cs_pA =  0;
-          transcieve_pA =  1;
-        end
-      w_busy10 : 
-        begin
-          data_initA =  8'hFE;
-          cs_pA =  0;
-        end
-      st_GPPUB1 : 
-        begin
-          data_initA =  8'h0D;
-          cs_pA =  0;
-          transcieve_pA =  1;
-        end
-      w_busy13 : 
-        begin
-          data_initA =  8'h0D;
-          cs_pA =  0;
-        end
-      w_busy12 : 
-        begin
-          data_initA =  8'h40;
-          cs_pA =  0;
-        end
-      st_GPPUB2 : 
-        begin
-          data_initA =  8'hFF;
-          cs_pA =  0;
-          transcieve_pA =  1;
-        end
-      w_busy14 : 
-        begin
-          data_initA =  8'hFF;
-          cs_pA =  0;
-        end
-      st_GPPUB : 
-        begin
-          data_initA =  8'h40;
-          cs_pA =  0;
-          transcieve_pA =  1;
-        end
-      CS_high0 : 
-        begin
-          cs_pA =  1;
-          transcieve_pA =  1;
-        end
-      CS_high1 : 
-        begin
-          cs_pA =  1;
-          transcieve_pA =  1;
-        end
-      CS_high2 : 
-        begin
-          cs_pA =  1;
-          transcieve_pA =  1;
-        end
-      CS_high3 : 
-        begin
-          cs_pA =  1;
-          transcieve_pA =  1;
-        end
-      CS_high4 : 
-        begin
-          cs_pA =  1;
-          transcieve_pA =  1;
-        end
-      CS_high5 : 
-        begin
-          cs_pA =  1;
-          transcieve_pA =  1;
-        end
-      w_busy26 : 
-        begin
-          cs_pA =  1;
-        end
-      w_busy27 : 
-        begin
-          cs_pA =  1;
-        end
-      w_busy28 : 
-        begin
-          cs_pA =  1;
-        end
-      w_busy29 : 
-        begin
-          cs_pA =  1;
-        end
-      w_busy30 : 
-        begin
-          cs_pA =  1;
-        end
-      w_busy31 : 
-        begin
-          cs_pA =  1;
-        end
-      CS_high7 : 
-        begin
-          cs_mA =  1;
-          transcieve_mA =  1;
-        end
-      w_busy32 : 
-        begin
-          cs_mA =  1;
-        end
-      ST_Init_0 : 
-        begin
-          data_initA =  8'hFF;
-          cs_mA =  0;
-          transcieve_mA =  1;
-        end
-      ST_wait_0 : 
-        begin
-          data_initA =  8'hFF;
-          cs_mA =  0;
-        end
-      ST_Init_1 : 
-        begin
-          data_initA =  8'hFF;
-          cs_mA =  0;
-          transcieve_mA =  1;
-        end
-      ST_wait_1 : 
-        begin
-          data_initA =  8'hFF;
-          cs_mA =  0;
-        end
-      ST_Init_2 : 
-        begin
-          data_initA =  8'hFF;
-          cs_mA =  0;
-          transcieve_mA =  1;
-        end
-      ST_wait_2 : 
-        begin
-          data_initA =  8'hFF;
-          cs_mA =  0;
-        end
-      ST_Init_3 : 
-        begin
-          data_initA =  8'hFF;
-          cs_mA =  0;
-          transcieve_mA =  1;
-        end
-      ST_wait_3 : 
-        begin
-          data_initA =  8'hFF;
-          cs_mA =  0;
-        end
-      ST_Init_4 : 
-        begin
-          data_initA =  8'hFF;
-          cs_mA =  0;
-          transcieve_mA =  1;
-        end
-      ST_wait_4 : 
-        begin
-          data_initA =  8'hFF;
-          cs_mA =  0;
-        end
-      ST_Init_5 : 
-        begin
-          data_initA =  8'hFF;
-          cs_mA =  0;
-          transcieve_mA =  1;
-        end
-      ST_wait_5 : 
-        begin
-          data_initA =  8'hFF;
-          cs_mA =  0;
-        end
-      ST_Init_6 : 
-        begin
-          data_initA =  8'hFF;
-          cs_mA =  0;
-          transcieve_mA =  1;
-        end
-      ST_wait_6 : 
-        begin
-          data_initA =  8'hFF;
-          cs_mA =  0;
-        end
-      ST_Init_7 : 
-        begin
-          data_initA =  8'hFF;
-          cs_mA =  0;
-          transcieve_mA =  1;
-        end
-      ST_wait_7 : 
-        begin
-          data_initA =  8'hFF;
-          cs_mA =  0;
-        end
-      ST_Init_8 : 
-        begin
-          data_initA =  8'hFF;
-          cs_mA =  0;
-          transcieve_mA =  1;
-        end
-      ST_wait_8 : 
-        begin
-          data_initA =  8'hFF;
-          cs_mA =  0;
-        end
-      ST_Init_9 : 
-        begin
-          data_initA =  8'hFF;
-          cs_mA =  0;
-          transcieve_mA =  1;
-        end
-      ST_wait_9 : 
-        begin
-          data_initA =  8'hFF;
-          cs_mA =  0;
-        end
-      ST_Init_10 : 
-        begin
-          data_initA =  8'hFF;
-          cs_mA =  0;
-          transcieve_mA =  1;
-        end
-      ST_wait_10 : 
-        begin
-          data_initA =  8'hFF;
-          cs_mA =  0;
-        end
-      ST_Init_11 : 
-        begin
-          data_initA =  8'hFF;
-          cs_mA =  0;
-          transcieve_mA =  1;
-        end
-      ST_wait_11 : 
-        begin
-          data_initA =  8'hFF;
-          cs_mA =  0;
-        end
-      ST_Init_12 : 
-        begin
-          data_initA =  8'hFF;
-          cs_mA =  0;
-          transcieve_mA =  1;
-        end
-      ST_wait_12 : 
-        begin
-          data_initA =  8'hFF;
-          cs_mA =  0;
-        end
-      ST_Init_13 : 
-        begin
-          data_initA =  8'hFF;
-          cs_mA =  0;
-          transcieve_mA =  1;
-        end
-      ST_wait_13 : 
-        begin
-          data_initA =  8'hFF;
-          cs_mA =  0;
-        end
-      ST_Init_14 : 
-        begin
-          data_initA =  8'hFF;
-          cs_mA =  0;
-          transcieve_mA =  1;
-        end
-      ST_wait_14 : 
-        begin
-          data_initA =  8'hFF;
-          cs_mA =  0;
-        end
-      st_Init_2 : 
-        begin
-          data_initA =  8'hFE;
-          cs_mA =  0;
-          transcieve_mA =  1;
-        end
-      ST_wait_15 : 
-        begin
-          data_initA =  8'hFE;
-          cs_mA =  0;
-        end
-      CS_high8 : 
-        begin
-          cs_mA =  1;
-          transcieve_mA =  1;
-        end
-      w_busy33 : 
-        begin
-          cs_mA =  1;
-        end
-      ST_Rest_3 : 
-        begin
-          data_initA =  8'h00;
-          cs_mA =  0;
-          transcieve_mA =  1;
-        end
-      ST_Rest_RS_3 : 
-        begin
-          data_initA =  8'h00;
-          cs_mA =  0;
-          transcieve_mA =  1;
-        end
-      ST_Rest_RS_4 : 
-        begin
-          data_initA =  8'h00;
-          cs_mA =  0;
-          transcieve_mA =  1;
-        end
-      St_wait1 : 
-        begin
-          data_initA =  8'h00;
-          cs_mA =  0;
-        end
-      St_wait5 : 
-        begin
-          data_initA =  8'h00;
-          cs_mA =  0;
-        end
-      St_wait6 : 
-        begin
-          data_initA =  8'h80;
-          cs_mA =  0;
-        end
-      St_wait7 : 
-        begin
-          data_initA =  8'h03;
-          cs_mA =  0;
-        end
-      St_wait8 : 
-        begin
-          data_initA =  8'h00;
-          cs_mA =  0;
-        end
-      St_wait9 : 
-        begin
-          data_initA =  8'h00;
-          cs_mA =  0;
-        end
-      St_wait10 : 
-        begin
-          data_initA =  8'h00;
-          cs_mA =  0;
-        end
-      CS_high9 : 
-        begin
-          cs_mA =  1;
-          transcieve_mA =  1;
-        end
-      w_busy34 : 
-        begin
-          cs_mA =  1;
-        end
-      St_wait13 : 
-        begin
-          data_initA =  8'h00;
-          cs_mA =  0;
-        end
-      ST_Rest_RS_6 : 
-        begin
-          data_initA =  8'h00;
-          cs_mA =  0;
-          transcieve_mA =  1;
-        end
-      ST_Rest_RS_7 : 
-        begin
-          data_initA =  8'h00;
-          cs_mA =  0;
-          transcieve_mA =  1;
-        end
-      St_wait14 : 
-        begin
-          data_initA =  8'h00;
-          cs_mA =  0;
-        end
-      ST_Rest_RS_8 : 
-        begin
-          data_initA =  8'h00;
-          cs_mA =  0;
-          transcieve_mA =  1;
-        end
-      St_wait15 : 
-        begin
-          data_initA =  8'h00;
-          cs_mA =  0;
-        end
-      St_wait16 : 
-        begin
-          data_initA =  8'h0B;
-          cs_mA =  0;
-        end
-      CS_high10 : 
-        begin
-          cs_mA =  1;
-          transcieve_mA =  1;
-        end
-      w_busy35 : 
-        begin
-          cs_mA =  1;
-        end
-      CS_high12 : 
-        begin
-          cs_mA =  1;
-          transcieve_mA =  1;
-        end
-      w_busy36 : 
-        begin
-          cs_mA =  1;
-        end
-      CS_high13 : 
-        begin
-          cs_mA =  1;
-          transcieve_mA =  1;
-        end
-      w_busy37 : 
-        begin
-          cs_mA =  1;
-        end
-      w_busy38 : 
-        begin
-          cs_mA =  1;
-        end
-      CS_high14 : 
-        begin
-          cs_mA =  1;
-          transcieve_mA =  1;
-        end
-      CS_high15 : 
-        begin
-          cs_mA =  1;
-          transcieve_mA =  1;
-        end
-      w_busy39 : 
-        begin
-          cs_mA =  1;
-        end
-      St_wait17 : 
-        begin
-          data_initA =  8'h00;
-          cs_mA =  0;
-        end
-      St_wait18 : 
-        begin
-          data_initA =  8'h03;
-          cs_mA =  0;
-        end
-      St_wait19 : 
-        begin
-          data_initA =  8'h30;
-          cs_mA =  0;
-        end
-      St_wait20 : 
-        begin
-          data_initA =  8'h00;
-          cs_mA =  0;
-        end
-      St_wait32 : 
-        begin
-          data_initA =  8'h81;
-          cs_mA =  0;
-        end
-      St_wait33 : 
-        begin
-          data_initA =  8'h89;
-          cs_mA =  0;
-        end
-      St_wait34 : 
-        begin
-          data_initA =  8'h00;
-          cs_mA =  0;
-        end
-      ST_Config5 : 
-        begin
-          data_initA =  8'h00;
-          cs_mA =  0;
-          transcieve_mA =  1;
-        end
-      ST_Config6 : 
-        begin
-          data_initA =  8'h00;
-          cs_mA =  0;
-          transcieve_mA =  1;
-        end
-      St_wait35 : 
-        begin
-          data_initA =  8'h00;
-          cs_mA =  0;
-        end
-      ST_Config7 : 
-        begin
-          data_initA =  8'h30;
-          cs_mA =  0;
-          transcieve_mA =  1;
-        end
-      St_wait36 : 
-        begin
-          data_initA =  8'h30;
-          cs_mA =  0;
-        end
-      ST_Config8 : 
-        begin
-          data_initA =  8'h00;
-          cs_mA =  0;
-          transcieve_mA =  1;
-        end
-      St_wait37 : 
-        begin
-          data_initA =  8'h00;
-          cs_mA =  0;
-        end
-      ST_Config9 : 
-        begin
-          data_initA =  8'h30;
-          cs_mA =  0;
-          transcieve_mA =  1;
-        end
-      St_wait38 : 
-        begin
-          data_initA =  8'h30;
-          cs_mA =  0;
-        end
-      ST_Config10 : 
-        begin
-          data_initA =  8'h00;
-          cs_mA =  0;
-          transcieve_mA =  1;
-        end
-      St_wait39 : 
-        begin
-          data_initA =  8'h00;
-          cs_mA =  0;
-        end
-      St_wait40 : 
-        begin
-          data_initA =  8'h91;
-          cs_mA =  0;
-        end
-      ST_Config11 : 
-        begin
-          data_initA =  8'h00;
-          cs_mA =  0;
-          transcieve_mA =  1;
-        end
-      St_wait41 : 
-        begin
-          data_initA =  8'h00;
-          cs_mA =  0;
-        end
-      ST_Config12 : 
-        begin
-          data_initA =  8'h30;
-          cs_mA =  0;
-          transcieve_mA =  1;
-        end
-      St_wait42 : 
-        begin
-          data_initA =  8'h30;
-          cs_mA =  0;
-        end
-      ST_Config13 : 
-        begin
-          data_initA =  8'h00;
-          cs_mA =  0;
-          transcieve_mA =  1;
-        end
-      St_wait43 : 
-        begin
-          data_initA =  8'h00;
-          cs_mA =  0;
-        end
-      St_wait44 : 
-        begin
-          data_initA =  8'h99;
-          cs_mA =  0;
-        end
-      ST_Config14 : 
-        begin
-          data_initA =  8'h00;
-          cs_mA =  0;
-          transcieve_mA =  1;
-        end
-      St_wait45 : 
-        begin
-          data_initA =  8'h00;
-          cs_mA =  0;
-        end
-      ST_Config15 : 
-        begin
-          data_initA =  8'h30;
-          cs_mA =  0;
-          transcieve_mA =  1;
-        end
-      St_wait46 : 
-        begin
-          data_initA =  8'h30;
-          cs_mA =  0;
-        end
-      ST_Config16 : 
-        begin
-          data_initA =  8'h00;
-          cs_mA =  0;
-          transcieve_mA =  1;
-        end
-      St_wait47 : 
-        begin
-          data_initA =  8'h00;
-          cs_mA =  0;
-        end
-      St_wait25 : 
-        begin
-          data_initA =  8'h05;
-          cs_mA =  0;
-        end
-      St_wait26 : 
-        begin
-          data_initA =  8'h00;
-          cs_mA =  0;
-        end
-      St_wait27 : 
-        begin
-          data_initA =  8'hB0;
-          cs_mA =  0;
-        end
-      St_wait28 : 
-        begin
-          data_initA =  8'h8B;
-          cs_mA =  0;
-        end
-      St_wait29 : 
-        begin
-          data_initA =  8'h10;
-          cs_mA =  0;
-        end
-      St_wait30 : 
-        begin
-          data_initA =  8'hB1;
-          cs_mA =  0;
-        end
-      St_wait31 : 
-        begin
-          data_initA =  8'h8B;
-          cs_mA =  0;
-        end
-      ST_Read_reg2 : 
-        begin
-          data_initA =  8'h0B;
-          cs_mA =  0;
-          transcieve_mA =  1;
-        end
-      St_wait21 : 
-        begin
-          data_initA =  8'h00;
-          cs_mA =  0;
-        end
-      ST_Rest_RS_9 : 
-        begin
-          data_initA =  8'h00;
-          cs_mA =  0;
-          transcieve_mA =  1;
-        end
-      ST_Rest_RS_10 : 
-        begin
-          data_initA =  8'h00;
-          cs_mA =  0;
-          transcieve_mA =  1;
-        end
-      St_wait22 : 
-        begin
-          data_initA =  8'h00;
-          cs_mA =  0;
-        end
-      ST_Rest_RS_11 : 
-        begin
-          data_initA =  8'h00;
-          cs_mA =  0;
-          transcieve_mA =  1;
-        end
-      St_wait23 : 
-        begin
-          data_initA =  8'h00;
-          cs_mA =  0;
-        end
-      St_wait24 : 
-        begin
-          data_initA =  8'h0B;
-          cs_mA =  0;
-        end
-      ST_Config17 : 
-        begin
-          data_initA =  8'h00;
-          cs_mA =  0;
-          transcieve_mA =  1;
-        end
-      St_wait48 : 
-        begin
-          data_initA =  8'h00;
-          cs_mA =  0;
-        end
-      ST_Config18 : 
-        begin
-          data_initA =  8'h30;
-          cs_mA =  0;
-          transcieve_mA =  1;
-        end
-      St_wait49 : 
-        begin
-          data_initA =  8'h30;
-          cs_mA =  0;
-        end
-      St_wait50 : 
-        begin
-          data_initA =  8'h82;
-          cs_mA =  0;
-        end
-      St_wait51 : 
-        begin
-          data_initA =  8'h8A;
-          cs_mA =  0;
-        end
-      ST_Config19 : 
-        begin
-          data_initA =  8'h00;
-          cs_mA =  0;
-          transcieve_mA =  1;
-        end
-      St_wait52 : 
-        begin
-          data_initA =  8'h00;
-          cs_mA =  0;
-        end
-      ST_Config20 : 
-        begin
-          data_initA =  8'h30;
-          cs_mA =  0;
-          transcieve_mA =  1;
-        end
-      St_wait53 : 
-        begin
-          data_initA =  8'h30;
-          cs_mA =  0;
-        end
-      St_wait54 : 
-        begin
-          data_initA =  8'h92;
-          cs_mA =  0;
-        end
-      ST_Config21 : 
-        begin
-          data_initA =  8'h00;
-          cs_mA =  0;
-          transcieve_mA =  1;
-        end
-      St_wait55 : 
-        begin
-          data_initA =  8'h00;
-          cs_mA =  0;
-        end
-      ST_Config22 : 
-        begin
-          data_initA =  8'h30;
-          cs_mA =  0;
-          transcieve_mA =  1;
-        end
-      St_wait56 : 
-        begin
-          data_initA =  8'h30;
-          cs_mA =  0;
-        end
-      St_wait57 : 
-        begin
-          data_initA =  8'h9A;
-          cs_mA =  0;
-        end
-      ST_Config23 : 
-        begin
-          data_initA =  8'h00;
-          cs_mA =  0;
-          transcieve_mA =  1;
-        end
-      St_wait58 : 
-        begin
-          data_initA =  8'h00;
-          cs_mA =  0;
-        end
-      ST_Config24 : 
-        begin
-          data_initA =  8'h30;
-          cs_mA =  0;
-          transcieve_mA =  1;
-        end
-      St_wait59 : 
-        begin
-          data_initA =  8'h30;
-          cs_mA =  0;
-        end
-      ST_CountRst : 
-        begin
-          rst_mon_cntA =  1;
-        end
-      ST_Start_Cnt : 
-        begin
-          start_mon_cntA =  1;
-        end
-      ST_Read_reg3 : 
-        begin
-          data_initA =  8'h0B;
-          cs_mA =  0;
-          transcieve_mA =  1;
-        end
-      St_wait60 : 
-        begin
-          data_initA =  8'h00;
-          cs_mA =  0;
-        end
-      ST_Rest_RS_12 : 
-        begin
-          data_initA =  8'h00;
-          cs_mA =  0;
-          transcieve_mA =  1;
-        end
-      ST_Rest_RS_13 : 
-        begin
-          data_initA =  8'h00;
-          cs_mA =  0;
-          transcieve_mA =  1;
-        end
-      St_wait61 : 
-        begin
-          data_initA =  8'h00;
-          cs_mA =  0;
-        end
-      ST_Rest_RS_14 : 
-        begin
-          data_initA =  8'h00;
-          cs_mA =  0;
-          transcieve_mA =  1;
-        end
-      St_wait62 : 
-        begin
-          data_initA =  8'h00;
-          cs_mA =  0;
-        end
-      St_wait63 : 
-        begin
-          data_initA =  8'h0B;
-          cs_mA =  0;
-        end
-      CS_high16 : 
-        begin
-          cs_pA =  1;
-          transcieve_pA =  1;
-        end
-      w_busy43 : 
-        begin
-          cs_pA =  1;
-        end
-      st_GPIOA15 : 
-        begin
-          data_initA =  8'h40;
-          cs_pA =  0;
-          transcieve_pA =  1;
-        end
-      st_GPIOA16 : 
-        begin
-          data_initA =  8'h09;
-          cs_pA =  0;
-          transcieve_pA =  1;
-        end
-      st_GPIOA17 : 
-        begin
-          data_initA =  8'h01;
-          cs_pA =  0;
-          transcieve_pA =  1;
-        end
-      w_busy40 : 
-        begin
-          data_initA =  8'h40;
-          cs_pA =  0;
-        end
-      w_busy41 : 
-        begin
-          data_initA =  8'h09;
-          cs_pA =  0;
-        end
-      w_busy42 : 
-        begin
-          data_initA =  8'h01;
-          cs_pA =  0;
-        end
-      CS_high6 : 
-        begin
-          cs_pA =  1;
-          transcieve_pA =  1;
-        end
-      w_busy44 : 
-        begin
-          cs_pA =  1;
-        end
-      CS_high17 : 
-        begin
-          cs_pA =  1;
-          transcieve_pA =  1;
-        end
-      w_busy48 : 
-        begin
-          cs_pA =  1;
-        end
-      st_GPIOA12 : 
-        begin
-          data_initA =  8'h40;
-          cs_pA =  0;
-          transcieve_pA =  1;
-        end
-      st_GPIOA13 : 
-        begin
-          data_initA =  8'h12;
-          cs_pA =  0;
-          transcieve_pA =  1;
-        end
-      st_GPIOA14 : 
-        begin
-          data_initA =  8'h01;
-          cs_pA =  0;
-          transcieve_pA =  1;
-        end
-      w_busy18 : 
-        begin
-          data_initA =  8'h40;
-          cs_pA =  0;
-        end
-      w_busy19 : 
-        begin
-          data_initA =  8'h12;
-          cs_pA =  0;
-        end
-      w_busy20 : 
-        begin
-          data_initA =  8'h01;
-          cs_pA =  0;
-        end
-      st_GPIOA18 : 
-        begin
-          data_initA =  8'h40;
-          cs_pA =  0;
-          transcieve_pA =  1;
-        end
-      st_GPIOA19 : 
-        begin
-          data_initA =  8'h09;
-          cs_pA =  0;
-          transcieve_pA =  1;
-        end
-      st_GPIOA20 : 
-        begin
-          data_initA =  8'h01;
-          cs_pA =  0;
-          transcieve_pA =  1;
-        end
-      w_busy45 : 
-        begin
-          data_initA =  8'h40;
-          cs_pA =  0;
-        end
-      w_busy46 : 
-        begin
-          data_initA =  8'h09;
-          cs_pA =  0;
-        end
-      w_busy47 : 
-        begin
-          data_initA =  8'h01;
-          cs_pA =  0;
-        end
-      CS_high11 : 
-        begin
-          cs_pA =  1;
-          transcieve_pA =  1;
-        end
-      w_busy49 : 
-        begin
-          cs_pA =  1;
-        end
-      CS_high18 : 
-        begin
-          cs_pA =  1;
-          transcieve_pA =  1;
-        end
-      w_busy53 : 
-        begin
-          cs_pA =  1;
-        end
-      st_GPIOA21 : 
-        begin
-          data_initA =  8'h40;
-          cs_pA =  0;
-          transcieve_pA =  1;
-        end
-      st_GPIOA22 : 
-        begin
-          data_initA =  8'h12;
-          cs_pA =  0;
-          transcieve_pA =  1;
-        end
-      st_GPIOA23 : 
-        begin
-          data_initA =  8'h00;
-          cs_pA =  0;
-          transcieve_pA =  1;
-        end
-      w_busy21 : 
-        begin
-          data_initA =  8'h40;
-          cs_pA =  0;
-        end
-      w_busy22 : 
-        begin
-          data_initA =  8'h12;
-          cs_pA =  0;
-        end
-      w_busy23 : 
-        begin
-          data_initA =  8'h00;
-          cs_pA =  0;
-        end
-      st_GPIOA24 : 
-        begin
-          data_initA =  8'h40;
-          cs_pA =  0;
-          transcieve_pA =  1;
-        end
-      st_GPIOA25 : 
-        begin
-          data_initA =  8'h09;
-          cs_pA =  0;
-          transcieve_pA =  1;
-        end
-      st_GPIOA26 : 
-        begin
-          data_initA =  8'h00;
-          cs_pA =  0;
-          transcieve_pA =  1;
-        end
-      w_busy50 : 
-        begin
-          data_initA =  8'h40;
-          cs_pA =  0;
-        end
-      w_busy51 : 
-        begin
-          data_initA =  8'h09;
-          cs_pA =  0;
-        end
-      w_busy52 : 
-        begin
-          data_initA =  8'h00;
-          cs_pA =  0;
+          data_init =  8'h00;
+          cs_p =  0;
         end
     endcase
   end
 
-always @( current_stateB )
-  begin : output_block_procB
-    bus_en_doneB =  0;
-    cs_mB =  1;
-    cs_pB =  1;
-    data_initB =  8'b0;
-    end_spi_procB =  0;
-    entimeoutB =  1;
-    mon_en_doneB =  0;
-    read_spi_modeB =  0;
-    rst_mon_cntB =  0;
-    spi_csB =  1;
-    start_cntB =  0;
-    start_initB =  0;
-    start_mon_cntB =  0;
-    start_read_elinkB =  0;
-    start_read_misoB =  0;
-    start_write_elink_spiB =  0;
-    transcieve_mB =  0;
-    transcieve_pB =  0;
-    case (current_stateB)
-      waittoact : 
-        begin
-          entimeoutB =  0;
-        end
-      reset : 
-        begin
-          read_spi_modeB =  0;
-        end
-      start : 
-        begin
-          start_initB =  1;
-        end
-      endinit1 : 
-        begin
-          mon_en_doneB =  1;
-        end
-      start1 : 
-        begin
-          start_initB =  1;
-        end
-      ST_Read_reg : 
-        begin
-          data_initB =  8'h0B;
-          cs_mB =  0;
-          transcieve_mB =  1;
-        end
-      st_GPIOA : 
-        begin
-          data_initB =  8'h40;
-          cs_pB =  0;
-          transcieve_pB =  1;
-        end
-      st_GPIOA1 : 
-        begin
-          data_initB =  8'h12;
-          cs_pB =  0;
-          transcieve_pB =  1;
-        end
-      st_GPIOA2 : 
-        begin
-          data_initB =  8'h01;
-          cs_pB =  0;
-          transcieve_pB =  1;
-        end
-      End_Select : 
-        begin
-          bus_en_doneB =  1;
-        end
-      Write_Mosi : 
-        begin
-          spi_csB =  0;
-          read_spi_modeB =  1;
-        end
-      read_elink_mes1 : 
-        begin
-          start_read_elinkB =  1;
-          read_spi_modeB =  1;
-        end
-      CS_low : 
-        begin
-          spi_csB =  0;
-          read_spi_modeB =  1;
-        end
-      Read_Miso : 
-        begin
-          start_read_misoB =  1;
-          spi_csB =  0;
-          read_spi_modeB =  1;
-        end
-      Done : 
-        begin
-          end_spi_procB =  1;
-          read_spi_modeB =  1;
-        end
-      write_elink : 
-        begin
-          start_write_elink_spiB =  1;
-          read_spi_modeB =  1;
-        end
-      Wait_Miso : 
-        begin
-          read_spi_modeB =  1;
-        end
-      Offset_cal0 : 
-        begin
-          data_initB =  8'h81;
-          cs_mB =  0;
-          transcieve_mB =  1;
-        end
-      Offset__cal1 : 
-        begin
-          data_initB =  8'h89;
-          cs_mB =  0;
-          transcieve_mB =  1;
-        end
-      Offset__cal2 : 
-        begin
-          data_initB =  8'h91;
-          cs_mB =  0;
-          transcieve_mB =  1;
-        end
-      Offset__cal3 : 
-        begin
-          data_initB =  8'h99;
-          cs_mB =  0;
-          transcieve_mB =  1;
-        end
-      Gain_cal0 : 
-        begin
-          data_initB =  8'h82;
-          cs_mB =  0;
-          transcieve_mB =  1;
-        end
-      Gain_cal1 : 
-        begin
-          data_initB =  8'h8A;
-          cs_mB =  0;
-          transcieve_mB =  1;
-        end
-      Gain_cal2 : 
-        begin
-          data_initB =  8'h92;
-          cs_mB =  0;
-          transcieve_mB =  1;
-        end
-      Gain_cal3 : 
-        begin
-          data_initB =  8'h9A;
-          cs_mB =  0;
-          transcieve_mB =  1;
-        end
-      write_csrs7 : 
-        begin
-          data_initB =  8'h8B;
-          cs_mB =  0;
-          transcieve_mB =  1;
-        end
-      write_csrs6 : 
-        begin
-          data_initB =  8'hB1;
-          cs_mB =  0;
-          transcieve_mB =  1;
-        end
-      write_csrs5 : 
-        begin
-          data_initB =  8'h10;
-          cs_mB =  0;
-          transcieve_mB =  1;
-        end
-      write_csrs4 : 
-        begin
-          data_initB =  8'h8B;
-          cs_mB =  0;
-          transcieve_mB =  1;
-        end
-      write_csrs0 : 
-        begin
-          data_initB =  8'h05;
-          cs_mB =  0;
-          transcieve_mB =  1;
-        end
-      write_csrs1 : 
-        begin
-          data_initB =  8'h00;
-          cs_mB =  0;
-          transcieve_mB =  1;
-        end
-      write_csrs2 : 
-        begin
-          data_initB =  8'hB0;
-          cs_mB =  0;
-          transcieve_mB =  1;
-        end
-      ST_Config4 : 
-        begin
-          data_initB =  8'h00;
-          cs_mB =  0;
-          transcieve_mB =  1;
-        end
-      ST_Config3 : 
-        begin
-          data_initB =  8'h30;
-          cs_mB =  0;
-          transcieve_mB =  1;
-        end
-      ST_Config1 : 
-        begin
-          data_initB =  8'h03;
-          cs_mB =  0;
-          transcieve_mB =  1;
-        end
-      ST_Config2 : 
-        begin
-          data_initB =  8'h00;
-          cs_mB =  0;
-          transcieve_mB =  1;
-        end
-      ST_Rest_2 : 
-        begin
-          data_initB =  8'h00;
-          cs_mB =  0;
-          transcieve_mB =  1;
-        end
-      ST_Rest_4 : 
-        begin
-          data_initB =  8'h80;
-          cs_mB =  0;
-          transcieve_mB =  1;
-        end
-      ST_Rest_1 : 
-        begin
-          data_initB =  8'h03;
-          cs_mB =  0;
-          transcieve_mB =  1;
-        end
-      St_wait : 
-        begin
-          data_initB =  8'h03;
-          cs_mB =  0;
-        end
-      ST_Rest_RS_1 : 
-        begin
-          data_initB =  8'h03;
-          cs_mB =  0;
-          transcieve_mB =  1;
-        end
-      ST_Rest_RS_2 : 
-        begin
-          data_initB =  8'h00;
-          cs_mB =  0;
-          transcieve_mB =  1;
-        end
-      st_GPIOA9 : 
-        begin
-          data_initB =  8'h40;
-          cs_pB =  0;
-        end
-      st_GPIOA10 : 
-        begin
-          data_initB =  8'h12;
-          cs_pB =  0;
-        end
-      st_GPIOA11 : 
-        begin
-          data_initB =  8'h00;
-          cs_pB =  0;
-        end
-      w_busy15 : 
-        begin
-          data_initB =  8'h40;
-          cs_pB =  0;
-        end
-      w_busy16 : 
-        begin
-          data_initB =  8'h12;
-          cs_pB =  0;
-        end
-      w_busy17 : 
-        begin
-          data_initB =  8'h01;
-          cs_pB =  0;
-        end
-      ST_IODIRA0 : 
-        begin
-          data_initB =  8'h40;
-          cs_pB =  0;
-          transcieve_pB =  1;
-        end
-      w_busy0 : 
-        begin
-          data_initB =  8'h40;
-          cs_pB =  0;
-        end
-      ST_IODIRA1 : 
-        begin
-          data_initB =  8'h00;
-          cs_pB =  0;
-          transcieve_pB =  1;
-        end
-      w_busy1 : 
-        begin
-          cs_pB =  0;
-          data_initB =  8'h00;
-        end
-      ST_IODIRA2 : 
-        begin
-          data_initB =  8'h00;
-          cs_pB =  0;
-          transcieve_pB =  1;
-        end
-      w_busy2 : 
-        begin
-          data_initB =  8'h00;
-          cs_pB =  0;
-        end
-      w_busy5 : 
-        begin
-          data_initB =  8'h00;
-          cs_pB =  0;
-        end
-      st_IODIRB1 : 
-        begin
-          data_initB =  8'h01;
-          cs_pB =  0;
-          transcieve_pB =  1;
-        end
-      st_IODIRB2 : 
-        begin
-          data_initB =  8'h00;
-          cs_pB =  0;
-          transcieve_pB =  1;
-        end
-      st_IODIRB : 
-        begin
-          data_initB =  8'h40;
-          cs_pB =  0;
-          transcieve_pB =  1;
-        end
-      w_busy3 : 
-        begin
-          data_initB =  8'h40;
-          cs_pB =  0;
-        end
-      w_busy4 : 
-        begin
-          data_initB =  8'h01;
-          cs_pB =  0;
-        end
-      w_busy7 : 
-        begin
-          data_initB =  8'h13;
-          cs_pB =  0;
-        end
-      st_GPIOB2 : 
-        begin
-          data_initB =  8'h00;
-          cs_pB =  0;
-          transcieve_pB =  1;
-        end
-      st_GPIOB1 : 
-        begin
-          data_initB =  8'h13;
-          cs_pB =  0;
-          transcieve_pB =  1;
-        end
-      w_busy8 : 
-        begin
-          data_initB =  8'h00;
-          cs_pB =  0;
-        end
-      w_busy6 : 
-        begin
-          data_initB =  8'h40;
-          cs_pB =  0;
-        end
-      st_GPIOB0 : 
-        begin
-          data_initB =  8'h40;
-          cs_pB =  0;
-          transcieve_pB =  1;
-        end
-      st_GPPUA : 
-        begin
-          data_initB =  8'h40;
-          cs_pB =  0;
-          transcieve_pB =  1;
-        end
-      w_busy11 : 
-        begin
-          data_initB =  8'h0C;
-          cs_pB =  0;
-        end
-      w_busy9 : 
-        begin
-          cs_pB =  0;
-          data_initB =  8'h40;
-        end
-      st_GPPUA2 : 
-        begin
-          data_initB =  8'hFE;
-          cs_pB =  0;
-          transcieve_pB =  1;
-        end
-      st_GPPUA1 : 
-        begin
-          data_initB =  8'h0C;
-          cs_pB =  0;
-          transcieve_pB =  1;
-        end
-      w_busy10 : 
-        begin
-          data_initB =  8'hFE;
-          cs_pB =  0;
-        end
-      st_GPPUB1 : 
-        begin
-          data_initB =  8'h0D;
-          cs_pB =  0;
-          transcieve_pB =  1;
-        end
-      w_busy13 : 
-        begin
-          data_initB =  8'h0D;
-          cs_pB =  0;
-        end
-      w_busy12 : 
-        begin
-          data_initB =  8'h40;
-          cs_pB =  0;
-        end
-      st_GPPUB2 : 
-        begin
-          data_initB =  8'hFF;
-          cs_pB =  0;
-          transcieve_pB =  1;
-        end
-      w_busy14 : 
-        begin
-          data_initB =  8'hFF;
-          cs_pB =  0;
-        end
-      st_GPPUB : 
-        begin
-          data_initB =  8'h40;
-          cs_pB =  0;
-          transcieve_pB =  1;
-        end
-      CS_high0 : 
-        begin
-          cs_pB =  1;
-          transcieve_pB =  1;
-        end
-      CS_high1 : 
-        begin
-          cs_pB =  1;
-          transcieve_pB =  1;
-        end
-      CS_high2 : 
-        begin
-          cs_pB =  1;
-          transcieve_pB =  1;
-        end
-      CS_high3 : 
-        begin
-          cs_pB =  1;
-          transcieve_pB =  1;
-        end
-      CS_high4 : 
-        begin
-          cs_pB =  1;
-          transcieve_pB =  1;
-        end
-      CS_high5 : 
-        begin
-          cs_pB =  1;
-          transcieve_pB =  1;
-        end
-      w_busy26 : 
-        begin
-          cs_pB =  1;
-        end
-      w_busy27 : 
-        begin
-          cs_pB =  1;
-        end
-      w_busy28 : 
-        begin
-          cs_pB =  1;
-        end
-      w_busy29 : 
-        begin
-          cs_pB =  1;
-        end
-      w_busy30 : 
-        begin
-          cs_pB =  1;
-        end
-      w_busy31 : 
-        begin
-          cs_pB =  1;
-        end
-      CS_high7 : 
-        begin
-          cs_mB =  1;
-          transcieve_mB =  1;
-        end
-      w_busy32 : 
-        begin
-          cs_mB =  1;
-        end
-      ST_Init_0 : 
-        begin
-          data_initB =  8'hFF;
-          cs_mB =  0;
-          transcieve_mB =  1;
-        end
-      ST_wait_0 : 
-        begin
-          data_initB =  8'hFF;
-          cs_mB =  0;
-        end
-      ST_Init_1 : 
-        begin
-          data_initB =  8'hFF;
-          cs_mB =  0;
-          transcieve_mB =  1;
-        end
-      ST_wait_1 : 
-        begin
-          data_initB =  8'hFF;
-          cs_mB =  0;
-        end
-      ST_Init_2 : 
-        begin
-          data_initB =  8'hFF;
-          cs_mB =  0;
-          transcieve_mB =  1;
-        end
-      ST_wait_2 : 
-        begin
-          data_initB =  8'hFF;
-          cs_mB =  0;
-        end
-      ST_Init_3 : 
-        begin
-          data_initB =  8'hFF;
-          cs_mB =  0;
-          transcieve_mB =  1;
-        end
-      ST_wait_3 : 
-        begin
-          data_initB =  8'hFF;
-          cs_mB =  0;
-        end
-      ST_Init_4 : 
-        begin
-          data_initB =  8'hFF;
-          cs_mB =  0;
-          transcieve_mB =  1;
-        end
-      ST_wait_4 : 
-        begin
-          data_initB =  8'hFF;
-          cs_mB =  0;
-        end
-      ST_Init_5 : 
-        begin
-          data_initB =  8'hFF;
-          cs_mB =  0;
-          transcieve_mB =  1;
-        end
-      ST_wait_5 : 
-        begin
-          data_initB =  8'hFF;
-          cs_mB =  0;
-        end
-      ST_Init_6 : 
-        begin
-          data_initB =  8'hFF;
-          cs_mB =  0;
-          transcieve_mB =  1;
-        end
-      ST_wait_6 : 
-        begin
-          data_initB =  8'hFF;
-          cs_mB =  0;
-        end
-      ST_Init_7 : 
-        begin
-          data_initB =  8'hFF;
-          cs_mB =  0;
-          transcieve_mB =  1;
-        end
-      ST_wait_7 : 
-        begin
-          data_initB =  8'hFF;
-          cs_mB =  0;
-        end
-      ST_Init_8 : 
-        begin
-          data_initB =  8'hFF;
-          cs_mB =  0;
-          transcieve_mB =  1;
-        end
-      ST_wait_8 : 
-        begin
-          data_initB =  8'hFF;
-          cs_mB =  0;
-        end
-      ST_Init_9 : 
-        begin
-          data_initB =  8'hFF;
-          cs_mB =  0;
-          transcieve_mB =  1;
-        end
-      ST_wait_9 : 
-        begin
-          data_initB =  8'hFF;
-          cs_mB =  0;
-        end
-      ST_Init_10 : 
-        begin
-          data_initB =  8'hFF;
-          cs_mB =  0;
-          transcieve_mB =  1;
-        end
-      ST_wait_10 : 
-        begin
-          data_initB =  8'hFF;
-          cs_mB =  0;
-        end
-      ST_Init_11 : 
-        begin
-          data_initB =  8'hFF;
-          cs_mB =  0;
-          transcieve_mB =  1;
-        end
-      ST_wait_11 : 
-        begin
-          data_initB =  8'hFF;
-          cs_mB =  0;
-        end
-      ST_Init_12 : 
-        begin
-          data_initB =  8'hFF;
-          cs_mB =  0;
-          transcieve_mB =  1;
-        end
-      ST_wait_12 : 
-        begin
-          data_initB =  8'hFF;
-          cs_mB =  0;
-        end
-      ST_Init_13 : 
-        begin
-          data_initB =  8'hFF;
-          cs_mB =  0;
-          transcieve_mB =  1;
-        end
-      ST_wait_13 : 
-        begin
-          data_initB =  8'hFF;
-          cs_mB =  0;
-        end
-      ST_Init_14 : 
-        begin
-          data_initB =  8'hFF;
-          cs_mB =  0;
-          transcieve_mB =  1;
-        end
-      ST_wait_14 : 
-        begin
-          data_initB =  8'hFF;
-          cs_mB =  0;
-        end
-      st_Init_2 : 
-        begin
-          data_initB =  8'hFE;
-          cs_mB =  0;
-          transcieve_mB =  1;
-        end
-      ST_wait_15 : 
-        begin
-          data_initB =  8'hFE;
-          cs_mB =  0;
-        end
-      CS_high8 : 
-        begin
-          cs_mB =  1;
-          transcieve_mB =  1;
-        end
-      w_busy33 : 
-        begin
-          cs_mB =  1;
-        end
-      ST_Rest_3 : 
-        begin
-          data_initB =  8'h00;
-          cs_mB =  0;
-          transcieve_mB =  1;
-        end
-      ST_Rest_RS_3 : 
-        begin
-          data_initB =  8'h00;
-          cs_mB =  0;
-          transcieve_mB =  1;
-        end
-      ST_Rest_RS_4 : 
-        begin
-          data_initB =  8'h00;
-          cs_mB =  0;
-          transcieve_mB =  1;
-        end
-      St_wait1 : 
-        begin
-          data_initB =  8'h00;
-          cs_mB =  0;
-        end
-      St_wait5 : 
-        begin
-          data_initB =  8'h00;
-          cs_mB =  0;
-        end
-      St_wait6 : 
-        begin
-          data_initB =  8'h80;
-          cs_mB =  0;
-        end
-      St_wait7 : 
-        begin
-          data_initB =  8'h03;
-          cs_mB =  0;
-        end
-      St_wait8 : 
-        begin
-          data_initB =  8'h00;
-          cs_mB =  0;
-        end
-      St_wait9 : 
-        begin
-          data_initB =  8'h00;
-          cs_mB =  0;
-        end
-      St_wait10 : 
-        begin
-          data_initB =  8'h00;
-          cs_mB =  0;
-        end
-      CS_high9 : 
-        begin
-          cs_mB =  1;
-          transcieve_mB =  1;
-        end
-      w_busy34 : 
-        begin
-          cs_mB =  1;
-        end
-      St_wait13 : 
-        begin
-          data_initB =  8'h00;
-          cs_mB =  0;
-        end
-      ST_Rest_RS_6 : 
-        begin
-          data_initB =  8'h00;
-          cs_mB =  0;
-          transcieve_mB =  1;
-        end
-      ST_Rest_RS_7 : 
-        begin
-          data_initB =  8'h00;
-          cs_mB =  0;
-          transcieve_mB =  1;
-        end
-      St_wait14 : 
-        begin
-          data_initB =  8'h00;
-          cs_mB =  0;
-        end
-      ST_Rest_RS_8 : 
-        begin
-          data_initB =  8'h00;
-          cs_mB =  0;
-          transcieve_mB =  1;
-        end
-      St_wait15 : 
-        begin
-          data_initB =  8'h00;
-          cs_mB =  0;
-        end
-      St_wait16 : 
-        begin
-          data_initB =  8'h0B;
-          cs_mB =  0;
-        end
-      CS_high10 : 
-        begin
-          cs_mB =  1;
-          transcieve_mB =  1;
-        end
-      w_busy35 : 
-        begin
-          cs_mB =  1;
-        end
-      CS_high12 : 
-        begin
-          cs_mB =  1;
-          transcieve_mB =  1;
-        end
-      w_busy36 : 
-        begin
-          cs_mB =  1;
-        end
-      CS_high13 : 
-        begin
-          cs_mB =  1;
-          transcieve_mB =  1;
-        end
-      w_busy37 : 
-        begin
-          cs_mB =  1;
-        end
-      w_busy38 : 
-        begin
-          cs_mB =  1;
-        end
-      CS_high14 : 
-        begin
-          cs_mB =  1;
-          transcieve_mB =  1;
-        end
-      CS_high15 : 
-        begin
-          cs_mB =  1;
-          transcieve_mB =  1;
-        end
-      w_busy39 : 
-        begin
-          cs_mB =  1;
-        end
-      St_wait17 : 
-        begin
-          data_initB =  8'h00;
-          cs_mB =  0;
-        end
-      St_wait18 : 
-        begin
-          data_initB =  8'h03;
-          cs_mB =  0;
-        end
-      St_wait19 : 
-        begin
-          data_initB =  8'h30;
-          cs_mB =  0;
-        end
-      St_wait20 : 
-        begin
-          data_initB =  8'h00;
-          cs_mB =  0;
-        end
-      St_wait32 : 
-        begin
-          data_initB =  8'h81;
-          cs_mB =  0;
-        end
-      St_wait33 : 
-        begin
-          data_initB =  8'h89;
-          cs_mB =  0;
-        end
-      St_wait34 : 
-        begin
-          data_initB =  8'h00;
-          cs_mB =  0;
-        end
-      ST_Config5 : 
-        begin
-          data_initB =  8'h00;
-          cs_mB =  0;
-          transcieve_mB =  1;
-        end
-      ST_Config6 : 
-        begin
-          data_initB =  8'h00;
-          cs_mB =  0;
-          transcieve_mB =  1;
-        end
-      St_wait35 : 
-        begin
-          data_initB =  8'h00;
-          cs_mB =  0;
-        end
-      ST_Config7 : 
-        begin
-          data_initB =  8'h30;
-          cs_mB =  0;
-          transcieve_mB =  1;
-        end
-      St_wait36 : 
-        begin
-          data_initB =  8'h30;
-          cs_mB =  0;
-        end
-      ST_Config8 : 
-        begin
-          data_initB =  8'h00;
-          cs_mB =  0;
-          transcieve_mB =  1;
-        end
-      St_wait37 : 
-        begin
-          data_initB =  8'h00;
-          cs_mB =  0;
-        end
-      ST_Config9 : 
-        begin
-          data_initB =  8'h30;
-          cs_mB =  0;
-          transcieve_mB =  1;
-        end
-      St_wait38 : 
-        begin
-          data_initB =  8'h30;
-          cs_mB =  0;
-        end
-      ST_Config10 : 
-        begin
-          data_initB =  8'h00;
-          cs_mB =  0;
-          transcieve_mB =  1;
-        end
-      St_wait39 : 
-        begin
-          data_initB =  8'h00;
-          cs_mB =  0;
-        end
-      St_wait40 : 
-        begin
-          data_initB =  8'h91;
-          cs_mB =  0;
-        end
-      ST_Config11 : 
-        begin
-          data_initB =  8'h00;
-          cs_mB =  0;
-          transcieve_mB =  1;
-        end
-      St_wait41 : 
-        begin
-          data_initB =  8'h00;
-          cs_mB =  0;
-        end
-      ST_Config12 : 
-        begin
-          data_initB =  8'h30;
-          cs_mB =  0;
-          transcieve_mB =  1;
-        end
-      St_wait42 : 
-        begin
-          data_initB =  8'h30;
-          cs_mB =  0;
-        end
-      ST_Config13 : 
-        begin
-          data_initB =  8'h00;
-          cs_mB =  0;
-          transcieve_mB =  1;
-        end
-      St_wait43 : 
-        begin
-          data_initB =  8'h00;
-          cs_mB =  0;
-        end
-      St_wait44 : 
-        begin
-          data_initB =  8'h99;
-          cs_mB =  0;
-        end
-      ST_Config14 : 
-        begin
-          data_initB =  8'h00;
-          cs_mB =  0;
-          transcieve_mB =  1;
-        end
-      St_wait45 : 
-        begin
-          data_initB =  8'h00;
-          cs_mB =  0;
-        end
-      ST_Config15 : 
-        begin
-          data_initB =  8'h30;
-          cs_mB =  0;
-          transcieve_mB =  1;
-        end
-      St_wait46 : 
-        begin
-          data_initB =  8'h30;
-          cs_mB =  0;
-        end
-      ST_Config16 : 
-        begin
-          data_initB =  8'h00;
-          cs_mB =  0;
-          transcieve_mB =  1;
-        end
-      St_wait47 : 
-        begin
-          data_initB =  8'h00;
-          cs_mB =  0;
-        end
-      St_wait25 : 
-        begin
-          data_initB =  8'h05;
-          cs_mB =  0;
-        end
-      St_wait26 : 
-        begin
-          data_initB =  8'h00;
-          cs_mB =  0;
-        end
-      St_wait27 : 
-        begin
-          data_initB =  8'hB0;
-          cs_mB =  0;
-        end
-      St_wait28 : 
-        begin
-          data_initB =  8'h8B;
-          cs_mB =  0;
-        end
-      St_wait29 : 
-        begin
-          data_initB =  8'h10;
-          cs_mB =  0;
-        end
-      St_wait30 : 
-        begin
-          data_initB =  8'hB1;
-          cs_mB =  0;
-        end
-      St_wait31 : 
-        begin
-          data_initB =  8'h8B;
-          cs_mB =  0;
-        end
-      ST_Read_reg2 : 
-        begin
-          data_initB =  8'h0B;
-          cs_mB =  0;
-          transcieve_mB =  1;
-        end
-      St_wait21 : 
-        begin
-          data_initB =  8'h00;
-          cs_mB =  0;
-        end
-      ST_Rest_RS_9 : 
-        begin
-          data_initB =  8'h00;
-          cs_mB =  0;
-          transcieve_mB =  1;
-        end
-      ST_Rest_RS_10 : 
-        begin
-          data_initB =  8'h00;
-          cs_mB =  0;
-          transcieve_mB =  1;
-        end
-      St_wait22 : 
-        begin
-          data_initB =  8'h00;
-          cs_mB =  0;
-        end
-      ST_Rest_RS_11 : 
-        begin
-          data_initB =  8'h00;
-          cs_mB =  0;
-          transcieve_mB =  1;
-        end
-      St_wait23 : 
-        begin
-          data_initB =  8'h00;
-          cs_mB =  0;
-        end
-      St_wait24 : 
-        begin
-          data_initB =  8'h0B;
-          cs_mB =  0;
-        end
-      ST_Config17 : 
-        begin
-          data_initB =  8'h00;
-          cs_mB =  0;
-          transcieve_mB =  1;
-        end
-      St_wait48 : 
-        begin
-          data_initB =  8'h00;
-          cs_mB =  0;
-        end
-      ST_Config18 : 
-        begin
-          data_initB =  8'h30;
-          cs_mB =  0;
-          transcieve_mB =  1;
-        end
-      St_wait49 : 
-        begin
-          data_initB =  8'h30;
-          cs_mB =  0;
-        end
-      St_wait50 : 
-        begin
-          data_initB =  8'h82;
-          cs_mB =  0;
-        end
-      St_wait51 : 
-        begin
-          data_initB =  8'h8A;
-          cs_mB =  0;
-        end
-      ST_Config19 : 
-        begin
-          data_initB =  8'h00;
-          cs_mB =  0;
-          transcieve_mB =  1;
-        end
-      St_wait52 : 
-        begin
-          data_initB =  8'h00;
-          cs_mB =  0;
-        end
-      ST_Config20 : 
-        begin
-          data_initB =  8'h30;
-          cs_mB =  0;
-          transcieve_mB =  1;
-        end
-      St_wait53 : 
-        begin
-          data_initB =  8'h30;
-          cs_mB =  0;
-        end
-      St_wait54 : 
-        begin
-          data_initB =  8'h92;
-          cs_mB =  0;
-        end
-      ST_Config21 : 
-        begin
-          data_initB =  8'h00;
-          cs_mB =  0;
-          transcieve_mB =  1;
-        end
-      St_wait55 : 
-        begin
-          data_initB =  8'h00;
-          cs_mB =  0;
-        end
-      ST_Config22 : 
-        begin
-          data_initB =  8'h30;
-          cs_mB =  0;
-          transcieve_mB =  1;
-        end
-      St_wait56 : 
-        begin
-          data_initB =  8'h30;
-          cs_mB =  0;
-        end
-      St_wait57 : 
-        begin
-          data_initB =  8'h9A;
-          cs_mB =  0;
-        end
-      ST_Config23 : 
-        begin
-          data_initB =  8'h00;
-          cs_mB =  0;
-          transcieve_mB =  1;
-        end
-      St_wait58 : 
-        begin
-          data_initB =  8'h00;
-          cs_mB =  0;
-        end
-      ST_Config24 : 
-        begin
-          data_initB =  8'h30;
-          cs_mB =  0;
-          transcieve_mB =  1;
-        end
-      St_wait59 : 
-        begin
-          data_initB =  8'h30;
-          cs_mB =  0;
-        end
-      ST_CountRst : 
-        begin
-          rst_mon_cntB =  1;
-        end
-      ST_Start_Cnt : 
-        begin
-          start_mon_cntB =  1;
-        end
-      ST_Read_reg3 : 
-        begin
-          data_initB =  8'h0B;
-          cs_mB =  0;
-          transcieve_mB =  1;
-        end
-      St_wait60 : 
-        begin
-          data_initB =  8'h00;
-          cs_mB =  0;
-        end
-      ST_Rest_RS_12 : 
-        begin
-          data_initB =  8'h00;
-          cs_mB =  0;
-          transcieve_mB =  1;
-        end
-      ST_Rest_RS_13 : 
-        begin
-          data_initB =  8'h00;
-          cs_mB =  0;
-          transcieve_mB =  1;
-        end
-      St_wait61 : 
-        begin
-          data_initB =  8'h00;
-          cs_mB =  0;
-        end
-      ST_Rest_RS_14 : 
-        begin
-          data_initB =  8'h00;
-          cs_mB =  0;
-          transcieve_mB =  1;
-        end
-      St_wait62 : 
-        begin
-          data_initB =  8'h00;
-          cs_mB =  0;
-        end
-      St_wait63 : 
-        begin
-          data_initB =  8'h0B;
-          cs_mB =  0;
-        end
-      CS_high16 : 
-        begin
-          cs_pB =  1;
-          transcieve_pB =  1;
-        end
-      w_busy43 : 
-        begin
-          cs_pB =  1;
-        end
-      st_GPIOA15 : 
-        begin
-          data_initB =  8'h40;
-          cs_pB =  0;
-          transcieve_pB =  1;
-        end
-      st_GPIOA16 : 
-        begin
-          data_initB =  8'h09;
-          cs_pB =  0;
-          transcieve_pB =  1;
-        end
-      st_GPIOA17 : 
-        begin
-          data_initB =  8'h01;
-          cs_pB =  0;
-          transcieve_pB =  1;
-        end
-      w_busy40 : 
-        begin
-          data_initB =  8'h40;
-          cs_pB =  0;
-        end
-      w_busy41 : 
-        begin
-          data_initB =  8'h09;
-          cs_pB =  0;
-        end
-      w_busy42 : 
-        begin
-          data_initB =  8'h01;
-          cs_pB =  0;
-        end
-      CS_high6 : 
-        begin
-          cs_pB =  1;
-          transcieve_pB =  1;
-        end
-      w_busy44 : 
-        begin
-          cs_pB =  1;
-        end
-      CS_high17 : 
-        begin
-          cs_pB =  1;
-          transcieve_pB =  1;
-        end
-      w_busy48 : 
-        begin
-          cs_pB =  1;
-        end
-      st_GPIOA12 : 
-        begin
-          data_initB =  8'h40;
-          cs_pB =  0;
-          transcieve_pB =  1;
-        end
-      st_GPIOA13 : 
-        begin
-          data_initB =  8'h12;
-          cs_pB =  0;
-          transcieve_pB =  1;
-        end
-      st_GPIOA14 : 
-        begin
-          data_initB =  8'h01;
-          cs_pB =  0;
-          transcieve_pB =  1;
-        end
-      w_busy18 : 
-        begin
-          data_initB =  8'h40;
-          cs_pB =  0;
-        end
-      w_busy19 : 
-        begin
-          data_initB =  8'h12;
-          cs_pB =  0;
-        end
-      w_busy20 : 
-        begin
-          data_initB =  8'h01;
-          cs_pB =  0;
-        end
-      st_GPIOA18 : 
-        begin
-          data_initB =  8'h40;
-          cs_pB =  0;
-          transcieve_pB =  1;
-        end
-      st_GPIOA19 : 
-        begin
-          data_initB =  8'h09;
-          cs_pB =  0;
-          transcieve_pB =  1;
-        end
-      st_GPIOA20 : 
-        begin
-          data_initB =  8'h01;
-          cs_pB =  0;
-          transcieve_pB =  1;
-        end
-      w_busy45 : 
-        begin
-          data_initB =  8'h40;
-          cs_pB =  0;
-        end
-      w_busy46 : 
-        begin
-          data_initB =  8'h09;
-          cs_pB =  0;
-        end
-      w_busy47 : 
-        begin
-          data_initB =  8'h01;
-          cs_pB =  0;
-        end
-      CS_high11 : 
-        begin
-          cs_pB =  1;
-          transcieve_pB =  1;
-        end
-      w_busy49 : 
-        begin
-          cs_pB =  1;
-        end
-      CS_high18 : 
-        begin
-          cs_pB =  1;
-          transcieve_pB =  1;
-        end
-      w_busy53 : 
-        begin
-          cs_pB =  1;
-        end
-      st_GPIOA21 : 
-        begin
-          data_initB =  8'h40;
-          cs_pB =  0;
-          transcieve_pB =  1;
-        end
-      st_GPIOA22 : 
-        begin
-          data_initB =  8'h12;
-          cs_pB =  0;
-          transcieve_pB =  1;
-        end
-      st_GPIOA23 : 
-        begin
-          data_initB =  8'h00;
-          cs_pB =  0;
-          transcieve_pB =  1;
-        end
-      w_busy21 : 
-        begin
-          data_initB =  8'h40;
-          cs_pB =  0;
-        end
-      w_busy22 : 
-        begin
-          data_initB =  8'h12;
-          cs_pB =  0;
-        end
-      w_busy23 : 
-        begin
-          data_initB =  8'h00;
-          cs_pB =  0;
-        end
-      st_GPIOA24 : 
-        begin
-          data_initB =  8'h40;
-          cs_pB =  0;
-          transcieve_pB =  1;
-        end
-      st_GPIOA25 : 
-        begin
-          data_initB =  8'h09;
-          cs_pB =  0;
-          transcieve_pB =  1;
-        end
-      st_GPIOA26 : 
-        begin
-          data_initB =  8'h00;
-          cs_pB =  0;
-          transcieve_pB =  1;
-        end
-      w_busy50 : 
-        begin
-          data_initB =  8'h40;
-          cs_pB =  0;
-        end
-      w_busy51 : 
-        begin
-          data_initB =  8'h09;
-          cs_pB =  0;
-        end
-      w_busy52 : 
-        begin
-          data_initB =  8'h00;
-          cs_pB =  0;
-        end
-    endcase
-  end
-
-always @( current_stateC )
-  begin : output_block_procC
-    bus_en_doneC =  0;
-    cs_mC =  1;
-    cs_pC =  1;
-    data_initC =  8'b0;
-    end_spi_procC =  0;
-    entimeoutC =  1;
-    mon_en_doneC =  0;
-    read_spi_modeC =  0;
-    rst_mon_cntC =  0;
-    spi_csC =  1;
-    start_cntC =  0;
-    start_initC =  0;
-    start_mon_cntC =  0;
-    start_read_elinkC =  0;
-    start_read_misoC =  0;
-    start_write_elink_spiC =  0;
-    transcieve_mC =  0;
-    transcieve_pC =  0;
-    case (current_stateC)
-      waittoact : 
-        begin
-          entimeoutC =  0;
-        end
-      reset : 
-        begin
-          read_spi_modeC =  0;
-        end
-      start : 
-        begin
-          start_initC =  1;
-        end
-      endinit1 : 
-        begin
-          mon_en_doneC =  1;
-        end
-      start1 : 
-        begin
-          start_initC =  1;
-        end
-      ST_Read_reg : 
-        begin
-          data_initC =  8'h0B;
-          cs_mC =  0;
-          transcieve_mC =  1;
-        end
-      st_GPIOA : 
-        begin
-          data_initC =  8'h40;
-          cs_pC =  0;
-          transcieve_pC =  1;
-        end
-      st_GPIOA1 : 
-        begin
-          data_initC =  8'h12;
-          cs_pC =  0;
-          transcieve_pC =  1;
-        end
-      st_GPIOA2 : 
-        begin
-          data_initC =  8'h01;
-          cs_pC =  0;
-          transcieve_pC =  1;
-        end
-      End_Select : 
-        begin
-          bus_en_doneC =  1;
-        end
-      Write_Mosi : 
-        begin
-          spi_csC =  0;
-          read_spi_modeC =  1;
-        end
-      read_elink_mes1 : 
-        begin
-          start_read_elinkC =  1;
-          read_spi_modeC =  1;
-        end
-      CS_low : 
-        begin
-          spi_csC =  0;
-          read_spi_modeC =  1;
-        end
-      Read_Miso : 
-        begin
-          start_read_misoC =  1;
-          spi_csC =  0;
-          read_spi_modeC =  1;
-        end
-      Done : 
-        begin
-          end_spi_procC =  1;
-          read_spi_modeC =  1;
-        end
-      write_elink : 
-        begin
-          start_write_elink_spiC =  1;
-          read_spi_modeC =  1;
-        end
-      Wait_Miso : 
-        begin
-          read_spi_modeC =  1;
-        end
-      Offset_cal0 : 
-        begin
-          data_initC =  8'h81;
-          cs_mC =  0;
-          transcieve_mC =  1;
-        end
-      Offset__cal1 : 
-        begin
-          data_initC =  8'h89;
-          cs_mC =  0;
-          transcieve_mC =  1;
-        end
-      Offset__cal2 : 
-        begin
-          data_initC =  8'h91;
-          cs_mC =  0;
-          transcieve_mC =  1;
-        end
-      Offset__cal3 : 
-        begin
-          data_initC =  8'h99;
-          cs_mC =  0;
-          transcieve_mC =  1;
-        end
-      Gain_cal0 : 
-        begin
-          data_initC =  8'h82;
-          cs_mC =  0;
-          transcieve_mC =  1;
-        end
-      Gain_cal1 : 
-        begin
-          data_initC =  8'h8A;
-          cs_mC =  0;
-          transcieve_mC =  1;
-        end
-      Gain_cal2 : 
-        begin
-          data_initC =  8'h92;
-          cs_mC =  0;
-          transcieve_mC =  1;
-        end
-      Gain_cal3 : 
-        begin
-          data_initC =  8'h9A;
-          cs_mC =  0;
-          transcieve_mC =  1;
-        end
-      write_csrs7 : 
-        begin
-          data_initC =  8'h8B;
-          cs_mC =  0;
-          transcieve_mC =  1;
-        end
-      write_csrs6 : 
-        begin
-          data_initC =  8'hB1;
-          cs_mC =  0;
-          transcieve_mC =  1;
-        end
-      write_csrs5 : 
-        begin
-          data_initC =  8'h10;
-          cs_mC =  0;
-          transcieve_mC =  1;
-        end
-      write_csrs4 : 
-        begin
-          data_initC =  8'h8B;
-          cs_mC =  0;
-          transcieve_mC =  1;
-        end
-      write_csrs0 : 
-        begin
-          data_initC =  8'h05;
-          cs_mC =  0;
-          transcieve_mC =  1;
-        end
-      write_csrs1 : 
-        begin
-          data_initC =  8'h00;
-          cs_mC =  0;
-          transcieve_mC =  1;
-        end
-      write_csrs2 : 
-        begin
-          data_initC =  8'hB0;
-          cs_mC =  0;
-          transcieve_mC =  1;
-        end
-      ST_Config4 : 
-        begin
-          data_initC =  8'h00;
-          cs_mC =  0;
-          transcieve_mC =  1;
-        end
-      ST_Config3 : 
-        begin
-          data_initC =  8'h30;
-          cs_mC =  0;
-          transcieve_mC =  1;
-        end
-      ST_Config1 : 
-        begin
-          data_initC =  8'h03;
-          cs_mC =  0;
-          transcieve_mC =  1;
-        end
-      ST_Config2 : 
-        begin
-          data_initC =  8'h00;
-          cs_mC =  0;
-          transcieve_mC =  1;
-        end
-      ST_Rest_2 : 
-        begin
-          data_initC =  8'h00;
-          cs_mC =  0;
-          transcieve_mC =  1;
-        end
-      ST_Rest_4 : 
-        begin
-          data_initC =  8'h80;
-          cs_mC =  0;
-          transcieve_mC =  1;
-        end
-      ST_Rest_1 : 
-        begin
-          data_initC =  8'h03;
-          cs_mC =  0;
-          transcieve_mC =  1;
-        end
-      St_wait : 
-        begin
-          data_initC =  8'h03;
-          cs_mC =  0;
-        end
-      ST_Rest_RS_1 : 
-        begin
-          data_initC =  8'h03;
-          cs_mC =  0;
-          transcieve_mC =  1;
-        end
-      ST_Rest_RS_2 : 
-        begin
-          data_initC =  8'h00;
-          cs_mC =  0;
-          transcieve_mC =  1;
-        end
-      st_GPIOA9 : 
-        begin
-          data_initC =  8'h40;
-          cs_pC =  0;
-        end
-      st_GPIOA10 : 
-        begin
-          data_initC =  8'h12;
-          cs_pC =  0;
-        end
-      st_GPIOA11 : 
-        begin
-          data_initC =  8'h00;
-          cs_pC =  0;
-        end
-      w_busy15 : 
-        begin
-          data_initC =  8'h40;
-          cs_pC =  0;
-        end
-      w_busy16 : 
-        begin
-          data_initC =  8'h12;
-          cs_pC =  0;
-        end
-      w_busy17 : 
-        begin
-          data_initC =  8'h01;
-          cs_pC =  0;
-        end
-      ST_IODIRA0 : 
-        begin
-          data_initC =  8'h40;
-          cs_pC =  0;
-          transcieve_pC =  1;
-        end
-      w_busy0 : 
-        begin
-          data_initC =  8'h40;
-          cs_pC =  0;
-        end
-      ST_IODIRA1 : 
-        begin
-          data_initC =  8'h00;
-          cs_pC =  0;
-          transcieve_pC =  1;
-        end
-      w_busy1 : 
-        begin
-          cs_pC =  0;
-          data_initC =  8'h00;
-        end
-      ST_IODIRA2 : 
-        begin
-          data_initC =  8'h00;
-          cs_pC =  0;
-          transcieve_pC =  1;
-        end
-      w_busy2 : 
-        begin
-          data_initC =  8'h00;
-          cs_pC =  0;
-        end
-      w_busy5 : 
-        begin
-          data_initC =  8'h00;
-          cs_pC =  0;
-        end
-      st_IODIRB1 : 
-        begin
-          data_initC =  8'h01;
-          cs_pC =  0;
-          transcieve_pC =  1;
-        end
-      st_IODIRB2 : 
-        begin
-          data_initC =  8'h00;
-          cs_pC =  0;
-          transcieve_pC =  1;
-        end
-      st_IODIRB : 
-        begin
-          data_initC =  8'h40;
-          cs_pC =  0;
-          transcieve_pC =  1;
-        end
-      w_busy3 : 
-        begin
-          data_initC =  8'h40;
-          cs_pC =  0;
-        end
-      w_busy4 : 
-        begin
-          data_initC =  8'h01;
-          cs_pC =  0;
-        end
-      w_busy7 : 
-        begin
-          data_initC =  8'h13;
-          cs_pC =  0;
-        end
-      st_GPIOB2 : 
-        begin
-          data_initC =  8'h00;
-          cs_pC =  0;
-          transcieve_pC =  1;
-        end
-      st_GPIOB1 : 
-        begin
-          data_initC =  8'h13;
-          cs_pC =  0;
-          transcieve_pC =  1;
-        end
-      w_busy8 : 
-        begin
-          data_initC =  8'h00;
-          cs_pC =  0;
-        end
-      w_busy6 : 
-        begin
-          data_initC =  8'h40;
-          cs_pC =  0;
-        end
-      st_GPIOB0 : 
-        begin
-          data_initC =  8'h40;
-          cs_pC =  0;
-          transcieve_pC =  1;
-        end
-      st_GPPUA : 
-        begin
-          data_initC =  8'h40;
-          cs_pC =  0;
-          transcieve_pC =  1;
-        end
-      w_busy11 : 
-        begin
-          data_initC =  8'h0C;
-          cs_pC =  0;
-        end
-      w_busy9 : 
-        begin
-          cs_pC =  0;
-          data_initC =  8'h40;
-        end
-      st_GPPUA2 : 
-        begin
-          data_initC =  8'hFE;
-          cs_pC =  0;
-          transcieve_pC =  1;
-        end
-      st_GPPUA1 : 
-        begin
-          data_initC =  8'h0C;
-          cs_pC =  0;
-          transcieve_pC =  1;
-        end
-      w_busy10 : 
-        begin
-          data_initC =  8'hFE;
-          cs_pC =  0;
-        end
-      st_GPPUB1 : 
-        begin
-          data_initC =  8'h0D;
-          cs_pC =  0;
-          transcieve_pC =  1;
-        end
-      w_busy13 : 
-        begin
-          data_initC =  8'h0D;
-          cs_pC =  0;
-        end
-      w_busy12 : 
-        begin
-          data_initC =  8'h40;
-          cs_pC =  0;
-        end
-      st_GPPUB2 : 
-        begin
-          data_initC =  8'hFF;
-          cs_pC =  0;
-          transcieve_pC =  1;
-        end
-      w_busy14 : 
-        begin
-          data_initC =  8'hFF;
-          cs_pC =  0;
-        end
-      st_GPPUB : 
-        begin
-          data_initC =  8'h40;
-          cs_pC =  0;
-          transcieve_pC =  1;
-        end
-      CS_high0 : 
-        begin
-          cs_pC =  1;
-          transcieve_pC =  1;
-        end
-      CS_high1 : 
-        begin
-          cs_pC =  1;
-          transcieve_pC =  1;
-        end
-      CS_high2 : 
-        begin
-          cs_pC =  1;
-          transcieve_pC =  1;
-        end
-      CS_high3 : 
-        begin
-          cs_pC =  1;
-          transcieve_pC =  1;
-        end
-      CS_high4 : 
-        begin
-          cs_pC =  1;
-          transcieve_pC =  1;
-        end
-      CS_high5 : 
-        begin
-          cs_pC =  1;
-          transcieve_pC =  1;
-        end
-      w_busy26 : 
-        begin
-          cs_pC =  1;
-        end
-      w_busy27 : 
-        begin
-          cs_pC =  1;
-        end
-      w_busy28 : 
-        begin
-          cs_pC =  1;
-        end
-      w_busy29 : 
-        begin
-          cs_pC =  1;
-        end
-      w_busy30 : 
-        begin
-          cs_pC =  1;
-        end
-      w_busy31 : 
-        begin
-          cs_pC =  1;
-        end
-      CS_high7 : 
-        begin
-          cs_mC =  1;
-          transcieve_mC =  1;
-        end
-      w_busy32 : 
-        begin
-          cs_mC =  1;
-        end
-      ST_Init_0 : 
-        begin
-          data_initC =  8'hFF;
-          cs_mC =  0;
-          transcieve_mC =  1;
-        end
-      ST_wait_0 : 
-        begin
-          data_initC =  8'hFF;
-          cs_mC =  0;
-        end
-      ST_Init_1 : 
-        begin
-          data_initC =  8'hFF;
-          cs_mC =  0;
-          transcieve_mC =  1;
-        end
-      ST_wait_1 : 
-        begin
-          data_initC =  8'hFF;
-          cs_mC =  0;
-        end
-      ST_Init_2 : 
-        begin
-          data_initC =  8'hFF;
-          cs_mC =  0;
-          transcieve_mC =  1;
-        end
-      ST_wait_2 : 
-        begin
-          data_initC =  8'hFF;
-          cs_mC =  0;
-        end
-      ST_Init_3 : 
-        begin
-          data_initC =  8'hFF;
-          cs_mC =  0;
-          transcieve_mC =  1;
-        end
-      ST_wait_3 : 
-        begin
-          data_initC =  8'hFF;
-          cs_mC =  0;
-        end
-      ST_Init_4 : 
-        begin
-          data_initC =  8'hFF;
-          cs_mC =  0;
-          transcieve_mC =  1;
-        end
-      ST_wait_4 : 
-        begin
-          data_initC =  8'hFF;
-          cs_mC =  0;
-        end
-      ST_Init_5 : 
-        begin
-          data_initC =  8'hFF;
-          cs_mC =  0;
-          transcieve_mC =  1;
-        end
-      ST_wait_5 : 
-        begin
-          data_initC =  8'hFF;
-          cs_mC =  0;
-        end
-      ST_Init_6 : 
-        begin
-          data_initC =  8'hFF;
-          cs_mC =  0;
-          transcieve_mC =  1;
-        end
-      ST_wait_6 : 
-        begin
-          data_initC =  8'hFF;
-          cs_mC =  0;
-        end
-      ST_Init_7 : 
-        begin
-          data_initC =  8'hFF;
-          cs_mC =  0;
-          transcieve_mC =  1;
-        end
-      ST_wait_7 : 
-        begin
-          data_initC =  8'hFF;
-          cs_mC =  0;
-        end
-      ST_Init_8 : 
-        begin
-          data_initC =  8'hFF;
-          cs_mC =  0;
-          transcieve_mC =  1;
-        end
-      ST_wait_8 : 
-        begin
-          data_initC =  8'hFF;
-          cs_mC =  0;
-        end
-      ST_Init_9 : 
-        begin
-          data_initC =  8'hFF;
-          cs_mC =  0;
-          transcieve_mC =  1;
-        end
-      ST_wait_9 : 
-        begin
-          data_initC =  8'hFF;
-          cs_mC =  0;
-        end
-      ST_Init_10 : 
-        begin
-          data_initC =  8'hFF;
-          cs_mC =  0;
-          transcieve_mC =  1;
-        end
-      ST_wait_10 : 
-        begin
-          data_initC =  8'hFF;
-          cs_mC =  0;
-        end
-      ST_Init_11 : 
-        begin
-          data_initC =  8'hFF;
-          cs_mC =  0;
-          transcieve_mC =  1;
-        end
-      ST_wait_11 : 
-        begin
-          data_initC =  8'hFF;
-          cs_mC =  0;
-        end
-      ST_Init_12 : 
-        begin
-          data_initC =  8'hFF;
-          cs_mC =  0;
-          transcieve_mC =  1;
-        end
-      ST_wait_12 : 
-        begin
-          data_initC =  8'hFF;
-          cs_mC =  0;
-        end
-      ST_Init_13 : 
-        begin
-          data_initC =  8'hFF;
-          cs_mC =  0;
-          transcieve_mC =  1;
-        end
-      ST_wait_13 : 
-        begin
-          data_initC =  8'hFF;
-          cs_mC =  0;
-        end
-      ST_Init_14 : 
-        begin
-          data_initC =  8'hFF;
-          cs_mC =  0;
-          transcieve_mC =  1;
-        end
-      ST_wait_14 : 
-        begin
-          data_initC =  8'hFF;
-          cs_mC =  0;
-        end
-      st_Init_2 : 
-        begin
-          data_initC =  8'hFE;
-          cs_mC =  0;
-          transcieve_mC =  1;
-        end
-      ST_wait_15 : 
-        begin
-          data_initC =  8'hFE;
-          cs_mC =  0;
-        end
-      CS_high8 : 
-        begin
-          cs_mC =  1;
-          transcieve_mC =  1;
-        end
-      w_busy33 : 
-        begin
-          cs_mC =  1;
-        end
-      ST_Rest_3 : 
-        begin
-          data_initC =  8'h00;
-          cs_mC =  0;
-          transcieve_mC =  1;
-        end
-      ST_Rest_RS_3 : 
-        begin
-          data_initC =  8'h00;
-          cs_mC =  0;
-          transcieve_mC =  1;
-        end
-      ST_Rest_RS_4 : 
-        begin
-          data_initC =  8'h00;
-          cs_mC =  0;
-          transcieve_mC =  1;
-        end
-      St_wait1 : 
-        begin
-          data_initC =  8'h00;
-          cs_mC =  0;
-        end
-      St_wait5 : 
-        begin
-          data_initC =  8'h00;
-          cs_mC =  0;
-        end
-      St_wait6 : 
-        begin
-          data_initC =  8'h80;
-          cs_mC =  0;
-        end
-      St_wait7 : 
-        begin
-          data_initC =  8'h03;
-          cs_mC =  0;
-        end
-      St_wait8 : 
-        begin
-          data_initC =  8'h00;
-          cs_mC =  0;
-        end
-      St_wait9 : 
-        begin
-          data_initC =  8'h00;
-          cs_mC =  0;
-        end
-      St_wait10 : 
-        begin
-          data_initC =  8'h00;
-          cs_mC =  0;
-        end
-      CS_high9 : 
-        begin
-          cs_mC =  1;
-          transcieve_mC =  1;
-        end
-      w_busy34 : 
-        begin
-          cs_mC =  1;
-        end
-      St_wait13 : 
-        begin
-          data_initC =  8'h00;
-          cs_mC =  0;
-        end
-      ST_Rest_RS_6 : 
-        begin
-          data_initC =  8'h00;
-          cs_mC =  0;
-          transcieve_mC =  1;
-        end
-      ST_Rest_RS_7 : 
-        begin
-          data_initC =  8'h00;
-          cs_mC =  0;
-          transcieve_mC =  1;
-        end
-      St_wait14 : 
-        begin
-          data_initC =  8'h00;
-          cs_mC =  0;
-        end
-      ST_Rest_RS_8 : 
-        begin
-          data_initC =  8'h00;
-          cs_mC =  0;
-          transcieve_mC =  1;
-        end
-      St_wait15 : 
-        begin
-          data_initC =  8'h00;
-          cs_mC =  0;
-        end
-      St_wait16 : 
-        begin
-          data_initC =  8'h0B;
-          cs_mC =  0;
-        end
-      CS_high10 : 
-        begin
-          cs_mC =  1;
-          transcieve_mC =  1;
-        end
-      w_busy35 : 
-        begin
-          cs_mC =  1;
-        end
-      CS_high12 : 
-        begin
-          cs_mC =  1;
-          transcieve_mC =  1;
-        end
-      w_busy36 : 
-        begin
-          cs_mC =  1;
-        end
-      CS_high13 : 
-        begin
-          cs_mC =  1;
-          transcieve_mC =  1;
-        end
-      w_busy37 : 
-        begin
-          cs_mC =  1;
-        end
-      w_busy38 : 
-        begin
-          cs_mC =  1;
-        end
-      CS_high14 : 
-        begin
-          cs_mC =  1;
-          transcieve_mC =  1;
-        end
-      CS_high15 : 
-        begin
-          cs_mC =  1;
-          transcieve_mC =  1;
-        end
-      w_busy39 : 
-        begin
-          cs_mC =  1;
-        end
-      St_wait17 : 
-        begin
-          data_initC =  8'h00;
-          cs_mC =  0;
-        end
-      St_wait18 : 
-        begin
-          data_initC =  8'h03;
-          cs_mC =  0;
-        end
-      St_wait19 : 
-        begin
-          data_initC =  8'h30;
-          cs_mC =  0;
-        end
-      St_wait20 : 
-        begin
-          data_initC =  8'h00;
-          cs_mC =  0;
-        end
-      St_wait32 : 
-        begin
-          data_initC =  8'h81;
-          cs_mC =  0;
-        end
-      St_wait33 : 
-        begin
-          data_initC =  8'h89;
-          cs_mC =  0;
-        end
-      St_wait34 : 
-        begin
-          data_initC =  8'h00;
-          cs_mC =  0;
-        end
-      ST_Config5 : 
-        begin
-          data_initC =  8'h00;
-          cs_mC =  0;
-          transcieve_mC =  1;
-        end
-      ST_Config6 : 
-        begin
-          data_initC =  8'h00;
-          cs_mC =  0;
-          transcieve_mC =  1;
-        end
-      St_wait35 : 
-        begin
-          data_initC =  8'h00;
-          cs_mC =  0;
-        end
-      ST_Config7 : 
-        begin
-          data_initC =  8'h30;
-          cs_mC =  0;
-          transcieve_mC =  1;
-        end
-      St_wait36 : 
-        begin
-          data_initC =  8'h30;
-          cs_mC =  0;
-        end
-      ST_Config8 : 
-        begin
-          data_initC =  8'h00;
-          cs_mC =  0;
-          transcieve_mC =  1;
-        end
-      St_wait37 : 
-        begin
-          data_initC =  8'h00;
-          cs_mC =  0;
-        end
-      ST_Config9 : 
-        begin
-          data_initC =  8'h30;
-          cs_mC =  0;
-          transcieve_mC =  1;
-        end
-      St_wait38 : 
-        begin
-          data_initC =  8'h30;
-          cs_mC =  0;
-        end
-      ST_Config10 : 
-        begin
-          data_initC =  8'h00;
-          cs_mC =  0;
-          transcieve_mC =  1;
-        end
-      St_wait39 : 
-        begin
-          data_initC =  8'h00;
-          cs_mC =  0;
-        end
-      St_wait40 : 
-        begin
-          data_initC =  8'h91;
-          cs_mC =  0;
-        end
-      ST_Config11 : 
-        begin
-          data_initC =  8'h00;
-          cs_mC =  0;
-          transcieve_mC =  1;
-        end
-      St_wait41 : 
-        begin
-          data_initC =  8'h00;
-          cs_mC =  0;
-        end
-      ST_Config12 : 
-        begin
-          data_initC =  8'h30;
-          cs_mC =  0;
-          transcieve_mC =  1;
-        end
-      St_wait42 : 
-        begin
-          data_initC =  8'h30;
-          cs_mC =  0;
-        end
-      ST_Config13 : 
-        begin
-          data_initC =  8'h00;
-          cs_mC =  0;
-          transcieve_mC =  1;
-        end
-      St_wait43 : 
-        begin
-          data_initC =  8'h00;
-          cs_mC =  0;
-        end
-      St_wait44 : 
-        begin
-          data_initC =  8'h99;
-          cs_mC =  0;
-        end
-      ST_Config14 : 
-        begin
-          data_initC =  8'h00;
-          cs_mC =  0;
-          transcieve_mC =  1;
-        end
-      St_wait45 : 
-        begin
-          data_initC =  8'h00;
-          cs_mC =  0;
-        end
-      ST_Config15 : 
-        begin
-          data_initC =  8'h30;
-          cs_mC =  0;
-          transcieve_mC =  1;
-        end
-      St_wait46 : 
-        begin
-          data_initC =  8'h30;
-          cs_mC =  0;
-        end
-      ST_Config16 : 
-        begin
-          data_initC =  8'h00;
-          cs_mC =  0;
-          transcieve_mC =  1;
-        end
-      St_wait47 : 
-        begin
-          data_initC =  8'h00;
-          cs_mC =  0;
-        end
-      St_wait25 : 
-        begin
-          data_initC =  8'h05;
-          cs_mC =  0;
-        end
-      St_wait26 : 
-        begin
-          data_initC =  8'h00;
-          cs_mC =  0;
-        end
-      St_wait27 : 
-        begin
-          data_initC =  8'hB0;
-          cs_mC =  0;
-        end
-      St_wait28 : 
-        begin
-          data_initC =  8'h8B;
-          cs_mC =  0;
-        end
-      St_wait29 : 
-        begin
-          data_initC =  8'h10;
-          cs_mC =  0;
-        end
-      St_wait30 : 
-        begin
-          data_initC =  8'hB1;
-          cs_mC =  0;
-        end
-      St_wait31 : 
-        begin
-          data_initC =  8'h8B;
-          cs_mC =  0;
-        end
-      ST_Read_reg2 : 
-        begin
-          data_initC =  8'h0B;
-          cs_mC =  0;
-          transcieve_mC =  1;
-        end
-      St_wait21 : 
-        begin
-          data_initC =  8'h00;
-          cs_mC =  0;
-        end
-      ST_Rest_RS_9 : 
-        begin
-          data_initC =  8'h00;
-          cs_mC =  0;
-          transcieve_mC =  1;
-        end
-      ST_Rest_RS_10 : 
-        begin
-          data_initC =  8'h00;
-          cs_mC =  0;
-          transcieve_mC =  1;
-        end
-      St_wait22 : 
-        begin
-          data_initC =  8'h00;
-          cs_mC =  0;
-        end
-      ST_Rest_RS_11 : 
-        begin
-          data_initC =  8'h00;
-          cs_mC =  0;
-          transcieve_mC =  1;
-        end
-      St_wait23 : 
-        begin
-          data_initC =  8'h00;
-          cs_mC =  0;
-        end
-      St_wait24 : 
-        begin
-          data_initC =  8'h0B;
-          cs_mC =  0;
-        end
-      ST_Config17 : 
-        begin
-          data_initC =  8'h00;
-          cs_mC =  0;
-          transcieve_mC =  1;
-        end
-      St_wait48 : 
-        begin
-          data_initC =  8'h00;
-          cs_mC =  0;
-        end
-      ST_Config18 : 
-        begin
-          data_initC =  8'h30;
-          cs_mC =  0;
-          transcieve_mC =  1;
-        end
-      St_wait49 : 
-        begin
-          data_initC =  8'h30;
-          cs_mC =  0;
-        end
-      St_wait50 : 
-        begin
-          data_initC =  8'h82;
-          cs_mC =  0;
-        end
-      St_wait51 : 
-        begin
-          data_initC =  8'h8A;
-          cs_mC =  0;
-        end
-      ST_Config19 : 
-        begin
-          data_initC =  8'h00;
-          cs_mC =  0;
-          transcieve_mC =  1;
-        end
-      St_wait52 : 
-        begin
-          data_initC =  8'h00;
-          cs_mC =  0;
-        end
-      ST_Config20 : 
-        begin
-          data_initC =  8'h30;
-          cs_mC =  0;
-          transcieve_mC =  1;
-        end
-      St_wait53 : 
-        begin
-          data_initC =  8'h30;
-          cs_mC =  0;
-        end
-      St_wait54 : 
-        begin
-          data_initC =  8'h92;
-          cs_mC =  0;
-        end
-      ST_Config21 : 
-        begin
-          data_initC =  8'h00;
-          cs_mC =  0;
-          transcieve_mC =  1;
-        end
-      St_wait55 : 
-        begin
-          data_initC =  8'h00;
-          cs_mC =  0;
-        end
-      ST_Config22 : 
-        begin
-          data_initC =  8'h30;
-          cs_mC =  0;
-          transcieve_mC =  1;
-        end
-      St_wait56 : 
-        begin
-          data_initC =  8'h30;
-          cs_mC =  0;
-        end
-      St_wait57 : 
-        begin
-          data_initC =  8'h9A;
-          cs_mC =  0;
-        end
-      ST_Config23 : 
-        begin
-          data_initC =  8'h00;
-          cs_mC =  0;
-          transcieve_mC =  1;
-        end
-      St_wait58 : 
-        begin
-          data_initC =  8'h00;
-          cs_mC =  0;
-        end
-      ST_Config24 : 
-        begin
-          data_initC =  8'h30;
-          cs_mC =  0;
-          transcieve_mC =  1;
-        end
-      St_wait59 : 
-        begin
-          data_initC =  8'h30;
-          cs_mC =  0;
-        end
-      ST_CountRst : 
-        begin
-          rst_mon_cntC =  1;
-        end
-      ST_Start_Cnt : 
-        begin
-          start_mon_cntC =  1;
-        end
-      ST_Read_reg3 : 
-        begin
-          data_initC =  8'h0B;
-          cs_mC =  0;
-          transcieve_mC =  1;
-        end
-      St_wait60 : 
-        begin
-          data_initC =  8'h00;
-          cs_mC =  0;
-        end
-      ST_Rest_RS_12 : 
-        begin
-          data_initC =  8'h00;
-          cs_mC =  0;
-          transcieve_mC =  1;
-        end
-      ST_Rest_RS_13 : 
-        begin
-          data_initC =  8'h00;
-          cs_mC =  0;
-          transcieve_mC =  1;
-        end
-      St_wait61 : 
-        begin
-          data_initC =  8'h00;
-          cs_mC =  0;
-        end
-      ST_Rest_RS_14 : 
-        begin
-          data_initC =  8'h00;
-          cs_mC =  0;
-          transcieve_mC =  1;
-        end
-      St_wait62 : 
-        begin
-          data_initC =  8'h00;
-          cs_mC =  0;
-        end
-      St_wait63 : 
-        begin
-          data_initC =  8'h0B;
-          cs_mC =  0;
-        end
-      CS_high16 : 
-        begin
-          cs_pC =  1;
-          transcieve_pC =  1;
-        end
-      w_busy43 : 
-        begin
-          cs_pC =  1;
-        end
-      st_GPIOA15 : 
-        begin
-          data_initC =  8'h40;
-          cs_pC =  0;
-          transcieve_pC =  1;
-        end
-      st_GPIOA16 : 
-        begin
-          data_initC =  8'h09;
-          cs_pC =  0;
-          transcieve_pC =  1;
-        end
-      st_GPIOA17 : 
-        begin
-          data_initC =  8'h01;
-          cs_pC =  0;
-          transcieve_pC =  1;
-        end
-      w_busy40 : 
-        begin
-          data_initC =  8'h40;
-          cs_pC =  0;
-        end
-      w_busy41 : 
-        begin
-          data_initC =  8'h09;
-          cs_pC =  0;
-        end
-      w_busy42 : 
-        begin
-          data_initC =  8'h01;
-          cs_pC =  0;
-        end
-      CS_high6 : 
-        begin
-          cs_pC =  1;
-          transcieve_pC =  1;
-        end
-      w_busy44 : 
-        begin
-          cs_pC =  1;
-        end
-      CS_high17 : 
-        begin
-          cs_pC =  1;
-          transcieve_pC =  1;
-        end
-      w_busy48 : 
-        begin
-          cs_pC =  1;
-        end
-      st_GPIOA12 : 
-        begin
-          data_initC =  8'h40;
-          cs_pC =  0;
-          transcieve_pC =  1;
-        end
-      st_GPIOA13 : 
-        begin
-          data_initC =  8'h12;
-          cs_pC =  0;
-          transcieve_pC =  1;
-        end
-      st_GPIOA14 : 
-        begin
-          data_initC =  8'h01;
-          cs_pC =  0;
-          transcieve_pC =  1;
-        end
-      w_busy18 : 
-        begin
-          data_initC =  8'h40;
-          cs_pC =  0;
-        end
-      w_busy19 : 
-        begin
-          data_initC =  8'h12;
-          cs_pC =  0;
-        end
-      w_busy20 : 
-        begin
-          data_initC =  8'h01;
-          cs_pC =  0;
-        end
-      st_GPIOA18 : 
-        begin
-          data_initC =  8'h40;
-          cs_pC =  0;
-          transcieve_pC =  1;
-        end
-      st_GPIOA19 : 
-        begin
-          data_initC =  8'h09;
-          cs_pC =  0;
-          transcieve_pC =  1;
-        end
-      st_GPIOA20 : 
-        begin
-          data_initC =  8'h01;
-          cs_pC =  0;
-          transcieve_pC =  1;
-        end
-      w_busy45 : 
-        begin
-          data_initC =  8'h40;
-          cs_pC =  0;
-        end
-      w_busy46 : 
-        begin
-          data_initC =  8'h09;
-          cs_pC =  0;
-        end
-      w_busy47 : 
-        begin
-          data_initC =  8'h01;
-          cs_pC =  0;
-        end
-      CS_high11 : 
-        begin
-          cs_pC =  1;
-          transcieve_pC =  1;
-        end
-      w_busy49 : 
-        begin
-          cs_pC =  1;
-        end
-      CS_high18 : 
-        begin
-          cs_pC =  1;
-          transcieve_pC =  1;
-        end
-      w_busy53 : 
-        begin
-          cs_pC =  1;
-        end
-      st_GPIOA21 : 
-        begin
-          data_initC =  8'h40;
-          cs_pC =  0;
-          transcieve_pC =  1;
-        end
-      st_GPIOA22 : 
-        begin
-          data_initC =  8'h12;
-          cs_pC =  0;
-          transcieve_pC =  1;
-        end
-      st_GPIOA23 : 
-        begin
-          data_initC =  8'h00;
-          cs_pC =  0;
-          transcieve_pC =  1;
-        end
-      w_busy21 : 
-        begin
-          data_initC =  8'h40;
-          cs_pC =  0;
-        end
-      w_busy22 : 
-        begin
-          data_initC =  8'h12;
-          cs_pC =  0;
-        end
-      w_busy23 : 
-        begin
-          data_initC =  8'h00;
-          cs_pC =  0;
-        end
-      st_GPIOA24 : 
-        begin
-          data_initC =  8'h40;
-          cs_pC =  0;
-          transcieve_pC =  1;
-        end
-      st_GPIOA25 : 
-        begin
-          data_initC =  8'h09;
-          cs_pC =  0;
-          transcieve_pC =  1;
-        end
-      st_GPIOA26 : 
-        begin
-          data_initC =  8'h00;
-          cs_pC =  0;
-          transcieve_pC =  1;
-        end
-      w_busy50 : 
-        begin
-          data_initC =  8'h40;
-          cs_pC =  0;
-        end
-      w_busy51 : 
-        begin
-          data_initC =  8'h09;
-          cs_pC =  0;
-        end
-      w_busy52 : 
-        begin
-          data_initC =  8'h00;
-          cs_pC =  0;
-        end
-    endcase
-  end
-
-always @( posedge clkA )
-  begin : clocked_block_procA
-    if (!rstA)
+always @( posedge clk )
+  begin : clocked_block_proc
+    if (!rst)
       begin
-        current_stateA <= reset;
-        csm_timerA <= 6'd0;
+        current_state <= reset;
+        csm_timer <= 6'd0;
       end
     else
-      if (timeoutrstA)
+      if (timeoutrst)
         begin
-          current_stateA <= reset;
-          csm_timerA <= 6'd0;
+          current_state <= reset;
+          csm_timer <= 6'd0;
         end
       else
-        if (abortA)
+        if (abort)
           begin
-            current_stateA <= reset;
-            csm_timerA <= 6'd0;
+            current_state <= reset;
+            csm_timer <= 6'd0;
           end
         else
           begin
-            current_stateA <= next_stateA;
-            csm_timerA <= csm_next_timerA;
+            current_state <= next_state;
+            csm_timer <= csm_next_timer;
           end
   end
 
-always @( posedge clkB )
-  begin : clocked_block_procB
-    if (!rstB)
+always @( csm_timer or csm_to_CS_low or csm_to_Read_Miso )
+  begin : csm_wait_block_proc
+    csm_timeout =  (csm_timer==6'd0);
+    if (csm_to_CS_low==1'b1)
       begin
-        current_stateB <= reset;
-        csm_timerB <= 6'd0;
+        csm_next_timer =  6'd9;
       end
     else
-      if (timeoutrstB)
+      if (csm_to_Read_Miso==1'b1)
         begin
-          current_stateB <= reset;
-          csm_timerB <= 6'd0;
-        end
-      else
-        if (abortB)
-          begin
-            current_stateB <= reset;
-            csm_timerB <= 6'd0;
-          end
-        else
-          begin
-            current_stateB <= next_stateB;
-            csm_timerB <= csm_next_timerB;
-          end
-  end
-
-always @( posedge clkC )
-  begin : clocked_block_procC
-    if (!rstC)
-      begin
-        current_stateC <= reset;
-        csm_timerC <= 6'd0;
-      end
-    else
-      if (timeoutrstC)
-        begin
-          current_stateC <= reset;
-          csm_timerC <= 6'd0;
-        end
-      else
-        if (abortC)
-          begin
-            current_stateC <= reset;
-            csm_timerC <= 6'd0;
-          end
-        else
-          begin
-            current_stateC <= next_stateC;
-            csm_timerC <= csm_next_timerC;
-          end
-  end
-
-always @( csm_timerA or csm_to_CS_lowA or csm_to_Read_MisoA )
-  begin : csm_wait_block_procA
-    csm_timeoutA =  (csm_timerA==6'd0);
-    if (csm_to_CS_lowA==1'b1)
-      begin
-        csm_next_timerA =  6'd9;
-      end
-    else
-      if (csm_to_Read_MisoA==1'b1)
-        begin
-          csm_next_timerA =  6'd39;
+          csm_next_timer =  6'd39;
         end
       else
         begin
-          csm_next_timerA =  (csm_timeoutA) ? 6'd0 : (csm_timerA-6'd1);
+          csm_next_timer =  (csm_timeout) ? 6'd0 : (csm_timer-6'd1);
         end
   end
 
-always @( csm_timerB or csm_to_CS_lowB or csm_to_Read_MisoB )
-  begin : csm_wait_block_procB
-    csm_timeoutB =  (csm_timerB==6'd0);
-    if (csm_to_CS_lowB==1'b1)
-      begin
-        csm_next_timerB =  6'd9;
-      end
-    else
-      if (csm_to_Read_MisoB==1'b1)
-        begin
-          csm_next_timerB =  6'd39;
-        end
-      else
-        begin
-          csm_next_timerB =  (csm_timeoutB) ? 6'd0 : (csm_timerB-6'd1);
-        end
-  end
-
-always @( csm_timerC or csm_to_CS_lowC or csm_to_Read_MisoC )
-  begin : csm_wait_block_procC
-    csm_timeoutC =  (csm_timerC==6'd0);
-    if (csm_to_CS_lowC==1'b1)
-      begin
-        csm_next_timerC =  6'd9;
-      end
-    else
-      if (csm_to_Read_MisoC==1'b1)
-        begin
-          csm_next_timerC =  6'd39;
-        end
-      else
-        begin
-          csm_next_timerC =  (csm_timeoutC) ? 6'd0 : (csm_timerC-6'd1);
-        end
-  end
-
-always @( current_stateA )
-  statedebA =  current_stateA;
-
-always @( current_stateB )
-  statedebB =  current_stateB;
-
-always @( current_stateC )
-  statedebC =  current_stateC;
-
-fanout abortFanout (
-    .in(abort),
-    .outA(abortA),
-    .outB(abortB),
-    .outC(abortC)
-    );
-
-fanout busy_mFanout (
-    .in(busy_m),
-    .outA(busy_mA),
-    .outB(busy_mB),
-    .outC(busy_mC)
-    );
-
-fanout busy_pFanout (
-    .in(busy_p),
-    .outA(busy_pA),
-    .outB(busy_pB),
-    .outC(busy_pC)
-    );
-
-fanout clkFanout (
-    .in(clk),
-    .outA(clkA),
-    .outB(clkB),
-    .outC(clkC)
-    );
-
-fanout end_mon_cntFanout (
-    .in(end_mon_cnt),
-    .outA(end_mon_cntA),
-    .outB(end_mon_cntB),
-    .outC(end_mon_cntC)
-    );
-
-fanout end_read_elinkFanout (
-    .in(end_read_elink),
-    .outA(end_read_elinkA),
-    .outB(end_read_elinkB),
-    .outC(end_read_elinkC)
-    );
-
-fanout end_read_misoFanout (
-    .in(end_read_miso),
-    .outA(end_read_misoA),
-    .outB(end_read_misoB),
-    .outC(end_read_misoC)
-    );
-
-fanout end_write_elink_spiFanout (
-    .in(end_write_elink_spi),
-    .outA(end_write_elink_spiA),
-    .outB(end_write_elink_spiB),
-    .outC(end_write_elink_spiC)
-    );
-
-fanout irq_spi_traFanout (
-    .in(irq_spi_tra),
-    .outA(irq_spi_traA),
-    .outB(irq_spi_traB),
-    .outC(irq_spi_traC)
-    );
-
-fanout rstFanout (
-    .in(rst),
-    .outA(rstA),
-    .outB(rstB),
-    .outC(rstC)
-    );
-
-fanout start_bus_initFanout (
-    .in(start_bus_init),
-    .outA(start_bus_initA),
-    .outB(start_bus_initB),
-    .outC(start_bus_initC)
-    );
-
-fanout start_mon_initFanout (
-    .in(start_mon_init),
-    .outA(start_mon_initA),
-    .outB(start_mon_initB),
-    .outC(start_mon_initC)
-    );
-
-fanout start_power_offFanout (
-    .in(start_power_off),
-    .outA(start_power_offA),
-    .outB(start_power_offB),
-    .outC(start_power_offC)
-    );
-
-fanout start_power_onFanout (
-    .in(start_power_on),
-    .outA(start_power_onA),
-    .outB(start_power_onB),
-    .outC(start_power_onC)
-    );
-
-fanout start_read_monFanout (
-    .in(start_read_mon),
-    .outA(start_read_monA),
-    .outB(start_read_monB),
-    .outC(start_read_monC)
-    );
-
-fanout start_read_powerFanout (
-    .in(start_read_power),
-    .outA(start_read_powerA),
-    .outB(start_read_powerB),
-    .outC(start_read_powerC)
-    );
-
-fanout timeoutrstFanout (
-    .in(timeoutrst),
-    .outA(timeoutrstA),
-    .outB(timeoutrstB),
-    .outC(timeoutrstC)
-    );
+always @( current_state )
+  statedeb =  current_state;
 endmodule
 

@@ -6,17 +6,17 @@
  *                                                                                                  *
  * user    : lucas                                                                                  *
  * host    : DESKTOP-BFDSFP2                                                                        *
- * date    : 16/08/2022 12:58:14                                                                    *
+ * date    : 06/10/2022 13:52:43                                                                    *
  *                                                                                                  *
- * workdir : /mnt/c/Users/Lucas/Desktop/mopshub_triplication/mopshub_top_board_canakari_ftrim/hdl   *
- * cmd     : /mnt/c/Users/Lucas/Desktop/mopshub_triplication/tmrg-master/bin/tmrg -c tmrg.cfg -vvv  *
+ * workdir : /mnt/c/Users/Lucas/Documents/GitHub/mopshub_triplicated/triplicated/mopshub_top_board/hdl *
+ * cmd     : /mnt/c/Users/Lucas/Desktop/mopshub_triplication/tmrg-master/bin/tmrg -vv -c tmrg.cfg   *
  * tmrg rev:                                                                                        *
  *                                                                                                  *
  * src file: dec_8b10b_wrap_struct.v                                                                *
- *           Git SHA           : File not in git repository!                                        *
- *           Modification time : 2022-08-16 10:00:25.209034                                         *
- *           File Size         : 6344                                                               *
- *           MD5 hash          : f242c1e5fcd0af637c79c1a8af27105b                                   *
+ *           Git SHA           : c110441b08b692cc54ebd4a3b84a2599430e8f93                           *
+ *           Modification time : 2022-10-06 13:48:18.203843                                         *
+ *           File Size         : 6214                                                               *
+ *           MD5 hash          : 91e7c13a570f18274ab124bb723d2e7c                                   *
  *                                                                                                  *
  ****************************************************************************************************/
 
@@ -34,122 +34,32 @@ module dec_8b10b_wrapTMR(
   output wire [7:0] dec8b_data_out ,
   output wire  dec8b_rdy 
 );
-wire valid_char_sopC;
-wire valid_char_sopB;
-wire valid_char_sopA;
-wire valid_char_eopC;
-wire valid_char_eopB;
-wire valid_char_eopA;
-wire valid_char_commaC;
-wire valid_char_commaB;
-wire valid_char_commaA;
-wire rstC;
-wire rstB;
-wire rstA;
-wire [7:0] decoder_outC;
-wire [7:0] decoder_outB;
-wire [7:0] decoder_outA;
-wire dataout_validC;
-wire dataout_validB;
-wire dataout_validA;
-wire datain_validC;
-wire datain_validB;
-wire datain_validA;
-wire clkC;
-wire clkB;
-wire clkA;
-wire [1:0] ISKcodeC;
-wire [1:0] ISKcodeB;
-wire [1:0] ISKcodeA;
-wire ISK_sobC;
-wire ISK_sobB;
-wire ISK_sobA;
-wire ISK_eobC;
-wire ISK_eobB;
-wire ISK_eobA;
-wire ISK_charC;
-wire ISK_charB;
-wire ISK_charA;
-wor dec8b_rdy_rTmrError;
-wire dec8b_rdy_r;
-wor dec8b_data_rTmrError;
-wire [7:0] dec8b_data_r;
-wor dataout_valid_rTmrError;
-wire dataout_valid_r;
-wor SOCpTmrError;
-wire [9:0] SOCp;
-wor SOCnTmrError;
-wire [9:0] SOCn;
-wor SOBpTmrError;
-wire [9:0] SOBp;
-wor SOBnTmrError;
-wire [9:0] SOBn;
-wor ISK_rTmrError;
-wire [1:0] ISK_r;
-wor EOCpTmrError;
-wire [9:0] EOCp;
-wor EOCnTmrError;
-wire [9:0] EOCn;
-wor EOBpTmrError;
-wire [9:0] EOBp;
-wor EOBnTmrError;
-wire [9:0] EOBn;
-reg  [9:0] EOBnA ;
-reg  [9:0] EOBnB ;
-reg  [9:0] EOBnC ;
-reg  [9:0] EOBpA ;
-reg  [9:0] EOBpB ;
-reg  [9:0] EOBpC ;
-reg  [9:0] EOCnA ;
-reg  [9:0] EOCnB ;
-reg  [9:0] EOCnC ;
-reg  [9:0] EOCpA ;
-reg  [9:0] EOCpB ;
-reg  [9:0] EOCpC ;
+reg  [9:0] EOBn ;
+reg  [9:0] EOBp ;
+reg  [9:0] EOCn ;
+reg  [9:0] EOCp ;
 wire ISK_char;
 wire ISK_comma;
 wire ISK_eob;
 wire ISK_eoc;
-reg  [1:0] ISK_rA ;
-reg  [1:0] ISK_rB ;
-reg  [1:0] ISK_rC ;
+reg  [1:0] ISK_r ;
 wire ISK_sob;
 wire ISK_soc;
 wire [1:0] ISKcode;
-reg  [1:0] ISKcode_rA ;
-reg  [1:0] ISKcode_rB ;
-reg  [1:0] ISKcode_rC ;
-reg  [9:0] SOBnA ;
-reg  [9:0] SOBnB ;
-reg  [9:0] SOBnC ;
-reg  [9:0] SOBpA ;
-reg  [9:0] SOBpB ;
-reg  [9:0] SOBpC ;
-reg  [9:0] SOCnA ;
-reg  [9:0] SOCnB ;
-reg  [9:0] SOCnC ;
-reg  [9:0] SOCpA ;
-reg  [9:0] SOCpB ;
-reg  [9:0] SOCpC ;
-reg  busy_rA ;
-reg  busy_rB ;
-reg  busy_rC ;
+reg  [1:0] ISKcode_r ;
+reg  [9:0] SOBn ;
+reg  [9:0] SOBp ;
+reg  [9:0] SOCn ;
+reg  [9:0] SOCp ;
+reg  busy_r ;
 wire code_err;
 wire dataout_valid;
-reg  dataout_valid_rA ;
-reg  dataout_valid_rB ;
-reg  dataout_valid_rC ;
-reg  [7:0] dec8b_data_rA ;
-reg  [7:0] dec8b_data_rB ;
-reg  [7:0] dec8b_data_rC ;
-reg  dec8b_rdy_rA ;
-reg  dec8b_rdy_rB ;
-reg  dec8b_rdy_rC ;
+reg  dataout_valid_r ;
+reg  [7:0] dec8b_data_r ;
+reg  dec8b_rdy_r ;
 wire [7:0] decoder_out;
 wire disp_err;
-reg  flag_packA ;
-reg  flag_packB ;
-reg  flag_packC ;
+reg  flag_pack ;
 wire valid_char_comma;
 wire valid_char_eop;
 wire valid_char_sop;
@@ -172,181 +82,59 @@ assign ISK_eob =  (enc10b_data_in==EOBp|enc10b_data_in==EOBn) ? 1 : 0;
 assign ISKcode[0]  =  ((! ISK_soc )&(ISK_eoc^ISK_comma))|ISK_sob|ISK_eob;
 assign ISKcode[1]  =  ((! ISK_eoc )&(ISK_soc^ISK_comma))|ISK_sob|ISK_eob;
 
-always @( posedge clkA )
-  if (!rstA)
+always @( posedge clk )
+  if (!rst)
     begin
-      busy_rA <= 0;
-      ISKcode_rA <= 2'b0;
+      busy_r <= 0;
+      ISKcode_r <= 2'b0;
     end
   else
     begin
-      ISKcode_rA <= ISKcodeA;
-      if (ISK_eobA==1)
-        busy_rA <= 0;
+      ISKcode_r <= ISKcode;
+      if (ISK_eob==1)
+        busy_r <= 0;
       else
-        if (ISK_sobA==1)
-          busy_rA <= 1;
+        if (ISK_sob==1)
+          busy_r <= 1;
     end
 
-always @( posedge clkB )
-  if (!rstB)
-    begin
-      busy_rB <= 0;
-      ISKcode_rB <= 2'b0;
-    end
+always @( posedge clk )
+  if (!rst)
+    ISK_r <= 2'b00;
   else
     begin
-      ISKcode_rB <= ISKcodeB;
-      if (ISK_eobB==1)
-        busy_rB <= 0;
+      if (ISK_char==1)
+        ISK_r <= ISKcode_r;
       else
-        if (ISK_sobB==1)
-          busy_rB <= 1;
+        ISK_r <= 2'b00;
     end
 
-always @( posedge clkC )
-  if (!rstC)
-    begin
-      busy_rC <= 0;
-      ISKcode_rC <= 2'b0;
-    end
+always @( posedge clk )
+  if (!rst)
+    dataout_valid_r <= 1'b0;
   else
     begin
-      ISKcode_rC <= ISKcodeC;
-      if (ISK_eobC==1)
-        busy_rC <= 0;
+      if (datain_valid)
+        dataout_valid_r <= 1'b1;
       else
-        if (ISK_sobC==1)
-          busy_rC <= 1;
-    end
-
-always @( posedge clkA )
-  if (!rstA)
-    begin
-      ISK_rA <= 2'b00;
-    end
-  else
-    begin
-      if (ISK_charA==1)
-        ISK_rA <= ISKcode_rA;
-      else
-        ISK_rA <= 2'b00;
-    end
-
-always @( posedge clkB )
-  if (!rstB)
-    begin
-      ISK_rB <= 2'b00;
-    end
-  else
-    begin
-      if (ISK_charB==1)
-        ISK_rB <= ISKcode_rB;
-      else
-        ISK_rB <= 2'b00;
-    end
-
-always @( posedge clkC )
-  if (!rstC)
-    begin
-      ISK_rC <= 2'b00;
-    end
-  else
-    begin
-      if (ISK_charC==1)
-        ISK_rC <= ISKcode_rC;
-      else
-        ISK_rC <= 2'b00;
-    end
-
-always @( posedge clkA )
-  if (!rstA)
-    begin
-      dataout_valid_rA <= 1'b0;
-    end
-  else
-    begin
-      if (datain_validA)
-        dataout_valid_rA <= 1'b1;
-      else
-        dataout_valid_rA <= 1'b0;
-    end
-
-always @( posedge clkB )
-  if (!rstB)
-    begin
-      dataout_valid_rB <= 1'b0;
-    end
-  else
-    begin
-      if (datain_validB)
-        dataout_valid_rB <= 1'b1;
-      else
-        dataout_valid_rB <= 1'b0;
-    end
-
-always @( posedge clkC )
-  if (!rstC)
-    begin
-      dataout_valid_rC <= 1'b0;
-    end
-  else
-    begin
-      if (datain_validC)
-        dataout_valid_rC <= 1'b1;
-      else
-        dataout_valid_rC <= 1'b0;
+        dataout_valid_r <= 1'b0;
     end
 initial
   begin
-    dataout_valid_rA =  0;
-    dec8b_data_rA =  0;
-    dec8b_rdy_rA =  0;
-    flag_packA =  0;
-    ISK_rA =  0;
-    ISKcode_rA =  2'b0;
-    EOBnA =  10'b1100001100;
-    EOBpA =  10'b0011110011;
-    EOCnA =  10'b1100001001;
-    EOCpA =  10'b0011110110;
-    SOBnA =  10'b1100001010;
-    SOBpA =  10'b0011110101;
-    SOCnA =  10'b1100000110;
-    SOCpA =  10'b0011111001;
-  end
-initial
-  begin
-    dataout_valid_rB =  0;
-    dec8b_data_rB =  0;
-    dec8b_rdy_rB =  0;
-    flag_packB =  0;
-    ISK_rB =  0;
-    ISKcode_rB =  2'b0;
-    EOBnB =  10'b1100001100;
-    EOBpB =  10'b0011110011;
-    EOCnB =  10'b1100001001;
-    EOCpB =  10'b0011110110;
-    SOBnB =  10'b1100001010;
-    SOBpB =  10'b0011110101;
-    SOCnB =  10'b1100000110;
-    SOCpB =  10'b0011111001;
-  end
-initial
-  begin
-    dataout_valid_rC =  0;
-    dec8b_data_rC =  0;
-    dec8b_rdy_rC =  0;
-    flag_packC =  0;
-    ISK_rC =  0;
-    ISKcode_rC =  2'b0;
-    EOBnC =  10'b1100001100;
-    EOBpC =  10'b0011110011;
-    EOCnC =  10'b1100001001;
-    EOCpC =  10'b0011110110;
-    SOBnC =  10'b1100001010;
-    SOBpC =  10'b0011110101;
-    SOCnC =  10'b1100000110;
-    SOCpC =  10'b0011111001;
+    dataout_valid_r =  0;
+    dec8b_data_r =  0;
+    dec8b_rdy_r =  0;
+    flag_pack =  0;
+    ISK_r =  0;
+    ISKcode_r =  2'b0;
+    EOBn =  10'b1100001100;
+    EOBp =  10'b0011110011;
+    EOCn =  10'b1100001001;
+    EOCp =  10'b0011110110;
+    SOBn =  10'b1100001010;
+    SOBp =  10'b0011110101;
+    SOCn =  10'b1100000110;
+    SOCp =  10'b0011111001;
   end
 assign ISK =  ISK_r;
 assign dataout_valid =  dataout_valid_r;
@@ -356,322 +144,50 @@ assign valid_char_comma =  (ISK_char==1&decoder_out==Kchar_comma) ? 1 : 0;
 assign valid_char_sop =  (ISK_char==1&decoder_out==Kchar_sop) ? 1 : 0;
 assign valid_char_eop =  (ISK_char==1&decoder_out==Kchar_eop) ? 1 : 0;
 
-always @( posedge clkA )
-  if (!rstA)
+always @( posedge clk )
+  if (!rst)
     begin
-      dec8b_rdy_rA <= 1'b0;
-      flag_packA <= 1'b0;
-      dec8b_data_rA <= 0;
+      dec8b_rdy_r <= 1'b0;
+      flag_pack <= 1'b0;
+      dec8b_data_r <= 0;
     end
   else
     begin
-      dec8b_data_rA <= decoder_outA;
-      if (dec8b_rdy_rA==1)
+      dec8b_data_r <= decoder_out;
+      if (dec8b_rdy_r==1)
         begin
-          dec8b_rdy_rA <= 1'b0;
-          flag_packA <= flag_packA;
+          dec8b_rdy_r <= 1'b0;
+          flag_pack <= flag_pack;
         end
       else
-        if (flag_packA==1&&dataout_validA==1&&valid_char_commaA)
+        if (flag_pack==1&&dataout_valid==1&&valid_char_comma)
           begin
-            dec8b_rdy_rA <= 1'b0;
-            flag_packA <= flag_packA;
+            dec8b_rdy_r <= 1'b0;
+            flag_pack <= flag_pack;
           end
         else
-          if (flag_packA==0&&dataout_validA==1&&valid_char_sopA)
+          if (flag_pack==0&&dataout_valid==1&&valid_char_sop)
             begin
-              dec8b_rdy_rA <= 1'b1;
-              flag_packA <= 1'b1;
+              dec8b_rdy_r <= 1'b1;
+              flag_pack <= 1'b1;
             end
           else
-            if (flag_packA==1&&dataout_validA==1&&!valid_char_eopA)
+            if (flag_pack==1&&dataout_valid==1&&!valid_char_eop)
               begin
-                dec8b_rdy_rA <= 1'b1;
-                flag_packA <= 1'b1;
+                dec8b_rdy_r <= 1'b1;
+                flag_pack <= 1'b1;
               end
             else
-              if (flag_packA==1&&dataout_validA==1&&valid_char_eopA)
+              if (flag_pack==1&&dataout_valid==1&&valid_char_eop)
                 begin
-                  dec8b_rdy_rA <= 1'b1;
-                  flag_packA <= 1'b0;
+                  dec8b_rdy_r <= 1'b1;
+                  flag_pack <= 1'b0;
                 end
               else
                 begin
-                  dec8b_rdy_rA <= 1'b0;
-                  flag_packA <= flag_packA;
+                  dec8b_rdy_r <= 1'b0;
+                  flag_pack <= flag_pack;
                 end
     end
-
-always @( posedge clkB )
-  if (!rstB)
-    begin
-      dec8b_rdy_rB <= 1'b0;
-      flag_packB <= 1'b0;
-      dec8b_data_rB <= 0;
-    end
-  else
-    begin
-      dec8b_data_rB <= decoder_outB;
-      if (dec8b_rdy_rB==1)
-        begin
-          dec8b_rdy_rB <= 1'b0;
-          flag_packB <= flag_packB;
-        end
-      else
-        if (flag_packB==1&&dataout_validB==1&&valid_char_commaB)
-          begin
-            dec8b_rdy_rB <= 1'b0;
-            flag_packB <= flag_packB;
-          end
-        else
-          if (flag_packB==0&&dataout_validB==1&&valid_char_sopB)
-            begin
-              dec8b_rdy_rB <= 1'b1;
-              flag_packB <= 1'b1;
-            end
-          else
-            if (flag_packB==1&&dataout_validB==1&&!valid_char_eopB)
-              begin
-                dec8b_rdy_rB <= 1'b1;
-                flag_packB <= 1'b1;
-              end
-            else
-              if (flag_packB==1&&dataout_validB==1&&valid_char_eopB)
-                begin
-                  dec8b_rdy_rB <= 1'b1;
-                  flag_packB <= 1'b0;
-                end
-              else
-                begin
-                  dec8b_rdy_rB <= 1'b0;
-                  flag_packB <= flag_packB;
-                end
-    end
-
-always @( posedge clkC )
-  if (!rstC)
-    begin
-      dec8b_rdy_rC <= 1'b0;
-      flag_packC <= 1'b0;
-      dec8b_data_rC <= 0;
-    end
-  else
-    begin
-      dec8b_data_rC <= decoder_outC;
-      if (dec8b_rdy_rC==1)
-        begin
-          dec8b_rdy_rC <= 1'b0;
-          flag_packC <= flag_packC;
-        end
-      else
-        if (flag_packC==1&&dataout_validC==1&&valid_char_commaC)
-          begin
-            dec8b_rdy_rC <= 1'b0;
-            flag_packC <= flag_packC;
-          end
-        else
-          if (flag_packC==0&&dataout_validC==1&&valid_char_sopC)
-            begin
-              dec8b_rdy_rC <= 1'b1;
-              flag_packC <= 1'b1;
-            end
-          else
-            if (flag_packC==1&&dataout_validC==1&&!valid_char_eopC)
-              begin
-                dec8b_rdy_rC <= 1'b1;
-                flag_packC <= 1'b1;
-              end
-            else
-              if (flag_packC==1&&dataout_validC==1&&valid_char_eopC)
-                begin
-                  dec8b_rdy_rC <= 1'b1;
-                  flag_packC <= 1'b0;
-                end
-              else
-                begin
-                  dec8b_rdy_rC <= 1'b0;
-                  flag_packC <= flag_packC;
-                end
-    end
-
-majorityVoter #(.WIDTH(10)) EOBnVoter (
-    .inA(EOBnA),
-    .inB(EOBnB),
-    .inC(EOBnC),
-    .out(EOBn),
-    .tmrErr(EOBnTmrError)
-    );
-
-majorityVoter #(.WIDTH(10)) EOBpVoter (
-    .inA(EOBpA),
-    .inB(EOBpB),
-    .inC(EOBpC),
-    .out(EOBp),
-    .tmrErr(EOBpTmrError)
-    );
-
-majorityVoter #(.WIDTH(10)) EOCnVoter (
-    .inA(EOCnA),
-    .inB(EOCnB),
-    .inC(EOCnC),
-    .out(EOCn),
-    .tmrErr(EOCnTmrError)
-    );
-
-majorityVoter #(.WIDTH(10)) EOCpVoter (
-    .inA(EOCpA),
-    .inB(EOCpB),
-    .inC(EOCpC),
-    .out(EOCp),
-    .tmrErr(EOCpTmrError)
-    );
-
-majorityVoter #(.WIDTH(2)) ISK_rVoter (
-    .inA(ISK_rA),
-    .inB(ISK_rB),
-    .inC(ISK_rC),
-    .out(ISK_r),
-    .tmrErr(ISK_rTmrError)
-    );
-
-majorityVoter #(.WIDTH(10)) SOBnVoter (
-    .inA(SOBnA),
-    .inB(SOBnB),
-    .inC(SOBnC),
-    .out(SOBn),
-    .tmrErr(SOBnTmrError)
-    );
-
-majorityVoter #(.WIDTH(10)) SOBpVoter (
-    .inA(SOBpA),
-    .inB(SOBpB),
-    .inC(SOBpC),
-    .out(SOBp),
-    .tmrErr(SOBpTmrError)
-    );
-
-majorityVoter #(.WIDTH(10)) SOCnVoter (
-    .inA(SOCnA),
-    .inB(SOCnB),
-    .inC(SOCnC),
-    .out(SOCn),
-    .tmrErr(SOCnTmrError)
-    );
-
-majorityVoter #(.WIDTH(10)) SOCpVoter (
-    .inA(SOCpA),
-    .inB(SOCpB),
-    .inC(SOCpC),
-    .out(SOCp),
-    .tmrErr(SOCpTmrError)
-    );
-
-majorityVoter dataout_valid_rVoter (
-    .inA(dataout_valid_rA),
-    .inB(dataout_valid_rB),
-    .inC(dataout_valid_rC),
-    .out(dataout_valid_r),
-    .tmrErr(dataout_valid_rTmrError)
-    );
-
-majorityVoter #(.WIDTH(8)) dec8b_data_rVoter (
-    .inA(dec8b_data_rA),
-    .inB(dec8b_data_rB),
-    .inC(dec8b_data_rC),
-    .out(dec8b_data_r),
-    .tmrErr(dec8b_data_rTmrError)
-    );
-
-majorityVoter dec8b_rdy_rVoter (
-    .inA(dec8b_rdy_rA),
-    .inB(dec8b_rdy_rB),
-    .inC(dec8b_rdy_rC),
-    .out(dec8b_rdy_r),
-    .tmrErr(dec8b_rdy_rTmrError)
-    );
-
-fanout ISK_charFanout (
-    .in(ISK_char),
-    .outA(ISK_charA),
-    .outB(ISK_charB),
-    .outC(ISK_charC)
-    );
-
-fanout ISK_eobFanout (
-    .in(ISK_eob),
-    .outA(ISK_eobA),
-    .outB(ISK_eobB),
-    .outC(ISK_eobC)
-    );
-
-fanout ISK_sobFanout (
-    .in(ISK_sob),
-    .outA(ISK_sobA),
-    .outB(ISK_sobB),
-    .outC(ISK_sobC)
-    );
-
-fanout #(.WIDTH(2)) ISKcodeFanout (
-    .in(ISKcode),
-    .outA(ISKcodeA),
-    .outB(ISKcodeB),
-    .outC(ISKcodeC)
-    );
-
-fanout clkFanout (
-    .in(clk),
-    .outA(clkA),
-    .outB(clkB),
-    .outC(clkC)
-    );
-
-fanout datain_validFanout (
-    .in(datain_valid),
-    .outA(datain_validA),
-    .outB(datain_validB),
-    .outC(datain_validC)
-    );
-
-fanout dataout_validFanout (
-    .in(dataout_valid),
-    .outA(dataout_validA),
-    .outB(dataout_validB),
-    .outC(dataout_validC)
-    );
-
-fanout #(.WIDTH(8)) decoder_outFanout (
-    .in(decoder_out),
-    .outA(decoder_outA),
-    .outB(decoder_outB),
-    .outC(decoder_outC)
-    );
-
-fanout rstFanout (
-    .in(rst),
-    .outA(rstA),
-    .outB(rstB),
-    .outC(rstC)
-    );
-
-fanout valid_char_commaFanout (
-    .in(valid_char_comma),
-    .outA(valid_char_commaA),
-    .outB(valid_char_commaB),
-    .outC(valid_char_commaC)
-    );
-
-fanout valid_char_eopFanout (
-    .in(valid_char_eop),
-    .outA(valid_char_eopA),
-    .outB(valid_char_eopB),
-    .outC(valid_char_eopC)
-    );
-
-fanout valid_char_sopFanout (
-    .in(valid_char_sop),
-    .outA(valid_char_sopA),
-    .outB(valid_char_sopB),
-    .outC(valid_char_sopC)
-    );
 endmodule
 

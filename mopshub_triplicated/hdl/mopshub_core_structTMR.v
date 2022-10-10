@@ -6,17 +6,17 @@
  *                                                                                                  *
  * user    : lucas                                                                                  *
  * host    : DESKTOP-BFDSFP2                                                                        *
- * date    : 16/08/2022 12:58:32                                                                    *
+ * date    : 06/10/2022 13:52:53                                                                    *
  *                                                                                                  *
- * workdir : /mnt/c/Users/Lucas/Desktop/mopshub_triplication/mopshub_top_board_canakari_ftrim/hdl   *
- * cmd     : /mnt/c/Users/Lucas/Desktop/mopshub_triplication/tmrg-master/bin/tmrg -c tmrg.cfg -vvv  *
+ * workdir : /mnt/c/Users/Lucas/Documents/GitHub/mopshub_triplicated/triplicated/mopshub_top_board/hdl *
+ * cmd     : /mnt/c/Users/Lucas/Desktop/mopshub_triplication/tmrg-master/bin/tmrg -vv -c tmrg.cfg   *
  * tmrg rev:                                                                                        *
  *                                                                                                  *
  * src file: mopshub_core_struct.v                                                                  *
- *           Git SHA           : File not in git repository!                                        *
- *           Modification time : 2022-08-16 10:18:27.862034                                         *
- *           File Size         : 6571                                                               *
- *           MD5 hash          : 75fe421d3d787652bed4f08bbd2b3e5f                                   *
+ *           Git SHA           : c110441b08b692cc54ebd4a3b84a2599430e8f93                           *
+ *           Modification time : 2022-10-06 13:25:17                                                *
+ *           File Size         : 6513                                                               *
+ *           MD5 hash          : a380b955353de4c3b7e0c2b8968f2bd1                                   *
  *                                                                                                  *
  ****************************************************************************************************/
 
@@ -57,7 +57,6 @@ module mopshub_coreTMR(
   output wire  end_init ,
   output wire  end_power_init ,
   output wire  end_trim_bus ,
-  output wire  ext_counter_gen ,
   output wire  irq_can_rec ,
   output wire  irq_can_tra ,
   output wire  main_timeoutrst ,
@@ -125,7 +124,6 @@ bridge_controllerTMR bridge_controller0 (
     .end_init(end_init),
     .end_power_init(end_power_init),
     .end_trim_bus(end_trim_bus),
-    .ext_counter_gen(ext_counter_gen),
     .power_bus_en(power_bus_en),
     .read_can_mode(read_can_mode),
     .read_sig_can_n(read_sig_can_n),

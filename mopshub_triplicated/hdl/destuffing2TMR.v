@@ -6,70 +6,65 @@
  *                                                                                                  *
  * user    : lucas                                                                                  *
  * host    : DESKTOP-BFDSFP2                                                                        *
- * date    : 16/08/2022 12:58:15                                                                    *
+ * date    : 06/10/2022 13:52:44                                                                    *
  *                                                                                                  *
- * workdir : /mnt/c/Users/Lucas/Desktop/mopshub_triplication/mopshub_top_board_canakari_ftrim/hdl   *
- * cmd     : /mnt/c/Users/Lucas/Desktop/mopshub_triplication/tmrg-master/bin/tmrg -c tmrg.cfg -vvv  *
+ * workdir : /mnt/c/Users/Lucas/Documents/GitHub/mopshub_triplicated/triplicated/mopshub_top_board/hdl *
+ * cmd     : /mnt/c/Users/Lucas/Desktop/mopshub_triplication/tmrg-master/bin/tmrg -vv -c tmrg.cfg   *
  * tmrg rev:                                                                                        *
  *                                                                                                  *
  * src file: destuffing2.v                                                                          *
- *           Git SHA           : File not in git repository!                                        *
- *           Modification time : 2022-03-29 13:49:21                                                *
- *           File Size         : 4792                                                               *
- *           MD5 hash          : 4bff58fb3a2d021bf534d08568f19aa3                                   *
+ *           Git SHA           : c110441b08b692cc54ebd4a3b84a2599430e8f93                           *
+ *           Modification time : 2022-08-23 20:24:46                                                *
+ *           File Size         : 4793                                                               *
+ *           MD5 hash          : 3d4ac4c6ac14bff4ce9a2086577dec33                                   *
  *                                                                                                  *
  ****************************************************************************************************/
 
 module destuffing2TMR(
-  input wire  clockA ,
-  input wire  clockB ,
-  input wire  clockC ,
-  input wire  bitinA ,
-  input wire  bitinB ,
-  input wire  bitinC ,
-  input wire  activA ,
-  input wire  activB ,
-  input wire  activC ,
-  input wire  resetA ,
-  input wire  resetB ,
-  input wire  resetC ,
-  input wire  directA ,
-  input wire  directB ,
-  input wire  directC ,
-  output wire  stferA ,
-  output wire  stferB ,
-  output wire  stferC ,
-  output wire  stuffA ,
-  output wire  stuffB ,
-  output wire  stuffC ,
-  output wire  bitoutA ,
-  output wire  bitoutB ,
-  output wire  bitoutC 
+  input wire  clock ,
+  input wire  bitin ,
+  input wire  activ ,
+  input wire  reset ,
+  input wire  direct ,
+  output wire  stfer ,
+  output wire  stuff ,
+  output wire  bitout 
 );
-wor stuff_iTmrErrorC;
-wire stuff_iVotedC;
-wor stfer_iTmrErrorC;
-wire stfer_iVotedC;
-wor edgedTmrErrorC;
-wire edgedVotedC;
-wor bitout_iTmrErrorC;
-wire bitout_iVotedC;
-wor stuff_iTmrErrorB;
-wire stuff_iVotedB;
-wor stfer_iTmrErrorB;
-wire stfer_iVotedB;
-wor edgedTmrErrorB;
-wire edgedVotedB;
-wor bitout_iTmrErrorB;
-wire bitout_iVotedB;
-wor stuff_iTmrErrorA;
-wire stuff_iVotedA;
-wor stfer_iTmrErrorA;
-wire stfer_iVotedA;
-wor edgedTmrErrorA;
-wire edgedVotedA;
-wor bitout_iTmrErrorA;
-wire bitout_iVotedA;
+wire stuffC;
+wire stuffB;
+wire stuffA;
+wire stferC;
+wire stferB;
+wire stferA;
+wire resetC;
+wire resetB;
+wire resetA;
+wire edgedVC;
+wire edgedVB;
+wire edgedVA;
+wire directC;
+wire directB;
+wire directA;
+wire clockC;
+wire clockB;
+wire clockA;
+wire bitoutC;
+wire bitoutB;
+wire bitoutA;
+wire bitinC;
+wire bitinB;
+wire bitinA;
+wire activC;
+wire activB;
+wire activA;
+wor stuff_iTmrError;
+wire stuff_i;
+wor stfer_iTmrError;
+wire stfer_i;
+wor edgedTmrError;
+wire edged;
+wor bitout_iTmrError;
+wire bitout_i;
 reg  [2:0] countA ;
 reg  [2:0] countB ;
 reg  [2:0] countC ;
@@ -91,15 +86,10 @@ reg  stuff_iC ;
 reg  bitout_iA ;
 reg  bitout_iB ;
 reg  bitout_iC ;
-assign stferA =  stfer_iVotedA;
-assign stferB =  stfer_iVotedB;
-assign stferC =  stfer_iVotedC;
-assign stuffA =  stuff_iVotedA;
-assign stuffB =  stuff_iVotedB;
-assign stuffC =  stuff_iVotedC;
-assign bitoutA =  bitout_iVotedA;
-assign bitoutB =  bitout_iVotedB;
-assign bitoutC =  bitout_iVotedC;
+assign stfer =  stfer_i;
+assign stuff =  stuff_i;
+assign bitout =  bitout_i;
+wire edgedV =  edged;
 
 always @( posedge clockA )
   begin
@@ -113,12 +103,12 @@ always @( posedge clockA )
       end
     else
       begin
-        edgedA =  edgedVotedA;
-        stfer_iA <= stfer_iVotedA;
-        stuff_iA <= stuff_iVotedA;
-        bitout_iA <= bitout_iVotedA;
+        edgedA =  edgedVA;
+        stfer_iA <= stferA;
+        stuff_iA <= stuffA;
+        bitout_iA <= bitoutA;
         if (activA==1'b1)
-          if (edgedVotedA==1'b0)
+          if (edgedVA==1'b0)
             begin
               edgedA =  1'b1;
               bitout_iA <= bitinA;
@@ -167,8 +157,8 @@ always @( posedge clockA )
                   begin
                     buffA =  buffA;
                     countA =  countA;
-                    stuff_iA <= stuff_iVotedA;
-                    stfer_iA <= stfer_iVotedA;
+                    stuff_iA <= stuffA;
+                    stfer_iA <= stferA;
                   end
               endcase
             end
@@ -191,12 +181,12 @@ always @( posedge clockB )
       end
     else
       begin
-        edgedB =  edgedVotedB;
-        stfer_iB <= stfer_iVotedB;
-        stuff_iB <= stuff_iVotedB;
-        bitout_iB <= bitout_iVotedB;
+        edgedB =  edgedVB;
+        stfer_iB <= stferB;
+        stuff_iB <= stuffB;
+        bitout_iB <= bitoutB;
         if (activB==1'b1)
-          if (edgedVotedB==1'b0)
+          if (edgedVB==1'b0)
             begin
               edgedB =  1'b1;
               bitout_iB <= bitinB;
@@ -245,8 +235,8 @@ always @( posedge clockB )
                   begin
                     buffB =  buffB;
                     countB =  countB;
-                    stuff_iB <= stuff_iVotedB;
-                    stfer_iB <= stfer_iVotedB;
+                    stuff_iB <= stuffB;
+                    stfer_iB <= stferB;
                   end
               endcase
             end
@@ -269,12 +259,12 @@ always @( posedge clockC )
       end
     else
       begin
-        edgedC =  edgedVotedC;
-        stfer_iC <= stfer_iVotedC;
-        stuff_iC <= stuff_iVotedC;
-        bitout_iC <= bitout_iVotedC;
+        edgedC =  edgedVC;
+        stfer_iC <= stferC;
+        stuff_iC <= stuffC;
+        bitout_iC <= bitoutC;
         if (activC==1'b1)
-          if (edgedVotedC==1'b0)
+          if (edgedVC==1'b0)
             begin
               edgedC =  1'b1;
               bitout_iC <= bitinC;
@@ -323,8 +313,8 @@ always @( posedge clockC )
                   begin
                     buffC =  buffC;
                     countC =  countC;
-                    stuff_iC <= stuff_iVotedC;
-                    stfer_iC <= stfer_iVotedC;
+                    stuff_iC <= stuffC;
+                    stfer_iC <= stferC;
                   end
               endcase
             end
@@ -335,100 +325,99 @@ always @( posedge clockC )
       end
   end
 
-majorityVoter bitout_iVoterA (
+majorityVoter bitout_iVoter (
     .inA(bitout_iA),
     .inB(bitout_iB),
     .inC(bitout_iC),
-    .out(bitout_iVotedA),
-    .tmrErr(bitout_iTmrErrorA)
+    .out(bitout_i),
+    .tmrErr(bitout_iTmrError)
     );
 
-majorityVoter edgedVoterA (
+majorityVoter edgedVoter (
     .inA(edgedA),
     .inB(edgedB),
     .inC(edgedC),
-    .out(edgedVotedA),
-    .tmrErr(edgedTmrErrorA)
+    .out(edged),
+    .tmrErr(edgedTmrError)
     );
 
-majorityVoter stfer_iVoterA (
+majorityVoter stfer_iVoter (
     .inA(stfer_iA),
     .inB(stfer_iB),
     .inC(stfer_iC),
-    .out(stfer_iVotedA),
-    .tmrErr(stfer_iTmrErrorA)
+    .out(stfer_i),
+    .tmrErr(stfer_iTmrError)
     );
 
-majorityVoter stuff_iVoterA (
+majorityVoter stuff_iVoter (
     .inA(stuff_iA),
     .inB(stuff_iB),
     .inC(stuff_iC),
-    .out(stuff_iVotedA),
-    .tmrErr(stuff_iTmrErrorA)
+    .out(stuff_i),
+    .tmrErr(stuff_iTmrError)
     );
 
-majorityVoter bitout_iVoterB (
-    .inA(bitout_iA),
-    .inB(bitout_iB),
-    .inC(bitout_iC),
-    .out(bitout_iVotedB),
-    .tmrErr(bitout_iTmrErrorB)
+fanout activFanout (
+    .in(activ),
+    .outA(activA),
+    .outB(activB),
+    .outC(activC)
     );
 
-majorityVoter edgedVoterB (
-    .inA(edgedA),
-    .inB(edgedB),
-    .inC(edgedC),
-    .out(edgedVotedB),
-    .tmrErr(edgedTmrErrorB)
+fanout bitinFanout (
+    .in(bitin),
+    .outA(bitinA),
+    .outB(bitinB),
+    .outC(bitinC)
     );
 
-majorityVoter stfer_iVoterB (
-    .inA(stfer_iA),
-    .inB(stfer_iB),
-    .inC(stfer_iC),
-    .out(stfer_iVotedB),
-    .tmrErr(stfer_iTmrErrorB)
+fanout bitoutFanout (
+    .in(bitout),
+    .outA(bitoutA),
+    .outB(bitoutB),
+    .outC(bitoutC)
     );
 
-majorityVoter stuff_iVoterB (
-    .inA(stuff_iA),
-    .inB(stuff_iB),
-    .inC(stuff_iC),
-    .out(stuff_iVotedB),
-    .tmrErr(stuff_iTmrErrorB)
+fanout clockFanout (
+    .in(clock),
+    .outA(clockA),
+    .outB(clockB),
+    .outC(clockC)
     );
 
-majorityVoter bitout_iVoterC (
-    .inA(bitout_iA),
-    .inB(bitout_iB),
-    .inC(bitout_iC),
-    .out(bitout_iVotedC),
-    .tmrErr(bitout_iTmrErrorC)
+fanout directFanout (
+    .in(direct),
+    .outA(directA),
+    .outB(directB),
+    .outC(directC)
     );
 
-majorityVoter edgedVoterC (
-    .inA(edgedA),
-    .inB(edgedB),
-    .inC(edgedC),
-    .out(edgedVotedC),
-    .tmrErr(edgedTmrErrorC)
+fanout edgedVFanout (
+    .in(edgedV),
+    .outA(edgedVA),
+    .outB(edgedVB),
+    .outC(edgedVC)
     );
 
-majorityVoter stfer_iVoterC (
-    .inA(stfer_iA),
-    .inB(stfer_iB),
-    .inC(stfer_iC),
-    .out(stfer_iVotedC),
-    .tmrErr(stfer_iTmrErrorC)
+fanout resetFanout (
+    .in(reset),
+    .outA(resetA),
+    .outB(resetB),
+    .outC(resetC)
     );
 
-majorityVoter stuff_iVoterC (
-    .inA(stuff_iA),
-    .inB(stuff_iB),
-    .inC(stuff_iC),
-    .out(stuff_iVotedC),
-    .tmrErr(stuff_iTmrErrorC)
+fanout stferFanout (
+    .in(stfer),
+    .outA(stferA),
+    .outB(stferB),
+    .outC(stferC)
+    );
+
+fanout stuffFanout (
+    .in(stuff),
+    .outA(stuffA),
+    .outB(stuffB),
+    .outC(stuffC)
     );
 endmodule
 

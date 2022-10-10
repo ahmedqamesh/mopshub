@@ -6,934 +6,342 @@
  *                                                                                                  *
  * user    : lucas                                                                                  *
  * host    : DESKTOP-BFDSFP2                                                                        *
- * date    : 16/08/2022 12:58:12                                                                    *
+ * date    : 06/10/2022 13:52:39                                                                    *
  *                                                                                                  *
- * workdir : /mnt/c/Users/Lucas/Desktop/mopshub_triplication/mopshub_top_board_canakari_ftrim/hdl   *
- * cmd     : /mnt/c/Users/Lucas/Desktop/mopshub_triplication/tmrg-master/bin/tmrg -c tmrg.cfg -vvv  *
+ * workdir : /mnt/c/Users/Lucas/Documents/GitHub/mopshub_triplicated/triplicated/mopshub_top_board/hdl *
+ * cmd     : /mnt/c/Users/Lucas/Desktop/mopshub_triplication/tmrg-master/bin/tmrg -vv -c tmrg.cfg   *
  * tmrg rev:                                                                                        *
  *                                                                                                  *
  * src file: can2.v                                                                                 *
- *           Git SHA           : File not in git repository!                                        *
- *           Modification time : 2022-03-29 13:49:21                                                *
+ *           Git SHA           : c110441b08b692cc54ebd4a3b84a2599430e8f93                           *
+ *           Modification time : 2022-08-23 20:02:22                                                *
  *           File Size         : 13011                                                              *
- *           MD5 hash          : 784682f9121477016618d419b9afd388                                   *
+ *           MD5 hash          : 9966cd8b918ab0c9aa804036cbafadd4                                   *
  *                                                                                                  *
  ****************************************************************************************************/
 
 module can2TMR(
-  input wire  clockA ,
-  input wire  clockB ,
-  input wire  clockC ,
-  input wire  resetA ,
-  input wire  resetB ,
-  input wire  resetC ,
-  input wire [4:0] addressA ,
-  input wire [4:0] addressB ,
-  input wire [4:0] addressC ,
-  output wire [15:0] readdataA ,
-  output wire [15:0] readdataB ,
-  output wire [15:0] readdataC ,
-  input wire [15:0] writedataA ,
-  input wire [15:0] writedataB ,
-  input wire [15:0] writedataC ,
-  input wire  csA ,
-  input wire  csB ,
-  input wire  csC ,
-  input wire  read_nA ,
-  input wire  read_nB ,
-  input wire  read_nC ,
-  input wire  write_nA ,
-  input wire  write_nB ,
-  input wire  write_nC ,
-  output wire  irqA ,
-  output wire  irqB ,
-  output wire  irqC ,
-  output wire  irqstatusA ,
-  output wire  irqstatusB ,
-  output wire  irqstatusC ,
-  output wire  irqsuctraA ,
-  output wire  irqsuctraB ,
-  output wire  irqsuctraC ,
-  output wire  irqsucrecA ,
-  output wire  irqsucrecB ,
-  output wire  irqsucrecC ,
-  input wire  rxA ,
-  input wire  rxB ,
-  input wire  rxC ,
-  output wire  txA ,
-  output wire  txB ,
-  output wire  txC ,
-  output wire [7:0] statedebA ,
-  output wire [7:0] statedebB ,
-  output wire [7:0] statedebC ,
-  output wire  Prescale_EN_debugA ,
-  output wire  Prescale_EN_debugB ,
-  output wire  Prescale_EN_debugC ,
-  output wire [6:0] bitstA ,
-  output wire [6:0] bitstB ,
-  output wire [6:0] bitstC ,
-  input wire  en_osc_trimA ,
-  input wire  en_osc_trimB ,
-  input wire  en_osc_trimC ,
-  input wire [7:0] KdA ,
-  input wire [7:0] KdB ,
-  input wire [7:0] KdC ,
-  input wire [7:0] KpA ,
-  input wire [7:0] KpB ,
-  input wire [7:0] KpC ,
-  input wire [7:0] KiA ,
-  input wire [7:0] KiB ,
-  input wire [7:0] KiC ,
-  output wire [5:0] ftrimA ,
-  output wire [5:0] ftrimB ,
-  output wire [5:0] ftrimC ,
-  output wire  ready_oscA ,
-  output wire  ready_oscB ,
-  output wire  ready_oscC 
+  input wire  clock ,
+  input wire  reset ,
+  input wire [4:0] address ,
+  output wire [15:0] readdata ,
+  input wire [15:0] writedata ,
+  input wire  cs ,
+  input wire  read_n ,
+  input wire  write_n ,
+  output wire  irq ,
+  output wire  irqstatus ,
+  output wire  irqsuctra ,
+  output wire  irqsucrec ,
+  input wire  rx ,
+  output wire  tx ,
+  output wire [7:0] statedeb ,
+  output wire  Prescale_EN_debug ,
+  output wire [6:0] bitst ,
+  input wire  en_osc_trim ,
+  input wire [7:0] Kd ,
+  input wire [7:0] Kp ,
+  input wire [7:0] Ki ,
+  output wire [5:0] ftrim ,
+  output wire  ready_osc 
 );
 parameter [15:0] system_id =16'hCA05;
-wire sendpointA;
-wire sendpointB;
-wire sendpointC;
-wire smplpointA;
-wire smplpointB;
-wire smplpointC;
-wire transA;
-wire transB;
-wire transC;
-wire erroractivA;
-wire erroractivB;
-wire erroractivC;
-wire errorpassivA;
-wire errorpassivB;
-wire errorpassivC;
-wire busofA;
-wire busofB;
-wire busofC;
-wire loadA;
-wire loadB;
-wire loadC;
-wire actvtsftllcA;
-wire actvtsftllcB;
-wire actvtsftllcC;
-wire actvtcapA;
-wire actvtcapB;
-wire actvtcapC;
-wire resettraA;
-wire resettraB;
-wire resettraC;
-wire [28:0] accmaskreg_iA;
-wire [28:0] accmaskreg_iB;
-wire [28:0] accmaskreg_iC;
-wire [28:0] identifierrA;
-wire [28:0] identifierrB;
-wire [28:0] identifierrC;
-wire [7:0] data1rA;
-wire [7:0] data1rB;
-wire [7:0] data1rC;
-wire [7:0] data2rA;
-wire [7:0] data2rB;
-wire [7:0] data2rC;
-wire [7:0] data3rA;
-wire [7:0] data3rB;
-wire [7:0] data3rC;
-wire [7:0] data4rA;
-wire [7:0] data4rB;
-wire [7:0] data4rC;
-wire [7:0] data5rA;
-wire [7:0] data5rB;
-wire [7:0] data5rC;
-wire [7:0] data6rA;
-wire [7:0] data6rB;
-wire [7:0] data6rC;
-wire [7:0] data7rA;
-wire [7:0] data7rB;
-wire [7:0] data7rC;
-wire [7:0] data8rA;
-wire [7:0] data8rB;
-wire [7:0] data8rC;
-wire extendedrA;
-wire extendedrB;
-wire extendedrC;
-wire remoterA;
-wire remoterB;
-wire remoterC;
-wire [3:0] datalenrA;
-wire [3:0] datalenrB;
-wire [3:0] datalenrC;
-wire [28:0] identifierwA;
-wire [28:0] identifierwB;
-wire [28:0] identifierwC;
-wire [7:0] data1wA;
-wire [7:0] data1wB;
-wire [7:0] data1wC;
-wire [7:0] data2wA;
-wire [7:0] data2wB;
-wire [7:0] data2wC;
-wire [7:0] data3wA;
-wire [7:0] data3wB;
-wire [7:0] data3wC;
-wire [7:0] data4wA;
-wire [7:0] data4wB;
-wire [7:0] data4wC;
-wire [7:0] data5wA;
-wire [7:0] data5wB;
-wire [7:0] data5wC;
-wire [7:0] data6wA;
-wire [7:0] data6wB;
-wire [7:0] data6wC;
-wire [7:0] data7wA;
-wire [7:0] data7wB;
-wire [7:0] data7wC;
-wire [7:0] data8wA;
-wire [7:0] data8wB;
-wire [7:0] data8wC;
-wire remotewA;
-wire remotewB;
-wire remotewC;
-wire [3:0] datalenwA;
-wire [3:0] datalenwB;
-wire [3:0] datalenwC;
-wire inconerecA;
-wire inconerecB;
-wire inconerecC;
-wire incegtrecA;
-wire incegtrecB;
-wire incegtrecC;
-wire incegttraA;
-wire incegttraB;
-wire incegttraC;
-wire decrecA;
-wire decrecB;
-wire decrecC;
-wire dectraA;
-wire dectraB;
-wire dectraC;
-wire elevrecbA;
-wire elevrecbB;
-wire elevrecbC;
-wire hardsyncA;
-wire hardsyncB;
-wire hardsyncC;
-wire initreqrA;
-wire initreqrB;
-wire initreqrC;
-wire traregbitA;
-wire traregbitB;
-wire traregbitC;
-wire sucfrecvrA;
-wire sucfrecvrB;
-wire sucfrecvrC;
-wire sucftranrA;
-wire sucftranrB;
-wire sucftranrC;
-wire activtregA;
-wire activtregB;
-wire activtregC;
-wire activrregA;
-wire activrregB;
-wire activrregC;
-wire activgregA;
-wire activgregB;
-wire activgregC;
-wire sucftranoA;
-wire sucftranoB;
-wire sucftranoC;
-wire sucfrecvoA;
-wire sucfrecvoB;
-wire sucfrecvoC;
-wire overflowoA;
-wire overflowoB;
-wire overflowoC;
-wire resetallA;
-wire resetallB;
-wire resetallC;
-wire ldrecidA;
-wire ldrecidB;
-wire ldrecidC;
-wire [2:0] tseg1A;
-wire [2:0] tseg1B;
-wire [2:0] tseg1C;
-wire [2:0] tseg2A;
-wire [2:0] tseg2B;
-wire [2:0] tseg2C;
-wire [2:0] sjwA;
-wire [2:0] sjwB;
-wire [2:0] sjwC;
-wire smpledbitA;
-wire smpledbitB;
-wire smpledbitC;
-wire warnsigA;
-wire warnsigB;
-wire warnsigC;
-wire irqsigA;
-wire irqsigB;
-wire irqsigC;
-wire [28:0] ridentifierA;
-wire [28:0] ridentifierB;
-wire [28:0] ridentifierC;
-wire rextendedA;
-wire rextendedB;
-wire rextendedC;
-wire resetsigA;
-wire resetsigB;
-wire resetsigC;
-wire [3:0] high_iA;
-wire [3:0] high_iB;
-wire [3:0] high_iC;
-wire [3:0] low_iA;
-wire [3:0] low_iB;
-wire [3:0] low_iC;
-wire [7:0] prescale_outA;
-wire [7:0] prescale_outB;
-wire [7:0] prescale_outC;
-wire sync_reset_iA;
-wire sync_reset_iB;
-wire sync_reset_iC;
-wire Prescale_ENA;
-wire Prescale_ENB;
-wire Prescale_ENC;
-wire activintregA;
-wire activintregB;
-wire activintregC;
-wire [2:0] ienableA;
-wire [2:0] ienableB;
-wire [2:0] ienableC;
-wire [2:0] irqstdA;
-wire [2:0] irqstdB;
-wire [2:0] irqstdC;
-wire [7:0] tec_iA;
-wire [7:0] tec_iB;
-wire [7:0] tec_iC;
-wire [7:0] rec_iA;
-wire [7:0] rec_iB;
-wire [7:0] rec_iC;
-wire switched_rxA;
-wire switched_rxB;
-wire switched_rxC;
-wire tx_iA;
-wire tx_iB;
-wire tx_iC;
-wire onoffn_iA;
-wire onoffn_iB;
-wire onoffn_iC;
-wire irqstatus_internalA;
-wire irqstatus_internalB;
-wire irqstatus_internalC;
-wire irqsucrec_internalA;
-wire irqsucrec_internalB;
-wire irqsucrec_internalC;
-wire irqsuctra_internalA;
-wire irqsuctra_internalB;
-wire irqsuctra_internalC;
-assign switched_rxA =  rxA;
-assign switched_rxB =  rxB;
-assign switched_rxC =  rxC;
-assign txA =  tx_iA|(~ onoffn_iA );
-assign txB =  tx_iB|(~ onoffn_iB );
-assign txC =  tx_iC|(~ onoffn_iC );
-assign resetsigA =  resetA&resetallA;
-assign resetsigB =  resetB&resetallB;
-assign resetsigC =  resetC&resetallC;
-assign high_iA =  prescale_outA[7:4] ;
-assign high_iB =  prescale_outB[7:4] ;
-assign high_iC =  prescale_outC[7:4] ;
-assign low_iA =  prescale_outA[3:0] ;
-assign low_iB =  prescale_outB[3:0] ;
-assign low_iC =  prescale_outC[3:0] ;
-assign Prescale_EN_debugA =  Prescale_ENA;
-assign Prescale_EN_debugB =  Prescale_ENB;
-assign Prescale_EN_debugC =  Prescale_ENC;
-assign irqstatusA =  irqstatus_internalA;
-assign irqstatusB =  irqstatus_internalB;
-assign irqstatusC =  irqstatus_internalC;
-assign irqsucrecA =  irqsucrec_internalA;
-assign irqsucrecB =  irqsucrec_internalB;
-assign irqsucrecC =  irqsucrec_internalC;
-assign irqsuctraA =  irqsuctra_internalA;
-assign irqsuctraB =  irqsuctra_internalB;
-assign irqsuctraC =  irqsuctra_internalC;
+wire sendpoint;
+wire smplpoint;
+wire trans;
+wire erroractiv;
+wire errorpassiv;
+wire busof;
+wire load;
+wire actvtsftllc;
+wire actvtcap;
+wire resettra;
+wire [28:0] accmaskreg_i;
+wire [28:0] identifierr;
+wire [7:0] data1r;
+wire [7:0] data2r;
+wire [7:0] data3r;
+wire [7:0] data4r;
+wire [7:0] data5r;
+wire [7:0] data6r;
+wire [7:0] data7r;
+wire [7:0] data8r;
+wire extendedr;
+wire remoter;
+wire [3:0] datalenr;
+wire [28:0] identifierw;
+wire [7:0] data1w;
+wire [7:0] data2w;
+wire [7:0] data3w;
+wire [7:0] data4w;
+wire [7:0] data5w;
+wire [7:0] data6w;
+wire [7:0] data7w;
+wire [7:0] data8w;
+wire remotew;
+wire [3:0] datalenw;
+wire inconerec;
+wire incegtrec;
+wire incegttra;
+wire decrec;
+wire dectra;
+wire elevrecb;
+wire hardsync;
+wire initreqr;
+wire traregbit;
+wire sucfrecvr;
+wire sucftranr;
+wire activtreg;
+wire activrreg;
+wire activgreg;
+wire sucftrano;
+wire sucfrecvo;
+wire overflowo;
+wire resetall;
+wire ldrecid;
+wire [2:0] tseg1;
+wire [2:0] tseg2;
+wire [2:0] sjw;
+wire smpledbit;
+wire warnsig;
+wire irqsig;
+wire [28:0] ridentifier;
+wire rextended;
+wire resetsig;
+wire [3:0] high_i;
+wire [3:0] low_i;
+wire [7:0] prescale_out;
+wire sync_reset_i;
+wire Prescale_EN;
+wire activintreg;
+wire [2:0] ienable;
+wire [2:0] irqstd;
+wire [7:0] tec_i;
+wire [7:0] rec_i;
+wire switched_rx;
+wire tx_i;
+wire onoffn_i;
+wire irqstatus_internal;
+wire irqsucrec_internal;
+wire irqsuctra_internal;
+assign switched_rx =  rx;
+assign tx =  tx_i|(~ onoffn_i );
+assign resetsig =  reset&resetall;
+assign high_i =  prescale_out[7:4] ;
+assign low_i =  prescale_out[3:0] ;
+assign Prescale_EN_debug =  Prescale_EN;
+assign irqstatus =  irqstatus_internal;
+assign irqsucrec =  irqsucrec_internal;
+assign irqsuctra =  irqsuctra_internal;
 
 resetgen2TMR reset_generator (
-    .resetA(resetsigA),
-    .resetB(resetsigB),
-    .resetC(resetsigC),
-    .sync_resetA(sync_reset_iA),
-    .sync_resetB(sync_reset_iB),
-    .sync_resetC(sync_reset_iC),
-    .clockA(clockA),
-    .clockB(clockB),
-    .clockC(clockC)
+    .reset(resetsig),
+    .sync_reset(sync_reset_i),
+    .clock(clock)
     );
 
 mac2TMR MediumAccessControl (
-    .clockA(clockA),
-    .clockB(clockB),
-    .clockC(clockC),
-    .Prescale_ENA(Prescale_ENA),
-    .Prescale_ENB(Prescale_ENB),
-    .Prescale_ENC(Prescale_ENC),
-    .resetA(sync_reset_iA),
-    .resetB(sync_reset_iB),
-    .resetC(sync_reset_iC),
-    .sendpointA(sendpointA),
-    .sendpointB(sendpointB),
-    .sendpointC(sendpointC),
-    .smplpointA(smplpointA),
-    .smplpointB(smplpointB),
-    .smplpointC(smplpointC),
-    .inbitA(smpledbitA),
-    .inbitB(smpledbitB),
-    .inbitC(smpledbitC),
-    .transA(transA),
-    .transB(transB),
-    .transC(transC),
-    .erroractivA(erroractivA),
-    .erroractivB(erroractivB),
-    .erroractivC(erroractivC),
-    .errorpassivA(errorpassivA),
-    .errorpassivB(errorpassivB),
-    .errorpassivC(errorpassivC),
-    .busofA(busofA),
-    .busofB(busofB),
-    .busofC(busofC),
-    .loadA(loadA),
-    .loadB(loadB),
-    .loadC(loadC),
-    .actvtsftllcA(actvtsftllcA),
-    .actvtsftllcB(actvtsftllcB),
-    .actvtsftllcC(actvtsftllcC),
-    .actvtcapA(actvtcapA),
-    .actvtcapB(actvtcapB),
-    .actvtcapC(actvtcapC),
-    .resettraA(resettraA),
-    .resettraB(resettraB),
-    .resettraC(resettraC),
-    .identifierrA(identifierrA),
-    .identifierrB(identifierrB),
-    .identifierrC(identifierrC),
-    .data1rA(data1rA),
-    .data1rB(data1rB),
-    .data1rC(data1rC),
-    .data2rA(data2rA),
-    .data2rB(data2rB),
-    .data2rC(data2rC),
-    .data3rA(data3rA),
-    .data3rB(data3rB),
-    .data3rC(data3rC),
-    .data4rA(data4rA),
-    .data4rB(data4rB),
-    .data4rC(data4rC),
-    .data5rA(data5rA),
-    .data5rB(data5rB),
-    .data5rC(data5rC),
-    .data6rA(data6rA),
-    .data6rB(data6rB),
-    .data6rC(data6rC),
-    .data7rA(data7rA),
-    .data7rB(data7rB),
-    .data7rC(data7rC),
-    .data8rA(data8rA),
-    .data8rB(data8rB),
-    .data8rC(data8rC),
-    .extendedrA(extendedrA),
-    .extendedrB(extendedrB),
-    .extendedrC(extendedrC),
-    .remoterA(remoterA),
-    .remoterB(remoterB),
-    .remoterC(remoterC),
-    .datalenrA(datalenrA),
-    .datalenrB(datalenrB),
-    .datalenrC(datalenrC),
-    .identifierwA(identifierwA),
-    .identifierwB(identifierwB),
-    .identifierwC(identifierwC),
-    .data1wA(data1wA),
-    .data1wB(data1wB),
-    .data1wC(data1wC),
-    .data2wA(data2wA),
-    .data2wB(data2wB),
-    .data2wC(data2wC),
-    .data3wA(data3wA),
-    .data3wB(data3wB),
-    .data3wC(data3wC),
-    .data4wA(data4wA),
-    .data4wB(data4wB),
-    .data4wC(data4wC),
-    .data5wA(data5wA),
-    .data5wB(data5wB),
-    .data5wC(data5wC),
-    .data6wA(data6wA),
-    .data6wB(data6wB),
-    .data6wC(data6wC),
-    .data7wA(data7wA),
-    .data7wB(data7wB),
-    .data7wC(data7wC),
-    .data8wA(data8wA),
-    .data8wB(data8wB),
-    .data8wC(data8wC),
-    .remotewA(remotewA),
-    .remotewB(remotewB),
-    .remotewC(remotewC),
-    .datalenwA(datalenwA),
-    .datalenwB(datalenwB),
-    .datalenwC(datalenwC),
-    .inconerecA(inconerecA),
-    .inconerecB(inconerecB),
-    .inconerecC(inconerecC),
-    .incegtrecA(incegtrecA),
-    .incegtrecB(incegtrecB),
-    .incegtrecC(incegtrecC),
-    .incegttraA(incegttraA),
-    .incegttraB(incegttraB),
-    .incegttraC(incegttraC),
-    .decrecA(decrecA),
-    .decrecB(decrecB),
-    .decrecC(decrecC),
-    .dectraA(dectraA),
-    .dectraB(dectraB),
-    .dectraC(dectraC),
-    .elevrecbA(elevrecbA),
-    .elevrecbB(elevrecbB),
-    .elevrecbC(elevrecbC),
-    .hardsyncA(hardsyncA),
-    .hardsyncB(hardsyncB),
-    .hardsyncC(hardsyncC),
-    .outbitA(tx_iA),
-    .outbitB(tx_iB),
-    .outbitC(tx_iC),
-    .statedebA(statedebA),
-    .statedebB(statedebB),
-    .statedebC(statedebC)
+    .clock(clock),
+    .Prescale_EN(Prescale_EN),
+    .reset(sync_reset_i),
+    .sendpoint(sendpoint),
+    .smplpoint(smplpoint),
+    .inbit(smpledbit),
+    .trans(trans),
+    .erroractiv(erroractiv),
+    .errorpassiv(errorpassiv),
+    .busof(busof),
+    .load(load),
+    .actvtsftllc(actvtsftllc),
+    .actvtcap(actvtcap),
+    .resettra(resettra),
+    .identifierr(identifierr),
+    .data1r(data1r),
+    .data2r(data2r),
+    .data3r(data3r),
+    .data4r(data4r),
+    .data5r(data5r),
+    .data6r(data6r),
+    .data7r(data7r),
+    .data8r(data8r),
+    .extendedr(extendedr),
+    .remoter(remoter),
+    .datalenr(datalenr),
+    .identifierw(identifierw),
+    .data1w(data1w),
+    .data2w(data2w),
+    .data3w(data3w),
+    .data4w(data4w),
+    .data5w(data5w),
+    .data6w(data6w),
+    .data7w(data7w),
+    .data8w(data8w),
+    .remotew(remotew),
+    .datalenw(datalenw),
+    .inconerec(inconerec),
+    .incegtrec(incegtrec),
+    .incegttra(incegttra),
+    .decrec(decrec),
+    .dectra(dectra),
+    .elevrecb(elevrecb),
+    .hardsync(hardsync),
+    .outbit(tx_i),
+    .statedeb(statedeb)
     );
 
 llc2TMR LogicalLinkControl (
-    .clockA(clockA),
-    .clockB(clockB),
-    .clockC(clockC),
-    .resetA(sync_reset_iA),
-    .resetB(sync_reset_iB),
-    .resetC(sync_reset_iC),
-    .initreqrA(initreqrA),
-    .initreqrB(initreqrB),
-    .initreqrC(initreqrC),
-    .traregbitA(traregbitA),
-    .traregbitB(traregbitB),
-    .traregbitC(traregbitC),
-    .sucfrecvcA(decrecA),
-    .sucfrecvcB(decrecB),
-    .sucfrecvcC(decrecC),
-    .sucftrancA(dectraA),
-    .sucftrancB(dectraB),
-    .sucftrancC(dectraC),
-    .sucfrecvrA(sucfrecvrA),
-    .sucfrecvrB(sucfrecvrB),
-    .sucfrecvrC(sucfrecvrC),
-    .sucftranrA(sucftranrA),
-    .sucftranrB(sucftranrB),
-    .sucftranrC(sucftranrC),
-    .extendedA(rextendedA),
-    .extendedB(rextendedB),
-    .extendedC(rextendedC),
-    .accmaskregA(accmaskreg_iA),
-    .accmaskregB(accmaskreg_iB),
-    .accmaskregC(accmaskreg_iC),
-    .idregA(ridentifierA),
-    .idregB(ridentifierB),
-    .idregC(ridentifierC),
-    .idrecA(identifierwA),
-    .idrecB(identifierwB),
-    .idrecC(identifierwC),
-    .activtregA(activtregA),
-    .activtregB(activtregB),
-    .activtregC(activtregC),
-    .activrregA(activrregA),
-    .activrregB(activrregB),
-    .activrregC(activrregC),
-    .activgregA(activgregA),
-    .activgregB(activgregB),
-    .activgregC(activgregC),
-    .ldrecidA(ldrecidA),
-    .ldrecidB(ldrecidB),
-    .ldrecidC(ldrecidC),
-    .sucftranoA(sucftranoA),
-    .sucftranoB(sucftranoB),
-    .sucftranoC(sucftranoC),
-    .sucfrecvoA(sucfrecvoA),
-    .sucfrecvoB(sucfrecvoB),
-    .sucfrecvoC(sucfrecvoC),
-    .overflowoA(overflowoA),
-    .overflowoB(overflowoB),
-    .overflowoC(overflowoC),
-    .transA(transA),
-    .transB(transB),
-    .transC(transC),
-    .loadA(loadA),
-    .loadB(loadB),
-    .loadC(loadC),
-    .actvtsftA(actvtsftllcA),
-    .actvtsftB(actvtsftllcB),
-    .actvtsftC(actvtsftllcC),
-    .actvtcapA(actvtcapA),
-    .actvtcapB(actvtcapB),
-    .actvtcapC(actvtcapC),
-    .resettraA(resettraA),
-    .resettraB(resettraB),
-    .resettraC(resettraC),
-    .resetallA(resetallA),
-    .resetallB(resetallB),
-    .resetallC(resetallC)
+    .clock(clock),
+    .reset(sync_reset_i),
+    .initreqr(initreqr),
+    .traregbit(traregbit),
+    .sucfrecvc(decrec),
+    .sucftranc(dectra),
+    .sucfrecvr(sucfrecvr),
+    .sucftranr(sucftranr),
+    .extended(rextended),
+    .accmaskreg(accmaskreg_i),
+    .idreg(ridentifier),
+    .idrec(identifierw),
+    .activtreg(activtreg),
+    .activrreg(activrreg),
+    .activgreg(activgreg),
+    .ldrecid(ldrecid),
+    .sucftrano(sucftrano),
+    .sucfrecvo(sucfrecvo),
+    .overflowo(overflowo),
+    .trans(trans),
+    .load(load),
+    .actvtsft(actvtsftllc),
+    .actvtcap(actvtcap),
+    .resettra(resettra),
+    .resetall(resetall)
     );
 
 bittiming2TMR TimeControl (
-    .clockA(clockA),
-    .clockB(clockB),
-    .clockC(clockC),
-    .Prescale_ENA(Prescale_ENA),
-    .Prescale_ENB(Prescale_ENB),
-    .Prescale_ENC(Prescale_ENC),
-    .resetA(resetsigA),
-    .resetB(resetsigB),
-    .resetC(resetsigC),
-    .hardsyncA(hardsyncA),
-    .hardsyncB(hardsyncB),
-    .hardsyncC(hardsyncC),
-    .rxA(switched_rxA),
-    .rxB(switched_rxB),
-    .rxC(switched_rxC),
-    .tseg1A(tseg1A),
-    .tseg1B(tseg1B),
-    .tseg1C(tseg1C),
-    .tseg2A(tseg2A),
-    .tseg2B(tseg2B),
-    .tseg2C(tseg2C),
-    .sjwA(sjwA),
-    .sjwB(sjwB),
-    .sjwC(sjwC),
-    .en_osc_trimA(en_osc_trimA),
-    .en_osc_trimB(en_osc_trimB),
-    .en_osc_trimC(en_osc_trimC),
-    .KdA(KdA),
-    .KdB(KdB),
-    .KdC(KdC),
-    .KpA(KpA),
-    .KpB(KpB),
-    .KpC(KpC),
-    .KiA(KiA),
-    .KiB(KiB),
-    .KiC(KiC),
-    .ftrimA(ftrimA),
-    .ftrimB(ftrimB),
-    .ftrimC(ftrimC),
-    .ready_oscA(ready_oscA),
-    .ready_oscB(ready_oscB),
-    .ready_oscC(ready_oscC),
-    .sendpointA(sendpointA),
-    .sendpointB(sendpointB),
-    .sendpointC(sendpointC),
-    .smplpointA(smplpointA),
-    .smplpointB(smplpointB),
-    .smplpointC(smplpointC),
-    .smpledbitA(smpledbitA),
-    .smpledbitB(smpledbitB),
-    .smpledbitC(smpledbitC),
-    .bitstA(bitstA),
-    .bitstB(bitstB),
-    .bitstC(bitstC)
+    .clock(clock),
+    .Prescale_EN(Prescale_EN),
+    .reset(resetsig),
+    .hardsync(hardsync),
+    .rx(switched_rx),
+    .tseg1(tseg1),
+    .tseg2(tseg2),
+    .sjw(sjw),
+    .en_osc_trim(en_osc_trim),
+    .Kd(Kd),
+    .Kp(Kp),
+    .Ki(Ki),
+    .ftrim(ftrim),
+    .ready_osc(ready_osc),
+    .sendpoint(sendpoint),
+    .smplpoint(smplpoint),
+    .smpledbit(smpledbit),
+    .bitst(bitst)
     );
 
 fce2TMR FaultConfinement (
-    .clockA(clockA),
-    .clockB(clockB),
-    .clockC(clockC),
-    .resetA(sync_reset_iA),
-    .resetB(sync_reset_iB),
-    .resetC(sync_reset_iC),
-    .inconerecA(inconerecA),
-    .inconerecB(inconerecB),
-    .inconerecC(inconerecC),
-    .incegtrecA(incegtrecA),
-    .incegtrecB(incegtrecB),
-    .incegtrecC(incegtrecC),
-    .incegttraA(incegttraA),
-    .incegttraB(incegttraB),
-    .incegttraC(incegttraC),
-    .decrecA(decrecA),
-    .decrecB(decrecB),
-    .decrecC(decrecC),
-    .dectraA(dectraA),
-    .dectraB(dectraB),
-    .dectraC(dectraC),
-    .elevrecbA(elevrecbA),
-    .elevrecbB(elevrecbB),
-    .elevrecbC(elevrecbC),
-    .erroractiveA(erroractivA),
-    .erroractiveB(erroractivB),
-    .erroractiveC(erroractivC),
-    .errorpassiveA(errorpassivA),
-    .errorpassiveB(errorpassivB),
-    .errorpassiveC(errorpassivC),
-    .busoffA(busofA),
-    .busoffB(busofB),
-    .busoffC(busofC),
-    .warnsigA(warnsigA),
-    .warnsigB(warnsigB),
-    .warnsigC(warnsigC),
-    .irqsigA(irqsigA),
-    .irqsigB(irqsigB),
-    .irqsigC(irqsigC),
-    .tecfceA(tec_iA),
-    .tecfceB(tec_iB),
-    .tecfceC(tec_iC),
-    .recfceA(rec_iA),
-    .recfceB(rec_iB),
-    .recfceC(rec_iC)
+    .clock(clock),
+    .reset(sync_reset_i),
+    .inconerec(inconerec),
+    .incegtrec(incegtrec),
+    .incegttra(incegttra),
+    .decrec(decrec),
+    .dectra(dectra),
+    .elevrecb(elevrecb),
+    .erroractive(erroractiv),
+    .errorpassive(errorpassiv),
+    .busoff(busof),
+    .warnsig(warnsig),
+    .irqsig(irqsig),
+    .tecfce(tec_i),
+    .recfce(rec_i)
     );
 
 interruptunit2TMR irqunit (
-    .clockA(clockA),
-    .clockB(clockB),
-    .clockC(clockC),
-    .resetA(sync_reset_iA),
-    .resetB(sync_reset_iB),
-    .resetC(sync_reset_iC),
-    .ienableA(ienableA),
-    .ienableB(ienableB),
-    .ienableC(ienableC),
-    .irqstdA(irqstdA),
-    .irqstdB(irqstdB),
-    .irqstdC(irqstdC),
-    .irqsigA(irqsigA),
-    .irqsigB(irqsigB),
-    .irqsigC(irqsigC),
-    .sucfrecA(sucfrecvoA),
-    .sucfrecB(sucfrecvoB),
-    .sucfrecC(sucfrecvoC),
-    .sucftraA(sucftranoA),
-    .sucftraB(sucftranoB),
-    .sucftraC(sucftranoC),
-    .activintregA(activintregA),
-    .activintregB(activintregB),
-    .activintregC(activintregC),
-    .irqstatusA(irqstatus_internalA),
-    .irqstatusB(irqstatus_internalB),
-    .irqstatusC(irqstatus_internalC),
-    .irqsuctraA(irqsuctra_internalA),
-    .irqsuctraB(irqsuctra_internalB),
-    .irqsuctraC(irqsuctra_internalC),
-    .irqsucrecA(irqsucrec_internalA),
-    .irqsucrecB(irqsucrec_internalB),
-    .irqsucrecC(irqsucrec_internalC),
-    .irqA(irqA),
-    .irqB(irqB),
-    .irqC(irqC)
+    .clock(clock),
+    .reset(sync_reset_i),
+    .ienable(ienable),
+    .irqstd(irqstd),
+    .irqsig(irqsig),
+    .sucfrec(sucfrecvo),
+    .sucftra(sucftrano),
+    .activintreg(activintreg),
+    .irqstatus(irqstatus_internal),
+    .irqsuctra(irqsuctra_internal),
+    .irqsucrec(irqsucrec_internal),
+    .irq(irq)
     );
 
 iocpu2TMR #(.system_id(system_id)) IOControl (
-    .clockA(clockA),
-    .clockB(clockB),
-    .clockC(clockC),
-    .resetA(sync_reset_iA),
-    .resetB(sync_reset_iB),
-    .resetC(sync_reset_iC),
-    .addressA(addressA),
-    .addressB(addressB),
-    .addressC(addressC),
-    .readdataA(readdataA),
-    .readdataB(readdataB),
-    .readdataC(readdataC),
-    .writedataA(writedataA),
-    .writedataB(writedataB),
-    .writedataC(writedataC),
-    .read_nA(read_nA),
-    .read_nB(read_nB),
-    .read_nC(read_nC),
-    .write_nA(write_nA),
-    .write_nB(write_nB),
-    .write_nC(write_nC),
-    .csA(csA),
-    .csB(csB),
-    .csC(csC),
-    .activgregA(activgregA),
-    .activgregB(activgregB),
-    .activgregC(activgregC),
-    .activtregA(activtregA),
-    .activtregB(activtregB),
-    .activtregC(activtregC),
-    .activrregA(activrregA),
-    .activrregB(activrregB),
-    .activrregC(activrregC),
-    .activintregA(activintregA),
-    .activintregB(activintregB),
-    .activintregC(activintregC),
-    .ldrecidA(ldrecidA),
-    .ldrecidB(ldrecidB),
-    .ldrecidC(ldrecidC),
-    .sucftraniA(sucftranoA),
-    .sucftraniB(sucftranoB),
-    .sucftraniC(sucftranoC),
-    .sucfrecviA(sucfrecvoA),
-    .sucfrecviB(sucfrecvoB),
-    .sucfrecviC(sucfrecvoC),
-    .overflowoA(overflowoA),
-    .overflowoB(overflowoB),
-    .overflowoC(overflowoC),
-    .erroractiveA(erroractivA),
-    .erroractiveB(erroractivB),
-    .erroractiveC(erroractivC),
-    .errorpassiveA(errorpassivA),
-    .errorpassiveB(errorpassivB),
-    .errorpassiveC(errorpassivC),
-    .busoffA(busofA),
-    .busoffB(busofB),
-    .busoffC(busofC),
-    .warningA(warnsigA),
-    .warningB(warnsigB),
-    .warningC(warnsigC),
-    .irqstatusA(irqstatus_internalA),
-    .irqstatusB(irqstatus_internalB),
-    .irqstatusC(irqstatus_internalC),
-    .irqsuctraA(irqsuctra_internalA),
-    .irqsuctraB(irqsuctra_internalB),
-    .irqsuctraC(irqsuctra_internalC),
-    .irqsucrecA(irqsucrec_internalA),
-    .irqsucrecB(irqsucrec_internalB),
-    .irqsucrecC(irqsucrec_internalC),
-    .rec_idA(identifierwA),
-    .rec_idB(identifierwB),
-    .rec_idC(identifierwC),
-    .rremoteA(remotewA),
-    .rremoteB(remotewB),
-    .rremoteC(remotewC),
-    .rdlcA(datalenwA),
-    .rdlcB(datalenwB),
-    .rdlcC(datalenwC),
-    .data1rA(data1wA),
-    .data1rB(data1wB),
-    .data1rC(data1wC),
-    .data2rA(data2wA),
-    .data2rB(data2wB),
-    .data2rC(data2wC),
-    .data3rA(data3wA),
-    .data3rB(data3wB),
-    .data3rC(data3wC),
-    .data4rA(data4wA),
-    .data4rB(data4wB),
-    .data4rC(data4wC),
-    .data5rA(data5wA),
-    .data5rB(data5wB),
-    .data5rC(data5wC),
-    .data6rA(data6wA),
-    .data6rB(data6wB),
-    .data6rC(data6wC),
-    .data7rA(data7wA),
-    .data7rB(data7wB),
-    .data7rC(data7wC),
-    .data8rA(data8wA),
-    .data8rB(data8wB),
-    .data8rC(data8wC),
-    .teccanA(tec_iA),
-    .teccanB(tec_iB),
-    .teccanC(tec_iC),
-    .reccanA(rec_iA),
-    .reccanB(rec_iB),
-    .reccanC(rec_iC),
-    .sjwA(sjwA),
-    .sjwB(sjwB),
-    .sjwC(sjwC),
-    .tseg1A(tseg1A),
-    .tseg1B(tseg1B),
-    .tseg1C(tseg1C),
-    .tseg2A(tseg2A),
-    .tseg2B(tseg2B),
-    .tseg2C(tseg2C),
-    .sucfrecvoA(sucfrecvrA),
-    .sucfrecvoB(sucfrecvrB),
-    .sucfrecvoC(sucfrecvrC),
-    .sucftranoA(sucftranrA),
-    .sucftranoB(sucftranrB),
-    .sucftranoC(sucftranrC),
-    .initreqrA(initreqrA),
-    .initreqrB(initreqrB),
-    .initreqrC(initreqrC),
-    .traregbitA(traregbitA),
-    .traregbitB(traregbitB),
-    .traregbitC(traregbitC),
-    .accmaskA(accmaskreg_iA),
-    .accmaskB(accmaskreg_iB),
-    .accmaskC(accmaskreg_iC),
-    .ridentifierA(ridentifierA),
-    .ridentifierB(ridentifierB),
-    .ridentifierC(ridentifierC),
-    .rextendedA(rextendedA),
-    .rextendedB(rextendedB),
-    .rextendedC(rextendedC),
-    .ienableA(ienableA),
-    .ienableB(ienableB),
-    .ienableC(ienableC),
-    .irqstdA(irqstdA),
-    .irqstdB(irqstdB),
-    .irqstdC(irqstdC),
-    .tidentifierA(identifierrA),
-    .tidentifierB(identifierrB),
-    .tidentifierC(identifierrC),
-    .data1tA(data1rA),
-    .data1tB(data1rB),
-    .data1tC(data1rC),
-    .data2tA(data2rA),
-    .data2tB(data2rB),
-    .data2tC(data2rC),
-    .data3tA(data3rA),
-    .data3tB(data3rB),
-    .data3tC(data3rC),
-    .data4tA(data4rA),
-    .data4tB(data4rB),
-    .data4tC(data4rC),
-    .data5tA(data5rA),
-    .data5tB(data5rB),
-    .data5tC(data5rC),
-    .data6tA(data6rA),
-    .data6tB(data6rB),
-    .data6tC(data6rC),
-    .data7tA(data7rA),
-    .data7tB(data7rB),
-    .data7tC(data7rC),
-    .data8tA(data8rA),
-    .data8tB(data8rB),
-    .data8tC(data8rC),
-    .textendedA(extendedrA),
-    .textendedB(extendedrB),
-    .textendedC(extendedrC),
-    .tremoteA(remoterA),
-    .tremoteB(remoterB),
-    .tremoteC(remoterC),
-    .tdlcA(datalenrA),
-    .tdlcB(datalenrB),
-    .tdlcC(datalenrC),
-    .prescale_outA(prescale_outA),
-    .prescale_outB(prescale_outB),
-    .prescale_outC(prescale_outC),
-    .onoffnA(onoffn_iA),
-    .onoffnB(onoffn_iB),
-    .onoffnC(onoffn_iC)
+    .clock(clock),
+    .reset(sync_reset_i),
+    .address(address),
+    .readdata(readdata),
+    .writedata(writedata),
+    .read_n(read_n),
+    .write_n(write_n),
+    .cs(cs),
+    .activgreg(activgreg),
+    .activtreg(activtreg),
+    .activrreg(activrreg),
+    .activintreg(activintreg),
+    .ldrecid(ldrecid),
+    .sucftrani(sucftrano),
+    .sucfrecvi(sucfrecvo),
+    .overflowo(overflowo),
+    .erroractive(erroractiv),
+    .errorpassive(errorpassiv),
+    .busoff(busof),
+    .warning(warnsig),
+    .irqstatus(irqstatus_internal),
+    .irqsuctra(irqsuctra_internal),
+    .irqsucrec(irqsucrec_internal),
+    .rec_id(identifierw),
+    .rremote(remotew),
+    .rdlc(datalenw),
+    .data1r(data1w),
+    .data2r(data2w),
+    .data3r(data3w),
+    .data4r(data4w),
+    .data5r(data5w),
+    .data6r(data6w),
+    .data7r(data7w),
+    .data8r(data8w),
+    .teccan(tec_i),
+    .reccan(rec_i),
+    .sjw(sjw),
+    .tseg1(tseg1),
+    .tseg2(tseg2),
+    .sucfrecvo(sucfrecvr),
+    .sucftrano(sucftranr),
+    .initreqr(initreqr),
+    .traregbit(traregbit),
+    .accmask(accmaskreg_i),
+    .ridentifier(ridentifier),
+    .rextended(rextended),
+    .ienable(ienable),
+    .irqstd(irqstd),
+    .tidentifier(identifierr),
+    .data1t(data1r),
+    .data2t(data2r),
+    .data3t(data3r),
+    .data4t(data4r),
+    .data5t(data5r),
+    .data6t(data6r),
+    .data7t(data7r),
+    .data8t(data8r),
+    .textended(extendedr),
+    .tremote(remoter),
+    .tdlc(datalenr),
+    .prescale_out(prescale_out),
+    .onoffn(onoffn_i)
     );
 
 prescale2TMR prescaler (
-    .clockA(clockA),
-    .clockB(clockB),
-    .clockC(clockC),
-    .resetA(resetA),
-    .resetB(resetB),
-    .resetC(resetC),
-    .highA(high_iA),
-    .highB(high_iB),
-    .highC(high_iC),
-    .lowA(low_iA),
-    .lowB(low_iB),
-    .lowC(low_iC),
-    .Prescale_ENA(Prescale_ENA),
-    .Prescale_ENB(Prescale_ENB),
-    .Prescale_ENC(Prescale_ENC)
+    .clock(clock),
+    .reset(reset),
+    .high(high_i),
+    .low(low_i),
+    .Prescale_EN(Prescale_EN)
     );
 endmodule
 

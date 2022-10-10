@@ -6,17 +6,17 @@
  *                                                                                                  *
  * user    : lucas                                                                                  *
  * host    : DESKTOP-BFDSFP2                                                                        *
- * date    : 16/08/2022 12:58:34                                                                    *
+ * date    : 06/10/2022 13:52:56                                                                    *
  *                                                                                                  *
- * workdir : /mnt/c/Users/Lucas/Desktop/mopshub_triplication/mopshub_top_board_canakari_ftrim/hdl   *
- * cmd     : /mnt/c/Users/Lucas/Desktop/mopshub_triplication/tmrg-master/bin/tmrg -c tmrg.cfg -vvv  *
+ * workdir : /mnt/c/Users/Lucas/Documents/GitHub/mopshub_triplicated/triplicated/mopshub_top_board/hdl *
+ * cmd     : /mnt/c/Users/Lucas/Desktop/mopshub_triplication/tmrg-master/bin/tmrg -vv -c tmrg.cfg   *
  * tmrg rev:                                                                                        *
  *                                                                                                  *
  * src file: output_diff_buff_clk.v                                                                 *
- *           Git SHA           : File not in git repository!                                        *
- *           Modification time : 2022-08-16 12:37:44.806623                                         *
- *           File Size         : 1806                                                               *
- *           MD5 hash          : 10e3d509bdca75523c67214a8dc000cb                                   *
+ *           Git SHA           : c110441b08b692cc54ebd4a3b84a2599430e8f93                           *
+ *           Modification time : 2022-10-06 13:50:55.602975                                         *
+ *           File Size         : 1752                                                               *
+ *           MD5 hash          : c2c8321564fa8e319eaa2856755770d6                                   *
  *                                                                                                  *
  ****************************************************************************************************/
 
@@ -26,8 +26,8 @@ module output_diff_buff_clkTMR(
   output wire  clk_out_p ,
   output wire  clk_out_n 
 );
-wire clk_local_sig;
-
+// Internal Declarations
+   wire clk_local_sig;
    ODDR #( //Output DDR Primitive
       .DDR_CLK_EDGE("SAME_EDGE"), // "OPPOSITE_EDGE" or "SAME_EDGE" 
       .INIT(1'b0),    // Initial value of Q: 1'b0 or 1'b1
@@ -47,6 +47,5 @@ wire clk_local_sig;
       .OB(clk_out_n),   // Diff_n output (connect directly to top-level port)
       .I(clk_local_sig)      // Buffer input
     );
-
 endmodule
 

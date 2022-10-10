@@ -6,55 +6,56 @@
  *                                                                                                  *
  * user    : lucas                                                                                  *
  * host    : DESKTOP-BFDSFP2                                                                        *
- * date    : 16/08/2022 12:58:37                                                                    *
+ * date    : 06/10/2022 13:53:00                                                                    *
  *                                                                                                  *
- * workdir : /mnt/c/Users/Lucas/Desktop/mopshub_triplication/mopshub_top_board_canakari_ftrim/hdl   *
- * cmd     : /mnt/c/Users/Lucas/Desktop/mopshub_triplication/tmrg-master/bin/tmrg -c tmrg.cfg -vvv  *
+ * workdir : /mnt/c/Users/Lucas/Documents/GitHub/mopshub_triplicated/triplicated/mopshub_top_board/hdl *
+ * cmd     : /mnt/c/Users/Lucas/Desktop/mopshub_triplication/tmrg-master/bin/tmrg -vv -c tmrg.cfg   *
  * tmrg rev:                                                                                        *
  *                                                                                                  *
  * src file: recarbitreg2.v                                                                         *
- *           Git SHA           : File not in git repository!                                        *
- *           Modification time : 2022-03-29 13:49:21                                                *
- *           File Size         : 1765                                                               *
- *           MD5 hash          : 92ecfca2c6d0b5026095caf12060eccf                                   *
+ *           Git SHA           : c110441b08b692cc54ebd4a3b84a2599430e8f93                           *
+ *           Modification time : 2022-08-25 10:26:00                                                *
+ *           File Size         : 1714                                                               *
+ *           MD5 hash          : 91b16d2078d45691696aa14eed1b1619                                   *
  *                                                                                                  *
  ****************************************************************************************************/
 
 module recarbitreg2TMR(
-  input wire  clkA ,
-  input wire  clkB ,
-  input wire  clkC ,
-  input wire  rstA ,
-  input wire  rstB ,
-  input wire  rstC ,
-  input wire  cpuA ,
-  input wire  cpuB ,
-  input wire  cpuC ,
-  input wire  canA ,
-  input wire  canB ,
-  input wire  canC ,
-  input wire [15:0] reginpA ,
-  input wire [15:0] reginpB ,
-  input wire [15:0] reginpC ,
-  input wire [15:0] recidinA ,
-  input wire [15:0] recidinB ,
-  input wire [15:0] recidinC ,
-  output wire [15:0] regoutA ,
-  output wire [15:0] regoutB ,
-  output wire [15:0] regoutC 
+  input wire  clk ,
+  input wire  rst ,
+  input wire  cpu ,
+  input wire  can ,
+  input wire [15:0] reginp ,
+  input wire [15:0] recidin ,
+  output wire [15:0] regout 
 );
-wor register_iTmrErrorC;
-wire [15:0] register_iVotedC;
-wor register_iTmrErrorB;
-wire [15:0] register_iVotedB;
-wor register_iTmrErrorA;
-wire [15:0] register_iVotedA;
+wire rstC;
+wire rstB;
+wire rstA;
+wire [15:0] regoutC;
+wire [15:0] regoutB;
+wire [15:0] regoutA;
+wire [15:0] reginpC;
+wire [15:0] reginpB;
+wire [15:0] reginpA;
+wire [15:0] recidinC;
+wire [15:0] recidinB;
+wire [15:0] recidinA;
+wire cpuC;
+wire cpuB;
+wire cpuA;
+wire clkC;
+wire clkB;
+wire clkA;
+wire canC;
+wire canB;
+wire canA;
+wor register_iTmrError;
+wire [15:0] register_i;
 reg  [15:0] register_iA ;
 reg  [15:0] register_iB ;
 reg  [15:0] register_iC ;
-assign regoutA =  register_iVotedA;
-assign regoutB =  register_iVotedB;
-assign regoutC =  register_iVotedC;
+assign regout =  register_i;
 
 always @( posedge clkA )
   begin
@@ -67,7 +68,7 @@ always @( posedge clkA )
         if (canA==1'b1)
           register_iA <= recidinA;
         else
-          register_iA <= register_iVotedA;
+          register_iA <= regoutA;
   end
 
 always @( posedge clkB )
@@ -81,7 +82,7 @@ always @( posedge clkB )
         if (canB==1'b1)
           register_iB <= recidinB;
         else
-          register_iB <= register_iVotedB;
+          register_iB <= regoutB;
   end
 
 always @( posedge clkC )
@@ -95,31 +96,64 @@ always @( posedge clkC )
         if (canC==1'b1)
           register_iC <= recidinC;
         else
-          register_iC <= register_iVotedC;
+          register_iC <= regoutC;
   end
 
-majorityVoter #(.WIDTH(16)) register_iVoterA (
+majorityVoter #(.WIDTH(16)) register_iVoter (
     .inA(register_iA),
     .inB(register_iB),
     .inC(register_iC),
-    .out(register_iVotedA),
-    .tmrErr(register_iTmrErrorA)
+    .out(register_i),
+    .tmrErr(register_iTmrError)
     );
 
-majorityVoter #(.WIDTH(16)) register_iVoterB (
-    .inA(register_iA),
-    .inB(register_iB),
-    .inC(register_iC),
-    .out(register_iVotedB),
-    .tmrErr(register_iTmrErrorB)
+fanout canFanout (
+    .in(can),
+    .outA(canA),
+    .outB(canB),
+    .outC(canC)
     );
 
-majorityVoter #(.WIDTH(16)) register_iVoterC (
-    .inA(register_iA),
-    .inB(register_iB),
-    .inC(register_iC),
-    .out(register_iVotedC),
-    .tmrErr(register_iTmrErrorC)
+fanout clkFanout (
+    .in(clk),
+    .outA(clkA),
+    .outB(clkB),
+    .outC(clkC)
+    );
+
+fanout cpuFanout (
+    .in(cpu),
+    .outA(cpuA),
+    .outB(cpuB),
+    .outC(cpuC)
+    );
+
+fanout #(.WIDTH(16)) recidinFanout (
+    .in(recidin),
+    .outA(recidinA),
+    .outB(recidinB),
+    .outC(recidinC)
+    );
+
+fanout #(.WIDTH(16)) reginpFanout (
+    .in(reginp),
+    .outA(reginpA),
+    .outB(reginpB),
+    .outC(reginpC)
+    );
+
+fanout #(.WIDTH(16)) regoutFanout (
+    .in(regout),
+    .outA(regoutA),
+    .outB(regoutB),
+    .outC(regoutC)
+    );
+
+fanout rstFanout (
+    .in(rst),
+    .outA(rstA),
+    .outB(rstB),
+    .outC(rstC)
     );
 endmodule
 

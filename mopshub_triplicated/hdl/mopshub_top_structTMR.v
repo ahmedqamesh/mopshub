@@ -6,17 +6,17 @@
  *                                                                                                  *
  * user    : lucas                                                                                  *
  * host    : DESKTOP-BFDSFP2                                                                        *
- * date    : 16/08/2022 12:58:32                                                                    *
+ * date    : 06/10/2022 13:52:54                                                                    *
  *                                                                                                  *
- * workdir : /mnt/c/Users/Lucas/Desktop/mopshub_triplication/mopshub_top_board_canakari_ftrim/hdl   *
- * cmd     : /mnt/c/Users/Lucas/Desktop/mopshub_triplication/tmrg-master/bin/tmrg -c tmrg.cfg -vvv  *
+ * workdir : /mnt/c/Users/Lucas/Documents/GitHub/mopshub_triplicated/triplicated/mopshub_top_board/hdl *
+ * cmd     : /mnt/c/Users/Lucas/Desktop/mopshub_triplication/tmrg-master/bin/tmrg -vv -c tmrg.cfg   *
  * tmrg rev:                                                                                        *
  *                                                                                                  *
  * src file: mopshub_top_struct.v                                                                   *
- *           Git SHA           : File not in git repository!                                        *
- *           Modification time : 2022-08-16 10:21:02.552596                                         *
- *           File Size         : 12344                                                              *
- *           MD5 hash          : 13941355689a5af4c7804cf5793b8f77                                   *
+ *           Git SHA           : c110441b08b692cc54ebd4a3b84a2599430e8f93                           *
+ *           Modification time : 2022-10-06 13:25:17                                                *
+ *           File Size         : 12301                                                              *
+ *           MD5 hash          : d11955708d0a4b689333f82ba7eee3ea                                   *
  *                                                                                                  *
  ****************************************************************************************************/
 
@@ -84,120 +84,20 @@ module mopshub_topTMR(
   output wire  tx_efifo_full ,
   output wire [1:0] tx_elink2bit 
 );
-wor transcieve_pTmrError;
-wire transcieve_pB;
-wire transcieve_pC;
-wire transcieve_pA;
-wor transcieve_mTmrError;
-wire transcieve_mB;
-wire transcieve_mC;
-wire transcieve_mA;
-wor statedebTmrError;
-wire [8:0] statedebB;
-wire [8:0] statedebC;
-wire [8:0] statedebA;
-wor start_write_elink_spiTmrError;
-wire start_write_elink_spiB;
-wire start_write_elink_spiC;
-wire start_write_elink_spiA;
-wor start_read_monTmrError;
-wire start_read_mon;
-wor start_read_misoTmrError;
-wire start_read_misoB;
-wire start_read_misoC;
-wire start_read_misoA;
-wor start_read_elink_spiTmrError;
-wire start_read_elink_spiB;
-wire start_read_elink_spiC;
-wire start_read_elink_spiA;
-wor start_mon_cntTmrError;
-wire start_mon_cntB;
-wire start_mon_cntC;
-wire start_mon_cntA;
-wor start_init_spiTmrError;
-wire start_init_spiB;
-wire start_init_spiC;
-wire start_init_spiA;
-wor start_cntTmrError;
-wire start_cntB;
-wire start_cntC;
-wire start_cntA;
-wor spi_read_modeTmrError;
-wire spi_read_modeB;
-wire spi_read_modeC;
-wire spi_read_modeA;
-wor spi_csTmrError;
-wire spi_csB;
-wire spi_csC;
-wire spi_csA;
-wor rst_mon_cntTmrError;
-wire rst_mon_cntB;
-wire rst_mon_cntC;
-wire rst_mon_cntA;
-wor power_bus_en_doneTmrError;
-wire power_bus_en_doneB;
-wire power_bus_en_doneC;
-wire power_bus_en_doneA;
-wor entimeoutTmrError;
-wire entimeoutB;
-wire entimeoutC;
-wire entimeoutA;
-wor endwait_all2TmrError;
-wire endwait_all2;
-wor end_spi_procTmrError;
-wire end_spi_procB;
-wire end_spi_procC;
-wire end_spi_procA;
-wor end_osc_cntTmrError;
-wire end_osc_cntB;
-wire end_osc_cntC;
-wire end_osc_cntA;
-wor end_mon_initTmrError;
-wire end_mon_initB;
-wire end_mon_initC;
-wire end_mon_initA;
-wor end_mon_cntTmrError;
-wire end_mon_cntB;
-wire end_mon_cntC;
-wire end_mon_cntA;
-wor end_cntTmrError;
-wire end_cnt;
-wor data_initTmrError;
-wire [7:0] data_initB;
-wire [7:0] data_initC;
-wire [7:0] data_initA;
-wor cs_active_mTmrError;
-wire cs_active_mB;
-wire cs_active_mC;
-wire cs_active_mA;
-wor cs_active_cTmrError;
-wire cs_active_cB;
-wire cs_active_cC;
-wire cs_active_cA;
-wor cnt_doneTmrError;
-wire cnt_done;
-wor abortTmrError;
-wire abort;
-reg  abortA ;
-reg  abortB ;
-reg  abortC ;
+reg  abort ;
 wire buffer_en;
-wire busy_c;
 wire busy_m;
+wire busy_p;
 wire [4:0] can_rec_select;
 wire [4:0] can_tra_select;
-reg  cnt_doneA ;
-reg  cnt_doneB ;
-reg  cnt_doneC ;
+reg  cnt_done ;
 wire [7:0] data_init;
 wire [31:0] data_rec_spi;
 wire [75:0] data_rec_uplink;
 wire [75:0] data_tra_downlink;
 wire [7:0] data_tra_spi;
 wire [7:0] data_tra_spi_out =  8'b0;
-reg  end_cntA ;
-reg  end_cntB ;
-reg  end_cntC ;
+reg  end_cnt ;
 wire end_init;
 wire end_mon_cnt;
 wire end_mon_init;
@@ -209,11 +109,8 @@ wire end_spi_proc;
 wire end_trim_bus;
 wire end_write_elink;
 wire end_write_elink_spi;
-reg  endwait_all2A ;
-reg  endwait_all2B ;
-reg  endwait_all2C ;
+reg  endwait_all2 ;
 wire entimeout;
-wire ext_counter_gen;
 wire irq_spi_tra;
 wire main_timeoutrst;
 wire power_bus_en;
@@ -239,9 +136,7 @@ wire start_read_elink;
 wire start_read_elink_can;
 wire start_read_elink_spi;
 wire start_read_miso;
-reg  start_read_monA ;
-reg  start_read_monB ;
-reg  start_read_monC ;
+reg  start_read_mon ;
 wire start_read_power;
 wire start_trim_ack;
 wire start_write_elink;
@@ -253,7 +148,7 @@ wire transcieve_p;
 bus_control_SMTMR SPI_control_SM (
     .abort(abort),
     .busy_m(busy_m),
-    .busy_p(busy_c),
+    .busy_p(busy_p),
     .clk(clk),
     .cnt_done(cnt_done),
     .end_cnt(end_cnt),
@@ -270,63 +165,25 @@ bus_control_SMTMR SPI_control_SM (
     .start_read_mon(start_read_mon),
     .start_read_power(start_read_power),
     .timeoutrst(main_timeoutrst),
-    .bus_en_doneA(power_bus_en_doneA),
-    .bus_en_doneB(power_bus_en_doneB),
-    .bus_en_doneC(power_bus_en_doneC),
-    .cs_mA(cs_active_mA),
-    .cs_mB(cs_active_mB),
-    .cs_mC(cs_active_mC),
-    .cs_pA(cs_active_cA),
-    .cs_pB(cs_active_cB),
-    .cs_pC(cs_active_cC),
-    .data_initA(data_initA),
-    .data_initB(data_initB),
-    .data_initC(data_initC),
-    .end_spi_procA(end_spi_procA),
-    .end_spi_procB(end_spi_procB),
-    .end_spi_procC(end_spi_procC),
-    .entimeoutA(entimeoutA),
-    .entimeoutB(entimeoutB),
-    .entimeoutC(entimeoutC),
-    .mon_en_doneA(end_mon_initA),
-    .mon_en_doneB(end_mon_initB),
-    .mon_en_doneC(end_mon_initC),
-    .read_spi_modeA(spi_read_modeA),
-    .read_spi_modeB(spi_read_modeB),
-    .read_spi_modeC(spi_read_modeC),
-    .rst_mon_cntA(rst_mon_cntA),
-    .rst_mon_cntB(rst_mon_cntB),
-    .rst_mon_cntC(rst_mon_cntC),
-    .spi_csA(spi_csA),
-    .spi_csB(spi_csB),
-    .spi_csC(spi_csC),
-    .start_cntA(start_cntA),
-    .start_cntB(start_cntB),
-    .start_cntC(start_cntC),
-    .start_initA(start_init_spiA),
-    .start_initB(start_init_spiB),
-    .start_initC(start_init_spiC),
-    .start_mon_cntA(start_mon_cntA),
-    .start_mon_cntB(start_mon_cntB),
-    .start_mon_cntC(start_mon_cntC),
-    .start_read_elinkA(start_read_elink_spiA),
-    .start_read_elinkB(start_read_elink_spiB),
-    .start_read_elinkC(start_read_elink_spiC),
-    .start_read_misoA(start_read_misoA),
-    .start_read_misoB(start_read_misoB),
-    .start_read_misoC(start_read_misoC),
-    .start_write_elink_spiA(start_write_elink_spiA),
-    .start_write_elink_spiB(start_write_elink_spiB),
-    .start_write_elink_spiC(start_write_elink_spiC),
-    .statedebA(statedebA),
-    .statedebB(statedebB),
-    .statedebC(statedebC),
-    .transcieve_mA(transcieve_mA),
-    .transcieve_mB(transcieve_mB),
-    .transcieve_mC(transcieve_mC),
-    .transcieve_pA(transcieve_pA),
-    .transcieve_pB(transcieve_pB),
-    .transcieve_pC(transcieve_pC)
+    .bus_en_done(power_bus_en_done),
+    .cs_m(cs_active_m),
+    .cs_p(cs_active_c),
+    .data_init(data_init),
+    .end_spi_proc(end_spi_proc),
+    .entimeout(entimeout),
+    .mon_en_done(end_mon_init),
+    .read_spi_mode(spi_read_mode),
+    .rst_mon_cnt(rst_mon_cnt),
+    .spi_cs(spi_cs),
+    .start_cnt(start_cnt),
+    .start_init(start_init_spi),
+    .start_mon_cnt(start_mon_cnt),
+    .start_read_elink(start_read_elink_spi),
+    .start_read_miso(start_read_miso),
+    .start_write_elink_spi(start_write_elink_spi),
+    .statedeb(statedeb),
+    .transcieve_m(transcieve_m),
+    .transcieve_p(transcieve_p)
     );
 
 control_busTMR control_bus0 (
@@ -340,13 +197,11 @@ control_busTMR control_bus0 (
     .start_osc_cnt(start_osc_cnt),
     .start_power_init(start_power_init),
     .transceive(transcieve_p),
-    .end_osc_cntA(end_osc_cntA),
-    .end_osc_cntB(end_osc_cntB),
-    .end_osc_cntC(end_osc_cntC),
+    .end_osc_cnt(end_osc_cnt),
     .mosi(mosi_c),
     .power_bus_cnt_active(power_bus_cnt),
     .sck(sck_c),
-    .w_Master_TX_Ready(busy_c)
+    .w_Master_TX_Ready(busy_p)
     );
 
 elink_coreTMR elink_core0 (
@@ -401,9 +256,7 @@ monitor_busTMR monitor_pp30 (
     .start_read_miso(start_read_miso),
     .transceive(transcieve_m),
     .data_rec_spi_in(data_rec_spi),
-    .end_mon_cntA(end_mon_cntA),
-    .end_mon_cntB(end_mon_cntB),
-    .end_mon_cntC(end_mon_cntC),
+    .end_mon_cnt(end_mon_cnt),
     .end_read_miso(end_read_miso),
     .mon_bus_cnt_active(mon_bus_cnt),
     .mosi(mosi_m),
@@ -448,7 +301,6 @@ mopshub_coreTMR mopshub_core0 (
     .end_init(end_init),
     .end_power_init(end_power_init),
     .end_trim_bus(end_trim_bus),
-    .ext_counter_gen(ext_counter_gen),
     .irq_can_rec(irq_can_rec),
     .irq_can_tra(irq_can_tra),
     .main_timeoutrst(main_timeoutrst),
@@ -485,236 +337,12 @@ assign start_power_on =  1'b0;
 assign start_power_off =  1'b0;
 initial
   begin
-    start_read_monA =  1'b0;
-    endwait_all2A =  1'b0;
-    end_cntA =  1'b0;
-    cnt_doneA =  1'b0;
-    abortA =  1'b0;
-  end
-initial
-  begin
-    start_read_monB =  1'b0;
-    endwait_all2B =  1'b0;
-    end_cntB =  1'b0;
-    cnt_doneB =  1'b0;
-    abortB =  1'b0;
-  end
-initial
-  begin
-    start_read_monC =  1'b0;
-    endwait_all2C =  1'b0;
-    end_cntC =  1'b0;
-    cnt_doneC =  1'b0;
-    abortC =  1'b0;
+    start_read_mon =  1'b0;
+    endwait_all2 =  1'b0;
+    end_cnt =  1'b0;
+    cnt_done =  1'b0;
+    abort =  1'b0;
   end
 assign start_read_elink =  (start_read_elink_spi||start_read_elink_can);
-
-majorityVoter abortVoter (
-    .inA(abortA),
-    .inB(abortB),
-    .inC(abortC),
-    .out(abort),
-    .tmrErr(abortTmrError)
-    );
-
-majorityVoter cnt_doneVoter (
-    .inA(cnt_doneA),
-    .inB(cnt_doneB),
-    .inC(cnt_doneC),
-    .out(cnt_done),
-    .tmrErr(cnt_doneTmrError)
-    );
-
-majorityVoter cs_active_cVoter (
-    .inA(cs_active_cA),
-    .inB(cs_active_cB),
-    .inC(cs_active_cC),
-    .out(cs_active_c),
-    .tmrErr(cs_active_cTmrError)
-    );
-
-majorityVoter cs_active_mVoter (
-    .inA(cs_active_mA),
-    .inB(cs_active_mB),
-    .inC(cs_active_mC),
-    .out(cs_active_m),
-    .tmrErr(cs_active_mTmrError)
-    );
-
-majorityVoter #(.WIDTH(8)) data_initVoter (
-    .inA(data_initA),
-    .inB(data_initB),
-    .inC(data_initC),
-    .out(data_init),
-    .tmrErr(data_initTmrError)
-    );
-
-majorityVoter end_cntVoter (
-    .inA(end_cntA),
-    .inB(end_cntB),
-    .inC(end_cntC),
-    .out(end_cnt),
-    .tmrErr(end_cntTmrError)
-    );
-
-majorityVoter end_mon_cntVoter (
-    .inA(end_mon_cntA),
-    .inB(end_mon_cntB),
-    .inC(end_mon_cntC),
-    .out(end_mon_cnt),
-    .tmrErr(end_mon_cntTmrError)
-    );
-
-majorityVoter end_mon_initVoter (
-    .inA(end_mon_initA),
-    .inB(end_mon_initB),
-    .inC(end_mon_initC),
-    .out(end_mon_init),
-    .tmrErr(end_mon_initTmrError)
-    );
-
-majorityVoter end_osc_cntVoter (
-    .inA(end_osc_cntA),
-    .inB(end_osc_cntB),
-    .inC(end_osc_cntC),
-    .out(end_osc_cnt),
-    .tmrErr(end_osc_cntTmrError)
-    );
-
-majorityVoter end_spi_procVoter (
-    .inA(end_spi_procA),
-    .inB(end_spi_procB),
-    .inC(end_spi_procC),
-    .out(end_spi_proc),
-    .tmrErr(end_spi_procTmrError)
-    );
-
-majorityVoter endwait_all2Voter (
-    .inA(endwait_all2A),
-    .inB(endwait_all2B),
-    .inC(endwait_all2C),
-    .out(endwait_all2),
-    .tmrErr(endwait_all2TmrError)
-    );
-
-majorityVoter entimeoutVoter (
-    .inA(entimeoutA),
-    .inB(entimeoutB),
-    .inC(entimeoutC),
-    .out(entimeout),
-    .tmrErr(entimeoutTmrError)
-    );
-
-majorityVoter power_bus_en_doneVoter (
-    .inA(power_bus_en_doneA),
-    .inB(power_bus_en_doneB),
-    .inC(power_bus_en_doneC),
-    .out(power_bus_en_done),
-    .tmrErr(power_bus_en_doneTmrError)
-    );
-
-majorityVoter rst_mon_cntVoter (
-    .inA(rst_mon_cntA),
-    .inB(rst_mon_cntB),
-    .inC(rst_mon_cntC),
-    .out(rst_mon_cnt),
-    .tmrErr(rst_mon_cntTmrError)
-    );
-
-majorityVoter spi_csVoter (
-    .inA(spi_csA),
-    .inB(spi_csB),
-    .inC(spi_csC),
-    .out(spi_cs),
-    .tmrErr(spi_csTmrError)
-    );
-
-majorityVoter spi_read_modeVoter (
-    .inA(spi_read_modeA),
-    .inB(spi_read_modeB),
-    .inC(spi_read_modeC),
-    .out(spi_read_mode),
-    .tmrErr(spi_read_modeTmrError)
-    );
-
-majorityVoter start_cntVoter (
-    .inA(start_cntA),
-    .inB(start_cntB),
-    .inC(start_cntC),
-    .out(start_cnt),
-    .tmrErr(start_cntTmrError)
-    );
-
-majorityVoter start_init_spiVoter (
-    .inA(start_init_spiA),
-    .inB(start_init_spiB),
-    .inC(start_init_spiC),
-    .out(start_init_spi),
-    .tmrErr(start_init_spiTmrError)
-    );
-
-majorityVoter start_mon_cntVoter (
-    .inA(start_mon_cntA),
-    .inB(start_mon_cntB),
-    .inC(start_mon_cntC),
-    .out(start_mon_cnt),
-    .tmrErr(start_mon_cntTmrError)
-    );
-
-majorityVoter start_read_elink_spiVoter (
-    .inA(start_read_elink_spiA),
-    .inB(start_read_elink_spiB),
-    .inC(start_read_elink_spiC),
-    .out(start_read_elink_spi),
-    .tmrErr(start_read_elink_spiTmrError)
-    );
-
-majorityVoter start_read_misoVoter (
-    .inA(start_read_misoA),
-    .inB(start_read_misoB),
-    .inC(start_read_misoC),
-    .out(start_read_miso),
-    .tmrErr(start_read_misoTmrError)
-    );
-
-majorityVoter start_read_monVoter (
-    .inA(start_read_monA),
-    .inB(start_read_monB),
-    .inC(start_read_monC),
-    .out(start_read_mon),
-    .tmrErr(start_read_monTmrError)
-    );
-
-majorityVoter start_write_elink_spiVoter (
-    .inA(start_write_elink_spiA),
-    .inB(start_write_elink_spiB),
-    .inC(start_write_elink_spiC),
-    .out(start_write_elink_spi),
-    .tmrErr(start_write_elink_spiTmrError)
-    );
-
-majorityVoter #(.WIDTH(9)) statedebVoter (
-    .inA(statedebA),
-    .inB(statedebB),
-    .inC(statedebC),
-    .out(statedeb),
-    .tmrErr(statedebTmrError)
-    );
-
-majorityVoter transcieve_mVoter (
-    .inA(transcieve_mA),
-    .inB(transcieve_mB),
-    .inC(transcieve_mC),
-    .out(transcieve_m),
-    .tmrErr(transcieve_mTmrError)
-    );
-
-majorityVoter transcieve_pVoter (
-    .inA(transcieve_pA),
-    .inB(transcieve_pB),
-    .inC(transcieve_pC),
-    .out(transcieve_p),
-    .tmrErr(transcieve_pTmrError)
-    );
 endmodule
 

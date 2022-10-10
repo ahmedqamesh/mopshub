@@ -6,49 +6,48 @@
  *                                                                                                  *
  * user    : lucas                                                                                  *
  * host    : DESKTOP-BFDSFP2                                                                        *
- * date    : 16/08/2022 12:58:34                                                                    *
+ * date    : 06/10/2022 13:52:57                                                                    *
  *                                                                                                  *
- * workdir : /mnt/c/Users/Lucas/Desktop/mopshub_triplication/mopshub_top_board_canakari_ftrim/hdl   *
- * cmd     : /mnt/c/Users/Lucas/Desktop/mopshub_triplication/tmrg-master/bin/tmrg -c tmrg.cfg -vvv  *
+ * workdir : /mnt/c/Users/Lucas/Documents/GitHub/mopshub_triplicated/triplicated/mopshub_top_board/hdl *
+ * cmd     : /mnt/c/Users/Lucas/Desktop/mopshub_triplication/tmrg-master/bin/tmrg -vv -c tmrg.cfg   *
  * tmrg rev:                                                                                        *
  *                                                                                                  *
  * src file: prescalereg2.v                                                                         *
- *           Git SHA           : File not in git repository!                                        *
- *           Modification time : 2022-03-29 13:49:21                                                *
- *           File Size         : 1693                                                               *
- *           MD5 hash          : da253ed50469c50539a909e8aaa73746                                   *
+ *           Git SHA           : c110441b08b692cc54ebd4a3b84a2599430e8f93                           *
+ *           Modification time : 2022-08-30 12:19:24                                                *
+ *           File Size         : 1643                                                               *
+ *           MD5 hash          : fc34aff1e1ebc6f6dffce8180a8f2f83                                   *
  *                                                                                                  *
  ****************************************************************************************************/
 
 module prescalereg2TMR(
-  input wire  clkA ,
-  input wire  clkB ,
-  input wire  clkC ,
-  input wire  rstA ,
-  input wire  rstB ,
-  input wire  rstC ,
-  input wire  cpuA ,
-  input wire  cpuB ,
-  input wire  cpuC ,
-  input wire [15:0] reginpA ,
-  input wire [15:0] reginpB ,
-  input wire [15:0] reginpC ,
-  output wire [15:0] regoutA ,
-  output wire [15:0] regoutB ,
-  output wire [15:0] regoutC 
+  input wire  clk ,
+  input wire  rst ,
+  input wire  cpu ,
+  input wire [15:0] reginp ,
+  output wire [15:0] regout 
 );
-wor register_iTmrErrorC;
-wire [15:0] register_iVotedC;
-wor register_iTmrErrorB;
-wire [15:0] register_iVotedB;
-wor register_iTmrErrorA;
-wire [15:0] register_iVotedA;
+wire rstC;
+wire rstB;
+wire rstA;
+wire [15:0] regoutC;
+wire [15:0] regoutB;
+wire [15:0] regoutA;
+wire [15:0] reginpC;
+wire [15:0] reginpB;
+wire [15:0] reginpA;
+wire cpuC;
+wire cpuB;
+wire cpuA;
+wire clkC;
+wire clkB;
+wire clkA;
+wor register_iTmrError;
+wire [15:0] register_i;
 reg  [15:0] register_iA ;
 reg  [15:0] register_iB ;
 reg  [15:0] register_iC ;
-assign regoutA =  register_iVotedA;
-assign regoutB =  register_iVotedB;
-assign regoutC =  register_iVotedC;
+assign regout =  register_i;
 
 always @( posedge clkA )
   begin
@@ -62,7 +61,7 @@ always @( posedge clkA )
           register_iA <= {8'd0,reginpA[7:0] };
         end
       else
-        register_iA <= register_iVotedA;
+        register_iA <= regoutA;
   end
 
 always @( posedge clkB )
@@ -77,7 +76,7 @@ always @( posedge clkB )
           register_iB <= {8'd0,reginpB[7:0] };
         end
       else
-        register_iB <= register_iVotedB;
+        register_iB <= regoutB;
   end
 
 always @( posedge clkC )
@@ -92,31 +91,50 @@ always @( posedge clkC )
           register_iC <= {8'd0,reginpC[7:0] };
         end
       else
-        register_iC <= register_iVotedC;
+        register_iC <= regoutC;
   end
 
-majorityVoter #(.WIDTH(16)) register_iVoterA (
+majorityVoter #(.WIDTH(16)) register_iVoter (
     .inA(register_iA),
     .inB(register_iB),
     .inC(register_iC),
-    .out(register_iVotedA),
-    .tmrErr(register_iTmrErrorA)
+    .out(register_i),
+    .tmrErr(register_iTmrError)
     );
 
-majorityVoter #(.WIDTH(16)) register_iVoterB (
-    .inA(register_iA),
-    .inB(register_iB),
-    .inC(register_iC),
-    .out(register_iVotedB),
-    .tmrErr(register_iTmrErrorB)
+fanout clkFanout (
+    .in(clk),
+    .outA(clkA),
+    .outB(clkB),
+    .outC(clkC)
     );
 
-majorityVoter #(.WIDTH(16)) register_iVoterC (
-    .inA(register_iA),
-    .inB(register_iB),
-    .inC(register_iC),
-    .out(register_iVotedC),
-    .tmrErr(register_iTmrErrorC)
+fanout cpuFanout (
+    .in(cpu),
+    .outA(cpuA),
+    .outB(cpuB),
+    .outC(cpuC)
+    );
+
+fanout #(.WIDTH(16)) reginpFanout (
+    .in(reginp),
+    .outA(reginpA),
+    .outB(reginpB),
+    .outC(reginpC)
+    );
+
+fanout #(.WIDTH(16)) regoutFanout (
+    .in(regout),
+    .outA(regoutA),
+    .outB(regoutB),
+    .outC(regoutC)
+    );
+
+fanout rstFanout (
+    .in(rst),
+    .outA(rstA),
+    .outB(rstB),
+    .outC(rstC)
     );
 endmodule
 

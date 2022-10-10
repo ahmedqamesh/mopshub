@@ -6,76 +6,67 @@
  *                                                                                                  *
  * user    : lucas                                                                                  *
  * host    : DESKTOP-BFDSFP2                                                                        *
- * date    : 16/08/2022 12:58:39                                                                    *
+ * date    : 06/10/2022 13:53:05                                                                    *
  *                                                                                                  *
- * workdir : /mnt/c/Users/Lucas/Desktop/mopshub_triplication/mopshub_top_board_canakari_ftrim/hdl   *
- * cmd     : /mnt/c/Users/Lucas/Desktop/mopshub_triplication/tmrg-master/bin/tmrg -c tmrg.cfg -vvv  *
+ * workdir : /mnt/c/Users/Lucas/Documents/GitHub/mopshub_triplicated/triplicated/mopshub_top_board/hdl *
+ * cmd     : /mnt/c/Users/Lucas/Desktop/mopshub_triplication/tmrg-master/bin/tmrg -vv -c tmrg.cfg   *
  * tmrg rev:                                                                                        *
  *                                                                                                  *
  * src file: tec2.v                                                                                 *
- *           Git SHA           : File not in git repository!                                        *
- *           Modification time : 2022-03-29 13:49:21                                                *
- *           File Size         : 3542                                                               *
- *           MD5 hash          : f92d4ffdb0290ce58cc54d86acb6f253                                   *
+ *           Git SHA           : c110441b08b692cc54ebd4a3b84a2599430e8f93                           *
+ *           Modification time : 2022-08-30 13:14:53                                                *
+ *           File Size         : 3503                                                               *
+ *           MD5 hash          : cfeb6c1ea05f942bf60714a515eebaf0                                   *
  *                                                                                                  *
  ****************************************************************************************************/
 
 module tec2TMR(
-  input wire  resetA ,
-  input wire  resetB ,
-  input wire  resetC ,
-  input wire  clockA ,
-  input wire  clockB ,
-  input wire  clockC ,
-  input wire  incegttraA ,
-  input wire  incegttraB ,
-  input wire  incegttraC ,
-  input wire  dectraA ,
-  input wire  dectraB ,
-  input wire  dectraC ,
-  output reg  tec_lt96A ,
-  output reg  tec_lt96B ,
-  output reg  tec_lt96C ,
-  output reg  tec_ge96A ,
-  output reg  tec_ge96B ,
-  output reg  tec_ge96C ,
-  output reg  tec_ge128A ,
-  output reg  tec_ge128B ,
-  output reg  tec_ge128C ,
-  output reg  tec_ge256A ,
-  output reg  tec_ge256B ,
-  output reg  tec_ge256C ,
-  output wire [7:0] teccountA ,
-  output wire [7:0] teccountB ,
-  output wire [7:0] teccountC 
+  input wire  reset ,
+  input wire  clock ,
+  input wire  incegttra ,
+  input wire  dectra ,
+  output reg  tec_lt96 ,
+  output reg  tec_ge96 ,
+  output reg  tec_ge128 ,
+  output reg  tec_ge256 ,
+  output wire [7:0] teccount 
 );
-wor edgedTmrErrorC;
-wire edgedVotedC;
-wor counterTmrErrorC;
-wire [8:0] counterVotedC;
-wor edgedTmrErrorB;
-wire edgedVotedB;
-wor counterTmrErrorB;
-wire [8:0] counterVotedB;
-wor edgedTmrErrorA;
-wire edgedVotedA;
-wor counterTmrErrorA;
-wire [8:0] counterVotedA;
+wire resetC;
+wire resetB;
+wire resetA;
+wire incegttraC;
+wire incegttraB;
+wire incegttraA;
+wire edgedVC;
+wire edgedVB;
+wire edgedVA;
+wire dectraC;
+wire dectraB;
+wire dectraA;
+wire [8:0] counterVC;
+wire [8:0] counterVB;
+wire [8:0] counterVA;
+wire clockC;
+wire clockB;
+wire clockA;
+wire actionC;
+wire actionB;
+wire actionA;
+wor edgedTmrError;
+wire edged;
+wor counterTmrError;
+wire [8:0] counter;
 reg  [8:0] counterA ;
 reg  [8:0] counterB ;
 reg  [8:0] counterC ;
 reg  edgedA ;
 reg  edgedB ;
 reg  edgedC ;
-wire actionA;
-wire actionB;
-wire actionC;
-assign actionA =  incegttraA|dectraA;
-assign actionB =  incegttraB|dectraB;
-assign actionC =  incegttraC|dectraC;
-assign teccountA =  counterVotedA[7:0] ;
-assign teccountB =  counterVotedB[7:0] ;
-assign teccountC =  counterVotedC[7:0] ;
+wire action;
+assign action =  incegttra|dectra;
+wire [8:0] counterV =  counter;
+wire edgedV =  edged;
+assign teccount =  counterV[7:0] ;
 
 always @( posedge clockA )
   begin
@@ -86,18 +77,18 @@ always @( posedge clockA )
       end
     else
       begin
-        counterA <= counterVotedA;
-        edgedA <= edgedVotedA;
+        counterA <= counterVA;
+        edgedA <= edgedVA;
         if (actionA==1'b1)
           begin
-            if (edgedVotedA==1'b0)
+            if (edgedVA==1'b0)
               begin
                 edgedA <= 1'b1;
-                if (counterVotedA<=9'd255&&incegttraA==1'b1)
-                  counterA <= counterVotedA+8;
+                if (counterVA<=9'd255&&incegttraA==1'b1)
+                  counterA <= counterVA+8;
                 else
-                  if (counterVotedA!=9'd0&&dectraA==1'b1)
-                    counterA <= counterVotedA-1;
+                  if (counterVA!=9'd0&&dectraA==1'b1)
+                    counterA <= counterVA-1;
               end
           end
         else
@@ -114,18 +105,18 @@ always @( posedge clockB )
       end
     else
       begin
-        counterB <= counterVotedB;
-        edgedB <= edgedVotedB;
+        counterB <= counterVB;
+        edgedB <= edgedVB;
         if (actionB==1'b1)
           begin
-            if (edgedVotedB==1'b0)
+            if (edgedVB==1'b0)
               begin
                 edgedB <= 1'b1;
-                if (counterVotedB<=9'd255&&incegttraB==1'b1)
-                  counterB <= counterVotedB+8;
+                if (counterVB<=9'd255&&incegttraB==1'b1)
+                  counterB <= counterVB+8;
                 else
-                  if (counterVotedB!=9'd0&&dectraB==1'b1)
-                    counterB <= counterVotedB-1;
+                  if (counterVB!=9'd0&&dectraB==1'b1)
+                    counterB <= counterVB-1;
               end
           end
         else
@@ -142,18 +133,18 @@ always @( posedge clockC )
       end
     else
       begin
-        counterC <= counterVotedC;
-        edgedC <= edgedVotedC;
+        counterC <= counterVC;
+        edgedC <= edgedVC;
         if (actionC==1'b1)
           begin
-            if (edgedVotedC==1'b0)
+            if (edgedVC==1'b0)
               begin
                 edgedC <= 1'b1;
-                if (counterVotedC<=9'd255&&incegttraC==1'b1)
-                  counterC <= counterVotedC+8;
+                if (counterVC<=9'd255&&incegttraC==1'b1)
+                  counterC <= counterVC+8;
                 else
-                  if (counterVotedC!=9'd0&&dectraC==1'b1)
-                    counterC <= counterVotedC-1;
+                  if (counterVC!=9'd0&&dectraC==1'b1)
+                    counterC <= counterVC-1;
               end
           end
         else
@@ -161,154 +152,103 @@ always @( posedge clockC )
       end
   end
 
-always @( counterVotedA )
+always @( counterV )
   begin
-    if (counterVotedA>=9'd256)
+    if (counterV>=9'd256)
       begin
-        tec_lt96A <= 1'b0;
-        tec_ge96A <= 1'b1;
-        tec_ge128A <= 1'b1;
-        tec_ge256A <= 1'b1;
+        tec_lt96 <= 1'b0;
+        tec_ge96 <= 1'b1;
+        tec_ge128 <= 1'b1;
+        tec_ge256 <= 1'b1;
       end
     else
-      if (counterVotedA>=9'd128&&counterVotedA<9'd256)
+      if (counterV>=9'd128&&counterV<9'd256)
         begin
-          tec_lt96A <= 1'b0;
-          tec_ge96A <= 1'b1;
-          tec_ge128A <= 1'b1;
-          tec_ge256A <= 1'b0;
+          tec_lt96 <= 1'b0;
+          tec_ge96 <= 1'b1;
+          tec_ge128 <= 1'b1;
+          tec_ge256 <= 1'b0;
         end
       else
-        if (counterVotedA<=9'd127&&counterVotedA>=9'd96)
+        if (counterV<=9'd127&&counterV>=9'd96)
           begin
-            tec_lt96A <= 1'b0;
-            tec_ge96A <= 1'b1;
-            tec_ge128A <= 1'b0;
-            tec_ge256A <= 1'b0;
+            tec_lt96 <= 1'b0;
+            tec_ge96 <= 1'b1;
+            tec_ge128 <= 1'b0;
+            tec_ge256 <= 1'b0;
           end
         else
           begin
-            tec_lt96A <= 1'b1;
-            tec_ge96A <= 1'b0;
-            tec_ge128A <= 1'b0;
-            tec_ge256A <= 1'b0;
+            tec_lt96 <= 1'b1;
+            tec_ge96 <= 1'b0;
+            tec_ge128 <= 1'b0;
+            tec_ge256 <= 1'b0;
           end
   end
 
-always @( counterVotedB )
-  begin
-    if (counterVotedB>=9'd256)
-      begin
-        tec_lt96B <= 1'b0;
-        tec_ge96B <= 1'b1;
-        tec_ge128B <= 1'b1;
-        tec_ge256B <= 1'b1;
-      end
-    else
-      if (counterVotedB>=9'd128&&counterVotedB<9'd256)
-        begin
-          tec_lt96B <= 1'b0;
-          tec_ge96B <= 1'b1;
-          tec_ge128B <= 1'b1;
-          tec_ge256B <= 1'b0;
-        end
-      else
-        if (counterVotedB<=9'd127&&counterVotedB>=9'd96)
-          begin
-            tec_lt96B <= 1'b0;
-            tec_ge96B <= 1'b1;
-            tec_ge128B <= 1'b0;
-            tec_ge256B <= 1'b0;
-          end
-        else
-          begin
-            tec_lt96B <= 1'b1;
-            tec_ge96B <= 1'b0;
-            tec_ge128B <= 1'b0;
-            tec_ge256B <= 1'b0;
-          end
-  end
-
-always @( counterVotedC )
-  begin
-    if (counterVotedC>=9'd256)
-      begin
-        tec_lt96C <= 1'b0;
-        tec_ge96C <= 1'b1;
-        tec_ge128C <= 1'b1;
-        tec_ge256C <= 1'b1;
-      end
-    else
-      if (counterVotedC>=9'd128&&counterVotedC<9'd256)
-        begin
-          tec_lt96C <= 1'b0;
-          tec_ge96C <= 1'b1;
-          tec_ge128C <= 1'b1;
-          tec_ge256C <= 1'b0;
-        end
-      else
-        if (counterVotedC<=9'd127&&counterVotedC>=9'd96)
-          begin
-            tec_lt96C <= 1'b0;
-            tec_ge96C <= 1'b1;
-            tec_ge128C <= 1'b0;
-            tec_ge256C <= 1'b0;
-          end
-        else
-          begin
-            tec_lt96C <= 1'b1;
-            tec_ge96C <= 1'b0;
-            tec_ge128C <= 1'b0;
-            tec_ge256C <= 1'b0;
-          end
-  end
-
-majorityVoter #(.WIDTH(9)) counterVoterA (
+majorityVoter #(.WIDTH(9)) counterVoter (
     .inA(counterA),
     .inB(counterB),
     .inC(counterC),
-    .out(counterVotedA),
-    .tmrErr(counterTmrErrorA)
+    .out(counter),
+    .tmrErr(counterTmrError)
     );
 
-majorityVoter edgedVoterA (
+majorityVoter edgedVoter (
     .inA(edgedA),
     .inB(edgedB),
     .inC(edgedC),
-    .out(edgedVotedA),
-    .tmrErr(edgedTmrErrorA)
+    .out(edged),
+    .tmrErr(edgedTmrError)
     );
 
-majorityVoter #(.WIDTH(9)) counterVoterB (
-    .inA(counterA),
-    .inB(counterB),
-    .inC(counterC),
-    .out(counterVotedB),
-    .tmrErr(counterTmrErrorB)
+fanout actionFanout (
+    .in(action),
+    .outA(actionA),
+    .outB(actionB),
+    .outC(actionC)
     );
 
-majorityVoter edgedVoterB (
-    .inA(edgedA),
-    .inB(edgedB),
-    .inC(edgedC),
-    .out(edgedVotedB),
-    .tmrErr(edgedTmrErrorB)
+fanout clockFanout (
+    .in(clock),
+    .outA(clockA),
+    .outB(clockB),
+    .outC(clockC)
     );
 
-majorityVoter #(.WIDTH(9)) counterVoterC (
-    .inA(counterA),
-    .inB(counterB),
-    .inC(counterC),
-    .out(counterVotedC),
-    .tmrErr(counterTmrErrorC)
+fanout #(.WIDTH(9)) counterVFanout (
+    .in(counterV),
+    .outA(counterVA),
+    .outB(counterVB),
+    .outC(counterVC)
     );
 
-majorityVoter edgedVoterC (
-    .inA(edgedA),
-    .inB(edgedB),
-    .inC(edgedC),
-    .out(edgedVotedC),
-    .tmrErr(edgedTmrErrorC)
+fanout dectraFanout (
+    .in(dectra),
+    .outA(dectraA),
+    .outB(dectraB),
+    .outC(dectraC)
+    );
+
+fanout edgedVFanout (
+    .in(edgedV),
+    .outA(edgedVA),
+    .outB(edgedVB),
+    .outC(edgedVC)
+    );
+
+fanout incegttraFanout (
+    .in(incegttra),
+    .outA(incegttraA),
+    .outB(incegttraB),
+    .outC(incegttraC)
+    );
+
+fanout resetFanout (
+    .in(reset),
+    .outA(resetA),
+    .outB(resetB),
+    .outC(resetC)
     );
 endmodule
 

@@ -6,49 +6,48 @@
  *                                                                                                  *
  * user    : lucas                                                                                  *
  * host    : DESKTOP-BFDSFP2                                                                        *
- * date    : 16/08/2022 12:58:16                                                                    *
+ * date    : 06/10/2022 13:52:44                                                                    *
  *                                                                                                  *
- * workdir : /mnt/c/Users/Lucas/Desktop/mopshub_triplication/mopshub_top_board_canakari_ftrim/hdl   *
- * cmd     : /mnt/c/Users/Lucas/Desktop/mopshub_triplication/tmrg-master/bin/tmrg -c tmrg.cfg -vvv  *
+ * workdir : /mnt/c/Users/Lucas/Documents/GitHub/mopshub_triplicated/triplicated/mopshub_top_board/hdl *
+ * cmd     : /mnt/c/Users/Lucas/Desktop/mopshub_triplication/tmrg-master/bin/tmrg -vv -c tmrg.cfg   *
  * tmrg rev:                                                                                        *
  *                                                                                                  *
  * src file: edgepuffer2.v                                                                          *
- *           Git SHA           : File not in git repository!                                        *
- *           Modification time : 2022-03-29 13:49:21                                                *
- *           File Size         : 1957                                                               *
- *           MD5 hash          : a740e2e41facdc25cb2be90a0db1a688                                   *
+ *           Git SHA           : c110441b08b692cc54ebd4a3b84a2599430e8f93                           *
+ *           Modification time : 2022-08-23 20:31:39                                                *
+ *           File Size         : 1924                                                               *
+ *           MD5 hash          : 7a1359f0b251ec0cdc2c66922e4e6550                                   *
  *                                                                                                  *
  ****************************************************************************************************/
 
 module edgepuffer2TMR(
-  input wire  clockA ,
-  input wire  clockB ,
-  input wire  clockC ,
-  input wire  Prescale_ENA ,
-  input wire  Prescale_ENB ,
-  input wire  Prescale_ENC ,
-  input wire  resetA ,
-  input wire  resetB ,
-  input wire  resetC ,
-  input wire  rxA ,
-  input wire  rxB ,
-  input wire  rxC ,
-  output wire  pufferA ,
-  output wire  pufferB ,
-  output wire  pufferC 
+  input wire  clock ,
+  input wire  Prescale_EN ,
+  input wire  reset ,
+  input wire  rx ,
+  output wire  puffer 
 );
-wor buffTmrErrorC;
-wire buffVotedC;
-wor buffTmrErrorB;
-wire buffVotedB;
-wor buffTmrErrorA;
-wire buffVotedA;
+wire rxC;
+wire rxB;
+wire rxA;
+wire resetC;
+wire resetB;
+wire resetA;
+wire pufferC;
+wire pufferB;
+wire pufferA;
+wire clockC;
+wire clockB;
+wire clockA;
+wire Prescale_ENC;
+wire Prescale_ENB;
+wire Prescale_ENA;
+wor buffTmrError;
+wire buff;
 reg  buffA ;
 reg  buffB ;
 reg  buffC ;
-assign pufferA =  buffVotedA;
-assign pufferB =  buffVotedB;
-assign pufferC =  buffVotedC;
+assign puffer =  buff;
 
 always @( posedge clockA or negedge resetA )
   begin
@@ -58,7 +57,7 @@ always @( posedge clockA or negedge resetA )
       end
     else
       begin
-        buffA <= buffVotedA;
+        buffA <= pufferA;
         if (Prescale_ENA==1'b1)
           begin
             buffA <= rxA;
@@ -74,7 +73,7 @@ always @( posedge clockB or negedge resetB )
       end
     else
       begin
-        buffB <= buffVotedB;
+        buffB <= pufferB;
         if (Prescale_ENB==1'b1)
           begin
             buffB <= rxB;
@@ -90,7 +89,7 @@ always @( posedge clockC or negedge resetC )
       end
     else
       begin
-        buffC <= buffVotedC;
+        buffC <= pufferC;
         if (Prescale_ENC==1'b1)
           begin
             buffC <= rxC;
@@ -98,28 +97,47 @@ always @( posedge clockC or negedge resetC )
       end
   end
 
-majorityVoter buffVoterA (
+majorityVoter buffVoter (
     .inA(buffA),
     .inB(buffB),
     .inC(buffC),
-    .out(buffVotedA),
-    .tmrErr(buffTmrErrorA)
+    .out(buff),
+    .tmrErr(buffTmrError)
     );
 
-majorityVoter buffVoterB (
-    .inA(buffA),
-    .inB(buffB),
-    .inC(buffC),
-    .out(buffVotedB),
-    .tmrErr(buffTmrErrorB)
+fanout Prescale_ENFanout (
+    .in(Prescale_EN),
+    .outA(Prescale_ENA),
+    .outB(Prescale_ENB),
+    .outC(Prescale_ENC)
     );
 
-majorityVoter buffVoterC (
-    .inA(buffA),
-    .inB(buffB),
-    .inC(buffC),
-    .out(buffVotedC),
-    .tmrErr(buffTmrErrorC)
+fanout clockFanout (
+    .in(clock),
+    .outA(clockA),
+    .outB(clockB),
+    .outC(clockC)
+    );
+
+fanout pufferFanout (
+    .in(puffer),
+    .outA(pufferA),
+    .outB(pufferB),
+    .outC(pufferC)
+    );
+
+fanout resetFanout (
+    .in(reset),
+    .outA(resetA),
+    .outB(resetB),
+    .outC(resetC)
+    );
+
+fanout rxFanout (
+    .in(rx),
+    .outA(rxA),
+    .outB(rxB),
+    .outC(rxC)
     );
 endmodule
 

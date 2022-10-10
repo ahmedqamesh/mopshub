@@ -6,17 +6,17 @@
  *                                                                                                  *
  * user    : lucas                                                                                  *
  * host    : DESKTOP-BFDSFP2                                                                        *
- * date    : 16/08/2022 12:58:09                                                                    *
+ * date    : 06/10/2022 13:52:38                                                                    *
  *                                                                                                  *
- * workdir : /mnt/c/Users/Lucas/Desktop/mopshub_triplication/mopshub_top_board_canakari_ftrim/hdl   *
- * cmd     : /mnt/c/Users/Lucas/Desktop/mopshub_triplication/tmrg-master/bin/tmrg -c tmrg.cfg -vvv  *
+ * workdir : /mnt/c/Users/Lucas/Documents/GitHub/mopshub_triplicated/triplicated/mopshub_top_board/hdl *
+ * cmd     : /mnt/c/Users/Lucas/Desktop/mopshub_triplication/tmrg-master/bin/tmrg -vv -c tmrg.cfg   *
  * tmrg rev:                                                                                        *
  *                                                                                                  *
  * src file: buffer_tristate_busid.v                                                                *
- *           Git SHA           : File not in git repository!                                        *
- *           Modification time : 2022-08-12 09:58:15                                                *
- *           File Size         : 1472                                                               *
- *           MD5 hash          : eda2e86997f07863e6a97a1fd0f23e4b                                   *
+ *           Git SHA           : c110441b08b692cc54ebd4a3b84a2599430e8f93                           *
+ *           Modification time : 2022-10-05 20:59:05                                                *
+ *           File Size         : 1398                                                               *
+ *           MD5 hash          : 23411ef7fd4833a6ec8e84f1b65bcb60                                   *
  *                                                                                                  *
  ****************************************************************************************************/
 
@@ -36,9 +36,9 @@ module buffer_tristate_busidTMR(
 wire rstC;
 wire rstB;
 wire rstA;
-wire [4:0] data_tra_reg_vC;
-wire [4:0] data_tra_reg_vB;
-wire [4:0] data_tra_reg_vA;
+wire [4:0] data_tra_outC;
+wire [4:0] data_tra_outB;
+wire [4:0] data_tra_outA;
 wire [4:0] data_tra_in3C;
 wire [4:0] data_tra_in3B;
 wire [4:0] data_tra_in3A;
@@ -77,7 +77,6 @@ initial
   data_tra_regB =  5'h0;
 initial
   data_tra_regC =  5'h0;
-wire [4:0] data_tra_reg_v =  data_tra_reg;
 
 always @( posedge clkA )
   begin
@@ -97,7 +96,7 @@ always @( posedge clkA )
               if (buffer_en3A)
                 data_tra_regA <= data_tra_in3A;
               else
-                data_tra_regA <= data_tra_reg_vA;
+                data_tra_regA <= data_tra_outA;
       end
   end
 
@@ -119,7 +118,7 @@ always @( posedge clkB )
               if (buffer_en3B)
                 data_tra_regB <= data_tra_in3B;
               else
-                data_tra_regB <= data_tra_reg_vB;
+                data_tra_regB <= data_tra_outB;
       end
   end
 
@@ -141,7 +140,7 @@ always @( posedge clkC )
               if (buffer_en3C)
                 data_tra_regC <= data_tra_in3C;
               else
-                data_tra_regC <= data_tra_reg_vC;
+                data_tra_regC <= data_tra_outC;
       end
   end
 assign data_tra_out =  data_tra_reg;
@@ -217,11 +216,11 @@ fanout #(.WIDTH(5)) data_tra_in3Fanout (
     .outC(data_tra_in3C)
     );
 
-fanout #(.WIDTH(5)) data_tra_reg_vFanout (
-    .in(data_tra_reg_v),
-    .outA(data_tra_reg_vA),
-    .outB(data_tra_reg_vB),
-    .outC(data_tra_reg_vC)
+fanout #(.WIDTH(5)) data_tra_outFanout (
+    .in(data_tra_out),
+    .outA(data_tra_outA),
+    .outB(data_tra_outB),
+    .outC(data_tra_outC)
     );
 
 fanout rstFanout (

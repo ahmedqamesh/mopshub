@@ -6,73 +6,80 @@
  *                                                                                                  *
  * user    : lucas                                                                                  *
  * host    : DESKTOP-BFDSFP2                                                                        *
- * date    : 16/08/2022 12:58:37                                                                    *
+ * date    : 06/10/2022 13:53:01                                                                    *
  *                                                                                                  *
- * workdir : /mnt/c/Users/Lucas/Desktop/mopshub_triplication/mopshub_top_board_canakari_ftrim/hdl   *
- * cmd     : /mnt/c/Users/Lucas/Desktop/mopshub_triplication/tmrg-master/bin/tmrg -c tmrg.cfg -vvv  *
+ * workdir : /mnt/c/Users/Lucas/Documents/GitHub/mopshub_triplicated/triplicated/mopshub_top_board/hdl *
+ * cmd     : /mnt/c/Users/Lucas/Desktop/mopshub_triplication/tmrg-master/bin/tmrg -vv -c tmrg.cfg   *
  * tmrg rev:                                                                                        *
  *                                                                                                  *
  * src file: recmescontrolreg2.v                                                                    *
- *           Git SHA           : File not in git repository!                                        *
- *           Modification time : 2022-03-29 13:49:21                                                *
- *           File Size         : 2733                                                               *
- *           MD5 hash          : 0a4f836d885e3c2382e7fad46650ab16                                   *
+ *           Git SHA           : c110441b08b692cc54ebd4a3b84a2599430e8f93                           *
+ *           Modification time : 2022-08-25 10:27:11                                                *
+ *           File Size         : 2683                                                               *
+ *           MD5 hash          : 5d0142fb35cb7bc688d799e90ef9bc40                                   *
  *                                                                                                  *
  ****************************************************************************************************/
 
 module recmescontrolreg2TMR(
-  input wire  clkA ,
-  input wire  clkB ,
-  input wire  clkC ,
-  input wire  rstA ,
-  input wire  rstB ,
-  input wire  rstC ,
-  input wire  cpuA ,
-  input wire  cpuB ,
-  input wire  cpuC ,
-  input wire  canA ,
-  input wire  canB ,
-  input wire  canC ,
-  input wire  ofpA ,
-  input wire  ofpB ,
-  input wire  ofpC ,
-  input wire  ofcA ,
-  input wire  ofcB ,
-  input wire  ofcC ,
-  input wire  ripA ,
-  input wire  ripB ,
-  input wire  ripC ,
-  input wire  ricA ,
-  input wire  ricB ,
-  input wire  ricC ,
-  input wire  ienA ,
-  input wire  ienB ,
-  input wire  ienC ,
-  input wire  rtrA ,
-  input wire  rtrB ,
-  input wire  rtrC ,
-  input wire  extA ,
-  input wire  extB ,
-  input wire  extC ,
-  input wire [3:0] dlcA ,
-  input wire [3:0] dlcB ,
-  input wire [3:0] dlcC ,
-  output wire [15:0] regoutA ,
-  output wire [15:0] regoutB ,
-  output wire [15:0] regoutC 
+  input wire  clk ,
+  input wire  rst ,
+  input wire  cpu ,
+  input wire  can ,
+  input wire  ofp ,
+  input wire  ofc ,
+  input wire  rip ,
+  input wire  ric ,
+  input wire  ien ,
+  input wire  rtr ,
+  input wire  ext ,
+  input wire [3:0] dlc ,
+  output wire [15:0] regout 
 );
-wor register_iTmrErrorC;
-wire [15:0] register_iVotedC;
-wor register_iTmrErrorB;
-wire [15:0] register_iVotedB;
-wor register_iTmrErrorA;
-wire [15:0] register_iVotedA;
+wire rtrC;
+wire rtrB;
+wire rtrA;
+wire rstC;
+wire rstB;
+wire rstA;
+wire ripC;
+wire ripB;
+wire ripA;
+wire ricC;
+wire ricB;
+wire ricA;
+wire [15:0] regoutC;
+wire [15:0] regoutB;
+wire [15:0] regoutA;
+wire ofpC;
+wire ofpB;
+wire ofpA;
+wire ofcC;
+wire ofcB;
+wire ofcA;
+wire ienC;
+wire ienB;
+wire ienA;
+wire extC;
+wire extB;
+wire extA;
+wire [3:0] dlcC;
+wire [3:0] dlcB;
+wire [3:0] dlcA;
+wire cpuC;
+wire cpuB;
+wire cpuA;
+wire clkC;
+wire clkB;
+wire clkA;
+wire canC;
+wire canB;
+wire canA;
+wor register_iTmrError;
+wire [15:0] register_i;
 reg  [15:0] register_iA ;
 reg  [15:0] register_iB ;
 reg  [15:0] register_iC ;
-assign regoutA =  register_iVotedA;
-assign regoutB =  register_iVotedB;
-assign regoutC =  register_iVotedC;
+assign regout =  register_i;
 
 always @( posedge clkA )
   begin
@@ -97,7 +104,7 @@ always @( posedge clkA )
             register_iA[3:0]  <= dlcA;
           end
         else
-          register_iA <= register_iVotedA;
+          register_iA <= regoutA;
   end
 
 always @( posedge clkB )
@@ -123,7 +130,7 @@ always @( posedge clkB )
             register_iB[3:0]  <= dlcB;
           end
         else
-          register_iB <= register_iVotedB;
+          register_iB <= regoutB;
   end
 
 always @( posedge clkC )
@@ -149,31 +156,106 @@ always @( posedge clkC )
             register_iC[3:0]  <= dlcC;
           end
         else
-          register_iC <= register_iVotedC;
+          register_iC <= regoutC;
   end
 
-majorityVoter #(.WIDTH(16)) register_iVoterA (
+majorityVoter #(.WIDTH(16)) register_iVoter (
     .inA(register_iA),
     .inB(register_iB),
     .inC(register_iC),
-    .out(register_iVotedA),
-    .tmrErr(register_iTmrErrorA)
+    .out(register_i),
+    .tmrErr(register_iTmrError)
     );
 
-majorityVoter #(.WIDTH(16)) register_iVoterB (
-    .inA(register_iA),
-    .inB(register_iB),
-    .inC(register_iC),
-    .out(register_iVotedB),
-    .tmrErr(register_iTmrErrorB)
+fanout canFanout (
+    .in(can),
+    .outA(canA),
+    .outB(canB),
+    .outC(canC)
     );
 
-majorityVoter #(.WIDTH(16)) register_iVoterC (
-    .inA(register_iA),
-    .inB(register_iB),
-    .inC(register_iC),
-    .out(register_iVotedC),
-    .tmrErr(register_iTmrErrorC)
+fanout clkFanout (
+    .in(clk),
+    .outA(clkA),
+    .outB(clkB),
+    .outC(clkC)
+    );
+
+fanout cpuFanout (
+    .in(cpu),
+    .outA(cpuA),
+    .outB(cpuB),
+    .outC(cpuC)
+    );
+
+fanout #(.WIDTH(4)) dlcFanout (
+    .in(dlc),
+    .outA(dlcA),
+    .outB(dlcB),
+    .outC(dlcC)
+    );
+
+fanout extFanout (
+    .in(ext),
+    .outA(extA),
+    .outB(extB),
+    .outC(extC)
+    );
+
+fanout ienFanout (
+    .in(ien),
+    .outA(ienA),
+    .outB(ienB),
+    .outC(ienC)
+    );
+
+fanout ofcFanout (
+    .in(ofc),
+    .outA(ofcA),
+    .outB(ofcB),
+    .outC(ofcC)
+    );
+
+fanout ofpFanout (
+    .in(ofp),
+    .outA(ofpA),
+    .outB(ofpB),
+    .outC(ofpC)
+    );
+
+fanout #(.WIDTH(16)) regoutFanout (
+    .in(regout),
+    .outA(regoutA),
+    .outB(regoutB),
+    .outC(regoutC)
+    );
+
+fanout ricFanout (
+    .in(ric),
+    .outA(ricA),
+    .outB(ricB),
+    .outC(ricC)
+    );
+
+fanout ripFanout (
+    .in(rip),
+    .outA(ripA),
+    .outB(ripB),
+    .outC(ripC)
+    );
+
+fanout rstFanout (
+    .in(rst),
+    .outA(rstA),
+    .outB(rstB),
+    .outC(rstC)
+    );
+
+fanout rtrFanout (
+    .in(rtr),
+    .outA(rtrA),
+    .outB(rtrB),
+    .outC(rtrC)
     );
 endmodule
 

@@ -6,246 +6,96 @@
  *                                                                                                  *
  * user    : lucas                                                                                  *
  * host    : DESKTOP-BFDSFP2                                                                        *
- * date    : 16/08/2022 12:58:31                                                                    *
+ * date    : 06/10/2022 13:52:52                                                                    *
  *                                                                                                  *
- * workdir : /mnt/c/Users/Lucas/Desktop/mopshub_triplication/mopshub_top_board_canakari_ftrim/hdl   *
- * cmd     : /mnt/c/Users/Lucas/Desktop/mopshub_triplication/tmrg-master/bin/tmrg -c tmrg.cfg -vvv  *
+ * workdir : /mnt/c/Users/Lucas/Documents/GitHub/mopshub_triplicated/triplicated/mopshub_top_board/hdl *
+ * cmd     : /mnt/c/Users/Lucas/Desktop/mopshub_triplication/tmrg-master/bin/tmrg -vv -c tmrg.cfg   *
  * tmrg rev:                                                                                        *
  *                                                                                                  *
  * src file: macfsm2.v                                                                              *
- *           Git SHA           : File not in git repository!                                        *
- *           Modification time : 2022-03-29 13:49:21                                                *
- *           File Size         : 207348                                                             *
- *           MD5 hash          : d270896709851c64968d634119cdd133                                   *
+ *           Git SHA           : c110441b08b692cc54ebd4a3b84a2599430e8f93                           *
+ *           Modification time : 2022-08-30 13:56:48                                                *
+ *           File Size         : 207351                                                             *
+ *           MD5 hash          : 6288ec70a10175c0b68ef0872b03c9c7                                   *
  *                                                                                                  *
  ****************************************************************************************************/
 
 module macfsm2TMR(
-  input wire  clockA ,
-  input wire  clockB ,
-  input wire  clockC ,
-  input wire  Prescale_ENA ,
-  input wire  Prescale_ENB ,
-  input wire  Prescale_ENC ,
-  input wire  resetA ,
-  input wire  resetB ,
-  input wire  resetC ,
-  input wire  sendpointA ,
-  input wire  sendpointB ,
-  input wire  sendpointC ,
-  input wire  smplpointA ,
-  input wire  smplpointB ,
-  input wire  smplpointC ,
-  input wire  crc_okA ,
-  input wire  crc_okB ,
-  input wire  crc_okC ,
-  input wire  inbitA ,
-  input wire  inbitB ,
-  input wire  inbitC ,
-  input wire  stufftA ,
-  input wire  stufftB ,
-  input wire  stufftC ,
-  input wire  stuffrA ,
-  input wire  stuffrB ,
-  input wire  stuffrC ,
-  input wire  biterrorA ,
-  input wire  biterrorB ,
-  input wire  biterrorC ,
-  input wire  stferrorA ,
-  input wire  stferrorB ,
-  input wire  stferrorC ,
-  input wire  transA ,
-  input wire  transB ,
-  input wire  transC ,
-  input wire  textA ,
-  input wire  textB ,
-  input wire  textC ,
-  input wire  erroractivA ,
-  input wire  erroractivB ,
-  input wire  erroractivC ,
-  input wire  errorpassivA ,
-  input wire  errorpassivB ,
-  input wire  errorpassivC ,
-  input wire  busofA ,
-  input wire  busofB ,
-  input wire  busofC ,
-  input wire  ackerrorA ,
-  input wire  ackerrorB ,
-  input wire  ackerrorC ,
-  input wire  onarbitA ,
-  input wire  onarbitB ,
-  input wire  onarbitC ,
-  input wire  transmitterA ,
-  input wire  transmitterB ,
-  input wire  transmitterC ,
-  input wire  receiverA ,
-  input wire  receiverB ,
-  input wire  receiverC ,
-  input wire  errorA ,
-  input wire  errorB ,
-  input wire  errorC ,
-  input wire  firstA ,
-  input wire  firstB ,
-  input wire  firstC ,
-  input wire  pufferA ,
-  input wire  pufferB ,
-  input wire  pufferC ,
-  input wire  rextA ,
-  input wire  rextB ,
-  input wire  rextC ,
-  input wire  rrtrA ,
-  input wire  rrtrB ,
-  input wire  rrtrC ,
-  input wire  lt3A ,
-  input wire  lt3B ,
-  input wire  lt3C ,
-  input wire  gt3A ,
-  input wire  gt3B ,
-  input wire  gt3C ,
-  input wire  eq3A ,
-  input wire  eq3B ,
-  input wire  eq3C ,
-  input wire  lt11A ,
-  input wire  lt11B ,
-  input wire  lt11C ,
-  input wire  eq11A ,
-  input wire  eq11B ,
-  input wire  eq11C ,
-  input wire  startrcrcA ,
-  input wire  startrcrcB ,
-  input wire  startrcrcC ,
-  input wire  rmzeroA ,
-  input wire  rmzeroB ,
-  input wire  rmzeroC ,
-  input wire  starttcrcA ,
-  input wire  starttcrcB ,
-  input wire  starttcrcC ,
-  output reg [1:0] ackerror_setA ,
-  output reg [1:0] ackerror_setB ,
-  output reg [1:0] ackerror_setC ,
-  output reg [1:0] onarbit_setA ,
-  output reg [1:0] onarbit_setB ,
-  output reg [1:0] onarbit_setC ,
-  output reg [1:0] transmitter_setA ,
-  output reg [1:0] transmitter_setB ,
-  output reg [1:0] transmitter_setC ,
-  output reg [1:0] receiver_setA ,
-  output reg [1:0] receiver_setB ,
-  output reg [1:0] receiver_setC ,
-  output reg [1:0] error_setA ,
-  output reg [1:0] error_setB ,
-  output reg [1:0] error_setC ,
-  output reg [1:0] first_setA ,
-  output reg [1:0] first_setB ,
-  output reg [1:0] first_setC ,
-  output reg [1:0] puffer_setA ,
-  output reg [1:0] puffer_setB ,
-  output reg [1:0] puffer_setC ,
-  output reg [1:0] rext_setA ,
-  output reg [1:0] rext_setB ,
-  output reg [1:0] rext_setC ,
-  output reg [1:0] rrtr_setA ,
-  output reg [1:0] rrtr_setB ,
-  output reg [1:0] rrtr_setC ,
-  input wire [6:0] countA ,
-  input wire [6:0] countB ,
-  input wire [6:0] countC ,
-  output reg [2:0] setrmlenoA ,
-  output reg [2:0] setrmlenoB ,
-  output reg [2:0] setrmlenoC ,
-  output reg  actvrmlnA ,
-  output reg  actvrmlnB ,
-  output reg  actvrmlnC ,
-  output reg  actvtcrcA ,
-  output reg  actvtcrcB ,
-  output reg  actvtcrcC ,
-  output reg  actvrcrcA ,
-  output reg  actvrcrcB ,
-  output reg  actvrcrcC ,
-  output reg  actvtstfA ,
-  output reg  actvtstfB ,
-  output reg  actvtstfC ,
-  output reg  actvrstfA ,
-  output reg  actvrstfB ,
-  output reg  actvrstfC ,
-  output reg  actvtsftA ,
-  output reg  actvtsftB ,
-  output reg  actvtsftC ,
-  output reg  actvrsftA ,
-  output reg  actvrsftB ,
-  output reg  actvrsftC ,
-  output reg  actvtdctA ,
-  output reg  actvtdctB ,
-  output reg  actvtdctC ,
-  output reg  actvrdctA ,
-  output reg  actvrdctB ,
-  output reg  actvrdctC ,
-  output reg  actvtbedA ,
-  output reg  actvtbedB ,
-  output reg  actvtbedC ,
-  output reg  setbdomA ,
-  output reg  setbdomB ,
-  output reg  setbdomC ,
-  output reg  setbrecA ,
-  output reg  setbrecB ,
-  output reg  setbrecC ,
-  output reg  lcrcA ,
-  output reg  lcrcB ,
-  output reg  lcrcC ,
-  output reg  lmsgA ,
-  output reg  lmsgB ,
-  output reg  lmsgC ,
-  output reg  tshiftA ,
-  output reg  tshiftB ,
-  output reg  tshiftC ,
-  output reg  inconerecA ,
-  output reg  inconerecB ,
-  output reg  inconerecC ,
-  output reg  incegtrecA ,
-  output reg  incegtrecB ,
-  output reg  incegtrecC ,
-  output reg  incegttraA ,
-  output reg  incegttraB ,
-  output reg  incegttraC ,
-  output reg  decrecA ,
-  output reg  decrecB ,
-  output reg  decrecC ,
-  output reg  dectraA ,
-  output reg  dectraB ,
-  output reg  dectraC ,
-  output reg  elevrecbA ,
-  output reg  elevrecbB ,
-  output reg  elevrecbC ,
-  output reg  hardsyncA ,
-  output reg  hardsyncB ,
-  output reg  hardsyncC ,
-  output reg  inccountA ,
-  output reg  inccountB ,
-  output reg  inccountC ,
-  output reg  resrmlenA ,
-  output reg  resrmlenB ,
-  output reg  resrmlenC ,
-  output reg  rescountA ,
-  output reg  rescountB ,
-  output reg  rescountC ,
-  output reg  resetdstA ,
-  output reg  resetdstB ,
-  output reg  resetdstC ,
-  output reg  resetstfA ,
-  output reg  resetstfB ,
-  output reg  resetstfC ,
-  output reg  activatefastA ,
-  output reg  activatefastB ,
-  output reg  activatefastC ,
-  output reg  crc_shft_outA ,
-  output reg  crc_shft_outB ,
-  output reg  crc_shft_outC ,
-  output reg  en_zerointcrcA ,
-  output reg  en_zerointcrcB ,
-  output reg  en_zerointcrcC ,
-  output wire [7:0] statedebA ,
-  output wire [7:0] statedebB ,
-  output wire [7:0] statedebC 
+  input wire  clock ,
+  input wire  Prescale_EN ,
+  input wire  reset ,
+  input wire  sendpoint ,
+  input wire  smplpoint ,
+  input wire  crc_ok ,
+  input wire  inbit ,
+  input wire  stufft ,
+  input wire  stuffr ,
+  input wire  biterror ,
+  input wire  stferror ,
+  input wire  trans ,
+  input wire  text ,
+  input wire  erroractiv ,
+  input wire  errorpassiv ,
+  input wire  busof ,
+  input wire  ackerror ,
+  input wire  onarbit ,
+  input wire  transmitter ,
+  input wire  receiver ,
+  input wire  error ,
+  input wire  first ,
+  input wire  puffer ,
+  input wire  rext ,
+  input wire  rrtr ,
+  input wire  lt3 ,
+  input wire  gt3 ,
+  input wire  eq3 ,
+  input wire  lt11 ,
+  input wire  eq11 ,
+  input wire  startrcrc ,
+  input wire  rmzero ,
+  input wire  starttcrc ,
+  output reg [1:0] ackerror_set ,
+  output reg [1:0] onarbit_set ,
+  output reg [1:0] transmitter_set ,
+  output reg [1:0] receiver_set ,
+  output reg [1:0] error_set ,
+  output reg [1:0] first_set ,
+  output reg [1:0] puffer_set ,
+  output reg [1:0] rext_set ,
+  output reg [1:0] rrtr_set ,
+  input wire [6:0] count ,
+  output reg [2:0] setrmleno ,
+  output reg  actvrmln ,
+  output reg  actvtcrc ,
+  output reg  actvrcrc ,
+  output reg  actvtstf ,
+  output reg  actvrstf ,
+  output reg  actvtsft ,
+  output reg  actvrsft ,
+  output reg  actvtdct ,
+  output reg  actvrdct ,
+  output reg  actvtbed ,
+  output reg  setbdom ,
+  output reg  setbrec ,
+  output reg  lcrc ,
+  output reg  lmsg ,
+  output reg  tshift ,
+  output reg  inconerec ,
+  output reg  incegtrec ,
+  output reg  incegttra ,
+  output reg  decrec ,
+  output reg  dectra ,
+  output reg  elevrecb ,
+  output reg  hardsync ,
+  output reg  inccount ,
+  output reg  resrmlen ,
+  output reg  rescount ,
+  output reg  resetdst ,
+  output reg  resetstf ,
+  output reg  activatefast ,
+  output reg  crc_shft_out ,
+  output reg  en_zerointcrc ,
+  output wire [7:0] statedeb 
 );
 parameter sync_start =8'h00;
 parameter sync_sample =8'h01;
@@ -377,21 +227,29 @@ parameter rec_edof_inter =8'h7e;
 parameter tra_edof_dectra =8'h7f;
 parameter inter_preprec_shifting =8'h80;
 parameter inter_arbit_tsftrsmpl =8'h81;
-wor current_stateTmrErrorC;
-wire [7:0] current_stateVotedC;
-wor current_stateTmrErrorB;
-wire [7:0] current_stateVotedB;
-wor current_stateTmrErrorA;
-wire [7:0] current_stateVotedA;
+wire resetC;
+wire resetB;
+wire resetA;
+wire [7:0] next_stateC;
+wire [7:0] next_stateB;
+wire [7:0] next_stateA;
+wire [7:0] current_stateVC;
+wire [7:0] current_stateVB;
+wire [7:0] current_stateVA;
+wire clockC;
+wire clockB;
+wire clockA;
+wire Prescale_ENC;
+wire Prescale_ENB;
+wire Prescale_ENA;
+wor current_stateTmrError;
+wire [7:0] current_state;
 reg  [7:0] current_stateA ;
-reg  [7:0] next_stateA ;
 reg  [7:0] current_stateB ;
-reg  [7:0] next_stateB ;
 reg  [7:0] current_stateC ;
-reg  [7:0] next_stateC ;
-assign statedebA =  current_stateVotedA;
-assign statedebB =  current_stateVotedB;
-assign statedebC =  current_stateVotedC;
+reg  [7:0] next_state ;
+wire [7:0] current_stateV =  current_state;
+assign statedeb =  current_stateV;
 
 always @( posedge clockA or negedge resetA )
   begin
@@ -401,7 +259,7 @@ always @( posedge clockA or negedge resetA )
       if (Prescale_ENA==1'b1)
         current_stateA <= next_stateA;
       else
-        current_stateA <= current_stateVotedA;
+        current_stateA <= current_stateVA;
   end
 
 always @( posedge clockB or negedge resetB )
@@ -412,7 +270,7 @@ always @( posedge clockB or negedge resetB )
       if (Prescale_ENB==1'b1)
         current_stateB <= next_stateB;
       else
-        current_stateB <= current_stateVotedB;
+        current_stateB <= current_stateVB;
   end
 
 always @( posedge clockC or negedge resetC )
@@ -423,6483 +281,6483 @@ always @( posedge clockC or negedge resetC )
       if (Prescale_ENC==1'b1)
         current_stateC <= next_stateC;
       else
-        current_stateC <= current_stateVotedC;
+        current_stateC <= current_stateVC;
   end
 
 always @*
   begin
-    rext_setA <= 2'b00;
-    rrtr_setA <= 2'b00;
-    actvtcrcA <= 1'b0;
-    actvrcrcA <= 1'b0;
-    actvtstfA <= 1'b0;
-    actvrstfA <= 1'b0;
-    actvtsftA <= 1'b0;
-    actvrsftA <= 1'b0;
-    actvtdctA <= 1'b0;
-    actvrdctA <= 1'b1;
-    actvtbedA <= 1'b0;
-    setbdomA <= 1'b0;
-    setbrecA <= 1'b0;
-    lcrcA <= 1'b0;
-    tshiftA <= 1'b0;
-    inconerecA <= 1'b0;
-    incegtrecA <= 1'b0;
-    incegttraA <= 1'b0;
-    lmsgA <= 1'b0;
-    decrecA <= 1'b0;
-    dectraA <= 1'b0;
-    elevrecbA <= 1'b0;
-    resetdstA <= 1'b1;
-    resetstfA <= 1'b1;
-    hardsyncA <= 1'b1;
-    inccountA <= 1'b0;
-    rescountA <= 1'b0;
-    setrmlenoA <= 0;
-    actvrmlnA <= 1'b0;
-    resrmlenA <= 1'b0;
-    ackerror_setA <= 2'b10;
-    transmitter_setA <= 2'b10;
-    receiver_setA <= 2'b10;
-    error_setA <= 2'b10;
-    first_setA <= 2'b10;
-    activatefastA <= 1'b0;
-    puffer_setA <= 2'b10;
-    onarbit_setA <= 2'b10;
-    en_zerointcrcA <= 1'b1;
-    crc_shft_outA <= 1'b0;
-    next_stateA <= current_stateVotedA;
-    case (current_stateVotedA)
+    rext_set <= 2'b00;
+    rrtr_set <= 2'b00;
+    actvtcrc <= 1'b0;
+    actvrcrc <= 1'b0;
+    actvtstf <= 1'b0;
+    actvrstf <= 1'b0;
+    actvtsft <= 1'b0;
+    actvrsft <= 1'b0;
+    actvtdct <= 1'b0;
+    actvrdct <= 1'b1;
+    actvtbed <= 1'b0;
+    setbdom <= 1'b0;
+    setbrec <= 1'b0;
+    lcrc <= 1'b0;
+    tshift <= 1'b0;
+    inconerec <= 1'b0;
+    incegtrec <= 1'b0;
+    incegttra <= 1'b0;
+    lmsg <= 1'b0;
+    decrec <= 1'b0;
+    dectra <= 1'b0;
+    elevrecb <= 1'b0;
+    resetdst <= 1'b1;
+    resetstf <= 1'b1;
+    hardsync <= 1'b1;
+    inccount <= 1'b0;
+    rescount <= 1'b0;
+    setrmleno <= 0;
+    actvrmln <= 1'b0;
+    resrmlen <= 1'b0;
+    ackerror_set <= 2'b10;
+    transmitter_set <= 2'b10;
+    receiver_set <= 2'b10;
+    error_set <= 2'b10;
+    first_set <= 2'b10;
+    activatefast <= 1'b0;
+    puffer_set <= 2'b10;
+    onarbit_set <= 2'b10;
+    en_zerointcrc <= 1'b1;
+    crc_shft_out <= 1'b0;
+    next_state <= current_stateV;
+    case (current_stateV)
       sync_start : 
         begin
-          rext_setA <= 2'b10;
-          rrtr_setA <= 2'b10;
-          actvtcrcA <= 1'b0;
-          actvrcrcA <= 1'b0;
-          actvtstfA <= 1'b0;
-          actvrstfA <= 1'b0;
-          actvtsftA <= 1'b0;
-          actvrsftA <= 1'b0;
-          actvtdctA <= 1'b0;
-          actvrdctA <= 1'b1;
-          actvtbedA <= 1'b0;
-          setbdomA <= 1'b0;
-          setbrecA <= 1'b0;
-          lcrcA <= 1'b0;
-          tshiftA <= 1'b0;
-          inconerecA <= 1'b0;
-          incegtrecA <= 1'b0;
-          incegttraA <= 1'b0;
-          lmsgA <= 1'b0;
-          decrecA <= 1'b0;
-          dectraA <= 1'b0;
-          elevrecbA <= 1'b0;
-          resetdstA <= 1'b1;
-          resetstfA <= 1'b1;
-          hardsyncA <= 1'b1;
-          inccountA <= 1'b0;
-          rescountA <= 1'b0;
-          setrmlenoA <= 0;
-          actvrmlnA <= 1'b0;
-          resrmlenA <= 1'b0;
-          ackerror_setA <= 2'b10;
-          transmitter_setA <= 2'b10;
-          receiver_setA <= 2'b10;
-          error_setA <= 2'b10;
-          first_setA <= 2'b10;
-          activatefastA <= 1'b0;
-          puffer_setA <= 2'b10;
-          onarbit_setA <= 2'b10;
-          en_zerointcrcA <= 1'b1;
-          crc_shft_outA <= 1'b0;
-          if (smplpointA==1'b1)
-            next_stateA <= sync_sample;
+          rext_set <= 2'b10;
+          rrtr_set <= 2'b10;
+          actvtcrc <= 1'b0;
+          actvrcrc <= 1'b0;
+          actvtstf <= 1'b0;
+          actvrstf <= 1'b0;
+          actvtsft <= 1'b0;
+          actvrsft <= 1'b0;
+          actvtdct <= 1'b0;
+          actvrdct <= 1'b1;
+          actvtbed <= 1'b0;
+          setbdom <= 1'b0;
+          setbrec <= 1'b0;
+          lcrc <= 1'b0;
+          tshift <= 1'b0;
+          inconerec <= 1'b0;
+          incegtrec <= 1'b0;
+          incegttra <= 1'b0;
+          lmsg <= 1'b0;
+          decrec <= 1'b0;
+          dectra <= 1'b0;
+          elevrecb <= 1'b0;
+          resetdst <= 1'b1;
+          resetstf <= 1'b1;
+          hardsync <= 1'b1;
+          inccount <= 1'b0;
+          rescount <= 1'b0;
+          setrmleno <= 0;
+          actvrmln <= 1'b0;
+          resrmlen <= 1'b0;
+          ackerror_set <= 2'b10;
+          transmitter_set <= 2'b10;
+          receiver_set <= 2'b10;
+          error_set <= 2'b10;
+          first_set <= 2'b10;
+          activatefast <= 1'b0;
+          puffer_set <= 2'b10;
+          onarbit_set <= 2'b10;
+          en_zerointcrc <= 1'b1;
+          crc_shft_out <= 1'b0;
+          if (smplpoint==1'b1)
+            next_state <= sync_sample;
           else
-            next_stateA <= sync_start;
+            next_state <= sync_start;
         end
       sync_sample : 
         begin
-          rext_setA <= 2'b10;
-          rrtr_setA <= 2'b10;
-          actvtcrcA <= 1'b0;
-          actvrcrcA <= 1'b0;
-          actvtstfA <= 1'b0;
-          actvrstfA <= 1'b1;
-          actvtsftA <= 1'b0;
-          actvrsftA <= 1'b0;
-          actvtdctA <= 1'b0;
-          actvrdctA <= 1'b1;
-          actvtbedA <= 1'b0;
-          setbdomA <= 1'b0;
-          setbrecA <= 1'b0;
-          lcrcA <= 1'b0;
-          tshiftA <= 1'b0;
-          inconerecA <= 1'b0;
-          incegtrecA <= 1'b0;
-          incegttraA <= 1'b0;
-          lmsgA <= 1'b0;
-          decrecA <= 1'b0;
-          dectraA <= 1'b0;
-          elevrecbA <= 1'b0;
-          resetdstA <= 1'b1;
-          resetstfA <= 1'b1;
-          hardsyncA <= 1'b1;
-          inccountA <= 1'b0;
-          rescountA <= 1'b1;
-          setrmlenoA <= 0;
-          actvrmlnA <= 1'b0;
-          resrmlenA <= 1'b1;
-          ackerror_setA <= 2'b10;
-          transmitter_setA <= 2'b10;
-          receiver_setA <= 2'b10;
-          error_setA <= 2'b10;
-          first_setA <= 2'b10;
-          activatefastA <= 1'b0;
-          puffer_setA <= 2'b10;
-          onarbit_setA <= 2'b10;
-          en_zerointcrcA <= 1'b1;
-          crc_shft_outA <= 1'b0;
-          if (inbitA==1'b1)
-            next_stateA <= sync_sum;
+          rext_set <= 2'b10;
+          rrtr_set <= 2'b10;
+          actvtcrc <= 1'b0;
+          actvrcrc <= 1'b0;
+          actvtstf <= 1'b0;
+          actvrstf <= 1'b1;
+          actvtsft <= 1'b0;
+          actvrsft <= 1'b0;
+          actvtdct <= 1'b0;
+          actvrdct <= 1'b1;
+          actvtbed <= 1'b0;
+          setbdom <= 1'b0;
+          setbrec <= 1'b0;
+          lcrc <= 1'b0;
+          tshift <= 1'b0;
+          inconerec <= 1'b0;
+          incegtrec <= 1'b0;
+          incegttra <= 1'b0;
+          lmsg <= 1'b0;
+          decrec <= 1'b0;
+          dectra <= 1'b0;
+          elevrecb <= 1'b0;
+          resetdst <= 1'b1;
+          resetstf <= 1'b1;
+          hardsync <= 1'b1;
+          inccount <= 1'b0;
+          rescount <= 1'b1;
+          setrmleno <= 0;
+          actvrmln <= 1'b0;
+          resrmlen <= 1'b1;
+          ackerror_set <= 2'b10;
+          transmitter_set <= 2'b10;
+          receiver_set <= 2'b10;
+          error_set <= 2'b10;
+          first_set <= 2'b10;
+          activatefast <= 1'b0;
+          puffer_set <= 2'b10;
+          onarbit_set <= 2'b10;
+          en_zerointcrc <= 1'b1;
+          crc_shft_out <= 1'b0;
+          if (inbit==1'b1)
+            next_state <= sync_sum;
           else
-            next_stateA <= sync_start;
+            next_state <= sync_start;
         end
       sync_sum : 
         begin
-          rext_setA <= 2'b10;
-          rrtr_setA <= 2'b10;
-          actvtcrcA <= 1'b0;
-          actvrcrcA <= 1'b0;
-          actvtstfA <= 1'b0;
-          actvrstfA <= 1'b0;
-          actvtsftA <= 1'b0;
-          actvrsftA <= 1'b0;
-          actvtdctA <= 1'b0;
-          actvrdctA <= 1'b1;
-          actvtbedA <= 1'b0;
-          setbdomA <= 1'b0;
-          setbrecA <= 1'b0;
-          lcrcA <= 1'b0;
-          tshiftA <= 1'b0;
-          inconerecA <= 1'b0;
-          incegtrecA <= 1'b0;
-          incegttraA <= 1'b0;
-          lmsgA <= 1'b0;
-          decrecA <= 1'b0;
-          dectraA <= 1'b0;
-          elevrecbA <= 1'b0;
-          resetdstA <= 1'b1;
-          resetstfA <= 1'b1;
-          hardsyncA <= 1'b1;
-          inccountA <= 1'b1;
-          rescountA <= 1'b1;
-          setrmlenoA <= 0;
-          actvrmlnA <= 1'b0;
-          resrmlenA <= 1'b1;
-          ackerror_setA <= 2'b10;
-          transmitter_setA <= 2'b10;
-          receiver_setA <= 2'b10;
-          error_setA <= 2'b10;
-          first_setA <= 2'b10;
-          activatefastA <= 1'b0;
-          puffer_setA <= 2'b10;
-          onarbit_setA <= 2'b10;
-          en_zerointcrcA <= 1'b1;
-          crc_shft_outA <= 1'b0;
-          if (smplpointA==1'b1&&countA!=8)
-            next_stateA <= sync_sample;
+          rext_set <= 2'b10;
+          rrtr_set <= 2'b10;
+          actvtcrc <= 1'b0;
+          actvrcrc <= 1'b0;
+          actvtstf <= 1'b0;
+          actvrstf <= 1'b0;
+          actvtsft <= 1'b0;
+          actvrsft <= 1'b0;
+          actvtdct <= 1'b0;
+          actvrdct <= 1'b1;
+          actvtbed <= 1'b0;
+          setbdom <= 1'b0;
+          setbrec <= 1'b0;
+          lcrc <= 1'b0;
+          tshift <= 1'b0;
+          inconerec <= 1'b0;
+          incegtrec <= 1'b0;
+          incegttra <= 1'b0;
+          lmsg <= 1'b0;
+          decrec <= 1'b0;
+          dectra <= 1'b0;
+          elevrecb <= 1'b0;
+          resetdst <= 1'b1;
+          resetstf <= 1'b1;
+          hardsync <= 1'b1;
+          inccount <= 1'b1;
+          rescount <= 1'b1;
+          setrmleno <= 0;
+          actvrmln <= 1'b0;
+          resrmlen <= 1'b1;
+          ackerror_set <= 2'b10;
+          transmitter_set <= 2'b10;
+          receiver_set <= 2'b10;
+          error_set <= 2'b10;
+          first_set <= 2'b10;
+          activatefast <= 1'b0;
+          puffer_set <= 2'b10;
+          onarbit_set <= 2'b10;
+          en_zerointcrc <= 1'b1;
+          crc_shft_out <= 1'b0;
+          if (smplpoint==1'b1&&count!=8)
+            next_state <= sync_sample;
           else
-            if (countA==8)
-              next_stateA <= sync_end;
+            if (count==8)
+              next_state <= sync_end;
             else
-              next_stateA <= sync_sum;
+              next_state <= sync_sum;
         end
       sync_end : 
         begin
-          rext_setA <= 2'b10;
-          rrtr_setA <= 2'b10;
-          actvtcrcA <= 1'b0;
-          actvrcrcA <= 1'b0;
-          actvtstfA <= 1'b0;
-          actvrstfA <= 1'b0;
-          actvtsftA <= 1'b0;
-          actvrsftA <= 1'b0;
-          actvtdctA <= 1'b0;
-          actvrdctA <= 1'b0;
-          actvtbedA <= 1'b0;
-          setbdomA <= 1'b0;
-          setbrecA <= 1'b0;
-          lcrcA <= 1'b0;
-          tshiftA <= 1'b0;
-          inconerecA <= 1'b0;
-          incegtrecA <= 1'b0;
-          incegttraA <= 1'b0;
-          lmsgA <= 1'b0;
-          decrecA <= 1'b0;
-          dectraA <= 1'b0;
-          elevrecbA <= 1'b0;
-          resetdstA <= 1'b1;
-          resetstfA <= 1'b1;
-          hardsyncA <= 1'b1;
-          inccountA <= 1'b0;
-          rescountA <= 1'b0;
-          setrmlenoA <= 0;
-          actvrmlnA <= 1'b0;
-          resrmlenA <= 1'b1;
-          ackerror_setA <= 2'b10;
-          transmitter_setA <= 2'b10;
-          receiver_setA <= 2'b10;
-          error_setA <= 2'b10;
-          first_setA <= 2'b10;
-          activatefastA <= 1'b0;
-          puffer_setA <= 2'b10;
-          onarbit_setA <= 2'b10;
-          en_zerointcrcA <= 1'b1;
-          crc_shft_outA <= 1'b0;
-          if (smplpointA==1'b1)
-            next_stateA <= bus_idle_sample;
+          rext_set <= 2'b10;
+          rrtr_set <= 2'b10;
+          actvtcrc <= 1'b0;
+          actvrcrc <= 1'b0;
+          actvtstf <= 1'b0;
+          actvrstf <= 1'b0;
+          actvtsft <= 1'b0;
+          actvrsft <= 1'b0;
+          actvtdct <= 1'b0;
+          actvrdct <= 1'b0;
+          actvtbed <= 1'b0;
+          setbdom <= 1'b0;
+          setbrec <= 1'b0;
+          lcrc <= 1'b0;
+          tshift <= 1'b0;
+          inconerec <= 1'b0;
+          incegtrec <= 1'b0;
+          incegttra <= 1'b0;
+          lmsg <= 1'b0;
+          decrec <= 1'b0;
+          dectra <= 1'b0;
+          elevrecb <= 1'b0;
+          resetdst <= 1'b1;
+          resetstf <= 1'b1;
+          hardsync <= 1'b1;
+          inccount <= 1'b0;
+          rescount <= 1'b0;
+          setrmleno <= 0;
+          actvrmln <= 1'b0;
+          resrmlen <= 1'b1;
+          ackerror_set <= 2'b10;
+          transmitter_set <= 2'b10;
+          receiver_set <= 2'b10;
+          error_set <= 2'b10;
+          first_set <= 2'b10;
+          activatefast <= 1'b0;
+          puffer_set <= 2'b10;
+          onarbit_set <= 2'b10;
+          en_zerointcrc <= 1'b1;
+          crc_shft_out <= 1'b0;
+          if (smplpoint==1'b1)
+            next_state <= bus_idle_sample;
           else
-            next_stateA <= sync_end;
+            next_state <= sync_end;
         end
       inter_sample : 
         begin
-          rext_setA <= 2'b10;
-          rrtr_setA <= 2'b10;
-          actvtcrcA <= 1'b0;
-          actvrcrcA <= 1'b0;
-          actvtstfA <= 1'b0;
-          actvrstfA <= 1'b1;
-          actvtsftA <= 1'b0;
-          actvrsftA <= 1'b0;
-          actvtdctA <= 1'b0;
-          actvrdctA <= 1'b0;
-          actvtbedA <= 1'b0;
-          setbdomA <= 1'b0;
-          setbrecA <= 1'b0;
-          lcrcA <= 1'b0;
-          tshiftA <= 1'b0;
-          inconerecA <= 1'b0;
-          incegtrecA <= 1'b0;
-          incegttraA <= 1'b0;
-          lmsgA <= 1'b0;
-          decrecA <= 1'b0;
-          dectraA <= 1'b0;
-          elevrecbA <= 1'b0;
-          resetdstA <= 1'b1;
-          resetstfA <= 1'b1;
-          hardsyncA <= 1'b1;
-          inccountA <= 1'b1;
-          rescountA <= 1'b1;
-          setrmlenoA <= 0;
-          actvrmlnA <= 1'b0;
-          resrmlenA <= 1'b1;
-          ackerror_setA <= 2'b10;
-          transmitter_setA <= 2'b00;
-          receiver_setA <= 2'b00;
-          error_setA <= 2'b10;
-          first_setA <= 2'b10;
-          activatefastA <= 1'b0;
-          puffer_setA <= 2'b10;
-          onarbit_setA <= 2'b10;
-          en_zerointcrcA <= 1'b0;
-          crc_shft_outA <= 1'b0;
-          if (busofA==1'b1)
-            next_stateA <= busoff_first;
+          rext_set <= 2'b10;
+          rrtr_set <= 2'b10;
+          actvtcrc <= 1'b0;
+          actvrcrc <= 1'b0;
+          actvtstf <= 1'b0;
+          actvrstf <= 1'b1;
+          actvtsft <= 1'b0;
+          actvrsft <= 1'b0;
+          actvtdct <= 1'b0;
+          actvrdct <= 1'b0;
+          actvtbed <= 1'b0;
+          setbdom <= 1'b0;
+          setbrec <= 1'b0;
+          lcrc <= 1'b0;
+          tshift <= 1'b0;
+          inconerec <= 1'b0;
+          incegtrec <= 1'b0;
+          incegttra <= 1'b0;
+          lmsg <= 1'b0;
+          decrec <= 1'b0;
+          dectra <= 1'b0;
+          elevrecb <= 1'b0;
+          resetdst <= 1'b1;
+          resetstf <= 1'b1;
+          hardsync <= 1'b1;
+          inccount <= 1'b1;
+          rescount <= 1'b1;
+          setrmleno <= 0;
+          actvrmln <= 1'b0;
+          resrmlen <= 1'b1;
+          ackerror_set <= 2'b10;
+          transmitter_set <= 2'b00;
+          receiver_set <= 2'b00;
+          error_set <= 2'b10;
+          first_set <= 2'b10;
+          activatefast <= 1'b0;
+          puffer_set <= 2'b10;
+          onarbit_set <= 2'b10;
+          en_zerointcrc <= 1'b0;
+          crc_shft_out <= 1'b0;
+          if (busof==1'b1)
+            next_state <= busoff_first;
           else
-            if ((((errorpassivA==1'b0||receiverA==1'b1)&&lt3A==1'b1)||((errorpassivA==1'b1&&receiverA==1'b0)&&lt11A==1'b1))&&inbitA==1'b1)
-              next_stateA <= inter_check;
+            if ((((errorpassiv==1'b0||receiver==1'b1)&&lt3==1'b1)||((errorpassiv==1'b1&&receiver==1'b0)&&lt11==1'b1))&&inbit==1'b1)
+              next_state <= inter_check;
             else
-              if (lt3A==1'b1&&inbitA==1'b0)
-                next_stateA <= over_firstdom;
+              if (lt3==1'b1&&inbit==1'b0)
+                next_state <= over_firstdom;
               else
-                if (inbitA==1'b0&&(gt3A==1'b1||((eq3A==1'b1||gt3A==1'b1)&&((errorpassivA==1'b1&&receiverA==1'b0)||transA==1'b0))))
-                  next_stateA <= inter_preprec;
+                if (inbit==1'b0&&(gt3==1'b1||((eq3==1'b1||gt3==1'b1)&&((errorpassiv==1'b1&&receiver==1'b0)||trans==1'b0))))
+                  next_state <= inter_preprec;
                 else
-                  if (sendpointA==1'b1&&(((errorpassivA==1'b0||receiverA==1'b1)&&(eq3A==1'b1||gt3A==1'b1))||((errorpassivA==1'b1&&receiverA==1'b0)&&(eq11A==1'b1||lt11A==1'b0)))&&inbitA==1'b1&&transA==1'b1)
-                    next_stateA <= inter_goregtran;
+                  if (sendpoint==1'b1&&(((errorpassiv==1'b0||receiver==1'b1)&&(eq3==1'b1||gt3==1'b1))||((errorpassiv==1'b1&&receiver==1'b0)&&(eq11==1'b1||lt11==1'b0)))&&inbit==1'b1&&trans==1'b1)
+                    next_state <= inter_goregtran;
                   else
-                    if ((errorpassivA==1'b0||receiverA==1'b1)&&(eq3A==1'b1||gt3A==1'b1)&&inbitA==1'b0&&transA==1'b1)
-                      next_stateA <= inter_react;
+                    if ((errorpassiv==1'b0||receiver==1'b1)&&(eq3==1'b1||gt3==1'b1)&&inbit==1'b0&&trans==1'b1)
+                      next_state <= inter_react;
                     else
-                      if (transA==1'b0&&(((eq3A==1'b1||gt3A==1'b1)&&(errorpassivA==1'b0||receiverA==1'b1))||((eq11A==1'b1||lt11A==1'b0)&&(errorpassivA==1'b1&&receiverA==1'b0))))
-                        next_stateA <= bus_idle_chk;
+                      if (trans==1'b0&&(((eq3==1'b1||gt3==1'b1)&&(errorpassiv==1'b0||receiver==1'b1))||((eq11==1'b1||lt11==1'b0)&&(errorpassiv==1'b1&&receiver==1'b0))))
+                        next_state <= bus_idle_chk;
                       else
-                        next_stateA <= inter_sample;
+                        next_state <= inter_sample;
         end
       inter_check : 
         begin
-          rext_setA <= 2'b10;
-          rrtr_setA <= 2'b10;
-          actvtcrcA <= 1'b0;
-          actvrcrcA <= 1'b0;
-          actvtstfA <= 1'b0;
-          actvrstfA <= 1'b0;
-          actvtsftA <= 1'b0;
-          actvrsftA <= 1'b0;
-          actvtdctA <= 1'b0;
-          actvrdctA <= 1'b0;
-          actvtbedA <= 1'b0;
-          setbdomA <= 1'b0;
-          setbrecA <= 1'b0;
-          lcrcA <= 1'b0;
-          tshiftA <= 1'b0;
-          inconerecA <= 1'b0;
-          incegtrecA <= 1'b0;
-          incegttraA <= 1'b0;
-          lmsgA <= 1'b0;
-          decrecA <= 1'b0;
-          dectraA <= 1'b0;
-          elevrecbA <= 1'b0;
-          resetdstA <= 1'b0;
-          resetstfA <= 1'b1;
-          hardsyncA <= 1'b1;
-          inccountA <= 1'b0;
-          rescountA <= 1'b1;
-          setrmlenoA <= 0;
-          actvrmlnA <= 1'b0;
-          resrmlenA <= 1'b1;
-          ackerror_setA <= 2'b10;
-          transmitter_setA <= 2'b00;
-          receiver_setA <= 2'b00;
-          error_setA <= 2'b10;
-          first_setA <= 2'b10;
-          activatefastA <= 1'b0;
-          puffer_setA <= 2'b10;
-          onarbit_setA <= 2'b10;
-          en_zerointcrcA <= 1'b0;
-          crc_shft_outA <= 1'b0;
-          if (smplpointA==1'b1)
-            next_stateA <= inter_sample;
+          rext_set <= 2'b10;
+          rrtr_set <= 2'b10;
+          actvtcrc <= 1'b0;
+          actvrcrc <= 1'b0;
+          actvtstf <= 1'b0;
+          actvrstf <= 1'b0;
+          actvtsft <= 1'b0;
+          actvrsft <= 1'b0;
+          actvtdct <= 1'b0;
+          actvrdct <= 1'b0;
+          actvtbed <= 1'b0;
+          setbdom <= 1'b0;
+          setbrec <= 1'b0;
+          lcrc <= 1'b0;
+          tshift <= 1'b0;
+          inconerec <= 1'b0;
+          incegtrec <= 1'b0;
+          incegttra <= 1'b0;
+          lmsg <= 1'b0;
+          decrec <= 1'b0;
+          dectra <= 1'b0;
+          elevrecb <= 1'b0;
+          resetdst <= 1'b0;
+          resetstf <= 1'b1;
+          hardsync <= 1'b1;
+          inccount <= 1'b0;
+          rescount <= 1'b1;
+          setrmleno <= 0;
+          actvrmln <= 1'b0;
+          resrmlen <= 1'b1;
+          ackerror_set <= 2'b10;
+          transmitter_set <= 2'b00;
+          receiver_set <= 2'b00;
+          error_set <= 2'b10;
+          first_set <= 2'b10;
+          activatefast <= 1'b0;
+          puffer_set <= 2'b10;
+          onarbit_set <= 2'b10;
+          en_zerointcrc <= 1'b0;
+          crc_shft_out <= 1'b0;
+          if (smplpoint==1'b1)
+            next_state <= inter_sample;
           else
-            next_stateA <= inter_check;
+            next_state <= inter_check;
         end
       bus_idle_chk : 
         begin
-          rext_setA <= 2'b10;
-          rrtr_setA <= 2'b10;
-          actvtcrcA <= 1'b0;
-          actvrcrcA <= 1'b0;
-          actvtstfA <= 1'b0;
-          actvrstfA <= 1'b0;
-          actvtsftA <= 1'b0;
-          actvrsftA <= 1'b0;
-          actvtdctA <= 1'b0;
-          actvrdctA <= 1'b0;
-          actvtbedA <= 1'b0;
-          setbdomA <= 1'b0;
-          setbrecA <= 1'b0;
-          lcrcA <= 1'b0;
-          tshiftA <= 1'b0;
-          inconerecA <= 1'b0;
-          incegtrecA <= 1'b0;
-          incegttraA <= 1'b0;
-          lmsgA <= 1'b0;
-          decrecA <= 1'b0;
-          dectraA <= 1'b0;
-          elevrecbA <= 1'b0;
-          resetdstA <= 1'b0;
-          resetstfA <= 1'b1;
-          hardsyncA <= 1'b1;
-          inccountA <= 1'b0;
-          rescountA <= 1'b1;
-          setrmlenoA <= 0;
-          actvrmlnA <= 1'b0;
-          resrmlenA <= 1'b1;
-          ackerror_setA <= 2'b10;
-          transmitter_setA <= 2'b00;
-          receiver_setA <= 2'b00;
-          error_setA <= 2'b10;
-          first_setA <= 2'b10;
-          activatefastA <= 1'b0;
-          puffer_setA <= 2'b10;
-          onarbit_setA <= 2'b10;
-          en_zerointcrcA <= 1'b0;
-          crc_shft_outA <= 1'b0;
-          if (smplpointA==1'b1)
-            next_stateA <= bus_idle_sample;
+          rext_set <= 2'b10;
+          rrtr_set <= 2'b10;
+          actvtcrc <= 1'b0;
+          actvrcrc <= 1'b0;
+          actvtstf <= 1'b0;
+          actvrstf <= 1'b0;
+          actvtsft <= 1'b0;
+          actvrsft <= 1'b0;
+          actvtdct <= 1'b0;
+          actvrdct <= 1'b0;
+          actvtbed <= 1'b0;
+          setbdom <= 1'b0;
+          setbrec <= 1'b0;
+          lcrc <= 1'b0;
+          tshift <= 1'b0;
+          inconerec <= 1'b0;
+          incegtrec <= 1'b0;
+          incegttra <= 1'b0;
+          lmsg <= 1'b0;
+          decrec <= 1'b0;
+          dectra <= 1'b0;
+          elevrecb <= 1'b0;
+          resetdst <= 1'b0;
+          resetstf <= 1'b1;
+          hardsync <= 1'b1;
+          inccount <= 1'b0;
+          rescount <= 1'b1;
+          setrmleno <= 0;
+          actvrmln <= 1'b0;
+          resrmlen <= 1'b1;
+          ackerror_set <= 2'b10;
+          transmitter_set <= 2'b00;
+          receiver_set <= 2'b00;
+          error_set <= 2'b10;
+          first_set <= 2'b10;
+          activatefast <= 1'b0;
+          puffer_set <= 2'b10;
+          onarbit_set <= 2'b10;
+          en_zerointcrc <= 1'b0;
+          crc_shft_out <= 1'b0;
+          if (smplpoint==1'b1)
+            next_state <= bus_idle_sample;
           else
-            next_stateA <= bus_idle_chk;
+            next_state <= bus_idle_chk;
         end
       bus_idle_sample : 
         begin
-          rext_setA <= 2'b10;
-          rrtr_setA <= 2'b10;
-          actvtcrcA <= 1'b0;
-          actvrcrcA <= 1'b0;
-          actvtstfA <= 1'b0;
-          actvrstfA <= 1'b1;
-          actvtsftA <= 1'b0;
-          actvrsftA <= 1'b0;
-          actvtdctA <= 1'b0;
-          actvrdctA <= 1'b0;
-          actvtbedA <= 1'b0;
-          setbdomA <= 1'b0;
-          setbrecA <= 1'b0;
-          lcrcA <= 1'b0;
-          tshiftA <= 1'b0;
-          inconerecA <= 1'b0;
-          incegtrecA <= 1'b0;
-          incegttraA <= 1'b0;
-          lmsgA <= 1'b0;
-          decrecA <= 1'b0;
-          dectraA <= 1'b0;
-          elevrecbA <= 1'b0;
-          resetdstA <= 1'b1;
-          resetstfA <= 1'b1;
-          hardsyncA <= 1'b1;
-          inccountA <= 1'b0;
-          rescountA <= 1'b1;
-          setrmlenoA <= 0;
-          actvrmlnA <= 1'b0;
-          resrmlenA <= 1'b1;
-          ackerror_setA <= 2'b10;
-          transmitter_setA <= 2'b00;
-          receiver_setA <= 2'b00;
-          error_setA <= 2'b10;
-          first_setA <= 2'b10;
-          activatefastA <= 1'b0;
-          puffer_setA <= 2'b10;
-          onarbit_setA <= 2'b10;
-          en_zerointcrcA <= 1'b0;
-          crc_shft_outA <= 1'b0;
-          if (transA==1'b0&&inbitA==1'b1)
-            next_stateA <= bus_idle_chk;
+          rext_set <= 2'b10;
+          rrtr_set <= 2'b10;
+          actvtcrc <= 1'b0;
+          actvrcrc <= 1'b0;
+          actvtstf <= 1'b0;
+          actvrstf <= 1'b1;
+          actvtsft <= 1'b0;
+          actvrsft <= 1'b0;
+          actvtdct <= 1'b0;
+          actvrdct <= 1'b0;
+          actvtbed <= 1'b0;
+          setbdom <= 1'b0;
+          setbrec <= 1'b0;
+          lcrc <= 1'b0;
+          tshift <= 1'b0;
+          inconerec <= 1'b0;
+          incegtrec <= 1'b0;
+          incegttra <= 1'b0;
+          lmsg <= 1'b0;
+          decrec <= 1'b0;
+          dectra <= 1'b0;
+          elevrecb <= 1'b0;
+          resetdst <= 1'b1;
+          resetstf <= 1'b1;
+          hardsync <= 1'b1;
+          inccount <= 1'b0;
+          rescount <= 1'b1;
+          setrmleno <= 0;
+          actvrmln <= 1'b0;
+          resrmlen <= 1'b1;
+          ackerror_set <= 2'b10;
+          transmitter_set <= 2'b00;
+          receiver_set <= 2'b00;
+          error_set <= 2'b10;
+          first_set <= 2'b10;
+          activatefast <= 1'b0;
+          puffer_set <= 2'b10;
+          onarbit_set <= 2'b10;
+          en_zerointcrc <= 1'b0;
+          crc_shft_out <= 1'b0;
+          if (trans==1'b0&&inbit==1'b1)
+            next_state <= bus_idle_chk;
           else
-            if (inbitA==1'b0&&transA==1'b0)
-              next_stateA <= inter_preprec;
+            if (inbit==1'b0&&trans==1'b0)
+              next_state <= inter_preprec;
             else
-              if (inbitA==1'b0&&transA==1'b1)
-                next_stateA <= inter_react;
+              if (inbit==1'b0&&trans==1'b1)
+                next_state <= inter_react;
               else
-                if (sendpointA==1'b1&&inbitA==1'b1&&transA==1'b1)
-                  next_stateA <= inter_goregtran;
+                if (sendpoint==1'b1&&inbit==1'b1&&trans==1'b1)
+                  next_state <= inter_goregtran;
                 else
-                  next_stateA <= bus_idle_sample;
+                  next_state <= bus_idle_sample;
         end
       inter_react : 
         begin
-          rext_setA <= 2'b10;
-          rrtr_setA <= 2'b10;
-          actvtcrcA <= 1'b1;
-          actvrcrcA <= 1'b0;
-          actvtstfA <= 1'b1;
-          actvrstfA <= 1'b0;
-          actvtsftA <= 1'b0;
-          actvrsftA <= 1'b0;
-          actvtdctA <= 1'b0;
-          actvrdctA <= 1'b0;
-          actvtbedA <= 1'b0;
-          setbdomA <= 1'b0;
-          setbrecA <= 1'b0;
-          lcrcA <= 1'b0;
-          tshiftA <= 1'b1;
-          inconerecA <= 1'b0;
-          incegtrecA <= 1'b0;
-          incegttraA <= 1'b0;
-          lmsgA <= 1'b0;
-          decrecA <= 1'b0;
-          dectraA <= 1'b0;
-          elevrecbA <= 1'b0;
-          resetdstA <= 1'b1;
-          resetstfA <= 1'b1;
-          hardsyncA <= 1'b0;
-          inccountA <= 1'b0;
-          rescountA <= 1'b0;
-          setrmlenoA <= 0;
-          actvrmlnA <= 1'b0;
-          resrmlenA <= 1'b0;
-          ackerror_setA <= 2'b10;
-          transmitter_setA <= 2'b10;
-          receiver_setA <= 2'b10;
-          error_setA <= 2'b10;
-          first_setA <= 2'b10;
-          activatefastA <= 1'b0;
-          puffer_setA <= 2'b10;
-          onarbit_setA <= 2'b10;
-          en_zerointcrcA <= 1'b0;
-          crc_shft_outA <= 1'b0;
-          next_stateA <= inter_transhift;
+          rext_set <= 2'b10;
+          rrtr_set <= 2'b10;
+          actvtcrc <= 1'b1;
+          actvrcrc <= 1'b0;
+          actvtstf <= 1'b1;
+          actvrstf <= 1'b0;
+          actvtsft <= 1'b0;
+          actvrsft <= 1'b0;
+          actvtdct <= 1'b0;
+          actvrdct <= 1'b0;
+          actvtbed <= 1'b0;
+          setbdom <= 1'b0;
+          setbrec <= 1'b0;
+          lcrc <= 1'b0;
+          tshift <= 1'b1;
+          inconerec <= 1'b0;
+          incegtrec <= 1'b0;
+          incegttra <= 1'b0;
+          lmsg <= 1'b0;
+          decrec <= 1'b0;
+          dectra <= 1'b0;
+          elevrecb <= 1'b0;
+          resetdst <= 1'b1;
+          resetstf <= 1'b1;
+          hardsync <= 1'b0;
+          inccount <= 1'b0;
+          rescount <= 1'b0;
+          setrmleno <= 0;
+          actvrmln <= 1'b0;
+          resrmlen <= 1'b0;
+          ackerror_set <= 2'b10;
+          transmitter_set <= 2'b10;
+          receiver_set <= 2'b10;
+          error_set <= 2'b10;
+          first_set <= 2'b10;
+          activatefast <= 1'b0;
+          puffer_set <= 2'b10;
+          onarbit_set <= 2'b10;
+          en_zerointcrc <= 1'b0;
+          crc_shft_out <= 1'b0;
+          next_state <= inter_transhift;
         end
       inter_goregtran : 
         begin
-          rext_setA <= 2'b10;
-          rrtr_setA <= 2'b10;
-          actvtcrcA <= 1'b1;
-          actvrcrcA <= 1'b0;
-          actvtstfA <= 1'b1;
-          actvrstfA <= 1'b0;
-          actvtsftA <= 1'b0;
-          actvrsftA <= 1'b0;
-          actvtdctA <= 1'b0;
-          actvrdctA <= 1'b0;
-          actvtbedA <= 1'b0;
-          setbdomA <= 1'b0;
-          setbrecA <= 1'b0;
-          lcrcA <= 1'b0;
-          tshiftA <= 1'b1;
-          inconerecA <= 1'b0;
-          incegtrecA <= 1'b0;
-          incegttraA <= 1'b0;
-          lmsgA <= 1'b0;
-          decrecA <= 1'b0;
-          dectraA <= 1'b0;
-          elevrecbA <= 1'b0;
-          resetdstA <= 1'b0;
-          resetstfA <= 1'b1;
-          hardsyncA <= 1'b0;
-          inccountA <= 1'b0;
-          rescountA <= 1'b0;
-          setrmlenoA <= 0;
-          actvrmlnA <= 1'b0;
-          resrmlenA <= 1'b0;
-          ackerror_setA <= 2'b10;
-          transmitter_setA <= 2'b10;
-          receiver_setA <= 2'b10;
-          error_setA <= 2'b10;
-          first_setA <= 2'b10;
-          activatefastA <= 1'b0;
-          puffer_setA <= 2'b10;
-          onarbit_setA <= 2'b10;
-          en_zerointcrcA <= 1'b0;
-          crc_shft_outA <= 1'b0;
-          next_stateA <= inter_regtrancnt;
+          rext_set <= 2'b10;
+          rrtr_set <= 2'b10;
+          actvtcrc <= 1'b1;
+          actvrcrc <= 1'b0;
+          actvtstf <= 1'b1;
+          actvrstf <= 1'b0;
+          actvtsft <= 1'b0;
+          actvrsft <= 1'b0;
+          actvtdct <= 1'b0;
+          actvrdct <= 1'b0;
+          actvtbed <= 1'b0;
+          setbdom <= 1'b0;
+          setbrec <= 1'b0;
+          lcrc <= 1'b0;
+          tshift <= 1'b1;
+          inconerec <= 1'b0;
+          incegtrec <= 1'b0;
+          incegttra <= 1'b0;
+          lmsg <= 1'b0;
+          decrec <= 1'b0;
+          dectra <= 1'b0;
+          elevrecb <= 1'b0;
+          resetdst <= 1'b0;
+          resetstf <= 1'b1;
+          hardsync <= 1'b0;
+          inccount <= 1'b0;
+          rescount <= 1'b0;
+          setrmleno <= 0;
+          actvrmln <= 1'b0;
+          resrmlen <= 1'b0;
+          ackerror_set <= 2'b10;
+          transmitter_set <= 2'b10;
+          receiver_set <= 2'b10;
+          error_set <= 2'b10;
+          first_set <= 2'b10;
+          activatefast <= 1'b0;
+          puffer_set <= 2'b10;
+          onarbit_set <= 2'b10;
+          en_zerointcrc <= 1'b0;
+          crc_shft_out <= 1'b0;
+          next_state <= inter_regtrancnt;
         end
       inter_regtrancnt : 
         begin
-          rext_setA <= 2'b10;
-          rrtr_setA <= 2'b10;
-          actvtcrcA <= 1'b1;
-          actvrcrcA <= 1'b0;
-          actvtstfA <= 1'b1;
-          actvrstfA <= 1'b0;
-          actvtsftA <= 1'b0;
-          actvrsftA <= 1'b0;
-          actvtdctA <= 1'b0;
-          actvrdctA <= 1'b0;
-          actvtbedA <= 1'b0;
-          setbdomA <= 1'b0;
-          setbrecA <= 1'b0;
-          lcrcA <= 1'b0;
-          tshiftA <= 1'b1;
-          inconerecA <= 1'b0;
-          incegtrecA <= 1'b0;
-          incegttraA <= 1'b0;
-          lmsgA <= 1'b0;
-          decrecA <= 1'b0;
-          dectraA <= 1'b0;
-          elevrecbA <= 1'b0;
-          resetdstA <= 1'b0;
-          resetstfA <= 1'b1;
-          hardsyncA <= 1'b0;
-          inccountA <= 1'b1;
-          rescountA <= 1'b1;
-          setrmlenoA <= 0;
-          actvrmlnA <= 1'b0;
-          resrmlenA <= 1'b1;
-          ackerror_setA <= 2'b10;
-          transmitter_setA <= 2'b10;
-          receiver_setA <= 2'b10;
-          error_setA <= 2'b10;
-          first_setA <= 2'b10;
-          activatefastA <= 1'b0;
-          puffer_setA <= 2'b10;
-          onarbit_setA <= 2'b10;
-          en_zerointcrcA <= 1'b0;
-          crc_shft_outA <= 1'b0;
-          if (smplpointA==1'b1)
-            next_stateA <= inter_arbit_tsftrsmpl;
+          rext_set <= 2'b10;
+          rrtr_set <= 2'b10;
+          actvtcrc <= 1'b1;
+          actvrcrc <= 1'b0;
+          actvtstf <= 1'b1;
+          actvrstf <= 1'b0;
+          actvtsft <= 1'b0;
+          actvrsft <= 1'b0;
+          actvtdct <= 1'b0;
+          actvrdct <= 1'b0;
+          actvtbed <= 1'b0;
+          setbdom <= 1'b0;
+          setbrec <= 1'b0;
+          lcrc <= 1'b0;
+          tshift <= 1'b1;
+          inconerec <= 1'b0;
+          incegtrec <= 1'b0;
+          incegttra <= 1'b0;
+          lmsg <= 1'b0;
+          decrec <= 1'b0;
+          dectra <= 1'b0;
+          elevrecb <= 1'b0;
+          resetdst <= 1'b0;
+          resetstf <= 1'b1;
+          hardsync <= 1'b0;
+          inccount <= 1'b1;
+          rescount <= 1'b1;
+          setrmleno <= 0;
+          actvrmln <= 1'b0;
+          resrmlen <= 1'b1;
+          ackerror_set <= 2'b10;
+          transmitter_set <= 2'b10;
+          receiver_set <= 2'b10;
+          error_set <= 2'b10;
+          first_set <= 2'b10;
+          activatefast <= 1'b0;
+          puffer_set <= 2'b10;
+          onarbit_set <= 2'b10;
+          en_zerointcrc <= 1'b0;
+          crc_shft_out <= 1'b0;
+          if (smplpoint==1'b1)
+            next_state <= inter_arbit_tsftrsmpl;
           else
-            next_stateA <= inter_regtrancnt;
+            next_state <= inter_regtrancnt;
         end
       inter_arbit_tsftrsmpl : 
         begin
-          rext_setA <= 2'b00;
-          rrtr_setA <= 2'b00;
-          actvtcrcA <= 1'b0;
-          actvrcrcA <= 1'b0;
-          actvtstfA <= 1'b0;
-          actvrstfA <= 1'b1;
-          actvtsftA <= 1'b1;
-          actvrsftA <= 1'b0;
-          actvtdctA <= 1'b0;
-          actvrdctA <= 1'b0;
-          actvtbedA <= 1'b1;
-          setbdomA <= 1'b0;
-          setbrecA <= 1'b0;
-          lcrcA <= 1'b0;
-          tshiftA <= 1'b1;
-          inconerecA <= 1'b0;
-          incegtrecA <= 1'b0;
-          incegttraA <= 1'b0;
-          lmsgA <= 1'b0;
-          decrecA <= 1'b0;
-          dectraA <= 1'b0;
-          elevrecbA <= 1'b0;
-          resetdstA <= 1'b1;
-          resetstfA <= 1'b1;
-          hardsyncA <= 1'b0;
-          inccountA <= 1'b0;
-          rescountA <= 1'b1;
-          setrmlenoA <= 0;
-          actvrmlnA <= 1'b0;
-          resrmlenA <= 1'b1;
-          ackerror_setA <= 2'b10;
-          transmitter_setA <= 2'b11;
-          receiver_setA <= 2'b10;
-          error_setA <= 2'b10;
-          first_setA <= 2'b10;
-          activatefastA <= 1'b0;
-          puffer_setA <= 2'b10;
-          onarbit_setA <= 2'b11;
-          en_zerointcrcA <= 1'b0;
-          crc_shft_outA <= 1'b0;
-          if (sendpointA==1'b1)
-            next_stateA <= tra_arbit_tactrsftn;
+          rext_set <= 2'b00;
+          rrtr_set <= 2'b00;
+          actvtcrc <= 1'b0;
+          actvrcrc <= 1'b0;
+          actvtstf <= 1'b0;
+          actvrstf <= 1'b1;
+          actvtsft <= 1'b1;
+          actvrsft <= 1'b0;
+          actvtdct <= 1'b0;
+          actvrdct <= 1'b0;
+          actvtbed <= 1'b1;
+          setbdom <= 1'b0;
+          setbrec <= 1'b0;
+          lcrc <= 1'b0;
+          tshift <= 1'b1;
+          inconerec <= 1'b0;
+          incegtrec <= 1'b0;
+          incegttra <= 1'b0;
+          lmsg <= 1'b0;
+          decrec <= 1'b0;
+          dectra <= 1'b0;
+          elevrecb <= 1'b0;
+          resetdst <= 1'b1;
+          resetstf <= 1'b1;
+          hardsync <= 1'b0;
+          inccount <= 1'b0;
+          rescount <= 1'b1;
+          setrmleno <= 0;
+          actvrmln <= 1'b0;
+          resrmlen <= 1'b1;
+          ackerror_set <= 2'b10;
+          transmitter_set <= 2'b11;
+          receiver_set <= 2'b10;
+          error_set <= 2'b10;
+          first_set <= 2'b10;
+          activatefast <= 1'b0;
+          puffer_set <= 2'b10;
+          onarbit_set <= 2'b11;
+          en_zerointcrc <= 1'b0;
+          crc_shft_out <= 1'b0;
+          if (sendpoint==1'b1)
+            next_state <= tra_arbit_tactrsftn;
           else
-            next_stateA <= inter_arbit_tsftrsmpl;
+            next_state <= inter_arbit_tsftrsmpl;
         end
       inter_transhift : 
         begin
-          rext_setA <= 2'b10;
-          rrtr_setA <= 2'b10;
-          actvtcrcA <= 1'b0;
-          actvrcrcA <= 1'b0;
-          actvtstfA <= 1'b0;
-          actvrstfA <= 1'b0;
-          actvtsftA <= 1'b1;
-          actvrsftA <= 1'b0;
-          actvtdctA <= 1'b0;
-          actvrdctA <= 1'b0;
-          actvtbedA <= 1'b0;
-          setbdomA <= 1'b0;
-          setbrecA <= 1'b0;
-          lcrcA <= 1'b0;
-          tshiftA <= 1'b1;
-          inconerecA <= 1'b0;
-          incegtrecA <= 1'b0;
-          incegttraA <= 1'b0;
-          lmsgA <= 1'b0;
-          decrecA <= 1'b0;
-          dectraA <= 1'b0;
-          elevrecbA <= 1'b0;
-          resetdstA <= 1'b1;
-          resetstfA <= 1'b1;
-          hardsyncA <= 1'b0;
-          inccountA <= 1'b1;
-          rescountA <= 1'b1;
-          setrmlenoA <= 0;
-          actvrmlnA <= 1'b0;
-          resrmlenA <= 1'b1;
-          ackerror_setA <= 2'b10;
-          transmitter_setA <= 2'b10;
-          receiver_setA <= 2'b10;
-          error_setA <= 2'b10;
-          first_setA <= 2'b10;
-          activatefastA <= 1'b0;
-          puffer_setA <= 2'b10;
-          onarbit_setA <= 2'b10;
-          en_zerointcrcA <= 1'b0;
-          crc_shft_outA <= 1'b0;
-          next_stateA <= inter_incsigres;
+          rext_set <= 2'b10;
+          rrtr_set <= 2'b10;
+          actvtcrc <= 1'b0;
+          actvrcrc <= 1'b0;
+          actvtstf <= 1'b0;
+          actvrstf <= 1'b0;
+          actvtsft <= 1'b1;
+          actvrsft <= 1'b0;
+          actvtdct <= 1'b0;
+          actvrdct <= 1'b0;
+          actvtbed <= 1'b0;
+          setbdom <= 1'b0;
+          setbrec <= 1'b0;
+          lcrc <= 1'b0;
+          tshift <= 1'b1;
+          inconerec <= 1'b0;
+          incegtrec <= 1'b0;
+          incegttra <= 1'b0;
+          lmsg <= 1'b0;
+          decrec <= 1'b0;
+          dectra <= 1'b0;
+          elevrecb <= 1'b0;
+          resetdst <= 1'b1;
+          resetstf <= 1'b1;
+          hardsync <= 1'b0;
+          inccount <= 1'b1;
+          rescount <= 1'b1;
+          setrmleno <= 0;
+          actvrmln <= 1'b0;
+          resrmlen <= 1'b1;
+          ackerror_set <= 2'b10;
+          transmitter_set <= 2'b10;
+          receiver_set <= 2'b10;
+          error_set <= 2'b10;
+          first_set <= 2'b10;
+          activatefast <= 1'b0;
+          puffer_set <= 2'b10;
+          onarbit_set <= 2'b10;
+          en_zerointcrc <= 1'b0;
+          crc_shft_out <= 1'b0;
+          next_state <= inter_incsigres;
         end
       inter_incsigres : 
         begin
-          rext_setA <= 2'b10;
-          rrtr_setA <= 2'b10;
-          actvtcrcA <= 1'b0;
-          actvrcrcA <= 1'b0;
-          actvtstfA <= 1'b0;
-          actvrstfA <= 1'b0;
-          actvtsftA <= 1'b0;
-          actvrsftA <= 1'b0;
-          actvtdctA <= 1'b0;
-          actvrdctA <= 1'b0;
-          actvtbedA <= 1'b0;
-          setbdomA <= 1'b0;
-          setbrecA <= 1'b0;
-          lcrcA <= 1'b0;
-          tshiftA <= 1'b1;
-          inconerecA <= 1'b0;
-          incegtrecA <= 1'b0;
-          incegttraA <= 1'b0;
-          lmsgA <= 1'b0;
-          decrecA <= 1'b0;
-          dectraA <= 1'b0;
-          elevrecbA <= 1'b0;
-          resetdstA <= 1'b1;
-          resetstfA <= 1'b1;
-          hardsyncA <= 1'b0;
-          inccountA <= 1'b0;
-          rescountA <= 1'b1;
-          setrmlenoA <= 0;
-          actvrmlnA <= 1'b0;
-          resrmlenA <= 1'b1;
-          ackerror_setA <= 2'b10;
-          transmitter_setA <= 2'b10;
-          receiver_setA <= 2'b10;
-          error_setA <= 2'b10;
-          first_setA <= 2'b10;
-          activatefastA <= 1'b0;
-          puffer_setA <= 2'b10;
-          onarbit_setA <= 2'b10;
-          en_zerointcrcA <= 1'b0;
-          crc_shft_outA <= 1'b0;
-          next_stateA <= tra_arbit_tactrsftn;
+          rext_set <= 2'b10;
+          rrtr_set <= 2'b10;
+          actvtcrc <= 1'b0;
+          actvrcrc <= 1'b0;
+          actvtstf <= 1'b0;
+          actvrstf <= 1'b0;
+          actvtsft <= 1'b0;
+          actvrsft <= 1'b0;
+          actvtdct <= 1'b0;
+          actvrdct <= 1'b0;
+          actvtbed <= 1'b0;
+          setbdom <= 1'b0;
+          setbrec <= 1'b0;
+          lcrc <= 1'b0;
+          tshift <= 1'b1;
+          inconerec <= 1'b0;
+          incegtrec <= 1'b0;
+          incegttra <= 1'b0;
+          lmsg <= 1'b0;
+          decrec <= 1'b0;
+          dectra <= 1'b0;
+          elevrecb <= 1'b0;
+          resetdst <= 1'b1;
+          resetstf <= 1'b1;
+          hardsync <= 1'b0;
+          inccount <= 1'b0;
+          rescount <= 1'b1;
+          setrmleno <= 0;
+          actvrmln <= 1'b0;
+          resrmlen <= 1'b1;
+          ackerror_set <= 2'b10;
+          transmitter_set <= 2'b10;
+          receiver_set <= 2'b10;
+          error_set <= 2'b10;
+          first_set <= 2'b10;
+          activatefast <= 1'b0;
+          puffer_set <= 2'b10;
+          onarbit_set <= 2'b10;
+          en_zerointcrc <= 1'b0;
+          crc_shft_out <= 1'b0;
+          next_state <= tra_arbit_tactrsftn;
         end
       inter_preprec : 
         begin
-          rext_setA <= 2'b10;
-          rrtr_setA <= 2'b10;
-          actvtcrcA <= 1'b0;
-          actvrcrcA <= 1'b0;
-          actvtstfA <= 1'b0;
-          actvrstfA <= 1'b0;
-          actvtsftA <= 1'b0;
-          actvrsftA <= 1'b0;
-          actvtdctA <= 1'b0;
-          actvrdctA <= 1'b0;
-          actvtbedA <= 1'b0;
-          setbdomA <= 1'b0;
-          setbrecA <= 1'b0;
-          lcrcA <= 1'b0;
-          tshiftA <= 1'b0;
-          inconerecA <= 1'b0;
-          incegtrecA <= 1'b0;
-          incegttraA <= 1'b0;
-          lmsgA <= 1'b0;
-          decrecA <= 1'b0;
-          dectraA <= 1'b0;
-          elevrecbA <= 1'b0;
-          resetdstA <= 1'b1;
-          resetstfA <= 1'b1;
-          hardsyncA <= 1'b0;
-          inccountA <= 1'b0;
-          rescountA <= 1'b0;
-          setrmlenoA <= 0;
-          actvrmlnA <= 1'b0;
-          resrmlenA <= 1'b0;
-          ackerror_setA <= 2'b10;
-          transmitter_setA <= 2'b10;
-          receiver_setA <= 2'b10;
-          error_setA <= 2'b10;
-          first_setA <= 2'b10;
-          activatefastA <= 1'b0;
-          puffer_setA <= 2'b10;
-          onarbit_setA <= 2'b10;
-          en_zerointcrcA <= 1'b1;
-          crc_shft_outA <= 1'b0;
-          next_stateA <= inter_preprec_shifting;
+          rext_set <= 2'b10;
+          rrtr_set <= 2'b10;
+          actvtcrc <= 1'b0;
+          actvrcrc <= 1'b0;
+          actvtstf <= 1'b0;
+          actvrstf <= 1'b0;
+          actvtsft <= 1'b0;
+          actvrsft <= 1'b0;
+          actvtdct <= 1'b0;
+          actvrdct <= 1'b0;
+          actvtbed <= 1'b0;
+          setbdom <= 1'b0;
+          setbrec <= 1'b0;
+          lcrc <= 1'b0;
+          tshift <= 1'b0;
+          inconerec <= 1'b0;
+          incegtrec <= 1'b0;
+          incegttra <= 1'b0;
+          lmsg <= 1'b0;
+          decrec <= 1'b0;
+          dectra <= 1'b0;
+          elevrecb <= 1'b0;
+          resetdst <= 1'b1;
+          resetstf <= 1'b1;
+          hardsync <= 1'b0;
+          inccount <= 1'b0;
+          rescount <= 1'b0;
+          setrmleno <= 0;
+          actvrmln <= 1'b0;
+          resrmlen <= 1'b0;
+          ackerror_set <= 2'b10;
+          transmitter_set <= 2'b10;
+          receiver_set <= 2'b10;
+          error_set <= 2'b10;
+          first_set <= 2'b10;
+          activatefast <= 1'b0;
+          puffer_set <= 2'b10;
+          onarbit_set <= 2'b10;
+          en_zerointcrc <= 1'b1;
+          crc_shft_out <= 1'b0;
+          next_state <= inter_preprec_shifting;
         end
       inter_preprec_shifting : 
         begin
-          rext_setA <= 2'b00;
-          rrtr_setA <= 2'b00;
-          actvtcrcA <= 1'b0;
-          actvrcrcA <= 1'b1;
-          actvtstfA <= 1'b0;
-          actvrstfA <= 1'b0;
-          actvtsftA <= 1'b0;
-          actvrsftA <= 1'b1;
-          actvtdctA <= 1'b0;
-          actvrdctA <= 1'b0;
-          actvtbedA <= 1'b0;
-          setbdomA <= 1'b0;
-          setbrecA <= 1'b0;
-          lcrcA <= 1'b0;
-          tshiftA <= 1'b0;
-          inconerecA <= 1'b0;
-          incegtrecA <= 1'b0;
-          incegttraA <= 1'b0;
-          lmsgA <= 1'b0;
-          decrecA <= 1'b0;
-          dectraA <= 1'b0;
-          elevrecbA <= 1'b0;
-          hardsyncA <= 1'b0;
-          resetdstA <= 1'b1;
-          resetstfA <= 1'b1;
-          inccountA <= 1'b1;
-          rescountA <= 1'b1;
-          setrmlenoA <= 0;
-          actvrmlnA <= 1'b0;
-          resrmlenA <= 1'b1;
-          ackerror_setA <= 2'b10;
-          transmitter_setA <= 2'b10;
-          receiver_setA <= 2'b11;
-          error_setA <= 2'b10;
-          first_setA <= 2'b10;
-          activatefastA <= 1'b0;
-          puffer_setA <= 2'b10;
-          onarbit_setA <= 2'b10;
-          en_zerointcrcA <= 1'b1;
-          crc_shft_outA <= 1'b0;
-          if (smplpointA==1'b1)
-            next_stateA <= rec_flglen_sample;
+          rext_set <= 2'b00;
+          rrtr_set <= 2'b00;
+          actvtcrc <= 1'b0;
+          actvrcrc <= 1'b1;
+          actvtstf <= 1'b0;
+          actvrstf <= 1'b0;
+          actvtsft <= 1'b0;
+          actvrsft <= 1'b1;
+          actvtdct <= 1'b0;
+          actvrdct <= 1'b0;
+          actvtbed <= 1'b0;
+          setbdom <= 1'b0;
+          setbrec <= 1'b0;
+          lcrc <= 1'b0;
+          tshift <= 1'b0;
+          inconerec <= 1'b0;
+          incegtrec <= 1'b0;
+          incegttra <= 1'b0;
+          lmsg <= 1'b0;
+          decrec <= 1'b0;
+          dectra <= 1'b0;
+          elevrecb <= 1'b0;
+          hardsync <= 1'b0;
+          resetdst <= 1'b1;
+          resetstf <= 1'b1;
+          inccount <= 1'b1;
+          rescount <= 1'b1;
+          setrmleno <= 0;
+          actvrmln <= 1'b0;
+          resrmlen <= 1'b1;
+          ackerror_set <= 2'b10;
+          transmitter_set <= 2'b10;
+          receiver_set <= 2'b11;
+          error_set <= 2'b10;
+          first_set <= 2'b10;
+          activatefast <= 1'b0;
+          puffer_set <= 2'b10;
+          onarbit_set <= 2'b10;
+          en_zerointcrc <= 1'b1;
+          crc_shft_out <= 1'b0;
+          if (smplpoint==1'b1)
+            next_state <= rec_flglen_sample;
           else
-            next_stateA <= inter_preprec_shifting;
+            next_state <= inter_preprec_shifting;
         end
       tra_arbit_tnactrnsft : 
         begin
-          rext_setA <= 2'b00;
-          rrtr_setA <= 2'b00;
-          actvtcrcA <= 1'b0;
-          actvrcrcA <= 1'b0;
-          actvtstfA <= 1'b1;
-          actvrstfA <= 1'b0;
-          actvtsftA <= 1'b0;
-          actvrsftA <= 1'b0;
-          actvtdctA <= 1'b0;
-          actvrdctA <= 1'b0;
-          actvtbedA <= 1'b0;
-          setbdomA <= 1'b0;
-          setbrecA <= 1'b0;
-          lcrcA <= 1'b0;
-          tshiftA <= 1'b1;
-          inconerecA <= 1'b0;
-          incegtrecA <= 1'b0;
-          incegttraA <= 1'b0;
-          lmsgA <= 1'b0;
-          decrecA <= 1'b0;
-          dectraA <= 1'b0;
-          elevrecbA <= 1'b0;
-          resetdstA <= 1'b1;
-          resetstfA <= 1'b1;
-          hardsyncA <= 1'b0;
-          inccountA <= 1'b0;
-          rescountA <= 1'b1;
-          setrmlenoA <= 0;
-          actvrmlnA <= 1'b0;
-          resrmlenA <= 1'b1;
-          ackerror_setA <= 2'b10;
-          transmitter_setA <= 2'b11;
-          receiver_setA <= 2'b10;
-          error_setA <= 2'b10;
-          first_setA <= 2'b10;
-          activatefastA <= 1'b0;
-          puffer_setA <= 2'b10;
-          onarbit_setA <= 2'b11;
-          en_zerointcrcA <= 1'b1;
-          crc_shft_outA <= 1'b0;
-          if (smplpointA==1'b1)
-            next_stateA <= tra_arbit_tsftrsmpl;
+          rext_set <= 2'b00;
+          rrtr_set <= 2'b00;
+          actvtcrc <= 1'b0;
+          actvrcrc <= 1'b0;
+          actvtstf <= 1'b1;
+          actvrstf <= 1'b0;
+          actvtsft <= 1'b0;
+          actvrsft <= 1'b0;
+          actvtdct <= 1'b0;
+          actvrdct <= 1'b0;
+          actvtbed <= 1'b0;
+          setbdom <= 1'b0;
+          setbrec <= 1'b0;
+          lcrc <= 1'b0;
+          tshift <= 1'b1;
+          inconerec <= 1'b0;
+          incegtrec <= 1'b0;
+          incegttra <= 1'b0;
+          lmsg <= 1'b0;
+          decrec <= 1'b0;
+          dectra <= 1'b0;
+          elevrecb <= 1'b0;
+          resetdst <= 1'b1;
+          resetstf <= 1'b1;
+          hardsync <= 1'b0;
+          inccount <= 1'b0;
+          rescount <= 1'b1;
+          setrmleno <= 0;
+          actvrmln <= 1'b0;
+          resrmlen <= 1'b1;
+          ackerror_set <= 2'b10;
+          transmitter_set <= 2'b11;
+          receiver_set <= 2'b10;
+          error_set <= 2'b10;
+          first_set <= 2'b10;
+          activatefast <= 1'b0;
+          puffer_set <= 2'b10;
+          onarbit_set <= 2'b11;
+          en_zerointcrc <= 1'b1;
+          crc_shft_out <= 1'b0;
+          if (smplpoint==1'b1)
+            next_state <= tra_arbit_tsftrsmpl;
           else
-            next_stateA <= tra_arbit_tnactrnsft;
+            next_state <= tra_arbit_tnactrnsft;
         end
       tra_arbit_tactrsftn : 
         begin
-          rext_setA <= 2'b00;
-          rrtr_setA <= 2'b00;
-          actvtcrcA <= 1'b1;
-          actvrcrcA <= 1'b1;
-          actvtstfA <= 1'b1;
-          actvrstfA <= 1'b0;
-          actvtsftA <= 1'b0;
-          actvrsftA <= 1'b1;
-          actvtdctA <= 1'b0;
-          actvrdctA <= 1'b0;
-          actvtbedA <= 1'b0;
-          setbdomA <= 1'b0;
-          setbrecA <= 1'b0;
-          lcrcA <= 1'b0;
-          tshiftA <= 1'b1;
-          inconerecA <= 1'b0;
-          incegtrecA <= 1'b0;
-          incegttraA <= 1'b0;
-          lmsgA <= 1'b0;
-          decrecA <= 1'b0;
-          dectraA <= 1'b0;
-          elevrecbA <= 1'b0;
-          resetdstA <= 1'b1;
-          resetstfA <= 1'b1;
-          hardsyncA <= 1'b0;
-          inccountA <= 1'b1;
-          rescountA <= 1'b1;
-          setrmlenoA <= 0;
-          actvrmlnA <= 1'b0;
-          resrmlenA <= 1'b1;
-          ackerror_setA <= 2'b10;
-          transmitter_setA <= 2'b11;
-          receiver_setA <= 2'b10;
-          error_setA <= 2'b10;
-          first_setA <= 2'b10;
-          activatefastA <= 1'b0;
-          puffer_setA <= 2'b10;
-          onarbit_setA <= 2'b11;
-          en_zerointcrcA <= 1'b1;
-          crc_shft_outA <= 1'b0;
-          if (smplpointA==1'b1&&stufftA==1'b0)
-            next_stateA <= tra_arbit_tsftrsmpl;
+          rext_set <= 2'b00;
+          rrtr_set <= 2'b00;
+          actvtcrc <= 1'b1;
+          actvrcrc <= 1'b1;
+          actvtstf <= 1'b1;
+          actvrstf <= 1'b0;
+          actvtsft <= 1'b0;
+          actvrsft <= 1'b1;
+          actvtdct <= 1'b0;
+          actvrdct <= 1'b0;
+          actvtbed <= 1'b0;
+          setbdom <= 1'b0;
+          setbrec <= 1'b0;
+          lcrc <= 1'b0;
+          tshift <= 1'b1;
+          inconerec <= 1'b0;
+          incegtrec <= 1'b0;
+          incegttra <= 1'b0;
+          lmsg <= 1'b0;
+          decrec <= 1'b0;
+          dectra <= 1'b0;
+          elevrecb <= 1'b0;
+          resetdst <= 1'b1;
+          resetstf <= 1'b1;
+          hardsync <= 1'b0;
+          inccount <= 1'b1;
+          rescount <= 1'b1;
+          setrmleno <= 0;
+          actvrmln <= 1'b0;
+          resrmlen <= 1'b1;
+          ackerror_set <= 2'b10;
+          transmitter_set <= 2'b11;
+          receiver_set <= 2'b10;
+          error_set <= 2'b10;
+          first_set <= 2'b10;
+          activatefast <= 1'b0;
+          puffer_set <= 2'b10;
+          onarbit_set <= 2'b11;
+          en_zerointcrc <= 1'b1;
+          crc_shft_out <= 1'b0;
+          if (smplpoint==1'b1&&stufft==1'b0)
+            next_state <= tra_arbit_tsftrsmpl;
           else
-            if (smplpointA==1'b1&&stufftA==1'b1)
-              next_stateA <= tra_arbit_tnsftrsmpl;
+            if (smplpoint==1'b1&&stufft==1'b1)
+              next_state <= tra_arbit_tnsftrsmpl;
             else
-              next_stateA <= tra_arbit_tactrsftn;
+              next_state <= tra_arbit_tactrsftn;
         end
       tra_arbit_tactrsftsr : 
         begin
-          rext_setA <= 2'b00;
-          rrtr_setA <= 2'b11;
-          actvtcrcA <= 1'b1;
-          actvrcrcA <= 1'b1;
-          actvtstfA <= 1'b1;
-          actvrstfA <= 1'b0;
-          actvtsftA <= 1'b0;
-          actvrsftA <= 1'b1;
-          actvtdctA <= 1'b0;
-          actvrdctA <= 1'b0;
-          actvtbedA <= 1'b0;
-          setbdomA <= 1'b0;
-          setbrecA <= 1'b0;
-          lcrcA <= 1'b0;
-          tshiftA <= 1'b1;
-          inconerecA <= 1'b0;
-          incegtrecA <= 1'b0;
-          incegttraA <= 1'b0;
-          lmsgA <= 1'b0;
-          decrecA <= 1'b0;
-          dectraA <= 1'b0;
-          elevrecbA <= 1'b0;
-          resetdstA <= 1'b1;
-          resetstfA <= 1'b1;
-          hardsyncA <= 1'b0;
-          inccountA <= 1'b1;
-          rescountA <= 1'b1;
-          setrmlenoA <= 0;
-          actvrmlnA <= 1'b0;
-          resrmlenA <= 1'b1;
-          ackerror_setA <= 2'b10;
-          transmitter_setA <= 2'b11;
-          receiver_setA <= 2'b10;
-          error_setA <= 2'b10;
-          first_setA <= 2'b10;
-          activatefastA <= 1'b0;
-          puffer_setA <= 2'b10;
-          onarbit_setA <= 2'b11;
-          en_zerointcrcA <= 1'b1;
-          crc_shft_outA <= 1'b0;
-          if (smplpointA==1'b1&&stufftA==1'b0)
-            next_stateA <= tra_arbit_tsftrsmpl;
+          rext_set <= 2'b00;
+          rrtr_set <= 2'b11;
+          actvtcrc <= 1'b1;
+          actvrcrc <= 1'b1;
+          actvtstf <= 1'b1;
+          actvrstf <= 1'b0;
+          actvtsft <= 1'b0;
+          actvrsft <= 1'b1;
+          actvtdct <= 1'b0;
+          actvrdct <= 1'b0;
+          actvtbed <= 1'b0;
+          setbdom <= 1'b0;
+          setbrec <= 1'b0;
+          lcrc <= 1'b0;
+          tshift <= 1'b1;
+          inconerec <= 1'b0;
+          incegtrec <= 1'b0;
+          incegttra <= 1'b0;
+          lmsg <= 1'b0;
+          decrec <= 1'b0;
+          dectra <= 1'b0;
+          elevrecb <= 1'b0;
+          resetdst <= 1'b1;
+          resetstf <= 1'b1;
+          hardsync <= 1'b0;
+          inccount <= 1'b1;
+          rescount <= 1'b1;
+          setrmleno <= 0;
+          actvrmln <= 1'b0;
+          resrmlen <= 1'b1;
+          ackerror_set <= 2'b10;
+          transmitter_set <= 2'b11;
+          receiver_set <= 2'b10;
+          error_set <= 2'b10;
+          first_set <= 2'b10;
+          activatefast <= 1'b0;
+          puffer_set <= 2'b10;
+          onarbit_set <= 2'b11;
+          en_zerointcrc <= 1'b1;
+          crc_shft_out <= 1'b0;
+          if (smplpoint==1'b1&&stufft==1'b0)
+            next_state <= tra_arbit_tsftrsmpl;
           else
-            if (smplpointA==1'b1&&stufftA==1'b1)
-              next_stateA <= tra_arbit_tnsftrsmpl;
+            if (smplpoint==1'b1&&stufft==1'b1)
+              next_state <= tra_arbit_tnsftrsmpl;
             else
-              next_stateA <= tra_arbit_tactrsftsr;
+              next_state <= tra_arbit_tactrsftsr;
         end
       tra_arbit_tactrsfte : 
         begin
-          rext_setA <= 2'b11;
-          rrtr_setA <= 2'b10;
-          actvtcrcA <= 1'b1;
-          actvrcrcA <= 1'b1;
-          actvtstfA <= 1'b1;
-          actvrstfA <= 1'b0;
-          actvtsftA <= 1'b0;
-          actvrsftA <= 1'b1;
-          actvtdctA <= 1'b0;
-          actvrdctA <= 1'b0;
-          actvtbedA <= 1'b0;
-          setbdomA <= 1'b0;
-          setbrecA <= 1'b0;
-          lcrcA <= 1'b0;
-          tshiftA <= 1'b1;
-          inconerecA <= 1'b0;
-          incegtrecA <= 1'b0;
-          incegttraA <= 1'b0;
-          lmsgA <= 1'b0;
-          decrecA <= 1'b0;
-          dectraA <= 1'b0;
-          elevrecbA <= 1'b0;
-          resetdstA <= 1'b1;
-          resetstfA <= 1'b1;
-          hardsyncA <= 1'b0;
-          inccountA <= 1'b1;
-          rescountA <= 1'b1;
-          setrmlenoA <= 0;
-          actvrmlnA <= 1'b0;
-          resrmlenA <= 1'b1;
-          ackerror_setA <= 2'b10;
-          transmitter_setA <= 2'b11;
-          receiver_setA <= 2'b10;
-          error_setA <= 2'b10;
-          first_setA <= 2'b10;
-          activatefastA <= 1'b0;
-          puffer_setA <= 2'b10;
-          onarbit_setA <= 2'b11;
-          en_zerointcrcA <= 1'b1;
-          crc_shft_outA <= 1'b0;
-          if (smplpointA==1'b1&&stufftA==1'b0)
-            next_stateA <= tra_arbit_tsftrsmpl;
+          rext_set <= 2'b11;
+          rrtr_set <= 2'b10;
+          actvtcrc <= 1'b1;
+          actvrcrc <= 1'b1;
+          actvtstf <= 1'b1;
+          actvrstf <= 1'b0;
+          actvtsft <= 1'b0;
+          actvrsft <= 1'b1;
+          actvtdct <= 1'b0;
+          actvrdct <= 1'b0;
+          actvtbed <= 1'b0;
+          setbdom <= 1'b0;
+          setbrec <= 1'b0;
+          lcrc <= 1'b0;
+          tshift <= 1'b1;
+          inconerec <= 1'b0;
+          incegtrec <= 1'b0;
+          incegttra <= 1'b0;
+          lmsg <= 1'b0;
+          decrec <= 1'b0;
+          dectra <= 1'b0;
+          elevrecb <= 1'b0;
+          resetdst <= 1'b1;
+          resetstf <= 1'b1;
+          hardsync <= 1'b0;
+          inccount <= 1'b1;
+          rescount <= 1'b1;
+          setrmleno <= 0;
+          actvrmln <= 1'b0;
+          resrmlen <= 1'b1;
+          ackerror_set <= 2'b10;
+          transmitter_set <= 2'b11;
+          receiver_set <= 2'b10;
+          error_set <= 2'b10;
+          first_set <= 2'b10;
+          activatefast <= 1'b0;
+          puffer_set <= 2'b10;
+          onarbit_set <= 2'b11;
+          en_zerointcrc <= 1'b1;
+          crc_shft_out <= 1'b0;
+          if (smplpoint==1'b1&&stufft==1'b0)
+            next_state <= tra_arbit_tsftrsmpl;
           else
-            if (smplpointA==1'b1&&stufftA==1'b1)
-              next_stateA <= tra_arbit_tnsftrsmpl;
+            if (smplpoint==1'b1&&stufft==1'b1)
+              next_state <= tra_arbit_tnsftrsmpl;
             else
-              next_stateA <= tra_arbit_tactrsfte;
+              next_state <= tra_arbit_tactrsfte;
         end
       tra_arbit_tactrsfter : 
         begin
-          rext_setA <= 2'b11;
-          rrtr_setA <= 2'b11;
-          actvtcrcA <= 1'b1;
-          actvrcrcA <= 1'b1;
-          actvtstfA <= 1'b1;
-          actvrstfA <= 1'b0;
-          actvtsftA <= 1'b0;
-          actvrsftA <= 1'b1;
-          actvtdctA <= 1'b0;
-          actvrdctA <= 1'b0;
-          actvtbedA <= 1'b0;
-          setbdomA <= 1'b0;
-          setbrecA <= 1'b0;
-          lcrcA <= 1'b0;
-          tshiftA <= 1'b1;
-          inconerecA <= 1'b0;
-          incegtrecA <= 1'b0;
-          incegttraA <= 1'b0;
-          lmsgA <= 1'b0;
-          decrecA <= 1'b0;
-          dectraA <= 1'b0;
-          elevrecbA <= 1'b0;
-          resetdstA <= 1'b1;
-          resetstfA <= 1'b1;
-          hardsyncA <= 1'b0;
-          inccountA <= 1'b1;
-          rescountA <= 1'b1;
-          setrmlenoA <= 0;
-          actvrmlnA <= 1'b0;
-          resrmlenA <= 1'b1;
-          ackerror_setA <= 2'b10;
-          transmitter_setA <= 2'b11;
-          receiver_setA <= 2'b10;
-          error_setA <= 2'b10;
-          first_setA <= 2'b10;
-          activatefastA <= 1'b0;
-          puffer_setA <= 2'b10;
-          onarbit_setA <= 2'b11;
-          en_zerointcrcA <= 1'b1;
-          crc_shft_outA <= 1'b0;
-          if (smplpointA==1'b1&&stufftA==1'b0)
-            next_stateA <= tra_arbit_tsftrsmpl;
+          rext_set <= 2'b11;
+          rrtr_set <= 2'b11;
+          actvtcrc <= 1'b1;
+          actvrcrc <= 1'b1;
+          actvtstf <= 1'b1;
+          actvrstf <= 1'b0;
+          actvtsft <= 1'b0;
+          actvrsft <= 1'b1;
+          actvtdct <= 1'b0;
+          actvrdct <= 1'b0;
+          actvtbed <= 1'b0;
+          setbdom <= 1'b0;
+          setbrec <= 1'b0;
+          lcrc <= 1'b0;
+          tshift <= 1'b1;
+          inconerec <= 1'b0;
+          incegtrec <= 1'b0;
+          incegttra <= 1'b0;
+          lmsg <= 1'b0;
+          decrec <= 1'b0;
+          dectra <= 1'b0;
+          elevrecb <= 1'b0;
+          resetdst <= 1'b1;
+          resetstf <= 1'b1;
+          hardsync <= 1'b0;
+          inccount <= 1'b1;
+          rescount <= 1'b1;
+          setrmleno <= 0;
+          actvrmln <= 1'b0;
+          resrmlen <= 1'b1;
+          ackerror_set <= 2'b10;
+          transmitter_set <= 2'b11;
+          receiver_set <= 2'b10;
+          error_set <= 2'b10;
+          first_set <= 2'b10;
+          activatefast <= 1'b0;
+          puffer_set <= 2'b10;
+          onarbit_set <= 2'b11;
+          en_zerointcrc <= 1'b1;
+          crc_shft_out <= 1'b0;
+          if (smplpoint==1'b1&&stufft==1'b0)
+            next_state <= tra_arbit_tsftrsmpl;
           else
-            if (smplpointA==1'b1&&stufftA==1'b1)
-              next_stateA <= tra_arbit_tnsftrsmpl;
+            if (smplpoint==1'b1&&stufft==1'b1)
+              next_state <= tra_arbit_tnsftrsmpl;
             else
-              next_stateA <= tra_arbit_tactrsfter;
+              next_state <= tra_arbit_tactrsfter;
         end
       tra_arbit_tsftrsmpl : 
         begin
-          rext_setA <= 2'b00;
-          rrtr_setA <= 2'b00;
-          actvtcrcA <= 1'b0;
-          actvrcrcA <= 1'b0;
-          actvtstfA <= 1'b0;
-          actvrstfA <= 1'b1;
-          actvtsftA <= 1'b1;
-          actvrsftA <= 1'b0;
-          actvtdctA <= 1'b0;
-          actvrdctA <= 1'b0;
-          actvtbedA <= 1'b1;
-          setbdomA <= 1'b0;
-          setbrecA <= 1'b0;
-          lcrcA <= 1'b0;
-          tshiftA <= 1'b1;
-          inconerecA <= 1'b0;
-          incegtrecA <= 1'b0;
-          incegttraA <= 1'b0;
-          lmsgA <= 1'b0;
-          decrecA <= 1'b0;
-          dectraA <= 1'b0;
-          elevrecbA <= 1'b0;
-          resetdstA <= 1'b1;
-          resetstfA <= 1'b1;
-          hardsyncA <= 1'b0;
-          inccountA <= 1'b0;
-          rescountA <= 1'b1;
-          setrmlenoA <= 0;
-          actvrmlnA <= 1'b0;
-          resrmlenA <= 1'b1;
-          ackerror_setA <= 2'b10;
-          transmitter_setA <= 2'b11;
-          receiver_setA <= 2'b10;
-          error_setA <= 2'b10;
-          first_setA <= 2'b10;
-          activatefastA <= 1'b0;
-          puffer_setA <= 2'b10;
-          onarbit_setA <= 2'b11;
-          en_zerointcrcA <= 1'b1;
-          crc_shft_outA <= 1'b0;
-          if (sendpointA==1'b1&&biterrorA==1'b0&&stferrorA==1'b0&&countA==13&&inbitA==1'b1&&textA==1'b1)
-            next_stateA <= tra_arbit_tactrsftsr;
+          rext_set <= 2'b00;
+          rrtr_set <= 2'b00;
+          actvtcrc <= 1'b0;
+          actvrcrc <= 1'b0;
+          actvtstf <= 1'b0;
+          actvrstf <= 1'b1;
+          actvtsft <= 1'b1;
+          actvrsft <= 1'b0;
+          actvtdct <= 1'b0;
+          actvrdct <= 1'b0;
+          actvtbed <= 1'b1;
+          setbdom <= 1'b0;
+          setbrec <= 1'b0;
+          lcrc <= 1'b0;
+          tshift <= 1'b1;
+          inconerec <= 1'b0;
+          incegtrec <= 1'b0;
+          incegttra <= 1'b0;
+          lmsg <= 1'b0;
+          decrec <= 1'b0;
+          dectra <= 1'b0;
+          elevrecb <= 1'b0;
+          resetdst <= 1'b1;
+          resetstf <= 1'b1;
+          hardsync <= 1'b0;
+          inccount <= 1'b0;
+          rescount <= 1'b1;
+          setrmleno <= 0;
+          actvrmln <= 1'b0;
+          resrmlen <= 1'b1;
+          ackerror_set <= 2'b10;
+          transmitter_set <= 2'b11;
+          receiver_set <= 2'b10;
+          error_set <= 2'b10;
+          first_set <= 2'b10;
+          activatefast <= 1'b0;
+          puffer_set <= 2'b10;
+          onarbit_set <= 2'b11;
+          en_zerointcrc <= 1'b1;
+          crc_shft_out <= 1'b0;
+          if (sendpoint==1'b1&&biterror==1'b0&&stferror==1'b0&&count==13&&inbit==1'b1&&text==1'b1)
+            next_state <= tra_arbit_tactrsftsr;
           else
-            if (sendpointA==1'b1&&biterrorA==1'b0&&stferrorA==1'b0&&countA==14&&inbitA==1'b1)
-              next_stateA <= tra_arbit_tactrsfte;
+            if (sendpoint==1'b1&&biterror==1'b0&&stferror==1'b0&&count==14&&inbit==1'b1)
+              next_state <= tra_arbit_tactrsfte;
             else
-              if (sendpointA==1'b1&&biterrorA==1'b0&&stferrorA==1'b0&&countA==33&&inbitA==1'b1)
-                next_stateA <= tra_arbit_tactrsfter;
+              if (sendpoint==1'b1&&biterror==1'b0&&stferror==1'b0&&count==33&&inbit==1'b1)
+                next_state <= tra_arbit_tactrsfter;
               else
-                if (sendpointA==1'b1&&biterrorA==1'b0&&stferrorA==1'b0&&(inbitA==1'b0||(countA!=13&&countA!=14&&countA!=33))&&(! ( (countA==13&&textA==1'b0)||(countA==34&&textA==1'b1) ) ))
-                  next_stateA <= tra_arbit_tactrsftn;
+                if (sendpoint==1'b1&&biterror==1'b0&&stferror==1'b0&&(inbit==1'b0||(count!=13&&count!=14&&count!=33))&&(! ( (count==13&&text==1'b0)||(count==34&&text==1'b1) ) ))
+                  next_state <= tra_arbit_tactrsftn;
                 else
-                  if (sendpointA==1'b1&&biterrorA==1'b0&&stferrorA==1'b0&&((countA==13&&textA==1'b0)||(countA==34&&textA==1'b1)))
-                    next_stateA <= tra_data_activatecrc;
+                  if (sendpoint==1'b1&&biterror==1'b0&&stferror==1'b0&&((count==13&&text==1'b0)||(count==34&&text==1'b1)))
+                    next_state <= tra_data_activatecrc;
                   else
-                    if (biterrorA==1'b1&&stferrorA==1'b0)
-                      next_stateA <= tra_arbit_goreceive;
+                    if (biterror==1'b1&&stferror==1'b0)
+                      next_state <= tra_arbit_goreceive;
                     else
-                      next_stateA <= tra_arbit_tsftrsmpl;
+                      next_state <= tra_arbit_tsftrsmpl;
         end
       tra_arbit_goreceive : 
         begin
-          rext_setA <= 2'b00;
-          rrtr_setA <= 2'b00;
-          actvtcrcA <= 1'b0;
-          actvrcrcA <= 1'b1;
-          actvtstfA <= 1'b0;
-          actvrstfA <= 1'b0;
-          actvtsftA <= 1'b0;
-          actvrsftA <= 1'b1;
-          actvtdctA <= 1'b0;
-          actvrdctA <= 1'b0;
-          actvtbedA <= 1'b0;
-          setbdomA <= 1'b0;
-          setbrecA <= 1'b0;
-          lcrcA <= 1'b0;
-          tshiftA <= 1'b0;
-          inconerecA <= 1'b0;
-          incegtrecA <= 1'b0;
-          incegttraA <= 1'b0;
-          lmsgA <= 1'b0;
-          decrecA <= 1'b0;
-          dectraA <= 1'b0;
-          elevrecbA <= 1'b0;
-          hardsyncA <= 1'b0;
-          resetdstA <= 1'b1;
-          resetstfA <= 1'b1;
-          inccountA <= 1'b0;
-          rescountA <= 1'b1;
-          setrmlenoA <= 0;
-          actvrmlnA <= 1'b0;
-          resrmlenA <= 1'b1;
-          ackerror_setA <= 2'b10;
-          transmitter_setA <= 2'b10;
-          receiver_setA <= 2'b11;
-          error_setA <= 2'b10;
-          first_setA <= 2'b10;
-          activatefastA <= 1'b0;
-          puffer_setA <= 2'b10;
-          onarbit_setA <= 2'b10;
-          en_zerointcrcA <= 1'b1;
-          crc_shft_outA <= 1'b0;
-          if (smplpointA==1'b1)
-            next_stateA <= rec_flglen_sample;
+          rext_set <= 2'b00;
+          rrtr_set <= 2'b00;
+          actvtcrc <= 1'b0;
+          actvrcrc <= 1'b1;
+          actvtstf <= 1'b0;
+          actvrstf <= 1'b0;
+          actvtsft <= 1'b0;
+          actvrsft <= 1'b1;
+          actvtdct <= 1'b0;
+          actvrdct <= 1'b0;
+          actvtbed <= 1'b0;
+          setbdom <= 1'b0;
+          setbrec <= 1'b0;
+          lcrc <= 1'b0;
+          tshift <= 1'b0;
+          inconerec <= 1'b0;
+          incegtrec <= 1'b0;
+          incegttra <= 1'b0;
+          lmsg <= 1'b0;
+          decrec <= 1'b0;
+          dectra <= 1'b0;
+          elevrecb <= 1'b0;
+          hardsync <= 1'b0;
+          resetdst <= 1'b1;
+          resetstf <= 1'b1;
+          inccount <= 1'b0;
+          rescount <= 1'b1;
+          setrmleno <= 0;
+          actvrmln <= 1'b0;
+          resrmlen <= 1'b1;
+          ackerror_set <= 2'b10;
+          transmitter_set <= 2'b10;
+          receiver_set <= 2'b11;
+          error_set <= 2'b10;
+          first_set <= 2'b10;
+          activatefast <= 1'b0;
+          puffer_set <= 2'b10;
+          onarbit_set <= 2'b10;
+          en_zerointcrc <= 1'b1;
+          crc_shft_out <= 1'b0;
+          if (smplpoint==1'b1)
+            next_state <= rec_flglen_sample;
           else
-            next_stateA <= tra_arbit_goreceive;
+            next_state <= tra_arbit_goreceive;
         end
       tra_arbit_tnsftrsmpl : 
         begin
-          rext_setA <= 2'b00;
-          rrtr_setA <= 2'b00;
-          actvtcrcA <= 1'b0;
-          actvrcrcA <= 1'b0;
-          actvtstfA <= 1'b0;
-          actvrstfA <= 1'b1;
-          actvtsftA <= 1'b0;
-          actvrsftA <= 1'b0;
-          actvtdctA <= 1'b0;
-          actvrdctA <= 1'b0;
-          actvtbedA <= 1'b1;
-          setbdomA <= 1'b0;
-          setbrecA <= 1'b0;
-          lcrcA <= 1'b0;
-          tshiftA <= 1'b1;
-          inconerecA <= 1'b0;
-          incegtrecA <= 1'b0;
-          incegttraA <= 1'b0;
-          lmsgA <= 1'b0;
-          decrecA <= 1'b0;
-          dectraA <= 1'b0;
-          elevrecbA <= 1'b0;
-          resetdstA <= 1'b1;
-          resetstfA <= 1'b1;
-          hardsyncA <= 1'b0;
-          inccountA <= 1'b0;
-          rescountA <= 1'b1;
-          setrmlenoA <= 0;
-          actvrmlnA <= 1'b0;
-          resrmlenA <= 1'b1;
-          ackerror_setA <= 2'b10;
-          transmitter_setA <= 2'b11;
-          receiver_setA <= 2'b10;
-          error_setA <= 2'b10;
-          first_setA <= 2'b10;
-          activatefastA <= 1'b0;
-          puffer_setA <= 2'b10;
-          onarbit_setA <= 2'b11;
-          en_zerointcrcA <= 1'b1;
-          crc_shft_outA <= 1'b0;
-          if (sendpointA==1'b1&&biterrorA==1'b0)
-            next_stateA <= tra_arbit_tnactrnsft;
+          rext_set <= 2'b00;
+          rrtr_set <= 2'b00;
+          actvtcrc <= 1'b0;
+          actvrcrc <= 1'b0;
+          actvtstf <= 1'b0;
+          actvrstf <= 1'b1;
+          actvtsft <= 1'b0;
+          actvrsft <= 1'b0;
+          actvtdct <= 1'b0;
+          actvrdct <= 1'b0;
+          actvtbed <= 1'b1;
+          setbdom <= 1'b0;
+          setbrec <= 1'b0;
+          lcrc <= 1'b0;
+          tshift <= 1'b1;
+          inconerec <= 1'b0;
+          incegtrec <= 1'b0;
+          incegttra <= 1'b0;
+          lmsg <= 1'b0;
+          decrec <= 1'b0;
+          dectra <= 1'b0;
+          elevrecb <= 1'b0;
+          resetdst <= 1'b1;
+          resetstf <= 1'b1;
+          hardsync <= 1'b0;
+          inccount <= 1'b0;
+          rescount <= 1'b1;
+          setrmleno <= 0;
+          actvrmln <= 1'b0;
+          resrmlen <= 1'b1;
+          ackerror_set <= 2'b10;
+          transmitter_set <= 2'b11;
+          receiver_set <= 2'b10;
+          error_set <= 2'b10;
+          first_set <= 2'b10;
+          activatefast <= 1'b0;
+          puffer_set <= 2'b10;
+          onarbit_set <= 2'b11;
+          en_zerointcrc <= 1'b1;
+          crc_shft_out <= 1'b0;
+          if (sendpoint==1'b1&&biterror==1'b0)
+            next_state <= tra_arbit_tnactrnsft;
           else
-            if (stferrorA==1'b1&&erroractivA==1'b1)
-              next_stateA <= erroractiv_firstdom;
+            if (stferror==1'b1&&erroractiv==1'b1)
+              next_state <= erroractiv_firstdom;
             else
-              if (stferrorA==1'b1&&errorpassivA==1'b1)
-                next_stateA <= errorpassiv_firstrec;
+              if (stferror==1'b1&&errorpassiv==1'b1)
+                next_state <= errorpassiv_firstrec;
               else
-                next_stateA <= tra_arbit_tnsftrsmpl;
+                next_state <= tra_arbit_tnsftrsmpl;
         end
       tra_data_activatecrc : 
         begin
-          rext_setA <= 2'b10;
-          rrtr_setA <= 2'b10;
-          actvtcrcA <= 1'b1;
-          actvrcrcA <= 1'b0;
-          actvtstfA <= 1'b1;
-          actvrstfA <= 1'b0;
-          actvtsftA <= 1'b0;
-          actvrsftA <= 1'b0;
-          actvtdctA <= 1'b0;
-          actvrdctA <= 1'b0;
-          actvtbedA <= 1'b0;
-          setbdomA <= 1'b0;
-          setbrecA <= 1'b0;
-          lcrcA <= 1'b0;
-          tshiftA <= 1'b1;
-          inconerecA <= 1'b0;
-          incegtrecA <= 1'b0;
-          incegttraA <= 1'b0;
-          lmsgA <= 1'b0;
-          decrecA <= 1'b0;
-          dectraA <= 1'b0;
-          elevrecbA <= 1'b0;
-          hardsyncA <= 1'b0;
-          resetdstA <= 1'b1;
-          resetstfA <= 1'b1;
-          inccountA <= 1'b1;
-          rescountA <= 1'b1;
-          setrmlenoA <= 0;
-          actvrmlnA <= 1'b0;
-          resrmlenA <= 1'b1;
-          ackerror_setA <= 2'b10;
-          transmitter_setA <= 2'b11;
-          receiver_setA <= 2'b10;
-          error_setA <= 2'b10;
-          first_setA <= 2'b10;
-          activatefastA <= 1'b0;
-          puffer_setA <= 2'b10;
-          onarbit_setA <= 2'b10;
-          en_zerointcrcA <= 1'b1;
-          crc_shft_outA <= 1'b0;
-          if (smplpointA==1'b1&&stufftA==1'b0&&starttcrcA==1'b0)
-            next_stateA <= tra_data_shifting;
+          rext_set <= 2'b10;
+          rrtr_set <= 2'b10;
+          actvtcrc <= 1'b1;
+          actvrcrc <= 1'b0;
+          actvtstf <= 1'b1;
+          actvrstf <= 1'b0;
+          actvtsft <= 1'b0;
+          actvrsft <= 1'b0;
+          actvtdct <= 1'b0;
+          actvrdct <= 1'b0;
+          actvtbed <= 1'b0;
+          setbdom <= 1'b0;
+          setbrec <= 1'b0;
+          lcrc <= 1'b0;
+          tshift <= 1'b1;
+          inconerec <= 1'b0;
+          incegtrec <= 1'b0;
+          incegttra <= 1'b0;
+          lmsg <= 1'b0;
+          decrec <= 1'b0;
+          dectra <= 1'b0;
+          elevrecb <= 1'b0;
+          hardsync <= 1'b0;
+          resetdst <= 1'b1;
+          resetstf <= 1'b1;
+          inccount <= 1'b1;
+          rescount <= 1'b1;
+          setrmleno <= 0;
+          actvrmln <= 1'b0;
+          resrmlen <= 1'b1;
+          ackerror_set <= 2'b10;
+          transmitter_set <= 2'b11;
+          receiver_set <= 2'b10;
+          error_set <= 2'b10;
+          first_set <= 2'b10;
+          activatefast <= 1'b0;
+          puffer_set <= 2'b10;
+          onarbit_set <= 2'b10;
+          en_zerointcrc <= 1'b1;
+          crc_shft_out <= 1'b0;
+          if (smplpoint==1'b1&&stufft==1'b0&&starttcrc==1'b0)
+            next_state <= tra_data_shifting;
           else
-            if (smplpointA==1'b1&&stufftA==1'b0&&starttcrcA==1'b1)
-              next_stateA <= tra_data_lastshift;
+            if (smplpoint==1'b1&&stufft==1'b0&&starttcrc==1'b1)
+              next_state <= tra_data_lastshift;
             else
-              if (smplpointA==1'b1&&stufftA==1'b1)
-                next_stateA <= tra_data_noshift;
+              if (smplpoint==1'b1&&stufft==1'b1)
+                next_state <= tra_data_noshift;
               else
-                next_stateA <= tra_data_activatecrc;
+                next_state <= tra_data_activatecrc;
         end
       tra_data_activatncrc : 
         begin
-          rext_setA <= 2'b10;
-          rrtr_setA <= 2'b10;
-          actvtcrcA <= 1'b0;
-          actvrcrcA <= 1'b0;
-          actvtstfA <= 1'b1;
-          actvrstfA <= 1'b0;
-          actvtsftA <= 1'b0;
-          actvrsftA <= 1'b0;
-          actvtdctA <= 1'b0;
-          actvrdctA <= 1'b0;
-          actvtbedA <= 1'b0;
-          setbdomA <= 1'b0;
-          setbrecA <= 1'b0;
-          lcrcA <= 1'b0;
-          tshiftA <= 1'b1;
-          inconerecA <= 1'b0;
-          incegtrecA <= 1'b0;
-          incegttraA <= 1'b0;
-          lmsgA <= 1'b0;
-          decrecA <= 1'b0;
-          dectraA <= 1'b0;
-          elevrecbA <= 1'b0;
-          hardsyncA <= 1'b0;
-          resetdstA <= 1'b1;
-          resetstfA <= 1'b1;
-          inccountA <= 1'b0;
-          rescountA <= 1'b1;
-          setrmlenoA <= 0;
-          actvrmlnA <= 1'b0;
-          resrmlenA <= 1'b1;
-          ackerror_setA <= 2'b10;
-          transmitter_setA <= 2'b11;
-          receiver_setA <= 2'b10;
-          error_setA <= 2'b10;
-          first_setA <= 2'b10;
-          activatefastA <= 1'b0;
-          puffer_setA <= 2'b10;
-          onarbit_setA <= 2'b10;
-          en_zerointcrcA <= 1'b1;
-          crc_shft_outA <= 1'b0;
-          if (smplpointA==1'b1&&starttcrcA==1'b0)
-            next_stateA <= tra_data_shifting;
+          rext_set <= 2'b10;
+          rrtr_set <= 2'b10;
+          actvtcrc <= 1'b0;
+          actvrcrc <= 1'b0;
+          actvtstf <= 1'b1;
+          actvrstf <= 1'b0;
+          actvtsft <= 1'b0;
+          actvrsft <= 1'b0;
+          actvtdct <= 1'b0;
+          actvrdct <= 1'b0;
+          actvtbed <= 1'b0;
+          setbdom <= 1'b0;
+          setbrec <= 1'b0;
+          lcrc <= 1'b0;
+          tshift <= 1'b1;
+          inconerec <= 1'b0;
+          incegtrec <= 1'b0;
+          incegttra <= 1'b0;
+          lmsg <= 1'b0;
+          decrec <= 1'b0;
+          dectra <= 1'b0;
+          elevrecb <= 1'b0;
+          hardsync <= 1'b0;
+          resetdst <= 1'b1;
+          resetstf <= 1'b1;
+          inccount <= 1'b0;
+          rescount <= 1'b1;
+          setrmleno <= 0;
+          actvrmln <= 1'b0;
+          resrmlen <= 1'b1;
+          ackerror_set <= 2'b10;
+          transmitter_set <= 2'b11;
+          receiver_set <= 2'b10;
+          error_set <= 2'b10;
+          first_set <= 2'b10;
+          activatefast <= 1'b0;
+          puffer_set <= 2'b10;
+          onarbit_set <= 2'b10;
+          en_zerointcrc <= 1'b1;
+          crc_shft_out <= 1'b0;
+          if (smplpoint==1'b1&&starttcrc==1'b0)
+            next_state <= tra_data_shifting;
           else
-            if (smplpointA==1'b1&&starttcrcA==1'b1)
-              next_stateA <= tra_data_lastshift;
+            if (smplpoint==1'b1&&starttcrc==1'b1)
+              next_state <= tra_data_lastshift;
             else
-              next_stateA <= tra_data_activatncrc;
+              next_state <= tra_data_activatncrc;
         end
       tra_data_shifting : 
         begin
-          rext_setA <= 2'b10;
-          rrtr_setA <= 2'b10;
-          actvtcrcA <= 1'b0;
-          actvrcrcA <= 1'b0;
-          actvtstfA <= 1'b0;
-          actvrstfA <= 1'b0;
-          actvtsftA <= 1'b1;
-          actvrsftA <= 1'b0;
-          actvtdctA <= 1'b0;
-          actvrdctA <= 1'b0;
-          actvtbedA <= 1'b1;
-          setbdomA <= 1'b0;
-          setbrecA <= 1'b0;
-          lcrcA <= 1'b0;
-          tshiftA <= 1'b1;
-          inconerecA <= 1'b0;
-          incegtrecA <= 1'b0;
-          incegttraA <= 1'b0;
-          lmsgA <= 1'b0;
-          decrecA <= 1'b0;
-          dectraA <= 1'b0;
-          elevrecbA <= 1'b0;
-          hardsyncA <= 1'b0;
-          resetdstA <= 1'b1;
-          resetstfA <= 1'b1;
-          inccountA <= 1'b0;
-          rescountA <= 1'b1;
-          setrmlenoA <= 0;
-          actvrmlnA <= 1'b0;
-          resrmlenA <= 1'b1;
-          ackerror_setA <= 2'b10;
-          transmitter_setA <= 2'b11;
-          receiver_setA <= 2'b10;
-          error_setA <= 2'b10;
-          first_setA <= 2'b10;
-          activatefastA <= 1'b0;
-          puffer_setA <= 2'b10;
-          onarbit_setA <= 2'b10;
-          en_zerointcrcA <= 1'b1;
-          crc_shft_outA <= 1'b0;
-          if (sendpointA==1'b1&&biterrorA==1'b0)
-            next_stateA <= tra_data_activatecrc;
+          rext_set <= 2'b10;
+          rrtr_set <= 2'b10;
+          actvtcrc <= 1'b0;
+          actvrcrc <= 1'b0;
+          actvtstf <= 1'b0;
+          actvrstf <= 1'b0;
+          actvtsft <= 1'b1;
+          actvrsft <= 1'b0;
+          actvtdct <= 1'b0;
+          actvrdct <= 1'b0;
+          actvtbed <= 1'b1;
+          setbdom <= 1'b0;
+          setbrec <= 1'b0;
+          lcrc <= 1'b0;
+          tshift <= 1'b1;
+          inconerec <= 1'b0;
+          incegtrec <= 1'b0;
+          incegttra <= 1'b0;
+          lmsg <= 1'b0;
+          decrec <= 1'b0;
+          dectra <= 1'b0;
+          elevrecb <= 1'b0;
+          hardsync <= 1'b0;
+          resetdst <= 1'b1;
+          resetstf <= 1'b1;
+          inccount <= 1'b0;
+          rescount <= 1'b1;
+          setrmleno <= 0;
+          actvrmln <= 1'b0;
+          resrmlen <= 1'b1;
+          ackerror_set <= 2'b10;
+          transmitter_set <= 2'b11;
+          receiver_set <= 2'b10;
+          error_set <= 2'b10;
+          first_set <= 2'b10;
+          activatefast <= 1'b0;
+          puffer_set <= 2'b10;
+          onarbit_set <= 2'b10;
+          en_zerointcrc <= 1'b1;
+          crc_shft_out <= 1'b0;
+          if (sendpoint==1'b1&&biterror==1'b0)
+            next_state <= tra_data_activatecrc;
           else
-            if (biterrorA==1'b1&&erroractivA==1'b1)
-              next_stateA <= erroractiv_firstdom;
+            if (biterror==1'b1&&erroractiv==1'b1)
+              next_state <= erroractiv_firstdom;
             else
-              if (biterrorA==1'b1&&errorpassivA==1'b1)
-                next_stateA <= errorpassiv_firstrec;
+              if (biterror==1'b1&&errorpassiv==1'b1)
+                next_state <= errorpassiv_firstrec;
               else
-                next_stateA <= tra_data_shifting;
+                next_state <= tra_data_shifting;
         end
       tra_data_lastshift : 
         begin
-          rext_setA <= 2'b10;
-          rrtr_setA <= 2'b10;
-          actvtcrcA <= 1'b0;
-          actvrcrcA <= 1'b0;
-          actvtstfA <= 1'b0;
-          actvrstfA <= 1'b0;
-          actvtsftA <= 1'b0;
-          actvrsftA <= 1'b0;
-          actvtdctA <= 1'b0;
-          actvrdctA <= 1'b0;
-          actvtbedA <= 1'b1;
-          setbdomA <= 1'b0;
-          setbrecA <= 1'b0;
-          lcrcA <= 1'b1;
-          tshiftA <= 1'b1;
-          inconerecA <= 1'b0;
-          incegtrecA <= 1'b0;
-          incegttraA <= 1'b0;
-          lmsgA <= 1'b0;
-          decrecA <= 1'b0;
-          dectraA <= 1'b0;
-          elevrecbA <= 1'b0;
-          hardsyncA <= 1'b0;
-          resetdstA <= 1'b1;
-          resetstfA <= 1'b1;
-          inccountA <= 1'b0;
-          rescountA <= 1'b0;
-          setrmlenoA <= 0;
-          actvrmlnA <= 1'b0;
-          resrmlenA <= 1'b1;
-          ackerror_setA <= 2'b10;
-          transmitter_setA <= 2'b11;
-          receiver_setA <= 2'b10;
-          error_setA <= 2'b10;
-          first_setA <= 2'b10;
-          activatefastA <= 1'b0;
-          puffer_setA <= 2'b10;
-          onarbit_setA <= 2'b10;
-          en_zerointcrcA <= 1'b1;
-          crc_shft_outA <= 1'b0;
-          if (biterrorA==1'b1&&erroractivA==1'b1)
-            next_stateA <= erroractiv_firstdom;
+          rext_set <= 2'b10;
+          rrtr_set <= 2'b10;
+          actvtcrc <= 1'b0;
+          actvrcrc <= 1'b0;
+          actvtstf <= 1'b0;
+          actvrstf <= 1'b0;
+          actvtsft <= 1'b0;
+          actvrsft <= 1'b0;
+          actvtdct <= 1'b0;
+          actvrdct <= 1'b0;
+          actvtbed <= 1'b1;
+          setbdom <= 1'b0;
+          setbrec <= 1'b0;
+          lcrc <= 1'b1;
+          tshift <= 1'b1;
+          inconerec <= 1'b0;
+          incegtrec <= 1'b0;
+          incegttra <= 1'b0;
+          lmsg <= 1'b0;
+          decrec <= 1'b0;
+          dectra <= 1'b0;
+          elevrecb <= 1'b0;
+          hardsync <= 1'b0;
+          resetdst <= 1'b1;
+          resetstf <= 1'b1;
+          inccount <= 1'b0;
+          rescount <= 1'b0;
+          setrmleno <= 0;
+          actvrmln <= 1'b0;
+          resrmlen <= 1'b1;
+          ackerror_set <= 2'b10;
+          transmitter_set <= 2'b11;
+          receiver_set <= 2'b10;
+          error_set <= 2'b10;
+          first_set <= 2'b10;
+          activatefast <= 1'b0;
+          puffer_set <= 2'b10;
+          onarbit_set <= 2'b10;
+          en_zerointcrc <= 1'b1;
+          crc_shft_out <= 1'b0;
+          if (biterror==1'b1&&erroractiv==1'b1)
+            next_state <= erroractiv_firstdom;
           else
-            if (biterrorA==1'b1&&errorpassivA==1'b1)
-              next_stateA <= errorpassiv_firstrec;
+            if (biterror==1'b1&&errorpassiv==1'b1)
+              next_state <= errorpassiv_firstrec;
             else
-              next_stateA <= tra_data_loadcrc;
+              next_state <= tra_data_loadcrc;
         end
       tra_data_noshift : 
         begin
-          rext_setA <= 2'b10;
-          rrtr_setA <= 2'b10;
-          actvtcrcA <= 1'b0;
-          actvrcrcA <= 1'b0;
-          actvtstfA <= 1'b0;
-          actvrstfA <= 1'b0;
-          actvtsftA <= 1'b0;
-          actvrsftA <= 1'b0;
-          actvtdctA <= 1'b0;
-          actvrdctA <= 1'b0;
-          actvtbedA <= 1'b1;
-          setbdomA <= 1'b0;
-          setbrecA <= 1'b0;
-          lcrcA <= 1'b0;
-          tshiftA <= 1'b1;
-          inconerecA <= 1'b0;
-          incegtrecA <= 1'b0;
-          incegttraA <= 1'b0;
-          lmsgA <= 1'b0;
-          decrecA <= 1'b0;
-          dectraA <= 1'b0;
-          elevrecbA <= 1'b0;
-          hardsyncA <= 1'b0;
-          resetdstA <= 1'b1;
-          resetstfA <= 1'b1;
-          inccountA <= 1'b0;
-          rescountA <= 1'b1;
-          setrmlenoA <= 0;
-          actvrmlnA <= 1'b0;
-          resrmlenA <= 1'b1;
-          ackerror_setA <= 2'b10;
-          transmitter_setA <= 2'b11;
-          receiver_setA <= 2'b10;
-          error_setA <= 2'b10;
-          first_setA <= 2'b10;
-          activatefastA <= 1'b0;
-          puffer_setA <= 2'b10;
-          onarbit_setA <= 2'b10;
-          en_zerointcrcA <= 1'b1;
-          crc_shft_outA <= 1'b0;
-          if (sendpointA==1'b1&&biterrorA==1'b0)
-            next_stateA <= tra_data_activatncrc;
+          rext_set <= 2'b10;
+          rrtr_set <= 2'b10;
+          actvtcrc <= 1'b0;
+          actvrcrc <= 1'b0;
+          actvtstf <= 1'b0;
+          actvrstf <= 1'b0;
+          actvtsft <= 1'b0;
+          actvrsft <= 1'b0;
+          actvtdct <= 1'b0;
+          actvrdct <= 1'b0;
+          actvtbed <= 1'b1;
+          setbdom <= 1'b0;
+          setbrec <= 1'b0;
+          lcrc <= 1'b0;
+          tshift <= 1'b1;
+          inconerec <= 1'b0;
+          incegtrec <= 1'b0;
+          incegttra <= 1'b0;
+          lmsg <= 1'b0;
+          decrec <= 1'b0;
+          dectra <= 1'b0;
+          elevrecb <= 1'b0;
+          hardsync <= 1'b0;
+          resetdst <= 1'b1;
+          resetstf <= 1'b1;
+          inccount <= 1'b0;
+          rescount <= 1'b1;
+          setrmleno <= 0;
+          actvrmln <= 1'b0;
+          resrmlen <= 1'b1;
+          ackerror_set <= 2'b10;
+          transmitter_set <= 2'b11;
+          receiver_set <= 2'b10;
+          error_set <= 2'b10;
+          first_set <= 2'b10;
+          activatefast <= 1'b0;
+          puffer_set <= 2'b10;
+          onarbit_set <= 2'b10;
+          en_zerointcrc <= 1'b1;
+          crc_shft_out <= 1'b0;
+          if (sendpoint==1'b1&&biterror==1'b0)
+            next_state <= tra_data_activatncrc;
           else
-            if (biterrorA==1'b1&&erroractivA==1'b1)
-              next_stateA <= erroractiv_firstdom;
+            if (biterror==1'b1&&erroractiv==1'b1)
+              next_state <= erroractiv_firstdom;
             else
-              if (biterrorA==1'b1&&errorpassivA==1'b1)
-                next_stateA <= errorpassiv_firstrec;
+              if (biterror==1'b1&&errorpassiv==1'b1)
+                next_state <= errorpassiv_firstrec;
               else
-                next_stateA <= tra_data_noshift;
+                next_state <= tra_data_noshift;
         end
       tra_data_loadcrc : 
         begin
-          rext_setA <= 2'b10;
-          rrtr_setA <= 2'b10;
-          actvtcrcA <= 1'b0;
-          actvrcrcA <= 1'b0;
-          actvtstfA <= 1'b0;
-          actvrstfA <= 1'b0;
-          actvtsftA <= 1'b1;
-          actvrsftA <= 1'b0;
-          actvtdctA <= 1'b0;
-          actvrdctA <= 1'b0;
-          actvtbedA <= 1'b0;
-          setbdomA <= 1'b0;
-          setbrecA <= 1'b0;
-          lcrcA <= 1'b1;
-          tshiftA <= 1'b1;
-          inconerecA <= 1'b0;
-          incegtrecA <= 1'b0;
-          incegttraA <= 1'b0;
-          lmsgA <= 1'b0;
-          decrecA <= 1'b0;
-          dectraA <= 1'b0;
-          elevrecbA <= 1'b0;
-          hardsyncA <= 1'b0;
-          resetdstA <= 1'b1;
-          resetstfA <= 1'b1;
-          inccountA <= 1'b0;
-          rescountA <= 1'b1;
-          setrmlenoA <= 0;
-          actvrmlnA <= 1'b0;
-          resrmlenA <= 1'b1;
-          ackerror_setA <= 2'b10;
-          transmitter_setA <= 2'b11;
-          receiver_setA <= 2'b10;
-          error_setA <= 2'b10;
-          first_setA <= 2'b10;
-          activatefastA <= 1'b0;
-          puffer_setA <= 2'b10;
-          onarbit_setA <= 2'b10;
-          en_zerointcrcA <= 1'b1;
-          crc_shft_outA <= 1'b0;
-          if (sendpointA==1'b1)
-            next_stateA <= tra_crc_activatedec;
+          rext_set <= 2'b10;
+          rrtr_set <= 2'b10;
+          actvtcrc <= 1'b0;
+          actvrcrc <= 1'b0;
+          actvtstf <= 1'b0;
+          actvrstf <= 1'b0;
+          actvtsft <= 1'b1;
+          actvrsft <= 1'b0;
+          actvtdct <= 1'b0;
+          actvrdct <= 1'b0;
+          actvtbed <= 1'b0;
+          setbdom <= 1'b0;
+          setbrec <= 1'b0;
+          lcrc <= 1'b1;
+          tshift <= 1'b1;
+          inconerec <= 1'b0;
+          incegtrec <= 1'b0;
+          incegttra <= 1'b0;
+          lmsg <= 1'b0;
+          decrec <= 1'b0;
+          dectra <= 1'b0;
+          elevrecb <= 1'b0;
+          hardsync <= 1'b0;
+          resetdst <= 1'b1;
+          resetstf <= 1'b1;
+          inccount <= 1'b0;
+          rescount <= 1'b1;
+          setrmleno <= 0;
+          actvrmln <= 1'b0;
+          resrmlen <= 1'b1;
+          ackerror_set <= 2'b10;
+          transmitter_set <= 2'b11;
+          receiver_set <= 2'b10;
+          error_set <= 2'b10;
+          first_set <= 2'b10;
+          activatefast <= 1'b0;
+          puffer_set <= 2'b10;
+          onarbit_set <= 2'b10;
+          en_zerointcrc <= 1'b1;
+          crc_shft_out <= 1'b0;
+          if (sendpoint==1'b1)
+            next_state <= tra_crc_activatedec;
           else
-            next_stateA <= tra_data_loadcrc;
+            next_state <= tra_data_loadcrc;
         end
       tra_crc_activatedec : 
         begin
-          rext_setA <= 2'b10;
-          rrtr_setA <= 2'b10;
-          actvtcrcA <= 1'b0;
-          actvrcrcA <= 1'b0;
-          actvtstfA <= 1'b1;
-          actvrstfA <= 1'b0;
-          actvtsftA <= 1'b0;
-          actvrsftA <= 1'b0;
-          actvtdctA <= 1'b0;
-          actvrdctA <= 1'b0;
-          actvtbedA <= 1'b0;
-          setbdomA <= 1'b0;
-          setbrecA <= 1'b0;
-          lcrcA <= 1'b0;
-          tshiftA <= 1'b1;
-          inconerecA <= 1'b0;
-          incegtrecA <= 1'b0;
-          incegttraA <= 1'b0;
-          lmsgA <= 1'b0;
-          decrecA <= 1'b0;
-          dectraA <= 1'b0;
-          elevrecbA <= 1'b0;
-          hardsyncA <= 1'b0;
-          resetdstA <= 1'b1;
-          resetstfA <= 1'b1;
-          inccountA <= 1'b1;
-          rescountA <= 1'b1;
-          setrmlenoA <= 0;
-          actvrmlnA <= 1'b0;
-          resrmlenA <= 1'b1;
-          ackerror_setA <= 2'b10;
-          transmitter_setA <= 2'b11;
-          receiver_setA <= 2'b10;
-          error_setA <= 2'b10;
-          first_setA <= 2'b10;
-          activatefastA <= 1'b0;
-          puffer_setA <= 2'b10;
-          onarbit_setA <= 2'b10;
-          en_zerointcrcA <= 1'b1;
-          crc_shft_outA <= 1'b1;
-          if (smplpointA==1'b1&&stufftA==1'b0&&countA!=16)
-            next_stateA <= tra_crc_shifting;
+          rext_set <= 2'b10;
+          rrtr_set <= 2'b10;
+          actvtcrc <= 1'b0;
+          actvrcrc <= 1'b0;
+          actvtstf <= 1'b1;
+          actvrstf <= 1'b0;
+          actvtsft <= 1'b0;
+          actvrsft <= 1'b0;
+          actvtdct <= 1'b0;
+          actvrdct <= 1'b0;
+          actvtbed <= 1'b0;
+          setbdom <= 1'b0;
+          setbrec <= 1'b0;
+          lcrc <= 1'b0;
+          tshift <= 1'b1;
+          inconerec <= 1'b0;
+          incegtrec <= 1'b0;
+          incegttra <= 1'b0;
+          lmsg <= 1'b0;
+          decrec <= 1'b0;
+          dectra <= 1'b0;
+          elevrecb <= 1'b0;
+          hardsync <= 1'b0;
+          resetdst <= 1'b1;
+          resetstf <= 1'b1;
+          inccount <= 1'b1;
+          rescount <= 1'b1;
+          setrmleno <= 0;
+          actvrmln <= 1'b0;
+          resrmlen <= 1'b1;
+          ackerror_set <= 2'b10;
+          transmitter_set <= 2'b11;
+          receiver_set <= 2'b10;
+          error_set <= 2'b10;
+          first_set <= 2'b10;
+          activatefast <= 1'b0;
+          puffer_set <= 2'b10;
+          onarbit_set <= 2'b10;
+          en_zerointcrc <= 1'b1;
+          crc_shft_out <= 1'b1;
+          if (smplpoint==1'b1&&stufft==1'b0&&count!=16)
+            next_state <= tra_crc_shifting;
           else
-            if (smplpointA==1'b1&&stufftA==1'b0&&countA==16)
-              next_stateA <= tra_crc_delshft;
+            if (smplpoint==1'b1&&stufft==1'b0&&count==16)
+              next_state <= tra_crc_delshft;
             else
-              if (smplpointA==1'b1&&stufftA==1'b1)
-                next_stateA <= tra_crc_noshift;
+              if (smplpoint==1'b1&&stufft==1'b1)
+                next_state <= tra_crc_noshift;
               else
-                next_stateA <= tra_crc_activatedec;
+                next_state <= tra_crc_activatedec;
         end
       tra_crc_activatndec : 
         begin
-          rext_setA <= 2'b10;
-          rrtr_setA <= 2'b10;
-          actvtcrcA <= 1'b0;
-          actvrcrcA <= 1'b0;
-          actvtstfA <= 1'b1;
-          actvrstfA <= 1'b0;
-          actvtsftA <= 1'b0;
-          actvrsftA <= 1'b0;
-          actvtdctA <= 1'b0;
-          actvrdctA <= 1'b0;
-          actvtbedA <= 1'b0;
-          setbdomA <= 1'b0;
-          setbrecA <= 1'b0;
-          lcrcA <= 1'b0;
-          tshiftA <= 1'b1;
-          inconerecA <= 1'b0;
-          incegtrecA <= 1'b0;
-          incegttraA <= 1'b0;
-          lmsgA <= 1'b0;
-          decrecA <= 1'b0;
-          dectraA <= 1'b0;
-          elevrecbA <= 1'b0;
-          hardsyncA <= 1'b0;
-          resetdstA <= 1'b1;
-          resetstfA <= 1'b1;
-          inccountA <= 1'b0;
-          rescountA <= 1'b1;
-          setrmlenoA <= 0;
-          actvrmlnA <= 1'b0;
-          resrmlenA <= 1'b1;
-          ackerror_setA <= 2'b10;
-          transmitter_setA <= 2'b11;
-          receiver_setA <= 2'b10;
-          error_setA <= 2'b10;
-          first_setA <= 2'b10;
-          activatefastA <= 1'b0;
-          puffer_setA <= 2'b10;
-          onarbit_setA <= 2'b10;
-          en_zerointcrcA <= 1'b1;
-          crc_shft_outA <= 1'b1;
-          if (smplpointA==1'b1&&countA!=16)
-            next_stateA <= tra_crc_shifting;
+          rext_set <= 2'b10;
+          rrtr_set <= 2'b10;
+          actvtcrc <= 1'b0;
+          actvrcrc <= 1'b0;
+          actvtstf <= 1'b1;
+          actvrstf <= 1'b0;
+          actvtsft <= 1'b0;
+          actvrsft <= 1'b0;
+          actvtdct <= 1'b0;
+          actvrdct <= 1'b0;
+          actvtbed <= 1'b0;
+          setbdom <= 1'b0;
+          setbrec <= 1'b0;
+          lcrc <= 1'b0;
+          tshift <= 1'b1;
+          inconerec <= 1'b0;
+          incegtrec <= 1'b0;
+          incegttra <= 1'b0;
+          lmsg <= 1'b0;
+          decrec <= 1'b0;
+          dectra <= 1'b0;
+          elevrecb <= 1'b0;
+          hardsync <= 1'b0;
+          resetdst <= 1'b1;
+          resetstf <= 1'b1;
+          inccount <= 1'b0;
+          rescount <= 1'b1;
+          setrmleno <= 0;
+          actvrmln <= 1'b0;
+          resrmlen <= 1'b1;
+          ackerror_set <= 2'b10;
+          transmitter_set <= 2'b11;
+          receiver_set <= 2'b10;
+          error_set <= 2'b10;
+          first_set <= 2'b10;
+          activatefast <= 1'b0;
+          puffer_set <= 2'b10;
+          onarbit_set <= 2'b10;
+          en_zerointcrc <= 1'b1;
+          crc_shft_out <= 1'b1;
+          if (smplpoint==1'b1&&count!=16)
+            next_state <= tra_crc_shifting;
           else
-            if (smplpointA==1'b1&&countA==16)
-              next_stateA <= tra_crc_delshft;
+            if (smplpoint==1'b1&&count==16)
+              next_state <= tra_crc_delshft;
             else
-              next_stateA <= tra_crc_activatndec;
+              next_state <= tra_crc_activatndec;
         end
       tra_crc_shifting : 
         begin
-          rext_setA <= 2'b10;
-          rrtr_setA <= 2'b10;
-          actvtcrcA <= 1'b0;
-          actvrcrcA <= 1'b0;
-          actvtstfA <= 1'b0;
-          actvrstfA <= 1'b0;
-          actvtsftA <= 1'b1;
-          actvrsftA <= 1'b0;
-          actvtdctA <= 1'b0;
-          actvrdctA <= 1'b0;
-          actvtbedA <= 1'b1;
-          setbdomA <= 1'b0;
-          setbrecA <= 1'b0;
-          lcrcA <= 1'b0;
-          tshiftA <= 1'b1;
-          inconerecA <= 1'b0;
-          incegtrecA <= 1'b0;
-          incegttraA <= 1'b0;
-          lmsgA <= 1'b0;
-          decrecA <= 1'b0;
-          dectraA <= 1'b0;
-          elevrecbA <= 1'b0;
-          hardsyncA <= 1'b0;
-          resetdstA <= 1'b1;
-          resetstfA <= 1'b1;
-          inccountA <= 1'b0;
-          rescountA <= 1'b1;
-          setrmlenoA <= 0;
-          actvrmlnA <= 1'b0;
-          resrmlenA <= 1'b1;
-          ackerror_setA <= 2'b10;
-          transmitter_setA <= 2'b11;
-          receiver_setA <= 2'b10;
-          error_setA <= 2'b10;
-          first_setA <= 2'b10;
-          activatefastA <= 1'b0;
-          puffer_setA <= 2'b10;
-          onarbit_setA <= 2'b10;
-          en_zerointcrcA <= 1'b1;
-          crc_shft_outA <= 1'b1;
-          if (sendpointA==1'b1&&biterrorA==1'b0)
-            next_stateA <= tra_crc_activatedec;
+          rext_set <= 2'b10;
+          rrtr_set <= 2'b10;
+          actvtcrc <= 1'b0;
+          actvrcrc <= 1'b0;
+          actvtstf <= 1'b0;
+          actvrstf <= 1'b0;
+          actvtsft <= 1'b1;
+          actvrsft <= 1'b0;
+          actvtdct <= 1'b0;
+          actvrdct <= 1'b0;
+          actvtbed <= 1'b1;
+          setbdom <= 1'b0;
+          setbrec <= 1'b0;
+          lcrc <= 1'b0;
+          tshift <= 1'b1;
+          inconerec <= 1'b0;
+          incegtrec <= 1'b0;
+          incegttra <= 1'b0;
+          lmsg <= 1'b0;
+          decrec <= 1'b0;
+          dectra <= 1'b0;
+          elevrecb <= 1'b0;
+          hardsync <= 1'b0;
+          resetdst <= 1'b1;
+          resetstf <= 1'b1;
+          inccount <= 1'b0;
+          rescount <= 1'b1;
+          setrmleno <= 0;
+          actvrmln <= 1'b0;
+          resrmlen <= 1'b1;
+          ackerror_set <= 2'b10;
+          transmitter_set <= 2'b11;
+          receiver_set <= 2'b10;
+          error_set <= 2'b10;
+          first_set <= 2'b10;
+          activatefast <= 1'b0;
+          puffer_set <= 2'b10;
+          onarbit_set <= 2'b10;
+          en_zerointcrc <= 1'b1;
+          crc_shft_out <= 1'b1;
+          if (sendpoint==1'b1&&biterror==1'b0)
+            next_state <= tra_crc_activatedec;
           else
-            if (biterrorA==1'b1&&erroractivA==1'b1)
-              next_stateA <= erroractiv_firstdom;
+            if (biterror==1'b1&&erroractiv==1'b1)
+              next_state <= erroractiv_firstdom;
             else
-              if (biterrorA==1'b1&&errorpassivA==1'b1)
-                next_stateA <= errorpassiv_firstrec;
+              if (biterror==1'b1&&errorpassiv==1'b1)
+                next_state <= errorpassiv_firstrec;
               else
-                next_stateA <= tra_crc_shifting;
+                next_state <= tra_crc_shifting;
         end
       tra_crc_noshift : 
         begin
-          rext_setA <= 2'b10;
-          rrtr_setA <= 2'b10;
-          actvtcrcA <= 1'b0;
-          actvrcrcA <= 1'b0;
-          actvtstfA <= 1'b0;
-          actvrstfA <= 1'b0;
-          actvtsftA <= 1'b0;
-          actvrsftA <= 1'b0;
-          actvtdctA <= 1'b0;
-          actvrdctA <= 1'b0;
-          actvtbedA <= 1'b1;
-          setbdomA <= 1'b0;
-          setbrecA <= 1'b0;
-          lcrcA <= 1'b0;
-          tshiftA <= 1'b1;
-          inconerecA <= 1'b0;
-          incegtrecA <= 1'b0;
-          incegttraA <= 1'b0;
-          lmsgA <= 1'b0;
-          decrecA <= 1'b0;
-          dectraA <= 1'b0;
-          elevrecbA <= 1'b0;
-          hardsyncA <= 1'b0;
-          resetdstA <= 1'b1;
-          resetstfA <= 1'b1;
-          inccountA <= 1'b0;
-          rescountA <= 1'b1;
-          setrmlenoA <= 0;
-          actvrmlnA <= 1'b0;
-          resrmlenA <= 1'b1;
-          ackerror_setA <= 2'b10;
-          transmitter_setA <= 2'b11;
-          receiver_setA <= 2'b10;
-          error_setA <= 2'b10;
-          first_setA <= 2'b10;
-          activatefastA <= 1'b0;
-          puffer_setA <= 2'b10;
-          onarbit_setA <= 2'b10;
-          en_zerointcrcA <= 1'b1;
-          crc_shft_outA <= 1'b1;
-          if (sendpointA==1'b1&&biterrorA==1'b0)
-            next_stateA <= tra_crc_activatndec;
+          rext_set <= 2'b10;
+          rrtr_set <= 2'b10;
+          actvtcrc <= 1'b0;
+          actvrcrc <= 1'b0;
+          actvtstf <= 1'b0;
+          actvrstf <= 1'b0;
+          actvtsft <= 1'b0;
+          actvrsft <= 1'b0;
+          actvtdct <= 1'b0;
+          actvrdct <= 1'b0;
+          actvtbed <= 1'b1;
+          setbdom <= 1'b0;
+          setbrec <= 1'b0;
+          lcrc <= 1'b0;
+          tshift <= 1'b1;
+          inconerec <= 1'b0;
+          incegtrec <= 1'b0;
+          incegttra <= 1'b0;
+          lmsg <= 1'b0;
+          decrec <= 1'b0;
+          dectra <= 1'b0;
+          elevrecb <= 1'b0;
+          hardsync <= 1'b0;
+          resetdst <= 1'b1;
+          resetstf <= 1'b1;
+          inccount <= 1'b0;
+          rescount <= 1'b1;
+          setrmleno <= 0;
+          actvrmln <= 1'b0;
+          resrmlen <= 1'b1;
+          ackerror_set <= 2'b10;
+          transmitter_set <= 2'b11;
+          receiver_set <= 2'b10;
+          error_set <= 2'b10;
+          first_set <= 2'b10;
+          activatefast <= 1'b0;
+          puffer_set <= 2'b10;
+          onarbit_set <= 2'b10;
+          en_zerointcrc <= 1'b1;
+          crc_shft_out <= 1'b1;
+          if (sendpoint==1'b1&&biterror==1'b0)
+            next_state <= tra_crc_activatndec;
           else
-            if (biterrorA==1'b1&&erroractivA==1'b1)
-              next_stateA <= erroractiv_firstdom;
+            if (biterror==1'b1&&erroractiv==1'b1)
+              next_state <= erroractiv_firstdom;
             else
-              if (biterrorA==1'b1&&errorpassivA==1'b1)
-                next_stateA <= errorpassiv_firstrec;
+              if (biterror==1'b1&&errorpassiv==1'b1)
+                next_state <= errorpassiv_firstrec;
               else
-                next_stateA <= tra_crc_noshift;
+                next_state <= tra_crc_noshift;
         end
       tra_crc_delshft : 
         begin
-          rext_setA <= 2'b10;
-          rrtr_setA <= 2'b10;
-          actvtcrcA <= 1'b0;
-          actvrcrcA <= 1'b0;
-          actvtstfA <= 1'b0;
-          actvrstfA <= 1'b0;
-          actvtsftA <= 1'b1;
-          actvrsftA <= 1'b0;
-          actvtdctA <= 1'b0;
-          actvrdctA <= 1'b0;
-          actvtbedA <= 1'b1;
-          setbdomA <= 1'b0;
-          setbrecA <= 1'b1;
-          lcrcA <= 1'b0;
-          tshiftA <= 1'b1;
-          inconerecA <= 1'b0;
-          incegtrecA <= 1'b0;
-          incegttraA <= 1'b0;
-          lmsgA <= 1'b0;
-          decrecA <= 1'b0;
-          dectraA <= 1'b0;
-          elevrecbA <= 1'b0;
-          hardsyncA <= 1'b0;
-          resetdstA <= 1'b1;
-          resetstfA <= 1'b1;
-          inccountA <= 1'b0;
-          rescountA <= 1'b0;
-          setrmlenoA <= 0;
-          actvrmlnA <= 1'b0;
-          resrmlenA <= 1'b1;
-          ackerror_setA <= 2'b10;
-          transmitter_setA <= 2'b11;
-          receiver_setA <= 2'b10;
-          error_setA <= 2'b10;
-          first_setA <= 2'b10;
-          activatefastA <= 1'b0;
-          puffer_setA <= 2'b10;
-          onarbit_setA <= 2'b10;
-          en_zerointcrcA <= 1'b1;
-          crc_shft_outA <= 1'b1;
-          if (sendpointA==1'b1&&biterrorA==1'b0)
-            next_stateA <= tra_ack_sendack;
+          rext_set <= 2'b10;
+          rrtr_set <= 2'b10;
+          actvtcrc <= 1'b0;
+          actvrcrc <= 1'b0;
+          actvtstf <= 1'b0;
+          actvrstf <= 1'b0;
+          actvtsft <= 1'b1;
+          actvrsft <= 1'b0;
+          actvtdct <= 1'b0;
+          actvrdct <= 1'b0;
+          actvtbed <= 1'b1;
+          setbdom <= 1'b0;
+          setbrec <= 1'b1;
+          lcrc <= 1'b0;
+          tshift <= 1'b1;
+          inconerec <= 1'b0;
+          incegtrec <= 1'b0;
+          incegttra <= 1'b0;
+          lmsg <= 1'b0;
+          decrec <= 1'b0;
+          dectra <= 1'b0;
+          elevrecb <= 1'b0;
+          hardsync <= 1'b0;
+          resetdst <= 1'b1;
+          resetstf <= 1'b1;
+          inccount <= 1'b0;
+          rescount <= 1'b0;
+          setrmleno <= 0;
+          actvrmln <= 1'b0;
+          resrmlen <= 1'b1;
+          ackerror_set <= 2'b10;
+          transmitter_set <= 2'b11;
+          receiver_set <= 2'b10;
+          error_set <= 2'b10;
+          first_set <= 2'b10;
+          activatefast <= 1'b0;
+          puffer_set <= 2'b10;
+          onarbit_set <= 2'b10;
+          en_zerointcrc <= 1'b1;
+          crc_shft_out <= 1'b1;
+          if (sendpoint==1'b1&&biterror==1'b0)
+            next_state <= tra_ack_sendack;
           else
-            if (biterrorA==1'b1&&erroractivA==1'b1)
-              next_stateA <= erroractiv_firstdom;
+            if (biterror==1'b1&&erroractiv==1'b1)
+              next_state <= erroractiv_firstdom;
             else
-              if (biterrorA==1'b1&&errorpassivA==1'b1)
-                next_stateA <= errorpassiv_firstrec;
+              if (biterror==1'b1&&errorpassiv==1'b1)
+                next_state <= errorpassiv_firstrec;
               else
-                next_stateA <= tra_crc_delshft;
+                next_state <= tra_crc_delshft;
         end
       tra_ack_sendack : 
         begin
-          rext_setA <= 2'b10;
-          rrtr_setA <= 2'b10;
-          actvtcrcA <= 1'b0;
-          actvrcrcA <= 1'b0;
-          actvtstfA <= 1'b1;
-          actvrstfA <= 1'b0;
-          actvtsftA <= 1'b0;
-          actvrsftA <= 1'b0;
-          actvtdctA <= 1'b0;
-          actvrdctA <= 1'b0;
-          actvtbedA <= 1'b0;
-          setbdomA <= 1'b0;
-          setbrecA <= 1'b1;
-          lcrcA <= 1'b0;
-          tshiftA <= 1'b0;
-          inconerecA <= 1'b0;
-          incegtrecA <= 1'b0;
-          incegttraA <= 1'b0;
-          lmsgA <= 1'b0;
-          decrecA <= 1'b0;
-          dectraA <= 1'b0;
-          elevrecbA <= 1'b0;
-          hardsyncA <= 1'b0;
-          resetdstA <= 1'b1;
-          resetstfA <= 1'b1;
-          inccountA <= 1'b0;
-          rescountA <= 1'b1;
-          setrmlenoA <= 0;
-          actvrmlnA <= 1'b0;
-          resrmlenA <= 1'b1;
-          ackerror_setA <= 2'b10;
-          transmitter_setA <= 2'b11;
-          receiver_setA <= 2'b10;
-          error_setA <= 2'b10;
-          first_setA <= 2'b10;
-          activatefastA <= 1'b0;
-          puffer_setA <= 2'b10;
-          onarbit_setA <= 2'b10;
-          en_zerointcrcA <= 1'b1;
-          crc_shft_outA <= 1'b0;
-          if (smplpointA==1'b1)
-            next_stateA <= tra_ack_shifting;
+          rext_set <= 2'b10;
+          rrtr_set <= 2'b10;
+          actvtcrc <= 1'b0;
+          actvrcrc <= 1'b0;
+          actvtstf <= 1'b1;
+          actvrstf <= 1'b0;
+          actvtsft <= 1'b0;
+          actvrsft <= 1'b0;
+          actvtdct <= 1'b0;
+          actvrdct <= 1'b0;
+          actvtbed <= 1'b0;
+          setbdom <= 1'b0;
+          setbrec <= 1'b1;
+          lcrc <= 1'b0;
+          tshift <= 1'b0;
+          inconerec <= 1'b0;
+          incegtrec <= 1'b0;
+          incegttra <= 1'b0;
+          lmsg <= 1'b0;
+          decrec <= 1'b0;
+          dectra <= 1'b0;
+          elevrecb <= 1'b0;
+          hardsync <= 1'b0;
+          resetdst <= 1'b1;
+          resetstf <= 1'b1;
+          inccount <= 1'b0;
+          rescount <= 1'b1;
+          setrmleno <= 0;
+          actvrmln <= 1'b0;
+          resrmlen <= 1'b1;
+          ackerror_set <= 2'b10;
+          transmitter_set <= 2'b11;
+          receiver_set <= 2'b10;
+          error_set <= 2'b10;
+          first_set <= 2'b10;
+          activatefast <= 1'b0;
+          puffer_set <= 2'b10;
+          onarbit_set <= 2'b10;
+          en_zerointcrc <= 1'b1;
+          crc_shft_out <= 1'b0;
+          if (smplpoint==1'b1)
+            next_state <= tra_ack_shifting;
           else
-            next_stateA <= tra_ack_sendack;
+            next_state <= tra_ack_sendack;
         end
       tra_ack_shifting : 
         begin
-          rext_setA <= 2'b10;
-          rrtr_setA <= 2'b10;
-          actvtcrcA <= 1'b0;
-          actvrcrcA <= 1'b0;
-          actvtstfA <= 1'b0;
-          actvrstfA <= 1'b0;
-          actvtsftA <= 1'b0;
-          actvrsftA <= 1'b0;
-          actvtdctA <= 1'b0;
-          actvrdctA <= 1'b0;
-          actvtbedA <= 1'b1;
-          setbdomA <= 1'b0;
-          setbrecA <= 1'b1;
-          lcrcA <= 1'b0;
-          tshiftA <= 1'b0;
-          inconerecA <= 1'b0;
-          incegtrecA <= 1'b0;
-          incegttraA <= 1'b0;
-          lmsgA <= 1'b0;
-          decrecA <= 1'b0;
-          dectraA <= 1'b0;
-          elevrecbA <= 1'b0;
-          hardsyncA <= 1'b0;
-          resetdstA <= 1'b1;
-          resetstfA <= 1'b1;
-          inccountA <= 1'b0;
-          rescountA <= 1'b1;
-          setrmlenoA <= 0;
-          actvrmlnA <= 1'b0;
-          resrmlenA <= 1'b1;
-          ackerror_setA <= 2'b10;
-          transmitter_setA <= 2'b11;
-          receiver_setA <= 2'b10;
-          error_setA <= 2'b10;
-          first_setA <= 2'b10;
-          activatefastA <= 1'b0;
-          puffer_setA <= 2'b10;
-          onarbit_setA <= 2'b10;
-          en_zerointcrcA <= 1'b1;
-          crc_shft_outA <= 1'b0;
-          if (biterrorA==1'b0)
-            next_stateA <= tra_ack_stopack;
+          rext_set <= 2'b10;
+          rrtr_set <= 2'b10;
+          actvtcrc <= 1'b0;
+          actvrcrc <= 1'b0;
+          actvtstf <= 1'b0;
+          actvrstf <= 1'b0;
+          actvtsft <= 1'b0;
+          actvrsft <= 1'b0;
+          actvtdct <= 1'b0;
+          actvrdct <= 1'b0;
+          actvtbed <= 1'b1;
+          setbdom <= 1'b0;
+          setbrec <= 1'b1;
+          lcrc <= 1'b0;
+          tshift <= 1'b0;
+          inconerec <= 1'b0;
+          incegtrec <= 1'b0;
+          incegttra <= 1'b0;
+          lmsg <= 1'b0;
+          decrec <= 1'b0;
+          dectra <= 1'b0;
+          elevrecb <= 1'b0;
+          hardsync <= 1'b0;
+          resetdst <= 1'b1;
+          resetstf <= 1'b1;
+          inccount <= 1'b0;
+          rescount <= 1'b1;
+          setrmleno <= 0;
+          actvrmln <= 1'b0;
+          resrmlen <= 1'b1;
+          ackerror_set <= 2'b10;
+          transmitter_set <= 2'b11;
+          receiver_set <= 2'b10;
+          error_set <= 2'b10;
+          first_set <= 2'b10;
+          activatefast <= 1'b0;
+          puffer_set <= 2'b10;
+          onarbit_set <= 2'b10;
+          en_zerointcrc <= 1'b1;
+          crc_shft_out <= 1'b0;
+          if (biterror==1'b0)
+            next_state <= tra_ack_stopack;
           else
-            if (sendpointA==1'b1&&biterrorA==1'b1)
-              next_stateA <= tra_edof_sendrecb;
+            if (sendpoint==1'b1&&biterror==1'b1)
+              next_state <= tra_edof_sendrecb;
             else
-              next_stateA <= tra_ack_shifting;
+              next_state <= tra_ack_shifting;
         end
       tra_ack_stopack : 
         begin
-          rext_setA <= 2'b10;
-          rrtr_setA <= 2'b10;
-          actvtcrcA <= 1'b0;
-          actvrcrcA <= 1'b0;
-          actvtstfA <= 1'b0;
-          actvrstfA <= 1'b0;
-          actvtsftA <= 1'b0;
-          actvrsftA <= 1'b0;
-          actvtdctA <= 1'b0;
-          actvrdctA <= 1'b0;
-          actvtbedA <= 1'b1;
-          setbdomA <= 1'b0;
-          setbrecA <= 1'b1;
-          lcrcA <= 1'b0;
-          tshiftA <= 1'b0;
-          inconerecA <= 1'b0;
-          incegtrecA <= 1'b0;
-          incegttraA <= 1'b0;
-          lmsgA <= 1'b0;
-          decrecA <= 1'b0;
-          dectraA <= 1'b0;
-          elevrecbA <= 1'b0;
-          hardsyncA <= 1'b0;
-          resetdstA <= 1'b1;
-          resetstfA <= 1'b1;
-          inccountA <= 1'b0;
-          rescountA <= 1'b1;
-          setrmlenoA <= 0;
-          actvrmlnA <= 1'b0;
-          resrmlenA <= 1'b1;
-          ackerror_setA <= 2'b11;
-          transmitter_setA <= 2'b11;
-          receiver_setA <= 2'b10;
-          error_setA <= 2'b10;
-          first_setA <= 2'b10;
-          activatefastA <= 1'b0;
-          puffer_setA <= 2'b10;
-          onarbit_setA <= 2'b10;
-          en_zerointcrcA <= 1'b1;
-          crc_shft_outA <= 1'b0;
-          if (erroractivA==1'b1)
-            next_stateA <= erroractiv_firstdom;
+          rext_set <= 2'b10;
+          rrtr_set <= 2'b10;
+          actvtcrc <= 1'b0;
+          actvrcrc <= 1'b0;
+          actvtstf <= 1'b0;
+          actvrstf <= 1'b0;
+          actvtsft <= 1'b0;
+          actvrsft <= 1'b0;
+          actvtdct <= 1'b0;
+          actvrdct <= 1'b0;
+          actvtbed <= 1'b1;
+          setbdom <= 1'b0;
+          setbrec <= 1'b1;
+          lcrc <= 1'b0;
+          tshift <= 1'b0;
+          inconerec <= 1'b0;
+          incegtrec <= 1'b0;
+          incegttra <= 1'b0;
+          lmsg <= 1'b0;
+          decrec <= 1'b0;
+          dectra <= 1'b0;
+          elevrecb <= 1'b0;
+          hardsync <= 1'b0;
+          resetdst <= 1'b1;
+          resetstf <= 1'b1;
+          inccount <= 1'b0;
+          rescount <= 1'b1;
+          setrmleno <= 0;
+          actvrmln <= 1'b0;
+          resrmlen <= 1'b1;
+          ackerror_set <= 2'b11;
+          transmitter_set <= 2'b11;
+          receiver_set <= 2'b10;
+          error_set <= 2'b10;
+          first_set <= 2'b10;
+          activatefast <= 1'b0;
+          puffer_set <= 2'b10;
+          onarbit_set <= 2'b10;
+          en_zerointcrc <= 1'b1;
+          crc_shft_out <= 1'b0;
+          if (erroractiv==1'b1)
+            next_state <= erroractiv_firstdom;
           else
-            next_stateA <= errorpassiv_firstrec;
+            next_state <= errorpassiv_firstrec;
         end
       tra_edof_sendrecb : 
         begin
-          rext_setA <= 2'b10;
-          rrtr_setA <= 2'b10;
-          actvtcrcA <= 1'b0;
-          actvrcrcA <= 1'b0;
-          actvtstfA <= 1'b1;
-          actvrstfA <= 1'b0;
-          actvtsftA <= 1'b0;
-          actvrsftA <= 1'b0;
-          actvtdctA <= 1'b0;
-          actvrdctA <= 1'b0;
-          actvtbedA <= 1'b0;
-          setbdomA <= 1'b0;
-          setbrecA <= 1'b1;
-          lcrcA <= 1'b0;
-          tshiftA <= 1'b0;
-          inconerecA <= 1'b0;
-          incegtrecA <= 1'b0;
-          incegttraA <= 1'b0;
-          lmsgA <= 1'b0;
-          decrecA <= 1'b0;
-          dectraA <= 1'b0;
-          elevrecbA <= 1'b0;
-          hardsyncA <= 1'b0;
-          resetdstA <= 1'b1;
-          resetstfA <= 1'b1;
-          inccountA <= 1'b1;
-          rescountA <= 1'b1;
-          setrmlenoA <= 0;
-          actvrmlnA <= 1'b0;
-          resrmlenA <= 1'b1;
-          ackerror_setA <= 2'b10;
-          transmitter_setA <= 2'b11;
-          receiver_setA <= 2'b10;
-          error_setA <= 2'b10;
-          first_setA <= 2'b10;
-          activatefastA <= 1'b0;
-          puffer_setA <= 2'b10;
-          onarbit_setA <= 2'b10;
-          en_zerointcrcA <= 1'b1;
-          crc_shft_outA <= 1'b0;
-          if (smplpointA==1'b1)
-            next_stateA <= tra_edof_shifting;
+          rext_set <= 2'b10;
+          rrtr_set <= 2'b10;
+          actvtcrc <= 1'b0;
+          actvrcrc <= 1'b0;
+          actvtstf <= 1'b1;
+          actvrstf <= 1'b0;
+          actvtsft <= 1'b0;
+          actvrsft <= 1'b0;
+          actvtdct <= 1'b0;
+          actvrdct <= 1'b0;
+          actvtbed <= 1'b0;
+          setbdom <= 1'b0;
+          setbrec <= 1'b1;
+          lcrc <= 1'b0;
+          tshift <= 1'b0;
+          inconerec <= 1'b0;
+          incegtrec <= 1'b0;
+          incegttra <= 1'b0;
+          lmsg <= 1'b0;
+          decrec <= 1'b0;
+          dectra <= 1'b0;
+          elevrecb <= 1'b0;
+          hardsync <= 1'b0;
+          resetdst <= 1'b1;
+          resetstf <= 1'b1;
+          inccount <= 1'b1;
+          rescount <= 1'b1;
+          setrmleno <= 0;
+          actvrmln <= 1'b0;
+          resrmlen <= 1'b1;
+          ackerror_set <= 2'b10;
+          transmitter_set <= 2'b11;
+          receiver_set <= 2'b10;
+          error_set <= 2'b10;
+          first_set <= 2'b10;
+          activatefast <= 1'b0;
+          puffer_set <= 2'b10;
+          onarbit_set <= 2'b10;
+          en_zerointcrc <= 1'b1;
+          crc_shft_out <= 1'b0;
+          if (smplpoint==1'b1)
+            next_state <= tra_edof_shifting;
           else
-            next_stateA <= tra_edof_sendrecb;
+            next_state <= tra_edof_sendrecb;
         end
       tra_edof_shifting : 
         begin
-          rext_setA <= 2'b10;
-          rrtr_setA <= 2'b10;
-          actvtcrcA <= 1'b0;
-          actvrcrcA <= 1'b0;
-          actvtstfA <= 1'b0;
-          actvrstfA <= 1'b0;
-          actvtsftA <= 1'b0;
-          actvrsftA <= 1'b0;
-          actvtdctA <= 1'b0;
-          actvrdctA <= 1'b0;
-          actvtbedA <= 1'b1;
-          setbdomA <= 1'b0;
-          setbrecA <= 1'b1;
-          lcrcA <= 1'b0;
-          tshiftA <= 1'b0;
-          inconerecA <= 1'b0;
-          incegtrecA <= 1'b0;
-          incegttraA <= 1'b0;
-          lmsgA <= 1'b0;
-          decrecA <= 1'b0;
-          dectraA <= 1'b0;
-          elevrecbA <= 1'b0;
-          hardsyncA <= 1'b0;
-          resetdstA <= 1'b1;
-          resetstfA <= 1'b1;
-          inccountA <= 1'b0;
-          rescountA <= 1'b1;
-          setrmlenoA <= 0;
-          actvrmlnA <= 1'b0;
-          resrmlenA <= 1'b1;
-          ackerror_setA <= 2'b10;
-          transmitter_setA <= 2'b11;
-          receiver_setA <= 2'b10;
-          error_setA <= 2'b10;
-          first_setA <= 2'b10;
-          activatefastA <= 1'b0;
-          puffer_setA <= 2'b10;
-          onarbit_setA <= 2'b10;
-          en_zerointcrcA <= 1'b1;
-          crc_shft_outA <= 1'b0;
-          if (sendpointA==1'b1&&biterrorA==1'b0&&countA!=8)
-            next_stateA <= tra_edof_sendrecb;
+          rext_set <= 2'b10;
+          rrtr_set <= 2'b10;
+          actvtcrc <= 1'b0;
+          actvrcrc <= 1'b0;
+          actvtstf <= 1'b0;
+          actvrstf <= 1'b0;
+          actvtsft <= 1'b0;
+          actvrsft <= 1'b0;
+          actvtdct <= 1'b0;
+          actvrdct <= 1'b0;
+          actvtbed <= 1'b1;
+          setbdom <= 1'b0;
+          setbrec <= 1'b1;
+          lcrc <= 1'b0;
+          tshift <= 1'b0;
+          inconerec <= 1'b0;
+          incegtrec <= 1'b0;
+          incegttra <= 1'b0;
+          lmsg <= 1'b0;
+          decrec <= 1'b0;
+          dectra <= 1'b0;
+          elevrecb <= 1'b0;
+          hardsync <= 1'b0;
+          resetdst <= 1'b1;
+          resetstf <= 1'b1;
+          inccount <= 1'b0;
+          rescount <= 1'b1;
+          setrmleno <= 0;
+          actvrmln <= 1'b0;
+          resrmlen <= 1'b1;
+          ackerror_set <= 2'b10;
+          transmitter_set <= 2'b11;
+          receiver_set <= 2'b10;
+          error_set <= 2'b10;
+          first_set <= 2'b10;
+          activatefast <= 1'b0;
+          puffer_set <= 2'b10;
+          onarbit_set <= 2'b10;
+          en_zerointcrc <= 1'b1;
+          crc_shft_out <= 1'b0;
+          if (sendpoint==1'b1&&biterror==1'b0&&count!=8)
+            next_state <= tra_edof_sendrecb;
           else
-            if (sendpointA==1'b1&&biterrorA==1'b0&&countA==8)
-              next_stateA <= tra_edof_dectra;
+            if (sendpoint==1'b1&&biterror==1'b0&&count==8)
+              next_state <= tra_edof_dectra;
             else
-              if (biterrorA==1'b1&&countA==8)
-                next_stateA <= over_firstdom;
+              if (biterror==1'b1&&count==8)
+                next_state <= over_firstdom;
               else
-                if (biterrorA==1'b1&&erroractivA==1'b1&&countA!=8)
-                  next_stateA <= erroractiv_firstdom;
+                if (biterror==1'b1&&erroractiv==1'b1&&count!=8)
+                  next_state <= erroractiv_firstdom;
                 else
-                  if (biterrorA==1'b1&&errorpassivA==1'b1&&countA!=8)
-                    next_stateA <= errorpassiv_firstrec;
+                  if (biterror==1'b1&&errorpassiv==1'b1&&count!=8)
+                    next_state <= errorpassiv_firstrec;
                   else
-                    next_stateA <= tra_edof_shifting;
+                    next_state <= tra_edof_shifting;
         end
       tra_edof_dectra : 
         begin
-          rext_setA <= 2'b10;
-          rrtr_setA <= 2'b10;
-          actvtcrcA <= 1'b0;
-          actvrcrcA <= 1'b0;
-          actvtstfA <= 1'b0;
-          actvrstfA <= 1'b0;
-          actvtsftA <= 1'b0;
-          actvrsftA <= 1'b0;
-          actvtdctA <= 1'b0;
-          actvrdctA <= 1'b0;
-          actvtbedA <= 1'b1;
-          setbdomA <= 1'b0;
-          setbrecA <= 1'b0;
-          lcrcA <= 1'b0;
-          tshiftA <= 1'b0;
-          inconerecA <= 1'b0;
-          incegtrecA <= 1'b0;
-          incegttraA <= 1'b0;
-          lmsgA <= 1'b0;
-          decrecA <= 1'b0;
-          dectraA <= 1'b1;
-          elevrecbA <= 1'b0;
-          hardsyncA <= 1'b0;
-          resetdstA <= 1'b1;
-          resetstfA <= 1'b0;
-          inccountA <= 1'b0;
-          rescountA <= 1'b0;
-          setrmlenoA <= 0;
-          actvrmlnA <= 1'b0;
-          resrmlenA <= 1'b1;
-          ackerror_setA <= 2'b10;
-          transmitter_setA <= 2'b11;
-          receiver_setA <= 2'b10;
-          error_setA <= 2'b10;
-          first_setA <= 2'b10;
-          activatefastA <= 1'b0;
-          puffer_setA <= 2'b10;
-          onarbit_setA <= 2'b10;
-          en_zerointcrcA <= 1'b1;
-          crc_shft_outA <= 1'b0;
-          if (smplpointA==1'b1)
-            next_stateA <= inter_sample;
+          rext_set <= 2'b10;
+          rrtr_set <= 2'b10;
+          actvtcrc <= 1'b0;
+          actvrcrc <= 1'b0;
+          actvtstf <= 1'b0;
+          actvrstf <= 1'b0;
+          actvtsft <= 1'b0;
+          actvrsft <= 1'b0;
+          actvtdct <= 1'b0;
+          actvrdct <= 1'b0;
+          actvtbed <= 1'b1;
+          setbdom <= 1'b0;
+          setbrec <= 1'b0;
+          lcrc <= 1'b0;
+          tshift <= 1'b0;
+          inconerec <= 1'b0;
+          incegtrec <= 1'b0;
+          incegttra <= 1'b0;
+          lmsg <= 1'b0;
+          decrec <= 1'b0;
+          dectra <= 1'b1;
+          elevrecb <= 1'b0;
+          hardsync <= 1'b0;
+          resetdst <= 1'b1;
+          resetstf <= 1'b0;
+          inccount <= 1'b0;
+          rescount <= 1'b0;
+          setrmleno <= 0;
+          actvrmln <= 1'b0;
+          resrmlen <= 1'b1;
+          ackerror_set <= 2'b10;
+          transmitter_set <= 2'b11;
+          receiver_set <= 2'b10;
+          error_set <= 2'b10;
+          first_set <= 2'b10;
+          activatefast <= 1'b0;
+          puffer_set <= 2'b10;
+          onarbit_set <= 2'b10;
+          en_zerointcrc <= 1'b1;
+          crc_shft_out <= 1'b0;
+          if (smplpoint==1'b1)
+            next_state <= inter_sample;
           else
-            next_stateA <= tra_edof_dectra;
+            next_state <= tra_edof_dectra;
         end
       rec_flglen_sample : 
         begin
-          rext_setA <= 2'b00;
-          rrtr_setA <= 2'b00;
-          actvtcrcA <= 1'b0;
-          actvrcrcA <= 1'b0;
-          actvtstfA <= 1'b0;
-          actvrstfA <= 1'b1;
-          actvtsftA <= 1'b0;
-          actvrsftA <= 1'b0;
-          actvtdctA <= 1'b0;
-          actvrdctA <= 1'b0;
-          actvtbedA <= 1'b0;
-          setbdomA <= 1'b0;
-          setbrecA <= 1'b0;
-          lcrcA <= 1'b0;
-          tshiftA <= 1'b0;
-          inconerecA <= 1'b0;
-          incegtrecA <= 1'b0;
-          incegttraA <= 1'b0;
-          lmsgA <= 1'b0;
-          decrecA <= 1'b0;
-          dectraA <= 1'b0;
-          elevrecbA <= 1'b0;
-          hardsyncA <= 1'b0;
-          resetdstA <= 1'b1;
-          resetstfA <= 1'b1;
-          inccountA <= 1'b0;
-          rescountA <= 1'b1;
-          setrmlenoA <= 0;
-          actvrmlnA <= 1'b0;
-          resrmlenA <= 1'b1;
-          ackerror_setA <= 2'b10;
-          transmitter_setA <= 2'b10;
-          receiver_setA <= 2'b11;
-          error_setA <= 2'b10;
-          first_setA <= 2'b10;
-          activatefastA <= 1'b0;
-          puffer_setA <= 2'b10;
-          onarbit_setA <= 2'b10;
-          en_zerointcrcA <= 1'b1;
-          crc_shft_outA <= 1'b0;
-          if (stuffrA==1'b1&&stferrorA==1'b0)
-            next_stateA <= rec_flglen_noshift;
+          rext_set <= 2'b00;
+          rrtr_set <= 2'b00;
+          actvtcrc <= 1'b0;
+          actvrcrc <= 1'b0;
+          actvtstf <= 1'b0;
+          actvrstf <= 1'b1;
+          actvtsft <= 1'b0;
+          actvrsft <= 1'b0;
+          actvtdct <= 1'b0;
+          actvrdct <= 1'b0;
+          actvtbed <= 1'b0;
+          setbdom <= 1'b0;
+          setbrec <= 1'b0;
+          lcrc <= 1'b0;
+          tshift <= 1'b0;
+          inconerec <= 1'b0;
+          incegtrec <= 1'b0;
+          incegttra <= 1'b0;
+          lmsg <= 1'b0;
+          decrec <= 1'b0;
+          dectra <= 1'b0;
+          elevrecb <= 1'b0;
+          hardsync <= 1'b0;
+          resetdst <= 1'b1;
+          resetstf <= 1'b1;
+          inccount <= 1'b0;
+          rescount <= 1'b1;
+          setrmleno <= 0;
+          actvrmln <= 1'b0;
+          resrmlen <= 1'b1;
+          ackerror_set <= 2'b10;
+          transmitter_set <= 2'b10;
+          receiver_set <= 2'b11;
+          error_set <= 2'b10;
+          first_set <= 2'b10;
+          activatefast <= 1'b0;
+          puffer_set <= 2'b10;
+          onarbit_set <= 2'b10;
+          en_zerointcrc <= 1'b1;
+          crc_shft_out <= 1'b0;
+          if (stuffr==1'b1&&stferror==1'b0)
+            next_state <= rec_flglen_noshift;
           else
-            if (stferrorA==1'b1&&erroractivA==1'b1)
-              next_stateA <= erroractiv_firstdom;
+            if (stferror==1'b1&&erroractiv==1'b1)
+              next_state <= erroractiv_firstdom;
             else
-              if (stferrorA==1'b1&&errorpassivA==1'b1)
-                next_stateA <= errorpassiv_firstrec;
+              if (stferror==1'b1&&errorpassiv==1'b1)
+                next_state <= errorpassiv_firstrec;
               else
-                if (stuffrA==1'b0&&stferrorA==1'b0&&inbitA==1'b1&&countA==12)
-                  next_stateA <= rec_flglen_shiftstdrtr;
+                if (stuffr==1'b0&&stferror==1'b0&&inbit==1'b1&&count==12)
+                  next_state <= rec_flglen_shiftstdrtr;
                 else
-                  if ((stuffrA==1'b0)&&(stferrorA==1'b0)&&(inbitA==1'b1)&&(countA==13))
-                    next_stateA <= rec_flglen_shiftextnor;
+                  if ((stuffr==1'b0)&&(stferror==1'b0)&&(inbit==1'b1)&&(count==13))
+                    next_state <= rec_flglen_shiftextnor;
                   else
-                    if (stuffrA==1'b0&&stferrorA==1'b0&&inbitA==1'b1&&countA==15&&rrtrA==1'b0&&rextA==1'b0)
-                      next_stateA <= rec_flglen_shiftdlc64;
+                    if (stuffr==1'b0&&stferror==1'b0&&inbit==1'b1&&count==15&&rrtr==1'b0&&rext==1'b0)
+                      next_state <= rec_flglen_shiftdlc64;
                     else
-                      if (stuffrA==1'b0&&stferrorA==1'b0&&inbitA==1'b1&&countA==16&&rrtrA==1'b0&&rextA==1'b0)
-                        next_stateA <= rec_flglen_shiftdlc32;
+                      if (stuffr==1'b0&&stferror==1'b0&&inbit==1'b1&&count==16&&rrtr==1'b0&&rext==1'b0)
+                        next_state <= rec_flglen_shiftdlc32;
                       else
-                        if (stuffrA==1'b0&&stferrorA==1'b0&&inbitA==1'b1&&countA==17&&rrtrA==1'b0&&rextA==1'b0)
-                          next_stateA <= rec_flglen_shiftdlc16;
+                        if (stuffr==1'b0&&stferror==1'b0&&inbit==1'b1&&count==17&&rrtr==1'b0&&rext==1'b0)
+                          next_state <= rec_flglen_shiftdlc16;
                         else
-                          if (stuffrA==1'b0&&stferrorA==1'b0&&inbitA==1'b1&&countA==18&&rrtrA==1'b0&&rextA==1'b0)
-                            next_stateA <= rec_flglen_shiftdlc8;
+                          if (stuffr==1'b0&&stferror==1'b0&&inbit==1'b1&&count==18&&rrtr==1'b0&&rext==1'b0)
+                            next_state <= rec_flglen_shiftdlc8;
                           else
-                            if (stuffrA==1'b0&&stferrorA==1'b0&&inbitA==1'b1&&countA==32&&rextA==1'b1)
-                              next_stateA <= rec_flglen_shiftextrtr;
+                            if (stuffr==1'b0&&stferror==1'b0&&inbit==1'b1&&count==32&&rext==1'b1)
+                              next_state <= rec_flglen_shiftextrtr;
                             else
-                              if (stuffrA==1'b0&&stferrorA==1'b0&&inbitA==1'b1&&countA==35&&rrtrA==1'b0&&rextA==1'b1)
-                                next_stateA <= rec_flglen_shiftdlc64;
+                              if (stuffr==1'b0&&stferror==1'b0&&inbit==1'b1&&count==35&&rrtr==1'b0&&rext==1'b1)
+                                next_state <= rec_flglen_shiftdlc64;
                               else
-                                if (stuffrA==1'b0&&stferrorA==1'b0&&inbitA==1'b1&&countA==36&&rrtrA==1'b0&&rextA==1'b1)
-                                  next_stateA <= rec_flglen_shiftdlc32;
+                                if (stuffr==1'b0&&stferror==1'b0&&inbit==1'b1&&count==36&&rrtr==1'b0&&rext==1'b1)
+                                  next_state <= rec_flglen_shiftdlc32;
                                 else
-                                  if (stuffrA==1'b0&&stferrorA==1'b0&&inbitA==1'b1&&countA==37&&rrtrA==1'b0&&rextA==1'b1)
-                                    next_stateA <= rec_flglen_shiftdlc16;
+                                  if (stuffr==1'b0&&stferror==1'b0&&inbit==1'b1&&count==37&&rrtr==1'b0&&rext==1'b1)
+                                    next_state <= rec_flglen_shiftdlc16;
                                   else
-                                    if (stuffrA==1'b0&&stferrorA==1'b0&&inbitA==1'b1&&countA==38&&rrtrA==1'b0&&rextA==1'b1)
-                                      next_stateA <= rec_flglen_shiftdlc8;
+                                    if (stuffr==1'b0&&stferror==1'b0&&inbit==1'b1&&count==38&&rrtr==1'b0&&rext==1'b1)
+                                      next_state <= rec_flglen_shiftdlc8;
                                     else
-                                      if (stuffrA==1'b0&&stferrorA==1'b0&&(inbitA==1'b0||(countA!=12&&countA!=13&&(rextA==1'b1||rrtrA==1'b1||(countA!=15&&countA!=16&&countA!=17&&countA!=18))&&(countA!=32||rextA==1'b0)&&(rextA==1'b0||rrtrA==1'b1||(countA!=35&&countA!=36&&countA!=37&&countA!=38)))))
-                                        next_stateA <= rec_flglen_shifting;
+                                      if (stuffr==1'b0&&stferror==1'b0&&(inbit==1'b0||(count!=12&&count!=13&&(rext==1'b1||rrtr==1'b1||(count!=15&&count!=16&&count!=17&&count!=18))&&(count!=32||rext==1'b0)&&(rext==1'b0||rrtr==1'b1||(count!=35&&count!=36&&count!=37&&count!=38)))))
+                                        next_state <= rec_flglen_shifting;
                                       else
-                                        next_stateA <= rec_flglen_sample;
+                                        next_state <= rec_flglen_sample;
         end
       rec_flglen_shifting : 
         begin
-          rext_setA <= 2'b00;
-          rrtr_setA <= 2'b00;
-          actvtcrcA <= 1'b0;
-          actvrcrcA <= 1'b1;
-          actvtstfA <= 1'b0;
-          actvrstfA <= 1'b0;
-          actvtsftA <= 1'b0;
-          actvrsftA <= 1'b1;
-          actvtdctA <= 1'b0;
-          actvrdctA <= 1'b0;
-          actvtbedA <= 1'b0;
-          setbdomA <= 1'b0;
-          setbrecA <= 1'b0;
-          lcrcA <= 1'b0;
-          tshiftA <= 1'b0;
-          inconerecA <= 1'b0;
-          incegtrecA <= 1'b0;
-          incegttraA <= 1'b0;
-          lmsgA <= 1'b0;
-          decrecA <= 1'b0;
-          dectraA <= 1'b0;
-          elevrecbA <= 1'b0;
-          hardsyncA <= 1'b0;
-          resetdstA <= 1'b1;
-          resetstfA <= 1'b1;
-          inccountA <= 1'b1;
-          rescountA <= 1'b1;
-          setrmlenoA <= 0;
-          actvrmlnA <= 1'b0;
-          resrmlenA <= 1'b1;
-          ackerror_setA <= 2'b10;
-          transmitter_setA <= 2'b10;
-          receiver_setA <= 2'b11;
-          error_setA <= 2'b10;
-          first_setA <= 2'b10;
-          activatefastA <= 1'b0;
-          puffer_setA <= 2'b10;
-          onarbit_setA <= 2'b10;
-          en_zerointcrcA <= 1'b1;
-          crc_shft_outA <= 1'b0;
-          if (smplpointA==1'b1&&(! ( (countA==19&&rextA==1'b0)||(countA==39&&rextA==1'b1) ) ))
-            next_stateA <= rec_flglen_sample;
+          rext_set <= 2'b00;
+          rrtr_set <= 2'b00;
+          actvtcrc <= 1'b0;
+          actvrcrc <= 1'b1;
+          actvtstf <= 1'b0;
+          actvrstf <= 1'b0;
+          actvtsft <= 1'b0;
+          actvrsft <= 1'b1;
+          actvtdct <= 1'b0;
+          actvrdct <= 1'b0;
+          actvtbed <= 1'b0;
+          setbdom <= 1'b0;
+          setbrec <= 1'b0;
+          lcrc <= 1'b0;
+          tshift <= 1'b0;
+          inconerec <= 1'b0;
+          incegtrec <= 1'b0;
+          incegttra <= 1'b0;
+          lmsg <= 1'b0;
+          decrec <= 1'b0;
+          dectra <= 1'b0;
+          elevrecb <= 1'b0;
+          hardsync <= 1'b0;
+          resetdst <= 1'b1;
+          resetstf <= 1'b1;
+          inccount <= 1'b1;
+          rescount <= 1'b1;
+          setrmleno <= 0;
+          actvrmln <= 1'b0;
+          resrmlen <= 1'b1;
+          ackerror_set <= 2'b10;
+          transmitter_set <= 2'b10;
+          receiver_set <= 2'b11;
+          error_set <= 2'b10;
+          first_set <= 2'b10;
+          activatefast <= 1'b0;
+          puffer_set <= 2'b10;
+          onarbit_set <= 2'b10;
+          en_zerointcrc <= 1'b1;
+          crc_shft_out <= 1'b0;
+          if (smplpoint==1'b1&&(! ( (count==19&&rext==1'b0)||(count==39&&rext==1'b1) ) ))
+            next_state <= rec_flglen_sample;
           else
-            if (smplpointA==1'b1&&((countA==19&&rextA==1'b0)||(countA==39&&rextA==1'b1))&&rrtrA==1'b0&&rmzeroA==1'b0)
-              next_stateA <= rec_acptdat_sample;
+            if (smplpoint==1'b1&&((count==19&&rext==1'b0)||(count==39&&rext==1'b1))&&rrtr==1'b0&&rmzero==1'b0)
+              next_state <= rec_acptdat_sample;
             else
-              if (smplpointA==1'b1&&((countA==19&&rextA==1'b0)||(countA==39&&rextA==1'b1))&&(rrtrA==1'b1||rmzeroA==1'b1))
-                next_stateA <= rec_crc_rescnt;
+              if (smplpoint==1'b1&&((count==19&&rext==1'b0)||(count==39&&rext==1'b1))&&(rrtr==1'b1||rmzero==1'b1))
+                next_state <= rec_crc_rescnt;
               else
-                next_stateA <= rec_flglen_shifting;
+                next_state <= rec_flglen_shifting;
         end
       rec_flglen_shiftstdrtr : 
         begin
-          rext_setA <= 2'b00;
-          rrtr_setA <= 2'b11;
-          actvtcrcA <= 1'b0;
-          actvrcrcA <= 1'b1;
-          actvtstfA <= 1'b0;
-          actvrstfA <= 1'b0;
-          actvtsftA <= 1'b0;
-          actvrsftA <= 1'b1;
-          actvtdctA <= 1'b0;
-          actvrdctA <= 1'b0;
-          actvtbedA <= 1'b0;
-          setbdomA <= 1'b0;
-          setbrecA <= 1'b0;
-          lcrcA <= 1'b0;
-          tshiftA <= 1'b0;
-          inconerecA <= 1'b0;
-          incegtrecA <= 1'b0;
-          incegttraA <= 1'b0;
-          lmsgA <= 1'b0;
-          decrecA <= 1'b0;
-          dectraA <= 1'b0;
-          elevrecbA <= 1'b0;
-          hardsyncA <= 1'b0;
-          resetdstA <= 1'b1;
-          resetstfA <= 1'b1;
-          inccountA <= 1'b1;
-          rescountA <= 1'b1;
-          setrmlenoA <= 0;
-          actvrmlnA <= 1'b0;
-          resrmlenA <= 1'b1;
-          ackerror_setA <= 2'b10;
-          transmitter_setA <= 2'b10;
-          receiver_setA <= 2'b11;
-          error_setA <= 2'b10;
-          first_setA <= 2'b10;
-          activatefastA <= 1'b0;
-          puffer_setA <= 2'b10;
-          onarbit_setA <= 2'b10;
-          en_zerointcrcA <= 1'b1;
-          crc_shft_outA <= 1'b0;
-          if (smplpointA==1'b1)
-            next_stateA <= rec_flglen_sample;
+          rext_set <= 2'b00;
+          rrtr_set <= 2'b11;
+          actvtcrc <= 1'b0;
+          actvrcrc <= 1'b1;
+          actvtstf <= 1'b0;
+          actvrstf <= 1'b0;
+          actvtsft <= 1'b0;
+          actvrsft <= 1'b1;
+          actvtdct <= 1'b0;
+          actvrdct <= 1'b0;
+          actvtbed <= 1'b0;
+          setbdom <= 1'b0;
+          setbrec <= 1'b0;
+          lcrc <= 1'b0;
+          tshift <= 1'b0;
+          inconerec <= 1'b0;
+          incegtrec <= 1'b0;
+          incegttra <= 1'b0;
+          lmsg <= 1'b0;
+          decrec <= 1'b0;
+          dectra <= 1'b0;
+          elevrecb <= 1'b0;
+          hardsync <= 1'b0;
+          resetdst <= 1'b1;
+          resetstf <= 1'b1;
+          inccount <= 1'b1;
+          rescount <= 1'b1;
+          setrmleno <= 0;
+          actvrmln <= 1'b0;
+          resrmlen <= 1'b1;
+          ackerror_set <= 2'b10;
+          transmitter_set <= 2'b10;
+          receiver_set <= 2'b11;
+          error_set <= 2'b10;
+          first_set <= 2'b10;
+          activatefast <= 1'b0;
+          puffer_set <= 2'b10;
+          onarbit_set <= 2'b10;
+          en_zerointcrc <= 1'b1;
+          crc_shft_out <= 1'b0;
+          if (smplpoint==1'b1)
+            next_state <= rec_flglen_sample;
           else
-            next_stateA <= rec_flglen_shiftstdrtr;
+            next_state <= rec_flglen_shiftstdrtr;
         end
       rec_flglen_shiftextnor : 
         begin
-          rext_setA <= 2'b11;
-          rrtr_setA <= 2'b10;
-          actvtcrcA <= 1'b0;
-          actvrcrcA <= 1'b1;
-          actvtstfA <= 1'b0;
-          actvrstfA <= 1'b0;
-          actvtsftA <= 1'b0;
-          actvrsftA <= 1'b1;
-          actvtdctA <= 1'b0;
-          actvrdctA <= 1'b0;
-          actvtbedA <= 1'b0;
-          setbdomA <= 1'b0;
-          setbrecA <= 1'b0;
-          lcrcA <= 1'b0;
-          tshiftA <= 1'b0;
-          inconerecA <= 1'b0;
-          incegtrecA <= 1'b0;
-          incegttraA <= 1'b0;
-          lmsgA <= 1'b0;
-          decrecA <= 1'b0;
-          dectraA <= 1'b0;
-          elevrecbA <= 1'b0;
-          hardsyncA <= 1'b0;
-          resetdstA <= 1'b1;
-          resetstfA <= 1'b1;
-          inccountA <= 1'b1;
-          rescountA <= 1'b1;
-          setrmlenoA <= 0;
-          actvrmlnA <= 1'b0;
-          resrmlenA <= 1'b1;
-          ackerror_setA <= 2'b10;
-          transmitter_setA <= 2'b10;
-          receiver_setA <= 2'b11;
-          error_setA <= 2'b10;
-          first_setA <= 2'b10;
-          activatefastA <= 1'b0;
-          puffer_setA <= 2'b10;
-          onarbit_setA <= 2'b10;
-          en_zerointcrcA <= 1'b1;
-          crc_shft_outA <= 1'b0;
-          if (smplpointA==1'b1)
-            next_stateA <= rec_flglen_sample;
+          rext_set <= 2'b11;
+          rrtr_set <= 2'b10;
+          actvtcrc <= 1'b0;
+          actvrcrc <= 1'b1;
+          actvtstf <= 1'b0;
+          actvrstf <= 1'b0;
+          actvtsft <= 1'b0;
+          actvrsft <= 1'b1;
+          actvtdct <= 1'b0;
+          actvrdct <= 1'b0;
+          actvtbed <= 1'b0;
+          setbdom <= 1'b0;
+          setbrec <= 1'b0;
+          lcrc <= 1'b0;
+          tshift <= 1'b0;
+          inconerec <= 1'b0;
+          incegtrec <= 1'b0;
+          incegttra <= 1'b0;
+          lmsg <= 1'b0;
+          decrec <= 1'b0;
+          dectra <= 1'b0;
+          elevrecb <= 1'b0;
+          hardsync <= 1'b0;
+          resetdst <= 1'b1;
+          resetstf <= 1'b1;
+          inccount <= 1'b1;
+          rescount <= 1'b1;
+          setrmleno <= 0;
+          actvrmln <= 1'b0;
+          resrmlen <= 1'b1;
+          ackerror_set <= 2'b10;
+          transmitter_set <= 2'b10;
+          receiver_set <= 2'b11;
+          error_set <= 2'b10;
+          first_set <= 2'b10;
+          activatefast <= 1'b0;
+          puffer_set <= 2'b10;
+          onarbit_set <= 2'b10;
+          en_zerointcrc <= 1'b1;
+          crc_shft_out <= 1'b0;
+          if (smplpoint==1'b1)
+            next_state <= rec_flglen_sample;
           else
-            next_stateA <= rec_flglen_shiftextnor;
+            next_state <= rec_flglen_shiftextnor;
         end
       rec_flglen_shiftdlc64 : 
         begin
-          rext_setA <= 2'b00;
-          rrtr_setA <= 2'b00;
-          actvtcrcA <= 1'b0;
-          actvrcrcA <= 1'b1;
-          actvtstfA <= 1'b0;
-          actvrstfA <= 1'b0;
-          actvtsftA <= 1'b0;
-          actvrsftA <= 1'b1;
-          actvtdctA <= 1'b0;
-          actvrdctA <= 1'b0;
-          actvtbedA <= 1'b0;
-          setbdomA <= 1'b0;
-          setbrecA <= 1'b0;
-          lcrcA <= 1'b0;
-          tshiftA <= 1'b0;
-          inconerecA <= 1'b0;
-          incegtrecA <= 1'b0;
-          incegttraA <= 1'b0;
-          lmsgA <= 1'b0;
-          decrecA <= 1'b0;
-          dectraA <= 1'b0;
-          elevrecbA <= 1'b0;
-          hardsyncA <= 1'b0;
-          resetdstA <= 1'b1;
-          resetstfA <= 1'b1;
-          inccountA <= 1'b1;
-          rescountA <= 1'b1;
-          setrmlenoA <= 4;
-          actvrmlnA <= 1'b1;
-          resrmlenA <= 1'b1;
-          ackerror_setA <= 2'b10;
-          transmitter_setA <= 2'b10;
-          receiver_setA <= 2'b11;
-          error_setA <= 2'b10;
-          first_setA <= 2'b10;
-          activatefastA <= 1'b0;
-          puffer_setA <= 2'b10;
-          onarbit_setA <= 2'b10;
-          en_zerointcrcA <= 1'b1;
-          crc_shft_outA <= 1'b0;
-          next_stateA <= rec_flglen_setdlc;
+          rext_set <= 2'b00;
+          rrtr_set <= 2'b00;
+          actvtcrc <= 1'b0;
+          actvrcrc <= 1'b1;
+          actvtstf <= 1'b0;
+          actvrstf <= 1'b0;
+          actvtsft <= 1'b0;
+          actvrsft <= 1'b1;
+          actvtdct <= 1'b0;
+          actvrdct <= 1'b0;
+          actvtbed <= 1'b0;
+          setbdom <= 1'b0;
+          setbrec <= 1'b0;
+          lcrc <= 1'b0;
+          tshift <= 1'b0;
+          inconerec <= 1'b0;
+          incegtrec <= 1'b0;
+          incegttra <= 1'b0;
+          lmsg <= 1'b0;
+          decrec <= 1'b0;
+          dectra <= 1'b0;
+          elevrecb <= 1'b0;
+          hardsync <= 1'b0;
+          resetdst <= 1'b1;
+          resetstf <= 1'b1;
+          inccount <= 1'b1;
+          rescount <= 1'b1;
+          setrmleno <= 4;
+          actvrmln <= 1'b1;
+          resrmlen <= 1'b1;
+          ackerror_set <= 2'b10;
+          transmitter_set <= 2'b10;
+          receiver_set <= 2'b11;
+          error_set <= 2'b10;
+          first_set <= 2'b10;
+          activatefast <= 1'b0;
+          puffer_set <= 2'b10;
+          onarbit_set <= 2'b10;
+          en_zerointcrc <= 1'b1;
+          crc_shft_out <= 1'b0;
+          next_state <= rec_flglen_setdlc;
         end
       rec_flglen_shiftdlc32 : 
         begin
-          rext_setA <= 2'b00;
-          rrtr_setA <= 2'b00;
-          actvtcrcA <= 1'b0;
-          actvrcrcA <= 1'b1;
-          actvtstfA <= 1'b0;
-          actvrstfA <= 1'b0;
-          actvtsftA <= 1'b0;
-          actvrsftA <= 1'b1;
-          actvtdctA <= 1'b0;
-          actvrdctA <= 1'b0;
-          actvtbedA <= 1'b0;
-          setbdomA <= 1'b0;
-          setbrecA <= 1'b0;
-          lcrcA <= 1'b0;
-          tshiftA <= 1'b0;
-          inconerecA <= 1'b0;
-          incegtrecA <= 1'b0;
-          incegttraA <= 1'b0;
-          lmsgA <= 1'b0;
-          decrecA <= 1'b0;
-          dectraA <= 1'b0;
-          elevrecbA <= 1'b0;
-          hardsyncA <= 1'b0;
-          resetdstA <= 1'b1;
-          resetstfA <= 1'b1;
-          inccountA <= 1'b1;
-          rescountA <= 1'b1;
-          setrmlenoA <= 3;
-          actvrmlnA <= 1'b1;
-          resrmlenA <= 1'b1;
-          ackerror_setA <= 2'b10;
-          transmitter_setA <= 2'b10;
-          receiver_setA <= 2'b11;
-          error_setA <= 2'b10;
-          first_setA <= 2'b10;
-          activatefastA <= 1'b0;
-          puffer_setA <= 2'b10;
-          onarbit_setA <= 2'b10;
-          en_zerointcrcA <= 1'b1;
-          crc_shft_outA <= 1'b0;
-          next_stateA <= rec_flglen_setdlc;
+          rext_set <= 2'b00;
+          rrtr_set <= 2'b00;
+          actvtcrc <= 1'b0;
+          actvrcrc <= 1'b1;
+          actvtstf <= 1'b0;
+          actvrstf <= 1'b0;
+          actvtsft <= 1'b0;
+          actvrsft <= 1'b1;
+          actvtdct <= 1'b0;
+          actvrdct <= 1'b0;
+          actvtbed <= 1'b0;
+          setbdom <= 1'b0;
+          setbrec <= 1'b0;
+          lcrc <= 1'b0;
+          tshift <= 1'b0;
+          inconerec <= 1'b0;
+          incegtrec <= 1'b0;
+          incegttra <= 1'b0;
+          lmsg <= 1'b0;
+          decrec <= 1'b0;
+          dectra <= 1'b0;
+          elevrecb <= 1'b0;
+          hardsync <= 1'b0;
+          resetdst <= 1'b1;
+          resetstf <= 1'b1;
+          inccount <= 1'b1;
+          rescount <= 1'b1;
+          setrmleno <= 3;
+          actvrmln <= 1'b1;
+          resrmlen <= 1'b1;
+          ackerror_set <= 2'b10;
+          transmitter_set <= 2'b10;
+          receiver_set <= 2'b11;
+          error_set <= 2'b10;
+          first_set <= 2'b10;
+          activatefast <= 1'b0;
+          puffer_set <= 2'b10;
+          onarbit_set <= 2'b10;
+          en_zerointcrc <= 1'b1;
+          crc_shft_out <= 1'b0;
+          next_state <= rec_flglen_setdlc;
         end
       rec_flglen_shiftdlc16 : 
         begin
-          rext_setA <= 2'b00;
-          rrtr_setA <= 2'b00;
-          actvtcrcA <= 1'b0;
-          actvrcrcA <= 1'b1;
-          actvtstfA <= 1'b0;
-          actvrstfA <= 1'b0;
-          actvtsftA <= 1'b0;
-          actvrsftA <= 1'b1;
-          actvtdctA <= 1'b0;
-          actvrdctA <= 1'b0;
-          actvtbedA <= 1'b0;
-          setbdomA <= 1'b0;
-          setbrecA <= 1'b0;
-          lcrcA <= 1'b0;
-          tshiftA <= 1'b0;
-          inconerecA <= 1'b0;
-          incegtrecA <= 1'b0;
-          incegttraA <= 1'b0;
-          lmsgA <= 1'b0;
-          decrecA <= 1'b0;
-          dectraA <= 1'b0;
-          elevrecbA <= 1'b0;
-          hardsyncA <= 1'b0;
-          resetdstA <= 1'b1;
-          resetstfA <= 1'b1;
-          inccountA <= 1'b1;
-          rescountA <= 1'b1;
-          setrmlenoA <= 2;
-          actvrmlnA <= 1'b1;
-          resrmlenA <= 1'b1;
-          ackerror_setA <= 2'b10;
-          transmitter_setA <= 2'b10;
-          receiver_setA <= 2'b11;
-          error_setA <= 2'b10;
-          first_setA <= 2'b10;
-          activatefastA <= 1'b0;
-          puffer_setA <= 2'b10;
-          onarbit_setA <= 2'b10;
-          en_zerointcrcA <= 1'b1;
-          crc_shft_outA <= 1'b0;
-          next_stateA <= rec_flglen_setdlc;
+          rext_set <= 2'b00;
+          rrtr_set <= 2'b00;
+          actvtcrc <= 1'b0;
+          actvrcrc <= 1'b1;
+          actvtstf <= 1'b0;
+          actvrstf <= 1'b0;
+          actvtsft <= 1'b0;
+          actvrsft <= 1'b1;
+          actvtdct <= 1'b0;
+          actvrdct <= 1'b0;
+          actvtbed <= 1'b0;
+          setbdom <= 1'b0;
+          setbrec <= 1'b0;
+          lcrc <= 1'b0;
+          tshift <= 1'b0;
+          inconerec <= 1'b0;
+          incegtrec <= 1'b0;
+          incegttra <= 1'b0;
+          lmsg <= 1'b0;
+          decrec <= 1'b0;
+          dectra <= 1'b0;
+          elevrecb <= 1'b0;
+          hardsync <= 1'b0;
+          resetdst <= 1'b1;
+          resetstf <= 1'b1;
+          inccount <= 1'b1;
+          rescount <= 1'b1;
+          setrmleno <= 2;
+          actvrmln <= 1'b1;
+          resrmlen <= 1'b1;
+          ackerror_set <= 2'b10;
+          transmitter_set <= 2'b10;
+          receiver_set <= 2'b11;
+          error_set <= 2'b10;
+          first_set <= 2'b10;
+          activatefast <= 1'b0;
+          puffer_set <= 2'b10;
+          onarbit_set <= 2'b10;
+          en_zerointcrc <= 1'b1;
+          crc_shft_out <= 1'b0;
+          next_state <= rec_flglen_setdlc;
         end
       rec_flglen_shiftdlc8 : 
         begin
-          rext_setA <= 2'b00;
-          rrtr_setA <= 2'b00;
-          actvtcrcA <= 1'b0;
-          actvrcrcA <= 1'b1;
-          actvtstfA <= 1'b0;
-          actvrstfA <= 1'b0;
-          actvtsftA <= 1'b0;
-          actvrsftA <= 1'b1;
-          actvtdctA <= 1'b0;
-          actvrdctA <= 1'b0;
-          actvtbedA <= 1'b0;
-          setbdomA <= 1'b0;
-          setbrecA <= 1'b0;
-          lcrcA <= 1'b0;
-          tshiftA <= 1'b0;
-          inconerecA <= 1'b0;
-          incegtrecA <= 1'b0;
-          incegttraA <= 1'b0;
-          lmsgA <= 1'b0;
-          decrecA <= 1'b0;
-          dectraA <= 1'b0;
-          elevrecbA <= 1'b0;
-          hardsyncA <= 1'b0;
-          resetdstA <= 1'b1;
-          resetstfA <= 1'b1;
-          inccountA <= 1'b1;
-          rescountA <= 1'b1;
-          setrmlenoA <= 1;
-          actvrmlnA <= 1'b1;
-          resrmlenA <= 1'b1;
-          ackerror_setA <= 2'b10;
-          transmitter_setA <= 2'b10;
-          receiver_setA <= 2'b11;
-          error_setA <= 2'b10;
-          first_setA <= 2'b10;
-          activatefastA <= 1'b0;
-          puffer_setA <= 2'b10;
-          onarbit_setA <= 2'b10;
-          en_zerointcrcA <= 1'b1;
-          crc_shft_outA <= 1'b0;
-          next_stateA <= rec_flglen_setdlc;
+          rext_set <= 2'b00;
+          rrtr_set <= 2'b00;
+          actvtcrc <= 1'b0;
+          actvrcrc <= 1'b1;
+          actvtstf <= 1'b0;
+          actvrstf <= 1'b0;
+          actvtsft <= 1'b0;
+          actvrsft <= 1'b1;
+          actvtdct <= 1'b0;
+          actvrdct <= 1'b0;
+          actvtbed <= 1'b0;
+          setbdom <= 1'b0;
+          setbrec <= 1'b0;
+          lcrc <= 1'b0;
+          tshift <= 1'b0;
+          inconerec <= 1'b0;
+          incegtrec <= 1'b0;
+          incegttra <= 1'b0;
+          lmsg <= 1'b0;
+          decrec <= 1'b0;
+          dectra <= 1'b0;
+          elevrecb <= 1'b0;
+          hardsync <= 1'b0;
+          resetdst <= 1'b1;
+          resetstf <= 1'b1;
+          inccount <= 1'b1;
+          rescount <= 1'b1;
+          setrmleno <= 1;
+          actvrmln <= 1'b1;
+          resrmlen <= 1'b1;
+          ackerror_set <= 2'b10;
+          transmitter_set <= 2'b10;
+          receiver_set <= 2'b11;
+          error_set <= 2'b10;
+          first_set <= 2'b10;
+          activatefast <= 1'b0;
+          puffer_set <= 2'b10;
+          onarbit_set <= 2'b10;
+          en_zerointcrc <= 1'b1;
+          crc_shft_out <= 1'b0;
+          next_state <= rec_flglen_setdlc;
         end
       rec_flglen_setdlc : 
         begin
-          rext_setA <= 2'b00;
-          rrtr_setA <= 2'b00;
-          actvtcrcA <= 1'b0;
-          actvrcrcA <= 1'b0;
-          actvtstfA <= 1'b0;
-          actvrstfA <= 1'b0;
-          actvtsftA <= 1'b0;
-          actvrsftA <= 1'b0;
-          actvtdctA <= 1'b0;
-          actvrdctA <= 1'b0;
-          actvtbedA <= 1'b0;
-          setbdomA <= 1'b0;
-          setbrecA <= 1'b0;
-          lcrcA <= 1'b0;
-          tshiftA <= 1'b0;
-          inconerecA <= 1'b0;
-          incegtrecA <= 1'b0;
-          incegttraA <= 1'b0;
-          lmsgA <= 1'b0;
-          decrecA <= 1'b0;
-          dectraA <= 1'b0;
-          elevrecbA <= 1'b0;
-          hardsyncA <= 1'b0;
-          resetdstA <= 1'b1;
-          resetstfA <= 1'b1;
-          inccountA <= 1'b0;
-          rescountA <= 1'b1;
-          setrmlenoA <= 7;
-          actvrmlnA <= 1'b0;
-          resrmlenA <= 1'b1;
-          ackerror_setA <= 2'b10;
-          transmitter_setA <= 2'b10;
-          receiver_setA <= 2'b11;
-          error_setA <= 2'b10;
-          first_setA <= 2'b10;
-          activatefastA <= 1'b0;
-          puffer_setA <= 2'b10;
-          onarbit_setA <= 2'b10;
-          en_zerointcrcA <= 1'b1;
-          crc_shft_outA <= 1'b0;
-          if (smplpointA==1'b1&&(! ( (countA==19&&rextA==1'b0)||(countA==39&&rextA==1'b1) ) ))
-            next_stateA <= rec_flglen_sample;
+          rext_set <= 2'b00;
+          rrtr_set <= 2'b00;
+          actvtcrc <= 1'b0;
+          actvrcrc <= 1'b0;
+          actvtstf <= 1'b0;
+          actvrstf <= 1'b0;
+          actvtsft <= 1'b0;
+          actvrsft <= 1'b0;
+          actvtdct <= 1'b0;
+          actvrdct <= 1'b0;
+          actvtbed <= 1'b0;
+          setbdom <= 1'b0;
+          setbrec <= 1'b0;
+          lcrc <= 1'b0;
+          tshift <= 1'b0;
+          inconerec <= 1'b0;
+          incegtrec <= 1'b0;
+          incegttra <= 1'b0;
+          lmsg <= 1'b0;
+          decrec <= 1'b0;
+          dectra <= 1'b0;
+          elevrecb <= 1'b0;
+          hardsync <= 1'b0;
+          resetdst <= 1'b1;
+          resetstf <= 1'b1;
+          inccount <= 1'b0;
+          rescount <= 1'b1;
+          setrmleno <= 7;
+          actvrmln <= 1'b0;
+          resrmlen <= 1'b1;
+          ackerror_set <= 2'b10;
+          transmitter_set <= 2'b10;
+          receiver_set <= 2'b11;
+          error_set <= 2'b10;
+          first_set <= 2'b10;
+          activatefast <= 1'b0;
+          puffer_set <= 2'b10;
+          onarbit_set <= 2'b10;
+          en_zerointcrc <= 1'b1;
+          crc_shft_out <= 1'b0;
+          if (smplpoint==1'b1&&(! ( (count==19&&rext==1'b0)||(count==39&&rext==1'b1) ) ))
+            next_state <= rec_flglen_sample;
           else
-            if (smplpointA==1'b1&&((countA==19&&rextA==1'b0)||(countA==39&&rextA==1'b1))&&rrtrA==1'b0)
-              next_stateA <= rec_acptdat_sample;
+            if (smplpoint==1'b1&&((count==19&&rext==1'b0)||(count==39&&rext==1'b1))&&rrtr==1'b0)
+              next_state <= rec_acptdat_sample;
             else
-              next_stateA <= rec_flglen_setdlc;
+              next_state <= rec_flglen_setdlc;
         end
       rec_flglen_shiftextrtr : 
         begin
-          rext_setA <= 2'b00;
-          rrtr_setA <= 2'b11;
-          actvtcrcA <= 1'b0;
-          actvrcrcA <= 1'b1;
-          actvtstfA <= 1'b0;
-          actvrstfA <= 1'b0;
-          actvtsftA <= 1'b0;
-          actvrsftA <= 1'b1;
-          actvtdctA <= 1'b0;
-          actvrdctA <= 1'b0;
-          actvtbedA <= 1'b0;
-          setbdomA <= 1'b0;
-          setbrecA <= 1'b0;
-          lcrcA <= 1'b0;
-          tshiftA <= 1'b0;
-          inconerecA <= 1'b0;
-          incegtrecA <= 1'b0;
-          incegttraA <= 1'b0;
-          lmsgA <= 1'b0;
-          decrecA <= 1'b0;
-          dectraA <= 1'b0;
-          elevrecbA <= 1'b0;
-          hardsyncA <= 1'b0;
-          resetdstA <= 1'b1;
-          resetstfA <= 1'b1;
-          inccountA <= 1'b1;
-          rescountA <= 1'b1;
-          setrmlenoA <= 0;
-          actvrmlnA <= 1'b0;
-          resrmlenA <= 1'b1;
-          ackerror_setA <= 2'b10;
-          transmitter_setA <= 2'b10;
-          receiver_setA <= 2'b11;
-          error_setA <= 2'b10;
-          first_setA <= 2'b10;
-          activatefastA <= 1'b0;
-          puffer_setA <= 2'b10;
-          onarbit_setA <= 2'b10;
-          en_zerointcrcA <= 1'b1;
-          crc_shft_outA <= 1'b0;
-          if (smplpointA==1'b1)
-            next_stateA <= rec_flglen_sample;
+          rext_set <= 2'b00;
+          rrtr_set <= 2'b11;
+          actvtcrc <= 1'b0;
+          actvrcrc <= 1'b1;
+          actvtstf <= 1'b0;
+          actvrstf <= 1'b0;
+          actvtsft <= 1'b0;
+          actvrsft <= 1'b1;
+          actvtdct <= 1'b0;
+          actvrdct <= 1'b0;
+          actvtbed <= 1'b0;
+          setbdom <= 1'b0;
+          setbrec <= 1'b0;
+          lcrc <= 1'b0;
+          tshift <= 1'b0;
+          inconerec <= 1'b0;
+          incegtrec <= 1'b0;
+          incegttra <= 1'b0;
+          lmsg <= 1'b0;
+          decrec <= 1'b0;
+          dectra <= 1'b0;
+          elevrecb <= 1'b0;
+          hardsync <= 1'b0;
+          resetdst <= 1'b1;
+          resetstf <= 1'b1;
+          inccount <= 1'b1;
+          rescount <= 1'b1;
+          setrmleno <= 0;
+          actvrmln <= 1'b0;
+          resrmlen <= 1'b1;
+          ackerror_set <= 2'b10;
+          transmitter_set <= 2'b10;
+          receiver_set <= 2'b11;
+          error_set <= 2'b10;
+          first_set <= 2'b10;
+          activatefast <= 1'b0;
+          puffer_set <= 2'b10;
+          onarbit_set <= 2'b10;
+          en_zerointcrc <= 1'b1;
+          crc_shft_out <= 1'b0;
+          if (smplpoint==1'b1)
+            next_state <= rec_flglen_sample;
           else
-            next_stateA <= rec_flglen_shiftextrtr;
+            next_state <= rec_flglen_shiftextrtr;
         end
       rec_flglen_noshift : 
         begin
-          rext_setA <= 2'b00;
-          rrtr_setA <= 2'b00;
-          actvtcrcA <= 1'b0;
-          actvrcrcA <= 1'b0;
-          actvtstfA <= 1'b0;
-          actvrstfA <= 1'b0;
-          actvtsftA <= 1'b0;
-          actvrsftA <= 1'b0;
-          actvtdctA <= 1'b0;
-          actvrdctA <= 1'b0;
-          actvtbedA <= 1'b0;
-          setbdomA <= 1'b0;
-          setbrecA <= 1'b0;
-          lcrcA <= 1'b0;
-          tshiftA <= 1'b0;
-          inconerecA <= 1'b0;
-          incegtrecA <= 1'b0;
-          incegttraA <= 1'b0;
-          lmsgA <= 1'b0;
-          decrecA <= 1'b0;
-          dectraA <= 1'b0;
-          elevrecbA <= 1'b0;
-          hardsyncA <= 1'b0;
-          resetdstA <= 1'b1;
-          resetstfA <= 1'b1;
-          inccountA <= 1'b0;
-          rescountA <= 1'b1;
-          setrmlenoA <= 0;
-          actvrmlnA <= 1'b0;
-          resrmlenA <= 1'b1;
-          ackerror_setA <= 2'b10;
-          transmitter_setA <= 2'b10;
-          receiver_setA <= 2'b11;
-          error_setA <= 2'b10;
-          first_setA <= 2'b10;
-          activatefastA <= 1'b0;
-          puffer_setA <= 2'b10;
-          onarbit_setA <= 2'b10;
-          en_zerointcrcA <= 1'b1;
-          crc_shft_outA <= 1'b0;
-          if (smplpointA==1'b1)
-            next_stateA <= rec_flglen_sample;
+          rext_set <= 2'b00;
+          rrtr_set <= 2'b00;
+          actvtcrc <= 1'b0;
+          actvrcrc <= 1'b0;
+          actvtstf <= 1'b0;
+          actvrstf <= 1'b0;
+          actvtsft <= 1'b0;
+          actvrsft <= 1'b0;
+          actvtdct <= 1'b0;
+          actvrdct <= 1'b0;
+          actvtbed <= 1'b0;
+          setbdom <= 1'b0;
+          setbrec <= 1'b0;
+          lcrc <= 1'b0;
+          tshift <= 1'b0;
+          inconerec <= 1'b0;
+          incegtrec <= 1'b0;
+          incegttra <= 1'b0;
+          lmsg <= 1'b0;
+          decrec <= 1'b0;
+          dectra <= 1'b0;
+          elevrecb <= 1'b0;
+          hardsync <= 1'b0;
+          resetdst <= 1'b1;
+          resetstf <= 1'b1;
+          inccount <= 1'b0;
+          rescount <= 1'b1;
+          setrmleno <= 0;
+          actvrmln <= 1'b0;
+          resrmlen <= 1'b1;
+          ackerror_set <= 2'b10;
+          transmitter_set <= 2'b10;
+          receiver_set <= 2'b11;
+          error_set <= 2'b10;
+          first_set <= 2'b10;
+          activatefast <= 1'b0;
+          puffer_set <= 2'b10;
+          onarbit_set <= 2'b10;
+          en_zerointcrc <= 1'b1;
+          crc_shft_out <= 1'b0;
+          if (smplpoint==1'b1)
+            next_state <= rec_flglen_sample;
           else
-            next_stateA <= rec_flglen_noshift;
+            next_state <= rec_flglen_noshift;
         end
       rec_acptdat_sample : 
         begin
-          rext_setA <= 2'b00;
-          rrtr_setA <= 2'b00;
-          actvtcrcA <= 1'b0;
-          actvrcrcA <= 1'b0;
-          actvtstfA <= 1'b0;
-          actvrstfA <= 1'b1;
-          actvtsftA <= 1'b0;
-          actvrsftA <= 1'b0;
-          actvtdctA <= 1'b0;
-          actvrdctA <= 1'b0;
-          actvtbedA <= 1'b0;
-          setbdomA <= 1'b0;
-          setbrecA <= 1'b0;
-          lcrcA <= 1'b0;
-          tshiftA <= 1'b0;
-          inconerecA <= 1'b0;
-          incegtrecA <= 1'b0;
-          incegttraA <= 1'b0;
-          lmsgA <= 1'b0;
-          decrecA <= 1'b0;
-          dectraA <= 1'b0;
-          elevrecbA <= 1'b0;
-          hardsyncA <= 1'b0;
-          resetdstA <= 1'b1;
-          resetstfA <= 1'b1;
-          inccountA <= 1'b0;
-          rescountA <= 1'b1;
-          setrmlenoA <= 0;
-          actvrmlnA <= 1'b0;
-          resrmlenA <= 1'b1;
-          ackerror_setA <= 2'b10;
-          transmitter_setA <= 2'b10;
-          receiver_setA <= 2'b11;
-          error_setA <= 2'b10;
-          first_setA <= 2'b10;
-          activatefastA <= 1'b0;
-          puffer_setA <= 2'b10;
-          onarbit_setA <= 2'b10;
-          en_zerointcrcA <= 1'b1;
-          crc_shft_outA <= 1'b0;
-          if (stuffrA==1'b1&&stferrorA==1'b0)
-            next_stateA <= rec_acptdat_noshift;
+          rext_set <= 2'b00;
+          rrtr_set <= 2'b00;
+          actvtcrc <= 1'b0;
+          actvrcrc <= 1'b0;
+          actvtstf <= 1'b0;
+          actvrstf <= 1'b1;
+          actvtsft <= 1'b0;
+          actvrsft <= 1'b0;
+          actvtdct <= 1'b0;
+          actvrdct <= 1'b0;
+          actvtbed <= 1'b0;
+          setbdom <= 1'b0;
+          setbrec <= 1'b0;
+          lcrc <= 1'b0;
+          tshift <= 1'b0;
+          inconerec <= 1'b0;
+          incegtrec <= 1'b0;
+          incegttra <= 1'b0;
+          lmsg <= 1'b0;
+          decrec <= 1'b0;
+          dectra <= 1'b0;
+          elevrecb <= 1'b0;
+          hardsync <= 1'b0;
+          resetdst <= 1'b1;
+          resetstf <= 1'b1;
+          inccount <= 1'b0;
+          rescount <= 1'b1;
+          setrmleno <= 0;
+          actvrmln <= 1'b0;
+          resrmlen <= 1'b1;
+          ackerror_set <= 2'b10;
+          transmitter_set <= 2'b10;
+          receiver_set <= 2'b11;
+          error_set <= 2'b10;
+          first_set <= 2'b10;
+          activatefast <= 1'b0;
+          puffer_set <= 2'b10;
+          onarbit_set <= 2'b10;
+          en_zerointcrc <= 1'b1;
+          crc_shft_out <= 1'b0;
+          if (stuffr==1'b1&&stferror==1'b0)
+            next_state <= rec_acptdat_noshift;
           else
-            if (stferrorA==1'b1&&erroractivA==1'b1)
-              next_stateA <= erroractiv_firstdom;
+            if (stferror==1'b1&&erroractiv==1'b1)
+              next_state <= erroractiv_firstdom;
             else
-              if (stferrorA==1'b1&&errorpassivA==1'b1)
-                next_stateA <= errorpassiv_firstrec;
+              if (stferror==1'b1&&errorpassiv==1'b1)
+                next_state <= errorpassiv_firstrec;
               else
-                next_stateA <= rec_acptdat_shifting;
+                next_state <= rec_acptdat_shifting;
         end
       rec_acptdat_shifting : 
         begin
-          rext_setA <= 2'b00;
-          rrtr_setA <= 2'b00;
-          actvtcrcA <= 1'b0;
-          actvrcrcA <= 1'b1;
-          actvtstfA <= 1'b0;
-          actvrstfA <= 1'b0;
-          actvtsftA <= 1'b0;
-          actvrsftA <= 1'b1;
-          actvtdctA <= 1'b0;
-          actvrdctA <= 1'b0;
-          actvtbedA <= 1'b0;
-          setbdomA <= 1'b0;
-          setbrecA <= 1'b0;
-          lcrcA <= 1'b0;
-          tshiftA <= 1'b0;
-          inconerecA <= 1'b0;
-          incegtrecA <= 1'b0;
-          incegttraA <= 1'b0;
-          lmsgA <= 1'b0;
-          decrecA <= 1'b0;
-          dectraA <= 1'b0;
-          elevrecbA <= 1'b0;
-          hardsyncA <= 1'b0;
-          resetdstA <= 1'b1;
-          resetstfA <= 1'b1;
-          inccountA <= 1'b1;
-          rescountA <= 1'b1;
-          setrmlenoA <= 0;
-          actvrmlnA <= 1'b0;
-          resrmlenA <= 1'b1;
-          ackerror_setA <= 2'b10;
-          transmitter_setA <= 2'b10;
-          receiver_setA <= 2'b11;
-          error_setA <= 2'b10;
-          first_setA <= 2'b10;
-          activatefastA <= 1'b0;
-          puffer_setA <= 2'b10;
-          onarbit_setA <= 2'b10;
-          en_zerointcrcA <= 1'b1;
-          crc_shft_outA <= 1'b0;
-          if (smplpointA==1'b1&&startrcrcA==1'b0)
-            next_stateA <= rec_acptdat_sample;
+          rext_set <= 2'b00;
+          rrtr_set <= 2'b00;
+          actvtcrc <= 1'b0;
+          actvrcrc <= 1'b1;
+          actvtstf <= 1'b0;
+          actvrstf <= 1'b0;
+          actvtsft <= 1'b0;
+          actvrsft <= 1'b1;
+          actvtdct <= 1'b0;
+          actvrdct <= 1'b0;
+          actvtbed <= 1'b0;
+          setbdom <= 1'b0;
+          setbrec <= 1'b0;
+          lcrc <= 1'b0;
+          tshift <= 1'b0;
+          inconerec <= 1'b0;
+          incegtrec <= 1'b0;
+          incegttra <= 1'b0;
+          lmsg <= 1'b0;
+          decrec <= 1'b0;
+          dectra <= 1'b0;
+          elevrecb <= 1'b0;
+          hardsync <= 1'b0;
+          resetdst <= 1'b1;
+          resetstf <= 1'b1;
+          inccount <= 1'b1;
+          rescount <= 1'b1;
+          setrmleno <= 0;
+          actvrmln <= 1'b0;
+          resrmlen <= 1'b1;
+          ackerror_set <= 2'b10;
+          transmitter_set <= 2'b10;
+          receiver_set <= 2'b11;
+          error_set <= 2'b10;
+          first_set <= 2'b10;
+          activatefast <= 1'b0;
+          puffer_set <= 2'b10;
+          onarbit_set <= 2'b10;
+          en_zerointcrc <= 1'b1;
+          crc_shft_out <= 1'b0;
+          if (smplpoint==1'b1&&startrcrc==1'b0)
+            next_state <= rec_acptdat_sample;
           else
-            if (startrcrcA==1'b1)
-              next_stateA <= rec_acptdat_lastshift;
+            if (startrcrc==1'b1)
+              next_state <= rec_acptdat_lastshift;
             else
-              next_stateA <= rec_acptdat_shifting;
+              next_state <= rec_acptdat_shifting;
         end
       rec_acptdat_noshift : 
         begin
-          rext_setA <= 2'b00;
-          rrtr_setA <= 2'b00;
-          actvtcrcA <= 1'b0;
-          actvrcrcA <= 1'b0;
-          actvtstfA <= 1'b0;
-          actvrstfA <= 1'b0;
-          actvtsftA <= 1'b0;
-          actvrsftA <= 1'b0;
-          actvtdctA <= 1'b0;
-          actvrdctA <= 1'b0;
-          actvtbedA <= 1'b0;
-          setbdomA <= 1'b0;
-          setbrecA <= 1'b0;
-          lcrcA <= 1'b0;
-          tshiftA <= 1'b0;
-          inconerecA <= 1'b0;
-          incegtrecA <= 1'b0;
-          incegttraA <= 1'b0;
-          lmsgA <= 1'b0;
-          decrecA <= 1'b0;
-          dectraA <= 1'b0;
-          elevrecbA <= 1'b0;
-          hardsyncA <= 1'b0;
-          resetdstA <= 1'b1;
-          resetstfA <= 1'b1;
-          inccountA <= 1'b0;
-          rescountA <= 1'b1;
-          setrmlenoA <= 0;
-          actvrmlnA <= 1'b0;
-          resrmlenA <= 1'b1;
-          ackerror_setA <= 2'b10;
-          transmitter_setA <= 2'b10;
-          receiver_setA <= 2'b11;
-          error_setA <= 2'b10;
-          first_setA <= 2'b10;
-          activatefastA <= 1'b0;
-          puffer_setA <= 2'b10;
-          onarbit_setA <= 2'b10;
-          en_zerointcrcA <= 1'b1;
-          crc_shft_outA <= 1'b0;
-          if (smplpointA==1'b1)
-            next_stateA <= rec_acptdat_sample;
+          rext_set <= 2'b00;
+          rrtr_set <= 2'b00;
+          actvtcrc <= 1'b0;
+          actvrcrc <= 1'b0;
+          actvtstf <= 1'b0;
+          actvrstf <= 1'b0;
+          actvtsft <= 1'b0;
+          actvrsft <= 1'b0;
+          actvtdct <= 1'b0;
+          actvrdct <= 1'b0;
+          actvtbed <= 1'b0;
+          setbdom <= 1'b0;
+          setbrec <= 1'b0;
+          lcrc <= 1'b0;
+          tshift <= 1'b0;
+          inconerec <= 1'b0;
+          incegtrec <= 1'b0;
+          incegttra <= 1'b0;
+          lmsg <= 1'b0;
+          decrec <= 1'b0;
+          dectra <= 1'b0;
+          elevrecb <= 1'b0;
+          hardsync <= 1'b0;
+          resetdst <= 1'b1;
+          resetstf <= 1'b1;
+          inccount <= 1'b0;
+          rescount <= 1'b1;
+          setrmleno <= 0;
+          actvrmln <= 1'b0;
+          resrmlen <= 1'b1;
+          ackerror_set <= 2'b10;
+          transmitter_set <= 2'b10;
+          receiver_set <= 2'b11;
+          error_set <= 2'b10;
+          first_set <= 2'b10;
+          activatefast <= 1'b0;
+          puffer_set <= 2'b10;
+          onarbit_set <= 2'b10;
+          en_zerointcrc <= 1'b1;
+          crc_shft_out <= 1'b0;
+          if (smplpoint==1'b1)
+            next_state <= rec_acptdat_sample;
           else
-            next_stateA <= rec_acptdat_noshift;
+            next_state <= rec_acptdat_noshift;
         end
       rec_acptdat_lastshift : 
         begin
-          rext_setA <= 2'b00;
-          rrtr_setA <= 2'b00;
-          actvtcrcA <= 1'b0;
-          actvrcrcA <= 1'b1;
-          actvtstfA <= 1'b0;
-          actvrstfA <= 1'b0;
-          actvtsftA <= 1'b0;
-          actvrsftA <= 1'b1;
-          actvtdctA <= 1'b0;
-          actvrdctA <= 1'b0;
-          actvtbedA <= 1'b0;
-          setbdomA <= 1'b0;
-          setbrecA <= 1'b0;
-          lcrcA <= 1'b0;
-          tshiftA <= 1'b0;
-          inconerecA <= 1'b0;
-          incegtrecA <= 1'b0;
-          incegttraA <= 1'b0;
-          lmsgA <= 1'b0;
-          decrecA <= 1'b0;
-          dectraA <= 1'b0;
-          elevrecbA <= 1'b0;
-          hardsyncA <= 1'b0;
-          resetdstA <= 1'b1;
-          resetstfA <= 1'b1;
-          inccountA <= 1'b0;
-          rescountA <= 1'b0;
-          setrmlenoA <= 0;
-          actvrmlnA <= 1'b0;
-          resrmlenA <= 1'b1;
-          ackerror_setA <= 2'b10;
-          transmitter_setA <= 2'b10;
-          receiver_setA <= 2'b11;
-          error_setA <= 2'b10;
-          first_setA <= 2'b10;
-          activatefastA <= 1'b0;
-          puffer_setA <= 2'b10;
-          onarbit_setA <= 2'b10;
-          en_zerointcrcA <= 1'b1;
-          crc_shft_outA <= 1'b0;
-          if (smplpointA==1'b1)
-            next_stateA <= rec_crc_rescnt;
+          rext_set <= 2'b00;
+          rrtr_set <= 2'b00;
+          actvtcrc <= 1'b0;
+          actvrcrc <= 1'b1;
+          actvtstf <= 1'b0;
+          actvrstf <= 1'b0;
+          actvtsft <= 1'b0;
+          actvrsft <= 1'b1;
+          actvtdct <= 1'b0;
+          actvrdct <= 1'b0;
+          actvtbed <= 1'b0;
+          setbdom <= 1'b0;
+          setbrec <= 1'b0;
+          lcrc <= 1'b0;
+          tshift <= 1'b0;
+          inconerec <= 1'b0;
+          incegtrec <= 1'b0;
+          incegttra <= 1'b0;
+          lmsg <= 1'b0;
+          decrec <= 1'b0;
+          dectra <= 1'b0;
+          elevrecb <= 1'b0;
+          hardsync <= 1'b0;
+          resetdst <= 1'b1;
+          resetstf <= 1'b1;
+          inccount <= 1'b0;
+          rescount <= 1'b0;
+          setrmleno <= 0;
+          actvrmln <= 1'b0;
+          resrmlen <= 1'b1;
+          ackerror_set <= 2'b10;
+          transmitter_set <= 2'b10;
+          receiver_set <= 2'b11;
+          error_set <= 2'b10;
+          first_set <= 2'b10;
+          activatefast <= 1'b0;
+          puffer_set <= 2'b10;
+          onarbit_set <= 2'b10;
+          en_zerointcrc <= 1'b1;
+          crc_shft_out <= 1'b0;
+          if (smplpoint==1'b1)
+            next_state <= rec_crc_rescnt;
           else
-            next_stateA <= rec_acptdat_lastshift;
+            next_state <= rec_acptdat_lastshift;
         end
       rec_crc_rescnt : 
         begin
-          rext_setA <= 2'b00;
-          rrtr_setA <= 2'b00;
-          actvtcrcA <= 1'b0;
-          actvrcrcA <= 1'b0;
-          actvtstfA <= 1'b0;
-          actvrstfA <= 1'b1;
-          actvtsftA <= 1'b0;
-          actvrsftA <= 1'b0;
-          actvtdctA <= 1'b0;
-          actvrdctA <= 1'b0;
-          actvtbedA <= 1'b0;
-          setbdomA <= 1'b0;
-          setbrecA <= 1'b0;
-          lcrcA <= 1'b1;
-          tshiftA <= 1'b0;
-          inconerecA <= 1'b0;
-          incegtrecA <= 1'b0;
-          incegttraA <= 1'b0;
-          lmsgA <= 1'b0;
-          decrecA <= 1'b0;
-          dectraA <= 1'b0;
-          elevrecbA <= 1'b0;
-          hardsyncA <= 1'b0;
-          resetdstA <= 1'b1;
-          resetstfA <= 1'b1;
-          inccountA <= 1'b0;
-          rescountA <= 1'b0;
-          setrmlenoA <= 0;
-          actvrmlnA <= 1'b0;
-          resrmlenA <= 1'b1;
-          ackerror_setA <= 2'b10;
-          transmitter_setA <= 2'b10;
-          receiver_setA <= 2'b11;
-          error_setA <= 2'b10;
-          first_setA <= 2'b10;
-          activatefastA <= 1'b1;
-          puffer_setA <= 2'b10;
-          onarbit_setA <= 2'b10;
-          en_zerointcrcA <= 1'b1;
-          crc_shft_outA <= 1'b0;
-          next_stateA <= rec_crc_sample;
+          rext_set <= 2'b00;
+          rrtr_set <= 2'b00;
+          actvtcrc <= 1'b0;
+          actvrcrc <= 1'b0;
+          actvtstf <= 1'b0;
+          actvrstf <= 1'b1;
+          actvtsft <= 1'b0;
+          actvrsft <= 1'b0;
+          actvtdct <= 1'b0;
+          actvrdct <= 1'b0;
+          actvtbed <= 1'b0;
+          setbdom <= 1'b0;
+          setbrec <= 1'b0;
+          lcrc <= 1'b1;
+          tshift <= 1'b0;
+          inconerec <= 1'b0;
+          incegtrec <= 1'b0;
+          incegttra <= 1'b0;
+          lmsg <= 1'b0;
+          decrec <= 1'b0;
+          dectra <= 1'b0;
+          elevrecb <= 1'b0;
+          hardsync <= 1'b0;
+          resetdst <= 1'b1;
+          resetstf <= 1'b1;
+          inccount <= 1'b0;
+          rescount <= 1'b0;
+          setrmleno <= 0;
+          actvrmln <= 1'b0;
+          resrmlen <= 1'b1;
+          ackerror_set <= 2'b10;
+          transmitter_set <= 2'b10;
+          receiver_set <= 2'b11;
+          error_set <= 2'b10;
+          first_set <= 2'b10;
+          activatefast <= 1'b1;
+          puffer_set <= 2'b10;
+          onarbit_set <= 2'b10;
+          en_zerointcrc <= 1'b1;
+          crc_shft_out <= 1'b0;
+          next_state <= rec_crc_sample;
         end
       rec_crc_sample : 
         begin
-          rext_setA <= 2'b00;
-          rrtr_setA <= 2'b00;
-          actvtcrcA <= 1'b0;
-          actvrcrcA <= 1'b0;
-          actvtstfA <= 1'b0;
-          actvrstfA <= 1'b1;
-          actvtsftA <= 1'b0;
-          actvrsftA <= 1'b0;
-          actvtdctA <= 1'b0;
-          actvrdctA <= 1'b0;
-          actvtbedA <= 1'b0;
-          setbdomA <= 1'b0;
-          setbrecA <= 1'b0;
-          lcrcA <= 1'b1;
-          tshiftA <= 1'b0;
-          inconerecA <= 1'b0;
-          incegtrecA <= 1'b0;
-          incegttraA <= 1'b0;
-          lmsgA <= 1'b0;
-          decrecA <= 1'b0;
-          dectraA <= 1'b0;
-          elevrecbA <= 1'b0;
-          hardsyncA <= 1'b0;
-          resetdstA <= 1'b1;
-          resetstfA <= 1'b1;
-          inccountA <= 1'b0;
-          rescountA <= 1'b1;
-          setrmlenoA <= 0;
-          actvrmlnA <= 1'b0;
-          resrmlenA <= 1'b1;
-          ackerror_setA <= 2'b10;
-          transmitter_setA <= 2'b10;
-          receiver_setA <= 2'b11;
-          error_setA <= 2'b10;
-          first_setA <= 2'b10;
-          activatefastA <= 1'b0;
-          puffer_setA <= 2'b10;
-          onarbit_setA <= 2'b10;
-          en_zerointcrcA <= 1'b1;
-          crc_shft_outA <= 1'b0;
-          if (stuffrA==1'b1&&stferrorA==1'b0)
-            next_stateA <= rec_crc_noshift;
+          rext_set <= 2'b00;
+          rrtr_set <= 2'b00;
+          actvtcrc <= 1'b0;
+          actvrcrc <= 1'b0;
+          actvtstf <= 1'b0;
+          actvrstf <= 1'b1;
+          actvtsft <= 1'b0;
+          actvrsft <= 1'b0;
+          actvtdct <= 1'b0;
+          actvrdct <= 1'b0;
+          actvtbed <= 1'b0;
+          setbdom <= 1'b0;
+          setbrec <= 1'b0;
+          lcrc <= 1'b1;
+          tshift <= 1'b0;
+          inconerec <= 1'b0;
+          incegtrec <= 1'b0;
+          incegttra <= 1'b0;
+          lmsg <= 1'b0;
+          decrec <= 1'b0;
+          dectra <= 1'b0;
+          elevrecb <= 1'b0;
+          hardsync <= 1'b0;
+          resetdst <= 1'b1;
+          resetstf <= 1'b1;
+          inccount <= 1'b0;
+          rescount <= 1'b1;
+          setrmleno <= 0;
+          actvrmln <= 1'b0;
+          resrmlen <= 1'b1;
+          ackerror_set <= 2'b10;
+          transmitter_set <= 2'b10;
+          receiver_set <= 2'b11;
+          error_set <= 2'b10;
+          first_set <= 2'b10;
+          activatefast <= 1'b0;
+          puffer_set <= 2'b10;
+          onarbit_set <= 2'b10;
+          en_zerointcrc <= 1'b1;
+          crc_shft_out <= 1'b0;
+          if (stuffr==1'b1&&stferror==1'b0)
+            next_state <= rec_crc_noshift;
           else
-            if (stferrorA==1'b1&&erroractivA==1'b1)
-              next_stateA <= erroractiv_firstdom;
+            if (stferror==1'b1&&erroractiv==1'b1)
+              next_state <= erroractiv_firstdom;
             else
-              if (stferrorA==1'b1&&errorpassivA==1'b1)
-                next_stateA <= errorpassiv_firstrec;
+              if (stferror==1'b1&&errorpassiv==1'b1)
+                next_state <= errorpassiv_firstrec;
               else
-                if (countA==15)
-                  next_stateA <= rec_ack_recdelim;
+                if (count==15)
+                  next_state <= rec_ack_recdelim;
                 else
-                  next_stateA <= rec_crc_shifting;
+                  next_state <= rec_crc_shifting;
         end
       rec_crc_shifting : 
         begin
-          rext_setA <= 2'b00;
-          rrtr_setA <= 2'b00;
-          actvtcrcA <= 1'b0;
-          actvrcrcA <= 1'b1;
-          actvtstfA <= 1'b0;
-          actvrstfA <= 1'b0;
-          actvtsftA <= 1'b0;
-          actvrsftA <= 1'b1;
-          actvtdctA <= 1'b0;
-          actvrdctA <= 1'b0;
-          actvtbedA <= 1'b0;
-          setbdomA <= 1'b0;
-          setbrecA <= 1'b0;
-          lcrcA <= 1'b1;
-          tshiftA <= 1'b0;
-          inconerecA <= 1'b0;
-          incegtrecA <= 1'b0;
-          incegttraA <= 1'b0;
-          lmsgA <= 1'b0;
-          decrecA <= 1'b0;
-          dectraA <= 1'b0;
-          elevrecbA <= 1'b0;
-          hardsyncA <= 1'b0;
-          resetdstA <= 1'b1;
-          resetstfA <= 1'b1;
-          inccountA <= 1'b1;
-          rescountA <= 1'b1;
-          setrmlenoA <= 0;
-          actvrmlnA <= 1'b0;
-          resrmlenA <= 1'b1;
-          ackerror_setA <= 2'b10;
-          transmitter_setA <= 2'b10;
-          receiver_setA <= 2'b11;
-          error_setA <= 2'b10;
-          first_setA <= 2'b10;
-          activatefastA <= 1'b0;
-          puffer_setA <= 2'b10;
-          onarbit_setA <= 2'b10;
-          en_zerointcrcA <= 1'b1;
-          crc_shft_outA <= 1'b0;
-          if (smplpointA==1'b1)
-            next_stateA <= rec_crc_sample;
+          rext_set <= 2'b00;
+          rrtr_set <= 2'b00;
+          actvtcrc <= 1'b0;
+          actvrcrc <= 1'b1;
+          actvtstf <= 1'b0;
+          actvrstf <= 1'b0;
+          actvtsft <= 1'b0;
+          actvrsft <= 1'b1;
+          actvtdct <= 1'b0;
+          actvrdct <= 1'b0;
+          actvtbed <= 1'b0;
+          setbdom <= 1'b0;
+          setbrec <= 1'b0;
+          lcrc <= 1'b1;
+          tshift <= 1'b0;
+          inconerec <= 1'b0;
+          incegtrec <= 1'b0;
+          incegttra <= 1'b0;
+          lmsg <= 1'b0;
+          decrec <= 1'b0;
+          dectra <= 1'b0;
+          elevrecb <= 1'b0;
+          hardsync <= 1'b0;
+          resetdst <= 1'b1;
+          resetstf <= 1'b1;
+          inccount <= 1'b1;
+          rescount <= 1'b1;
+          setrmleno <= 0;
+          actvrmln <= 1'b0;
+          resrmlen <= 1'b1;
+          ackerror_set <= 2'b10;
+          transmitter_set <= 2'b10;
+          receiver_set <= 2'b11;
+          error_set <= 2'b10;
+          first_set <= 2'b10;
+          activatefast <= 1'b0;
+          puffer_set <= 2'b10;
+          onarbit_set <= 2'b10;
+          en_zerointcrc <= 1'b1;
+          crc_shft_out <= 1'b0;
+          if (smplpoint==1'b1)
+            next_state <= rec_crc_sample;
           else
-            next_stateA <= rec_crc_shifting;
+            next_state <= rec_crc_shifting;
         end
       rec_crc_noshift : 
         begin
-          rext_setA <= 2'b00;
-          rrtr_setA <= 2'b00;
-          actvtcrcA <= 1'b0;
-          actvrcrcA <= 1'b0;
-          actvtstfA <= 1'b0;
-          actvrstfA <= 1'b0;
-          actvtsftA <= 1'b0;
-          actvrsftA <= 1'b0;
-          actvtdctA <= 1'b0;
-          actvrdctA <= 1'b0;
-          actvtbedA <= 1'b0;
-          setbdomA <= 1'b0;
-          setbrecA <= 1'b0;
-          lcrcA <= 1'b1;
-          tshiftA <= 1'b0;
-          inconerecA <= 1'b0;
-          incegtrecA <= 1'b0;
-          incegttraA <= 1'b0;
-          lmsgA <= 1'b0;
-          decrecA <= 1'b0;
-          dectraA <= 1'b0;
-          elevrecbA <= 1'b0;
-          hardsyncA <= 1'b0;
-          resetdstA <= 1'b1;
-          resetstfA <= 1'b1;
-          inccountA <= 1'b0;
-          rescountA <= 1'b1;
-          setrmlenoA <= 0;
-          actvrmlnA <= 1'b0;
-          resrmlenA <= 1'b1;
-          ackerror_setA <= 2'b10;
-          transmitter_setA <= 2'b10;
-          receiver_setA <= 2'b11;
-          error_setA <= 2'b10;
-          first_setA <= 2'b10;
-          activatefastA <= 1'b0;
-          puffer_setA <= 2'b10;
-          onarbit_setA <= 2'b10;
-          en_zerointcrcA <= 1'b1;
-          crc_shft_outA <= 1'b0;
-          if (smplpointA==1'b1)
-            next_stateA <= rec_crc_sample;
+          rext_set <= 2'b00;
+          rrtr_set <= 2'b00;
+          actvtcrc <= 1'b0;
+          actvrcrc <= 1'b0;
+          actvtstf <= 1'b0;
+          actvrstf <= 1'b0;
+          actvtsft <= 1'b0;
+          actvrsft <= 1'b0;
+          actvtdct <= 1'b0;
+          actvrdct <= 1'b0;
+          actvtbed <= 1'b0;
+          setbdom <= 1'b0;
+          setbrec <= 1'b0;
+          lcrc <= 1'b1;
+          tshift <= 1'b0;
+          inconerec <= 1'b0;
+          incegtrec <= 1'b0;
+          incegttra <= 1'b0;
+          lmsg <= 1'b0;
+          decrec <= 1'b0;
+          dectra <= 1'b0;
+          elevrecb <= 1'b0;
+          hardsync <= 1'b0;
+          resetdst <= 1'b1;
+          resetstf <= 1'b1;
+          inccount <= 1'b0;
+          rescount <= 1'b1;
+          setrmleno <= 0;
+          actvrmln <= 1'b0;
+          resrmlen <= 1'b1;
+          ackerror_set <= 2'b10;
+          transmitter_set <= 2'b10;
+          receiver_set <= 2'b11;
+          error_set <= 2'b10;
+          first_set <= 2'b10;
+          activatefast <= 1'b0;
+          puffer_set <= 2'b10;
+          onarbit_set <= 2'b10;
+          en_zerointcrc <= 1'b1;
+          crc_shft_out <= 1'b0;
+          if (smplpoint==1'b1)
+            next_state <= rec_crc_sample;
           else
-            next_stateA <= rec_crc_noshift;
+            next_state <= rec_crc_noshift;
         end
       rec_ack_recdelim : 
         begin
-          rext_setA <= 2'b00;
-          rrtr_setA <= 2'b00;
-          actvtcrcA <= 1'b0;
-          actvrcrcA <= 1'b0;
-          actvtstfA <= 1'b0;
-          actvrstfA <= 1'b1;
-          actvtsftA <= 1'b0;
-          actvrsftA <= 1'b0;
-          actvtdctA <= 1'b0;
-          actvrdctA <= 1'b1;
-          actvtbedA <= 1'b0;
-          setbdomA <= 1'b0;
-          setbrecA <= 1'b0;
-          lcrcA <= 1'b0;
-          tshiftA <= 1'b0;
-          inconerecA <= 1'b0;
-          incegtrecA <= 1'b0;
-          incegttraA <= 1'b0;
-          lmsgA <= 1'b0;
-          decrecA <= 1'b0;
-          dectraA <= 1'b0;
-          elevrecbA <= 1'b0;
-          hardsyncA <= 1'b0;
-          resetdstA <= 1'b1;
-          resetstfA <= 1'b1;
-          inccountA <= 1'b0;
-          rescountA <= 1'b0;
-          setrmlenoA <= 0;
-          actvrmlnA <= 1'b0;
-          resrmlenA <= 1'b1;
-          ackerror_setA <= 2'b10;
-          transmitter_setA <= 2'b10;
-          receiver_setA <= 2'b11;
-          error_setA <= 2'b10;
-          first_setA <= 2'b10;
-          activatefastA <= 1'b0;
-          puffer_setA <= 2'b10;
-          onarbit_setA <= 2'b10;
-          en_zerointcrcA <= 1'b1;
-          crc_shft_outA <= 1'b0;
-          if (inbitA==1'b1&&crc_okA==1'b0)
-            next_stateA <= rec_ack_prepnoack;
+          rext_set <= 2'b00;
+          rrtr_set <= 2'b00;
+          actvtcrc <= 1'b0;
+          actvrcrc <= 1'b0;
+          actvtstf <= 1'b0;
+          actvrstf <= 1'b1;
+          actvtsft <= 1'b0;
+          actvrsft <= 1'b0;
+          actvtdct <= 1'b0;
+          actvrdct <= 1'b1;
+          actvtbed <= 1'b0;
+          setbdom <= 1'b0;
+          setbrec <= 1'b0;
+          lcrc <= 1'b0;
+          tshift <= 1'b0;
+          inconerec <= 1'b0;
+          incegtrec <= 1'b0;
+          incegttra <= 1'b0;
+          lmsg <= 1'b0;
+          decrec <= 1'b0;
+          dectra <= 1'b0;
+          elevrecb <= 1'b0;
+          hardsync <= 1'b0;
+          resetdst <= 1'b1;
+          resetstf <= 1'b1;
+          inccount <= 1'b0;
+          rescount <= 1'b0;
+          setrmleno <= 0;
+          actvrmln <= 1'b0;
+          resrmlen <= 1'b1;
+          ackerror_set <= 2'b10;
+          transmitter_set <= 2'b10;
+          receiver_set <= 2'b11;
+          error_set <= 2'b10;
+          first_set <= 2'b10;
+          activatefast <= 1'b0;
+          puffer_set <= 2'b10;
+          onarbit_set <= 2'b10;
+          en_zerointcrc <= 1'b1;
+          crc_shft_out <= 1'b0;
+          if (inbit==1'b1&&crc_ok==1'b0)
+            next_state <= rec_ack_prepnoack;
           else
-            if (inbitA==1'b0&&erroractivA==1'b1)
-              next_stateA <= erroractiv_firstdom;
+            if (inbit==1'b0&&erroractiv==1'b1)
+              next_state <= erroractiv_firstdom;
             else
-              if (inbitA==1'b0&&errorpassivA==1'b1)
-                next_stateA <= errorpassiv_firstrec;
+              if (inbit==1'b0&&errorpassiv==1'b1)
+                next_state <= errorpassiv_firstrec;
               else
-                if (inbitA==1'b0&&busofA==1'b1)
-                  next_stateA <= busoff_first;
+                if (inbit==1'b0&&busof==1'b1)
+                  next_state <= busoff_first;
                 else
-                  next_stateA <= rec_ack_prepgiveack;
+                  next_state <= rec_ack_prepgiveack;
         end
       rec_ack_prepgiveack : 
         begin
-          rext_setA <= 2'b00;
-          rrtr_setA <= 2'b00;
-          actvtcrcA <= 1'b0;
-          actvrcrcA <= 1'b0;
-          actvtstfA <= 1'b0;
-          actvrstfA <= 1'b0;
-          actvtsftA <= 1'b0;
-          actvrsftA <= 1'b0;
-          actvtdctA <= 1'b1;
-          actvrdctA <= 1'b1;
-          actvtbedA <= 1'b0;
-          setbdomA <= 1'b1;
-          setbrecA <= 1'b0;
-          lcrcA <= 1'b0;
-          tshiftA <= 1'b0;
-          inconerecA <= 1'b0;
-          incegtrecA <= 1'b0;
-          incegttraA <= 1'b0;
-          lmsgA <= 1'b0;
-          decrecA <= 1'b0;
-          dectraA <= 1'b0;
-          elevrecbA <= 1'b0;
-          hardsyncA <= 1'b0;
-          resetdstA <= 1'b1;
-          resetstfA <= 1'b1;
-          inccountA <= 1'b0;
-          rescountA <= 1'b1;
-          setrmlenoA <= 0;
-          actvrmlnA <= 1'b0;
-          resrmlenA <= 1'b1;
-          ackerror_setA <= 2'b10;
-          transmitter_setA <= 2'b10;
-          receiver_setA <= 2'b11;
-          error_setA <= 2'b10;
-          first_setA <= 2'b10;
-          activatefastA <= 1'b0;
-          puffer_setA <= 2'b10;
-          onarbit_setA <= 2'b10;
-          en_zerointcrcA <= 1'b1;
-          crc_shft_outA <= 1'b0;
-          if (sendpointA==1'b1)
-            next_stateA <= rec_ack_giveack;
+          rext_set <= 2'b00;
+          rrtr_set <= 2'b00;
+          actvtcrc <= 1'b0;
+          actvrcrc <= 1'b0;
+          actvtstf <= 1'b0;
+          actvrstf <= 1'b0;
+          actvtsft <= 1'b0;
+          actvrsft <= 1'b0;
+          actvtdct <= 1'b1;
+          actvrdct <= 1'b1;
+          actvtbed <= 1'b0;
+          setbdom <= 1'b1;
+          setbrec <= 1'b0;
+          lcrc <= 1'b0;
+          tshift <= 1'b0;
+          inconerec <= 1'b0;
+          incegtrec <= 1'b0;
+          incegttra <= 1'b0;
+          lmsg <= 1'b0;
+          decrec <= 1'b0;
+          dectra <= 1'b0;
+          elevrecb <= 1'b0;
+          hardsync <= 1'b0;
+          resetdst <= 1'b1;
+          resetstf <= 1'b1;
+          inccount <= 1'b0;
+          rescount <= 1'b1;
+          setrmleno <= 0;
+          actvrmln <= 1'b0;
+          resrmlen <= 1'b1;
+          ackerror_set <= 2'b10;
+          transmitter_set <= 2'b10;
+          receiver_set <= 2'b11;
+          error_set <= 2'b10;
+          first_set <= 2'b10;
+          activatefast <= 1'b0;
+          puffer_set <= 2'b10;
+          onarbit_set <= 2'b10;
+          en_zerointcrc <= 1'b1;
+          crc_shft_out <= 1'b0;
+          if (sendpoint==1'b1)
+            next_state <= rec_ack_giveack;
           else
-            next_stateA <= rec_ack_prepgiveack;
+            next_state <= rec_ack_prepgiveack;
         end
       rec_ack_giveack : 
         begin
-          rext_setA <= 2'b00;
-          rrtr_setA <= 2'b00;
-          actvtcrcA <= 1'b0;
-          actvrcrcA <= 1'b0;
-          actvtstfA <= 1'b1;
-          actvrstfA <= 1'b0;
-          actvtsftA <= 1'b1;
-          actvrsftA <= 1'b0;
-          actvtdctA <= 1'b0;
-          actvrdctA <= 1'b1;
-          actvtbedA <= 1'b0;
-          setbdomA <= 1'b1;
-          setbrecA <= 1'b0;
-          lcrcA <= 1'b0;
-          tshiftA <= 1'b0;
-          inconerecA <= 1'b0;
-          incegtrecA <= 1'b0;
-          incegttraA <= 1'b0;
-          lmsgA <= 1'b0;
-          decrecA <= 1'b0;
-          dectraA <= 1'b0;
-          elevrecbA <= 1'b0;
-          hardsyncA <= 1'b0;
-          resetdstA <= 1'b1;
-          resetstfA <= 1'b1;
-          inccountA <= 1'b0;
-          rescountA <= 1'b1;
-          setrmlenoA <= 0;
-          actvrmlnA <= 1'b0;
-          resrmlenA <= 1'b1;
-          ackerror_setA <= 2'b10;
-          transmitter_setA <= 2'b10;
-          receiver_setA <= 2'b11;
-          error_setA <= 2'b10;
-          first_setA <= 2'b10;
-          activatefastA <= 1'b0;
-          puffer_setA <= 2'b10;
-          onarbit_setA <= 2'b10;
-          en_zerointcrcA <= 1'b1;
-          crc_shft_outA <= 1'b0;
-          if (smplpointA==1'b1)
-            next_stateA <= rec_ack_checkack;
+          rext_set <= 2'b00;
+          rrtr_set <= 2'b00;
+          actvtcrc <= 1'b0;
+          actvrcrc <= 1'b0;
+          actvtstf <= 1'b1;
+          actvrstf <= 1'b0;
+          actvtsft <= 1'b1;
+          actvrsft <= 1'b0;
+          actvtdct <= 1'b0;
+          actvrdct <= 1'b1;
+          actvtbed <= 1'b0;
+          setbdom <= 1'b1;
+          setbrec <= 1'b0;
+          lcrc <= 1'b0;
+          tshift <= 1'b0;
+          inconerec <= 1'b0;
+          incegtrec <= 1'b0;
+          incegttra <= 1'b0;
+          lmsg <= 1'b0;
+          decrec <= 1'b0;
+          dectra <= 1'b0;
+          elevrecb <= 1'b0;
+          hardsync <= 1'b0;
+          resetdst <= 1'b1;
+          resetstf <= 1'b1;
+          inccount <= 1'b0;
+          rescount <= 1'b1;
+          setrmleno <= 0;
+          actvrmln <= 1'b0;
+          resrmlen <= 1'b1;
+          ackerror_set <= 2'b10;
+          transmitter_set <= 2'b10;
+          receiver_set <= 2'b11;
+          error_set <= 2'b10;
+          first_set <= 2'b10;
+          activatefast <= 1'b0;
+          puffer_set <= 2'b10;
+          onarbit_set <= 2'b10;
+          en_zerointcrc <= 1'b1;
+          crc_shft_out <= 1'b0;
+          if (smplpoint==1'b1)
+            next_state <= rec_ack_checkack;
           else
-            next_stateA <= rec_ack_giveack;
+            next_state <= rec_ack_giveack;
         end
       rec_ack_checkack : 
         begin
-          rext_setA <= 2'b00;
-          rrtr_setA <= 2'b00;
-          actvtcrcA <= 1'b0;
-          actvrcrcA <= 1'b0;
-          actvtstfA <= 1'b0;
-          actvrstfA <= 1'b0;
-          actvtsftA <= 1'b0;
-          actvrsftA <= 1'b0;
-          actvtdctA <= 1'b0;
-          actvrdctA <= 1'b1;
-          actvtbedA <= 1'b1;
-          setbdomA <= 1'b0;
-          setbrecA <= 1'b1;
-          lcrcA <= 1'b0;
-          tshiftA <= 1'b0;
-          inconerecA <= 1'b0;
-          incegtrecA <= 1'b0;
-          incegttraA <= 1'b0;
-          lmsgA <= 1'b0;
-          decrecA <= 1'b0;
-          dectraA <= 1'b0;
-          elevrecbA <= 1'b0;
-          hardsyncA <= 1'b0;
-          resetdstA <= 1'b1;
-          resetstfA <= 1'b1;
-          inccountA <= 1'b0;
-          rescountA <= 1'b1;
-          setrmlenoA <= 0;
-          actvrmlnA <= 1'b0;
-          resrmlenA <= 1'b1;
-          ackerror_setA <= 2'b10;
-          transmitter_setA <= 2'b10;
-          receiver_setA <= 2'b11;
-          error_setA <= 2'b10;
-          first_setA <= 2'b10;
-          activatefastA <= 1'b0;
-          puffer_setA <= 2'b10;
-          onarbit_setA <= 2'b10;
-          en_zerointcrcA <= 1'b1;
-          crc_shft_outA <= 1'b0;
-          if (biterrorA==1'b1&&erroractivA==1'b1)
-            next_stateA <= erroractiv_firstdom;
+          rext_set <= 2'b00;
+          rrtr_set <= 2'b00;
+          actvtcrc <= 1'b0;
+          actvrcrc <= 1'b0;
+          actvtstf <= 1'b0;
+          actvrstf <= 1'b0;
+          actvtsft <= 1'b0;
+          actvrsft <= 1'b0;
+          actvtdct <= 1'b0;
+          actvrdct <= 1'b1;
+          actvtbed <= 1'b1;
+          setbdom <= 1'b0;
+          setbrec <= 1'b1;
+          lcrc <= 1'b0;
+          tshift <= 1'b0;
+          inconerec <= 1'b0;
+          incegtrec <= 1'b0;
+          incegttra <= 1'b0;
+          lmsg <= 1'b0;
+          decrec <= 1'b0;
+          dectra <= 1'b0;
+          elevrecb <= 1'b0;
+          hardsync <= 1'b0;
+          resetdst <= 1'b1;
+          resetstf <= 1'b1;
+          inccount <= 1'b0;
+          rescount <= 1'b1;
+          setrmleno <= 0;
+          actvrmln <= 1'b0;
+          resrmlen <= 1'b1;
+          ackerror_set <= 2'b10;
+          transmitter_set <= 2'b10;
+          receiver_set <= 2'b11;
+          error_set <= 2'b10;
+          first_set <= 2'b10;
+          activatefast <= 1'b0;
+          puffer_set <= 2'b10;
+          onarbit_set <= 2'b10;
+          en_zerointcrc <= 1'b1;
+          crc_shft_out <= 1'b0;
+          if (biterror==1'b1&&erroractiv==1'b1)
+            next_state <= erroractiv_firstdom;
           else
-            if (biterrorA==1'b1&&errorpassivA==1'b1)
-              next_stateA <= errorpassiv_firstrec;
+            if (biterror==1'b1&&errorpassiv==1'b1)
+              next_state <= errorpassiv_firstrec;
             else
-              if (sendpointA==1'b1)
-                next_stateA <= rec_ack_stopack;
+              if (sendpoint==1'b1)
+                next_state <= rec_ack_stopack;
               else
-                next_stateA <= rec_ack_checkack;
+                next_state <= rec_ack_checkack;
         end
       rec_ack_prepnoack : 
         begin
-          rext_setA <= 2'b10;
-          rrtr_setA <= 2'b10;
-          actvtcrcA <= 1'b0;
-          actvrcrcA <= 1'b0;
-          actvtstfA <= 1'b0;
-          actvrstfA <= 1'b0;
-          actvtsftA <= 1'b0;
-          actvrsftA <= 1'b0;
-          actvtdctA <= 1'b0;
-          actvrdctA <= 1'b0;
-          actvtbedA <= 1'b0;
-          setbdomA <= 1'b0;
-          setbrecA <= 1'b1;
-          lcrcA <= 1'b0;
-          tshiftA <= 1'b0;
-          inconerecA <= 1'b0;
-          incegtrecA <= 1'b0;
-          incegttraA <= 1'b0;
-          lmsgA <= 1'b0;
-          decrecA <= 1'b0;
-          dectraA <= 1'b0;
-          elevrecbA <= 1'b0;
-          hardsyncA <= 1'b0;
-          resetdstA <= 1'b1;
-          resetstfA <= 1'b1;
-          inccountA <= 1'b0;
-          rescountA <= 1'b1;
-          setrmlenoA <= 0;
-          actvrmlnA <= 1'b0;
-          resrmlenA <= 1'b1;
-          ackerror_setA <= 2'b10;
-          transmitter_setA <= 2'b10;
-          receiver_setA <= 2'b11;
-          error_setA <= 2'b10;
-          first_setA <= 2'b10;
-          activatefastA <= 1'b0;
-          puffer_setA <= 2'b10;
-          onarbit_setA <= 2'b10;
-          en_zerointcrcA <= 1'b1;
-          crc_shft_outA <= 1'b0;
-          if (sendpointA==1'b1)
-            next_stateA <= rec_ack_noack;
+          rext_set <= 2'b10;
+          rrtr_set <= 2'b10;
+          actvtcrc <= 1'b0;
+          actvrcrc <= 1'b0;
+          actvtstf <= 1'b0;
+          actvrstf <= 1'b0;
+          actvtsft <= 1'b0;
+          actvrsft <= 1'b0;
+          actvtdct <= 1'b0;
+          actvrdct <= 1'b0;
+          actvtbed <= 1'b0;
+          setbdom <= 1'b0;
+          setbrec <= 1'b1;
+          lcrc <= 1'b0;
+          tshift <= 1'b0;
+          inconerec <= 1'b0;
+          incegtrec <= 1'b0;
+          incegttra <= 1'b0;
+          lmsg <= 1'b0;
+          decrec <= 1'b0;
+          dectra <= 1'b0;
+          elevrecb <= 1'b0;
+          hardsync <= 1'b0;
+          resetdst <= 1'b1;
+          resetstf <= 1'b1;
+          inccount <= 1'b0;
+          rescount <= 1'b1;
+          setrmleno <= 0;
+          actvrmln <= 1'b0;
+          resrmlen <= 1'b1;
+          ackerror_set <= 2'b10;
+          transmitter_set <= 2'b10;
+          receiver_set <= 2'b11;
+          error_set <= 2'b10;
+          first_set <= 2'b10;
+          activatefast <= 1'b0;
+          puffer_set <= 2'b10;
+          onarbit_set <= 2'b10;
+          en_zerointcrc <= 1'b1;
+          crc_shft_out <= 1'b0;
+          if (sendpoint==1'b1)
+            next_state <= rec_ack_noack;
           else
-            next_stateA <= rec_ack_prepnoack;
+            next_state <= rec_ack_prepnoack;
         end
       rec_ack_noack : 
         begin
-          rext_setA <= 2'b10;
-          rrtr_setA <= 2'b10;
-          actvtcrcA <= 1'b0;
-          actvrcrcA <= 1'b0;
-          actvtstfA <= 1'b1;
-          actvrstfA <= 1'b0;
-          actvtsftA <= 1'b0;
-          actvrsftA <= 1'b0;
-          actvtdctA <= 1'b0;
-          actvrdctA <= 1'b0;
-          actvtbedA <= 1'b0;
-          setbdomA <= 1'b0;
-          setbrecA <= 1'b1;
-          lcrcA <= 1'b0;
-          tshiftA <= 1'b0;
-          inconerecA <= 1'b0;
-          incegtrecA <= 1'b0;
-          incegttraA <= 1'b0;
-          lmsgA <= 1'b0;
-          decrecA <= 1'b0;
-          dectraA <= 1'b0;
-          elevrecbA <= 1'b0;
-          hardsyncA <= 1'b0;
-          resetdstA <= 1'b1;
-          resetstfA <= 1'b1;
-          inccountA <= 1'b0;
-          rescountA <= 1'b1;
-          setrmlenoA <= 0;
-          actvrmlnA <= 1'b0;
-          resrmlenA <= 1'b1;
-          ackerror_setA <= 2'b10;
-          transmitter_setA <= 2'b10;
-          receiver_setA <= 2'b11;
-          error_setA <= 2'b10;
-          first_setA <= 2'b10;
-          activatefastA <= 1'b0;
-          puffer_setA <= 2'b10;
-          onarbit_setA <= 2'b10;
-          en_zerointcrcA <= 1'b1;
-          crc_shft_outA <= 1'b0;
-          if (smplpointA==1'b1&&erroractivA==1'b1)
-            next_stateA <= erroractiv_firstdom;
+          rext_set <= 2'b10;
+          rrtr_set <= 2'b10;
+          actvtcrc <= 1'b0;
+          actvrcrc <= 1'b0;
+          actvtstf <= 1'b1;
+          actvrstf <= 1'b0;
+          actvtsft <= 1'b0;
+          actvrsft <= 1'b0;
+          actvtdct <= 1'b0;
+          actvrdct <= 1'b0;
+          actvtbed <= 1'b0;
+          setbdom <= 1'b0;
+          setbrec <= 1'b1;
+          lcrc <= 1'b0;
+          tshift <= 1'b0;
+          inconerec <= 1'b0;
+          incegtrec <= 1'b0;
+          incegttra <= 1'b0;
+          lmsg <= 1'b0;
+          decrec <= 1'b0;
+          dectra <= 1'b0;
+          elevrecb <= 1'b0;
+          hardsync <= 1'b0;
+          resetdst <= 1'b1;
+          resetstf <= 1'b1;
+          inccount <= 1'b0;
+          rescount <= 1'b1;
+          setrmleno <= 0;
+          actvrmln <= 1'b0;
+          resrmlen <= 1'b1;
+          ackerror_set <= 2'b10;
+          transmitter_set <= 2'b10;
+          receiver_set <= 2'b11;
+          error_set <= 2'b10;
+          first_set <= 2'b10;
+          activatefast <= 1'b0;
+          puffer_set <= 2'b10;
+          onarbit_set <= 2'b10;
+          en_zerointcrc <= 1'b1;
+          crc_shft_out <= 1'b0;
+          if (smplpoint==1'b1&&erroractiv==1'b1)
+            next_state <= erroractiv_firstdom;
           else
-            if (smplpointA==1'b1&&errorpassivA==1'b1)
-              next_stateA <= errorpassiv_firstrec;
+            if (smplpoint==1'b1&&errorpassiv==1'b1)
+              next_state <= errorpassiv_firstrec;
             else
-              if (smplpointA==1'b1&&busofA==1'b1)
-                next_stateA <= busoff_first;
+              if (smplpoint==1'b1&&busof==1'b1)
+                next_state <= busoff_first;
               else
-                next_stateA <= rec_ack_noack;
+                next_state <= rec_ack_noack;
         end
       rec_ack_stopack : 
         begin
-          rext_setA <= 2'b00;
-          rrtr_setA <= 2'b00;
-          actvtcrcA <= 1'b0;
-          actvrcrcA <= 1'b0;
-          actvtstfA <= 1'b1;
-          actvrstfA <= 1'b0;
-          actvtsftA <= 1'b0;
-          actvrsftA <= 1'b0;
-          actvtdctA <= 1'b0;
-          actvrdctA <= 1'b1;
-          actvtbedA <= 1'b0;
-          setbdomA <= 1'b0;
-          setbrecA <= 1'b1;
-          lcrcA <= 1'b0;
-          tshiftA <= 1'b0;
-          inconerecA <= 1'b0;
-          incegtrecA <= 1'b0;
-          incegttraA <= 1'b0;
-          lmsgA <= 1'b0;
-          decrecA <= 1'b0;
-          dectraA <= 1'b0;
-          elevrecbA <= 1'b0;
-          hardsyncA <= 1'b0;
-          resetdstA <= 1'b1;
-          resetstfA <= 1'b1;
-          inccountA <= 1'b0;
-          rescountA <= 1'b1;
-          setrmlenoA <= 0;
-          actvrmlnA <= 1'b0;
-          resrmlenA <= 1'b1;
-          ackerror_setA <= 2'b10;
-          transmitter_setA <= 2'b10;
-          receiver_setA <= 2'b11;
-          error_setA <= 2'b10;
-          first_setA <= 2'b10;
-          activatefastA <= 1'b0;
-          puffer_setA <= 2'b10;
-          onarbit_setA <= 2'b10;
-          en_zerointcrcA <= 1'b1;
-          crc_shft_outA <= 1'b0;
-          if (smplpointA==1'b1)
-            next_stateA <= rec_edof_sample;
+          rext_set <= 2'b00;
+          rrtr_set <= 2'b00;
+          actvtcrc <= 1'b0;
+          actvrcrc <= 1'b0;
+          actvtstf <= 1'b1;
+          actvrstf <= 1'b0;
+          actvtsft <= 1'b0;
+          actvrsft <= 1'b0;
+          actvtdct <= 1'b0;
+          actvrdct <= 1'b1;
+          actvtbed <= 1'b0;
+          setbdom <= 1'b0;
+          setbrec <= 1'b1;
+          lcrc <= 1'b0;
+          tshift <= 1'b0;
+          inconerec <= 1'b0;
+          incegtrec <= 1'b0;
+          incegttra <= 1'b0;
+          lmsg <= 1'b0;
+          decrec <= 1'b0;
+          dectra <= 1'b0;
+          elevrecb <= 1'b0;
+          hardsync <= 1'b0;
+          resetdst <= 1'b1;
+          resetstf <= 1'b1;
+          inccount <= 1'b0;
+          rescount <= 1'b1;
+          setrmleno <= 0;
+          actvrmln <= 1'b0;
+          resrmlen <= 1'b1;
+          ackerror_set <= 2'b10;
+          transmitter_set <= 2'b10;
+          receiver_set <= 2'b11;
+          error_set <= 2'b10;
+          first_set <= 2'b10;
+          activatefast <= 1'b0;
+          puffer_set <= 2'b10;
+          onarbit_set <= 2'b10;
+          en_zerointcrc <= 1'b1;
+          crc_shft_out <= 1'b0;
+          if (smplpoint==1'b1)
+            next_state <= rec_edof_sample;
           else
-            next_stateA <= rec_ack_stopack;
+            next_state <= rec_ack_stopack;
         end
       rec_edof_sample : 
         begin
-          rext_setA <= 2'b00;
-          rrtr_setA <= 2'b00;
-          actvtcrcA <= 1'b0;
-          actvrcrcA <= 1'b0;
-          actvtstfA <= 1'b0;
-          actvrstfA <= 1'b1;
-          actvtsftA <= 1'b0;
-          actvrsftA <= 1'b0;
-          actvtdctA <= 1'b0;
-          actvrdctA <= 1'b1;
-          actvtbedA <= 1'b0;
-          setbdomA <= 1'b0;
-          setbrecA <= 1'b0;
-          lcrcA <= 1'b0;
-          tshiftA <= 1'b0;
-          inconerecA <= 1'b0;
-          incegtrecA <= 1'b0;
-          incegttraA <= 1'b0;
-          lmsgA <= 1'b0;
-          decrecA <= 1'b0;
-          dectraA <= 1'b0;
-          elevrecbA <= 1'b0;
-          hardsyncA <= 1'b0;
-          resetdstA <= 1'b1;
-          resetstfA <= 1'b1;
-          inccountA <= 1'b1;
-          rescountA <= 1'b1;
-          setrmlenoA <= 0;
-          actvrmlnA <= 1'b0;
-          resrmlenA <= 1'b1;
-          ackerror_setA <= 2'b10;
-          transmitter_setA <= 2'b10;
-          receiver_setA <= 2'b11;
-          error_setA <= 2'b10;
-          first_setA <= 2'b10;
-          activatefastA <= 1'b0;
-          puffer_setA <= 2'b10;
-          onarbit_setA <= 2'b10;
-          en_zerointcrcA <= 1'b1;
-          crc_shft_outA <= 1'b0;
-          if (inbitA==1'b0&&erroractivA==1'b1)
-            next_stateA <= erroractiv_firstdom;
+          rext_set <= 2'b00;
+          rrtr_set <= 2'b00;
+          actvtcrc <= 1'b0;
+          actvrcrc <= 1'b0;
+          actvtstf <= 1'b0;
+          actvrstf <= 1'b1;
+          actvtsft <= 1'b0;
+          actvrsft <= 1'b0;
+          actvtdct <= 1'b0;
+          actvrdct <= 1'b1;
+          actvtbed <= 1'b0;
+          setbdom <= 1'b0;
+          setbrec <= 1'b0;
+          lcrc <= 1'b0;
+          tshift <= 1'b0;
+          inconerec <= 1'b0;
+          incegtrec <= 1'b0;
+          incegttra <= 1'b0;
+          lmsg <= 1'b0;
+          decrec <= 1'b0;
+          dectra <= 1'b0;
+          elevrecb <= 1'b0;
+          hardsync <= 1'b0;
+          resetdst <= 1'b1;
+          resetstf <= 1'b1;
+          inccount <= 1'b1;
+          rescount <= 1'b1;
+          setrmleno <= 0;
+          actvrmln <= 1'b0;
+          resrmlen <= 1'b1;
+          ackerror_set <= 2'b10;
+          transmitter_set <= 2'b10;
+          receiver_set <= 2'b11;
+          error_set <= 2'b10;
+          first_set <= 2'b10;
+          activatefast <= 1'b0;
+          puffer_set <= 2'b10;
+          onarbit_set <= 2'b10;
+          en_zerointcrc <= 1'b1;
+          crc_shft_out <= 1'b0;
+          if (inbit==1'b0&&erroractiv==1'b1)
+            next_state <= erroractiv_firstdom;
           else
-            if (inbitA==1'b0&&errorpassivA==1'b1)
-              next_stateA <= errorpassiv_firstrec;
+            if (inbit==1'b0&&errorpassiv==1'b1)
+              next_state <= errorpassiv_firstrec;
             else
-              next_stateA <= rec_edof_check;
+              next_state <= rec_edof_check;
         end
       rec_edof_check : 
         begin
-          rext_setA <= 2'b00;
-          rrtr_setA <= 2'b00;
-          actvtcrcA <= 1'b0;
-          actvrcrcA <= 1'b0;
-          actvtstfA <= 1'b0;
-          actvrstfA <= 1'b0;
-          actvtsftA <= 1'b0;
-          actvrsftA <= 1'b0;
-          actvtdctA <= 1'b0;
-          actvrdctA <= 1'b1;
-          actvtbedA <= 1'b0;
-          setbdomA <= 1'b0;
-          setbrecA <= 1'b0;
-          lcrcA <= 1'b0;
-          tshiftA <= 1'b0;
-          inconerecA <= 1'b0;
-          incegtrecA <= 1'b0;
-          incegttraA <= 1'b0;
-          lmsgA <= 1'b0;
-          decrecA <= 1'b0;
-          dectraA <= 1'b0;
-          elevrecbA <= 1'b0;
-          hardsyncA <= 1'b0;
-          resetdstA <= 1'b1;
-          resetstfA <= 1'b1;
-          inccountA <= 1'b0;
-          rescountA <= 1'b1;
-          setrmlenoA <= 0;
-          actvrmlnA <= 1'b0;
-          resrmlenA <= 1'b1;
-          ackerror_setA <= 2'b10;
-          transmitter_setA <= 2'b10;
-          receiver_setA <= 2'b11;
-          error_setA <= 2'b10;
-          first_setA <= 2'b10;
-          activatefastA <= 1'b0;
-          puffer_setA <= 2'b10;
-          onarbit_setA <= 2'b10;
-          en_zerointcrcA <= 1'b1;
-          crc_shft_outA <= 1'b0;
-          if (countA!=7&&smplpointA==1'b1)
-            next_stateA <= rec_edof_sample;
+          rext_set <= 2'b00;
+          rrtr_set <= 2'b00;
+          actvtcrc <= 1'b0;
+          actvrcrc <= 1'b0;
+          actvtstf <= 1'b0;
+          actvrstf <= 1'b0;
+          actvtsft <= 1'b0;
+          actvrsft <= 1'b0;
+          actvtdct <= 1'b0;
+          actvrdct <= 1'b1;
+          actvtbed <= 1'b0;
+          setbdom <= 1'b0;
+          setbrec <= 1'b0;
+          lcrc <= 1'b0;
+          tshift <= 1'b0;
+          inconerec <= 1'b0;
+          incegtrec <= 1'b0;
+          incegttra <= 1'b0;
+          lmsg <= 1'b0;
+          decrec <= 1'b0;
+          dectra <= 1'b0;
+          elevrecb <= 1'b0;
+          hardsync <= 1'b0;
+          resetdst <= 1'b1;
+          resetstf <= 1'b1;
+          inccount <= 1'b0;
+          rescount <= 1'b1;
+          setrmleno <= 0;
+          actvrmln <= 1'b0;
+          resrmlen <= 1'b1;
+          ackerror_set <= 2'b10;
+          transmitter_set <= 2'b10;
+          receiver_set <= 2'b11;
+          error_set <= 2'b10;
+          first_set <= 2'b10;
+          activatefast <= 1'b0;
+          puffer_set <= 2'b10;
+          onarbit_set <= 2'b10;
+          en_zerointcrc <= 1'b1;
+          crc_shft_out <= 1'b0;
+          if (count!=7&&smplpoint==1'b1)
+            next_state <= rec_edof_sample;
           else
-            if (countA==7&&inbitA==1'b1)
-              next_stateA <= rec_edof_endrec;
+            if (count==7&&inbit==1'b1)
+              next_state <= rec_edof_endrec;
             else
-              next_stateA <= rec_edof_check;
+              next_state <= rec_edof_check;
         end
       rec_edof_endrec : 
         begin
-          rext_setA <= 2'b00;
-          rrtr_setA <= 2'b00;
-          actvtcrcA <= 1'b0;
-          actvrcrcA <= 1'b0;
-          actvtstfA <= 1'b0;
-          actvrstfA <= 1'b0;
-          actvtsftA <= 1'b0;
-          actvrsftA <= 1'b0;
-          actvtdctA <= 1'b0;
-          actvrdctA <= 1'b1;
-          actvtbedA <= 1'b0;
-          setbdomA <= 1'b0;
-          setbrecA <= 1'b0;
-          lcrcA <= 1'b0;
-          tshiftA <= 1'b0;
-          inconerecA <= 1'b0;
-          incegtrecA <= 1'b0;
-          incegttraA <= 1'b0;
-          lmsgA <= 1'b0;
-          decrecA <= 1'b1;
-          dectraA <= 1'b0;
-          elevrecbA <= 1'b0;
-          hardsyncA <= 1'b0;
-          resetdstA <= 1'b1;
-          resetstfA <= 1'b1;
-          inccountA <= 1'b0;
-          rescountA <= 1'b0;
-          setrmlenoA <= 0;
-          actvrmlnA <= 1'b0;
-          resrmlenA <= 1'b1;
-          ackerror_setA <= 2'b10;
-          transmitter_setA <= 2'b10;
-          receiver_setA <= 2'b11;
-          error_setA <= 2'b10;
-          first_setA <= 2'b10;
-          activatefastA <= 1'b0;
-          puffer_setA <= 2'b10;
-          onarbit_setA <= 2'b10;
-          en_zerointcrcA <= 1'b1;
-          crc_shft_outA <= 1'b0;
-          if (smplpointA==1'b1)
-            next_stateA <= rec_edof_lastbit;
+          rext_set <= 2'b00;
+          rrtr_set <= 2'b00;
+          actvtcrc <= 1'b0;
+          actvrcrc <= 1'b0;
+          actvtstf <= 1'b0;
+          actvrstf <= 1'b0;
+          actvtsft <= 1'b0;
+          actvrsft <= 1'b0;
+          actvtdct <= 1'b0;
+          actvrdct <= 1'b1;
+          actvtbed <= 1'b0;
+          setbdom <= 1'b0;
+          setbrec <= 1'b0;
+          lcrc <= 1'b0;
+          tshift <= 1'b0;
+          inconerec <= 1'b0;
+          incegtrec <= 1'b0;
+          incegttra <= 1'b0;
+          lmsg <= 1'b0;
+          decrec <= 1'b1;
+          dectra <= 1'b0;
+          elevrecb <= 1'b0;
+          hardsync <= 1'b0;
+          resetdst <= 1'b1;
+          resetstf <= 1'b1;
+          inccount <= 1'b0;
+          rescount <= 1'b0;
+          setrmleno <= 0;
+          actvrmln <= 1'b0;
+          resrmlen <= 1'b1;
+          ackerror_set <= 2'b10;
+          transmitter_set <= 2'b10;
+          receiver_set <= 2'b11;
+          error_set <= 2'b10;
+          first_set <= 2'b10;
+          activatefast <= 1'b0;
+          puffer_set <= 2'b10;
+          onarbit_set <= 2'b10;
+          en_zerointcrc <= 1'b1;
+          crc_shft_out <= 1'b0;
+          if (smplpoint==1'b1)
+            next_state <= rec_edof_lastbit;
           else
-            next_stateA <= rec_edof_endrec;
+            next_state <= rec_edof_endrec;
         end
       rec_edof_lastbit : 
         begin
-          rext_setA <= 2'b00;
-          rrtr_setA <= 2'b00;
-          actvtcrcA <= 1'b0;
-          actvrcrcA <= 1'b0;
-          actvtstfA <= 1'b0;
-          actvrstfA <= 1'b1;
-          actvtsftA <= 1'b0;
-          actvrsftA <= 1'b0;
-          actvtdctA <= 1'b0;
-          actvrdctA <= 1'b1;
-          actvtbedA <= 1'b0;
-          setbdomA <= 1'b0;
-          setbrecA <= 1'b0;
-          lcrcA <= 1'b0;
-          tshiftA <= 1'b0;
-          inconerecA <= 1'b0;
-          incegtrecA <= 1'b0;
-          incegttraA <= 1'b0;
-          lmsgA <= 1'b0;
-          decrecA <= 1'b0;
-          dectraA <= 1'b0;
-          elevrecbA <= 1'b0;
-          hardsyncA <= 1'b0;
-          resetdstA <= 1'b1;
-          resetstfA <= 1'b0;
-          inccountA <= 1'b0;
-          rescountA <= 1'b1;
-          setrmlenoA <= 0;
-          actvrmlnA <= 1'b0;
-          resrmlenA <= 1'b1;
-          ackerror_setA <= 2'b10;
-          transmitter_setA <= 2'b10;
-          receiver_setA <= 2'b11;
-          error_setA <= 2'b10;
-          first_setA <= 2'b10;
-          activatefastA <= 1'b0;
-          puffer_setA <= 2'b10;
-          onarbit_setA <= 2'b10;
-          en_zerointcrcA <= 1'b1;
-          crc_shft_outA <= 1'b0;
-          if (inbitA==1'b1)
-            next_stateA <= rec_edof_inter;
+          rext_set <= 2'b00;
+          rrtr_set <= 2'b00;
+          actvtcrc <= 1'b0;
+          actvrcrc <= 1'b0;
+          actvtstf <= 1'b0;
+          actvrstf <= 1'b1;
+          actvtsft <= 1'b0;
+          actvrsft <= 1'b0;
+          actvtdct <= 1'b0;
+          actvrdct <= 1'b1;
+          actvtbed <= 1'b0;
+          setbdom <= 1'b0;
+          setbrec <= 1'b0;
+          lcrc <= 1'b0;
+          tshift <= 1'b0;
+          inconerec <= 1'b0;
+          incegtrec <= 1'b0;
+          incegttra <= 1'b0;
+          lmsg <= 1'b0;
+          decrec <= 1'b0;
+          dectra <= 1'b0;
+          elevrecb <= 1'b0;
+          hardsync <= 1'b0;
+          resetdst <= 1'b1;
+          resetstf <= 1'b0;
+          inccount <= 1'b0;
+          rescount <= 1'b1;
+          setrmleno <= 0;
+          actvrmln <= 1'b0;
+          resrmlen <= 1'b1;
+          ackerror_set <= 2'b10;
+          transmitter_set <= 2'b10;
+          receiver_set <= 2'b11;
+          error_set <= 2'b10;
+          first_set <= 2'b10;
+          activatefast <= 1'b0;
+          puffer_set <= 2'b10;
+          onarbit_set <= 2'b10;
+          en_zerointcrc <= 1'b1;
+          crc_shft_out <= 1'b0;
+          if (inbit==1'b1)
+            next_state <= rec_edof_inter;
           else
-            if (inbitA==1'b0)
-              next_stateA <= over_firstdom;
+            if (inbit==1'b0)
+              next_state <= over_firstdom;
             else
-              next_stateA <= rec_edof_lastbit;
+              next_state <= rec_edof_lastbit;
         end
       rec_edof_inter : 
         begin
-          rext_setA <= 2'b00;
-          rrtr_setA <= 2'b00;
-          actvtcrcA <= 1'b0;
-          actvrcrcA <= 1'b0;
-          actvtstfA <= 1'b0;
-          actvrstfA <= 1'b0;
-          actvtsftA <= 1'b0;
-          actvrsftA <= 1'b0;
-          actvtdctA <= 1'b0;
-          actvrdctA <= 1'b1;
-          actvtbedA <= 1'b0;
-          setbdomA <= 1'b0;
-          setbrecA <= 1'b0;
-          lcrcA <= 1'b0;
-          tshiftA <= 1'b0;
-          inconerecA <= 1'b0;
-          incegtrecA <= 1'b0;
-          incegttraA <= 1'b0;
-          lmsgA <= 1'b0;
-          decrecA <= 1'b0;
-          dectraA <= 1'b0;
-          elevrecbA <= 1'b0;
-          hardsyncA <= 1'b0;
-          resetdstA <= 1'b1;
-          resetstfA <= 1'b0;
-          inccountA <= 1'b0;
-          rescountA <= 1'b1;
-          setrmlenoA <= 0;
-          actvrmlnA <= 1'b0;
-          resrmlenA <= 1'b1;
-          ackerror_setA <= 2'b10;
-          transmitter_setA <= 2'b10;
-          receiver_setA <= 2'b11;
-          error_setA <= 2'b10;
-          first_setA <= 2'b10;
-          activatefastA <= 1'b0;
-          puffer_setA <= 2'b10;
-          onarbit_setA <= 2'b10;
-          en_zerointcrcA <= 1'b1;
-          crc_shft_outA <= 1'b0;
-          if (smplpointA==1'b1)
-            next_stateA <= inter_sample;
+          rext_set <= 2'b00;
+          rrtr_set <= 2'b00;
+          actvtcrc <= 1'b0;
+          actvrcrc <= 1'b0;
+          actvtstf <= 1'b0;
+          actvrstf <= 1'b0;
+          actvtsft <= 1'b0;
+          actvrsft <= 1'b0;
+          actvtdct <= 1'b0;
+          actvrdct <= 1'b1;
+          actvtbed <= 1'b0;
+          setbdom <= 1'b0;
+          setbrec <= 1'b0;
+          lcrc <= 1'b0;
+          tshift <= 1'b0;
+          inconerec <= 1'b0;
+          incegtrec <= 1'b0;
+          incegttra <= 1'b0;
+          lmsg <= 1'b0;
+          decrec <= 1'b0;
+          dectra <= 1'b0;
+          elevrecb <= 1'b0;
+          hardsync <= 1'b0;
+          resetdst <= 1'b1;
+          resetstf <= 1'b0;
+          inccount <= 1'b0;
+          rescount <= 1'b1;
+          setrmleno <= 0;
+          actvrmln <= 1'b0;
+          resrmlen <= 1'b1;
+          ackerror_set <= 2'b10;
+          transmitter_set <= 2'b10;
+          receiver_set <= 2'b11;
+          error_set <= 2'b10;
+          first_set <= 2'b10;
+          activatefast <= 1'b0;
+          puffer_set <= 2'b10;
+          onarbit_set <= 2'b10;
+          en_zerointcrc <= 1'b1;
+          crc_shft_out <= 1'b0;
+          if (smplpoint==1'b1)
+            next_state <= inter_sample;
           else
-            next_stateA <= rec_edof_inter;
+            next_state <= rec_edof_inter;
         end
       over_firstdom : 
         begin
-          rext_setA <= 2'b10;
-          rrtr_setA <= 2'b10;
-          actvtcrcA <= 1'b0;
-          actvrcrcA <= 1'b0;
-          actvtstfA <= 1'b0;
-          actvrstfA <= 1'b0;
-          actvtsftA <= 1'b0;
-          actvrsftA <= 1'b0;
-          actvtdctA <= 1'b0;
-          actvrdctA <= 1'b0;
-          actvtbedA <= 1'b0;
-          setbdomA <= 1'b1;
-          setbrecA <= 1'b0;
-          lcrcA <= 1'b0;
-          tshiftA <= 1'b0;
-          inconerecA <= 1'b0;
-          incegtrecA <= 1'b0;
-          incegttraA <= 1'b0;
-          lmsgA <= 1'b0;
-          decrecA <= 1'b0;
-          dectraA <= 1'b0;
-          elevrecbA <= 1'b0;
-          hardsyncA <= 1'b0;
-          resetdstA <= 1'b1;
-          resetstfA <= 1'b1;
-          inccountA <= 1'b0;
-          rescountA <= 1'b0;
-          setrmlenoA <= 0;
-          actvrmlnA <= 1'b0;
-          resrmlenA <= 1'b1;
-          ackerror_setA <= 2'b10;
-          transmitter_setA <= 2'b00;
-          receiver_setA <= 2'b00;
-          error_setA <= 2'b11;
-          first_setA <= 2'b10;
-          activatefastA <= 1'b0;
-          puffer_setA <= 2'b10;
-          onarbit_setA <= 2'b10;
-          en_zerointcrcA <= 1'b1;
-          crc_shft_outA <= 1'b0;
-          if (sendpointA==1'b1)
-            next_stateA <= over_senddomb;
+          rext_set <= 2'b10;
+          rrtr_set <= 2'b10;
+          actvtcrc <= 1'b0;
+          actvrcrc <= 1'b0;
+          actvtstf <= 1'b0;
+          actvrstf <= 1'b0;
+          actvtsft <= 1'b0;
+          actvrsft <= 1'b0;
+          actvtdct <= 1'b0;
+          actvrdct <= 1'b0;
+          actvtbed <= 1'b0;
+          setbdom <= 1'b1;
+          setbrec <= 1'b0;
+          lcrc <= 1'b0;
+          tshift <= 1'b0;
+          inconerec <= 1'b0;
+          incegtrec <= 1'b0;
+          incegttra <= 1'b0;
+          lmsg <= 1'b0;
+          decrec <= 1'b0;
+          dectra <= 1'b0;
+          elevrecb <= 1'b0;
+          hardsync <= 1'b0;
+          resetdst <= 1'b1;
+          resetstf <= 1'b1;
+          inccount <= 1'b0;
+          rescount <= 1'b0;
+          setrmleno <= 0;
+          actvrmln <= 1'b0;
+          resrmlen <= 1'b1;
+          ackerror_set <= 2'b10;
+          transmitter_set <= 2'b00;
+          receiver_set <= 2'b00;
+          error_set <= 2'b11;
+          first_set <= 2'b10;
+          activatefast <= 1'b0;
+          puffer_set <= 2'b10;
+          onarbit_set <= 2'b10;
+          en_zerointcrc <= 1'b1;
+          crc_shft_out <= 1'b0;
+          if (sendpoint==1'b1)
+            next_state <= over_senddomb;
           else
-            next_stateA <= over_firstdom;
+            next_state <= over_firstdom;
         end
       over_senddomb : 
         begin
-          rext_setA <= 2'b10;
-          rrtr_setA <= 2'b10;
-          actvtcrcA <= 1'b0;
-          actvrcrcA <= 1'b0;
-          actvtstfA <= 1'b1;
-          actvrstfA <= 1'b0;
-          actvtsftA <= 1'b0;
-          actvrsftA <= 1'b0;
-          actvtdctA <= 1'b0;
-          actvrdctA <= 1'b0;
-          actvtbedA <= 1'b0;
-          setbdomA <= 1'b1;
-          setbrecA <= 1'b0;
-          lcrcA <= 1'b0;
-          tshiftA <= 1'b0;
-          inconerecA <= 1'b0;
-          incegtrecA <= 1'b0;
-          incegttraA <= 1'b0;
-          lmsgA <= 1'b0;
-          decrecA <= 1'b0;
-          dectraA <= 1'b0;
-          elevrecbA <= 1'b0;
-          hardsyncA <= 1'b0;
-          resetdstA <= 1'b1;
-          resetstfA <= 1'b1;
-          inccountA <= 1'b0;
-          rescountA <= 1'b1;
-          setrmlenoA <= 0;
-          actvrmlnA <= 1'b0;
-          resrmlenA <= 1'b1;
-          ackerror_setA <= 2'b10;
-          transmitter_setA <= 2'b00;
-          receiver_setA <= 2'b00;
-          error_setA <= 2'b11;
-          first_setA <= 2'b10;
-          activatefastA <= 1'b0;
-          puffer_setA <= 2'b10;
-          onarbit_setA <= 2'b10;
-          en_zerointcrcA <= 1'b1;
-          crc_shft_outA <= 1'b0;
-          if (smplpointA==1'b1)
-            next_stateA <= over_check1;
+          rext_set <= 2'b10;
+          rrtr_set <= 2'b10;
+          actvtcrc <= 1'b0;
+          actvrcrc <= 1'b0;
+          actvtstf <= 1'b1;
+          actvrstf <= 1'b0;
+          actvtsft <= 1'b0;
+          actvrsft <= 1'b0;
+          actvtdct <= 1'b0;
+          actvrdct <= 1'b0;
+          actvtbed <= 1'b0;
+          setbdom <= 1'b1;
+          setbrec <= 1'b0;
+          lcrc <= 1'b0;
+          tshift <= 1'b0;
+          inconerec <= 1'b0;
+          incegtrec <= 1'b0;
+          incegttra <= 1'b0;
+          lmsg <= 1'b0;
+          decrec <= 1'b0;
+          dectra <= 1'b0;
+          elevrecb <= 1'b0;
+          hardsync <= 1'b0;
+          resetdst <= 1'b1;
+          resetstf <= 1'b1;
+          inccount <= 1'b0;
+          rescount <= 1'b1;
+          setrmleno <= 0;
+          actvrmln <= 1'b0;
+          resrmlen <= 1'b1;
+          ackerror_set <= 2'b10;
+          transmitter_set <= 2'b00;
+          receiver_set <= 2'b00;
+          error_set <= 2'b11;
+          first_set <= 2'b10;
+          activatefast <= 1'b0;
+          puffer_set <= 2'b10;
+          onarbit_set <= 2'b10;
+          en_zerointcrc <= 1'b1;
+          crc_shft_out <= 1'b0;
+          if (smplpoint==1'b1)
+            next_state <= over_check1;
           else
-            next_stateA <= over_senddomb;
+            next_state <= over_senddomb;
         end
       over_check1 : 
         begin
-          rext_setA <= 2'b10;
-          rrtr_setA <= 2'b10;
-          actvtcrcA <= 1'b0;
-          actvrcrcA <= 1'b0;
-          actvtstfA <= 1'b0;
-          actvrstfA <= 1'b0;
-          actvtsftA <= 1'b0;
-          actvrsftA <= 1'b0;
-          actvtdctA <= 1'b0;
-          actvrdctA <= 1'b0;
-          actvtbedA <= 1'b1;
-          setbdomA <= 1'b1;
-          setbrecA <= 1'b0;
-          lcrcA <= 1'b0;
-          tshiftA <= 1'b0;
-          inconerecA <= 1'b0;
-          incegtrecA <= 1'b0;
-          incegttraA <= 1'b0;
-          lmsgA <= 1'b0;
-          decrecA <= 1'b0;
-          dectraA <= 1'b0;
-          elevrecbA <= 1'b0;
-          hardsyncA <= 1'b0;
-          resetdstA <= 1'b1;
-          resetstfA <= 1'b1;
-          inccountA <= 1'b1;
-          rescountA <= 1'b1;
-          setrmlenoA <= 0;
-          actvrmlnA <= 1'b0;
-          resrmlenA <= 1'b1;
-          ackerror_setA <= 2'b10;
-          transmitter_setA <= 2'b00;
-          receiver_setA <= 2'b00;
-          error_setA <= 2'b11;
-          first_setA <= 2'b10;
-          activatefastA <= 1'b0;
-          puffer_setA <= 2'b10;
-          onarbit_setA <= 2'b10;
-          en_zerointcrcA <= 1'b1;
-          crc_shft_outA <= 1'b0;
-          if (sendpointA==1'b1&&biterrorA==1'b0&&countA!=6)
-            next_stateA <= over_senddomb;
+          rext_set <= 2'b10;
+          rrtr_set <= 2'b10;
+          actvtcrc <= 1'b0;
+          actvrcrc <= 1'b0;
+          actvtstf <= 1'b0;
+          actvrstf <= 1'b0;
+          actvtsft <= 1'b0;
+          actvrsft <= 1'b0;
+          actvtdct <= 1'b0;
+          actvrdct <= 1'b0;
+          actvtbed <= 1'b1;
+          setbdom <= 1'b1;
+          setbrec <= 1'b0;
+          lcrc <= 1'b0;
+          tshift <= 1'b0;
+          inconerec <= 1'b0;
+          incegtrec <= 1'b0;
+          incegttra <= 1'b0;
+          lmsg <= 1'b0;
+          decrec <= 1'b0;
+          dectra <= 1'b0;
+          elevrecb <= 1'b0;
+          hardsync <= 1'b0;
+          resetdst <= 1'b1;
+          resetstf <= 1'b1;
+          inccount <= 1'b1;
+          rescount <= 1'b1;
+          setrmleno <= 0;
+          actvrmln <= 1'b0;
+          resrmlen <= 1'b1;
+          ackerror_set <= 2'b10;
+          transmitter_set <= 2'b00;
+          receiver_set <= 2'b00;
+          error_set <= 2'b11;
+          first_set <= 2'b10;
+          activatefast <= 1'b0;
+          puffer_set <= 2'b10;
+          onarbit_set <= 2'b10;
+          en_zerointcrc <= 1'b1;
+          crc_shft_out <= 1'b0;
+          if (sendpoint==1'b1&&biterror==1'b0&&count!=6)
+            next_state <= over_senddomb;
           else
-            if (biterrorA==1'b0&&countA==6)
-              next_stateA <= over_preprecb;
+            if (biterror==1'b0&&count==6)
+              next_state <= over_preprecb;
             else
-              if (biterrorA==1'b1&&erroractivA==1'b1)
-                next_stateA <= erroractiv_firstdom;
+              if (biterror==1'b1&&erroractiv==1'b1)
+                next_state <= erroractiv_firstdom;
               else
-                if (biterrorA==1'b1&&errorpassivA==1'b1)
-                  next_stateA <= errorpassiv_firstrec;
+                if (biterror==1'b1&&errorpassiv==1'b1)
+                  next_state <= errorpassiv_firstrec;
                 else
-                  if (biterrorA==1'b1&&busofA==1'b1)
-                    next_stateA <= busoff_first;
+                  if (biterror==1'b1&&busof==1'b1)
+                    next_state <= busoff_first;
                   else
-                    next_stateA <= over_check1;
+                    next_state <= over_check1;
         end
       over_preprecb : 
         begin
-          rext_setA <= 2'b10;
-          rrtr_setA <= 2'b10;
-          actvtcrcA <= 1'b0;
-          actvrcrcA <= 1'b0;
-          actvtstfA <= 1'b0;
-          actvrstfA <= 1'b0;
-          actvtsftA <= 1'b0;
-          actvrsftA <= 1'b0;
-          actvtdctA <= 1'b0;
-          actvrdctA <= 1'b0;
-          actvtbedA <= 1'b0;
-          setbdomA <= 1'b0;
-          setbrecA <= 1'b1;
-          lcrcA <= 1'b0;
-          tshiftA <= 1'b0;
-          inconerecA <= 1'b0;
-          incegtrecA <= 1'b0;
-          incegttraA <= 1'b0;
-          lmsgA <= 1'b0;
-          decrecA <= 1'b0;
-          dectraA <= 1'b0;
-          elevrecbA <= 1'b0;
-          hardsyncA <= 1'b0;
-          resetdstA <= 1'b1;
-          resetstfA <= 1'b1;
-          inccountA <= 1'b0;
-          rescountA <= 1'b0;
-          setrmlenoA <= 0;
-          actvrmlnA <= 1'b0;
-          resrmlenA <= 1'b1;
-          ackerror_setA <= 2'b10;
-          transmitter_setA <= 2'b00;
-          receiver_setA <= 2'b00;
-          error_setA <= 2'b11;
-          first_setA <= 2'b10;
-          activatefastA <= 1'b0;
-          puffer_setA <= 2'b10;
-          onarbit_setA <= 2'b10;
-          en_zerointcrcA <= 1'b1;
-          crc_shft_outA <= 1'b0;
-          if (sendpointA==1'b1)
-            next_stateA <= over_wtonrecb;
+          rext_set <= 2'b10;
+          rrtr_set <= 2'b10;
+          actvtcrc <= 1'b0;
+          actvrcrc <= 1'b0;
+          actvtstf <= 1'b0;
+          actvrstf <= 1'b0;
+          actvtsft <= 1'b0;
+          actvrsft <= 1'b0;
+          actvtdct <= 1'b0;
+          actvrdct <= 1'b0;
+          actvtbed <= 1'b0;
+          setbdom <= 1'b0;
+          setbrec <= 1'b1;
+          lcrc <= 1'b0;
+          tshift <= 1'b0;
+          inconerec <= 1'b0;
+          incegtrec <= 1'b0;
+          incegttra <= 1'b0;
+          lmsg <= 1'b0;
+          decrec <= 1'b0;
+          dectra <= 1'b0;
+          elevrecb <= 1'b0;
+          hardsync <= 1'b0;
+          resetdst <= 1'b1;
+          resetstf <= 1'b1;
+          inccount <= 1'b0;
+          rescount <= 1'b0;
+          setrmleno <= 0;
+          actvrmln <= 1'b0;
+          resrmlen <= 1'b1;
+          ackerror_set <= 2'b10;
+          transmitter_set <= 2'b00;
+          receiver_set <= 2'b00;
+          error_set <= 2'b11;
+          first_set <= 2'b10;
+          activatefast <= 1'b0;
+          puffer_set <= 2'b10;
+          onarbit_set <= 2'b10;
+          en_zerointcrc <= 1'b1;
+          crc_shft_out <= 1'b0;
+          if (sendpoint==1'b1)
+            next_state <= over_wtonrecb;
           else
-            next_stateA <= over_preprecb;
+            next_state <= over_preprecb;
         end
       over_wtonrecb : 
         begin
-          rext_setA <= 2'b10;
-          rrtr_setA <= 2'b10;
-          actvtcrcA <= 1'b0;
-          actvrcrcA <= 1'b0;
-          actvtstfA <= 1'b1;
-          actvrstfA <= 1'b0;
-          actvtsftA <= 1'b0;
-          actvrsftA <= 1'b0;
-          actvtdctA <= 1'b0;
-          actvrdctA <= 1'b0;
-          actvtbedA <= 1'b0;
-          setbdomA <= 1'b0;
-          setbrecA <= 1'b1;
-          lcrcA <= 1'b0;
-          tshiftA <= 1'b0;
-          inconerecA <= 1'b0;
-          incegtrecA <= 1'b0;
-          incegttraA <= 1'b0;
-          lmsgA <= 1'b0;
-          decrecA <= 1'b0;
-          dectraA <= 1'b0;
-          elevrecbA <= 1'b0;
-          hardsyncA <= 1'b0;
-          resetdstA <= 1'b1;
-          resetstfA <= 1'b1;
-          inccountA <= 1'b1;
-          rescountA <= 1'b1;
-          setrmlenoA <= 0;
-          actvrmlnA <= 1'b0;
-          resrmlenA <= 1'b1;
-          ackerror_setA <= 2'b10;
-          transmitter_setA <= 2'b00;
-          receiver_setA <= 2'b00;
-          error_setA <= 2'b11;
-          first_setA <= 2'b10;
-          activatefastA <= 1'b0;
-          puffer_setA <= 2'b10;
-          onarbit_setA <= 2'b10;
-          en_zerointcrcA <= 1'b1;
-          crc_shft_outA <= 1'b0;
-          if (smplpointA==1'b1)
-            next_stateA <= over_check2;
+          rext_set <= 2'b10;
+          rrtr_set <= 2'b10;
+          actvtcrc <= 1'b0;
+          actvrcrc <= 1'b0;
+          actvtstf <= 1'b1;
+          actvrstf <= 1'b0;
+          actvtsft <= 1'b0;
+          actvrsft <= 1'b0;
+          actvtdct <= 1'b0;
+          actvrdct <= 1'b0;
+          actvtbed <= 1'b0;
+          setbdom <= 1'b0;
+          setbrec <= 1'b1;
+          lcrc <= 1'b0;
+          tshift <= 1'b0;
+          inconerec <= 1'b0;
+          incegtrec <= 1'b0;
+          incegttra <= 1'b0;
+          lmsg <= 1'b0;
+          decrec <= 1'b0;
+          dectra <= 1'b0;
+          elevrecb <= 1'b0;
+          hardsync <= 1'b0;
+          resetdst <= 1'b1;
+          resetstf <= 1'b1;
+          inccount <= 1'b1;
+          rescount <= 1'b1;
+          setrmleno <= 0;
+          actvrmln <= 1'b0;
+          resrmlen <= 1'b1;
+          ackerror_set <= 2'b10;
+          transmitter_set <= 2'b00;
+          receiver_set <= 2'b00;
+          error_set <= 2'b11;
+          first_set <= 2'b10;
+          activatefast <= 1'b0;
+          puffer_set <= 2'b10;
+          onarbit_set <= 2'b10;
+          en_zerointcrc <= 1'b1;
+          crc_shft_out <= 1'b0;
+          if (smplpoint==1'b1)
+            next_state <= over_check2;
           else
-            next_stateA <= over_wtonrecb;
+            next_state <= over_wtonrecb;
         end
       over_inctracounter : 
         begin
-          rext_setA <= 2'b10;
-          rrtr_setA <= 2'b10;
-          actvtcrcA <= 1'b0;
-          actvrcrcA <= 1'b0;
-          actvtstfA <= 1'b1;
-          actvrstfA <= 1'b0;
-          actvtsftA <= 1'b0;
-          actvrsftA <= 1'b0;
-          actvtdctA <= 1'b0;
-          actvrdctA <= 1'b0;
-          actvtbedA <= 1'b0;
-          setbdomA <= 1'b0;
-          setbrecA <= 1'b1;
-          lcrcA <= 1'b0;
-          tshiftA <= 1'b0;
-          inconerecA <= 1'b0;
-          incegtrecA <= 1'b0;
-          incegttraA <= 1'b1;
-          lmsgA <= 1'b0;
-          decrecA <= 1'b0;
-          dectraA <= 1'b0;
-          elevrecbA <= 1'b0;
-          hardsyncA <= 1'b0;
-          resetdstA <= 1'b1;
-          resetstfA <= 1'b1;
-          inccountA <= 1'b0;
-          rescountA <= 1'b0;
-          setrmlenoA <= 0;
-          actvrmlnA <= 1'b0;
-          resrmlenA <= 1'b1;
-          ackerror_setA <= 2'b10;
-          transmitter_setA <= 2'b00;
-          receiver_setA <= 2'b00;
-          error_setA <= 2'b11;
-          first_setA <= 2'b10;
-          activatefastA <= 1'b0;
-          puffer_setA <= 2'b10;
-          onarbit_setA <= 2'b10;
-          en_zerointcrcA <= 1'b1;
-          crc_shft_outA <= 1'b0;
-          if (smplpointA==1'b1)
-            next_stateA <= over_check2;
+          rext_set <= 2'b10;
+          rrtr_set <= 2'b10;
+          actvtcrc <= 1'b0;
+          actvrcrc <= 1'b0;
+          actvtstf <= 1'b1;
+          actvrstf <= 1'b0;
+          actvtsft <= 1'b0;
+          actvrsft <= 1'b0;
+          actvtdct <= 1'b0;
+          actvrdct <= 1'b0;
+          actvtbed <= 1'b0;
+          setbdom <= 1'b0;
+          setbrec <= 1'b1;
+          lcrc <= 1'b0;
+          tshift <= 1'b0;
+          inconerec <= 1'b0;
+          incegtrec <= 1'b0;
+          incegttra <= 1'b1;
+          lmsg <= 1'b0;
+          decrec <= 1'b0;
+          dectra <= 1'b0;
+          elevrecb <= 1'b0;
+          hardsync <= 1'b0;
+          resetdst <= 1'b1;
+          resetstf <= 1'b1;
+          inccount <= 1'b0;
+          rescount <= 1'b0;
+          setrmleno <= 0;
+          actvrmln <= 1'b0;
+          resrmlen <= 1'b1;
+          ackerror_set <= 2'b10;
+          transmitter_set <= 2'b00;
+          receiver_set <= 2'b00;
+          error_set <= 2'b11;
+          first_set <= 2'b10;
+          activatefast <= 1'b0;
+          puffer_set <= 2'b10;
+          onarbit_set <= 2'b10;
+          en_zerointcrc <= 1'b1;
+          crc_shft_out <= 1'b0;
+          if (smplpoint==1'b1)
+            next_state <= over_check2;
           else
-            next_stateA <= over_inctracounter;
+            next_state <= over_inctracounter;
         end
       over_increccounter : 
         begin
-          rext_setA <= 2'b10;
-          rrtr_setA <= 2'b10;
-          actvtcrcA <= 1'b0;
-          actvrcrcA <= 1'b0;
-          actvtstfA <= 1'b1;
-          actvrstfA <= 1'b0;
-          actvtsftA <= 1'b0;
-          actvrsftA <= 1'b0;
-          actvtdctA <= 1'b0;
-          actvrdctA <= 1'b0;
-          actvtbedA <= 1'b0;
-          setbdomA <= 1'b0;
-          setbrecA <= 1'b1;
-          lcrcA <= 1'b0;
-          tshiftA <= 1'b0;
-          inconerecA <= 1'b0;
-          incegtrecA <= 1'b1;
-          incegttraA <= 1'b0;
-          lmsgA <= 1'b0;
-          decrecA <= 1'b0;
-          dectraA <= 1'b0;
-          elevrecbA <= 1'b0;
-          hardsyncA <= 1'b0;
-          resetdstA <= 1'b1;
-          resetstfA <= 1'b1;
-          inccountA <= 1'b0;
-          rescountA <= 1'b0;
-          setrmlenoA <= 0;
-          actvrmlnA <= 1'b0;
-          resrmlenA <= 1'b1;
-          ackerror_setA <= 2'b10;
-          transmitter_setA <= 2'b00;
-          receiver_setA <= 2'b00;
-          error_setA <= 2'b11;
-          first_setA <= 2'b10;
-          activatefastA <= 1'b0;
-          puffer_setA <= 2'b10;
-          onarbit_setA <= 2'b10;
-          en_zerointcrcA <= 1'b1;
-          crc_shft_outA <= 1'b0;
-          if (smplpointA==1'b1)
-            next_stateA <= over_check2;
+          rext_set <= 2'b10;
+          rrtr_set <= 2'b10;
+          actvtcrc <= 1'b0;
+          actvrcrc <= 1'b0;
+          actvtstf <= 1'b1;
+          actvrstf <= 1'b0;
+          actvtsft <= 1'b0;
+          actvrsft <= 1'b0;
+          actvtdct <= 1'b0;
+          actvrdct <= 1'b0;
+          actvtbed <= 1'b0;
+          setbdom <= 1'b0;
+          setbrec <= 1'b1;
+          lcrc <= 1'b0;
+          tshift <= 1'b0;
+          inconerec <= 1'b0;
+          incegtrec <= 1'b1;
+          incegttra <= 1'b0;
+          lmsg <= 1'b0;
+          decrec <= 1'b0;
+          dectra <= 1'b0;
+          elevrecb <= 1'b0;
+          hardsync <= 1'b0;
+          resetdst <= 1'b1;
+          resetstf <= 1'b1;
+          inccount <= 1'b0;
+          rescount <= 1'b0;
+          setrmleno <= 0;
+          actvrmln <= 1'b0;
+          resrmlen <= 1'b1;
+          ackerror_set <= 2'b10;
+          transmitter_set <= 2'b00;
+          receiver_set <= 2'b00;
+          error_set <= 2'b11;
+          first_set <= 2'b10;
+          activatefast <= 1'b0;
+          puffer_set <= 2'b10;
+          onarbit_set <= 2'b10;
+          en_zerointcrc <= 1'b1;
+          crc_shft_out <= 1'b0;
+          if (smplpoint==1'b1)
+            next_state <= over_check2;
           else
-            next_stateA <= over_increccounter;
+            next_state <= over_increccounter;
         end
       over_check2 : 
         begin
-          rext_setA <= 2'b10;
-          rrtr_setA <= 2'b10;
-          actvtcrcA <= 1'b0;
-          actvrcrcA <= 1'b0;
-          actvtstfA <= 1'b0;
-          actvrstfA <= 1'b0;
-          actvtsftA <= 1'b0;
-          actvrsftA <= 1'b0;
-          actvtdctA <= 1'b0;
-          actvrdctA <= 1'b0;
-          actvtbedA <= 1'b1;
-          setbdomA <= 1'b0;
-          setbrecA <= 1'b1;
-          lcrcA <= 1'b0;
-          tshiftA <= 1'b0;
-          inconerecA <= 1'b0;
-          incegtrecA <= 1'b0;
-          incegttraA <= 1'b0;
-          lmsgA <= 1'b0;
-          decrecA <= 1'b0;
-          dectraA <= 1'b0;
-          elevrecbA <= 1'b0;
-          hardsyncA <= 1'b0;
-          resetdstA <= 1'b1;
-          resetstfA <= 1'b1;
-          inccountA <= 1'b0;
-          rescountA <= 1'b1;
-          setrmlenoA <= 0;
-          actvrmlnA <= 1'b0;
-          resrmlenA <= 1'b1;
-          ackerror_setA <= 2'b10;
-          transmitter_setA <= 2'b00;
-          receiver_setA <= 2'b00;
-          error_setA <= 2'b11;
-          first_setA <= 2'b10;
-          activatefastA <= 1'b0;
-          puffer_setA <= 2'b10;
-          onarbit_setA <= 2'b10;
-          en_zerointcrcA <= 1'b1;
-          crc_shft_outA <= 1'b0;
-          if (sendpointA==1'b1&&biterrorA==1'b1&&countA!=7)
-            next_stateA <= over_wtonrecb;
+          rext_set <= 2'b10;
+          rrtr_set <= 2'b10;
+          actvtcrc <= 1'b0;
+          actvrcrc <= 1'b0;
+          actvtstf <= 1'b0;
+          actvrstf <= 1'b0;
+          actvtsft <= 1'b0;
+          actvrsft <= 1'b0;
+          actvtdct <= 1'b0;
+          actvrdct <= 1'b0;
+          actvtbed <= 1'b1;
+          setbdom <= 1'b0;
+          setbrec <= 1'b1;
+          lcrc <= 1'b0;
+          tshift <= 1'b0;
+          inconerec <= 1'b0;
+          incegtrec <= 1'b0;
+          incegttra <= 1'b0;
+          lmsg <= 1'b0;
+          decrec <= 1'b0;
+          dectra <= 1'b0;
+          elevrecb <= 1'b0;
+          hardsync <= 1'b0;
+          resetdst <= 1'b1;
+          resetstf <= 1'b1;
+          inccount <= 1'b0;
+          rescount <= 1'b1;
+          setrmleno <= 0;
+          actvrmln <= 1'b0;
+          resrmlen <= 1'b1;
+          ackerror_set <= 2'b10;
+          transmitter_set <= 2'b00;
+          receiver_set <= 2'b00;
+          error_set <= 2'b11;
+          first_set <= 2'b10;
+          activatefast <= 1'b0;
+          puffer_set <= 2'b10;
+          onarbit_set <= 2'b10;
+          en_zerointcrc <= 1'b1;
+          crc_shft_out <= 1'b0;
+          if (sendpoint==1'b1&&biterror==1'b1&&count!=7)
+            next_state <= over_wtonrecb;
           else
-            if (sendpointA==1'b1&&biterrorA==1'b1&&countA==7&&receiverA==1'b1)
-              next_stateA <= over_increccounter;
+            if (sendpoint==1'b1&&biterror==1'b1&&count==7&&receiver==1'b1)
+              next_state <= over_increccounter;
             else
-              if (sendpointA==1'b1&&biterrorA==1'b1&&countA==7&&transmitterA==1'b1)
-                next_stateA <= over_inctracounter;
+              if (sendpoint==1'b1&&biterror==1'b1&&count==7&&transmitter==1'b1)
+                next_state <= over_inctracounter;
               else
-                if (biterrorA==1'b0)
-                  next_stateA <= over_prepsend;
+                if (biterror==1'b0)
+                  next_state <= over_prepsend;
                 else
-                  next_stateA <= over_check2;
+                  next_state <= over_check2;
         end
       over_prepsend : 
         begin
-          rext_setA <= 2'b10;
-          rrtr_setA <= 2'b10;
-          actvtcrcA <= 1'b0;
-          actvrcrcA <= 1'b0;
-          actvtstfA <= 1'b0;
-          actvrstfA <= 1'b0;
-          actvtsftA <= 1'b0;
-          actvrsftA <= 1'b0;
-          actvtdctA <= 1'b0;
-          actvrdctA <= 1'b0;
-          actvtbedA <= 1'b0;
-          setbdomA <= 1'b0;
-          setbrecA <= 1'b1;
-          lcrcA <= 1'b0;
-          tshiftA <= 1'b0;
-          inconerecA <= 1'b0;
-          incegtrecA <= 1'b0;
-          incegttraA <= 1'b0;
-          lmsgA <= 1'b0;
-          decrecA <= 1'b0;
-          dectraA <= 1'b0;
-          elevrecbA <= 1'b0;
-          hardsyncA <= 1'b0;
-          resetdstA <= 1'b1;
-          resetstfA <= 1'b1;
-          inccountA <= 1'b0;
-          rescountA <= 1'b0;
-          setrmlenoA <= 0;
-          actvrmlnA <= 1'b0;
-          resrmlenA <= 1'b1;
-          ackerror_setA <= 2'b10;
-          transmitter_setA <= 2'b00;
-          receiver_setA <= 2'b00;
-          error_setA <= 2'b11;
-          first_setA <= 2'b10;
-          activatefastA <= 1'b0;
-          puffer_setA <= 2'b10;
-          onarbit_setA <= 2'b10;
-          en_zerointcrcA <= 1'b1;
-          crc_shft_outA <= 1'b0;
-          if (sendpointA==1'b1)
-            next_stateA <= over_sendrecb;
+          rext_set <= 2'b10;
+          rrtr_set <= 2'b10;
+          actvtcrc <= 1'b0;
+          actvrcrc <= 1'b0;
+          actvtstf <= 1'b0;
+          actvrstf <= 1'b0;
+          actvtsft <= 1'b0;
+          actvrsft <= 1'b0;
+          actvtdct <= 1'b0;
+          actvrdct <= 1'b0;
+          actvtbed <= 1'b0;
+          setbdom <= 1'b0;
+          setbrec <= 1'b1;
+          lcrc <= 1'b0;
+          tshift <= 1'b0;
+          inconerec <= 1'b0;
+          incegtrec <= 1'b0;
+          incegttra <= 1'b0;
+          lmsg <= 1'b0;
+          decrec <= 1'b0;
+          dectra <= 1'b0;
+          elevrecb <= 1'b0;
+          hardsync <= 1'b0;
+          resetdst <= 1'b1;
+          resetstf <= 1'b1;
+          inccount <= 1'b0;
+          rescount <= 1'b0;
+          setrmleno <= 0;
+          actvrmln <= 1'b0;
+          resrmlen <= 1'b1;
+          ackerror_set <= 2'b10;
+          transmitter_set <= 2'b00;
+          receiver_set <= 2'b00;
+          error_set <= 2'b11;
+          first_set <= 2'b10;
+          activatefast <= 1'b0;
+          puffer_set <= 2'b10;
+          onarbit_set <= 2'b10;
+          en_zerointcrc <= 1'b1;
+          crc_shft_out <= 1'b0;
+          if (sendpoint==1'b1)
+            next_state <= over_sendrecb;
           else
-            next_stateA <= over_prepsend;
+            next_state <= over_prepsend;
         end
       over_sendrecb : 
         begin
-          rext_setA <= 2'b10;
-          rrtr_setA <= 2'b10;
-          actvtcrcA <= 1'b0;
-          actvrcrcA <= 1'b0;
-          actvtstfA <= 1'b1;
-          actvrstfA <= 1'b0;
-          actvtsftA <= 1'b0;
-          actvrsftA <= 1'b0;
-          actvtdctA <= 1'b0;
-          actvrdctA <= 1'b0;
-          actvtbedA <= 1'b0;
-          setbdomA <= 1'b0;
-          setbrecA <= 1'b1;
-          lcrcA <= 1'b0;
-          tshiftA <= 1'b0;
-          inconerecA <= 1'b0;
-          incegtrecA <= 1'b0;
-          incegttraA <= 1'b0;
-          lmsgA <= 1'b0;
-          decrecA <= 1'b0;
-          dectraA <= 1'b0;
-          elevrecbA <= 1'b0;
-          hardsyncA <= 1'b0;
-          resetdstA <= 1'b1;
-          resetstfA <= 1'b1;
-          inccountA <= 1'b0;
-          rescountA <= 1'b1;
-          setrmlenoA <= 0;
-          actvrmlnA <= 1'b0;
-          resrmlenA <= 1'b1;
-          ackerror_setA <= 2'b10;
-          transmitter_setA <= 2'b00;
-          receiver_setA <= 2'b00;
-          error_setA <= 2'b11;
-          first_setA <= 2'b10;
-          activatefastA <= 1'b0;
-          puffer_setA <= 2'b10;
-          onarbit_setA <= 2'b10;
-          en_zerointcrcA <= 1'b1;
-          crc_shft_outA <= 1'b0;
-          if (smplpointA==1'b1)
-            next_stateA <= over_check3;
+          rext_set <= 2'b10;
+          rrtr_set <= 2'b10;
+          actvtcrc <= 1'b0;
+          actvrcrc <= 1'b0;
+          actvtstf <= 1'b1;
+          actvrstf <= 1'b0;
+          actvtsft <= 1'b0;
+          actvrsft <= 1'b0;
+          actvtdct <= 1'b0;
+          actvrdct <= 1'b0;
+          actvtbed <= 1'b0;
+          setbdom <= 1'b0;
+          setbrec <= 1'b1;
+          lcrc <= 1'b0;
+          tshift <= 1'b0;
+          inconerec <= 1'b0;
+          incegtrec <= 1'b0;
+          incegttra <= 1'b0;
+          lmsg <= 1'b0;
+          decrec <= 1'b0;
+          dectra <= 1'b0;
+          elevrecb <= 1'b0;
+          hardsync <= 1'b0;
+          resetdst <= 1'b1;
+          resetstf <= 1'b1;
+          inccount <= 1'b0;
+          rescount <= 1'b1;
+          setrmleno <= 0;
+          actvrmln <= 1'b0;
+          resrmlen <= 1'b1;
+          ackerror_set <= 2'b10;
+          transmitter_set <= 2'b00;
+          receiver_set <= 2'b00;
+          error_set <= 2'b11;
+          first_set <= 2'b10;
+          activatefast <= 1'b0;
+          puffer_set <= 2'b10;
+          onarbit_set <= 2'b10;
+          en_zerointcrc <= 1'b1;
+          crc_shft_out <= 1'b0;
+          if (smplpoint==1'b1)
+            next_state <= over_check3;
           else
-            next_stateA <= over_sendrecb;
+            next_state <= over_sendrecb;
         end
       over_check3 : 
         begin
-          rext_setA <= 2'b10;
-          rrtr_setA <= 2'b10;
-          actvtcrcA <= 1'b0;
-          actvrcrcA <= 1'b0;
-          actvtstfA <= 1'b0;
-          actvrstfA <= 1'b0;
-          actvtsftA <= 1'b0;
-          actvrsftA <= 1'b0;
-          actvtdctA <= 1'b0;
-          actvrdctA <= 1'b0;
-          actvtbedA <= 1'b1;
-          setbdomA <= 1'b0;
-          setbrecA <= 1'b1;
-          lcrcA <= 1'b0;
-          tshiftA <= 1'b0;
-          inconerecA <= 1'b0;
-          incegtrecA <= 1'b0;
-          incegttraA <= 1'b0;
-          lmsgA <= 1'b0;
-          decrecA <= 1'b0;
-          dectraA <= 1'b0;
-          elevrecbA <= 1'b0;
-          hardsyncA <= 1'b0;
-          resetdstA <= 1'b1;
-          resetstfA <= 1'b1;
-          inccountA <= 1'b1;
-          rescountA <= 1'b1;
-          setrmlenoA <= 0;
-          actvrmlnA <= 1'b0;
-          resrmlenA <= 1'b1;
-          ackerror_setA <= 2'b10;
-          transmitter_setA <= 2'b00;
-          receiver_setA <= 2'b00;
-          error_setA <= 2'b11;
-          first_setA <= 2'b10;
-          activatefastA <= 1'b0;
-          puffer_setA <= 2'b10;
-          onarbit_setA <= 2'b10;
-          en_zerointcrcA <= 1'b1;
-          crc_shft_outA <= 1'b0;
-          if (sendpointA==1'b1&&biterrorA==1'b0&&countA!=7)
-            next_stateA <= over_sendrecb;
+          rext_set <= 2'b10;
+          rrtr_set <= 2'b10;
+          actvtcrc <= 1'b0;
+          actvrcrc <= 1'b0;
+          actvtstf <= 1'b0;
+          actvrstf <= 1'b0;
+          actvtsft <= 1'b0;
+          actvrsft <= 1'b0;
+          actvtdct <= 1'b0;
+          actvrdct <= 1'b0;
+          actvtbed <= 1'b1;
+          setbdom <= 1'b0;
+          setbrec <= 1'b1;
+          lcrc <= 1'b0;
+          tshift <= 1'b0;
+          inconerec <= 1'b0;
+          incegtrec <= 1'b0;
+          incegttra <= 1'b0;
+          lmsg <= 1'b0;
+          decrec <= 1'b0;
+          dectra <= 1'b0;
+          elevrecb <= 1'b0;
+          hardsync <= 1'b0;
+          resetdst <= 1'b1;
+          resetstf <= 1'b1;
+          inccount <= 1'b1;
+          rescount <= 1'b1;
+          setrmleno <= 0;
+          actvrmln <= 1'b0;
+          resrmlen <= 1'b1;
+          ackerror_set <= 2'b10;
+          transmitter_set <= 2'b00;
+          receiver_set <= 2'b00;
+          error_set <= 2'b11;
+          first_set <= 2'b10;
+          activatefast <= 1'b0;
+          puffer_set <= 2'b10;
+          onarbit_set <= 2'b10;
+          en_zerointcrc <= 1'b1;
+          crc_shft_out <= 1'b0;
+          if (sendpoint==1'b1&&biterror==1'b0&&count!=7)
+            next_state <= over_sendrecb;
           else
-            if (biterrorA==1'b0&&countA==7)
-              next_stateA <= over_waitoclk;
+            if (biterror==1'b0&&count==7)
+              next_state <= over_waitoclk;
             else
-              if (biterrorA==1'b1&&countA==7)
-                next_stateA <= over_firstdom;
+              if (biterror==1'b1&&count==7)
+                next_state <= over_firstdom;
               else
-                if (biterrorA==1'b1&&erroractivA==1'b1&&countA!=7)
-                  next_stateA <= erroractiv_firstdom;
+                if (biterror==1'b1&&erroractiv==1'b1&&count!=7)
+                  next_state <= erroractiv_firstdom;
                 else
-                  if (biterrorA==1'b1&&errorpassivA==1'b1&&countA!=7)
-                    next_stateA <= errorpassiv_firstrec;
+                  if (biterror==1'b1&&errorpassiv==1'b1&&count!=7)
+                    next_state <= errorpassiv_firstrec;
                   else
-                    if (biterrorA==1'b1&&busofA==1'b1&&countA!=7)
-                      next_stateA <= busoff_first;
+                    if (biterror==1'b1&&busof==1'b1&&count!=7)
+                      next_state <= busoff_first;
                     else
-                      next_stateA <= over_check3;
+                      next_state <= over_check3;
         end
       over_waitoclk : 
         begin
-          rext_setA <= 2'b10;
-          rrtr_setA <= 2'b10;
-          actvtcrcA <= 1'b0;
-          actvrcrcA <= 1'b0;
-          actvtstfA <= 1'b0;
-          actvrstfA <= 1'b0;
-          actvtsftA <= 1'b0;
-          actvrsftA <= 1'b0;
-          actvtdctA <= 1'b0;
-          actvrdctA <= 1'b0;
-          actvtbedA <= 1'b0;
-          setbdomA <= 1'b0;
-          setbrecA <= 1'b0;
-          lcrcA <= 1'b0;
-          tshiftA <= 1'b0;
-          inconerecA <= 1'b0;
-          incegtrecA <= 1'b0;
-          incegttraA <= 1'b0;
-          lmsgA <= 1'b0;
-          decrecA <= 1'b0;
-          dectraA <= 1'b0;
-          elevrecbA <= 1'b0;
-          hardsyncA <= 1'b0;
-          resetdstA <= 1'b1;
-          resetstfA <= 1'b0;
-          inccountA <= 1'b0;
-          rescountA <= 1'b0;
-          setrmlenoA <= 0;
-          actvrmlnA <= 1'b0;
-          resrmlenA <= 1'b1;
-          ackerror_setA <= 2'b10;
-          transmitter_setA <= 2'b00;
-          receiver_setA <= 2'b00;
-          error_setA <= 2'b10;
-          first_setA <= 2'b10;
-          activatefastA <= 1'b0;
-          puffer_setA <= 2'b10;
-          onarbit_setA <= 2'b10;
-          en_zerointcrcA <= 1'b1;
-          crc_shft_outA <= 1'b0;
-          if (smplpointA==1'b1)
-            next_stateA <= inter_sample;
+          rext_set <= 2'b10;
+          rrtr_set <= 2'b10;
+          actvtcrc <= 1'b0;
+          actvrcrc <= 1'b0;
+          actvtstf <= 1'b0;
+          actvrstf <= 1'b0;
+          actvtsft <= 1'b0;
+          actvrsft <= 1'b0;
+          actvtdct <= 1'b0;
+          actvrdct <= 1'b0;
+          actvtbed <= 1'b0;
+          setbdom <= 1'b0;
+          setbrec <= 1'b0;
+          lcrc <= 1'b0;
+          tshift <= 1'b0;
+          inconerec <= 1'b0;
+          incegtrec <= 1'b0;
+          incegttra <= 1'b0;
+          lmsg <= 1'b0;
+          decrec <= 1'b0;
+          dectra <= 1'b0;
+          elevrecb <= 1'b0;
+          hardsync <= 1'b0;
+          resetdst <= 1'b1;
+          resetstf <= 1'b0;
+          inccount <= 1'b0;
+          rescount <= 1'b0;
+          setrmleno <= 0;
+          actvrmln <= 1'b0;
+          resrmlen <= 1'b1;
+          ackerror_set <= 2'b10;
+          transmitter_set <= 2'b00;
+          receiver_set <= 2'b00;
+          error_set <= 2'b10;
+          first_set <= 2'b10;
+          activatefast <= 1'b0;
+          puffer_set <= 2'b10;
+          onarbit_set <= 2'b10;
+          en_zerointcrc <= 1'b1;
+          crc_shft_out <= 1'b0;
+          if (smplpoint==1'b1)
+            next_state <= inter_sample;
           else
-            next_stateA <= over_waitoclk;
+            next_state <= over_waitoclk;
         end
       erroractiv_firstdom : 
         begin
-          rext_setA <= 2'b10;
-          rrtr_setA <= 2'b10;
-          actvtcrcA <= 1'b0;
-          actvrcrcA <= 1'b0;
-          actvtstfA <= 1'b0;
-          actvrstfA <= 1'b0;
-          actvtsftA <= 1'b0;
-          actvrsftA <= 1'b0;
-          actvtdctA <= 1'b0;
-          actvrdctA <= 1'b0;
-          actvtbedA <= 1'b0;
-          setbdomA <= 1'b1;
-          setbrecA <= 1'b0;
-          lcrcA <= 1'b0;
-          tshiftA <= 1'b0;
-          inconerecA <= 1'b0;
-          incegtrecA <= 1'b0;
-          incegttraA <= 1'b0;
-          lmsgA <= 1'b0;
-          decrecA <= 1'b0;
-          dectraA <= 1'b0;
-          elevrecbA <= 1'b0;
-          hardsyncA <= 1'b0;
-          resetdstA <= 1'b1;
-          resetstfA <= 1'b1;
-          inccountA <= 1'b0;
-          rescountA <= 1'b0;
-          setrmlenoA <= 0;
-          actvrmlnA <= 1'b0;
-          resrmlenA <= 1'b1;
-          ackerror_setA <= 2'b10;
-          transmitter_setA <= 2'b00;
-          receiver_setA <= 2'b00;
-          error_setA <= 2'b00;
-          first_setA <= 2'b11;
-          activatefastA <= 1'b0;
-          puffer_setA <= 2'b10;
-          onarbit_setA <= 2'b00;
-          en_zerointcrcA <= 1'b1;
-          crc_shft_outA <= 1'b0;
-          if (sendpointA==1'b1&&onarbitA==1'b1)
-            next_stateA <= erroractiv_senddomb;
+          rext_set <= 2'b10;
+          rrtr_set <= 2'b10;
+          actvtcrc <= 1'b0;
+          actvrcrc <= 1'b0;
+          actvtstf <= 1'b0;
+          actvrstf <= 1'b0;
+          actvtsft <= 1'b0;
+          actvrsft <= 1'b0;
+          actvtdct <= 1'b0;
+          actvrdct <= 1'b0;
+          actvtbed <= 1'b0;
+          setbdom <= 1'b1;
+          setbrec <= 1'b0;
+          lcrc <= 1'b0;
+          tshift <= 1'b0;
+          inconerec <= 1'b0;
+          incegtrec <= 1'b0;
+          incegttra <= 1'b0;
+          lmsg <= 1'b0;
+          decrec <= 1'b0;
+          dectra <= 1'b0;
+          elevrecb <= 1'b0;
+          hardsync <= 1'b0;
+          resetdst <= 1'b1;
+          resetstf <= 1'b1;
+          inccount <= 1'b0;
+          rescount <= 1'b0;
+          setrmleno <= 0;
+          actvrmln <= 1'b0;
+          resrmlen <= 1'b1;
+          ackerror_set <= 2'b10;
+          transmitter_set <= 2'b00;
+          receiver_set <= 2'b00;
+          error_set <= 2'b00;
+          first_set <= 2'b11;
+          activatefast <= 1'b0;
+          puffer_set <= 2'b10;
+          onarbit_set <= 2'b00;
+          en_zerointcrc <= 1'b1;
+          crc_shft_out <= 1'b0;
+          if (sendpoint==1'b1&&onarbit==1'b1)
+            next_state <= erroractiv_senddomb;
           else
-            if (onarbitA==1'b0&&transmitterA==1'b0&&receiverA==1'b1&&errorA==1'b0)
-              next_stateA <= erroractiv_inceinsrec;
+            if (onarbit==1'b0&&transmitter==1'b0&&receiver==1'b1&&error==1'b0)
+              next_state <= erroractiv_inceinsrec;
             else
-              if (onarbitA==1'b0&&transmitterA==1'b0&&receiverA==1'b1&&errorA==1'b1)
-                next_stateA <= erroractiv_incachtrec;
+              if (onarbit==1'b0&&transmitter==1'b0&&receiver==1'b1&&error==1'b1)
+                next_state <= erroractiv_incachtrec;
               else
-                if (onarbitA==1'b0&&transmitterA==1'b1)
-                  next_stateA <= erroractiv_incachttra;
+                if (onarbit==1'b0&&transmitter==1'b1)
+                  next_state <= erroractiv_incachttra;
                 else
-                  next_stateA <= erroractiv_firstdom;
+                  next_state <= erroractiv_firstdom;
         end
       erroractiv_inceinsrec : 
         begin
-          rext_setA <= 2'b10;
-          rrtr_setA <= 2'b10;
-          actvtcrcA <= 1'b0;
-          actvrcrcA <= 1'b0;
-          actvtstfA <= 1'b0;
-          actvrstfA <= 1'b0;
-          actvtsftA <= 1'b0;
-          actvrsftA <= 1'b0;
-          actvtdctA <= 1'b0;
-          actvrdctA <= 1'b0;
-          actvtbedA <= 1'b0;
-          setbdomA <= 1'b1;
-          setbrecA <= 1'b0;
-          lcrcA <= 1'b0;
-          tshiftA <= 1'b0;
-          inconerecA <= 1'b1;
-          incegtrecA <= 1'b0;
-          incegttraA <= 1'b0;
-          lmsgA <= 1'b0;
-          decrecA <= 1'b0;
-          dectraA <= 1'b0;
-          elevrecbA <= 1'b0;
-          hardsyncA <= 1'b0;
-          resetdstA <= 1'b1;
-          resetstfA <= 1'b1;
-          inccountA <= 1'b0;
-          rescountA <= 1'b1;
-          setrmlenoA <= 0;
-          actvrmlnA <= 1'b0;
-          resrmlenA <= 1'b1;
-          ackerror_setA <= 2'b10;
-          transmitter_setA <= 2'b00;
-          receiver_setA <= 2'b00;
-          error_setA <= 2'b11;
-          first_setA <= 2'b11;
-          activatefastA <= 1'b0;
-          puffer_setA <= 2'b10;
-          onarbit_setA <= 2'b10;
-          en_zerointcrcA <= 1'b1;
-          crc_shft_outA <= 1'b0;
-          if (sendpointA==1'b1)
-            next_stateA <= erroractiv_senddomb;
+          rext_set <= 2'b10;
+          rrtr_set <= 2'b10;
+          actvtcrc <= 1'b0;
+          actvrcrc <= 1'b0;
+          actvtstf <= 1'b0;
+          actvrstf <= 1'b0;
+          actvtsft <= 1'b0;
+          actvrsft <= 1'b0;
+          actvtdct <= 1'b0;
+          actvrdct <= 1'b0;
+          actvtbed <= 1'b0;
+          setbdom <= 1'b1;
+          setbrec <= 1'b0;
+          lcrc <= 1'b0;
+          tshift <= 1'b0;
+          inconerec <= 1'b1;
+          incegtrec <= 1'b0;
+          incegttra <= 1'b0;
+          lmsg <= 1'b0;
+          decrec <= 1'b0;
+          dectra <= 1'b0;
+          elevrecb <= 1'b0;
+          hardsync <= 1'b0;
+          resetdst <= 1'b1;
+          resetstf <= 1'b1;
+          inccount <= 1'b0;
+          rescount <= 1'b1;
+          setrmleno <= 0;
+          actvrmln <= 1'b0;
+          resrmlen <= 1'b1;
+          ackerror_set <= 2'b10;
+          transmitter_set <= 2'b00;
+          receiver_set <= 2'b00;
+          error_set <= 2'b11;
+          first_set <= 2'b11;
+          activatefast <= 1'b0;
+          puffer_set <= 2'b10;
+          onarbit_set <= 2'b10;
+          en_zerointcrc <= 1'b1;
+          crc_shft_out <= 1'b0;
+          if (sendpoint==1'b1)
+            next_state <= erroractiv_senddomb;
           else
-            next_stateA <= erroractiv_inceinsrec;
+            next_state <= erroractiv_inceinsrec;
         end
       erroractiv_incachtrec : 
         begin
-          rext_setA <= 2'b10;
-          rrtr_setA <= 2'b10;
-          actvtcrcA <= 1'b0;
-          actvrcrcA <= 1'b0;
-          actvtstfA <= 1'b0;
-          actvrstfA <= 1'b0;
-          actvtsftA <= 1'b0;
-          actvrsftA <= 1'b0;
-          actvtdctA <= 1'b0;
-          actvrdctA <= 1'b0;
-          actvtbedA <= 1'b0;
-          setbdomA <= 1'b1;
-          setbrecA <= 1'b0;
-          lcrcA <= 1'b0;
-          tshiftA <= 1'b0;
-          inconerecA <= 1'b0;
-          incegtrecA <= 1'b1;
-          incegttraA <= 1'b0;
-          lmsgA <= 1'b0;
-          decrecA <= 1'b0;
-          dectraA <= 1'b0;
-          elevrecbA <= 1'b0;
-          hardsyncA <= 1'b0;
-          resetdstA <= 1'b1;
-          resetstfA <= 1'b1;
-          inccountA <= 1'b0;
-          rescountA <= 1'b1;
-          setrmlenoA <= 0;
-          actvrmlnA <= 1'b0;
-          resrmlenA <= 1'b1;
-          ackerror_setA <= 2'b10;
-          transmitter_setA <= 2'b00;
-          receiver_setA <= 2'b00;
-          error_setA <= 2'b11;
-          first_setA <= 2'b11;
-          activatefastA <= 1'b0;
-          puffer_setA <= 2'b10;
-          onarbit_setA <= 2'b10;
-          en_zerointcrcA <= 1'b1;
-          crc_shft_outA <= 1'b0;
-          if (sendpointA==1'b1)
-            next_stateA <= erroractiv_senddomb;
+          rext_set <= 2'b10;
+          rrtr_set <= 2'b10;
+          actvtcrc <= 1'b0;
+          actvrcrc <= 1'b0;
+          actvtstf <= 1'b0;
+          actvrstf <= 1'b0;
+          actvtsft <= 1'b0;
+          actvrsft <= 1'b0;
+          actvtdct <= 1'b0;
+          actvrdct <= 1'b0;
+          actvtbed <= 1'b0;
+          setbdom <= 1'b1;
+          setbrec <= 1'b0;
+          lcrc <= 1'b0;
+          tshift <= 1'b0;
+          inconerec <= 1'b0;
+          incegtrec <= 1'b1;
+          incegttra <= 1'b0;
+          lmsg <= 1'b0;
+          decrec <= 1'b0;
+          dectra <= 1'b0;
+          elevrecb <= 1'b0;
+          hardsync <= 1'b0;
+          resetdst <= 1'b1;
+          resetstf <= 1'b1;
+          inccount <= 1'b0;
+          rescount <= 1'b1;
+          setrmleno <= 0;
+          actvrmln <= 1'b0;
+          resrmlen <= 1'b1;
+          ackerror_set <= 2'b10;
+          transmitter_set <= 2'b00;
+          receiver_set <= 2'b00;
+          error_set <= 2'b11;
+          first_set <= 2'b11;
+          activatefast <= 1'b0;
+          puffer_set <= 2'b10;
+          onarbit_set <= 2'b10;
+          en_zerointcrc <= 1'b1;
+          crc_shft_out <= 1'b0;
+          if (sendpoint==1'b1)
+            next_state <= erroractiv_senddomb;
           else
-            next_stateA <= erroractiv_incachtrec;
+            next_state <= erroractiv_incachtrec;
         end
       erroractiv_incachttra : 
         begin
-          rext_setA <= 2'b10;
-          rrtr_setA <= 2'b10;
-          actvtcrcA <= 1'b0;
-          actvrcrcA <= 1'b0;
-          actvtstfA <= 1'b0;
-          actvrstfA <= 1'b0;
-          actvtsftA <= 1'b0;
-          actvrsftA <= 1'b0;
-          actvtdctA <= 1'b0;
-          actvrdctA <= 1'b0;
-          actvtbedA <= 1'b0;
-          setbdomA <= 1'b1;
-          setbrecA <= 1'b0;
-          lcrcA <= 1'b0;
-          tshiftA <= 1'b0;
-          inconerecA <= 1'b0;
-          incegtrecA <= 1'b0;
-          incegttraA <= 1'b1;
-          lmsgA <= 1'b0;
-          decrecA <= 1'b0;
-          dectraA <= 1'b0;
-          elevrecbA <= 1'b0;
-          hardsyncA <= 1'b0;
-          resetdstA <= 1'b1;
-          resetstfA <= 1'b1;
-          inccountA <= 1'b0;
-          rescountA <= 1'b1;
-          setrmlenoA <= 0;
-          actvrmlnA <= 1'b0;
-          resrmlenA <= 1'b1;
-          ackerror_setA <= 2'b10;
-          transmitter_setA <= 2'b00;
-          receiver_setA <= 2'b00;
-          error_setA <= 2'b11;
-          first_setA <= 2'b11;
-          activatefastA <= 1'b0;
-          puffer_setA <= 2'b10;
-          onarbit_setA <= 2'b10;
-          en_zerointcrcA <= 1'b1;
-          crc_shft_outA <= 1'b0;
-          if (sendpointA==1'b1)
-            next_stateA <= erroractiv_senddomb;
+          rext_set <= 2'b10;
+          rrtr_set <= 2'b10;
+          actvtcrc <= 1'b0;
+          actvrcrc <= 1'b0;
+          actvtstf <= 1'b0;
+          actvrstf <= 1'b0;
+          actvtsft <= 1'b0;
+          actvrsft <= 1'b0;
+          actvtdct <= 1'b0;
+          actvrdct <= 1'b0;
+          actvtbed <= 1'b0;
+          setbdom <= 1'b1;
+          setbrec <= 1'b0;
+          lcrc <= 1'b0;
+          tshift <= 1'b0;
+          inconerec <= 1'b0;
+          incegtrec <= 1'b0;
+          incegttra <= 1'b1;
+          lmsg <= 1'b0;
+          decrec <= 1'b0;
+          dectra <= 1'b0;
+          elevrecb <= 1'b0;
+          hardsync <= 1'b0;
+          resetdst <= 1'b1;
+          resetstf <= 1'b1;
+          inccount <= 1'b0;
+          rescount <= 1'b1;
+          setrmleno <= 0;
+          actvrmln <= 1'b0;
+          resrmlen <= 1'b1;
+          ackerror_set <= 2'b10;
+          transmitter_set <= 2'b00;
+          receiver_set <= 2'b00;
+          error_set <= 2'b11;
+          first_set <= 2'b11;
+          activatefast <= 1'b0;
+          puffer_set <= 2'b10;
+          onarbit_set <= 2'b10;
+          en_zerointcrc <= 1'b1;
+          crc_shft_out <= 1'b0;
+          if (sendpoint==1'b1)
+            next_state <= erroractiv_senddomb;
           else
-            next_stateA <= erroractiv_incachttra;
+            next_state <= erroractiv_incachttra;
         end
       erroractiv_senddomb : 
         begin
-          rext_setA <= 2'b10;
-          rrtr_setA <= 2'b10;
-          actvtcrcA <= 1'b0;
-          actvrcrcA <= 1'b0;
-          actvtstfA <= 1'b1;
-          actvrstfA <= 1'b0;
-          actvtsftA <= 1'b0;
-          actvrsftA <= 1'b0;
-          actvtdctA <= 1'b0;
-          actvrdctA <= 1'b0;
-          actvtbedA <= 1'b0;
-          setbdomA <= 1'b1;
-          setbrecA <= 1'b0;
-          lcrcA <= 1'b0;
-          tshiftA <= 1'b0;
-          inconerecA <= 1'b0;
-          incegtrecA <= 1'b0;
-          incegttraA <= 1'b0;
-          lmsgA <= 1'b0;
-          decrecA <= 1'b0;
-          dectraA <= 1'b0;
-          elevrecbA <= 1'b0;
-          hardsyncA <= 1'b0;
-          resetdstA <= 1'b1;
-          resetstfA <= 1'b1;
-          inccountA <= 1'b0;
-          rescountA <= 1'b1;
-          setrmlenoA <= 0;
-          actvrmlnA <= 1'b0;
-          resrmlenA <= 1'b1;
-          ackerror_setA <= 2'b10;
-          transmitter_setA <= 2'b00;
-          receiver_setA <= 2'b00;
-          error_setA <= 2'b11;
-          first_setA <= 2'b11;
-          activatefastA <= 1'b0;
-          puffer_setA <= 2'b10;
-          onarbit_setA <= 2'b10;
-          en_zerointcrcA <= 1'b1;
-          crc_shft_outA <= 1'b0;
-          if (smplpointA==1'b1)
-            next_stateA <= erroractiv_check1;
+          rext_set <= 2'b10;
+          rrtr_set <= 2'b10;
+          actvtcrc <= 1'b0;
+          actvrcrc <= 1'b0;
+          actvtstf <= 1'b1;
+          actvrstf <= 1'b0;
+          actvtsft <= 1'b0;
+          actvrsft <= 1'b0;
+          actvtdct <= 1'b0;
+          actvrdct <= 1'b0;
+          actvtbed <= 1'b0;
+          setbdom <= 1'b1;
+          setbrec <= 1'b0;
+          lcrc <= 1'b0;
+          tshift <= 1'b0;
+          inconerec <= 1'b0;
+          incegtrec <= 1'b0;
+          incegttra <= 1'b0;
+          lmsg <= 1'b0;
+          decrec <= 1'b0;
+          dectra <= 1'b0;
+          elevrecb <= 1'b0;
+          hardsync <= 1'b0;
+          resetdst <= 1'b1;
+          resetstf <= 1'b1;
+          inccount <= 1'b0;
+          rescount <= 1'b1;
+          setrmleno <= 0;
+          actvrmln <= 1'b0;
+          resrmlen <= 1'b1;
+          ackerror_set <= 2'b10;
+          transmitter_set <= 2'b00;
+          receiver_set <= 2'b00;
+          error_set <= 2'b11;
+          first_set <= 2'b11;
+          activatefast <= 1'b0;
+          puffer_set <= 2'b10;
+          onarbit_set <= 2'b10;
+          en_zerointcrc <= 1'b1;
+          crc_shft_out <= 1'b0;
+          if (smplpoint==1'b1)
+            next_state <= erroractiv_check1;
           else
-            next_stateA <= erroractiv_senddomb;
+            next_state <= erroractiv_senddomb;
         end
       erroractiv_check1 : 
         begin
-          rext_setA <= 2'b10;
-          rrtr_setA <= 2'b10;
-          actvtcrcA <= 1'b0;
-          actvrcrcA <= 1'b0;
-          actvtstfA <= 1'b0;
-          actvrstfA <= 1'b0;
-          actvtsftA <= 1'b0;
-          actvrsftA <= 1'b0;
-          actvtdctA <= 1'b0;
-          actvrdctA <= 1'b0;
-          actvtbedA <= 1'b1;
-          setbdomA <= 1'b1;
-          setbrecA <= 1'b0;
-          lcrcA <= 1'b0;
-          tshiftA <= 1'b0;
-          inconerecA <= 1'b0;
-          incegtrecA <= 1'b0;
-          incegttraA <= 1'b0;
-          lmsgA <= 1'b0;
-          decrecA <= 1'b0;
-          dectraA <= 1'b0;
-          elevrecbA <= 1'b0;
-          hardsyncA <= 1'b0;
-          resetdstA <= 1'b1;
-          resetstfA <= 1'b1;
-          inccountA <= 1'b1;
-          rescountA <= 1'b1;
-          setrmlenoA <= 0;
-          actvrmlnA <= 1'b0;
-          resrmlenA <= 1'b1;
-          ackerror_setA <= 2'b10;
-          transmitter_setA <= 2'b00;
-          receiver_setA <= 2'b00;
-          error_setA <= 2'b11;
-          first_setA <= 2'b11;
-          activatefastA <= 1'b0;
-          puffer_setA <= 2'b10;
-          onarbit_setA <= 2'b10;
-          en_zerointcrcA <= 1'b1;
-          crc_shft_outA <= 1'b0;
-          if (sendpointA==1'b1&&biterrorA==1'b0&&countA!=6)
-            next_stateA <= erroractiv_senddomb;
+          rext_set <= 2'b10;
+          rrtr_set <= 2'b10;
+          actvtcrc <= 1'b0;
+          actvrcrc <= 1'b0;
+          actvtstf <= 1'b0;
+          actvrstf <= 1'b0;
+          actvtsft <= 1'b0;
+          actvrsft <= 1'b0;
+          actvtdct <= 1'b0;
+          actvrdct <= 1'b0;
+          actvtbed <= 1'b1;
+          setbdom <= 1'b1;
+          setbrec <= 1'b0;
+          lcrc <= 1'b0;
+          tshift <= 1'b0;
+          inconerec <= 1'b0;
+          incegtrec <= 1'b0;
+          incegttra <= 1'b0;
+          lmsg <= 1'b0;
+          decrec <= 1'b0;
+          dectra <= 1'b0;
+          elevrecb <= 1'b0;
+          hardsync <= 1'b0;
+          resetdst <= 1'b1;
+          resetstf <= 1'b1;
+          inccount <= 1'b1;
+          rescount <= 1'b1;
+          setrmleno <= 0;
+          actvrmln <= 1'b0;
+          resrmlen <= 1'b1;
+          ackerror_set <= 2'b10;
+          transmitter_set <= 2'b00;
+          receiver_set <= 2'b00;
+          error_set <= 2'b11;
+          first_set <= 2'b11;
+          activatefast <= 1'b0;
+          puffer_set <= 2'b10;
+          onarbit_set <= 2'b10;
+          en_zerointcrc <= 1'b1;
+          crc_shft_out <= 1'b0;
+          if (sendpoint==1'b1&&biterror==1'b0&&count!=6)
+            next_state <= erroractiv_senddomb;
           else
-            if (biterrorA==1'b0&&countA==6)
-              next_stateA <= erroractiv_preprecb;
+            if (biterror==1'b0&&count==6)
+              next_state <= erroractiv_preprecb;
             else
-              if (biterrorA==1'b1&&erroractivA==1'b1)
-                next_stateA <= erroractiv_firstdom;
+              if (biterror==1'b1&&erroractiv==1'b1)
+                next_state <= erroractiv_firstdom;
               else
-                if (biterrorA==1'b1&&errorpassivA==1'b1)
-                  next_stateA <= errorpassiv_firstrec;
+                if (biterror==1'b1&&errorpassiv==1'b1)
+                  next_state <= errorpassiv_firstrec;
                 else
-                  if (biterrorA==1'b1&&busofA==1'b1)
-                    next_stateA <= busoff_first;
+                  if (biterror==1'b1&&busof==1'b1)
+                    next_state <= busoff_first;
                   else
-                    next_stateA <= erroractiv_check1;
+                    next_state <= erroractiv_check1;
         end
       erroractiv_preprecb : 
         begin
-          rext_setA <= 2'b10;
-          rrtr_setA <= 2'b10;
-          actvtcrcA <= 1'b0;
-          actvrcrcA <= 1'b0;
-          actvtstfA <= 1'b0;
-          actvrstfA <= 1'b0;
-          actvtsftA <= 1'b0;
-          actvrsftA <= 1'b0;
-          actvtdctA <= 1'b0;
-          actvrdctA <= 1'b0;
-          actvtbedA <= 1'b0;
-          setbdomA <= 1'b0;
-          setbrecA <= 1'b1;
-          lcrcA <= 1'b0;
-          tshiftA <= 1'b0;
-          inconerecA <= 1'b0;
-          incegtrecA <= 1'b0;
-          incegttraA <= 1'b0;
-          lmsgA <= 1'b0;
-          decrecA <= 1'b0;
-          dectraA <= 1'b0;
-          elevrecbA <= 1'b0;
-          hardsyncA <= 1'b0;
-          resetdstA <= 1'b1;
-          resetstfA <= 1'b1;
-          inccountA <= 1'b0;
-          rescountA <= 1'b0;
-          setrmlenoA <= 0;
-          actvrmlnA <= 1'b0;
-          resrmlenA <= 1'b1;
-          ackerror_setA <= 2'b10;
-          transmitter_setA <= 2'b00;
-          receiver_setA <= 2'b00;
-          error_setA <= 2'b11;
-          first_setA <= 2'b11;
-          activatefastA <= 1'b0;
-          puffer_setA <= 2'b10;
-          onarbit_setA <= 2'b10;
-          en_zerointcrcA <= 1'b1;
-          crc_shft_outA <= 1'b0;
-          if (sendpointA==1'b1)
-            next_stateA <= erroractiv_wtonrecb;
+          rext_set <= 2'b10;
+          rrtr_set <= 2'b10;
+          actvtcrc <= 1'b0;
+          actvrcrc <= 1'b0;
+          actvtstf <= 1'b0;
+          actvrstf <= 1'b0;
+          actvtsft <= 1'b0;
+          actvrsft <= 1'b0;
+          actvtdct <= 1'b0;
+          actvrdct <= 1'b0;
+          actvtbed <= 1'b0;
+          setbdom <= 1'b0;
+          setbrec <= 1'b1;
+          lcrc <= 1'b0;
+          tshift <= 1'b0;
+          inconerec <= 1'b0;
+          incegtrec <= 1'b0;
+          incegttra <= 1'b0;
+          lmsg <= 1'b0;
+          decrec <= 1'b0;
+          dectra <= 1'b0;
+          elevrecb <= 1'b0;
+          hardsync <= 1'b0;
+          resetdst <= 1'b1;
+          resetstf <= 1'b1;
+          inccount <= 1'b0;
+          rescount <= 1'b0;
+          setrmleno <= 0;
+          actvrmln <= 1'b0;
+          resrmlen <= 1'b1;
+          ackerror_set <= 2'b10;
+          transmitter_set <= 2'b00;
+          receiver_set <= 2'b00;
+          error_set <= 2'b11;
+          first_set <= 2'b11;
+          activatefast <= 1'b0;
+          puffer_set <= 2'b10;
+          onarbit_set <= 2'b10;
+          en_zerointcrc <= 1'b1;
+          crc_shft_out <= 1'b0;
+          if (sendpoint==1'b1)
+            next_state <= erroractiv_wtonrecb;
           else
-            next_stateA <= erroractiv_preprecb;
+            next_state <= erroractiv_preprecb;
         end
       erroractiv_wtonrecb : 
         begin
-          rext_setA <= 2'b10;
-          rrtr_setA <= 2'b10;
-          actvtcrcA <= 1'b0;
-          actvrcrcA <= 1'b0;
-          actvtstfA <= 1'b1;
-          actvrstfA <= 1'b0;
-          actvtsftA <= 1'b0;
-          actvrsftA <= 1'b0;
-          actvtdctA <= 1'b0;
-          actvrdctA <= 1'b0;
-          actvtbedA <= 1'b0;
-          setbdomA <= 1'b0;
-          setbrecA <= 1'b1;
-          lcrcA <= 1'b0;
-          tshiftA <= 1'b0;
-          inconerecA <= 1'b0;
-          incegtrecA <= 1'b0;
-          incegttraA <= 1'b0;
-          lmsgA <= 1'b0;
-          decrecA <= 1'b0;
-          dectraA <= 1'b0;
-          elevrecbA <= 1'b0;
-          hardsyncA <= 1'b0;
-          resetdstA <= 1'b1;
-          resetstfA <= 1'b1;
-          inccountA <= 1'b1;
-          rescountA <= 1'b1;
-          setrmlenoA <= 0;
-          actvrmlnA <= 1'b0;
-          resrmlenA <= 1'b1;
-          ackerror_setA <= 2'b10;
-          transmitter_setA <= 2'b00;
-          receiver_setA <= 2'b00;
-          error_setA <= 2'b11;
-          first_setA <= 2'b00;
-          activatefastA <= 1'b0;
-          puffer_setA <= 2'b10;
-          onarbit_setA <= 2'b10;
-          en_zerointcrcA <= 1'b1;
-          crc_shft_outA <= 1'b0;
-          if (smplpointA==1'b1)
-            next_stateA <= erroractiv_check2;
+          rext_set <= 2'b10;
+          rrtr_set <= 2'b10;
+          actvtcrc <= 1'b0;
+          actvrcrc <= 1'b0;
+          actvtstf <= 1'b1;
+          actvrstf <= 1'b0;
+          actvtsft <= 1'b0;
+          actvrsft <= 1'b0;
+          actvtdct <= 1'b0;
+          actvrdct <= 1'b0;
+          actvtbed <= 1'b0;
+          setbdom <= 1'b0;
+          setbrec <= 1'b1;
+          lcrc <= 1'b0;
+          tshift <= 1'b0;
+          inconerec <= 1'b0;
+          incegtrec <= 1'b0;
+          incegttra <= 1'b0;
+          lmsg <= 1'b0;
+          decrec <= 1'b0;
+          dectra <= 1'b0;
+          elevrecb <= 1'b0;
+          hardsync <= 1'b0;
+          resetdst <= 1'b1;
+          resetstf <= 1'b1;
+          inccount <= 1'b1;
+          rescount <= 1'b1;
+          setrmleno <= 0;
+          actvrmln <= 1'b0;
+          resrmlen <= 1'b1;
+          ackerror_set <= 2'b10;
+          transmitter_set <= 2'b00;
+          receiver_set <= 2'b00;
+          error_set <= 2'b11;
+          first_set <= 2'b00;
+          activatefast <= 1'b0;
+          puffer_set <= 2'b10;
+          onarbit_set <= 2'b10;
+          en_zerointcrc <= 1'b1;
+          crc_shft_out <= 1'b0;
+          if (smplpoint==1'b1)
+            next_state <= erroractiv_check2;
           else
-            next_stateA <= erroractiv_wtonrecb;
+            next_state <= erroractiv_wtonrecb;
         end
       erroractiv_dombitdct : 
         begin
-          rext_setA <= 2'b10;
-          rrtr_setA <= 2'b10;
-          actvtcrcA <= 1'b0;
-          actvrcrcA <= 1'b0;
-          actvtstfA <= 1'b1;
-          actvrstfA <= 1'b0;
-          actvtsftA <= 1'b0;
-          actvrsftA <= 1'b0;
-          actvtdctA <= 1'b0;
-          actvrdctA <= 1'b0;
-          actvtbedA <= 1'b0;
-          setbdomA <= 1'b0;
-          setbrecA <= 1'b1;
-          lcrcA <= 1'b0;
-          tshiftA <= 1'b0;
-          inconerecA <= 1'b0;
-          incegtrecA <= 1'b1;
-          incegttraA <= 1'b0;
-          lmsgA <= 1'b0;
-          decrecA <= 1'b0;
-          dectraA <= 1'b0;
-          elevrecbA <= 1'b0;
-          hardsyncA <= 1'b0;
-          resetdstA <= 1'b1;
-          resetstfA <= 1'b1;
-          inccountA <= 1'b1;
-          rescountA <= 1'b1;
-          setrmlenoA <= 0;
-          actvrmlnA <= 1'b0;
-          resrmlenA <= 1'b1;
-          ackerror_setA <= 2'b10;
-          transmitter_setA <= 2'b00;
-          receiver_setA <= 2'b00;
-          error_setA <= 2'b11;
-          first_setA <= 2'b10;
-          activatefastA <= 1'b0;
-          puffer_setA <= 2'b10;
-          onarbit_setA <= 2'b10;
-          en_zerointcrcA <= 1'b1;
-          crc_shft_outA <= 1'b0;
-          if (smplpointA==1'b1)
-            next_stateA <= erroractiv_check2;
+          rext_set <= 2'b10;
+          rrtr_set <= 2'b10;
+          actvtcrc <= 1'b0;
+          actvrcrc <= 1'b0;
+          actvtstf <= 1'b1;
+          actvrstf <= 1'b0;
+          actvtsft <= 1'b0;
+          actvrsft <= 1'b0;
+          actvtdct <= 1'b0;
+          actvrdct <= 1'b0;
+          actvtbed <= 1'b0;
+          setbdom <= 1'b0;
+          setbrec <= 1'b1;
+          lcrc <= 1'b0;
+          tshift <= 1'b0;
+          inconerec <= 1'b0;
+          incegtrec <= 1'b1;
+          incegttra <= 1'b0;
+          lmsg <= 1'b0;
+          decrec <= 1'b0;
+          dectra <= 1'b0;
+          elevrecb <= 1'b0;
+          hardsync <= 1'b0;
+          resetdst <= 1'b1;
+          resetstf <= 1'b1;
+          inccount <= 1'b1;
+          rescount <= 1'b1;
+          setrmleno <= 0;
+          actvrmln <= 1'b0;
+          resrmlen <= 1'b1;
+          ackerror_set <= 2'b10;
+          transmitter_set <= 2'b00;
+          receiver_set <= 2'b00;
+          error_set <= 2'b11;
+          first_set <= 2'b10;
+          activatefast <= 1'b0;
+          puffer_set <= 2'b10;
+          onarbit_set <= 2'b10;
+          en_zerointcrc <= 1'b1;
+          crc_shft_out <= 1'b0;
+          if (smplpoint==1'b1)
+            next_state <= erroractiv_check2;
           else
-            next_stateA <= erroractiv_dombitdct;
+            next_state <= erroractiv_dombitdct;
         end
       erroractiv_egtdombr : 
         begin
-          rext_setA <= 2'b10;
-          rrtr_setA <= 2'b10;
-          actvtcrcA <= 1'b0;
-          actvrcrcA <= 1'b0;
-          actvtstfA <= 1'b1;
-          actvrstfA <= 1'b0;
-          actvtsftA <= 1'b0;
-          actvrsftA <= 1'b0;
-          actvtdctA <= 1'b0;
-          actvrdctA <= 1'b0;
-          actvtbedA <= 1'b0;
-          setbdomA <= 1'b0;
-          setbrecA <= 1'b1;
-          lcrcA <= 1'b0;
-          tshiftA <= 1'b0;
-          inconerecA <= 1'b0;
-          incegtrecA <= 1'b1;
-          incegttraA <= 1'b0;
-          lmsgA <= 1'b0;
-          decrecA <= 1'b0;
-          dectraA <= 1'b0;
-          elevrecbA <= 1'b0;
-          hardsyncA <= 1'b0;
-          resetdstA <= 1'b1;
-          resetstfA <= 1'b1;
-          inccountA <= 1'b0;
-          rescountA <= 1'b0;
-          setrmlenoA <= 0;
-          actvrmlnA <= 1'b0;
-          resrmlenA <= 1'b1;
-          ackerror_setA <= 2'b10;
-          transmitter_setA <= 2'b00;
-          receiver_setA <= 2'b00;
-          error_setA <= 2'b11;
-          first_setA <= 2'b10;
-          activatefastA <= 1'b0;
-          puffer_setA <= 2'b10;
-          onarbit_setA <= 2'b10;
-          en_zerointcrcA <= 1'b1;
-          crc_shft_outA <= 1'b0;
-          if (smplpointA==1'b1)
-            next_stateA <= erroractiv_check2;
+          rext_set <= 2'b10;
+          rrtr_set <= 2'b10;
+          actvtcrc <= 1'b0;
+          actvrcrc <= 1'b0;
+          actvtstf <= 1'b1;
+          actvrstf <= 1'b0;
+          actvtsft <= 1'b0;
+          actvrsft <= 1'b0;
+          actvtdct <= 1'b0;
+          actvrdct <= 1'b0;
+          actvtbed <= 1'b0;
+          setbdom <= 1'b0;
+          setbrec <= 1'b1;
+          lcrc <= 1'b0;
+          tshift <= 1'b0;
+          inconerec <= 1'b0;
+          incegtrec <= 1'b1;
+          incegttra <= 1'b0;
+          lmsg <= 1'b0;
+          decrec <= 1'b0;
+          dectra <= 1'b0;
+          elevrecb <= 1'b0;
+          hardsync <= 1'b0;
+          resetdst <= 1'b1;
+          resetstf <= 1'b1;
+          inccount <= 1'b0;
+          rescount <= 1'b0;
+          setrmleno <= 0;
+          actvrmln <= 1'b0;
+          resrmlen <= 1'b1;
+          ackerror_set <= 2'b10;
+          transmitter_set <= 2'b00;
+          receiver_set <= 2'b00;
+          error_set <= 2'b11;
+          first_set <= 2'b10;
+          activatefast <= 1'b0;
+          puffer_set <= 2'b10;
+          onarbit_set <= 2'b10;
+          en_zerointcrc <= 1'b1;
+          crc_shft_out <= 1'b0;
+          if (smplpoint==1'b1)
+            next_state <= erroractiv_check2;
           else
-            next_stateA <= erroractiv_egtdombr;
+            next_state <= erroractiv_egtdombr;
         end
       erroractiv_egtdombt : 
         begin
-          rext_setA <= 2'b10;
-          rrtr_setA <= 2'b10;
-          actvtcrcA <= 1'b0;
-          actvrcrcA <= 1'b0;
-          actvtstfA <= 1'b1;
-          actvrstfA <= 1'b0;
-          actvtsftA <= 1'b0;
-          actvrsftA <= 1'b0;
-          actvtdctA <= 1'b0;
-          actvrdctA <= 1'b0;
-          actvtbedA <= 1'b0;
-          setbdomA <= 1'b0;
-          setbrecA <= 1'b1;
-          lcrcA <= 1'b0;
-          tshiftA <= 1'b0;
-          inconerecA <= 1'b0;
-          incegtrecA <= 1'b0;
-          incegttraA <= 1'b1;
-          lmsgA <= 1'b0;
-          decrecA <= 1'b0;
-          dectraA <= 1'b0;
-          elevrecbA <= 1'b0;
-          hardsyncA <= 1'b0;
-          resetdstA <= 1'b1;
-          resetstfA <= 1'b1;
-          inccountA <= 1'b0;
-          rescountA <= 1'b0;
-          setrmlenoA <= 0;
-          actvrmlnA <= 1'b0;
-          resrmlenA <= 1'b1;
-          ackerror_setA <= 2'b10;
-          transmitter_setA <= 2'b00;
-          receiver_setA <= 2'b00;
-          error_setA <= 2'b11;
-          first_setA <= 2'b10;
-          activatefastA <= 1'b0;
-          puffer_setA <= 2'b10;
-          onarbit_setA <= 2'b10;
-          en_zerointcrcA <= 1'b1;
-          crc_shft_outA <= 1'b0;
-          if (smplpointA==1'b1)
-            next_stateA <= erroractiv_check2;
+          rext_set <= 2'b10;
+          rrtr_set <= 2'b10;
+          actvtcrc <= 1'b0;
+          actvrcrc <= 1'b0;
+          actvtstf <= 1'b1;
+          actvrstf <= 1'b0;
+          actvtsft <= 1'b0;
+          actvrsft <= 1'b0;
+          actvtdct <= 1'b0;
+          actvrdct <= 1'b0;
+          actvtbed <= 1'b0;
+          setbdom <= 1'b0;
+          setbrec <= 1'b1;
+          lcrc <= 1'b0;
+          tshift <= 1'b0;
+          inconerec <= 1'b0;
+          incegtrec <= 1'b0;
+          incegttra <= 1'b1;
+          lmsg <= 1'b0;
+          decrec <= 1'b0;
+          dectra <= 1'b0;
+          elevrecb <= 1'b0;
+          hardsync <= 1'b0;
+          resetdst <= 1'b1;
+          resetstf <= 1'b1;
+          inccount <= 1'b0;
+          rescount <= 1'b0;
+          setrmleno <= 0;
+          actvrmln <= 1'b0;
+          resrmlen <= 1'b1;
+          ackerror_set <= 2'b10;
+          transmitter_set <= 2'b00;
+          receiver_set <= 2'b00;
+          error_set <= 2'b11;
+          first_set <= 2'b10;
+          activatefast <= 1'b0;
+          puffer_set <= 2'b10;
+          onarbit_set <= 2'b10;
+          en_zerointcrc <= 1'b1;
+          crc_shft_out <= 1'b0;
+          if (smplpoint==1'b1)
+            next_state <= erroractiv_check2;
           else
-            next_stateA <= erroractiv_egtdombt;
+            next_state <= erroractiv_egtdombt;
         end
       erroractiv_check2 : 
         begin
-          rext_setA <= 2'b10;
-          rrtr_setA <= 2'b10;
-          actvtcrcA <= 1'b0;
-          actvrcrcA <= 1'b0;
-          actvtstfA <= 1'b0;
-          actvrstfA <= 1'b0;
-          actvtsftA <= 1'b0;
-          actvrsftA <= 1'b0;
-          actvtdctA <= 1'b0;
-          actvrdctA <= 1'b0;
-          actvtbedA <= 1'b1;
-          setbdomA <= 1'b0;
-          setbrecA <= 1'b1;
-          lcrcA <= 1'b0;
-          tshiftA <= 1'b0;
-          inconerecA <= 1'b0;
-          incegtrecA <= 1'b0;
-          incegttraA <= 1'b0;
-          lmsgA <= 1'b0;
-          decrecA <= 1'b0;
-          dectraA <= 1'b0;
-          elevrecbA <= 1'b0;
-          hardsyncA <= 1'b0;
-          resetdstA <= 1'b1;
-          resetstfA <= 1'b1;
-          inccountA <= 1'b0;
-          rescountA <= 1'b1;
-          setrmlenoA <= 0;
-          actvrmlnA <= 1'b0;
-          resrmlenA <= 1'b1;
-          ackerror_setA <= 2'b10;
-          transmitter_setA <= 2'b00;
-          receiver_setA <= 2'b00;
-          error_setA <= 2'b11;
-          first_setA <= 2'b00;
-          activatefastA <= 1'b0;
-          puffer_setA <= 2'b10;
-          onarbit_setA <= 2'b10;
-          en_zerointcrcA <= 1'b1;
-          crc_shft_outA <= 1'b0;
-          if (sendpointA==1'b1&&biterrorA==1'b1&&countA!=7&&(countA!=1||receiverA==1'b0||firstA==1'b0))
-            next_stateA <= erroractiv_wtonrecb;
+          rext_set <= 2'b10;
+          rrtr_set <= 2'b10;
+          actvtcrc <= 1'b0;
+          actvrcrc <= 1'b0;
+          actvtstf <= 1'b0;
+          actvrstf <= 1'b0;
+          actvtsft <= 1'b0;
+          actvrsft <= 1'b0;
+          actvtdct <= 1'b0;
+          actvrdct <= 1'b0;
+          actvtbed <= 1'b1;
+          setbdom <= 1'b0;
+          setbrec <= 1'b1;
+          lcrc <= 1'b0;
+          tshift <= 1'b0;
+          inconerec <= 1'b0;
+          incegtrec <= 1'b0;
+          incegttra <= 1'b0;
+          lmsg <= 1'b0;
+          decrec <= 1'b0;
+          dectra <= 1'b0;
+          elevrecb <= 1'b0;
+          hardsync <= 1'b0;
+          resetdst <= 1'b1;
+          resetstf <= 1'b1;
+          inccount <= 1'b0;
+          rescount <= 1'b1;
+          setrmleno <= 0;
+          actvrmln <= 1'b0;
+          resrmlen <= 1'b1;
+          ackerror_set <= 2'b10;
+          transmitter_set <= 2'b00;
+          receiver_set <= 2'b00;
+          error_set <= 2'b11;
+          first_set <= 2'b00;
+          activatefast <= 1'b0;
+          puffer_set <= 2'b10;
+          onarbit_set <= 2'b10;
+          en_zerointcrc <= 1'b1;
+          crc_shft_out <= 1'b0;
+          if (sendpoint==1'b1&&biterror==1'b1&&count!=7&&(count!=1||receiver==1'b0||first==1'b0))
+            next_state <= erroractiv_wtonrecb;
           else
-            if (sendpointA==1'b1&&biterrorA==1'b1&&countA==1&&receiverA==1'b1&&firstA==1'b1)
-              next_stateA <= erroractiv_dombitdct;
+            if (sendpoint==1'b1&&biterror==1'b1&&count==1&&receiver==1'b1&&first==1'b1)
+              next_state <= erroractiv_dombitdct;
             else
-              if (sendpointA==1'b1&&biterrorA==1'b1&&countA==7&&transmitterA==1'b1&&receiverA==1'b0)
-                next_stateA <= erroractiv_egtdombt;
+              if (sendpoint==1'b1&&biterror==1'b1&&count==7&&transmitter==1'b1&&receiver==1'b0)
+                next_state <= erroractiv_egtdombt;
               else
-                if (sendpointA==1'b1&&biterrorA==1'b1&&countA==7&&transmitterA==1'b0&&receiverA==1'b1)
-                  next_stateA <= erroractiv_egtdombr;
+                if (sendpoint==1'b1&&biterror==1'b1&&count==7&&transmitter==1'b0&&receiver==1'b1)
+                  next_state <= erroractiv_egtdombr;
                 else
-                  if (biterrorA==1'b0)
-                    next_stateA <= erroractiv_prepsend;
+                  if (biterror==1'b0)
+                    next_state <= erroractiv_prepsend;
                   else
-                    next_stateA <= erroractiv_check2;
+                    next_state <= erroractiv_check2;
         end
       erroractiv_prepsend : 
         begin
-          rext_setA <= 2'b10;
-          rrtr_setA <= 2'b10;
-          actvtcrcA <= 1'b0;
-          actvrcrcA <= 1'b0;
-          actvtstfA <= 1'b0;
-          actvrstfA <= 1'b0;
-          actvtsftA <= 1'b0;
-          actvrsftA <= 1'b0;
-          actvtdctA <= 1'b0;
-          actvrdctA <= 1'b0;
-          actvtbedA <= 1'b0;
-          setbdomA <= 1'b0;
-          setbrecA <= 1'b1;
-          lcrcA <= 1'b0;
-          tshiftA <= 1'b0;
-          inconerecA <= 1'b0;
-          incegtrecA <= 1'b0;
-          incegttraA <= 1'b0;
-          lmsgA <= 1'b0;
-          decrecA <= 1'b0;
-          dectraA <= 1'b0;
-          elevrecbA <= 1'b0;
-          hardsyncA <= 1'b0;
-          resetdstA <= 1'b1;
-          resetstfA <= 1'b1;
-          inccountA <= 1'b0;
-          rescountA <= 1'b0;
-          setrmlenoA <= 0;
-          actvrmlnA <= 1'b0;
-          resrmlenA <= 1'b1;
-          ackerror_setA <= 2'b10;
-          transmitter_setA <= 2'b00;
-          receiver_setA <= 2'b00;
-          error_setA <= 2'b11;
-          first_setA <= 2'b10;
-          activatefastA <= 1'b0;
-          puffer_setA <= 2'b10;
-          onarbit_setA <= 2'b10;
-          en_zerointcrcA <= 1'b1;
-          crc_shft_outA <= 1'b0;
-          if (sendpointA==1'b1)
-            next_stateA <= erroractiv_sendrecb;
+          rext_set <= 2'b10;
+          rrtr_set <= 2'b10;
+          actvtcrc <= 1'b0;
+          actvrcrc <= 1'b0;
+          actvtstf <= 1'b0;
+          actvrstf <= 1'b0;
+          actvtsft <= 1'b0;
+          actvrsft <= 1'b0;
+          actvtdct <= 1'b0;
+          actvrdct <= 1'b0;
+          actvtbed <= 1'b0;
+          setbdom <= 1'b0;
+          setbrec <= 1'b1;
+          lcrc <= 1'b0;
+          tshift <= 1'b0;
+          inconerec <= 1'b0;
+          incegtrec <= 1'b0;
+          incegttra <= 1'b0;
+          lmsg <= 1'b0;
+          decrec <= 1'b0;
+          dectra <= 1'b0;
+          elevrecb <= 1'b0;
+          hardsync <= 1'b0;
+          resetdst <= 1'b1;
+          resetstf <= 1'b1;
+          inccount <= 1'b0;
+          rescount <= 1'b0;
+          setrmleno <= 0;
+          actvrmln <= 1'b0;
+          resrmlen <= 1'b1;
+          ackerror_set <= 2'b10;
+          transmitter_set <= 2'b00;
+          receiver_set <= 2'b00;
+          error_set <= 2'b11;
+          first_set <= 2'b10;
+          activatefast <= 1'b0;
+          puffer_set <= 2'b10;
+          onarbit_set <= 2'b10;
+          en_zerointcrc <= 1'b1;
+          crc_shft_out <= 1'b0;
+          if (sendpoint==1'b1)
+            next_state <= erroractiv_sendrecb;
           else
-            next_stateA <= erroractiv_prepsend;
+            next_state <= erroractiv_prepsend;
         end
       erroractiv_sendrecb : 
         begin
-          rext_setA <= 2'b10;
-          rrtr_setA <= 2'b10;
-          actvtcrcA <= 1'b0;
-          actvrcrcA <= 1'b0;
-          actvtstfA <= 1'b1;
-          actvrstfA <= 1'b0;
-          actvtsftA <= 1'b0;
-          actvrsftA <= 1'b0;
-          actvtdctA <= 1'b0;
-          actvrdctA <= 1'b0;
-          actvtbedA <= 1'b0;
-          setbdomA <= 1'b0;
-          setbrecA <= 1'b1;
-          lcrcA <= 1'b0;
-          tshiftA <= 1'b0;
-          inconerecA <= 1'b0;
-          incegtrecA <= 1'b0;
-          incegttraA <= 1'b0;
-          lmsgA <= 1'b1;
-          decrecA <= 1'b0;
-          dectraA <= 1'b0;
-          elevrecbA <= 1'b0;
-          hardsyncA <= 1'b0;
-          resetdstA <= 1'b1;
-          resetstfA <= 1'b1;
-          inccountA <= 1'b0;
-          rescountA <= 1'b1;
-          setrmlenoA <= 0;
-          actvrmlnA <= 1'b0;
-          resrmlenA <= 1'b1;
-          ackerror_setA <= 2'b10;
-          transmitter_setA <= 2'b00;
-          receiver_setA <= 2'b00;
-          error_setA <= 2'b11;
-          first_setA <= 2'b10;
-          activatefastA <= 1'b0;
-          puffer_setA <= 2'b10;
-          onarbit_setA <= 2'b10;
-          en_zerointcrcA <= 1'b1;
-          crc_shft_outA <= 1'b0;
-          if (smplpointA==1'b1)
-            next_stateA <= erroractiv_check3;
+          rext_set <= 2'b10;
+          rrtr_set <= 2'b10;
+          actvtcrc <= 1'b0;
+          actvrcrc <= 1'b0;
+          actvtstf <= 1'b1;
+          actvrstf <= 1'b0;
+          actvtsft <= 1'b0;
+          actvrsft <= 1'b0;
+          actvtdct <= 1'b0;
+          actvrdct <= 1'b0;
+          actvtbed <= 1'b0;
+          setbdom <= 1'b0;
+          setbrec <= 1'b1;
+          lcrc <= 1'b0;
+          tshift <= 1'b0;
+          inconerec <= 1'b0;
+          incegtrec <= 1'b0;
+          incegttra <= 1'b0;
+          lmsg <= 1'b1;
+          decrec <= 1'b0;
+          dectra <= 1'b0;
+          elevrecb <= 1'b0;
+          hardsync <= 1'b0;
+          resetdst <= 1'b1;
+          resetstf <= 1'b1;
+          inccount <= 1'b0;
+          rescount <= 1'b1;
+          setrmleno <= 0;
+          actvrmln <= 1'b0;
+          resrmlen <= 1'b1;
+          ackerror_set <= 2'b10;
+          transmitter_set <= 2'b00;
+          receiver_set <= 2'b00;
+          error_set <= 2'b11;
+          first_set <= 2'b10;
+          activatefast <= 1'b0;
+          puffer_set <= 2'b10;
+          onarbit_set <= 2'b10;
+          en_zerointcrc <= 1'b1;
+          crc_shft_out <= 1'b0;
+          if (smplpoint==1'b1)
+            next_state <= erroractiv_check3;
           else
-            next_stateA <= erroractiv_sendrecb;
+            next_state <= erroractiv_sendrecb;
         end
       erroractiv_check3 : 
         begin
-          rext_setA <= 2'b10;
-          rrtr_setA <= 2'b10;
-          actvtcrcA <= 1'b0;
-          actvrcrcA <= 1'b0;
-          actvtstfA <= 1'b0;
-          actvrstfA <= 1'b0;
-          actvtsftA <= 1'b0;
-          actvrsftA <= 1'b0;
-          actvtdctA <= 1'b0;
-          actvrdctA <= 1'b0;
-          actvtbedA <= 1'b1;
-          setbdomA <= 1'b0;
-          setbrecA <= 1'b0;
-          lcrcA <= 1'b0;
-          tshiftA <= 1'b0;
-          inconerecA <= 1'b0;
-          incegtrecA <= 1'b0;
-          incegttraA <= 1'b0;
-          lmsgA <= 1'b1;
-          decrecA <= 1'b0;
-          dectraA <= 1'b0;
-          elevrecbA <= 1'b0;
-          hardsyncA <= 1'b0;
-          resetdstA <= 1'b1;
-          resetstfA <= 1'b1;
-          inccountA <= 1'b1;
-          rescountA <= 1'b1;
-          setrmlenoA <= 0;
-          actvrmlnA <= 1'b0;
-          resrmlenA <= 1'b1;
-          ackerror_setA <= 2'b10;
-          transmitter_setA <= 2'b00;
-          receiver_setA <= 2'b00;
-          error_setA <= 2'b11;
-          first_setA <= 2'b10;
-          activatefastA <= 1'b0;
-          puffer_setA <= 2'b10;
-          onarbit_setA <= 2'b10;
-          en_zerointcrcA <= 1'b1;
-          crc_shft_outA <= 1'b0;
-          if (sendpointA==1'b1&&biterrorA==1'b0&&countA!=7)
-            next_stateA <= erroractiv_sendrecb;
+          rext_set <= 2'b10;
+          rrtr_set <= 2'b10;
+          actvtcrc <= 1'b0;
+          actvrcrc <= 1'b0;
+          actvtstf <= 1'b0;
+          actvrstf <= 1'b0;
+          actvtsft <= 1'b0;
+          actvrsft <= 1'b0;
+          actvtdct <= 1'b0;
+          actvrdct <= 1'b0;
+          actvtbed <= 1'b1;
+          setbdom <= 1'b0;
+          setbrec <= 1'b0;
+          lcrc <= 1'b0;
+          tshift <= 1'b0;
+          inconerec <= 1'b0;
+          incegtrec <= 1'b0;
+          incegttra <= 1'b0;
+          lmsg <= 1'b1;
+          decrec <= 1'b0;
+          dectra <= 1'b0;
+          elevrecb <= 1'b0;
+          hardsync <= 1'b0;
+          resetdst <= 1'b1;
+          resetstf <= 1'b1;
+          inccount <= 1'b1;
+          rescount <= 1'b1;
+          setrmleno <= 0;
+          actvrmln <= 1'b0;
+          resrmlen <= 1'b1;
+          ackerror_set <= 2'b10;
+          transmitter_set <= 2'b00;
+          receiver_set <= 2'b00;
+          error_set <= 2'b11;
+          first_set <= 2'b10;
+          activatefast <= 1'b0;
+          puffer_set <= 2'b10;
+          onarbit_set <= 2'b10;
+          en_zerointcrc <= 1'b1;
+          crc_shft_out <= 1'b0;
+          if (sendpoint==1'b1&&biterror==1'b0&&count!=7)
+            next_state <= erroractiv_sendrecb;
           else
-            if (sendpointA==1'b1&&biterrorA==1'b0&&countA==7)
-              next_stateA <= erroractiv_waitoclk;
+            if (sendpoint==1'b1&&biterror==1'b0&&count==7)
+              next_state <= erroractiv_waitoclk;
             else
-              if (biterrorA==1'b1&&erroractivA==1'b1)
-                next_stateA <= erroractiv_firstdom;
+              if (biterror==1'b1&&erroractiv==1'b1)
+                next_state <= erroractiv_firstdom;
               else
-                if (biterrorA==1'b1&&errorpassivA==1'b1)
-                  next_stateA <= errorpassiv_firstrec;
+                if (biterror==1'b1&&errorpassiv==1'b1)
+                  next_state <= errorpassiv_firstrec;
                 else
-                  if (biterrorA==1'b1&&busofA==1'b1)
-                    next_stateA <= busoff_first;
+                  if (biterror==1'b1&&busof==1'b1)
+                    next_state <= busoff_first;
                   else
-                    next_stateA <= erroractiv_check3;
+                    next_state <= erroractiv_check3;
         end
       erroractiv_waitoclk : 
         begin
-          rext_setA <= 2'b10;
-          rrtr_setA <= 2'b10;
-          actvtcrcA <= 1'b0;
-          actvrcrcA <= 1'b0;
-          actvtstfA <= 1'b0;
-          actvrstfA <= 1'b0;
-          actvtsftA <= 1'b1;
-          actvrsftA <= 1'b0;
-          actvtdctA <= 1'b0;
-          actvrdctA <= 1'b0;
-          actvtbedA <= 1'b0;
-          setbdomA <= 1'b0;
-          setbrecA <= 1'b0;
-          lcrcA <= 1'b0;
-          tshiftA <= 1'b0;
-          inconerecA <= 1'b0;
-          incegtrecA <= 1'b0;
-          incegttraA <= 1'b0;
-          lmsgA <= 1'b1;
-          decrecA <= 1'b0;
-          dectraA <= 1'b0;
-          elevrecbA <= 1'b0;
-          hardsyncA <= 1'b0;
-          resetdstA <= 1'b1;
-          resetstfA <= 1'b0;
-          inccountA <= 1'b0;
-          rescountA <= 1'b0;
-          setrmlenoA <= 0;
-          actvrmlnA <= 1'b0;
-          resrmlenA <= 1'b1;
-          ackerror_setA <= 2'b10;
-          transmitter_setA <= 2'b00;
-          receiver_setA <= 2'b00;
-          error_setA <= 2'b11;
-          first_setA <= 2'b10;
-          activatefastA <= 1'b0;
-          puffer_setA <= 2'b10;
-          onarbit_setA <= 2'b10;
-          en_zerointcrcA <= 1'b1;
-          crc_shft_outA <= 1'b0;
-          if (smplpointA==1'b1)
-            next_stateA <= inter_sample;
+          rext_set <= 2'b10;
+          rrtr_set <= 2'b10;
+          actvtcrc <= 1'b0;
+          actvrcrc <= 1'b0;
+          actvtstf <= 1'b0;
+          actvrstf <= 1'b0;
+          actvtsft <= 1'b1;
+          actvrsft <= 1'b0;
+          actvtdct <= 1'b0;
+          actvrdct <= 1'b0;
+          actvtbed <= 1'b0;
+          setbdom <= 1'b0;
+          setbrec <= 1'b0;
+          lcrc <= 1'b0;
+          tshift <= 1'b0;
+          inconerec <= 1'b0;
+          incegtrec <= 1'b0;
+          incegttra <= 1'b0;
+          lmsg <= 1'b1;
+          decrec <= 1'b0;
+          dectra <= 1'b0;
+          elevrecb <= 1'b0;
+          hardsync <= 1'b0;
+          resetdst <= 1'b1;
+          resetstf <= 1'b0;
+          inccount <= 1'b0;
+          rescount <= 1'b0;
+          setrmleno <= 0;
+          actvrmln <= 1'b0;
+          resrmlen <= 1'b1;
+          ackerror_set <= 2'b10;
+          transmitter_set <= 2'b00;
+          receiver_set <= 2'b00;
+          error_set <= 2'b11;
+          first_set <= 2'b10;
+          activatefast <= 1'b0;
+          puffer_set <= 2'b10;
+          onarbit_set <= 2'b10;
+          en_zerointcrc <= 1'b1;
+          crc_shft_out <= 1'b0;
+          if (smplpoint==1'b1)
+            next_state <= inter_sample;
           else
-            next_stateA <= erroractiv_waitoclk;
+            next_state <= erroractiv_waitoclk;
         end
       errorpassiv_firstrec : 
         begin
-          rext_setA <= 2'b10;
-          rrtr_setA <= 2'b10;
-          actvtcrcA <= 1'b0;
-          actvrcrcA <= 1'b0;
-          actvtstfA <= 1'b0;
-          actvrstfA <= 1'b0;
-          actvtsftA <= 1'b0;
-          actvrsftA <= 1'b0;
-          actvtdctA <= 1'b0;
-          actvrdctA <= 1'b0;
-          actvtbedA <= 1'b0;
-          setbdomA <= 1'b0;
-          setbrecA <= 1'b1;
-          lcrcA <= 1'b0;
-          tshiftA <= 1'b0;
-          inconerecA <= 1'b0;
-          incegtrecA <= 1'b0;
-          incegttraA <= 1'b0;
-          lmsgA <= 1'b0;
-          decrecA <= 1'b0;
-          dectraA <= 1'b0;
-          elevrecbA <= 1'b0;
-          hardsyncA <= 1'b0;
-          resetdstA <= 1'b1;
-          resetstfA <= 1'b1;
-          inccountA <= 1'b0;
-          rescountA <= 1'b0;
-          setrmlenoA <= 0;
-          actvrmlnA <= 1'b0;
-          resrmlenA <= 1'b1;
-          ackerror_setA <= 2'b00;
-          transmitter_setA <= 2'b00;
-          receiver_setA <= 2'b00;
-          error_setA <= 2'b00;
-          first_setA <= 2'b11;
-          activatefastA <= 1'b0;
-          puffer_setA <= 2'b10;
-          onarbit_setA <= 2'b00;
-          en_zerointcrcA <= 1'b1;
-          crc_shft_outA <= 1'b0;
-          if (sendpointA==1'b1&&transmitterA==1'b1&&(onarbitA==1'b1||ackerrorA==1'b1))
-            next_stateA <= errorpassiv_incsrecb;
+          rext_set <= 2'b10;
+          rrtr_set <= 2'b10;
+          actvtcrc <= 1'b0;
+          actvrcrc <= 1'b0;
+          actvtstf <= 1'b0;
+          actvrstf <= 1'b0;
+          actvtsft <= 1'b0;
+          actvrsft <= 1'b0;
+          actvtdct <= 1'b0;
+          actvrdct <= 1'b0;
+          actvtbed <= 1'b0;
+          setbdom <= 1'b0;
+          setbrec <= 1'b1;
+          lcrc <= 1'b0;
+          tshift <= 1'b0;
+          inconerec <= 1'b0;
+          incegtrec <= 1'b0;
+          incegttra <= 1'b0;
+          lmsg <= 1'b0;
+          decrec <= 1'b0;
+          dectra <= 1'b0;
+          elevrecb <= 1'b0;
+          hardsync <= 1'b0;
+          resetdst <= 1'b1;
+          resetstf <= 1'b1;
+          inccount <= 1'b0;
+          rescount <= 1'b0;
+          setrmleno <= 0;
+          actvrmln <= 1'b0;
+          resrmlen <= 1'b1;
+          ackerror_set <= 2'b00;
+          transmitter_set <= 2'b00;
+          receiver_set <= 2'b00;
+          error_set <= 2'b00;
+          first_set <= 2'b11;
+          activatefast <= 1'b0;
+          puffer_set <= 2'b10;
+          onarbit_set <= 2'b00;
+          en_zerointcrc <= 1'b1;
+          crc_shft_out <= 1'b0;
+          if (sendpoint==1'b1&&transmitter==1'b1&&(onarbit==1'b1||ackerror==1'b1))
+            next_state <= errorpassiv_incsrecb;
           else
-            if (onarbitA==1'b0&&transmitterA==1'b0&&receiverA==1'b1&&errorA==1'b0)
-              next_stateA <= errorpassiv_inceinsrec;
+            if (onarbit==1'b0&&transmitter==1'b0&&receiver==1'b1&&error==1'b0)
+              next_state <= errorpassiv_inceinsrec;
             else
-              if (onarbitA==1'b0&&transmitterA==1'b0&&receiverA==1'b1&&errorA==1'b1)
-                next_stateA <= errorpassiv_incachtrec;
+              if (onarbit==1'b0&&transmitter==1'b0&&receiver==1'b1&&error==1'b1)
+                next_state <= errorpassiv_incachtrec;
               else
-                if (onarbitA==1'b0&&transmitterA==1'b1&&ackerrorA==1'b0)
-                  next_stateA <= errorpassiv_incachttra;
+                if (onarbit==1'b0&&transmitter==1'b1&&ackerror==1'b0)
+                  next_state <= errorpassiv_incachttra;
                 else
-                  next_stateA <= errorpassiv_firstrec;
+                  next_state <= errorpassiv_firstrec;
         end
       errorpassiv_inceinsrec : 
         begin
-          rext_setA <= 2'b10;
-          rrtr_setA <= 2'b10;
-          actvtcrcA <= 1'b0;
-          actvrcrcA <= 1'b0;
-          actvtstfA <= 1'b0;
-          actvrstfA <= 1'b0;
-          actvtsftA <= 1'b0;
-          actvrsftA <= 1'b0;
-          actvtdctA <= 1'b0;
-          actvrdctA <= 1'b0;
-          actvtbedA <= 1'b0;
-          setbdomA <= 1'b0;
-          setbrecA <= 1'b1;
-          lcrcA <= 1'b0;
-          tshiftA <= 1'b0;
-          inconerecA <= 1'b1;
-          incegtrecA <= 1'b0;
-          incegttraA <= 1'b0;
-          lmsgA <= 1'b0;
-          decrecA <= 1'b0;
-          dectraA <= 1'b0;
-          elevrecbA <= 1'b0;
-          hardsyncA <= 1'b0;
-          resetdstA <= 1'b1;
-          resetstfA <= 1'b1;
-          inccountA <= 1'b0;
-          rescountA <= 1'b1;
-          setrmlenoA <= 0;
-          actvrmlnA <= 1'b0;
-          resrmlenA <= 1'b1;
-          ackerror_setA <= 2'b00;
-          transmitter_setA <= 2'b00;
-          receiver_setA <= 2'b00;
-          error_setA <= 2'b11;
-          first_setA <= 2'b11;
-          activatefastA <= 1'b0;
-          puffer_setA <= 2'b10;
-          onarbit_setA <= 2'b10;
-          en_zerointcrcA <= 1'b1;
-          crc_shft_outA <= 1'b0;
-          if (sendpointA==1'b1)
-            next_stateA <= errorpassiv_incsrecb;
+          rext_set <= 2'b10;
+          rrtr_set <= 2'b10;
+          actvtcrc <= 1'b0;
+          actvrcrc <= 1'b0;
+          actvtstf <= 1'b0;
+          actvrstf <= 1'b0;
+          actvtsft <= 1'b0;
+          actvrsft <= 1'b0;
+          actvtdct <= 1'b0;
+          actvrdct <= 1'b0;
+          actvtbed <= 1'b0;
+          setbdom <= 1'b0;
+          setbrec <= 1'b1;
+          lcrc <= 1'b0;
+          tshift <= 1'b0;
+          inconerec <= 1'b1;
+          incegtrec <= 1'b0;
+          incegttra <= 1'b0;
+          lmsg <= 1'b0;
+          decrec <= 1'b0;
+          dectra <= 1'b0;
+          elevrecb <= 1'b0;
+          hardsync <= 1'b0;
+          resetdst <= 1'b1;
+          resetstf <= 1'b1;
+          inccount <= 1'b0;
+          rescount <= 1'b1;
+          setrmleno <= 0;
+          actvrmln <= 1'b0;
+          resrmlen <= 1'b1;
+          ackerror_set <= 2'b00;
+          transmitter_set <= 2'b00;
+          receiver_set <= 2'b00;
+          error_set <= 2'b11;
+          first_set <= 2'b11;
+          activatefast <= 1'b0;
+          puffer_set <= 2'b10;
+          onarbit_set <= 2'b10;
+          en_zerointcrc <= 1'b1;
+          crc_shft_out <= 1'b0;
+          if (sendpoint==1'b1)
+            next_state <= errorpassiv_incsrecb;
           else
-            next_stateA <= errorpassiv_inceinsrec;
+            next_state <= errorpassiv_inceinsrec;
         end
       errorpassiv_incachtrec : 
         begin
-          rext_setA <= 2'b10;
-          rrtr_setA <= 2'b10;
-          actvtcrcA <= 1'b0;
-          actvrcrcA <= 1'b0;
-          actvtstfA <= 1'b0;
-          actvrstfA <= 1'b0;
-          actvtsftA <= 1'b0;
-          actvrsftA <= 1'b0;
-          actvtdctA <= 1'b0;
-          actvrdctA <= 1'b0;
-          actvtbedA <= 1'b0;
-          setbdomA <= 1'b0;
-          setbrecA <= 1'b1;
-          lcrcA <= 1'b0;
-          tshiftA <= 1'b0;
-          inconerecA <= 1'b0;
-          incegtrecA <= 1'b1;
-          incegttraA <= 1'b0;
-          lmsgA <= 1'b0;
-          decrecA <= 1'b0;
-          dectraA <= 1'b0;
-          elevrecbA <= 1'b0;
-          hardsyncA <= 1'b0;
-          resetdstA <= 1'b1;
-          resetstfA <= 1'b1;
-          inccountA <= 1'b0;
-          rescountA <= 1'b1;
-          setrmlenoA <= 0;
-          actvrmlnA <= 1'b0;
-          resrmlenA <= 1'b1;
-          ackerror_setA <= 2'b00;
-          transmitter_setA <= 2'b00;
-          receiver_setA <= 2'b00;
-          error_setA <= 2'b11;
-          first_setA <= 2'b11;
-          activatefastA <= 1'b0;
-          puffer_setA <= 2'b10;
-          onarbit_setA <= 2'b10;
-          en_zerointcrcA <= 1'b1;
-          crc_shft_outA <= 1'b0;
-          if (sendpointA==1'b1)
-            next_stateA <= errorpassiv_incsrecb;
+          rext_set <= 2'b10;
+          rrtr_set <= 2'b10;
+          actvtcrc <= 1'b0;
+          actvrcrc <= 1'b0;
+          actvtstf <= 1'b0;
+          actvrstf <= 1'b0;
+          actvtsft <= 1'b0;
+          actvrsft <= 1'b0;
+          actvtdct <= 1'b0;
+          actvrdct <= 1'b0;
+          actvtbed <= 1'b0;
+          setbdom <= 1'b0;
+          setbrec <= 1'b1;
+          lcrc <= 1'b0;
+          tshift <= 1'b0;
+          inconerec <= 1'b0;
+          incegtrec <= 1'b1;
+          incegttra <= 1'b0;
+          lmsg <= 1'b0;
+          decrec <= 1'b0;
+          dectra <= 1'b0;
+          elevrecb <= 1'b0;
+          hardsync <= 1'b0;
+          resetdst <= 1'b1;
+          resetstf <= 1'b1;
+          inccount <= 1'b0;
+          rescount <= 1'b1;
+          setrmleno <= 0;
+          actvrmln <= 1'b0;
+          resrmlen <= 1'b1;
+          ackerror_set <= 2'b00;
+          transmitter_set <= 2'b00;
+          receiver_set <= 2'b00;
+          error_set <= 2'b11;
+          first_set <= 2'b11;
+          activatefast <= 1'b0;
+          puffer_set <= 2'b10;
+          onarbit_set <= 2'b10;
+          en_zerointcrc <= 1'b1;
+          crc_shft_out <= 1'b0;
+          if (sendpoint==1'b1)
+            next_state <= errorpassiv_incsrecb;
           else
-            next_stateA <= errorpassiv_incachtrec;
+            next_state <= errorpassiv_incachtrec;
         end
       errorpassiv_incachttra : 
         begin
-          rext_setA <= 2'b10;
-          rrtr_setA <= 2'b10;
-          actvtcrcA <= 1'b0;
-          actvrcrcA <= 1'b0;
-          actvtstfA <= 1'b0;
-          actvrstfA <= 1'b0;
-          actvtsftA <= 1'b0;
-          actvrsftA <= 1'b0;
-          actvtdctA <= 1'b0;
-          actvrdctA <= 1'b0;
-          actvtbedA <= 1'b0;
-          setbdomA <= 1'b0;
-          setbrecA <= 1'b1;
-          lcrcA <= 1'b0;
-          tshiftA <= 1'b0;
-          inconerecA <= 1'b0;
-          incegtrecA <= 1'b0;
-          incegttraA <= 1'b1;
-          lmsgA <= 1'b0;
-          decrecA <= 1'b0;
-          dectraA <= 1'b0;
-          elevrecbA <= 1'b0;
-          hardsyncA <= 1'b0;
-          resetdstA <= 1'b1;
-          resetstfA <= 1'b1;
-          inccountA <= 1'b0;
-          rescountA <= 1'b1;
-          setrmlenoA <= 0;
-          actvrmlnA <= 1'b0;
-          resrmlenA <= 1'b1;
-          ackerror_setA <= 2'b00;
-          transmitter_setA <= 2'b00;
-          receiver_setA <= 2'b00;
-          error_setA <= 2'b11;
-          first_setA <= 2'b11;
-          activatefastA <= 1'b0;
-          puffer_setA <= 2'b10;
-          onarbit_setA <= 2'b10;
-          en_zerointcrcA <= 1'b1;
-          crc_shft_outA <= 1'b0;
-          if (sendpointA==1'b1)
-            next_stateA <= errorpassiv_incsrecb;
+          rext_set <= 2'b10;
+          rrtr_set <= 2'b10;
+          actvtcrc <= 1'b0;
+          actvrcrc <= 1'b0;
+          actvtstf <= 1'b0;
+          actvrstf <= 1'b0;
+          actvtsft <= 1'b0;
+          actvrsft <= 1'b0;
+          actvtdct <= 1'b0;
+          actvrdct <= 1'b0;
+          actvtbed <= 1'b0;
+          setbdom <= 1'b0;
+          setbrec <= 1'b1;
+          lcrc <= 1'b0;
+          tshift <= 1'b0;
+          inconerec <= 1'b0;
+          incegtrec <= 1'b0;
+          incegttra <= 1'b1;
+          lmsg <= 1'b0;
+          decrec <= 1'b0;
+          dectra <= 1'b0;
+          elevrecb <= 1'b0;
+          hardsync <= 1'b0;
+          resetdst <= 1'b1;
+          resetstf <= 1'b1;
+          inccount <= 1'b0;
+          rescount <= 1'b1;
+          setrmleno <= 0;
+          actvrmln <= 1'b0;
+          resrmlen <= 1'b1;
+          ackerror_set <= 2'b00;
+          transmitter_set <= 2'b00;
+          receiver_set <= 2'b00;
+          error_set <= 2'b11;
+          first_set <= 2'b11;
+          activatefast <= 1'b0;
+          puffer_set <= 2'b10;
+          onarbit_set <= 2'b10;
+          en_zerointcrc <= 1'b1;
+          crc_shft_out <= 1'b0;
+          if (sendpoint==1'b1)
+            next_state <= errorpassiv_incsrecb;
           else
-            next_stateA <= errorpassiv_incachttra;
+            next_state <= errorpassiv_incachttra;
         end
       errorpassiv_incsrecb : 
         begin
-          rext_setA <= 2'b10;
-          rrtr_setA <= 2'b10;
-          actvtcrcA <= 1'b0;
-          actvrcrcA <= 1'b0;
-          actvtstfA <= 1'b1;
-          actvrstfA <= 1'b0;
-          actvtsftA <= 1'b0;
-          actvrsftA <= 1'b0;
-          actvtdctA <= 1'b0;
-          actvrdctA <= 1'b0;
-          actvtbedA <= 1'b0;
-          setbdomA <= 1'b0;
-          setbrecA <= 1'b1;
-          lcrcA <= 1'b0;
-          tshiftA <= 1'b0;
-          inconerecA <= 1'b0;
-          incegtrecA <= 1'b0;
-          incegttraA <= 1'b0;
-          lmsgA <= 1'b0;
-          decrecA <= 1'b0;
-          dectraA <= 1'b0;
-          elevrecbA <= 1'b0;
-          hardsyncA <= 1'b0;
-          resetdstA <= 1'b1;
-          resetstfA <= 1'b1;
-          inccountA <= 1'b0;
-          rescountA <= 1'b1;
-          setrmlenoA <= 0;
-          actvrmlnA <= 1'b0;
-          resrmlenA <= 1'b1;
-          ackerror_setA <= 2'b00;
-          transmitter_setA <= 2'b00;
-          receiver_setA <= 2'b00;
-          error_setA <= 2'b11;
-          first_setA <= 2'b11;
-          activatefastA <= 1'b0;
-          puffer_setA <= 2'b00;
-          onarbit_setA <= 2'b10;
-          en_zerointcrcA <= 1'b1;
-          crc_shft_outA <= 1'b0;
-          if (smplpointA==1'b1&&countA!=0)
-            next_stateA <= errorpassiv_check1;
+          rext_set <= 2'b10;
+          rrtr_set <= 2'b10;
+          actvtcrc <= 1'b0;
+          actvrcrc <= 1'b0;
+          actvtstf <= 1'b1;
+          actvrstf <= 1'b0;
+          actvtsft <= 1'b0;
+          actvrsft <= 1'b0;
+          actvtdct <= 1'b0;
+          actvrdct <= 1'b0;
+          actvtbed <= 1'b0;
+          setbdom <= 1'b0;
+          setbrec <= 1'b1;
+          lcrc <= 1'b0;
+          tshift <= 1'b0;
+          inconerec <= 1'b0;
+          incegtrec <= 1'b0;
+          incegttra <= 1'b0;
+          lmsg <= 1'b0;
+          decrec <= 1'b0;
+          dectra <= 1'b0;
+          elevrecb <= 1'b0;
+          hardsync <= 1'b0;
+          resetdst <= 1'b1;
+          resetstf <= 1'b1;
+          inccount <= 1'b0;
+          rescount <= 1'b1;
+          setrmleno <= 0;
+          actvrmln <= 1'b0;
+          resrmlen <= 1'b1;
+          ackerror_set <= 2'b00;
+          transmitter_set <= 2'b00;
+          receiver_set <= 2'b00;
+          error_set <= 2'b11;
+          first_set <= 2'b11;
+          activatefast <= 1'b0;
+          puffer_set <= 2'b00;
+          onarbit_set <= 2'b10;
+          en_zerointcrc <= 1'b1;
+          crc_shft_out <= 1'b0;
+          if (smplpoint==1'b1&&count!=0)
+            next_state <= errorpassiv_check1;
           else
-            if (smplpointA==1'b1&&countA==0)
-              next_stateA <= errorpassiv_fillpuffer;
+            if (smplpoint==1'b1&&count==0)
+              next_state <= errorpassiv_fillpuffer;
             else
-              next_stateA <= errorpassiv_incsrecb;
+              next_state <= errorpassiv_incsrecb;
         end
       errorpassiv_fillpuffer : 
         begin
-          rext_setA <= 2'b10;
-          rrtr_setA <= 2'b10;
-          actvtcrcA <= 1'b0;
-          actvrcrcA <= 1'b0;
-          actvtstfA <= 1'b0;
-          actvrstfA <= 1'b1;
-          actvtsftA <= 1'b0;
-          actvrsftA <= 1'b0;
-          actvtdctA <= 1'b0;
-          actvrdctA <= 1'b1;
-          actvtbedA <= 1'b0;
-          setbdomA <= 1'b0;
-          setbrecA <= 1'b1;
-          lcrcA <= 1'b0;
-          tshiftA <= 1'b0;
-          inconerecA <= 1'b0;
-          incegtrecA <= 1'b0;
-          incegttraA <= 1'b0;
-          lmsgA <= 1'b0;
-          decrecA <= 1'b0;
-          dectraA <= 1'b0;
-          elevrecbA <= 1'b0;
-          hardsyncA <= 1'b0;
-          resetdstA <= 1'b1;
-          resetstfA <= 1'b1;
-          inccountA <= 1'b1;
-          rescountA <= 1'b1;
-          setrmlenoA <= 0;
-          actvrmlnA <= 1'b0;
-          resrmlenA <= 1'b1;
-          ackerror_setA <= 2'b00;
-          transmitter_setA <= 2'b00;
-          receiver_setA <= 2'b00;
-          error_setA <= 2'b11;
-          first_setA <= 2'b11;
-          activatefastA <= 1'b0;
-          puffer_setA <= 2'b10;
-          onarbit_setA <= 2'b10;
-          en_zerointcrcA <= 1'b1;
-          crc_shft_outA <= 1'b0;
-          if (inbitA==1'b0&&transmitterA==1'b1&&ackerrorA==1'b1)
-            next_stateA <= errorpassiv_pufferdomi;
+          rext_set <= 2'b10;
+          rrtr_set <= 2'b10;
+          actvtcrc <= 1'b0;
+          actvrcrc <= 1'b0;
+          actvtstf <= 1'b0;
+          actvrstf <= 1'b1;
+          actvtsft <= 1'b0;
+          actvrsft <= 1'b0;
+          actvtdct <= 1'b0;
+          actvrdct <= 1'b1;
+          actvtbed <= 1'b0;
+          setbdom <= 1'b0;
+          setbrec <= 1'b1;
+          lcrc <= 1'b0;
+          tshift <= 1'b0;
+          inconerec <= 1'b0;
+          incegtrec <= 1'b0;
+          incegttra <= 1'b0;
+          lmsg <= 1'b0;
+          decrec <= 1'b0;
+          dectra <= 1'b0;
+          elevrecb <= 1'b0;
+          hardsync <= 1'b0;
+          resetdst <= 1'b1;
+          resetstf <= 1'b1;
+          inccount <= 1'b1;
+          rescount <= 1'b1;
+          setrmleno <= 0;
+          actvrmln <= 1'b0;
+          resrmlen <= 1'b1;
+          ackerror_set <= 2'b00;
+          transmitter_set <= 2'b00;
+          receiver_set <= 2'b00;
+          error_set <= 2'b11;
+          first_set <= 2'b11;
+          activatefast <= 1'b0;
+          puffer_set <= 2'b10;
+          onarbit_set <= 2'b10;
+          en_zerointcrc <= 1'b1;
+          crc_shft_out <= 1'b0;
+          if (inbit==1'b0&&transmitter==1'b1&&ackerror==1'b1)
+            next_state <= errorpassiv_pufferdomi;
           else
-            if (inbitA==1'b0&&(transmitterA==1'b0||ackerrorA==1'b0))
-              next_stateA <= errorpassiv_pufferdom;
+            if (inbit==1'b0&&(transmitter==1'b0||ackerror==1'b0))
+              next_state <= errorpassiv_pufferdom;
             else
-              next_stateA <= errorpassiv_pufferrec;
+              next_state <= errorpassiv_pufferrec;
         end
       errorpassiv_pufferrec : 
         begin
-          rext_setA <= 2'b10;
-          rrtr_setA <= 2'b10;
-          actvtcrcA <= 1'b0;
-          actvrcrcA <= 1'b0;
-          actvtstfA <= 1'b0;
-          actvrstfA <= 1'b0;
-          actvtsftA <= 1'b0;
-          actvrsftA <= 1'b0;
-          actvtdctA <= 1'b0;
-          actvrdctA <= 1'b0;
-          actvtbedA <= 1'b0;
-          setbdomA <= 1'b0;
-          setbrecA <= 1'b1;
-          lcrcA <= 1'b0;
-          tshiftA <= 1'b0;
-          inconerecA <= 1'b0;
-          incegtrecA <= 1'b0;
-          incegttraA <= 1'b0;
-          lmsgA <= 1'b0;
-          decrecA <= 1'b0;
-          dectraA <= 1'b0;
-          elevrecbA <= 1'b0;
-          hardsyncA <= 1'b0;
-          resetdstA <= 1'b1;
-          resetstfA <= 1'b1;
-          inccountA <= 1'b0;
-          rescountA <= 1'b1;
-          setrmlenoA <= 0;
-          actvrmlnA <= 1'b0;
-          resrmlenA <= 1'b1;
-          ackerror_setA <= 2'b00;
-          transmitter_setA <= 2'b00;
-          receiver_setA <= 2'b00;
-          error_setA <= 2'b11;
-          first_setA <= 2'b11;
-          activatefastA <= 1'b0;
-          puffer_setA <= 2'b11;
-          onarbit_setA <= 2'b10;
-          en_zerointcrcA <= 1'b1;
-          crc_shft_outA <= 1'b0;
-          if (sendpointA==1'b1)
-            next_stateA <= errorpassiv_incsrecb;
+          rext_set <= 2'b10;
+          rrtr_set <= 2'b10;
+          actvtcrc <= 1'b0;
+          actvrcrc <= 1'b0;
+          actvtstf <= 1'b0;
+          actvrstf <= 1'b0;
+          actvtsft <= 1'b0;
+          actvrsft <= 1'b0;
+          actvtdct <= 1'b0;
+          actvrdct <= 1'b0;
+          actvtbed <= 1'b0;
+          setbdom <= 1'b0;
+          setbrec <= 1'b1;
+          lcrc <= 1'b0;
+          tshift <= 1'b0;
+          inconerec <= 1'b0;
+          incegtrec <= 1'b0;
+          incegttra <= 1'b0;
+          lmsg <= 1'b0;
+          decrec <= 1'b0;
+          dectra <= 1'b0;
+          elevrecb <= 1'b0;
+          hardsync <= 1'b0;
+          resetdst <= 1'b1;
+          resetstf <= 1'b1;
+          inccount <= 1'b0;
+          rescount <= 1'b1;
+          setrmleno <= 0;
+          actvrmln <= 1'b0;
+          resrmlen <= 1'b1;
+          ackerror_set <= 2'b00;
+          transmitter_set <= 2'b00;
+          receiver_set <= 2'b00;
+          error_set <= 2'b11;
+          first_set <= 2'b11;
+          activatefast <= 1'b0;
+          puffer_set <= 2'b11;
+          onarbit_set <= 2'b10;
+          en_zerointcrc <= 1'b1;
+          crc_shft_out <= 1'b0;
+          if (sendpoint==1'b1)
+            next_state <= errorpassiv_incsrecb;
           else
-            next_stateA <= errorpassiv_pufferrec;
+            next_state <= errorpassiv_pufferrec;
         end
       errorpassiv_pufferdom : 
         begin
-          rext_setA <= 2'b10;
-          rrtr_setA <= 2'b10;
-          actvtcrcA <= 1'b0;
-          actvrcrcA <= 1'b0;
-          actvtstfA <= 1'b0;
-          actvrstfA <= 1'b0;
-          actvtsftA <= 1'b0;
-          actvrsftA <= 1'b0;
-          actvtdctA <= 1'b0;
-          actvrdctA <= 1'b0;
-          actvtbedA <= 1'b0;
-          setbdomA <= 1'b0;
-          setbrecA <= 1'b1;
-          lcrcA <= 1'b0;
-          tshiftA <= 1'b0;
-          inconerecA <= 1'b0;
-          incegtrecA <= 1'b0;
-          incegttraA <= 1'b0;
-          lmsgA <= 1'b0;
-          decrecA <= 1'b0;
-          dectraA <= 1'b0;
-          elevrecbA <= 1'b0;
-          hardsyncA <= 1'b0;
-          resetdstA <= 1'b1;
-          resetstfA <= 1'b1;
-          inccountA <= 1'b0;
-          rescountA <= 1'b1;
-          setrmlenoA <= 0;
-          actvrmlnA <= 1'b0;
-          resrmlenA <= 1'b1;
-          ackerror_setA <= 2'b00;
-          transmitter_setA <= 2'b00;
-          receiver_setA <= 2'b00;
-          error_setA <= 2'b11;
-          first_setA <= 2'b11;
-          activatefastA <= 1'b0;
-          puffer_setA <= 2'b10;
-          onarbit_setA <= 2'b10;
-          en_zerointcrcA <= 1'b1;
-          crc_shft_outA <= 1'b0;
-          if (sendpointA==1'b1)
-            next_stateA <= errorpassiv_incsrecb;
+          rext_set <= 2'b10;
+          rrtr_set <= 2'b10;
+          actvtcrc <= 1'b0;
+          actvrcrc <= 1'b0;
+          actvtstf <= 1'b0;
+          actvrstf <= 1'b0;
+          actvtsft <= 1'b0;
+          actvrsft <= 1'b0;
+          actvtdct <= 1'b0;
+          actvrdct <= 1'b0;
+          actvtbed <= 1'b0;
+          setbdom <= 1'b0;
+          setbrec <= 1'b1;
+          lcrc <= 1'b0;
+          tshift <= 1'b0;
+          inconerec <= 1'b0;
+          incegtrec <= 1'b0;
+          incegttra <= 1'b0;
+          lmsg <= 1'b0;
+          decrec <= 1'b0;
+          dectra <= 1'b0;
+          elevrecb <= 1'b0;
+          hardsync <= 1'b0;
+          resetdst <= 1'b1;
+          resetstf <= 1'b1;
+          inccount <= 1'b0;
+          rescount <= 1'b1;
+          setrmleno <= 0;
+          actvrmln <= 1'b0;
+          resrmlen <= 1'b1;
+          ackerror_set <= 2'b00;
+          transmitter_set <= 2'b00;
+          receiver_set <= 2'b00;
+          error_set <= 2'b11;
+          first_set <= 2'b11;
+          activatefast <= 1'b0;
+          puffer_set <= 2'b10;
+          onarbit_set <= 2'b10;
+          en_zerointcrc <= 1'b1;
+          crc_shft_out <= 1'b0;
+          if (sendpoint==1'b1)
+            next_state <= errorpassiv_incsrecb;
           else
-            next_stateA <= errorpassiv_pufferdom;
+            next_state <= errorpassiv_pufferdom;
         end
       errorpassiv_pufferdomi : 
         begin
-          rext_setA <= 2'b10;
-          rrtr_setA <= 2'b10;
-          actvtcrcA <= 1'b0;
-          actvrcrcA <= 1'b0;
-          actvtstfA <= 1'b0;
-          actvrstfA <= 1'b0;
-          actvtsftA <= 1'b0;
-          actvrsftA <= 1'b0;
-          actvtdctA <= 1'b0;
-          actvrdctA <= 1'b0;
-          actvtbedA <= 1'b0;
-          setbdomA <= 1'b0;
-          setbrecA <= 1'b1;
-          lcrcA <= 1'b0;
-          tshiftA <= 1'b0;
-          inconerecA <= 1'b0;
-          incegtrecA <= 1'b0;
-          incegttraA <= 1'b1;
-          lmsgA <= 1'b0;
-          decrecA <= 1'b0;
-          dectraA <= 1'b0;
-          elevrecbA <= 1'b0;
-          hardsyncA <= 1'b0;
-          resetdstA <= 1'b1;
-          resetstfA <= 1'b1;
-          inccountA <= 1'b0;
-          rescountA <= 1'b1;
-          setrmlenoA <= 0;
-          actvrmlnA <= 1'b0;
-          resrmlenA <= 1'b1;
-          ackerror_setA <= 2'b00;
-          transmitter_setA <= 2'b00;
-          receiver_setA <= 2'b00;
-          error_setA <= 2'b11;
-          first_setA <= 2'b11;
-          activatefastA <= 1'b0;
-          puffer_setA <= 2'b10;
-          onarbit_setA <= 2'b10;
-          en_zerointcrcA <= 1'b1;
-          crc_shft_outA <= 1'b0;
-          if (sendpointA==1'b1)
-            next_stateA <= errorpassiv_incsrecb;
+          rext_set <= 2'b10;
+          rrtr_set <= 2'b10;
+          actvtcrc <= 1'b0;
+          actvrcrc <= 1'b0;
+          actvtstf <= 1'b0;
+          actvrstf <= 1'b0;
+          actvtsft <= 1'b0;
+          actvrsft <= 1'b0;
+          actvtdct <= 1'b0;
+          actvrdct <= 1'b0;
+          actvtbed <= 1'b0;
+          setbdom <= 1'b0;
+          setbrec <= 1'b1;
+          lcrc <= 1'b0;
+          tshift <= 1'b0;
+          inconerec <= 1'b0;
+          incegtrec <= 1'b0;
+          incegttra <= 1'b1;
+          lmsg <= 1'b0;
+          decrec <= 1'b0;
+          dectra <= 1'b0;
+          elevrecb <= 1'b0;
+          hardsync <= 1'b0;
+          resetdst <= 1'b1;
+          resetstf <= 1'b1;
+          inccount <= 1'b0;
+          rescount <= 1'b1;
+          setrmleno <= 0;
+          actvrmln <= 1'b0;
+          resrmlen <= 1'b1;
+          ackerror_set <= 2'b00;
+          transmitter_set <= 2'b00;
+          receiver_set <= 2'b00;
+          error_set <= 2'b11;
+          first_set <= 2'b11;
+          activatefast <= 1'b0;
+          puffer_set <= 2'b10;
+          onarbit_set <= 2'b10;
+          en_zerointcrc <= 1'b1;
+          crc_shft_out <= 1'b0;
+          if (sendpoint==1'b1)
+            next_state <= errorpassiv_incsrecb;
           else
-            next_stateA <= errorpassiv_pufferdomi;
+            next_state <= errorpassiv_pufferdomi;
         end
       errorpassiv_zersrecbo : 
         begin
-          rext_setA <= 2'b10;
-          rrtr_setA <= 2'b10;
-          actvtcrcA <= 1'b0;
-          actvrcrcA <= 1'b0;
-          actvtstfA <= 1'b1;
-          actvrstfA <= 1'b0;
-          actvtsftA <= 1'b0;
-          actvrsftA <= 1'b0;
-          actvtdctA <= 1'b0;
-          actvrdctA <= 1'b0;
-          actvtbedA <= 1'b0;
-          setbdomA <= 1'b0;
-          setbrecA <= 1'b1;
-          lcrcA <= 1'b0;
-          tshiftA <= 1'b0;
-          inconerecA <= 1'b0;
-          incegtrecA <= 1'b0;
-          incegttraA <= 1'b0;
-          lmsgA <= 1'b0;
-          decrecA <= 1'b0;
-          dectraA <= 1'b0;
-          elevrecbA <= 1'b0;
-          hardsyncA <= 1'b0;
-          resetdstA <= 1'b1;
-          resetstfA <= 1'b1;
-          inccountA <= 1'b0;
-          rescountA <= 1'b0;
-          setrmlenoA <= 0;
-          actvrmlnA <= 1'b0;
-          resrmlenA <= 1'b1;
-          ackerror_setA <= 2'b00;
-          transmitter_setA <= 2'b00;
-          receiver_setA <= 2'b00;
-          error_setA <= 2'b11;
-          first_setA <= 2'b11;
-          activatefastA <= 1'b0;
-          puffer_setA <= 2'b11;
-          onarbit_setA <= 2'b10;
-          en_zerointcrcA <= 1'b1;
-          crc_shft_outA <= 1'b0;
-          next_stateA <= errorpassiv_newcount;
+          rext_set <= 2'b10;
+          rrtr_set <= 2'b10;
+          actvtcrc <= 1'b0;
+          actvrcrc <= 1'b0;
+          actvtstf <= 1'b1;
+          actvrstf <= 1'b0;
+          actvtsft <= 1'b0;
+          actvrsft <= 1'b0;
+          actvtdct <= 1'b0;
+          actvrdct <= 1'b0;
+          actvtbed <= 1'b0;
+          setbdom <= 1'b0;
+          setbrec <= 1'b1;
+          lcrc <= 1'b0;
+          tshift <= 1'b0;
+          inconerec <= 1'b0;
+          incegtrec <= 1'b0;
+          incegttra <= 1'b0;
+          lmsg <= 1'b0;
+          decrec <= 1'b0;
+          dectra <= 1'b0;
+          elevrecb <= 1'b0;
+          hardsync <= 1'b0;
+          resetdst <= 1'b1;
+          resetstf <= 1'b1;
+          inccount <= 1'b0;
+          rescount <= 1'b0;
+          setrmleno <= 0;
+          actvrmln <= 1'b0;
+          resrmlen <= 1'b1;
+          ackerror_set <= 2'b00;
+          transmitter_set <= 2'b00;
+          receiver_set <= 2'b00;
+          error_set <= 2'b11;
+          first_set <= 2'b11;
+          activatefast <= 1'b0;
+          puffer_set <= 2'b11;
+          onarbit_set <= 2'b10;
+          en_zerointcrc <= 1'b1;
+          crc_shft_out <= 1'b0;
+          next_state <= errorpassiv_newcount;
         end
       errorpassiv_zersrecbz : 
         begin
-          rext_setA <= 2'b10;
-          rrtr_setA <= 2'b10;
-          actvtcrcA <= 1'b0;
-          actvrcrcA <= 1'b0;
-          actvtstfA <= 1'b1;
-          actvrstfA <= 1'b0;
-          actvtsftA <= 1'b0;
-          actvrsftA <= 1'b0;
-          actvtdctA <= 1'b0;
-          actvrdctA <= 1'b0;
-          actvtbedA <= 1'b0;
-          setbdomA <= 1'b0;
-          setbrecA <= 1'b1;
-          lcrcA <= 1'b0;
-          tshiftA <= 1'b0;
-          inconerecA <= 1'b0;
-          incegtrecA <= 1'b0;
-          incegttraA <= 1'b0;
-          lmsgA <= 1'b0;
-          decrecA <= 1'b0;
-          dectraA <= 1'b0;
-          elevrecbA <= 1'b0;
-          hardsyncA <= 1'b0;
-          resetdstA <= 1'b1;
-          resetstfA <= 1'b1;
-          inccountA <= 1'b0;
-          rescountA <= 1'b0;
-          setrmlenoA <= 0;
-          actvrmlnA <= 1'b0;
-          resrmlenA <= 1'b1;
-          ackerror_setA <= 2'b00;
-          transmitter_setA <= 2'b00;
-          receiver_setA <= 2'b00;
-          error_setA <= 2'b11;
-          first_setA <= 2'b11;
-          activatefastA <= 1'b0;
-          puffer_setA <= 2'b10;
-          onarbit_setA <= 2'b10;
-          en_zerointcrcA <= 1'b1;
-          crc_shft_outA <= 1'b0;
-          next_stateA <= errorpassiv_newcount;
+          rext_set <= 2'b10;
+          rrtr_set <= 2'b10;
+          actvtcrc <= 1'b0;
+          actvrcrc <= 1'b0;
+          actvtstf <= 1'b1;
+          actvrstf <= 1'b0;
+          actvtsft <= 1'b0;
+          actvrsft <= 1'b0;
+          actvtdct <= 1'b0;
+          actvrdct <= 1'b0;
+          actvtbed <= 1'b0;
+          setbdom <= 1'b0;
+          setbrec <= 1'b1;
+          lcrc <= 1'b0;
+          tshift <= 1'b0;
+          inconerec <= 1'b0;
+          incegtrec <= 1'b0;
+          incegttra <= 1'b0;
+          lmsg <= 1'b0;
+          decrec <= 1'b0;
+          dectra <= 1'b0;
+          elevrecb <= 1'b0;
+          hardsync <= 1'b0;
+          resetdst <= 1'b1;
+          resetstf <= 1'b1;
+          inccount <= 1'b0;
+          rescount <= 1'b0;
+          setrmleno <= 0;
+          actvrmln <= 1'b0;
+          resrmlen <= 1'b1;
+          ackerror_set <= 2'b00;
+          transmitter_set <= 2'b00;
+          receiver_set <= 2'b00;
+          error_set <= 2'b11;
+          first_set <= 2'b11;
+          activatefast <= 1'b0;
+          puffer_set <= 2'b10;
+          onarbit_set <= 2'b10;
+          en_zerointcrc <= 1'b1;
+          crc_shft_out <= 1'b0;
+          next_state <= errorpassiv_newcount;
         end
       errorpassiv_zersrecbi : 
         begin
-          rext_setA <= 2'b10;
-          rrtr_setA <= 2'b10;
-          actvtcrcA <= 1'b0;
-          actvrcrcA <= 1'b0;
-          actvtstfA <= 1'b1;
-          actvrstfA <= 1'b0;
-          actvtsftA <= 1'b0;
-          actvrsftA <= 1'b0;
-          actvtdctA <= 1'b0;
-          actvrdctA <= 1'b0;
-          actvtbedA <= 1'b0;
-          setbdomA <= 1'b0;
-          setbrecA <= 1'b1;
-          lcrcA <= 1'b0;
-          tshiftA <= 1'b0;
-          inconerecA <= 1'b0;
-          incegtrecA <= 1'b0;
-          incegttraA <= 1'b1;
-          lmsgA <= 1'b0;
-          decrecA <= 1'b0;
-          dectraA <= 1'b0;
-          elevrecbA <= 1'b0;
-          hardsyncA <= 1'b0;
-          resetdstA <= 1'b1;
-          resetstfA <= 1'b1;
-          inccountA <= 1'b0;
-          rescountA <= 1'b0;
-          setrmlenoA <= 0;
-          actvrmlnA <= 1'b0;
-          resrmlenA <= 1'b1;
-          ackerror_setA <= 2'b10;
-          transmitter_setA <= 2'b00;
-          receiver_setA <= 2'b00;
-          error_setA <= 2'b11;
-          first_setA <= 2'b11;
-          activatefastA <= 1'b0;
-          puffer_setA <= 2'b10;
-          onarbit_setA <= 2'b10;
-          en_zerointcrcA <= 1'b1;
-          crc_shft_outA <= 1'b0;
-          next_stateA <= errorpassiv_newcount;
+          rext_set <= 2'b10;
+          rrtr_set <= 2'b10;
+          actvtcrc <= 1'b0;
+          actvrcrc <= 1'b0;
+          actvtstf <= 1'b1;
+          actvrstf <= 1'b0;
+          actvtsft <= 1'b0;
+          actvrsft <= 1'b0;
+          actvtdct <= 1'b0;
+          actvrdct <= 1'b0;
+          actvtbed <= 1'b0;
+          setbdom <= 1'b0;
+          setbrec <= 1'b1;
+          lcrc <= 1'b0;
+          tshift <= 1'b0;
+          inconerec <= 1'b0;
+          incegtrec <= 1'b0;
+          incegttra <= 1'b1;
+          lmsg <= 1'b0;
+          decrec <= 1'b0;
+          dectra <= 1'b0;
+          elevrecb <= 1'b0;
+          hardsync <= 1'b0;
+          resetdst <= 1'b1;
+          resetstf <= 1'b1;
+          inccount <= 1'b0;
+          rescount <= 1'b0;
+          setrmleno <= 0;
+          actvrmln <= 1'b0;
+          resrmlen <= 1'b1;
+          ackerror_set <= 2'b10;
+          transmitter_set <= 2'b00;
+          receiver_set <= 2'b00;
+          error_set <= 2'b11;
+          first_set <= 2'b11;
+          activatefast <= 1'b0;
+          puffer_set <= 2'b10;
+          onarbit_set <= 2'b10;
+          en_zerointcrc <= 1'b1;
+          crc_shft_out <= 1'b0;
+          next_state <= errorpassiv_newcount;
         end
       errorpassiv_newcount : 
         begin
-          rext_setA <= 2'b10;
-          rrtr_setA <= 2'b10;
-          actvtcrcA <= 1'b0;
-          actvrcrcA <= 1'b0;
-          actvtstfA <= 1'b1;
-          actvrstfA <= 1'b0;
-          actvtsftA <= 1'b0;
-          actvrsftA <= 1'b0;
-          actvtdctA <= 1'b0;
-          actvrdctA <= 1'b0;
-          actvtbedA <= 1'b0;
-          setbdomA <= 1'b0;
-          setbrecA <= 1'b1;
-          lcrcA <= 1'b0;
-          tshiftA <= 1'b0;
-          inconerecA <= 1'b0;
-          incegtrecA <= 1'b0;
-          incegttraA <= 1'b0;
-          lmsgA <= 1'b0;
-          decrecA <= 1'b0;
-          dectraA <= 1'b0;
-          elevrecbA <= 1'b0;
-          hardsyncA <= 1'b0;
-          resetdstA <= 1'b1;
-          resetstfA <= 1'b1;
-          inccountA <= 1'b1;
-          rescountA <= 1'b1;
-          setrmlenoA <= 0;
-          actvrmlnA <= 1'b0;
-          resrmlenA <= 1'b1;
-          ackerror_setA <= 2'b10;
-          transmitter_setA <= 2'b00;
-          receiver_setA <= 2'b00;
-          error_setA <= 2'b11;
-          first_setA <= 2'b11;
-          activatefastA <= 1'b0;
-          puffer_setA <= 2'b00;
-          onarbit_setA <= 2'b10;
-          en_zerointcrcA <= 1'b1;
-          crc_shft_outA <= 1'b0;
-          next_stateA <= errorpassiv_prepcount;
+          rext_set <= 2'b10;
+          rrtr_set <= 2'b10;
+          actvtcrc <= 1'b0;
+          actvrcrc <= 1'b0;
+          actvtstf <= 1'b1;
+          actvrstf <= 1'b0;
+          actvtsft <= 1'b0;
+          actvrsft <= 1'b0;
+          actvtdct <= 1'b0;
+          actvrdct <= 1'b0;
+          actvtbed <= 1'b0;
+          setbdom <= 1'b0;
+          setbrec <= 1'b1;
+          lcrc <= 1'b0;
+          tshift <= 1'b0;
+          inconerec <= 1'b0;
+          incegtrec <= 1'b0;
+          incegttra <= 1'b0;
+          lmsg <= 1'b0;
+          decrec <= 1'b0;
+          dectra <= 1'b0;
+          elevrecb <= 1'b0;
+          hardsync <= 1'b0;
+          resetdst <= 1'b1;
+          resetstf <= 1'b1;
+          inccount <= 1'b1;
+          rescount <= 1'b1;
+          setrmleno <= 0;
+          actvrmln <= 1'b0;
+          resrmlen <= 1'b1;
+          ackerror_set <= 2'b10;
+          transmitter_set <= 2'b00;
+          receiver_set <= 2'b00;
+          error_set <= 2'b11;
+          first_set <= 2'b11;
+          activatefast <= 1'b0;
+          puffer_set <= 2'b00;
+          onarbit_set <= 2'b10;
+          en_zerointcrc <= 1'b1;
+          crc_shft_out <= 1'b0;
+          next_state <= errorpassiv_prepcount;
         end
       errorpassiv_prepcount : 
         begin
-          rext_setA <= 2'b10;
-          rrtr_setA <= 2'b10;
-          actvtcrcA <= 1'b0;
-          actvrcrcA <= 1'b0;
-          actvtstfA <= 1'b1;
-          actvrstfA <= 1'b0;
-          actvtsftA <= 1'b0;
-          actvrsftA <= 1'b0;
-          actvtdctA <= 1'b0;
-          actvrdctA <= 1'b0;
-          actvtbedA <= 1'b0;
-          setbdomA <= 1'b0;
-          setbrecA <= 1'b1;
-          lcrcA <= 1'b0;
-          tshiftA <= 1'b0;
-          inconerecA <= 1'b0;
-          incegtrecA <= 1'b0;
-          incegttraA <= 1'b0;
-          lmsgA <= 1'b0;
-          decrecA <= 1'b0;
-          dectraA <= 1'b0;
-          elevrecbA <= 1'b0;
-          hardsyncA <= 1'b0;
-          resetdstA <= 1'b1;
-          resetstfA <= 1'b1;
-          inccountA <= 1'b0;
-          rescountA <= 1'b1;
-          setrmlenoA <= 0;
-          actvrmlnA <= 1'b0;
-          resrmlenA <= 1'b1;
-          ackerror_setA <= 2'b10;
-          transmitter_setA <= 2'b00;
-          receiver_setA <= 2'b00;
-          error_setA <= 2'b11;
-          first_setA <= 2'b11;
-          activatefastA <= 1'b0;
-          puffer_setA <= 2'b00;
-          onarbit_setA <= 2'b10;
-          en_zerointcrcA <= 1'b1;
-          crc_shft_outA <= 1'b0;
-          if (smplpointA==1'b1)
-            next_stateA <= errorpassiv_check1;
+          rext_set <= 2'b10;
+          rrtr_set <= 2'b10;
+          actvtcrc <= 1'b0;
+          actvrcrc <= 1'b0;
+          actvtstf <= 1'b1;
+          actvrstf <= 1'b0;
+          actvtsft <= 1'b0;
+          actvrsft <= 1'b0;
+          actvtdct <= 1'b0;
+          actvrdct <= 1'b0;
+          actvtbed <= 1'b0;
+          setbdom <= 1'b0;
+          setbrec <= 1'b1;
+          lcrc <= 1'b0;
+          tshift <= 1'b0;
+          inconerec <= 1'b0;
+          incegtrec <= 1'b0;
+          incegttra <= 1'b0;
+          lmsg <= 1'b0;
+          decrec <= 1'b0;
+          dectra <= 1'b0;
+          elevrecb <= 1'b0;
+          hardsync <= 1'b0;
+          resetdst <= 1'b1;
+          resetstf <= 1'b1;
+          inccount <= 1'b0;
+          rescount <= 1'b1;
+          setrmleno <= 0;
+          actvrmln <= 1'b0;
+          resrmlen <= 1'b1;
+          ackerror_set <= 2'b10;
+          transmitter_set <= 2'b00;
+          receiver_set <= 2'b00;
+          error_set <= 2'b11;
+          first_set <= 2'b11;
+          activatefast <= 1'b0;
+          puffer_set <= 2'b00;
+          onarbit_set <= 2'b10;
+          en_zerointcrc <= 1'b1;
+          crc_shft_out <= 1'b0;
+          if (smplpoint==1'b1)
+            next_state <= errorpassiv_check1;
           else
-            next_stateA <= errorpassiv_prepcount;
+            next_state <= errorpassiv_prepcount;
         end
       errorpassiv_check1 : 
         begin
-          rext_setA <= 2'b10;
-          rrtr_setA <= 2'b10;
-          actvtcrcA <= 1'b0;
-          actvrcrcA <= 1'b0;
-          actvtstfA <= 1'b0;
-          actvrstfA <= 1'b0;
-          actvtsftA <= 1'b0;
-          actvrsftA <= 1'b0;
-          actvtdctA <= 1'b0;
-          actvrdctA <= 1'b0;
-          actvtbedA <= 1'b1;
-          setbdomA <= 1'b0;
-          setbrecA <= 1'b1;
-          lcrcA <= 1'b0;
-          tshiftA <= 1'b0;
-          inconerecA <= 1'b0;
-          incegtrecA <= 1'b0;
-          incegttraA <= 1'b0;
-          lmsgA <= 1'b0;
-          decrecA <= 1'b0;
-          dectraA <= 1'b0;
-          elevrecbA <= 1'b0;
-          hardsyncA <= 1'b0;
-          resetdstA <= 1'b1;
-          resetstfA <= 1'b1;
-          inccountA <= 1'b1;
-          rescountA <= 1'b1;
-          setrmlenoA <= 0;
-          actvrmlnA <= 1'b0;
-          resrmlenA <= 1'b1;
-          ackerror_setA <= 2'b00;
-          transmitter_setA <= 2'b00;
-          receiver_setA <= 2'b00;
-          error_setA <= 2'b11;
-          first_setA <= 2'b11;
-          activatefastA <= 1'b0;
-          puffer_setA <= 2'b00;
-          onarbit_setA <= 2'b10;
-          en_zerointcrcA <= 1'b1;
-          crc_shft_outA <= 1'b0;
-          if (sendpointA==1'b1&&biterrorA==pufferA&&biterrorA==1'b1&&transmitterA==1'b1&&ackerrorA==1'b1)
-            next_stateA <= errorpassiv_zersrecbi;
+          rext_set <= 2'b10;
+          rrtr_set <= 2'b10;
+          actvtcrc <= 1'b0;
+          actvrcrc <= 1'b0;
+          actvtstf <= 1'b0;
+          actvrstf <= 1'b0;
+          actvtsft <= 1'b0;
+          actvrsft <= 1'b0;
+          actvtdct <= 1'b0;
+          actvrdct <= 1'b0;
+          actvtbed <= 1'b1;
+          setbdom <= 1'b0;
+          setbrec <= 1'b1;
+          lcrc <= 1'b0;
+          tshift <= 1'b0;
+          inconerec <= 1'b0;
+          incegtrec <= 1'b0;
+          incegttra <= 1'b0;
+          lmsg <= 1'b0;
+          decrec <= 1'b0;
+          dectra <= 1'b0;
+          elevrecb <= 1'b0;
+          hardsync <= 1'b0;
+          resetdst <= 1'b1;
+          resetstf <= 1'b1;
+          inccount <= 1'b1;
+          rescount <= 1'b1;
+          setrmleno <= 0;
+          actvrmln <= 1'b0;
+          resrmlen <= 1'b1;
+          ackerror_set <= 2'b00;
+          transmitter_set <= 2'b00;
+          receiver_set <= 2'b00;
+          error_set <= 2'b11;
+          first_set <= 2'b11;
+          activatefast <= 1'b0;
+          puffer_set <= 2'b00;
+          onarbit_set <= 2'b10;
+          en_zerointcrc <= 1'b1;
+          crc_shft_out <= 1'b0;
+          if (sendpoint==1'b1&&biterror==puffer&&biterror==1'b1&&transmitter==1'b1&&ackerror==1'b1)
+            next_state <= errorpassiv_zersrecbi;
           else
-            if (sendpointA==1'b1&&biterrorA==pufferA&&biterrorA==1'b1&&(ackerrorA==1'b0||transmitterA==1'b0))
-              next_stateA <= errorpassiv_zersrecbz;
+            if (sendpoint==1'b1&&biterror==puffer&&biterror==1'b1&&(ackerror==1'b0||transmitter==1'b0))
+              next_state <= errorpassiv_zersrecbz;
             else
-              if (sendpointA==1'b1&&biterrorA==pufferA&&biterrorA==1'b0)
-                next_stateA <= errorpassiv_zersrecbo;
+              if (sendpoint==1'b1&&biterror==puffer&&biterror==1'b0)
+                next_state <= errorpassiv_zersrecbo;
               else
-                if (sendpointA==1'b1&&biterrorA!=pufferA&&countA!=6)
-                  next_stateA <= errorpassiv_incsrecb;
+                if (sendpoint==1'b1&&biterror!=puffer&&count!=6)
+                  next_state <= errorpassiv_incsrecb;
                 else
-                  if (biterrorA!=pufferA&&countA==6)
-                    next_stateA <= errorpassiv_preprecb;
+                  if (biterror!=puffer&&count==6)
+                    next_state <= errorpassiv_preprecb;
                   else
-                    next_stateA <= errorpassiv_check1;
+                    next_state <= errorpassiv_check1;
         end
       errorpassiv_preprecb : 
         begin
-          rext_setA <= 2'b10;
-          rrtr_setA <= 2'b10;
-          actvtcrcA <= 1'b0;
-          actvrcrcA <= 1'b0;
-          actvtstfA <= 1'b0;
-          actvrstfA <= 1'b0;
-          actvtsftA <= 1'b0;
-          actvrsftA <= 1'b0;
-          actvtdctA <= 1'b0;
-          actvrdctA <= 1'b0;
-          actvtbedA <= 1'b0;
-          setbdomA <= 1'b0;
-          setbrecA <= 1'b1;
-          lcrcA <= 1'b0;
-          tshiftA <= 1'b0;
-          inconerecA <= 1'b0;
-          incegtrecA <= 1'b0;
-          incegttraA <= 1'b0;
-          lmsgA <= 1'b0;
-          decrecA <= 1'b0;
-          dectraA <= 1'b0;
-          elevrecbA <= 1'b0;
-          hardsyncA <= 1'b0;
-          resetdstA <= 1'b1;
-          resetstfA <= 1'b1;
-          inccountA <= 1'b0;
-          rescountA <= 1'b0;
-          setrmlenoA <= 0;
-          actvrmlnA <= 1'b0;
-          resrmlenA <= 1'b1;
-          ackerror_setA <= 2'b10;
-          transmitter_setA <= 2'b00;
-          receiver_setA <= 2'b00;
-          error_setA <= 2'b11;
-          first_setA <= 2'b11;
-          activatefastA <= 1'b0;
-          puffer_setA <= 2'b10;
-          onarbit_setA <= 2'b10;
-          en_zerointcrcA <= 1'b1;
-          crc_shft_outA <= 1'b0;
-          if (sendpointA==1'b1)
-            next_stateA <= errorpassiv_wtonrecb;
+          rext_set <= 2'b10;
+          rrtr_set <= 2'b10;
+          actvtcrc <= 1'b0;
+          actvrcrc <= 1'b0;
+          actvtstf <= 1'b0;
+          actvrstf <= 1'b0;
+          actvtsft <= 1'b0;
+          actvrsft <= 1'b0;
+          actvtdct <= 1'b0;
+          actvrdct <= 1'b0;
+          actvtbed <= 1'b0;
+          setbdom <= 1'b0;
+          setbrec <= 1'b1;
+          lcrc <= 1'b0;
+          tshift <= 1'b0;
+          inconerec <= 1'b0;
+          incegtrec <= 1'b0;
+          incegttra <= 1'b0;
+          lmsg <= 1'b0;
+          decrec <= 1'b0;
+          dectra <= 1'b0;
+          elevrecb <= 1'b0;
+          hardsync <= 1'b0;
+          resetdst <= 1'b1;
+          resetstf <= 1'b1;
+          inccount <= 1'b0;
+          rescount <= 1'b0;
+          setrmleno <= 0;
+          actvrmln <= 1'b0;
+          resrmlen <= 1'b1;
+          ackerror_set <= 2'b10;
+          transmitter_set <= 2'b00;
+          receiver_set <= 2'b00;
+          error_set <= 2'b11;
+          first_set <= 2'b11;
+          activatefast <= 1'b0;
+          puffer_set <= 2'b10;
+          onarbit_set <= 2'b10;
+          en_zerointcrc <= 1'b1;
+          crc_shft_out <= 1'b0;
+          if (sendpoint==1'b1)
+            next_state <= errorpassiv_wtonrecb;
           else
-            next_stateA <= errorpassiv_preprecb;
+            next_state <= errorpassiv_preprecb;
         end
       errorpassiv_wtonrecb : 
         begin
-          rext_setA <= 2'b10;
-          rrtr_setA <= 2'b10;
-          actvtcrcA <= 1'b0;
-          actvrcrcA <= 1'b0;
-          actvtstfA <= 1'b1;
-          actvrstfA <= 1'b0;
-          actvtsftA <= 1'b0;
-          actvrsftA <= 1'b0;
-          actvtdctA <= 1'b0;
-          actvrdctA <= 1'b0;
-          actvtbedA <= 1'b0;
-          setbdomA <= 1'b0;
-          setbrecA <= 1'b1;
-          lcrcA <= 1'b0;
-          tshiftA <= 1'b0;
-          inconerecA <= 1'b0;
-          incegtrecA <= 1'b0;
-          incegttraA <= 1'b0;
-          lmsgA <= 1'b0;
-          decrecA <= 1'b0;
-          dectraA <= 1'b0;
-          elevrecbA <= 1'b0;
-          hardsyncA <= 1'b0;
-          resetdstA <= 1'b1;
-          resetstfA <= 1'b1;
-          inccountA <= 1'b1;
-          rescountA <= 1'b1;
-          setrmlenoA <= 0;
-          actvrmlnA <= 1'b0;
-          resrmlenA <= 1'b1;
-          ackerror_setA <= 2'b10;
-          transmitter_setA <= 2'b00;
-          receiver_setA <= 2'b00;
-          error_setA <= 2'b11;
-          first_setA <= 2'b00;
-          activatefastA <= 1'b0;
-          puffer_setA <= 2'b10;
-          onarbit_setA <= 2'b10;
-          en_zerointcrcA <= 1'b1;
-          crc_shft_outA <= 1'b0;
-          if (smplpointA==1'b1)
-            next_stateA <= errorpassiv_check2;
+          rext_set <= 2'b10;
+          rrtr_set <= 2'b10;
+          actvtcrc <= 1'b0;
+          actvrcrc <= 1'b0;
+          actvtstf <= 1'b1;
+          actvrstf <= 1'b0;
+          actvtsft <= 1'b0;
+          actvrsft <= 1'b0;
+          actvtdct <= 1'b0;
+          actvrdct <= 1'b0;
+          actvtbed <= 1'b0;
+          setbdom <= 1'b0;
+          setbrec <= 1'b1;
+          lcrc <= 1'b0;
+          tshift <= 1'b0;
+          inconerec <= 1'b0;
+          incegtrec <= 1'b0;
+          incegttra <= 1'b0;
+          lmsg <= 1'b0;
+          decrec <= 1'b0;
+          dectra <= 1'b0;
+          elevrecb <= 1'b0;
+          hardsync <= 1'b0;
+          resetdst <= 1'b1;
+          resetstf <= 1'b1;
+          inccount <= 1'b1;
+          rescount <= 1'b1;
+          setrmleno <= 0;
+          actvrmln <= 1'b0;
+          resrmlen <= 1'b1;
+          ackerror_set <= 2'b10;
+          transmitter_set <= 2'b00;
+          receiver_set <= 2'b00;
+          error_set <= 2'b11;
+          first_set <= 2'b00;
+          activatefast <= 1'b0;
+          puffer_set <= 2'b10;
+          onarbit_set <= 2'b10;
+          en_zerointcrc <= 1'b1;
+          crc_shft_out <= 1'b0;
+          if (smplpoint==1'b1)
+            next_state <= errorpassiv_check2;
           else
-            next_stateA <= errorpassiv_wtonrecb;
+            next_state <= errorpassiv_wtonrecb;
         end
       errorpassiv_dombitdct : 
         begin
-          rext_setA <= 2'b10;
-          rrtr_setA <= 2'b10;
-          actvtcrcA <= 1'b0;
-          actvrcrcA <= 1'b0;
-          actvtstfA <= 1'b1;
-          actvrstfA <= 1'b0;
-          actvtsftA <= 1'b0;
-          actvrsftA <= 1'b0;
-          actvtdctA <= 1'b0;
-          actvrdctA <= 1'b0;
-          actvtbedA <= 1'b0;
-          setbdomA <= 1'b0;
-          setbrecA <= 1'b1;
-          lcrcA <= 1'b0;
-          tshiftA <= 1'b0;
-          inconerecA <= 1'b0;
-          incegtrecA <= 1'b1;
-          incegttraA <= 1'b0;
-          lmsgA <= 1'b0;
-          decrecA <= 1'b0;
-          dectraA <= 1'b0;
-          elevrecbA <= 1'b0;
-          hardsyncA <= 1'b0;
-          resetdstA <= 1'b1;
-          resetstfA <= 1'b1;
-          inccountA <= 1'b1;
-          rescountA <= 1'b1;
-          setrmlenoA <= 0;
-          actvrmlnA <= 1'b0;
-          resrmlenA <= 1'b1;
-          ackerror_setA <= 2'b10;
-          transmitter_setA <= 2'b00;
-          receiver_setA <= 2'b00;
-          error_setA <= 2'b11;
-          first_setA <= 2'b10;
-          activatefastA <= 1'b0;
-          puffer_setA <= 2'b10;
-          onarbit_setA <= 2'b10;
-          en_zerointcrcA <= 1'b1;
-          crc_shft_outA <= 1'b0;
-          if (smplpointA==1'b1)
-            next_stateA <= errorpassiv_check2;
+          rext_set <= 2'b10;
+          rrtr_set <= 2'b10;
+          actvtcrc <= 1'b0;
+          actvrcrc <= 1'b0;
+          actvtstf <= 1'b1;
+          actvrstf <= 1'b0;
+          actvtsft <= 1'b0;
+          actvrsft <= 1'b0;
+          actvtdct <= 1'b0;
+          actvrdct <= 1'b0;
+          actvtbed <= 1'b0;
+          setbdom <= 1'b0;
+          setbrec <= 1'b1;
+          lcrc <= 1'b0;
+          tshift <= 1'b0;
+          inconerec <= 1'b0;
+          incegtrec <= 1'b1;
+          incegttra <= 1'b0;
+          lmsg <= 1'b0;
+          decrec <= 1'b0;
+          dectra <= 1'b0;
+          elevrecb <= 1'b0;
+          hardsync <= 1'b0;
+          resetdst <= 1'b1;
+          resetstf <= 1'b1;
+          inccount <= 1'b1;
+          rescount <= 1'b1;
+          setrmleno <= 0;
+          actvrmln <= 1'b0;
+          resrmlen <= 1'b1;
+          ackerror_set <= 2'b10;
+          transmitter_set <= 2'b00;
+          receiver_set <= 2'b00;
+          error_set <= 2'b11;
+          first_set <= 2'b10;
+          activatefast <= 1'b0;
+          puffer_set <= 2'b10;
+          onarbit_set <= 2'b10;
+          en_zerointcrc <= 1'b1;
+          crc_shft_out <= 1'b0;
+          if (smplpoint==1'b1)
+            next_state <= errorpassiv_check2;
           else
-            next_stateA <= errorpassiv_dombitdct;
+            next_state <= errorpassiv_dombitdct;
         end
       errorpassiv_egtdombr : 
         begin
-          rext_setA <= 2'b10;
-          rrtr_setA <= 2'b10;
-          actvtcrcA <= 1'b0;
-          actvrcrcA <= 1'b0;
-          actvtstfA <= 1'b1;
-          actvrstfA <= 1'b0;
-          actvtsftA <= 1'b0;
-          actvrsftA <= 1'b0;
-          actvtdctA <= 1'b0;
-          actvrdctA <= 1'b0;
-          actvtbedA <= 1'b0;
-          setbdomA <= 1'b0;
-          setbrecA <= 1'b1;
-          lcrcA <= 1'b0;
-          tshiftA <= 1'b0;
-          inconerecA <= 1'b0;
-          incegtrecA <= 1'b1;
-          incegttraA <= 1'b0;
-          lmsgA <= 1'b0;
-          decrecA <= 1'b0;
-          dectraA <= 1'b0;
-          elevrecbA <= 1'b0;
-          hardsyncA <= 1'b0;
-          resetdstA <= 1'b1;
-          resetstfA <= 1'b1;
-          inccountA <= 1'b0;
-          rescountA <= 1'b0;
-          setrmlenoA <= 0;
-          actvrmlnA <= 1'b0;
-          resrmlenA <= 1'b1;
-          ackerror_setA <= 2'b10;
-          transmitter_setA <= 2'b00;
-          receiver_setA <= 2'b00;
-          error_setA <= 2'b11;
-          first_setA <= 2'b10;
-          activatefastA <= 1'b0;
-          puffer_setA <= 2'b10;
-          onarbit_setA <= 2'b10;
-          en_zerointcrcA <= 1'b1;
-          crc_shft_outA <= 1'b0;
-          if (smplpointA==1'b1)
-            next_stateA <= errorpassiv_check2;
+          rext_set <= 2'b10;
+          rrtr_set <= 2'b10;
+          actvtcrc <= 1'b0;
+          actvrcrc <= 1'b0;
+          actvtstf <= 1'b1;
+          actvrstf <= 1'b0;
+          actvtsft <= 1'b0;
+          actvrsft <= 1'b0;
+          actvtdct <= 1'b0;
+          actvrdct <= 1'b0;
+          actvtbed <= 1'b0;
+          setbdom <= 1'b0;
+          setbrec <= 1'b1;
+          lcrc <= 1'b0;
+          tshift <= 1'b0;
+          inconerec <= 1'b0;
+          incegtrec <= 1'b1;
+          incegttra <= 1'b0;
+          lmsg <= 1'b0;
+          decrec <= 1'b0;
+          dectra <= 1'b0;
+          elevrecb <= 1'b0;
+          hardsync <= 1'b0;
+          resetdst <= 1'b1;
+          resetstf <= 1'b1;
+          inccount <= 1'b0;
+          rescount <= 1'b0;
+          setrmleno <= 0;
+          actvrmln <= 1'b0;
+          resrmlen <= 1'b1;
+          ackerror_set <= 2'b10;
+          transmitter_set <= 2'b00;
+          receiver_set <= 2'b00;
+          error_set <= 2'b11;
+          first_set <= 2'b10;
+          activatefast <= 1'b0;
+          puffer_set <= 2'b10;
+          onarbit_set <= 2'b10;
+          en_zerointcrc <= 1'b1;
+          crc_shft_out <= 1'b0;
+          if (smplpoint==1'b1)
+            next_state <= errorpassiv_check2;
           else
-            next_stateA <= errorpassiv_egtdombr;
+            next_state <= errorpassiv_egtdombr;
         end
       errorpassiv_egtdombt : 
         begin
-          rext_setA <= 2'b10;
-          rrtr_setA <= 2'b10;
-          actvtcrcA <= 1'b0;
-          actvrcrcA <= 1'b0;
-          actvtstfA <= 1'b1;
-          actvrstfA <= 1'b0;
-          actvtsftA <= 1'b0;
-          actvrsftA <= 1'b0;
-          actvtdctA <= 1'b0;
-          actvrdctA <= 1'b0;
-          actvtbedA <= 1'b0;
-          setbdomA <= 1'b0;
-          setbrecA <= 1'b1;
-          lcrcA <= 1'b0;
-          tshiftA <= 1'b0;
-          inconerecA <= 1'b0;
-          incegtrecA <= 1'b0;
-          incegttraA <= 1'b1;
-          lmsgA <= 1'b0;
-          decrecA <= 1'b0;
-          dectraA <= 1'b0;
-          elevrecbA <= 1'b0;
-          hardsyncA <= 1'b0;
-          resetdstA <= 1'b1;
-          resetstfA <= 1'b1;
-          inccountA <= 1'b0;
-          rescountA <= 1'b0;
-          setrmlenoA <= 0;
-          actvrmlnA <= 1'b0;
-          resrmlenA <= 1'b1;
-          ackerror_setA <= 2'b10;
-          transmitter_setA <= 2'b00;
-          receiver_setA <= 2'b00;
-          error_setA <= 2'b11;
-          first_setA <= 2'b10;
-          activatefastA <= 1'b0;
-          puffer_setA <= 2'b10;
-          onarbit_setA <= 2'b10;
-          en_zerointcrcA <= 1'b1;
-          crc_shft_outA <= 1'b0;
-          if (smplpointA==1'b1)
-            next_stateA <= errorpassiv_check2;
+          rext_set <= 2'b10;
+          rrtr_set <= 2'b10;
+          actvtcrc <= 1'b0;
+          actvrcrc <= 1'b0;
+          actvtstf <= 1'b1;
+          actvrstf <= 1'b0;
+          actvtsft <= 1'b0;
+          actvrsft <= 1'b0;
+          actvtdct <= 1'b0;
+          actvrdct <= 1'b0;
+          actvtbed <= 1'b0;
+          setbdom <= 1'b0;
+          setbrec <= 1'b1;
+          lcrc <= 1'b0;
+          tshift <= 1'b0;
+          inconerec <= 1'b0;
+          incegtrec <= 1'b0;
+          incegttra <= 1'b1;
+          lmsg <= 1'b0;
+          decrec <= 1'b0;
+          dectra <= 1'b0;
+          elevrecb <= 1'b0;
+          hardsync <= 1'b0;
+          resetdst <= 1'b1;
+          resetstf <= 1'b1;
+          inccount <= 1'b0;
+          rescount <= 1'b0;
+          setrmleno <= 0;
+          actvrmln <= 1'b0;
+          resrmlen <= 1'b1;
+          ackerror_set <= 2'b10;
+          transmitter_set <= 2'b00;
+          receiver_set <= 2'b00;
+          error_set <= 2'b11;
+          first_set <= 2'b10;
+          activatefast <= 1'b0;
+          puffer_set <= 2'b10;
+          onarbit_set <= 2'b10;
+          en_zerointcrc <= 1'b1;
+          crc_shft_out <= 1'b0;
+          if (smplpoint==1'b1)
+            next_state <= errorpassiv_check2;
           else
-            next_stateA <= errorpassiv_egtdombt;
+            next_state <= errorpassiv_egtdombt;
         end
       errorpassiv_check2 : 
         begin
-          rext_setA <= 2'b10;
-          rrtr_setA <= 2'b10;
-          actvtcrcA <= 1'b0;
-          actvrcrcA <= 1'b0;
-          actvtstfA <= 1'b0;
-          actvrstfA <= 1'b0;
-          actvtsftA <= 1'b0;
-          actvrsftA <= 1'b0;
-          actvtdctA <= 1'b0;
-          actvrdctA <= 1'b0;
-          actvtbedA <= 1'b1;
-          setbdomA <= 1'b0;
-          setbrecA <= 1'b1;
-          lcrcA <= 1'b0;
-          tshiftA <= 1'b0;
-          inconerecA <= 1'b0;
-          incegtrecA <= 1'b0;
-          incegttraA <= 1'b0;
-          lmsgA <= 1'b0;
-          decrecA <= 1'b0;
-          dectraA <= 1'b0;
-          elevrecbA <= 1'b0;
-          hardsyncA <= 1'b0;
-          resetdstA <= 1'b1;
-          resetstfA <= 1'b1;
-          inccountA <= 1'b0;
-          rescountA <= 1'b1;
-          setrmlenoA <= 0;
-          actvrmlnA <= 1'b0;
-          resrmlenA <= 1'b1;
-          ackerror_setA <= 2'b10;
-          transmitter_setA <= 2'b00;
-          receiver_setA <= 2'b00;
-          error_setA <= 2'b11;
-          first_setA <= 2'b00;
-          activatefastA <= 1'b0;
-          puffer_setA <= 2'b10;
-          onarbit_setA <= 2'b10;
-          en_zerointcrcA <= 1'b1;
-          crc_shft_outA <= 1'b0;
-          if (sendpointA==1'b1&&biterrorA==1'b1&&countA!=7&&(countA!=1||receiverA==1'b0||firstA==1'b0))
-            next_stateA <= errorpassiv_wtonrecb;
+          rext_set <= 2'b10;
+          rrtr_set <= 2'b10;
+          actvtcrc <= 1'b0;
+          actvrcrc <= 1'b0;
+          actvtstf <= 1'b0;
+          actvrstf <= 1'b0;
+          actvtsft <= 1'b0;
+          actvrsft <= 1'b0;
+          actvtdct <= 1'b0;
+          actvrdct <= 1'b0;
+          actvtbed <= 1'b1;
+          setbdom <= 1'b0;
+          setbrec <= 1'b1;
+          lcrc <= 1'b0;
+          tshift <= 1'b0;
+          inconerec <= 1'b0;
+          incegtrec <= 1'b0;
+          incegttra <= 1'b0;
+          lmsg <= 1'b0;
+          decrec <= 1'b0;
+          dectra <= 1'b0;
+          elevrecb <= 1'b0;
+          hardsync <= 1'b0;
+          resetdst <= 1'b1;
+          resetstf <= 1'b1;
+          inccount <= 1'b0;
+          rescount <= 1'b1;
+          setrmleno <= 0;
+          actvrmln <= 1'b0;
+          resrmlen <= 1'b1;
+          ackerror_set <= 2'b10;
+          transmitter_set <= 2'b00;
+          receiver_set <= 2'b00;
+          error_set <= 2'b11;
+          first_set <= 2'b00;
+          activatefast <= 1'b0;
+          puffer_set <= 2'b10;
+          onarbit_set <= 2'b10;
+          en_zerointcrc <= 1'b1;
+          crc_shft_out <= 1'b0;
+          if (sendpoint==1'b1&&biterror==1'b1&&count!=7&&(count!=1||receiver==1'b0||first==1'b0))
+            next_state <= errorpassiv_wtonrecb;
           else
-            if (sendpointA==1'b1&&biterrorA==1'b1&&countA==1&&receiverA==1'b1&&firstA==1'b1)
-              next_stateA <= errorpassiv_dombitdct;
+            if (sendpoint==1'b1&&biterror==1'b1&&count==1&&receiver==1'b1&&first==1'b1)
+              next_state <= errorpassiv_dombitdct;
             else
-              if (sendpointA==1'b1&&biterrorA==1'b1&&countA==7&&transmitterA==1'b1&&receiverA==1'b0)
-                next_stateA <= errorpassiv_egtdombt;
+              if (sendpoint==1'b1&&biterror==1'b1&&count==7&&transmitter==1'b1&&receiver==1'b0)
+                next_state <= errorpassiv_egtdombt;
               else
-                if (sendpointA==1'b1&&biterrorA==1'b1&&countA==7&&transmitterA==1'b0&&receiverA==1'b1)
-                  next_stateA <= errorpassiv_egtdombr;
+                if (sendpoint==1'b1&&biterror==1'b1&&count==7&&transmitter==1'b0&&receiver==1'b1)
+                  next_state <= errorpassiv_egtdombr;
                 else
-                  if (biterrorA==1'b0)
-                    next_stateA <= errorpassiv_prepsend;
+                  if (biterror==1'b0)
+                    next_state <= errorpassiv_prepsend;
                   else
-                    next_stateA <= errorpassiv_check2;
+                    next_state <= errorpassiv_check2;
         end
       errorpassiv_prepsend : 
         begin
-          rext_setA <= 2'b10;
-          rrtr_setA <= 2'b10;
-          actvtcrcA <= 1'b0;
-          actvrcrcA <= 1'b0;
-          actvtstfA <= 1'b0;
-          actvrstfA <= 1'b0;
-          actvtsftA <= 1'b0;
-          actvrsftA <= 1'b0;
-          actvtdctA <= 1'b0;
-          actvrdctA <= 1'b0;
-          actvtbedA <= 1'b0;
-          setbdomA <= 1'b0;
-          setbrecA <= 1'b1;
-          lcrcA <= 1'b0;
-          tshiftA <= 1'b0;
-          inconerecA <= 1'b0;
-          incegtrecA <= 1'b0;
-          incegttraA <= 1'b0;
-          lmsgA <= 1'b0;
-          decrecA <= 1'b0;
-          dectraA <= 1'b0;
-          elevrecbA <= 1'b0;
-          hardsyncA <= 1'b0;
-          resetdstA <= 1'b1;
-          resetstfA <= 1'b1;
-          inccountA <= 1'b0;
-          rescountA <= 1'b0;
-          setrmlenoA <= 0;
-          actvrmlnA <= 1'b0;
-          resrmlenA <= 1'b1;
-          ackerror_setA <= 2'b10;
-          transmitter_setA <= 2'b00;
-          receiver_setA <= 2'b00;
-          error_setA <= 2'b11;
-          first_setA <= 2'b10;
-          activatefastA <= 1'b0;
-          puffer_setA <= 2'b10;
-          onarbit_setA <= 2'b10;
-          en_zerointcrcA <= 1'b1;
-          crc_shft_outA <= 1'b0;
-          if (sendpointA==1'b1)
-            next_stateA <= errorpassiv_sendrecb;
+          rext_set <= 2'b10;
+          rrtr_set <= 2'b10;
+          actvtcrc <= 1'b0;
+          actvrcrc <= 1'b0;
+          actvtstf <= 1'b0;
+          actvrstf <= 1'b0;
+          actvtsft <= 1'b0;
+          actvrsft <= 1'b0;
+          actvtdct <= 1'b0;
+          actvrdct <= 1'b0;
+          actvtbed <= 1'b0;
+          setbdom <= 1'b0;
+          setbrec <= 1'b1;
+          lcrc <= 1'b0;
+          tshift <= 1'b0;
+          inconerec <= 1'b0;
+          incegtrec <= 1'b0;
+          incegttra <= 1'b0;
+          lmsg <= 1'b0;
+          decrec <= 1'b0;
+          dectra <= 1'b0;
+          elevrecb <= 1'b0;
+          hardsync <= 1'b0;
+          resetdst <= 1'b1;
+          resetstf <= 1'b1;
+          inccount <= 1'b0;
+          rescount <= 1'b0;
+          setrmleno <= 0;
+          actvrmln <= 1'b0;
+          resrmlen <= 1'b1;
+          ackerror_set <= 2'b10;
+          transmitter_set <= 2'b00;
+          receiver_set <= 2'b00;
+          error_set <= 2'b11;
+          first_set <= 2'b10;
+          activatefast <= 1'b0;
+          puffer_set <= 2'b10;
+          onarbit_set <= 2'b10;
+          en_zerointcrc <= 1'b1;
+          crc_shft_out <= 1'b0;
+          if (sendpoint==1'b1)
+            next_state <= errorpassiv_sendrecb;
           else
-            next_stateA <= errorpassiv_prepsend;
+            next_state <= errorpassiv_prepsend;
         end
       errorpassiv_sendrecb : 
         begin
-          rext_setA <= 2'b10;
-          rrtr_setA <= 2'b10;
-          actvtcrcA <= 1'b0;
-          actvrcrcA <= 1'b0;
-          actvtstfA <= 1'b1;
-          actvrstfA <= 1'b0;
-          actvtsftA <= 1'b0;
-          actvrsftA <= 1'b0;
-          actvtdctA <= 1'b0;
-          actvrdctA <= 1'b0;
-          actvtbedA <= 1'b0;
-          setbdomA <= 1'b0;
-          setbrecA <= 1'b1;
-          lcrcA <= 1'b0;
-          tshiftA <= 1'b0;
-          inconerecA <= 1'b0;
-          incegtrecA <= 1'b0;
-          incegttraA <= 1'b0;
-          lmsgA <= 1'b1;
-          decrecA <= 1'b0;
-          dectraA <= 1'b0;
-          elevrecbA <= 1'b0;
-          hardsyncA <= 1'b0;
-          resetdstA <= 1'b1;
-          resetstfA <= 1'b1;
-          inccountA <= 1'b0;
-          rescountA <= 1'b1;
-          setrmlenoA <= 0;
-          actvrmlnA <= 1'b0;
-          resrmlenA <= 1'b1;
-          ackerror_setA <= 2'b10;
-          transmitter_setA <= 2'b00;
-          receiver_setA <= 2'b00;
-          error_setA <= 2'b11;
-          first_setA <= 2'b10;
-          activatefastA <= 1'b0;
-          puffer_setA <= 2'b10;
-          onarbit_setA <= 2'b10;
-          en_zerointcrcA <= 1'b1;
-          crc_shft_outA <= 1'b0;
-          if (smplpointA==1'b1)
-            next_stateA <= errorpassiv_check3;
+          rext_set <= 2'b10;
+          rrtr_set <= 2'b10;
+          actvtcrc <= 1'b0;
+          actvrcrc <= 1'b0;
+          actvtstf <= 1'b1;
+          actvrstf <= 1'b0;
+          actvtsft <= 1'b0;
+          actvrsft <= 1'b0;
+          actvtdct <= 1'b0;
+          actvrdct <= 1'b0;
+          actvtbed <= 1'b0;
+          setbdom <= 1'b0;
+          setbrec <= 1'b1;
+          lcrc <= 1'b0;
+          tshift <= 1'b0;
+          inconerec <= 1'b0;
+          incegtrec <= 1'b0;
+          incegttra <= 1'b0;
+          lmsg <= 1'b1;
+          decrec <= 1'b0;
+          dectra <= 1'b0;
+          elevrecb <= 1'b0;
+          hardsync <= 1'b0;
+          resetdst <= 1'b1;
+          resetstf <= 1'b1;
+          inccount <= 1'b0;
+          rescount <= 1'b1;
+          setrmleno <= 0;
+          actvrmln <= 1'b0;
+          resrmlen <= 1'b1;
+          ackerror_set <= 2'b10;
+          transmitter_set <= 2'b00;
+          receiver_set <= 2'b00;
+          error_set <= 2'b11;
+          first_set <= 2'b10;
+          activatefast <= 1'b0;
+          puffer_set <= 2'b10;
+          onarbit_set <= 2'b10;
+          en_zerointcrc <= 1'b1;
+          crc_shft_out <= 1'b0;
+          if (smplpoint==1'b1)
+            next_state <= errorpassiv_check3;
           else
-            next_stateA <= errorpassiv_sendrecb;
+            next_state <= errorpassiv_sendrecb;
         end
       errorpassiv_check3 : 
         begin
-          rext_setA <= 2'b10;
-          rrtr_setA <= 2'b10;
-          actvtcrcA <= 1'b0;
-          actvrcrcA <= 1'b0;
-          actvtstfA <= 1'b0;
-          actvrstfA <= 1'b0;
-          actvtsftA <= 1'b0;
-          actvrsftA <= 1'b0;
-          actvtdctA <= 1'b0;
-          actvrdctA <= 1'b0;
-          actvtbedA <= 1'b1;
-          setbdomA <= 1'b0;
-          setbrecA <= 1'b0;
-          lcrcA <= 1'b0;
-          tshiftA <= 1'b0;
-          inconerecA <= 1'b0;
-          incegtrecA <= 1'b0;
-          incegttraA <= 1'b0;
-          lmsgA <= 1'b1;
-          decrecA <= 1'b0;
-          dectraA <= 1'b0;
-          elevrecbA <= 1'b0;
-          hardsyncA <= 1'b0;
-          resetdstA <= 1'b1;
-          resetstfA <= 1'b1;
-          inccountA <= 1'b1;
-          rescountA <= 1'b1;
-          setrmlenoA <= 0;
-          actvrmlnA <= 1'b0;
-          resrmlenA <= 1'b1;
-          ackerror_setA <= 2'b10;
-          transmitter_setA <= 2'b00;
-          receiver_setA <= 2'b00;
-          error_setA <= 2'b11;
-          first_setA <= 2'b10;
-          activatefastA <= 1'b0;
-          puffer_setA <= 2'b10;
-          onarbit_setA <= 2'b10;
-          en_zerointcrcA <= 1'b1;
-          crc_shft_outA <= 1'b0;
-          if (sendpointA==1'b1&&biterrorA==1'b0&&countA!=7)
-            next_stateA <= errorpassiv_sendrecb;
+          rext_set <= 2'b10;
+          rrtr_set <= 2'b10;
+          actvtcrc <= 1'b0;
+          actvrcrc <= 1'b0;
+          actvtstf <= 1'b0;
+          actvrstf <= 1'b0;
+          actvtsft <= 1'b0;
+          actvrsft <= 1'b0;
+          actvtdct <= 1'b0;
+          actvrdct <= 1'b0;
+          actvtbed <= 1'b1;
+          setbdom <= 1'b0;
+          setbrec <= 1'b0;
+          lcrc <= 1'b0;
+          tshift <= 1'b0;
+          inconerec <= 1'b0;
+          incegtrec <= 1'b0;
+          incegttra <= 1'b0;
+          lmsg <= 1'b1;
+          decrec <= 1'b0;
+          dectra <= 1'b0;
+          elevrecb <= 1'b0;
+          hardsync <= 1'b0;
+          resetdst <= 1'b1;
+          resetstf <= 1'b1;
+          inccount <= 1'b1;
+          rescount <= 1'b1;
+          setrmleno <= 0;
+          actvrmln <= 1'b0;
+          resrmlen <= 1'b1;
+          ackerror_set <= 2'b10;
+          transmitter_set <= 2'b00;
+          receiver_set <= 2'b00;
+          error_set <= 2'b11;
+          first_set <= 2'b10;
+          activatefast <= 1'b0;
+          puffer_set <= 2'b10;
+          onarbit_set <= 2'b10;
+          en_zerointcrc <= 1'b1;
+          crc_shft_out <= 1'b0;
+          if (sendpoint==1'b1&&biterror==1'b0&&count!=7)
+            next_state <= errorpassiv_sendrecb;
           else
-            if (sendpointA==1'b1&&biterrorA==1'b0&&countA==7)
-              next_stateA <= errorpassiv_waitoclk;
+            if (sendpoint==1'b1&&biterror==1'b0&&count==7)
+              next_state <= errorpassiv_waitoclk;
             else
-              if (biterrorA==1'b1&&errorpassivA==1'b1)
-                next_stateA <= errorpassiv_firstrec;
+              if (biterror==1'b1&&errorpassiv==1'b1)
+                next_state <= errorpassiv_firstrec;
               else
-                if (biterrorA==1'b1&&busofA==1'b1)
-                  next_stateA <= busoff_first;
+                if (biterror==1'b1&&busof==1'b1)
+                  next_state <= busoff_first;
                 else
-                  next_stateA <= errorpassiv_check3;
+                  next_state <= errorpassiv_check3;
         end
       errorpassiv_waitoclk : 
         begin
-          rext_setA <= 2'b10;
-          rrtr_setA <= 2'b10;
-          actvtcrcA <= 1'b0;
-          actvrcrcA <= 1'b0;
-          actvtstfA <= 1'b0;
-          actvrstfA <= 1'b0;
-          actvtsftA <= 1'b1;
-          actvrsftA <= 1'b0;
-          actvtdctA <= 1'b0;
-          actvrdctA <= 1'b0;
-          actvtbedA <= 1'b0;
-          setbdomA <= 1'b0;
-          setbrecA <= 1'b0;
-          lcrcA <= 1'b0;
-          tshiftA <= 1'b0;
-          inconerecA <= 1'b0;
-          incegtrecA <= 1'b0;
-          incegttraA <= 1'b0;
-          lmsgA <= 1'b1;
-          decrecA <= 1'b0;
-          dectraA <= 1'b0;
-          elevrecbA <= 1'b0;
-          hardsyncA <= 1'b0;
-          resetdstA <= 1'b1;
-          resetstfA <= 1'b0;
-          inccountA <= 1'b0;
-          rescountA <= 1'b0;
-          setrmlenoA <= 0;
-          actvrmlnA <= 1'b0;
-          resrmlenA <= 1'b1;
-          ackerror_setA <= 2'b10;
-          transmitter_setA <= 2'b00;
-          receiver_setA <= 2'b00;
-          error_setA <= 2'b11;
-          first_setA <= 2'b10;
-          activatefastA <= 1'b0;
-          puffer_setA <= 2'b10;
-          onarbit_setA <= 2'b10;
-          en_zerointcrcA <= 1'b1;
-          crc_shft_outA <= 1'b0;
-          if (smplpointA==1'b1)
-            next_stateA <= inter_sample;
+          rext_set <= 2'b10;
+          rrtr_set <= 2'b10;
+          actvtcrc <= 1'b0;
+          actvrcrc <= 1'b0;
+          actvtstf <= 1'b0;
+          actvrstf <= 1'b0;
+          actvtsft <= 1'b1;
+          actvrsft <= 1'b0;
+          actvtdct <= 1'b0;
+          actvrdct <= 1'b0;
+          actvtbed <= 1'b0;
+          setbdom <= 1'b0;
+          setbrec <= 1'b0;
+          lcrc <= 1'b0;
+          tshift <= 1'b0;
+          inconerec <= 1'b0;
+          incegtrec <= 1'b0;
+          incegttra <= 1'b0;
+          lmsg <= 1'b1;
+          decrec <= 1'b0;
+          dectra <= 1'b0;
+          elevrecb <= 1'b0;
+          hardsync <= 1'b0;
+          resetdst <= 1'b1;
+          resetstf <= 1'b0;
+          inccount <= 1'b0;
+          rescount <= 1'b0;
+          setrmleno <= 0;
+          actvrmln <= 1'b0;
+          resrmlen <= 1'b1;
+          ackerror_set <= 2'b10;
+          transmitter_set <= 2'b00;
+          receiver_set <= 2'b00;
+          error_set <= 2'b11;
+          first_set <= 2'b10;
+          activatefast <= 1'b0;
+          puffer_set <= 2'b10;
+          onarbit_set <= 2'b10;
+          en_zerointcrc <= 1'b1;
+          crc_shft_out <= 1'b0;
+          if (smplpoint==1'b1)
+            next_state <= inter_sample;
           else
-            next_stateA <= errorpassiv_waitoclk;
+            next_state <= errorpassiv_waitoclk;
         end
       busoff_first : 
         begin
-          rext_setA <= 2'b10;
-          rrtr_setA <= 2'b10;
-          actvtcrcA <= 1'b0;
-          actvrcrcA <= 1'b0;
-          actvtstfA <= 1'b0;
-          actvrstfA <= 1'b0;
-          actvtsftA <= 1'b0;
-          actvrsftA <= 1'b0;
-          actvtdctA <= 1'b0;
-          actvrdctA <= 1'b1;
-          actvtbedA <= 1'b0;
-          setbdomA <= 1'b0;
-          setbrecA <= 1'b0;
-          lcrcA <= 1'b0;
-          tshiftA <= 1'b0;
-          inconerecA <= 1'b0;
-          incegtrecA <= 1'b0;
-          incegttraA <= 1'b0;
-          lmsgA <= 1'b0;
-          decrecA <= 1'b0;
-          dectraA <= 1'b0;
-          elevrecbA <= 1'b0;
-          hardsyncA <= 1'b0;
-          resetdstA <= 1'b1;
-          resetstfA <= 1'b1;
-          inccountA <= 1'b0;
-          rescountA <= 1'b0;
-          setrmlenoA <= 0;
-          actvrmlnA <= 1'b0;
-          resrmlenA <= 1'b1;
-          ackerror_setA <= 2'b10;
-          transmitter_setA <= 2'b10;
-          receiver_setA <= 2'b10;
-          error_setA <= 2'b10;
-          first_setA <= 2'b10;
-          activatefastA <= 1'b0;
-          puffer_setA <= 2'b10;
-          onarbit_setA <= 2'b10;
-          en_zerointcrcA <= 1'b1;
-          crc_shft_outA <= 1'b0;
-          if (smplpointA==1'b1)
-            next_stateA <= busoff_sample;
+          rext_set <= 2'b10;
+          rrtr_set <= 2'b10;
+          actvtcrc <= 1'b0;
+          actvrcrc <= 1'b0;
+          actvtstf <= 1'b0;
+          actvrstf <= 1'b0;
+          actvtsft <= 1'b0;
+          actvrsft <= 1'b0;
+          actvtdct <= 1'b0;
+          actvrdct <= 1'b1;
+          actvtbed <= 1'b0;
+          setbdom <= 1'b0;
+          setbrec <= 1'b0;
+          lcrc <= 1'b0;
+          tshift <= 1'b0;
+          inconerec <= 1'b0;
+          incegtrec <= 1'b0;
+          incegttra <= 1'b0;
+          lmsg <= 1'b0;
+          decrec <= 1'b0;
+          dectra <= 1'b0;
+          elevrecb <= 1'b0;
+          hardsync <= 1'b0;
+          resetdst <= 1'b1;
+          resetstf <= 1'b1;
+          inccount <= 1'b0;
+          rescount <= 1'b0;
+          setrmleno <= 0;
+          actvrmln <= 1'b0;
+          resrmlen <= 1'b1;
+          ackerror_set <= 2'b10;
+          transmitter_set <= 2'b10;
+          receiver_set <= 2'b10;
+          error_set <= 2'b10;
+          first_set <= 2'b10;
+          activatefast <= 1'b0;
+          puffer_set <= 2'b10;
+          onarbit_set <= 2'b10;
+          en_zerointcrc <= 1'b1;
+          crc_shft_out <= 1'b0;
+          if (smplpoint==1'b1)
+            next_state <= busoff_sample;
           else
-            next_stateA <= busoff_first;
+            next_state <= busoff_first;
         end
       busoff_sample : 
         begin
-          rext_setA <= 2'b10;
-          rrtr_setA <= 2'b10;
-          actvtcrcA <= 1'b0;
-          actvrcrcA <= 1'b0;
-          actvtstfA <= 1'b0;
-          actvrstfA <= 1'b1;
-          actvtsftA <= 1'b0;
-          actvrsftA <= 1'b0;
-          actvtdctA <= 1'b0;
-          actvrdctA <= 1'b1;
-          actvtbedA <= 1'b0;
-          setbdomA <= 1'b0;
-          setbrecA <= 1'b0;
-          lcrcA <= 1'b0;
-          tshiftA <= 1'b0;
-          inconerecA <= 1'b0;
-          incegtrecA <= 1'b0;
-          incegttraA <= 1'b0;
-          lmsgA <= 1'b0;
-          decrecA <= 1'b0;
-          dectraA <= 1'b0;
-          elevrecbA <= 1'b0;
-          hardsyncA <= 1'b0;
-          resetdstA <= 1'b1;
-          resetstfA <= 1'b1;
-          inccountA <= 1'b0;
-          rescountA <= 1'b1;
-          setrmlenoA <= 0;
-          actvrmlnA <= 1'b0;
-          resrmlenA <= 1'b1;
-          ackerror_setA <= 2'b10;
-          transmitter_setA <= 2'b10;
-          receiver_setA <= 2'b10;
-          error_setA <= 2'b10;
-          first_setA <= 2'b10;
-          activatefastA <= 1'b0;
-          puffer_setA <= 2'b10;
-          onarbit_setA <= 2'b10;
-          en_zerointcrcA <= 1'b1;
-          crc_shft_outA <= 1'b0;
-          if (inbitA==1'b1&&countA!=10)
-            next_stateA <= busoff_increm;
+          rext_set <= 2'b10;
+          rrtr_set <= 2'b10;
+          actvtcrc <= 1'b0;
+          actvrcrc <= 1'b0;
+          actvtstf <= 1'b0;
+          actvrstf <= 1'b1;
+          actvtsft <= 1'b0;
+          actvrsft <= 1'b0;
+          actvtdct <= 1'b0;
+          actvrdct <= 1'b1;
+          actvtbed <= 1'b0;
+          setbdom <= 1'b0;
+          setbrec <= 1'b0;
+          lcrc <= 1'b0;
+          tshift <= 1'b0;
+          inconerec <= 1'b0;
+          incegtrec <= 1'b0;
+          incegttra <= 1'b0;
+          lmsg <= 1'b0;
+          decrec <= 1'b0;
+          dectra <= 1'b0;
+          elevrecb <= 1'b0;
+          hardsync <= 1'b0;
+          resetdst <= 1'b1;
+          resetstf <= 1'b1;
+          inccount <= 1'b0;
+          rescount <= 1'b1;
+          setrmleno <= 0;
+          actvrmln <= 1'b0;
+          resrmlen <= 1'b1;
+          ackerror_set <= 2'b10;
+          transmitter_set <= 2'b10;
+          receiver_set <= 2'b10;
+          error_set <= 2'b10;
+          first_set <= 2'b10;
+          activatefast <= 1'b0;
+          puffer_set <= 2'b10;
+          onarbit_set <= 2'b10;
+          en_zerointcrc <= 1'b1;
+          crc_shft_out <= 1'b0;
+          if (inbit==1'b1&&count!=10)
+            next_state <= busoff_increm;
           else
-            if (inbitA==1'b1&&countA==10)
-              next_stateA <= busoff_deccnt;
+            if (inbit==1'b1&&count==10)
+              next_state <= busoff_deccnt;
             else
-              next_stateA <= busoff_setzer;
+              next_state <= busoff_setzer;
         end
       busoff_increm : 
         begin
-          rext_setA <= 2'b10;
-          rrtr_setA <= 2'b10;
-          actvtcrcA <= 1'b0;
-          actvrcrcA <= 1'b0;
-          actvtstfA <= 1'b0;
-          actvrstfA <= 1'b0;
-          actvtsftA <= 1'b0;
-          actvrsftA <= 1'b0;
-          actvtdctA <= 1'b0;
-          actvrdctA <= 1'b1;
-          actvtbedA <= 1'b0;
-          setbdomA <= 1'b0;
-          setbrecA <= 1'b0;
-          lcrcA <= 1'b0;
-          tshiftA <= 1'b0;
-          inconerecA <= 1'b0;
-          incegtrecA <= 1'b0;
-          incegttraA <= 1'b0;
-          lmsgA <= 1'b0;
-          decrecA <= 1'b0;
-          dectraA <= 1'b0;
-          elevrecbA <= 1'b0;
-          hardsyncA <= 1'b0;
-          resetdstA <= 1'b1;
-          resetstfA <= 1'b1;
-          inccountA <= 1'b1;
-          rescountA <= 1'b1;
-          setrmlenoA <= 0;
-          actvrmlnA <= 1'b0;
-          resrmlenA <= 1'b1;
-          ackerror_setA <= 2'b10;
-          transmitter_setA <= 2'b10;
-          receiver_setA <= 2'b10;
-          error_setA <= 2'b10;
-          first_setA <= 2'b10;
-          activatefastA <= 1'b0;
-          puffer_setA <= 2'b10;
-          onarbit_setA <= 2'b10;
-          en_zerointcrcA <= 1'b1;
-          crc_shft_outA <= 1'b0;
-          if (smplpointA==1'b1)
-            next_stateA <= busoff_sample;
+          rext_set <= 2'b10;
+          rrtr_set <= 2'b10;
+          actvtcrc <= 1'b0;
+          actvrcrc <= 1'b0;
+          actvtstf <= 1'b0;
+          actvrstf <= 1'b0;
+          actvtsft <= 1'b0;
+          actvrsft <= 1'b0;
+          actvtdct <= 1'b0;
+          actvrdct <= 1'b1;
+          actvtbed <= 1'b0;
+          setbdom <= 1'b0;
+          setbrec <= 1'b0;
+          lcrc <= 1'b0;
+          tshift <= 1'b0;
+          inconerec <= 1'b0;
+          incegtrec <= 1'b0;
+          incegttra <= 1'b0;
+          lmsg <= 1'b0;
+          decrec <= 1'b0;
+          dectra <= 1'b0;
+          elevrecb <= 1'b0;
+          hardsync <= 1'b0;
+          resetdst <= 1'b1;
+          resetstf <= 1'b1;
+          inccount <= 1'b1;
+          rescount <= 1'b1;
+          setrmleno <= 0;
+          actvrmln <= 1'b0;
+          resrmlen <= 1'b1;
+          ackerror_set <= 2'b10;
+          transmitter_set <= 2'b10;
+          receiver_set <= 2'b10;
+          error_set <= 2'b10;
+          first_set <= 2'b10;
+          activatefast <= 1'b0;
+          puffer_set <= 2'b10;
+          onarbit_set <= 2'b10;
+          en_zerointcrc <= 1'b1;
+          crc_shft_out <= 1'b0;
+          if (smplpoint==1'b1)
+            next_state <= busoff_sample;
           else
-            next_stateA <= busoff_increm;
+            next_state <= busoff_increm;
         end
       busoff_setzer : 
         begin
-          rext_setA <= 2'b10;
-          rrtr_setA <= 2'b10;
-          actvtcrcA <= 1'b0;
-          actvrcrcA <= 1'b0;
-          actvtstfA <= 1'b0;
-          actvrstfA <= 1'b0;
-          actvtsftA <= 1'b0;
-          actvrsftA <= 1'b0;
-          actvtdctA <= 1'b0;
-          actvrdctA <= 1'b1;
-          actvtbedA <= 1'b0;
-          setbdomA <= 1'b0;
-          setbrecA <= 1'b0;
-          lcrcA <= 1'b0;
-          tshiftA <= 1'b0;
-          inconerecA <= 1'b0;
-          incegtrecA <= 1'b0;
-          incegttraA <= 1'b0;
-          lmsgA <= 1'b0;
-          decrecA <= 1'b0;
-          dectraA <= 1'b0;
-          elevrecbA <= 1'b0;
-          hardsyncA <= 1'b0;
-          resetdstA <= 1'b1;
-          resetstfA <= 1'b1;
-          inccountA <= 1'b0;
-          rescountA <= 1'b0;
-          setrmlenoA <= 0;
-          actvrmlnA <= 1'b0;
-          resrmlenA <= 1'b1;
-          ackerror_setA <= 2'b10;
-          transmitter_setA <= 2'b10;
-          receiver_setA <= 2'b10;
-          error_setA <= 2'b10;
-          first_setA <= 2'b10;
-          activatefastA <= 1'b0;
-          puffer_setA <= 2'b10;
-          onarbit_setA <= 2'b10;
-          en_zerointcrcA <= 1'b1;
-          crc_shft_outA <= 1'b0;
-          if (smplpointA==1'b1)
-            next_stateA <= busoff_sample;
+          rext_set <= 2'b10;
+          rrtr_set <= 2'b10;
+          actvtcrc <= 1'b0;
+          actvrcrc <= 1'b0;
+          actvtstf <= 1'b0;
+          actvrstf <= 1'b0;
+          actvtsft <= 1'b0;
+          actvrsft <= 1'b0;
+          actvtdct <= 1'b0;
+          actvrdct <= 1'b1;
+          actvtbed <= 1'b0;
+          setbdom <= 1'b0;
+          setbrec <= 1'b0;
+          lcrc <= 1'b0;
+          tshift <= 1'b0;
+          inconerec <= 1'b0;
+          incegtrec <= 1'b0;
+          incegttra <= 1'b0;
+          lmsg <= 1'b0;
+          decrec <= 1'b0;
+          dectra <= 1'b0;
+          elevrecb <= 1'b0;
+          hardsync <= 1'b0;
+          resetdst <= 1'b1;
+          resetstf <= 1'b1;
+          inccount <= 1'b0;
+          rescount <= 1'b0;
+          setrmleno <= 0;
+          actvrmln <= 1'b0;
+          resrmlen <= 1'b1;
+          ackerror_set <= 2'b10;
+          transmitter_set <= 2'b10;
+          receiver_set <= 2'b10;
+          error_set <= 2'b10;
+          first_set <= 2'b10;
+          activatefast <= 1'b0;
+          puffer_set <= 2'b10;
+          onarbit_set <= 2'b10;
+          en_zerointcrc <= 1'b1;
+          crc_shft_out <= 1'b0;
+          if (smplpoint==1'b1)
+            next_state <= busoff_sample;
           else
-            next_stateA <= busoff_setzer;
+            next_state <= busoff_setzer;
         end
       busoff_deccnt : 
         begin
-          rext_setA <= 2'b10;
-          rrtr_setA <= 2'b10;
-          actvtcrcA <= 1'b0;
-          actvrcrcA <= 1'b0;
-          actvtstfA <= 1'b0;
-          actvrstfA <= 1'b0;
-          actvtsftA <= 1'b0;
-          actvrsftA <= 1'b0;
-          actvtdctA <= 1'b0;
-          actvrdctA <= 1'b1;
-          actvtbedA <= 1'b0;
-          setbdomA <= 1'b0;
-          setbrecA <= 1'b0;
-          lcrcA <= 1'b0;
-          tshiftA <= 1'b0;
-          inconerecA <= 1'b0;
-          incegtrecA <= 1'b0;
-          incegttraA <= 1'b0;
-          lmsgA <= 1'b0;
-          decrecA <= 1'b0;
-          dectraA <= 1'b0;
-          elevrecbA <= 1'b1;
-          hardsyncA <= 1'b0;
-          resetdstA <= 1'b1;
-          resetstfA <= 1'b0;
-          inccountA <= 1'b0;
-          rescountA <= 1'b0;
-          setrmlenoA <= 0;
-          actvrmlnA <= 1'b0;
-          resrmlenA <= 1'b1;
-          ackerror_setA <= 2'b10;
-          transmitter_setA <= 2'b10;
-          receiver_setA <= 2'b10;
-          error_setA <= 2'b10;
-          first_setA <= 2'b10;
-          activatefastA <= 1'b0;
-          puffer_setA <= 2'b10;
-          onarbit_setA <= 2'b10;
-          en_zerointcrcA <= 1'b1;
-          crc_shft_outA <= 1'b0;
-          if (smplpointA==1'b1&&busofA==1'b1)
-            next_stateA <= busoff_sample;
+          rext_set <= 2'b10;
+          rrtr_set <= 2'b10;
+          actvtcrc <= 1'b0;
+          actvrcrc <= 1'b0;
+          actvtstf <= 1'b0;
+          actvrstf <= 1'b0;
+          actvtsft <= 1'b0;
+          actvrsft <= 1'b0;
+          actvtdct <= 1'b0;
+          actvrdct <= 1'b1;
+          actvtbed <= 1'b0;
+          setbdom <= 1'b0;
+          setbrec <= 1'b0;
+          lcrc <= 1'b0;
+          tshift <= 1'b0;
+          inconerec <= 1'b0;
+          incegtrec <= 1'b0;
+          incegttra <= 1'b0;
+          lmsg <= 1'b0;
+          decrec <= 1'b0;
+          dectra <= 1'b0;
+          elevrecb <= 1'b1;
+          hardsync <= 1'b0;
+          resetdst <= 1'b1;
+          resetstf <= 1'b0;
+          inccount <= 1'b0;
+          rescount <= 1'b0;
+          setrmleno <= 0;
+          actvrmln <= 1'b0;
+          resrmlen <= 1'b1;
+          ackerror_set <= 2'b10;
+          transmitter_set <= 2'b10;
+          receiver_set <= 2'b10;
+          error_set <= 2'b10;
+          first_set <= 2'b10;
+          activatefast <= 1'b0;
+          puffer_set <= 2'b10;
+          onarbit_set <= 2'b10;
+          en_zerointcrc <= 1'b1;
+          crc_shft_out <= 1'b0;
+          if (smplpoint==1'b1&&busof==1'b1)
+            next_state <= busoff_sample;
           else
-            if (smplpointA==1'b1&&busofA==1'b0)
-              next_stateA <= inter_sample;
+            if (smplpoint==1'b1&&busof==1'b0)
+              next_state <= inter_sample;
             else
-              next_stateA <= busoff_deccnt;
+              next_state <= busoff_deccnt;
         end
       default : 
         begin
@@ -6907,12990 +6765,47 @@ always @*
     endcase
   end
 
-always @*
-  begin
-    rext_setB <= 2'b00;
-    rrtr_setB <= 2'b00;
-    actvtcrcB <= 1'b0;
-    actvrcrcB <= 1'b0;
-    actvtstfB <= 1'b0;
-    actvrstfB <= 1'b0;
-    actvtsftB <= 1'b0;
-    actvrsftB <= 1'b0;
-    actvtdctB <= 1'b0;
-    actvrdctB <= 1'b1;
-    actvtbedB <= 1'b0;
-    setbdomB <= 1'b0;
-    setbrecB <= 1'b0;
-    lcrcB <= 1'b0;
-    tshiftB <= 1'b0;
-    inconerecB <= 1'b0;
-    incegtrecB <= 1'b0;
-    incegttraB <= 1'b0;
-    lmsgB <= 1'b0;
-    decrecB <= 1'b0;
-    dectraB <= 1'b0;
-    elevrecbB <= 1'b0;
-    resetdstB <= 1'b1;
-    resetstfB <= 1'b1;
-    hardsyncB <= 1'b1;
-    inccountB <= 1'b0;
-    rescountB <= 1'b0;
-    setrmlenoB <= 0;
-    actvrmlnB <= 1'b0;
-    resrmlenB <= 1'b0;
-    ackerror_setB <= 2'b10;
-    transmitter_setB <= 2'b10;
-    receiver_setB <= 2'b10;
-    error_setB <= 2'b10;
-    first_setB <= 2'b10;
-    activatefastB <= 1'b0;
-    puffer_setB <= 2'b10;
-    onarbit_setB <= 2'b10;
-    en_zerointcrcB <= 1'b1;
-    crc_shft_outB <= 1'b0;
-    next_stateB <= current_stateVotedB;
-    case (current_stateVotedB)
-      sync_start : 
-        begin
-          rext_setB <= 2'b10;
-          rrtr_setB <= 2'b10;
-          actvtcrcB <= 1'b0;
-          actvrcrcB <= 1'b0;
-          actvtstfB <= 1'b0;
-          actvrstfB <= 1'b0;
-          actvtsftB <= 1'b0;
-          actvrsftB <= 1'b0;
-          actvtdctB <= 1'b0;
-          actvrdctB <= 1'b1;
-          actvtbedB <= 1'b0;
-          setbdomB <= 1'b0;
-          setbrecB <= 1'b0;
-          lcrcB <= 1'b0;
-          tshiftB <= 1'b0;
-          inconerecB <= 1'b0;
-          incegtrecB <= 1'b0;
-          incegttraB <= 1'b0;
-          lmsgB <= 1'b0;
-          decrecB <= 1'b0;
-          dectraB <= 1'b0;
-          elevrecbB <= 1'b0;
-          resetdstB <= 1'b1;
-          resetstfB <= 1'b1;
-          hardsyncB <= 1'b1;
-          inccountB <= 1'b0;
-          rescountB <= 1'b0;
-          setrmlenoB <= 0;
-          actvrmlnB <= 1'b0;
-          resrmlenB <= 1'b0;
-          ackerror_setB <= 2'b10;
-          transmitter_setB <= 2'b10;
-          receiver_setB <= 2'b10;
-          error_setB <= 2'b10;
-          first_setB <= 2'b10;
-          activatefastB <= 1'b0;
-          puffer_setB <= 2'b10;
-          onarbit_setB <= 2'b10;
-          en_zerointcrcB <= 1'b1;
-          crc_shft_outB <= 1'b0;
-          if (smplpointB==1'b1)
-            next_stateB <= sync_sample;
-          else
-            next_stateB <= sync_start;
-        end
-      sync_sample : 
-        begin
-          rext_setB <= 2'b10;
-          rrtr_setB <= 2'b10;
-          actvtcrcB <= 1'b0;
-          actvrcrcB <= 1'b0;
-          actvtstfB <= 1'b0;
-          actvrstfB <= 1'b1;
-          actvtsftB <= 1'b0;
-          actvrsftB <= 1'b0;
-          actvtdctB <= 1'b0;
-          actvrdctB <= 1'b1;
-          actvtbedB <= 1'b0;
-          setbdomB <= 1'b0;
-          setbrecB <= 1'b0;
-          lcrcB <= 1'b0;
-          tshiftB <= 1'b0;
-          inconerecB <= 1'b0;
-          incegtrecB <= 1'b0;
-          incegttraB <= 1'b0;
-          lmsgB <= 1'b0;
-          decrecB <= 1'b0;
-          dectraB <= 1'b0;
-          elevrecbB <= 1'b0;
-          resetdstB <= 1'b1;
-          resetstfB <= 1'b1;
-          hardsyncB <= 1'b1;
-          inccountB <= 1'b0;
-          rescountB <= 1'b1;
-          setrmlenoB <= 0;
-          actvrmlnB <= 1'b0;
-          resrmlenB <= 1'b1;
-          ackerror_setB <= 2'b10;
-          transmitter_setB <= 2'b10;
-          receiver_setB <= 2'b10;
-          error_setB <= 2'b10;
-          first_setB <= 2'b10;
-          activatefastB <= 1'b0;
-          puffer_setB <= 2'b10;
-          onarbit_setB <= 2'b10;
-          en_zerointcrcB <= 1'b1;
-          crc_shft_outB <= 1'b0;
-          if (inbitB==1'b1)
-            next_stateB <= sync_sum;
-          else
-            next_stateB <= sync_start;
-        end
-      sync_sum : 
-        begin
-          rext_setB <= 2'b10;
-          rrtr_setB <= 2'b10;
-          actvtcrcB <= 1'b0;
-          actvrcrcB <= 1'b0;
-          actvtstfB <= 1'b0;
-          actvrstfB <= 1'b0;
-          actvtsftB <= 1'b0;
-          actvrsftB <= 1'b0;
-          actvtdctB <= 1'b0;
-          actvrdctB <= 1'b1;
-          actvtbedB <= 1'b0;
-          setbdomB <= 1'b0;
-          setbrecB <= 1'b0;
-          lcrcB <= 1'b0;
-          tshiftB <= 1'b0;
-          inconerecB <= 1'b0;
-          incegtrecB <= 1'b0;
-          incegttraB <= 1'b0;
-          lmsgB <= 1'b0;
-          decrecB <= 1'b0;
-          dectraB <= 1'b0;
-          elevrecbB <= 1'b0;
-          resetdstB <= 1'b1;
-          resetstfB <= 1'b1;
-          hardsyncB <= 1'b1;
-          inccountB <= 1'b1;
-          rescountB <= 1'b1;
-          setrmlenoB <= 0;
-          actvrmlnB <= 1'b0;
-          resrmlenB <= 1'b1;
-          ackerror_setB <= 2'b10;
-          transmitter_setB <= 2'b10;
-          receiver_setB <= 2'b10;
-          error_setB <= 2'b10;
-          first_setB <= 2'b10;
-          activatefastB <= 1'b0;
-          puffer_setB <= 2'b10;
-          onarbit_setB <= 2'b10;
-          en_zerointcrcB <= 1'b1;
-          crc_shft_outB <= 1'b0;
-          if (smplpointB==1'b1&&countB!=8)
-            next_stateB <= sync_sample;
-          else
-            if (countB==8)
-              next_stateB <= sync_end;
-            else
-              next_stateB <= sync_sum;
-        end
-      sync_end : 
-        begin
-          rext_setB <= 2'b10;
-          rrtr_setB <= 2'b10;
-          actvtcrcB <= 1'b0;
-          actvrcrcB <= 1'b0;
-          actvtstfB <= 1'b0;
-          actvrstfB <= 1'b0;
-          actvtsftB <= 1'b0;
-          actvrsftB <= 1'b0;
-          actvtdctB <= 1'b0;
-          actvrdctB <= 1'b0;
-          actvtbedB <= 1'b0;
-          setbdomB <= 1'b0;
-          setbrecB <= 1'b0;
-          lcrcB <= 1'b0;
-          tshiftB <= 1'b0;
-          inconerecB <= 1'b0;
-          incegtrecB <= 1'b0;
-          incegttraB <= 1'b0;
-          lmsgB <= 1'b0;
-          decrecB <= 1'b0;
-          dectraB <= 1'b0;
-          elevrecbB <= 1'b0;
-          resetdstB <= 1'b1;
-          resetstfB <= 1'b1;
-          hardsyncB <= 1'b1;
-          inccountB <= 1'b0;
-          rescountB <= 1'b0;
-          setrmlenoB <= 0;
-          actvrmlnB <= 1'b0;
-          resrmlenB <= 1'b1;
-          ackerror_setB <= 2'b10;
-          transmitter_setB <= 2'b10;
-          receiver_setB <= 2'b10;
-          error_setB <= 2'b10;
-          first_setB <= 2'b10;
-          activatefastB <= 1'b0;
-          puffer_setB <= 2'b10;
-          onarbit_setB <= 2'b10;
-          en_zerointcrcB <= 1'b1;
-          crc_shft_outB <= 1'b0;
-          if (smplpointB==1'b1)
-            next_stateB <= bus_idle_sample;
-          else
-            next_stateB <= sync_end;
-        end
-      inter_sample : 
-        begin
-          rext_setB <= 2'b10;
-          rrtr_setB <= 2'b10;
-          actvtcrcB <= 1'b0;
-          actvrcrcB <= 1'b0;
-          actvtstfB <= 1'b0;
-          actvrstfB <= 1'b1;
-          actvtsftB <= 1'b0;
-          actvrsftB <= 1'b0;
-          actvtdctB <= 1'b0;
-          actvrdctB <= 1'b0;
-          actvtbedB <= 1'b0;
-          setbdomB <= 1'b0;
-          setbrecB <= 1'b0;
-          lcrcB <= 1'b0;
-          tshiftB <= 1'b0;
-          inconerecB <= 1'b0;
-          incegtrecB <= 1'b0;
-          incegttraB <= 1'b0;
-          lmsgB <= 1'b0;
-          decrecB <= 1'b0;
-          dectraB <= 1'b0;
-          elevrecbB <= 1'b0;
-          resetdstB <= 1'b1;
-          resetstfB <= 1'b1;
-          hardsyncB <= 1'b1;
-          inccountB <= 1'b1;
-          rescountB <= 1'b1;
-          setrmlenoB <= 0;
-          actvrmlnB <= 1'b0;
-          resrmlenB <= 1'b1;
-          ackerror_setB <= 2'b10;
-          transmitter_setB <= 2'b00;
-          receiver_setB <= 2'b00;
-          error_setB <= 2'b10;
-          first_setB <= 2'b10;
-          activatefastB <= 1'b0;
-          puffer_setB <= 2'b10;
-          onarbit_setB <= 2'b10;
-          en_zerointcrcB <= 1'b0;
-          crc_shft_outB <= 1'b0;
-          if (busofB==1'b1)
-            next_stateB <= busoff_first;
-          else
-            if ((((errorpassivB==1'b0||receiverB==1'b1)&&lt3B==1'b1)||((errorpassivB==1'b1&&receiverB==1'b0)&&lt11B==1'b1))&&inbitB==1'b1)
-              next_stateB <= inter_check;
-            else
-              if (lt3B==1'b1&&inbitB==1'b0)
-                next_stateB <= over_firstdom;
-              else
-                if (inbitB==1'b0&&(gt3B==1'b1||((eq3B==1'b1||gt3B==1'b1)&&((errorpassivB==1'b1&&receiverB==1'b0)||transB==1'b0))))
-                  next_stateB <= inter_preprec;
-                else
-                  if (sendpointB==1'b1&&(((errorpassivB==1'b0||receiverB==1'b1)&&(eq3B==1'b1||gt3B==1'b1))||((errorpassivB==1'b1&&receiverB==1'b0)&&(eq11B==1'b1||lt11B==1'b0)))&&inbitB==1'b1&&transB==1'b1)
-                    next_stateB <= inter_goregtran;
-                  else
-                    if ((errorpassivB==1'b0||receiverB==1'b1)&&(eq3B==1'b1||gt3B==1'b1)&&inbitB==1'b0&&transB==1'b1)
-                      next_stateB <= inter_react;
-                    else
-                      if (transB==1'b0&&(((eq3B==1'b1||gt3B==1'b1)&&(errorpassivB==1'b0||receiverB==1'b1))||((eq11B==1'b1||lt11B==1'b0)&&(errorpassivB==1'b1&&receiverB==1'b0))))
-                        next_stateB <= bus_idle_chk;
-                      else
-                        next_stateB <= inter_sample;
-        end
-      inter_check : 
-        begin
-          rext_setB <= 2'b10;
-          rrtr_setB <= 2'b10;
-          actvtcrcB <= 1'b0;
-          actvrcrcB <= 1'b0;
-          actvtstfB <= 1'b0;
-          actvrstfB <= 1'b0;
-          actvtsftB <= 1'b0;
-          actvrsftB <= 1'b0;
-          actvtdctB <= 1'b0;
-          actvrdctB <= 1'b0;
-          actvtbedB <= 1'b0;
-          setbdomB <= 1'b0;
-          setbrecB <= 1'b0;
-          lcrcB <= 1'b0;
-          tshiftB <= 1'b0;
-          inconerecB <= 1'b0;
-          incegtrecB <= 1'b0;
-          incegttraB <= 1'b0;
-          lmsgB <= 1'b0;
-          decrecB <= 1'b0;
-          dectraB <= 1'b0;
-          elevrecbB <= 1'b0;
-          resetdstB <= 1'b0;
-          resetstfB <= 1'b1;
-          hardsyncB <= 1'b1;
-          inccountB <= 1'b0;
-          rescountB <= 1'b1;
-          setrmlenoB <= 0;
-          actvrmlnB <= 1'b0;
-          resrmlenB <= 1'b1;
-          ackerror_setB <= 2'b10;
-          transmitter_setB <= 2'b00;
-          receiver_setB <= 2'b00;
-          error_setB <= 2'b10;
-          first_setB <= 2'b10;
-          activatefastB <= 1'b0;
-          puffer_setB <= 2'b10;
-          onarbit_setB <= 2'b10;
-          en_zerointcrcB <= 1'b0;
-          crc_shft_outB <= 1'b0;
-          if (smplpointB==1'b1)
-            next_stateB <= inter_sample;
-          else
-            next_stateB <= inter_check;
-        end
-      bus_idle_chk : 
-        begin
-          rext_setB <= 2'b10;
-          rrtr_setB <= 2'b10;
-          actvtcrcB <= 1'b0;
-          actvrcrcB <= 1'b0;
-          actvtstfB <= 1'b0;
-          actvrstfB <= 1'b0;
-          actvtsftB <= 1'b0;
-          actvrsftB <= 1'b0;
-          actvtdctB <= 1'b0;
-          actvrdctB <= 1'b0;
-          actvtbedB <= 1'b0;
-          setbdomB <= 1'b0;
-          setbrecB <= 1'b0;
-          lcrcB <= 1'b0;
-          tshiftB <= 1'b0;
-          inconerecB <= 1'b0;
-          incegtrecB <= 1'b0;
-          incegttraB <= 1'b0;
-          lmsgB <= 1'b0;
-          decrecB <= 1'b0;
-          dectraB <= 1'b0;
-          elevrecbB <= 1'b0;
-          resetdstB <= 1'b0;
-          resetstfB <= 1'b1;
-          hardsyncB <= 1'b1;
-          inccountB <= 1'b0;
-          rescountB <= 1'b1;
-          setrmlenoB <= 0;
-          actvrmlnB <= 1'b0;
-          resrmlenB <= 1'b1;
-          ackerror_setB <= 2'b10;
-          transmitter_setB <= 2'b00;
-          receiver_setB <= 2'b00;
-          error_setB <= 2'b10;
-          first_setB <= 2'b10;
-          activatefastB <= 1'b0;
-          puffer_setB <= 2'b10;
-          onarbit_setB <= 2'b10;
-          en_zerointcrcB <= 1'b0;
-          crc_shft_outB <= 1'b0;
-          if (smplpointB==1'b1)
-            next_stateB <= bus_idle_sample;
-          else
-            next_stateB <= bus_idle_chk;
-        end
-      bus_idle_sample : 
-        begin
-          rext_setB <= 2'b10;
-          rrtr_setB <= 2'b10;
-          actvtcrcB <= 1'b0;
-          actvrcrcB <= 1'b0;
-          actvtstfB <= 1'b0;
-          actvrstfB <= 1'b1;
-          actvtsftB <= 1'b0;
-          actvrsftB <= 1'b0;
-          actvtdctB <= 1'b0;
-          actvrdctB <= 1'b0;
-          actvtbedB <= 1'b0;
-          setbdomB <= 1'b0;
-          setbrecB <= 1'b0;
-          lcrcB <= 1'b0;
-          tshiftB <= 1'b0;
-          inconerecB <= 1'b0;
-          incegtrecB <= 1'b0;
-          incegttraB <= 1'b0;
-          lmsgB <= 1'b0;
-          decrecB <= 1'b0;
-          dectraB <= 1'b0;
-          elevrecbB <= 1'b0;
-          resetdstB <= 1'b1;
-          resetstfB <= 1'b1;
-          hardsyncB <= 1'b1;
-          inccountB <= 1'b0;
-          rescountB <= 1'b1;
-          setrmlenoB <= 0;
-          actvrmlnB <= 1'b0;
-          resrmlenB <= 1'b1;
-          ackerror_setB <= 2'b10;
-          transmitter_setB <= 2'b00;
-          receiver_setB <= 2'b00;
-          error_setB <= 2'b10;
-          first_setB <= 2'b10;
-          activatefastB <= 1'b0;
-          puffer_setB <= 2'b10;
-          onarbit_setB <= 2'b10;
-          en_zerointcrcB <= 1'b0;
-          crc_shft_outB <= 1'b0;
-          if (transB==1'b0&&inbitB==1'b1)
-            next_stateB <= bus_idle_chk;
-          else
-            if (inbitB==1'b0&&transB==1'b0)
-              next_stateB <= inter_preprec;
-            else
-              if (inbitB==1'b0&&transB==1'b1)
-                next_stateB <= inter_react;
-              else
-                if (sendpointB==1'b1&&inbitB==1'b1&&transB==1'b1)
-                  next_stateB <= inter_goregtran;
-                else
-                  next_stateB <= bus_idle_sample;
-        end
-      inter_react : 
-        begin
-          rext_setB <= 2'b10;
-          rrtr_setB <= 2'b10;
-          actvtcrcB <= 1'b1;
-          actvrcrcB <= 1'b0;
-          actvtstfB <= 1'b1;
-          actvrstfB <= 1'b0;
-          actvtsftB <= 1'b0;
-          actvrsftB <= 1'b0;
-          actvtdctB <= 1'b0;
-          actvrdctB <= 1'b0;
-          actvtbedB <= 1'b0;
-          setbdomB <= 1'b0;
-          setbrecB <= 1'b0;
-          lcrcB <= 1'b0;
-          tshiftB <= 1'b1;
-          inconerecB <= 1'b0;
-          incegtrecB <= 1'b0;
-          incegttraB <= 1'b0;
-          lmsgB <= 1'b0;
-          decrecB <= 1'b0;
-          dectraB <= 1'b0;
-          elevrecbB <= 1'b0;
-          resetdstB <= 1'b1;
-          resetstfB <= 1'b1;
-          hardsyncB <= 1'b0;
-          inccountB <= 1'b0;
-          rescountB <= 1'b0;
-          setrmlenoB <= 0;
-          actvrmlnB <= 1'b0;
-          resrmlenB <= 1'b0;
-          ackerror_setB <= 2'b10;
-          transmitter_setB <= 2'b10;
-          receiver_setB <= 2'b10;
-          error_setB <= 2'b10;
-          first_setB <= 2'b10;
-          activatefastB <= 1'b0;
-          puffer_setB <= 2'b10;
-          onarbit_setB <= 2'b10;
-          en_zerointcrcB <= 1'b0;
-          crc_shft_outB <= 1'b0;
-          next_stateB <= inter_transhift;
-        end
-      inter_goregtran : 
-        begin
-          rext_setB <= 2'b10;
-          rrtr_setB <= 2'b10;
-          actvtcrcB <= 1'b1;
-          actvrcrcB <= 1'b0;
-          actvtstfB <= 1'b1;
-          actvrstfB <= 1'b0;
-          actvtsftB <= 1'b0;
-          actvrsftB <= 1'b0;
-          actvtdctB <= 1'b0;
-          actvrdctB <= 1'b0;
-          actvtbedB <= 1'b0;
-          setbdomB <= 1'b0;
-          setbrecB <= 1'b0;
-          lcrcB <= 1'b0;
-          tshiftB <= 1'b1;
-          inconerecB <= 1'b0;
-          incegtrecB <= 1'b0;
-          incegttraB <= 1'b0;
-          lmsgB <= 1'b0;
-          decrecB <= 1'b0;
-          dectraB <= 1'b0;
-          elevrecbB <= 1'b0;
-          resetdstB <= 1'b0;
-          resetstfB <= 1'b1;
-          hardsyncB <= 1'b0;
-          inccountB <= 1'b0;
-          rescountB <= 1'b0;
-          setrmlenoB <= 0;
-          actvrmlnB <= 1'b0;
-          resrmlenB <= 1'b0;
-          ackerror_setB <= 2'b10;
-          transmitter_setB <= 2'b10;
-          receiver_setB <= 2'b10;
-          error_setB <= 2'b10;
-          first_setB <= 2'b10;
-          activatefastB <= 1'b0;
-          puffer_setB <= 2'b10;
-          onarbit_setB <= 2'b10;
-          en_zerointcrcB <= 1'b0;
-          crc_shft_outB <= 1'b0;
-          next_stateB <= inter_regtrancnt;
-        end
-      inter_regtrancnt : 
-        begin
-          rext_setB <= 2'b10;
-          rrtr_setB <= 2'b10;
-          actvtcrcB <= 1'b1;
-          actvrcrcB <= 1'b0;
-          actvtstfB <= 1'b1;
-          actvrstfB <= 1'b0;
-          actvtsftB <= 1'b0;
-          actvrsftB <= 1'b0;
-          actvtdctB <= 1'b0;
-          actvrdctB <= 1'b0;
-          actvtbedB <= 1'b0;
-          setbdomB <= 1'b0;
-          setbrecB <= 1'b0;
-          lcrcB <= 1'b0;
-          tshiftB <= 1'b1;
-          inconerecB <= 1'b0;
-          incegtrecB <= 1'b0;
-          incegttraB <= 1'b0;
-          lmsgB <= 1'b0;
-          decrecB <= 1'b0;
-          dectraB <= 1'b0;
-          elevrecbB <= 1'b0;
-          resetdstB <= 1'b0;
-          resetstfB <= 1'b1;
-          hardsyncB <= 1'b0;
-          inccountB <= 1'b1;
-          rescountB <= 1'b1;
-          setrmlenoB <= 0;
-          actvrmlnB <= 1'b0;
-          resrmlenB <= 1'b1;
-          ackerror_setB <= 2'b10;
-          transmitter_setB <= 2'b10;
-          receiver_setB <= 2'b10;
-          error_setB <= 2'b10;
-          first_setB <= 2'b10;
-          activatefastB <= 1'b0;
-          puffer_setB <= 2'b10;
-          onarbit_setB <= 2'b10;
-          en_zerointcrcB <= 1'b0;
-          crc_shft_outB <= 1'b0;
-          if (smplpointB==1'b1)
-            next_stateB <= inter_arbit_tsftrsmpl;
-          else
-            next_stateB <= inter_regtrancnt;
-        end
-      inter_arbit_tsftrsmpl : 
-        begin
-          rext_setB <= 2'b00;
-          rrtr_setB <= 2'b00;
-          actvtcrcB <= 1'b0;
-          actvrcrcB <= 1'b0;
-          actvtstfB <= 1'b0;
-          actvrstfB <= 1'b1;
-          actvtsftB <= 1'b1;
-          actvrsftB <= 1'b0;
-          actvtdctB <= 1'b0;
-          actvrdctB <= 1'b0;
-          actvtbedB <= 1'b1;
-          setbdomB <= 1'b0;
-          setbrecB <= 1'b0;
-          lcrcB <= 1'b0;
-          tshiftB <= 1'b1;
-          inconerecB <= 1'b0;
-          incegtrecB <= 1'b0;
-          incegttraB <= 1'b0;
-          lmsgB <= 1'b0;
-          decrecB <= 1'b0;
-          dectraB <= 1'b0;
-          elevrecbB <= 1'b0;
-          resetdstB <= 1'b1;
-          resetstfB <= 1'b1;
-          hardsyncB <= 1'b0;
-          inccountB <= 1'b0;
-          rescountB <= 1'b1;
-          setrmlenoB <= 0;
-          actvrmlnB <= 1'b0;
-          resrmlenB <= 1'b1;
-          ackerror_setB <= 2'b10;
-          transmitter_setB <= 2'b11;
-          receiver_setB <= 2'b10;
-          error_setB <= 2'b10;
-          first_setB <= 2'b10;
-          activatefastB <= 1'b0;
-          puffer_setB <= 2'b10;
-          onarbit_setB <= 2'b11;
-          en_zerointcrcB <= 1'b0;
-          crc_shft_outB <= 1'b0;
-          if (sendpointB==1'b1)
-            next_stateB <= tra_arbit_tactrsftn;
-          else
-            next_stateB <= inter_arbit_tsftrsmpl;
-        end
-      inter_transhift : 
-        begin
-          rext_setB <= 2'b10;
-          rrtr_setB <= 2'b10;
-          actvtcrcB <= 1'b0;
-          actvrcrcB <= 1'b0;
-          actvtstfB <= 1'b0;
-          actvrstfB <= 1'b0;
-          actvtsftB <= 1'b1;
-          actvrsftB <= 1'b0;
-          actvtdctB <= 1'b0;
-          actvrdctB <= 1'b0;
-          actvtbedB <= 1'b0;
-          setbdomB <= 1'b0;
-          setbrecB <= 1'b0;
-          lcrcB <= 1'b0;
-          tshiftB <= 1'b1;
-          inconerecB <= 1'b0;
-          incegtrecB <= 1'b0;
-          incegttraB <= 1'b0;
-          lmsgB <= 1'b0;
-          decrecB <= 1'b0;
-          dectraB <= 1'b0;
-          elevrecbB <= 1'b0;
-          resetdstB <= 1'b1;
-          resetstfB <= 1'b1;
-          hardsyncB <= 1'b0;
-          inccountB <= 1'b1;
-          rescountB <= 1'b1;
-          setrmlenoB <= 0;
-          actvrmlnB <= 1'b0;
-          resrmlenB <= 1'b1;
-          ackerror_setB <= 2'b10;
-          transmitter_setB <= 2'b10;
-          receiver_setB <= 2'b10;
-          error_setB <= 2'b10;
-          first_setB <= 2'b10;
-          activatefastB <= 1'b0;
-          puffer_setB <= 2'b10;
-          onarbit_setB <= 2'b10;
-          en_zerointcrcB <= 1'b0;
-          crc_shft_outB <= 1'b0;
-          next_stateB <= inter_incsigres;
-        end
-      inter_incsigres : 
-        begin
-          rext_setB <= 2'b10;
-          rrtr_setB <= 2'b10;
-          actvtcrcB <= 1'b0;
-          actvrcrcB <= 1'b0;
-          actvtstfB <= 1'b0;
-          actvrstfB <= 1'b0;
-          actvtsftB <= 1'b0;
-          actvrsftB <= 1'b0;
-          actvtdctB <= 1'b0;
-          actvrdctB <= 1'b0;
-          actvtbedB <= 1'b0;
-          setbdomB <= 1'b0;
-          setbrecB <= 1'b0;
-          lcrcB <= 1'b0;
-          tshiftB <= 1'b1;
-          inconerecB <= 1'b0;
-          incegtrecB <= 1'b0;
-          incegttraB <= 1'b0;
-          lmsgB <= 1'b0;
-          decrecB <= 1'b0;
-          dectraB <= 1'b0;
-          elevrecbB <= 1'b0;
-          resetdstB <= 1'b1;
-          resetstfB <= 1'b1;
-          hardsyncB <= 1'b0;
-          inccountB <= 1'b0;
-          rescountB <= 1'b1;
-          setrmlenoB <= 0;
-          actvrmlnB <= 1'b0;
-          resrmlenB <= 1'b1;
-          ackerror_setB <= 2'b10;
-          transmitter_setB <= 2'b10;
-          receiver_setB <= 2'b10;
-          error_setB <= 2'b10;
-          first_setB <= 2'b10;
-          activatefastB <= 1'b0;
-          puffer_setB <= 2'b10;
-          onarbit_setB <= 2'b10;
-          en_zerointcrcB <= 1'b0;
-          crc_shft_outB <= 1'b0;
-          next_stateB <= tra_arbit_tactrsftn;
-        end
-      inter_preprec : 
-        begin
-          rext_setB <= 2'b10;
-          rrtr_setB <= 2'b10;
-          actvtcrcB <= 1'b0;
-          actvrcrcB <= 1'b0;
-          actvtstfB <= 1'b0;
-          actvrstfB <= 1'b0;
-          actvtsftB <= 1'b0;
-          actvrsftB <= 1'b0;
-          actvtdctB <= 1'b0;
-          actvrdctB <= 1'b0;
-          actvtbedB <= 1'b0;
-          setbdomB <= 1'b0;
-          setbrecB <= 1'b0;
-          lcrcB <= 1'b0;
-          tshiftB <= 1'b0;
-          inconerecB <= 1'b0;
-          incegtrecB <= 1'b0;
-          incegttraB <= 1'b0;
-          lmsgB <= 1'b0;
-          decrecB <= 1'b0;
-          dectraB <= 1'b0;
-          elevrecbB <= 1'b0;
-          resetdstB <= 1'b1;
-          resetstfB <= 1'b1;
-          hardsyncB <= 1'b0;
-          inccountB <= 1'b0;
-          rescountB <= 1'b0;
-          setrmlenoB <= 0;
-          actvrmlnB <= 1'b0;
-          resrmlenB <= 1'b0;
-          ackerror_setB <= 2'b10;
-          transmitter_setB <= 2'b10;
-          receiver_setB <= 2'b10;
-          error_setB <= 2'b10;
-          first_setB <= 2'b10;
-          activatefastB <= 1'b0;
-          puffer_setB <= 2'b10;
-          onarbit_setB <= 2'b10;
-          en_zerointcrcB <= 1'b1;
-          crc_shft_outB <= 1'b0;
-          next_stateB <= inter_preprec_shifting;
-        end
-      inter_preprec_shifting : 
-        begin
-          rext_setB <= 2'b00;
-          rrtr_setB <= 2'b00;
-          actvtcrcB <= 1'b0;
-          actvrcrcB <= 1'b1;
-          actvtstfB <= 1'b0;
-          actvrstfB <= 1'b0;
-          actvtsftB <= 1'b0;
-          actvrsftB <= 1'b1;
-          actvtdctB <= 1'b0;
-          actvrdctB <= 1'b0;
-          actvtbedB <= 1'b0;
-          setbdomB <= 1'b0;
-          setbrecB <= 1'b0;
-          lcrcB <= 1'b0;
-          tshiftB <= 1'b0;
-          inconerecB <= 1'b0;
-          incegtrecB <= 1'b0;
-          incegttraB <= 1'b0;
-          lmsgB <= 1'b0;
-          decrecB <= 1'b0;
-          dectraB <= 1'b0;
-          elevrecbB <= 1'b0;
-          hardsyncB <= 1'b0;
-          resetdstB <= 1'b1;
-          resetstfB <= 1'b1;
-          inccountB <= 1'b1;
-          rescountB <= 1'b1;
-          setrmlenoB <= 0;
-          actvrmlnB <= 1'b0;
-          resrmlenB <= 1'b1;
-          ackerror_setB <= 2'b10;
-          transmitter_setB <= 2'b10;
-          receiver_setB <= 2'b11;
-          error_setB <= 2'b10;
-          first_setB <= 2'b10;
-          activatefastB <= 1'b0;
-          puffer_setB <= 2'b10;
-          onarbit_setB <= 2'b10;
-          en_zerointcrcB <= 1'b1;
-          crc_shft_outB <= 1'b0;
-          if (smplpointB==1'b1)
-            next_stateB <= rec_flglen_sample;
-          else
-            next_stateB <= inter_preprec_shifting;
-        end
-      tra_arbit_tnactrnsft : 
-        begin
-          rext_setB <= 2'b00;
-          rrtr_setB <= 2'b00;
-          actvtcrcB <= 1'b0;
-          actvrcrcB <= 1'b0;
-          actvtstfB <= 1'b1;
-          actvrstfB <= 1'b0;
-          actvtsftB <= 1'b0;
-          actvrsftB <= 1'b0;
-          actvtdctB <= 1'b0;
-          actvrdctB <= 1'b0;
-          actvtbedB <= 1'b0;
-          setbdomB <= 1'b0;
-          setbrecB <= 1'b0;
-          lcrcB <= 1'b0;
-          tshiftB <= 1'b1;
-          inconerecB <= 1'b0;
-          incegtrecB <= 1'b0;
-          incegttraB <= 1'b0;
-          lmsgB <= 1'b0;
-          decrecB <= 1'b0;
-          dectraB <= 1'b0;
-          elevrecbB <= 1'b0;
-          resetdstB <= 1'b1;
-          resetstfB <= 1'b1;
-          hardsyncB <= 1'b0;
-          inccountB <= 1'b0;
-          rescountB <= 1'b1;
-          setrmlenoB <= 0;
-          actvrmlnB <= 1'b0;
-          resrmlenB <= 1'b1;
-          ackerror_setB <= 2'b10;
-          transmitter_setB <= 2'b11;
-          receiver_setB <= 2'b10;
-          error_setB <= 2'b10;
-          first_setB <= 2'b10;
-          activatefastB <= 1'b0;
-          puffer_setB <= 2'b10;
-          onarbit_setB <= 2'b11;
-          en_zerointcrcB <= 1'b1;
-          crc_shft_outB <= 1'b0;
-          if (smplpointB==1'b1)
-            next_stateB <= tra_arbit_tsftrsmpl;
-          else
-            next_stateB <= tra_arbit_tnactrnsft;
-        end
-      tra_arbit_tactrsftn : 
-        begin
-          rext_setB <= 2'b00;
-          rrtr_setB <= 2'b00;
-          actvtcrcB <= 1'b1;
-          actvrcrcB <= 1'b1;
-          actvtstfB <= 1'b1;
-          actvrstfB <= 1'b0;
-          actvtsftB <= 1'b0;
-          actvrsftB <= 1'b1;
-          actvtdctB <= 1'b0;
-          actvrdctB <= 1'b0;
-          actvtbedB <= 1'b0;
-          setbdomB <= 1'b0;
-          setbrecB <= 1'b0;
-          lcrcB <= 1'b0;
-          tshiftB <= 1'b1;
-          inconerecB <= 1'b0;
-          incegtrecB <= 1'b0;
-          incegttraB <= 1'b0;
-          lmsgB <= 1'b0;
-          decrecB <= 1'b0;
-          dectraB <= 1'b0;
-          elevrecbB <= 1'b0;
-          resetdstB <= 1'b1;
-          resetstfB <= 1'b1;
-          hardsyncB <= 1'b0;
-          inccountB <= 1'b1;
-          rescountB <= 1'b1;
-          setrmlenoB <= 0;
-          actvrmlnB <= 1'b0;
-          resrmlenB <= 1'b1;
-          ackerror_setB <= 2'b10;
-          transmitter_setB <= 2'b11;
-          receiver_setB <= 2'b10;
-          error_setB <= 2'b10;
-          first_setB <= 2'b10;
-          activatefastB <= 1'b0;
-          puffer_setB <= 2'b10;
-          onarbit_setB <= 2'b11;
-          en_zerointcrcB <= 1'b1;
-          crc_shft_outB <= 1'b0;
-          if (smplpointB==1'b1&&stufftB==1'b0)
-            next_stateB <= tra_arbit_tsftrsmpl;
-          else
-            if (smplpointB==1'b1&&stufftB==1'b1)
-              next_stateB <= tra_arbit_tnsftrsmpl;
-            else
-              next_stateB <= tra_arbit_tactrsftn;
-        end
-      tra_arbit_tactrsftsr : 
-        begin
-          rext_setB <= 2'b00;
-          rrtr_setB <= 2'b11;
-          actvtcrcB <= 1'b1;
-          actvrcrcB <= 1'b1;
-          actvtstfB <= 1'b1;
-          actvrstfB <= 1'b0;
-          actvtsftB <= 1'b0;
-          actvrsftB <= 1'b1;
-          actvtdctB <= 1'b0;
-          actvrdctB <= 1'b0;
-          actvtbedB <= 1'b0;
-          setbdomB <= 1'b0;
-          setbrecB <= 1'b0;
-          lcrcB <= 1'b0;
-          tshiftB <= 1'b1;
-          inconerecB <= 1'b0;
-          incegtrecB <= 1'b0;
-          incegttraB <= 1'b0;
-          lmsgB <= 1'b0;
-          decrecB <= 1'b0;
-          dectraB <= 1'b0;
-          elevrecbB <= 1'b0;
-          resetdstB <= 1'b1;
-          resetstfB <= 1'b1;
-          hardsyncB <= 1'b0;
-          inccountB <= 1'b1;
-          rescountB <= 1'b1;
-          setrmlenoB <= 0;
-          actvrmlnB <= 1'b0;
-          resrmlenB <= 1'b1;
-          ackerror_setB <= 2'b10;
-          transmitter_setB <= 2'b11;
-          receiver_setB <= 2'b10;
-          error_setB <= 2'b10;
-          first_setB <= 2'b10;
-          activatefastB <= 1'b0;
-          puffer_setB <= 2'b10;
-          onarbit_setB <= 2'b11;
-          en_zerointcrcB <= 1'b1;
-          crc_shft_outB <= 1'b0;
-          if (smplpointB==1'b1&&stufftB==1'b0)
-            next_stateB <= tra_arbit_tsftrsmpl;
-          else
-            if (smplpointB==1'b1&&stufftB==1'b1)
-              next_stateB <= tra_arbit_tnsftrsmpl;
-            else
-              next_stateB <= tra_arbit_tactrsftsr;
-        end
-      tra_arbit_tactrsfte : 
-        begin
-          rext_setB <= 2'b11;
-          rrtr_setB <= 2'b10;
-          actvtcrcB <= 1'b1;
-          actvrcrcB <= 1'b1;
-          actvtstfB <= 1'b1;
-          actvrstfB <= 1'b0;
-          actvtsftB <= 1'b0;
-          actvrsftB <= 1'b1;
-          actvtdctB <= 1'b0;
-          actvrdctB <= 1'b0;
-          actvtbedB <= 1'b0;
-          setbdomB <= 1'b0;
-          setbrecB <= 1'b0;
-          lcrcB <= 1'b0;
-          tshiftB <= 1'b1;
-          inconerecB <= 1'b0;
-          incegtrecB <= 1'b0;
-          incegttraB <= 1'b0;
-          lmsgB <= 1'b0;
-          decrecB <= 1'b0;
-          dectraB <= 1'b0;
-          elevrecbB <= 1'b0;
-          resetdstB <= 1'b1;
-          resetstfB <= 1'b1;
-          hardsyncB <= 1'b0;
-          inccountB <= 1'b1;
-          rescountB <= 1'b1;
-          setrmlenoB <= 0;
-          actvrmlnB <= 1'b0;
-          resrmlenB <= 1'b1;
-          ackerror_setB <= 2'b10;
-          transmitter_setB <= 2'b11;
-          receiver_setB <= 2'b10;
-          error_setB <= 2'b10;
-          first_setB <= 2'b10;
-          activatefastB <= 1'b0;
-          puffer_setB <= 2'b10;
-          onarbit_setB <= 2'b11;
-          en_zerointcrcB <= 1'b1;
-          crc_shft_outB <= 1'b0;
-          if (smplpointB==1'b1&&stufftB==1'b0)
-            next_stateB <= tra_arbit_tsftrsmpl;
-          else
-            if (smplpointB==1'b1&&stufftB==1'b1)
-              next_stateB <= tra_arbit_tnsftrsmpl;
-            else
-              next_stateB <= tra_arbit_tactrsfte;
-        end
-      tra_arbit_tactrsfter : 
-        begin
-          rext_setB <= 2'b11;
-          rrtr_setB <= 2'b11;
-          actvtcrcB <= 1'b1;
-          actvrcrcB <= 1'b1;
-          actvtstfB <= 1'b1;
-          actvrstfB <= 1'b0;
-          actvtsftB <= 1'b0;
-          actvrsftB <= 1'b1;
-          actvtdctB <= 1'b0;
-          actvrdctB <= 1'b0;
-          actvtbedB <= 1'b0;
-          setbdomB <= 1'b0;
-          setbrecB <= 1'b0;
-          lcrcB <= 1'b0;
-          tshiftB <= 1'b1;
-          inconerecB <= 1'b0;
-          incegtrecB <= 1'b0;
-          incegttraB <= 1'b0;
-          lmsgB <= 1'b0;
-          decrecB <= 1'b0;
-          dectraB <= 1'b0;
-          elevrecbB <= 1'b0;
-          resetdstB <= 1'b1;
-          resetstfB <= 1'b1;
-          hardsyncB <= 1'b0;
-          inccountB <= 1'b1;
-          rescountB <= 1'b1;
-          setrmlenoB <= 0;
-          actvrmlnB <= 1'b0;
-          resrmlenB <= 1'b1;
-          ackerror_setB <= 2'b10;
-          transmitter_setB <= 2'b11;
-          receiver_setB <= 2'b10;
-          error_setB <= 2'b10;
-          first_setB <= 2'b10;
-          activatefastB <= 1'b0;
-          puffer_setB <= 2'b10;
-          onarbit_setB <= 2'b11;
-          en_zerointcrcB <= 1'b1;
-          crc_shft_outB <= 1'b0;
-          if (smplpointB==1'b1&&stufftB==1'b0)
-            next_stateB <= tra_arbit_tsftrsmpl;
-          else
-            if (smplpointB==1'b1&&stufftB==1'b1)
-              next_stateB <= tra_arbit_tnsftrsmpl;
-            else
-              next_stateB <= tra_arbit_tactrsfter;
-        end
-      tra_arbit_tsftrsmpl : 
-        begin
-          rext_setB <= 2'b00;
-          rrtr_setB <= 2'b00;
-          actvtcrcB <= 1'b0;
-          actvrcrcB <= 1'b0;
-          actvtstfB <= 1'b0;
-          actvrstfB <= 1'b1;
-          actvtsftB <= 1'b1;
-          actvrsftB <= 1'b0;
-          actvtdctB <= 1'b0;
-          actvrdctB <= 1'b0;
-          actvtbedB <= 1'b1;
-          setbdomB <= 1'b0;
-          setbrecB <= 1'b0;
-          lcrcB <= 1'b0;
-          tshiftB <= 1'b1;
-          inconerecB <= 1'b0;
-          incegtrecB <= 1'b0;
-          incegttraB <= 1'b0;
-          lmsgB <= 1'b0;
-          decrecB <= 1'b0;
-          dectraB <= 1'b0;
-          elevrecbB <= 1'b0;
-          resetdstB <= 1'b1;
-          resetstfB <= 1'b1;
-          hardsyncB <= 1'b0;
-          inccountB <= 1'b0;
-          rescountB <= 1'b1;
-          setrmlenoB <= 0;
-          actvrmlnB <= 1'b0;
-          resrmlenB <= 1'b1;
-          ackerror_setB <= 2'b10;
-          transmitter_setB <= 2'b11;
-          receiver_setB <= 2'b10;
-          error_setB <= 2'b10;
-          first_setB <= 2'b10;
-          activatefastB <= 1'b0;
-          puffer_setB <= 2'b10;
-          onarbit_setB <= 2'b11;
-          en_zerointcrcB <= 1'b1;
-          crc_shft_outB <= 1'b0;
-          if (sendpointB==1'b1&&biterrorB==1'b0&&stferrorB==1'b0&&countB==13&&inbitB==1'b1&&textB==1'b1)
-            next_stateB <= tra_arbit_tactrsftsr;
-          else
-            if (sendpointB==1'b1&&biterrorB==1'b0&&stferrorB==1'b0&&countB==14&&inbitB==1'b1)
-              next_stateB <= tra_arbit_tactrsfte;
-            else
-              if (sendpointB==1'b1&&biterrorB==1'b0&&stferrorB==1'b0&&countB==33&&inbitB==1'b1)
-                next_stateB <= tra_arbit_tactrsfter;
-              else
-                if (sendpointB==1'b1&&biterrorB==1'b0&&stferrorB==1'b0&&(inbitB==1'b0||(countB!=13&&countB!=14&&countB!=33))&&(! ( (countB==13&&textB==1'b0)||(countB==34&&textB==1'b1) ) ))
-                  next_stateB <= tra_arbit_tactrsftn;
-                else
-                  if (sendpointB==1'b1&&biterrorB==1'b0&&stferrorB==1'b0&&((countB==13&&textB==1'b0)||(countB==34&&textB==1'b1)))
-                    next_stateB <= tra_data_activatecrc;
-                  else
-                    if (biterrorB==1'b1&&stferrorB==1'b0)
-                      next_stateB <= tra_arbit_goreceive;
-                    else
-                      next_stateB <= tra_arbit_tsftrsmpl;
-        end
-      tra_arbit_goreceive : 
-        begin
-          rext_setB <= 2'b00;
-          rrtr_setB <= 2'b00;
-          actvtcrcB <= 1'b0;
-          actvrcrcB <= 1'b1;
-          actvtstfB <= 1'b0;
-          actvrstfB <= 1'b0;
-          actvtsftB <= 1'b0;
-          actvrsftB <= 1'b1;
-          actvtdctB <= 1'b0;
-          actvrdctB <= 1'b0;
-          actvtbedB <= 1'b0;
-          setbdomB <= 1'b0;
-          setbrecB <= 1'b0;
-          lcrcB <= 1'b0;
-          tshiftB <= 1'b0;
-          inconerecB <= 1'b0;
-          incegtrecB <= 1'b0;
-          incegttraB <= 1'b0;
-          lmsgB <= 1'b0;
-          decrecB <= 1'b0;
-          dectraB <= 1'b0;
-          elevrecbB <= 1'b0;
-          hardsyncB <= 1'b0;
-          resetdstB <= 1'b1;
-          resetstfB <= 1'b1;
-          inccountB <= 1'b0;
-          rescountB <= 1'b1;
-          setrmlenoB <= 0;
-          actvrmlnB <= 1'b0;
-          resrmlenB <= 1'b1;
-          ackerror_setB <= 2'b10;
-          transmitter_setB <= 2'b10;
-          receiver_setB <= 2'b11;
-          error_setB <= 2'b10;
-          first_setB <= 2'b10;
-          activatefastB <= 1'b0;
-          puffer_setB <= 2'b10;
-          onarbit_setB <= 2'b10;
-          en_zerointcrcB <= 1'b1;
-          crc_shft_outB <= 1'b0;
-          if (smplpointB==1'b1)
-            next_stateB <= rec_flglen_sample;
-          else
-            next_stateB <= tra_arbit_goreceive;
-        end
-      tra_arbit_tnsftrsmpl : 
-        begin
-          rext_setB <= 2'b00;
-          rrtr_setB <= 2'b00;
-          actvtcrcB <= 1'b0;
-          actvrcrcB <= 1'b0;
-          actvtstfB <= 1'b0;
-          actvrstfB <= 1'b1;
-          actvtsftB <= 1'b0;
-          actvrsftB <= 1'b0;
-          actvtdctB <= 1'b0;
-          actvrdctB <= 1'b0;
-          actvtbedB <= 1'b1;
-          setbdomB <= 1'b0;
-          setbrecB <= 1'b0;
-          lcrcB <= 1'b0;
-          tshiftB <= 1'b1;
-          inconerecB <= 1'b0;
-          incegtrecB <= 1'b0;
-          incegttraB <= 1'b0;
-          lmsgB <= 1'b0;
-          decrecB <= 1'b0;
-          dectraB <= 1'b0;
-          elevrecbB <= 1'b0;
-          resetdstB <= 1'b1;
-          resetstfB <= 1'b1;
-          hardsyncB <= 1'b0;
-          inccountB <= 1'b0;
-          rescountB <= 1'b1;
-          setrmlenoB <= 0;
-          actvrmlnB <= 1'b0;
-          resrmlenB <= 1'b1;
-          ackerror_setB <= 2'b10;
-          transmitter_setB <= 2'b11;
-          receiver_setB <= 2'b10;
-          error_setB <= 2'b10;
-          first_setB <= 2'b10;
-          activatefastB <= 1'b0;
-          puffer_setB <= 2'b10;
-          onarbit_setB <= 2'b11;
-          en_zerointcrcB <= 1'b1;
-          crc_shft_outB <= 1'b0;
-          if (sendpointB==1'b1&&biterrorB==1'b0)
-            next_stateB <= tra_arbit_tnactrnsft;
-          else
-            if (stferrorB==1'b1&&erroractivB==1'b1)
-              next_stateB <= erroractiv_firstdom;
-            else
-              if (stferrorB==1'b1&&errorpassivB==1'b1)
-                next_stateB <= errorpassiv_firstrec;
-              else
-                next_stateB <= tra_arbit_tnsftrsmpl;
-        end
-      tra_data_activatecrc : 
-        begin
-          rext_setB <= 2'b10;
-          rrtr_setB <= 2'b10;
-          actvtcrcB <= 1'b1;
-          actvrcrcB <= 1'b0;
-          actvtstfB <= 1'b1;
-          actvrstfB <= 1'b0;
-          actvtsftB <= 1'b0;
-          actvrsftB <= 1'b0;
-          actvtdctB <= 1'b0;
-          actvrdctB <= 1'b0;
-          actvtbedB <= 1'b0;
-          setbdomB <= 1'b0;
-          setbrecB <= 1'b0;
-          lcrcB <= 1'b0;
-          tshiftB <= 1'b1;
-          inconerecB <= 1'b0;
-          incegtrecB <= 1'b0;
-          incegttraB <= 1'b0;
-          lmsgB <= 1'b0;
-          decrecB <= 1'b0;
-          dectraB <= 1'b0;
-          elevrecbB <= 1'b0;
-          hardsyncB <= 1'b0;
-          resetdstB <= 1'b1;
-          resetstfB <= 1'b1;
-          inccountB <= 1'b1;
-          rescountB <= 1'b1;
-          setrmlenoB <= 0;
-          actvrmlnB <= 1'b0;
-          resrmlenB <= 1'b1;
-          ackerror_setB <= 2'b10;
-          transmitter_setB <= 2'b11;
-          receiver_setB <= 2'b10;
-          error_setB <= 2'b10;
-          first_setB <= 2'b10;
-          activatefastB <= 1'b0;
-          puffer_setB <= 2'b10;
-          onarbit_setB <= 2'b10;
-          en_zerointcrcB <= 1'b1;
-          crc_shft_outB <= 1'b0;
-          if (smplpointB==1'b1&&stufftB==1'b0&&starttcrcB==1'b0)
-            next_stateB <= tra_data_shifting;
-          else
-            if (smplpointB==1'b1&&stufftB==1'b0&&starttcrcB==1'b1)
-              next_stateB <= tra_data_lastshift;
-            else
-              if (smplpointB==1'b1&&stufftB==1'b1)
-                next_stateB <= tra_data_noshift;
-              else
-                next_stateB <= tra_data_activatecrc;
-        end
-      tra_data_activatncrc : 
-        begin
-          rext_setB <= 2'b10;
-          rrtr_setB <= 2'b10;
-          actvtcrcB <= 1'b0;
-          actvrcrcB <= 1'b0;
-          actvtstfB <= 1'b1;
-          actvrstfB <= 1'b0;
-          actvtsftB <= 1'b0;
-          actvrsftB <= 1'b0;
-          actvtdctB <= 1'b0;
-          actvrdctB <= 1'b0;
-          actvtbedB <= 1'b0;
-          setbdomB <= 1'b0;
-          setbrecB <= 1'b0;
-          lcrcB <= 1'b0;
-          tshiftB <= 1'b1;
-          inconerecB <= 1'b0;
-          incegtrecB <= 1'b0;
-          incegttraB <= 1'b0;
-          lmsgB <= 1'b0;
-          decrecB <= 1'b0;
-          dectraB <= 1'b0;
-          elevrecbB <= 1'b0;
-          hardsyncB <= 1'b0;
-          resetdstB <= 1'b1;
-          resetstfB <= 1'b1;
-          inccountB <= 1'b0;
-          rescountB <= 1'b1;
-          setrmlenoB <= 0;
-          actvrmlnB <= 1'b0;
-          resrmlenB <= 1'b1;
-          ackerror_setB <= 2'b10;
-          transmitter_setB <= 2'b11;
-          receiver_setB <= 2'b10;
-          error_setB <= 2'b10;
-          first_setB <= 2'b10;
-          activatefastB <= 1'b0;
-          puffer_setB <= 2'b10;
-          onarbit_setB <= 2'b10;
-          en_zerointcrcB <= 1'b1;
-          crc_shft_outB <= 1'b0;
-          if (smplpointB==1'b1&&starttcrcB==1'b0)
-            next_stateB <= tra_data_shifting;
-          else
-            if (smplpointB==1'b1&&starttcrcB==1'b1)
-              next_stateB <= tra_data_lastshift;
-            else
-              next_stateB <= tra_data_activatncrc;
-        end
-      tra_data_shifting : 
-        begin
-          rext_setB <= 2'b10;
-          rrtr_setB <= 2'b10;
-          actvtcrcB <= 1'b0;
-          actvrcrcB <= 1'b0;
-          actvtstfB <= 1'b0;
-          actvrstfB <= 1'b0;
-          actvtsftB <= 1'b1;
-          actvrsftB <= 1'b0;
-          actvtdctB <= 1'b0;
-          actvrdctB <= 1'b0;
-          actvtbedB <= 1'b1;
-          setbdomB <= 1'b0;
-          setbrecB <= 1'b0;
-          lcrcB <= 1'b0;
-          tshiftB <= 1'b1;
-          inconerecB <= 1'b0;
-          incegtrecB <= 1'b0;
-          incegttraB <= 1'b0;
-          lmsgB <= 1'b0;
-          decrecB <= 1'b0;
-          dectraB <= 1'b0;
-          elevrecbB <= 1'b0;
-          hardsyncB <= 1'b0;
-          resetdstB <= 1'b1;
-          resetstfB <= 1'b1;
-          inccountB <= 1'b0;
-          rescountB <= 1'b1;
-          setrmlenoB <= 0;
-          actvrmlnB <= 1'b0;
-          resrmlenB <= 1'b1;
-          ackerror_setB <= 2'b10;
-          transmitter_setB <= 2'b11;
-          receiver_setB <= 2'b10;
-          error_setB <= 2'b10;
-          first_setB <= 2'b10;
-          activatefastB <= 1'b0;
-          puffer_setB <= 2'b10;
-          onarbit_setB <= 2'b10;
-          en_zerointcrcB <= 1'b1;
-          crc_shft_outB <= 1'b0;
-          if (sendpointB==1'b1&&biterrorB==1'b0)
-            next_stateB <= tra_data_activatecrc;
-          else
-            if (biterrorB==1'b1&&erroractivB==1'b1)
-              next_stateB <= erroractiv_firstdom;
-            else
-              if (biterrorB==1'b1&&errorpassivB==1'b1)
-                next_stateB <= errorpassiv_firstrec;
-              else
-                next_stateB <= tra_data_shifting;
-        end
-      tra_data_lastshift : 
-        begin
-          rext_setB <= 2'b10;
-          rrtr_setB <= 2'b10;
-          actvtcrcB <= 1'b0;
-          actvrcrcB <= 1'b0;
-          actvtstfB <= 1'b0;
-          actvrstfB <= 1'b0;
-          actvtsftB <= 1'b0;
-          actvrsftB <= 1'b0;
-          actvtdctB <= 1'b0;
-          actvrdctB <= 1'b0;
-          actvtbedB <= 1'b1;
-          setbdomB <= 1'b0;
-          setbrecB <= 1'b0;
-          lcrcB <= 1'b1;
-          tshiftB <= 1'b1;
-          inconerecB <= 1'b0;
-          incegtrecB <= 1'b0;
-          incegttraB <= 1'b0;
-          lmsgB <= 1'b0;
-          decrecB <= 1'b0;
-          dectraB <= 1'b0;
-          elevrecbB <= 1'b0;
-          hardsyncB <= 1'b0;
-          resetdstB <= 1'b1;
-          resetstfB <= 1'b1;
-          inccountB <= 1'b0;
-          rescountB <= 1'b0;
-          setrmlenoB <= 0;
-          actvrmlnB <= 1'b0;
-          resrmlenB <= 1'b1;
-          ackerror_setB <= 2'b10;
-          transmitter_setB <= 2'b11;
-          receiver_setB <= 2'b10;
-          error_setB <= 2'b10;
-          first_setB <= 2'b10;
-          activatefastB <= 1'b0;
-          puffer_setB <= 2'b10;
-          onarbit_setB <= 2'b10;
-          en_zerointcrcB <= 1'b1;
-          crc_shft_outB <= 1'b0;
-          if (biterrorB==1'b1&&erroractivB==1'b1)
-            next_stateB <= erroractiv_firstdom;
-          else
-            if (biterrorB==1'b1&&errorpassivB==1'b1)
-              next_stateB <= errorpassiv_firstrec;
-            else
-              next_stateB <= tra_data_loadcrc;
-        end
-      tra_data_noshift : 
-        begin
-          rext_setB <= 2'b10;
-          rrtr_setB <= 2'b10;
-          actvtcrcB <= 1'b0;
-          actvrcrcB <= 1'b0;
-          actvtstfB <= 1'b0;
-          actvrstfB <= 1'b0;
-          actvtsftB <= 1'b0;
-          actvrsftB <= 1'b0;
-          actvtdctB <= 1'b0;
-          actvrdctB <= 1'b0;
-          actvtbedB <= 1'b1;
-          setbdomB <= 1'b0;
-          setbrecB <= 1'b0;
-          lcrcB <= 1'b0;
-          tshiftB <= 1'b1;
-          inconerecB <= 1'b0;
-          incegtrecB <= 1'b0;
-          incegttraB <= 1'b0;
-          lmsgB <= 1'b0;
-          decrecB <= 1'b0;
-          dectraB <= 1'b0;
-          elevrecbB <= 1'b0;
-          hardsyncB <= 1'b0;
-          resetdstB <= 1'b1;
-          resetstfB <= 1'b1;
-          inccountB <= 1'b0;
-          rescountB <= 1'b1;
-          setrmlenoB <= 0;
-          actvrmlnB <= 1'b0;
-          resrmlenB <= 1'b1;
-          ackerror_setB <= 2'b10;
-          transmitter_setB <= 2'b11;
-          receiver_setB <= 2'b10;
-          error_setB <= 2'b10;
-          first_setB <= 2'b10;
-          activatefastB <= 1'b0;
-          puffer_setB <= 2'b10;
-          onarbit_setB <= 2'b10;
-          en_zerointcrcB <= 1'b1;
-          crc_shft_outB <= 1'b0;
-          if (sendpointB==1'b1&&biterrorB==1'b0)
-            next_stateB <= tra_data_activatncrc;
-          else
-            if (biterrorB==1'b1&&erroractivB==1'b1)
-              next_stateB <= erroractiv_firstdom;
-            else
-              if (biterrorB==1'b1&&errorpassivB==1'b1)
-                next_stateB <= errorpassiv_firstrec;
-              else
-                next_stateB <= tra_data_noshift;
-        end
-      tra_data_loadcrc : 
-        begin
-          rext_setB <= 2'b10;
-          rrtr_setB <= 2'b10;
-          actvtcrcB <= 1'b0;
-          actvrcrcB <= 1'b0;
-          actvtstfB <= 1'b0;
-          actvrstfB <= 1'b0;
-          actvtsftB <= 1'b1;
-          actvrsftB <= 1'b0;
-          actvtdctB <= 1'b0;
-          actvrdctB <= 1'b0;
-          actvtbedB <= 1'b0;
-          setbdomB <= 1'b0;
-          setbrecB <= 1'b0;
-          lcrcB <= 1'b1;
-          tshiftB <= 1'b1;
-          inconerecB <= 1'b0;
-          incegtrecB <= 1'b0;
-          incegttraB <= 1'b0;
-          lmsgB <= 1'b0;
-          decrecB <= 1'b0;
-          dectraB <= 1'b0;
-          elevrecbB <= 1'b0;
-          hardsyncB <= 1'b0;
-          resetdstB <= 1'b1;
-          resetstfB <= 1'b1;
-          inccountB <= 1'b0;
-          rescountB <= 1'b1;
-          setrmlenoB <= 0;
-          actvrmlnB <= 1'b0;
-          resrmlenB <= 1'b1;
-          ackerror_setB <= 2'b10;
-          transmitter_setB <= 2'b11;
-          receiver_setB <= 2'b10;
-          error_setB <= 2'b10;
-          first_setB <= 2'b10;
-          activatefastB <= 1'b0;
-          puffer_setB <= 2'b10;
-          onarbit_setB <= 2'b10;
-          en_zerointcrcB <= 1'b1;
-          crc_shft_outB <= 1'b0;
-          if (sendpointB==1'b1)
-            next_stateB <= tra_crc_activatedec;
-          else
-            next_stateB <= tra_data_loadcrc;
-        end
-      tra_crc_activatedec : 
-        begin
-          rext_setB <= 2'b10;
-          rrtr_setB <= 2'b10;
-          actvtcrcB <= 1'b0;
-          actvrcrcB <= 1'b0;
-          actvtstfB <= 1'b1;
-          actvrstfB <= 1'b0;
-          actvtsftB <= 1'b0;
-          actvrsftB <= 1'b0;
-          actvtdctB <= 1'b0;
-          actvrdctB <= 1'b0;
-          actvtbedB <= 1'b0;
-          setbdomB <= 1'b0;
-          setbrecB <= 1'b0;
-          lcrcB <= 1'b0;
-          tshiftB <= 1'b1;
-          inconerecB <= 1'b0;
-          incegtrecB <= 1'b0;
-          incegttraB <= 1'b0;
-          lmsgB <= 1'b0;
-          decrecB <= 1'b0;
-          dectraB <= 1'b0;
-          elevrecbB <= 1'b0;
-          hardsyncB <= 1'b0;
-          resetdstB <= 1'b1;
-          resetstfB <= 1'b1;
-          inccountB <= 1'b1;
-          rescountB <= 1'b1;
-          setrmlenoB <= 0;
-          actvrmlnB <= 1'b0;
-          resrmlenB <= 1'b1;
-          ackerror_setB <= 2'b10;
-          transmitter_setB <= 2'b11;
-          receiver_setB <= 2'b10;
-          error_setB <= 2'b10;
-          first_setB <= 2'b10;
-          activatefastB <= 1'b0;
-          puffer_setB <= 2'b10;
-          onarbit_setB <= 2'b10;
-          en_zerointcrcB <= 1'b1;
-          crc_shft_outB <= 1'b1;
-          if (smplpointB==1'b1&&stufftB==1'b0&&countB!=16)
-            next_stateB <= tra_crc_shifting;
-          else
-            if (smplpointB==1'b1&&stufftB==1'b0&&countB==16)
-              next_stateB <= tra_crc_delshft;
-            else
-              if (smplpointB==1'b1&&stufftB==1'b1)
-                next_stateB <= tra_crc_noshift;
-              else
-                next_stateB <= tra_crc_activatedec;
-        end
-      tra_crc_activatndec : 
-        begin
-          rext_setB <= 2'b10;
-          rrtr_setB <= 2'b10;
-          actvtcrcB <= 1'b0;
-          actvrcrcB <= 1'b0;
-          actvtstfB <= 1'b1;
-          actvrstfB <= 1'b0;
-          actvtsftB <= 1'b0;
-          actvrsftB <= 1'b0;
-          actvtdctB <= 1'b0;
-          actvrdctB <= 1'b0;
-          actvtbedB <= 1'b0;
-          setbdomB <= 1'b0;
-          setbrecB <= 1'b0;
-          lcrcB <= 1'b0;
-          tshiftB <= 1'b1;
-          inconerecB <= 1'b0;
-          incegtrecB <= 1'b0;
-          incegttraB <= 1'b0;
-          lmsgB <= 1'b0;
-          decrecB <= 1'b0;
-          dectraB <= 1'b0;
-          elevrecbB <= 1'b0;
-          hardsyncB <= 1'b0;
-          resetdstB <= 1'b1;
-          resetstfB <= 1'b1;
-          inccountB <= 1'b0;
-          rescountB <= 1'b1;
-          setrmlenoB <= 0;
-          actvrmlnB <= 1'b0;
-          resrmlenB <= 1'b1;
-          ackerror_setB <= 2'b10;
-          transmitter_setB <= 2'b11;
-          receiver_setB <= 2'b10;
-          error_setB <= 2'b10;
-          first_setB <= 2'b10;
-          activatefastB <= 1'b0;
-          puffer_setB <= 2'b10;
-          onarbit_setB <= 2'b10;
-          en_zerointcrcB <= 1'b1;
-          crc_shft_outB <= 1'b1;
-          if (smplpointB==1'b1&&countB!=16)
-            next_stateB <= tra_crc_shifting;
-          else
-            if (smplpointB==1'b1&&countB==16)
-              next_stateB <= tra_crc_delshft;
-            else
-              next_stateB <= tra_crc_activatndec;
-        end
-      tra_crc_shifting : 
-        begin
-          rext_setB <= 2'b10;
-          rrtr_setB <= 2'b10;
-          actvtcrcB <= 1'b0;
-          actvrcrcB <= 1'b0;
-          actvtstfB <= 1'b0;
-          actvrstfB <= 1'b0;
-          actvtsftB <= 1'b1;
-          actvrsftB <= 1'b0;
-          actvtdctB <= 1'b0;
-          actvrdctB <= 1'b0;
-          actvtbedB <= 1'b1;
-          setbdomB <= 1'b0;
-          setbrecB <= 1'b0;
-          lcrcB <= 1'b0;
-          tshiftB <= 1'b1;
-          inconerecB <= 1'b0;
-          incegtrecB <= 1'b0;
-          incegttraB <= 1'b0;
-          lmsgB <= 1'b0;
-          decrecB <= 1'b0;
-          dectraB <= 1'b0;
-          elevrecbB <= 1'b0;
-          hardsyncB <= 1'b0;
-          resetdstB <= 1'b1;
-          resetstfB <= 1'b1;
-          inccountB <= 1'b0;
-          rescountB <= 1'b1;
-          setrmlenoB <= 0;
-          actvrmlnB <= 1'b0;
-          resrmlenB <= 1'b1;
-          ackerror_setB <= 2'b10;
-          transmitter_setB <= 2'b11;
-          receiver_setB <= 2'b10;
-          error_setB <= 2'b10;
-          first_setB <= 2'b10;
-          activatefastB <= 1'b0;
-          puffer_setB <= 2'b10;
-          onarbit_setB <= 2'b10;
-          en_zerointcrcB <= 1'b1;
-          crc_shft_outB <= 1'b1;
-          if (sendpointB==1'b1&&biterrorB==1'b0)
-            next_stateB <= tra_crc_activatedec;
-          else
-            if (biterrorB==1'b1&&erroractivB==1'b1)
-              next_stateB <= erroractiv_firstdom;
-            else
-              if (biterrorB==1'b1&&errorpassivB==1'b1)
-                next_stateB <= errorpassiv_firstrec;
-              else
-                next_stateB <= tra_crc_shifting;
-        end
-      tra_crc_noshift : 
-        begin
-          rext_setB <= 2'b10;
-          rrtr_setB <= 2'b10;
-          actvtcrcB <= 1'b0;
-          actvrcrcB <= 1'b0;
-          actvtstfB <= 1'b0;
-          actvrstfB <= 1'b0;
-          actvtsftB <= 1'b0;
-          actvrsftB <= 1'b0;
-          actvtdctB <= 1'b0;
-          actvrdctB <= 1'b0;
-          actvtbedB <= 1'b1;
-          setbdomB <= 1'b0;
-          setbrecB <= 1'b0;
-          lcrcB <= 1'b0;
-          tshiftB <= 1'b1;
-          inconerecB <= 1'b0;
-          incegtrecB <= 1'b0;
-          incegttraB <= 1'b0;
-          lmsgB <= 1'b0;
-          decrecB <= 1'b0;
-          dectraB <= 1'b0;
-          elevrecbB <= 1'b0;
-          hardsyncB <= 1'b0;
-          resetdstB <= 1'b1;
-          resetstfB <= 1'b1;
-          inccountB <= 1'b0;
-          rescountB <= 1'b1;
-          setrmlenoB <= 0;
-          actvrmlnB <= 1'b0;
-          resrmlenB <= 1'b1;
-          ackerror_setB <= 2'b10;
-          transmitter_setB <= 2'b11;
-          receiver_setB <= 2'b10;
-          error_setB <= 2'b10;
-          first_setB <= 2'b10;
-          activatefastB <= 1'b0;
-          puffer_setB <= 2'b10;
-          onarbit_setB <= 2'b10;
-          en_zerointcrcB <= 1'b1;
-          crc_shft_outB <= 1'b1;
-          if (sendpointB==1'b1&&biterrorB==1'b0)
-            next_stateB <= tra_crc_activatndec;
-          else
-            if (biterrorB==1'b1&&erroractivB==1'b1)
-              next_stateB <= erroractiv_firstdom;
-            else
-              if (biterrorB==1'b1&&errorpassivB==1'b1)
-                next_stateB <= errorpassiv_firstrec;
-              else
-                next_stateB <= tra_crc_noshift;
-        end
-      tra_crc_delshft : 
-        begin
-          rext_setB <= 2'b10;
-          rrtr_setB <= 2'b10;
-          actvtcrcB <= 1'b0;
-          actvrcrcB <= 1'b0;
-          actvtstfB <= 1'b0;
-          actvrstfB <= 1'b0;
-          actvtsftB <= 1'b1;
-          actvrsftB <= 1'b0;
-          actvtdctB <= 1'b0;
-          actvrdctB <= 1'b0;
-          actvtbedB <= 1'b1;
-          setbdomB <= 1'b0;
-          setbrecB <= 1'b1;
-          lcrcB <= 1'b0;
-          tshiftB <= 1'b1;
-          inconerecB <= 1'b0;
-          incegtrecB <= 1'b0;
-          incegttraB <= 1'b0;
-          lmsgB <= 1'b0;
-          decrecB <= 1'b0;
-          dectraB <= 1'b0;
-          elevrecbB <= 1'b0;
-          hardsyncB <= 1'b0;
-          resetdstB <= 1'b1;
-          resetstfB <= 1'b1;
-          inccountB <= 1'b0;
-          rescountB <= 1'b0;
-          setrmlenoB <= 0;
-          actvrmlnB <= 1'b0;
-          resrmlenB <= 1'b1;
-          ackerror_setB <= 2'b10;
-          transmitter_setB <= 2'b11;
-          receiver_setB <= 2'b10;
-          error_setB <= 2'b10;
-          first_setB <= 2'b10;
-          activatefastB <= 1'b0;
-          puffer_setB <= 2'b10;
-          onarbit_setB <= 2'b10;
-          en_zerointcrcB <= 1'b1;
-          crc_shft_outB <= 1'b1;
-          if (sendpointB==1'b1&&biterrorB==1'b0)
-            next_stateB <= tra_ack_sendack;
-          else
-            if (biterrorB==1'b1&&erroractivB==1'b1)
-              next_stateB <= erroractiv_firstdom;
-            else
-              if (biterrorB==1'b1&&errorpassivB==1'b1)
-                next_stateB <= errorpassiv_firstrec;
-              else
-                next_stateB <= tra_crc_delshft;
-        end
-      tra_ack_sendack : 
-        begin
-          rext_setB <= 2'b10;
-          rrtr_setB <= 2'b10;
-          actvtcrcB <= 1'b0;
-          actvrcrcB <= 1'b0;
-          actvtstfB <= 1'b1;
-          actvrstfB <= 1'b0;
-          actvtsftB <= 1'b0;
-          actvrsftB <= 1'b0;
-          actvtdctB <= 1'b0;
-          actvrdctB <= 1'b0;
-          actvtbedB <= 1'b0;
-          setbdomB <= 1'b0;
-          setbrecB <= 1'b1;
-          lcrcB <= 1'b0;
-          tshiftB <= 1'b0;
-          inconerecB <= 1'b0;
-          incegtrecB <= 1'b0;
-          incegttraB <= 1'b0;
-          lmsgB <= 1'b0;
-          decrecB <= 1'b0;
-          dectraB <= 1'b0;
-          elevrecbB <= 1'b0;
-          hardsyncB <= 1'b0;
-          resetdstB <= 1'b1;
-          resetstfB <= 1'b1;
-          inccountB <= 1'b0;
-          rescountB <= 1'b1;
-          setrmlenoB <= 0;
-          actvrmlnB <= 1'b0;
-          resrmlenB <= 1'b1;
-          ackerror_setB <= 2'b10;
-          transmitter_setB <= 2'b11;
-          receiver_setB <= 2'b10;
-          error_setB <= 2'b10;
-          first_setB <= 2'b10;
-          activatefastB <= 1'b0;
-          puffer_setB <= 2'b10;
-          onarbit_setB <= 2'b10;
-          en_zerointcrcB <= 1'b1;
-          crc_shft_outB <= 1'b0;
-          if (smplpointB==1'b1)
-            next_stateB <= tra_ack_shifting;
-          else
-            next_stateB <= tra_ack_sendack;
-        end
-      tra_ack_shifting : 
-        begin
-          rext_setB <= 2'b10;
-          rrtr_setB <= 2'b10;
-          actvtcrcB <= 1'b0;
-          actvrcrcB <= 1'b0;
-          actvtstfB <= 1'b0;
-          actvrstfB <= 1'b0;
-          actvtsftB <= 1'b0;
-          actvrsftB <= 1'b0;
-          actvtdctB <= 1'b0;
-          actvrdctB <= 1'b0;
-          actvtbedB <= 1'b1;
-          setbdomB <= 1'b0;
-          setbrecB <= 1'b1;
-          lcrcB <= 1'b0;
-          tshiftB <= 1'b0;
-          inconerecB <= 1'b0;
-          incegtrecB <= 1'b0;
-          incegttraB <= 1'b0;
-          lmsgB <= 1'b0;
-          decrecB <= 1'b0;
-          dectraB <= 1'b0;
-          elevrecbB <= 1'b0;
-          hardsyncB <= 1'b0;
-          resetdstB <= 1'b1;
-          resetstfB <= 1'b1;
-          inccountB <= 1'b0;
-          rescountB <= 1'b1;
-          setrmlenoB <= 0;
-          actvrmlnB <= 1'b0;
-          resrmlenB <= 1'b1;
-          ackerror_setB <= 2'b10;
-          transmitter_setB <= 2'b11;
-          receiver_setB <= 2'b10;
-          error_setB <= 2'b10;
-          first_setB <= 2'b10;
-          activatefastB <= 1'b0;
-          puffer_setB <= 2'b10;
-          onarbit_setB <= 2'b10;
-          en_zerointcrcB <= 1'b1;
-          crc_shft_outB <= 1'b0;
-          if (biterrorB==1'b0)
-            next_stateB <= tra_ack_stopack;
-          else
-            if (sendpointB==1'b1&&biterrorB==1'b1)
-              next_stateB <= tra_edof_sendrecb;
-            else
-              next_stateB <= tra_ack_shifting;
-        end
-      tra_ack_stopack : 
-        begin
-          rext_setB <= 2'b10;
-          rrtr_setB <= 2'b10;
-          actvtcrcB <= 1'b0;
-          actvrcrcB <= 1'b0;
-          actvtstfB <= 1'b0;
-          actvrstfB <= 1'b0;
-          actvtsftB <= 1'b0;
-          actvrsftB <= 1'b0;
-          actvtdctB <= 1'b0;
-          actvrdctB <= 1'b0;
-          actvtbedB <= 1'b1;
-          setbdomB <= 1'b0;
-          setbrecB <= 1'b1;
-          lcrcB <= 1'b0;
-          tshiftB <= 1'b0;
-          inconerecB <= 1'b0;
-          incegtrecB <= 1'b0;
-          incegttraB <= 1'b0;
-          lmsgB <= 1'b0;
-          decrecB <= 1'b0;
-          dectraB <= 1'b0;
-          elevrecbB <= 1'b0;
-          hardsyncB <= 1'b0;
-          resetdstB <= 1'b1;
-          resetstfB <= 1'b1;
-          inccountB <= 1'b0;
-          rescountB <= 1'b1;
-          setrmlenoB <= 0;
-          actvrmlnB <= 1'b0;
-          resrmlenB <= 1'b1;
-          ackerror_setB <= 2'b11;
-          transmitter_setB <= 2'b11;
-          receiver_setB <= 2'b10;
-          error_setB <= 2'b10;
-          first_setB <= 2'b10;
-          activatefastB <= 1'b0;
-          puffer_setB <= 2'b10;
-          onarbit_setB <= 2'b10;
-          en_zerointcrcB <= 1'b1;
-          crc_shft_outB <= 1'b0;
-          if (erroractivB==1'b1)
-            next_stateB <= erroractiv_firstdom;
-          else
-            next_stateB <= errorpassiv_firstrec;
-        end
-      tra_edof_sendrecb : 
-        begin
-          rext_setB <= 2'b10;
-          rrtr_setB <= 2'b10;
-          actvtcrcB <= 1'b0;
-          actvrcrcB <= 1'b0;
-          actvtstfB <= 1'b1;
-          actvrstfB <= 1'b0;
-          actvtsftB <= 1'b0;
-          actvrsftB <= 1'b0;
-          actvtdctB <= 1'b0;
-          actvrdctB <= 1'b0;
-          actvtbedB <= 1'b0;
-          setbdomB <= 1'b0;
-          setbrecB <= 1'b1;
-          lcrcB <= 1'b0;
-          tshiftB <= 1'b0;
-          inconerecB <= 1'b0;
-          incegtrecB <= 1'b0;
-          incegttraB <= 1'b0;
-          lmsgB <= 1'b0;
-          decrecB <= 1'b0;
-          dectraB <= 1'b0;
-          elevrecbB <= 1'b0;
-          hardsyncB <= 1'b0;
-          resetdstB <= 1'b1;
-          resetstfB <= 1'b1;
-          inccountB <= 1'b1;
-          rescountB <= 1'b1;
-          setrmlenoB <= 0;
-          actvrmlnB <= 1'b0;
-          resrmlenB <= 1'b1;
-          ackerror_setB <= 2'b10;
-          transmitter_setB <= 2'b11;
-          receiver_setB <= 2'b10;
-          error_setB <= 2'b10;
-          first_setB <= 2'b10;
-          activatefastB <= 1'b0;
-          puffer_setB <= 2'b10;
-          onarbit_setB <= 2'b10;
-          en_zerointcrcB <= 1'b1;
-          crc_shft_outB <= 1'b0;
-          if (smplpointB==1'b1)
-            next_stateB <= tra_edof_shifting;
-          else
-            next_stateB <= tra_edof_sendrecb;
-        end
-      tra_edof_shifting : 
-        begin
-          rext_setB <= 2'b10;
-          rrtr_setB <= 2'b10;
-          actvtcrcB <= 1'b0;
-          actvrcrcB <= 1'b0;
-          actvtstfB <= 1'b0;
-          actvrstfB <= 1'b0;
-          actvtsftB <= 1'b0;
-          actvrsftB <= 1'b0;
-          actvtdctB <= 1'b0;
-          actvrdctB <= 1'b0;
-          actvtbedB <= 1'b1;
-          setbdomB <= 1'b0;
-          setbrecB <= 1'b1;
-          lcrcB <= 1'b0;
-          tshiftB <= 1'b0;
-          inconerecB <= 1'b0;
-          incegtrecB <= 1'b0;
-          incegttraB <= 1'b0;
-          lmsgB <= 1'b0;
-          decrecB <= 1'b0;
-          dectraB <= 1'b0;
-          elevrecbB <= 1'b0;
-          hardsyncB <= 1'b0;
-          resetdstB <= 1'b1;
-          resetstfB <= 1'b1;
-          inccountB <= 1'b0;
-          rescountB <= 1'b1;
-          setrmlenoB <= 0;
-          actvrmlnB <= 1'b0;
-          resrmlenB <= 1'b1;
-          ackerror_setB <= 2'b10;
-          transmitter_setB <= 2'b11;
-          receiver_setB <= 2'b10;
-          error_setB <= 2'b10;
-          first_setB <= 2'b10;
-          activatefastB <= 1'b0;
-          puffer_setB <= 2'b10;
-          onarbit_setB <= 2'b10;
-          en_zerointcrcB <= 1'b1;
-          crc_shft_outB <= 1'b0;
-          if (sendpointB==1'b1&&biterrorB==1'b0&&countB!=8)
-            next_stateB <= tra_edof_sendrecb;
-          else
-            if (sendpointB==1'b1&&biterrorB==1'b0&&countB==8)
-              next_stateB <= tra_edof_dectra;
-            else
-              if (biterrorB==1'b1&&countB==8)
-                next_stateB <= over_firstdom;
-              else
-                if (biterrorB==1'b1&&erroractivB==1'b1&&countB!=8)
-                  next_stateB <= erroractiv_firstdom;
-                else
-                  if (biterrorB==1'b1&&errorpassivB==1'b1&&countB!=8)
-                    next_stateB <= errorpassiv_firstrec;
-                  else
-                    next_stateB <= tra_edof_shifting;
-        end
-      tra_edof_dectra : 
-        begin
-          rext_setB <= 2'b10;
-          rrtr_setB <= 2'b10;
-          actvtcrcB <= 1'b0;
-          actvrcrcB <= 1'b0;
-          actvtstfB <= 1'b0;
-          actvrstfB <= 1'b0;
-          actvtsftB <= 1'b0;
-          actvrsftB <= 1'b0;
-          actvtdctB <= 1'b0;
-          actvrdctB <= 1'b0;
-          actvtbedB <= 1'b1;
-          setbdomB <= 1'b0;
-          setbrecB <= 1'b0;
-          lcrcB <= 1'b0;
-          tshiftB <= 1'b0;
-          inconerecB <= 1'b0;
-          incegtrecB <= 1'b0;
-          incegttraB <= 1'b0;
-          lmsgB <= 1'b0;
-          decrecB <= 1'b0;
-          dectraB <= 1'b1;
-          elevrecbB <= 1'b0;
-          hardsyncB <= 1'b0;
-          resetdstB <= 1'b1;
-          resetstfB <= 1'b0;
-          inccountB <= 1'b0;
-          rescountB <= 1'b0;
-          setrmlenoB <= 0;
-          actvrmlnB <= 1'b0;
-          resrmlenB <= 1'b1;
-          ackerror_setB <= 2'b10;
-          transmitter_setB <= 2'b11;
-          receiver_setB <= 2'b10;
-          error_setB <= 2'b10;
-          first_setB <= 2'b10;
-          activatefastB <= 1'b0;
-          puffer_setB <= 2'b10;
-          onarbit_setB <= 2'b10;
-          en_zerointcrcB <= 1'b1;
-          crc_shft_outB <= 1'b0;
-          if (smplpointB==1'b1)
-            next_stateB <= inter_sample;
-          else
-            next_stateB <= tra_edof_dectra;
-        end
-      rec_flglen_sample : 
-        begin
-          rext_setB <= 2'b00;
-          rrtr_setB <= 2'b00;
-          actvtcrcB <= 1'b0;
-          actvrcrcB <= 1'b0;
-          actvtstfB <= 1'b0;
-          actvrstfB <= 1'b1;
-          actvtsftB <= 1'b0;
-          actvrsftB <= 1'b0;
-          actvtdctB <= 1'b0;
-          actvrdctB <= 1'b0;
-          actvtbedB <= 1'b0;
-          setbdomB <= 1'b0;
-          setbrecB <= 1'b0;
-          lcrcB <= 1'b0;
-          tshiftB <= 1'b0;
-          inconerecB <= 1'b0;
-          incegtrecB <= 1'b0;
-          incegttraB <= 1'b0;
-          lmsgB <= 1'b0;
-          decrecB <= 1'b0;
-          dectraB <= 1'b0;
-          elevrecbB <= 1'b0;
-          hardsyncB <= 1'b0;
-          resetdstB <= 1'b1;
-          resetstfB <= 1'b1;
-          inccountB <= 1'b0;
-          rescountB <= 1'b1;
-          setrmlenoB <= 0;
-          actvrmlnB <= 1'b0;
-          resrmlenB <= 1'b1;
-          ackerror_setB <= 2'b10;
-          transmitter_setB <= 2'b10;
-          receiver_setB <= 2'b11;
-          error_setB <= 2'b10;
-          first_setB <= 2'b10;
-          activatefastB <= 1'b0;
-          puffer_setB <= 2'b10;
-          onarbit_setB <= 2'b10;
-          en_zerointcrcB <= 1'b1;
-          crc_shft_outB <= 1'b0;
-          if (stuffrB==1'b1&&stferrorB==1'b0)
-            next_stateB <= rec_flglen_noshift;
-          else
-            if (stferrorB==1'b1&&erroractivB==1'b1)
-              next_stateB <= erroractiv_firstdom;
-            else
-              if (stferrorB==1'b1&&errorpassivB==1'b1)
-                next_stateB <= errorpassiv_firstrec;
-              else
-                if (stuffrB==1'b0&&stferrorB==1'b0&&inbitB==1'b1&&countB==12)
-                  next_stateB <= rec_flglen_shiftstdrtr;
-                else
-                  if ((stuffrB==1'b0)&&(stferrorB==1'b0)&&(inbitB==1'b1)&&(countB==13))
-                    next_stateB <= rec_flglen_shiftextnor;
-                  else
-                    if (stuffrB==1'b0&&stferrorB==1'b0&&inbitB==1'b1&&countB==15&&rrtrB==1'b0&&rextB==1'b0)
-                      next_stateB <= rec_flglen_shiftdlc64;
-                    else
-                      if (stuffrB==1'b0&&stferrorB==1'b0&&inbitB==1'b1&&countB==16&&rrtrB==1'b0&&rextB==1'b0)
-                        next_stateB <= rec_flglen_shiftdlc32;
-                      else
-                        if (stuffrB==1'b0&&stferrorB==1'b0&&inbitB==1'b1&&countB==17&&rrtrB==1'b0&&rextB==1'b0)
-                          next_stateB <= rec_flglen_shiftdlc16;
-                        else
-                          if (stuffrB==1'b0&&stferrorB==1'b0&&inbitB==1'b1&&countB==18&&rrtrB==1'b0&&rextB==1'b0)
-                            next_stateB <= rec_flglen_shiftdlc8;
-                          else
-                            if (stuffrB==1'b0&&stferrorB==1'b0&&inbitB==1'b1&&countB==32&&rextB==1'b1)
-                              next_stateB <= rec_flglen_shiftextrtr;
-                            else
-                              if (stuffrB==1'b0&&stferrorB==1'b0&&inbitB==1'b1&&countB==35&&rrtrB==1'b0&&rextB==1'b1)
-                                next_stateB <= rec_flglen_shiftdlc64;
-                              else
-                                if (stuffrB==1'b0&&stferrorB==1'b0&&inbitB==1'b1&&countB==36&&rrtrB==1'b0&&rextB==1'b1)
-                                  next_stateB <= rec_flglen_shiftdlc32;
-                                else
-                                  if (stuffrB==1'b0&&stferrorB==1'b0&&inbitB==1'b1&&countB==37&&rrtrB==1'b0&&rextB==1'b1)
-                                    next_stateB <= rec_flglen_shiftdlc16;
-                                  else
-                                    if (stuffrB==1'b0&&stferrorB==1'b0&&inbitB==1'b1&&countB==38&&rrtrB==1'b0&&rextB==1'b1)
-                                      next_stateB <= rec_flglen_shiftdlc8;
-                                    else
-                                      if (stuffrB==1'b0&&stferrorB==1'b0&&(inbitB==1'b0||(countB!=12&&countB!=13&&(rextB==1'b1||rrtrB==1'b1||(countB!=15&&countB!=16&&countB!=17&&countB!=18))&&(countB!=32||rextB==1'b0)&&(rextB==1'b0||rrtrB==1'b1||(countB!=35&&countB!=36&&countB!=37&&countB!=38)))))
-                                        next_stateB <= rec_flglen_shifting;
-                                      else
-                                        next_stateB <= rec_flglen_sample;
-        end
-      rec_flglen_shifting : 
-        begin
-          rext_setB <= 2'b00;
-          rrtr_setB <= 2'b00;
-          actvtcrcB <= 1'b0;
-          actvrcrcB <= 1'b1;
-          actvtstfB <= 1'b0;
-          actvrstfB <= 1'b0;
-          actvtsftB <= 1'b0;
-          actvrsftB <= 1'b1;
-          actvtdctB <= 1'b0;
-          actvrdctB <= 1'b0;
-          actvtbedB <= 1'b0;
-          setbdomB <= 1'b0;
-          setbrecB <= 1'b0;
-          lcrcB <= 1'b0;
-          tshiftB <= 1'b0;
-          inconerecB <= 1'b0;
-          incegtrecB <= 1'b0;
-          incegttraB <= 1'b0;
-          lmsgB <= 1'b0;
-          decrecB <= 1'b0;
-          dectraB <= 1'b0;
-          elevrecbB <= 1'b0;
-          hardsyncB <= 1'b0;
-          resetdstB <= 1'b1;
-          resetstfB <= 1'b1;
-          inccountB <= 1'b1;
-          rescountB <= 1'b1;
-          setrmlenoB <= 0;
-          actvrmlnB <= 1'b0;
-          resrmlenB <= 1'b1;
-          ackerror_setB <= 2'b10;
-          transmitter_setB <= 2'b10;
-          receiver_setB <= 2'b11;
-          error_setB <= 2'b10;
-          first_setB <= 2'b10;
-          activatefastB <= 1'b0;
-          puffer_setB <= 2'b10;
-          onarbit_setB <= 2'b10;
-          en_zerointcrcB <= 1'b1;
-          crc_shft_outB <= 1'b0;
-          if (smplpointB==1'b1&&(! ( (countB==19&&rextB==1'b0)||(countB==39&&rextB==1'b1) ) ))
-            next_stateB <= rec_flglen_sample;
-          else
-            if (smplpointB==1'b1&&((countB==19&&rextB==1'b0)||(countB==39&&rextB==1'b1))&&rrtrB==1'b0&&rmzeroB==1'b0)
-              next_stateB <= rec_acptdat_sample;
-            else
-              if (smplpointB==1'b1&&((countB==19&&rextB==1'b0)||(countB==39&&rextB==1'b1))&&(rrtrB==1'b1||rmzeroB==1'b1))
-                next_stateB <= rec_crc_rescnt;
-              else
-                next_stateB <= rec_flglen_shifting;
-        end
-      rec_flglen_shiftstdrtr : 
-        begin
-          rext_setB <= 2'b00;
-          rrtr_setB <= 2'b11;
-          actvtcrcB <= 1'b0;
-          actvrcrcB <= 1'b1;
-          actvtstfB <= 1'b0;
-          actvrstfB <= 1'b0;
-          actvtsftB <= 1'b0;
-          actvrsftB <= 1'b1;
-          actvtdctB <= 1'b0;
-          actvrdctB <= 1'b0;
-          actvtbedB <= 1'b0;
-          setbdomB <= 1'b0;
-          setbrecB <= 1'b0;
-          lcrcB <= 1'b0;
-          tshiftB <= 1'b0;
-          inconerecB <= 1'b0;
-          incegtrecB <= 1'b0;
-          incegttraB <= 1'b0;
-          lmsgB <= 1'b0;
-          decrecB <= 1'b0;
-          dectraB <= 1'b0;
-          elevrecbB <= 1'b0;
-          hardsyncB <= 1'b0;
-          resetdstB <= 1'b1;
-          resetstfB <= 1'b1;
-          inccountB <= 1'b1;
-          rescountB <= 1'b1;
-          setrmlenoB <= 0;
-          actvrmlnB <= 1'b0;
-          resrmlenB <= 1'b1;
-          ackerror_setB <= 2'b10;
-          transmitter_setB <= 2'b10;
-          receiver_setB <= 2'b11;
-          error_setB <= 2'b10;
-          first_setB <= 2'b10;
-          activatefastB <= 1'b0;
-          puffer_setB <= 2'b10;
-          onarbit_setB <= 2'b10;
-          en_zerointcrcB <= 1'b1;
-          crc_shft_outB <= 1'b0;
-          if (smplpointB==1'b1)
-            next_stateB <= rec_flglen_sample;
-          else
-            next_stateB <= rec_flglen_shiftstdrtr;
-        end
-      rec_flglen_shiftextnor : 
-        begin
-          rext_setB <= 2'b11;
-          rrtr_setB <= 2'b10;
-          actvtcrcB <= 1'b0;
-          actvrcrcB <= 1'b1;
-          actvtstfB <= 1'b0;
-          actvrstfB <= 1'b0;
-          actvtsftB <= 1'b0;
-          actvrsftB <= 1'b1;
-          actvtdctB <= 1'b0;
-          actvrdctB <= 1'b0;
-          actvtbedB <= 1'b0;
-          setbdomB <= 1'b0;
-          setbrecB <= 1'b0;
-          lcrcB <= 1'b0;
-          tshiftB <= 1'b0;
-          inconerecB <= 1'b0;
-          incegtrecB <= 1'b0;
-          incegttraB <= 1'b0;
-          lmsgB <= 1'b0;
-          decrecB <= 1'b0;
-          dectraB <= 1'b0;
-          elevrecbB <= 1'b0;
-          hardsyncB <= 1'b0;
-          resetdstB <= 1'b1;
-          resetstfB <= 1'b1;
-          inccountB <= 1'b1;
-          rescountB <= 1'b1;
-          setrmlenoB <= 0;
-          actvrmlnB <= 1'b0;
-          resrmlenB <= 1'b1;
-          ackerror_setB <= 2'b10;
-          transmitter_setB <= 2'b10;
-          receiver_setB <= 2'b11;
-          error_setB <= 2'b10;
-          first_setB <= 2'b10;
-          activatefastB <= 1'b0;
-          puffer_setB <= 2'b10;
-          onarbit_setB <= 2'b10;
-          en_zerointcrcB <= 1'b1;
-          crc_shft_outB <= 1'b0;
-          if (smplpointB==1'b1)
-            next_stateB <= rec_flglen_sample;
-          else
-            next_stateB <= rec_flglen_shiftextnor;
-        end
-      rec_flglen_shiftdlc64 : 
-        begin
-          rext_setB <= 2'b00;
-          rrtr_setB <= 2'b00;
-          actvtcrcB <= 1'b0;
-          actvrcrcB <= 1'b1;
-          actvtstfB <= 1'b0;
-          actvrstfB <= 1'b0;
-          actvtsftB <= 1'b0;
-          actvrsftB <= 1'b1;
-          actvtdctB <= 1'b0;
-          actvrdctB <= 1'b0;
-          actvtbedB <= 1'b0;
-          setbdomB <= 1'b0;
-          setbrecB <= 1'b0;
-          lcrcB <= 1'b0;
-          tshiftB <= 1'b0;
-          inconerecB <= 1'b0;
-          incegtrecB <= 1'b0;
-          incegttraB <= 1'b0;
-          lmsgB <= 1'b0;
-          decrecB <= 1'b0;
-          dectraB <= 1'b0;
-          elevrecbB <= 1'b0;
-          hardsyncB <= 1'b0;
-          resetdstB <= 1'b1;
-          resetstfB <= 1'b1;
-          inccountB <= 1'b1;
-          rescountB <= 1'b1;
-          setrmlenoB <= 4;
-          actvrmlnB <= 1'b1;
-          resrmlenB <= 1'b1;
-          ackerror_setB <= 2'b10;
-          transmitter_setB <= 2'b10;
-          receiver_setB <= 2'b11;
-          error_setB <= 2'b10;
-          first_setB <= 2'b10;
-          activatefastB <= 1'b0;
-          puffer_setB <= 2'b10;
-          onarbit_setB <= 2'b10;
-          en_zerointcrcB <= 1'b1;
-          crc_shft_outB <= 1'b0;
-          next_stateB <= rec_flglen_setdlc;
-        end
-      rec_flglen_shiftdlc32 : 
-        begin
-          rext_setB <= 2'b00;
-          rrtr_setB <= 2'b00;
-          actvtcrcB <= 1'b0;
-          actvrcrcB <= 1'b1;
-          actvtstfB <= 1'b0;
-          actvrstfB <= 1'b0;
-          actvtsftB <= 1'b0;
-          actvrsftB <= 1'b1;
-          actvtdctB <= 1'b0;
-          actvrdctB <= 1'b0;
-          actvtbedB <= 1'b0;
-          setbdomB <= 1'b0;
-          setbrecB <= 1'b0;
-          lcrcB <= 1'b0;
-          tshiftB <= 1'b0;
-          inconerecB <= 1'b0;
-          incegtrecB <= 1'b0;
-          incegttraB <= 1'b0;
-          lmsgB <= 1'b0;
-          decrecB <= 1'b0;
-          dectraB <= 1'b0;
-          elevrecbB <= 1'b0;
-          hardsyncB <= 1'b0;
-          resetdstB <= 1'b1;
-          resetstfB <= 1'b1;
-          inccountB <= 1'b1;
-          rescountB <= 1'b1;
-          setrmlenoB <= 3;
-          actvrmlnB <= 1'b1;
-          resrmlenB <= 1'b1;
-          ackerror_setB <= 2'b10;
-          transmitter_setB <= 2'b10;
-          receiver_setB <= 2'b11;
-          error_setB <= 2'b10;
-          first_setB <= 2'b10;
-          activatefastB <= 1'b0;
-          puffer_setB <= 2'b10;
-          onarbit_setB <= 2'b10;
-          en_zerointcrcB <= 1'b1;
-          crc_shft_outB <= 1'b0;
-          next_stateB <= rec_flglen_setdlc;
-        end
-      rec_flglen_shiftdlc16 : 
-        begin
-          rext_setB <= 2'b00;
-          rrtr_setB <= 2'b00;
-          actvtcrcB <= 1'b0;
-          actvrcrcB <= 1'b1;
-          actvtstfB <= 1'b0;
-          actvrstfB <= 1'b0;
-          actvtsftB <= 1'b0;
-          actvrsftB <= 1'b1;
-          actvtdctB <= 1'b0;
-          actvrdctB <= 1'b0;
-          actvtbedB <= 1'b0;
-          setbdomB <= 1'b0;
-          setbrecB <= 1'b0;
-          lcrcB <= 1'b0;
-          tshiftB <= 1'b0;
-          inconerecB <= 1'b0;
-          incegtrecB <= 1'b0;
-          incegttraB <= 1'b0;
-          lmsgB <= 1'b0;
-          decrecB <= 1'b0;
-          dectraB <= 1'b0;
-          elevrecbB <= 1'b0;
-          hardsyncB <= 1'b0;
-          resetdstB <= 1'b1;
-          resetstfB <= 1'b1;
-          inccountB <= 1'b1;
-          rescountB <= 1'b1;
-          setrmlenoB <= 2;
-          actvrmlnB <= 1'b1;
-          resrmlenB <= 1'b1;
-          ackerror_setB <= 2'b10;
-          transmitter_setB <= 2'b10;
-          receiver_setB <= 2'b11;
-          error_setB <= 2'b10;
-          first_setB <= 2'b10;
-          activatefastB <= 1'b0;
-          puffer_setB <= 2'b10;
-          onarbit_setB <= 2'b10;
-          en_zerointcrcB <= 1'b1;
-          crc_shft_outB <= 1'b0;
-          next_stateB <= rec_flglen_setdlc;
-        end
-      rec_flglen_shiftdlc8 : 
-        begin
-          rext_setB <= 2'b00;
-          rrtr_setB <= 2'b00;
-          actvtcrcB <= 1'b0;
-          actvrcrcB <= 1'b1;
-          actvtstfB <= 1'b0;
-          actvrstfB <= 1'b0;
-          actvtsftB <= 1'b0;
-          actvrsftB <= 1'b1;
-          actvtdctB <= 1'b0;
-          actvrdctB <= 1'b0;
-          actvtbedB <= 1'b0;
-          setbdomB <= 1'b0;
-          setbrecB <= 1'b0;
-          lcrcB <= 1'b0;
-          tshiftB <= 1'b0;
-          inconerecB <= 1'b0;
-          incegtrecB <= 1'b0;
-          incegttraB <= 1'b0;
-          lmsgB <= 1'b0;
-          decrecB <= 1'b0;
-          dectraB <= 1'b0;
-          elevrecbB <= 1'b0;
-          hardsyncB <= 1'b0;
-          resetdstB <= 1'b1;
-          resetstfB <= 1'b1;
-          inccountB <= 1'b1;
-          rescountB <= 1'b1;
-          setrmlenoB <= 1;
-          actvrmlnB <= 1'b1;
-          resrmlenB <= 1'b1;
-          ackerror_setB <= 2'b10;
-          transmitter_setB <= 2'b10;
-          receiver_setB <= 2'b11;
-          error_setB <= 2'b10;
-          first_setB <= 2'b10;
-          activatefastB <= 1'b0;
-          puffer_setB <= 2'b10;
-          onarbit_setB <= 2'b10;
-          en_zerointcrcB <= 1'b1;
-          crc_shft_outB <= 1'b0;
-          next_stateB <= rec_flglen_setdlc;
-        end
-      rec_flglen_setdlc : 
-        begin
-          rext_setB <= 2'b00;
-          rrtr_setB <= 2'b00;
-          actvtcrcB <= 1'b0;
-          actvrcrcB <= 1'b0;
-          actvtstfB <= 1'b0;
-          actvrstfB <= 1'b0;
-          actvtsftB <= 1'b0;
-          actvrsftB <= 1'b0;
-          actvtdctB <= 1'b0;
-          actvrdctB <= 1'b0;
-          actvtbedB <= 1'b0;
-          setbdomB <= 1'b0;
-          setbrecB <= 1'b0;
-          lcrcB <= 1'b0;
-          tshiftB <= 1'b0;
-          inconerecB <= 1'b0;
-          incegtrecB <= 1'b0;
-          incegttraB <= 1'b0;
-          lmsgB <= 1'b0;
-          decrecB <= 1'b0;
-          dectraB <= 1'b0;
-          elevrecbB <= 1'b0;
-          hardsyncB <= 1'b0;
-          resetdstB <= 1'b1;
-          resetstfB <= 1'b1;
-          inccountB <= 1'b0;
-          rescountB <= 1'b1;
-          setrmlenoB <= 7;
-          actvrmlnB <= 1'b0;
-          resrmlenB <= 1'b1;
-          ackerror_setB <= 2'b10;
-          transmitter_setB <= 2'b10;
-          receiver_setB <= 2'b11;
-          error_setB <= 2'b10;
-          first_setB <= 2'b10;
-          activatefastB <= 1'b0;
-          puffer_setB <= 2'b10;
-          onarbit_setB <= 2'b10;
-          en_zerointcrcB <= 1'b1;
-          crc_shft_outB <= 1'b0;
-          if (smplpointB==1'b1&&(! ( (countB==19&&rextB==1'b0)||(countB==39&&rextB==1'b1) ) ))
-            next_stateB <= rec_flglen_sample;
-          else
-            if (smplpointB==1'b1&&((countB==19&&rextB==1'b0)||(countB==39&&rextB==1'b1))&&rrtrB==1'b0)
-              next_stateB <= rec_acptdat_sample;
-            else
-              next_stateB <= rec_flglen_setdlc;
-        end
-      rec_flglen_shiftextrtr : 
-        begin
-          rext_setB <= 2'b00;
-          rrtr_setB <= 2'b11;
-          actvtcrcB <= 1'b0;
-          actvrcrcB <= 1'b1;
-          actvtstfB <= 1'b0;
-          actvrstfB <= 1'b0;
-          actvtsftB <= 1'b0;
-          actvrsftB <= 1'b1;
-          actvtdctB <= 1'b0;
-          actvrdctB <= 1'b0;
-          actvtbedB <= 1'b0;
-          setbdomB <= 1'b0;
-          setbrecB <= 1'b0;
-          lcrcB <= 1'b0;
-          tshiftB <= 1'b0;
-          inconerecB <= 1'b0;
-          incegtrecB <= 1'b0;
-          incegttraB <= 1'b0;
-          lmsgB <= 1'b0;
-          decrecB <= 1'b0;
-          dectraB <= 1'b0;
-          elevrecbB <= 1'b0;
-          hardsyncB <= 1'b0;
-          resetdstB <= 1'b1;
-          resetstfB <= 1'b1;
-          inccountB <= 1'b1;
-          rescountB <= 1'b1;
-          setrmlenoB <= 0;
-          actvrmlnB <= 1'b0;
-          resrmlenB <= 1'b1;
-          ackerror_setB <= 2'b10;
-          transmitter_setB <= 2'b10;
-          receiver_setB <= 2'b11;
-          error_setB <= 2'b10;
-          first_setB <= 2'b10;
-          activatefastB <= 1'b0;
-          puffer_setB <= 2'b10;
-          onarbit_setB <= 2'b10;
-          en_zerointcrcB <= 1'b1;
-          crc_shft_outB <= 1'b0;
-          if (smplpointB==1'b1)
-            next_stateB <= rec_flglen_sample;
-          else
-            next_stateB <= rec_flglen_shiftextrtr;
-        end
-      rec_flglen_noshift : 
-        begin
-          rext_setB <= 2'b00;
-          rrtr_setB <= 2'b00;
-          actvtcrcB <= 1'b0;
-          actvrcrcB <= 1'b0;
-          actvtstfB <= 1'b0;
-          actvrstfB <= 1'b0;
-          actvtsftB <= 1'b0;
-          actvrsftB <= 1'b0;
-          actvtdctB <= 1'b0;
-          actvrdctB <= 1'b0;
-          actvtbedB <= 1'b0;
-          setbdomB <= 1'b0;
-          setbrecB <= 1'b0;
-          lcrcB <= 1'b0;
-          tshiftB <= 1'b0;
-          inconerecB <= 1'b0;
-          incegtrecB <= 1'b0;
-          incegttraB <= 1'b0;
-          lmsgB <= 1'b0;
-          decrecB <= 1'b0;
-          dectraB <= 1'b0;
-          elevrecbB <= 1'b0;
-          hardsyncB <= 1'b0;
-          resetdstB <= 1'b1;
-          resetstfB <= 1'b1;
-          inccountB <= 1'b0;
-          rescountB <= 1'b1;
-          setrmlenoB <= 0;
-          actvrmlnB <= 1'b0;
-          resrmlenB <= 1'b1;
-          ackerror_setB <= 2'b10;
-          transmitter_setB <= 2'b10;
-          receiver_setB <= 2'b11;
-          error_setB <= 2'b10;
-          first_setB <= 2'b10;
-          activatefastB <= 1'b0;
-          puffer_setB <= 2'b10;
-          onarbit_setB <= 2'b10;
-          en_zerointcrcB <= 1'b1;
-          crc_shft_outB <= 1'b0;
-          if (smplpointB==1'b1)
-            next_stateB <= rec_flglen_sample;
-          else
-            next_stateB <= rec_flglen_noshift;
-        end
-      rec_acptdat_sample : 
-        begin
-          rext_setB <= 2'b00;
-          rrtr_setB <= 2'b00;
-          actvtcrcB <= 1'b0;
-          actvrcrcB <= 1'b0;
-          actvtstfB <= 1'b0;
-          actvrstfB <= 1'b1;
-          actvtsftB <= 1'b0;
-          actvrsftB <= 1'b0;
-          actvtdctB <= 1'b0;
-          actvrdctB <= 1'b0;
-          actvtbedB <= 1'b0;
-          setbdomB <= 1'b0;
-          setbrecB <= 1'b0;
-          lcrcB <= 1'b0;
-          tshiftB <= 1'b0;
-          inconerecB <= 1'b0;
-          incegtrecB <= 1'b0;
-          incegttraB <= 1'b0;
-          lmsgB <= 1'b0;
-          decrecB <= 1'b0;
-          dectraB <= 1'b0;
-          elevrecbB <= 1'b0;
-          hardsyncB <= 1'b0;
-          resetdstB <= 1'b1;
-          resetstfB <= 1'b1;
-          inccountB <= 1'b0;
-          rescountB <= 1'b1;
-          setrmlenoB <= 0;
-          actvrmlnB <= 1'b0;
-          resrmlenB <= 1'b1;
-          ackerror_setB <= 2'b10;
-          transmitter_setB <= 2'b10;
-          receiver_setB <= 2'b11;
-          error_setB <= 2'b10;
-          first_setB <= 2'b10;
-          activatefastB <= 1'b0;
-          puffer_setB <= 2'b10;
-          onarbit_setB <= 2'b10;
-          en_zerointcrcB <= 1'b1;
-          crc_shft_outB <= 1'b0;
-          if (stuffrB==1'b1&&stferrorB==1'b0)
-            next_stateB <= rec_acptdat_noshift;
-          else
-            if (stferrorB==1'b1&&erroractivB==1'b1)
-              next_stateB <= erroractiv_firstdom;
-            else
-              if (stferrorB==1'b1&&errorpassivB==1'b1)
-                next_stateB <= errorpassiv_firstrec;
-              else
-                next_stateB <= rec_acptdat_shifting;
-        end
-      rec_acptdat_shifting : 
-        begin
-          rext_setB <= 2'b00;
-          rrtr_setB <= 2'b00;
-          actvtcrcB <= 1'b0;
-          actvrcrcB <= 1'b1;
-          actvtstfB <= 1'b0;
-          actvrstfB <= 1'b0;
-          actvtsftB <= 1'b0;
-          actvrsftB <= 1'b1;
-          actvtdctB <= 1'b0;
-          actvrdctB <= 1'b0;
-          actvtbedB <= 1'b0;
-          setbdomB <= 1'b0;
-          setbrecB <= 1'b0;
-          lcrcB <= 1'b0;
-          tshiftB <= 1'b0;
-          inconerecB <= 1'b0;
-          incegtrecB <= 1'b0;
-          incegttraB <= 1'b0;
-          lmsgB <= 1'b0;
-          decrecB <= 1'b0;
-          dectraB <= 1'b0;
-          elevrecbB <= 1'b0;
-          hardsyncB <= 1'b0;
-          resetdstB <= 1'b1;
-          resetstfB <= 1'b1;
-          inccountB <= 1'b1;
-          rescountB <= 1'b1;
-          setrmlenoB <= 0;
-          actvrmlnB <= 1'b0;
-          resrmlenB <= 1'b1;
-          ackerror_setB <= 2'b10;
-          transmitter_setB <= 2'b10;
-          receiver_setB <= 2'b11;
-          error_setB <= 2'b10;
-          first_setB <= 2'b10;
-          activatefastB <= 1'b0;
-          puffer_setB <= 2'b10;
-          onarbit_setB <= 2'b10;
-          en_zerointcrcB <= 1'b1;
-          crc_shft_outB <= 1'b0;
-          if (smplpointB==1'b1&&startrcrcB==1'b0)
-            next_stateB <= rec_acptdat_sample;
-          else
-            if (startrcrcB==1'b1)
-              next_stateB <= rec_acptdat_lastshift;
-            else
-              next_stateB <= rec_acptdat_shifting;
-        end
-      rec_acptdat_noshift : 
-        begin
-          rext_setB <= 2'b00;
-          rrtr_setB <= 2'b00;
-          actvtcrcB <= 1'b0;
-          actvrcrcB <= 1'b0;
-          actvtstfB <= 1'b0;
-          actvrstfB <= 1'b0;
-          actvtsftB <= 1'b0;
-          actvrsftB <= 1'b0;
-          actvtdctB <= 1'b0;
-          actvrdctB <= 1'b0;
-          actvtbedB <= 1'b0;
-          setbdomB <= 1'b0;
-          setbrecB <= 1'b0;
-          lcrcB <= 1'b0;
-          tshiftB <= 1'b0;
-          inconerecB <= 1'b0;
-          incegtrecB <= 1'b0;
-          incegttraB <= 1'b0;
-          lmsgB <= 1'b0;
-          decrecB <= 1'b0;
-          dectraB <= 1'b0;
-          elevrecbB <= 1'b0;
-          hardsyncB <= 1'b0;
-          resetdstB <= 1'b1;
-          resetstfB <= 1'b1;
-          inccountB <= 1'b0;
-          rescountB <= 1'b1;
-          setrmlenoB <= 0;
-          actvrmlnB <= 1'b0;
-          resrmlenB <= 1'b1;
-          ackerror_setB <= 2'b10;
-          transmitter_setB <= 2'b10;
-          receiver_setB <= 2'b11;
-          error_setB <= 2'b10;
-          first_setB <= 2'b10;
-          activatefastB <= 1'b0;
-          puffer_setB <= 2'b10;
-          onarbit_setB <= 2'b10;
-          en_zerointcrcB <= 1'b1;
-          crc_shft_outB <= 1'b0;
-          if (smplpointB==1'b1)
-            next_stateB <= rec_acptdat_sample;
-          else
-            next_stateB <= rec_acptdat_noshift;
-        end
-      rec_acptdat_lastshift : 
-        begin
-          rext_setB <= 2'b00;
-          rrtr_setB <= 2'b00;
-          actvtcrcB <= 1'b0;
-          actvrcrcB <= 1'b1;
-          actvtstfB <= 1'b0;
-          actvrstfB <= 1'b0;
-          actvtsftB <= 1'b0;
-          actvrsftB <= 1'b1;
-          actvtdctB <= 1'b0;
-          actvrdctB <= 1'b0;
-          actvtbedB <= 1'b0;
-          setbdomB <= 1'b0;
-          setbrecB <= 1'b0;
-          lcrcB <= 1'b0;
-          tshiftB <= 1'b0;
-          inconerecB <= 1'b0;
-          incegtrecB <= 1'b0;
-          incegttraB <= 1'b0;
-          lmsgB <= 1'b0;
-          decrecB <= 1'b0;
-          dectraB <= 1'b0;
-          elevrecbB <= 1'b0;
-          hardsyncB <= 1'b0;
-          resetdstB <= 1'b1;
-          resetstfB <= 1'b1;
-          inccountB <= 1'b0;
-          rescountB <= 1'b0;
-          setrmlenoB <= 0;
-          actvrmlnB <= 1'b0;
-          resrmlenB <= 1'b1;
-          ackerror_setB <= 2'b10;
-          transmitter_setB <= 2'b10;
-          receiver_setB <= 2'b11;
-          error_setB <= 2'b10;
-          first_setB <= 2'b10;
-          activatefastB <= 1'b0;
-          puffer_setB <= 2'b10;
-          onarbit_setB <= 2'b10;
-          en_zerointcrcB <= 1'b1;
-          crc_shft_outB <= 1'b0;
-          if (smplpointB==1'b1)
-            next_stateB <= rec_crc_rescnt;
-          else
-            next_stateB <= rec_acptdat_lastshift;
-        end
-      rec_crc_rescnt : 
-        begin
-          rext_setB <= 2'b00;
-          rrtr_setB <= 2'b00;
-          actvtcrcB <= 1'b0;
-          actvrcrcB <= 1'b0;
-          actvtstfB <= 1'b0;
-          actvrstfB <= 1'b1;
-          actvtsftB <= 1'b0;
-          actvrsftB <= 1'b0;
-          actvtdctB <= 1'b0;
-          actvrdctB <= 1'b0;
-          actvtbedB <= 1'b0;
-          setbdomB <= 1'b0;
-          setbrecB <= 1'b0;
-          lcrcB <= 1'b1;
-          tshiftB <= 1'b0;
-          inconerecB <= 1'b0;
-          incegtrecB <= 1'b0;
-          incegttraB <= 1'b0;
-          lmsgB <= 1'b0;
-          decrecB <= 1'b0;
-          dectraB <= 1'b0;
-          elevrecbB <= 1'b0;
-          hardsyncB <= 1'b0;
-          resetdstB <= 1'b1;
-          resetstfB <= 1'b1;
-          inccountB <= 1'b0;
-          rescountB <= 1'b0;
-          setrmlenoB <= 0;
-          actvrmlnB <= 1'b0;
-          resrmlenB <= 1'b1;
-          ackerror_setB <= 2'b10;
-          transmitter_setB <= 2'b10;
-          receiver_setB <= 2'b11;
-          error_setB <= 2'b10;
-          first_setB <= 2'b10;
-          activatefastB <= 1'b1;
-          puffer_setB <= 2'b10;
-          onarbit_setB <= 2'b10;
-          en_zerointcrcB <= 1'b1;
-          crc_shft_outB <= 1'b0;
-          next_stateB <= rec_crc_sample;
-        end
-      rec_crc_sample : 
-        begin
-          rext_setB <= 2'b00;
-          rrtr_setB <= 2'b00;
-          actvtcrcB <= 1'b0;
-          actvrcrcB <= 1'b0;
-          actvtstfB <= 1'b0;
-          actvrstfB <= 1'b1;
-          actvtsftB <= 1'b0;
-          actvrsftB <= 1'b0;
-          actvtdctB <= 1'b0;
-          actvrdctB <= 1'b0;
-          actvtbedB <= 1'b0;
-          setbdomB <= 1'b0;
-          setbrecB <= 1'b0;
-          lcrcB <= 1'b1;
-          tshiftB <= 1'b0;
-          inconerecB <= 1'b0;
-          incegtrecB <= 1'b0;
-          incegttraB <= 1'b0;
-          lmsgB <= 1'b0;
-          decrecB <= 1'b0;
-          dectraB <= 1'b0;
-          elevrecbB <= 1'b0;
-          hardsyncB <= 1'b0;
-          resetdstB <= 1'b1;
-          resetstfB <= 1'b1;
-          inccountB <= 1'b0;
-          rescountB <= 1'b1;
-          setrmlenoB <= 0;
-          actvrmlnB <= 1'b0;
-          resrmlenB <= 1'b1;
-          ackerror_setB <= 2'b10;
-          transmitter_setB <= 2'b10;
-          receiver_setB <= 2'b11;
-          error_setB <= 2'b10;
-          first_setB <= 2'b10;
-          activatefastB <= 1'b0;
-          puffer_setB <= 2'b10;
-          onarbit_setB <= 2'b10;
-          en_zerointcrcB <= 1'b1;
-          crc_shft_outB <= 1'b0;
-          if (stuffrB==1'b1&&stferrorB==1'b0)
-            next_stateB <= rec_crc_noshift;
-          else
-            if (stferrorB==1'b1&&erroractivB==1'b1)
-              next_stateB <= erroractiv_firstdom;
-            else
-              if (stferrorB==1'b1&&errorpassivB==1'b1)
-                next_stateB <= errorpassiv_firstrec;
-              else
-                if (countB==15)
-                  next_stateB <= rec_ack_recdelim;
-                else
-                  next_stateB <= rec_crc_shifting;
-        end
-      rec_crc_shifting : 
-        begin
-          rext_setB <= 2'b00;
-          rrtr_setB <= 2'b00;
-          actvtcrcB <= 1'b0;
-          actvrcrcB <= 1'b1;
-          actvtstfB <= 1'b0;
-          actvrstfB <= 1'b0;
-          actvtsftB <= 1'b0;
-          actvrsftB <= 1'b1;
-          actvtdctB <= 1'b0;
-          actvrdctB <= 1'b0;
-          actvtbedB <= 1'b0;
-          setbdomB <= 1'b0;
-          setbrecB <= 1'b0;
-          lcrcB <= 1'b1;
-          tshiftB <= 1'b0;
-          inconerecB <= 1'b0;
-          incegtrecB <= 1'b0;
-          incegttraB <= 1'b0;
-          lmsgB <= 1'b0;
-          decrecB <= 1'b0;
-          dectraB <= 1'b0;
-          elevrecbB <= 1'b0;
-          hardsyncB <= 1'b0;
-          resetdstB <= 1'b1;
-          resetstfB <= 1'b1;
-          inccountB <= 1'b1;
-          rescountB <= 1'b1;
-          setrmlenoB <= 0;
-          actvrmlnB <= 1'b0;
-          resrmlenB <= 1'b1;
-          ackerror_setB <= 2'b10;
-          transmitter_setB <= 2'b10;
-          receiver_setB <= 2'b11;
-          error_setB <= 2'b10;
-          first_setB <= 2'b10;
-          activatefastB <= 1'b0;
-          puffer_setB <= 2'b10;
-          onarbit_setB <= 2'b10;
-          en_zerointcrcB <= 1'b1;
-          crc_shft_outB <= 1'b0;
-          if (smplpointB==1'b1)
-            next_stateB <= rec_crc_sample;
-          else
-            next_stateB <= rec_crc_shifting;
-        end
-      rec_crc_noshift : 
-        begin
-          rext_setB <= 2'b00;
-          rrtr_setB <= 2'b00;
-          actvtcrcB <= 1'b0;
-          actvrcrcB <= 1'b0;
-          actvtstfB <= 1'b0;
-          actvrstfB <= 1'b0;
-          actvtsftB <= 1'b0;
-          actvrsftB <= 1'b0;
-          actvtdctB <= 1'b0;
-          actvrdctB <= 1'b0;
-          actvtbedB <= 1'b0;
-          setbdomB <= 1'b0;
-          setbrecB <= 1'b0;
-          lcrcB <= 1'b1;
-          tshiftB <= 1'b0;
-          inconerecB <= 1'b0;
-          incegtrecB <= 1'b0;
-          incegttraB <= 1'b0;
-          lmsgB <= 1'b0;
-          decrecB <= 1'b0;
-          dectraB <= 1'b0;
-          elevrecbB <= 1'b0;
-          hardsyncB <= 1'b0;
-          resetdstB <= 1'b1;
-          resetstfB <= 1'b1;
-          inccountB <= 1'b0;
-          rescountB <= 1'b1;
-          setrmlenoB <= 0;
-          actvrmlnB <= 1'b0;
-          resrmlenB <= 1'b1;
-          ackerror_setB <= 2'b10;
-          transmitter_setB <= 2'b10;
-          receiver_setB <= 2'b11;
-          error_setB <= 2'b10;
-          first_setB <= 2'b10;
-          activatefastB <= 1'b0;
-          puffer_setB <= 2'b10;
-          onarbit_setB <= 2'b10;
-          en_zerointcrcB <= 1'b1;
-          crc_shft_outB <= 1'b0;
-          if (smplpointB==1'b1)
-            next_stateB <= rec_crc_sample;
-          else
-            next_stateB <= rec_crc_noshift;
-        end
-      rec_ack_recdelim : 
-        begin
-          rext_setB <= 2'b00;
-          rrtr_setB <= 2'b00;
-          actvtcrcB <= 1'b0;
-          actvrcrcB <= 1'b0;
-          actvtstfB <= 1'b0;
-          actvrstfB <= 1'b1;
-          actvtsftB <= 1'b0;
-          actvrsftB <= 1'b0;
-          actvtdctB <= 1'b0;
-          actvrdctB <= 1'b1;
-          actvtbedB <= 1'b0;
-          setbdomB <= 1'b0;
-          setbrecB <= 1'b0;
-          lcrcB <= 1'b0;
-          tshiftB <= 1'b0;
-          inconerecB <= 1'b0;
-          incegtrecB <= 1'b0;
-          incegttraB <= 1'b0;
-          lmsgB <= 1'b0;
-          decrecB <= 1'b0;
-          dectraB <= 1'b0;
-          elevrecbB <= 1'b0;
-          hardsyncB <= 1'b0;
-          resetdstB <= 1'b1;
-          resetstfB <= 1'b1;
-          inccountB <= 1'b0;
-          rescountB <= 1'b0;
-          setrmlenoB <= 0;
-          actvrmlnB <= 1'b0;
-          resrmlenB <= 1'b1;
-          ackerror_setB <= 2'b10;
-          transmitter_setB <= 2'b10;
-          receiver_setB <= 2'b11;
-          error_setB <= 2'b10;
-          first_setB <= 2'b10;
-          activatefastB <= 1'b0;
-          puffer_setB <= 2'b10;
-          onarbit_setB <= 2'b10;
-          en_zerointcrcB <= 1'b1;
-          crc_shft_outB <= 1'b0;
-          if (inbitB==1'b1&&crc_okB==1'b0)
-            next_stateB <= rec_ack_prepnoack;
-          else
-            if (inbitB==1'b0&&erroractivB==1'b1)
-              next_stateB <= erroractiv_firstdom;
-            else
-              if (inbitB==1'b0&&errorpassivB==1'b1)
-                next_stateB <= errorpassiv_firstrec;
-              else
-                if (inbitB==1'b0&&busofB==1'b1)
-                  next_stateB <= busoff_first;
-                else
-                  next_stateB <= rec_ack_prepgiveack;
-        end
-      rec_ack_prepgiveack : 
-        begin
-          rext_setB <= 2'b00;
-          rrtr_setB <= 2'b00;
-          actvtcrcB <= 1'b0;
-          actvrcrcB <= 1'b0;
-          actvtstfB <= 1'b0;
-          actvrstfB <= 1'b0;
-          actvtsftB <= 1'b0;
-          actvrsftB <= 1'b0;
-          actvtdctB <= 1'b1;
-          actvrdctB <= 1'b1;
-          actvtbedB <= 1'b0;
-          setbdomB <= 1'b1;
-          setbrecB <= 1'b0;
-          lcrcB <= 1'b0;
-          tshiftB <= 1'b0;
-          inconerecB <= 1'b0;
-          incegtrecB <= 1'b0;
-          incegttraB <= 1'b0;
-          lmsgB <= 1'b0;
-          decrecB <= 1'b0;
-          dectraB <= 1'b0;
-          elevrecbB <= 1'b0;
-          hardsyncB <= 1'b0;
-          resetdstB <= 1'b1;
-          resetstfB <= 1'b1;
-          inccountB <= 1'b0;
-          rescountB <= 1'b1;
-          setrmlenoB <= 0;
-          actvrmlnB <= 1'b0;
-          resrmlenB <= 1'b1;
-          ackerror_setB <= 2'b10;
-          transmitter_setB <= 2'b10;
-          receiver_setB <= 2'b11;
-          error_setB <= 2'b10;
-          first_setB <= 2'b10;
-          activatefastB <= 1'b0;
-          puffer_setB <= 2'b10;
-          onarbit_setB <= 2'b10;
-          en_zerointcrcB <= 1'b1;
-          crc_shft_outB <= 1'b0;
-          if (sendpointB==1'b1)
-            next_stateB <= rec_ack_giveack;
-          else
-            next_stateB <= rec_ack_prepgiveack;
-        end
-      rec_ack_giveack : 
-        begin
-          rext_setB <= 2'b00;
-          rrtr_setB <= 2'b00;
-          actvtcrcB <= 1'b0;
-          actvrcrcB <= 1'b0;
-          actvtstfB <= 1'b1;
-          actvrstfB <= 1'b0;
-          actvtsftB <= 1'b1;
-          actvrsftB <= 1'b0;
-          actvtdctB <= 1'b0;
-          actvrdctB <= 1'b1;
-          actvtbedB <= 1'b0;
-          setbdomB <= 1'b1;
-          setbrecB <= 1'b0;
-          lcrcB <= 1'b0;
-          tshiftB <= 1'b0;
-          inconerecB <= 1'b0;
-          incegtrecB <= 1'b0;
-          incegttraB <= 1'b0;
-          lmsgB <= 1'b0;
-          decrecB <= 1'b0;
-          dectraB <= 1'b0;
-          elevrecbB <= 1'b0;
-          hardsyncB <= 1'b0;
-          resetdstB <= 1'b1;
-          resetstfB <= 1'b1;
-          inccountB <= 1'b0;
-          rescountB <= 1'b1;
-          setrmlenoB <= 0;
-          actvrmlnB <= 1'b0;
-          resrmlenB <= 1'b1;
-          ackerror_setB <= 2'b10;
-          transmitter_setB <= 2'b10;
-          receiver_setB <= 2'b11;
-          error_setB <= 2'b10;
-          first_setB <= 2'b10;
-          activatefastB <= 1'b0;
-          puffer_setB <= 2'b10;
-          onarbit_setB <= 2'b10;
-          en_zerointcrcB <= 1'b1;
-          crc_shft_outB <= 1'b0;
-          if (smplpointB==1'b1)
-            next_stateB <= rec_ack_checkack;
-          else
-            next_stateB <= rec_ack_giveack;
-        end
-      rec_ack_checkack : 
-        begin
-          rext_setB <= 2'b00;
-          rrtr_setB <= 2'b00;
-          actvtcrcB <= 1'b0;
-          actvrcrcB <= 1'b0;
-          actvtstfB <= 1'b0;
-          actvrstfB <= 1'b0;
-          actvtsftB <= 1'b0;
-          actvrsftB <= 1'b0;
-          actvtdctB <= 1'b0;
-          actvrdctB <= 1'b1;
-          actvtbedB <= 1'b1;
-          setbdomB <= 1'b0;
-          setbrecB <= 1'b1;
-          lcrcB <= 1'b0;
-          tshiftB <= 1'b0;
-          inconerecB <= 1'b0;
-          incegtrecB <= 1'b0;
-          incegttraB <= 1'b0;
-          lmsgB <= 1'b0;
-          decrecB <= 1'b0;
-          dectraB <= 1'b0;
-          elevrecbB <= 1'b0;
-          hardsyncB <= 1'b0;
-          resetdstB <= 1'b1;
-          resetstfB <= 1'b1;
-          inccountB <= 1'b0;
-          rescountB <= 1'b1;
-          setrmlenoB <= 0;
-          actvrmlnB <= 1'b0;
-          resrmlenB <= 1'b1;
-          ackerror_setB <= 2'b10;
-          transmitter_setB <= 2'b10;
-          receiver_setB <= 2'b11;
-          error_setB <= 2'b10;
-          first_setB <= 2'b10;
-          activatefastB <= 1'b0;
-          puffer_setB <= 2'b10;
-          onarbit_setB <= 2'b10;
-          en_zerointcrcB <= 1'b1;
-          crc_shft_outB <= 1'b0;
-          if (biterrorB==1'b1&&erroractivB==1'b1)
-            next_stateB <= erroractiv_firstdom;
-          else
-            if (biterrorB==1'b1&&errorpassivB==1'b1)
-              next_stateB <= errorpassiv_firstrec;
-            else
-              if (sendpointB==1'b1)
-                next_stateB <= rec_ack_stopack;
-              else
-                next_stateB <= rec_ack_checkack;
-        end
-      rec_ack_prepnoack : 
-        begin
-          rext_setB <= 2'b10;
-          rrtr_setB <= 2'b10;
-          actvtcrcB <= 1'b0;
-          actvrcrcB <= 1'b0;
-          actvtstfB <= 1'b0;
-          actvrstfB <= 1'b0;
-          actvtsftB <= 1'b0;
-          actvrsftB <= 1'b0;
-          actvtdctB <= 1'b0;
-          actvrdctB <= 1'b0;
-          actvtbedB <= 1'b0;
-          setbdomB <= 1'b0;
-          setbrecB <= 1'b1;
-          lcrcB <= 1'b0;
-          tshiftB <= 1'b0;
-          inconerecB <= 1'b0;
-          incegtrecB <= 1'b0;
-          incegttraB <= 1'b0;
-          lmsgB <= 1'b0;
-          decrecB <= 1'b0;
-          dectraB <= 1'b0;
-          elevrecbB <= 1'b0;
-          hardsyncB <= 1'b0;
-          resetdstB <= 1'b1;
-          resetstfB <= 1'b1;
-          inccountB <= 1'b0;
-          rescountB <= 1'b1;
-          setrmlenoB <= 0;
-          actvrmlnB <= 1'b0;
-          resrmlenB <= 1'b1;
-          ackerror_setB <= 2'b10;
-          transmitter_setB <= 2'b10;
-          receiver_setB <= 2'b11;
-          error_setB <= 2'b10;
-          first_setB <= 2'b10;
-          activatefastB <= 1'b0;
-          puffer_setB <= 2'b10;
-          onarbit_setB <= 2'b10;
-          en_zerointcrcB <= 1'b1;
-          crc_shft_outB <= 1'b0;
-          if (sendpointB==1'b1)
-            next_stateB <= rec_ack_noack;
-          else
-            next_stateB <= rec_ack_prepnoack;
-        end
-      rec_ack_noack : 
-        begin
-          rext_setB <= 2'b10;
-          rrtr_setB <= 2'b10;
-          actvtcrcB <= 1'b0;
-          actvrcrcB <= 1'b0;
-          actvtstfB <= 1'b1;
-          actvrstfB <= 1'b0;
-          actvtsftB <= 1'b0;
-          actvrsftB <= 1'b0;
-          actvtdctB <= 1'b0;
-          actvrdctB <= 1'b0;
-          actvtbedB <= 1'b0;
-          setbdomB <= 1'b0;
-          setbrecB <= 1'b1;
-          lcrcB <= 1'b0;
-          tshiftB <= 1'b0;
-          inconerecB <= 1'b0;
-          incegtrecB <= 1'b0;
-          incegttraB <= 1'b0;
-          lmsgB <= 1'b0;
-          decrecB <= 1'b0;
-          dectraB <= 1'b0;
-          elevrecbB <= 1'b0;
-          hardsyncB <= 1'b0;
-          resetdstB <= 1'b1;
-          resetstfB <= 1'b1;
-          inccountB <= 1'b0;
-          rescountB <= 1'b1;
-          setrmlenoB <= 0;
-          actvrmlnB <= 1'b0;
-          resrmlenB <= 1'b1;
-          ackerror_setB <= 2'b10;
-          transmitter_setB <= 2'b10;
-          receiver_setB <= 2'b11;
-          error_setB <= 2'b10;
-          first_setB <= 2'b10;
-          activatefastB <= 1'b0;
-          puffer_setB <= 2'b10;
-          onarbit_setB <= 2'b10;
-          en_zerointcrcB <= 1'b1;
-          crc_shft_outB <= 1'b0;
-          if (smplpointB==1'b1&&erroractivB==1'b1)
-            next_stateB <= erroractiv_firstdom;
-          else
-            if (smplpointB==1'b1&&errorpassivB==1'b1)
-              next_stateB <= errorpassiv_firstrec;
-            else
-              if (smplpointB==1'b1&&busofB==1'b1)
-                next_stateB <= busoff_first;
-              else
-                next_stateB <= rec_ack_noack;
-        end
-      rec_ack_stopack : 
-        begin
-          rext_setB <= 2'b00;
-          rrtr_setB <= 2'b00;
-          actvtcrcB <= 1'b0;
-          actvrcrcB <= 1'b0;
-          actvtstfB <= 1'b1;
-          actvrstfB <= 1'b0;
-          actvtsftB <= 1'b0;
-          actvrsftB <= 1'b0;
-          actvtdctB <= 1'b0;
-          actvrdctB <= 1'b1;
-          actvtbedB <= 1'b0;
-          setbdomB <= 1'b0;
-          setbrecB <= 1'b1;
-          lcrcB <= 1'b0;
-          tshiftB <= 1'b0;
-          inconerecB <= 1'b0;
-          incegtrecB <= 1'b0;
-          incegttraB <= 1'b0;
-          lmsgB <= 1'b0;
-          decrecB <= 1'b0;
-          dectraB <= 1'b0;
-          elevrecbB <= 1'b0;
-          hardsyncB <= 1'b0;
-          resetdstB <= 1'b1;
-          resetstfB <= 1'b1;
-          inccountB <= 1'b0;
-          rescountB <= 1'b1;
-          setrmlenoB <= 0;
-          actvrmlnB <= 1'b0;
-          resrmlenB <= 1'b1;
-          ackerror_setB <= 2'b10;
-          transmitter_setB <= 2'b10;
-          receiver_setB <= 2'b11;
-          error_setB <= 2'b10;
-          first_setB <= 2'b10;
-          activatefastB <= 1'b0;
-          puffer_setB <= 2'b10;
-          onarbit_setB <= 2'b10;
-          en_zerointcrcB <= 1'b1;
-          crc_shft_outB <= 1'b0;
-          if (smplpointB==1'b1)
-            next_stateB <= rec_edof_sample;
-          else
-            next_stateB <= rec_ack_stopack;
-        end
-      rec_edof_sample : 
-        begin
-          rext_setB <= 2'b00;
-          rrtr_setB <= 2'b00;
-          actvtcrcB <= 1'b0;
-          actvrcrcB <= 1'b0;
-          actvtstfB <= 1'b0;
-          actvrstfB <= 1'b1;
-          actvtsftB <= 1'b0;
-          actvrsftB <= 1'b0;
-          actvtdctB <= 1'b0;
-          actvrdctB <= 1'b1;
-          actvtbedB <= 1'b0;
-          setbdomB <= 1'b0;
-          setbrecB <= 1'b0;
-          lcrcB <= 1'b0;
-          tshiftB <= 1'b0;
-          inconerecB <= 1'b0;
-          incegtrecB <= 1'b0;
-          incegttraB <= 1'b0;
-          lmsgB <= 1'b0;
-          decrecB <= 1'b0;
-          dectraB <= 1'b0;
-          elevrecbB <= 1'b0;
-          hardsyncB <= 1'b0;
-          resetdstB <= 1'b1;
-          resetstfB <= 1'b1;
-          inccountB <= 1'b1;
-          rescountB <= 1'b1;
-          setrmlenoB <= 0;
-          actvrmlnB <= 1'b0;
-          resrmlenB <= 1'b1;
-          ackerror_setB <= 2'b10;
-          transmitter_setB <= 2'b10;
-          receiver_setB <= 2'b11;
-          error_setB <= 2'b10;
-          first_setB <= 2'b10;
-          activatefastB <= 1'b0;
-          puffer_setB <= 2'b10;
-          onarbit_setB <= 2'b10;
-          en_zerointcrcB <= 1'b1;
-          crc_shft_outB <= 1'b0;
-          if (inbitB==1'b0&&erroractivB==1'b1)
-            next_stateB <= erroractiv_firstdom;
-          else
-            if (inbitB==1'b0&&errorpassivB==1'b1)
-              next_stateB <= errorpassiv_firstrec;
-            else
-              next_stateB <= rec_edof_check;
-        end
-      rec_edof_check : 
-        begin
-          rext_setB <= 2'b00;
-          rrtr_setB <= 2'b00;
-          actvtcrcB <= 1'b0;
-          actvrcrcB <= 1'b0;
-          actvtstfB <= 1'b0;
-          actvrstfB <= 1'b0;
-          actvtsftB <= 1'b0;
-          actvrsftB <= 1'b0;
-          actvtdctB <= 1'b0;
-          actvrdctB <= 1'b1;
-          actvtbedB <= 1'b0;
-          setbdomB <= 1'b0;
-          setbrecB <= 1'b0;
-          lcrcB <= 1'b0;
-          tshiftB <= 1'b0;
-          inconerecB <= 1'b0;
-          incegtrecB <= 1'b0;
-          incegttraB <= 1'b0;
-          lmsgB <= 1'b0;
-          decrecB <= 1'b0;
-          dectraB <= 1'b0;
-          elevrecbB <= 1'b0;
-          hardsyncB <= 1'b0;
-          resetdstB <= 1'b1;
-          resetstfB <= 1'b1;
-          inccountB <= 1'b0;
-          rescountB <= 1'b1;
-          setrmlenoB <= 0;
-          actvrmlnB <= 1'b0;
-          resrmlenB <= 1'b1;
-          ackerror_setB <= 2'b10;
-          transmitter_setB <= 2'b10;
-          receiver_setB <= 2'b11;
-          error_setB <= 2'b10;
-          first_setB <= 2'b10;
-          activatefastB <= 1'b0;
-          puffer_setB <= 2'b10;
-          onarbit_setB <= 2'b10;
-          en_zerointcrcB <= 1'b1;
-          crc_shft_outB <= 1'b0;
-          if (countB!=7&&smplpointB==1'b1)
-            next_stateB <= rec_edof_sample;
-          else
-            if (countB==7&&inbitB==1'b1)
-              next_stateB <= rec_edof_endrec;
-            else
-              next_stateB <= rec_edof_check;
-        end
-      rec_edof_endrec : 
-        begin
-          rext_setB <= 2'b00;
-          rrtr_setB <= 2'b00;
-          actvtcrcB <= 1'b0;
-          actvrcrcB <= 1'b0;
-          actvtstfB <= 1'b0;
-          actvrstfB <= 1'b0;
-          actvtsftB <= 1'b0;
-          actvrsftB <= 1'b0;
-          actvtdctB <= 1'b0;
-          actvrdctB <= 1'b1;
-          actvtbedB <= 1'b0;
-          setbdomB <= 1'b0;
-          setbrecB <= 1'b0;
-          lcrcB <= 1'b0;
-          tshiftB <= 1'b0;
-          inconerecB <= 1'b0;
-          incegtrecB <= 1'b0;
-          incegttraB <= 1'b0;
-          lmsgB <= 1'b0;
-          decrecB <= 1'b1;
-          dectraB <= 1'b0;
-          elevrecbB <= 1'b0;
-          hardsyncB <= 1'b0;
-          resetdstB <= 1'b1;
-          resetstfB <= 1'b1;
-          inccountB <= 1'b0;
-          rescountB <= 1'b0;
-          setrmlenoB <= 0;
-          actvrmlnB <= 1'b0;
-          resrmlenB <= 1'b1;
-          ackerror_setB <= 2'b10;
-          transmitter_setB <= 2'b10;
-          receiver_setB <= 2'b11;
-          error_setB <= 2'b10;
-          first_setB <= 2'b10;
-          activatefastB <= 1'b0;
-          puffer_setB <= 2'b10;
-          onarbit_setB <= 2'b10;
-          en_zerointcrcB <= 1'b1;
-          crc_shft_outB <= 1'b0;
-          if (smplpointB==1'b1)
-            next_stateB <= rec_edof_lastbit;
-          else
-            next_stateB <= rec_edof_endrec;
-        end
-      rec_edof_lastbit : 
-        begin
-          rext_setB <= 2'b00;
-          rrtr_setB <= 2'b00;
-          actvtcrcB <= 1'b0;
-          actvrcrcB <= 1'b0;
-          actvtstfB <= 1'b0;
-          actvrstfB <= 1'b1;
-          actvtsftB <= 1'b0;
-          actvrsftB <= 1'b0;
-          actvtdctB <= 1'b0;
-          actvrdctB <= 1'b1;
-          actvtbedB <= 1'b0;
-          setbdomB <= 1'b0;
-          setbrecB <= 1'b0;
-          lcrcB <= 1'b0;
-          tshiftB <= 1'b0;
-          inconerecB <= 1'b0;
-          incegtrecB <= 1'b0;
-          incegttraB <= 1'b0;
-          lmsgB <= 1'b0;
-          decrecB <= 1'b0;
-          dectraB <= 1'b0;
-          elevrecbB <= 1'b0;
-          hardsyncB <= 1'b0;
-          resetdstB <= 1'b1;
-          resetstfB <= 1'b0;
-          inccountB <= 1'b0;
-          rescountB <= 1'b1;
-          setrmlenoB <= 0;
-          actvrmlnB <= 1'b0;
-          resrmlenB <= 1'b1;
-          ackerror_setB <= 2'b10;
-          transmitter_setB <= 2'b10;
-          receiver_setB <= 2'b11;
-          error_setB <= 2'b10;
-          first_setB <= 2'b10;
-          activatefastB <= 1'b0;
-          puffer_setB <= 2'b10;
-          onarbit_setB <= 2'b10;
-          en_zerointcrcB <= 1'b1;
-          crc_shft_outB <= 1'b0;
-          if (inbitB==1'b1)
-            next_stateB <= rec_edof_inter;
-          else
-            if (inbitB==1'b0)
-              next_stateB <= over_firstdom;
-            else
-              next_stateB <= rec_edof_lastbit;
-        end
-      rec_edof_inter : 
-        begin
-          rext_setB <= 2'b00;
-          rrtr_setB <= 2'b00;
-          actvtcrcB <= 1'b0;
-          actvrcrcB <= 1'b0;
-          actvtstfB <= 1'b0;
-          actvrstfB <= 1'b0;
-          actvtsftB <= 1'b0;
-          actvrsftB <= 1'b0;
-          actvtdctB <= 1'b0;
-          actvrdctB <= 1'b1;
-          actvtbedB <= 1'b0;
-          setbdomB <= 1'b0;
-          setbrecB <= 1'b0;
-          lcrcB <= 1'b0;
-          tshiftB <= 1'b0;
-          inconerecB <= 1'b0;
-          incegtrecB <= 1'b0;
-          incegttraB <= 1'b0;
-          lmsgB <= 1'b0;
-          decrecB <= 1'b0;
-          dectraB <= 1'b0;
-          elevrecbB <= 1'b0;
-          hardsyncB <= 1'b0;
-          resetdstB <= 1'b1;
-          resetstfB <= 1'b0;
-          inccountB <= 1'b0;
-          rescountB <= 1'b1;
-          setrmlenoB <= 0;
-          actvrmlnB <= 1'b0;
-          resrmlenB <= 1'b1;
-          ackerror_setB <= 2'b10;
-          transmitter_setB <= 2'b10;
-          receiver_setB <= 2'b11;
-          error_setB <= 2'b10;
-          first_setB <= 2'b10;
-          activatefastB <= 1'b0;
-          puffer_setB <= 2'b10;
-          onarbit_setB <= 2'b10;
-          en_zerointcrcB <= 1'b1;
-          crc_shft_outB <= 1'b0;
-          if (smplpointB==1'b1)
-            next_stateB <= inter_sample;
-          else
-            next_stateB <= rec_edof_inter;
-        end
-      over_firstdom : 
-        begin
-          rext_setB <= 2'b10;
-          rrtr_setB <= 2'b10;
-          actvtcrcB <= 1'b0;
-          actvrcrcB <= 1'b0;
-          actvtstfB <= 1'b0;
-          actvrstfB <= 1'b0;
-          actvtsftB <= 1'b0;
-          actvrsftB <= 1'b0;
-          actvtdctB <= 1'b0;
-          actvrdctB <= 1'b0;
-          actvtbedB <= 1'b0;
-          setbdomB <= 1'b1;
-          setbrecB <= 1'b0;
-          lcrcB <= 1'b0;
-          tshiftB <= 1'b0;
-          inconerecB <= 1'b0;
-          incegtrecB <= 1'b0;
-          incegttraB <= 1'b0;
-          lmsgB <= 1'b0;
-          decrecB <= 1'b0;
-          dectraB <= 1'b0;
-          elevrecbB <= 1'b0;
-          hardsyncB <= 1'b0;
-          resetdstB <= 1'b1;
-          resetstfB <= 1'b1;
-          inccountB <= 1'b0;
-          rescountB <= 1'b0;
-          setrmlenoB <= 0;
-          actvrmlnB <= 1'b0;
-          resrmlenB <= 1'b1;
-          ackerror_setB <= 2'b10;
-          transmitter_setB <= 2'b00;
-          receiver_setB <= 2'b00;
-          error_setB <= 2'b11;
-          first_setB <= 2'b10;
-          activatefastB <= 1'b0;
-          puffer_setB <= 2'b10;
-          onarbit_setB <= 2'b10;
-          en_zerointcrcB <= 1'b1;
-          crc_shft_outB <= 1'b0;
-          if (sendpointB==1'b1)
-            next_stateB <= over_senddomb;
-          else
-            next_stateB <= over_firstdom;
-        end
-      over_senddomb : 
-        begin
-          rext_setB <= 2'b10;
-          rrtr_setB <= 2'b10;
-          actvtcrcB <= 1'b0;
-          actvrcrcB <= 1'b0;
-          actvtstfB <= 1'b1;
-          actvrstfB <= 1'b0;
-          actvtsftB <= 1'b0;
-          actvrsftB <= 1'b0;
-          actvtdctB <= 1'b0;
-          actvrdctB <= 1'b0;
-          actvtbedB <= 1'b0;
-          setbdomB <= 1'b1;
-          setbrecB <= 1'b0;
-          lcrcB <= 1'b0;
-          tshiftB <= 1'b0;
-          inconerecB <= 1'b0;
-          incegtrecB <= 1'b0;
-          incegttraB <= 1'b0;
-          lmsgB <= 1'b0;
-          decrecB <= 1'b0;
-          dectraB <= 1'b0;
-          elevrecbB <= 1'b0;
-          hardsyncB <= 1'b0;
-          resetdstB <= 1'b1;
-          resetstfB <= 1'b1;
-          inccountB <= 1'b0;
-          rescountB <= 1'b1;
-          setrmlenoB <= 0;
-          actvrmlnB <= 1'b0;
-          resrmlenB <= 1'b1;
-          ackerror_setB <= 2'b10;
-          transmitter_setB <= 2'b00;
-          receiver_setB <= 2'b00;
-          error_setB <= 2'b11;
-          first_setB <= 2'b10;
-          activatefastB <= 1'b0;
-          puffer_setB <= 2'b10;
-          onarbit_setB <= 2'b10;
-          en_zerointcrcB <= 1'b1;
-          crc_shft_outB <= 1'b0;
-          if (smplpointB==1'b1)
-            next_stateB <= over_check1;
-          else
-            next_stateB <= over_senddomb;
-        end
-      over_check1 : 
-        begin
-          rext_setB <= 2'b10;
-          rrtr_setB <= 2'b10;
-          actvtcrcB <= 1'b0;
-          actvrcrcB <= 1'b0;
-          actvtstfB <= 1'b0;
-          actvrstfB <= 1'b0;
-          actvtsftB <= 1'b0;
-          actvrsftB <= 1'b0;
-          actvtdctB <= 1'b0;
-          actvrdctB <= 1'b0;
-          actvtbedB <= 1'b1;
-          setbdomB <= 1'b1;
-          setbrecB <= 1'b0;
-          lcrcB <= 1'b0;
-          tshiftB <= 1'b0;
-          inconerecB <= 1'b0;
-          incegtrecB <= 1'b0;
-          incegttraB <= 1'b0;
-          lmsgB <= 1'b0;
-          decrecB <= 1'b0;
-          dectraB <= 1'b0;
-          elevrecbB <= 1'b0;
-          hardsyncB <= 1'b0;
-          resetdstB <= 1'b1;
-          resetstfB <= 1'b1;
-          inccountB <= 1'b1;
-          rescountB <= 1'b1;
-          setrmlenoB <= 0;
-          actvrmlnB <= 1'b0;
-          resrmlenB <= 1'b1;
-          ackerror_setB <= 2'b10;
-          transmitter_setB <= 2'b00;
-          receiver_setB <= 2'b00;
-          error_setB <= 2'b11;
-          first_setB <= 2'b10;
-          activatefastB <= 1'b0;
-          puffer_setB <= 2'b10;
-          onarbit_setB <= 2'b10;
-          en_zerointcrcB <= 1'b1;
-          crc_shft_outB <= 1'b0;
-          if (sendpointB==1'b1&&biterrorB==1'b0&&countB!=6)
-            next_stateB <= over_senddomb;
-          else
-            if (biterrorB==1'b0&&countB==6)
-              next_stateB <= over_preprecb;
-            else
-              if (biterrorB==1'b1&&erroractivB==1'b1)
-                next_stateB <= erroractiv_firstdom;
-              else
-                if (biterrorB==1'b1&&errorpassivB==1'b1)
-                  next_stateB <= errorpassiv_firstrec;
-                else
-                  if (biterrorB==1'b1&&busofB==1'b1)
-                    next_stateB <= busoff_first;
-                  else
-                    next_stateB <= over_check1;
-        end
-      over_preprecb : 
-        begin
-          rext_setB <= 2'b10;
-          rrtr_setB <= 2'b10;
-          actvtcrcB <= 1'b0;
-          actvrcrcB <= 1'b0;
-          actvtstfB <= 1'b0;
-          actvrstfB <= 1'b0;
-          actvtsftB <= 1'b0;
-          actvrsftB <= 1'b0;
-          actvtdctB <= 1'b0;
-          actvrdctB <= 1'b0;
-          actvtbedB <= 1'b0;
-          setbdomB <= 1'b0;
-          setbrecB <= 1'b1;
-          lcrcB <= 1'b0;
-          tshiftB <= 1'b0;
-          inconerecB <= 1'b0;
-          incegtrecB <= 1'b0;
-          incegttraB <= 1'b0;
-          lmsgB <= 1'b0;
-          decrecB <= 1'b0;
-          dectraB <= 1'b0;
-          elevrecbB <= 1'b0;
-          hardsyncB <= 1'b0;
-          resetdstB <= 1'b1;
-          resetstfB <= 1'b1;
-          inccountB <= 1'b0;
-          rescountB <= 1'b0;
-          setrmlenoB <= 0;
-          actvrmlnB <= 1'b0;
-          resrmlenB <= 1'b1;
-          ackerror_setB <= 2'b10;
-          transmitter_setB <= 2'b00;
-          receiver_setB <= 2'b00;
-          error_setB <= 2'b11;
-          first_setB <= 2'b10;
-          activatefastB <= 1'b0;
-          puffer_setB <= 2'b10;
-          onarbit_setB <= 2'b10;
-          en_zerointcrcB <= 1'b1;
-          crc_shft_outB <= 1'b0;
-          if (sendpointB==1'b1)
-            next_stateB <= over_wtonrecb;
-          else
-            next_stateB <= over_preprecb;
-        end
-      over_wtonrecb : 
-        begin
-          rext_setB <= 2'b10;
-          rrtr_setB <= 2'b10;
-          actvtcrcB <= 1'b0;
-          actvrcrcB <= 1'b0;
-          actvtstfB <= 1'b1;
-          actvrstfB <= 1'b0;
-          actvtsftB <= 1'b0;
-          actvrsftB <= 1'b0;
-          actvtdctB <= 1'b0;
-          actvrdctB <= 1'b0;
-          actvtbedB <= 1'b0;
-          setbdomB <= 1'b0;
-          setbrecB <= 1'b1;
-          lcrcB <= 1'b0;
-          tshiftB <= 1'b0;
-          inconerecB <= 1'b0;
-          incegtrecB <= 1'b0;
-          incegttraB <= 1'b0;
-          lmsgB <= 1'b0;
-          decrecB <= 1'b0;
-          dectraB <= 1'b0;
-          elevrecbB <= 1'b0;
-          hardsyncB <= 1'b0;
-          resetdstB <= 1'b1;
-          resetstfB <= 1'b1;
-          inccountB <= 1'b1;
-          rescountB <= 1'b1;
-          setrmlenoB <= 0;
-          actvrmlnB <= 1'b0;
-          resrmlenB <= 1'b1;
-          ackerror_setB <= 2'b10;
-          transmitter_setB <= 2'b00;
-          receiver_setB <= 2'b00;
-          error_setB <= 2'b11;
-          first_setB <= 2'b10;
-          activatefastB <= 1'b0;
-          puffer_setB <= 2'b10;
-          onarbit_setB <= 2'b10;
-          en_zerointcrcB <= 1'b1;
-          crc_shft_outB <= 1'b0;
-          if (smplpointB==1'b1)
-            next_stateB <= over_check2;
-          else
-            next_stateB <= over_wtonrecb;
-        end
-      over_inctracounter : 
-        begin
-          rext_setB <= 2'b10;
-          rrtr_setB <= 2'b10;
-          actvtcrcB <= 1'b0;
-          actvrcrcB <= 1'b0;
-          actvtstfB <= 1'b1;
-          actvrstfB <= 1'b0;
-          actvtsftB <= 1'b0;
-          actvrsftB <= 1'b0;
-          actvtdctB <= 1'b0;
-          actvrdctB <= 1'b0;
-          actvtbedB <= 1'b0;
-          setbdomB <= 1'b0;
-          setbrecB <= 1'b1;
-          lcrcB <= 1'b0;
-          tshiftB <= 1'b0;
-          inconerecB <= 1'b0;
-          incegtrecB <= 1'b0;
-          incegttraB <= 1'b1;
-          lmsgB <= 1'b0;
-          decrecB <= 1'b0;
-          dectraB <= 1'b0;
-          elevrecbB <= 1'b0;
-          hardsyncB <= 1'b0;
-          resetdstB <= 1'b1;
-          resetstfB <= 1'b1;
-          inccountB <= 1'b0;
-          rescountB <= 1'b0;
-          setrmlenoB <= 0;
-          actvrmlnB <= 1'b0;
-          resrmlenB <= 1'b1;
-          ackerror_setB <= 2'b10;
-          transmitter_setB <= 2'b00;
-          receiver_setB <= 2'b00;
-          error_setB <= 2'b11;
-          first_setB <= 2'b10;
-          activatefastB <= 1'b0;
-          puffer_setB <= 2'b10;
-          onarbit_setB <= 2'b10;
-          en_zerointcrcB <= 1'b1;
-          crc_shft_outB <= 1'b0;
-          if (smplpointB==1'b1)
-            next_stateB <= over_check2;
-          else
-            next_stateB <= over_inctracounter;
-        end
-      over_increccounter : 
-        begin
-          rext_setB <= 2'b10;
-          rrtr_setB <= 2'b10;
-          actvtcrcB <= 1'b0;
-          actvrcrcB <= 1'b0;
-          actvtstfB <= 1'b1;
-          actvrstfB <= 1'b0;
-          actvtsftB <= 1'b0;
-          actvrsftB <= 1'b0;
-          actvtdctB <= 1'b0;
-          actvrdctB <= 1'b0;
-          actvtbedB <= 1'b0;
-          setbdomB <= 1'b0;
-          setbrecB <= 1'b1;
-          lcrcB <= 1'b0;
-          tshiftB <= 1'b0;
-          inconerecB <= 1'b0;
-          incegtrecB <= 1'b1;
-          incegttraB <= 1'b0;
-          lmsgB <= 1'b0;
-          decrecB <= 1'b0;
-          dectraB <= 1'b0;
-          elevrecbB <= 1'b0;
-          hardsyncB <= 1'b0;
-          resetdstB <= 1'b1;
-          resetstfB <= 1'b1;
-          inccountB <= 1'b0;
-          rescountB <= 1'b0;
-          setrmlenoB <= 0;
-          actvrmlnB <= 1'b0;
-          resrmlenB <= 1'b1;
-          ackerror_setB <= 2'b10;
-          transmitter_setB <= 2'b00;
-          receiver_setB <= 2'b00;
-          error_setB <= 2'b11;
-          first_setB <= 2'b10;
-          activatefastB <= 1'b0;
-          puffer_setB <= 2'b10;
-          onarbit_setB <= 2'b10;
-          en_zerointcrcB <= 1'b1;
-          crc_shft_outB <= 1'b0;
-          if (smplpointB==1'b1)
-            next_stateB <= over_check2;
-          else
-            next_stateB <= over_increccounter;
-        end
-      over_check2 : 
-        begin
-          rext_setB <= 2'b10;
-          rrtr_setB <= 2'b10;
-          actvtcrcB <= 1'b0;
-          actvrcrcB <= 1'b0;
-          actvtstfB <= 1'b0;
-          actvrstfB <= 1'b0;
-          actvtsftB <= 1'b0;
-          actvrsftB <= 1'b0;
-          actvtdctB <= 1'b0;
-          actvrdctB <= 1'b0;
-          actvtbedB <= 1'b1;
-          setbdomB <= 1'b0;
-          setbrecB <= 1'b1;
-          lcrcB <= 1'b0;
-          tshiftB <= 1'b0;
-          inconerecB <= 1'b0;
-          incegtrecB <= 1'b0;
-          incegttraB <= 1'b0;
-          lmsgB <= 1'b0;
-          decrecB <= 1'b0;
-          dectraB <= 1'b0;
-          elevrecbB <= 1'b0;
-          hardsyncB <= 1'b0;
-          resetdstB <= 1'b1;
-          resetstfB <= 1'b1;
-          inccountB <= 1'b0;
-          rescountB <= 1'b1;
-          setrmlenoB <= 0;
-          actvrmlnB <= 1'b0;
-          resrmlenB <= 1'b1;
-          ackerror_setB <= 2'b10;
-          transmitter_setB <= 2'b00;
-          receiver_setB <= 2'b00;
-          error_setB <= 2'b11;
-          first_setB <= 2'b10;
-          activatefastB <= 1'b0;
-          puffer_setB <= 2'b10;
-          onarbit_setB <= 2'b10;
-          en_zerointcrcB <= 1'b1;
-          crc_shft_outB <= 1'b0;
-          if (sendpointB==1'b1&&biterrorB==1'b1&&countB!=7)
-            next_stateB <= over_wtonrecb;
-          else
-            if (sendpointB==1'b1&&biterrorB==1'b1&&countB==7&&receiverB==1'b1)
-              next_stateB <= over_increccounter;
-            else
-              if (sendpointB==1'b1&&biterrorB==1'b1&&countB==7&&transmitterB==1'b1)
-                next_stateB <= over_inctracounter;
-              else
-                if (biterrorB==1'b0)
-                  next_stateB <= over_prepsend;
-                else
-                  next_stateB <= over_check2;
-        end
-      over_prepsend : 
-        begin
-          rext_setB <= 2'b10;
-          rrtr_setB <= 2'b10;
-          actvtcrcB <= 1'b0;
-          actvrcrcB <= 1'b0;
-          actvtstfB <= 1'b0;
-          actvrstfB <= 1'b0;
-          actvtsftB <= 1'b0;
-          actvrsftB <= 1'b0;
-          actvtdctB <= 1'b0;
-          actvrdctB <= 1'b0;
-          actvtbedB <= 1'b0;
-          setbdomB <= 1'b0;
-          setbrecB <= 1'b1;
-          lcrcB <= 1'b0;
-          tshiftB <= 1'b0;
-          inconerecB <= 1'b0;
-          incegtrecB <= 1'b0;
-          incegttraB <= 1'b0;
-          lmsgB <= 1'b0;
-          decrecB <= 1'b0;
-          dectraB <= 1'b0;
-          elevrecbB <= 1'b0;
-          hardsyncB <= 1'b0;
-          resetdstB <= 1'b1;
-          resetstfB <= 1'b1;
-          inccountB <= 1'b0;
-          rescountB <= 1'b0;
-          setrmlenoB <= 0;
-          actvrmlnB <= 1'b0;
-          resrmlenB <= 1'b1;
-          ackerror_setB <= 2'b10;
-          transmitter_setB <= 2'b00;
-          receiver_setB <= 2'b00;
-          error_setB <= 2'b11;
-          first_setB <= 2'b10;
-          activatefastB <= 1'b0;
-          puffer_setB <= 2'b10;
-          onarbit_setB <= 2'b10;
-          en_zerointcrcB <= 1'b1;
-          crc_shft_outB <= 1'b0;
-          if (sendpointB==1'b1)
-            next_stateB <= over_sendrecb;
-          else
-            next_stateB <= over_prepsend;
-        end
-      over_sendrecb : 
-        begin
-          rext_setB <= 2'b10;
-          rrtr_setB <= 2'b10;
-          actvtcrcB <= 1'b0;
-          actvrcrcB <= 1'b0;
-          actvtstfB <= 1'b1;
-          actvrstfB <= 1'b0;
-          actvtsftB <= 1'b0;
-          actvrsftB <= 1'b0;
-          actvtdctB <= 1'b0;
-          actvrdctB <= 1'b0;
-          actvtbedB <= 1'b0;
-          setbdomB <= 1'b0;
-          setbrecB <= 1'b1;
-          lcrcB <= 1'b0;
-          tshiftB <= 1'b0;
-          inconerecB <= 1'b0;
-          incegtrecB <= 1'b0;
-          incegttraB <= 1'b0;
-          lmsgB <= 1'b0;
-          decrecB <= 1'b0;
-          dectraB <= 1'b0;
-          elevrecbB <= 1'b0;
-          hardsyncB <= 1'b0;
-          resetdstB <= 1'b1;
-          resetstfB <= 1'b1;
-          inccountB <= 1'b0;
-          rescountB <= 1'b1;
-          setrmlenoB <= 0;
-          actvrmlnB <= 1'b0;
-          resrmlenB <= 1'b1;
-          ackerror_setB <= 2'b10;
-          transmitter_setB <= 2'b00;
-          receiver_setB <= 2'b00;
-          error_setB <= 2'b11;
-          first_setB <= 2'b10;
-          activatefastB <= 1'b0;
-          puffer_setB <= 2'b10;
-          onarbit_setB <= 2'b10;
-          en_zerointcrcB <= 1'b1;
-          crc_shft_outB <= 1'b0;
-          if (smplpointB==1'b1)
-            next_stateB <= over_check3;
-          else
-            next_stateB <= over_sendrecb;
-        end
-      over_check3 : 
-        begin
-          rext_setB <= 2'b10;
-          rrtr_setB <= 2'b10;
-          actvtcrcB <= 1'b0;
-          actvrcrcB <= 1'b0;
-          actvtstfB <= 1'b0;
-          actvrstfB <= 1'b0;
-          actvtsftB <= 1'b0;
-          actvrsftB <= 1'b0;
-          actvtdctB <= 1'b0;
-          actvrdctB <= 1'b0;
-          actvtbedB <= 1'b1;
-          setbdomB <= 1'b0;
-          setbrecB <= 1'b1;
-          lcrcB <= 1'b0;
-          tshiftB <= 1'b0;
-          inconerecB <= 1'b0;
-          incegtrecB <= 1'b0;
-          incegttraB <= 1'b0;
-          lmsgB <= 1'b0;
-          decrecB <= 1'b0;
-          dectraB <= 1'b0;
-          elevrecbB <= 1'b0;
-          hardsyncB <= 1'b0;
-          resetdstB <= 1'b1;
-          resetstfB <= 1'b1;
-          inccountB <= 1'b1;
-          rescountB <= 1'b1;
-          setrmlenoB <= 0;
-          actvrmlnB <= 1'b0;
-          resrmlenB <= 1'b1;
-          ackerror_setB <= 2'b10;
-          transmitter_setB <= 2'b00;
-          receiver_setB <= 2'b00;
-          error_setB <= 2'b11;
-          first_setB <= 2'b10;
-          activatefastB <= 1'b0;
-          puffer_setB <= 2'b10;
-          onarbit_setB <= 2'b10;
-          en_zerointcrcB <= 1'b1;
-          crc_shft_outB <= 1'b0;
-          if (sendpointB==1'b1&&biterrorB==1'b0&&countB!=7)
-            next_stateB <= over_sendrecb;
-          else
-            if (biterrorB==1'b0&&countB==7)
-              next_stateB <= over_waitoclk;
-            else
-              if (biterrorB==1'b1&&countB==7)
-                next_stateB <= over_firstdom;
-              else
-                if (biterrorB==1'b1&&erroractivB==1'b1&&countB!=7)
-                  next_stateB <= erroractiv_firstdom;
-                else
-                  if (biterrorB==1'b1&&errorpassivB==1'b1&&countB!=7)
-                    next_stateB <= errorpassiv_firstrec;
-                  else
-                    if (biterrorB==1'b1&&busofB==1'b1&&countB!=7)
-                      next_stateB <= busoff_first;
-                    else
-                      next_stateB <= over_check3;
-        end
-      over_waitoclk : 
-        begin
-          rext_setB <= 2'b10;
-          rrtr_setB <= 2'b10;
-          actvtcrcB <= 1'b0;
-          actvrcrcB <= 1'b0;
-          actvtstfB <= 1'b0;
-          actvrstfB <= 1'b0;
-          actvtsftB <= 1'b0;
-          actvrsftB <= 1'b0;
-          actvtdctB <= 1'b0;
-          actvrdctB <= 1'b0;
-          actvtbedB <= 1'b0;
-          setbdomB <= 1'b0;
-          setbrecB <= 1'b0;
-          lcrcB <= 1'b0;
-          tshiftB <= 1'b0;
-          inconerecB <= 1'b0;
-          incegtrecB <= 1'b0;
-          incegttraB <= 1'b0;
-          lmsgB <= 1'b0;
-          decrecB <= 1'b0;
-          dectraB <= 1'b0;
-          elevrecbB <= 1'b0;
-          hardsyncB <= 1'b0;
-          resetdstB <= 1'b1;
-          resetstfB <= 1'b0;
-          inccountB <= 1'b0;
-          rescountB <= 1'b0;
-          setrmlenoB <= 0;
-          actvrmlnB <= 1'b0;
-          resrmlenB <= 1'b1;
-          ackerror_setB <= 2'b10;
-          transmitter_setB <= 2'b00;
-          receiver_setB <= 2'b00;
-          error_setB <= 2'b10;
-          first_setB <= 2'b10;
-          activatefastB <= 1'b0;
-          puffer_setB <= 2'b10;
-          onarbit_setB <= 2'b10;
-          en_zerointcrcB <= 1'b1;
-          crc_shft_outB <= 1'b0;
-          if (smplpointB==1'b1)
-            next_stateB <= inter_sample;
-          else
-            next_stateB <= over_waitoclk;
-        end
-      erroractiv_firstdom : 
-        begin
-          rext_setB <= 2'b10;
-          rrtr_setB <= 2'b10;
-          actvtcrcB <= 1'b0;
-          actvrcrcB <= 1'b0;
-          actvtstfB <= 1'b0;
-          actvrstfB <= 1'b0;
-          actvtsftB <= 1'b0;
-          actvrsftB <= 1'b0;
-          actvtdctB <= 1'b0;
-          actvrdctB <= 1'b0;
-          actvtbedB <= 1'b0;
-          setbdomB <= 1'b1;
-          setbrecB <= 1'b0;
-          lcrcB <= 1'b0;
-          tshiftB <= 1'b0;
-          inconerecB <= 1'b0;
-          incegtrecB <= 1'b0;
-          incegttraB <= 1'b0;
-          lmsgB <= 1'b0;
-          decrecB <= 1'b0;
-          dectraB <= 1'b0;
-          elevrecbB <= 1'b0;
-          hardsyncB <= 1'b0;
-          resetdstB <= 1'b1;
-          resetstfB <= 1'b1;
-          inccountB <= 1'b0;
-          rescountB <= 1'b0;
-          setrmlenoB <= 0;
-          actvrmlnB <= 1'b0;
-          resrmlenB <= 1'b1;
-          ackerror_setB <= 2'b10;
-          transmitter_setB <= 2'b00;
-          receiver_setB <= 2'b00;
-          error_setB <= 2'b00;
-          first_setB <= 2'b11;
-          activatefastB <= 1'b0;
-          puffer_setB <= 2'b10;
-          onarbit_setB <= 2'b00;
-          en_zerointcrcB <= 1'b1;
-          crc_shft_outB <= 1'b0;
-          if (sendpointB==1'b1&&onarbitB==1'b1)
-            next_stateB <= erroractiv_senddomb;
-          else
-            if (onarbitB==1'b0&&transmitterB==1'b0&&receiverB==1'b1&&errorB==1'b0)
-              next_stateB <= erroractiv_inceinsrec;
-            else
-              if (onarbitB==1'b0&&transmitterB==1'b0&&receiverB==1'b1&&errorB==1'b1)
-                next_stateB <= erroractiv_incachtrec;
-              else
-                if (onarbitB==1'b0&&transmitterB==1'b1)
-                  next_stateB <= erroractiv_incachttra;
-                else
-                  next_stateB <= erroractiv_firstdom;
-        end
-      erroractiv_inceinsrec : 
-        begin
-          rext_setB <= 2'b10;
-          rrtr_setB <= 2'b10;
-          actvtcrcB <= 1'b0;
-          actvrcrcB <= 1'b0;
-          actvtstfB <= 1'b0;
-          actvrstfB <= 1'b0;
-          actvtsftB <= 1'b0;
-          actvrsftB <= 1'b0;
-          actvtdctB <= 1'b0;
-          actvrdctB <= 1'b0;
-          actvtbedB <= 1'b0;
-          setbdomB <= 1'b1;
-          setbrecB <= 1'b0;
-          lcrcB <= 1'b0;
-          tshiftB <= 1'b0;
-          inconerecB <= 1'b1;
-          incegtrecB <= 1'b0;
-          incegttraB <= 1'b0;
-          lmsgB <= 1'b0;
-          decrecB <= 1'b0;
-          dectraB <= 1'b0;
-          elevrecbB <= 1'b0;
-          hardsyncB <= 1'b0;
-          resetdstB <= 1'b1;
-          resetstfB <= 1'b1;
-          inccountB <= 1'b0;
-          rescountB <= 1'b1;
-          setrmlenoB <= 0;
-          actvrmlnB <= 1'b0;
-          resrmlenB <= 1'b1;
-          ackerror_setB <= 2'b10;
-          transmitter_setB <= 2'b00;
-          receiver_setB <= 2'b00;
-          error_setB <= 2'b11;
-          first_setB <= 2'b11;
-          activatefastB <= 1'b0;
-          puffer_setB <= 2'b10;
-          onarbit_setB <= 2'b10;
-          en_zerointcrcB <= 1'b1;
-          crc_shft_outB <= 1'b0;
-          if (sendpointB==1'b1)
-            next_stateB <= erroractiv_senddomb;
-          else
-            next_stateB <= erroractiv_inceinsrec;
-        end
-      erroractiv_incachtrec : 
-        begin
-          rext_setB <= 2'b10;
-          rrtr_setB <= 2'b10;
-          actvtcrcB <= 1'b0;
-          actvrcrcB <= 1'b0;
-          actvtstfB <= 1'b0;
-          actvrstfB <= 1'b0;
-          actvtsftB <= 1'b0;
-          actvrsftB <= 1'b0;
-          actvtdctB <= 1'b0;
-          actvrdctB <= 1'b0;
-          actvtbedB <= 1'b0;
-          setbdomB <= 1'b1;
-          setbrecB <= 1'b0;
-          lcrcB <= 1'b0;
-          tshiftB <= 1'b0;
-          inconerecB <= 1'b0;
-          incegtrecB <= 1'b1;
-          incegttraB <= 1'b0;
-          lmsgB <= 1'b0;
-          decrecB <= 1'b0;
-          dectraB <= 1'b0;
-          elevrecbB <= 1'b0;
-          hardsyncB <= 1'b0;
-          resetdstB <= 1'b1;
-          resetstfB <= 1'b1;
-          inccountB <= 1'b0;
-          rescountB <= 1'b1;
-          setrmlenoB <= 0;
-          actvrmlnB <= 1'b0;
-          resrmlenB <= 1'b1;
-          ackerror_setB <= 2'b10;
-          transmitter_setB <= 2'b00;
-          receiver_setB <= 2'b00;
-          error_setB <= 2'b11;
-          first_setB <= 2'b11;
-          activatefastB <= 1'b0;
-          puffer_setB <= 2'b10;
-          onarbit_setB <= 2'b10;
-          en_zerointcrcB <= 1'b1;
-          crc_shft_outB <= 1'b0;
-          if (sendpointB==1'b1)
-            next_stateB <= erroractiv_senddomb;
-          else
-            next_stateB <= erroractiv_incachtrec;
-        end
-      erroractiv_incachttra : 
-        begin
-          rext_setB <= 2'b10;
-          rrtr_setB <= 2'b10;
-          actvtcrcB <= 1'b0;
-          actvrcrcB <= 1'b0;
-          actvtstfB <= 1'b0;
-          actvrstfB <= 1'b0;
-          actvtsftB <= 1'b0;
-          actvrsftB <= 1'b0;
-          actvtdctB <= 1'b0;
-          actvrdctB <= 1'b0;
-          actvtbedB <= 1'b0;
-          setbdomB <= 1'b1;
-          setbrecB <= 1'b0;
-          lcrcB <= 1'b0;
-          tshiftB <= 1'b0;
-          inconerecB <= 1'b0;
-          incegtrecB <= 1'b0;
-          incegttraB <= 1'b1;
-          lmsgB <= 1'b0;
-          decrecB <= 1'b0;
-          dectraB <= 1'b0;
-          elevrecbB <= 1'b0;
-          hardsyncB <= 1'b0;
-          resetdstB <= 1'b1;
-          resetstfB <= 1'b1;
-          inccountB <= 1'b0;
-          rescountB <= 1'b1;
-          setrmlenoB <= 0;
-          actvrmlnB <= 1'b0;
-          resrmlenB <= 1'b1;
-          ackerror_setB <= 2'b10;
-          transmitter_setB <= 2'b00;
-          receiver_setB <= 2'b00;
-          error_setB <= 2'b11;
-          first_setB <= 2'b11;
-          activatefastB <= 1'b0;
-          puffer_setB <= 2'b10;
-          onarbit_setB <= 2'b10;
-          en_zerointcrcB <= 1'b1;
-          crc_shft_outB <= 1'b0;
-          if (sendpointB==1'b1)
-            next_stateB <= erroractiv_senddomb;
-          else
-            next_stateB <= erroractiv_incachttra;
-        end
-      erroractiv_senddomb : 
-        begin
-          rext_setB <= 2'b10;
-          rrtr_setB <= 2'b10;
-          actvtcrcB <= 1'b0;
-          actvrcrcB <= 1'b0;
-          actvtstfB <= 1'b1;
-          actvrstfB <= 1'b0;
-          actvtsftB <= 1'b0;
-          actvrsftB <= 1'b0;
-          actvtdctB <= 1'b0;
-          actvrdctB <= 1'b0;
-          actvtbedB <= 1'b0;
-          setbdomB <= 1'b1;
-          setbrecB <= 1'b0;
-          lcrcB <= 1'b0;
-          tshiftB <= 1'b0;
-          inconerecB <= 1'b0;
-          incegtrecB <= 1'b0;
-          incegttraB <= 1'b0;
-          lmsgB <= 1'b0;
-          decrecB <= 1'b0;
-          dectraB <= 1'b0;
-          elevrecbB <= 1'b0;
-          hardsyncB <= 1'b0;
-          resetdstB <= 1'b1;
-          resetstfB <= 1'b1;
-          inccountB <= 1'b0;
-          rescountB <= 1'b1;
-          setrmlenoB <= 0;
-          actvrmlnB <= 1'b0;
-          resrmlenB <= 1'b1;
-          ackerror_setB <= 2'b10;
-          transmitter_setB <= 2'b00;
-          receiver_setB <= 2'b00;
-          error_setB <= 2'b11;
-          first_setB <= 2'b11;
-          activatefastB <= 1'b0;
-          puffer_setB <= 2'b10;
-          onarbit_setB <= 2'b10;
-          en_zerointcrcB <= 1'b1;
-          crc_shft_outB <= 1'b0;
-          if (smplpointB==1'b1)
-            next_stateB <= erroractiv_check1;
-          else
-            next_stateB <= erroractiv_senddomb;
-        end
-      erroractiv_check1 : 
-        begin
-          rext_setB <= 2'b10;
-          rrtr_setB <= 2'b10;
-          actvtcrcB <= 1'b0;
-          actvrcrcB <= 1'b0;
-          actvtstfB <= 1'b0;
-          actvrstfB <= 1'b0;
-          actvtsftB <= 1'b0;
-          actvrsftB <= 1'b0;
-          actvtdctB <= 1'b0;
-          actvrdctB <= 1'b0;
-          actvtbedB <= 1'b1;
-          setbdomB <= 1'b1;
-          setbrecB <= 1'b0;
-          lcrcB <= 1'b0;
-          tshiftB <= 1'b0;
-          inconerecB <= 1'b0;
-          incegtrecB <= 1'b0;
-          incegttraB <= 1'b0;
-          lmsgB <= 1'b0;
-          decrecB <= 1'b0;
-          dectraB <= 1'b0;
-          elevrecbB <= 1'b0;
-          hardsyncB <= 1'b0;
-          resetdstB <= 1'b1;
-          resetstfB <= 1'b1;
-          inccountB <= 1'b1;
-          rescountB <= 1'b1;
-          setrmlenoB <= 0;
-          actvrmlnB <= 1'b0;
-          resrmlenB <= 1'b1;
-          ackerror_setB <= 2'b10;
-          transmitter_setB <= 2'b00;
-          receiver_setB <= 2'b00;
-          error_setB <= 2'b11;
-          first_setB <= 2'b11;
-          activatefastB <= 1'b0;
-          puffer_setB <= 2'b10;
-          onarbit_setB <= 2'b10;
-          en_zerointcrcB <= 1'b1;
-          crc_shft_outB <= 1'b0;
-          if (sendpointB==1'b1&&biterrorB==1'b0&&countB!=6)
-            next_stateB <= erroractiv_senddomb;
-          else
-            if (biterrorB==1'b0&&countB==6)
-              next_stateB <= erroractiv_preprecb;
-            else
-              if (biterrorB==1'b1&&erroractivB==1'b1)
-                next_stateB <= erroractiv_firstdom;
-              else
-                if (biterrorB==1'b1&&errorpassivB==1'b1)
-                  next_stateB <= errorpassiv_firstrec;
-                else
-                  if (biterrorB==1'b1&&busofB==1'b1)
-                    next_stateB <= busoff_first;
-                  else
-                    next_stateB <= erroractiv_check1;
-        end
-      erroractiv_preprecb : 
-        begin
-          rext_setB <= 2'b10;
-          rrtr_setB <= 2'b10;
-          actvtcrcB <= 1'b0;
-          actvrcrcB <= 1'b0;
-          actvtstfB <= 1'b0;
-          actvrstfB <= 1'b0;
-          actvtsftB <= 1'b0;
-          actvrsftB <= 1'b0;
-          actvtdctB <= 1'b0;
-          actvrdctB <= 1'b0;
-          actvtbedB <= 1'b0;
-          setbdomB <= 1'b0;
-          setbrecB <= 1'b1;
-          lcrcB <= 1'b0;
-          tshiftB <= 1'b0;
-          inconerecB <= 1'b0;
-          incegtrecB <= 1'b0;
-          incegttraB <= 1'b0;
-          lmsgB <= 1'b0;
-          decrecB <= 1'b0;
-          dectraB <= 1'b0;
-          elevrecbB <= 1'b0;
-          hardsyncB <= 1'b0;
-          resetdstB <= 1'b1;
-          resetstfB <= 1'b1;
-          inccountB <= 1'b0;
-          rescountB <= 1'b0;
-          setrmlenoB <= 0;
-          actvrmlnB <= 1'b0;
-          resrmlenB <= 1'b1;
-          ackerror_setB <= 2'b10;
-          transmitter_setB <= 2'b00;
-          receiver_setB <= 2'b00;
-          error_setB <= 2'b11;
-          first_setB <= 2'b11;
-          activatefastB <= 1'b0;
-          puffer_setB <= 2'b10;
-          onarbit_setB <= 2'b10;
-          en_zerointcrcB <= 1'b1;
-          crc_shft_outB <= 1'b0;
-          if (sendpointB==1'b1)
-            next_stateB <= erroractiv_wtonrecb;
-          else
-            next_stateB <= erroractiv_preprecb;
-        end
-      erroractiv_wtonrecb : 
-        begin
-          rext_setB <= 2'b10;
-          rrtr_setB <= 2'b10;
-          actvtcrcB <= 1'b0;
-          actvrcrcB <= 1'b0;
-          actvtstfB <= 1'b1;
-          actvrstfB <= 1'b0;
-          actvtsftB <= 1'b0;
-          actvrsftB <= 1'b0;
-          actvtdctB <= 1'b0;
-          actvrdctB <= 1'b0;
-          actvtbedB <= 1'b0;
-          setbdomB <= 1'b0;
-          setbrecB <= 1'b1;
-          lcrcB <= 1'b0;
-          tshiftB <= 1'b0;
-          inconerecB <= 1'b0;
-          incegtrecB <= 1'b0;
-          incegttraB <= 1'b0;
-          lmsgB <= 1'b0;
-          decrecB <= 1'b0;
-          dectraB <= 1'b0;
-          elevrecbB <= 1'b0;
-          hardsyncB <= 1'b0;
-          resetdstB <= 1'b1;
-          resetstfB <= 1'b1;
-          inccountB <= 1'b1;
-          rescountB <= 1'b1;
-          setrmlenoB <= 0;
-          actvrmlnB <= 1'b0;
-          resrmlenB <= 1'b1;
-          ackerror_setB <= 2'b10;
-          transmitter_setB <= 2'b00;
-          receiver_setB <= 2'b00;
-          error_setB <= 2'b11;
-          first_setB <= 2'b00;
-          activatefastB <= 1'b0;
-          puffer_setB <= 2'b10;
-          onarbit_setB <= 2'b10;
-          en_zerointcrcB <= 1'b1;
-          crc_shft_outB <= 1'b0;
-          if (smplpointB==1'b1)
-            next_stateB <= erroractiv_check2;
-          else
-            next_stateB <= erroractiv_wtonrecb;
-        end
-      erroractiv_dombitdct : 
-        begin
-          rext_setB <= 2'b10;
-          rrtr_setB <= 2'b10;
-          actvtcrcB <= 1'b0;
-          actvrcrcB <= 1'b0;
-          actvtstfB <= 1'b1;
-          actvrstfB <= 1'b0;
-          actvtsftB <= 1'b0;
-          actvrsftB <= 1'b0;
-          actvtdctB <= 1'b0;
-          actvrdctB <= 1'b0;
-          actvtbedB <= 1'b0;
-          setbdomB <= 1'b0;
-          setbrecB <= 1'b1;
-          lcrcB <= 1'b0;
-          tshiftB <= 1'b0;
-          inconerecB <= 1'b0;
-          incegtrecB <= 1'b1;
-          incegttraB <= 1'b0;
-          lmsgB <= 1'b0;
-          decrecB <= 1'b0;
-          dectraB <= 1'b0;
-          elevrecbB <= 1'b0;
-          hardsyncB <= 1'b0;
-          resetdstB <= 1'b1;
-          resetstfB <= 1'b1;
-          inccountB <= 1'b1;
-          rescountB <= 1'b1;
-          setrmlenoB <= 0;
-          actvrmlnB <= 1'b0;
-          resrmlenB <= 1'b1;
-          ackerror_setB <= 2'b10;
-          transmitter_setB <= 2'b00;
-          receiver_setB <= 2'b00;
-          error_setB <= 2'b11;
-          first_setB <= 2'b10;
-          activatefastB <= 1'b0;
-          puffer_setB <= 2'b10;
-          onarbit_setB <= 2'b10;
-          en_zerointcrcB <= 1'b1;
-          crc_shft_outB <= 1'b0;
-          if (smplpointB==1'b1)
-            next_stateB <= erroractiv_check2;
-          else
-            next_stateB <= erroractiv_dombitdct;
-        end
-      erroractiv_egtdombr : 
-        begin
-          rext_setB <= 2'b10;
-          rrtr_setB <= 2'b10;
-          actvtcrcB <= 1'b0;
-          actvrcrcB <= 1'b0;
-          actvtstfB <= 1'b1;
-          actvrstfB <= 1'b0;
-          actvtsftB <= 1'b0;
-          actvrsftB <= 1'b0;
-          actvtdctB <= 1'b0;
-          actvrdctB <= 1'b0;
-          actvtbedB <= 1'b0;
-          setbdomB <= 1'b0;
-          setbrecB <= 1'b1;
-          lcrcB <= 1'b0;
-          tshiftB <= 1'b0;
-          inconerecB <= 1'b0;
-          incegtrecB <= 1'b1;
-          incegttraB <= 1'b0;
-          lmsgB <= 1'b0;
-          decrecB <= 1'b0;
-          dectraB <= 1'b0;
-          elevrecbB <= 1'b0;
-          hardsyncB <= 1'b0;
-          resetdstB <= 1'b1;
-          resetstfB <= 1'b1;
-          inccountB <= 1'b0;
-          rescountB <= 1'b0;
-          setrmlenoB <= 0;
-          actvrmlnB <= 1'b0;
-          resrmlenB <= 1'b1;
-          ackerror_setB <= 2'b10;
-          transmitter_setB <= 2'b00;
-          receiver_setB <= 2'b00;
-          error_setB <= 2'b11;
-          first_setB <= 2'b10;
-          activatefastB <= 1'b0;
-          puffer_setB <= 2'b10;
-          onarbit_setB <= 2'b10;
-          en_zerointcrcB <= 1'b1;
-          crc_shft_outB <= 1'b0;
-          if (smplpointB==1'b1)
-            next_stateB <= erroractiv_check2;
-          else
-            next_stateB <= erroractiv_egtdombr;
-        end
-      erroractiv_egtdombt : 
-        begin
-          rext_setB <= 2'b10;
-          rrtr_setB <= 2'b10;
-          actvtcrcB <= 1'b0;
-          actvrcrcB <= 1'b0;
-          actvtstfB <= 1'b1;
-          actvrstfB <= 1'b0;
-          actvtsftB <= 1'b0;
-          actvrsftB <= 1'b0;
-          actvtdctB <= 1'b0;
-          actvrdctB <= 1'b0;
-          actvtbedB <= 1'b0;
-          setbdomB <= 1'b0;
-          setbrecB <= 1'b1;
-          lcrcB <= 1'b0;
-          tshiftB <= 1'b0;
-          inconerecB <= 1'b0;
-          incegtrecB <= 1'b0;
-          incegttraB <= 1'b1;
-          lmsgB <= 1'b0;
-          decrecB <= 1'b0;
-          dectraB <= 1'b0;
-          elevrecbB <= 1'b0;
-          hardsyncB <= 1'b0;
-          resetdstB <= 1'b1;
-          resetstfB <= 1'b1;
-          inccountB <= 1'b0;
-          rescountB <= 1'b0;
-          setrmlenoB <= 0;
-          actvrmlnB <= 1'b0;
-          resrmlenB <= 1'b1;
-          ackerror_setB <= 2'b10;
-          transmitter_setB <= 2'b00;
-          receiver_setB <= 2'b00;
-          error_setB <= 2'b11;
-          first_setB <= 2'b10;
-          activatefastB <= 1'b0;
-          puffer_setB <= 2'b10;
-          onarbit_setB <= 2'b10;
-          en_zerointcrcB <= 1'b1;
-          crc_shft_outB <= 1'b0;
-          if (smplpointB==1'b1)
-            next_stateB <= erroractiv_check2;
-          else
-            next_stateB <= erroractiv_egtdombt;
-        end
-      erroractiv_check2 : 
-        begin
-          rext_setB <= 2'b10;
-          rrtr_setB <= 2'b10;
-          actvtcrcB <= 1'b0;
-          actvrcrcB <= 1'b0;
-          actvtstfB <= 1'b0;
-          actvrstfB <= 1'b0;
-          actvtsftB <= 1'b0;
-          actvrsftB <= 1'b0;
-          actvtdctB <= 1'b0;
-          actvrdctB <= 1'b0;
-          actvtbedB <= 1'b1;
-          setbdomB <= 1'b0;
-          setbrecB <= 1'b1;
-          lcrcB <= 1'b0;
-          tshiftB <= 1'b0;
-          inconerecB <= 1'b0;
-          incegtrecB <= 1'b0;
-          incegttraB <= 1'b0;
-          lmsgB <= 1'b0;
-          decrecB <= 1'b0;
-          dectraB <= 1'b0;
-          elevrecbB <= 1'b0;
-          hardsyncB <= 1'b0;
-          resetdstB <= 1'b1;
-          resetstfB <= 1'b1;
-          inccountB <= 1'b0;
-          rescountB <= 1'b1;
-          setrmlenoB <= 0;
-          actvrmlnB <= 1'b0;
-          resrmlenB <= 1'b1;
-          ackerror_setB <= 2'b10;
-          transmitter_setB <= 2'b00;
-          receiver_setB <= 2'b00;
-          error_setB <= 2'b11;
-          first_setB <= 2'b00;
-          activatefastB <= 1'b0;
-          puffer_setB <= 2'b10;
-          onarbit_setB <= 2'b10;
-          en_zerointcrcB <= 1'b1;
-          crc_shft_outB <= 1'b0;
-          if (sendpointB==1'b1&&biterrorB==1'b1&&countB!=7&&(countB!=1||receiverB==1'b0||firstB==1'b0))
-            next_stateB <= erroractiv_wtonrecb;
-          else
-            if (sendpointB==1'b1&&biterrorB==1'b1&&countB==1&&receiverB==1'b1&&firstB==1'b1)
-              next_stateB <= erroractiv_dombitdct;
-            else
-              if (sendpointB==1'b1&&biterrorB==1'b1&&countB==7&&transmitterB==1'b1&&receiverB==1'b0)
-                next_stateB <= erroractiv_egtdombt;
-              else
-                if (sendpointB==1'b1&&biterrorB==1'b1&&countB==7&&transmitterB==1'b0&&receiverB==1'b1)
-                  next_stateB <= erroractiv_egtdombr;
-                else
-                  if (biterrorB==1'b0)
-                    next_stateB <= erroractiv_prepsend;
-                  else
-                    next_stateB <= erroractiv_check2;
-        end
-      erroractiv_prepsend : 
-        begin
-          rext_setB <= 2'b10;
-          rrtr_setB <= 2'b10;
-          actvtcrcB <= 1'b0;
-          actvrcrcB <= 1'b0;
-          actvtstfB <= 1'b0;
-          actvrstfB <= 1'b0;
-          actvtsftB <= 1'b0;
-          actvrsftB <= 1'b0;
-          actvtdctB <= 1'b0;
-          actvrdctB <= 1'b0;
-          actvtbedB <= 1'b0;
-          setbdomB <= 1'b0;
-          setbrecB <= 1'b1;
-          lcrcB <= 1'b0;
-          tshiftB <= 1'b0;
-          inconerecB <= 1'b0;
-          incegtrecB <= 1'b0;
-          incegttraB <= 1'b0;
-          lmsgB <= 1'b0;
-          decrecB <= 1'b0;
-          dectraB <= 1'b0;
-          elevrecbB <= 1'b0;
-          hardsyncB <= 1'b0;
-          resetdstB <= 1'b1;
-          resetstfB <= 1'b1;
-          inccountB <= 1'b0;
-          rescountB <= 1'b0;
-          setrmlenoB <= 0;
-          actvrmlnB <= 1'b0;
-          resrmlenB <= 1'b1;
-          ackerror_setB <= 2'b10;
-          transmitter_setB <= 2'b00;
-          receiver_setB <= 2'b00;
-          error_setB <= 2'b11;
-          first_setB <= 2'b10;
-          activatefastB <= 1'b0;
-          puffer_setB <= 2'b10;
-          onarbit_setB <= 2'b10;
-          en_zerointcrcB <= 1'b1;
-          crc_shft_outB <= 1'b0;
-          if (sendpointB==1'b1)
-            next_stateB <= erroractiv_sendrecb;
-          else
-            next_stateB <= erroractiv_prepsend;
-        end
-      erroractiv_sendrecb : 
-        begin
-          rext_setB <= 2'b10;
-          rrtr_setB <= 2'b10;
-          actvtcrcB <= 1'b0;
-          actvrcrcB <= 1'b0;
-          actvtstfB <= 1'b1;
-          actvrstfB <= 1'b0;
-          actvtsftB <= 1'b0;
-          actvrsftB <= 1'b0;
-          actvtdctB <= 1'b0;
-          actvrdctB <= 1'b0;
-          actvtbedB <= 1'b0;
-          setbdomB <= 1'b0;
-          setbrecB <= 1'b1;
-          lcrcB <= 1'b0;
-          tshiftB <= 1'b0;
-          inconerecB <= 1'b0;
-          incegtrecB <= 1'b0;
-          incegttraB <= 1'b0;
-          lmsgB <= 1'b1;
-          decrecB <= 1'b0;
-          dectraB <= 1'b0;
-          elevrecbB <= 1'b0;
-          hardsyncB <= 1'b0;
-          resetdstB <= 1'b1;
-          resetstfB <= 1'b1;
-          inccountB <= 1'b0;
-          rescountB <= 1'b1;
-          setrmlenoB <= 0;
-          actvrmlnB <= 1'b0;
-          resrmlenB <= 1'b1;
-          ackerror_setB <= 2'b10;
-          transmitter_setB <= 2'b00;
-          receiver_setB <= 2'b00;
-          error_setB <= 2'b11;
-          first_setB <= 2'b10;
-          activatefastB <= 1'b0;
-          puffer_setB <= 2'b10;
-          onarbit_setB <= 2'b10;
-          en_zerointcrcB <= 1'b1;
-          crc_shft_outB <= 1'b0;
-          if (smplpointB==1'b1)
-            next_stateB <= erroractiv_check3;
-          else
-            next_stateB <= erroractiv_sendrecb;
-        end
-      erroractiv_check3 : 
-        begin
-          rext_setB <= 2'b10;
-          rrtr_setB <= 2'b10;
-          actvtcrcB <= 1'b0;
-          actvrcrcB <= 1'b0;
-          actvtstfB <= 1'b0;
-          actvrstfB <= 1'b0;
-          actvtsftB <= 1'b0;
-          actvrsftB <= 1'b0;
-          actvtdctB <= 1'b0;
-          actvrdctB <= 1'b0;
-          actvtbedB <= 1'b1;
-          setbdomB <= 1'b0;
-          setbrecB <= 1'b0;
-          lcrcB <= 1'b0;
-          tshiftB <= 1'b0;
-          inconerecB <= 1'b0;
-          incegtrecB <= 1'b0;
-          incegttraB <= 1'b0;
-          lmsgB <= 1'b1;
-          decrecB <= 1'b0;
-          dectraB <= 1'b0;
-          elevrecbB <= 1'b0;
-          hardsyncB <= 1'b0;
-          resetdstB <= 1'b1;
-          resetstfB <= 1'b1;
-          inccountB <= 1'b1;
-          rescountB <= 1'b1;
-          setrmlenoB <= 0;
-          actvrmlnB <= 1'b0;
-          resrmlenB <= 1'b1;
-          ackerror_setB <= 2'b10;
-          transmitter_setB <= 2'b00;
-          receiver_setB <= 2'b00;
-          error_setB <= 2'b11;
-          first_setB <= 2'b10;
-          activatefastB <= 1'b0;
-          puffer_setB <= 2'b10;
-          onarbit_setB <= 2'b10;
-          en_zerointcrcB <= 1'b1;
-          crc_shft_outB <= 1'b0;
-          if (sendpointB==1'b1&&biterrorB==1'b0&&countB!=7)
-            next_stateB <= erroractiv_sendrecb;
-          else
-            if (sendpointB==1'b1&&biterrorB==1'b0&&countB==7)
-              next_stateB <= erroractiv_waitoclk;
-            else
-              if (biterrorB==1'b1&&erroractivB==1'b1)
-                next_stateB <= erroractiv_firstdom;
-              else
-                if (biterrorB==1'b1&&errorpassivB==1'b1)
-                  next_stateB <= errorpassiv_firstrec;
-                else
-                  if (biterrorB==1'b1&&busofB==1'b1)
-                    next_stateB <= busoff_first;
-                  else
-                    next_stateB <= erroractiv_check3;
-        end
-      erroractiv_waitoclk : 
-        begin
-          rext_setB <= 2'b10;
-          rrtr_setB <= 2'b10;
-          actvtcrcB <= 1'b0;
-          actvrcrcB <= 1'b0;
-          actvtstfB <= 1'b0;
-          actvrstfB <= 1'b0;
-          actvtsftB <= 1'b1;
-          actvrsftB <= 1'b0;
-          actvtdctB <= 1'b0;
-          actvrdctB <= 1'b0;
-          actvtbedB <= 1'b0;
-          setbdomB <= 1'b0;
-          setbrecB <= 1'b0;
-          lcrcB <= 1'b0;
-          tshiftB <= 1'b0;
-          inconerecB <= 1'b0;
-          incegtrecB <= 1'b0;
-          incegttraB <= 1'b0;
-          lmsgB <= 1'b1;
-          decrecB <= 1'b0;
-          dectraB <= 1'b0;
-          elevrecbB <= 1'b0;
-          hardsyncB <= 1'b0;
-          resetdstB <= 1'b1;
-          resetstfB <= 1'b0;
-          inccountB <= 1'b0;
-          rescountB <= 1'b0;
-          setrmlenoB <= 0;
-          actvrmlnB <= 1'b0;
-          resrmlenB <= 1'b1;
-          ackerror_setB <= 2'b10;
-          transmitter_setB <= 2'b00;
-          receiver_setB <= 2'b00;
-          error_setB <= 2'b11;
-          first_setB <= 2'b10;
-          activatefastB <= 1'b0;
-          puffer_setB <= 2'b10;
-          onarbit_setB <= 2'b10;
-          en_zerointcrcB <= 1'b1;
-          crc_shft_outB <= 1'b0;
-          if (smplpointB==1'b1)
-            next_stateB <= inter_sample;
-          else
-            next_stateB <= erroractiv_waitoclk;
-        end
-      errorpassiv_firstrec : 
-        begin
-          rext_setB <= 2'b10;
-          rrtr_setB <= 2'b10;
-          actvtcrcB <= 1'b0;
-          actvrcrcB <= 1'b0;
-          actvtstfB <= 1'b0;
-          actvrstfB <= 1'b0;
-          actvtsftB <= 1'b0;
-          actvrsftB <= 1'b0;
-          actvtdctB <= 1'b0;
-          actvrdctB <= 1'b0;
-          actvtbedB <= 1'b0;
-          setbdomB <= 1'b0;
-          setbrecB <= 1'b1;
-          lcrcB <= 1'b0;
-          tshiftB <= 1'b0;
-          inconerecB <= 1'b0;
-          incegtrecB <= 1'b0;
-          incegttraB <= 1'b0;
-          lmsgB <= 1'b0;
-          decrecB <= 1'b0;
-          dectraB <= 1'b0;
-          elevrecbB <= 1'b0;
-          hardsyncB <= 1'b0;
-          resetdstB <= 1'b1;
-          resetstfB <= 1'b1;
-          inccountB <= 1'b0;
-          rescountB <= 1'b0;
-          setrmlenoB <= 0;
-          actvrmlnB <= 1'b0;
-          resrmlenB <= 1'b1;
-          ackerror_setB <= 2'b00;
-          transmitter_setB <= 2'b00;
-          receiver_setB <= 2'b00;
-          error_setB <= 2'b00;
-          first_setB <= 2'b11;
-          activatefastB <= 1'b0;
-          puffer_setB <= 2'b10;
-          onarbit_setB <= 2'b00;
-          en_zerointcrcB <= 1'b1;
-          crc_shft_outB <= 1'b0;
-          if (sendpointB==1'b1&&transmitterB==1'b1&&(onarbitB==1'b1||ackerrorB==1'b1))
-            next_stateB <= errorpassiv_incsrecb;
-          else
-            if (onarbitB==1'b0&&transmitterB==1'b0&&receiverB==1'b1&&errorB==1'b0)
-              next_stateB <= errorpassiv_inceinsrec;
-            else
-              if (onarbitB==1'b0&&transmitterB==1'b0&&receiverB==1'b1&&errorB==1'b1)
-                next_stateB <= errorpassiv_incachtrec;
-              else
-                if (onarbitB==1'b0&&transmitterB==1'b1&&ackerrorB==1'b0)
-                  next_stateB <= errorpassiv_incachttra;
-                else
-                  next_stateB <= errorpassiv_firstrec;
-        end
-      errorpassiv_inceinsrec : 
-        begin
-          rext_setB <= 2'b10;
-          rrtr_setB <= 2'b10;
-          actvtcrcB <= 1'b0;
-          actvrcrcB <= 1'b0;
-          actvtstfB <= 1'b0;
-          actvrstfB <= 1'b0;
-          actvtsftB <= 1'b0;
-          actvrsftB <= 1'b0;
-          actvtdctB <= 1'b0;
-          actvrdctB <= 1'b0;
-          actvtbedB <= 1'b0;
-          setbdomB <= 1'b0;
-          setbrecB <= 1'b1;
-          lcrcB <= 1'b0;
-          tshiftB <= 1'b0;
-          inconerecB <= 1'b1;
-          incegtrecB <= 1'b0;
-          incegttraB <= 1'b0;
-          lmsgB <= 1'b0;
-          decrecB <= 1'b0;
-          dectraB <= 1'b0;
-          elevrecbB <= 1'b0;
-          hardsyncB <= 1'b0;
-          resetdstB <= 1'b1;
-          resetstfB <= 1'b1;
-          inccountB <= 1'b0;
-          rescountB <= 1'b1;
-          setrmlenoB <= 0;
-          actvrmlnB <= 1'b0;
-          resrmlenB <= 1'b1;
-          ackerror_setB <= 2'b00;
-          transmitter_setB <= 2'b00;
-          receiver_setB <= 2'b00;
-          error_setB <= 2'b11;
-          first_setB <= 2'b11;
-          activatefastB <= 1'b0;
-          puffer_setB <= 2'b10;
-          onarbit_setB <= 2'b10;
-          en_zerointcrcB <= 1'b1;
-          crc_shft_outB <= 1'b0;
-          if (sendpointB==1'b1)
-            next_stateB <= errorpassiv_incsrecb;
-          else
-            next_stateB <= errorpassiv_inceinsrec;
-        end
-      errorpassiv_incachtrec : 
-        begin
-          rext_setB <= 2'b10;
-          rrtr_setB <= 2'b10;
-          actvtcrcB <= 1'b0;
-          actvrcrcB <= 1'b0;
-          actvtstfB <= 1'b0;
-          actvrstfB <= 1'b0;
-          actvtsftB <= 1'b0;
-          actvrsftB <= 1'b0;
-          actvtdctB <= 1'b0;
-          actvrdctB <= 1'b0;
-          actvtbedB <= 1'b0;
-          setbdomB <= 1'b0;
-          setbrecB <= 1'b1;
-          lcrcB <= 1'b0;
-          tshiftB <= 1'b0;
-          inconerecB <= 1'b0;
-          incegtrecB <= 1'b1;
-          incegttraB <= 1'b0;
-          lmsgB <= 1'b0;
-          decrecB <= 1'b0;
-          dectraB <= 1'b0;
-          elevrecbB <= 1'b0;
-          hardsyncB <= 1'b0;
-          resetdstB <= 1'b1;
-          resetstfB <= 1'b1;
-          inccountB <= 1'b0;
-          rescountB <= 1'b1;
-          setrmlenoB <= 0;
-          actvrmlnB <= 1'b0;
-          resrmlenB <= 1'b1;
-          ackerror_setB <= 2'b00;
-          transmitter_setB <= 2'b00;
-          receiver_setB <= 2'b00;
-          error_setB <= 2'b11;
-          first_setB <= 2'b11;
-          activatefastB <= 1'b0;
-          puffer_setB <= 2'b10;
-          onarbit_setB <= 2'b10;
-          en_zerointcrcB <= 1'b1;
-          crc_shft_outB <= 1'b0;
-          if (sendpointB==1'b1)
-            next_stateB <= errorpassiv_incsrecb;
-          else
-            next_stateB <= errorpassiv_incachtrec;
-        end
-      errorpassiv_incachttra : 
-        begin
-          rext_setB <= 2'b10;
-          rrtr_setB <= 2'b10;
-          actvtcrcB <= 1'b0;
-          actvrcrcB <= 1'b0;
-          actvtstfB <= 1'b0;
-          actvrstfB <= 1'b0;
-          actvtsftB <= 1'b0;
-          actvrsftB <= 1'b0;
-          actvtdctB <= 1'b0;
-          actvrdctB <= 1'b0;
-          actvtbedB <= 1'b0;
-          setbdomB <= 1'b0;
-          setbrecB <= 1'b1;
-          lcrcB <= 1'b0;
-          tshiftB <= 1'b0;
-          inconerecB <= 1'b0;
-          incegtrecB <= 1'b0;
-          incegttraB <= 1'b1;
-          lmsgB <= 1'b0;
-          decrecB <= 1'b0;
-          dectraB <= 1'b0;
-          elevrecbB <= 1'b0;
-          hardsyncB <= 1'b0;
-          resetdstB <= 1'b1;
-          resetstfB <= 1'b1;
-          inccountB <= 1'b0;
-          rescountB <= 1'b1;
-          setrmlenoB <= 0;
-          actvrmlnB <= 1'b0;
-          resrmlenB <= 1'b1;
-          ackerror_setB <= 2'b00;
-          transmitter_setB <= 2'b00;
-          receiver_setB <= 2'b00;
-          error_setB <= 2'b11;
-          first_setB <= 2'b11;
-          activatefastB <= 1'b0;
-          puffer_setB <= 2'b10;
-          onarbit_setB <= 2'b10;
-          en_zerointcrcB <= 1'b1;
-          crc_shft_outB <= 1'b0;
-          if (sendpointB==1'b1)
-            next_stateB <= errorpassiv_incsrecb;
-          else
-            next_stateB <= errorpassiv_incachttra;
-        end
-      errorpassiv_incsrecb : 
-        begin
-          rext_setB <= 2'b10;
-          rrtr_setB <= 2'b10;
-          actvtcrcB <= 1'b0;
-          actvrcrcB <= 1'b0;
-          actvtstfB <= 1'b1;
-          actvrstfB <= 1'b0;
-          actvtsftB <= 1'b0;
-          actvrsftB <= 1'b0;
-          actvtdctB <= 1'b0;
-          actvrdctB <= 1'b0;
-          actvtbedB <= 1'b0;
-          setbdomB <= 1'b0;
-          setbrecB <= 1'b1;
-          lcrcB <= 1'b0;
-          tshiftB <= 1'b0;
-          inconerecB <= 1'b0;
-          incegtrecB <= 1'b0;
-          incegttraB <= 1'b0;
-          lmsgB <= 1'b0;
-          decrecB <= 1'b0;
-          dectraB <= 1'b0;
-          elevrecbB <= 1'b0;
-          hardsyncB <= 1'b0;
-          resetdstB <= 1'b1;
-          resetstfB <= 1'b1;
-          inccountB <= 1'b0;
-          rescountB <= 1'b1;
-          setrmlenoB <= 0;
-          actvrmlnB <= 1'b0;
-          resrmlenB <= 1'b1;
-          ackerror_setB <= 2'b00;
-          transmitter_setB <= 2'b00;
-          receiver_setB <= 2'b00;
-          error_setB <= 2'b11;
-          first_setB <= 2'b11;
-          activatefastB <= 1'b0;
-          puffer_setB <= 2'b00;
-          onarbit_setB <= 2'b10;
-          en_zerointcrcB <= 1'b1;
-          crc_shft_outB <= 1'b0;
-          if (smplpointB==1'b1&&countB!=0)
-            next_stateB <= errorpassiv_check1;
-          else
-            if (smplpointB==1'b1&&countB==0)
-              next_stateB <= errorpassiv_fillpuffer;
-            else
-              next_stateB <= errorpassiv_incsrecb;
-        end
-      errorpassiv_fillpuffer : 
-        begin
-          rext_setB <= 2'b10;
-          rrtr_setB <= 2'b10;
-          actvtcrcB <= 1'b0;
-          actvrcrcB <= 1'b0;
-          actvtstfB <= 1'b0;
-          actvrstfB <= 1'b1;
-          actvtsftB <= 1'b0;
-          actvrsftB <= 1'b0;
-          actvtdctB <= 1'b0;
-          actvrdctB <= 1'b1;
-          actvtbedB <= 1'b0;
-          setbdomB <= 1'b0;
-          setbrecB <= 1'b1;
-          lcrcB <= 1'b0;
-          tshiftB <= 1'b0;
-          inconerecB <= 1'b0;
-          incegtrecB <= 1'b0;
-          incegttraB <= 1'b0;
-          lmsgB <= 1'b0;
-          decrecB <= 1'b0;
-          dectraB <= 1'b0;
-          elevrecbB <= 1'b0;
-          hardsyncB <= 1'b0;
-          resetdstB <= 1'b1;
-          resetstfB <= 1'b1;
-          inccountB <= 1'b1;
-          rescountB <= 1'b1;
-          setrmlenoB <= 0;
-          actvrmlnB <= 1'b0;
-          resrmlenB <= 1'b1;
-          ackerror_setB <= 2'b00;
-          transmitter_setB <= 2'b00;
-          receiver_setB <= 2'b00;
-          error_setB <= 2'b11;
-          first_setB <= 2'b11;
-          activatefastB <= 1'b0;
-          puffer_setB <= 2'b10;
-          onarbit_setB <= 2'b10;
-          en_zerointcrcB <= 1'b1;
-          crc_shft_outB <= 1'b0;
-          if (inbitB==1'b0&&transmitterB==1'b1&&ackerrorB==1'b1)
-            next_stateB <= errorpassiv_pufferdomi;
-          else
-            if (inbitB==1'b0&&(transmitterB==1'b0||ackerrorB==1'b0))
-              next_stateB <= errorpassiv_pufferdom;
-            else
-              next_stateB <= errorpassiv_pufferrec;
-        end
-      errorpassiv_pufferrec : 
-        begin
-          rext_setB <= 2'b10;
-          rrtr_setB <= 2'b10;
-          actvtcrcB <= 1'b0;
-          actvrcrcB <= 1'b0;
-          actvtstfB <= 1'b0;
-          actvrstfB <= 1'b0;
-          actvtsftB <= 1'b0;
-          actvrsftB <= 1'b0;
-          actvtdctB <= 1'b0;
-          actvrdctB <= 1'b0;
-          actvtbedB <= 1'b0;
-          setbdomB <= 1'b0;
-          setbrecB <= 1'b1;
-          lcrcB <= 1'b0;
-          tshiftB <= 1'b0;
-          inconerecB <= 1'b0;
-          incegtrecB <= 1'b0;
-          incegttraB <= 1'b0;
-          lmsgB <= 1'b0;
-          decrecB <= 1'b0;
-          dectraB <= 1'b0;
-          elevrecbB <= 1'b0;
-          hardsyncB <= 1'b0;
-          resetdstB <= 1'b1;
-          resetstfB <= 1'b1;
-          inccountB <= 1'b0;
-          rescountB <= 1'b1;
-          setrmlenoB <= 0;
-          actvrmlnB <= 1'b0;
-          resrmlenB <= 1'b1;
-          ackerror_setB <= 2'b00;
-          transmitter_setB <= 2'b00;
-          receiver_setB <= 2'b00;
-          error_setB <= 2'b11;
-          first_setB <= 2'b11;
-          activatefastB <= 1'b0;
-          puffer_setB <= 2'b11;
-          onarbit_setB <= 2'b10;
-          en_zerointcrcB <= 1'b1;
-          crc_shft_outB <= 1'b0;
-          if (sendpointB==1'b1)
-            next_stateB <= errorpassiv_incsrecb;
-          else
-            next_stateB <= errorpassiv_pufferrec;
-        end
-      errorpassiv_pufferdom : 
-        begin
-          rext_setB <= 2'b10;
-          rrtr_setB <= 2'b10;
-          actvtcrcB <= 1'b0;
-          actvrcrcB <= 1'b0;
-          actvtstfB <= 1'b0;
-          actvrstfB <= 1'b0;
-          actvtsftB <= 1'b0;
-          actvrsftB <= 1'b0;
-          actvtdctB <= 1'b0;
-          actvrdctB <= 1'b0;
-          actvtbedB <= 1'b0;
-          setbdomB <= 1'b0;
-          setbrecB <= 1'b1;
-          lcrcB <= 1'b0;
-          tshiftB <= 1'b0;
-          inconerecB <= 1'b0;
-          incegtrecB <= 1'b0;
-          incegttraB <= 1'b0;
-          lmsgB <= 1'b0;
-          decrecB <= 1'b0;
-          dectraB <= 1'b0;
-          elevrecbB <= 1'b0;
-          hardsyncB <= 1'b0;
-          resetdstB <= 1'b1;
-          resetstfB <= 1'b1;
-          inccountB <= 1'b0;
-          rescountB <= 1'b1;
-          setrmlenoB <= 0;
-          actvrmlnB <= 1'b0;
-          resrmlenB <= 1'b1;
-          ackerror_setB <= 2'b00;
-          transmitter_setB <= 2'b00;
-          receiver_setB <= 2'b00;
-          error_setB <= 2'b11;
-          first_setB <= 2'b11;
-          activatefastB <= 1'b0;
-          puffer_setB <= 2'b10;
-          onarbit_setB <= 2'b10;
-          en_zerointcrcB <= 1'b1;
-          crc_shft_outB <= 1'b0;
-          if (sendpointB==1'b1)
-            next_stateB <= errorpassiv_incsrecb;
-          else
-            next_stateB <= errorpassiv_pufferdom;
-        end
-      errorpassiv_pufferdomi : 
-        begin
-          rext_setB <= 2'b10;
-          rrtr_setB <= 2'b10;
-          actvtcrcB <= 1'b0;
-          actvrcrcB <= 1'b0;
-          actvtstfB <= 1'b0;
-          actvrstfB <= 1'b0;
-          actvtsftB <= 1'b0;
-          actvrsftB <= 1'b0;
-          actvtdctB <= 1'b0;
-          actvrdctB <= 1'b0;
-          actvtbedB <= 1'b0;
-          setbdomB <= 1'b0;
-          setbrecB <= 1'b1;
-          lcrcB <= 1'b0;
-          tshiftB <= 1'b0;
-          inconerecB <= 1'b0;
-          incegtrecB <= 1'b0;
-          incegttraB <= 1'b1;
-          lmsgB <= 1'b0;
-          decrecB <= 1'b0;
-          dectraB <= 1'b0;
-          elevrecbB <= 1'b0;
-          hardsyncB <= 1'b0;
-          resetdstB <= 1'b1;
-          resetstfB <= 1'b1;
-          inccountB <= 1'b0;
-          rescountB <= 1'b1;
-          setrmlenoB <= 0;
-          actvrmlnB <= 1'b0;
-          resrmlenB <= 1'b1;
-          ackerror_setB <= 2'b00;
-          transmitter_setB <= 2'b00;
-          receiver_setB <= 2'b00;
-          error_setB <= 2'b11;
-          first_setB <= 2'b11;
-          activatefastB <= 1'b0;
-          puffer_setB <= 2'b10;
-          onarbit_setB <= 2'b10;
-          en_zerointcrcB <= 1'b1;
-          crc_shft_outB <= 1'b0;
-          if (sendpointB==1'b1)
-            next_stateB <= errorpassiv_incsrecb;
-          else
-            next_stateB <= errorpassiv_pufferdomi;
-        end
-      errorpassiv_zersrecbo : 
-        begin
-          rext_setB <= 2'b10;
-          rrtr_setB <= 2'b10;
-          actvtcrcB <= 1'b0;
-          actvrcrcB <= 1'b0;
-          actvtstfB <= 1'b1;
-          actvrstfB <= 1'b0;
-          actvtsftB <= 1'b0;
-          actvrsftB <= 1'b0;
-          actvtdctB <= 1'b0;
-          actvrdctB <= 1'b0;
-          actvtbedB <= 1'b0;
-          setbdomB <= 1'b0;
-          setbrecB <= 1'b1;
-          lcrcB <= 1'b0;
-          tshiftB <= 1'b0;
-          inconerecB <= 1'b0;
-          incegtrecB <= 1'b0;
-          incegttraB <= 1'b0;
-          lmsgB <= 1'b0;
-          decrecB <= 1'b0;
-          dectraB <= 1'b0;
-          elevrecbB <= 1'b0;
-          hardsyncB <= 1'b0;
-          resetdstB <= 1'b1;
-          resetstfB <= 1'b1;
-          inccountB <= 1'b0;
-          rescountB <= 1'b0;
-          setrmlenoB <= 0;
-          actvrmlnB <= 1'b0;
-          resrmlenB <= 1'b1;
-          ackerror_setB <= 2'b00;
-          transmitter_setB <= 2'b00;
-          receiver_setB <= 2'b00;
-          error_setB <= 2'b11;
-          first_setB <= 2'b11;
-          activatefastB <= 1'b0;
-          puffer_setB <= 2'b11;
-          onarbit_setB <= 2'b10;
-          en_zerointcrcB <= 1'b1;
-          crc_shft_outB <= 1'b0;
-          next_stateB <= errorpassiv_newcount;
-        end
-      errorpassiv_zersrecbz : 
-        begin
-          rext_setB <= 2'b10;
-          rrtr_setB <= 2'b10;
-          actvtcrcB <= 1'b0;
-          actvrcrcB <= 1'b0;
-          actvtstfB <= 1'b1;
-          actvrstfB <= 1'b0;
-          actvtsftB <= 1'b0;
-          actvrsftB <= 1'b0;
-          actvtdctB <= 1'b0;
-          actvrdctB <= 1'b0;
-          actvtbedB <= 1'b0;
-          setbdomB <= 1'b0;
-          setbrecB <= 1'b1;
-          lcrcB <= 1'b0;
-          tshiftB <= 1'b0;
-          inconerecB <= 1'b0;
-          incegtrecB <= 1'b0;
-          incegttraB <= 1'b0;
-          lmsgB <= 1'b0;
-          decrecB <= 1'b0;
-          dectraB <= 1'b0;
-          elevrecbB <= 1'b0;
-          hardsyncB <= 1'b0;
-          resetdstB <= 1'b1;
-          resetstfB <= 1'b1;
-          inccountB <= 1'b0;
-          rescountB <= 1'b0;
-          setrmlenoB <= 0;
-          actvrmlnB <= 1'b0;
-          resrmlenB <= 1'b1;
-          ackerror_setB <= 2'b00;
-          transmitter_setB <= 2'b00;
-          receiver_setB <= 2'b00;
-          error_setB <= 2'b11;
-          first_setB <= 2'b11;
-          activatefastB <= 1'b0;
-          puffer_setB <= 2'b10;
-          onarbit_setB <= 2'b10;
-          en_zerointcrcB <= 1'b1;
-          crc_shft_outB <= 1'b0;
-          next_stateB <= errorpassiv_newcount;
-        end
-      errorpassiv_zersrecbi : 
-        begin
-          rext_setB <= 2'b10;
-          rrtr_setB <= 2'b10;
-          actvtcrcB <= 1'b0;
-          actvrcrcB <= 1'b0;
-          actvtstfB <= 1'b1;
-          actvrstfB <= 1'b0;
-          actvtsftB <= 1'b0;
-          actvrsftB <= 1'b0;
-          actvtdctB <= 1'b0;
-          actvrdctB <= 1'b0;
-          actvtbedB <= 1'b0;
-          setbdomB <= 1'b0;
-          setbrecB <= 1'b1;
-          lcrcB <= 1'b0;
-          tshiftB <= 1'b0;
-          inconerecB <= 1'b0;
-          incegtrecB <= 1'b0;
-          incegttraB <= 1'b1;
-          lmsgB <= 1'b0;
-          decrecB <= 1'b0;
-          dectraB <= 1'b0;
-          elevrecbB <= 1'b0;
-          hardsyncB <= 1'b0;
-          resetdstB <= 1'b1;
-          resetstfB <= 1'b1;
-          inccountB <= 1'b0;
-          rescountB <= 1'b0;
-          setrmlenoB <= 0;
-          actvrmlnB <= 1'b0;
-          resrmlenB <= 1'b1;
-          ackerror_setB <= 2'b10;
-          transmitter_setB <= 2'b00;
-          receiver_setB <= 2'b00;
-          error_setB <= 2'b11;
-          first_setB <= 2'b11;
-          activatefastB <= 1'b0;
-          puffer_setB <= 2'b10;
-          onarbit_setB <= 2'b10;
-          en_zerointcrcB <= 1'b1;
-          crc_shft_outB <= 1'b0;
-          next_stateB <= errorpassiv_newcount;
-        end
-      errorpassiv_newcount : 
-        begin
-          rext_setB <= 2'b10;
-          rrtr_setB <= 2'b10;
-          actvtcrcB <= 1'b0;
-          actvrcrcB <= 1'b0;
-          actvtstfB <= 1'b1;
-          actvrstfB <= 1'b0;
-          actvtsftB <= 1'b0;
-          actvrsftB <= 1'b0;
-          actvtdctB <= 1'b0;
-          actvrdctB <= 1'b0;
-          actvtbedB <= 1'b0;
-          setbdomB <= 1'b0;
-          setbrecB <= 1'b1;
-          lcrcB <= 1'b0;
-          tshiftB <= 1'b0;
-          inconerecB <= 1'b0;
-          incegtrecB <= 1'b0;
-          incegttraB <= 1'b0;
-          lmsgB <= 1'b0;
-          decrecB <= 1'b0;
-          dectraB <= 1'b0;
-          elevrecbB <= 1'b0;
-          hardsyncB <= 1'b0;
-          resetdstB <= 1'b1;
-          resetstfB <= 1'b1;
-          inccountB <= 1'b1;
-          rescountB <= 1'b1;
-          setrmlenoB <= 0;
-          actvrmlnB <= 1'b0;
-          resrmlenB <= 1'b1;
-          ackerror_setB <= 2'b10;
-          transmitter_setB <= 2'b00;
-          receiver_setB <= 2'b00;
-          error_setB <= 2'b11;
-          first_setB <= 2'b11;
-          activatefastB <= 1'b0;
-          puffer_setB <= 2'b00;
-          onarbit_setB <= 2'b10;
-          en_zerointcrcB <= 1'b1;
-          crc_shft_outB <= 1'b0;
-          next_stateB <= errorpassiv_prepcount;
-        end
-      errorpassiv_prepcount : 
-        begin
-          rext_setB <= 2'b10;
-          rrtr_setB <= 2'b10;
-          actvtcrcB <= 1'b0;
-          actvrcrcB <= 1'b0;
-          actvtstfB <= 1'b1;
-          actvrstfB <= 1'b0;
-          actvtsftB <= 1'b0;
-          actvrsftB <= 1'b0;
-          actvtdctB <= 1'b0;
-          actvrdctB <= 1'b0;
-          actvtbedB <= 1'b0;
-          setbdomB <= 1'b0;
-          setbrecB <= 1'b1;
-          lcrcB <= 1'b0;
-          tshiftB <= 1'b0;
-          inconerecB <= 1'b0;
-          incegtrecB <= 1'b0;
-          incegttraB <= 1'b0;
-          lmsgB <= 1'b0;
-          decrecB <= 1'b0;
-          dectraB <= 1'b0;
-          elevrecbB <= 1'b0;
-          hardsyncB <= 1'b0;
-          resetdstB <= 1'b1;
-          resetstfB <= 1'b1;
-          inccountB <= 1'b0;
-          rescountB <= 1'b1;
-          setrmlenoB <= 0;
-          actvrmlnB <= 1'b0;
-          resrmlenB <= 1'b1;
-          ackerror_setB <= 2'b10;
-          transmitter_setB <= 2'b00;
-          receiver_setB <= 2'b00;
-          error_setB <= 2'b11;
-          first_setB <= 2'b11;
-          activatefastB <= 1'b0;
-          puffer_setB <= 2'b00;
-          onarbit_setB <= 2'b10;
-          en_zerointcrcB <= 1'b1;
-          crc_shft_outB <= 1'b0;
-          if (smplpointB==1'b1)
-            next_stateB <= errorpassiv_check1;
-          else
-            next_stateB <= errorpassiv_prepcount;
-        end
-      errorpassiv_check1 : 
-        begin
-          rext_setB <= 2'b10;
-          rrtr_setB <= 2'b10;
-          actvtcrcB <= 1'b0;
-          actvrcrcB <= 1'b0;
-          actvtstfB <= 1'b0;
-          actvrstfB <= 1'b0;
-          actvtsftB <= 1'b0;
-          actvrsftB <= 1'b0;
-          actvtdctB <= 1'b0;
-          actvrdctB <= 1'b0;
-          actvtbedB <= 1'b1;
-          setbdomB <= 1'b0;
-          setbrecB <= 1'b1;
-          lcrcB <= 1'b0;
-          tshiftB <= 1'b0;
-          inconerecB <= 1'b0;
-          incegtrecB <= 1'b0;
-          incegttraB <= 1'b0;
-          lmsgB <= 1'b0;
-          decrecB <= 1'b0;
-          dectraB <= 1'b0;
-          elevrecbB <= 1'b0;
-          hardsyncB <= 1'b0;
-          resetdstB <= 1'b1;
-          resetstfB <= 1'b1;
-          inccountB <= 1'b1;
-          rescountB <= 1'b1;
-          setrmlenoB <= 0;
-          actvrmlnB <= 1'b0;
-          resrmlenB <= 1'b1;
-          ackerror_setB <= 2'b00;
-          transmitter_setB <= 2'b00;
-          receiver_setB <= 2'b00;
-          error_setB <= 2'b11;
-          first_setB <= 2'b11;
-          activatefastB <= 1'b0;
-          puffer_setB <= 2'b00;
-          onarbit_setB <= 2'b10;
-          en_zerointcrcB <= 1'b1;
-          crc_shft_outB <= 1'b0;
-          if (sendpointB==1'b1&&biterrorB==pufferB&&biterrorB==1'b1&&transmitterB==1'b1&&ackerrorB==1'b1)
-            next_stateB <= errorpassiv_zersrecbi;
-          else
-            if (sendpointB==1'b1&&biterrorB==pufferB&&biterrorB==1'b1&&(ackerrorB==1'b0||transmitterB==1'b0))
-              next_stateB <= errorpassiv_zersrecbz;
-            else
-              if (sendpointB==1'b1&&biterrorB==pufferB&&biterrorB==1'b0)
-                next_stateB <= errorpassiv_zersrecbo;
-              else
-                if (sendpointB==1'b1&&biterrorB!=pufferB&&countB!=6)
-                  next_stateB <= errorpassiv_incsrecb;
-                else
-                  if (biterrorB!=pufferB&&countB==6)
-                    next_stateB <= errorpassiv_preprecb;
-                  else
-                    next_stateB <= errorpassiv_check1;
-        end
-      errorpassiv_preprecb : 
-        begin
-          rext_setB <= 2'b10;
-          rrtr_setB <= 2'b10;
-          actvtcrcB <= 1'b0;
-          actvrcrcB <= 1'b0;
-          actvtstfB <= 1'b0;
-          actvrstfB <= 1'b0;
-          actvtsftB <= 1'b0;
-          actvrsftB <= 1'b0;
-          actvtdctB <= 1'b0;
-          actvrdctB <= 1'b0;
-          actvtbedB <= 1'b0;
-          setbdomB <= 1'b0;
-          setbrecB <= 1'b1;
-          lcrcB <= 1'b0;
-          tshiftB <= 1'b0;
-          inconerecB <= 1'b0;
-          incegtrecB <= 1'b0;
-          incegttraB <= 1'b0;
-          lmsgB <= 1'b0;
-          decrecB <= 1'b0;
-          dectraB <= 1'b0;
-          elevrecbB <= 1'b0;
-          hardsyncB <= 1'b0;
-          resetdstB <= 1'b1;
-          resetstfB <= 1'b1;
-          inccountB <= 1'b0;
-          rescountB <= 1'b0;
-          setrmlenoB <= 0;
-          actvrmlnB <= 1'b0;
-          resrmlenB <= 1'b1;
-          ackerror_setB <= 2'b10;
-          transmitter_setB <= 2'b00;
-          receiver_setB <= 2'b00;
-          error_setB <= 2'b11;
-          first_setB <= 2'b11;
-          activatefastB <= 1'b0;
-          puffer_setB <= 2'b10;
-          onarbit_setB <= 2'b10;
-          en_zerointcrcB <= 1'b1;
-          crc_shft_outB <= 1'b0;
-          if (sendpointB==1'b1)
-            next_stateB <= errorpassiv_wtonrecb;
-          else
-            next_stateB <= errorpassiv_preprecb;
-        end
-      errorpassiv_wtonrecb : 
-        begin
-          rext_setB <= 2'b10;
-          rrtr_setB <= 2'b10;
-          actvtcrcB <= 1'b0;
-          actvrcrcB <= 1'b0;
-          actvtstfB <= 1'b1;
-          actvrstfB <= 1'b0;
-          actvtsftB <= 1'b0;
-          actvrsftB <= 1'b0;
-          actvtdctB <= 1'b0;
-          actvrdctB <= 1'b0;
-          actvtbedB <= 1'b0;
-          setbdomB <= 1'b0;
-          setbrecB <= 1'b1;
-          lcrcB <= 1'b0;
-          tshiftB <= 1'b0;
-          inconerecB <= 1'b0;
-          incegtrecB <= 1'b0;
-          incegttraB <= 1'b0;
-          lmsgB <= 1'b0;
-          decrecB <= 1'b0;
-          dectraB <= 1'b0;
-          elevrecbB <= 1'b0;
-          hardsyncB <= 1'b0;
-          resetdstB <= 1'b1;
-          resetstfB <= 1'b1;
-          inccountB <= 1'b1;
-          rescountB <= 1'b1;
-          setrmlenoB <= 0;
-          actvrmlnB <= 1'b0;
-          resrmlenB <= 1'b1;
-          ackerror_setB <= 2'b10;
-          transmitter_setB <= 2'b00;
-          receiver_setB <= 2'b00;
-          error_setB <= 2'b11;
-          first_setB <= 2'b00;
-          activatefastB <= 1'b0;
-          puffer_setB <= 2'b10;
-          onarbit_setB <= 2'b10;
-          en_zerointcrcB <= 1'b1;
-          crc_shft_outB <= 1'b0;
-          if (smplpointB==1'b1)
-            next_stateB <= errorpassiv_check2;
-          else
-            next_stateB <= errorpassiv_wtonrecb;
-        end
-      errorpassiv_dombitdct : 
-        begin
-          rext_setB <= 2'b10;
-          rrtr_setB <= 2'b10;
-          actvtcrcB <= 1'b0;
-          actvrcrcB <= 1'b0;
-          actvtstfB <= 1'b1;
-          actvrstfB <= 1'b0;
-          actvtsftB <= 1'b0;
-          actvrsftB <= 1'b0;
-          actvtdctB <= 1'b0;
-          actvrdctB <= 1'b0;
-          actvtbedB <= 1'b0;
-          setbdomB <= 1'b0;
-          setbrecB <= 1'b1;
-          lcrcB <= 1'b0;
-          tshiftB <= 1'b0;
-          inconerecB <= 1'b0;
-          incegtrecB <= 1'b1;
-          incegttraB <= 1'b0;
-          lmsgB <= 1'b0;
-          decrecB <= 1'b0;
-          dectraB <= 1'b0;
-          elevrecbB <= 1'b0;
-          hardsyncB <= 1'b0;
-          resetdstB <= 1'b1;
-          resetstfB <= 1'b1;
-          inccountB <= 1'b1;
-          rescountB <= 1'b1;
-          setrmlenoB <= 0;
-          actvrmlnB <= 1'b0;
-          resrmlenB <= 1'b1;
-          ackerror_setB <= 2'b10;
-          transmitter_setB <= 2'b00;
-          receiver_setB <= 2'b00;
-          error_setB <= 2'b11;
-          first_setB <= 2'b10;
-          activatefastB <= 1'b0;
-          puffer_setB <= 2'b10;
-          onarbit_setB <= 2'b10;
-          en_zerointcrcB <= 1'b1;
-          crc_shft_outB <= 1'b0;
-          if (smplpointB==1'b1)
-            next_stateB <= errorpassiv_check2;
-          else
-            next_stateB <= errorpassiv_dombitdct;
-        end
-      errorpassiv_egtdombr : 
-        begin
-          rext_setB <= 2'b10;
-          rrtr_setB <= 2'b10;
-          actvtcrcB <= 1'b0;
-          actvrcrcB <= 1'b0;
-          actvtstfB <= 1'b1;
-          actvrstfB <= 1'b0;
-          actvtsftB <= 1'b0;
-          actvrsftB <= 1'b0;
-          actvtdctB <= 1'b0;
-          actvrdctB <= 1'b0;
-          actvtbedB <= 1'b0;
-          setbdomB <= 1'b0;
-          setbrecB <= 1'b1;
-          lcrcB <= 1'b0;
-          tshiftB <= 1'b0;
-          inconerecB <= 1'b0;
-          incegtrecB <= 1'b1;
-          incegttraB <= 1'b0;
-          lmsgB <= 1'b0;
-          decrecB <= 1'b0;
-          dectraB <= 1'b0;
-          elevrecbB <= 1'b0;
-          hardsyncB <= 1'b0;
-          resetdstB <= 1'b1;
-          resetstfB <= 1'b1;
-          inccountB <= 1'b0;
-          rescountB <= 1'b0;
-          setrmlenoB <= 0;
-          actvrmlnB <= 1'b0;
-          resrmlenB <= 1'b1;
-          ackerror_setB <= 2'b10;
-          transmitter_setB <= 2'b00;
-          receiver_setB <= 2'b00;
-          error_setB <= 2'b11;
-          first_setB <= 2'b10;
-          activatefastB <= 1'b0;
-          puffer_setB <= 2'b10;
-          onarbit_setB <= 2'b10;
-          en_zerointcrcB <= 1'b1;
-          crc_shft_outB <= 1'b0;
-          if (smplpointB==1'b1)
-            next_stateB <= errorpassiv_check2;
-          else
-            next_stateB <= errorpassiv_egtdombr;
-        end
-      errorpassiv_egtdombt : 
-        begin
-          rext_setB <= 2'b10;
-          rrtr_setB <= 2'b10;
-          actvtcrcB <= 1'b0;
-          actvrcrcB <= 1'b0;
-          actvtstfB <= 1'b1;
-          actvrstfB <= 1'b0;
-          actvtsftB <= 1'b0;
-          actvrsftB <= 1'b0;
-          actvtdctB <= 1'b0;
-          actvrdctB <= 1'b0;
-          actvtbedB <= 1'b0;
-          setbdomB <= 1'b0;
-          setbrecB <= 1'b1;
-          lcrcB <= 1'b0;
-          tshiftB <= 1'b0;
-          inconerecB <= 1'b0;
-          incegtrecB <= 1'b0;
-          incegttraB <= 1'b1;
-          lmsgB <= 1'b0;
-          decrecB <= 1'b0;
-          dectraB <= 1'b0;
-          elevrecbB <= 1'b0;
-          hardsyncB <= 1'b0;
-          resetdstB <= 1'b1;
-          resetstfB <= 1'b1;
-          inccountB <= 1'b0;
-          rescountB <= 1'b0;
-          setrmlenoB <= 0;
-          actvrmlnB <= 1'b0;
-          resrmlenB <= 1'b1;
-          ackerror_setB <= 2'b10;
-          transmitter_setB <= 2'b00;
-          receiver_setB <= 2'b00;
-          error_setB <= 2'b11;
-          first_setB <= 2'b10;
-          activatefastB <= 1'b0;
-          puffer_setB <= 2'b10;
-          onarbit_setB <= 2'b10;
-          en_zerointcrcB <= 1'b1;
-          crc_shft_outB <= 1'b0;
-          if (smplpointB==1'b1)
-            next_stateB <= errorpassiv_check2;
-          else
-            next_stateB <= errorpassiv_egtdombt;
-        end
-      errorpassiv_check2 : 
-        begin
-          rext_setB <= 2'b10;
-          rrtr_setB <= 2'b10;
-          actvtcrcB <= 1'b0;
-          actvrcrcB <= 1'b0;
-          actvtstfB <= 1'b0;
-          actvrstfB <= 1'b0;
-          actvtsftB <= 1'b0;
-          actvrsftB <= 1'b0;
-          actvtdctB <= 1'b0;
-          actvrdctB <= 1'b0;
-          actvtbedB <= 1'b1;
-          setbdomB <= 1'b0;
-          setbrecB <= 1'b1;
-          lcrcB <= 1'b0;
-          tshiftB <= 1'b0;
-          inconerecB <= 1'b0;
-          incegtrecB <= 1'b0;
-          incegttraB <= 1'b0;
-          lmsgB <= 1'b0;
-          decrecB <= 1'b0;
-          dectraB <= 1'b0;
-          elevrecbB <= 1'b0;
-          hardsyncB <= 1'b0;
-          resetdstB <= 1'b1;
-          resetstfB <= 1'b1;
-          inccountB <= 1'b0;
-          rescountB <= 1'b1;
-          setrmlenoB <= 0;
-          actvrmlnB <= 1'b0;
-          resrmlenB <= 1'b1;
-          ackerror_setB <= 2'b10;
-          transmitter_setB <= 2'b00;
-          receiver_setB <= 2'b00;
-          error_setB <= 2'b11;
-          first_setB <= 2'b00;
-          activatefastB <= 1'b0;
-          puffer_setB <= 2'b10;
-          onarbit_setB <= 2'b10;
-          en_zerointcrcB <= 1'b1;
-          crc_shft_outB <= 1'b0;
-          if (sendpointB==1'b1&&biterrorB==1'b1&&countB!=7&&(countB!=1||receiverB==1'b0||firstB==1'b0))
-            next_stateB <= errorpassiv_wtonrecb;
-          else
-            if (sendpointB==1'b1&&biterrorB==1'b1&&countB==1&&receiverB==1'b1&&firstB==1'b1)
-              next_stateB <= errorpassiv_dombitdct;
-            else
-              if (sendpointB==1'b1&&biterrorB==1'b1&&countB==7&&transmitterB==1'b1&&receiverB==1'b0)
-                next_stateB <= errorpassiv_egtdombt;
-              else
-                if (sendpointB==1'b1&&biterrorB==1'b1&&countB==7&&transmitterB==1'b0&&receiverB==1'b1)
-                  next_stateB <= errorpassiv_egtdombr;
-                else
-                  if (biterrorB==1'b0)
-                    next_stateB <= errorpassiv_prepsend;
-                  else
-                    next_stateB <= errorpassiv_check2;
-        end
-      errorpassiv_prepsend : 
-        begin
-          rext_setB <= 2'b10;
-          rrtr_setB <= 2'b10;
-          actvtcrcB <= 1'b0;
-          actvrcrcB <= 1'b0;
-          actvtstfB <= 1'b0;
-          actvrstfB <= 1'b0;
-          actvtsftB <= 1'b0;
-          actvrsftB <= 1'b0;
-          actvtdctB <= 1'b0;
-          actvrdctB <= 1'b0;
-          actvtbedB <= 1'b0;
-          setbdomB <= 1'b0;
-          setbrecB <= 1'b1;
-          lcrcB <= 1'b0;
-          tshiftB <= 1'b0;
-          inconerecB <= 1'b0;
-          incegtrecB <= 1'b0;
-          incegttraB <= 1'b0;
-          lmsgB <= 1'b0;
-          decrecB <= 1'b0;
-          dectraB <= 1'b0;
-          elevrecbB <= 1'b0;
-          hardsyncB <= 1'b0;
-          resetdstB <= 1'b1;
-          resetstfB <= 1'b1;
-          inccountB <= 1'b0;
-          rescountB <= 1'b0;
-          setrmlenoB <= 0;
-          actvrmlnB <= 1'b0;
-          resrmlenB <= 1'b1;
-          ackerror_setB <= 2'b10;
-          transmitter_setB <= 2'b00;
-          receiver_setB <= 2'b00;
-          error_setB <= 2'b11;
-          first_setB <= 2'b10;
-          activatefastB <= 1'b0;
-          puffer_setB <= 2'b10;
-          onarbit_setB <= 2'b10;
-          en_zerointcrcB <= 1'b1;
-          crc_shft_outB <= 1'b0;
-          if (sendpointB==1'b1)
-            next_stateB <= errorpassiv_sendrecb;
-          else
-            next_stateB <= errorpassiv_prepsend;
-        end
-      errorpassiv_sendrecb : 
-        begin
-          rext_setB <= 2'b10;
-          rrtr_setB <= 2'b10;
-          actvtcrcB <= 1'b0;
-          actvrcrcB <= 1'b0;
-          actvtstfB <= 1'b1;
-          actvrstfB <= 1'b0;
-          actvtsftB <= 1'b0;
-          actvrsftB <= 1'b0;
-          actvtdctB <= 1'b0;
-          actvrdctB <= 1'b0;
-          actvtbedB <= 1'b0;
-          setbdomB <= 1'b0;
-          setbrecB <= 1'b1;
-          lcrcB <= 1'b0;
-          tshiftB <= 1'b0;
-          inconerecB <= 1'b0;
-          incegtrecB <= 1'b0;
-          incegttraB <= 1'b0;
-          lmsgB <= 1'b1;
-          decrecB <= 1'b0;
-          dectraB <= 1'b0;
-          elevrecbB <= 1'b0;
-          hardsyncB <= 1'b0;
-          resetdstB <= 1'b1;
-          resetstfB <= 1'b1;
-          inccountB <= 1'b0;
-          rescountB <= 1'b1;
-          setrmlenoB <= 0;
-          actvrmlnB <= 1'b0;
-          resrmlenB <= 1'b1;
-          ackerror_setB <= 2'b10;
-          transmitter_setB <= 2'b00;
-          receiver_setB <= 2'b00;
-          error_setB <= 2'b11;
-          first_setB <= 2'b10;
-          activatefastB <= 1'b0;
-          puffer_setB <= 2'b10;
-          onarbit_setB <= 2'b10;
-          en_zerointcrcB <= 1'b1;
-          crc_shft_outB <= 1'b0;
-          if (smplpointB==1'b1)
-            next_stateB <= errorpassiv_check3;
-          else
-            next_stateB <= errorpassiv_sendrecb;
-        end
-      errorpassiv_check3 : 
-        begin
-          rext_setB <= 2'b10;
-          rrtr_setB <= 2'b10;
-          actvtcrcB <= 1'b0;
-          actvrcrcB <= 1'b0;
-          actvtstfB <= 1'b0;
-          actvrstfB <= 1'b0;
-          actvtsftB <= 1'b0;
-          actvrsftB <= 1'b0;
-          actvtdctB <= 1'b0;
-          actvrdctB <= 1'b0;
-          actvtbedB <= 1'b1;
-          setbdomB <= 1'b0;
-          setbrecB <= 1'b0;
-          lcrcB <= 1'b0;
-          tshiftB <= 1'b0;
-          inconerecB <= 1'b0;
-          incegtrecB <= 1'b0;
-          incegttraB <= 1'b0;
-          lmsgB <= 1'b1;
-          decrecB <= 1'b0;
-          dectraB <= 1'b0;
-          elevrecbB <= 1'b0;
-          hardsyncB <= 1'b0;
-          resetdstB <= 1'b1;
-          resetstfB <= 1'b1;
-          inccountB <= 1'b1;
-          rescountB <= 1'b1;
-          setrmlenoB <= 0;
-          actvrmlnB <= 1'b0;
-          resrmlenB <= 1'b1;
-          ackerror_setB <= 2'b10;
-          transmitter_setB <= 2'b00;
-          receiver_setB <= 2'b00;
-          error_setB <= 2'b11;
-          first_setB <= 2'b10;
-          activatefastB <= 1'b0;
-          puffer_setB <= 2'b10;
-          onarbit_setB <= 2'b10;
-          en_zerointcrcB <= 1'b1;
-          crc_shft_outB <= 1'b0;
-          if (sendpointB==1'b1&&biterrorB==1'b0&&countB!=7)
-            next_stateB <= errorpassiv_sendrecb;
-          else
-            if (sendpointB==1'b1&&biterrorB==1'b0&&countB==7)
-              next_stateB <= errorpassiv_waitoclk;
-            else
-              if (biterrorB==1'b1&&errorpassivB==1'b1)
-                next_stateB <= errorpassiv_firstrec;
-              else
-                if (biterrorB==1'b1&&busofB==1'b1)
-                  next_stateB <= busoff_first;
-                else
-                  next_stateB <= errorpassiv_check3;
-        end
-      errorpassiv_waitoclk : 
-        begin
-          rext_setB <= 2'b10;
-          rrtr_setB <= 2'b10;
-          actvtcrcB <= 1'b0;
-          actvrcrcB <= 1'b0;
-          actvtstfB <= 1'b0;
-          actvrstfB <= 1'b0;
-          actvtsftB <= 1'b1;
-          actvrsftB <= 1'b0;
-          actvtdctB <= 1'b0;
-          actvrdctB <= 1'b0;
-          actvtbedB <= 1'b0;
-          setbdomB <= 1'b0;
-          setbrecB <= 1'b0;
-          lcrcB <= 1'b0;
-          tshiftB <= 1'b0;
-          inconerecB <= 1'b0;
-          incegtrecB <= 1'b0;
-          incegttraB <= 1'b0;
-          lmsgB <= 1'b1;
-          decrecB <= 1'b0;
-          dectraB <= 1'b0;
-          elevrecbB <= 1'b0;
-          hardsyncB <= 1'b0;
-          resetdstB <= 1'b1;
-          resetstfB <= 1'b0;
-          inccountB <= 1'b0;
-          rescountB <= 1'b0;
-          setrmlenoB <= 0;
-          actvrmlnB <= 1'b0;
-          resrmlenB <= 1'b1;
-          ackerror_setB <= 2'b10;
-          transmitter_setB <= 2'b00;
-          receiver_setB <= 2'b00;
-          error_setB <= 2'b11;
-          first_setB <= 2'b10;
-          activatefastB <= 1'b0;
-          puffer_setB <= 2'b10;
-          onarbit_setB <= 2'b10;
-          en_zerointcrcB <= 1'b1;
-          crc_shft_outB <= 1'b0;
-          if (smplpointB==1'b1)
-            next_stateB <= inter_sample;
-          else
-            next_stateB <= errorpassiv_waitoclk;
-        end
-      busoff_first : 
-        begin
-          rext_setB <= 2'b10;
-          rrtr_setB <= 2'b10;
-          actvtcrcB <= 1'b0;
-          actvrcrcB <= 1'b0;
-          actvtstfB <= 1'b0;
-          actvrstfB <= 1'b0;
-          actvtsftB <= 1'b0;
-          actvrsftB <= 1'b0;
-          actvtdctB <= 1'b0;
-          actvrdctB <= 1'b1;
-          actvtbedB <= 1'b0;
-          setbdomB <= 1'b0;
-          setbrecB <= 1'b0;
-          lcrcB <= 1'b0;
-          tshiftB <= 1'b0;
-          inconerecB <= 1'b0;
-          incegtrecB <= 1'b0;
-          incegttraB <= 1'b0;
-          lmsgB <= 1'b0;
-          decrecB <= 1'b0;
-          dectraB <= 1'b0;
-          elevrecbB <= 1'b0;
-          hardsyncB <= 1'b0;
-          resetdstB <= 1'b1;
-          resetstfB <= 1'b1;
-          inccountB <= 1'b0;
-          rescountB <= 1'b0;
-          setrmlenoB <= 0;
-          actvrmlnB <= 1'b0;
-          resrmlenB <= 1'b1;
-          ackerror_setB <= 2'b10;
-          transmitter_setB <= 2'b10;
-          receiver_setB <= 2'b10;
-          error_setB <= 2'b10;
-          first_setB <= 2'b10;
-          activatefastB <= 1'b0;
-          puffer_setB <= 2'b10;
-          onarbit_setB <= 2'b10;
-          en_zerointcrcB <= 1'b1;
-          crc_shft_outB <= 1'b0;
-          if (smplpointB==1'b1)
-            next_stateB <= busoff_sample;
-          else
-            next_stateB <= busoff_first;
-        end
-      busoff_sample : 
-        begin
-          rext_setB <= 2'b10;
-          rrtr_setB <= 2'b10;
-          actvtcrcB <= 1'b0;
-          actvrcrcB <= 1'b0;
-          actvtstfB <= 1'b0;
-          actvrstfB <= 1'b1;
-          actvtsftB <= 1'b0;
-          actvrsftB <= 1'b0;
-          actvtdctB <= 1'b0;
-          actvrdctB <= 1'b1;
-          actvtbedB <= 1'b0;
-          setbdomB <= 1'b0;
-          setbrecB <= 1'b0;
-          lcrcB <= 1'b0;
-          tshiftB <= 1'b0;
-          inconerecB <= 1'b0;
-          incegtrecB <= 1'b0;
-          incegttraB <= 1'b0;
-          lmsgB <= 1'b0;
-          decrecB <= 1'b0;
-          dectraB <= 1'b0;
-          elevrecbB <= 1'b0;
-          hardsyncB <= 1'b0;
-          resetdstB <= 1'b1;
-          resetstfB <= 1'b1;
-          inccountB <= 1'b0;
-          rescountB <= 1'b1;
-          setrmlenoB <= 0;
-          actvrmlnB <= 1'b0;
-          resrmlenB <= 1'b1;
-          ackerror_setB <= 2'b10;
-          transmitter_setB <= 2'b10;
-          receiver_setB <= 2'b10;
-          error_setB <= 2'b10;
-          first_setB <= 2'b10;
-          activatefastB <= 1'b0;
-          puffer_setB <= 2'b10;
-          onarbit_setB <= 2'b10;
-          en_zerointcrcB <= 1'b1;
-          crc_shft_outB <= 1'b0;
-          if (inbitB==1'b1&&countB!=10)
-            next_stateB <= busoff_increm;
-          else
-            if (inbitB==1'b1&&countB==10)
-              next_stateB <= busoff_deccnt;
-            else
-              next_stateB <= busoff_setzer;
-        end
-      busoff_increm : 
-        begin
-          rext_setB <= 2'b10;
-          rrtr_setB <= 2'b10;
-          actvtcrcB <= 1'b0;
-          actvrcrcB <= 1'b0;
-          actvtstfB <= 1'b0;
-          actvrstfB <= 1'b0;
-          actvtsftB <= 1'b0;
-          actvrsftB <= 1'b0;
-          actvtdctB <= 1'b0;
-          actvrdctB <= 1'b1;
-          actvtbedB <= 1'b0;
-          setbdomB <= 1'b0;
-          setbrecB <= 1'b0;
-          lcrcB <= 1'b0;
-          tshiftB <= 1'b0;
-          inconerecB <= 1'b0;
-          incegtrecB <= 1'b0;
-          incegttraB <= 1'b0;
-          lmsgB <= 1'b0;
-          decrecB <= 1'b0;
-          dectraB <= 1'b0;
-          elevrecbB <= 1'b0;
-          hardsyncB <= 1'b0;
-          resetdstB <= 1'b1;
-          resetstfB <= 1'b1;
-          inccountB <= 1'b1;
-          rescountB <= 1'b1;
-          setrmlenoB <= 0;
-          actvrmlnB <= 1'b0;
-          resrmlenB <= 1'b1;
-          ackerror_setB <= 2'b10;
-          transmitter_setB <= 2'b10;
-          receiver_setB <= 2'b10;
-          error_setB <= 2'b10;
-          first_setB <= 2'b10;
-          activatefastB <= 1'b0;
-          puffer_setB <= 2'b10;
-          onarbit_setB <= 2'b10;
-          en_zerointcrcB <= 1'b1;
-          crc_shft_outB <= 1'b0;
-          if (smplpointB==1'b1)
-            next_stateB <= busoff_sample;
-          else
-            next_stateB <= busoff_increm;
-        end
-      busoff_setzer : 
-        begin
-          rext_setB <= 2'b10;
-          rrtr_setB <= 2'b10;
-          actvtcrcB <= 1'b0;
-          actvrcrcB <= 1'b0;
-          actvtstfB <= 1'b0;
-          actvrstfB <= 1'b0;
-          actvtsftB <= 1'b0;
-          actvrsftB <= 1'b0;
-          actvtdctB <= 1'b0;
-          actvrdctB <= 1'b1;
-          actvtbedB <= 1'b0;
-          setbdomB <= 1'b0;
-          setbrecB <= 1'b0;
-          lcrcB <= 1'b0;
-          tshiftB <= 1'b0;
-          inconerecB <= 1'b0;
-          incegtrecB <= 1'b0;
-          incegttraB <= 1'b0;
-          lmsgB <= 1'b0;
-          decrecB <= 1'b0;
-          dectraB <= 1'b0;
-          elevrecbB <= 1'b0;
-          hardsyncB <= 1'b0;
-          resetdstB <= 1'b1;
-          resetstfB <= 1'b1;
-          inccountB <= 1'b0;
-          rescountB <= 1'b0;
-          setrmlenoB <= 0;
-          actvrmlnB <= 1'b0;
-          resrmlenB <= 1'b1;
-          ackerror_setB <= 2'b10;
-          transmitter_setB <= 2'b10;
-          receiver_setB <= 2'b10;
-          error_setB <= 2'b10;
-          first_setB <= 2'b10;
-          activatefastB <= 1'b0;
-          puffer_setB <= 2'b10;
-          onarbit_setB <= 2'b10;
-          en_zerointcrcB <= 1'b1;
-          crc_shft_outB <= 1'b0;
-          if (smplpointB==1'b1)
-            next_stateB <= busoff_sample;
-          else
-            next_stateB <= busoff_setzer;
-        end
-      busoff_deccnt : 
-        begin
-          rext_setB <= 2'b10;
-          rrtr_setB <= 2'b10;
-          actvtcrcB <= 1'b0;
-          actvrcrcB <= 1'b0;
-          actvtstfB <= 1'b0;
-          actvrstfB <= 1'b0;
-          actvtsftB <= 1'b0;
-          actvrsftB <= 1'b0;
-          actvtdctB <= 1'b0;
-          actvrdctB <= 1'b1;
-          actvtbedB <= 1'b0;
-          setbdomB <= 1'b0;
-          setbrecB <= 1'b0;
-          lcrcB <= 1'b0;
-          tshiftB <= 1'b0;
-          inconerecB <= 1'b0;
-          incegtrecB <= 1'b0;
-          incegttraB <= 1'b0;
-          lmsgB <= 1'b0;
-          decrecB <= 1'b0;
-          dectraB <= 1'b0;
-          elevrecbB <= 1'b1;
-          hardsyncB <= 1'b0;
-          resetdstB <= 1'b1;
-          resetstfB <= 1'b0;
-          inccountB <= 1'b0;
-          rescountB <= 1'b0;
-          setrmlenoB <= 0;
-          actvrmlnB <= 1'b0;
-          resrmlenB <= 1'b1;
-          ackerror_setB <= 2'b10;
-          transmitter_setB <= 2'b10;
-          receiver_setB <= 2'b10;
-          error_setB <= 2'b10;
-          first_setB <= 2'b10;
-          activatefastB <= 1'b0;
-          puffer_setB <= 2'b10;
-          onarbit_setB <= 2'b10;
-          en_zerointcrcB <= 1'b1;
-          crc_shft_outB <= 1'b0;
-          if (smplpointB==1'b1&&busofB==1'b1)
-            next_stateB <= busoff_sample;
-          else
-            if (smplpointB==1'b1&&busofB==1'b0)
-              next_stateB <= inter_sample;
-            else
-              next_stateB <= busoff_deccnt;
-        end
-      default : 
-        begin
-        end
-    endcase
-  end
-
-always @*
-  begin
-    rext_setC <= 2'b00;
-    rrtr_setC <= 2'b00;
-    actvtcrcC <= 1'b0;
-    actvrcrcC <= 1'b0;
-    actvtstfC <= 1'b0;
-    actvrstfC <= 1'b0;
-    actvtsftC <= 1'b0;
-    actvrsftC <= 1'b0;
-    actvtdctC <= 1'b0;
-    actvrdctC <= 1'b1;
-    actvtbedC <= 1'b0;
-    setbdomC <= 1'b0;
-    setbrecC <= 1'b0;
-    lcrcC <= 1'b0;
-    tshiftC <= 1'b0;
-    inconerecC <= 1'b0;
-    incegtrecC <= 1'b0;
-    incegttraC <= 1'b0;
-    lmsgC <= 1'b0;
-    decrecC <= 1'b0;
-    dectraC <= 1'b0;
-    elevrecbC <= 1'b0;
-    resetdstC <= 1'b1;
-    resetstfC <= 1'b1;
-    hardsyncC <= 1'b1;
-    inccountC <= 1'b0;
-    rescountC <= 1'b0;
-    setrmlenoC <= 0;
-    actvrmlnC <= 1'b0;
-    resrmlenC <= 1'b0;
-    ackerror_setC <= 2'b10;
-    transmitter_setC <= 2'b10;
-    receiver_setC <= 2'b10;
-    error_setC <= 2'b10;
-    first_setC <= 2'b10;
-    activatefastC <= 1'b0;
-    puffer_setC <= 2'b10;
-    onarbit_setC <= 2'b10;
-    en_zerointcrcC <= 1'b1;
-    crc_shft_outC <= 1'b0;
-    next_stateC <= current_stateVotedC;
-    case (current_stateVotedC)
-      sync_start : 
-        begin
-          rext_setC <= 2'b10;
-          rrtr_setC <= 2'b10;
-          actvtcrcC <= 1'b0;
-          actvrcrcC <= 1'b0;
-          actvtstfC <= 1'b0;
-          actvrstfC <= 1'b0;
-          actvtsftC <= 1'b0;
-          actvrsftC <= 1'b0;
-          actvtdctC <= 1'b0;
-          actvrdctC <= 1'b1;
-          actvtbedC <= 1'b0;
-          setbdomC <= 1'b0;
-          setbrecC <= 1'b0;
-          lcrcC <= 1'b0;
-          tshiftC <= 1'b0;
-          inconerecC <= 1'b0;
-          incegtrecC <= 1'b0;
-          incegttraC <= 1'b0;
-          lmsgC <= 1'b0;
-          decrecC <= 1'b0;
-          dectraC <= 1'b0;
-          elevrecbC <= 1'b0;
-          resetdstC <= 1'b1;
-          resetstfC <= 1'b1;
-          hardsyncC <= 1'b1;
-          inccountC <= 1'b0;
-          rescountC <= 1'b0;
-          setrmlenoC <= 0;
-          actvrmlnC <= 1'b0;
-          resrmlenC <= 1'b0;
-          ackerror_setC <= 2'b10;
-          transmitter_setC <= 2'b10;
-          receiver_setC <= 2'b10;
-          error_setC <= 2'b10;
-          first_setC <= 2'b10;
-          activatefastC <= 1'b0;
-          puffer_setC <= 2'b10;
-          onarbit_setC <= 2'b10;
-          en_zerointcrcC <= 1'b1;
-          crc_shft_outC <= 1'b0;
-          if (smplpointC==1'b1)
-            next_stateC <= sync_sample;
-          else
-            next_stateC <= sync_start;
-        end
-      sync_sample : 
-        begin
-          rext_setC <= 2'b10;
-          rrtr_setC <= 2'b10;
-          actvtcrcC <= 1'b0;
-          actvrcrcC <= 1'b0;
-          actvtstfC <= 1'b0;
-          actvrstfC <= 1'b1;
-          actvtsftC <= 1'b0;
-          actvrsftC <= 1'b0;
-          actvtdctC <= 1'b0;
-          actvrdctC <= 1'b1;
-          actvtbedC <= 1'b0;
-          setbdomC <= 1'b0;
-          setbrecC <= 1'b0;
-          lcrcC <= 1'b0;
-          tshiftC <= 1'b0;
-          inconerecC <= 1'b0;
-          incegtrecC <= 1'b0;
-          incegttraC <= 1'b0;
-          lmsgC <= 1'b0;
-          decrecC <= 1'b0;
-          dectraC <= 1'b0;
-          elevrecbC <= 1'b0;
-          resetdstC <= 1'b1;
-          resetstfC <= 1'b1;
-          hardsyncC <= 1'b1;
-          inccountC <= 1'b0;
-          rescountC <= 1'b1;
-          setrmlenoC <= 0;
-          actvrmlnC <= 1'b0;
-          resrmlenC <= 1'b1;
-          ackerror_setC <= 2'b10;
-          transmitter_setC <= 2'b10;
-          receiver_setC <= 2'b10;
-          error_setC <= 2'b10;
-          first_setC <= 2'b10;
-          activatefastC <= 1'b0;
-          puffer_setC <= 2'b10;
-          onarbit_setC <= 2'b10;
-          en_zerointcrcC <= 1'b1;
-          crc_shft_outC <= 1'b0;
-          if (inbitC==1'b1)
-            next_stateC <= sync_sum;
-          else
-            next_stateC <= sync_start;
-        end
-      sync_sum : 
-        begin
-          rext_setC <= 2'b10;
-          rrtr_setC <= 2'b10;
-          actvtcrcC <= 1'b0;
-          actvrcrcC <= 1'b0;
-          actvtstfC <= 1'b0;
-          actvrstfC <= 1'b0;
-          actvtsftC <= 1'b0;
-          actvrsftC <= 1'b0;
-          actvtdctC <= 1'b0;
-          actvrdctC <= 1'b1;
-          actvtbedC <= 1'b0;
-          setbdomC <= 1'b0;
-          setbrecC <= 1'b0;
-          lcrcC <= 1'b0;
-          tshiftC <= 1'b0;
-          inconerecC <= 1'b0;
-          incegtrecC <= 1'b0;
-          incegttraC <= 1'b0;
-          lmsgC <= 1'b0;
-          decrecC <= 1'b0;
-          dectraC <= 1'b0;
-          elevrecbC <= 1'b0;
-          resetdstC <= 1'b1;
-          resetstfC <= 1'b1;
-          hardsyncC <= 1'b1;
-          inccountC <= 1'b1;
-          rescountC <= 1'b1;
-          setrmlenoC <= 0;
-          actvrmlnC <= 1'b0;
-          resrmlenC <= 1'b1;
-          ackerror_setC <= 2'b10;
-          transmitter_setC <= 2'b10;
-          receiver_setC <= 2'b10;
-          error_setC <= 2'b10;
-          first_setC <= 2'b10;
-          activatefastC <= 1'b0;
-          puffer_setC <= 2'b10;
-          onarbit_setC <= 2'b10;
-          en_zerointcrcC <= 1'b1;
-          crc_shft_outC <= 1'b0;
-          if (smplpointC==1'b1&&countC!=8)
-            next_stateC <= sync_sample;
-          else
-            if (countC==8)
-              next_stateC <= sync_end;
-            else
-              next_stateC <= sync_sum;
-        end
-      sync_end : 
-        begin
-          rext_setC <= 2'b10;
-          rrtr_setC <= 2'b10;
-          actvtcrcC <= 1'b0;
-          actvrcrcC <= 1'b0;
-          actvtstfC <= 1'b0;
-          actvrstfC <= 1'b0;
-          actvtsftC <= 1'b0;
-          actvrsftC <= 1'b0;
-          actvtdctC <= 1'b0;
-          actvrdctC <= 1'b0;
-          actvtbedC <= 1'b0;
-          setbdomC <= 1'b0;
-          setbrecC <= 1'b0;
-          lcrcC <= 1'b0;
-          tshiftC <= 1'b0;
-          inconerecC <= 1'b0;
-          incegtrecC <= 1'b0;
-          incegttraC <= 1'b0;
-          lmsgC <= 1'b0;
-          decrecC <= 1'b0;
-          dectraC <= 1'b0;
-          elevrecbC <= 1'b0;
-          resetdstC <= 1'b1;
-          resetstfC <= 1'b1;
-          hardsyncC <= 1'b1;
-          inccountC <= 1'b0;
-          rescountC <= 1'b0;
-          setrmlenoC <= 0;
-          actvrmlnC <= 1'b0;
-          resrmlenC <= 1'b1;
-          ackerror_setC <= 2'b10;
-          transmitter_setC <= 2'b10;
-          receiver_setC <= 2'b10;
-          error_setC <= 2'b10;
-          first_setC <= 2'b10;
-          activatefastC <= 1'b0;
-          puffer_setC <= 2'b10;
-          onarbit_setC <= 2'b10;
-          en_zerointcrcC <= 1'b1;
-          crc_shft_outC <= 1'b0;
-          if (smplpointC==1'b1)
-            next_stateC <= bus_idle_sample;
-          else
-            next_stateC <= sync_end;
-        end
-      inter_sample : 
-        begin
-          rext_setC <= 2'b10;
-          rrtr_setC <= 2'b10;
-          actvtcrcC <= 1'b0;
-          actvrcrcC <= 1'b0;
-          actvtstfC <= 1'b0;
-          actvrstfC <= 1'b1;
-          actvtsftC <= 1'b0;
-          actvrsftC <= 1'b0;
-          actvtdctC <= 1'b0;
-          actvrdctC <= 1'b0;
-          actvtbedC <= 1'b0;
-          setbdomC <= 1'b0;
-          setbrecC <= 1'b0;
-          lcrcC <= 1'b0;
-          tshiftC <= 1'b0;
-          inconerecC <= 1'b0;
-          incegtrecC <= 1'b0;
-          incegttraC <= 1'b0;
-          lmsgC <= 1'b0;
-          decrecC <= 1'b0;
-          dectraC <= 1'b0;
-          elevrecbC <= 1'b0;
-          resetdstC <= 1'b1;
-          resetstfC <= 1'b1;
-          hardsyncC <= 1'b1;
-          inccountC <= 1'b1;
-          rescountC <= 1'b1;
-          setrmlenoC <= 0;
-          actvrmlnC <= 1'b0;
-          resrmlenC <= 1'b1;
-          ackerror_setC <= 2'b10;
-          transmitter_setC <= 2'b00;
-          receiver_setC <= 2'b00;
-          error_setC <= 2'b10;
-          first_setC <= 2'b10;
-          activatefastC <= 1'b0;
-          puffer_setC <= 2'b10;
-          onarbit_setC <= 2'b10;
-          en_zerointcrcC <= 1'b0;
-          crc_shft_outC <= 1'b0;
-          if (busofC==1'b1)
-            next_stateC <= busoff_first;
-          else
-            if ((((errorpassivC==1'b0||receiverC==1'b1)&&lt3C==1'b1)||((errorpassivC==1'b1&&receiverC==1'b0)&&lt11C==1'b1))&&inbitC==1'b1)
-              next_stateC <= inter_check;
-            else
-              if (lt3C==1'b1&&inbitC==1'b0)
-                next_stateC <= over_firstdom;
-              else
-                if (inbitC==1'b0&&(gt3C==1'b1||((eq3C==1'b1||gt3C==1'b1)&&((errorpassivC==1'b1&&receiverC==1'b0)||transC==1'b0))))
-                  next_stateC <= inter_preprec;
-                else
-                  if (sendpointC==1'b1&&(((errorpassivC==1'b0||receiverC==1'b1)&&(eq3C==1'b1||gt3C==1'b1))||((errorpassivC==1'b1&&receiverC==1'b0)&&(eq11C==1'b1||lt11C==1'b0)))&&inbitC==1'b1&&transC==1'b1)
-                    next_stateC <= inter_goregtran;
-                  else
-                    if ((errorpassivC==1'b0||receiverC==1'b1)&&(eq3C==1'b1||gt3C==1'b1)&&inbitC==1'b0&&transC==1'b1)
-                      next_stateC <= inter_react;
-                    else
-                      if (transC==1'b0&&(((eq3C==1'b1||gt3C==1'b1)&&(errorpassivC==1'b0||receiverC==1'b1))||((eq11C==1'b1||lt11C==1'b0)&&(errorpassivC==1'b1&&receiverC==1'b0))))
-                        next_stateC <= bus_idle_chk;
-                      else
-                        next_stateC <= inter_sample;
-        end
-      inter_check : 
-        begin
-          rext_setC <= 2'b10;
-          rrtr_setC <= 2'b10;
-          actvtcrcC <= 1'b0;
-          actvrcrcC <= 1'b0;
-          actvtstfC <= 1'b0;
-          actvrstfC <= 1'b0;
-          actvtsftC <= 1'b0;
-          actvrsftC <= 1'b0;
-          actvtdctC <= 1'b0;
-          actvrdctC <= 1'b0;
-          actvtbedC <= 1'b0;
-          setbdomC <= 1'b0;
-          setbrecC <= 1'b0;
-          lcrcC <= 1'b0;
-          tshiftC <= 1'b0;
-          inconerecC <= 1'b0;
-          incegtrecC <= 1'b0;
-          incegttraC <= 1'b0;
-          lmsgC <= 1'b0;
-          decrecC <= 1'b0;
-          dectraC <= 1'b0;
-          elevrecbC <= 1'b0;
-          resetdstC <= 1'b0;
-          resetstfC <= 1'b1;
-          hardsyncC <= 1'b1;
-          inccountC <= 1'b0;
-          rescountC <= 1'b1;
-          setrmlenoC <= 0;
-          actvrmlnC <= 1'b0;
-          resrmlenC <= 1'b1;
-          ackerror_setC <= 2'b10;
-          transmitter_setC <= 2'b00;
-          receiver_setC <= 2'b00;
-          error_setC <= 2'b10;
-          first_setC <= 2'b10;
-          activatefastC <= 1'b0;
-          puffer_setC <= 2'b10;
-          onarbit_setC <= 2'b10;
-          en_zerointcrcC <= 1'b0;
-          crc_shft_outC <= 1'b0;
-          if (smplpointC==1'b1)
-            next_stateC <= inter_sample;
-          else
-            next_stateC <= inter_check;
-        end
-      bus_idle_chk : 
-        begin
-          rext_setC <= 2'b10;
-          rrtr_setC <= 2'b10;
-          actvtcrcC <= 1'b0;
-          actvrcrcC <= 1'b0;
-          actvtstfC <= 1'b0;
-          actvrstfC <= 1'b0;
-          actvtsftC <= 1'b0;
-          actvrsftC <= 1'b0;
-          actvtdctC <= 1'b0;
-          actvrdctC <= 1'b0;
-          actvtbedC <= 1'b0;
-          setbdomC <= 1'b0;
-          setbrecC <= 1'b0;
-          lcrcC <= 1'b0;
-          tshiftC <= 1'b0;
-          inconerecC <= 1'b0;
-          incegtrecC <= 1'b0;
-          incegttraC <= 1'b0;
-          lmsgC <= 1'b0;
-          decrecC <= 1'b0;
-          dectraC <= 1'b0;
-          elevrecbC <= 1'b0;
-          resetdstC <= 1'b0;
-          resetstfC <= 1'b1;
-          hardsyncC <= 1'b1;
-          inccountC <= 1'b0;
-          rescountC <= 1'b1;
-          setrmlenoC <= 0;
-          actvrmlnC <= 1'b0;
-          resrmlenC <= 1'b1;
-          ackerror_setC <= 2'b10;
-          transmitter_setC <= 2'b00;
-          receiver_setC <= 2'b00;
-          error_setC <= 2'b10;
-          first_setC <= 2'b10;
-          activatefastC <= 1'b0;
-          puffer_setC <= 2'b10;
-          onarbit_setC <= 2'b10;
-          en_zerointcrcC <= 1'b0;
-          crc_shft_outC <= 1'b0;
-          if (smplpointC==1'b1)
-            next_stateC <= bus_idle_sample;
-          else
-            next_stateC <= bus_idle_chk;
-        end
-      bus_idle_sample : 
-        begin
-          rext_setC <= 2'b10;
-          rrtr_setC <= 2'b10;
-          actvtcrcC <= 1'b0;
-          actvrcrcC <= 1'b0;
-          actvtstfC <= 1'b0;
-          actvrstfC <= 1'b1;
-          actvtsftC <= 1'b0;
-          actvrsftC <= 1'b0;
-          actvtdctC <= 1'b0;
-          actvrdctC <= 1'b0;
-          actvtbedC <= 1'b0;
-          setbdomC <= 1'b0;
-          setbrecC <= 1'b0;
-          lcrcC <= 1'b0;
-          tshiftC <= 1'b0;
-          inconerecC <= 1'b0;
-          incegtrecC <= 1'b0;
-          incegttraC <= 1'b0;
-          lmsgC <= 1'b0;
-          decrecC <= 1'b0;
-          dectraC <= 1'b0;
-          elevrecbC <= 1'b0;
-          resetdstC <= 1'b1;
-          resetstfC <= 1'b1;
-          hardsyncC <= 1'b1;
-          inccountC <= 1'b0;
-          rescountC <= 1'b1;
-          setrmlenoC <= 0;
-          actvrmlnC <= 1'b0;
-          resrmlenC <= 1'b1;
-          ackerror_setC <= 2'b10;
-          transmitter_setC <= 2'b00;
-          receiver_setC <= 2'b00;
-          error_setC <= 2'b10;
-          first_setC <= 2'b10;
-          activatefastC <= 1'b0;
-          puffer_setC <= 2'b10;
-          onarbit_setC <= 2'b10;
-          en_zerointcrcC <= 1'b0;
-          crc_shft_outC <= 1'b0;
-          if (transC==1'b0&&inbitC==1'b1)
-            next_stateC <= bus_idle_chk;
-          else
-            if (inbitC==1'b0&&transC==1'b0)
-              next_stateC <= inter_preprec;
-            else
-              if (inbitC==1'b0&&transC==1'b1)
-                next_stateC <= inter_react;
-              else
-                if (sendpointC==1'b1&&inbitC==1'b1&&transC==1'b1)
-                  next_stateC <= inter_goregtran;
-                else
-                  next_stateC <= bus_idle_sample;
-        end
-      inter_react : 
-        begin
-          rext_setC <= 2'b10;
-          rrtr_setC <= 2'b10;
-          actvtcrcC <= 1'b1;
-          actvrcrcC <= 1'b0;
-          actvtstfC <= 1'b1;
-          actvrstfC <= 1'b0;
-          actvtsftC <= 1'b0;
-          actvrsftC <= 1'b0;
-          actvtdctC <= 1'b0;
-          actvrdctC <= 1'b0;
-          actvtbedC <= 1'b0;
-          setbdomC <= 1'b0;
-          setbrecC <= 1'b0;
-          lcrcC <= 1'b0;
-          tshiftC <= 1'b1;
-          inconerecC <= 1'b0;
-          incegtrecC <= 1'b0;
-          incegttraC <= 1'b0;
-          lmsgC <= 1'b0;
-          decrecC <= 1'b0;
-          dectraC <= 1'b0;
-          elevrecbC <= 1'b0;
-          resetdstC <= 1'b1;
-          resetstfC <= 1'b1;
-          hardsyncC <= 1'b0;
-          inccountC <= 1'b0;
-          rescountC <= 1'b0;
-          setrmlenoC <= 0;
-          actvrmlnC <= 1'b0;
-          resrmlenC <= 1'b0;
-          ackerror_setC <= 2'b10;
-          transmitter_setC <= 2'b10;
-          receiver_setC <= 2'b10;
-          error_setC <= 2'b10;
-          first_setC <= 2'b10;
-          activatefastC <= 1'b0;
-          puffer_setC <= 2'b10;
-          onarbit_setC <= 2'b10;
-          en_zerointcrcC <= 1'b0;
-          crc_shft_outC <= 1'b0;
-          next_stateC <= inter_transhift;
-        end
-      inter_goregtran : 
-        begin
-          rext_setC <= 2'b10;
-          rrtr_setC <= 2'b10;
-          actvtcrcC <= 1'b1;
-          actvrcrcC <= 1'b0;
-          actvtstfC <= 1'b1;
-          actvrstfC <= 1'b0;
-          actvtsftC <= 1'b0;
-          actvrsftC <= 1'b0;
-          actvtdctC <= 1'b0;
-          actvrdctC <= 1'b0;
-          actvtbedC <= 1'b0;
-          setbdomC <= 1'b0;
-          setbrecC <= 1'b0;
-          lcrcC <= 1'b0;
-          tshiftC <= 1'b1;
-          inconerecC <= 1'b0;
-          incegtrecC <= 1'b0;
-          incegttraC <= 1'b0;
-          lmsgC <= 1'b0;
-          decrecC <= 1'b0;
-          dectraC <= 1'b0;
-          elevrecbC <= 1'b0;
-          resetdstC <= 1'b0;
-          resetstfC <= 1'b1;
-          hardsyncC <= 1'b0;
-          inccountC <= 1'b0;
-          rescountC <= 1'b0;
-          setrmlenoC <= 0;
-          actvrmlnC <= 1'b0;
-          resrmlenC <= 1'b0;
-          ackerror_setC <= 2'b10;
-          transmitter_setC <= 2'b10;
-          receiver_setC <= 2'b10;
-          error_setC <= 2'b10;
-          first_setC <= 2'b10;
-          activatefastC <= 1'b0;
-          puffer_setC <= 2'b10;
-          onarbit_setC <= 2'b10;
-          en_zerointcrcC <= 1'b0;
-          crc_shft_outC <= 1'b0;
-          next_stateC <= inter_regtrancnt;
-        end
-      inter_regtrancnt : 
-        begin
-          rext_setC <= 2'b10;
-          rrtr_setC <= 2'b10;
-          actvtcrcC <= 1'b1;
-          actvrcrcC <= 1'b0;
-          actvtstfC <= 1'b1;
-          actvrstfC <= 1'b0;
-          actvtsftC <= 1'b0;
-          actvrsftC <= 1'b0;
-          actvtdctC <= 1'b0;
-          actvrdctC <= 1'b0;
-          actvtbedC <= 1'b0;
-          setbdomC <= 1'b0;
-          setbrecC <= 1'b0;
-          lcrcC <= 1'b0;
-          tshiftC <= 1'b1;
-          inconerecC <= 1'b0;
-          incegtrecC <= 1'b0;
-          incegttraC <= 1'b0;
-          lmsgC <= 1'b0;
-          decrecC <= 1'b0;
-          dectraC <= 1'b0;
-          elevrecbC <= 1'b0;
-          resetdstC <= 1'b0;
-          resetstfC <= 1'b1;
-          hardsyncC <= 1'b0;
-          inccountC <= 1'b1;
-          rescountC <= 1'b1;
-          setrmlenoC <= 0;
-          actvrmlnC <= 1'b0;
-          resrmlenC <= 1'b1;
-          ackerror_setC <= 2'b10;
-          transmitter_setC <= 2'b10;
-          receiver_setC <= 2'b10;
-          error_setC <= 2'b10;
-          first_setC <= 2'b10;
-          activatefastC <= 1'b0;
-          puffer_setC <= 2'b10;
-          onarbit_setC <= 2'b10;
-          en_zerointcrcC <= 1'b0;
-          crc_shft_outC <= 1'b0;
-          if (smplpointC==1'b1)
-            next_stateC <= inter_arbit_tsftrsmpl;
-          else
-            next_stateC <= inter_regtrancnt;
-        end
-      inter_arbit_tsftrsmpl : 
-        begin
-          rext_setC <= 2'b00;
-          rrtr_setC <= 2'b00;
-          actvtcrcC <= 1'b0;
-          actvrcrcC <= 1'b0;
-          actvtstfC <= 1'b0;
-          actvrstfC <= 1'b1;
-          actvtsftC <= 1'b1;
-          actvrsftC <= 1'b0;
-          actvtdctC <= 1'b0;
-          actvrdctC <= 1'b0;
-          actvtbedC <= 1'b1;
-          setbdomC <= 1'b0;
-          setbrecC <= 1'b0;
-          lcrcC <= 1'b0;
-          tshiftC <= 1'b1;
-          inconerecC <= 1'b0;
-          incegtrecC <= 1'b0;
-          incegttraC <= 1'b0;
-          lmsgC <= 1'b0;
-          decrecC <= 1'b0;
-          dectraC <= 1'b0;
-          elevrecbC <= 1'b0;
-          resetdstC <= 1'b1;
-          resetstfC <= 1'b1;
-          hardsyncC <= 1'b0;
-          inccountC <= 1'b0;
-          rescountC <= 1'b1;
-          setrmlenoC <= 0;
-          actvrmlnC <= 1'b0;
-          resrmlenC <= 1'b1;
-          ackerror_setC <= 2'b10;
-          transmitter_setC <= 2'b11;
-          receiver_setC <= 2'b10;
-          error_setC <= 2'b10;
-          first_setC <= 2'b10;
-          activatefastC <= 1'b0;
-          puffer_setC <= 2'b10;
-          onarbit_setC <= 2'b11;
-          en_zerointcrcC <= 1'b0;
-          crc_shft_outC <= 1'b0;
-          if (sendpointC==1'b1)
-            next_stateC <= tra_arbit_tactrsftn;
-          else
-            next_stateC <= inter_arbit_tsftrsmpl;
-        end
-      inter_transhift : 
-        begin
-          rext_setC <= 2'b10;
-          rrtr_setC <= 2'b10;
-          actvtcrcC <= 1'b0;
-          actvrcrcC <= 1'b0;
-          actvtstfC <= 1'b0;
-          actvrstfC <= 1'b0;
-          actvtsftC <= 1'b1;
-          actvrsftC <= 1'b0;
-          actvtdctC <= 1'b0;
-          actvrdctC <= 1'b0;
-          actvtbedC <= 1'b0;
-          setbdomC <= 1'b0;
-          setbrecC <= 1'b0;
-          lcrcC <= 1'b0;
-          tshiftC <= 1'b1;
-          inconerecC <= 1'b0;
-          incegtrecC <= 1'b0;
-          incegttraC <= 1'b0;
-          lmsgC <= 1'b0;
-          decrecC <= 1'b0;
-          dectraC <= 1'b0;
-          elevrecbC <= 1'b0;
-          resetdstC <= 1'b1;
-          resetstfC <= 1'b1;
-          hardsyncC <= 1'b0;
-          inccountC <= 1'b1;
-          rescountC <= 1'b1;
-          setrmlenoC <= 0;
-          actvrmlnC <= 1'b0;
-          resrmlenC <= 1'b1;
-          ackerror_setC <= 2'b10;
-          transmitter_setC <= 2'b10;
-          receiver_setC <= 2'b10;
-          error_setC <= 2'b10;
-          first_setC <= 2'b10;
-          activatefastC <= 1'b0;
-          puffer_setC <= 2'b10;
-          onarbit_setC <= 2'b10;
-          en_zerointcrcC <= 1'b0;
-          crc_shft_outC <= 1'b0;
-          next_stateC <= inter_incsigres;
-        end
-      inter_incsigres : 
-        begin
-          rext_setC <= 2'b10;
-          rrtr_setC <= 2'b10;
-          actvtcrcC <= 1'b0;
-          actvrcrcC <= 1'b0;
-          actvtstfC <= 1'b0;
-          actvrstfC <= 1'b0;
-          actvtsftC <= 1'b0;
-          actvrsftC <= 1'b0;
-          actvtdctC <= 1'b0;
-          actvrdctC <= 1'b0;
-          actvtbedC <= 1'b0;
-          setbdomC <= 1'b0;
-          setbrecC <= 1'b0;
-          lcrcC <= 1'b0;
-          tshiftC <= 1'b1;
-          inconerecC <= 1'b0;
-          incegtrecC <= 1'b0;
-          incegttraC <= 1'b0;
-          lmsgC <= 1'b0;
-          decrecC <= 1'b0;
-          dectraC <= 1'b0;
-          elevrecbC <= 1'b0;
-          resetdstC <= 1'b1;
-          resetstfC <= 1'b1;
-          hardsyncC <= 1'b0;
-          inccountC <= 1'b0;
-          rescountC <= 1'b1;
-          setrmlenoC <= 0;
-          actvrmlnC <= 1'b0;
-          resrmlenC <= 1'b1;
-          ackerror_setC <= 2'b10;
-          transmitter_setC <= 2'b10;
-          receiver_setC <= 2'b10;
-          error_setC <= 2'b10;
-          first_setC <= 2'b10;
-          activatefastC <= 1'b0;
-          puffer_setC <= 2'b10;
-          onarbit_setC <= 2'b10;
-          en_zerointcrcC <= 1'b0;
-          crc_shft_outC <= 1'b0;
-          next_stateC <= tra_arbit_tactrsftn;
-        end
-      inter_preprec : 
-        begin
-          rext_setC <= 2'b10;
-          rrtr_setC <= 2'b10;
-          actvtcrcC <= 1'b0;
-          actvrcrcC <= 1'b0;
-          actvtstfC <= 1'b0;
-          actvrstfC <= 1'b0;
-          actvtsftC <= 1'b0;
-          actvrsftC <= 1'b0;
-          actvtdctC <= 1'b0;
-          actvrdctC <= 1'b0;
-          actvtbedC <= 1'b0;
-          setbdomC <= 1'b0;
-          setbrecC <= 1'b0;
-          lcrcC <= 1'b0;
-          tshiftC <= 1'b0;
-          inconerecC <= 1'b0;
-          incegtrecC <= 1'b0;
-          incegttraC <= 1'b0;
-          lmsgC <= 1'b0;
-          decrecC <= 1'b0;
-          dectraC <= 1'b0;
-          elevrecbC <= 1'b0;
-          resetdstC <= 1'b1;
-          resetstfC <= 1'b1;
-          hardsyncC <= 1'b0;
-          inccountC <= 1'b0;
-          rescountC <= 1'b0;
-          setrmlenoC <= 0;
-          actvrmlnC <= 1'b0;
-          resrmlenC <= 1'b0;
-          ackerror_setC <= 2'b10;
-          transmitter_setC <= 2'b10;
-          receiver_setC <= 2'b10;
-          error_setC <= 2'b10;
-          first_setC <= 2'b10;
-          activatefastC <= 1'b0;
-          puffer_setC <= 2'b10;
-          onarbit_setC <= 2'b10;
-          en_zerointcrcC <= 1'b1;
-          crc_shft_outC <= 1'b0;
-          next_stateC <= inter_preprec_shifting;
-        end
-      inter_preprec_shifting : 
-        begin
-          rext_setC <= 2'b00;
-          rrtr_setC <= 2'b00;
-          actvtcrcC <= 1'b0;
-          actvrcrcC <= 1'b1;
-          actvtstfC <= 1'b0;
-          actvrstfC <= 1'b0;
-          actvtsftC <= 1'b0;
-          actvrsftC <= 1'b1;
-          actvtdctC <= 1'b0;
-          actvrdctC <= 1'b0;
-          actvtbedC <= 1'b0;
-          setbdomC <= 1'b0;
-          setbrecC <= 1'b0;
-          lcrcC <= 1'b0;
-          tshiftC <= 1'b0;
-          inconerecC <= 1'b0;
-          incegtrecC <= 1'b0;
-          incegttraC <= 1'b0;
-          lmsgC <= 1'b0;
-          decrecC <= 1'b0;
-          dectraC <= 1'b0;
-          elevrecbC <= 1'b0;
-          hardsyncC <= 1'b0;
-          resetdstC <= 1'b1;
-          resetstfC <= 1'b1;
-          inccountC <= 1'b1;
-          rescountC <= 1'b1;
-          setrmlenoC <= 0;
-          actvrmlnC <= 1'b0;
-          resrmlenC <= 1'b1;
-          ackerror_setC <= 2'b10;
-          transmitter_setC <= 2'b10;
-          receiver_setC <= 2'b11;
-          error_setC <= 2'b10;
-          first_setC <= 2'b10;
-          activatefastC <= 1'b0;
-          puffer_setC <= 2'b10;
-          onarbit_setC <= 2'b10;
-          en_zerointcrcC <= 1'b1;
-          crc_shft_outC <= 1'b0;
-          if (smplpointC==1'b1)
-            next_stateC <= rec_flglen_sample;
-          else
-            next_stateC <= inter_preprec_shifting;
-        end
-      tra_arbit_tnactrnsft : 
-        begin
-          rext_setC <= 2'b00;
-          rrtr_setC <= 2'b00;
-          actvtcrcC <= 1'b0;
-          actvrcrcC <= 1'b0;
-          actvtstfC <= 1'b1;
-          actvrstfC <= 1'b0;
-          actvtsftC <= 1'b0;
-          actvrsftC <= 1'b0;
-          actvtdctC <= 1'b0;
-          actvrdctC <= 1'b0;
-          actvtbedC <= 1'b0;
-          setbdomC <= 1'b0;
-          setbrecC <= 1'b0;
-          lcrcC <= 1'b0;
-          tshiftC <= 1'b1;
-          inconerecC <= 1'b0;
-          incegtrecC <= 1'b0;
-          incegttraC <= 1'b0;
-          lmsgC <= 1'b0;
-          decrecC <= 1'b0;
-          dectraC <= 1'b0;
-          elevrecbC <= 1'b0;
-          resetdstC <= 1'b1;
-          resetstfC <= 1'b1;
-          hardsyncC <= 1'b0;
-          inccountC <= 1'b0;
-          rescountC <= 1'b1;
-          setrmlenoC <= 0;
-          actvrmlnC <= 1'b0;
-          resrmlenC <= 1'b1;
-          ackerror_setC <= 2'b10;
-          transmitter_setC <= 2'b11;
-          receiver_setC <= 2'b10;
-          error_setC <= 2'b10;
-          first_setC <= 2'b10;
-          activatefastC <= 1'b0;
-          puffer_setC <= 2'b10;
-          onarbit_setC <= 2'b11;
-          en_zerointcrcC <= 1'b1;
-          crc_shft_outC <= 1'b0;
-          if (smplpointC==1'b1)
-            next_stateC <= tra_arbit_tsftrsmpl;
-          else
-            next_stateC <= tra_arbit_tnactrnsft;
-        end
-      tra_arbit_tactrsftn : 
-        begin
-          rext_setC <= 2'b00;
-          rrtr_setC <= 2'b00;
-          actvtcrcC <= 1'b1;
-          actvrcrcC <= 1'b1;
-          actvtstfC <= 1'b1;
-          actvrstfC <= 1'b0;
-          actvtsftC <= 1'b0;
-          actvrsftC <= 1'b1;
-          actvtdctC <= 1'b0;
-          actvrdctC <= 1'b0;
-          actvtbedC <= 1'b0;
-          setbdomC <= 1'b0;
-          setbrecC <= 1'b0;
-          lcrcC <= 1'b0;
-          tshiftC <= 1'b1;
-          inconerecC <= 1'b0;
-          incegtrecC <= 1'b0;
-          incegttraC <= 1'b0;
-          lmsgC <= 1'b0;
-          decrecC <= 1'b0;
-          dectraC <= 1'b0;
-          elevrecbC <= 1'b0;
-          resetdstC <= 1'b1;
-          resetstfC <= 1'b1;
-          hardsyncC <= 1'b0;
-          inccountC <= 1'b1;
-          rescountC <= 1'b1;
-          setrmlenoC <= 0;
-          actvrmlnC <= 1'b0;
-          resrmlenC <= 1'b1;
-          ackerror_setC <= 2'b10;
-          transmitter_setC <= 2'b11;
-          receiver_setC <= 2'b10;
-          error_setC <= 2'b10;
-          first_setC <= 2'b10;
-          activatefastC <= 1'b0;
-          puffer_setC <= 2'b10;
-          onarbit_setC <= 2'b11;
-          en_zerointcrcC <= 1'b1;
-          crc_shft_outC <= 1'b0;
-          if (smplpointC==1'b1&&stufftC==1'b0)
-            next_stateC <= tra_arbit_tsftrsmpl;
-          else
-            if (smplpointC==1'b1&&stufftC==1'b1)
-              next_stateC <= tra_arbit_tnsftrsmpl;
-            else
-              next_stateC <= tra_arbit_tactrsftn;
-        end
-      tra_arbit_tactrsftsr : 
-        begin
-          rext_setC <= 2'b00;
-          rrtr_setC <= 2'b11;
-          actvtcrcC <= 1'b1;
-          actvrcrcC <= 1'b1;
-          actvtstfC <= 1'b1;
-          actvrstfC <= 1'b0;
-          actvtsftC <= 1'b0;
-          actvrsftC <= 1'b1;
-          actvtdctC <= 1'b0;
-          actvrdctC <= 1'b0;
-          actvtbedC <= 1'b0;
-          setbdomC <= 1'b0;
-          setbrecC <= 1'b0;
-          lcrcC <= 1'b0;
-          tshiftC <= 1'b1;
-          inconerecC <= 1'b0;
-          incegtrecC <= 1'b0;
-          incegttraC <= 1'b0;
-          lmsgC <= 1'b0;
-          decrecC <= 1'b0;
-          dectraC <= 1'b0;
-          elevrecbC <= 1'b0;
-          resetdstC <= 1'b1;
-          resetstfC <= 1'b1;
-          hardsyncC <= 1'b0;
-          inccountC <= 1'b1;
-          rescountC <= 1'b1;
-          setrmlenoC <= 0;
-          actvrmlnC <= 1'b0;
-          resrmlenC <= 1'b1;
-          ackerror_setC <= 2'b10;
-          transmitter_setC <= 2'b11;
-          receiver_setC <= 2'b10;
-          error_setC <= 2'b10;
-          first_setC <= 2'b10;
-          activatefastC <= 1'b0;
-          puffer_setC <= 2'b10;
-          onarbit_setC <= 2'b11;
-          en_zerointcrcC <= 1'b1;
-          crc_shft_outC <= 1'b0;
-          if (smplpointC==1'b1&&stufftC==1'b0)
-            next_stateC <= tra_arbit_tsftrsmpl;
-          else
-            if (smplpointC==1'b1&&stufftC==1'b1)
-              next_stateC <= tra_arbit_tnsftrsmpl;
-            else
-              next_stateC <= tra_arbit_tactrsftsr;
-        end
-      tra_arbit_tactrsfte : 
-        begin
-          rext_setC <= 2'b11;
-          rrtr_setC <= 2'b10;
-          actvtcrcC <= 1'b1;
-          actvrcrcC <= 1'b1;
-          actvtstfC <= 1'b1;
-          actvrstfC <= 1'b0;
-          actvtsftC <= 1'b0;
-          actvrsftC <= 1'b1;
-          actvtdctC <= 1'b0;
-          actvrdctC <= 1'b0;
-          actvtbedC <= 1'b0;
-          setbdomC <= 1'b0;
-          setbrecC <= 1'b0;
-          lcrcC <= 1'b0;
-          tshiftC <= 1'b1;
-          inconerecC <= 1'b0;
-          incegtrecC <= 1'b0;
-          incegttraC <= 1'b0;
-          lmsgC <= 1'b0;
-          decrecC <= 1'b0;
-          dectraC <= 1'b0;
-          elevrecbC <= 1'b0;
-          resetdstC <= 1'b1;
-          resetstfC <= 1'b1;
-          hardsyncC <= 1'b0;
-          inccountC <= 1'b1;
-          rescountC <= 1'b1;
-          setrmlenoC <= 0;
-          actvrmlnC <= 1'b0;
-          resrmlenC <= 1'b1;
-          ackerror_setC <= 2'b10;
-          transmitter_setC <= 2'b11;
-          receiver_setC <= 2'b10;
-          error_setC <= 2'b10;
-          first_setC <= 2'b10;
-          activatefastC <= 1'b0;
-          puffer_setC <= 2'b10;
-          onarbit_setC <= 2'b11;
-          en_zerointcrcC <= 1'b1;
-          crc_shft_outC <= 1'b0;
-          if (smplpointC==1'b1&&stufftC==1'b0)
-            next_stateC <= tra_arbit_tsftrsmpl;
-          else
-            if (smplpointC==1'b1&&stufftC==1'b1)
-              next_stateC <= tra_arbit_tnsftrsmpl;
-            else
-              next_stateC <= tra_arbit_tactrsfte;
-        end
-      tra_arbit_tactrsfter : 
-        begin
-          rext_setC <= 2'b11;
-          rrtr_setC <= 2'b11;
-          actvtcrcC <= 1'b1;
-          actvrcrcC <= 1'b1;
-          actvtstfC <= 1'b1;
-          actvrstfC <= 1'b0;
-          actvtsftC <= 1'b0;
-          actvrsftC <= 1'b1;
-          actvtdctC <= 1'b0;
-          actvrdctC <= 1'b0;
-          actvtbedC <= 1'b0;
-          setbdomC <= 1'b0;
-          setbrecC <= 1'b0;
-          lcrcC <= 1'b0;
-          tshiftC <= 1'b1;
-          inconerecC <= 1'b0;
-          incegtrecC <= 1'b0;
-          incegttraC <= 1'b0;
-          lmsgC <= 1'b0;
-          decrecC <= 1'b0;
-          dectraC <= 1'b0;
-          elevrecbC <= 1'b0;
-          resetdstC <= 1'b1;
-          resetstfC <= 1'b1;
-          hardsyncC <= 1'b0;
-          inccountC <= 1'b1;
-          rescountC <= 1'b1;
-          setrmlenoC <= 0;
-          actvrmlnC <= 1'b0;
-          resrmlenC <= 1'b1;
-          ackerror_setC <= 2'b10;
-          transmitter_setC <= 2'b11;
-          receiver_setC <= 2'b10;
-          error_setC <= 2'b10;
-          first_setC <= 2'b10;
-          activatefastC <= 1'b0;
-          puffer_setC <= 2'b10;
-          onarbit_setC <= 2'b11;
-          en_zerointcrcC <= 1'b1;
-          crc_shft_outC <= 1'b0;
-          if (smplpointC==1'b1&&stufftC==1'b0)
-            next_stateC <= tra_arbit_tsftrsmpl;
-          else
-            if (smplpointC==1'b1&&stufftC==1'b1)
-              next_stateC <= tra_arbit_tnsftrsmpl;
-            else
-              next_stateC <= tra_arbit_tactrsfter;
-        end
-      tra_arbit_tsftrsmpl : 
-        begin
-          rext_setC <= 2'b00;
-          rrtr_setC <= 2'b00;
-          actvtcrcC <= 1'b0;
-          actvrcrcC <= 1'b0;
-          actvtstfC <= 1'b0;
-          actvrstfC <= 1'b1;
-          actvtsftC <= 1'b1;
-          actvrsftC <= 1'b0;
-          actvtdctC <= 1'b0;
-          actvrdctC <= 1'b0;
-          actvtbedC <= 1'b1;
-          setbdomC <= 1'b0;
-          setbrecC <= 1'b0;
-          lcrcC <= 1'b0;
-          tshiftC <= 1'b1;
-          inconerecC <= 1'b0;
-          incegtrecC <= 1'b0;
-          incegttraC <= 1'b0;
-          lmsgC <= 1'b0;
-          decrecC <= 1'b0;
-          dectraC <= 1'b0;
-          elevrecbC <= 1'b0;
-          resetdstC <= 1'b1;
-          resetstfC <= 1'b1;
-          hardsyncC <= 1'b0;
-          inccountC <= 1'b0;
-          rescountC <= 1'b1;
-          setrmlenoC <= 0;
-          actvrmlnC <= 1'b0;
-          resrmlenC <= 1'b1;
-          ackerror_setC <= 2'b10;
-          transmitter_setC <= 2'b11;
-          receiver_setC <= 2'b10;
-          error_setC <= 2'b10;
-          first_setC <= 2'b10;
-          activatefastC <= 1'b0;
-          puffer_setC <= 2'b10;
-          onarbit_setC <= 2'b11;
-          en_zerointcrcC <= 1'b1;
-          crc_shft_outC <= 1'b0;
-          if (sendpointC==1'b1&&biterrorC==1'b0&&stferrorC==1'b0&&countC==13&&inbitC==1'b1&&textC==1'b1)
-            next_stateC <= tra_arbit_tactrsftsr;
-          else
-            if (sendpointC==1'b1&&biterrorC==1'b0&&stferrorC==1'b0&&countC==14&&inbitC==1'b1)
-              next_stateC <= tra_arbit_tactrsfte;
-            else
-              if (sendpointC==1'b1&&biterrorC==1'b0&&stferrorC==1'b0&&countC==33&&inbitC==1'b1)
-                next_stateC <= tra_arbit_tactrsfter;
-              else
-                if (sendpointC==1'b1&&biterrorC==1'b0&&stferrorC==1'b0&&(inbitC==1'b0||(countC!=13&&countC!=14&&countC!=33))&&(! ( (countC==13&&textC==1'b0)||(countC==34&&textC==1'b1) ) ))
-                  next_stateC <= tra_arbit_tactrsftn;
-                else
-                  if (sendpointC==1'b1&&biterrorC==1'b0&&stferrorC==1'b0&&((countC==13&&textC==1'b0)||(countC==34&&textC==1'b1)))
-                    next_stateC <= tra_data_activatecrc;
-                  else
-                    if (biterrorC==1'b1&&stferrorC==1'b0)
-                      next_stateC <= tra_arbit_goreceive;
-                    else
-                      next_stateC <= tra_arbit_tsftrsmpl;
-        end
-      tra_arbit_goreceive : 
-        begin
-          rext_setC <= 2'b00;
-          rrtr_setC <= 2'b00;
-          actvtcrcC <= 1'b0;
-          actvrcrcC <= 1'b1;
-          actvtstfC <= 1'b0;
-          actvrstfC <= 1'b0;
-          actvtsftC <= 1'b0;
-          actvrsftC <= 1'b1;
-          actvtdctC <= 1'b0;
-          actvrdctC <= 1'b0;
-          actvtbedC <= 1'b0;
-          setbdomC <= 1'b0;
-          setbrecC <= 1'b0;
-          lcrcC <= 1'b0;
-          tshiftC <= 1'b0;
-          inconerecC <= 1'b0;
-          incegtrecC <= 1'b0;
-          incegttraC <= 1'b0;
-          lmsgC <= 1'b0;
-          decrecC <= 1'b0;
-          dectraC <= 1'b0;
-          elevrecbC <= 1'b0;
-          hardsyncC <= 1'b0;
-          resetdstC <= 1'b1;
-          resetstfC <= 1'b1;
-          inccountC <= 1'b0;
-          rescountC <= 1'b1;
-          setrmlenoC <= 0;
-          actvrmlnC <= 1'b0;
-          resrmlenC <= 1'b1;
-          ackerror_setC <= 2'b10;
-          transmitter_setC <= 2'b10;
-          receiver_setC <= 2'b11;
-          error_setC <= 2'b10;
-          first_setC <= 2'b10;
-          activatefastC <= 1'b0;
-          puffer_setC <= 2'b10;
-          onarbit_setC <= 2'b10;
-          en_zerointcrcC <= 1'b1;
-          crc_shft_outC <= 1'b0;
-          if (smplpointC==1'b1)
-            next_stateC <= rec_flglen_sample;
-          else
-            next_stateC <= tra_arbit_goreceive;
-        end
-      tra_arbit_tnsftrsmpl : 
-        begin
-          rext_setC <= 2'b00;
-          rrtr_setC <= 2'b00;
-          actvtcrcC <= 1'b0;
-          actvrcrcC <= 1'b0;
-          actvtstfC <= 1'b0;
-          actvrstfC <= 1'b1;
-          actvtsftC <= 1'b0;
-          actvrsftC <= 1'b0;
-          actvtdctC <= 1'b0;
-          actvrdctC <= 1'b0;
-          actvtbedC <= 1'b1;
-          setbdomC <= 1'b0;
-          setbrecC <= 1'b0;
-          lcrcC <= 1'b0;
-          tshiftC <= 1'b1;
-          inconerecC <= 1'b0;
-          incegtrecC <= 1'b0;
-          incegttraC <= 1'b0;
-          lmsgC <= 1'b0;
-          decrecC <= 1'b0;
-          dectraC <= 1'b0;
-          elevrecbC <= 1'b0;
-          resetdstC <= 1'b1;
-          resetstfC <= 1'b1;
-          hardsyncC <= 1'b0;
-          inccountC <= 1'b0;
-          rescountC <= 1'b1;
-          setrmlenoC <= 0;
-          actvrmlnC <= 1'b0;
-          resrmlenC <= 1'b1;
-          ackerror_setC <= 2'b10;
-          transmitter_setC <= 2'b11;
-          receiver_setC <= 2'b10;
-          error_setC <= 2'b10;
-          first_setC <= 2'b10;
-          activatefastC <= 1'b0;
-          puffer_setC <= 2'b10;
-          onarbit_setC <= 2'b11;
-          en_zerointcrcC <= 1'b1;
-          crc_shft_outC <= 1'b0;
-          if (sendpointC==1'b1&&biterrorC==1'b0)
-            next_stateC <= tra_arbit_tnactrnsft;
-          else
-            if (stferrorC==1'b1&&erroractivC==1'b1)
-              next_stateC <= erroractiv_firstdom;
-            else
-              if (stferrorC==1'b1&&errorpassivC==1'b1)
-                next_stateC <= errorpassiv_firstrec;
-              else
-                next_stateC <= tra_arbit_tnsftrsmpl;
-        end
-      tra_data_activatecrc : 
-        begin
-          rext_setC <= 2'b10;
-          rrtr_setC <= 2'b10;
-          actvtcrcC <= 1'b1;
-          actvrcrcC <= 1'b0;
-          actvtstfC <= 1'b1;
-          actvrstfC <= 1'b0;
-          actvtsftC <= 1'b0;
-          actvrsftC <= 1'b0;
-          actvtdctC <= 1'b0;
-          actvrdctC <= 1'b0;
-          actvtbedC <= 1'b0;
-          setbdomC <= 1'b0;
-          setbrecC <= 1'b0;
-          lcrcC <= 1'b0;
-          tshiftC <= 1'b1;
-          inconerecC <= 1'b0;
-          incegtrecC <= 1'b0;
-          incegttraC <= 1'b0;
-          lmsgC <= 1'b0;
-          decrecC <= 1'b0;
-          dectraC <= 1'b0;
-          elevrecbC <= 1'b0;
-          hardsyncC <= 1'b0;
-          resetdstC <= 1'b1;
-          resetstfC <= 1'b1;
-          inccountC <= 1'b1;
-          rescountC <= 1'b1;
-          setrmlenoC <= 0;
-          actvrmlnC <= 1'b0;
-          resrmlenC <= 1'b1;
-          ackerror_setC <= 2'b10;
-          transmitter_setC <= 2'b11;
-          receiver_setC <= 2'b10;
-          error_setC <= 2'b10;
-          first_setC <= 2'b10;
-          activatefastC <= 1'b0;
-          puffer_setC <= 2'b10;
-          onarbit_setC <= 2'b10;
-          en_zerointcrcC <= 1'b1;
-          crc_shft_outC <= 1'b0;
-          if (smplpointC==1'b1&&stufftC==1'b0&&starttcrcC==1'b0)
-            next_stateC <= tra_data_shifting;
-          else
-            if (smplpointC==1'b1&&stufftC==1'b0&&starttcrcC==1'b1)
-              next_stateC <= tra_data_lastshift;
-            else
-              if (smplpointC==1'b1&&stufftC==1'b1)
-                next_stateC <= tra_data_noshift;
-              else
-                next_stateC <= tra_data_activatecrc;
-        end
-      tra_data_activatncrc : 
-        begin
-          rext_setC <= 2'b10;
-          rrtr_setC <= 2'b10;
-          actvtcrcC <= 1'b0;
-          actvrcrcC <= 1'b0;
-          actvtstfC <= 1'b1;
-          actvrstfC <= 1'b0;
-          actvtsftC <= 1'b0;
-          actvrsftC <= 1'b0;
-          actvtdctC <= 1'b0;
-          actvrdctC <= 1'b0;
-          actvtbedC <= 1'b0;
-          setbdomC <= 1'b0;
-          setbrecC <= 1'b0;
-          lcrcC <= 1'b0;
-          tshiftC <= 1'b1;
-          inconerecC <= 1'b0;
-          incegtrecC <= 1'b0;
-          incegttraC <= 1'b0;
-          lmsgC <= 1'b0;
-          decrecC <= 1'b0;
-          dectraC <= 1'b0;
-          elevrecbC <= 1'b0;
-          hardsyncC <= 1'b0;
-          resetdstC <= 1'b1;
-          resetstfC <= 1'b1;
-          inccountC <= 1'b0;
-          rescountC <= 1'b1;
-          setrmlenoC <= 0;
-          actvrmlnC <= 1'b0;
-          resrmlenC <= 1'b1;
-          ackerror_setC <= 2'b10;
-          transmitter_setC <= 2'b11;
-          receiver_setC <= 2'b10;
-          error_setC <= 2'b10;
-          first_setC <= 2'b10;
-          activatefastC <= 1'b0;
-          puffer_setC <= 2'b10;
-          onarbit_setC <= 2'b10;
-          en_zerointcrcC <= 1'b1;
-          crc_shft_outC <= 1'b0;
-          if (smplpointC==1'b1&&starttcrcC==1'b0)
-            next_stateC <= tra_data_shifting;
-          else
-            if (smplpointC==1'b1&&starttcrcC==1'b1)
-              next_stateC <= tra_data_lastshift;
-            else
-              next_stateC <= tra_data_activatncrc;
-        end
-      tra_data_shifting : 
-        begin
-          rext_setC <= 2'b10;
-          rrtr_setC <= 2'b10;
-          actvtcrcC <= 1'b0;
-          actvrcrcC <= 1'b0;
-          actvtstfC <= 1'b0;
-          actvrstfC <= 1'b0;
-          actvtsftC <= 1'b1;
-          actvrsftC <= 1'b0;
-          actvtdctC <= 1'b0;
-          actvrdctC <= 1'b0;
-          actvtbedC <= 1'b1;
-          setbdomC <= 1'b0;
-          setbrecC <= 1'b0;
-          lcrcC <= 1'b0;
-          tshiftC <= 1'b1;
-          inconerecC <= 1'b0;
-          incegtrecC <= 1'b0;
-          incegttraC <= 1'b0;
-          lmsgC <= 1'b0;
-          decrecC <= 1'b0;
-          dectraC <= 1'b0;
-          elevrecbC <= 1'b0;
-          hardsyncC <= 1'b0;
-          resetdstC <= 1'b1;
-          resetstfC <= 1'b1;
-          inccountC <= 1'b0;
-          rescountC <= 1'b1;
-          setrmlenoC <= 0;
-          actvrmlnC <= 1'b0;
-          resrmlenC <= 1'b1;
-          ackerror_setC <= 2'b10;
-          transmitter_setC <= 2'b11;
-          receiver_setC <= 2'b10;
-          error_setC <= 2'b10;
-          first_setC <= 2'b10;
-          activatefastC <= 1'b0;
-          puffer_setC <= 2'b10;
-          onarbit_setC <= 2'b10;
-          en_zerointcrcC <= 1'b1;
-          crc_shft_outC <= 1'b0;
-          if (sendpointC==1'b1&&biterrorC==1'b0)
-            next_stateC <= tra_data_activatecrc;
-          else
-            if (biterrorC==1'b1&&erroractivC==1'b1)
-              next_stateC <= erroractiv_firstdom;
-            else
-              if (biterrorC==1'b1&&errorpassivC==1'b1)
-                next_stateC <= errorpassiv_firstrec;
-              else
-                next_stateC <= tra_data_shifting;
-        end
-      tra_data_lastshift : 
-        begin
-          rext_setC <= 2'b10;
-          rrtr_setC <= 2'b10;
-          actvtcrcC <= 1'b0;
-          actvrcrcC <= 1'b0;
-          actvtstfC <= 1'b0;
-          actvrstfC <= 1'b0;
-          actvtsftC <= 1'b0;
-          actvrsftC <= 1'b0;
-          actvtdctC <= 1'b0;
-          actvrdctC <= 1'b0;
-          actvtbedC <= 1'b1;
-          setbdomC <= 1'b0;
-          setbrecC <= 1'b0;
-          lcrcC <= 1'b1;
-          tshiftC <= 1'b1;
-          inconerecC <= 1'b0;
-          incegtrecC <= 1'b0;
-          incegttraC <= 1'b0;
-          lmsgC <= 1'b0;
-          decrecC <= 1'b0;
-          dectraC <= 1'b0;
-          elevrecbC <= 1'b0;
-          hardsyncC <= 1'b0;
-          resetdstC <= 1'b1;
-          resetstfC <= 1'b1;
-          inccountC <= 1'b0;
-          rescountC <= 1'b0;
-          setrmlenoC <= 0;
-          actvrmlnC <= 1'b0;
-          resrmlenC <= 1'b1;
-          ackerror_setC <= 2'b10;
-          transmitter_setC <= 2'b11;
-          receiver_setC <= 2'b10;
-          error_setC <= 2'b10;
-          first_setC <= 2'b10;
-          activatefastC <= 1'b0;
-          puffer_setC <= 2'b10;
-          onarbit_setC <= 2'b10;
-          en_zerointcrcC <= 1'b1;
-          crc_shft_outC <= 1'b0;
-          if (biterrorC==1'b1&&erroractivC==1'b1)
-            next_stateC <= erroractiv_firstdom;
-          else
-            if (biterrorC==1'b1&&errorpassivC==1'b1)
-              next_stateC <= errorpassiv_firstrec;
-            else
-              next_stateC <= tra_data_loadcrc;
-        end
-      tra_data_noshift : 
-        begin
-          rext_setC <= 2'b10;
-          rrtr_setC <= 2'b10;
-          actvtcrcC <= 1'b0;
-          actvrcrcC <= 1'b0;
-          actvtstfC <= 1'b0;
-          actvrstfC <= 1'b0;
-          actvtsftC <= 1'b0;
-          actvrsftC <= 1'b0;
-          actvtdctC <= 1'b0;
-          actvrdctC <= 1'b0;
-          actvtbedC <= 1'b1;
-          setbdomC <= 1'b0;
-          setbrecC <= 1'b0;
-          lcrcC <= 1'b0;
-          tshiftC <= 1'b1;
-          inconerecC <= 1'b0;
-          incegtrecC <= 1'b0;
-          incegttraC <= 1'b0;
-          lmsgC <= 1'b0;
-          decrecC <= 1'b0;
-          dectraC <= 1'b0;
-          elevrecbC <= 1'b0;
-          hardsyncC <= 1'b0;
-          resetdstC <= 1'b1;
-          resetstfC <= 1'b1;
-          inccountC <= 1'b0;
-          rescountC <= 1'b1;
-          setrmlenoC <= 0;
-          actvrmlnC <= 1'b0;
-          resrmlenC <= 1'b1;
-          ackerror_setC <= 2'b10;
-          transmitter_setC <= 2'b11;
-          receiver_setC <= 2'b10;
-          error_setC <= 2'b10;
-          first_setC <= 2'b10;
-          activatefastC <= 1'b0;
-          puffer_setC <= 2'b10;
-          onarbit_setC <= 2'b10;
-          en_zerointcrcC <= 1'b1;
-          crc_shft_outC <= 1'b0;
-          if (sendpointC==1'b1&&biterrorC==1'b0)
-            next_stateC <= tra_data_activatncrc;
-          else
-            if (biterrorC==1'b1&&erroractivC==1'b1)
-              next_stateC <= erroractiv_firstdom;
-            else
-              if (biterrorC==1'b1&&errorpassivC==1'b1)
-                next_stateC <= errorpassiv_firstrec;
-              else
-                next_stateC <= tra_data_noshift;
-        end
-      tra_data_loadcrc : 
-        begin
-          rext_setC <= 2'b10;
-          rrtr_setC <= 2'b10;
-          actvtcrcC <= 1'b0;
-          actvrcrcC <= 1'b0;
-          actvtstfC <= 1'b0;
-          actvrstfC <= 1'b0;
-          actvtsftC <= 1'b1;
-          actvrsftC <= 1'b0;
-          actvtdctC <= 1'b0;
-          actvrdctC <= 1'b0;
-          actvtbedC <= 1'b0;
-          setbdomC <= 1'b0;
-          setbrecC <= 1'b0;
-          lcrcC <= 1'b1;
-          tshiftC <= 1'b1;
-          inconerecC <= 1'b0;
-          incegtrecC <= 1'b0;
-          incegttraC <= 1'b0;
-          lmsgC <= 1'b0;
-          decrecC <= 1'b0;
-          dectraC <= 1'b0;
-          elevrecbC <= 1'b0;
-          hardsyncC <= 1'b0;
-          resetdstC <= 1'b1;
-          resetstfC <= 1'b1;
-          inccountC <= 1'b0;
-          rescountC <= 1'b1;
-          setrmlenoC <= 0;
-          actvrmlnC <= 1'b0;
-          resrmlenC <= 1'b1;
-          ackerror_setC <= 2'b10;
-          transmitter_setC <= 2'b11;
-          receiver_setC <= 2'b10;
-          error_setC <= 2'b10;
-          first_setC <= 2'b10;
-          activatefastC <= 1'b0;
-          puffer_setC <= 2'b10;
-          onarbit_setC <= 2'b10;
-          en_zerointcrcC <= 1'b1;
-          crc_shft_outC <= 1'b0;
-          if (sendpointC==1'b1)
-            next_stateC <= tra_crc_activatedec;
-          else
-            next_stateC <= tra_data_loadcrc;
-        end
-      tra_crc_activatedec : 
-        begin
-          rext_setC <= 2'b10;
-          rrtr_setC <= 2'b10;
-          actvtcrcC <= 1'b0;
-          actvrcrcC <= 1'b0;
-          actvtstfC <= 1'b1;
-          actvrstfC <= 1'b0;
-          actvtsftC <= 1'b0;
-          actvrsftC <= 1'b0;
-          actvtdctC <= 1'b0;
-          actvrdctC <= 1'b0;
-          actvtbedC <= 1'b0;
-          setbdomC <= 1'b0;
-          setbrecC <= 1'b0;
-          lcrcC <= 1'b0;
-          tshiftC <= 1'b1;
-          inconerecC <= 1'b0;
-          incegtrecC <= 1'b0;
-          incegttraC <= 1'b0;
-          lmsgC <= 1'b0;
-          decrecC <= 1'b0;
-          dectraC <= 1'b0;
-          elevrecbC <= 1'b0;
-          hardsyncC <= 1'b0;
-          resetdstC <= 1'b1;
-          resetstfC <= 1'b1;
-          inccountC <= 1'b1;
-          rescountC <= 1'b1;
-          setrmlenoC <= 0;
-          actvrmlnC <= 1'b0;
-          resrmlenC <= 1'b1;
-          ackerror_setC <= 2'b10;
-          transmitter_setC <= 2'b11;
-          receiver_setC <= 2'b10;
-          error_setC <= 2'b10;
-          first_setC <= 2'b10;
-          activatefastC <= 1'b0;
-          puffer_setC <= 2'b10;
-          onarbit_setC <= 2'b10;
-          en_zerointcrcC <= 1'b1;
-          crc_shft_outC <= 1'b1;
-          if (smplpointC==1'b1&&stufftC==1'b0&&countC!=16)
-            next_stateC <= tra_crc_shifting;
-          else
-            if (smplpointC==1'b1&&stufftC==1'b0&&countC==16)
-              next_stateC <= tra_crc_delshft;
-            else
-              if (smplpointC==1'b1&&stufftC==1'b1)
-                next_stateC <= tra_crc_noshift;
-              else
-                next_stateC <= tra_crc_activatedec;
-        end
-      tra_crc_activatndec : 
-        begin
-          rext_setC <= 2'b10;
-          rrtr_setC <= 2'b10;
-          actvtcrcC <= 1'b0;
-          actvrcrcC <= 1'b0;
-          actvtstfC <= 1'b1;
-          actvrstfC <= 1'b0;
-          actvtsftC <= 1'b0;
-          actvrsftC <= 1'b0;
-          actvtdctC <= 1'b0;
-          actvrdctC <= 1'b0;
-          actvtbedC <= 1'b0;
-          setbdomC <= 1'b0;
-          setbrecC <= 1'b0;
-          lcrcC <= 1'b0;
-          tshiftC <= 1'b1;
-          inconerecC <= 1'b0;
-          incegtrecC <= 1'b0;
-          incegttraC <= 1'b0;
-          lmsgC <= 1'b0;
-          decrecC <= 1'b0;
-          dectraC <= 1'b0;
-          elevrecbC <= 1'b0;
-          hardsyncC <= 1'b0;
-          resetdstC <= 1'b1;
-          resetstfC <= 1'b1;
-          inccountC <= 1'b0;
-          rescountC <= 1'b1;
-          setrmlenoC <= 0;
-          actvrmlnC <= 1'b0;
-          resrmlenC <= 1'b1;
-          ackerror_setC <= 2'b10;
-          transmitter_setC <= 2'b11;
-          receiver_setC <= 2'b10;
-          error_setC <= 2'b10;
-          first_setC <= 2'b10;
-          activatefastC <= 1'b0;
-          puffer_setC <= 2'b10;
-          onarbit_setC <= 2'b10;
-          en_zerointcrcC <= 1'b1;
-          crc_shft_outC <= 1'b1;
-          if (smplpointC==1'b1&&countC!=16)
-            next_stateC <= tra_crc_shifting;
-          else
-            if (smplpointC==1'b1&&countC==16)
-              next_stateC <= tra_crc_delshft;
-            else
-              next_stateC <= tra_crc_activatndec;
-        end
-      tra_crc_shifting : 
-        begin
-          rext_setC <= 2'b10;
-          rrtr_setC <= 2'b10;
-          actvtcrcC <= 1'b0;
-          actvrcrcC <= 1'b0;
-          actvtstfC <= 1'b0;
-          actvrstfC <= 1'b0;
-          actvtsftC <= 1'b1;
-          actvrsftC <= 1'b0;
-          actvtdctC <= 1'b0;
-          actvrdctC <= 1'b0;
-          actvtbedC <= 1'b1;
-          setbdomC <= 1'b0;
-          setbrecC <= 1'b0;
-          lcrcC <= 1'b0;
-          tshiftC <= 1'b1;
-          inconerecC <= 1'b0;
-          incegtrecC <= 1'b0;
-          incegttraC <= 1'b0;
-          lmsgC <= 1'b0;
-          decrecC <= 1'b0;
-          dectraC <= 1'b0;
-          elevrecbC <= 1'b0;
-          hardsyncC <= 1'b0;
-          resetdstC <= 1'b1;
-          resetstfC <= 1'b1;
-          inccountC <= 1'b0;
-          rescountC <= 1'b1;
-          setrmlenoC <= 0;
-          actvrmlnC <= 1'b0;
-          resrmlenC <= 1'b1;
-          ackerror_setC <= 2'b10;
-          transmitter_setC <= 2'b11;
-          receiver_setC <= 2'b10;
-          error_setC <= 2'b10;
-          first_setC <= 2'b10;
-          activatefastC <= 1'b0;
-          puffer_setC <= 2'b10;
-          onarbit_setC <= 2'b10;
-          en_zerointcrcC <= 1'b1;
-          crc_shft_outC <= 1'b1;
-          if (sendpointC==1'b1&&biterrorC==1'b0)
-            next_stateC <= tra_crc_activatedec;
-          else
-            if (biterrorC==1'b1&&erroractivC==1'b1)
-              next_stateC <= erroractiv_firstdom;
-            else
-              if (biterrorC==1'b1&&errorpassivC==1'b1)
-                next_stateC <= errorpassiv_firstrec;
-              else
-                next_stateC <= tra_crc_shifting;
-        end
-      tra_crc_noshift : 
-        begin
-          rext_setC <= 2'b10;
-          rrtr_setC <= 2'b10;
-          actvtcrcC <= 1'b0;
-          actvrcrcC <= 1'b0;
-          actvtstfC <= 1'b0;
-          actvrstfC <= 1'b0;
-          actvtsftC <= 1'b0;
-          actvrsftC <= 1'b0;
-          actvtdctC <= 1'b0;
-          actvrdctC <= 1'b0;
-          actvtbedC <= 1'b1;
-          setbdomC <= 1'b0;
-          setbrecC <= 1'b0;
-          lcrcC <= 1'b0;
-          tshiftC <= 1'b1;
-          inconerecC <= 1'b0;
-          incegtrecC <= 1'b0;
-          incegttraC <= 1'b0;
-          lmsgC <= 1'b0;
-          decrecC <= 1'b0;
-          dectraC <= 1'b0;
-          elevrecbC <= 1'b0;
-          hardsyncC <= 1'b0;
-          resetdstC <= 1'b1;
-          resetstfC <= 1'b1;
-          inccountC <= 1'b0;
-          rescountC <= 1'b1;
-          setrmlenoC <= 0;
-          actvrmlnC <= 1'b0;
-          resrmlenC <= 1'b1;
-          ackerror_setC <= 2'b10;
-          transmitter_setC <= 2'b11;
-          receiver_setC <= 2'b10;
-          error_setC <= 2'b10;
-          first_setC <= 2'b10;
-          activatefastC <= 1'b0;
-          puffer_setC <= 2'b10;
-          onarbit_setC <= 2'b10;
-          en_zerointcrcC <= 1'b1;
-          crc_shft_outC <= 1'b1;
-          if (sendpointC==1'b1&&biterrorC==1'b0)
-            next_stateC <= tra_crc_activatndec;
-          else
-            if (biterrorC==1'b1&&erroractivC==1'b1)
-              next_stateC <= erroractiv_firstdom;
-            else
-              if (biterrorC==1'b1&&errorpassivC==1'b1)
-                next_stateC <= errorpassiv_firstrec;
-              else
-                next_stateC <= tra_crc_noshift;
-        end
-      tra_crc_delshft : 
-        begin
-          rext_setC <= 2'b10;
-          rrtr_setC <= 2'b10;
-          actvtcrcC <= 1'b0;
-          actvrcrcC <= 1'b0;
-          actvtstfC <= 1'b0;
-          actvrstfC <= 1'b0;
-          actvtsftC <= 1'b1;
-          actvrsftC <= 1'b0;
-          actvtdctC <= 1'b0;
-          actvrdctC <= 1'b0;
-          actvtbedC <= 1'b1;
-          setbdomC <= 1'b0;
-          setbrecC <= 1'b1;
-          lcrcC <= 1'b0;
-          tshiftC <= 1'b1;
-          inconerecC <= 1'b0;
-          incegtrecC <= 1'b0;
-          incegttraC <= 1'b0;
-          lmsgC <= 1'b0;
-          decrecC <= 1'b0;
-          dectraC <= 1'b0;
-          elevrecbC <= 1'b0;
-          hardsyncC <= 1'b0;
-          resetdstC <= 1'b1;
-          resetstfC <= 1'b1;
-          inccountC <= 1'b0;
-          rescountC <= 1'b0;
-          setrmlenoC <= 0;
-          actvrmlnC <= 1'b0;
-          resrmlenC <= 1'b1;
-          ackerror_setC <= 2'b10;
-          transmitter_setC <= 2'b11;
-          receiver_setC <= 2'b10;
-          error_setC <= 2'b10;
-          first_setC <= 2'b10;
-          activatefastC <= 1'b0;
-          puffer_setC <= 2'b10;
-          onarbit_setC <= 2'b10;
-          en_zerointcrcC <= 1'b1;
-          crc_shft_outC <= 1'b1;
-          if (sendpointC==1'b1&&biterrorC==1'b0)
-            next_stateC <= tra_ack_sendack;
-          else
-            if (biterrorC==1'b1&&erroractivC==1'b1)
-              next_stateC <= erroractiv_firstdom;
-            else
-              if (biterrorC==1'b1&&errorpassivC==1'b1)
-                next_stateC <= errorpassiv_firstrec;
-              else
-                next_stateC <= tra_crc_delshft;
-        end
-      tra_ack_sendack : 
-        begin
-          rext_setC <= 2'b10;
-          rrtr_setC <= 2'b10;
-          actvtcrcC <= 1'b0;
-          actvrcrcC <= 1'b0;
-          actvtstfC <= 1'b1;
-          actvrstfC <= 1'b0;
-          actvtsftC <= 1'b0;
-          actvrsftC <= 1'b0;
-          actvtdctC <= 1'b0;
-          actvrdctC <= 1'b0;
-          actvtbedC <= 1'b0;
-          setbdomC <= 1'b0;
-          setbrecC <= 1'b1;
-          lcrcC <= 1'b0;
-          tshiftC <= 1'b0;
-          inconerecC <= 1'b0;
-          incegtrecC <= 1'b0;
-          incegttraC <= 1'b0;
-          lmsgC <= 1'b0;
-          decrecC <= 1'b0;
-          dectraC <= 1'b0;
-          elevrecbC <= 1'b0;
-          hardsyncC <= 1'b0;
-          resetdstC <= 1'b1;
-          resetstfC <= 1'b1;
-          inccountC <= 1'b0;
-          rescountC <= 1'b1;
-          setrmlenoC <= 0;
-          actvrmlnC <= 1'b0;
-          resrmlenC <= 1'b1;
-          ackerror_setC <= 2'b10;
-          transmitter_setC <= 2'b11;
-          receiver_setC <= 2'b10;
-          error_setC <= 2'b10;
-          first_setC <= 2'b10;
-          activatefastC <= 1'b0;
-          puffer_setC <= 2'b10;
-          onarbit_setC <= 2'b10;
-          en_zerointcrcC <= 1'b1;
-          crc_shft_outC <= 1'b0;
-          if (smplpointC==1'b1)
-            next_stateC <= tra_ack_shifting;
-          else
-            next_stateC <= tra_ack_sendack;
-        end
-      tra_ack_shifting : 
-        begin
-          rext_setC <= 2'b10;
-          rrtr_setC <= 2'b10;
-          actvtcrcC <= 1'b0;
-          actvrcrcC <= 1'b0;
-          actvtstfC <= 1'b0;
-          actvrstfC <= 1'b0;
-          actvtsftC <= 1'b0;
-          actvrsftC <= 1'b0;
-          actvtdctC <= 1'b0;
-          actvrdctC <= 1'b0;
-          actvtbedC <= 1'b1;
-          setbdomC <= 1'b0;
-          setbrecC <= 1'b1;
-          lcrcC <= 1'b0;
-          tshiftC <= 1'b0;
-          inconerecC <= 1'b0;
-          incegtrecC <= 1'b0;
-          incegttraC <= 1'b0;
-          lmsgC <= 1'b0;
-          decrecC <= 1'b0;
-          dectraC <= 1'b0;
-          elevrecbC <= 1'b0;
-          hardsyncC <= 1'b0;
-          resetdstC <= 1'b1;
-          resetstfC <= 1'b1;
-          inccountC <= 1'b0;
-          rescountC <= 1'b1;
-          setrmlenoC <= 0;
-          actvrmlnC <= 1'b0;
-          resrmlenC <= 1'b1;
-          ackerror_setC <= 2'b10;
-          transmitter_setC <= 2'b11;
-          receiver_setC <= 2'b10;
-          error_setC <= 2'b10;
-          first_setC <= 2'b10;
-          activatefastC <= 1'b0;
-          puffer_setC <= 2'b10;
-          onarbit_setC <= 2'b10;
-          en_zerointcrcC <= 1'b1;
-          crc_shft_outC <= 1'b0;
-          if (biterrorC==1'b0)
-            next_stateC <= tra_ack_stopack;
-          else
-            if (sendpointC==1'b1&&biterrorC==1'b1)
-              next_stateC <= tra_edof_sendrecb;
-            else
-              next_stateC <= tra_ack_shifting;
-        end
-      tra_ack_stopack : 
-        begin
-          rext_setC <= 2'b10;
-          rrtr_setC <= 2'b10;
-          actvtcrcC <= 1'b0;
-          actvrcrcC <= 1'b0;
-          actvtstfC <= 1'b0;
-          actvrstfC <= 1'b0;
-          actvtsftC <= 1'b0;
-          actvrsftC <= 1'b0;
-          actvtdctC <= 1'b0;
-          actvrdctC <= 1'b0;
-          actvtbedC <= 1'b1;
-          setbdomC <= 1'b0;
-          setbrecC <= 1'b1;
-          lcrcC <= 1'b0;
-          tshiftC <= 1'b0;
-          inconerecC <= 1'b0;
-          incegtrecC <= 1'b0;
-          incegttraC <= 1'b0;
-          lmsgC <= 1'b0;
-          decrecC <= 1'b0;
-          dectraC <= 1'b0;
-          elevrecbC <= 1'b0;
-          hardsyncC <= 1'b0;
-          resetdstC <= 1'b1;
-          resetstfC <= 1'b1;
-          inccountC <= 1'b0;
-          rescountC <= 1'b1;
-          setrmlenoC <= 0;
-          actvrmlnC <= 1'b0;
-          resrmlenC <= 1'b1;
-          ackerror_setC <= 2'b11;
-          transmitter_setC <= 2'b11;
-          receiver_setC <= 2'b10;
-          error_setC <= 2'b10;
-          first_setC <= 2'b10;
-          activatefastC <= 1'b0;
-          puffer_setC <= 2'b10;
-          onarbit_setC <= 2'b10;
-          en_zerointcrcC <= 1'b1;
-          crc_shft_outC <= 1'b0;
-          if (erroractivC==1'b1)
-            next_stateC <= erroractiv_firstdom;
-          else
-            next_stateC <= errorpassiv_firstrec;
-        end
-      tra_edof_sendrecb : 
-        begin
-          rext_setC <= 2'b10;
-          rrtr_setC <= 2'b10;
-          actvtcrcC <= 1'b0;
-          actvrcrcC <= 1'b0;
-          actvtstfC <= 1'b1;
-          actvrstfC <= 1'b0;
-          actvtsftC <= 1'b0;
-          actvrsftC <= 1'b0;
-          actvtdctC <= 1'b0;
-          actvrdctC <= 1'b0;
-          actvtbedC <= 1'b0;
-          setbdomC <= 1'b0;
-          setbrecC <= 1'b1;
-          lcrcC <= 1'b0;
-          tshiftC <= 1'b0;
-          inconerecC <= 1'b0;
-          incegtrecC <= 1'b0;
-          incegttraC <= 1'b0;
-          lmsgC <= 1'b0;
-          decrecC <= 1'b0;
-          dectraC <= 1'b0;
-          elevrecbC <= 1'b0;
-          hardsyncC <= 1'b0;
-          resetdstC <= 1'b1;
-          resetstfC <= 1'b1;
-          inccountC <= 1'b1;
-          rescountC <= 1'b1;
-          setrmlenoC <= 0;
-          actvrmlnC <= 1'b0;
-          resrmlenC <= 1'b1;
-          ackerror_setC <= 2'b10;
-          transmitter_setC <= 2'b11;
-          receiver_setC <= 2'b10;
-          error_setC <= 2'b10;
-          first_setC <= 2'b10;
-          activatefastC <= 1'b0;
-          puffer_setC <= 2'b10;
-          onarbit_setC <= 2'b10;
-          en_zerointcrcC <= 1'b1;
-          crc_shft_outC <= 1'b0;
-          if (smplpointC==1'b1)
-            next_stateC <= tra_edof_shifting;
-          else
-            next_stateC <= tra_edof_sendrecb;
-        end
-      tra_edof_shifting : 
-        begin
-          rext_setC <= 2'b10;
-          rrtr_setC <= 2'b10;
-          actvtcrcC <= 1'b0;
-          actvrcrcC <= 1'b0;
-          actvtstfC <= 1'b0;
-          actvrstfC <= 1'b0;
-          actvtsftC <= 1'b0;
-          actvrsftC <= 1'b0;
-          actvtdctC <= 1'b0;
-          actvrdctC <= 1'b0;
-          actvtbedC <= 1'b1;
-          setbdomC <= 1'b0;
-          setbrecC <= 1'b1;
-          lcrcC <= 1'b0;
-          tshiftC <= 1'b0;
-          inconerecC <= 1'b0;
-          incegtrecC <= 1'b0;
-          incegttraC <= 1'b0;
-          lmsgC <= 1'b0;
-          decrecC <= 1'b0;
-          dectraC <= 1'b0;
-          elevrecbC <= 1'b0;
-          hardsyncC <= 1'b0;
-          resetdstC <= 1'b1;
-          resetstfC <= 1'b1;
-          inccountC <= 1'b0;
-          rescountC <= 1'b1;
-          setrmlenoC <= 0;
-          actvrmlnC <= 1'b0;
-          resrmlenC <= 1'b1;
-          ackerror_setC <= 2'b10;
-          transmitter_setC <= 2'b11;
-          receiver_setC <= 2'b10;
-          error_setC <= 2'b10;
-          first_setC <= 2'b10;
-          activatefastC <= 1'b0;
-          puffer_setC <= 2'b10;
-          onarbit_setC <= 2'b10;
-          en_zerointcrcC <= 1'b1;
-          crc_shft_outC <= 1'b0;
-          if (sendpointC==1'b1&&biterrorC==1'b0&&countC!=8)
-            next_stateC <= tra_edof_sendrecb;
-          else
-            if (sendpointC==1'b1&&biterrorC==1'b0&&countC==8)
-              next_stateC <= tra_edof_dectra;
-            else
-              if (biterrorC==1'b1&&countC==8)
-                next_stateC <= over_firstdom;
-              else
-                if (biterrorC==1'b1&&erroractivC==1'b1&&countC!=8)
-                  next_stateC <= erroractiv_firstdom;
-                else
-                  if (biterrorC==1'b1&&errorpassivC==1'b1&&countC!=8)
-                    next_stateC <= errorpassiv_firstrec;
-                  else
-                    next_stateC <= tra_edof_shifting;
-        end
-      tra_edof_dectra : 
-        begin
-          rext_setC <= 2'b10;
-          rrtr_setC <= 2'b10;
-          actvtcrcC <= 1'b0;
-          actvrcrcC <= 1'b0;
-          actvtstfC <= 1'b0;
-          actvrstfC <= 1'b0;
-          actvtsftC <= 1'b0;
-          actvrsftC <= 1'b0;
-          actvtdctC <= 1'b0;
-          actvrdctC <= 1'b0;
-          actvtbedC <= 1'b1;
-          setbdomC <= 1'b0;
-          setbrecC <= 1'b0;
-          lcrcC <= 1'b0;
-          tshiftC <= 1'b0;
-          inconerecC <= 1'b0;
-          incegtrecC <= 1'b0;
-          incegttraC <= 1'b0;
-          lmsgC <= 1'b0;
-          decrecC <= 1'b0;
-          dectraC <= 1'b1;
-          elevrecbC <= 1'b0;
-          hardsyncC <= 1'b0;
-          resetdstC <= 1'b1;
-          resetstfC <= 1'b0;
-          inccountC <= 1'b0;
-          rescountC <= 1'b0;
-          setrmlenoC <= 0;
-          actvrmlnC <= 1'b0;
-          resrmlenC <= 1'b1;
-          ackerror_setC <= 2'b10;
-          transmitter_setC <= 2'b11;
-          receiver_setC <= 2'b10;
-          error_setC <= 2'b10;
-          first_setC <= 2'b10;
-          activatefastC <= 1'b0;
-          puffer_setC <= 2'b10;
-          onarbit_setC <= 2'b10;
-          en_zerointcrcC <= 1'b1;
-          crc_shft_outC <= 1'b0;
-          if (smplpointC==1'b1)
-            next_stateC <= inter_sample;
-          else
-            next_stateC <= tra_edof_dectra;
-        end
-      rec_flglen_sample : 
-        begin
-          rext_setC <= 2'b00;
-          rrtr_setC <= 2'b00;
-          actvtcrcC <= 1'b0;
-          actvrcrcC <= 1'b0;
-          actvtstfC <= 1'b0;
-          actvrstfC <= 1'b1;
-          actvtsftC <= 1'b0;
-          actvrsftC <= 1'b0;
-          actvtdctC <= 1'b0;
-          actvrdctC <= 1'b0;
-          actvtbedC <= 1'b0;
-          setbdomC <= 1'b0;
-          setbrecC <= 1'b0;
-          lcrcC <= 1'b0;
-          tshiftC <= 1'b0;
-          inconerecC <= 1'b0;
-          incegtrecC <= 1'b0;
-          incegttraC <= 1'b0;
-          lmsgC <= 1'b0;
-          decrecC <= 1'b0;
-          dectraC <= 1'b0;
-          elevrecbC <= 1'b0;
-          hardsyncC <= 1'b0;
-          resetdstC <= 1'b1;
-          resetstfC <= 1'b1;
-          inccountC <= 1'b0;
-          rescountC <= 1'b1;
-          setrmlenoC <= 0;
-          actvrmlnC <= 1'b0;
-          resrmlenC <= 1'b1;
-          ackerror_setC <= 2'b10;
-          transmitter_setC <= 2'b10;
-          receiver_setC <= 2'b11;
-          error_setC <= 2'b10;
-          first_setC <= 2'b10;
-          activatefastC <= 1'b0;
-          puffer_setC <= 2'b10;
-          onarbit_setC <= 2'b10;
-          en_zerointcrcC <= 1'b1;
-          crc_shft_outC <= 1'b0;
-          if (stuffrC==1'b1&&stferrorC==1'b0)
-            next_stateC <= rec_flglen_noshift;
-          else
-            if (stferrorC==1'b1&&erroractivC==1'b1)
-              next_stateC <= erroractiv_firstdom;
-            else
-              if (stferrorC==1'b1&&errorpassivC==1'b1)
-                next_stateC <= errorpassiv_firstrec;
-              else
-                if (stuffrC==1'b0&&stferrorC==1'b0&&inbitC==1'b1&&countC==12)
-                  next_stateC <= rec_flglen_shiftstdrtr;
-                else
-                  if ((stuffrC==1'b0)&&(stferrorC==1'b0)&&(inbitC==1'b1)&&(countC==13))
-                    next_stateC <= rec_flglen_shiftextnor;
-                  else
-                    if (stuffrC==1'b0&&stferrorC==1'b0&&inbitC==1'b1&&countC==15&&rrtrC==1'b0&&rextC==1'b0)
-                      next_stateC <= rec_flglen_shiftdlc64;
-                    else
-                      if (stuffrC==1'b0&&stferrorC==1'b0&&inbitC==1'b1&&countC==16&&rrtrC==1'b0&&rextC==1'b0)
-                        next_stateC <= rec_flglen_shiftdlc32;
-                      else
-                        if (stuffrC==1'b0&&stferrorC==1'b0&&inbitC==1'b1&&countC==17&&rrtrC==1'b0&&rextC==1'b0)
-                          next_stateC <= rec_flglen_shiftdlc16;
-                        else
-                          if (stuffrC==1'b0&&stferrorC==1'b0&&inbitC==1'b1&&countC==18&&rrtrC==1'b0&&rextC==1'b0)
-                            next_stateC <= rec_flglen_shiftdlc8;
-                          else
-                            if (stuffrC==1'b0&&stferrorC==1'b0&&inbitC==1'b1&&countC==32&&rextC==1'b1)
-                              next_stateC <= rec_flglen_shiftextrtr;
-                            else
-                              if (stuffrC==1'b0&&stferrorC==1'b0&&inbitC==1'b1&&countC==35&&rrtrC==1'b0&&rextC==1'b1)
-                                next_stateC <= rec_flglen_shiftdlc64;
-                              else
-                                if (stuffrC==1'b0&&stferrorC==1'b0&&inbitC==1'b1&&countC==36&&rrtrC==1'b0&&rextC==1'b1)
-                                  next_stateC <= rec_flglen_shiftdlc32;
-                                else
-                                  if (stuffrC==1'b0&&stferrorC==1'b0&&inbitC==1'b1&&countC==37&&rrtrC==1'b0&&rextC==1'b1)
-                                    next_stateC <= rec_flglen_shiftdlc16;
-                                  else
-                                    if (stuffrC==1'b0&&stferrorC==1'b0&&inbitC==1'b1&&countC==38&&rrtrC==1'b0&&rextC==1'b1)
-                                      next_stateC <= rec_flglen_shiftdlc8;
-                                    else
-                                      if (stuffrC==1'b0&&stferrorC==1'b0&&(inbitC==1'b0||(countC!=12&&countC!=13&&(rextC==1'b1||rrtrC==1'b1||(countC!=15&&countC!=16&&countC!=17&&countC!=18))&&(countC!=32||rextC==1'b0)&&(rextC==1'b0||rrtrC==1'b1||(countC!=35&&countC!=36&&countC!=37&&countC!=38)))))
-                                        next_stateC <= rec_flglen_shifting;
-                                      else
-                                        next_stateC <= rec_flglen_sample;
-        end
-      rec_flglen_shifting : 
-        begin
-          rext_setC <= 2'b00;
-          rrtr_setC <= 2'b00;
-          actvtcrcC <= 1'b0;
-          actvrcrcC <= 1'b1;
-          actvtstfC <= 1'b0;
-          actvrstfC <= 1'b0;
-          actvtsftC <= 1'b0;
-          actvrsftC <= 1'b1;
-          actvtdctC <= 1'b0;
-          actvrdctC <= 1'b0;
-          actvtbedC <= 1'b0;
-          setbdomC <= 1'b0;
-          setbrecC <= 1'b0;
-          lcrcC <= 1'b0;
-          tshiftC <= 1'b0;
-          inconerecC <= 1'b0;
-          incegtrecC <= 1'b0;
-          incegttraC <= 1'b0;
-          lmsgC <= 1'b0;
-          decrecC <= 1'b0;
-          dectraC <= 1'b0;
-          elevrecbC <= 1'b0;
-          hardsyncC <= 1'b0;
-          resetdstC <= 1'b1;
-          resetstfC <= 1'b1;
-          inccountC <= 1'b1;
-          rescountC <= 1'b1;
-          setrmlenoC <= 0;
-          actvrmlnC <= 1'b0;
-          resrmlenC <= 1'b1;
-          ackerror_setC <= 2'b10;
-          transmitter_setC <= 2'b10;
-          receiver_setC <= 2'b11;
-          error_setC <= 2'b10;
-          first_setC <= 2'b10;
-          activatefastC <= 1'b0;
-          puffer_setC <= 2'b10;
-          onarbit_setC <= 2'b10;
-          en_zerointcrcC <= 1'b1;
-          crc_shft_outC <= 1'b0;
-          if (smplpointC==1'b1&&(! ( (countC==19&&rextC==1'b0)||(countC==39&&rextC==1'b1) ) ))
-            next_stateC <= rec_flglen_sample;
-          else
-            if (smplpointC==1'b1&&((countC==19&&rextC==1'b0)||(countC==39&&rextC==1'b1))&&rrtrC==1'b0&&rmzeroC==1'b0)
-              next_stateC <= rec_acptdat_sample;
-            else
-              if (smplpointC==1'b1&&((countC==19&&rextC==1'b0)||(countC==39&&rextC==1'b1))&&(rrtrC==1'b1||rmzeroC==1'b1))
-                next_stateC <= rec_crc_rescnt;
-              else
-                next_stateC <= rec_flglen_shifting;
-        end
-      rec_flglen_shiftstdrtr : 
-        begin
-          rext_setC <= 2'b00;
-          rrtr_setC <= 2'b11;
-          actvtcrcC <= 1'b0;
-          actvrcrcC <= 1'b1;
-          actvtstfC <= 1'b0;
-          actvrstfC <= 1'b0;
-          actvtsftC <= 1'b0;
-          actvrsftC <= 1'b1;
-          actvtdctC <= 1'b0;
-          actvrdctC <= 1'b0;
-          actvtbedC <= 1'b0;
-          setbdomC <= 1'b0;
-          setbrecC <= 1'b0;
-          lcrcC <= 1'b0;
-          tshiftC <= 1'b0;
-          inconerecC <= 1'b0;
-          incegtrecC <= 1'b0;
-          incegttraC <= 1'b0;
-          lmsgC <= 1'b0;
-          decrecC <= 1'b0;
-          dectraC <= 1'b0;
-          elevrecbC <= 1'b0;
-          hardsyncC <= 1'b0;
-          resetdstC <= 1'b1;
-          resetstfC <= 1'b1;
-          inccountC <= 1'b1;
-          rescountC <= 1'b1;
-          setrmlenoC <= 0;
-          actvrmlnC <= 1'b0;
-          resrmlenC <= 1'b1;
-          ackerror_setC <= 2'b10;
-          transmitter_setC <= 2'b10;
-          receiver_setC <= 2'b11;
-          error_setC <= 2'b10;
-          first_setC <= 2'b10;
-          activatefastC <= 1'b0;
-          puffer_setC <= 2'b10;
-          onarbit_setC <= 2'b10;
-          en_zerointcrcC <= 1'b1;
-          crc_shft_outC <= 1'b0;
-          if (smplpointC==1'b1)
-            next_stateC <= rec_flglen_sample;
-          else
-            next_stateC <= rec_flglen_shiftstdrtr;
-        end
-      rec_flglen_shiftextnor : 
-        begin
-          rext_setC <= 2'b11;
-          rrtr_setC <= 2'b10;
-          actvtcrcC <= 1'b0;
-          actvrcrcC <= 1'b1;
-          actvtstfC <= 1'b0;
-          actvrstfC <= 1'b0;
-          actvtsftC <= 1'b0;
-          actvrsftC <= 1'b1;
-          actvtdctC <= 1'b0;
-          actvrdctC <= 1'b0;
-          actvtbedC <= 1'b0;
-          setbdomC <= 1'b0;
-          setbrecC <= 1'b0;
-          lcrcC <= 1'b0;
-          tshiftC <= 1'b0;
-          inconerecC <= 1'b0;
-          incegtrecC <= 1'b0;
-          incegttraC <= 1'b0;
-          lmsgC <= 1'b0;
-          decrecC <= 1'b0;
-          dectraC <= 1'b0;
-          elevrecbC <= 1'b0;
-          hardsyncC <= 1'b0;
-          resetdstC <= 1'b1;
-          resetstfC <= 1'b1;
-          inccountC <= 1'b1;
-          rescountC <= 1'b1;
-          setrmlenoC <= 0;
-          actvrmlnC <= 1'b0;
-          resrmlenC <= 1'b1;
-          ackerror_setC <= 2'b10;
-          transmitter_setC <= 2'b10;
-          receiver_setC <= 2'b11;
-          error_setC <= 2'b10;
-          first_setC <= 2'b10;
-          activatefastC <= 1'b0;
-          puffer_setC <= 2'b10;
-          onarbit_setC <= 2'b10;
-          en_zerointcrcC <= 1'b1;
-          crc_shft_outC <= 1'b0;
-          if (smplpointC==1'b1)
-            next_stateC <= rec_flglen_sample;
-          else
-            next_stateC <= rec_flglen_shiftextnor;
-        end
-      rec_flglen_shiftdlc64 : 
-        begin
-          rext_setC <= 2'b00;
-          rrtr_setC <= 2'b00;
-          actvtcrcC <= 1'b0;
-          actvrcrcC <= 1'b1;
-          actvtstfC <= 1'b0;
-          actvrstfC <= 1'b0;
-          actvtsftC <= 1'b0;
-          actvrsftC <= 1'b1;
-          actvtdctC <= 1'b0;
-          actvrdctC <= 1'b0;
-          actvtbedC <= 1'b0;
-          setbdomC <= 1'b0;
-          setbrecC <= 1'b0;
-          lcrcC <= 1'b0;
-          tshiftC <= 1'b0;
-          inconerecC <= 1'b0;
-          incegtrecC <= 1'b0;
-          incegttraC <= 1'b0;
-          lmsgC <= 1'b0;
-          decrecC <= 1'b0;
-          dectraC <= 1'b0;
-          elevrecbC <= 1'b0;
-          hardsyncC <= 1'b0;
-          resetdstC <= 1'b1;
-          resetstfC <= 1'b1;
-          inccountC <= 1'b1;
-          rescountC <= 1'b1;
-          setrmlenoC <= 4;
-          actvrmlnC <= 1'b1;
-          resrmlenC <= 1'b1;
-          ackerror_setC <= 2'b10;
-          transmitter_setC <= 2'b10;
-          receiver_setC <= 2'b11;
-          error_setC <= 2'b10;
-          first_setC <= 2'b10;
-          activatefastC <= 1'b0;
-          puffer_setC <= 2'b10;
-          onarbit_setC <= 2'b10;
-          en_zerointcrcC <= 1'b1;
-          crc_shft_outC <= 1'b0;
-          next_stateC <= rec_flglen_setdlc;
-        end
-      rec_flglen_shiftdlc32 : 
-        begin
-          rext_setC <= 2'b00;
-          rrtr_setC <= 2'b00;
-          actvtcrcC <= 1'b0;
-          actvrcrcC <= 1'b1;
-          actvtstfC <= 1'b0;
-          actvrstfC <= 1'b0;
-          actvtsftC <= 1'b0;
-          actvrsftC <= 1'b1;
-          actvtdctC <= 1'b0;
-          actvrdctC <= 1'b0;
-          actvtbedC <= 1'b0;
-          setbdomC <= 1'b0;
-          setbrecC <= 1'b0;
-          lcrcC <= 1'b0;
-          tshiftC <= 1'b0;
-          inconerecC <= 1'b0;
-          incegtrecC <= 1'b0;
-          incegttraC <= 1'b0;
-          lmsgC <= 1'b0;
-          decrecC <= 1'b0;
-          dectraC <= 1'b0;
-          elevrecbC <= 1'b0;
-          hardsyncC <= 1'b0;
-          resetdstC <= 1'b1;
-          resetstfC <= 1'b1;
-          inccountC <= 1'b1;
-          rescountC <= 1'b1;
-          setrmlenoC <= 3;
-          actvrmlnC <= 1'b1;
-          resrmlenC <= 1'b1;
-          ackerror_setC <= 2'b10;
-          transmitter_setC <= 2'b10;
-          receiver_setC <= 2'b11;
-          error_setC <= 2'b10;
-          first_setC <= 2'b10;
-          activatefastC <= 1'b0;
-          puffer_setC <= 2'b10;
-          onarbit_setC <= 2'b10;
-          en_zerointcrcC <= 1'b1;
-          crc_shft_outC <= 1'b0;
-          next_stateC <= rec_flglen_setdlc;
-        end
-      rec_flglen_shiftdlc16 : 
-        begin
-          rext_setC <= 2'b00;
-          rrtr_setC <= 2'b00;
-          actvtcrcC <= 1'b0;
-          actvrcrcC <= 1'b1;
-          actvtstfC <= 1'b0;
-          actvrstfC <= 1'b0;
-          actvtsftC <= 1'b0;
-          actvrsftC <= 1'b1;
-          actvtdctC <= 1'b0;
-          actvrdctC <= 1'b0;
-          actvtbedC <= 1'b0;
-          setbdomC <= 1'b0;
-          setbrecC <= 1'b0;
-          lcrcC <= 1'b0;
-          tshiftC <= 1'b0;
-          inconerecC <= 1'b0;
-          incegtrecC <= 1'b0;
-          incegttraC <= 1'b0;
-          lmsgC <= 1'b0;
-          decrecC <= 1'b0;
-          dectraC <= 1'b0;
-          elevrecbC <= 1'b0;
-          hardsyncC <= 1'b0;
-          resetdstC <= 1'b1;
-          resetstfC <= 1'b1;
-          inccountC <= 1'b1;
-          rescountC <= 1'b1;
-          setrmlenoC <= 2;
-          actvrmlnC <= 1'b1;
-          resrmlenC <= 1'b1;
-          ackerror_setC <= 2'b10;
-          transmitter_setC <= 2'b10;
-          receiver_setC <= 2'b11;
-          error_setC <= 2'b10;
-          first_setC <= 2'b10;
-          activatefastC <= 1'b0;
-          puffer_setC <= 2'b10;
-          onarbit_setC <= 2'b10;
-          en_zerointcrcC <= 1'b1;
-          crc_shft_outC <= 1'b0;
-          next_stateC <= rec_flglen_setdlc;
-        end
-      rec_flglen_shiftdlc8 : 
-        begin
-          rext_setC <= 2'b00;
-          rrtr_setC <= 2'b00;
-          actvtcrcC <= 1'b0;
-          actvrcrcC <= 1'b1;
-          actvtstfC <= 1'b0;
-          actvrstfC <= 1'b0;
-          actvtsftC <= 1'b0;
-          actvrsftC <= 1'b1;
-          actvtdctC <= 1'b0;
-          actvrdctC <= 1'b0;
-          actvtbedC <= 1'b0;
-          setbdomC <= 1'b0;
-          setbrecC <= 1'b0;
-          lcrcC <= 1'b0;
-          tshiftC <= 1'b0;
-          inconerecC <= 1'b0;
-          incegtrecC <= 1'b0;
-          incegttraC <= 1'b0;
-          lmsgC <= 1'b0;
-          decrecC <= 1'b0;
-          dectraC <= 1'b0;
-          elevrecbC <= 1'b0;
-          hardsyncC <= 1'b0;
-          resetdstC <= 1'b1;
-          resetstfC <= 1'b1;
-          inccountC <= 1'b1;
-          rescountC <= 1'b1;
-          setrmlenoC <= 1;
-          actvrmlnC <= 1'b1;
-          resrmlenC <= 1'b1;
-          ackerror_setC <= 2'b10;
-          transmitter_setC <= 2'b10;
-          receiver_setC <= 2'b11;
-          error_setC <= 2'b10;
-          first_setC <= 2'b10;
-          activatefastC <= 1'b0;
-          puffer_setC <= 2'b10;
-          onarbit_setC <= 2'b10;
-          en_zerointcrcC <= 1'b1;
-          crc_shft_outC <= 1'b0;
-          next_stateC <= rec_flglen_setdlc;
-        end
-      rec_flglen_setdlc : 
-        begin
-          rext_setC <= 2'b00;
-          rrtr_setC <= 2'b00;
-          actvtcrcC <= 1'b0;
-          actvrcrcC <= 1'b0;
-          actvtstfC <= 1'b0;
-          actvrstfC <= 1'b0;
-          actvtsftC <= 1'b0;
-          actvrsftC <= 1'b0;
-          actvtdctC <= 1'b0;
-          actvrdctC <= 1'b0;
-          actvtbedC <= 1'b0;
-          setbdomC <= 1'b0;
-          setbrecC <= 1'b0;
-          lcrcC <= 1'b0;
-          tshiftC <= 1'b0;
-          inconerecC <= 1'b0;
-          incegtrecC <= 1'b0;
-          incegttraC <= 1'b0;
-          lmsgC <= 1'b0;
-          decrecC <= 1'b0;
-          dectraC <= 1'b0;
-          elevrecbC <= 1'b0;
-          hardsyncC <= 1'b0;
-          resetdstC <= 1'b1;
-          resetstfC <= 1'b1;
-          inccountC <= 1'b0;
-          rescountC <= 1'b1;
-          setrmlenoC <= 7;
-          actvrmlnC <= 1'b0;
-          resrmlenC <= 1'b1;
-          ackerror_setC <= 2'b10;
-          transmitter_setC <= 2'b10;
-          receiver_setC <= 2'b11;
-          error_setC <= 2'b10;
-          first_setC <= 2'b10;
-          activatefastC <= 1'b0;
-          puffer_setC <= 2'b10;
-          onarbit_setC <= 2'b10;
-          en_zerointcrcC <= 1'b1;
-          crc_shft_outC <= 1'b0;
-          if (smplpointC==1'b1&&(! ( (countC==19&&rextC==1'b0)||(countC==39&&rextC==1'b1) ) ))
-            next_stateC <= rec_flglen_sample;
-          else
-            if (smplpointC==1'b1&&((countC==19&&rextC==1'b0)||(countC==39&&rextC==1'b1))&&rrtrC==1'b0)
-              next_stateC <= rec_acptdat_sample;
-            else
-              next_stateC <= rec_flglen_setdlc;
-        end
-      rec_flglen_shiftextrtr : 
-        begin
-          rext_setC <= 2'b00;
-          rrtr_setC <= 2'b11;
-          actvtcrcC <= 1'b0;
-          actvrcrcC <= 1'b1;
-          actvtstfC <= 1'b0;
-          actvrstfC <= 1'b0;
-          actvtsftC <= 1'b0;
-          actvrsftC <= 1'b1;
-          actvtdctC <= 1'b0;
-          actvrdctC <= 1'b0;
-          actvtbedC <= 1'b0;
-          setbdomC <= 1'b0;
-          setbrecC <= 1'b0;
-          lcrcC <= 1'b0;
-          tshiftC <= 1'b0;
-          inconerecC <= 1'b0;
-          incegtrecC <= 1'b0;
-          incegttraC <= 1'b0;
-          lmsgC <= 1'b0;
-          decrecC <= 1'b0;
-          dectraC <= 1'b0;
-          elevrecbC <= 1'b0;
-          hardsyncC <= 1'b0;
-          resetdstC <= 1'b1;
-          resetstfC <= 1'b1;
-          inccountC <= 1'b1;
-          rescountC <= 1'b1;
-          setrmlenoC <= 0;
-          actvrmlnC <= 1'b0;
-          resrmlenC <= 1'b1;
-          ackerror_setC <= 2'b10;
-          transmitter_setC <= 2'b10;
-          receiver_setC <= 2'b11;
-          error_setC <= 2'b10;
-          first_setC <= 2'b10;
-          activatefastC <= 1'b0;
-          puffer_setC <= 2'b10;
-          onarbit_setC <= 2'b10;
-          en_zerointcrcC <= 1'b1;
-          crc_shft_outC <= 1'b0;
-          if (smplpointC==1'b1)
-            next_stateC <= rec_flglen_sample;
-          else
-            next_stateC <= rec_flglen_shiftextrtr;
-        end
-      rec_flglen_noshift : 
-        begin
-          rext_setC <= 2'b00;
-          rrtr_setC <= 2'b00;
-          actvtcrcC <= 1'b0;
-          actvrcrcC <= 1'b0;
-          actvtstfC <= 1'b0;
-          actvrstfC <= 1'b0;
-          actvtsftC <= 1'b0;
-          actvrsftC <= 1'b0;
-          actvtdctC <= 1'b0;
-          actvrdctC <= 1'b0;
-          actvtbedC <= 1'b0;
-          setbdomC <= 1'b0;
-          setbrecC <= 1'b0;
-          lcrcC <= 1'b0;
-          tshiftC <= 1'b0;
-          inconerecC <= 1'b0;
-          incegtrecC <= 1'b0;
-          incegttraC <= 1'b0;
-          lmsgC <= 1'b0;
-          decrecC <= 1'b0;
-          dectraC <= 1'b0;
-          elevrecbC <= 1'b0;
-          hardsyncC <= 1'b0;
-          resetdstC <= 1'b1;
-          resetstfC <= 1'b1;
-          inccountC <= 1'b0;
-          rescountC <= 1'b1;
-          setrmlenoC <= 0;
-          actvrmlnC <= 1'b0;
-          resrmlenC <= 1'b1;
-          ackerror_setC <= 2'b10;
-          transmitter_setC <= 2'b10;
-          receiver_setC <= 2'b11;
-          error_setC <= 2'b10;
-          first_setC <= 2'b10;
-          activatefastC <= 1'b0;
-          puffer_setC <= 2'b10;
-          onarbit_setC <= 2'b10;
-          en_zerointcrcC <= 1'b1;
-          crc_shft_outC <= 1'b0;
-          if (smplpointC==1'b1)
-            next_stateC <= rec_flglen_sample;
-          else
-            next_stateC <= rec_flglen_noshift;
-        end
-      rec_acptdat_sample : 
-        begin
-          rext_setC <= 2'b00;
-          rrtr_setC <= 2'b00;
-          actvtcrcC <= 1'b0;
-          actvrcrcC <= 1'b0;
-          actvtstfC <= 1'b0;
-          actvrstfC <= 1'b1;
-          actvtsftC <= 1'b0;
-          actvrsftC <= 1'b0;
-          actvtdctC <= 1'b0;
-          actvrdctC <= 1'b0;
-          actvtbedC <= 1'b0;
-          setbdomC <= 1'b0;
-          setbrecC <= 1'b0;
-          lcrcC <= 1'b0;
-          tshiftC <= 1'b0;
-          inconerecC <= 1'b0;
-          incegtrecC <= 1'b0;
-          incegttraC <= 1'b0;
-          lmsgC <= 1'b0;
-          decrecC <= 1'b0;
-          dectraC <= 1'b0;
-          elevrecbC <= 1'b0;
-          hardsyncC <= 1'b0;
-          resetdstC <= 1'b1;
-          resetstfC <= 1'b1;
-          inccountC <= 1'b0;
-          rescountC <= 1'b1;
-          setrmlenoC <= 0;
-          actvrmlnC <= 1'b0;
-          resrmlenC <= 1'b1;
-          ackerror_setC <= 2'b10;
-          transmitter_setC <= 2'b10;
-          receiver_setC <= 2'b11;
-          error_setC <= 2'b10;
-          first_setC <= 2'b10;
-          activatefastC <= 1'b0;
-          puffer_setC <= 2'b10;
-          onarbit_setC <= 2'b10;
-          en_zerointcrcC <= 1'b1;
-          crc_shft_outC <= 1'b0;
-          if (stuffrC==1'b1&&stferrorC==1'b0)
-            next_stateC <= rec_acptdat_noshift;
-          else
-            if (stferrorC==1'b1&&erroractivC==1'b1)
-              next_stateC <= erroractiv_firstdom;
-            else
-              if (stferrorC==1'b1&&errorpassivC==1'b1)
-                next_stateC <= errorpassiv_firstrec;
-              else
-                next_stateC <= rec_acptdat_shifting;
-        end
-      rec_acptdat_shifting : 
-        begin
-          rext_setC <= 2'b00;
-          rrtr_setC <= 2'b00;
-          actvtcrcC <= 1'b0;
-          actvrcrcC <= 1'b1;
-          actvtstfC <= 1'b0;
-          actvrstfC <= 1'b0;
-          actvtsftC <= 1'b0;
-          actvrsftC <= 1'b1;
-          actvtdctC <= 1'b0;
-          actvrdctC <= 1'b0;
-          actvtbedC <= 1'b0;
-          setbdomC <= 1'b0;
-          setbrecC <= 1'b0;
-          lcrcC <= 1'b0;
-          tshiftC <= 1'b0;
-          inconerecC <= 1'b0;
-          incegtrecC <= 1'b0;
-          incegttraC <= 1'b0;
-          lmsgC <= 1'b0;
-          decrecC <= 1'b0;
-          dectraC <= 1'b0;
-          elevrecbC <= 1'b0;
-          hardsyncC <= 1'b0;
-          resetdstC <= 1'b1;
-          resetstfC <= 1'b1;
-          inccountC <= 1'b1;
-          rescountC <= 1'b1;
-          setrmlenoC <= 0;
-          actvrmlnC <= 1'b0;
-          resrmlenC <= 1'b1;
-          ackerror_setC <= 2'b10;
-          transmitter_setC <= 2'b10;
-          receiver_setC <= 2'b11;
-          error_setC <= 2'b10;
-          first_setC <= 2'b10;
-          activatefastC <= 1'b0;
-          puffer_setC <= 2'b10;
-          onarbit_setC <= 2'b10;
-          en_zerointcrcC <= 1'b1;
-          crc_shft_outC <= 1'b0;
-          if (smplpointC==1'b1&&startrcrcC==1'b0)
-            next_stateC <= rec_acptdat_sample;
-          else
-            if (startrcrcC==1'b1)
-              next_stateC <= rec_acptdat_lastshift;
-            else
-              next_stateC <= rec_acptdat_shifting;
-        end
-      rec_acptdat_noshift : 
-        begin
-          rext_setC <= 2'b00;
-          rrtr_setC <= 2'b00;
-          actvtcrcC <= 1'b0;
-          actvrcrcC <= 1'b0;
-          actvtstfC <= 1'b0;
-          actvrstfC <= 1'b0;
-          actvtsftC <= 1'b0;
-          actvrsftC <= 1'b0;
-          actvtdctC <= 1'b0;
-          actvrdctC <= 1'b0;
-          actvtbedC <= 1'b0;
-          setbdomC <= 1'b0;
-          setbrecC <= 1'b0;
-          lcrcC <= 1'b0;
-          tshiftC <= 1'b0;
-          inconerecC <= 1'b0;
-          incegtrecC <= 1'b0;
-          incegttraC <= 1'b0;
-          lmsgC <= 1'b0;
-          decrecC <= 1'b0;
-          dectraC <= 1'b0;
-          elevrecbC <= 1'b0;
-          hardsyncC <= 1'b0;
-          resetdstC <= 1'b1;
-          resetstfC <= 1'b1;
-          inccountC <= 1'b0;
-          rescountC <= 1'b1;
-          setrmlenoC <= 0;
-          actvrmlnC <= 1'b0;
-          resrmlenC <= 1'b1;
-          ackerror_setC <= 2'b10;
-          transmitter_setC <= 2'b10;
-          receiver_setC <= 2'b11;
-          error_setC <= 2'b10;
-          first_setC <= 2'b10;
-          activatefastC <= 1'b0;
-          puffer_setC <= 2'b10;
-          onarbit_setC <= 2'b10;
-          en_zerointcrcC <= 1'b1;
-          crc_shft_outC <= 1'b0;
-          if (smplpointC==1'b1)
-            next_stateC <= rec_acptdat_sample;
-          else
-            next_stateC <= rec_acptdat_noshift;
-        end
-      rec_acptdat_lastshift : 
-        begin
-          rext_setC <= 2'b00;
-          rrtr_setC <= 2'b00;
-          actvtcrcC <= 1'b0;
-          actvrcrcC <= 1'b1;
-          actvtstfC <= 1'b0;
-          actvrstfC <= 1'b0;
-          actvtsftC <= 1'b0;
-          actvrsftC <= 1'b1;
-          actvtdctC <= 1'b0;
-          actvrdctC <= 1'b0;
-          actvtbedC <= 1'b0;
-          setbdomC <= 1'b0;
-          setbrecC <= 1'b0;
-          lcrcC <= 1'b0;
-          tshiftC <= 1'b0;
-          inconerecC <= 1'b0;
-          incegtrecC <= 1'b0;
-          incegttraC <= 1'b0;
-          lmsgC <= 1'b0;
-          decrecC <= 1'b0;
-          dectraC <= 1'b0;
-          elevrecbC <= 1'b0;
-          hardsyncC <= 1'b0;
-          resetdstC <= 1'b1;
-          resetstfC <= 1'b1;
-          inccountC <= 1'b0;
-          rescountC <= 1'b0;
-          setrmlenoC <= 0;
-          actvrmlnC <= 1'b0;
-          resrmlenC <= 1'b1;
-          ackerror_setC <= 2'b10;
-          transmitter_setC <= 2'b10;
-          receiver_setC <= 2'b11;
-          error_setC <= 2'b10;
-          first_setC <= 2'b10;
-          activatefastC <= 1'b0;
-          puffer_setC <= 2'b10;
-          onarbit_setC <= 2'b10;
-          en_zerointcrcC <= 1'b1;
-          crc_shft_outC <= 1'b0;
-          if (smplpointC==1'b1)
-            next_stateC <= rec_crc_rescnt;
-          else
-            next_stateC <= rec_acptdat_lastshift;
-        end
-      rec_crc_rescnt : 
-        begin
-          rext_setC <= 2'b00;
-          rrtr_setC <= 2'b00;
-          actvtcrcC <= 1'b0;
-          actvrcrcC <= 1'b0;
-          actvtstfC <= 1'b0;
-          actvrstfC <= 1'b1;
-          actvtsftC <= 1'b0;
-          actvrsftC <= 1'b0;
-          actvtdctC <= 1'b0;
-          actvrdctC <= 1'b0;
-          actvtbedC <= 1'b0;
-          setbdomC <= 1'b0;
-          setbrecC <= 1'b0;
-          lcrcC <= 1'b1;
-          tshiftC <= 1'b0;
-          inconerecC <= 1'b0;
-          incegtrecC <= 1'b0;
-          incegttraC <= 1'b0;
-          lmsgC <= 1'b0;
-          decrecC <= 1'b0;
-          dectraC <= 1'b0;
-          elevrecbC <= 1'b0;
-          hardsyncC <= 1'b0;
-          resetdstC <= 1'b1;
-          resetstfC <= 1'b1;
-          inccountC <= 1'b0;
-          rescountC <= 1'b0;
-          setrmlenoC <= 0;
-          actvrmlnC <= 1'b0;
-          resrmlenC <= 1'b1;
-          ackerror_setC <= 2'b10;
-          transmitter_setC <= 2'b10;
-          receiver_setC <= 2'b11;
-          error_setC <= 2'b10;
-          first_setC <= 2'b10;
-          activatefastC <= 1'b1;
-          puffer_setC <= 2'b10;
-          onarbit_setC <= 2'b10;
-          en_zerointcrcC <= 1'b1;
-          crc_shft_outC <= 1'b0;
-          next_stateC <= rec_crc_sample;
-        end
-      rec_crc_sample : 
-        begin
-          rext_setC <= 2'b00;
-          rrtr_setC <= 2'b00;
-          actvtcrcC <= 1'b0;
-          actvrcrcC <= 1'b0;
-          actvtstfC <= 1'b0;
-          actvrstfC <= 1'b1;
-          actvtsftC <= 1'b0;
-          actvrsftC <= 1'b0;
-          actvtdctC <= 1'b0;
-          actvrdctC <= 1'b0;
-          actvtbedC <= 1'b0;
-          setbdomC <= 1'b0;
-          setbrecC <= 1'b0;
-          lcrcC <= 1'b1;
-          tshiftC <= 1'b0;
-          inconerecC <= 1'b0;
-          incegtrecC <= 1'b0;
-          incegttraC <= 1'b0;
-          lmsgC <= 1'b0;
-          decrecC <= 1'b0;
-          dectraC <= 1'b0;
-          elevrecbC <= 1'b0;
-          hardsyncC <= 1'b0;
-          resetdstC <= 1'b1;
-          resetstfC <= 1'b1;
-          inccountC <= 1'b0;
-          rescountC <= 1'b1;
-          setrmlenoC <= 0;
-          actvrmlnC <= 1'b0;
-          resrmlenC <= 1'b1;
-          ackerror_setC <= 2'b10;
-          transmitter_setC <= 2'b10;
-          receiver_setC <= 2'b11;
-          error_setC <= 2'b10;
-          first_setC <= 2'b10;
-          activatefastC <= 1'b0;
-          puffer_setC <= 2'b10;
-          onarbit_setC <= 2'b10;
-          en_zerointcrcC <= 1'b1;
-          crc_shft_outC <= 1'b0;
-          if (stuffrC==1'b1&&stferrorC==1'b0)
-            next_stateC <= rec_crc_noshift;
-          else
-            if (stferrorC==1'b1&&erroractivC==1'b1)
-              next_stateC <= erroractiv_firstdom;
-            else
-              if (stferrorC==1'b1&&errorpassivC==1'b1)
-                next_stateC <= errorpassiv_firstrec;
-              else
-                if (countC==15)
-                  next_stateC <= rec_ack_recdelim;
-                else
-                  next_stateC <= rec_crc_shifting;
-        end
-      rec_crc_shifting : 
-        begin
-          rext_setC <= 2'b00;
-          rrtr_setC <= 2'b00;
-          actvtcrcC <= 1'b0;
-          actvrcrcC <= 1'b1;
-          actvtstfC <= 1'b0;
-          actvrstfC <= 1'b0;
-          actvtsftC <= 1'b0;
-          actvrsftC <= 1'b1;
-          actvtdctC <= 1'b0;
-          actvrdctC <= 1'b0;
-          actvtbedC <= 1'b0;
-          setbdomC <= 1'b0;
-          setbrecC <= 1'b0;
-          lcrcC <= 1'b1;
-          tshiftC <= 1'b0;
-          inconerecC <= 1'b0;
-          incegtrecC <= 1'b0;
-          incegttraC <= 1'b0;
-          lmsgC <= 1'b0;
-          decrecC <= 1'b0;
-          dectraC <= 1'b0;
-          elevrecbC <= 1'b0;
-          hardsyncC <= 1'b0;
-          resetdstC <= 1'b1;
-          resetstfC <= 1'b1;
-          inccountC <= 1'b1;
-          rescountC <= 1'b1;
-          setrmlenoC <= 0;
-          actvrmlnC <= 1'b0;
-          resrmlenC <= 1'b1;
-          ackerror_setC <= 2'b10;
-          transmitter_setC <= 2'b10;
-          receiver_setC <= 2'b11;
-          error_setC <= 2'b10;
-          first_setC <= 2'b10;
-          activatefastC <= 1'b0;
-          puffer_setC <= 2'b10;
-          onarbit_setC <= 2'b10;
-          en_zerointcrcC <= 1'b1;
-          crc_shft_outC <= 1'b0;
-          if (smplpointC==1'b1)
-            next_stateC <= rec_crc_sample;
-          else
-            next_stateC <= rec_crc_shifting;
-        end
-      rec_crc_noshift : 
-        begin
-          rext_setC <= 2'b00;
-          rrtr_setC <= 2'b00;
-          actvtcrcC <= 1'b0;
-          actvrcrcC <= 1'b0;
-          actvtstfC <= 1'b0;
-          actvrstfC <= 1'b0;
-          actvtsftC <= 1'b0;
-          actvrsftC <= 1'b0;
-          actvtdctC <= 1'b0;
-          actvrdctC <= 1'b0;
-          actvtbedC <= 1'b0;
-          setbdomC <= 1'b0;
-          setbrecC <= 1'b0;
-          lcrcC <= 1'b1;
-          tshiftC <= 1'b0;
-          inconerecC <= 1'b0;
-          incegtrecC <= 1'b0;
-          incegttraC <= 1'b0;
-          lmsgC <= 1'b0;
-          decrecC <= 1'b0;
-          dectraC <= 1'b0;
-          elevrecbC <= 1'b0;
-          hardsyncC <= 1'b0;
-          resetdstC <= 1'b1;
-          resetstfC <= 1'b1;
-          inccountC <= 1'b0;
-          rescountC <= 1'b1;
-          setrmlenoC <= 0;
-          actvrmlnC <= 1'b0;
-          resrmlenC <= 1'b1;
-          ackerror_setC <= 2'b10;
-          transmitter_setC <= 2'b10;
-          receiver_setC <= 2'b11;
-          error_setC <= 2'b10;
-          first_setC <= 2'b10;
-          activatefastC <= 1'b0;
-          puffer_setC <= 2'b10;
-          onarbit_setC <= 2'b10;
-          en_zerointcrcC <= 1'b1;
-          crc_shft_outC <= 1'b0;
-          if (smplpointC==1'b1)
-            next_stateC <= rec_crc_sample;
-          else
-            next_stateC <= rec_crc_noshift;
-        end
-      rec_ack_recdelim : 
-        begin
-          rext_setC <= 2'b00;
-          rrtr_setC <= 2'b00;
-          actvtcrcC <= 1'b0;
-          actvrcrcC <= 1'b0;
-          actvtstfC <= 1'b0;
-          actvrstfC <= 1'b1;
-          actvtsftC <= 1'b0;
-          actvrsftC <= 1'b0;
-          actvtdctC <= 1'b0;
-          actvrdctC <= 1'b1;
-          actvtbedC <= 1'b0;
-          setbdomC <= 1'b0;
-          setbrecC <= 1'b0;
-          lcrcC <= 1'b0;
-          tshiftC <= 1'b0;
-          inconerecC <= 1'b0;
-          incegtrecC <= 1'b0;
-          incegttraC <= 1'b0;
-          lmsgC <= 1'b0;
-          decrecC <= 1'b0;
-          dectraC <= 1'b0;
-          elevrecbC <= 1'b0;
-          hardsyncC <= 1'b0;
-          resetdstC <= 1'b1;
-          resetstfC <= 1'b1;
-          inccountC <= 1'b0;
-          rescountC <= 1'b0;
-          setrmlenoC <= 0;
-          actvrmlnC <= 1'b0;
-          resrmlenC <= 1'b1;
-          ackerror_setC <= 2'b10;
-          transmitter_setC <= 2'b10;
-          receiver_setC <= 2'b11;
-          error_setC <= 2'b10;
-          first_setC <= 2'b10;
-          activatefastC <= 1'b0;
-          puffer_setC <= 2'b10;
-          onarbit_setC <= 2'b10;
-          en_zerointcrcC <= 1'b1;
-          crc_shft_outC <= 1'b0;
-          if (inbitC==1'b1&&crc_okC==1'b0)
-            next_stateC <= rec_ack_prepnoack;
-          else
-            if (inbitC==1'b0&&erroractivC==1'b1)
-              next_stateC <= erroractiv_firstdom;
-            else
-              if (inbitC==1'b0&&errorpassivC==1'b1)
-                next_stateC <= errorpassiv_firstrec;
-              else
-                if (inbitC==1'b0&&busofC==1'b1)
-                  next_stateC <= busoff_first;
-                else
-                  next_stateC <= rec_ack_prepgiveack;
-        end
-      rec_ack_prepgiveack : 
-        begin
-          rext_setC <= 2'b00;
-          rrtr_setC <= 2'b00;
-          actvtcrcC <= 1'b0;
-          actvrcrcC <= 1'b0;
-          actvtstfC <= 1'b0;
-          actvrstfC <= 1'b0;
-          actvtsftC <= 1'b0;
-          actvrsftC <= 1'b0;
-          actvtdctC <= 1'b1;
-          actvrdctC <= 1'b1;
-          actvtbedC <= 1'b0;
-          setbdomC <= 1'b1;
-          setbrecC <= 1'b0;
-          lcrcC <= 1'b0;
-          tshiftC <= 1'b0;
-          inconerecC <= 1'b0;
-          incegtrecC <= 1'b0;
-          incegttraC <= 1'b0;
-          lmsgC <= 1'b0;
-          decrecC <= 1'b0;
-          dectraC <= 1'b0;
-          elevrecbC <= 1'b0;
-          hardsyncC <= 1'b0;
-          resetdstC <= 1'b1;
-          resetstfC <= 1'b1;
-          inccountC <= 1'b0;
-          rescountC <= 1'b1;
-          setrmlenoC <= 0;
-          actvrmlnC <= 1'b0;
-          resrmlenC <= 1'b1;
-          ackerror_setC <= 2'b10;
-          transmitter_setC <= 2'b10;
-          receiver_setC <= 2'b11;
-          error_setC <= 2'b10;
-          first_setC <= 2'b10;
-          activatefastC <= 1'b0;
-          puffer_setC <= 2'b10;
-          onarbit_setC <= 2'b10;
-          en_zerointcrcC <= 1'b1;
-          crc_shft_outC <= 1'b0;
-          if (sendpointC==1'b1)
-            next_stateC <= rec_ack_giveack;
-          else
-            next_stateC <= rec_ack_prepgiveack;
-        end
-      rec_ack_giveack : 
-        begin
-          rext_setC <= 2'b00;
-          rrtr_setC <= 2'b00;
-          actvtcrcC <= 1'b0;
-          actvrcrcC <= 1'b0;
-          actvtstfC <= 1'b1;
-          actvrstfC <= 1'b0;
-          actvtsftC <= 1'b1;
-          actvrsftC <= 1'b0;
-          actvtdctC <= 1'b0;
-          actvrdctC <= 1'b1;
-          actvtbedC <= 1'b0;
-          setbdomC <= 1'b1;
-          setbrecC <= 1'b0;
-          lcrcC <= 1'b0;
-          tshiftC <= 1'b0;
-          inconerecC <= 1'b0;
-          incegtrecC <= 1'b0;
-          incegttraC <= 1'b0;
-          lmsgC <= 1'b0;
-          decrecC <= 1'b0;
-          dectraC <= 1'b0;
-          elevrecbC <= 1'b0;
-          hardsyncC <= 1'b0;
-          resetdstC <= 1'b1;
-          resetstfC <= 1'b1;
-          inccountC <= 1'b0;
-          rescountC <= 1'b1;
-          setrmlenoC <= 0;
-          actvrmlnC <= 1'b0;
-          resrmlenC <= 1'b1;
-          ackerror_setC <= 2'b10;
-          transmitter_setC <= 2'b10;
-          receiver_setC <= 2'b11;
-          error_setC <= 2'b10;
-          first_setC <= 2'b10;
-          activatefastC <= 1'b0;
-          puffer_setC <= 2'b10;
-          onarbit_setC <= 2'b10;
-          en_zerointcrcC <= 1'b1;
-          crc_shft_outC <= 1'b0;
-          if (smplpointC==1'b1)
-            next_stateC <= rec_ack_checkack;
-          else
-            next_stateC <= rec_ack_giveack;
-        end
-      rec_ack_checkack : 
-        begin
-          rext_setC <= 2'b00;
-          rrtr_setC <= 2'b00;
-          actvtcrcC <= 1'b0;
-          actvrcrcC <= 1'b0;
-          actvtstfC <= 1'b0;
-          actvrstfC <= 1'b0;
-          actvtsftC <= 1'b0;
-          actvrsftC <= 1'b0;
-          actvtdctC <= 1'b0;
-          actvrdctC <= 1'b1;
-          actvtbedC <= 1'b1;
-          setbdomC <= 1'b0;
-          setbrecC <= 1'b1;
-          lcrcC <= 1'b0;
-          tshiftC <= 1'b0;
-          inconerecC <= 1'b0;
-          incegtrecC <= 1'b0;
-          incegttraC <= 1'b0;
-          lmsgC <= 1'b0;
-          decrecC <= 1'b0;
-          dectraC <= 1'b0;
-          elevrecbC <= 1'b0;
-          hardsyncC <= 1'b0;
-          resetdstC <= 1'b1;
-          resetstfC <= 1'b1;
-          inccountC <= 1'b0;
-          rescountC <= 1'b1;
-          setrmlenoC <= 0;
-          actvrmlnC <= 1'b0;
-          resrmlenC <= 1'b1;
-          ackerror_setC <= 2'b10;
-          transmitter_setC <= 2'b10;
-          receiver_setC <= 2'b11;
-          error_setC <= 2'b10;
-          first_setC <= 2'b10;
-          activatefastC <= 1'b0;
-          puffer_setC <= 2'b10;
-          onarbit_setC <= 2'b10;
-          en_zerointcrcC <= 1'b1;
-          crc_shft_outC <= 1'b0;
-          if (biterrorC==1'b1&&erroractivC==1'b1)
-            next_stateC <= erroractiv_firstdom;
-          else
-            if (biterrorC==1'b1&&errorpassivC==1'b1)
-              next_stateC <= errorpassiv_firstrec;
-            else
-              if (sendpointC==1'b1)
-                next_stateC <= rec_ack_stopack;
-              else
-                next_stateC <= rec_ack_checkack;
-        end
-      rec_ack_prepnoack : 
-        begin
-          rext_setC <= 2'b10;
-          rrtr_setC <= 2'b10;
-          actvtcrcC <= 1'b0;
-          actvrcrcC <= 1'b0;
-          actvtstfC <= 1'b0;
-          actvrstfC <= 1'b0;
-          actvtsftC <= 1'b0;
-          actvrsftC <= 1'b0;
-          actvtdctC <= 1'b0;
-          actvrdctC <= 1'b0;
-          actvtbedC <= 1'b0;
-          setbdomC <= 1'b0;
-          setbrecC <= 1'b1;
-          lcrcC <= 1'b0;
-          tshiftC <= 1'b0;
-          inconerecC <= 1'b0;
-          incegtrecC <= 1'b0;
-          incegttraC <= 1'b0;
-          lmsgC <= 1'b0;
-          decrecC <= 1'b0;
-          dectraC <= 1'b0;
-          elevrecbC <= 1'b0;
-          hardsyncC <= 1'b0;
-          resetdstC <= 1'b1;
-          resetstfC <= 1'b1;
-          inccountC <= 1'b0;
-          rescountC <= 1'b1;
-          setrmlenoC <= 0;
-          actvrmlnC <= 1'b0;
-          resrmlenC <= 1'b1;
-          ackerror_setC <= 2'b10;
-          transmitter_setC <= 2'b10;
-          receiver_setC <= 2'b11;
-          error_setC <= 2'b10;
-          first_setC <= 2'b10;
-          activatefastC <= 1'b0;
-          puffer_setC <= 2'b10;
-          onarbit_setC <= 2'b10;
-          en_zerointcrcC <= 1'b1;
-          crc_shft_outC <= 1'b0;
-          if (sendpointC==1'b1)
-            next_stateC <= rec_ack_noack;
-          else
-            next_stateC <= rec_ack_prepnoack;
-        end
-      rec_ack_noack : 
-        begin
-          rext_setC <= 2'b10;
-          rrtr_setC <= 2'b10;
-          actvtcrcC <= 1'b0;
-          actvrcrcC <= 1'b0;
-          actvtstfC <= 1'b1;
-          actvrstfC <= 1'b0;
-          actvtsftC <= 1'b0;
-          actvrsftC <= 1'b0;
-          actvtdctC <= 1'b0;
-          actvrdctC <= 1'b0;
-          actvtbedC <= 1'b0;
-          setbdomC <= 1'b0;
-          setbrecC <= 1'b1;
-          lcrcC <= 1'b0;
-          tshiftC <= 1'b0;
-          inconerecC <= 1'b0;
-          incegtrecC <= 1'b0;
-          incegttraC <= 1'b0;
-          lmsgC <= 1'b0;
-          decrecC <= 1'b0;
-          dectraC <= 1'b0;
-          elevrecbC <= 1'b0;
-          hardsyncC <= 1'b0;
-          resetdstC <= 1'b1;
-          resetstfC <= 1'b1;
-          inccountC <= 1'b0;
-          rescountC <= 1'b1;
-          setrmlenoC <= 0;
-          actvrmlnC <= 1'b0;
-          resrmlenC <= 1'b1;
-          ackerror_setC <= 2'b10;
-          transmitter_setC <= 2'b10;
-          receiver_setC <= 2'b11;
-          error_setC <= 2'b10;
-          first_setC <= 2'b10;
-          activatefastC <= 1'b0;
-          puffer_setC <= 2'b10;
-          onarbit_setC <= 2'b10;
-          en_zerointcrcC <= 1'b1;
-          crc_shft_outC <= 1'b0;
-          if (smplpointC==1'b1&&erroractivC==1'b1)
-            next_stateC <= erroractiv_firstdom;
-          else
-            if (smplpointC==1'b1&&errorpassivC==1'b1)
-              next_stateC <= errorpassiv_firstrec;
-            else
-              if (smplpointC==1'b1&&busofC==1'b1)
-                next_stateC <= busoff_first;
-              else
-                next_stateC <= rec_ack_noack;
-        end
-      rec_ack_stopack : 
-        begin
-          rext_setC <= 2'b00;
-          rrtr_setC <= 2'b00;
-          actvtcrcC <= 1'b0;
-          actvrcrcC <= 1'b0;
-          actvtstfC <= 1'b1;
-          actvrstfC <= 1'b0;
-          actvtsftC <= 1'b0;
-          actvrsftC <= 1'b0;
-          actvtdctC <= 1'b0;
-          actvrdctC <= 1'b1;
-          actvtbedC <= 1'b0;
-          setbdomC <= 1'b0;
-          setbrecC <= 1'b1;
-          lcrcC <= 1'b0;
-          tshiftC <= 1'b0;
-          inconerecC <= 1'b0;
-          incegtrecC <= 1'b0;
-          incegttraC <= 1'b0;
-          lmsgC <= 1'b0;
-          decrecC <= 1'b0;
-          dectraC <= 1'b0;
-          elevrecbC <= 1'b0;
-          hardsyncC <= 1'b0;
-          resetdstC <= 1'b1;
-          resetstfC <= 1'b1;
-          inccountC <= 1'b0;
-          rescountC <= 1'b1;
-          setrmlenoC <= 0;
-          actvrmlnC <= 1'b0;
-          resrmlenC <= 1'b1;
-          ackerror_setC <= 2'b10;
-          transmitter_setC <= 2'b10;
-          receiver_setC <= 2'b11;
-          error_setC <= 2'b10;
-          first_setC <= 2'b10;
-          activatefastC <= 1'b0;
-          puffer_setC <= 2'b10;
-          onarbit_setC <= 2'b10;
-          en_zerointcrcC <= 1'b1;
-          crc_shft_outC <= 1'b0;
-          if (smplpointC==1'b1)
-            next_stateC <= rec_edof_sample;
-          else
-            next_stateC <= rec_ack_stopack;
-        end
-      rec_edof_sample : 
-        begin
-          rext_setC <= 2'b00;
-          rrtr_setC <= 2'b00;
-          actvtcrcC <= 1'b0;
-          actvrcrcC <= 1'b0;
-          actvtstfC <= 1'b0;
-          actvrstfC <= 1'b1;
-          actvtsftC <= 1'b0;
-          actvrsftC <= 1'b0;
-          actvtdctC <= 1'b0;
-          actvrdctC <= 1'b1;
-          actvtbedC <= 1'b0;
-          setbdomC <= 1'b0;
-          setbrecC <= 1'b0;
-          lcrcC <= 1'b0;
-          tshiftC <= 1'b0;
-          inconerecC <= 1'b0;
-          incegtrecC <= 1'b0;
-          incegttraC <= 1'b0;
-          lmsgC <= 1'b0;
-          decrecC <= 1'b0;
-          dectraC <= 1'b0;
-          elevrecbC <= 1'b0;
-          hardsyncC <= 1'b0;
-          resetdstC <= 1'b1;
-          resetstfC <= 1'b1;
-          inccountC <= 1'b1;
-          rescountC <= 1'b1;
-          setrmlenoC <= 0;
-          actvrmlnC <= 1'b0;
-          resrmlenC <= 1'b1;
-          ackerror_setC <= 2'b10;
-          transmitter_setC <= 2'b10;
-          receiver_setC <= 2'b11;
-          error_setC <= 2'b10;
-          first_setC <= 2'b10;
-          activatefastC <= 1'b0;
-          puffer_setC <= 2'b10;
-          onarbit_setC <= 2'b10;
-          en_zerointcrcC <= 1'b1;
-          crc_shft_outC <= 1'b0;
-          if (inbitC==1'b0&&erroractivC==1'b1)
-            next_stateC <= erroractiv_firstdom;
-          else
-            if (inbitC==1'b0&&errorpassivC==1'b1)
-              next_stateC <= errorpassiv_firstrec;
-            else
-              next_stateC <= rec_edof_check;
-        end
-      rec_edof_check : 
-        begin
-          rext_setC <= 2'b00;
-          rrtr_setC <= 2'b00;
-          actvtcrcC <= 1'b0;
-          actvrcrcC <= 1'b0;
-          actvtstfC <= 1'b0;
-          actvrstfC <= 1'b0;
-          actvtsftC <= 1'b0;
-          actvrsftC <= 1'b0;
-          actvtdctC <= 1'b0;
-          actvrdctC <= 1'b1;
-          actvtbedC <= 1'b0;
-          setbdomC <= 1'b0;
-          setbrecC <= 1'b0;
-          lcrcC <= 1'b0;
-          tshiftC <= 1'b0;
-          inconerecC <= 1'b0;
-          incegtrecC <= 1'b0;
-          incegttraC <= 1'b0;
-          lmsgC <= 1'b0;
-          decrecC <= 1'b0;
-          dectraC <= 1'b0;
-          elevrecbC <= 1'b0;
-          hardsyncC <= 1'b0;
-          resetdstC <= 1'b1;
-          resetstfC <= 1'b1;
-          inccountC <= 1'b0;
-          rescountC <= 1'b1;
-          setrmlenoC <= 0;
-          actvrmlnC <= 1'b0;
-          resrmlenC <= 1'b1;
-          ackerror_setC <= 2'b10;
-          transmitter_setC <= 2'b10;
-          receiver_setC <= 2'b11;
-          error_setC <= 2'b10;
-          first_setC <= 2'b10;
-          activatefastC <= 1'b0;
-          puffer_setC <= 2'b10;
-          onarbit_setC <= 2'b10;
-          en_zerointcrcC <= 1'b1;
-          crc_shft_outC <= 1'b0;
-          if (countC!=7&&smplpointC==1'b1)
-            next_stateC <= rec_edof_sample;
-          else
-            if (countC==7&&inbitC==1'b1)
-              next_stateC <= rec_edof_endrec;
-            else
-              next_stateC <= rec_edof_check;
-        end
-      rec_edof_endrec : 
-        begin
-          rext_setC <= 2'b00;
-          rrtr_setC <= 2'b00;
-          actvtcrcC <= 1'b0;
-          actvrcrcC <= 1'b0;
-          actvtstfC <= 1'b0;
-          actvrstfC <= 1'b0;
-          actvtsftC <= 1'b0;
-          actvrsftC <= 1'b0;
-          actvtdctC <= 1'b0;
-          actvrdctC <= 1'b1;
-          actvtbedC <= 1'b0;
-          setbdomC <= 1'b0;
-          setbrecC <= 1'b0;
-          lcrcC <= 1'b0;
-          tshiftC <= 1'b0;
-          inconerecC <= 1'b0;
-          incegtrecC <= 1'b0;
-          incegttraC <= 1'b0;
-          lmsgC <= 1'b0;
-          decrecC <= 1'b1;
-          dectraC <= 1'b0;
-          elevrecbC <= 1'b0;
-          hardsyncC <= 1'b0;
-          resetdstC <= 1'b1;
-          resetstfC <= 1'b1;
-          inccountC <= 1'b0;
-          rescountC <= 1'b0;
-          setrmlenoC <= 0;
-          actvrmlnC <= 1'b0;
-          resrmlenC <= 1'b1;
-          ackerror_setC <= 2'b10;
-          transmitter_setC <= 2'b10;
-          receiver_setC <= 2'b11;
-          error_setC <= 2'b10;
-          first_setC <= 2'b10;
-          activatefastC <= 1'b0;
-          puffer_setC <= 2'b10;
-          onarbit_setC <= 2'b10;
-          en_zerointcrcC <= 1'b1;
-          crc_shft_outC <= 1'b0;
-          if (smplpointC==1'b1)
-            next_stateC <= rec_edof_lastbit;
-          else
-            next_stateC <= rec_edof_endrec;
-        end
-      rec_edof_lastbit : 
-        begin
-          rext_setC <= 2'b00;
-          rrtr_setC <= 2'b00;
-          actvtcrcC <= 1'b0;
-          actvrcrcC <= 1'b0;
-          actvtstfC <= 1'b0;
-          actvrstfC <= 1'b1;
-          actvtsftC <= 1'b0;
-          actvrsftC <= 1'b0;
-          actvtdctC <= 1'b0;
-          actvrdctC <= 1'b1;
-          actvtbedC <= 1'b0;
-          setbdomC <= 1'b0;
-          setbrecC <= 1'b0;
-          lcrcC <= 1'b0;
-          tshiftC <= 1'b0;
-          inconerecC <= 1'b0;
-          incegtrecC <= 1'b0;
-          incegttraC <= 1'b0;
-          lmsgC <= 1'b0;
-          decrecC <= 1'b0;
-          dectraC <= 1'b0;
-          elevrecbC <= 1'b0;
-          hardsyncC <= 1'b0;
-          resetdstC <= 1'b1;
-          resetstfC <= 1'b0;
-          inccountC <= 1'b0;
-          rescountC <= 1'b1;
-          setrmlenoC <= 0;
-          actvrmlnC <= 1'b0;
-          resrmlenC <= 1'b1;
-          ackerror_setC <= 2'b10;
-          transmitter_setC <= 2'b10;
-          receiver_setC <= 2'b11;
-          error_setC <= 2'b10;
-          first_setC <= 2'b10;
-          activatefastC <= 1'b0;
-          puffer_setC <= 2'b10;
-          onarbit_setC <= 2'b10;
-          en_zerointcrcC <= 1'b1;
-          crc_shft_outC <= 1'b0;
-          if (inbitC==1'b1)
-            next_stateC <= rec_edof_inter;
-          else
-            if (inbitC==1'b0)
-              next_stateC <= over_firstdom;
-            else
-              next_stateC <= rec_edof_lastbit;
-        end
-      rec_edof_inter : 
-        begin
-          rext_setC <= 2'b00;
-          rrtr_setC <= 2'b00;
-          actvtcrcC <= 1'b0;
-          actvrcrcC <= 1'b0;
-          actvtstfC <= 1'b0;
-          actvrstfC <= 1'b0;
-          actvtsftC <= 1'b0;
-          actvrsftC <= 1'b0;
-          actvtdctC <= 1'b0;
-          actvrdctC <= 1'b1;
-          actvtbedC <= 1'b0;
-          setbdomC <= 1'b0;
-          setbrecC <= 1'b0;
-          lcrcC <= 1'b0;
-          tshiftC <= 1'b0;
-          inconerecC <= 1'b0;
-          incegtrecC <= 1'b0;
-          incegttraC <= 1'b0;
-          lmsgC <= 1'b0;
-          decrecC <= 1'b0;
-          dectraC <= 1'b0;
-          elevrecbC <= 1'b0;
-          hardsyncC <= 1'b0;
-          resetdstC <= 1'b1;
-          resetstfC <= 1'b0;
-          inccountC <= 1'b0;
-          rescountC <= 1'b1;
-          setrmlenoC <= 0;
-          actvrmlnC <= 1'b0;
-          resrmlenC <= 1'b1;
-          ackerror_setC <= 2'b10;
-          transmitter_setC <= 2'b10;
-          receiver_setC <= 2'b11;
-          error_setC <= 2'b10;
-          first_setC <= 2'b10;
-          activatefastC <= 1'b0;
-          puffer_setC <= 2'b10;
-          onarbit_setC <= 2'b10;
-          en_zerointcrcC <= 1'b1;
-          crc_shft_outC <= 1'b0;
-          if (smplpointC==1'b1)
-            next_stateC <= inter_sample;
-          else
-            next_stateC <= rec_edof_inter;
-        end
-      over_firstdom : 
-        begin
-          rext_setC <= 2'b10;
-          rrtr_setC <= 2'b10;
-          actvtcrcC <= 1'b0;
-          actvrcrcC <= 1'b0;
-          actvtstfC <= 1'b0;
-          actvrstfC <= 1'b0;
-          actvtsftC <= 1'b0;
-          actvrsftC <= 1'b0;
-          actvtdctC <= 1'b0;
-          actvrdctC <= 1'b0;
-          actvtbedC <= 1'b0;
-          setbdomC <= 1'b1;
-          setbrecC <= 1'b0;
-          lcrcC <= 1'b0;
-          tshiftC <= 1'b0;
-          inconerecC <= 1'b0;
-          incegtrecC <= 1'b0;
-          incegttraC <= 1'b0;
-          lmsgC <= 1'b0;
-          decrecC <= 1'b0;
-          dectraC <= 1'b0;
-          elevrecbC <= 1'b0;
-          hardsyncC <= 1'b0;
-          resetdstC <= 1'b1;
-          resetstfC <= 1'b1;
-          inccountC <= 1'b0;
-          rescountC <= 1'b0;
-          setrmlenoC <= 0;
-          actvrmlnC <= 1'b0;
-          resrmlenC <= 1'b1;
-          ackerror_setC <= 2'b10;
-          transmitter_setC <= 2'b00;
-          receiver_setC <= 2'b00;
-          error_setC <= 2'b11;
-          first_setC <= 2'b10;
-          activatefastC <= 1'b0;
-          puffer_setC <= 2'b10;
-          onarbit_setC <= 2'b10;
-          en_zerointcrcC <= 1'b1;
-          crc_shft_outC <= 1'b0;
-          if (sendpointC==1'b1)
-            next_stateC <= over_senddomb;
-          else
-            next_stateC <= over_firstdom;
-        end
-      over_senddomb : 
-        begin
-          rext_setC <= 2'b10;
-          rrtr_setC <= 2'b10;
-          actvtcrcC <= 1'b0;
-          actvrcrcC <= 1'b0;
-          actvtstfC <= 1'b1;
-          actvrstfC <= 1'b0;
-          actvtsftC <= 1'b0;
-          actvrsftC <= 1'b0;
-          actvtdctC <= 1'b0;
-          actvrdctC <= 1'b0;
-          actvtbedC <= 1'b0;
-          setbdomC <= 1'b1;
-          setbrecC <= 1'b0;
-          lcrcC <= 1'b0;
-          tshiftC <= 1'b0;
-          inconerecC <= 1'b0;
-          incegtrecC <= 1'b0;
-          incegttraC <= 1'b0;
-          lmsgC <= 1'b0;
-          decrecC <= 1'b0;
-          dectraC <= 1'b0;
-          elevrecbC <= 1'b0;
-          hardsyncC <= 1'b0;
-          resetdstC <= 1'b1;
-          resetstfC <= 1'b1;
-          inccountC <= 1'b0;
-          rescountC <= 1'b1;
-          setrmlenoC <= 0;
-          actvrmlnC <= 1'b0;
-          resrmlenC <= 1'b1;
-          ackerror_setC <= 2'b10;
-          transmitter_setC <= 2'b00;
-          receiver_setC <= 2'b00;
-          error_setC <= 2'b11;
-          first_setC <= 2'b10;
-          activatefastC <= 1'b0;
-          puffer_setC <= 2'b10;
-          onarbit_setC <= 2'b10;
-          en_zerointcrcC <= 1'b1;
-          crc_shft_outC <= 1'b0;
-          if (smplpointC==1'b1)
-            next_stateC <= over_check1;
-          else
-            next_stateC <= over_senddomb;
-        end
-      over_check1 : 
-        begin
-          rext_setC <= 2'b10;
-          rrtr_setC <= 2'b10;
-          actvtcrcC <= 1'b0;
-          actvrcrcC <= 1'b0;
-          actvtstfC <= 1'b0;
-          actvrstfC <= 1'b0;
-          actvtsftC <= 1'b0;
-          actvrsftC <= 1'b0;
-          actvtdctC <= 1'b0;
-          actvrdctC <= 1'b0;
-          actvtbedC <= 1'b1;
-          setbdomC <= 1'b1;
-          setbrecC <= 1'b0;
-          lcrcC <= 1'b0;
-          tshiftC <= 1'b0;
-          inconerecC <= 1'b0;
-          incegtrecC <= 1'b0;
-          incegttraC <= 1'b0;
-          lmsgC <= 1'b0;
-          decrecC <= 1'b0;
-          dectraC <= 1'b0;
-          elevrecbC <= 1'b0;
-          hardsyncC <= 1'b0;
-          resetdstC <= 1'b1;
-          resetstfC <= 1'b1;
-          inccountC <= 1'b1;
-          rescountC <= 1'b1;
-          setrmlenoC <= 0;
-          actvrmlnC <= 1'b0;
-          resrmlenC <= 1'b1;
-          ackerror_setC <= 2'b10;
-          transmitter_setC <= 2'b00;
-          receiver_setC <= 2'b00;
-          error_setC <= 2'b11;
-          first_setC <= 2'b10;
-          activatefastC <= 1'b0;
-          puffer_setC <= 2'b10;
-          onarbit_setC <= 2'b10;
-          en_zerointcrcC <= 1'b1;
-          crc_shft_outC <= 1'b0;
-          if (sendpointC==1'b1&&biterrorC==1'b0&&countC!=6)
-            next_stateC <= over_senddomb;
-          else
-            if (biterrorC==1'b0&&countC==6)
-              next_stateC <= over_preprecb;
-            else
-              if (biterrorC==1'b1&&erroractivC==1'b1)
-                next_stateC <= erroractiv_firstdom;
-              else
-                if (biterrorC==1'b1&&errorpassivC==1'b1)
-                  next_stateC <= errorpassiv_firstrec;
-                else
-                  if (biterrorC==1'b1&&busofC==1'b1)
-                    next_stateC <= busoff_first;
-                  else
-                    next_stateC <= over_check1;
-        end
-      over_preprecb : 
-        begin
-          rext_setC <= 2'b10;
-          rrtr_setC <= 2'b10;
-          actvtcrcC <= 1'b0;
-          actvrcrcC <= 1'b0;
-          actvtstfC <= 1'b0;
-          actvrstfC <= 1'b0;
-          actvtsftC <= 1'b0;
-          actvrsftC <= 1'b0;
-          actvtdctC <= 1'b0;
-          actvrdctC <= 1'b0;
-          actvtbedC <= 1'b0;
-          setbdomC <= 1'b0;
-          setbrecC <= 1'b1;
-          lcrcC <= 1'b0;
-          tshiftC <= 1'b0;
-          inconerecC <= 1'b0;
-          incegtrecC <= 1'b0;
-          incegttraC <= 1'b0;
-          lmsgC <= 1'b0;
-          decrecC <= 1'b0;
-          dectraC <= 1'b0;
-          elevrecbC <= 1'b0;
-          hardsyncC <= 1'b0;
-          resetdstC <= 1'b1;
-          resetstfC <= 1'b1;
-          inccountC <= 1'b0;
-          rescountC <= 1'b0;
-          setrmlenoC <= 0;
-          actvrmlnC <= 1'b0;
-          resrmlenC <= 1'b1;
-          ackerror_setC <= 2'b10;
-          transmitter_setC <= 2'b00;
-          receiver_setC <= 2'b00;
-          error_setC <= 2'b11;
-          first_setC <= 2'b10;
-          activatefastC <= 1'b0;
-          puffer_setC <= 2'b10;
-          onarbit_setC <= 2'b10;
-          en_zerointcrcC <= 1'b1;
-          crc_shft_outC <= 1'b0;
-          if (sendpointC==1'b1)
-            next_stateC <= over_wtonrecb;
-          else
-            next_stateC <= over_preprecb;
-        end
-      over_wtonrecb : 
-        begin
-          rext_setC <= 2'b10;
-          rrtr_setC <= 2'b10;
-          actvtcrcC <= 1'b0;
-          actvrcrcC <= 1'b0;
-          actvtstfC <= 1'b1;
-          actvrstfC <= 1'b0;
-          actvtsftC <= 1'b0;
-          actvrsftC <= 1'b0;
-          actvtdctC <= 1'b0;
-          actvrdctC <= 1'b0;
-          actvtbedC <= 1'b0;
-          setbdomC <= 1'b0;
-          setbrecC <= 1'b1;
-          lcrcC <= 1'b0;
-          tshiftC <= 1'b0;
-          inconerecC <= 1'b0;
-          incegtrecC <= 1'b0;
-          incegttraC <= 1'b0;
-          lmsgC <= 1'b0;
-          decrecC <= 1'b0;
-          dectraC <= 1'b0;
-          elevrecbC <= 1'b0;
-          hardsyncC <= 1'b0;
-          resetdstC <= 1'b1;
-          resetstfC <= 1'b1;
-          inccountC <= 1'b1;
-          rescountC <= 1'b1;
-          setrmlenoC <= 0;
-          actvrmlnC <= 1'b0;
-          resrmlenC <= 1'b1;
-          ackerror_setC <= 2'b10;
-          transmitter_setC <= 2'b00;
-          receiver_setC <= 2'b00;
-          error_setC <= 2'b11;
-          first_setC <= 2'b10;
-          activatefastC <= 1'b0;
-          puffer_setC <= 2'b10;
-          onarbit_setC <= 2'b10;
-          en_zerointcrcC <= 1'b1;
-          crc_shft_outC <= 1'b0;
-          if (smplpointC==1'b1)
-            next_stateC <= over_check2;
-          else
-            next_stateC <= over_wtonrecb;
-        end
-      over_inctracounter : 
-        begin
-          rext_setC <= 2'b10;
-          rrtr_setC <= 2'b10;
-          actvtcrcC <= 1'b0;
-          actvrcrcC <= 1'b0;
-          actvtstfC <= 1'b1;
-          actvrstfC <= 1'b0;
-          actvtsftC <= 1'b0;
-          actvrsftC <= 1'b0;
-          actvtdctC <= 1'b0;
-          actvrdctC <= 1'b0;
-          actvtbedC <= 1'b0;
-          setbdomC <= 1'b0;
-          setbrecC <= 1'b1;
-          lcrcC <= 1'b0;
-          tshiftC <= 1'b0;
-          inconerecC <= 1'b0;
-          incegtrecC <= 1'b0;
-          incegttraC <= 1'b1;
-          lmsgC <= 1'b0;
-          decrecC <= 1'b0;
-          dectraC <= 1'b0;
-          elevrecbC <= 1'b0;
-          hardsyncC <= 1'b0;
-          resetdstC <= 1'b1;
-          resetstfC <= 1'b1;
-          inccountC <= 1'b0;
-          rescountC <= 1'b0;
-          setrmlenoC <= 0;
-          actvrmlnC <= 1'b0;
-          resrmlenC <= 1'b1;
-          ackerror_setC <= 2'b10;
-          transmitter_setC <= 2'b00;
-          receiver_setC <= 2'b00;
-          error_setC <= 2'b11;
-          first_setC <= 2'b10;
-          activatefastC <= 1'b0;
-          puffer_setC <= 2'b10;
-          onarbit_setC <= 2'b10;
-          en_zerointcrcC <= 1'b1;
-          crc_shft_outC <= 1'b0;
-          if (smplpointC==1'b1)
-            next_stateC <= over_check2;
-          else
-            next_stateC <= over_inctracounter;
-        end
-      over_increccounter : 
-        begin
-          rext_setC <= 2'b10;
-          rrtr_setC <= 2'b10;
-          actvtcrcC <= 1'b0;
-          actvrcrcC <= 1'b0;
-          actvtstfC <= 1'b1;
-          actvrstfC <= 1'b0;
-          actvtsftC <= 1'b0;
-          actvrsftC <= 1'b0;
-          actvtdctC <= 1'b0;
-          actvrdctC <= 1'b0;
-          actvtbedC <= 1'b0;
-          setbdomC <= 1'b0;
-          setbrecC <= 1'b1;
-          lcrcC <= 1'b0;
-          tshiftC <= 1'b0;
-          inconerecC <= 1'b0;
-          incegtrecC <= 1'b1;
-          incegttraC <= 1'b0;
-          lmsgC <= 1'b0;
-          decrecC <= 1'b0;
-          dectraC <= 1'b0;
-          elevrecbC <= 1'b0;
-          hardsyncC <= 1'b0;
-          resetdstC <= 1'b1;
-          resetstfC <= 1'b1;
-          inccountC <= 1'b0;
-          rescountC <= 1'b0;
-          setrmlenoC <= 0;
-          actvrmlnC <= 1'b0;
-          resrmlenC <= 1'b1;
-          ackerror_setC <= 2'b10;
-          transmitter_setC <= 2'b00;
-          receiver_setC <= 2'b00;
-          error_setC <= 2'b11;
-          first_setC <= 2'b10;
-          activatefastC <= 1'b0;
-          puffer_setC <= 2'b10;
-          onarbit_setC <= 2'b10;
-          en_zerointcrcC <= 1'b1;
-          crc_shft_outC <= 1'b0;
-          if (smplpointC==1'b1)
-            next_stateC <= over_check2;
-          else
-            next_stateC <= over_increccounter;
-        end
-      over_check2 : 
-        begin
-          rext_setC <= 2'b10;
-          rrtr_setC <= 2'b10;
-          actvtcrcC <= 1'b0;
-          actvrcrcC <= 1'b0;
-          actvtstfC <= 1'b0;
-          actvrstfC <= 1'b0;
-          actvtsftC <= 1'b0;
-          actvrsftC <= 1'b0;
-          actvtdctC <= 1'b0;
-          actvrdctC <= 1'b0;
-          actvtbedC <= 1'b1;
-          setbdomC <= 1'b0;
-          setbrecC <= 1'b1;
-          lcrcC <= 1'b0;
-          tshiftC <= 1'b0;
-          inconerecC <= 1'b0;
-          incegtrecC <= 1'b0;
-          incegttraC <= 1'b0;
-          lmsgC <= 1'b0;
-          decrecC <= 1'b0;
-          dectraC <= 1'b0;
-          elevrecbC <= 1'b0;
-          hardsyncC <= 1'b0;
-          resetdstC <= 1'b1;
-          resetstfC <= 1'b1;
-          inccountC <= 1'b0;
-          rescountC <= 1'b1;
-          setrmlenoC <= 0;
-          actvrmlnC <= 1'b0;
-          resrmlenC <= 1'b1;
-          ackerror_setC <= 2'b10;
-          transmitter_setC <= 2'b00;
-          receiver_setC <= 2'b00;
-          error_setC <= 2'b11;
-          first_setC <= 2'b10;
-          activatefastC <= 1'b0;
-          puffer_setC <= 2'b10;
-          onarbit_setC <= 2'b10;
-          en_zerointcrcC <= 1'b1;
-          crc_shft_outC <= 1'b0;
-          if (sendpointC==1'b1&&biterrorC==1'b1&&countC!=7)
-            next_stateC <= over_wtonrecb;
-          else
-            if (sendpointC==1'b1&&biterrorC==1'b1&&countC==7&&receiverC==1'b1)
-              next_stateC <= over_increccounter;
-            else
-              if (sendpointC==1'b1&&biterrorC==1'b1&&countC==7&&transmitterC==1'b1)
-                next_stateC <= over_inctracounter;
-              else
-                if (biterrorC==1'b0)
-                  next_stateC <= over_prepsend;
-                else
-                  next_stateC <= over_check2;
-        end
-      over_prepsend : 
-        begin
-          rext_setC <= 2'b10;
-          rrtr_setC <= 2'b10;
-          actvtcrcC <= 1'b0;
-          actvrcrcC <= 1'b0;
-          actvtstfC <= 1'b0;
-          actvrstfC <= 1'b0;
-          actvtsftC <= 1'b0;
-          actvrsftC <= 1'b0;
-          actvtdctC <= 1'b0;
-          actvrdctC <= 1'b0;
-          actvtbedC <= 1'b0;
-          setbdomC <= 1'b0;
-          setbrecC <= 1'b1;
-          lcrcC <= 1'b0;
-          tshiftC <= 1'b0;
-          inconerecC <= 1'b0;
-          incegtrecC <= 1'b0;
-          incegttraC <= 1'b0;
-          lmsgC <= 1'b0;
-          decrecC <= 1'b0;
-          dectraC <= 1'b0;
-          elevrecbC <= 1'b0;
-          hardsyncC <= 1'b0;
-          resetdstC <= 1'b1;
-          resetstfC <= 1'b1;
-          inccountC <= 1'b0;
-          rescountC <= 1'b0;
-          setrmlenoC <= 0;
-          actvrmlnC <= 1'b0;
-          resrmlenC <= 1'b1;
-          ackerror_setC <= 2'b10;
-          transmitter_setC <= 2'b00;
-          receiver_setC <= 2'b00;
-          error_setC <= 2'b11;
-          first_setC <= 2'b10;
-          activatefastC <= 1'b0;
-          puffer_setC <= 2'b10;
-          onarbit_setC <= 2'b10;
-          en_zerointcrcC <= 1'b1;
-          crc_shft_outC <= 1'b0;
-          if (sendpointC==1'b1)
-            next_stateC <= over_sendrecb;
-          else
-            next_stateC <= over_prepsend;
-        end
-      over_sendrecb : 
-        begin
-          rext_setC <= 2'b10;
-          rrtr_setC <= 2'b10;
-          actvtcrcC <= 1'b0;
-          actvrcrcC <= 1'b0;
-          actvtstfC <= 1'b1;
-          actvrstfC <= 1'b0;
-          actvtsftC <= 1'b0;
-          actvrsftC <= 1'b0;
-          actvtdctC <= 1'b0;
-          actvrdctC <= 1'b0;
-          actvtbedC <= 1'b0;
-          setbdomC <= 1'b0;
-          setbrecC <= 1'b1;
-          lcrcC <= 1'b0;
-          tshiftC <= 1'b0;
-          inconerecC <= 1'b0;
-          incegtrecC <= 1'b0;
-          incegttraC <= 1'b0;
-          lmsgC <= 1'b0;
-          decrecC <= 1'b0;
-          dectraC <= 1'b0;
-          elevrecbC <= 1'b0;
-          hardsyncC <= 1'b0;
-          resetdstC <= 1'b1;
-          resetstfC <= 1'b1;
-          inccountC <= 1'b0;
-          rescountC <= 1'b1;
-          setrmlenoC <= 0;
-          actvrmlnC <= 1'b0;
-          resrmlenC <= 1'b1;
-          ackerror_setC <= 2'b10;
-          transmitter_setC <= 2'b00;
-          receiver_setC <= 2'b00;
-          error_setC <= 2'b11;
-          first_setC <= 2'b10;
-          activatefastC <= 1'b0;
-          puffer_setC <= 2'b10;
-          onarbit_setC <= 2'b10;
-          en_zerointcrcC <= 1'b1;
-          crc_shft_outC <= 1'b0;
-          if (smplpointC==1'b1)
-            next_stateC <= over_check3;
-          else
-            next_stateC <= over_sendrecb;
-        end
-      over_check3 : 
-        begin
-          rext_setC <= 2'b10;
-          rrtr_setC <= 2'b10;
-          actvtcrcC <= 1'b0;
-          actvrcrcC <= 1'b0;
-          actvtstfC <= 1'b0;
-          actvrstfC <= 1'b0;
-          actvtsftC <= 1'b0;
-          actvrsftC <= 1'b0;
-          actvtdctC <= 1'b0;
-          actvrdctC <= 1'b0;
-          actvtbedC <= 1'b1;
-          setbdomC <= 1'b0;
-          setbrecC <= 1'b1;
-          lcrcC <= 1'b0;
-          tshiftC <= 1'b0;
-          inconerecC <= 1'b0;
-          incegtrecC <= 1'b0;
-          incegttraC <= 1'b0;
-          lmsgC <= 1'b0;
-          decrecC <= 1'b0;
-          dectraC <= 1'b0;
-          elevrecbC <= 1'b0;
-          hardsyncC <= 1'b0;
-          resetdstC <= 1'b1;
-          resetstfC <= 1'b1;
-          inccountC <= 1'b1;
-          rescountC <= 1'b1;
-          setrmlenoC <= 0;
-          actvrmlnC <= 1'b0;
-          resrmlenC <= 1'b1;
-          ackerror_setC <= 2'b10;
-          transmitter_setC <= 2'b00;
-          receiver_setC <= 2'b00;
-          error_setC <= 2'b11;
-          first_setC <= 2'b10;
-          activatefastC <= 1'b0;
-          puffer_setC <= 2'b10;
-          onarbit_setC <= 2'b10;
-          en_zerointcrcC <= 1'b1;
-          crc_shft_outC <= 1'b0;
-          if (sendpointC==1'b1&&biterrorC==1'b0&&countC!=7)
-            next_stateC <= over_sendrecb;
-          else
-            if (biterrorC==1'b0&&countC==7)
-              next_stateC <= over_waitoclk;
-            else
-              if (biterrorC==1'b1&&countC==7)
-                next_stateC <= over_firstdom;
-              else
-                if (biterrorC==1'b1&&erroractivC==1'b1&&countC!=7)
-                  next_stateC <= erroractiv_firstdom;
-                else
-                  if (biterrorC==1'b1&&errorpassivC==1'b1&&countC!=7)
-                    next_stateC <= errorpassiv_firstrec;
-                  else
-                    if (biterrorC==1'b1&&busofC==1'b1&&countC!=7)
-                      next_stateC <= busoff_first;
-                    else
-                      next_stateC <= over_check3;
-        end
-      over_waitoclk : 
-        begin
-          rext_setC <= 2'b10;
-          rrtr_setC <= 2'b10;
-          actvtcrcC <= 1'b0;
-          actvrcrcC <= 1'b0;
-          actvtstfC <= 1'b0;
-          actvrstfC <= 1'b0;
-          actvtsftC <= 1'b0;
-          actvrsftC <= 1'b0;
-          actvtdctC <= 1'b0;
-          actvrdctC <= 1'b0;
-          actvtbedC <= 1'b0;
-          setbdomC <= 1'b0;
-          setbrecC <= 1'b0;
-          lcrcC <= 1'b0;
-          tshiftC <= 1'b0;
-          inconerecC <= 1'b0;
-          incegtrecC <= 1'b0;
-          incegttraC <= 1'b0;
-          lmsgC <= 1'b0;
-          decrecC <= 1'b0;
-          dectraC <= 1'b0;
-          elevrecbC <= 1'b0;
-          hardsyncC <= 1'b0;
-          resetdstC <= 1'b1;
-          resetstfC <= 1'b0;
-          inccountC <= 1'b0;
-          rescountC <= 1'b0;
-          setrmlenoC <= 0;
-          actvrmlnC <= 1'b0;
-          resrmlenC <= 1'b1;
-          ackerror_setC <= 2'b10;
-          transmitter_setC <= 2'b00;
-          receiver_setC <= 2'b00;
-          error_setC <= 2'b10;
-          first_setC <= 2'b10;
-          activatefastC <= 1'b0;
-          puffer_setC <= 2'b10;
-          onarbit_setC <= 2'b10;
-          en_zerointcrcC <= 1'b1;
-          crc_shft_outC <= 1'b0;
-          if (smplpointC==1'b1)
-            next_stateC <= inter_sample;
-          else
-            next_stateC <= over_waitoclk;
-        end
-      erroractiv_firstdom : 
-        begin
-          rext_setC <= 2'b10;
-          rrtr_setC <= 2'b10;
-          actvtcrcC <= 1'b0;
-          actvrcrcC <= 1'b0;
-          actvtstfC <= 1'b0;
-          actvrstfC <= 1'b0;
-          actvtsftC <= 1'b0;
-          actvrsftC <= 1'b0;
-          actvtdctC <= 1'b0;
-          actvrdctC <= 1'b0;
-          actvtbedC <= 1'b0;
-          setbdomC <= 1'b1;
-          setbrecC <= 1'b0;
-          lcrcC <= 1'b0;
-          tshiftC <= 1'b0;
-          inconerecC <= 1'b0;
-          incegtrecC <= 1'b0;
-          incegttraC <= 1'b0;
-          lmsgC <= 1'b0;
-          decrecC <= 1'b0;
-          dectraC <= 1'b0;
-          elevrecbC <= 1'b0;
-          hardsyncC <= 1'b0;
-          resetdstC <= 1'b1;
-          resetstfC <= 1'b1;
-          inccountC <= 1'b0;
-          rescountC <= 1'b0;
-          setrmlenoC <= 0;
-          actvrmlnC <= 1'b0;
-          resrmlenC <= 1'b1;
-          ackerror_setC <= 2'b10;
-          transmitter_setC <= 2'b00;
-          receiver_setC <= 2'b00;
-          error_setC <= 2'b00;
-          first_setC <= 2'b11;
-          activatefastC <= 1'b0;
-          puffer_setC <= 2'b10;
-          onarbit_setC <= 2'b00;
-          en_zerointcrcC <= 1'b1;
-          crc_shft_outC <= 1'b0;
-          if (sendpointC==1'b1&&onarbitC==1'b1)
-            next_stateC <= erroractiv_senddomb;
-          else
-            if (onarbitC==1'b0&&transmitterC==1'b0&&receiverC==1'b1&&errorC==1'b0)
-              next_stateC <= erroractiv_inceinsrec;
-            else
-              if (onarbitC==1'b0&&transmitterC==1'b0&&receiverC==1'b1&&errorC==1'b1)
-                next_stateC <= erroractiv_incachtrec;
-              else
-                if (onarbitC==1'b0&&transmitterC==1'b1)
-                  next_stateC <= erroractiv_incachttra;
-                else
-                  next_stateC <= erroractiv_firstdom;
-        end
-      erroractiv_inceinsrec : 
-        begin
-          rext_setC <= 2'b10;
-          rrtr_setC <= 2'b10;
-          actvtcrcC <= 1'b0;
-          actvrcrcC <= 1'b0;
-          actvtstfC <= 1'b0;
-          actvrstfC <= 1'b0;
-          actvtsftC <= 1'b0;
-          actvrsftC <= 1'b0;
-          actvtdctC <= 1'b0;
-          actvrdctC <= 1'b0;
-          actvtbedC <= 1'b0;
-          setbdomC <= 1'b1;
-          setbrecC <= 1'b0;
-          lcrcC <= 1'b0;
-          tshiftC <= 1'b0;
-          inconerecC <= 1'b1;
-          incegtrecC <= 1'b0;
-          incegttraC <= 1'b0;
-          lmsgC <= 1'b0;
-          decrecC <= 1'b0;
-          dectraC <= 1'b0;
-          elevrecbC <= 1'b0;
-          hardsyncC <= 1'b0;
-          resetdstC <= 1'b1;
-          resetstfC <= 1'b1;
-          inccountC <= 1'b0;
-          rescountC <= 1'b1;
-          setrmlenoC <= 0;
-          actvrmlnC <= 1'b0;
-          resrmlenC <= 1'b1;
-          ackerror_setC <= 2'b10;
-          transmitter_setC <= 2'b00;
-          receiver_setC <= 2'b00;
-          error_setC <= 2'b11;
-          first_setC <= 2'b11;
-          activatefastC <= 1'b0;
-          puffer_setC <= 2'b10;
-          onarbit_setC <= 2'b10;
-          en_zerointcrcC <= 1'b1;
-          crc_shft_outC <= 1'b0;
-          if (sendpointC==1'b1)
-            next_stateC <= erroractiv_senddomb;
-          else
-            next_stateC <= erroractiv_inceinsrec;
-        end
-      erroractiv_incachtrec : 
-        begin
-          rext_setC <= 2'b10;
-          rrtr_setC <= 2'b10;
-          actvtcrcC <= 1'b0;
-          actvrcrcC <= 1'b0;
-          actvtstfC <= 1'b0;
-          actvrstfC <= 1'b0;
-          actvtsftC <= 1'b0;
-          actvrsftC <= 1'b0;
-          actvtdctC <= 1'b0;
-          actvrdctC <= 1'b0;
-          actvtbedC <= 1'b0;
-          setbdomC <= 1'b1;
-          setbrecC <= 1'b0;
-          lcrcC <= 1'b0;
-          tshiftC <= 1'b0;
-          inconerecC <= 1'b0;
-          incegtrecC <= 1'b1;
-          incegttraC <= 1'b0;
-          lmsgC <= 1'b0;
-          decrecC <= 1'b0;
-          dectraC <= 1'b0;
-          elevrecbC <= 1'b0;
-          hardsyncC <= 1'b0;
-          resetdstC <= 1'b1;
-          resetstfC <= 1'b1;
-          inccountC <= 1'b0;
-          rescountC <= 1'b1;
-          setrmlenoC <= 0;
-          actvrmlnC <= 1'b0;
-          resrmlenC <= 1'b1;
-          ackerror_setC <= 2'b10;
-          transmitter_setC <= 2'b00;
-          receiver_setC <= 2'b00;
-          error_setC <= 2'b11;
-          first_setC <= 2'b11;
-          activatefastC <= 1'b0;
-          puffer_setC <= 2'b10;
-          onarbit_setC <= 2'b10;
-          en_zerointcrcC <= 1'b1;
-          crc_shft_outC <= 1'b0;
-          if (sendpointC==1'b1)
-            next_stateC <= erroractiv_senddomb;
-          else
-            next_stateC <= erroractiv_incachtrec;
-        end
-      erroractiv_incachttra : 
-        begin
-          rext_setC <= 2'b10;
-          rrtr_setC <= 2'b10;
-          actvtcrcC <= 1'b0;
-          actvrcrcC <= 1'b0;
-          actvtstfC <= 1'b0;
-          actvrstfC <= 1'b0;
-          actvtsftC <= 1'b0;
-          actvrsftC <= 1'b0;
-          actvtdctC <= 1'b0;
-          actvrdctC <= 1'b0;
-          actvtbedC <= 1'b0;
-          setbdomC <= 1'b1;
-          setbrecC <= 1'b0;
-          lcrcC <= 1'b0;
-          tshiftC <= 1'b0;
-          inconerecC <= 1'b0;
-          incegtrecC <= 1'b0;
-          incegttraC <= 1'b1;
-          lmsgC <= 1'b0;
-          decrecC <= 1'b0;
-          dectraC <= 1'b0;
-          elevrecbC <= 1'b0;
-          hardsyncC <= 1'b0;
-          resetdstC <= 1'b1;
-          resetstfC <= 1'b1;
-          inccountC <= 1'b0;
-          rescountC <= 1'b1;
-          setrmlenoC <= 0;
-          actvrmlnC <= 1'b0;
-          resrmlenC <= 1'b1;
-          ackerror_setC <= 2'b10;
-          transmitter_setC <= 2'b00;
-          receiver_setC <= 2'b00;
-          error_setC <= 2'b11;
-          first_setC <= 2'b11;
-          activatefastC <= 1'b0;
-          puffer_setC <= 2'b10;
-          onarbit_setC <= 2'b10;
-          en_zerointcrcC <= 1'b1;
-          crc_shft_outC <= 1'b0;
-          if (sendpointC==1'b1)
-            next_stateC <= erroractiv_senddomb;
-          else
-            next_stateC <= erroractiv_incachttra;
-        end
-      erroractiv_senddomb : 
-        begin
-          rext_setC <= 2'b10;
-          rrtr_setC <= 2'b10;
-          actvtcrcC <= 1'b0;
-          actvrcrcC <= 1'b0;
-          actvtstfC <= 1'b1;
-          actvrstfC <= 1'b0;
-          actvtsftC <= 1'b0;
-          actvrsftC <= 1'b0;
-          actvtdctC <= 1'b0;
-          actvrdctC <= 1'b0;
-          actvtbedC <= 1'b0;
-          setbdomC <= 1'b1;
-          setbrecC <= 1'b0;
-          lcrcC <= 1'b0;
-          tshiftC <= 1'b0;
-          inconerecC <= 1'b0;
-          incegtrecC <= 1'b0;
-          incegttraC <= 1'b0;
-          lmsgC <= 1'b0;
-          decrecC <= 1'b0;
-          dectraC <= 1'b0;
-          elevrecbC <= 1'b0;
-          hardsyncC <= 1'b0;
-          resetdstC <= 1'b1;
-          resetstfC <= 1'b1;
-          inccountC <= 1'b0;
-          rescountC <= 1'b1;
-          setrmlenoC <= 0;
-          actvrmlnC <= 1'b0;
-          resrmlenC <= 1'b1;
-          ackerror_setC <= 2'b10;
-          transmitter_setC <= 2'b00;
-          receiver_setC <= 2'b00;
-          error_setC <= 2'b11;
-          first_setC <= 2'b11;
-          activatefastC <= 1'b0;
-          puffer_setC <= 2'b10;
-          onarbit_setC <= 2'b10;
-          en_zerointcrcC <= 1'b1;
-          crc_shft_outC <= 1'b0;
-          if (smplpointC==1'b1)
-            next_stateC <= erroractiv_check1;
-          else
-            next_stateC <= erroractiv_senddomb;
-        end
-      erroractiv_check1 : 
-        begin
-          rext_setC <= 2'b10;
-          rrtr_setC <= 2'b10;
-          actvtcrcC <= 1'b0;
-          actvrcrcC <= 1'b0;
-          actvtstfC <= 1'b0;
-          actvrstfC <= 1'b0;
-          actvtsftC <= 1'b0;
-          actvrsftC <= 1'b0;
-          actvtdctC <= 1'b0;
-          actvrdctC <= 1'b0;
-          actvtbedC <= 1'b1;
-          setbdomC <= 1'b1;
-          setbrecC <= 1'b0;
-          lcrcC <= 1'b0;
-          tshiftC <= 1'b0;
-          inconerecC <= 1'b0;
-          incegtrecC <= 1'b0;
-          incegttraC <= 1'b0;
-          lmsgC <= 1'b0;
-          decrecC <= 1'b0;
-          dectraC <= 1'b0;
-          elevrecbC <= 1'b0;
-          hardsyncC <= 1'b0;
-          resetdstC <= 1'b1;
-          resetstfC <= 1'b1;
-          inccountC <= 1'b1;
-          rescountC <= 1'b1;
-          setrmlenoC <= 0;
-          actvrmlnC <= 1'b0;
-          resrmlenC <= 1'b1;
-          ackerror_setC <= 2'b10;
-          transmitter_setC <= 2'b00;
-          receiver_setC <= 2'b00;
-          error_setC <= 2'b11;
-          first_setC <= 2'b11;
-          activatefastC <= 1'b0;
-          puffer_setC <= 2'b10;
-          onarbit_setC <= 2'b10;
-          en_zerointcrcC <= 1'b1;
-          crc_shft_outC <= 1'b0;
-          if (sendpointC==1'b1&&biterrorC==1'b0&&countC!=6)
-            next_stateC <= erroractiv_senddomb;
-          else
-            if (biterrorC==1'b0&&countC==6)
-              next_stateC <= erroractiv_preprecb;
-            else
-              if (biterrorC==1'b1&&erroractivC==1'b1)
-                next_stateC <= erroractiv_firstdom;
-              else
-                if (biterrorC==1'b1&&errorpassivC==1'b1)
-                  next_stateC <= errorpassiv_firstrec;
-                else
-                  if (biterrorC==1'b1&&busofC==1'b1)
-                    next_stateC <= busoff_first;
-                  else
-                    next_stateC <= erroractiv_check1;
-        end
-      erroractiv_preprecb : 
-        begin
-          rext_setC <= 2'b10;
-          rrtr_setC <= 2'b10;
-          actvtcrcC <= 1'b0;
-          actvrcrcC <= 1'b0;
-          actvtstfC <= 1'b0;
-          actvrstfC <= 1'b0;
-          actvtsftC <= 1'b0;
-          actvrsftC <= 1'b0;
-          actvtdctC <= 1'b0;
-          actvrdctC <= 1'b0;
-          actvtbedC <= 1'b0;
-          setbdomC <= 1'b0;
-          setbrecC <= 1'b1;
-          lcrcC <= 1'b0;
-          tshiftC <= 1'b0;
-          inconerecC <= 1'b0;
-          incegtrecC <= 1'b0;
-          incegttraC <= 1'b0;
-          lmsgC <= 1'b0;
-          decrecC <= 1'b0;
-          dectraC <= 1'b0;
-          elevrecbC <= 1'b0;
-          hardsyncC <= 1'b0;
-          resetdstC <= 1'b1;
-          resetstfC <= 1'b1;
-          inccountC <= 1'b0;
-          rescountC <= 1'b0;
-          setrmlenoC <= 0;
-          actvrmlnC <= 1'b0;
-          resrmlenC <= 1'b1;
-          ackerror_setC <= 2'b10;
-          transmitter_setC <= 2'b00;
-          receiver_setC <= 2'b00;
-          error_setC <= 2'b11;
-          first_setC <= 2'b11;
-          activatefastC <= 1'b0;
-          puffer_setC <= 2'b10;
-          onarbit_setC <= 2'b10;
-          en_zerointcrcC <= 1'b1;
-          crc_shft_outC <= 1'b0;
-          if (sendpointC==1'b1)
-            next_stateC <= erroractiv_wtonrecb;
-          else
-            next_stateC <= erroractiv_preprecb;
-        end
-      erroractiv_wtonrecb : 
-        begin
-          rext_setC <= 2'b10;
-          rrtr_setC <= 2'b10;
-          actvtcrcC <= 1'b0;
-          actvrcrcC <= 1'b0;
-          actvtstfC <= 1'b1;
-          actvrstfC <= 1'b0;
-          actvtsftC <= 1'b0;
-          actvrsftC <= 1'b0;
-          actvtdctC <= 1'b0;
-          actvrdctC <= 1'b0;
-          actvtbedC <= 1'b0;
-          setbdomC <= 1'b0;
-          setbrecC <= 1'b1;
-          lcrcC <= 1'b0;
-          tshiftC <= 1'b0;
-          inconerecC <= 1'b0;
-          incegtrecC <= 1'b0;
-          incegttraC <= 1'b0;
-          lmsgC <= 1'b0;
-          decrecC <= 1'b0;
-          dectraC <= 1'b0;
-          elevrecbC <= 1'b0;
-          hardsyncC <= 1'b0;
-          resetdstC <= 1'b1;
-          resetstfC <= 1'b1;
-          inccountC <= 1'b1;
-          rescountC <= 1'b1;
-          setrmlenoC <= 0;
-          actvrmlnC <= 1'b0;
-          resrmlenC <= 1'b1;
-          ackerror_setC <= 2'b10;
-          transmitter_setC <= 2'b00;
-          receiver_setC <= 2'b00;
-          error_setC <= 2'b11;
-          first_setC <= 2'b00;
-          activatefastC <= 1'b0;
-          puffer_setC <= 2'b10;
-          onarbit_setC <= 2'b10;
-          en_zerointcrcC <= 1'b1;
-          crc_shft_outC <= 1'b0;
-          if (smplpointC==1'b1)
-            next_stateC <= erroractiv_check2;
-          else
-            next_stateC <= erroractiv_wtonrecb;
-        end
-      erroractiv_dombitdct : 
-        begin
-          rext_setC <= 2'b10;
-          rrtr_setC <= 2'b10;
-          actvtcrcC <= 1'b0;
-          actvrcrcC <= 1'b0;
-          actvtstfC <= 1'b1;
-          actvrstfC <= 1'b0;
-          actvtsftC <= 1'b0;
-          actvrsftC <= 1'b0;
-          actvtdctC <= 1'b0;
-          actvrdctC <= 1'b0;
-          actvtbedC <= 1'b0;
-          setbdomC <= 1'b0;
-          setbrecC <= 1'b1;
-          lcrcC <= 1'b0;
-          tshiftC <= 1'b0;
-          inconerecC <= 1'b0;
-          incegtrecC <= 1'b1;
-          incegttraC <= 1'b0;
-          lmsgC <= 1'b0;
-          decrecC <= 1'b0;
-          dectraC <= 1'b0;
-          elevrecbC <= 1'b0;
-          hardsyncC <= 1'b0;
-          resetdstC <= 1'b1;
-          resetstfC <= 1'b1;
-          inccountC <= 1'b1;
-          rescountC <= 1'b1;
-          setrmlenoC <= 0;
-          actvrmlnC <= 1'b0;
-          resrmlenC <= 1'b1;
-          ackerror_setC <= 2'b10;
-          transmitter_setC <= 2'b00;
-          receiver_setC <= 2'b00;
-          error_setC <= 2'b11;
-          first_setC <= 2'b10;
-          activatefastC <= 1'b0;
-          puffer_setC <= 2'b10;
-          onarbit_setC <= 2'b10;
-          en_zerointcrcC <= 1'b1;
-          crc_shft_outC <= 1'b0;
-          if (smplpointC==1'b1)
-            next_stateC <= erroractiv_check2;
-          else
-            next_stateC <= erroractiv_dombitdct;
-        end
-      erroractiv_egtdombr : 
-        begin
-          rext_setC <= 2'b10;
-          rrtr_setC <= 2'b10;
-          actvtcrcC <= 1'b0;
-          actvrcrcC <= 1'b0;
-          actvtstfC <= 1'b1;
-          actvrstfC <= 1'b0;
-          actvtsftC <= 1'b0;
-          actvrsftC <= 1'b0;
-          actvtdctC <= 1'b0;
-          actvrdctC <= 1'b0;
-          actvtbedC <= 1'b0;
-          setbdomC <= 1'b0;
-          setbrecC <= 1'b1;
-          lcrcC <= 1'b0;
-          tshiftC <= 1'b0;
-          inconerecC <= 1'b0;
-          incegtrecC <= 1'b1;
-          incegttraC <= 1'b0;
-          lmsgC <= 1'b0;
-          decrecC <= 1'b0;
-          dectraC <= 1'b0;
-          elevrecbC <= 1'b0;
-          hardsyncC <= 1'b0;
-          resetdstC <= 1'b1;
-          resetstfC <= 1'b1;
-          inccountC <= 1'b0;
-          rescountC <= 1'b0;
-          setrmlenoC <= 0;
-          actvrmlnC <= 1'b0;
-          resrmlenC <= 1'b1;
-          ackerror_setC <= 2'b10;
-          transmitter_setC <= 2'b00;
-          receiver_setC <= 2'b00;
-          error_setC <= 2'b11;
-          first_setC <= 2'b10;
-          activatefastC <= 1'b0;
-          puffer_setC <= 2'b10;
-          onarbit_setC <= 2'b10;
-          en_zerointcrcC <= 1'b1;
-          crc_shft_outC <= 1'b0;
-          if (smplpointC==1'b1)
-            next_stateC <= erroractiv_check2;
-          else
-            next_stateC <= erroractiv_egtdombr;
-        end
-      erroractiv_egtdombt : 
-        begin
-          rext_setC <= 2'b10;
-          rrtr_setC <= 2'b10;
-          actvtcrcC <= 1'b0;
-          actvrcrcC <= 1'b0;
-          actvtstfC <= 1'b1;
-          actvrstfC <= 1'b0;
-          actvtsftC <= 1'b0;
-          actvrsftC <= 1'b0;
-          actvtdctC <= 1'b0;
-          actvrdctC <= 1'b0;
-          actvtbedC <= 1'b0;
-          setbdomC <= 1'b0;
-          setbrecC <= 1'b1;
-          lcrcC <= 1'b0;
-          tshiftC <= 1'b0;
-          inconerecC <= 1'b0;
-          incegtrecC <= 1'b0;
-          incegttraC <= 1'b1;
-          lmsgC <= 1'b0;
-          decrecC <= 1'b0;
-          dectraC <= 1'b0;
-          elevrecbC <= 1'b0;
-          hardsyncC <= 1'b0;
-          resetdstC <= 1'b1;
-          resetstfC <= 1'b1;
-          inccountC <= 1'b0;
-          rescountC <= 1'b0;
-          setrmlenoC <= 0;
-          actvrmlnC <= 1'b0;
-          resrmlenC <= 1'b1;
-          ackerror_setC <= 2'b10;
-          transmitter_setC <= 2'b00;
-          receiver_setC <= 2'b00;
-          error_setC <= 2'b11;
-          first_setC <= 2'b10;
-          activatefastC <= 1'b0;
-          puffer_setC <= 2'b10;
-          onarbit_setC <= 2'b10;
-          en_zerointcrcC <= 1'b1;
-          crc_shft_outC <= 1'b0;
-          if (smplpointC==1'b1)
-            next_stateC <= erroractiv_check2;
-          else
-            next_stateC <= erroractiv_egtdombt;
-        end
-      erroractiv_check2 : 
-        begin
-          rext_setC <= 2'b10;
-          rrtr_setC <= 2'b10;
-          actvtcrcC <= 1'b0;
-          actvrcrcC <= 1'b0;
-          actvtstfC <= 1'b0;
-          actvrstfC <= 1'b0;
-          actvtsftC <= 1'b0;
-          actvrsftC <= 1'b0;
-          actvtdctC <= 1'b0;
-          actvrdctC <= 1'b0;
-          actvtbedC <= 1'b1;
-          setbdomC <= 1'b0;
-          setbrecC <= 1'b1;
-          lcrcC <= 1'b0;
-          tshiftC <= 1'b0;
-          inconerecC <= 1'b0;
-          incegtrecC <= 1'b0;
-          incegttraC <= 1'b0;
-          lmsgC <= 1'b0;
-          decrecC <= 1'b0;
-          dectraC <= 1'b0;
-          elevrecbC <= 1'b0;
-          hardsyncC <= 1'b0;
-          resetdstC <= 1'b1;
-          resetstfC <= 1'b1;
-          inccountC <= 1'b0;
-          rescountC <= 1'b1;
-          setrmlenoC <= 0;
-          actvrmlnC <= 1'b0;
-          resrmlenC <= 1'b1;
-          ackerror_setC <= 2'b10;
-          transmitter_setC <= 2'b00;
-          receiver_setC <= 2'b00;
-          error_setC <= 2'b11;
-          first_setC <= 2'b00;
-          activatefastC <= 1'b0;
-          puffer_setC <= 2'b10;
-          onarbit_setC <= 2'b10;
-          en_zerointcrcC <= 1'b1;
-          crc_shft_outC <= 1'b0;
-          if (sendpointC==1'b1&&biterrorC==1'b1&&countC!=7&&(countC!=1||receiverC==1'b0||firstC==1'b0))
-            next_stateC <= erroractiv_wtonrecb;
-          else
-            if (sendpointC==1'b1&&biterrorC==1'b1&&countC==1&&receiverC==1'b1&&firstC==1'b1)
-              next_stateC <= erroractiv_dombitdct;
-            else
-              if (sendpointC==1'b1&&biterrorC==1'b1&&countC==7&&transmitterC==1'b1&&receiverC==1'b0)
-                next_stateC <= erroractiv_egtdombt;
-              else
-                if (sendpointC==1'b1&&biterrorC==1'b1&&countC==7&&transmitterC==1'b0&&receiverC==1'b1)
-                  next_stateC <= erroractiv_egtdombr;
-                else
-                  if (biterrorC==1'b0)
-                    next_stateC <= erroractiv_prepsend;
-                  else
-                    next_stateC <= erroractiv_check2;
-        end
-      erroractiv_prepsend : 
-        begin
-          rext_setC <= 2'b10;
-          rrtr_setC <= 2'b10;
-          actvtcrcC <= 1'b0;
-          actvrcrcC <= 1'b0;
-          actvtstfC <= 1'b0;
-          actvrstfC <= 1'b0;
-          actvtsftC <= 1'b0;
-          actvrsftC <= 1'b0;
-          actvtdctC <= 1'b0;
-          actvrdctC <= 1'b0;
-          actvtbedC <= 1'b0;
-          setbdomC <= 1'b0;
-          setbrecC <= 1'b1;
-          lcrcC <= 1'b0;
-          tshiftC <= 1'b0;
-          inconerecC <= 1'b0;
-          incegtrecC <= 1'b0;
-          incegttraC <= 1'b0;
-          lmsgC <= 1'b0;
-          decrecC <= 1'b0;
-          dectraC <= 1'b0;
-          elevrecbC <= 1'b0;
-          hardsyncC <= 1'b0;
-          resetdstC <= 1'b1;
-          resetstfC <= 1'b1;
-          inccountC <= 1'b0;
-          rescountC <= 1'b0;
-          setrmlenoC <= 0;
-          actvrmlnC <= 1'b0;
-          resrmlenC <= 1'b1;
-          ackerror_setC <= 2'b10;
-          transmitter_setC <= 2'b00;
-          receiver_setC <= 2'b00;
-          error_setC <= 2'b11;
-          first_setC <= 2'b10;
-          activatefastC <= 1'b0;
-          puffer_setC <= 2'b10;
-          onarbit_setC <= 2'b10;
-          en_zerointcrcC <= 1'b1;
-          crc_shft_outC <= 1'b0;
-          if (sendpointC==1'b1)
-            next_stateC <= erroractiv_sendrecb;
-          else
-            next_stateC <= erroractiv_prepsend;
-        end
-      erroractiv_sendrecb : 
-        begin
-          rext_setC <= 2'b10;
-          rrtr_setC <= 2'b10;
-          actvtcrcC <= 1'b0;
-          actvrcrcC <= 1'b0;
-          actvtstfC <= 1'b1;
-          actvrstfC <= 1'b0;
-          actvtsftC <= 1'b0;
-          actvrsftC <= 1'b0;
-          actvtdctC <= 1'b0;
-          actvrdctC <= 1'b0;
-          actvtbedC <= 1'b0;
-          setbdomC <= 1'b0;
-          setbrecC <= 1'b1;
-          lcrcC <= 1'b0;
-          tshiftC <= 1'b0;
-          inconerecC <= 1'b0;
-          incegtrecC <= 1'b0;
-          incegttraC <= 1'b0;
-          lmsgC <= 1'b1;
-          decrecC <= 1'b0;
-          dectraC <= 1'b0;
-          elevrecbC <= 1'b0;
-          hardsyncC <= 1'b0;
-          resetdstC <= 1'b1;
-          resetstfC <= 1'b1;
-          inccountC <= 1'b0;
-          rescountC <= 1'b1;
-          setrmlenoC <= 0;
-          actvrmlnC <= 1'b0;
-          resrmlenC <= 1'b1;
-          ackerror_setC <= 2'b10;
-          transmitter_setC <= 2'b00;
-          receiver_setC <= 2'b00;
-          error_setC <= 2'b11;
-          first_setC <= 2'b10;
-          activatefastC <= 1'b0;
-          puffer_setC <= 2'b10;
-          onarbit_setC <= 2'b10;
-          en_zerointcrcC <= 1'b1;
-          crc_shft_outC <= 1'b0;
-          if (smplpointC==1'b1)
-            next_stateC <= erroractiv_check3;
-          else
-            next_stateC <= erroractiv_sendrecb;
-        end
-      erroractiv_check3 : 
-        begin
-          rext_setC <= 2'b10;
-          rrtr_setC <= 2'b10;
-          actvtcrcC <= 1'b0;
-          actvrcrcC <= 1'b0;
-          actvtstfC <= 1'b0;
-          actvrstfC <= 1'b0;
-          actvtsftC <= 1'b0;
-          actvrsftC <= 1'b0;
-          actvtdctC <= 1'b0;
-          actvrdctC <= 1'b0;
-          actvtbedC <= 1'b1;
-          setbdomC <= 1'b0;
-          setbrecC <= 1'b0;
-          lcrcC <= 1'b0;
-          tshiftC <= 1'b0;
-          inconerecC <= 1'b0;
-          incegtrecC <= 1'b0;
-          incegttraC <= 1'b0;
-          lmsgC <= 1'b1;
-          decrecC <= 1'b0;
-          dectraC <= 1'b0;
-          elevrecbC <= 1'b0;
-          hardsyncC <= 1'b0;
-          resetdstC <= 1'b1;
-          resetstfC <= 1'b1;
-          inccountC <= 1'b1;
-          rescountC <= 1'b1;
-          setrmlenoC <= 0;
-          actvrmlnC <= 1'b0;
-          resrmlenC <= 1'b1;
-          ackerror_setC <= 2'b10;
-          transmitter_setC <= 2'b00;
-          receiver_setC <= 2'b00;
-          error_setC <= 2'b11;
-          first_setC <= 2'b10;
-          activatefastC <= 1'b0;
-          puffer_setC <= 2'b10;
-          onarbit_setC <= 2'b10;
-          en_zerointcrcC <= 1'b1;
-          crc_shft_outC <= 1'b0;
-          if (sendpointC==1'b1&&biterrorC==1'b0&&countC!=7)
-            next_stateC <= erroractiv_sendrecb;
-          else
-            if (sendpointC==1'b1&&biterrorC==1'b0&&countC==7)
-              next_stateC <= erroractiv_waitoclk;
-            else
-              if (biterrorC==1'b1&&erroractivC==1'b1)
-                next_stateC <= erroractiv_firstdom;
-              else
-                if (biterrorC==1'b1&&errorpassivC==1'b1)
-                  next_stateC <= errorpassiv_firstrec;
-                else
-                  if (biterrorC==1'b1&&busofC==1'b1)
-                    next_stateC <= busoff_first;
-                  else
-                    next_stateC <= erroractiv_check3;
-        end
-      erroractiv_waitoclk : 
-        begin
-          rext_setC <= 2'b10;
-          rrtr_setC <= 2'b10;
-          actvtcrcC <= 1'b0;
-          actvrcrcC <= 1'b0;
-          actvtstfC <= 1'b0;
-          actvrstfC <= 1'b0;
-          actvtsftC <= 1'b1;
-          actvrsftC <= 1'b0;
-          actvtdctC <= 1'b0;
-          actvrdctC <= 1'b0;
-          actvtbedC <= 1'b0;
-          setbdomC <= 1'b0;
-          setbrecC <= 1'b0;
-          lcrcC <= 1'b0;
-          tshiftC <= 1'b0;
-          inconerecC <= 1'b0;
-          incegtrecC <= 1'b0;
-          incegttraC <= 1'b0;
-          lmsgC <= 1'b1;
-          decrecC <= 1'b0;
-          dectraC <= 1'b0;
-          elevrecbC <= 1'b0;
-          hardsyncC <= 1'b0;
-          resetdstC <= 1'b1;
-          resetstfC <= 1'b0;
-          inccountC <= 1'b0;
-          rescountC <= 1'b0;
-          setrmlenoC <= 0;
-          actvrmlnC <= 1'b0;
-          resrmlenC <= 1'b1;
-          ackerror_setC <= 2'b10;
-          transmitter_setC <= 2'b00;
-          receiver_setC <= 2'b00;
-          error_setC <= 2'b11;
-          first_setC <= 2'b10;
-          activatefastC <= 1'b0;
-          puffer_setC <= 2'b10;
-          onarbit_setC <= 2'b10;
-          en_zerointcrcC <= 1'b1;
-          crc_shft_outC <= 1'b0;
-          if (smplpointC==1'b1)
-            next_stateC <= inter_sample;
-          else
-            next_stateC <= erroractiv_waitoclk;
-        end
-      errorpassiv_firstrec : 
-        begin
-          rext_setC <= 2'b10;
-          rrtr_setC <= 2'b10;
-          actvtcrcC <= 1'b0;
-          actvrcrcC <= 1'b0;
-          actvtstfC <= 1'b0;
-          actvrstfC <= 1'b0;
-          actvtsftC <= 1'b0;
-          actvrsftC <= 1'b0;
-          actvtdctC <= 1'b0;
-          actvrdctC <= 1'b0;
-          actvtbedC <= 1'b0;
-          setbdomC <= 1'b0;
-          setbrecC <= 1'b1;
-          lcrcC <= 1'b0;
-          tshiftC <= 1'b0;
-          inconerecC <= 1'b0;
-          incegtrecC <= 1'b0;
-          incegttraC <= 1'b0;
-          lmsgC <= 1'b0;
-          decrecC <= 1'b0;
-          dectraC <= 1'b0;
-          elevrecbC <= 1'b0;
-          hardsyncC <= 1'b0;
-          resetdstC <= 1'b1;
-          resetstfC <= 1'b1;
-          inccountC <= 1'b0;
-          rescountC <= 1'b0;
-          setrmlenoC <= 0;
-          actvrmlnC <= 1'b0;
-          resrmlenC <= 1'b1;
-          ackerror_setC <= 2'b00;
-          transmitter_setC <= 2'b00;
-          receiver_setC <= 2'b00;
-          error_setC <= 2'b00;
-          first_setC <= 2'b11;
-          activatefastC <= 1'b0;
-          puffer_setC <= 2'b10;
-          onarbit_setC <= 2'b00;
-          en_zerointcrcC <= 1'b1;
-          crc_shft_outC <= 1'b0;
-          if (sendpointC==1'b1&&transmitterC==1'b1&&(onarbitC==1'b1||ackerrorC==1'b1))
-            next_stateC <= errorpassiv_incsrecb;
-          else
-            if (onarbitC==1'b0&&transmitterC==1'b0&&receiverC==1'b1&&errorC==1'b0)
-              next_stateC <= errorpassiv_inceinsrec;
-            else
-              if (onarbitC==1'b0&&transmitterC==1'b0&&receiverC==1'b1&&errorC==1'b1)
-                next_stateC <= errorpassiv_incachtrec;
-              else
-                if (onarbitC==1'b0&&transmitterC==1'b1&&ackerrorC==1'b0)
-                  next_stateC <= errorpassiv_incachttra;
-                else
-                  next_stateC <= errorpassiv_firstrec;
-        end
-      errorpassiv_inceinsrec : 
-        begin
-          rext_setC <= 2'b10;
-          rrtr_setC <= 2'b10;
-          actvtcrcC <= 1'b0;
-          actvrcrcC <= 1'b0;
-          actvtstfC <= 1'b0;
-          actvrstfC <= 1'b0;
-          actvtsftC <= 1'b0;
-          actvrsftC <= 1'b0;
-          actvtdctC <= 1'b0;
-          actvrdctC <= 1'b0;
-          actvtbedC <= 1'b0;
-          setbdomC <= 1'b0;
-          setbrecC <= 1'b1;
-          lcrcC <= 1'b0;
-          tshiftC <= 1'b0;
-          inconerecC <= 1'b1;
-          incegtrecC <= 1'b0;
-          incegttraC <= 1'b0;
-          lmsgC <= 1'b0;
-          decrecC <= 1'b0;
-          dectraC <= 1'b0;
-          elevrecbC <= 1'b0;
-          hardsyncC <= 1'b0;
-          resetdstC <= 1'b1;
-          resetstfC <= 1'b1;
-          inccountC <= 1'b0;
-          rescountC <= 1'b1;
-          setrmlenoC <= 0;
-          actvrmlnC <= 1'b0;
-          resrmlenC <= 1'b1;
-          ackerror_setC <= 2'b00;
-          transmitter_setC <= 2'b00;
-          receiver_setC <= 2'b00;
-          error_setC <= 2'b11;
-          first_setC <= 2'b11;
-          activatefastC <= 1'b0;
-          puffer_setC <= 2'b10;
-          onarbit_setC <= 2'b10;
-          en_zerointcrcC <= 1'b1;
-          crc_shft_outC <= 1'b0;
-          if (sendpointC==1'b1)
-            next_stateC <= errorpassiv_incsrecb;
-          else
-            next_stateC <= errorpassiv_inceinsrec;
-        end
-      errorpassiv_incachtrec : 
-        begin
-          rext_setC <= 2'b10;
-          rrtr_setC <= 2'b10;
-          actvtcrcC <= 1'b0;
-          actvrcrcC <= 1'b0;
-          actvtstfC <= 1'b0;
-          actvrstfC <= 1'b0;
-          actvtsftC <= 1'b0;
-          actvrsftC <= 1'b0;
-          actvtdctC <= 1'b0;
-          actvrdctC <= 1'b0;
-          actvtbedC <= 1'b0;
-          setbdomC <= 1'b0;
-          setbrecC <= 1'b1;
-          lcrcC <= 1'b0;
-          tshiftC <= 1'b0;
-          inconerecC <= 1'b0;
-          incegtrecC <= 1'b1;
-          incegttraC <= 1'b0;
-          lmsgC <= 1'b0;
-          decrecC <= 1'b0;
-          dectraC <= 1'b0;
-          elevrecbC <= 1'b0;
-          hardsyncC <= 1'b0;
-          resetdstC <= 1'b1;
-          resetstfC <= 1'b1;
-          inccountC <= 1'b0;
-          rescountC <= 1'b1;
-          setrmlenoC <= 0;
-          actvrmlnC <= 1'b0;
-          resrmlenC <= 1'b1;
-          ackerror_setC <= 2'b00;
-          transmitter_setC <= 2'b00;
-          receiver_setC <= 2'b00;
-          error_setC <= 2'b11;
-          first_setC <= 2'b11;
-          activatefastC <= 1'b0;
-          puffer_setC <= 2'b10;
-          onarbit_setC <= 2'b10;
-          en_zerointcrcC <= 1'b1;
-          crc_shft_outC <= 1'b0;
-          if (sendpointC==1'b1)
-            next_stateC <= errorpassiv_incsrecb;
-          else
-            next_stateC <= errorpassiv_incachtrec;
-        end
-      errorpassiv_incachttra : 
-        begin
-          rext_setC <= 2'b10;
-          rrtr_setC <= 2'b10;
-          actvtcrcC <= 1'b0;
-          actvrcrcC <= 1'b0;
-          actvtstfC <= 1'b0;
-          actvrstfC <= 1'b0;
-          actvtsftC <= 1'b0;
-          actvrsftC <= 1'b0;
-          actvtdctC <= 1'b0;
-          actvrdctC <= 1'b0;
-          actvtbedC <= 1'b0;
-          setbdomC <= 1'b0;
-          setbrecC <= 1'b1;
-          lcrcC <= 1'b0;
-          tshiftC <= 1'b0;
-          inconerecC <= 1'b0;
-          incegtrecC <= 1'b0;
-          incegttraC <= 1'b1;
-          lmsgC <= 1'b0;
-          decrecC <= 1'b0;
-          dectraC <= 1'b0;
-          elevrecbC <= 1'b0;
-          hardsyncC <= 1'b0;
-          resetdstC <= 1'b1;
-          resetstfC <= 1'b1;
-          inccountC <= 1'b0;
-          rescountC <= 1'b1;
-          setrmlenoC <= 0;
-          actvrmlnC <= 1'b0;
-          resrmlenC <= 1'b1;
-          ackerror_setC <= 2'b00;
-          transmitter_setC <= 2'b00;
-          receiver_setC <= 2'b00;
-          error_setC <= 2'b11;
-          first_setC <= 2'b11;
-          activatefastC <= 1'b0;
-          puffer_setC <= 2'b10;
-          onarbit_setC <= 2'b10;
-          en_zerointcrcC <= 1'b1;
-          crc_shft_outC <= 1'b0;
-          if (sendpointC==1'b1)
-            next_stateC <= errorpassiv_incsrecb;
-          else
-            next_stateC <= errorpassiv_incachttra;
-        end
-      errorpassiv_incsrecb : 
-        begin
-          rext_setC <= 2'b10;
-          rrtr_setC <= 2'b10;
-          actvtcrcC <= 1'b0;
-          actvrcrcC <= 1'b0;
-          actvtstfC <= 1'b1;
-          actvrstfC <= 1'b0;
-          actvtsftC <= 1'b0;
-          actvrsftC <= 1'b0;
-          actvtdctC <= 1'b0;
-          actvrdctC <= 1'b0;
-          actvtbedC <= 1'b0;
-          setbdomC <= 1'b0;
-          setbrecC <= 1'b1;
-          lcrcC <= 1'b0;
-          tshiftC <= 1'b0;
-          inconerecC <= 1'b0;
-          incegtrecC <= 1'b0;
-          incegttraC <= 1'b0;
-          lmsgC <= 1'b0;
-          decrecC <= 1'b0;
-          dectraC <= 1'b0;
-          elevrecbC <= 1'b0;
-          hardsyncC <= 1'b0;
-          resetdstC <= 1'b1;
-          resetstfC <= 1'b1;
-          inccountC <= 1'b0;
-          rescountC <= 1'b1;
-          setrmlenoC <= 0;
-          actvrmlnC <= 1'b0;
-          resrmlenC <= 1'b1;
-          ackerror_setC <= 2'b00;
-          transmitter_setC <= 2'b00;
-          receiver_setC <= 2'b00;
-          error_setC <= 2'b11;
-          first_setC <= 2'b11;
-          activatefastC <= 1'b0;
-          puffer_setC <= 2'b00;
-          onarbit_setC <= 2'b10;
-          en_zerointcrcC <= 1'b1;
-          crc_shft_outC <= 1'b0;
-          if (smplpointC==1'b1&&countC!=0)
-            next_stateC <= errorpassiv_check1;
-          else
-            if (smplpointC==1'b1&&countC==0)
-              next_stateC <= errorpassiv_fillpuffer;
-            else
-              next_stateC <= errorpassiv_incsrecb;
-        end
-      errorpassiv_fillpuffer : 
-        begin
-          rext_setC <= 2'b10;
-          rrtr_setC <= 2'b10;
-          actvtcrcC <= 1'b0;
-          actvrcrcC <= 1'b0;
-          actvtstfC <= 1'b0;
-          actvrstfC <= 1'b1;
-          actvtsftC <= 1'b0;
-          actvrsftC <= 1'b0;
-          actvtdctC <= 1'b0;
-          actvrdctC <= 1'b1;
-          actvtbedC <= 1'b0;
-          setbdomC <= 1'b0;
-          setbrecC <= 1'b1;
-          lcrcC <= 1'b0;
-          tshiftC <= 1'b0;
-          inconerecC <= 1'b0;
-          incegtrecC <= 1'b0;
-          incegttraC <= 1'b0;
-          lmsgC <= 1'b0;
-          decrecC <= 1'b0;
-          dectraC <= 1'b0;
-          elevrecbC <= 1'b0;
-          hardsyncC <= 1'b0;
-          resetdstC <= 1'b1;
-          resetstfC <= 1'b1;
-          inccountC <= 1'b1;
-          rescountC <= 1'b1;
-          setrmlenoC <= 0;
-          actvrmlnC <= 1'b0;
-          resrmlenC <= 1'b1;
-          ackerror_setC <= 2'b00;
-          transmitter_setC <= 2'b00;
-          receiver_setC <= 2'b00;
-          error_setC <= 2'b11;
-          first_setC <= 2'b11;
-          activatefastC <= 1'b0;
-          puffer_setC <= 2'b10;
-          onarbit_setC <= 2'b10;
-          en_zerointcrcC <= 1'b1;
-          crc_shft_outC <= 1'b0;
-          if (inbitC==1'b0&&transmitterC==1'b1&&ackerrorC==1'b1)
-            next_stateC <= errorpassiv_pufferdomi;
-          else
-            if (inbitC==1'b0&&(transmitterC==1'b0||ackerrorC==1'b0))
-              next_stateC <= errorpassiv_pufferdom;
-            else
-              next_stateC <= errorpassiv_pufferrec;
-        end
-      errorpassiv_pufferrec : 
-        begin
-          rext_setC <= 2'b10;
-          rrtr_setC <= 2'b10;
-          actvtcrcC <= 1'b0;
-          actvrcrcC <= 1'b0;
-          actvtstfC <= 1'b0;
-          actvrstfC <= 1'b0;
-          actvtsftC <= 1'b0;
-          actvrsftC <= 1'b0;
-          actvtdctC <= 1'b0;
-          actvrdctC <= 1'b0;
-          actvtbedC <= 1'b0;
-          setbdomC <= 1'b0;
-          setbrecC <= 1'b1;
-          lcrcC <= 1'b0;
-          tshiftC <= 1'b0;
-          inconerecC <= 1'b0;
-          incegtrecC <= 1'b0;
-          incegttraC <= 1'b0;
-          lmsgC <= 1'b0;
-          decrecC <= 1'b0;
-          dectraC <= 1'b0;
-          elevrecbC <= 1'b0;
-          hardsyncC <= 1'b0;
-          resetdstC <= 1'b1;
-          resetstfC <= 1'b1;
-          inccountC <= 1'b0;
-          rescountC <= 1'b1;
-          setrmlenoC <= 0;
-          actvrmlnC <= 1'b0;
-          resrmlenC <= 1'b1;
-          ackerror_setC <= 2'b00;
-          transmitter_setC <= 2'b00;
-          receiver_setC <= 2'b00;
-          error_setC <= 2'b11;
-          first_setC <= 2'b11;
-          activatefastC <= 1'b0;
-          puffer_setC <= 2'b11;
-          onarbit_setC <= 2'b10;
-          en_zerointcrcC <= 1'b1;
-          crc_shft_outC <= 1'b0;
-          if (sendpointC==1'b1)
-            next_stateC <= errorpassiv_incsrecb;
-          else
-            next_stateC <= errorpassiv_pufferrec;
-        end
-      errorpassiv_pufferdom : 
-        begin
-          rext_setC <= 2'b10;
-          rrtr_setC <= 2'b10;
-          actvtcrcC <= 1'b0;
-          actvrcrcC <= 1'b0;
-          actvtstfC <= 1'b0;
-          actvrstfC <= 1'b0;
-          actvtsftC <= 1'b0;
-          actvrsftC <= 1'b0;
-          actvtdctC <= 1'b0;
-          actvrdctC <= 1'b0;
-          actvtbedC <= 1'b0;
-          setbdomC <= 1'b0;
-          setbrecC <= 1'b1;
-          lcrcC <= 1'b0;
-          tshiftC <= 1'b0;
-          inconerecC <= 1'b0;
-          incegtrecC <= 1'b0;
-          incegttraC <= 1'b0;
-          lmsgC <= 1'b0;
-          decrecC <= 1'b0;
-          dectraC <= 1'b0;
-          elevrecbC <= 1'b0;
-          hardsyncC <= 1'b0;
-          resetdstC <= 1'b1;
-          resetstfC <= 1'b1;
-          inccountC <= 1'b0;
-          rescountC <= 1'b1;
-          setrmlenoC <= 0;
-          actvrmlnC <= 1'b0;
-          resrmlenC <= 1'b1;
-          ackerror_setC <= 2'b00;
-          transmitter_setC <= 2'b00;
-          receiver_setC <= 2'b00;
-          error_setC <= 2'b11;
-          first_setC <= 2'b11;
-          activatefastC <= 1'b0;
-          puffer_setC <= 2'b10;
-          onarbit_setC <= 2'b10;
-          en_zerointcrcC <= 1'b1;
-          crc_shft_outC <= 1'b0;
-          if (sendpointC==1'b1)
-            next_stateC <= errorpassiv_incsrecb;
-          else
-            next_stateC <= errorpassiv_pufferdom;
-        end
-      errorpassiv_pufferdomi : 
-        begin
-          rext_setC <= 2'b10;
-          rrtr_setC <= 2'b10;
-          actvtcrcC <= 1'b0;
-          actvrcrcC <= 1'b0;
-          actvtstfC <= 1'b0;
-          actvrstfC <= 1'b0;
-          actvtsftC <= 1'b0;
-          actvrsftC <= 1'b0;
-          actvtdctC <= 1'b0;
-          actvrdctC <= 1'b0;
-          actvtbedC <= 1'b0;
-          setbdomC <= 1'b0;
-          setbrecC <= 1'b1;
-          lcrcC <= 1'b0;
-          tshiftC <= 1'b0;
-          inconerecC <= 1'b0;
-          incegtrecC <= 1'b0;
-          incegttraC <= 1'b1;
-          lmsgC <= 1'b0;
-          decrecC <= 1'b0;
-          dectraC <= 1'b0;
-          elevrecbC <= 1'b0;
-          hardsyncC <= 1'b0;
-          resetdstC <= 1'b1;
-          resetstfC <= 1'b1;
-          inccountC <= 1'b0;
-          rescountC <= 1'b1;
-          setrmlenoC <= 0;
-          actvrmlnC <= 1'b0;
-          resrmlenC <= 1'b1;
-          ackerror_setC <= 2'b00;
-          transmitter_setC <= 2'b00;
-          receiver_setC <= 2'b00;
-          error_setC <= 2'b11;
-          first_setC <= 2'b11;
-          activatefastC <= 1'b0;
-          puffer_setC <= 2'b10;
-          onarbit_setC <= 2'b10;
-          en_zerointcrcC <= 1'b1;
-          crc_shft_outC <= 1'b0;
-          if (sendpointC==1'b1)
-            next_stateC <= errorpassiv_incsrecb;
-          else
-            next_stateC <= errorpassiv_pufferdomi;
-        end
-      errorpassiv_zersrecbo : 
-        begin
-          rext_setC <= 2'b10;
-          rrtr_setC <= 2'b10;
-          actvtcrcC <= 1'b0;
-          actvrcrcC <= 1'b0;
-          actvtstfC <= 1'b1;
-          actvrstfC <= 1'b0;
-          actvtsftC <= 1'b0;
-          actvrsftC <= 1'b0;
-          actvtdctC <= 1'b0;
-          actvrdctC <= 1'b0;
-          actvtbedC <= 1'b0;
-          setbdomC <= 1'b0;
-          setbrecC <= 1'b1;
-          lcrcC <= 1'b0;
-          tshiftC <= 1'b0;
-          inconerecC <= 1'b0;
-          incegtrecC <= 1'b0;
-          incegttraC <= 1'b0;
-          lmsgC <= 1'b0;
-          decrecC <= 1'b0;
-          dectraC <= 1'b0;
-          elevrecbC <= 1'b0;
-          hardsyncC <= 1'b0;
-          resetdstC <= 1'b1;
-          resetstfC <= 1'b1;
-          inccountC <= 1'b0;
-          rescountC <= 1'b0;
-          setrmlenoC <= 0;
-          actvrmlnC <= 1'b0;
-          resrmlenC <= 1'b1;
-          ackerror_setC <= 2'b00;
-          transmitter_setC <= 2'b00;
-          receiver_setC <= 2'b00;
-          error_setC <= 2'b11;
-          first_setC <= 2'b11;
-          activatefastC <= 1'b0;
-          puffer_setC <= 2'b11;
-          onarbit_setC <= 2'b10;
-          en_zerointcrcC <= 1'b1;
-          crc_shft_outC <= 1'b0;
-          next_stateC <= errorpassiv_newcount;
-        end
-      errorpassiv_zersrecbz : 
-        begin
-          rext_setC <= 2'b10;
-          rrtr_setC <= 2'b10;
-          actvtcrcC <= 1'b0;
-          actvrcrcC <= 1'b0;
-          actvtstfC <= 1'b1;
-          actvrstfC <= 1'b0;
-          actvtsftC <= 1'b0;
-          actvrsftC <= 1'b0;
-          actvtdctC <= 1'b0;
-          actvrdctC <= 1'b0;
-          actvtbedC <= 1'b0;
-          setbdomC <= 1'b0;
-          setbrecC <= 1'b1;
-          lcrcC <= 1'b0;
-          tshiftC <= 1'b0;
-          inconerecC <= 1'b0;
-          incegtrecC <= 1'b0;
-          incegttraC <= 1'b0;
-          lmsgC <= 1'b0;
-          decrecC <= 1'b0;
-          dectraC <= 1'b0;
-          elevrecbC <= 1'b0;
-          hardsyncC <= 1'b0;
-          resetdstC <= 1'b1;
-          resetstfC <= 1'b1;
-          inccountC <= 1'b0;
-          rescountC <= 1'b0;
-          setrmlenoC <= 0;
-          actvrmlnC <= 1'b0;
-          resrmlenC <= 1'b1;
-          ackerror_setC <= 2'b00;
-          transmitter_setC <= 2'b00;
-          receiver_setC <= 2'b00;
-          error_setC <= 2'b11;
-          first_setC <= 2'b11;
-          activatefastC <= 1'b0;
-          puffer_setC <= 2'b10;
-          onarbit_setC <= 2'b10;
-          en_zerointcrcC <= 1'b1;
-          crc_shft_outC <= 1'b0;
-          next_stateC <= errorpassiv_newcount;
-        end
-      errorpassiv_zersrecbi : 
-        begin
-          rext_setC <= 2'b10;
-          rrtr_setC <= 2'b10;
-          actvtcrcC <= 1'b0;
-          actvrcrcC <= 1'b0;
-          actvtstfC <= 1'b1;
-          actvrstfC <= 1'b0;
-          actvtsftC <= 1'b0;
-          actvrsftC <= 1'b0;
-          actvtdctC <= 1'b0;
-          actvrdctC <= 1'b0;
-          actvtbedC <= 1'b0;
-          setbdomC <= 1'b0;
-          setbrecC <= 1'b1;
-          lcrcC <= 1'b0;
-          tshiftC <= 1'b0;
-          inconerecC <= 1'b0;
-          incegtrecC <= 1'b0;
-          incegttraC <= 1'b1;
-          lmsgC <= 1'b0;
-          decrecC <= 1'b0;
-          dectraC <= 1'b0;
-          elevrecbC <= 1'b0;
-          hardsyncC <= 1'b0;
-          resetdstC <= 1'b1;
-          resetstfC <= 1'b1;
-          inccountC <= 1'b0;
-          rescountC <= 1'b0;
-          setrmlenoC <= 0;
-          actvrmlnC <= 1'b0;
-          resrmlenC <= 1'b1;
-          ackerror_setC <= 2'b10;
-          transmitter_setC <= 2'b00;
-          receiver_setC <= 2'b00;
-          error_setC <= 2'b11;
-          first_setC <= 2'b11;
-          activatefastC <= 1'b0;
-          puffer_setC <= 2'b10;
-          onarbit_setC <= 2'b10;
-          en_zerointcrcC <= 1'b1;
-          crc_shft_outC <= 1'b0;
-          next_stateC <= errorpassiv_newcount;
-        end
-      errorpassiv_newcount : 
-        begin
-          rext_setC <= 2'b10;
-          rrtr_setC <= 2'b10;
-          actvtcrcC <= 1'b0;
-          actvrcrcC <= 1'b0;
-          actvtstfC <= 1'b1;
-          actvrstfC <= 1'b0;
-          actvtsftC <= 1'b0;
-          actvrsftC <= 1'b0;
-          actvtdctC <= 1'b0;
-          actvrdctC <= 1'b0;
-          actvtbedC <= 1'b0;
-          setbdomC <= 1'b0;
-          setbrecC <= 1'b1;
-          lcrcC <= 1'b0;
-          tshiftC <= 1'b0;
-          inconerecC <= 1'b0;
-          incegtrecC <= 1'b0;
-          incegttraC <= 1'b0;
-          lmsgC <= 1'b0;
-          decrecC <= 1'b0;
-          dectraC <= 1'b0;
-          elevrecbC <= 1'b0;
-          hardsyncC <= 1'b0;
-          resetdstC <= 1'b1;
-          resetstfC <= 1'b1;
-          inccountC <= 1'b1;
-          rescountC <= 1'b1;
-          setrmlenoC <= 0;
-          actvrmlnC <= 1'b0;
-          resrmlenC <= 1'b1;
-          ackerror_setC <= 2'b10;
-          transmitter_setC <= 2'b00;
-          receiver_setC <= 2'b00;
-          error_setC <= 2'b11;
-          first_setC <= 2'b11;
-          activatefastC <= 1'b0;
-          puffer_setC <= 2'b00;
-          onarbit_setC <= 2'b10;
-          en_zerointcrcC <= 1'b1;
-          crc_shft_outC <= 1'b0;
-          next_stateC <= errorpassiv_prepcount;
-        end
-      errorpassiv_prepcount : 
-        begin
-          rext_setC <= 2'b10;
-          rrtr_setC <= 2'b10;
-          actvtcrcC <= 1'b0;
-          actvrcrcC <= 1'b0;
-          actvtstfC <= 1'b1;
-          actvrstfC <= 1'b0;
-          actvtsftC <= 1'b0;
-          actvrsftC <= 1'b0;
-          actvtdctC <= 1'b0;
-          actvrdctC <= 1'b0;
-          actvtbedC <= 1'b0;
-          setbdomC <= 1'b0;
-          setbrecC <= 1'b1;
-          lcrcC <= 1'b0;
-          tshiftC <= 1'b0;
-          inconerecC <= 1'b0;
-          incegtrecC <= 1'b0;
-          incegttraC <= 1'b0;
-          lmsgC <= 1'b0;
-          decrecC <= 1'b0;
-          dectraC <= 1'b0;
-          elevrecbC <= 1'b0;
-          hardsyncC <= 1'b0;
-          resetdstC <= 1'b1;
-          resetstfC <= 1'b1;
-          inccountC <= 1'b0;
-          rescountC <= 1'b1;
-          setrmlenoC <= 0;
-          actvrmlnC <= 1'b0;
-          resrmlenC <= 1'b1;
-          ackerror_setC <= 2'b10;
-          transmitter_setC <= 2'b00;
-          receiver_setC <= 2'b00;
-          error_setC <= 2'b11;
-          first_setC <= 2'b11;
-          activatefastC <= 1'b0;
-          puffer_setC <= 2'b00;
-          onarbit_setC <= 2'b10;
-          en_zerointcrcC <= 1'b1;
-          crc_shft_outC <= 1'b0;
-          if (smplpointC==1'b1)
-            next_stateC <= errorpassiv_check1;
-          else
-            next_stateC <= errorpassiv_prepcount;
-        end
-      errorpassiv_check1 : 
-        begin
-          rext_setC <= 2'b10;
-          rrtr_setC <= 2'b10;
-          actvtcrcC <= 1'b0;
-          actvrcrcC <= 1'b0;
-          actvtstfC <= 1'b0;
-          actvrstfC <= 1'b0;
-          actvtsftC <= 1'b0;
-          actvrsftC <= 1'b0;
-          actvtdctC <= 1'b0;
-          actvrdctC <= 1'b0;
-          actvtbedC <= 1'b1;
-          setbdomC <= 1'b0;
-          setbrecC <= 1'b1;
-          lcrcC <= 1'b0;
-          tshiftC <= 1'b0;
-          inconerecC <= 1'b0;
-          incegtrecC <= 1'b0;
-          incegttraC <= 1'b0;
-          lmsgC <= 1'b0;
-          decrecC <= 1'b0;
-          dectraC <= 1'b0;
-          elevrecbC <= 1'b0;
-          hardsyncC <= 1'b0;
-          resetdstC <= 1'b1;
-          resetstfC <= 1'b1;
-          inccountC <= 1'b1;
-          rescountC <= 1'b1;
-          setrmlenoC <= 0;
-          actvrmlnC <= 1'b0;
-          resrmlenC <= 1'b1;
-          ackerror_setC <= 2'b00;
-          transmitter_setC <= 2'b00;
-          receiver_setC <= 2'b00;
-          error_setC <= 2'b11;
-          first_setC <= 2'b11;
-          activatefastC <= 1'b0;
-          puffer_setC <= 2'b00;
-          onarbit_setC <= 2'b10;
-          en_zerointcrcC <= 1'b1;
-          crc_shft_outC <= 1'b0;
-          if (sendpointC==1'b1&&biterrorC==pufferC&&biterrorC==1'b1&&transmitterC==1'b1&&ackerrorC==1'b1)
-            next_stateC <= errorpassiv_zersrecbi;
-          else
-            if (sendpointC==1'b1&&biterrorC==pufferC&&biterrorC==1'b1&&(ackerrorC==1'b0||transmitterC==1'b0))
-              next_stateC <= errorpassiv_zersrecbz;
-            else
-              if (sendpointC==1'b1&&biterrorC==pufferC&&biterrorC==1'b0)
-                next_stateC <= errorpassiv_zersrecbo;
-              else
-                if (sendpointC==1'b1&&biterrorC!=pufferC&&countC!=6)
-                  next_stateC <= errorpassiv_incsrecb;
-                else
-                  if (biterrorC!=pufferC&&countC==6)
-                    next_stateC <= errorpassiv_preprecb;
-                  else
-                    next_stateC <= errorpassiv_check1;
-        end
-      errorpassiv_preprecb : 
-        begin
-          rext_setC <= 2'b10;
-          rrtr_setC <= 2'b10;
-          actvtcrcC <= 1'b0;
-          actvrcrcC <= 1'b0;
-          actvtstfC <= 1'b0;
-          actvrstfC <= 1'b0;
-          actvtsftC <= 1'b0;
-          actvrsftC <= 1'b0;
-          actvtdctC <= 1'b0;
-          actvrdctC <= 1'b0;
-          actvtbedC <= 1'b0;
-          setbdomC <= 1'b0;
-          setbrecC <= 1'b1;
-          lcrcC <= 1'b0;
-          tshiftC <= 1'b0;
-          inconerecC <= 1'b0;
-          incegtrecC <= 1'b0;
-          incegttraC <= 1'b0;
-          lmsgC <= 1'b0;
-          decrecC <= 1'b0;
-          dectraC <= 1'b0;
-          elevrecbC <= 1'b0;
-          hardsyncC <= 1'b0;
-          resetdstC <= 1'b1;
-          resetstfC <= 1'b1;
-          inccountC <= 1'b0;
-          rescountC <= 1'b0;
-          setrmlenoC <= 0;
-          actvrmlnC <= 1'b0;
-          resrmlenC <= 1'b1;
-          ackerror_setC <= 2'b10;
-          transmitter_setC <= 2'b00;
-          receiver_setC <= 2'b00;
-          error_setC <= 2'b11;
-          first_setC <= 2'b11;
-          activatefastC <= 1'b0;
-          puffer_setC <= 2'b10;
-          onarbit_setC <= 2'b10;
-          en_zerointcrcC <= 1'b1;
-          crc_shft_outC <= 1'b0;
-          if (sendpointC==1'b1)
-            next_stateC <= errorpassiv_wtonrecb;
-          else
-            next_stateC <= errorpassiv_preprecb;
-        end
-      errorpassiv_wtonrecb : 
-        begin
-          rext_setC <= 2'b10;
-          rrtr_setC <= 2'b10;
-          actvtcrcC <= 1'b0;
-          actvrcrcC <= 1'b0;
-          actvtstfC <= 1'b1;
-          actvrstfC <= 1'b0;
-          actvtsftC <= 1'b0;
-          actvrsftC <= 1'b0;
-          actvtdctC <= 1'b0;
-          actvrdctC <= 1'b0;
-          actvtbedC <= 1'b0;
-          setbdomC <= 1'b0;
-          setbrecC <= 1'b1;
-          lcrcC <= 1'b0;
-          tshiftC <= 1'b0;
-          inconerecC <= 1'b0;
-          incegtrecC <= 1'b0;
-          incegttraC <= 1'b0;
-          lmsgC <= 1'b0;
-          decrecC <= 1'b0;
-          dectraC <= 1'b0;
-          elevrecbC <= 1'b0;
-          hardsyncC <= 1'b0;
-          resetdstC <= 1'b1;
-          resetstfC <= 1'b1;
-          inccountC <= 1'b1;
-          rescountC <= 1'b1;
-          setrmlenoC <= 0;
-          actvrmlnC <= 1'b0;
-          resrmlenC <= 1'b1;
-          ackerror_setC <= 2'b10;
-          transmitter_setC <= 2'b00;
-          receiver_setC <= 2'b00;
-          error_setC <= 2'b11;
-          first_setC <= 2'b00;
-          activatefastC <= 1'b0;
-          puffer_setC <= 2'b10;
-          onarbit_setC <= 2'b10;
-          en_zerointcrcC <= 1'b1;
-          crc_shft_outC <= 1'b0;
-          if (smplpointC==1'b1)
-            next_stateC <= errorpassiv_check2;
-          else
-            next_stateC <= errorpassiv_wtonrecb;
-        end
-      errorpassiv_dombitdct : 
-        begin
-          rext_setC <= 2'b10;
-          rrtr_setC <= 2'b10;
-          actvtcrcC <= 1'b0;
-          actvrcrcC <= 1'b0;
-          actvtstfC <= 1'b1;
-          actvrstfC <= 1'b0;
-          actvtsftC <= 1'b0;
-          actvrsftC <= 1'b0;
-          actvtdctC <= 1'b0;
-          actvrdctC <= 1'b0;
-          actvtbedC <= 1'b0;
-          setbdomC <= 1'b0;
-          setbrecC <= 1'b1;
-          lcrcC <= 1'b0;
-          tshiftC <= 1'b0;
-          inconerecC <= 1'b0;
-          incegtrecC <= 1'b1;
-          incegttraC <= 1'b0;
-          lmsgC <= 1'b0;
-          decrecC <= 1'b0;
-          dectraC <= 1'b0;
-          elevrecbC <= 1'b0;
-          hardsyncC <= 1'b0;
-          resetdstC <= 1'b1;
-          resetstfC <= 1'b1;
-          inccountC <= 1'b1;
-          rescountC <= 1'b1;
-          setrmlenoC <= 0;
-          actvrmlnC <= 1'b0;
-          resrmlenC <= 1'b1;
-          ackerror_setC <= 2'b10;
-          transmitter_setC <= 2'b00;
-          receiver_setC <= 2'b00;
-          error_setC <= 2'b11;
-          first_setC <= 2'b10;
-          activatefastC <= 1'b0;
-          puffer_setC <= 2'b10;
-          onarbit_setC <= 2'b10;
-          en_zerointcrcC <= 1'b1;
-          crc_shft_outC <= 1'b0;
-          if (smplpointC==1'b1)
-            next_stateC <= errorpassiv_check2;
-          else
-            next_stateC <= errorpassiv_dombitdct;
-        end
-      errorpassiv_egtdombr : 
-        begin
-          rext_setC <= 2'b10;
-          rrtr_setC <= 2'b10;
-          actvtcrcC <= 1'b0;
-          actvrcrcC <= 1'b0;
-          actvtstfC <= 1'b1;
-          actvrstfC <= 1'b0;
-          actvtsftC <= 1'b0;
-          actvrsftC <= 1'b0;
-          actvtdctC <= 1'b0;
-          actvrdctC <= 1'b0;
-          actvtbedC <= 1'b0;
-          setbdomC <= 1'b0;
-          setbrecC <= 1'b1;
-          lcrcC <= 1'b0;
-          tshiftC <= 1'b0;
-          inconerecC <= 1'b0;
-          incegtrecC <= 1'b1;
-          incegttraC <= 1'b0;
-          lmsgC <= 1'b0;
-          decrecC <= 1'b0;
-          dectraC <= 1'b0;
-          elevrecbC <= 1'b0;
-          hardsyncC <= 1'b0;
-          resetdstC <= 1'b1;
-          resetstfC <= 1'b1;
-          inccountC <= 1'b0;
-          rescountC <= 1'b0;
-          setrmlenoC <= 0;
-          actvrmlnC <= 1'b0;
-          resrmlenC <= 1'b1;
-          ackerror_setC <= 2'b10;
-          transmitter_setC <= 2'b00;
-          receiver_setC <= 2'b00;
-          error_setC <= 2'b11;
-          first_setC <= 2'b10;
-          activatefastC <= 1'b0;
-          puffer_setC <= 2'b10;
-          onarbit_setC <= 2'b10;
-          en_zerointcrcC <= 1'b1;
-          crc_shft_outC <= 1'b0;
-          if (smplpointC==1'b1)
-            next_stateC <= errorpassiv_check2;
-          else
-            next_stateC <= errorpassiv_egtdombr;
-        end
-      errorpassiv_egtdombt : 
-        begin
-          rext_setC <= 2'b10;
-          rrtr_setC <= 2'b10;
-          actvtcrcC <= 1'b0;
-          actvrcrcC <= 1'b0;
-          actvtstfC <= 1'b1;
-          actvrstfC <= 1'b0;
-          actvtsftC <= 1'b0;
-          actvrsftC <= 1'b0;
-          actvtdctC <= 1'b0;
-          actvrdctC <= 1'b0;
-          actvtbedC <= 1'b0;
-          setbdomC <= 1'b0;
-          setbrecC <= 1'b1;
-          lcrcC <= 1'b0;
-          tshiftC <= 1'b0;
-          inconerecC <= 1'b0;
-          incegtrecC <= 1'b0;
-          incegttraC <= 1'b1;
-          lmsgC <= 1'b0;
-          decrecC <= 1'b0;
-          dectraC <= 1'b0;
-          elevrecbC <= 1'b0;
-          hardsyncC <= 1'b0;
-          resetdstC <= 1'b1;
-          resetstfC <= 1'b1;
-          inccountC <= 1'b0;
-          rescountC <= 1'b0;
-          setrmlenoC <= 0;
-          actvrmlnC <= 1'b0;
-          resrmlenC <= 1'b1;
-          ackerror_setC <= 2'b10;
-          transmitter_setC <= 2'b00;
-          receiver_setC <= 2'b00;
-          error_setC <= 2'b11;
-          first_setC <= 2'b10;
-          activatefastC <= 1'b0;
-          puffer_setC <= 2'b10;
-          onarbit_setC <= 2'b10;
-          en_zerointcrcC <= 1'b1;
-          crc_shft_outC <= 1'b0;
-          if (smplpointC==1'b1)
-            next_stateC <= errorpassiv_check2;
-          else
-            next_stateC <= errorpassiv_egtdombt;
-        end
-      errorpassiv_check2 : 
-        begin
-          rext_setC <= 2'b10;
-          rrtr_setC <= 2'b10;
-          actvtcrcC <= 1'b0;
-          actvrcrcC <= 1'b0;
-          actvtstfC <= 1'b0;
-          actvrstfC <= 1'b0;
-          actvtsftC <= 1'b0;
-          actvrsftC <= 1'b0;
-          actvtdctC <= 1'b0;
-          actvrdctC <= 1'b0;
-          actvtbedC <= 1'b1;
-          setbdomC <= 1'b0;
-          setbrecC <= 1'b1;
-          lcrcC <= 1'b0;
-          tshiftC <= 1'b0;
-          inconerecC <= 1'b0;
-          incegtrecC <= 1'b0;
-          incegttraC <= 1'b0;
-          lmsgC <= 1'b0;
-          decrecC <= 1'b0;
-          dectraC <= 1'b0;
-          elevrecbC <= 1'b0;
-          hardsyncC <= 1'b0;
-          resetdstC <= 1'b1;
-          resetstfC <= 1'b1;
-          inccountC <= 1'b0;
-          rescountC <= 1'b1;
-          setrmlenoC <= 0;
-          actvrmlnC <= 1'b0;
-          resrmlenC <= 1'b1;
-          ackerror_setC <= 2'b10;
-          transmitter_setC <= 2'b00;
-          receiver_setC <= 2'b00;
-          error_setC <= 2'b11;
-          first_setC <= 2'b00;
-          activatefastC <= 1'b0;
-          puffer_setC <= 2'b10;
-          onarbit_setC <= 2'b10;
-          en_zerointcrcC <= 1'b1;
-          crc_shft_outC <= 1'b0;
-          if (sendpointC==1'b1&&biterrorC==1'b1&&countC!=7&&(countC!=1||receiverC==1'b0||firstC==1'b0))
-            next_stateC <= errorpassiv_wtonrecb;
-          else
-            if (sendpointC==1'b1&&biterrorC==1'b1&&countC==1&&receiverC==1'b1&&firstC==1'b1)
-              next_stateC <= errorpassiv_dombitdct;
-            else
-              if (sendpointC==1'b1&&biterrorC==1'b1&&countC==7&&transmitterC==1'b1&&receiverC==1'b0)
-                next_stateC <= errorpassiv_egtdombt;
-              else
-                if (sendpointC==1'b1&&biterrorC==1'b1&&countC==7&&transmitterC==1'b0&&receiverC==1'b1)
-                  next_stateC <= errorpassiv_egtdombr;
-                else
-                  if (biterrorC==1'b0)
-                    next_stateC <= errorpassiv_prepsend;
-                  else
-                    next_stateC <= errorpassiv_check2;
-        end
-      errorpassiv_prepsend : 
-        begin
-          rext_setC <= 2'b10;
-          rrtr_setC <= 2'b10;
-          actvtcrcC <= 1'b0;
-          actvrcrcC <= 1'b0;
-          actvtstfC <= 1'b0;
-          actvrstfC <= 1'b0;
-          actvtsftC <= 1'b0;
-          actvrsftC <= 1'b0;
-          actvtdctC <= 1'b0;
-          actvrdctC <= 1'b0;
-          actvtbedC <= 1'b0;
-          setbdomC <= 1'b0;
-          setbrecC <= 1'b1;
-          lcrcC <= 1'b0;
-          tshiftC <= 1'b0;
-          inconerecC <= 1'b0;
-          incegtrecC <= 1'b0;
-          incegttraC <= 1'b0;
-          lmsgC <= 1'b0;
-          decrecC <= 1'b0;
-          dectraC <= 1'b0;
-          elevrecbC <= 1'b0;
-          hardsyncC <= 1'b0;
-          resetdstC <= 1'b1;
-          resetstfC <= 1'b1;
-          inccountC <= 1'b0;
-          rescountC <= 1'b0;
-          setrmlenoC <= 0;
-          actvrmlnC <= 1'b0;
-          resrmlenC <= 1'b1;
-          ackerror_setC <= 2'b10;
-          transmitter_setC <= 2'b00;
-          receiver_setC <= 2'b00;
-          error_setC <= 2'b11;
-          first_setC <= 2'b10;
-          activatefastC <= 1'b0;
-          puffer_setC <= 2'b10;
-          onarbit_setC <= 2'b10;
-          en_zerointcrcC <= 1'b1;
-          crc_shft_outC <= 1'b0;
-          if (sendpointC==1'b1)
-            next_stateC <= errorpassiv_sendrecb;
-          else
-            next_stateC <= errorpassiv_prepsend;
-        end
-      errorpassiv_sendrecb : 
-        begin
-          rext_setC <= 2'b10;
-          rrtr_setC <= 2'b10;
-          actvtcrcC <= 1'b0;
-          actvrcrcC <= 1'b0;
-          actvtstfC <= 1'b1;
-          actvrstfC <= 1'b0;
-          actvtsftC <= 1'b0;
-          actvrsftC <= 1'b0;
-          actvtdctC <= 1'b0;
-          actvrdctC <= 1'b0;
-          actvtbedC <= 1'b0;
-          setbdomC <= 1'b0;
-          setbrecC <= 1'b1;
-          lcrcC <= 1'b0;
-          tshiftC <= 1'b0;
-          inconerecC <= 1'b0;
-          incegtrecC <= 1'b0;
-          incegttraC <= 1'b0;
-          lmsgC <= 1'b1;
-          decrecC <= 1'b0;
-          dectraC <= 1'b0;
-          elevrecbC <= 1'b0;
-          hardsyncC <= 1'b0;
-          resetdstC <= 1'b1;
-          resetstfC <= 1'b1;
-          inccountC <= 1'b0;
-          rescountC <= 1'b1;
-          setrmlenoC <= 0;
-          actvrmlnC <= 1'b0;
-          resrmlenC <= 1'b1;
-          ackerror_setC <= 2'b10;
-          transmitter_setC <= 2'b00;
-          receiver_setC <= 2'b00;
-          error_setC <= 2'b11;
-          first_setC <= 2'b10;
-          activatefastC <= 1'b0;
-          puffer_setC <= 2'b10;
-          onarbit_setC <= 2'b10;
-          en_zerointcrcC <= 1'b1;
-          crc_shft_outC <= 1'b0;
-          if (smplpointC==1'b1)
-            next_stateC <= errorpassiv_check3;
-          else
-            next_stateC <= errorpassiv_sendrecb;
-        end
-      errorpassiv_check3 : 
-        begin
-          rext_setC <= 2'b10;
-          rrtr_setC <= 2'b10;
-          actvtcrcC <= 1'b0;
-          actvrcrcC <= 1'b0;
-          actvtstfC <= 1'b0;
-          actvrstfC <= 1'b0;
-          actvtsftC <= 1'b0;
-          actvrsftC <= 1'b0;
-          actvtdctC <= 1'b0;
-          actvrdctC <= 1'b0;
-          actvtbedC <= 1'b1;
-          setbdomC <= 1'b0;
-          setbrecC <= 1'b0;
-          lcrcC <= 1'b0;
-          tshiftC <= 1'b0;
-          inconerecC <= 1'b0;
-          incegtrecC <= 1'b0;
-          incegttraC <= 1'b0;
-          lmsgC <= 1'b1;
-          decrecC <= 1'b0;
-          dectraC <= 1'b0;
-          elevrecbC <= 1'b0;
-          hardsyncC <= 1'b0;
-          resetdstC <= 1'b1;
-          resetstfC <= 1'b1;
-          inccountC <= 1'b1;
-          rescountC <= 1'b1;
-          setrmlenoC <= 0;
-          actvrmlnC <= 1'b0;
-          resrmlenC <= 1'b1;
-          ackerror_setC <= 2'b10;
-          transmitter_setC <= 2'b00;
-          receiver_setC <= 2'b00;
-          error_setC <= 2'b11;
-          first_setC <= 2'b10;
-          activatefastC <= 1'b0;
-          puffer_setC <= 2'b10;
-          onarbit_setC <= 2'b10;
-          en_zerointcrcC <= 1'b1;
-          crc_shft_outC <= 1'b0;
-          if (sendpointC==1'b1&&biterrorC==1'b0&&countC!=7)
-            next_stateC <= errorpassiv_sendrecb;
-          else
-            if (sendpointC==1'b1&&biterrorC==1'b0&&countC==7)
-              next_stateC <= errorpassiv_waitoclk;
-            else
-              if (biterrorC==1'b1&&errorpassivC==1'b1)
-                next_stateC <= errorpassiv_firstrec;
-              else
-                if (biterrorC==1'b1&&busofC==1'b1)
-                  next_stateC <= busoff_first;
-                else
-                  next_stateC <= errorpassiv_check3;
-        end
-      errorpassiv_waitoclk : 
-        begin
-          rext_setC <= 2'b10;
-          rrtr_setC <= 2'b10;
-          actvtcrcC <= 1'b0;
-          actvrcrcC <= 1'b0;
-          actvtstfC <= 1'b0;
-          actvrstfC <= 1'b0;
-          actvtsftC <= 1'b1;
-          actvrsftC <= 1'b0;
-          actvtdctC <= 1'b0;
-          actvrdctC <= 1'b0;
-          actvtbedC <= 1'b0;
-          setbdomC <= 1'b0;
-          setbrecC <= 1'b0;
-          lcrcC <= 1'b0;
-          tshiftC <= 1'b0;
-          inconerecC <= 1'b0;
-          incegtrecC <= 1'b0;
-          incegttraC <= 1'b0;
-          lmsgC <= 1'b1;
-          decrecC <= 1'b0;
-          dectraC <= 1'b0;
-          elevrecbC <= 1'b0;
-          hardsyncC <= 1'b0;
-          resetdstC <= 1'b1;
-          resetstfC <= 1'b0;
-          inccountC <= 1'b0;
-          rescountC <= 1'b0;
-          setrmlenoC <= 0;
-          actvrmlnC <= 1'b0;
-          resrmlenC <= 1'b1;
-          ackerror_setC <= 2'b10;
-          transmitter_setC <= 2'b00;
-          receiver_setC <= 2'b00;
-          error_setC <= 2'b11;
-          first_setC <= 2'b10;
-          activatefastC <= 1'b0;
-          puffer_setC <= 2'b10;
-          onarbit_setC <= 2'b10;
-          en_zerointcrcC <= 1'b1;
-          crc_shft_outC <= 1'b0;
-          if (smplpointC==1'b1)
-            next_stateC <= inter_sample;
-          else
-            next_stateC <= errorpassiv_waitoclk;
-        end
-      busoff_first : 
-        begin
-          rext_setC <= 2'b10;
-          rrtr_setC <= 2'b10;
-          actvtcrcC <= 1'b0;
-          actvrcrcC <= 1'b0;
-          actvtstfC <= 1'b0;
-          actvrstfC <= 1'b0;
-          actvtsftC <= 1'b0;
-          actvrsftC <= 1'b0;
-          actvtdctC <= 1'b0;
-          actvrdctC <= 1'b1;
-          actvtbedC <= 1'b0;
-          setbdomC <= 1'b0;
-          setbrecC <= 1'b0;
-          lcrcC <= 1'b0;
-          tshiftC <= 1'b0;
-          inconerecC <= 1'b0;
-          incegtrecC <= 1'b0;
-          incegttraC <= 1'b0;
-          lmsgC <= 1'b0;
-          decrecC <= 1'b0;
-          dectraC <= 1'b0;
-          elevrecbC <= 1'b0;
-          hardsyncC <= 1'b0;
-          resetdstC <= 1'b1;
-          resetstfC <= 1'b1;
-          inccountC <= 1'b0;
-          rescountC <= 1'b0;
-          setrmlenoC <= 0;
-          actvrmlnC <= 1'b0;
-          resrmlenC <= 1'b1;
-          ackerror_setC <= 2'b10;
-          transmitter_setC <= 2'b10;
-          receiver_setC <= 2'b10;
-          error_setC <= 2'b10;
-          first_setC <= 2'b10;
-          activatefastC <= 1'b0;
-          puffer_setC <= 2'b10;
-          onarbit_setC <= 2'b10;
-          en_zerointcrcC <= 1'b1;
-          crc_shft_outC <= 1'b0;
-          if (smplpointC==1'b1)
-            next_stateC <= busoff_sample;
-          else
-            next_stateC <= busoff_first;
-        end
-      busoff_sample : 
-        begin
-          rext_setC <= 2'b10;
-          rrtr_setC <= 2'b10;
-          actvtcrcC <= 1'b0;
-          actvrcrcC <= 1'b0;
-          actvtstfC <= 1'b0;
-          actvrstfC <= 1'b1;
-          actvtsftC <= 1'b0;
-          actvrsftC <= 1'b0;
-          actvtdctC <= 1'b0;
-          actvrdctC <= 1'b1;
-          actvtbedC <= 1'b0;
-          setbdomC <= 1'b0;
-          setbrecC <= 1'b0;
-          lcrcC <= 1'b0;
-          tshiftC <= 1'b0;
-          inconerecC <= 1'b0;
-          incegtrecC <= 1'b0;
-          incegttraC <= 1'b0;
-          lmsgC <= 1'b0;
-          decrecC <= 1'b0;
-          dectraC <= 1'b0;
-          elevrecbC <= 1'b0;
-          hardsyncC <= 1'b0;
-          resetdstC <= 1'b1;
-          resetstfC <= 1'b1;
-          inccountC <= 1'b0;
-          rescountC <= 1'b1;
-          setrmlenoC <= 0;
-          actvrmlnC <= 1'b0;
-          resrmlenC <= 1'b1;
-          ackerror_setC <= 2'b10;
-          transmitter_setC <= 2'b10;
-          receiver_setC <= 2'b10;
-          error_setC <= 2'b10;
-          first_setC <= 2'b10;
-          activatefastC <= 1'b0;
-          puffer_setC <= 2'b10;
-          onarbit_setC <= 2'b10;
-          en_zerointcrcC <= 1'b1;
-          crc_shft_outC <= 1'b0;
-          if (inbitC==1'b1&&countC!=10)
-            next_stateC <= busoff_increm;
-          else
-            if (inbitC==1'b1&&countC==10)
-              next_stateC <= busoff_deccnt;
-            else
-              next_stateC <= busoff_setzer;
-        end
-      busoff_increm : 
-        begin
-          rext_setC <= 2'b10;
-          rrtr_setC <= 2'b10;
-          actvtcrcC <= 1'b0;
-          actvrcrcC <= 1'b0;
-          actvtstfC <= 1'b0;
-          actvrstfC <= 1'b0;
-          actvtsftC <= 1'b0;
-          actvrsftC <= 1'b0;
-          actvtdctC <= 1'b0;
-          actvrdctC <= 1'b1;
-          actvtbedC <= 1'b0;
-          setbdomC <= 1'b0;
-          setbrecC <= 1'b0;
-          lcrcC <= 1'b0;
-          tshiftC <= 1'b0;
-          inconerecC <= 1'b0;
-          incegtrecC <= 1'b0;
-          incegttraC <= 1'b0;
-          lmsgC <= 1'b0;
-          decrecC <= 1'b0;
-          dectraC <= 1'b0;
-          elevrecbC <= 1'b0;
-          hardsyncC <= 1'b0;
-          resetdstC <= 1'b1;
-          resetstfC <= 1'b1;
-          inccountC <= 1'b1;
-          rescountC <= 1'b1;
-          setrmlenoC <= 0;
-          actvrmlnC <= 1'b0;
-          resrmlenC <= 1'b1;
-          ackerror_setC <= 2'b10;
-          transmitter_setC <= 2'b10;
-          receiver_setC <= 2'b10;
-          error_setC <= 2'b10;
-          first_setC <= 2'b10;
-          activatefastC <= 1'b0;
-          puffer_setC <= 2'b10;
-          onarbit_setC <= 2'b10;
-          en_zerointcrcC <= 1'b1;
-          crc_shft_outC <= 1'b0;
-          if (smplpointC==1'b1)
-            next_stateC <= busoff_sample;
-          else
-            next_stateC <= busoff_increm;
-        end
-      busoff_setzer : 
-        begin
-          rext_setC <= 2'b10;
-          rrtr_setC <= 2'b10;
-          actvtcrcC <= 1'b0;
-          actvrcrcC <= 1'b0;
-          actvtstfC <= 1'b0;
-          actvrstfC <= 1'b0;
-          actvtsftC <= 1'b0;
-          actvrsftC <= 1'b0;
-          actvtdctC <= 1'b0;
-          actvrdctC <= 1'b1;
-          actvtbedC <= 1'b0;
-          setbdomC <= 1'b0;
-          setbrecC <= 1'b0;
-          lcrcC <= 1'b0;
-          tshiftC <= 1'b0;
-          inconerecC <= 1'b0;
-          incegtrecC <= 1'b0;
-          incegttraC <= 1'b0;
-          lmsgC <= 1'b0;
-          decrecC <= 1'b0;
-          dectraC <= 1'b0;
-          elevrecbC <= 1'b0;
-          hardsyncC <= 1'b0;
-          resetdstC <= 1'b1;
-          resetstfC <= 1'b1;
-          inccountC <= 1'b0;
-          rescountC <= 1'b0;
-          setrmlenoC <= 0;
-          actvrmlnC <= 1'b0;
-          resrmlenC <= 1'b1;
-          ackerror_setC <= 2'b10;
-          transmitter_setC <= 2'b10;
-          receiver_setC <= 2'b10;
-          error_setC <= 2'b10;
-          first_setC <= 2'b10;
-          activatefastC <= 1'b0;
-          puffer_setC <= 2'b10;
-          onarbit_setC <= 2'b10;
-          en_zerointcrcC <= 1'b1;
-          crc_shft_outC <= 1'b0;
-          if (smplpointC==1'b1)
-            next_stateC <= busoff_sample;
-          else
-            next_stateC <= busoff_setzer;
-        end
-      busoff_deccnt : 
-        begin
-          rext_setC <= 2'b10;
-          rrtr_setC <= 2'b10;
-          actvtcrcC <= 1'b0;
-          actvrcrcC <= 1'b0;
-          actvtstfC <= 1'b0;
-          actvrstfC <= 1'b0;
-          actvtsftC <= 1'b0;
-          actvrsftC <= 1'b0;
-          actvtdctC <= 1'b0;
-          actvrdctC <= 1'b1;
-          actvtbedC <= 1'b0;
-          setbdomC <= 1'b0;
-          setbrecC <= 1'b0;
-          lcrcC <= 1'b0;
-          tshiftC <= 1'b0;
-          inconerecC <= 1'b0;
-          incegtrecC <= 1'b0;
-          incegttraC <= 1'b0;
-          lmsgC <= 1'b0;
-          decrecC <= 1'b0;
-          dectraC <= 1'b0;
-          elevrecbC <= 1'b1;
-          hardsyncC <= 1'b0;
-          resetdstC <= 1'b1;
-          resetstfC <= 1'b0;
-          inccountC <= 1'b0;
-          rescountC <= 1'b0;
-          setrmlenoC <= 0;
-          actvrmlnC <= 1'b0;
-          resrmlenC <= 1'b1;
-          ackerror_setC <= 2'b10;
-          transmitter_setC <= 2'b10;
-          receiver_setC <= 2'b10;
-          error_setC <= 2'b10;
-          first_setC <= 2'b10;
-          activatefastC <= 1'b0;
-          puffer_setC <= 2'b10;
-          onarbit_setC <= 2'b10;
-          en_zerointcrcC <= 1'b1;
-          crc_shft_outC <= 1'b0;
-          if (smplpointC==1'b1&&busofC==1'b1)
-            next_stateC <= busoff_sample;
-          else
-            if (smplpointC==1'b1&&busofC==1'b0)
-              next_stateC <= inter_sample;
-            else
-              next_stateC <= busoff_deccnt;
-        end
-      default : 
-        begin
-        end
-    endcase
-  end
-
-majorityVoter #(.WIDTH(8)) current_stateVoterA (
+majorityVoter #(.WIDTH(8)) current_stateVoter (
     .inA(current_stateA),
     .inB(current_stateB),
     .inC(current_stateC),
-    .out(current_stateVotedA),
-    .tmrErr(current_stateTmrErrorA)
+    .out(current_state),
+    .tmrErr(current_stateTmrError)
     );
 
-majorityVoter #(.WIDTH(8)) current_stateVoterB (
-    .inA(current_stateA),
-    .inB(current_stateB),
-    .inC(current_stateC),
-    .out(current_stateVotedB),
-    .tmrErr(current_stateTmrErrorB)
+fanout Prescale_ENFanout (
+    .in(Prescale_EN),
+    .outA(Prescale_ENA),
+    .outB(Prescale_ENB),
+    .outC(Prescale_ENC)
     );
 
-majorityVoter #(.WIDTH(8)) current_stateVoterC (
-    .inA(current_stateA),
-    .inB(current_stateB),
-    .inC(current_stateC),
-    .out(current_stateVotedC),
-    .tmrErr(current_stateTmrErrorC)
+fanout clockFanout (
+    .in(clock),
+    .outA(clockA),
+    .outB(clockB),
+    .outC(clockC)
+    );
+
+fanout #(.WIDTH(8)) current_stateVFanout (
+    .in(current_stateV),
+    .outA(current_stateVA),
+    .outB(current_stateVB),
+    .outC(current_stateVC)
+    );
+
+fanout #(.WIDTH(8)) next_stateFanout (
+    .in(next_state),
+    .outA(next_stateA),
+    .outB(next_stateB),
+    .outC(next_stateC)
+    );
+
+fanout resetFanout (
+    .in(reset),
+    .outA(resetA),
+    .outB(resetB),
+    .outC(resetC)
     );
 endmodule
 

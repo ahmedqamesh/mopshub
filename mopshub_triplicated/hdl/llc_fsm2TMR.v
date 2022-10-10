@@ -6,87 +6,43 @@
  *                                                                                                  *
  * user    : lucas                                                                                  *
  * host    : DESKTOP-BFDSFP2                                                                        *
- * date    : 16/08/2022 12:58:22                                                                    *
+ * date    : 06/10/2022 13:52:52                                                                    *
  *                                                                                                  *
- * workdir : /mnt/c/Users/Lucas/Desktop/mopshub_triplication/mopshub_top_board_canakari_ftrim/hdl   *
- * cmd     : /mnt/c/Users/Lucas/Desktop/mopshub_triplication/tmrg-master/bin/tmrg -c tmrg.cfg -vvv  *
+ * workdir : /mnt/c/Users/Lucas/Documents/GitHub/mopshub_triplicated/triplicated/mopshub_top_board/hdl *
+ * cmd     : /mnt/c/Users/Lucas/Desktop/mopshub_triplication/tmrg-master/bin/tmrg -vv -c tmrg.cfg   *
  * tmrg rev:                                                                                        *
  *                                                                                                  *
  * src file: llc_fsm2.v                                                                             *
- *           Git SHA           : File not in git repository!                                        *
- *           Modification time : 2022-03-29 13:49:21                                                *
- *           File Size         : 14157                                                              *
- *           MD5 hash          : 640c89d93f326780b119f23fdf593f7c                                   *
+ *           Git SHA           : c110441b08b692cc54ebd4a3b84a2599430e8f93                           *
+ *           Modification time : 2022-08-30 13:52:41                                                *
+ *           File Size         : 14159                                                              *
+ *           MD5 hash          : f4bf0b34b1f94ce341274fb5eb892344                                   *
  *                                                                                                  *
  ****************************************************************************************************/
 
 module llc_fsm2TMR(
-  input wire  clockA ,
-  input wire  clockB ,
-  input wire  clockC ,
-  input wire  resetA ,
-  input wire  resetB ,
-  input wire  resetC ,
-  input wire  initreqrA ,
-  input wire  initreqrB ,
-  input wire  initreqrC ,
-  input wire  traregbitA ,
-  input wire  traregbitB ,
-  input wire  traregbitC ,
-  input wire  sucfrecvcA ,
-  input wire  sucfrecvcB ,
-  input wire  sucfrecvcC ,
-  input wire  sucftrancA ,
-  input wire  sucftrancB ,
-  input wire  sucftrancC ,
-  input wire  sucfrecvrA ,
-  input wire  sucfrecvrB ,
-  input wire  sucfrecvrC ,
-  input wire  sucftranrA ,
-  input wire  sucftranrB ,
-  input wire  sucftranrC ,
-  input wire  equalA ,
-  input wire  equalB ,
-  input wire  equalC ,
-  output reg  activtregA ,
-  output reg  activtregB ,
-  output reg  activtregC ,
-  output wire  activrregA ,
-  output wire  activrregB ,
-  output wire  activrregC ,
-  output reg  activgregA ,
-  output reg  activgregB ,
-  output reg  activgregC ,
-  output wire  ldrecidA ,
-  output wire  ldrecidB ,
-  output wire  ldrecidC ,
-  output reg  sucftranoA ,
-  output reg  sucftranoB ,
-  output reg  sucftranoC ,
-  output reg  sucfrecvoA ,
-  output reg  sucfrecvoB ,
-  output reg  sucfrecvoC ,
-  output reg  overflowoA ,
-  output reg  overflowoB ,
-  output reg  overflowoC ,
-  output reg  transA ,
-  output reg  transB ,
-  output reg  transC ,
-  output reg  loadA ,
-  output reg  loadB ,
-  output reg  loadC ,
-  output reg  actvtsftA ,
-  output reg  actvtsftB ,
-  output reg  actvtsftC ,
-  output reg  actvtcapA ,
-  output reg  actvtcapB ,
-  output reg  actvtcapC ,
-  output reg  resettraA ,
-  output reg  resettraB ,
-  output reg  resettraC ,
-  output reg  resetallA ,
-  output reg  resetallB ,
-  output reg  resetallC 
+  input wire  clock ,
+  input wire  reset ,
+  input wire  initreqr ,
+  input wire  traregbit ,
+  input wire  sucfrecvc ,
+  input wire  sucftranc ,
+  input wire  sucfrecvr ,
+  input wire  sucftranr ,
+  input wire  equal ,
+  output reg  activtreg ,
+  output wire  activrreg ,
+  output reg  activgreg ,
+  output wire  ldrecid ,
+  output reg  sucftrano ,
+  output reg  sucfrecvo ,
+  output reg  overflowo ,
+  output reg  trans ,
+  output reg  load ,
+  output reg  actvtsft ,
+  output reg  actvtcap ,
+  output reg  resettra ,
+  output reg  resetall 
 );
 localparam waitoact =4'b0000;
 localparam tradrvdat =4'b0001;
@@ -101,33 +57,27 @@ localparam recwrtmeslh =4'b1001;
 localparam recwrtmeshl =4'b1010;
 localparam recwrtmeshh =4'b1011;
 localparam resetste =4'b1100;
-wor CURRENT_STATETmrErrorC;
-wire [3:0] CURRENT_STATEVotedC;
-wor CURRENT_STATETmrErrorB;
-wire [3:0] CURRENT_STATEVotedB;
-wor CURRENT_STATETmrErrorA;
-wire [3:0] CURRENT_STATEVotedA;
+wire resetC;
+wire resetB;
+wire resetA;
+wire clockC;
+wire clockB;
+wire clockA;
+wire [3:0] NEXT_STATEC;
+wire [3:0] NEXT_STATEB;
+wire [3:0] NEXT_STATEA;
+wor CURRENT_STATETmrError;
+wire [3:0] CURRENT_STATE;
 reg  [3:0] CURRENT_STATEA ;
-reg  [3:0] NEXT_STATEA ;
 reg  [3:0] CURRENT_STATEB ;
-reg  [3:0] NEXT_STATEB ;
 reg  [3:0] CURRENT_STATEC ;
-reg  [3:0] NEXT_STATEC ;
-reg  activrreg_iA ;
-reg  activrreg_iB ;
-reg  activrreg_iC ;
-wire [1:0] sctrrcinA;
-wire [1:0] sctrrcinB;
-wire [1:0] sctrrcinC;
-assign sctrrcinA =  {sucftranrA,sucfrecvrA};
-assign sctrrcinB =  {sucftranrB,sucfrecvrB};
-assign sctrrcinC =  {sucftranrC,sucfrecvrC};
-assign ldrecidA =  activrreg_iA;
-assign ldrecidB =  activrreg_iB;
-assign ldrecidC =  activrreg_iC;
-assign activrregA =  activrreg_iA;
-assign activrregB =  activrreg_iB;
-assign activrregC =  activrreg_iC;
+reg  [3:0] NEXT_STATE ;
+reg  activrreg_i ;
+wire [1:0] sctrrcin;
+assign sctrrcin =  {sucftranr,sucfrecvr};
+assign ldrecid =  activrreg_i;
+assign activrreg =  activrreg_i;
+wire [3:0] CURRENT_STATEV =  CURRENT_STATE;
 
 always @( posedge clockA )
   begin
@@ -153,961 +103,344 @@ always @( posedge clockC )
       CURRENT_STATEC <= NEXT_STATEC;
   end
 
-always @( CURRENT_STATEVotedA or traregbitA or sucfrecvcA or sucftrancA or sucfrecvrA or sctrrcinA or initreqrA or equalA )
+always @( CURRENT_STATEV or traregbit or sucfrecvc or sucftranc or sucfrecvr or sctrrcin or initreqr or equal )
   begin
-    activtregA =  1'b0;
-    activrreg_iA =  1'b0;
-    activgregA =  1'b0;
-    sucftranoA =  1'b0;
-    sucfrecvoA =  1'b0;
-    transA =  1'b0;
-    loadA =  1'b0;
-    actvtsftA =  1'b0;
-    actvtcapA =  1'b0;
-    overflowoA =  1'b0;
-    resettraA =  1'b1;
-    resetallA =  1'b1;
-    case (CURRENT_STATEVotedA)
+    activtreg =  1'b0;
+    activrreg_i =  1'b0;
+    activgreg =  1'b0;
+    sucftrano =  1'b0;
+    sucfrecvo =  1'b0;
+    trans =  1'b0;
+    load =  1'b0;
+    actvtsft =  1'b0;
+    actvtcap =  1'b0;
+    overflowo =  1'b0;
+    resettra =  1'b1;
+    resetall =  1'b1;
+    case (CURRENT_STATEV)
       waitoact : 
         begin
-          activtregA =  1'b0;
-          activrreg_iA =  1'b0;
-          activgregA =  1'b0;
-          sucftranoA =  1'b0;
-          sucfrecvoA =  1'b0;
-          transA =  1'b0;
-          loadA =  1'b0;
-          actvtsftA =  1'b0;
-          actvtcapA =  1'b0;
-          overflowoA =  1'b0;
-          resettraA =  1'b1;
-          resetallA =  1'b1;
-          if (initreqrA==1'b1)
-            NEXT_STATEA =  resetste;
+          activtreg =  1'b0;
+          activrreg_i =  1'b0;
+          activgreg =  1'b0;
+          sucftrano =  1'b0;
+          sucfrecvo =  1'b0;
+          trans =  1'b0;
+          load =  1'b0;
+          actvtsft =  1'b0;
+          actvtcap =  1'b0;
+          overflowo =  1'b0;
+          resettra =  1'b1;
+          resetall =  1'b1;
+          if (initreqr==1'b1)
+            NEXT_STATE =  resetste;
           else
-            if (initreqrA==1'b0&&traregbitA==1'b1&&sucfrecvcA==1'b0)
-              NEXT_STATEA =  tradrvdat;
+            if (initreqr==1'b0&&traregbit==1'b1&&sucfrecvc==1'b0)
+              NEXT_STATE =  tradrvdat;
             else
-              if (sctrrcinA==2'b00&&sucfrecvcA==1'b1&&initreqrA==1'b0&&equalA==1'b1)
-                NEXT_STATEA =  recwrtmesll;
+              if (sctrrcin==2'b00&&sucfrecvc==1'b1&&initreqr==1'b0&&equal==1'b1)
+                NEXT_STATE =  recwrtmesll;
               else
-                if (sctrrcinA==2'b01&&sucfrecvcA==1'b1&&initreqrA==1'b0&&equalA==1'b1)
-                  NEXT_STATEA =  recwrtmeslh;
+                if (sctrrcin==2'b01&&sucfrecvc==1'b1&&initreqr==1'b0&&equal==1'b1)
+                  NEXT_STATE =  recwrtmeslh;
                 else
-                  if (sctrrcinA==2'b10&&sucfrecvcA==1'b1&&initreqrA==1'b0&&equalA==1'b1)
-                    NEXT_STATEA =  recwrtmeshl;
+                  if (sctrrcin==2'b10&&sucfrecvc==1'b1&&initreqr==1'b0&&equal==1'b1)
+                    NEXT_STATE =  recwrtmeshl;
                   else
-                    if (sctrrcinA==2'b11&&sucfrecvcA==1'b1&&initreqrA==1'b0&&equalA==1'b1)
-                      NEXT_STATEA =  recwrtmeshh;
+                    if (sctrrcin==2'b11&&sucfrecvc==1'b1&&initreqr==1'b0&&equal==1'b1)
+                      NEXT_STATE =  recwrtmeshh;
                     else
-                      NEXT_STATEA =  waitoact;
+                      NEXT_STATE =  waitoact;
         end
       resetste : 
         begin
-          activtregA =  1'b0;
-          activrreg_iA =  1'b0;
-          activgregA =  1'b1;
-          sucftranoA =  1'b0;
-          sucfrecvoA =  1'b0;
-          transA =  1'b0;
-          loadA =  1'b0;
-          actvtsftA =  1'b0;
-          actvtcapA =  1'b0;
-          overflowoA =  1'b0;
-          resettraA =  1'b1;
-          resetallA =  1'b0;
-          NEXT_STATEA =  waitoact;
+          activtreg =  1'b0;
+          activrreg_i =  1'b0;
+          activgreg =  1'b1;
+          sucftrano =  1'b0;
+          sucfrecvo =  1'b0;
+          trans =  1'b0;
+          load =  1'b0;
+          actvtsft =  1'b0;
+          actvtcap =  1'b0;
+          overflowo =  1'b0;
+          resettra =  1'b1;
+          resetall =  1'b0;
+          NEXT_STATE =  waitoact;
         end
       trareset : 
         begin
-          activtregA =  1'b0;
-          activrreg_iA =  1'b0;
-          activgregA =  1'b0;
-          sucftranoA =  1'b0;
-          sucfrecvoA =  1'b0;
-          transA =  1'b0;
-          loadA =  1'b0;
-          actvtsftA =  1'b0;
-          actvtcapA =  1'b0;
-          overflowoA =  1'b0;
-          resettraA =  1'b0;
-          resetallA =  1'b1;
-          if (initreqrA==1'b1)
-            NEXT_STATEA =  resetste;
+          activtreg =  1'b0;
+          activrreg_i =  1'b0;
+          activgreg =  1'b0;
+          sucftrano =  1'b0;
+          sucfrecvo =  1'b0;
+          trans =  1'b0;
+          load =  1'b0;
+          actvtsft =  1'b0;
+          actvtcap =  1'b0;
+          overflowo =  1'b0;
+          resettra =  1'b0;
+          resetall =  1'b1;
+          if (initreqr==1'b1)
+            NEXT_STATE =  resetste;
           else
-            NEXT_STATEA =  tradrvdat;
+            NEXT_STATE =  tradrvdat;
         end
       tradrvdat : 
         begin
-          activtregA =  1'b0;
-          activrreg_iA =  1'b0;
-          activgregA =  1'b0;
-          sucftranoA =  1'b0;
-          sucfrecvoA =  1'b0;
-          transA =  1'b0;
-          loadA =  1'b0;
-          actvtsftA =  1'b0;
-          actvtcapA =  1'b0;
-          overflowoA =  1'b0;
-          resettraA =  1'b1;
-          resetallA =  1'b1;
-          if (initreqrA==1'b1)
-            NEXT_STATEA =  resetste;
+          activtreg =  1'b0;
+          activrreg_i =  1'b0;
+          activgreg =  1'b0;
+          sucftrano =  1'b0;
+          sucfrecvo =  1'b0;
+          trans =  1'b0;
+          load =  1'b0;
+          actvtsft =  1'b0;
+          actvtcap =  1'b0;
+          overflowo =  1'b0;
+          resettra =  1'b1;
+          resetall =  1'b1;
+          if (initreqr==1'b1)
+            NEXT_STATE =  resetste;
           else
-            NEXT_STATEA =  traruncap;
+            NEXT_STATE =  traruncap;
         end
       traruncap : 
         begin
-          activtregA =  1'b0;
-          activrreg_iA =  1'b0;
-          activgregA =  1'b0;
-          sucftranoA =  1'b0;
-          sucfrecvoA =  1'b0;
-          transA =  1'b0;
-          loadA =  1'b1;
-          actvtsftA =  1'b0;
-          actvtcapA =  1'b1;
-          overflowoA =  1'b0;
-          resettraA =  1'b1;
-          resetallA =  1'b1;
-          if (initreqrA==1'b1)
-            NEXT_STATEA =  resetste;
+          activtreg =  1'b0;
+          activrreg_i =  1'b0;
+          activgreg =  1'b0;
+          sucftrano =  1'b0;
+          sucfrecvo =  1'b0;
+          trans =  1'b0;
+          load =  1'b1;
+          actvtsft =  1'b0;
+          actvtcap =  1'b1;
+          overflowo =  1'b0;
+          resettra =  1'b1;
+          resetall =  1'b1;
+          if (initreqr==1'b1)
+            NEXT_STATE =  resetste;
           else
-            NEXT_STATEA =  tralodsft;
+            NEXT_STATE =  tralodsft;
         end
       tralodsft : 
         begin
-          activtregA =  1'b0;
-          activrreg_iA =  1'b0;
-          activgregA =  1'b0;
-          sucftranoA =  1'b0;
-          sucfrecvoA =  1'b0;
-          transA =  1'b0;
-          loadA =  1'b1;
-          actvtsftA =  1'b1;
-          actvtcapA =  1'b0;
-          overflowoA =  1'b0;
-          resettraA =  1'b1;
-          resetallA =  1'b1;
-          if (initreqrA==1'b1)
-            NEXT_STATEA =  resetste;
+          activtreg =  1'b0;
+          activrreg_i =  1'b0;
+          activgreg =  1'b0;
+          sucftrano =  1'b0;
+          sucfrecvo =  1'b0;
+          trans =  1'b0;
+          load =  1'b1;
+          actvtsft =  1'b1;
+          actvtcap =  1'b0;
+          overflowo =  1'b0;
+          resettra =  1'b1;
+          resetall =  1'b1;
+          if (initreqr==1'b1)
+            NEXT_STATE =  resetste;
           else
-            NEXT_STATEA =  trawtosuc;
+            NEXT_STATE =  trawtosuc;
         end
       trawtosuc : 
         begin
-          activtregA =  1'b0;
-          activrreg_iA =  1'b0;
-          activgregA =  1'b0;
-          sucftranoA =  1'b0;
-          sucfrecvoA =  1'b0;
-          transA =  1'b1;
-          loadA =  1'b0;
-          actvtsftA =  1'b0;
-          actvtcapA =  1'b0;
-          overflowoA =  1'b0;
-          resettraA =  1'b1;
-          resetallA =  1'b1;
-          if (initreqrA==1'b1)
-            NEXT_STATEA =  resetste;
+          activtreg =  1'b0;
+          activrreg_i =  1'b0;
+          activgreg =  1'b0;
+          sucftrano =  1'b0;
+          sucfrecvo =  1'b0;
+          trans =  1'b1;
+          load =  1'b0;
+          actvtsft =  1'b0;
+          actvtcap =  1'b0;
+          overflowo =  1'b0;
+          resettra =  1'b1;
+          resetall =  1'b1;
+          if (initreqr==1'b1)
+            NEXT_STATE =  resetste;
           else
-            if (initreqrA==1'b0&&sucftrancA==1'b1&&sucfrecvcA==1'b0&&sucfrecvrA==1'b0)
-              NEXT_STATEA =  trasetvall;
+            if (initreqr==1'b0&&sucftranc==1'b1&&sucfrecvc==1'b0&&sucfrecvr==1'b0)
+              NEXT_STATE =  trasetvall;
             else
-              if (initreqrA==1'b0&&sucftrancA==1'b1&&sucfrecvcA==1'b0&&sucfrecvrA==1'b1)
-                NEXT_STATEA =  trasetvalh;
+              if (initreqr==1'b0&&sucftranc==1'b1&&sucfrecvc==1'b0&&sucfrecvr==1'b1)
+                NEXT_STATE =  trasetvalh;
               else
-                if (sctrrcinA==2'b00&&sucfrecvcA==1'b1&&initreqrA==1'b0&&equalA==1'b1)
-                  NEXT_STATEA =  recwrtmesll;
+                if (sctrrcin==2'b00&&sucfrecvc==1'b1&&initreqr==1'b0&&equal==1'b1)
+                  NEXT_STATE =  recwrtmesll;
                 else
-                  if (sctrrcinA==2'b01&&sucfrecvcA==1'b1&&initreqrA==1'b0&&equalA==1'b1)
-                    NEXT_STATEA =  recwrtmeshl;
+                  if (sctrrcin==2'b01&&sucfrecvc==1'b1&&initreqr==1'b0&&equal==1'b1)
+                    NEXT_STATE =  recwrtmeshl;
                   else
-                    if (sctrrcinA==2'b10&&sucfrecvcA==1'b1&&initreqrA==1'b0&&equalA==1'b1)
-                      NEXT_STATEA =  recwrtmeshl;
+                    if (sctrrcin==2'b10&&sucfrecvc==1'b1&&initreqr==1'b0&&equal==1'b1)
+                      NEXT_STATE =  recwrtmeshl;
                     else
-                      if (sctrrcinA==2'b11&&sucfrecvcA==1'b1&&initreqrA==1'b0&&equalA==1'b1)
-                        NEXT_STATEA =  recwrtmeshh;
+                      if (sctrrcin==2'b11&&sucfrecvc==1'b1&&initreqr==1'b0&&equal==1'b1)
+                        NEXT_STATE =  recwrtmeshh;
                       else
-                        NEXT_STATEA =  trawtosuc;
+                        NEXT_STATE =  trawtosuc;
         end
       trasetvall : 
         begin
-          activtregA =  1'b1;
-          activrreg_iA =  1'b0;
-          activgregA =  1'b1;
-          sucftranoA =  1'b1;
-          sucfrecvoA =  1'b0;
-          transA =  1'b0;
-          loadA =  1'b0;
-          actvtsftA =  1'b0;
-          actvtcapA =  1'b0;
-          overflowoA =  1'b0;
-          resettraA =  1'b1;
-          resetallA =  1'b1;
-          if (initreqrA==1'b1)
-            NEXT_STATEA =  resetste;
+          activtreg =  1'b1;
+          activrreg_i =  1'b0;
+          activgreg =  1'b1;
+          sucftrano =  1'b1;
+          sucfrecvo =  1'b0;
+          trans =  1'b0;
+          load =  1'b0;
+          actvtsft =  1'b0;
+          actvtcap =  1'b0;
+          overflowo =  1'b0;
+          resettra =  1'b1;
+          resetall =  1'b1;
+          if (initreqr==1'b1)
+            NEXT_STATE =  resetste;
           else
-            NEXT_STATEA =  waitoact;
+            NEXT_STATE =  waitoact;
         end
       trasetvalh : 
         begin
-          activtregA =  1'b1;
-          activrreg_iA =  1'b0;
-          activgregA =  1'b1;
-          sucftranoA =  1'b1;
-          sucfrecvoA =  1'b1;
-          transA =  1'b0;
-          loadA =  1'b0;
-          actvtsftA =  1'b0;
-          actvtcapA =  1'b0;
-          overflowoA =  1'b0;
-          resettraA =  1'b1;
-          resetallA =  1'b1;
-          if (initreqrA==1'b1)
-            NEXT_STATEA =  resetste;
+          activtreg =  1'b1;
+          activrreg_i =  1'b0;
+          activgreg =  1'b1;
+          sucftrano =  1'b1;
+          sucfrecvo =  1'b1;
+          trans =  1'b0;
+          load =  1'b0;
+          actvtsft =  1'b0;
+          actvtcap =  1'b0;
+          overflowo =  1'b0;
+          resettra =  1'b1;
+          resetall =  1'b1;
+          if (initreqr==1'b1)
+            NEXT_STATE =  resetste;
           else
-            NEXT_STATEA =  waitoact;
+            NEXT_STATE =  waitoact;
         end
       recwrtmesll : 
         begin
-          activtregA =  1'b0;
-          activrreg_iA =  1'b1;
-          activgregA =  1'b1;
-          sucftranoA =  1'b0;
-          sucfrecvoA =  1'b1;
-          transA =  1'b0;
-          loadA =  1'b0;
-          actvtsftA =  1'b0;
-          actvtcapA =  1'b0;
-          resettraA =  1'b1;
-          overflowoA =  1'b0;
-          resetallA =  1'b1;
-          if (initreqrA==1'b1)
-            NEXT_STATEA =  resetste;
+          activtreg =  1'b0;
+          activrreg_i =  1'b1;
+          activgreg =  1'b1;
+          sucftrano =  1'b0;
+          sucfrecvo =  1'b1;
+          trans =  1'b0;
+          load =  1'b0;
+          actvtsft =  1'b0;
+          actvtcap =  1'b0;
+          resettra =  1'b1;
+          overflowo =  1'b0;
+          resetall =  1'b1;
+          if (initreqr==1'b1)
+            NEXT_STATE =  resetste;
           else
-            if (sucfrecvcA==1'b0)
-              NEXT_STATEA =  waitoact;
+            if (sucfrecvc==1'b0)
+              NEXT_STATE =  waitoact;
             else
-              NEXT_STATEA =  recwrtmesll;
+              NEXT_STATE =  recwrtmesll;
         end
       recwrtmeslh : 
         begin
-          activtregA =  1'b0;
-          activrreg_iA =  1'b1;
-          activgregA =  1'b1;
-          sucftranoA =  1'b0;
-          sucfrecvoA =  1'b1;
-          transA =  1'b0;
-          loadA =  1'b0;
-          actvtsftA =  1'b0;
-          actvtcapA =  1'b0;
-          resettraA =  1'b1;
-          overflowoA =  1'b1;
-          resetallA =  1'b1;
-          if (initreqrA==1'b1)
-            NEXT_STATEA =  resetste;
+          activtreg =  1'b0;
+          activrreg_i =  1'b1;
+          activgreg =  1'b1;
+          sucftrano =  1'b0;
+          sucfrecvo =  1'b1;
+          trans =  1'b0;
+          load =  1'b0;
+          actvtsft =  1'b0;
+          actvtcap =  1'b0;
+          resettra =  1'b1;
+          overflowo =  1'b1;
+          resetall =  1'b1;
+          if (initreqr==1'b1)
+            NEXT_STATE =  resetste;
           else
-            if (sucfrecvcA==1'b0)
-              NEXT_STATEA =  waitoact;
+            if (sucfrecvc==1'b0)
+              NEXT_STATE =  waitoact;
             else
-              NEXT_STATEA =  recwrtmeslh;
+              NEXT_STATE =  recwrtmeslh;
         end
       recwrtmeshl : 
         begin
-          activtregA =  1'b0;
-          activrreg_iA =  1'b1;
-          activgregA =  1'b1;
-          sucftranoA =  1'b1;
-          sucfrecvoA =  1'b1;
-          transA =  1'b0;
-          loadA =  1'b0;
-          actvtsftA =  1'b0;
-          actvtcapA =  1'b0;
-          resettraA =  1'b1;
-          overflowoA =  1'b0;
-          resetallA =  1'b1;
-          if (initreqrA==1'b1)
-            NEXT_STATEA =  resetste;
+          activtreg =  1'b0;
+          activrreg_i =  1'b1;
+          activgreg =  1'b1;
+          sucftrano =  1'b1;
+          sucfrecvo =  1'b1;
+          trans =  1'b0;
+          load =  1'b0;
+          actvtsft =  1'b0;
+          actvtcap =  1'b0;
+          resettra =  1'b1;
+          overflowo =  1'b0;
+          resetall =  1'b1;
+          if (initreqr==1'b1)
+            NEXT_STATE =  resetste;
           else
-            if (sucfrecvcA==1'b0)
-              NEXT_STATEA =  waitoact;
+            if (sucfrecvc==1'b0)
+              NEXT_STATE =  waitoact;
             else
-              NEXT_STATEA =  recwrtmeshl;
+              NEXT_STATE =  recwrtmeshl;
         end
       recwrtmeshh : 
         begin
-          activtregA =  1'b0;
-          activrreg_iA =  1'b1;
-          activgregA =  1'b1;
-          sucftranoA =  1'b1;
-          sucfrecvoA =  1'b1;
-          transA =  1'b0;
-          loadA =  1'b0;
-          actvtsftA =  1'b0;
-          actvtcapA =  1'b0;
-          resettraA =  1'b1;
-          overflowoA =  1'b1;
-          resetallA =  1'b1;
-          if (initreqrA==1'b1)
-            NEXT_STATEA =  resetste;
+          activtreg =  1'b0;
+          activrreg_i =  1'b1;
+          activgreg =  1'b1;
+          sucftrano =  1'b1;
+          sucfrecvo =  1'b1;
+          trans =  1'b0;
+          load =  1'b0;
+          actvtsft =  1'b0;
+          actvtcap =  1'b0;
+          resettra =  1'b1;
+          overflowo =  1'b1;
+          resetall =  1'b1;
+          if (initreqr==1'b1)
+            NEXT_STATE =  resetste;
           else
-            if (sucfrecvcA==1'b0)
-              NEXT_STATEA =  waitoact;
+            if (sucfrecvc==1'b0)
+              NEXT_STATE =  waitoact;
             else
-              NEXT_STATEA =  recwrtmeshh;
+              NEXT_STATE =  recwrtmeshh;
         end
       default : 
         begin
-          NEXT_STATEA =  CURRENT_STATEVotedA;
+          NEXT_STATE =  CURRENT_STATEV;
         end
     endcase
   end
 
-always @( CURRENT_STATEVotedB or traregbitB or sucfrecvcB or sucftrancB or sucfrecvrB or sctrrcinB or initreqrB or equalB )
-  begin
-    activtregB =  1'b0;
-    activrreg_iB =  1'b0;
-    activgregB =  1'b0;
-    sucftranoB =  1'b0;
-    sucfrecvoB =  1'b0;
-    transB =  1'b0;
-    loadB =  1'b0;
-    actvtsftB =  1'b0;
-    actvtcapB =  1'b0;
-    overflowoB =  1'b0;
-    resettraB =  1'b1;
-    resetallB =  1'b1;
-    case (CURRENT_STATEVotedB)
-      waitoact : 
-        begin
-          activtregB =  1'b0;
-          activrreg_iB =  1'b0;
-          activgregB =  1'b0;
-          sucftranoB =  1'b0;
-          sucfrecvoB =  1'b0;
-          transB =  1'b0;
-          loadB =  1'b0;
-          actvtsftB =  1'b0;
-          actvtcapB =  1'b0;
-          overflowoB =  1'b0;
-          resettraB =  1'b1;
-          resetallB =  1'b1;
-          if (initreqrB==1'b1)
-            NEXT_STATEB =  resetste;
-          else
-            if (initreqrB==1'b0&&traregbitB==1'b1&&sucfrecvcB==1'b0)
-              NEXT_STATEB =  tradrvdat;
-            else
-              if (sctrrcinB==2'b00&&sucfrecvcB==1'b1&&initreqrB==1'b0&&equalB==1'b1)
-                NEXT_STATEB =  recwrtmesll;
-              else
-                if (sctrrcinB==2'b01&&sucfrecvcB==1'b1&&initreqrB==1'b0&&equalB==1'b1)
-                  NEXT_STATEB =  recwrtmeslh;
-                else
-                  if (sctrrcinB==2'b10&&sucfrecvcB==1'b1&&initreqrB==1'b0&&equalB==1'b1)
-                    NEXT_STATEB =  recwrtmeshl;
-                  else
-                    if (sctrrcinB==2'b11&&sucfrecvcB==1'b1&&initreqrB==1'b0&&equalB==1'b1)
-                      NEXT_STATEB =  recwrtmeshh;
-                    else
-                      NEXT_STATEB =  waitoact;
-        end
-      resetste : 
-        begin
-          activtregB =  1'b0;
-          activrreg_iB =  1'b0;
-          activgregB =  1'b1;
-          sucftranoB =  1'b0;
-          sucfrecvoB =  1'b0;
-          transB =  1'b0;
-          loadB =  1'b0;
-          actvtsftB =  1'b0;
-          actvtcapB =  1'b0;
-          overflowoB =  1'b0;
-          resettraB =  1'b1;
-          resetallB =  1'b0;
-          NEXT_STATEB =  waitoact;
-        end
-      trareset : 
-        begin
-          activtregB =  1'b0;
-          activrreg_iB =  1'b0;
-          activgregB =  1'b0;
-          sucftranoB =  1'b0;
-          sucfrecvoB =  1'b0;
-          transB =  1'b0;
-          loadB =  1'b0;
-          actvtsftB =  1'b0;
-          actvtcapB =  1'b0;
-          overflowoB =  1'b0;
-          resettraB =  1'b0;
-          resetallB =  1'b1;
-          if (initreqrB==1'b1)
-            NEXT_STATEB =  resetste;
-          else
-            NEXT_STATEB =  tradrvdat;
-        end
-      tradrvdat : 
-        begin
-          activtregB =  1'b0;
-          activrreg_iB =  1'b0;
-          activgregB =  1'b0;
-          sucftranoB =  1'b0;
-          sucfrecvoB =  1'b0;
-          transB =  1'b0;
-          loadB =  1'b0;
-          actvtsftB =  1'b0;
-          actvtcapB =  1'b0;
-          overflowoB =  1'b0;
-          resettraB =  1'b1;
-          resetallB =  1'b1;
-          if (initreqrB==1'b1)
-            NEXT_STATEB =  resetste;
-          else
-            NEXT_STATEB =  traruncap;
-        end
-      traruncap : 
-        begin
-          activtregB =  1'b0;
-          activrreg_iB =  1'b0;
-          activgregB =  1'b0;
-          sucftranoB =  1'b0;
-          sucfrecvoB =  1'b0;
-          transB =  1'b0;
-          loadB =  1'b1;
-          actvtsftB =  1'b0;
-          actvtcapB =  1'b1;
-          overflowoB =  1'b0;
-          resettraB =  1'b1;
-          resetallB =  1'b1;
-          if (initreqrB==1'b1)
-            NEXT_STATEB =  resetste;
-          else
-            NEXT_STATEB =  tralodsft;
-        end
-      tralodsft : 
-        begin
-          activtregB =  1'b0;
-          activrreg_iB =  1'b0;
-          activgregB =  1'b0;
-          sucftranoB =  1'b0;
-          sucfrecvoB =  1'b0;
-          transB =  1'b0;
-          loadB =  1'b1;
-          actvtsftB =  1'b1;
-          actvtcapB =  1'b0;
-          overflowoB =  1'b0;
-          resettraB =  1'b1;
-          resetallB =  1'b1;
-          if (initreqrB==1'b1)
-            NEXT_STATEB =  resetste;
-          else
-            NEXT_STATEB =  trawtosuc;
-        end
-      trawtosuc : 
-        begin
-          activtregB =  1'b0;
-          activrreg_iB =  1'b0;
-          activgregB =  1'b0;
-          sucftranoB =  1'b0;
-          sucfrecvoB =  1'b0;
-          transB =  1'b1;
-          loadB =  1'b0;
-          actvtsftB =  1'b0;
-          actvtcapB =  1'b0;
-          overflowoB =  1'b0;
-          resettraB =  1'b1;
-          resetallB =  1'b1;
-          if (initreqrB==1'b1)
-            NEXT_STATEB =  resetste;
-          else
-            if (initreqrB==1'b0&&sucftrancB==1'b1&&sucfrecvcB==1'b0&&sucfrecvrB==1'b0)
-              NEXT_STATEB =  trasetvall;
-            else
-              if (initreqrB==1'b0&&sucftrancB==1'b1&&sucfrecvcB==1'b0&&sucfrecvrB==1'b1)
-                NEXT_STATEB =  trasetvalh;
-              else
-                if (sctrrcinB==2'b00&&sucfrecvcB==1'b1&&initreqrB==1'b0&&equalB==1'b1)
-                  NEXT_STATEB =  recwrtmesll;
-                else
-                  if (sctrrcinB==2'b01&&sucfrecvcB==1'b1&&initreqrB==1'b0&&equalB==1'b1)
-                    NEXT_STATEB =  recwrtmeshl;
-                  else
-                    if (sctrrcinB==2'b10&&sucfrecvcB==1'b1&&initreqrB==1'b0&&equalB==1'b1)
-                      NEXT_STATEB =  recwrtmeshl;
-                    else
-                      if (sctrrcinB==2'b11&&sucfrecvcB==1'b1&&initreqrB==1'b0&&equalB==1'b1)
-                        NEXT_STATEB =  recwrtmeshh;
-                      else
-                        NEXT_STATEB =  trawtosuc;
-        end
-      trasetvall : 
-        begin
-          activtregB =  1'b1;
-          activrreg_iB =  1'b0;
-          activgregB =  1'b1;
-          sucftranoB =  1'b1;
-          sucfrecvoB =  1'b0;
-          transB =  1'b0;
-          loadB =  1'b0;
-          actvtsftB =  1'b0;
-          actvtcapB =  1'b0;
-          overflowoB =  1'b0;
-          resettraB =  1'b1;
-          resetallB =  1'b1;
-          if (initreqrB==1'b1)
-            NEXT_STATEB =  resetste;
-          else
-            NEXT_STATEB =  waitoact;
-        end
-      trasetvalh : 
-        begin
-          activtregB =  1'b1;
-          activrreg_iB =  1'b0;
-          activgregB =  1'b1;
-          sucftranoB =  1'b1;
-          sucfrecvoB =  1'b1;
-          transB =  1'b0;
-          loadB =  1'b0;
-          actvtsftB =  1'b0;
-          actvtcapB =  1'b0;
-          overflowoB =  1'b0;
-          resettraB =  1'b1;
-          resetallB =  1'b1;
-          if (initreqrB==1'b1)
-            NEXT_STATEB =  resetste;
-          else
-            NEXT_STATEB =  waitoact;
-        end
-      recwrtmesll : 
-        begin
-          activtregB =  1'b0;
-          activrreg_iB =  1'b1;
-          activgregB =  1'b1;
-          sucftranoB =  1'b0;
-          sucfrecvoB =  1'b1;
-          transB =  1'b0;
-          loadB =  1'b0;
-          actvtsftB =  1'b0;
-          actvtcapB =  1'b0;
-          resettraB =  1'b1;
-          overflowoB =  1'b0;
-          resetallB =  1'b1;
-          if (initreqrB==1'b1)
-            NEXT_STATEB =  resetste;
-          else
-            if (sucfrecvcB==1'b0)
-              NEXT_STATEB =  waitoact;
-            else
-              NEXT_STATEB =  recwrtmesll;
-        end
-      recwrtmeslh : 
-        begin
-          activtregB =  1'b0;
-          activrreg_iB =  1'b1;
-          activgregB =  1'b1;
-          sucftranoB =  1'b0;
-          sucfrecvoB =  1'b1;
-          transB =  1'b0;
-          loadB =  1'b0;
-          actvtsftB =  1'b0;
-          actvtcapB =  1'b0;
-          resettraB =  1'b1;
-          overflowoB =  1'b1;
-          resetallB =  1'b1;
-          if (initreqrB==1'b1)
-            NEXT_STATEB =  resetste;
-          else
-            if (sucfrecvcB==1'b0)
-              NEXT_STATEB =  waitoact;
-            else
-              NEXT_STATEB =  recwrtmeslh;
-        end
-      recwrtmeshl : 
-        begin
-          activtregB =  1'b0;
-          activrreg_iB =  1'b1;
-          activgregB =  1'b1;
-          sucftranoB =  1'b1;
-          sucfrecvoB =  1'b1;
-          transB =  1'b0;
-          loadB =  1'b0;
-          actvtsftB =  1'b0;
-          actvtcapB =  1'b0;
-          resettraB =  1'b1;
-          overflowoB =  1'b0;
-          resetallB =  1'b1;
-          if (initreqrB==1'b1)
-            NEXT_STATEB =  resetste;
-          else
-            if (sucfrecvcB==1'b0)
-              NEXT_STATEB =  waitoact;
-            else
-              NEXT_STATEB =  recwrtmeshl;
-        end
-      recwrtmeshh : 
-        begin
-          activtregB =  1'b0;
-          activrreg_iB =  1'b1;
-          activgregB =  1'b1;
-          sucftranoB =  1'b1;
-          sucfrecvoB =  1'b1;
-          transB =  1'b0;
-          loadB =  1'b0;
-          actvtsftB =  1'b0;
-          actvtcapB =  1'b0;
-          resettraB =  1'b1;
-          overflowoB =  1'b1;
-          resetallB =  1'b1;
-          if (initreqrB==1'b1)
-            NEXT_STATEB =  resetste;
-          else
-            if (sucfrecvcB==1'b0)
-              NEXT_STATEB =  waitoact;
-            else
-              NEXT_STATEB =  recwrtmeshh;
-        end
-      default : 
-        begin
-          NEXT_STATEB =  CURRENT_STATEVotedB;
-        end
-    endcase
-  end
-
-always @( CURRENT_STATEVotedC or traregbitC or sucfrecvcC or sucftrancC or sucfrecvrC or sctrrcinC or initreqrC or equalC )
-  begin
-    activtregC =  1'b0;
-    activrreg_iC =  1'b0;
-    activgregC =  1'b0;
-    sucftranoC =  1'b0;
-    sucfrecvoC =  1'b0;
-    transC =  1'b0;
-    loadC =  1'b0;
-    actvtsftC =  1'b0;
-    actvtcapC =  1'b0;
-    overflowoC =  1'b0;
-    resettraC =  1'b1;
-    resetallC =  1'b1;
-    case (CURRENT_STATEVotedC)
-      waitoact : 
-        begin
-          activtregC =  1'b0;
-          activrreg_iC =  1'b0;
-          activgregC =  1'b0;
-          sucftranoC =  1'b0;
-          sucfrecvoC =  1'b0;
-          transC =  1'b0;
-          loadC =  1'b0;
-          actvtsftC =  1'b0;
-          actvtcapC =  1'b0;
-          overflowoC =  1'b0;
-          resettraC =  1'b1;
-          resetallC =  1'b1;
-          if (initreqrC==1'b1)
-            NEXT_STATEC =  resetste;
-          else
-            if (initreqrC==1'b0&&traregbitC==1'b1&&sucfrecvcC==1'b0)
-              NEXT_STATEC =  tradrvdat;
-            else
-              if (sctrrcinC==2'b00&&sucfrecvcC==1'b1&&initreqrC==1'b0&&equalC==1'b1)
-                NEXT_STATEC =  recwrtmesll;
-              else
-                if (sctrrcinC==2'b01&&sucfrecvcC==1'b1&&initreqrC==1'b0&&equalC==1'b1)
-                  NEXT_STATEC =  recwrtmeslh;
-                else
-                  if (sctrrcinC==2'b10&&sucfrecvcC==1'b1&&initreqrC==1'b0&&equalC==1'b1)
-                    NEXT_STATEC =  recwrtmeshl;
-                  else
-                    if (sctrrcinC==2'b11&&sucfrecvcC==1'b1&&initreqrC==1'b0&&equalC==1'b1)
-                      NEXT_STATEC =  recwrtmeshh;
-                    else
-                      NEXT_STATEC =  waitoact;
-        end
-      resetste : 
-        begin
-          activtregC =  1'b0;
-          activrreg_iC =  1'b0;
-          activgregC =  1'b1;
-          sucftranoC =  1'b0;
-          sucfrecvoC =  1'b0;
-          transC =  1'b0;
-          loadC =  1'b0;
-          actvtsftC =  1'b0;
-          actvtcapC =  1'b0;
-          overflowoC =  1'b0;
-          resettraC =  1'b1;
-          resetallC =  1'b0;
-          NEXT_STATEC =  waitoact;
-        end
-      trareset : 
-        begin
-          activtregC =  1'b0;
-          activrreg_iC =  1'b0;
-          activgregC =  1'b0;
-          sucftranoC =  1'b0;
-          sucfrecvoC =  1'b0;
-          transC =  1'b0;
-          loadC =  1'b0;
-          actvtsftC =  1'b0;
-          actvtcapC =  1'b0;
-          overflowoC =  1'b0;
-          resettraC =  1'b0;
-          resetallC =  1'b1;
-          if (initreqrC==1'b1)
-            NEXT_STATEC =  resetste;
-          else
-            NEXT_STATEC =  tradrvdat;
-        end
-      tradrvdat : 
-        begin
-          activtregC =  1'b0;
-          activrreg_iC =  1'b0;
-          activgregC =  1'b0;
-          sucftranoC =  1'b0;
-          sucfrecvoC =  1'b0;
-          transC =  1'b0;
-          loadC =  1'b0;
-          actvtsftC =  1'b0;
-          actvtcapC =  1'b0;
-          overflowoC =  1'b0;
-          resettraC =  1'b1;
-          resetallC =  1'b1;
-          if (initreqrC==1'b1)
-            NEXT_STATEC =  resetste;
-          else
-            NEXT_STATEC =  traruncap;
-        end
-      traruncap : 
-        begin
-          activtregC =  1'b0;
-          activrreg_iC =  1'b0;
-          activgregC =  1'b0;
-          sucftranoC =  1'b0;
-          sucfrecvoC =  1'b0;
-          transC =  1'b0;
-          loadC =  1'b1;
-          actvtsftC =  1'b0;
-          actvtcapC =  1'b1;
-          overflowoC =  1'b0;
-          resettraC =  1'b1;
-          resetallC =  1'b1;
-          if (initreqrC==1'b1)
-            NEXT_STATEC =  resetste;
-          else
-            NEXT_STATEC =  tralodsft;
-        end
-      tralodsft : 
-        begin
-          activtregC =  1'b0;
-          activrreg_iC =  1'b0;
-          activgregC =  1'b0;
-          sucftranoC =  1'b0;
-          sucfrecvoC =  1'b0;
-          transC =  1'b0;
-          loadC =  1'b1;
-          actvtsftC =  1'b1;
-          actvtcapC =  1'b0;
-          overflowoC =  1'b0;
-          resettraC =  1'b1;
-          resetallC =  1'b1;
-          if (initreqrC==1'b1)
-            NEXT_STATEC =  resetste;
-          else
-            NEXT_STATEC =  trawtosuc;
-        end
-      trawtosuc : 
-        begin
-          activtregC =  1'b0;
-          activrreg_iC =  1'b0;
-          activgregC =  1'b0;
-          sucftranoC =  1'b0;
-          sucfrecvoC =  1'b0;
-          transC =  1'b1;
-          loadC =  1'b0;
-          actvtsftC =  1'b0;
-          actvtcapC =  1'b0;
-          overflowoC =  1'b0;
-          resettraC =  1'b1;
-          resetallC =  1'b1;
-          if (initreqrC==1'b1)
-            NEXT_STATEC =  resetste;
-          else
-            if (initreqrC==1'b0&&sucftrancC==1'b1&&sucfrecvcC==1'b0&&sucfrecvrC==1'b0)
-              NEXT_STATEC =  trasetvall;
-            else
-              if (initreqrC==1'b0&&sucftrancC==1'b1&&sucfrecvcC==1'b0&&sucfrecvrC==1'b1)
-                NEXT_STATEC =  trasetvalh;
-              else
-                if (sctrrcinC==2'b00&&sucfrecvcC==1'b1&&initreqrC==1'b0&&equalC==1'b1)
-                  NEXT_STATEC =  recwrtmesll;
-                else
-                  if (sctrrcinC==2'b01&&sucfrecvcC==1'b1&&initreqrC==1'b0&&equalC==1'b1)
-                    NEXT_STATEC =  recwrtmeshl;
-                  else
-                    if (sctrrcinC==2'b10&&sucfrecvcC==1'b1&&initreqrC==1'b0&&equalC==1'b1)
-                      NEXT_STATEC =  recwrtmeshl;
-                    else
-                      if (sctrrcinC==2'b11&&sucfrecvcC==1'b1&&initreqrC==1'b0&&equalC==1'b1)
-                        NEXT_STATEC =  recwrtmeshh;
-                      else
-                        NEXT_STATEC =  trawtosuc;
-        end
-      trasetvall : 
-        begin
-          activtregC =  1'b1;
-          activrreg_iC =  1'b0;
-          activgregC =  1'b1;
-          sucftranoC =  1'b1;
-          sucfrecvoC =  1'b0;
-          transC =  1'b0;
-          loadC =  1'b0;
-          actvtsftC =  1'b0;
-          actvtcapC =  1'b0;
-          overflowoC =  1'b0;
-          resettraC =  1'b1;
-          resetallC =  1'b1;
-          if (initreqrC==1'b1)
-            NEXT_STATEC =  resetste;
-          else
-            NEXT_STATEC =  waitoact;
-        end
-      trasetvalh : 
-        begin
-          activtregC =  1'b1;
-          activrreg_iC =  1'b0;
-          activgregC =  1'b1;
-          sucftranoC =  1'b1;
-          sucfrecvoC =  1'b1;
-          transC =  1'b0;
-          loadC =  1'b0;
-          actvtsftC =  1'b0;
-          actvtcapC =  1'b0;
-          overflowoC =  1'b0;
-          resettraC =  1'b1;
-          resetallC =  1'b1;
-          if (initreqrC==1'b1)
-            NEXT_STATEC =  resetste;
-          else
-            NEXT_STATEC =  waitoact;
-        end
-      recwrtmesll : 
-        begin
-          activtregC =  1'b0;
-          activrreg_iC =  1'b1;
-          activgregC =  1'b1;
-          sucftranoC =  1'b0;
-          sucfrecvoC =  1'b1;
-          transC =  1'b0;
-          loadC =  1'b0;
-          actvtsftC =  1'b0;
-          actvtcapC =  1'b0;
-          resettraC =  1'b1;
-          overflowoC =  1'b0;
-          resetallC =  1'b1;
-          if (initreqrC==1'b1)
-            NEXT_STATEC =  resetste;
-          else
-            if (sucfrecvcC==1'b0)
-              NEXT_STATEC =  waitoact;
-            else
-              NEXT_STATEC =  recwrtmesll;
-        end
-      recwrtmeslh : 
-        begin
-          activtregC =  1'b0;
-          activrreg_iC =  1'b1;
-          activgregC =  1'b1;
-          sucftranoC =  1'b0;
-          sucfrecvoC =  1'b1;
-          transC =  1'b0;
-          loadC =  1'b0;
-          actvtsftC =  1'b0;
-          actvtcapC =  1'b0;
-          resettraC =  1'b1;
-          overflowoC =  1'b1;
-          resetallC =  1'b1;
-          if (initreqrC==1'b1)
-            NEXT_STATEC =  resetste;
-          else
-            if (sucfrecvcC==1'b0)
-              NEXT_STATEC =  waitoact;
-            else
-              NEXT_STATEC =  recwrtmeslh;
-        end
-      recwrtmeshl : 
-        begin
-          activtregC =  1'b0;
-          activrreg_iC =  1'b1;
-          activgregC =  1'b1;
-          sucftranoC =  1'b1;
-          sucfrecvoC =  1'b1;
-          transC =  1'b0;
-          loadC =  1'b0;
-          actvtsftC =  1'b0;
-          actvtcapC =  1'b0;
-          resettraC =  1'b1;
-          overflowoC =  1'b0;
-          resetallC =  1'b1;
-          if (initreqrC==1'b1)
-            NEXT_STATEC =  resetste;
-          else
-            if (sucfrecvcC==1'b0)
-              NEXT_STATEC =  waitoact;
-            else
-              NEXT_STATEC =  recwrtmeshl;
-        end
-      recwrtmeshh : 
-        begin
-          activtregC =  1'b0;
-          activrreg_iC =  1'b1;
-          activgregC =  1'b1;
-          sucftranoC =  1'b1;
-          sucfrecvoC =  1'b1;
-          transC =  1'b0;
-          loadC =  1'b0;
-          actvtsftC =  1'b0;
-          actvtcapC =  1'b0;
-          resettraC =  1'b1;
-          overflowoC =  1'b1;
-          resetallC =  1'b1;
-          if (initreqrC==1'b1)
-            NEXT_STATEC =  resetste;
-          else
-            if (sucfrecvcC==1'b0)
-              NEXT_STATEC =  waitoact;
-            else
-              NEXT_STATEC =  recwrtmeshh;
-        end
-      default : 
-        begin
-          NEXT_STATEC =  CURRENT_STATEVotedC;
-        end
-    endcase
-  end
-
-majorityVoter #(.WIDTH(4)) CURRENT_STATEVoterA (
+majorityVoter #(.WIDTH(4)) CURRENT_STATEVoter (
     .inA(CURRENT_STATEA),
     .inB(CURRENT_STATEB),
     .inC(CURRENT_STATEC),
-    .out(CURRENT_STATEVotedA),
-    .tmrErr(CURRENT_STATETmrErrorA)
+    .out(CURRENT_STATE),
+    .tmrErr(CURRENT_STATETmrError)
     );
 
-majorityVoter #(.WIDTH(4)) CURRENT_STATEVoterB (
-    .inA(CURRENT_STATEA),
-    .inB(CURRENT_STATEB),
-    .inC(CURRENT_STATEC),
-    .out(CURRENT_STATEVotedB),
-    .tmrErr(CURRENT_STATETmrErrorB)
+fanout #(.WIDTH(4)) NEXT_STATEFanout (
+    .in(NEXT_STATE),
+    .outA(NEXT_STATEA),
+    .outB(NEXT_STATEB),
+    .outC(NEXT_STATEC)
     );
 
-majorityVoter #(.WIDTH(4)) CURRENT_STATEVoterC (
-    .inA(CURRENT_STATEA),
-    .inB(CURRENT_STATEB),
-    .inC(CURRENT_STATEC),
-    .out(CURRENT_STATEVotedC),
-    .tmrErr(CURRENT_STATETmrErrorC)
+fanout clockFanout (
+    .in(clock),
+    .outA(clockA),
+    .outB(clockB),
+    .outC(clockC)
+    );
+
+fanout resetFanout (
+    .in(reset),
+    .outA(resetA),
+    .outB(resetB),
+    .outC(resetC)
     );
 endmodule
 

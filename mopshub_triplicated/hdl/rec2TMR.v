@@ -6,76 +6,70 @@
  *                                                                                                  *
  * user    : lucas                                                                                  *
  * host    : DESKTOP-BFDSFP2                                                                        *
- * date    : 16/08/2022 12:58:36                                                                    *
+ * date    : 06/10/2022 13:52:59                                                                    *
  *                                                                                                  *
- * workdir : /mnt/c/Users/Lucas/Desktop/mopshub_triplication/mopshub_top_board_canakari_ftrim/hdl   *
- * cmd     : /mnt/c/Users/Lucas/Desktop/mopshub_triplication/tmrg-master/bin/tmrg -c tmrg.cfg -vvv  *
+ * workdir : /mnt/c/Users/Lucas/Documents/GitHub/mopshub_triplicated/triplicated/mopshub_top_board/hdl *
+ * cmd     : /mnt/c/Users/Lucas/Desktop/mopshub_triplication/tmrg-master/bin/tmrg -vv -c tmrg.cfg   *
  * tmrg rev:                                                                                        *
  *                                                                                                  *
  * src file: rec2.v                                                                                 *
- *           Git SHA           : File not in git repository!                                        *
- *           Modification time : 2022-03-29 13:49:21                                                *
- *           File Size         : 3616                                                               *
- *           MD5 hash          : 6b85fa141c4ee60065ff8c5e76f5e0a5                                   *
+ *           Git SHA           : c110441b08b692cc54ebd4a3b84a2599430e8f93                           *
+ *           Modification time : 2022-08-30 12:46:59                                                *
+ *           File Size         : 3585                                                               *
+ *           MD5 hash          : c1b6b6006ffd76096d8fe77ed581028b                                   *
  *                                                                                                  *
  ****************************************************************************************************/
 
 module rec2TMR(
-  input wire  resetA ,
-  input wire  resetB ,
-  input wire  resetC ,
-  input wire  clockA ,
-  input wire  clockB ,
-  input wire  clockC ,
-  input wire  inconerecA ,
-  input wire  inconerecB ,
-  input wire  inconerecC ,
-  input wire  incegtrecA ,
-  input wire  incegtrecB ,
-  input wire  incegtrecC ,
-  input wire  decrecA ,
-  input wire  decrecB ,
-  input wire  decrecC ,
-  output reg  rec_lt96A ,
-  output reg  rec_lt96B ,
-  output reg  rec_lt96C ,
-  output reg  rec_ge96A ,
-  output reg  rec_ge96B ,
-  output reg  rec_ge96C ,
-  output reg  rec_ge128A ,
-  output reg  rec_ge128B ,
-  output reg  rec_ge128C ,
-  output wire [7:0] reccountA ,
-  output wire [7:0] reccountB ,
-  output wire [7:0] reccountC 
+  input wire  reset ,
+  input wire  clock ,
+  input wire  inconerec ,
+  input wire  incegtrec ,
+  input wire  decrec ,
+  output reg  rec_lt96 ,
+  output reg  rec_ge96 ,
+  output reg  rec_ge128 ,
+  output wire [7:0] reccount 
 );
-wor edgedTmrErrorC;
-wire edgedVotedC;
-wor counterTmrErrorC;
-wire [8:0] counterVotedC;
-wor edgedTmrErrorB;
-wire edgedVotedB;
-wor counterTmrErrorB;
-wire [8:0] counterVotedB;
-wor edgedTmrErrorA;
-wire edgedVotedA;
-wor counterTmrErrorA;
-wire [8:0] counterVotedA;
+wire resetC;
+wire resetB;
+wire resetA;
+wire inconerecC;
+wire inconerecB;
+wire inconerecA;
+wire incegtrecC;
+wire incegtrecB;
+wire incegtrecA;
+wire edgedVC;
+wire edgedVB;
+wire edgedVA;
+wire decrecC;
+wire decrecB;
+wire decrecA;
+wire [8:0] counterVC;
+wire [8:0] counterVB;
+wire [8:0] counterVA;
+wire clockC;
+wire clockB;
+wire clockA;
+wire actionC;
+wire actionB;
+wire actionA;
+wor edgedTmrError;
+wire edged;
+wor counterTmrError;
+wire [8:0] counter;
 reg  [8:0] counterA ;
 reg  [8:0] counterB ;
 reg  [8:0] counterC ;
 reg  edgedA ;
 reg  edgedB ;
 reg  edgedC ;
-wire actionA;
-wire actionB;
-wire actionC;
-assign actionA =  inconerecA|incegtrecA|decrecA;
-assign actionB =  inconerecB|incegtrecB|decrecB;
-assign actionC =  inconerecC|incegtrecC|decrecC;
-assign reccountA =  counterVotedA[7:0] ;
-assign reccountB =  counterVotedB[7:0] ;
-assign reccountC =  counterVotedC[7:0] ;
+wire action;
+assign action =  inconerec|incegtrec|decrec;
+wire [8:0] counterV =  counter;
+wire edgedV =  edged;
+assign reccount =  counterV[7:0] ;
 
 always @( posedge clockA )
   begin
@@ -86,23 +80,23 @@ always @( posedge clockA )
       end
     else
       begin
-        counterA <= counterVotedA;
-        edgedA <= edgedVotedA;
+        counterA <= counterVA;
+        edgedA <= edgedVA;
         if (actionA==1'b1)
           begin
-            if (edgedVotedA==1'b0)
+            if (edgedVA==1'b0)
               begin
                 edgedA <= 1'b1;
-                if (counterVotedA!=9'd0&&decrecA==1'b1)
-                  counterA <= counterVotedA-1;
+                if (counterVA!=9'd0&&decrecA==1'b1)
+                  counterA <= counterVA-1;
                 else
-                  if (counterVotedA<=255)
+                  if (counterVA<=255)
                     begin
                       if (inconerecA==1'b1)
-                        counterA <= counterVotedA+1;
+                        counterA <= counterVA+1;
                       else
                         if (incegtrecA==1'b1)
-                          counterA <= counterVotedA+8;
+                          counterA <= counterVA+8;
                     end
               end
           end
@@ -120,23 +114,23 @@ always @( posedge clockB )
       end
     else
       begin
-        counterB <= counterVotedB;
-        edgedB <= edgedVotedB;
+        counterB <= counterVB;
+        edgedB <= edgedVB;
         if (actionB==1'b1)
           begin
-            if (edgedVotedB==1'b0)
+            if (edgedVB==1'b0)
               begin
                 edgedB <= 1'b1;
-                if (counterVotedB!=9'd0&&decrecB==1'b1)
-                  counterB <= counterVotedB-1;
+                if (counterVB!=9'd0&&decrecB==1'b1)
+                  counterB <= counterVB-1;
                 else
-                  if (counterVotedB<=255)
+                  if (counterVB<=255)
                     begin
                       if (inconerecB==1'b1)
-                        counterB <= counterVotedB+1;
+                        counterB <= counterVB+1;
                       else
                         if (incegtrecB==1'b1)
-                          counterB <= counterVotedB+8;
+                          counterB <= counterVB+8;
                     end
               end
           end
@@ -154,23 +148,23 @@ always @( posedge clockC )
       end
     else
       begin
-        counterC <= counterVotedC;
-        edgedC <= edgedVotedC;
+        counterC <= counterVC;
+        edgedC <= edgedVC;
         if (actionC==1'b1)
           begin
-            if (edgedVotedC==1'b0)
+            if (edgedVC==1'b0)
               begin
                 edgedC <= 1'b1;
-                if (counterVotedC!=9'd0&&decrecC==1'b1)
-                  counterC <= counterVotedC-1;
+                if (counterVC!=9'd0&&decrecC==1'b1)
+                  counterC <= counterVC-1;
                 else
-                  if (counterVotedC<=255)
+                  if (counterVC<=255)
                     begin
                       if (inconerecC==1'b1)
-                        counterC <= counterVotedC+1;
+                        counterC <= counterVC+1;
                       else
                         if (incegtrecC==1'b1)
-                          counterC <= counterVotedC+8;
+                          counterC <= counterVC+8;
                     end
               end
           end
@@ -179,121 +173,99 @@ always @( posedge clockC )
       end
   end
 
-always @( counterVotedA )
+always @( counterV )
   begin
-    if (counterVotedA>9'd127)
+    if (counterV>9'd127)
       begin
-        rec_lt96A <= 1'b0;
-        rec_ge96A <= 1'b1;
-        rec_ge128A <= 1'b1;
+        rec_lt96 <= 1'b0;
+        rec_ge96 <= 1'b1;
+        rec_ge128 <= 1'b1;
       end
     else
-      if (counterVotedA<=9'd127&&counterVotedA>=9'd96)
+      if (counterV<=9'd127&&counterV>=9'd96)
         begin
-          rec_lt96A <= 1'b0;
-          rec_ge96A <= 1'b1;
-          rec_ge128A <= 1'b0;
+          rec_lt96 <= 1'b0;
+          rec_ge96 <= 1'b1;
+          rec_ge128 <= 1'b0;
         end
       else
         begin
-          rec_lt96A <= 1'b1;
-          rec_ge96A <= 1'b0;
-          rec_ge128A <= 1'b0;
+          rec_lt96 <= 1'b1;
+          rec_ge96 <= 1'b0;
+          rec_ge128 <= 1'b0;
         end
   end
 
-always @( counterVotedB )
-  begin
-    if (counterVotedB>9'd127)
-      begin
-        rec_lt96B <= 1'b0;
-        rec_ge96B <= 1'b1;
-        rec_ge128B <= 1'b1;
-      end
-    else
-      if (counterVotedB<=9'd127&&counterVotedB>=9'd96)
-        begin
-          rec_lt96B <= 1'b0;
-          rec_ge96B <= 1'b1;
-          rec_ge128B <= 1'b0;
-        end
-      else
-        begin
-          rec_lt96B <= 1'b1;
-          rec_ge96B <= 1'b0;
-          rec_ge128B <= 1'b0;
-        end
-  end
-
-always @( counterVotedC )
-  begin
-    if (counterVotedC>9'd127)
-      begin
-        rec_lt96C <= 1'b0;
-        rec_ge96C <= 1'b1;
-        rec_ge128C <= 1'b1;
-      end
-    else
-      if (counterVotedC<=9'd127&&counterVotedC>=9'd96)
-        begin
-          rec_lt96C <= 1'b0;
-          rec_ge96C <= 1'b1;
-          rec_ge128C <= 1'b0;
-        end
-      else
-        begin
-          rec_lt96C <= 1'b1;
-          rec_ge96C <= 1'b0;
-          rec_ge128C <= 1'b0;
-        end
-  end
-
-majorityVoter #(.WIDTH(9)) counterVoterA (
+majorityVoter #(.WIDTH(9)) counterVoter (
     .inA(counterA),
     .inB(counterB),
     .inC(counterC),
-    .out(counterVotedA),
-    .tmrErr(counterTmrErrorA)
+    .out(counter),
+    .tmrErr(counterTmrError)
     );
 
-majorityVoter edgedVoterA (
+majorityVoter edgedVoter (
     .inA(edgedA),
     .inB(edgedB),
     .inC(edgedC),
-    .out(edgedVotedA),
-    .tmrErr(edgedTmrErrorA)
+    .out(edged),
+    .tmrErr(edgedTmrError)
     );
 
-majorityVoter #(.WIDTH(9)) counterVoterB (
-    .inA(counterA),
-    .inB(counterB),
-    .inC(counterC),
-    .out(counterVotedB),
-    .tmrErr(counterTmrErrorB)
+fanout actionFanout (
+    .in(action),
+    .outA(actionA),
+    .outB(actionB),
+    .outC(actionC)
     );
 
-majorityVoter edgedVoterB (
-    .inA(edgedA),
-    .inB(edgedB),
-    .inC(edgedC),
-    .out(edgedVotedB),
-    .tmrErr(edgedTmrErrorB)
+fanout clockFanout (
+    .in(clock),
+    .outA(clockA),
+    .outB(clockB),
+    .outC(clockC)
     );
 
-majorityVoter #(.WIDTH(9)) counterVoterC (
-    .inA(counterA),
-    .inB(counterB),
-    .inC(counterC),
-    .out(counterVotedC),
-    .tmrErr(counterTmrErrorC)
+fanout #(.WIDTH(9)) counterVFanout (
+    .in(counterV),
+    .outA(counterVA),
+    .outB(counterVB),
+    .outC(counterVC)
     );
 
-majorityVoter edgedVoterC (
-    .inA(edgedA),
-    .inB(edgedB),
-    .inC(edgedC),
-    .out(edgedVotedC),
-    .tmrErr(edgedTmrErrorC)
+fanout decrecFanout (
+    .in(decrec),
+    .outA(decrecA),
+    .outB(decrecB),
+    .outC(decrecC)
+    );
+
+fanout edgedVFanout (
+    .in(edgedV),
+    .outA(edgedVA),
+    .outB(edgedVB),
+    .outC(edgedVC)
+    );
+
+fanout incegtrecFanout (
+    .in(incegtrec),
+    .outA(incegtrecA),
+    .outB(incegtrecB),
+    .outC(incegtrecC)
+    );
+
+fanout inconerecFanout (
+    .in(inconerec),
+    .outA(inconerecA),
+    .outB(inconerecB),
+    .outC(inconerecC)
+    );
+
+fanout resetFanout (
+    .in(reset),
+    .outA(resetA),
+    .outB(resetB),
+    .outC(resetC)
     );
 endmodule
 

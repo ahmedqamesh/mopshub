@@ -6,17 +6,17 @@
  *                                                                                                  *
  * user    : lucas                                                                                  *
  * host    : DESKTOP-BFDSFP2                                                                        *
- * date    : 16/08/2022 12:58:21                                                                    *
+ * date    : 06/10/2022 13:52:49                                                                    *
  *                                                                                                  *
- * workdir : /mnt/c/Users/Lucas/Desktop/mopshub_triplication/mopshub_top_board_canakari_ftrim/hdl   *
- * cmd     : /mnt/c/Users/Lucas/Desktop/mopshub_triplication/tmrg-master/bin/tmrg -c tmrg.cfg -vvv  *
+ * workdir : /mnt/c/Users/Lucas/Documents/GitHub/mopshub_triplicated/triplicated/mopshub_top_board/hdl *
+ * cmd     : /mnt/c/Users/Lucas/Desktop/mopshub_triplication/tmrg-master/bin/tmrg -vv -c tmrg.cfg   *
  * tmrg rev:                                                                                        *
  *                                                                                                  *
  * src file: fifo_to_elink_struct.v                                                                 *
- *           Git SHA           : File not in git repository!                                        *
- *           Modification time : 2022-08-16 10:17:19.783575                                         *
- *           File Size         : 2534                                                               *
- *           MD5 hash          : 6cf34de8eb552e48ea4907f3147ad377                                   *
+ *           Git SHA           : c110441b08b692cc54ebd4a3b84a2599430e8f93                           *
+ *           Modification time : 2022-10-06 13:25:17                                                *
+ *           File Size         : 2567                                                               *
+ *           MD5 hash          : bab7755ce8191d7a652a8499a35abc1a                                   *
  *                                                                                                  *
  ****************************************************************************************************/
 

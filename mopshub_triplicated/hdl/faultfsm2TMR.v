@@ -6,87 +6,59 @@
  *                                                                                                  *
  * user    : lucas                                                                                  *
  * host    : DESKTOP-BFDSFP2                                                                        *
- * date    : 16/08/2022 12:58:18                                                                    *
+ * date    : 06/10/2022 13:52:48                                                                    *
  *                                                                                                  *
- * workdir : /mnt/c/Users/Lucas/Desktop/mopshub_triplication/mopshub_top_board_canakari_ftrim/hdl   *
- * cmd     : /mnt/c/Users/Lucas/Desktop/mopshub_triplication/tmrg-master/bin/tmrg -c tmrg.cfg -vvv  *
+ * workdir : /mnt/c/Users/Lucas/Documents/GitHub/mopshub_triplicated/triplicated/mopshub_top_board/hdl *
+ * cmd     : /mnt/c/Users/Lucas/Desktop/mopshub_triplication/tmrg-master/bin/tmrg -vv -c tmrg.cfg   *
  * tmrg rev:                                                                                        *
  *                                                                                                  *
  * src file: faultfsm2.v                                                                            *
- *           Git SHA           : File not in git repository!                                        *
- *           Modification time : 2022-03-29 13:49:21                                                *
- *           File Size         : 4596                                                               *
- *           MD5 hash          : a105edecdf073a60f57fd8f4e507e3ae                                   *
+ *           Git SHA           : c110441b08b692cc54ebd4a3b84a2599430e8f93                           *
+ *           Modification time : 2022-08-30 13:51:24                                                *
+ *           File Size         : 4593                                                               *
+ *           MD5 hash          : 9cbf22118813aaaa34a828de526ff4e1                                   *
  *                                                                                                  *
  ****************************************************************************************************/
 
 module faultfsm2TMR(
-  input wire  clockA ,
-  input wire  clockB ,
-  input wire  clockC ,
-  input wire  resetA ,
-  input wire  resetB ,
-  input wire  resetC ,
-  input wire  rec_lt96A ,
-  input wire  rec_lt96B ,
-  input wire  rec_lt96C ,
-  input wire  rec_ge96A ,
-  input wire  rec_ge96B ,
-  input wire  rec_ge96C ,
-  input wire  rec_ge128A ,
-  input wire  rec_ge128B ,
-  input wire  rec_ge128C ,
-  input wire  tec_lt96A ,
-  input wire  tec_lt96B ,
-  input wire  tec_lt96C ,
-  input wire  tec_ge96A ,
-  input wire  tec_ge96B ,
-  input wire  tec_ge96C ,
-  input wire  tec_ge128A ,
-  input wire  tec_ge128B ,
-  input wire  tec_ge128C ,
-  input wire  tec_ge256A ,
-  input wire  tec_ge256B ,
-  input wire  tec_ge256C ,
-  input wire  erb_eq128A ,
-  input wire  erb_eq128B ,
-  input wire  erb_eq128C ,
-  output reg  resetcountA ,
-  output reg  resetcountB ,
-  output reg  resetcountC ,
-  output reg  erroractiveA ,
-  output reg  erroractiveB ,
-  output reg  erroractiveC ,
-  output reg  errorpassiveA ,
-  output reg  errorpassiveB ,
-  output reg  errorpassiveC ,
-  output reg  busoffA ,
-  output reg  busoffB ,
-  output reg  busoffC ,
-  output reg  warnsigA ,
-  output reg  warnsigB ,
-  output reg  warnsigC ,
-  output wire  irqsigA ,
-  output wire  irqsigB ,
-  output wire  irqsigC 
+  input wire  clock ,
+  input wire  reset ,
+  input wire  rec_lt96 ,
+  input wire  rec_ge96 ,
+  input wire  rec_ge128 ,
+  input wire  tec_lt96 ,
+  input wire  tec_ge96 ,
+  input wire  tec_ge128 ,
+  input wire  tec_ge256 ,
+  input wire  erb_eq128 ,
+  output reg  resetcount ,
+  output reg  erroractive ,
+  output reg  errorpassive ,
+  output reg  busoff ,
+  output reg  warnsig ,
+  output wire  irqsig 
 );
 localparam [2:0] erroractiv =3'b000;
 localparam [2:0] errorpassiv =3'b001;
 localparam [2:0] busof =3'b010;
 localparam [2:0] resetstate =3'b011;
 localparam [2:0] warning =3'b100;
-wor CURRENT_STATETmrErrorC;
-wire [2:0] CURRENT_STATEVotedC;
-wor CURRENT_STATETmrErrorB;
-wire [2:0] CURRENT_STATEVotedB;
-wor CURRENT_STATETmrErrorA;
-wire [2:0] CURRENT_STATEVotedA;
+wire resetC;
+wire resetB;
+wire resetA;
+wire clockC;
+wire clockB;
+wire clockA;
+wire [2:0] NEXT_STATEC;
+wire [2:0] NEXT_STATEB;
+wire [2:0] NEXT_STATEA;
+wor CURRENT_STATETmrError;
+wire [2:0] CURRENT_STATE;
 reg  [2:0] CURRENT_STATEA ;
-reg  [2:0] NEXT_STATEA ;
 reg  [2:0] CURRENT_STATEB ;
-reg  [2:0] NEXT_STATEB ;
 reg  [2:0] CURRENT_STATEC ;
-reg  [2:0] NEXT_STATEC ;
+reg  [2:0] NEXT_STATE ;
+wire [2:0] CURRENT_STATEV =  CURRENT_STATE;
 
 always @( posedge clockA )
   begin
@@ -111,266 +83,113 @@ always @( posedge clockC )
     else
       CURRENT_STATEC <= NEXT_STATEC;
   end
-assign irqsigA =  (CURRENT_STATEVotedA==NEXT_STATEA) ? 1'b0 : 1'b1;
-assign irqsigB =  (CURRENT_STATEVotedB==NEXT_STATEB) ? 1'b0 : 1'b1;
-assign irqsigC =  (CURRENT_STATEVotedC==NEXT_STATEC) ? 1'b0 : 1'b1;
+assign irqsig =  (CURRENT_STATEV==NEXT_STATE) ? 1'b0 : 1'b1;
 
-always @( CURRENT_STATEVotedA or rec_lt96A or rec_ge96A or rec_ge128A or tec_lt96A or tec_ge96A or tec_ge128A or tec_ge256A or erb_eq128A )
+always @( CURRENT_STATEV or rec_lt96 or rec_ge96 or rec_ge128 or tec_lt96 or tec_ge96 or tec_ge128 or tec_ge256 or erb_eq128 )
   begin
-    case (CURRENT_STATEVotedA)
+    case (CURRENT_STATEV)
       erroractiv : 
         begin
-          erroractiveA =  1'b1;
-          errorpassiveA =  1'b0;
-          busoffA =  1'b0;
-          warnsigA =  1'b0;
-          resetcountA =  1'b1;
-          if (rec_ge96A==1'b1||tec_ge96A==1'b1)
-            NEXT_STATEA =  warning;
+          erroractive =  1'b1;
+          errorpassive =  1'b0;
+          busoff =  1'b0;
+          warnsig =  1'b0;
+          resetcount =  1'b1;
+          if (rec_ge96==1'b1||tec_ge96==1'b1)
+            NEXT_STATE =  warning;
           else
-            NEXT_STATEA =  erroractiv;
+            NEXT_STATE =  erroractiv;
         end
       warning : 
         begin
-          erroractiveA =  1'b1;
-          errorpassiveA =  1'b0;
-          busoffA =  1'b0;
-          warnsigA =  1'b1;
-          resetcountA =  1'b1;
-          if (rec_ge128A==1'b1||tec_ge128A==1'b1)
-            NEXT_STATEA =  errorpassiv;
+          erroractive =  1'b1;
+          errorpassive =  1'b0;
+          busoff =  1'b0;
+          warnsig =  1'b1;
+          resetcount =  1'b1;
+          if (rec_ge128==1'b1||tec_ge128==1'b1)
+            NEXT_STATE =  errorpassiv;
           else
-            if (rec_lt96A==1'b1&&tec_lt96A==1'b1)
-              NEXT_STATEA =  erroractiv;
+            if (rec_lt96==1'b1&&tec_lt96==1'b1)
+              NEXT_STATE =  erroractiv;
             else
-              NEXT_STATEA =  warning;
+              NEXT_STATE =  warning;
         end
       errorpassiv : 
         begin
-          erroractiveA =  1'b0;
-          errorpassiveA =  1'b1;
-          busoffA =  1'b0;
-          warnsigA =  1'b0;
-          resetcountA =  1'b1;
-          if (tec_ge256A==1'b1)
-            NEXT_STATEA =  busof;
+          erroractive =  1'b0;
+          errorpassive =  1'b1;
+          busoff =  1'b0;
+          warnsig =  1'b0;
+          resetcount =  1'b1;
+          if (tec_ge256==1'b1)
+            NEXT_STATE =  busof;
           else
-            if (tec_ge128A==1'b0&&rec_ge128A==1'b0)
-              NEXT_STATEA =  erroractiv;
+            if (tec_ge128==1'b0&&rec_ge128==1'b0)
+              NEXT_STATE =  erroractiv;
             else
-              NEXT_STATEA =  errorpassiv;
+              NEXT_STATE =  errorpassiv;
         end
       busof : 
         begin
-          erroractiveA =  1'b0;
-          errorpassiveA =  1'b0;
-          busoffA =  1'b1;
-          warnsigA =  1'b0;
-          resetcountA =  1'b1;
-          if (erb_eq128A==1'b1)
-            NEXT_STATEA =  resetstate;
+          erroractive =  1'b0;
+          errorpassive =  1'b0;
+          busoff =  1'b1;
+          warnsig =  1'b0;
+          resetcount =  1'b1;
+          if (erb_eq128==1'b1)
+            NEXT_STATE =  resetstate;
           else
-            NEXT_STATEA =  busof;
+            NEXT_STATE =  busof;
         end
       resetstate : 
         begin
-          erroractiveA =  1'b1;
-          errorpassiveA =  1'b0;
-          busoffA =  1'b0;
-          warnsigA =  1'b0;
-          resetcountA =  1'b0;
-          NEXT_STATEA =  erroractiv;
+          erroractive =  1'b1;
+          errorpassive =  1'b0;
+          busoff =  1'b0;
+          warnsig =  1'b0;
+          resetcount =  1'b0;
+          NEXT_STATE =  erroractiv;
         end
       default : 
         begin
-          erroractiveA =  1'b0;
-          errorpassiveA =  1'b0;
-          busoffA =  1'b0;
-          warnsigA =  1'b0;
-          resetcountA =  1'b0;
-          NEXT_STATEA =  CURRENT_STATEVotedA;
+          erroractive =  1'b0;
+          errorpassive =  1'b0;
+          busoff =  1'b0;
+          warnsig =  1'b0;
+          resetcount =  1'b0;
+          NEXT_STATE =  CURRENT_STATEV;
         end
     endcase
   end
 
-always @( CURRENT_STATEVotedB or rec_lt96B or rec_ge96B or rec_ge128B or tec_lt96B or tec_ge96B or tec_ge128B or tec_ge256B or erb_eq128B )
-  begin
-    case (CURRENT_STATEVotedB)
-      erroractiv : 
-        begin
-          erroractiveB =  1'b1;
-          errorpassiveB =  1'b0;
-          busoffB =  1'b0;
-          warnsigB =  1'b0;
-          resetcountB =  1'b1;
-          if (rec_ge96B==1'b1||tec_ge96B==1'b1)
-            NEXT_STATEB =  warning;
-          else
-            NEXT_STATEB =  erroractiv;
-        end
-      warning : 
-        begin
-          erroractiveB =  1'b1;
-          errorpassiveB =  1'b0;
-          busoffB =  1'b0;
-          warnsigB =  1'b1;
-          resetcountB =  1'b1;
-          if (rec_ge128B==1'b1||tec_ge128B==1'b1)
-            NEXT_STATEB =  errorpassiv;
-          else
-            if (rec_lt96B==1'b1&&tec_lt96B==1'b1)
-              NEXT_STATEB =  erroractiv;
-            else
-              NEXT_STATEB =  warning;
-        end
-      errorpassiv : 
-        begin
-          erroractiveB =  1'b0;
-          errorpassiveB =  1'b1;
-          busoffB =  1'b0;
-          warnsigB =  1'b0;
-          resetcountB =  1'b1;
-          if (tec_ge256B==1'b1)
-            NEXT_STATEB =  busof;
-          else
-            if (tec_ge128B==1'b0&&rec_ge128B==1'b0)
-              NEXT_STATEB =  erroractiv;
-            else
-              NEXT_STATEB =  errorpassiv;
-        end
-      busof : 
-        begin
-          erroractiveB =  1'b0;
-          errorpassiveB =  1'b0;
-          busoffB =  1'b1;
-          warnsigB =  1'b0;
-          resetcountB =  1'b1;
-          if (erb_eq128B==1'b1)
-            NEXT_STATEB =  resetstate;
-          else
-            NEXT_STATEB =  busof;
-        end
-      resetstate : 
-        begin
-          erroractiveB =  1'b1;
-          errorpassiveB =  1'b0;
-          busoffB =  1'b0;
-          warnsigB =  1'b0;
-          resetcountB =  1'b0;
-          NEXT_STATEB =  erroractiv;
-        end
-      default : 
-        begin
-          erroractiveB =  1'b0;
-          errorpassiveB =  1'b0;
-          busoffB =  1'b0;
-          warnsigB =  1'b0;
-          resetcountB =  1'b0;
-          NEXT_STATEB =  CURRENT_STATEVotedB;
-        end
-    endcase
-  end
-
-always @( CURRENT_STATEVotedC or rec_lt96C or rec_ge96C or rec_ge128C or tec_lt96C or tec_ge96C or tec_ge128C or tec_ge256C or erb_eq128C )
-  begin
-    case (CURRENT_STATEVotedC)
-      erroractiv : 
-        begin
-          erroractiveC =  1'b1;
-          errorpassiveC =  1'b0;
-          busoffC =  1'b0;
-          warnsigC =  1'b0;
-          resetcountC =  1'b1;
-          if (rec_ge96C==1'b1||tec_ge96C==1'b1)
-            NEXT_STATEC =  warning;
-          else
-            NEXT_STATEC =  erroractiv;
-        end
-      warning : 
-        begin
-          erroractiveC =  1'b1;
-          errorpassiveC =  1'b0;
-          busoffC =  1'b0;
-          warnsigC =  1'b1;
-          resetcountC =  1'b1;
-          if (rec_ge128C==1'b1||tec_ge128C==1'b1)
-            NEXT_STATEC =  errorpassiv;
-          else
-            if (rec_lt96C==1'b1&&tec_lt96C==1'b1)
-              NEXT_STATEC =  erroractiv;
-            else
-              NEXT_STATEC =  warning;
-        end
-      errorpassiv : 
-        begin
-          erroractiveC =  1'b0;
-          errorpassiveC =  1'b1;
-          busoffC =  1'b0;
-          warnsigC =  1'b0;
-          resetcountC =  1'b1;
-          if (tec_ge256C==1'b1)
-            NEXT_STATEC =  busof;
-          else
-            if (tec_ge128C==1'b0&&rec_ge128C==1'b0)
-              NEXT_STATEC =  erroractiv;
-            else
-              NEXT_STATEC =  errorpassiv;
-        end
-      busof : 
-        begin
-          erroractiveC =  1'b0;
-          errorpassiveC =  1'b0;
-          busoffC =  1'b1;
-          warnsigC =  1'b0;
-          resetcountC =  1'b1;
-          if (erb_eq128C==1'b1)
-            NEXT_STATEC =  resetstate;
-          else
-            NEXT_STATEC =  busof;
-        end
-      resetstate : 
-        begin
-          erroractiveC =  1'b1;
-          errorpassiveC =  1'b0;
-          busoffC =  1'b0;
-          warnsigC =  1'b0;
-          resetcountC =  1'b0;
-          NEXT_STATEC =  erroractiv;
-        end
-      default : 
-        begin
-          erroractiveC =  1'b0;
-          errorpassiveC =  1'b0;
-          busoffC =  1'b0;
-          warnsigC =  1'b0;
-          resetcountC =  1'b0;
-          NEXT_STATEC =  CURRENT_STATEVotedC;
-        end
-    endcase
-  end
-
-majorityVoter #(.WIDTH(3)) CURRENT_STATEVoterA (
+majorityVoter #(.WIDTH(3)) CURRENT_STATEVoter (
     .inA(CURRENT_STATEA),
     .inB(CURRENT_STATEB),
     .inC(CURRENT_STATEC),
-    .out(CURRENT_STATEVotedA),
-    .tmrErr(CURRENT_STATETmrErrorA)
+    .out(CURRENT_STATE),
+    .tmrErr(CURRENT_STATETmrError)
     );
 
-majorityVoter #(.WIDTH(3)) CURRENT_STATEVoterB (
-    .inA(CURRENT_STATEA),
-    .inB(CURRENT_STATEB),
-    .inC(CURRENT_STATEC),
-    .out(CURRENT_STATEVotedB),
-    .tmrErr(CURRENT_STATETmrErrorB)
+fanout #(.WIDTH(3)) NEXT_STATEFanout (
+    .in(NEXT_STATE),
+    .outA(NEXT_STATEA),
+    .outB(NEXT_STATEB),
+    .outC(NEXT_STATEC)
     );
 
-majorityVoter #(.WIDTH(3)) CURRENT_STATEVoterC (
-    .inA(CURRENT_STATEA),
-    .inB(CURRENT_STATEB),
-    .inC(CURRENT_STATEC),
-    .out(CURRENT_STATEVotedC),
-    .tmrErr(CURRENT_STATETmrErrorC)
+fanout clockFanout (
+    .in(clock),
+    .outA(clockA),
+    .outB(clockB),
+    .outC(clockC)
+    );
+
+fanout resetFanout (
+    .in(reset),
+    .outA(resetA),
+    .outB(resetB),
+    .outC(resetC)
     );
 endmodule
 

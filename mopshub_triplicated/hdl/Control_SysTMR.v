@@ -6,189 +6,87 @@
  *                                                                                                  *
  * user    : lucas                                                                                  *
  * host    : DESKTOP-BFDSFP2                                                                        *
- * date    : 16/08/2022 12:58:07                                                                    *
+ * date    : 06/10/2022 13:52:32                                                                    *
  *                                                                                                  *
- * workdir : /mnt/c/Users/Lucas/Desktop/mopshub_triplication/mopshub_top_board_canakari_ftrim/hdl   *
- * cmd     : /mnt/c/Users/Lucas/Desktop/mopshub_triplication/tmrg-master/bin/tmrg -c tmrg.cfg -vvv  *
+ * workdir : /mnt/c/Users/Lucas/Documents/GitHub/mopshub_triplicated/triplicated/mopshub_top_board/hdl *
+ * cmd     : /mnt/c/Users/Lucas/Desktop/mopshub_triplication/tmrg-master/bin/tmrg -vv -c tmrg.cfg   *
  * tmrg rev:                                                                                        *
  *                                                                                                  *
  * src file: Control_Sys.v                                                                          *
- *           Git SHA           : File not in git repository!                                        *
- *           Modification time : 2022-03-29 13:49:21                                                *
+ *           Git SHA           : c110441b08b692cc54ebd4a3b84a2599430e8f93                           *
+ *           Modification time : 2022-08-23 20:14:36                                                *
  *           File Size         : 1045                                                               *
- *           MD5 hash          : 5b2af5bc5170aefa3f5f013db1afd7ab                                   *
+ *           MD5 hash          : 3f6177d102dd4c4b753e43c48e74af50                                   *
  *                                                                                                  *
  ****************************************************************************************************/
 
 module Control_SysTMR(
-  output [5:0] FtrimA ,
-  output [5:0] FtrimB ,
-  output [5:0] FtrimC ,
-  output  readyA ,
-  output  readyB ,
-  output  readyC ,
-  input  CLKA ,
-  input  CLKB ,
-  input  CLKC ,
-  input [3:0] E1A ,
-  input [3:0] E1B ,
-  input [3:0] E1C ,
-  input [7:0] KdA ,
-  input [7:0] KdB ,
-  input [7:0] KdC ,
-  input [7:0] KiA ,
-  input [7:0] KiB ,
-  input [7:0] KiC ,
-  input [7:0] KpA ,
-  input [7:0] KpB ,
-  input [7:0] KpC ,
-  input  Prescale_EnA ,
-  input  Prescale_EnB ,
-  input  Prescale_EnC ,
-  input  PufferA ,
-  input  PufferB ,
-  input  PufferC ,
-  input  ResetA ,
-  input  ResetB ,
-  input  ResetC ,
-  input  RxA ,
-  input  RxB ,
-  input  RxC ,
-  input  activeA ,
-  input  activeB ,
-  input  activeC 
+  output [5:0] Ftrim ,
+  output  ready ,
+  input  CLK ,
+  input [3:0] E1 ,
+  input [7:0] Kd ,
+  input [7:0] Ki ,
+  input [7:0] Kp ,
+  input  Prescale_En ,
+  input  Puffer ,
+  input  Reset ,
+  input  Rx ,
+  input  active 
 );
-wire [7:0] EkA;
-wire [7:0] EkB;
-wire [7:0] EkC;
-wire [2:0] ctrlA;
-wire [2:0] ctrlB;
-wire [2:0] ctrlC;
-wire [3:0] Counter_CA;
-wire [3:0] Counter_CB;
-wire [3:0] Counter_CC;
-wire EnableA;
-wire EnableB;
-wire EnableC;
+wire [7:0] Ek;
+wire [2:0] ctrl;
+wire [3:0] Counter_C;
+wire Enable;
 
 PID_ReglerTMR pid_regler0 (
-    .FTRIMA(FtrimA[5:0] ),
-    .FTRIMB(FtrimB[5:0] ),
-    .FTRIMC(FtrimC[5:0] ),
-    .CLKA(CLKA),
-    .CLKB(CLKB),
-    .CLKC(CLKC),
-    .EkA(EkA[7:0] ),
-    .EkB(EkB[7:0] ),
-    .EkC(EkC[7:0] ),
-    .EnableA(EnableA),
-    .EnableB(EnableB),
-    .EnableC(EnableC),
-    .KdA(KdA[7:0] ),
-    .KdB(KdB[7:0] ),
-    .KdC(KdC[7:0] ),
-    .KiA(KiA[7:0] ),
-    .KiB(KiB[7:0] ),
-    .KiC(KiC[7:0] ),
-    .KpA(KpA[7:0] ),
-    .KpB(KpB[7:0] ),
-    .KpC(KpC[7:0] ),
-    .ResetA(ResetA),
-    .ResetB(ResetB),
-    .ResetC(ResetC),
-    .ctrlA(ctrlA[2:0] ),
-    .ctrlB(ctrlB[2:0] ),
-    .ctrlC(ctrlC[2:0] )
+    .FTRIM(Ftrim[5:0] ),
+    .CLK(CLK),
+    .Ek(Ek[7:0] ),
+    .Enable(Enable),
+    .Kd(Kd[7:0] ),
+    .Ki(Ki[7:0] ),
+    .Kp(Kp[7:0] ),
+    .Reset(Reset),
+    .ctrl(ctrl[2:0] )
     );
 
 CLK_CounterTMR clk_counter0 (
-    .pufferA(PufferA),
-    .pufferB(PufferB),
-    .pufferC(PufferC),
-    .Counter_CA(Counter_CA),
-    .Counter_CB(Counter_CB),
-    .Counter_CC(Counter_CC),
-    .Prescale_EnA(Prescale_EnA),
-    .Prescale_EnB(Prescale_EnB),
-    .Prescale_EnC(Prescale_EnC),
-    .clkA(CLKA),
-    .clkB(CLKB),
-    .clkC(CLKC),
-    .resetA(ResetA),
-    .resetB(ResetB),
-    .resetC(ResetC),
-    .rxA(RxA),
-    .rxB(RxB),
-    .rxC(RxC)
+    .puffer(Puffer),
+    .Counter_C(Counter_C),
+    .Prescale_En(Prescale_En),
+    .clk(CLK),
+    .reset(Reset),
+    .rx(Rx)
     );
 
 Control_FSMTMR control_fsm0 (
-    .EnableA(EnableA),
-    .EnableB(EnableB),
-    .EnableC(EnableC),
-    .ctrlA(ctrlA),
-    .ctrlB(ctrlB),
-    .ctrlC(ctrlC),
-    .CLKA(CLKA),
-    .CLKB(CLKB),
-    .CLKC(CLKC),
-    .activeA(activeA),
-    .activeB(activeB),
-    .activeC(activeC),
-    .E1A(E1A),
-    .E1B(E1B),
-    .E1C(E1C),
-    .PufferA(PufferA),
-    .PufferB(PufferB),
-    .PufferC(PufferC),
-    .ResetA(ResetA),
-    .ResetB(ResetB),
-    .ResetC(ResetC),
-    .RxA(RxA),
-    .RxB(RxB),
-    .RxC(RxC)
+    .Enable(Enable),
+    .ctrl(ctrl),
+    .CLK(CLK),
+    .active(active),
+    .E1(E1),
+    .Puffer(Puffer),
+    .Reset(Reset),
+    .Rx(Rx)
     );
 
 Phasenfehler_RegTMR phasenfehler_reg0 (
-    .e_kA(EkA),
-    .e_kB(EkB),
-    .e_kC(EkC),
-    .E1A(E1A),
-    .E1B(E1B),
-    .E1C(E1C),
-    .E2A(Counter_CA),
-    .E2B(Counter_CB),
-    .E2C(Counter_CC),
-    .EnableA(EnableA),
-    .EnableB(EnableB),
-    .EnableC(EnableC),
-    .ResetA(ResetA),
-    .ResetB(ResetB),
-    .ResetC(ResetC),
-    .clkA(CLKA),
-    .clkB(CLKB),
-    .clkC(CLKC),
-    .ctrlA(ctrlA),
-    .ctrlB(ctrlB),
-    .ctrlC(ctrlC)
+    .e_k(Ek),
+    .E1(E1),
+    .E2(Counter_C),
+    .Enable(Enable),
+    .Reset(Reset),
+    .clk(CLK),
+    .ctrl(ctrl)
     );
 
 ready_counterTMR rdy_cnt0 (
-    .clkA(CLKA),
-    .clkB(CLKB),
-    .clkC(CLKC),
-    .rstnA(ResetA),
-    .rstnB(ResetB),
-    .rstnC(ResetC),
-    .enableA(EnableA),
-    .enableB(EnableB),
-    .enableC(EnableC),
-    .en_osc_trimA(activeA),
-    .en_osc_trimB(activeB),
-    .en_osc_trimC(activeC),
-    .readyA(readyA),
-    .readyB(readyB),
-    .readyC(readyC)
+    .clk(CLK),
+    .rstn(Reset),
+    .enable(Enable),
+    .en_osc_trim(active),
+    .ready(ready)
     );
 endmodule
 

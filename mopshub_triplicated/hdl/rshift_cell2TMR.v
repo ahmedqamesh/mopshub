@@ -6,49 +6,48 @@
  *                                                                                                  *
  * user    : lucas                                                                                  *
  * host    : DESKTOP-BFDSFP2                                                                        *
- * date    : 16/08/2022 12:58:37                                                                    *
+ * date    : 06/10/2022 13:53:02                                                                    *
  *                                                                                                  *
- * workdir : /mnt/c/Users/Lucas/Desktop/mopshub_triplication/mopshub_top_board_canakari_ftrim/hdl   *
- * cmd     : /mnt/c/Users/Lucas/Desktop/mopshub_triplication/tmrg-master/bin/tmrg -c tmrg.cfg -vvv  *
+ * workdir : /mnt/c/Users/Lucas/Documents/GitHub/mopshub_triplicated/triplicated/mopshub_top_board/hdl *
+ * cmd     : /mnt/c/Users/Lucas/Desktop/mopshub_triplication/tmrg-master/bin/tmrg -vv -c tmrg.cfg   *
  * tmrg rev:                                                                                        *
  *                                                                                                  *
  * src file: rshift_cell2.v                                                                         *
- *           Git SHA           : File not in git repository!                                        *
- *           Modification time : 2022-03-29 13:49:21                                                *
- *           File Size         : 1696                                                               *
- *           MD5 hash          : fd70e580eb4c6989d81e160c09d5edd7                                   *
+ *           Git SHA           : c110441b08b692cc54ebd4a3b84a2599430e8f93                           *
+ *           Modification time : 2022-08-25 10:40:39                                                *
+ *           File Size         : 1662                                                               *
+ *           MD5 hash          : 8e1b7dd8938d718520d83b8a95618c9e                                   *
  *                                                                                                  *
  ****************************************************************************************************/
 
 module rshift_cell2TMR(
-  input wire  enableA ,
-  input wire  enableB ,
-  input wire  enableC ,
-  input wire  clockA ,
-  input wire  clockB ,
-  input wire  clockC ,
-  input wire  resetA ,
-  input wire  resetB ,
-  input wire  resetC ,
-  input wire  InputA ,
-  input wire  InputB ,
-  input wire  InputC ,
-  output wire  qA ,
-  output wire  qB ,
-  output wire  qC 
+  input wire  enable ,
+  input wire  clock ,
+  input wire  reset ,
+  input wire  Input ,
+  output wire  q 
 );
-wor q_iTmrErrorC;
-wire q_iVotedC;
-wor q_iTmrErrorB;
-wire q_iVotedB;
-wor q_iTmrErrorA;
-wire q_iVotedA;
+wire resetC;
+wire resetB;
+wire resetA;
+wire qC;
+wire qB;
+wire qA;
+wire enableC;
+wire enableB;
+wire enableA;
+wire clockC;
+wire clockB;
+wire clockA;
+wire InputC;
+wire InputB;
+wire InputA;
+wor q_iTmrError;
+wire q_i;
 reg  q_iA ;
 reg  q_iB ;
 reg  q_iC ;
-assign qA =  q_iVotedA;
-assign qB =  q_iVotedB;
-assign qC =  q_iVotedC;
+assign q =  q_i;
 
 always @( posedge clockA )
   begin
@@ -60,7 +59,7 @@ always @( posedge clockA )
           q_iA <= InputA;
         end
       else
-        q_iA <= q_iVotedA;
+        q_iA <= qA;
   end
 
 always @( posedge clockB )
@@ -73,7 +72,7 @@ always @( posedge clockB )
           q_iB <= InputB;
         end
       else
-        q_iB <= q_iVotedB;
+        q_iB <= qB;
   end
 
 always @( posedge clockC )
@@ -86,31 +85,50 @@ always @( posedge clockC )
           q_iC <= InputC;
         end
       else
-        q_iC <= q_iVotedC;
+        q_iC <= qC;
   end
 
-majorityVoter q_iVoterA (
+majorityVoter q_iVoter (
     .inA(q_iA),
     .inB(q_iB),
     .inC(q_iC),
-    .out(q_iVotedA),
-    .tmrErr(q_iTmrErrorA)
+    .out(q_i),
+    .tmrErr(q_iTmrError)
     );
 
-majorityVoter q_iVoterB (
-    .inA(q_iA),
-    .inB(q_iB),
-    .inC(q_iC),
-    .out(q_iVotedB),
-    .tmrErr(q_iTmrErrorB)
+fanout InputFanout (
+    .in(Input),
+    .outA(InputA),
+    .outB(InputB),
+    .outC(InputC)
     );
 
-majorityVoter q_iVoterC (
-    .inA(q_iA),
-    .inB(q_iB),
-    .inC(q_iC),
-    .out(q_iVotedC),
-    .tmrErr(q_iTmrErrorC)
+fanout clockFanout (
+    .in(clock),
+    .outA(clockA),
+    .outB(clockB),
+    .outC(clockC)
+    );
+
+fanout enableFanout (
+    .in(enable),
+    .outA(enableA),
+    .outB(enableB),
+    .outC(enableC)
+    );
+
+fanout qFanout (
+    .in(q),
+    .outA(qA),
+    .outB(qB),
+    .outC(qC)
+    );
+
+fanout resetFanout (
+    .in(reset),
+    .outA(resetA),
+    .outB(resetB),
+    .outC(resetC)
     );
 endmodule
 

@@ -6,48 +6,50 @@
  *                                                                                                  *
  * user    : lucas                                                                                  *
  * host    : DESKTOP-BFDSFP2                                                                        *
- * date    : 16/08/2022 12:58:07                                                                    *
+ * date    : 06/10/2022 13:52:32                                                                    *
  *                                                                                                  *
- * workdir : /mnt/c/Users/Lucas/Desktop/mopshub_triplication/mopshub_top_board_canakari_ftrim/hdl   *
- * cmd     : /mnt/c/Users/Lucas/Desktop/mopshub_triplication/tmrg-master/bin/tmrg -c tmrg.cfg -vvv  *
+ * workdir : /mnt/c/Users/Lucas/Documents/GitHub/mopshub_triplicated/triplicated/mopshub_top_board/hdl *
+ * cmd     : /mnt/c/Users/Lucas/Desktop/mopshub_triplication/tmrg-master/bin/tmrg -vv -c tmrg.cfg   *
  * tmrg rev:                                                                                        *
  *                                                                                                  *
  * src file: Diff.v                                                                                 *
- *           Git SHA           : File not in git repository!                                        *
- *           Modification time : 2022-03-29 13:49:21                                                *
- *           File Size         : 692                                                                *
- *           MD5 hash          : 022a47ce2370f7eb7de7576e4a0bc5f7                                   *
+ *           Git SHA           : c110441b08b692cc54ebd4a3b84a2599430e8f93                           *
+ *           Modification time : 2022-08-23 20:29:21                                                *
+ *           File Size         : 706                                                                *
+ *           MD5 hash          : afab5fa7b780ee03fe5b65a62ad03c96                                   *
  *                                                                                                  *
  ****************************************************************************************************/
 
 module DiffTMR #(
   parameter  Width  = 8
 )(
-  input wire  CLKA ,
-  input wire  CLKB ,
-  input wire  CLKC ,
-  input wire  ResetA ,
-  input wire  ResetB ,
-  input wire  ResetC ,
-  input wire  EnableA ,
-  input wire  EnableB ,
-  input wire  EnableC ,
-  input wire signed [Width-1:0] a_iA ,
-  input wire signed [Width-1:0] a_iB ,
-  input wire signed [Width-1:0] a_iC ,
-  output wire signed [Width-1:0] diff_oA ,
-  output wire signed [Width-1:0] diff_oB ,
-  output wire signed [Width-1:0] diff_oC 
+  input wire  CLK ,
+  input wire  Reset ,
+  input wire  Enable ,
+  input wire signed [Width-1:0] a_i ,
+  output wire signed [Width-1:0] diff_o 
 );
-wor a_delayedTmrErrorC;
-wire signed  [Width-1:0] a_delayedVotedC;
-wor a_delayedTmrErrorB;
-wire signed  [Width-1:0] a_delayedVotedB;
-wor a_delayedTmrErrorA;
-wire signed  [Width-1:0] a_delayedVotedA;
+wire signed  [Width-1:0] a_iC;
+wire signed  [Width-1:0] a_iB;
+wire signed  [Width-1:0] a_iA;
+wire signed  [Width-1:0] a_delayedVC;
+wire signed  [Width-1:0] a_delayedVB;
+wire signed  [Width-1:0] a_delayedVA;
+wire ResetC;
+wire ResetB;
+wire ResetA;
+wire EnableC;
+wire EnableB;
+wire EnableA;
+wire CLKC;
+wire CLKB;
+wire CLKA;
+wor a_delayedTmrError;
+wire signed  [Width-1:0] a_delayed;
 reg signed  [Width-1:0] a_delayedA ;
 reg signed  [Width-1:0] a_delayedB ;
 reg signed  [Width-1:0] a_delayedC ;
+wire signed [Width-1:0] a_delayedV =  a_delayed;
 
 always @( posedge CLKA or negedge ResetA )
   begin
@@ -62,7 +64,7 @@ always @( posedge CLKA or negedge ResetA )
         end
       else
         begin
-          a_delayedA <= a_delayedVotedA;
+          a_delayedA <= a_delayedVA;
         end
   end
 
@@ -79,7 +81,7 @@ always @( posedge CLKB or negedge ResetB )
         end
       else
         begin
-          a_delayedB <= a_delayedVotedB;
+          a_delayedB <= a_delayedVB;
         end
   end
 
@@ -96,35 +98,52 @@ always @( posedge CLKC or negedge ResetC )
         end
       else
         begin
-          a_delayedC <= a_delayedVotedC;
+          a_delayedC <= a_delayedVC;
         end
   end
-assign diff_oA =  a_iA-a_delayedVotedA;
-assign diff_oB =  a_iB-a_delayedVotedB;
-assign diff_oC =  a_iC-a_delayedVotedC;
+assign diff_o =  a_i-a_delayedV;
 
-majorityVoter #(.WIDTH(((Width-1)>(0)) ? ((Width-1)-(0)+1) : ((0)-(Width-1)+1))) a_delayedVoterA (
+majorityVoter #(.WIDTH(((Width-1)>(0)) ? ((Width-1)-(0)+1) : ((0)-(Width-1)+1))) a_delayedVoter (
     .inA(a_delayedA),
     .inB(a_delayedB),
     .inC(a_delayedC),
-    .out(a_delayedVotedA),
-    .tmrErr(a_delayedTmrErrorA)
+    .out(a_delayed),
+    .tmrErr(a_delayedTmrError)
     );
 
-majorityVoter #(.WIDTH(((Width-1)>(0)) ? ((Width-1)-(0)+1) : ((0)-(Width-1)+1))) a_delayedVoterB (
-    .inA(a_delayedA),
-    .inB(a_delayedB),
-    .inC(a_delayedC),
-    .out(a_delayedVotedB),
-    .tmrErr(a_delayedTmrErrorB)
+fanout CLKFanout (
+    .in(CLK),
+    .outA(CLKA),
+    .outB(CLKB),
+    .outC(CLKC)
     );
 
-majorityVoter #(.WIDTH(((Width-1)>(0)) ? ((Width-1)-(0)+1) : ((0)-(Width-1)+1))) a_delayedVoterC (
-    .inA(a_delayedA),
-    .inB(a_delayedB),
-    .inC(a_delayedC),
-    .out(a_delayedVotedC),
-    .tmrErr(a_delayedTmrErrorC)
+fanout EnableFanout (
+    .in(Enable),
+    .outA(EnableA),
+    .outB(EnableB),
+    .outC(EnableC)
+    );
+
+fanout ResetFanout (
+    .in(Reset),
+    .outA(ResetA),
+    .outB(ResetB),
+    .outC(ResetC)
+    );
+
+fanout #(.WIDTH(((Width-1)>(0)) ? ((Width-1)-(0)+1) : ((0)-(Width-1)+1))) a_delayedVFanout (
+    .in(a_delayedV),
+    .outA(a_delayedVA),
+    .outB(a_delayedVB),
+    .outC(a_delayedVC)
+    );
+
+fanout #(.WIDTH(((Width-1)>(0)) ? ((Width-1)-(0)+1) : ((0)-(Width-1)+1))) a_iFanout (
+    .in(a_i),
+    .outA(a_iA),
+    .outB(a_iB),
+    .outC(a_iC)
     );
 endmodule
 

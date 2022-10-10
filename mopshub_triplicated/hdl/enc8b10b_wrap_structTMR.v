@@ -6,17 +6,17 @@
  *                                                                                                  *
  * user    : lucas                                                                                  *
  * host    : DESKTOP-BFDSFP2                                                                        *
- * date    : 16/08/2022 12:58:18                                                                    *
+ * date    : 06/10/2022 13:52:47                                                                    *
  *                                                                                                  *
- * workdir : /mnt/c/Users/Lucas/Desktop/mopshub_triplication/mopshub_top_board_canakari_ftrim/hdl   *
- * cmd     : /mnt/c/Users/Lucas/Desktop/mopshub_triplication/tmrg-master/bin/tmrg -c tmrg.cfg -vvv  *
+ * workdir : /mnt/c/Users/Lucas/Documents/GitHub/mopshub_triplicated/triplicated/mopshub_top_board/hdl *
+ * cmd     : /mnt/c/Users/Lucas/Desktop/mopshub_triplication/tmrg-master/bin/tmrg -vv -c tmrg.cfg   *
  * tmrg rev:                                                                                        *
  *                                                                                                  *
  * src file: enc8b10b_wrap_struct.v                                                                 *
- *           Git SHA           : File not in git repository!                                        *
- *           Modification time : 2022-08-16 10:14:55.864216                                         *
- *           File Size         : 2551                                                               *
- *           MD5 hash          : 0f51a6757ae2f784394fb8fa0a5e0f2d                                   *
+ *           Git SHA           : c110441b08b692cc54ebd4a3b84a2599430e8f93                           *
+ *           Modification time : 2022-10-06 13:25:17                                                *
+ *           File Size         : 2686                                                               *
+ *           MD5 hash          : 38ab8ff489e5635fef82491097eefc03                                   *
  *                                                                                                  *
  ****************************************************************************************************/
 
@@ -33,52 +33,23 @@ module enc8b10b_wrapTMR(
   input wire [9:0] COMMAp ,
   input wire [9:0] COMMAn 
 );
-wire rstC;
-wire rstB;
-wire rstA;
-wire [9:0] data_outC;
-wire [9:0] data_outB;
-wire [9:0] data_outA;
-wire [7:0] data_inC;
-wire [7:0] data_inB;
-wire [7:0] data_inA;
-wire clkC;
-wire clkB;
-wire clkA;
-wire [7:0] Kchar_commaC;
-wire [7:0] Kchar_commaB;
-wire [7:0] Kchar_commaA;
-wire KIC;
-wire KIB;
-wire KIA;
-wire [9:0] COMMApC;
-wire [9:0] COMMApB;
-wire [9:0] COMMApA;
-wire [9:0] COMMAnC;
-wire [9:0] COMMAnB;
-wire [9:0] COMMAnA;
-wor enc_10b_data_out_rTmrError;
-wire [9:0] enc_10b_data_out_r;
-reg  [9:0] enc_10b_data_out_rA ;
-reg  [9:0] enc_10b_data_out_rB ;
-reg  [9:0] enc_10b_data_out_rC ;
+reg  [9:0] enc_10b_data_out_r ;
 wire [7:0] byte;
-wire KI;
+reg  KI_reg ;
 wire [9:0] data_out;
-reg  bit_cntA ;
-reg  bit_cntB ;
-reg  bit_cntC ;
+reg  bit_cnt ;
 
 enc_8b10b_mopshubTMR enc_8b10b_mopshub0 (
     .rst(rst),
     .clk(clk),
     .ena(data_in_rdy),
-    .ki(KI),
+    .ki(KI_reg),
     .datain(byte),
     .dataout(data_out)
     );
 
 mux4_NbitTMR mux4_Nbit0 (
+    .rst(rst),
     .data0(data_in),
     .data1(Kchar_eop),
     .data2(Kchar_sop),
@@ -87,149 +58,40 @@ mux4_NbitTMR mux4_Nbit0 (
     .data_out(byte),
     .def_value(Kchar_comma)
     );
-assign KI =  data_code[1] |data_code[0] ;
+initial
+  KI_reg =  1'b1;
+
+always @( posedge clk )
+  if (!rst)
+    KI_reg <= 1'b1;
+  else
+    KI_reg <= data_code[1] |data_code[0] ;
 initial
   begin
-    bit_cntA =  1'b0;
-  end
-initial
-  begin
-    bit_cntB =  1'b0;
-  end
-initial
-  begin
-    bit_cntC =  1'b0;
+    bit_cnt =  1'b0;
   end
 
-always @( posedge clkA )
-  if (!rstA)
-    bit_cntA <= 1'b0;
+always @( posedge clk )
+  if (!rst)
+    bit_cnt <= 1'b0;
   else
-    bit_cntA <= !bit_cntA;
-
-always @( posedge clkB )
-  if (!rstB)
-    bit_cntB <= 1'b0;
-  else
-    bit_cntB <= !bit_cntB;
-
-always @( posedge clkC )
-  if (!rstC)
-    bit_cntC <= 1'b0;
-  else
-    bit_cntC <= !bit_cntC;
+    bit_cnt <= !bit_cnt;
 assign enc_10b_data_out =  enc_10b_data_out_r;
 
-always @( posedge clkA )
-  if (!rstA)
-    enc_10b_data_out_rA <= COMMApA;
+always @( posedge clk )
+  if (!rst)
+    enc_10b_data_out_r <= COMMAp;
   else
     begin
-      if (data_inA==Kchar_commaA&&KIA==1)
+      if (data_in==Kchar_comma&&KI_reg==1)
         begin
-          if (bit_cntA==1)
-            enc_10b_data_out_rA <= COMMApA;
+          if (bit_cnt==1)
+            enc_10b_data_out_r <= COMMAp;
           else
-            enc_10b_data_out_rA <= COMMAnA;
+            enc_10b_data_out_r <= COMMAn;
         end
       else
-        enc_10b_data_out_rA <= data_outA;
+        enc_10b_data_out_r <= data_out;
     end
-
-always @( posedge clkB )
-  if (!rstB)
-    enc_10b_data_out_rB <= COMMApB;
-  else
-    begin
-      if (data_inB==Kchar_commaB&&KIB==1)
-        begin
-          if (bit_cntB==1)
-            enc_10b_data_out_rB <= COMMApB;
-          else
-            enc_10b_data_out_rB <= COMMAnB;
-        end
-      else
-        enc_10b_data_out_rB <= data_outB;
-    end
-
-always @( posedge clkC )
-  if (!rstC)
-    enc_10b_data_out_rC <= COMMApC;
-  else
-    begin
-      if (data_inC==Kchar_commaC&&KIC==1)
-        begin
-          if (bit_cntC==1)
-            enc_10b_data_out_rC <= COMMApC;
-          else
-            enc_10b_data_out_rC <= COMMAnC;
-        end
-      else
-        enc_10b_data_out_rC <= data_outC;
-    end
-
-majorityVoter #(.WIDTH(10)) enc_10b_data_out_rVoter (
-    .inA(enc_10b_data_out_rA),
-    .inB(enc_10b_data_out_rB),
-    .inC(enc_10b_data_out_rC),
-    .out(enc_10b_data_out_r),
-    .tmrErr(enc_10b_data_out_rTmrError)
-    );
-
-fanout #(.WIDTH(10)) COMMAnFanout (
-    .in(COMMAn),
-    .outA(COMMAnA),
-    .outB(COMMAnB),
-    .outC(COMMAnC)
-    );
-
-fanout #(.WIDTH(10)) COMMApFanout (
-    .in(COMMAp),
-    .outA(COMMApA),
-    .outB(COMMApB),
-    .outC(COMMApC)
-    );
-
-fanout KIFanout (
-    .in(KI),
-    .outA(KIA),
-    .outB(KIB),
-    .outC(KIC)
-    );
-
-fanout #(.WIDTH(8)) Kchar_commaFanout (
-    .in(Kchar_comma),
-    .outA(Kchar_commaA),
-    .outB(Kchar_commaB),
-    .outC(Kchar_commaC)
-    );
-
-fanout clkFanout (
-    .in(clk),
-    .outA(clkA),
-    .outB(clkB),
-    .outC(clkC)
-    );
-
-fanout #(.WIDTH(8)) data_inFanout (
-    .in(data_in),
-    .outA(data_inA),
-    .outB(data_inB),
-    .outC(data_inC)
-    );
-
-fanout #(.WIDTH(10)) data_outFanout (
-    .in(data_out),
-    .outA(data_outA),
-    .outB(data_outB),
-    .outC(data_outC)
-    );
-
-fanout rstFanout (
-    .in(rst),
-    .outA(rstA),
-    .outB(rstB),
-    .outC(rstC)
-    );
 endmodule
 

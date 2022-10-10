@@ -6,46 +6,41 @@
  *                                                                                                  *
  * user    : lucas                                                                                  *
  * host    : DESKTOP-BFDSFP2                                                                        *
- * date    : 16/08/2022 12:58:07                                                                    *
+ * date    : 06/10/2022 13:52:33                                                                    *
  *                                                                                                  *
- * workdir : /mnt/c/Users/Lucas/Desktop/mopshub_triplication/mopshub_top_board_canakari_ftrim/hdl   *
- * cmd     : /mnt/c/Users/Lucas/Desktop/mopshub_triplication/tmrg-master/bin/tmrg -c tmrg.cfg -vvv  *
+ * workdir : /mnt/c/Users/Lucas/Documents/GitHub/mopshub_triplicated/triplicated/mopshub_top_board/hdl *
+ * cmd     : /mnt/c/Users/Lucas/Desktop/mopshub_triplication/tmrg-master/bin/tmrg -vv -c tmrg.cfg   *
  * tmrg rev:                                                                                        *
  *                                                                                                  *
  * src file: Ftrim_En.v                                                                             *
- *           Git SHA           : File not in git repository!                                        *
- *           Modification time : 2022-03-29 13:49:21                                                *
- *           File Size         : 457                                                                *
- *           MD5 hash          : 50011ecb010aaaffce1d37b9082c9d42                                   *
+ *           Git SHA           : c110441b08b692cc54ebd4a3b84a2599430e8f93                           *
+ *           Modification time : 2022-08-25 09:17:19                                                *
+ *           File Size         : 449                                                                *
+ *           MD5 hash          : e49a870b422e5d7ffc487088e06252bf                                   *
  *                                                                                                  *
  ****************************************************************************************************/
 
 module Ftrim_EnTMR(
-  input wire  CLKA ,
-  input wire  CLKB ,
-  input wire  CLKC ,
-  input wire  resetA ,
-  input wire  resetB ,
-  input wire  resetC ,
-  input wire  EnableA ,
-  input wire  EnableB ,
-  input wire  EnableC ,
-  output wire  PID_EnA ,
-  output wire  PID_EnB ,
-  output wire  PID_EnC 
+  input wire  CLK ,
+  input wire  reset ,
+  input wire  Enable ,
+  output wire  PID_En 
 );
-wor PID_En_iTmrErrorC;
-wire PID_En_iVotedC;
-wor PID_En_iTmrErrorB;
-wire PID_En_iVotedB;
-wor PID_En_iTmrErrorA;
-wire PID_En_iVotedA;
+wire resetC;
+wire resetB;
+wire resetA;
+wire EnableC;
+wire EnableB;
+wire EnableA;
+wire CLKC;
+wire CLKB;
+wire CLKA;
+wor PID_En_iTmrError;
+wire PID_En_i;
 reg  PID_En_iA ;
 reg  PID_En_iB ;
 reg  PID_En_iC ;
-assign PID_EnA =  PID_En_iVotedA;
-assign PID_EnB =  PID_En_iVotedB;
-assign PID_EnC =  PID_En_iVotedC;
+assign PID_En =  PID_En_i;
 
 always @( posedge CLKA or negedge resetA )
   begin
@@ -71,28 +66,33 @@ always @( posedge CLKC or negedge resetC )
       PID_En_iC <= EnableC;
   end
 
-majorityVoter PID_En_iVoterA (
+majorityVoter PID_En_iVoter (
     .inA(PID_En_iA),
     .inB(PID_En_iB),
     .inC(PID_En_iC),
-    .out(PID_En_iVotedA),
-    .tmrErr(PID_En_iTmrErrorA)
+    .out(PID_En_i),
+    .tmrErr(PID_En_iTmrError)
     );
 
-majorityVoter PID_En_iVoterB (
-    .inA(PID_En_iA),
-    .inB(PID_En_iB),
-    .inC(PID_En_iC),
-    .out(PID_En_iVotedB),
-    .tmrErr(PID_En_iTmrErrorB)
+fanout CLKFanout (
+    .in(CLK),
+    .outA(CLKA),
+    .outB(CLKB),
+    .outC(CLKC)
     );
 
-majorityVoter PID_En_iVoterC (
-    .inA(PID_En_iA),
-    .inB(PID_En_iB),
-    .inC(PID_En_iC),
-    .out(PID_En_iVotedC),
-    .tmrErr(PID_En_iTmrErrorC)
+fanout EnableFanout (
+    .in(Enable),
+    .outA(EnableA),
+    .outB(EnableB),
+    .outC(EnableC)
+    );
+
+fanout resetFanout (
+    .in(reset),
+    .outA(resetA),
+    .outB(resetB),
+    .outC(resetC)
     );
 endmodule
 

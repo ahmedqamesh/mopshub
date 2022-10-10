@@ -6,213 +6,85 @@
  *                                                                                                  *
  * user    : lucas                                                                                  *
  * host    : DESKTOP-BFDSFP2                                                                        *
- * date    : 16/08/2022 12:58:31                                                                    *
+ * date    : 06/10/2022 13:52:53                                                                    *
  *                                                                                                  *
- * workdir : /mnt/c/Users/Lucas/Desktop/mopshub_triplication/mopshub_top_board_canakari_ftrim/hdl   *
- * cmd     : /mnt/c/Users/Lucas/Desktop/mopshub_triplication/tmrg-master/bin/tmrg -c tmrg.cfg -vvv  *
+ * workdir : /mnt/c/Users/Lucas/Documents/GitHub/mopshub_triplicated/triplicated/mopshub_top_board/hdl *
+ * cmd     : /mnt/c/Users/Lucas/Desktop/mopshub_triplication/tmrg-master/bin/tmrg -vv -c tmrg.cfg   *
  * tmrg rev:                                                                                        *
  *                                                                                                  *
  * src file: meslencompare2.v                                                                       *
- *           Git SHA           : File not in git repository!                                        *
- *           Modification time : 2022-03-29 13:49:21                                                *
- *           File Size         : 4504                                                               *
- *           MD5 hash          : 7a447bd64ce47d03b4b706372b6ef674                                   *
+ *           Git SHA           : c110441b08b692cc54ebd4a3b84a2599430e8f93                           *
+ *           Modification time : 2022-08-30 12:13:22                                                *
+ *           File Size         : 4505                                                               *
+ *           MD5 hash          : 5389743e34bf85e4f983ce7a4823b8e5                                   *
  *                                                                                                  *
  ****************************************************************************************************/
 
 module meslencompare2TMR(
-  input wire [6:0] countA ,
-  input wire [6:0] countB ,
-  input wire [6:0] countC ,
-  input wire [3:0] rmlenA ,
-  input wire [3:0] rmlenB ,
-  input wire [3:0] rmlenC ,
-  input wire [3:0] tmlenA ,
-  input wire [3:0] tmlenB ,
-  input wire [3:0] tmlenC ,
-  input wire  ext_rA ,
-  input wire  ext_rB ,
-  input wire  ext_rC ,
-  input wire  ext_tA ,
-  input wire  ext_tB ,
-  input wire  ext_tC ,
-  input wire  en_zerointcrcA ,
-  input wire  en_zerointcrcB ,
-  input wire  en_zerointcrcC ,
-  output reg  startrcrcA ,
-  output reg  startrcrcB ,
-  output reg  startrcrcC ,
-  output reg  rmzeroA ,
-  output reg  rmzeroB ,
-  output reg  rmzeroC ,
-  output reg  starttcrcA ,
-  output reg  starttcrcB ,
-  output reg  starttcrcC ,
-  output wire  zerointcrcA ,
-  output wire  zerointcrcB ,
-  output wire  zerointcrcC 
+  input wire [6:0] count ,
+  input wire [3:0] rmlen ,
+  input wire [3:0] tmlen ,
+  input wire  ext_r ,
+  input wire  ext_t ,
+  input wire  en_zerointcrc ,
+  output reg  startrcrc ,
+  output reg  rmzero ,
+  output reg  starttcrc ,
+  output wire  zerointcrc 
 );
-wire [6:0] count_sA;
-wire [6:0] count_sB;
-wire [6:0] count_sC;
-wire [3:0] count_top_usA;
-wire [3:0] count_top_usB;
-wire [3:0] count_top_usC;
-wire [2:0] count_bot_usA;
-wire [2:0] count_bot_usB;
-wire [2:0] count_bot_usC;
-wire [3:0] tmlb19_usA;
-wire [3:0] tmlb19_usB;
-wire [3:0] tmlb19_usC;
-wire [3:0] tmlb39_usA;
-wire [3:0] tmlb39_usB;
-wire [3:0] tmlb39_usC;
-wire [3:0] rmlb19_usA;
-wire [3:0] rmlb19_usB;
-wire [3:0] rmlb19_usC;
-wire [3:0] rmlb39_usA;
-wire [3:0] rmlb39_usB;
-wire [3:0] rmlb39_usC;
-wire [6:0] tmlen_bit_us4A;
-wire [6:0] tmlen_bit_us4B;
-wire [6:0] tmlen_bit_us4C;
-wire [6:0] tmlen_bit_us24A;
-wire [6:0] tmlen_bit_us24B;
-wire [6:0] tmlen_bit_us24C;
-reg  zerointcrc_iA ;
-reg  zerointcrc_iB ;
-reg  zerointcrc_iC ;
-assign count_sA =  countA;
-assign count_sB =  countB;
-assign count_sC =  countC;
-assign count_top_usA =  count_sA[6:3] ;
-assign count_top_usB =  count_sB[6:3] ;
-assign count_top_usC =  count_sC[6:3] ;
-assign count_bot_usA =  count_sA[2:0] ;
-assign count_bot_usB =  count_sB[2:0] ;
-assign count_bot_usC =  count_sC[2:0] ;
-assign tmlb19_usA =  tmlenA+4'd2;
-assign tmlb19_usB =  tmlenB+4'd2;
-assign tmlb19_usC =  tmlenC+4'd2;
-assign tmlb39_usA =  tmlenA+4'd4;
-assign tmlb39_usB =  tmlenB+4'd4;
-assign tmlb39_usC =  tmlenC+4'd4;
-assign rmlb19_usA =  rmlenA+4'd2;
-assign rmlb19_usB =  rmlenB+4'd2;
-assign rmlb19_usC =  rmlenC+4'd2;
-assign rmlb39_usA =  rmlenA+4'd4;
-assign rmlb39_usB =  rmlenB+4'd4;
-assign rmlb39_usC =  rmlenC+4'd4;
-assign tmlen_bit_us4A[6:3]  =  tmlenA;
-assign tmlen_bit_us4B[6:3]  =  tmlenB;
-assign tmlen_bit_us4C[6:3]  =  tmlenC;
-assign tmlen_bit_us4A[2:0]  =  3'b011;
-assign tmlen_bit_us4B[2:0]  =  3'b011;
-assign tmlen_bit_us4C[2:0]  =  3'b011;
-assign tmlen_bit_us24A[6:3]  =  tmlenA+4'd2;
-assign tmlen_bit_us24B[6:3]  =  tmlenB+4'd2;
-assign tmlen_bit_us24C[6:3]  =  tmlenC+4'd2;
-assign tmlen_bit_us24A[2:0]  =  3'b111;
-assign tmlen_bit_us24B[2:0]  =  3'b111;
-assign tmlen_bit_us24C[2:0]  =  3'b111;
-assign zerointcrcA =  (zerointcrc_iA|(~ en_zerointcrcA ));
-assign zerointcrcB =  (zerointcrc_iB|(~ en_zerointcrcB ));
-assign zerointcrcC =  (zerointcrc_iC|(~ en_zerointcrcC ));
+wire [6:0] count_s;
+wire [3:0] count_top_us;
+wire [2:0] count_bot_us;
+wire [3:0] tmlb19_us;
+wire [3:0] tmlb39_us;
+wire [3:0] rmlb19_us;
+wire [3:0] rmlb39_us;
+wire [6:0] tmlen_bit_us4;
+wire [6:0] tmlen_bit_us24;
+reg  zerointcrc_i ;
+assign count_s =  count;
+assign count_top_us =  count_s[6:3] ;
+assign count_bot_us =  count_s[2:0] ;
+assign tmlb19_us =  tmlen+4'd2;
+assign tmlb39_us =  tmlen+4'd4;
+assign rmlb19_us =  rmlen+4'd2;
+assign rmlb39_us =  rmlen+4'd4;
+assign tmlen_bit_us4[6:3]  =  tmlen;
+assign tmlen_bit_us4[2:0]  =  3'b011;
+assign tmlen_bit_us24[6:3]  =  tmlen+4'd2;
+assign tmlen_bit_us24[2:0]  =  3'b111;
+assign zerointcrc =  (zerointcrc_i|(~ en_zerointcrc ));
 
-always @( count_top_usA or count_bot_usA or tmlb19_usA or tmlb39_usA or ext_tA )
+always @( count_top_us or count_bot_us or tmlb19_us or tmlb39_us or ext_t )
   begin
-    if (((count_top_usA==tmlb19_usA)&&(count_bot_usA==3'd3)&&(ext_tA==1'b0))||((count_top_usA==tmlb39_usA)&&(count_bot_usA==3'd7)&&(ext_tA==1'b1)))
-      starttcrcA =  1'b1;
+    if (((count_top_us==tmlb19_us)&&(count_bot_us==3'd3)&&(ext_t==1'b0))||((count_top_us==tmlb39_us)&&(count_bot_us==3'd7)&&(ext_t==1'b1)))
+      starttcrc =  1'b1;
     else
-      starttcrcA =  1'b0;
+      starttcrc =  1'b0;
   end
 
-always @( count_top_usB or count_bot_usB or tmlb19_usB or tmlb39_usB or ext_tB )
+always @( count_top_us or count_bot_us or rmlb19_us or rmlb39_us or ext_r )
   begin
-    if (((count_top_usB==tmlb19_usB)&&(count_bot_usB==3'd3)&&(ext_tB==1'b0))||((count_top_usB==tmlb39_usB)&&(count_bot_usB==3'd7)&&(ext_tB==1'b1)))
-      starttcrcB =  1'b1;
+    if (((count_top_us==rmlb19_us)&&(count_bot_us==3'd3)&&(ext_r==1'b0))||((count_top_us==rmlb39_us)&&(count_bot_us==3'd7)&&(ext_r==1'b1)))
+      startrcrc =  1'b1;
     else
-      starttcrcB =  1'b0;
+      startrcrc =  1'b0;
   end
 
-always @( count_top_usC or count_bot_usC or tmlb19_usC or tmlb39_usC or ext_tC )
+always @( ext_t or count_s or tmlen_bit_us24 or tmlen_bit_us4 )
   begin
-    if (((count_top_usC==tmlb19_usC)&&(count_bot_usC==3'd3)&&(ext_tC==1'b0))||((count_top_usC==tmlb39_usC)&&(count_bot_usC==3'd7)&&(ext_tC==1'b1)))
-      starttcrcC =  1'b1;
+    if (((count_s>tmlen_bit_us4)&&(ext_t==1'b0))||((count_s>tmlen_bit_us24)&&(ext_t==1'b1)))
+      zerointcrc_i =  1'b0;
     else
-      starttcrcC =  1'b0;
+      zerointcrc_i =  1'b1;
   end
 
-always @( count_top_usA or count_bot_usA or rmlb19_usA or rmlb39_usA or ext_rA )
+always @( rmlen )
   begin
-    if (((count_top_usA==rmlb19_usA)&&(count_bot_usA==3'd3)&&(ext_rA==1'b0))||((count_top_usA==rmlb39_usA)&&(count_bot_usA==3'd7)&&(ext_rA==1'b1)))
-      startrcrcA =  1'b1;
+    if (rmlen==4'b0000)
+      rmzero =  1'b1;
     else
-      startrcrcA =  1'b0;
-  end
-
-always @( count_top_usB or count_bot_usB or rmlb19_usB or rmlb39_usB or ext_rB )
-  begin
-    if (((count_top_usB==rmlb19_usB)&&(count_bot_usB==3'd3)&&(ext_rB==1'b0))||((count_top_usB==rmlb39_usB)&&(count_bot_usB==3'd7)&&(ext_rB==1'b1)))
-      startrcrcB =  1'b1;
-    else
-      startrcrcB =  1'b0;
-  end
-
-always @( count_top_usC or count_bot_usC or rmlb19_usC or rmlb39_usC or ext_rC )
-  begin
-    if (((count_top_usC==rmlb19_usC)&&(count_bot_usC==3'd3)&&(ext_rC==1'b0))||((count_top_usC==rmlb39_usC)&&(count_bot_usC==3'd7)&&(ext_rC==1'b1)))
-      startrcrcC =  1'b1;
-    else
-      startrcrcC =  1'b0;
-  end
-
-always @( ext_tA or count_sA or tmlen_bit_us24A or tmlen_bit_us4A )
-  begin
-    if (((count_sA>tmlen_bit_us4A)&&(ext_tA==1'b0))||((count_sA>tmlen_bit_us24A)&&(ext_tA==1'b1)))
-      zerointcrc_iA =  1'b0;
-    else
-      zerointcrc_iA =  1'b1;
-  end
-
-always @( ext_tB or count_sB or tmlen_bit_us24B or tmlen_bit_us4B )
-  begin
-    if (((count_sB>tmlen_bit_us4B)&&(ext_tB==1'b0))||((count_sB>tmlen_bit_us24B)&&(ext_tB==1'b1)))
-      zerointcrc_iB =  1'b0;
-    else
-      zerointcrc_iB =  1'b1;
-  end
-
-always @( ext_tC or count_sC or tmlen_bit_us24C or tmlen_bit_us4C )
-  begin
-    if (((count_sC>tmlen_bit_us4C)&&(ext_tC==1'b0))||((count_sC>tmlen_bit_us24C)&&(ext_tC==1'b1)))
-      zerointcrc_iC =  1'b0;
-    else
-      zerointcrc_iC =  1'b1;
-  end
-
-always @( rmlenA )
-  begin
-    if (rmlenA==4'b0000)
-      rmzeroA =  1'b1;
-    else
-      rmzeroA =  1'b0;
-  end
-
-always @( rmlenB )
-  begin
-    if (rmlenB==4'b0000)
-      rmzeroB =  1'b1;
-    else
-      rmzeroB =  1'b0;
-  end
-
-always @( rmlenC )
-  begin
-    if (rmlenC==4'b0000)
-      rmzeroC =  1'b1;
-    else
-      rmzeroC =  1'b0;
+      rmzero =  1'b0;
   end
 endmodule
 

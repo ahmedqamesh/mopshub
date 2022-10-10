@@ -6,52 +6,52 @@
  *                                                                                                  *
  * user    : lucas                                                                                  *
  * host    : DESKTOP-BFDSFP2                                                                        *
- * date    : 16/08/2022 12:58:07                                                                    *
+ * date    : 06/10/2022 13:52:36                                                                    *
  *                                                                                                  *
- * workdir : /mnt/c/Users/Lucas/Desktop/mopshub_triplication/mopshub_top_board_canakari_ftrim/hdl   *
- * cmd     : /mnt/c/Users/Lucas/Desktop/mopshub_triplication/tmrg-master/bin/tmrg -c tmrg.cfg -vvv  *
+ * workdir : /mnt/c/Users/Lucas/Documents/GitHub/mopshub_triplicated/triplicated/mopshub_top_board/hdl *
+ * cmd     : /mnt/c/Users/Lucas/Desktop/mopshub_triplication/tmrg-master/bin/tmrg -vv -c tmrg.cfg   *
  * tmrg rev:                                                                                        *
  *                                                                                                  *
  * src file: biterrordetect2.v                                                                      *
- *           Git SHA           : File not in git repository!                                        *
- *           Modification time : 2022-03-29 13:49:21                                                *
- *           File Size         : 1977                                                               *
- *           MD5 hash          : 6ba2f44469d17bdab547332ab01f386a                                   *
+ *           Git SHA           : c110441b08b692cc54ebd4a3b84a2599430e8f93                           *
+ *           Modification time : 2022-08-23 19:48:29                                                *
+ *           File Size         : 1937                                                               *
+ *           MD5 hash          : 59bcdf181ac83f131321272cccb206ce                                   *
  *                                                                                                  *
  ****************************************************************************************************/
 
 module biterrordetect2TMR(
-  input wire  clockA ,
-  input wire  clockB ,
-  input wire  clockC ,
-  input wire  bitinA ,
-  input wire  bitinB ,
-  input wire  bitinC ,
-  input wire  bitoutA ,
-  input wire  bitoutB ,
-  input wire  bitoutC ,
-  input wire  activA ,
-  input wire  activB ,
-  input wire  activC ,
-  input wire  resetA ,
-  input wire  resetB ,
-  input wire  resetC ,
-  output wire  biterrorA ,
-  output wire  biterrorB ,
-  output wire  biterrorC 
+  input wire  clock ,
+  input wire  bitin ,
+  input wire  bitout ,
+  input wire  activ ,
+  input wire  reset ,
+  output wire  biterror 
 );
-wor errorTmrErrorC;
-wire errorVotedC;
-wor errorTmrErrorB;
-wire errorVotedB;
-wor errorTmrErrorA;
-wire errorVotedA;
+wire resetC;
+wire resetB;
+wire resetA;
+wire clockC;
+wire clockB;
+wire clockA;
+wire bitoutC;
+wire bitoutB;
+wire bitoutA;
+wire bitinC;
+wire bitinB;
+wire bitinA;
+wire biterrorC;
+wire biterrorB;
+wire biterrorA;
+wire activC;
+wire activB;
+wire activA;
+wor errorTmrError;
+wire error;
 reg  errorA ;
 reg  errorB ;
 reg  errorC ;
-assign biterrorA =  errorVotedA;
-assign biterrorB =  errorVotedB;
-assign biterrorC =  errorVotedC;
+assign biterror =  error;
 
 always @( posedge clockA )
   begin
@@ -66,7 +66,7 @@ always @( posedge clockA )
             errorA <= 1'b0;
         end
       else
-        errorA <= errorVotedA;
+        errorA <= biterrorA;
   end
 
 always @( posedge clockB )
@@ -82,7 +82,7 @@ always @( posedge clockB )
             errorB <= 1'b0;
         end
       else
-        errorB <= errorVotedB;
+        errorB <= biterrorB;
   end
 
 always @( posedge clockC )
@@ -98,31 +98,57 @@ always @( posedge clockC )
             errorC <= 1'b0;
         end
       else
-        errorC <= errorVotedC;
+        errorC <= biterrorC;
   end
 
-majorityVoter errorVoterA (
+majorityVoter errorVoter (
     .inA(errorA),
     .inB(errorB),
     .inC(errorC),
-    .out(errorVotedA),
-    .tmrErr(errorTmrErrorA)
+    .out(error),
+    .tmrErr(errorTmrError)
     );
 
-majorityVoter errorVoterB (
-    .inA(errorA),
-    .inB(errorB),
-    .inC(errorC),
-    .out(errorVotedB),
-    .tmrErr(errorTmrErrorB)
+fanout activFanout (
+    .in(activ),
+    .outA(activA),
+    .outB(activB),
+    .outC(activC)
     );
 
-majorityVoter errorVoterC (
-    .inA(errorA),
-    .inB(errorB),
-    .inC(errorC),
-    .out(errorVotedC),
-    .tmrErr(errorTmrErrorC)
+fanout biterrorFanout (
+    .in(biterror),
+    .outA(biterrorA),
+    .outB(biterrorB),
+    .outC(biterrorC)
+    );
+
+fanout bitinFanout (
+    .in(bitin),
+    .outA(bitinA),
+    .outB(bitinB),
+    .outC(bitinC)
+    );
+
+fanout bitoutFanout (
+    .in(bitout),
+    .outA(bitoutA),
+    .outB(bitoutB),
+    .outC(bitoutC)
+    );
+
+fanout clockFanout (
+    .in(clock),
+    .outA(clockA),
+    .outB(clockB),
+    .outC(clockC)
+    );
+
+fanout resetFanout (
+    .in(reset),
+    .outA(resetA),
+    .outB(resetB),
+    .outC(resetC)
     );
 endmodule
 

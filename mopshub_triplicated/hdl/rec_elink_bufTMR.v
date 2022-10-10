@@ -6,229 +6,53 @@
  *                                                                                                  *
  * user    : lucas                                                                                  *
  * host    : DESKTOP-BFDSFP2                                                                        *
- * date    : 16/08/2022 12:58:37                                                                    *
+ * date    : 06/10/2022 13:52:59                                                                    *
  *                                                                                                  *
- * workdir : /mnt/c/Users/Lucas/Desktop/mopshub_triplication/mopshub_top_board_canakari_ftrim/hdl   *
- * cmd     : /mnt/c/Users/Lucas/Desktop/mopshub_triplication/tmrg-master/bin/tmrg -c tmrg.cfg -vvv  *
+ * workdir : /mnt/c/Users/Lucas/Documents/GitHub/mopshub_triplicated/triplicated/mopshub_top_board/hdl *
+ * cmd     : /mnt/c/Users/Lucas/Desktop/mopshub_triplication/tmrg-master/bin/tmrg -vv -c tmrg.cfg   *
  * tmrg rev:                                                                                        *
  *                                                                                                  *
  * src file: rec_elink_buf.v                                                                        *
- *           Git SHA           : File not in git repository!                                        *
- *           Modification time : 2022-08-12 09:45:12                                                *
- *           File Size         : 3007                                                               *
- *           MD5 hash          : 38b2d657a5e2e2fc444deaae4eb578a2                                   *
+ *           Git SHA           : c110441b08b692cc54ebd4a3b84a2599430e8f93 ( M rec_elink_buf.v)      *
+ *           Modification time : 2022-10-06 13:08:45                                                *
+ *           File Size         : 1921                                                               *
+ *           MD5 hash          : 0f06be2a5a8a89e26e00b0bed1f70f1b                                   *
  *                                                                                                  *
  ****************************************************************************************************/
 
 module buffer_rec_elinkTMR(
+  input wire  rst ,
   input wire [75:0] data_rec_in ,
   input wire [4:0] addr ,
-  output wire [7:0] data_rec_8bitout ,
-  output wire [1:0] data_rec_delimiter ,
+  output wire [9:0] data_rec_10bitout ,
   input wire [7:0] Kchar_sop ,
   input wire [7:0] Kchar_eop ,
   input wire [7:0] Kchar_comma 
 );
-wire [75:0] data_rec_inC;
-wire [75:0] data_rec_inB;
-wire [75:0] data_rec_inA;
-wire [4:0] addrC;
-wire [4:0] addrB;
-wire [4:0] addrA;
-wire [7:0] Kchar_sopC;
-wire [7:0] Kchar_sopB;
-wire [7:0] Kchar_sopA;
-wire [7:0] Kchar_eopC;
-wire [7:0] Kchar_eopB;
-wire [7:0] Kchar_eopA;
-wire [7:0] Kchar_commaC;
-wire [7:0] Kchar_commaB;
-wire [7:0] Kchar_commaA;
-wor data_rec_regTmrError;
-wire [7:0] data_rec_reg;
-wor data_delimiter_regTmrError;
-wire [1:0] data_delimiter_reg;
-reg  [7:0] data_rec_regA ;
-reg  [7:0] data_rec_regB ;
-reg  [7:0] data_rec_regC ;
-reg  [1:0] data_delimiter_regA ;
-reg  [1:0] data_delimiter_regB ;
-reg  [1:0] data_delimiter_regC ;
+reg  [9:0] data_rec_reg ;
 initial
-  begin
-    data_rec_regA =  8'b0;
-    data_delimiter_regA =  2'b11;
-  end
-initial
-  begin
-    data_rec_regB =  8'b0;
-    data_delimiter_regB =  2'b11;
-  end
-initial
-  begin
-    data_rec_regC =  8'b0;
-    data_delimiter_regC =  2'b11;
-  end
+  data_rec_reg =  {2'b11,Kchar_comma};
 
 always @( * )
-  case (addrA)
-    5'b00000 : data_rec_regA =  Kchar_commaA;
-    5'b00001 : data_rec_regA =  Kchar_sopA;
-    5'b00010 : data_rec_regA =  data_rec_inA[75:68] ;
-    5'b00011 : data_rec_regA =  data_rec_inA[67:60] ;
-    5'b00100 : data_rec_regA =  data_rec_inA[59:52] ;
-    5'b00101 : data_rec_regA =  data_rec_inA[51:44] ;
-    5'b00110 : data_rec_regA =  data_rec_inA[43:36] ;
-    5'b00111 : data_rec_regA =  data_rec_inA[35:28] ;
-    5'b01000 : data_rec_regA =  data_rec_inA[27:20] ;
-    5'b01001 : data_rec_regA =  data_rec_inA[19:12] ;
-    5'b01010 : data_rec_regA =  data_rec_inA[11:4] ;
-    5'b01011 : data_rec_regA =  {data_rec_inA[3:0] ,4'h0};
-    5'b01100 : data_rec_regA =  Kchar_eopA;
-    default : data_rec_regA =  Kchar_commaA;
-  endcase
-
-always @( * )
-  case (addrB)
-    5'b00000 : data_rec_regB =  Kchar_commaB;
-    5'b00001 : data_rec_regB =  Kchar_sopB;
-    5'b00010 : data_rec_regB =  data_rec_inB[75:68] ;
-    5'b00011 : data_rec_regB =  data_rec_inB[67:60] ;
-    5'b00100 : data_rec_regB =  data_rec_inB[59:52] ;
-    5'b00101 : data_rec_regB =  data_rec_inB[51:44] ;
-    5'b00110 : data_rec_regB =  data_rec_inB[43:36] ;
-    5'b00111 : data_rec_regB =  data_rec_inB[35:28] ;
-    5'b01000 : data_rec_regB =  data_rec_inB[27:20] ;
-    5'b01001 : data_rec_regB =  data_rec_inB[19:12] ;
-    5'b01010 : data_rec_regB =  data_rec_inB[11:4] ;
-    5'b01011 : data_rec_regB =  {data_rec_inB[3:0] ,4'h0};
-    5'b01100 : data_rec_regB =  Kchar_eopB;
-    default : data_rec_regB =  Kchar_commaB;
-  endcase
-
-always @( * )
-  case (addrC)
-    5'b00000 : data_rec_regC =  Kchar_commaC;
-    5'b00001 : data_rec_regC =  Kchar_sopC;
-    5'b00010 : data_rec_regC =  data_rec_inC[75:68] ;
-    5'b00011 : data_rec_regC =  data_rec_inC[67:60] ;
-    5'b00100 : data_rec_regC =  data_rec_inC[59:52] ;
-    5'b00101 : data_rec_regC =  data_rec_inC[51:44] ;
-    5'b00110 : data_rec_regC =  data_rec_inC[43:36] ;
-    5'b00111 : data_rec_regC =  data_rec_inC[35:28] ;
-    5'b01000 : data_rec_regC =  data_rec_inC[27:20] ;
-    5'b01001 : data_rec_regC =  data_rec_inC[19:12] ;
-    5'b01010 : data_rec_regC =  data_rec_inC[11:4] ;
-    5'b01011 : data_rec_regC =  {data_rec_inC[3:0] ,4'h0};
-    5'b01100 : data_rec_regC =  Kchar_eopC;
-    default : data_rec_regC =  Kchar_commaC;
-  endcase
-
-always @( * )
-  case (addrA)
-    5'b00000 : data_delimiter_regA =  2'b11;
-    5'b00001 : data_delimiter_regA =  2'b10;
-    5'b00010 : data_delimiter_regA =  2'b00;
-    5'b00011 : data_delimiter_regA =  2'b00;
-    5'b00100 : data_delimiter_regA =  2'b00;
-    5'b00101 : data_delimiter_regA =  2'b00;
-    5'b00110 : data_delimiter_regA =  2'b00;
-    5'b00111 : data_delimiter_regA =  2'b00;
-    5'b01000 : data_delimiter_regA =  2'b00;
-    5'b01001 : data_delimiter_regA =  2'b00;
-    5'b01010 : data_delimiter_regA =  2'b00;
-    5'b01011 : data_delimiter_regA =  2'b00;
-    5'b01100 : data_delimiter_regA =  2'b01;
-    default : data_delimiter_regA =  2'b11;
-  endcase
-
-always @( * )
-  case (addrB)
-    5'b00000 : data_delimiter_regB =  2'b11;
-    5'b00001 : data_delimiter_regB =  2'b10;
-    5'b00010 : data_delimiter_regB =  2'b00;
-    5'b00011 : data_delimiter_regB =  2'b00;
-    5'b00100 : data_delimiter_regB =  2'b00;
-    5'b00101 : data_delimiter_regB =  2'b00;
-    5'b00110 : data_delimiter_regB =  2'b00;
-    5'b00111 : data_delimiter_regB =  2'b00;
-    5'b01000 : data_delimiter_regB =  2'b00;
-    5'b01001 : data_delimiter_regB =  2'b00;
-    5'b01010 : data_delimiter_regB =  2'b00;
-    5'b01011 : data_delimiter_regB =  2'b00;
-    5'b01100 : data_delimiter_regB =  2'b01;
-    default : data_delimiter_regB =  2'b11;
-  endcase
-
-always @( * )
-  case (addrC)
-    5'b00000 : data_delimiter_regC =  2'b11;
-    5'b00001 : data_delimiter_regC =  2'b10;
-    5'b00010 : data_delimiter_regC =  2'b00;
-    5'b00011 : data_delimiter_regC =  2'b00;
-    5'b00100 : data_delimiter_regC =  2'b00;
-    5'b00101 : data_delimiter_regC =  2'b00;
-    5'b00110 : data_delimiter_regC =  2'b00;
-    5'b00111 : data_delimiter_regC =  2'b00;
-    5'b01000 : data_delimiter_regC =  2'b00;
-    5'b01001 : data_delimiter_regC =  2'b00;
-    5'b01010 : data_delimiter_regC =  2'b00;
-    5'b01011 : data_delimiter_regC =  2'b00;
-    5'b01100 : data_delimiter_regC =  2'b01;
-    default : data_delimiter_regC =  2'b11;
-  endcase
-assign data_rec_8bitout =  data_rec_reg;
-assign data_rec_delimiter =  data_delimiter_reg;
-
-majorityVoter #(.WIDTH(2)) data_delimiter_regVoter (
-    .inA(data_delimiter_regA),
-    .inB(data_delimiter_regB),
-    .inC(data_delimiter_regC),
-    .out(data_delimiter_reg),
-    .tmrErr(data_delimiter_regTmrError)
-    );
-
-majorityVoter #(.WIDTH(8)) data_rec_regVoter (
-    .inA(data_rec_regA),
-    .inB(data_rec_regB),
-    .inC(data_rec_regC),
-    .out(data_rec_reg),
-    .tmrErr(data_rec_regTmrError)
-    );
-
-fanout #(.WIDTH(8)) Kchar_commaFanout (
-    .in(Kchar_comma),
-    .outA(Kchar_commaA),
-    .outB(Kchar_commaB),
-    .outC(Kchar_commaC)
-    );
-
-fanout #(.WIDTH(8)) Kchar_eopFanout (
-    .in(Kchar_eop),
-    .outA(Kchar_eopA),
-    .outB(Kchar_eopB),
-    .outC(Kchar_eopC)
-    );
-
-fanout #(.WIDTH(8)) Kchar_sopFanout (
-    .in(Kchar_sop),
-    .outA(Kchar_sopA),
-    .outB(Kchar_sopB),
-    .outC(Kchar_sopC)
-    );
-
-fanout #(.WIDTH(5)) addrFanout (
-    .in(addr),
-    .outA(addrA),
-    .outB(addrB),
-    .outC(addrC)
-    );
-
-fanout #(.WIDTH(76)) data_rec_inFanout (
-    .in(data_rec_in),
-    .outA(data_rec_inA),
-    .outB(data_rec_inB),
-    .outC(data_rec_inC)
-    );
+  if (!rst)
+    data_rec_reg =  {2'b11,Kchar_comma};
+  else
+    case (addr)
+      5'b00000 : data_rec_reg =  {2'b11,Kchar_comma};
+      5'b00001 : data_rec_reg =  {2'b10,Kchar_sop};
+      5'b00010 : data_rec_reg =  {2'b00,data_rec_in[75:68] };
+      5'b00011 : data_rec_reg =  {2'b00,data_rec_in[67:60] };
+      5'b00100 : data_rec_reg =  {2'b00,data_rec_in[59:52] };
+      5'b00101 : data_rec_reg =  {2'b00,data_rec_in[51:44] };
+      5'b00110 : data_rec_reg =  {2'b00,data_rec_in[43:36] };
+      5'b00111 : data_rec_reg =  {2'b00,data_rec_in[35:28] };
+      5'b01000 : data_rec_reg =  {2'b00,data_rec_in[27:20] };
+      5'b01001 : data_rec_reg =  {2'b00,data_rec_in[19:12] };
+      5'b01010 : data_rec_reg =  {2'b00,data_rec_in[11:4] };
+      5'b01011 : data_rec_reg =  {2'b00,data_rec_in[3:0] ,3'h0};
+      5'b01100 : data_rec_reg =  {2'b01,Kchar_eop};
+      default : data_rec_reg =  {2'b11,Kchar_comma};
+    endcase
+assign data_rec_10bitout =  data_rec_reg;
 endmodule
 

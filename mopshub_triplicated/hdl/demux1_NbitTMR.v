@@ -6,17 +6,17 @@
  *                                                                                                  *
  * user    : lucas                                                                                  *
  * host    : DESKTOP-BFDSFP2                                                                        *
- * date    : 16/08/2022 12:58:15                                                                    *
+ * date    : 06/10/2022 13:52:44                                                                    *
  *                                                                                                  *
- * workdir : /mnt/c/Users/Lucas/Desktop/mopshub_triplication/mopshub_top_board_canakari_ftrim/hdl   *
- * cmd     : /mnt/c/Users/Lucas/Desktop/mopshub_triplication/tmrg-master/bin/tmrg -c tmrg.cfg -vvv  *
+ * workdir : /mnt/c/Users/Lucas/Documents/GitHub/mopshub_triplicated/triplicated/mopshub_top_board/hdl *
+ * cmd     : /mnt/c/Users/Lucas/Desktop/mopshub_triplication/tmrg-master/bin/tmrg -vv -c tmrg.cfg   *
  * tmrg rev:                                                                                        *
  *                                                                                                  *
  * src file: demux1_Nbit.v                                                                          *
- *           Git SHA           : File not in git repository!                                        *
- *           Modification time : 2022-08-12 10:55:30                                                *
- *           File Size         : 5156                                                               *
- *           MD5 hash          : 2312faf6376d8d74ebd07fce0682416e                                   *
+ *           Git SHA           : c110441b08b692cc54ebd4a3b84a2599430e8f93                           *
+ *           Modification time : 2022-10-06 10:30:52                                                *
+ *           File Size         : 4509                                                               *
+ *           MD5 hash          : 92c584bed0249ef9e8c8360f9cb9160c                                   *
  *                                                                                                  *
  ****************************************************************************************************/
 
@@ -40,154 +40,42 @@ module demux1_NbitTMR(
   output wire [15:0] output14 ,
   output wire [15:0] output15 
 );
-wire [4:0] selC;
-wire [4:0] selB;
-wire [4:0] selA;
-wire [15:0] input_busC;
-wire [15:0] input_busB;
-wire [15:0] input_busA;
-wor output9_regTmrError;
-wire [15:0] output9_reg;
-wor output8_regTmrError;
-wire [15:0] output8_reg;
-wor output7_regTmrError;
-wire [15:0] output7_reg;
-wor output6_regTmrError;
-wire [15:0] output6_reg;
-wor output5_regTmrError;
-wire [15:0] output5_reg;
-wor output4_regTmrError;
-wire [15:0] output4_reg;
-wor output3_regTmrError;
-wire [15:0] output3_reg;
-wor output2_regTmrError;
-wire [15:0] output2_reg;
-wor output1_regTmrError;
-wire [15:0] output1_reg;
-wor output15_regTmrError;
-wire [15:0] output15_reg;
-wor output14_regTmrError;
-wire [15:0] output14_reg;
-wor output13_regTmrError;
-wire [15:0] output13_reg;
-wor output12_regTmrError;
-wire [15:0] output12_reg;
-wor output11_regTmrError;
-wire [15:0] output11_reg;
-wor output10_regTmrError;
-wire [15:0] output10_reg;
-wor output0_regTmrError;
-wire [15:0] output0_reg;
-reg  [15:0] def_valueA ;
-reg  [15:0] def_valueB ;
-reg  [15:0] def_valueC ;
-reg  [15:0] output0_regA ;
-reg  [15:0] output0_regB ;
-reg  [15:0] output0_regC ;
-reg  [15:0] output1_regA ;
-reg  [15:0] output1_regB ;
-reg  [15:0] output1_regC ;
-reg  [15:0] output2_regA ;
-reg  [15:0] output2_regB ;
-reg  [15:0] output2_regC ;
-reg  [15:0] output3_regA ;
-reg  [15:0] output3_regB ;
-reg  [15:0] output3_regC ;
-reg  [15:0] output4_regA ;
-reg  [15:0] output4_regB ;
-reg  [15:0] output4_regC ;
-reg  [15:0] output5_regA ;
-reg  [15:0] output5_regB ;
-reg  [15:0] output5_regC ;
-reg  [15:0] output6_regA ;
-reg  [15:0] output6_regB ;
-reg  [15:0] output6_regC ;
-reg  [15:0] output7_regA ;
-reg  [15:0] output7_regB ;
-reg  [15:0] output7_regC ;
-reg  [15:0] output8_regA ;
-reg  [15:0] output8_regB ;
-reg  [15:0] output8_regC ;
-reg  [15:0] output9_regA ;
-reg  [15:0] output9_regB ;
-reg  [15:0] output9_regC ;
-reg  [15:0] output10_regA ;
-reg  [15:0] output10_regB ;
-reg  [15:0] output10_regC ;
-reg  [15:0] output11_regA ;
-reg  [15:0] output11_regB ;
-reg  [15:0] output11_regC ;
-reg  [15:0] output12_regA ;
-reg  [15:0] output12_regB ;
-reg  [15:0] output12_regC ;
-reg  [15:0] output13_regA ;
-reg  [15:0] output13_regB ;
-reg  [15:0] output13_regC ;
-reg  [15:0] output14_regA ;
-reg  [15:0] output14_regB ;
-reg  [15:0] output14_regC ;
-reg  [15:0] output15_regA ;
-reg  [15:0] output15_regB ;
-reg  [15:0] output15_regC ;
+reg  [15:0] def_value ;
+reg  [15:0] output0_reg ;
+reg  [15:0] output1_reg ;
+reg  [15:0] output2_reg ;
+reg  [15:0] output3_reg ;
+reg  [15:0] output4_reg ;
+reg  [15:0] output5_reg ;
+reg  [15:0] output6_reg ;
+reg  [15:0] output7_reg ;
+reg  [15:0] output8_reg ;
+reg  [15:0] output9_reg ;
+reg  [15:0] output10_reg ;
+reg  [15:0] output11_reg ;
+reg  [15:0] output12_reg ;
+reg  [15:0] output13_reg ;
+reg  [15:0] output14_reg ;
+reg  [15:0] output15_reg ;
 initial
   begin
-    def_valueA =  16'b0;
-    output0_regA =  16'b0;
-    output1_regA =  16'b0;
-    output2_regA =  16'b0;
-    output3_regA =  16'b0;
-    output4_regA =  16'b0;
-    output5_regA =  16'b0;
-    output6_regA =  16'b0;
-    output7_regA =  16'b0;
-    output8_regA =  16'b0;
-    output9_regA =  16'b0;
-    output10_regA =  16'b0;
-    output11_regA =  16'b0;
-    output12_regA =  16'b0;
-    output13_regA =  16'b0;
-    output14_regA =  16'b0;
-    output15_regA =  16'b0;
-  end
-initial
-  begin
-    def_valueB =  16'b0;
-    output0_regB =  16'b0;
-    output1_regB =  16'b0;
-    output2_regB =  16'b0;
-    output3_regB =  16'b0;
-    output4_regB =  16'b0;
-    output5_regB =  16'b0;
-    output6_regB =  16'b0;
-    output7_regB =  16'b0;
-    output8_regB =  16'b0;
-    output9_regB =  16'b0;
-    output10_regB =  16'b0;
-    output11_regB =  16'b0;
-    output12_regB =  16'b0;
-    output13_regB =  16'b0;
-    output14_regB =  16'b0;
-    output15_regB =  16'b0;
-  end
-initial
-  begin
-    def_valueC =  16'b0;
-    output0_regC =  16'b0;
-    output1_regC =  16'b0;
-    output2_regC =  16'b0;
-    output3_regC =  16'b0;
-    output4_regC =  16'b0;
-    output5_regC =  16'b0;
-    output6_regC =  16'b0;
-    output7_regC =  16'b0;
-    output8_regC =  16'b0;
-    output9_regC =  16'b0;
-    output10_regC =  16'b0;
-    output11_regC =  16'b0;
-    output12_regC =  16'b0;
-    output13_regC =  16'b0;
-    output14_regC =  16'b0;
-    output15_regC =  16'b0;
+    def_value =  16'b0;
+    output0_reg =  16'b0;
+    output1_reg =  16'b0;
+    output2_reg =  16'b0;
+    output3_reg =  16'b0;
+    output4_reg =  16'b0;
+    output5_reg =  16'b0;
+    output6_reg =  16'b0;
+    output7_reg =  16'b0;
+    output8_reg =  16'b0;
+    output9_reg =  16'b0;
+    output10_reg =  16'b0;
+    output11_reg =  16'b0;
+    output12_reg =  16'b0;
+    output13_reg =  16'b0;
+    output14_reg =  16'b0;
+    output15_reg =  16'b0;
   end
 assign output0 =  output0_reg;
 assign output1 =  output1_reg;
@@ -208,315 +96,59 @@ assign output15 =  output15_reg;
 
 always @( * )
   begin
-    output0_regA =  def_valueA;
-    output1_regA =  def_valueA;
-    output2_regA =  def_valueA;
-    output3_regA =  def_valueA;
-    output4_regA =  def_valueA;
-    output5_regA =  def_valueA;
-    output6_regA =  def_valueA;
-    output7_regA =  def_valueA;
-    output8_regA =  def_valueA;
-    output9_regA =  def_valueA;
-    output10_regA =  def_valueA;
-    output11_regA =  def_valueA;
-    output12_regA =  def_valueA;
-    output13_regA =  def_valueA;
-    output14_regA =  def_valueA;
-    output15_regA =  def_valueA;
-    case (selA)
-      5'h0 : output0_regA =  input_busA;
-      5'h1 : output1_regA =  input_busA;
-      5'h2 : output2_regA =  input_busA;
-      5'h3 : output3_regA =  input_busA;
-      5'h4 : output4_regA =  input_busA;
-      5'h5 : output5_regA =  input_busA;
-      5'h6 : output6_regA =  input_busA;
-      5'h7 : output7_regA =  input_busA;
-      5'h8 : output8_regA =  input_busA;
-      5'h9 : output9_regA =  input_busA;
-      5'hA : output10_regA =  input_busA;
-      5'hB : output11_regA =  input_busA;
-      5'hC : output12_regA =  input_busA;
-      5'hD : output13_regA =  input_busA;
-      5'hE : output14_regA =  input_busA;
-      5'hF : output15_regA =  input_busA;
+    output0_reg =  def_value;
+    output1_reg =  def_value;
+    output2_reg =  def_value;
+    output3_reg =  def_value;
+    output4_reg =  def_value;
+    output5_reg =  def_value;
+    output6_reg =  def_value;
+    output7_reg =  def_value;
+    output8_reg =  def_value;
+    output9_reg =  def_value;
+    output10_reg =  def_value;
+    output11_reg =  def_value;
+    output12_reg =  def_value;
+    output13_reg =  def_value;
+    output14_reg =  def_value;
+    output15_reg =  def_value;
+    case (sel)
+      5'h0 : output0_reg =  input_bus;
+      5'h1 : output1_reg =  input_bus;
+      5'h2 : output2_reg =  input_bus;
+      5'h3 : output3_reg =  input_bus;
+      5'h4 : output4_reg =  input_bus;
+      5'h5 : output5_reg =  input_bus;
+      5'h6 : output6_reg =  input_bus;
+      5'h7 : output7_reg =  input_bus;
+      5'h8 : output8_reg =  input_bus;
+      5'h9 : output9_reg =  input_bus;
+      5'hA : output10_reg =  input_bus;
+      5'hB : output11_reg =  input_bus;
+      5'hC : output12_reg =  input_bus;
+      5'hD : output13_reg =  input_bus;
+      5'hE : output14_reg =  input_bus;
+      5'hF : output15_reg =  input_bus;
       default : 
         begin
-          output0_regA =  def_valueA;
-          output1_regA =  def_valueA;
-          output2_regA =  def_valueA;
-          output3_regA =  def_valueA;
-          output4_regA =  def_valueA;
-          output5_regA =  def_valueA;
-          output6_regA =  def_valueA;
-          output7_regA =  def_valueA;
-          output8_regA =  def_valueA;
-          output9_regA =  def_valueA;
-          output10_regA =  def_valueA;
-          output11_regA =  def_valueA;
-          output12_regA =  def_valueA;
-          output13_regA =  def_valueA;
-          output14_regA =  def_valueA;
-          output15_regA =  def_valueA;
+          output0_reg =  def_value;
+          output1_reg =  def_value;
+          output2_reg =  def_value;
+          output3_reg =  def_value;
+          output4_reg =  def_value;
+          output5_reg =  def_value;
+          output6_reg =  def_value;
+          output7_reg =  def_value;
+          output8_reg =  def_value;
+          output9_reg =  def_value;
+          output10_reg =  def_value;
+          output11_reg =  def_value;
+          output12_reg =  def_value;
+          output13_reg =  def_value;
+          output14_reg =  def_value;
+          output15_reg =  def_value;
         end
     endcase
   end
-
-always @( * )
-  begin
-    output0_regB =  def_valueB;
-    output1_regB =  def_valueB;
-    output2_regB =  def_valueB;
-    output3_regB =  def_valueB;
-    output4_regB =  def_valueB;
-    output5_regB =  def_valueB;
-    output6_regB =  def_valueB;
-    output7_regB =  def_valueB;
-    output8_regB =  def_valueB;
-    output9_regB =  def_valueB;
-    output10_regB =  def_valueB;
-    output11_regB =  def_valueB;
-    output12_regB =  def_valueB;
-    output13_regB =  def_valueB;
-    output14_regB =  def_valueB;
-    output15_regB =  def_valueB;
-    case (selB)
-      5'h0 : output0_regB =  input_busB;
-      5'h1 : output1_regB =  input_busB;
-      5'h2 : output2_regB =  input_busB;
-      5'h3 : output3_regB =  input_busB;
-      5'h4 : output4_regB =  input_busB;
-      5'h5 : output5_regB =  input_busB;
-      5'h6 : output6_regB =  input_busB;
-      5'h7 : output7_regB =  input_busB;
-      5'h8 : output8_regB =  input_busB;
-      5'h9 : output9_regB =  input_busB;
-      5'hA : output10_regB =  input_busB;
-      5'hB : output11_regB =  input_busB;
-      5'hC : output12_regB =  input_busB;
-      5'hD : output13_regB =  input_busB;
-      5'hE : output14_regB =  input_busB;
-      5'hF : output15_regB =  input_busB;
-      default : 
-        begin
-          output0_regB =  def_valueB;
-          output1_regB =  def_valueB;
-          output2_regB =  def_valueB;
-          output3_regB =  def_valueB;
-          output4_regB =  def_valueB;
-          output5_regB =  def_valueB;
-          output6_regB =  def_valueB;
-          output7_regB =  def_valueB;
-          output8_regB =  def_valueB;
-          output9_regB =  def_valueB;
-          output10_regB =  def_valueB;
-          output11_regB =  def_valueB;
-          output12_regB =  def_valueB;
-          output13_regB =  def_valueB;
-          output14_regB =  def_valueB;
-          output15_regB =  def_valueB;
-        end
-    endcase
-  end
-
-always @( * )
-  begin
-    output0_regC =  def_valueC;
-    output1_regC =  def_valueC;
-    output2_regC =  def_valueC;
-    output3_regC =  def_valueC;
-    output4_regC =  def_valueC;
-    output5_regC =  def_valueC;
-    output6_regC =  def_valueC;
-    output7_regC =  def_valueC;
-    output8_regC =  def_valueC;
-    output9_regC =  def_valueC;
-    output10_regC =  def_valueC;
-    output11_regC =  def_valueC;
-    output12_regC =  def_valueC;
-    output13_regC =  def_valueC;
-    output14_regC =  def_valueC;
-    output15_regC =  def_valueC;
-    case (selC)
-      5'h0 : output0_regC =  input_busC;
-      5'h1 : output1_regC =  input_busC;
-      5'h2 : output2_regC =  input_busC;
-      5'h3 : output3_regC =  input_busC;
-      5'h4 : output4_regC =  input_busC;
-      5'h5 : output5_regC =  input_busC;
-      5'h6 : output6_regC =  input_busC;
-      5'h7 : output7_regC =  input_busC;
-      5'h8 : output8_regC =  input_busC;
-      5'h9 : output9_regC =  input_busC;
-      5'hA : output10_regC =  input_busC;
-      5'hB : output11_regC =  input_busC;
-      5'hC : output12_regC =  input_busC;
-      5'hD : output13_regC =  input_busC;
-      5'hE : output14_regC =  input_busC;
-      5'hF : output15_regC =  input_busC;
-      default : 
-        begin
-          output0_regC =  def_valueC;
-          output1_regC =  def_valueC;
-          output2_regC =  def_valueC;
-          output3_regC =  def_valueC;
-          output4_regC =  def_valueC;
-          output5_regC =  def_valueC;
-          output6_regC =  def_valueC;
-          output7_regC =  def_valueC;
-          output8_regC =  def_valueC;
-          output9_regC =  def_valueC;
-          output10_regC =  def_valueC;
-          output11_regC =  def_valueC;
-          output12_regC =  def_valueC;
-          output13_regC =  def_valueC;
-          output14_regC =  def_valueC;
-          output15_regC =  def_valueC;
-        end
-    endcase
-  end
-
-majorityVoter #(.WIDTH(16)) output0_regVoter (
-    .inA(output0_regA),
-    .inB(output0_regB),
-    .inC(output0_regC),
-    .out(output0_reg),
-    .tmrErr(output0_regTmrError)
-    );
-
-majorityVoter #(.WIDTH(16)) output10_regVoter (
-    .inA(output10_regA),
-    .inB(output10_regB),
-    .inC(output10_regC),
-    .out(output10_reg),
-    .tmrErr(output10_regTmrError)
-    );
-
-majorityVoter #(.WIDTH(16)) output11_regVoter (
-    .inA(output11_regA),
-    .inB(output11_regB),
-    .inC(output11_regC),
-    .out(output11_reg),
-    .tmrErr(output11_regTmrError)
-    );
-
-majorityVoter #(.WIDTH(16)) output12_regVoter (
-    .inA(output12_regA),
-    .inB(output12_regB),
-    .inC(output12_regC),
-    .out(output12_reg),
-    .tmrErr(output12_regTmrError)
-    );
-
-majorityVoter #(.WIDTH(16)) output13_regVoter (
-    .inA(output13_regA),
-    .inB(output13_regB),
-    .inC(output13_regC),
-    .out(output13_reg),
-    .tmrErr(output13_regTmrError)
-    );
-
-majorityVoter #(.WIDTH(16)) output14_regVoter (
-    .inA(output14_regA),
-    .inB(output14_regB),
-    .inC(output14_regC),
-    .out(output14_reg),
-    .tmrErr(output14_regTmrError)
-    );
-
-majorityVoter #(.WIDTH(16)) output15_regVoter (
-    .inA(output15_regA),
-    .inB(output15_regB),
-    .inC(output15_regC),
-    .out(output15_reg),
-    .tmrErr(output15_regTmrError)
-    );
-
-majorityVoter #(.WIDTH(16)) output1_regVoter (
-    .inA(output1_regA),
-    .inB(output1_regB),
-    .inC(output1_regC),
-    .out(output1_reg),
-    .tmrErr(output1_regTmrError)
-    );
-
-majorityVoter #(.WIDTH(16)) output2_regVoter (
-    .inA(output2_regA),
-    .inB(output2_regB),
-    .inC(output2_regC),
-    .out(output2_reg),
-    .tmrErr(output2_regTmrError)
-    );
-
-majorityVoter #(.WIDTH(16)) output3_regVoter (
-    .inA(output3_regA),
-    .inB(output3_regB),
-    .inC(output3_regC),
-    .out(output3_reg),
-    .tmrErr(output3_regTmrError)
-    );
-
-majorityVoter #(.WIDTH(16)) output4_regVoter (
-    .inA(output4_regA),
-    .inB(output4_regB),
-    .inC(output4_regC),
-    .out(output4_reg),
-    .tmrErr(output4_regTmrError)
-    );
-
-majorityVoter #(.WIDTH(16)) output5_regVoter (
-    .inA(output5_regA),
-    .inB(output5_regB),
-    .inC(output5_regC),
-    .out(output5_reg),
-    .tmrErr(output5_regTmrError)
-    );
-
-majorityVoter #(.WIDTH(16)) output6_regVoter (
-    .inA(output6_regA),
-    .inB(output6_regB),
-    .inC(output6_regC),
-    .out(output6_reg),
-    .tmrErr(output6_regTmrError)
-    );
-
-majorityVoter #(.WIDTH(16)) output7_regVoter (
-    .inA(output7_regA),
-    .inB(output7_regB),
-    .inC(output7_regC),
-    .out(output7_reg),
-    .tmrErr(output7_regTmrError)
-    );
-
-majorityVoter #(.WIDTH(16)) output8_regVoter (
-    .inA(output8_regA),
-    .inB(output8_regB),
-    .inC(output8_regC),
-    .out(output8_reg),
-    .tmrErr(output8_regTmrError)
-    );
-
-majorityVoter #(.WIDTH(16)) output9_regVoter (
-    .inA(output9_regA),
-    .inB(output9_regB),
-    .inC(output9_regC),
-    .out(output9_reg),
-    .tmrErr(output9_regTmrError)
-    );
-
-fanout #(.WIDTH(16)) input_busFanout (
-    .in(input_bus),
-    .outA(input_busA),
-    .outB(input_busB),
-    .outC(input_busC)
-    );
-
-fanout #(.WIDTH(5)) selFanout (
-    .in(sel),
-    .outA(selA),
-    .outB(selB),
-    .outC(selC)
-    );
 endmodule
 

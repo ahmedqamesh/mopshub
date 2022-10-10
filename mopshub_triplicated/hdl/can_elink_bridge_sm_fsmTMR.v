@@ -6,17 +6,17 @@
  *                                                                                                  *
  * user    : lucas                                                                                  *
  * host    : DESKTOP-BFDSFP2                                                                        *
- * date    : 16/08/2022 12:58:12                                                                    *
+ * date    : 06/10/2022 13:52:39                                                                    *
  *                                                                                                  *
- * workdir : /mnt/c/Users/Lucas/Desktop/mopshub_triplication/mopshub_top_board_canakari_ftrim/hdl   *
- * cmd     : /mnt/c/Users/Lucas/Desktop/mopshub_triplication/tmrg-master/bin/tmrg -c tmrg.cfg -vvv  *
+ * workdir : /mnt/c/Users/Lucas/Documents/GitHub/mopshub_triplicated/triplicated/mopshub_top_board/hdl *
+ * cmd     : /mnt/c/Users/Lucas/Desktop/mopshub_triplication/tmrg-master/bin/tmrg -vv -c tmrg.cfg   *
  * tmrg rev:                                                                                        *
  *                                                                                                  *
  * src file: can_elink_bridge_sm_fsm.v                                                              *
- *           Git SHA           : File not in git repository!                                        *
- *           Modification time : 2022-08-16 09:47:55.614778                                         *
- *           File Size         : 14158                                                              *
- *           MD5 hash          : 9e911ca8bba79b9903dd18749ce52af3                                   *
+ *           Git SHA           : c110441b08b692cc54ebd4a3b84a2599430e8f93                           *
+ *           Modification time : 2022-10-06 10:24:27                                                *
+ *           File Size         : 10166                                                              *
+ *           MD5 hash          : ae94bfe7ac59d98a27fe0cf66f84a7d1                                   *
  *                                                                                                  *
  ****************************************************************************************************/
 
@@ -37,60 +37,24 @@ module can_elink_bridge_SMTMR(
   input wire  reset_irq_can_done ,
   input wire  rst ,
   input wire  timeoutrst ,
-  output reg  abort_mesA ,
-  output reg  abort_mesB ,
-  output reg  abort_mesC ,
-  output reg  end_can_procA ,
-  output reg  end_can_procB ,
-  output reg  end_can_procC ,
-  output reg  entimeoutA ,
-  output reg  entimeoutB ,
-  output reg  entimeoutC ,
-  output reg  read_can_modeA ,
-  output reg  read_can_modeB ,
-  output reg  read_can_modeC ,
-  output reg  reset_irq_canA ,
-  output reg  reset_irq_canB ,
-  output reg  reset_irq_canC ,
-  output reg  reset_irq_can_allA ,
-  output reg  reset_irq_can_allB ,
-  output reg  reset_irq_can_allC ,
-  output reg  reset_irq_rec_canA ,
-  output reg  reset_irq_rec_canB ,
-  output reg  reset_irq_rec_canC ,
-  output reg  reset_irq_tra_canA ,
-  output reg  reset_irq_tra_canB ,
-  output reg  reset_irq_tra_canC ,
-  output reg  send_mes_canA ,
-  output reg  send_mes_canB ,
-  output reg  send_mes_canC ,
-  output reg  sign_on_sigA ,
-  output reg  sign_on_sigB ,
-  output reg  sign_on_sigC ,
-  output reg  start_init_canA ,
-  output reg  start_init_canB ,
-  output reg  start_init_canC ,
-  output reg  start_mon_initA ,
-  output reg  start_mon_initB ,
-  output reg  start_mon_initC ,
-  output reg  start_power_initA ,
-  output reg  start_power_initB ,
-  output reg  start_power_initC ,
-  output reg  start_read_canA ,
-  output reg  start_read_canB ,
-  output reg  start_read_canC ,
-  output reg  start_read_elinkA ,
-  output reg  start_read_elinkB ,
-  output reg  start_read_elinkC ,
-  output reg  start_write_canA ,
-  output reg  start_write_canB ,
-  output reg  start_write_canC ,
-  output reg  start_write_elinkA ,
-  output reg  start_write_elinkB ,
-  output reg  start_write_elinkC ,
-  output reg [5:0] statedebA ,
-  output reg [5:0] statedebB ,
-  output reg [5:0] statedebC 
+  output reg  abort_mes ,
+  output reg  end_can_proc ,
+  output reg  entimeout ,
+  output reg  read_can_mode ,
+  output reg  reset_irq_can ,
+  output reg  reset_irq_can_all ,
+  output reg  reset_irq_rec_can ,
+  output reg  reset_irq_tra_can ,
+  output reg  send_mes_can ,
+  output reg  sign_on_sig ,
+  output reg  start_init_can ,
+  output reg  start_mon_init ,
+  output reg  start_power_init ,
+  output reg  start_read_can ,
+  output reg  start_read_elink ,
+  output reg  start_write_can ,
+  output reg  start_write_elink ,
+  output reg [5:0] statedeb 
 );
 parameter reset =5'd0;
 parameter initialize =5'd1;
@@ -99,1241 +63,279 @@ parameter endwaitst =5'd3;
 parameter signon =5'd4;
 parameter rst_all_irq_can =5'd5;
 parameter init_Trim_OSC =5'd6;
-parameter read_elink_mes =5'd7;
-parameter Start_write_can =5'd8;
-parameter pass_mes_to_can =5'd9;
-parameter rst_tra_irq_can =5'd10;
-parameter finish_proc =5'd11;
-parameter rst_rec_irq_can =5'd12;
-parameter pass_mes_to_elink =5'd13;
-parameter assign_bus_id =5'd14;
-parameter Start_read_elink =5'd15;
-parameter Abort_current =5'd16;
-parameter init_Mon_ADC =5'd17;
-wire timeoutrstC;
-wire timeoutrstB;
-wire timeoutrstA;
-wire rstC;
-wire rstB;
-wire rstA;
-wire reset_irq_can_doneC;
-wire reset_irq_can_doneB;
-wire reset_irq_can_doneA;
-wire reset_all_doneC;
-wire reset_all_doneB;
-wire reset_all_doneA;
-wire irq_elink_traC;
-wire irq_elink_traB;
-wire irq_elink_traA;
-wire irq_can_traC;
-wire irq_can_traB;
-wire irq_can_traA;
-wire irq_can_recC;
-wire irq_can_recB;
-wire irq_can_recA;
-wire endwaitC;
-wire endwaitB;
-wire endwaitA;
-wire end_write_elinkC;
-wire end_write_elinkB;
-wire end_write_elinkA;
-wire end_write_canC;
-wire end_write_canB;
-wire end_write_canA;
-wire end_read_elinkC;
-wire end_read_elinkB;
-wire end_read_elinkA;
-wire end_read_canC;
-wire end_read_canB;
-wire end_read_canA;
-wire end_power_initC;
-wire end_power_initB;
-wire end_power_initA;
-wire end_mon_initC;
-wire end_mon_initB;
-wire end_mon_initA;
-wire end_initC;
-wire end_initB;
-wire end_initA;
-wire clkC;
-wire clkB;
-wire clkA;
-reg  [4:0] current_stateA ;
-reg  [4:0] next_stateA ;
-reg  [4:0] current_stateB ;
-reg  [4:0] next_stateB ;
-reg  [4:0] current_stateC ;
-reg  [4:0] next_stateC ;
-reg  hds_animation_indicatorA ;
-reg  hds_animation_indicatorB ;
-reg  hds_animation_indicatorC ;
+parameter Abort_current =5'd7;
+parameter init_Mon_ADC =5'd8;
+parameter read_elink_mes =5'd9;
+parameter Start_write_can =5'd10;
+parameter pass_mes_to_can =5'd11;
+parameter rst_tra_irq_can =5'd12;
+parameter finish_proc =5'd13;
+parameter rst_rec_irq_can =5'd14;
+parameter pass_mes_to_elink =5'd15;
+parameter assign_bus_id =5'd16;
+parameter Start_read_elink =5'd17;
+reg  [4:0] current_state ;
+reg  [4:0] next_state ;
 
-always @( current_stateA or end_initA or end_mon_initA or end_power_initA or end_read_canA or end_read_elinkA or end_write_canA or end_write_elinkA or irq_can_recA or irq_can_traA or irq_elink_traA or reset_all_doneA or reset_irq_can_doneA or rstA )
-  begin : next_state_block_procA
-    case (current_stateA)
+always @( current_state or end_init or end_mon_init or end_power_init or end_read_can or end_read_elink or end_write_can or end_write_elink or irq_can_rec or irq_can_tra or irq_elink_tra or reset_all_done or reset_irq_can_done or rst )
+  begin : next_state_block_proc
+    case (current_state)
       reset : 
         begin
-          if (rstA==1)
-            begin
-              next_stateA =  initialize;
-              $hdsNextPath(0, 1);
-            end
+          if (rst==1)
+            next_state =  initialize;
           else
-            begin
-              next_stateA =  reset;
-              $hdsNextPath(0, 0);
-            end
+            next_state =  reset;
         end
       initialize : 
         begin
-          if (end_initA==1)
-            begin
-              next_stateA =  init_Mon_ADC;
-              $hdsNextPath(0, 2);
-            end
+          if (end_init==1)
+            next_state =  init_Mon_ADC;
           else
-            begin
-              next_stateA =  initialize;
-              $hdsNextPath(0, 0);
-            end
+            next_state =  initialize;
         end
       waittoact : 
         begin
-          if (irq_can_recA==1)
-            begin
-              next_stateA =  assign_bus_id;
-              $hdsNextPath(0, 3);
-            end
+          if (irq_can_rec==1)
+            next_state =  assign_bus_id;
           else
-            if (irq_elink_traA==1)
-              begin
-                next_stateA =  read_elink_mes;
-                $hdsNextPath(0, 4);
-              end
+            if (irq_elink_tra==1)
+              next_state =  read_elink_mes;
             else
-              begin
-                next_stateA =  waittoact;
-                $hdsNextPath(0, 0);
-              end
+              next_state =  waittoact;
         end
       endwaitst : 
         begin
-          next_stateA =  Abort_current;
-          $hdsNextPath(0, 5);
+          next_state =  Abort_current;
         end
       signon : 
         begin
-          next_stateA =  waittoact;
-          $hdsNextPath(0, 6);
+          next_state =  waittoact;
         end
       rst_all_irq_can : 
         begin
-          if (reset_all_doneA==1)
-            begin
-              next_stateA =  waittoact;
-              $hdsNextPath(0, 7);
-            end
+          if (reset_all_done==1)
+            next_state =  waittoact;
           else
-            begin
-              next_stateA =  rst_all_irq_can;
-              $hdsNextPath(0, 0);
-            end
+            next_state =  rst_all_irq_can;
         end
       init_Trim_OSC : 
         begin
-          if (end_power_initA==1)
-            begin
-              next_stateA =  signon;
-              $hdsNextPath(0, 8);
-            end
+          if (end_power_init==1)
+            next_state =  signon;
           else
-            begin
-              next_stateA =  init_Trim_OSC;
-              $hdsNextPath(0, 0);
-            end
-        end
-      read_elink_mes : 
-        begin
-          if (end_read_elinkA==1)
-            begin
-              next_stateA =  Start_write_can;
-              $hdsNextPath(0, 9);
-            end
-          else
-            begin
-              next_stateA =  read_elink_mes;
-              $hdsNextPath(0, 0);
-            end
-        end
-      Start_write_can : 
-        begin
-          if (end_write_canA==1)
-            begin
-              next_stateA =  pass_mes_to_can;
-              $hdsNextPath(0, 10);
-            end
-          else
-            begin
-              next_stateA =  Start_write_can;
-              $hdsNextPath(0, 0);
-            end
-        end
-      pass_mes_to_can : 
-        begin
-          if (irq_can_traA==1)
-            begin
-              next_stateA =  rst_tra_irq_can;
-              $hdsNextPath(0, 11);
-            end
-          else
-            begin
-              next_stateA =  pass_mes_to_can;
-              $hdsNextPath(0, 0);
-            end
-        end
-      rst_tra_irq_can : 
-        begin
-          if (reset_irq_can_doneA==1)
-            begin
-              next_stateA =  waittoact;
-              $hdsNextPath(0, 12);
-            end
-          else
-            begin
-              next_stateA =  rst_tra_irq_can;
-              $hdsNextPath(0, 0);
-            end
-        end
-      finish_proc : 
-        begin
-          next_stateA =  pass_mes_to_elink;
-          $hdsNextPath(0, 13);
-        end
-      rst_rec_irq_can : 
-        begin
-          if (reset_irq_can_doneA==1)
-            begin
-              next_stateA =  finish_proc;
-              $hdsNextPath(0, 14);
-            end
-          else
-            begin
-              next_stateA =  rst_rec_irq_can;
-              $hdsNextPath(0, 0);
-            end
-        end
-      pass_mes_to_elink : 
-        begin
-          if (end_write_elinkA==1)
-            begin
-              next_stateA =  waittoact;
-              $hdsNextPath(0, 15);
-            end
-          else
-            begin
-              next_stateA =  pass_mes_to_elink;
-              $hdsNextPath(0, 0);
-            end
-        end
-      assign_bus_id : 
-        begin
-          next_stateA =  Start_read_elink;
-          $hdsNextPath(0, 16);
-        end
-      Start_read_elink : 
-        begin
-          if (end_read_canA==1)
-            begin
-              next_stateA =  rst_rec_irq_can;
-              $hdsNextPath(0, 17);
-            end
-          else
-            begin
-              next_stateA =  Start_read_elink;
-              $hdsNextPath(0, 0);
-            end
+            next_state =  init_Trim_OSC;
         end
       Abort_current : 
         begin
-          next_stateA =  rst_all_irq_can;
-          $hdsNextPath(0, 18);
+          next_state =  rst_all_irq_can;
         end
       init_Mon_ADC : 
         begin
-          if (end_mon_initA==1)
-            begin
-              next_stateA =  init_Trim_OSC;
-              $hdsNextPath(0, 19);
-            end
+          if (end_mon_init==1)
+            next_state =  init_Trim_OSC;
           else
-            begin
-              next_stateA =  init_Mon_ADC;
-              $hdsNextPath(0, 0);
-            end
+            next_state =  init_Mon_ADC;
         end
-      default : 
+      read_elink_mes : 
         begin
-          next_stateA =  reset;
-          $hdsNextPath(0, 0);
+          if (end_read_elink==1)
+            next_state =  Start_write_can;
+          else
+            next_state =  read_elink_mes;
         end
+      Start_write_can : 
+        begin
+          if (end_write_can==1)
+            next_state =  pass_mes_to_can;
+          else
+            next_state =  Start_write_can;
+        end
+      pass_mes_to_can : 
+        begin
+          if (irq_can_tra==1)
+            next_state =  rst_tra_irq_can;
+          else
+            next_state =  pass_mes_to_can;
+        end
+      rst_tra_irq_can : 
+        begin
+          if (reset_irq_can_done==1)
+            next_state =  waittoact;
+          else
+            next_state =  rst_tra_irq_can;
+        end
+      finish_proc : 
+        begin
+          next_state =  pass_mes_to_elink;
+        end
+      rst_rec_irq_can : 
+        begin
+          if (reset_irq_can_done==1)
+            next_state =  finish_proc;
+          else
+            next_state =  rst_rec_irq_can;
+        end
+      pass_mes_to_elink : 
+        begin
+          if (end_write_elink==1)
+            next_state =  waittoact;
+          else
+            next_state =  pass_mes_to_elink;
+        end
+      assign_bus_id : 
+        begin
+          next_state =  Start_read_elink;
+        end
+      Start_read_elink : 
+        begin
+          if (end_read_can==1)
+            next_state =  rst_rec_irq_can;
+          else
+            next_state =  Start_read_elink;
+        end
+      default : next_state =  reset;
     endcase
   end
 
-always @( current_stateB or end_initB or end_mon_initB or end_power_initB or end_read_canB or end_read_elinkB or end_write_canB or end_write_elinkB or irq_can_recB or irq_can_traB or irq_elink_traB or reset_all_doneB or reset_irq_can_doneB or rstB )
-  begin : next_state_block_procB
-    case (current_stateB)
+always @( current_state )
+  begin : output_block_proc
+    abort_mes =  0;
+    end_can_proc =  0;
+    entimeout =  1;
+    read_can_mode =  0;
+    reset_irq_can =  0;
+    reset_irq_can_all =  0;
+    reset_irq_rec_can =  0;
+    reset_irq_tra_can =  0;
+    send_mes_can =  0;
+    sign_on_sig =  0;
+    start_init_can =  0;
+    start_mon_init =  0;
+    start_power_init =  0;
+    start_read_can =  0;
+    start_read_elink =  0;
+    start_write_can =  0;
+    start_write_elink =  0;
+    case (current_state)
       reset : 
         begin
-          if (rstB==1)
-            begin
-              next_stateB =  initialize;
-              $hdsNextPath(0, 1);
-            end
-          else
-            begin
-              next_stateB =  reset;
-              $hdsNextPath(0, 0);
-            end
+          abort_mes =  0;
+          reset_irq_can =  0;
+          reset_irq_can_all =  0;
+          send_mes_can =  0;
+          start_read_can =  0;
+          start_read_elink =  0;
+          start_write_can =  0;
+          start_write_elink =  0;
+          start_init_can =  0;
+          sign_on_sig =  0;
+          entimeout =  0;
+          read_can_mode =  0;
         end
       initialize : 
         begin
-          if (end_initB==1)
-            begin
-              next_stateB =  init_Mon_ADC;
-              $hdsNextPath(0, 2);
-            end
-          else
-            begin
-              next_stateB =  initialize;
-              $hdsNextPath(0, 0);
-            end
+          start_init_can =  1;
+          entimeout =  0;
         end
       waittoact : 
         begin
-          if (irq_can_recB==1)
-            begin
-              next_stateB =  assign_bus_id;
-              $hdsNextPath(0, 3);
-            end
-          else
-            if (irq_elink_traB==1)
-              begin
-                next_stateB =  read_elink_mes;
-                $hdsNextPath(0, 4);
-              end
-            else
-              begin
-                next_stateB =  waittoact;
-                $hdsNextPath(0, 0);
-              end
-        end
-      endwaitst : 
-        begin
-          next_stateB =  Abort_current;
-          $hdsNextPath(0, 5);
+          entimeout =  0;
         end
       signon : 
         begin
-          next_stateB =  waittoact;
-          $hdsNextPath(0, 6);
+          sign_on_sig =  1;
         end
       rst_all_irq_can : 
         begin
-          if (reset_all_doneB==1)
-            begin
-              next_stateB =  waittoact;
-              $hdsNextPath(0, 7);
-            end
-          else
-            begin
-              next_stateB =  rst_all_irq_can;
-              $hdsNextPath(0, 0);
-            end
+          reset_irq_can_all =  1;
         end
       init_Trim_OSC : 
         begin
-          if (end_power_initB==1)
-            begin
-              next_stateB =  signon;
-              $hdsNextPath(0, 8);
-            end
-          else
-            begin
-              next_stateB =  init_Trim_OSC;
-              $hdsNextPath(0, 0);
-            end
-        end
-      read_elink_mes : 
-        begin
-          if (end_read_elinkB==1)
-            begin
-              next_stateB =  Start_write_can;
-              $hdsNextPath(0, 9);
-            end
-          else
-            begin
-              next_stateB =  read_elink_mes;
-              $hdsNextPath(0, 0);
-            end
-        end
-      Start_write_can : 
-        begin
-          if (end_write_canB==1)
-            begin
-              next_stateB =  pass_mes_to_can;
-              $hdsNextPath(0, 10);
-            end
-          else
-            begin
-              next_stateB =  Start_write_can;
-              $hdsNextPath(0, 0);
-            end
-        end
-      pass_mes_to_can : 
-        begin
-          if (irq_can_traB==1)
-            begin
-              next_stateB =  rst_tra_irq_can;
-              $hdsNextPath(0, 11);
-            end
-          else
-            begin
-              next_stateB =  pass_mes_to_can;
-              $hdsNextPath(0, 0);
-            end
-        end
-      rst_tra_irq_can : 
-        begin
-          if (reset_irq_can_doneB==1)
-            begin
-              next_stateB =  waittoact;
-              $hdsNextPath(0, 12);
-            end
-          else
-            begin
-              next_stateB =  rst_tra_irq_can;
-              $hdsNextPath(0, 0);
-            end
-        end
-      finish_proc : 
-        begin
-          next_stateB =  pass_mes_to_elink;
-          $hdsNextPath(0, 13);
-        end
-      rst_rec_irq_can : 
-        begin
-          if (reset_irq_can_doneB==1)
-            begin
-              next_stateB =  finish_proc;
-              $hdsNextPath(0, 14);
-            end
-          else
-            begin
-              next_stateB =  rst_rec_irq_can;
-              $hdsNextPath(0, 0);
-            end
-        end
-      pass_mes_to_elink : 
-        begin
-          if (end_write_elinkB==1)
-            begin
-              next_stateB =  waittoact;
-              $hdsNextPath(0, 15);
-            end
-          else
-            begin
-              next_stateB =  pass_mes_to_elink;
-              $hdsNextPath(0, 0);
-            end
-        end
-      assign_bus_id : 
-        begin
-          next_stateB =  Start_read_elink;
-          $hdsNextPath(0, 16);
-        end
-      Start_read_elink : 
-        begin
-          if (end_read_canB==1)
-            begin
-              next_stateB =  rst_rec_irq_can;
-              $hdsNextPath(0, 17);
-            end
-          else
-            begin
-              next_stateB =  Start_read_elink;
-              $hdsNextPath(0, 0);
-            end
+          start_power_init =  1;
+          entimeout =  0;
         end
       Abort_current : 
         begin
-          next_stateB =  rst_all_irq_can;
-          $hdsNextPath(0, 18);
+          abort_mes =  1;
         end
       init_Mon_ADC : 
         begin
-          if (end_mon_initB==1)
-            begin
-              next_stateB =  init_Trim_OSC;
-              $hdsNextPath(0, 19);
-            end
-          else
-            begin
-              next_stateB =  init_Mon_ADC;
-              $hdsNextPath(0, 0);
-            end
+          start_mon_init =  1;
         end
-      default : 
+      read_elink_mes : 
         begin
-          next_stateB =  reset;
-          $hdsNextPath(0, 0);
+          start_read_elink =  1;
+        end
+      Start_write_can : 
+        begin
+          start_write_can =  1;
+        end
+      pass_mes_to_can : 
+        begin
+          send_mes_can =  1;
+        end
+      rst_tra_irq_can : 
+        begin
+          reset_irq_can =  1;
+          reset_irq_tra_can =  1;
+        end
+      finish_proc : 
+        begin
+          end_can_proc =  1;
+          read_can_mode =  1;
+        end
+      rst_rec_irq_can : 
+        begin
+          reset_irq_can =  1;
+          reset_irq_rec_can =  1;
+          read_can_mode =  1;
+        end
+      pass_mes_to_elink : 
+        begin
+          start_write_elink =  1;
+          read_can_mode =  1;
+        end
+      assign_bus_id : 
+        begin
+          read_can_mode =  1;
+        end
+      Start_read_elink : 
+        begin
+          start_read_can =  1;
+          read_can_mode =  1;
         end
     endcase
   end
 
-always @( current_stateC or end_initC or end_mon_initC or end_power_initC or end_read_canC or end_read_elinkC or end_write_canC or end_write_elinkC or irq_can_recC or irq_can_traC or irq_elink_traC or reset_all_doneC or reset_irq_can_doneC or rstC )
-  begin : next_state_block_procC
-    case (current_stateC)
-      reset : 
-        begin
-          if (rstC==1)
-            begin
-              next_stateC =  initialize;
-              $hdsNextPath(0, 1);
-            end
-          else
-            begin
-              next_stateC =  reset;
-              $hdsNextPath(0, 0);
-            end
-        end
-      initialize : 
-        begin
-          if (end_initC==1)
-            begin
-              next_stateC =  init_Mon_ADC;
-              $hdsNextPath(0, 2);
-            end
-          else
-            begin
-              next_stateC =  initialize;
-              $hdsNextPath(0, 0);
-            end
-        end
-      waittoact : 
-        begin
-          if (irq_can_recC==1)
-            begin
-              next_stateC =  assign_bus_id;
-              $hdsNextPath(0, 3);
-            end
-          else
-            if (irq_elink_traC==1)
-              begin
-                next_stateC =  read_elink_mes;
-                $hdsNextPath(0, 4);
-              end
-            else
-              begin
-                next_stateC =  waittoact;
-                $hdsNextPath(0, 0);
-              end
-        end
-      endwaitst : 
-        begin
-          next_stateC =  Abort_current;
-          $hdsNextPath(0, 5);
-        end
-      signon : 
-        begin
-          next_stateC =  waittoact;
-          $hdsNextPath(0, 6);
-        end
-      rst_all_irq_can : 
-        begin
-          if (reset_all_doneC==1)
-            begin
-              next_stateC =  waittoact;
-              $hdsNextPath(0, 7);
-            end
-          else
-            begin
-              next_stateC =  rst_all_irq_can;
-              $hdsNextPath(0, 0);
-            end
-        end
-      init_Trim_OSC : 
-        begin
-          if (end_power_initC==1)
-            begin
-              next_stateC =  signon;
-              $hdsNextPath(0, 8);
-            end
-          else
-            begin
-              next_stateC =  init_Trim_OSC;
-              $hdsNextPath(0, 0);
-            end
-        end
-      read_elink_mes : 
-        begin
-          if (end_read_elinkC==1)
-            begin
-              next_stateC =  Start_write_can;
-              $hdsNextPath(0, 9);
-            end
-          else
-            begin
-              next_stateC =  read_elink_mes;
-              $hdsNextPath(0, 0);
-            end
-        end
-      Start_write_can : 
-        begin
-          if (end_write_canC==1)
-            begin
-              next_stateC =  pass_mes_to_can;
-              $hdsNextPath(0, 10);
-            end
-          else
-            begin
-              next_stateC =  Start_write_can;
-              $hdsNextPath(0, 0);
-            end
-        end
-      pass_mes_to_can : 
-        begin
-          if (irq_can_traC==1)
-            begin
-              next_stateC =  rst_tra_irq_can;
-              $hdsNextPath(0, 11);
-            end
-          else
-            begin
-              next_stateC =  pass_mes_to_can;
-              $hdsNextPath(0, 0);
-            end
-        end
-      rst_tra_irq_can : 
-        begin
-          if (reset_irq_can_doneC==1)
-            begin
-              next_stateC =  waittoact;
-              $hdsNextPath(0, 12);
-            end
-          else
-            begin
-              next_stateC =  rst_tra_irq_can;
-              $hdsNextPath(0, 0);
-            end
-        end
-      finish_proc : 
-        begin
-          next_stateC =  pass_mes_to_elink;
-          $hdsNextPath(0, 13);
-        end
-      rst_rec_irq_can : 
-        begin
-          if (reset_irq_can_doneC==1)
-            begin
-              next_stateC =  finish_proc;
-              $hdsNextPath(0, 14);
-            end
-          else
-            begin
-              next_stateC =  rst_rec_irq_can;
-              $hdsNextPath(0, 0);
-            end
-        end
-      pass_mes_to_elink : 
-        begin
-          if (end_write_elinkC==1)
-            begin
-              next_stateC =  waittoact;
-              $hdsNextPath(0, 15);
-            end
-          else
-            begin
-              next_stateC =  pass_mes_to_elink;
-              $hdsNextPath(0, 0);
-            end
-        end
-      assign_bus_id : 
-        begin
-          next_stateC =  Start_read_elink;
-          $hdsNextPath(0, 16);
-        end
-      Start_read_elink : 
-        begin
-          if (end_read_canC==1)
-            begin
-              next_stateC =  rst_rec_irq_can;
-              $hdsNextPath(0, 17);
-            end
-          else
-            begin
-              next_stateC =  Start_read_elink;
-              $hdsNextPath(0, 0);
-            end
-        end
-      Abort_current : 
-        begin
-          next_stateC =  rst_all_irq_can;
-          $hdsNextPath(0, 18);
-        end
-      init_Mon_ADC : 
-        begin
-          if (end_mon_initC==1)
-            begin
-              next_stateC =  init_Trim_OSC;
-              $hdsNextPath(0, 19);
-            end
-          else
-            begin
-              next_stateC =  init_Mon_ADC;
-              $hdsNextPath(0, 0);
-            end
-        end
-      default : 
-        begin
-          next_stateC =  reset;
-          $hdsNextPath(0, 0);
-        end
-    endcase
-  end
-
-always @( current_stateA )
-  begin : output_block_procA
-    abort_mesA =  0;
-    end_can_procA =  0;
-    entimeoutA =  1;
-    read_can_modeA =  0;
-    reset_irq_canA =  0;
-    reset_irq_can_allA =  0;
-    reset_irq_rec_canA =  0;
-    reset_irq_tra_canA =  0;
-    send_mes_canA =  0;
-    sign_on_sigA =  0;
-    start_init_canA =  0;
-    start_mon_initA =  0;
-    start_power_initA =  0;
-    start_read_canA =  0;
-    start_read_elinkA =  0;
-    start_write_canA =  0;
-    start_write_elinkA =  0;
-    case (current_stateA)
-      reset : 
-        begin
-          abort_mesA =  0;
-          reset_irq_canA =  0;
-          reset_irq_can_allA =  0;
-          send_mes_canA =  0;
-          start_read_canA =  0;
-          start_read_elinkA =  0;
-          start_write_canA =  0;
-          start_write_elinkA =  0;
-          start_init_canA =  0;
-          sign_on_sigA =  0;
-          entimeoutA =  0;
-          read_can_modeA =  0;
-        end
-      initialize : 
-        begin
-          start_init_canA =  1;
-          entimeoutA =  0;
-        end
-      waittoact : 
-        begin
-          entimeoutA =  0;
-        end
-      signon : 
-        begin
-          sign_on_sigA =  1;
-        end
-      rst_all_irq_can : 
-        begin
-          reset_irq_can_allA =  1;
-        end
-      init_Trim_OSC : 
-        begin
-          start_power_initA =  1;
-          entimeoutA =  0;
-        end
-      read_elink_mes : 
-        begin
-          start_read_elinkA =  1;
-        end
-      Start_write_can : 
-        begin
-          start_write_canA =  1;
-        end
-      pass_mes_to_can : 
-        begin
-          send_mes_canA =  1;
-        end
-      rst_tra_irq_can : 
-        begin
-          reset_irq_canA =  1;
-          reset_irq_tra_canA =  1;
-        end
-      finish_proc : 
-        begin
-          end_can_procA =  1;
-          read_can_modeA =  1;
-        end
-      rst_rec_irq_can : 
-        begin
-          reset_irq_canA =  1;
-          reset_irq_rec_canA =  1;
-          read_can_modeA =  1;
-        end
-      pass_mes_to_elink : 
-        begin
-          start_write_elinkA =  1;
-          read_can_modeA =  1;
-        end
-      assign_bus_id : 
-        begin
-          read_can_modeA =  1;
-        end
-      Start_read_elink : 
-        begin
-          start_read_canA =  1;
-          read_can_modeA =  1;
-        end
-      Abort_current : 
-        begin
-          abort_mesA =  1;
-        end
-      init_Mon_ADC : 
-        begin
-          start_mon_initA =  1;
-        end
-    endcase
-  end
-
-always @( current_stateB )
-  begin : output_block_procB
-    abort_mesB =  0;
-    end_can_procB =  0;
-    entimeoutB =  1;
-    read_can_modeB =  0;
-    reset_irq_canB =  0;
-    reset_irq_can_allB =  0;
-    reset_irq_rec_canB =  0;
-    reset_irq_tra_canB =  0;
-    send_mes_canB =  0;
-    sign_on_sigB =  0;
-    start_init_canB =  0;
-    start_mon_initB =  0;
-    start_power_initB =  0;
-    start_read_canB =  0;
-    start_read_elinkB =  0;
-    start_write_canB =  0;
-    start_write_elinkB =  0;
-    case (current_stateB)
-      reset : 
-        begin
-          abort_mesB =  0;
-          reset_irq_canB =  0;
-          reset_irq_can_allB =  0;
-          send_mes_canB =  0;
-          start_read_canB =  0;
-          start_read_elinkB =  0;
-          start_write_canB =  0;
-          start_write_elinkB =  0;
-          start_init_canB =  0;
-          sign_on_sigB =  0;
-          entimeoutB =  0;
-          read_can_modeB =  0;
-        end
-      initialize : 
-        begin
-          start_init_canB =  1;
-          entimeoutB =  0;
-        end
-      waittoact : 
-        begin
-          entimeoutB =  0;
-        end
-      signon : 
-        begin
-          sign_on_sigB =  1;
-        end
-      rst_all_irq_can : 
-        begin
-          reset_irq_can_allB =  1;
-        end
-      init_Trim_OSC : 
-        begin
-          start_power_initB =  1;
-          entimeoutB =  0;
-        end
-      read_elink_mes : 
-        begin
-          start_read_elinkB =  1;
-        end
-      Start_write_can : 
-        begin
-          start_write_canB =  1;
-        end
-      pass_mes_to_can : 
-        begin
-          send_mes_canB =  1;
-        end
-      rst_tra_irq_can : 
-        begin
-          reset_irq_canB =  1;
-          reset_irq_tra_canB =  1;
-        end
-      finish_proc : 
-        begin
-          end_can_procB =  1;
-          read_can_modeB =  1;
-        end
-      rst_rec_irq_can : 
-        begin
-          reset_irq_canB =  1;
-          reset_irq_rec_canB =  1;
-          read_can_modeB =  1;
-        end
-      pass_mes_to_elink : 
-        begin
-          start_write_elinkB =  1;
-          read_can_modeB =  1;
-        end
-      assign_bus_id : 
-        begin
-          read_can_modeB =  1;
-        end
-      Start_read_elink : 
-        begin
-          start_read_canB =  1;
-          read_can_modeB =  1;
-        end
-      Abort_current : 
-        begin
-          abort_mesB =  1;
-        end
-      init_Mon_ADC : 
-        begin
-          start_mon_initB =  1;
-        end
-    endcase
-  end
-
-always @( current_stateC )
-  begin : output_block_procC
-    abort_mesC =  0;
-    end_can_procC =  0;
-    entimeoutC =  1;
-    read_can_modeC =  0;
-    reset_irq_canC =  0;
-    reset_irq_can_allC =  0;
-    reset_irq_rec_canC =  0;
-    reset_irq_tra_canC =  0;
-    send_mes_canC =  0;
-    sign_on_sigC =  0;
-    start_init_canC =  0;
-    start_mon_initC =  0;
-    start_power_initC =  0;
-    start_read_canC =  0;
-    start_read_elinkC =  0;
-    start_write_canC =  0;
-    start_write_elinkC =  0;
-    case (current_stateC)
-      reset : 
-        begin
-          abort_mesC =  0;
-          reset_irq_canC =  0;
-          reset_irq_can_allC =  0;
-          send_mes_canC =  0;
-          start_read_canC =  0;
-          start_read_elinkC =  0;
-          start_write_canC =  0;
-          start_write_elinkC =  0;
-          start_init_canC =  0;
-          sign_on_sigC =  0;
-          entimeoutC =  0;
-          read_can_modeC =  0;
-        end
-      initialize : 
-        begin
-          start_init_canC =  1;
-          entimeoutC =  0;
-        end
-      waittoact : 
-        begin
-          entimeoutC =  0;
-        end
-      signon : 
-        begin
-          sign_on_sigC =  1;
-        end
-      rst_all_irq_can : 
-        begin
-          reset_irq_can_allC =  1;
-        end
-      init_Trim_OSC : 
-        begin
-          start_power_initC =  1;
-          entimeoutC =  0;
-        end
-      read_elink_mes : 
-        begin
-          start_read_elinkC =  1;
-        end
-      Start_write_can : 
-        begin
-          start_write_canC =  1;
-        end
-      pass_mes_to_can : 
-        begin
-          send_mes_canC =  1;
-        end
-      rst_tra_irq_can : 
-        begin
-          reset_irq_canC =  1;
-          reset_irq_tra_canC =  1;
-        end
-      finish_proc : 
-        begin
-          end_can_procC =  1;
-          read_can_modeC =  1;
-        end
-      rst_rec_irq_can : 
-        begin
-          reset_irq_canC =  1;
-          reset_irq_rec_canC =  1;
-          read_can_modeC =  1;
-        end
-      pass_mes_to_elink : 
-        begin
-          start_write_elinkC =  1;
-          read_can_modeC =  1;
-        end
-      assign_bus_id : 
-        begin
-          read_can_modeC =  1;
-        end
-      Start_read_elink : 
-        begin
-          start_read_canC =  1;
-          read_can_modeC =  1;
-        end
-      Abort_current : 
-        begin
-          abort_mesC =  1;
-        end
-      init_Mon_ADC : 
-        begin
-          start_mon_initC =  1;
-        end
-    endcase
-  end
-
-always @( posedge clkA or posedge endwaitA )
-  begin : clocked_block_procA
-    if (endwaitA)
+always @( posedge clk or posedge endwait )
+  begin : clocked_block_proc
+    if (endwait)
       begin
-        current_stateA <= endwaitst;
+        current_state <= endwaitst;
       end
     else
       begin
-        if (!rstA)
+        if (!rst)
           begin
-            current_stateA <= reset;
+            current_state <= reset;
           end
         else
-          if (timeoutrstA)
+          if (timeoutrst)
             begin
-              current_stateA <= endwaitst;
+              current_state <= endwaitst;
             end
           else
             begin
-              current_stateA <= next_stateA;
-              $hdsClock(0);
+              current_state <= next_state;
             end
       end
   end
 
-always @( posedge clkB or posedge endwaitB )
-  begin : clocked_block_procB
-    if (endwaitB)
-      begin
-        current_stateB <= endwaitst;
-      end
-    else
-      begin
-        if (!rstB)
-          begin
-            current_stateB <= reset;
-          end
-        else
-          if (timeoutrstB)
-            begin
-              current_stateB <= endwaitst;
-            end
-          else
-            begin
-              current_stateB <= next_stateB;
-              $hdsClock(0);
-            end
-      end
-  end
-
-always @( posedge clkC or posedge endwaitC )
-  begin : clocked_block_procC
-    if (endwaitC)
-      begin
-        current_stateC <= endwaitst;
-      end
-    else
-      begin
-        if (!rstC)
-          begin
-            current_stateC <= reset;
-          end
-        else
-          if (timeoutrstC)
-            begin
-              current_stateC <= endwaitst;
-            end
-          else
-            begin
-              current_stateC <= next_stateC;
-              $hdsClock(0);
-            end
-      end
-  end
-
-always @( current_stateA )
+always @( current_state )
   begin
-    statedebA =  6'b0;
-    statedebA[4:0]  =  current_stateA;
+    statedeb =  6'b0;
+    statedeb[4:0]  =  current_state;
   end
-
-always @( current_stateB )
-  begin
-    statedebB =  6'b0;
-    statedebB[4:0]  =  current_stateB;
-  end
-
-always @( current_stateC )
-  begin
-    statedebC =  6'b0;
-    statedebC[4:0]  =  current_stateC;
-  end
-
-fanout clkFanout (
-    .in(clk),
-    .outA(clkA),
-    .outB(clkB),
-    .outC(clkC)
-    );
-
-fanout end_initFanout (
-    .in(end_init),
-    .outA(end_initA),
-    .outB(end_initB),
-    .outC(end_initC)
-    );
-
-fanout end_mon_initFanout (
-    .in(end_mon_init),
-    .outA(end_mon_initA),
-    .outB(end_mon_initB),
-    .outC(end_mon_initC)
-    );
-
-fanout end_power_initFanout (
-    .in(end_power_init),
-    .outA(end_power_initA),
-    .outB(end_power_initB),
-    .outC(end_power_initC)
-    );
-
-fanout end_read_canFanout (
-    .in(end_read_can),
-    .outA(end_read_canA),
-    .outB(end_read_canB),
-    .outC(end_read_canC)
-    );
-
-fanout end_read_elinkFanout (
-    .in(end_read_elink),
-    .outA(end_read_elinkA),
-    .outB(end_read_elinkB),
-    .outC(end_read_elinkC)
-    );
-
-fanout end_write_canFanout (
-    .in(end_write_can),
-    .outA(end_write_canA),
-    .outB(end_write_canB),
-    .outC(end_write_canC)
-    );
-
-fanout end_write_elinkFanout (
-    .in(end_write_elink),
-    .outA(end_write_elinkA),
-    .outB(end_write_elinkB),
-    .outC(end_write_elinkC)
-    );
-
-fanout endwaitFanout (
-    .in(endwait),
-    .outA(endwaitA),
-    .outB(endwaitB),
-    .outC(endwaitC)
-    );
-
-fanout irq_can_recFanout (
-    .in(irq_can_rec),
-    .outA(irq_can_recA),
-    .outB(irq_can_recB),
-    .outC(irq_can_recC)
-    );
-
-fanout irq_can_traFanout (
-    .in(irq_can_tra),
-    .outA(irq_can_traA),
-    .outB(irq_can_traB),
-    .outC(irq_can_traC)
-    );
-
-fanout irq_elink_traFanout (
-    .in(irq_elink_tra),
-    .outA(irq_elink_traA),
-    .outB(irq_elink_traB),
-    .outC(irq_elink_traC)
-    );
-
-fanout reset_all_doneFanout (
-    .in(reset_all_done),
-    .outA(reset_all_doneA),
-    .outB(reset_all_doneB),
-    .outC(reset_all_doneC)
-    );
-
-fanout reset_irq_can_doneFanout (
-    .in(reset_irq_can_done),
-    .outA(reset_irq_can_doneA),
-    .outB(reset_irq_can_doneB),
-    .outC(reset_irq_can_doneC)
-    );
-
-fanout rstFanout (
-    .in(rst),
-    .outA(rstA),
-    .outB(rstB),
-    .outC(rstC)
-    );
-
-fanout timeoutrstFanout (
-    .in(timeoutrst),
-    .outA(timeoutrstA),
-    .outB(timeoutrstB),
-    .outC(timeoutrstC)
-    );
 endmodule
 

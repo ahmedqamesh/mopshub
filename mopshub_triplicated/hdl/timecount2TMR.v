@@ -6,55 +6,56 @@
  *                                                                                                  *
  * user    : lucas                                                                                  *
  * host    : DESKTOP-BFDSFP2                                                                        *
- * date    : 16/08/2022 12:58:39                                                                    *
+ * date    : 06/10/2022 13:53:05                                                                    *
  *                                                                                                  *
- * workdir : /mnt/c/Users/Lucas/Desktop/mopshub_triplication/mopshub_top_board_canakari_ftrim/hdl   *
- * cmd     : /mnt/c/Users/Lucas/Desktop/mopshub_triplication/tmrg-master/bin/tmrg -c tmrg.cfg -vvv  *
+ * workdir : /mnt/c/Users/Lucas/Documents/GitHub/mopshub_triplicated/triplicated/mopshub_top_board/hdl *
+ * cmd     : /mnt/c/Users/Lucas/Desktop/mopshub_triplication/tmrg-master/bin/tmrg -vv -c tmrg.cfg   *
  * tmrg rev:                                                                                        *
  *                                                                                                  *
  * src file: timecount2.v                                                                           *
- *           Git SHA           : File not in git repository!                                        *
- *           Modification time : 2022-03-29 13:49:21                                                *
- *           File Size         : 2091                                                               *
- *           MD5 hash          : 4b35373277271bc33af2e8c34ec84dce                                   *
+ *           Git SHA           : c110441b08b692cc54ebd4a3b84a2599430e8f93                           *
+ *           Modification time : 2022-08-25 11:01:24                                                *
+ *           File Size         : 2039                                                               *
+ *           MD5 hash          : 5ab86e9380e399165b4398dbdf6bd7fb                                   *
  *                                                                                                  *
  ****************************************************************************************************/
 
 module timecount2TMR(
-  input wire  clockA ,
-  input wire  clockB ,
-  input wire  clockC ,
-  input wire  Prescale_ENA ,
-  input wire  Prescale_ENB ,
-  input wire  Prescale_ENC ,
-  input wire  resetA ,
-  input wire  resetB ,
-  input wire  resetC ,
-  input wire  incrementA ,
-  input wire  incrementB ,
-  input wire  incrementC ,
-  input wire  setctzeroA ,
-  input wire  setctzeroB ,
-  input wire  setctzeroC ,
-  input wire  setctotwoA ,
-  input wire  setctotwoB ,
-  input wire  setctotwoC ,
-  output wire [3:0] countoA ,
-  output wire [3:0] countoB ,
-  output wire [3:0] countoC 
+  input wire  clock ,
+  input wire  Prescale_EN ,
+  input wire  reset ,
+  input wire  increment ,
+  input wire  setctzero ,
+  input wire  setctotwo ,
+  output wire [3:0] counto 
 );
-wor counto_iTmrErrorC;
-wire [3:0] counto_iVotedC;
-wor counto_iTmrErrorB;
-wire [3:0] counto_iVotedB;
-wor counto_iTmrErrorA;
-wire [3:0] counto_iVotedA;
+wire setctzeroC;
+wire setctzeroB;
+wire setctzeroA;
+wire setctotwoC;
+wire setctotwoB;
+wire setctotwoA;
+wire resetC;
+wire resetB;
+wire resetA;
+wire incrementC;
+wire incrementB;
+wire incrementA;
+wire [3:0] countoC;
+wire [3:0] countoB;
+wire [3:0] countoA;
+wire clockC;
+wire clockB;
+wire clockA;
+wire Prescale_ENC;
+wire Prescale_ENB;
+wire Prescale_ENA;
+wor counto_iTmrError;
+wire [3:0] counto_i;
 reg  [3:0] counto_iA ;
 reg  [3:0] counto_iB ;
 reg  [3:0] counto_iC ;
-assign countoA =  counto_iVotedA;
-assign countoB =  counto_iVotedB;
-assign countoC =  counto_iVotedC;
+assign counto =  counto_i;
 
 always @( posedge clockA or negedge resetA )
   begin
@@ -67,12 +68,12 @@ always @( posedge clockA or negedge resetA )
             counto_iA <= 4'b0000;
           else
             if (incrementA==1'b1)
-              counto_iA <= counto_iVotedA+1;
+              counto_iA <= countoA+1;
             else
               if (setctotwoA==1'b1)
                 counto_iA <= 4'd2;
               else
-                counto_iA <= counto_iVotedA;
+                counto_iA <= countoA;
         end
   end
 
@@ -87,12 +88,12 @@ always @( posedge clockB or negedge resetB )
             counto_iB <= 4'b0000;
           else
             if (incrementB==1'b1)
-              counto_iB <= counto_iVotedB+1;
+              counto_iB <= countoB+1;
             else
               if (setctotwoB==1'b1)
                 counto_iB <= 4'd2;
               else
-                counto_iB <= counto_iVotedB;
+                counto_iB <= countoB;
         end
   end
 
@@ -107,37 +108,70 @@ always @( posedge clockC or negedge resetC )
             counto_iC <= 4'b0000;
           else
             if (incrementC==1'b1)
-              counto_iC <= counto_iVotedC+1;
+              counto_iC <= countoC+1;
             else
               if (setctotwoC==1'b1)
                 counto_iC <= 4'd2;
               else
-                counto_iC <= counto_iVotedC;
+                counto_iC <= countoC;
         end
   end
 
-majorityVoter #(.WIDTH(4)) counto_iVoterA (
+majorityVoter #(.WIDTH(4)) counto_iVoter (
     .inA(counto_iA),
     .inB(counto_iB),
     .inC(counto_iC),
-    .out(counto_iVotedA),
-    .tmrErr(counto_iTmrErrorA)
+    .out(counto_i),
+    .tmrErr(counto_iTmrError)
     );
 
-majorityVoter #(.WIDTH(4)) counto_iVoterB (
-    .inA(counto_iA),
-    .inB(counto_iB),
-    .inC(counto_iC),
-    .out(counto_iVotedB),
-    .tmrErr(counto_iTmrErrorB)
+fanout Prescale_ENFanout (
+    .in(Prescale_EN),
+    .outA(Prescale_ENA),
+    .outB(Prescale_ENB),
+    .outC(Prescale_ENC)
     );
 
-majorityVoter #(.WIDTH(4)) counto_iVoterC (
-    .inA(counto_iA),
-    .inB(counto_iB),
-    .inC(counto_iC),
-    .out(counto_iVotedC),
-    .tmrErr(counto_iTmrErrorC)
+fanout clockFanout (
+    .in(clock),
+    .outA(clockA),
+    .outB(clockB),
+    .outC(clockC)
+    );
+
+fanout #(.WIDTH(4)) countoFanout (
+    .in(counto),
+    .outA(countoA),
+    .outB(countoB),
+    .outC(countoC)
+    );
+
+fanout incrementFanout (
+    .in(increment),
+    .outA(incrementA),
+    .outB(incrementB),
+    .outC(incrementC)
+    );
+
+fanout resetFanout (
+    .in(reset),
+    .outA(resetA),
+    .outB(resetB),
+    .outC(resetC)
+    );
+
+fanout setctotwoFanout (
+    .in(setctotwo),
+    .outA(setctotwoA),
+    .outB(setctotwoB),
+    .outC(setctotwoC)
+    );
+
+fanout setctzeroFanout (
+    .in(setctzero),
+    .outA(setctzeroA),
+    .outB(setctzeroB),
+    .outC(setctzeroC)
     );
 endmodule
 

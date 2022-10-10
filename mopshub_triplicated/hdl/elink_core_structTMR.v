@@ -6,17 +6,17 @@
  *                                                                                                  *
  * user    : lucas                                                                                  *
  * host    : DESKTOP-BFDSFP2                                                                        *
- * date    : 16/08/2022 12:58:16                                                                    *
+ * date    : 06/10/2022 13:52:45                                                                    *
  *                                                                                                  *
- * workdir : /mnt/c/Users/Lucas/Desktop/mopshub_triplication/mopshub_top_board_canakari_ftrim/hdl   *
- * cmd     : /mnt/c/Users/Lucas/Desktop/mopshub_triplication/tmrg-master/bin/tmrg -c tmrg.cfg -vvv  *
+ * workdir : /mnt/c/Users/Lucas/Documents/GitHub/mopshub_triplicated/triplicated/mopshub_top_board/hdl *
+ * cmd     : /mnt/c/Users/Lucas/Desktop/mopshub_triplication/tmrg-master/bin/tmrg -vv -c tmrg.cfg   *
  * tmrg rev:                                                                                        *
  *                                                                                                  *
  * src file: elink_core_struct.v                                                                    *
- *           Git SHA           : File not in git repository!                                        *
- *           Modification time : 2022-08-16 10:04:35.100028                                         *
- *           File Size         : 13446                                                              *
- *           MD5 hash          : 78a5549adcf1208009b6d5a3d535c032                                   *
+ *           Git SHA           : c110441b08b692cc54ebd4a3b84a2599430e8f93 ( M elink_core_struct.v)  *
+ *           Modification time : 2022-10-06 13:24:52                                                *
+ *           File Size         : 13140                                                              *
+ *           MD5 hash          : 8742c5c4acbe42378b78950ce96c364c                                   *
  *                                                                                                  *
  ****************************************************************************************************/
 
@@ -55,132 +55,6 @@ module elink_coreTMR(
   input wire  spi_read_mode ,
   input wire  dbg_spi 
 );
-wire dbg_spiC;
-wire dbg_spiB;
-wire dbg_spiA;
-wire [9:0] data_tra_10bitinC;
-wire [9:0] data_tra_10bitinB;
-wire [9:0] data_tra_10bitinA;
-wire cs_ereadC;
-wire cs_ereadB;
-wire cs_ereadA;
-wire [4:0] addr_readC;
-wire [4:0] addr_readB;
-wire [4:0] addr_readA;
-wor time_limit_trimTmrError;
-wire [31:0] time_limit_trim;
-wor statedeb_traTmrError;
-wire [6:0] statedeb_traB;
-wire [6:0] statedeb_traC;
-wire [6:0] statedeb_traA;
-wor statedeb_recTmrError;
-wire [5:0] statedeb_recB;
-wire [5:0] statedeb_recC;
-wire [5:0] statedeb_recA;
-wor spi_tra_modeTmrError;
-wire spi_tra_modeB;
-wire spi_tra_modeC;
-wire spi_tra_modeA;
-wor spi_rec_modeTmrError;
-wire spi_rec_modeB;
-wire spi_rec_modeC;
-wire spi_rec_modeA;
-wor spi_power_regTmrError;
-wire spi_power_reg;
-wor spi_mon_regTmrError;
-wire spi_mon_reg;
-wor spi_can_regTmrError;
-wire spi_can_reg;
-wor irq_spi_traTmrError;
-wire irq_spi_traB;
-wire irq_spi_traC;
-wire irq_spi_traA;
-wor irq_elink_traTmrError;
-wire irq_elink_traB;
-wire irq_elink_traC;
-wire irq_elink_traA;
-wor irq_elink_recTmrError;
-wire irq_elink_recB;
-wire irq_elink_recC;
-wire irq_elink_recA;
-wor fifo_data_sopTmrError;
-wire fifo_data_sop;
-wor fifo_data_packetTmrError;
-wire fifo_data_packet;
-wor fifo_data_eopTmrError;
-wire fifo_data_eop;
-wor entimeout_elink_traTmrError;
-wire entimeout_elink_traB;
-wire entimeout_elink_traC;
-wire entimeout_elink_traA;
-wor entimeout_elink_recTmrError;
-wire entimeout_elink_recB;
-wire entimeout_elink_recC;
-wire entimeout_elink_recA;
-wor end_write_elink_spiTmrError;
-wire end_write_elink_spiB;
-wire end_write_elink_spiC;
-wire end_write_elink_spiA;
-wor end_write_elinkTmrError;
-wire end_write_elinkB;
-wire end_write_elinkC;
-wire end_write_elinkA;
-wor end_read_elinkTmrError;
-wire end_read_elinkB;
-wire end_read_elinkC;
-wire end_read_elinkA;
-wor cs_ewriteTmrError;
-wire cs_ewriteB;
-wire cs_ewriteC;
-wire cs_ewriteA;
-wor cs_ereadTmrError;
-wire cs_ereadB;
-wire cs_ereadC;
-wire cs_ereadA;
-wor can_id_regTmrError;
-wire can_id_reg;
-wor buffer_tra_enTmrError;
-wire buffer_tra_enB;
-wire buffer_tra_enC;
-wire buffer_tra_enA;
-wor buffer_spi_tra_enTmrError;
-wire buffer_spi_tra_enB;
-wire buffer_spi_tra_enC;
-wire buffer_spi_tra_enA;
-wor buffer_spi_rec_enTmrError;
-wire buffer_spi_rec_enB;
-wire buffer_spi_rec_enC;
-wire buffer_spi_rec_enA;
-wor buffer_rec_enTmrError;
-wire buffer_rec_enB;
-wire buffer_rec_enC;
-wire buffer_rec_enA;
-wor buffer_elink_spi_enTmrError;
-wire buffer_elink_spi_enB;
-wire buffer_elink_spi_enC;
-wire buffer_elink_spi_enA;
-wor buffer_elink_enTmrError;
-wire buffer_elink_enB;
-wire buffer_elink_enC;
-wire buffer_elink_enA;
-wor addr_writeTmrError;
-wire [4:0] addr_writeB;
-wire [4:0] addr_writeC;
-wire [4:0] addr_writeA;
-wor addr_readTmrError;
-wire [4:0] addr_readB;
-wire [4:0] addr_readC;
-wire [4:0] addr_readA;
-wor Kchar_sopTmrError;
-wire [7:0] Kchar_sop;
-wor Kchar_eopTmrError;
-wire [7:0] Kchar_eop;
-wor Kchar_commaTmrError;
-wire [7:0] Kchar_comma;
-wor COMMApTmrError;
-wire [9:0] COMMAp;
-wor COMMAnTmrError;
-wire [9:0] COMMAn;
 wire buffer_spi_tra_en;
 wire timeoutrst_elink_tra;
 wire [4:0] addr_write;
@@ -189,27 +63,13 @@ wire [9:0] data_rec_10bitout;
 wire [9:0] data_rec_spi_10bitout_Active;
 wire [9:0] data_rec_can_10bitout;
 wire [9:0] data_rec_spi_10bitout;
-wire [7:0] data_rec_can_8bitout;
-wire [1:0] data_rec_can_delimiter;
 wire cs_eread;
-reg  fifo_data_packetA ;
-reg  fifo_data_packetB ;
-reg  fifo_data_packetC ;
-reg  fifo_data_sopA ;
-reg  fifo_data_sopB ;
-reg  fifo_data_sopC ;
-reg  fifo_data_eopA ;
-reg  fifo_data_eopB ;
-reg  fifo_data_eopC ;
-reg  spi_power_regA ;
-reg  spi_power_regB ;
-reg  spi_power_regC ;
-reg  spi_mon_regA ;
-reg  spi_mon_regB ;
-reg  spi_mon_regC ;
-reg  can_id_regA ;
-reg  can_id_regB ;
-reg  can_id_regC ;
+reg  fifo_data_packet ;
+reg  fifo_data_sop ;
+reg  fifo_data_eop ;
+reg  spi_power_reg ;
+reg  spi_mon_reg ;
+reg  can_id_reg ;
 wire [4:0] addr_read;
 wire [9:0] data_tra_10bitin;
 wire buffer_elink_en;
@@ -223,54 +83,38 @@ wire spi_mon_id;
 wire buffer_elink_spi_en;
 wire buffer_spi_rec_en;
 wire [9:0] data_rec_spi_can_10bitout;
-wire [7:0] data_rec_spi_8bitout;
-wire [1:0] data_rec_spi_delimiter;
 wire spi_rec_mode;
 wire spi_power;
 wire entimeout_elink_rec;
 wire entimeout_elink_tra;
-reg  [31:0] time_limit_trimA ;
-reg  [31:0] time_limit_trimB ;
-reg  [31:0] time_limit_trimC ;
-reg  [7:0] Kchar_commaA ;
-reg  [7:0] Kchar_commaB ;
-reg  [7:0] Kchar_commaC ;
-reg  [7:0] Kchar_eopA ;
-reg  [7:0] Kchar_eopB ;
-reg  [7:0] Kchar_eopC ;
-reg  [7:0] Kchar_sopA ;
-reg  [7:0] Kchar_sopB ;
-reg  [7:0] Kchar_sopC ;
-reg  [9:0] COMMAnA ;
-reg  [9:0] COMMAnB ;
-reg  [9:0] COMMAnC ;
-reg  [9:0] COMMApA ;
-reg  [9:0] COMMApB ;
-reg  [9:0] COMMApC ;
+reg  [31:0] time_limit_trim ;
+reg  [7:0] Kchar_comma ;
+reg  [7:0] Kchar_eop ;
+reg  [7:0] Kchar_sop ;
+reg  [9:0] COMMAn ;
+reg  [9:0] COMMAp ;
 wire spi_tra_mode;
 wire spi_mode;
 wire spi_can_irq;
 wire spi_can_mode;
 wire spi_can_id;
-reg  spi_can_regA ;
-reg  spi_can_regB ;
-reg  spi_can_regC ;
+reg  spi_can_reg ;
 
 buffer_rec_elinkTMR rec_elink_buf0 (
+    .rst(rst),
     .data_rec_in(data_rec_uplink),
     .addr(addr_write),
-    .data_rec_8bitout(data_rec_can_8bitout),
-    .data_rec_delimiter(data_rec_can_delimiter),
+    .data_rec_10bitout(data_rec_can_10bitout),
     .Kchar_sop(Kchar_sop),
     .Kchar_eop(Kchar_eop),
     .Kchar_comma(Kchar_comma)
     );
 
 buffer_rec_spiTMR buffer_rec_spi0 (
+    .rst(rst),
     .data_rec_in(data_rec_spi_in),
     .addr(addr_write),
-    .data_rec_8bitout(data_rec_spi_8bitout),
-    .data_rec_delimiter(data_rec_spi_delimiter),
+    .data_rec_10bitout(data_rec_spi_10bitout),
     .Kchar_sop(Kchar_sop),
     .Kchar_eop(Kchar_eop),
     .Kchar_comma(Kchar_comma)
@@ -316,36 +160,16 @@ elink_interface_rec_SMTMR elink_interface_rec_SM0 (
     .start_write_elink(start_write_elink),
     .start_write_elink_spi(start_write_elink_spi),
     .timeoutrst(timeoutrst),
-    .addr_writeA(addr_writeA),
-    .addr_writeB(addr_writeB),
-    .addr_writeC(addr_writeC),
-    .buffer_rec_enA(buffer_rec_enA),
-    .buffer_rec_enB(buffer_rec_enB),
-    .buffer_rec_enC(buffer_rec_enC),
-    .buffer_spi_rec_enA(buffer_spi_rec_enA),
-    .buffer_spi_rec_enB(buffer_spi_rec_enB),
-    .buffer_spi_rec_enC(buffer_spi_rec_enC),
-    .cs_ewriteA(cs_ewriteA),
-    .cs_ewriteB(cs_ewriteB),
-    .cs_ewriteC(cs_ewriteC),
-    .end_write_elinkA(end_write_elinkA),
-    .end_write_elinkB(end_write_elinkB),
-    .end_write_elinkC(end_write_elinkC),
-    .end_write_elink_spiA(end_write_elink_spiA),
-    .end_write_elink_spiB(end_write_elink_spiB),
-    .end_write_elink_spiC(end_write_elink_spiC),
-    .entimeoutA(entimeout_elink_recA),
-    .entimeoutB(entimeout_elink_recB),
-    .entimeoutC(entimeout_elink_recC),
-    .irq_elink_recA(irq_elink_recA),
-    .irq_elink_recB(irq_elink_recB),
-    .irq_elink_recC(irq_elink_recC),
-    .spi_rec_modeA(spi_rec_modeA),
-    .spi_rec_modeB(spi_rec_modeB),
-    .spi_rec_modeC(spi_rec_modeC),
-    .statedebA(statedeb_recA),
-    .statedebB(statedeb_recB),
-    .statedebC(statedeb_recC)
+    .addr_write(addr_write),
+    .buffer_rec_en(buffer_rec_en),
+    .buffer_spi_rec_en(buffer_spi_rec_en),
+    .cs_ewrite(cs_ewrite),
+    .end_write_elink(end_write_elink),
+    .end_write_elink_spi(end_write_elink_spi),
+    .entimeout(entimeout_elink_rec),
+    .irq_elink_rec(irq_elink_rec),
+    .spi_rec_mode(spi_rec_mode),
+    .statedeb(statedeb_rec)
     );
 
 elink_interface_tra_SMTMR elink_interface_tra_SM0 (
@@ -361,42 +185,18 @@ elink_interface_tra_SMTMR elink_interface_tra_SM0 (
     .spi_mon_id(spi_mon_id),
     .start_read_elink(start_read_elink),
     .timeoutrst(timeoutrst_elink_tra),
-    .addr_readA(addr_readA),
-    .addr_readB(addr_readB),
-    .addr_readC(addr_readC),
-    .buffer_elink_enA(buffer_elink_enA),
-    .buffer_elink_enB(buffer_elink_enB),
-    .buffer_elink_enC(buffer_elink_enC),
-    .buffer_elink_spi_enA(buffer_elink_spi_enA),
-    .buffer_elink_spi_enB(buffer_elink_spi_enB),
-    .buffer_elink_spi_enC(buffer_elink_spi_enC),
-    .buffer_spi_enA(buffer_spi_tra_enA),
-    .buffer_spi_enB(buffer_spi_tra_enB),
-    .buffer_spi_enC(buffer_spi_tra_enC),
-    .buffer_tra_enA(buffer_tra_enA),
-    .buffer_tra_enB(buffer_tra_enB),
-    .buffer_tra_enC(buffer_tra_enC),
-    .cs_ereadA(cs_ereadA),
-    .cs_ereadB(cs_ereadB),
-    .cs_ereadC(cs_ereadC),
-    .end_read_elinkA(end_read_elinkA),
-    .end_read_elinkB(end_read_elinkB),
-    .end_read_elinkC(end_read_elinkC),
-    .entimeoutA(entimeout_elink_traA),
-    .entimeoutB(entimeout_elink_traB),
-    .entimeoutC(entimeout_elink_traC),
-    .irq_elink_traA(irq_elink_traA),
-    .irq_elink_traB(irq_elink_traB),
-    .irq_elink_traC(irq_elink_traC),
-    .irq_spi_traA(irq_spi_traA),
-    .irq_spi_traB(irq_spi_traB),
-    .irq_spi_traC(irq_spi_traC),
-    .spi_tra_modeA(spi_tra_modeA),
-    .spi_tra_modeB(spi_tra_modeB),
-    .spi_tra_modeC(spi_tra_modeC),
-    .statedebA(statedeb_traA),
-    .statedebB(statedeb_traB),
-    .statedebC(statedeb_traC)
+    .addr_read(addr_read),
+    .buffer_elink_en(buffer_elink_en),
+    .buffer_elink_spi_en(buffer_elink_spi_en),
+    .buffer_spi_en(buffer_spi_tra_en),
+    .buffer_tra_en(buffer_tra_en),
+    .cs_eread(cs_eread),
+    .end_read_elink(end_read_elink),
+    .entimeout(entimeout_elink_tra),
+    .irq_elink_tra(irq_elink_tra),
+    .irq_spi_tra(irq_spi_tra),
+    .spi_tra_mode(spi_tra_mode),
+    .statedeb(statedeb_tra)
     );
 
 elink_to_fifoTMR elink_to_fifo0 (
@@ -443,36 +243,14 @@ timout_rstTMR timout_rst1 (
     );
 initial
   begin
-    fifo_data_sopA =  1'b0;
-    fifo_data_eopA =  1'b0;
-    fifo_data_packetA =  1'b0;
-    spi_power_regA =  1'b0;
-    spi_mon_regA =  1'b0;
-    spi_can_regA =  1'b0;
-    can_id_regA =  1'b0;
-    time_limit_trimA =  32'd1000000;
-  end
-initial
-  begin
-    fifo_data_sopB =  1'b0;
-    fifo_data_eopB =  1'b0;
-    fifo_data_packetB =  1'b0;
-    spi_power_regB =  1'b0;
-    spi_mon_regB =  1'b0;
-    spi_can_regB =  1'b0;
-    can_id_regB =  1'b0;
-    time_limit_trimB =  32'd1000000;
-  end
-initial
-  begin
-    fifo_data_sopC =  1'b0;
-    fifo_data_eopC =  1'b0;
-    fifo_data_packetC =  1'b0;
-    spi_power_regC =  1'b0;
-    spi_mon_regC =  1'b0;
-    spi_can_regC =  1'b0;
-    can_id_regC =  1'b0;
-    time_limit_trimC =  32'd1000000;
+    fifo_data_sop =  1'b0;
+    fifo_data_eop =  1'b0;
+    fifo_data_packet =  1'b0;
+    spi_power_reg =  1'b0;
+    spi_mon_reg =  1'b0;
+    spi_can_reg =  1'b0;
+    can_id_reg =  1'b0;
+    time_limit_trim =  32'd1000000;
   end
 assign can_id =  can_id_reg;
 assign spi_mon_id =  spi_mon_reg;
@@ -481,606 +259,104 @@ assign spi_can_id =  spi_can_reg;
 
 always @( * )
   begin
-    if (cs_ereadA&&data_tra_10bitinA=={2'b10,Kchar_sopA})
+    if (cs_eread&&data_tra_10bitin=={2'b10,Kchar_sop})
       begin
-        fifo_data_sopA =  1'b1;
-        fifo_data_eopA =  1'b0;
-        fifo_data_packetA =  1'b0;
-        can_id_regA =  1'b0;
-        spi_mon_regA =  1'b0;
-        spi_power_regA =  1'b0;
-        spi_can_regA =  1'b0;
+        fifo_data_sop =  1'b1;
+        fifo_data_eop =  1'b0;
+        fifo_data_packet =  1'b0;
+        can_id_reg =  1'b0;
+        spi_mon_reg =  1'b0;
+        spi_power_reg =  1'b0;
+        spi_can_reg =  1'b0;
       end
     else
-      if (cs_ereadA&&data_tra_10bitinA!={2'b10,Kchar_sopA}&&data_tra_10bitinA!={2'b01,Kchar_eopA}&&data_tra_10bitinA[9:8] ==2'b00)
+      if (cs_eread&&data_tra_10bitin!={2'b10,Kchar_sop}&&data_tra_10bitin!={2'b01,Kchar_eop}&&data_tra_10bitin[9:8] ==2'b00)
         begin
-          fifo_data_sopA =  1'b0;
-          fifo_data_eopA =  1'b0;
-          fifo_data_packetA =  1'b1;
-          if (addr_readA==5'h02)
-            case (data_tra_10bitinA[7:0] )
-              8'h020 : 
+          fifo_data_sop =  1'b0;
+          fifo_data_eop =  1'b0;
+          fifo_data_packet =  1'b1;
+          if (addr_read==5'h02)
+            case (data_tra_10bitin[7:0] )
+              8'h20 : 
                 begin
-                  can_id_regA =  1'b0;
-                  spi_power_regA =  1'b0;
-                  if (dbg_spiA)
+                  can_id_reg =  1'b0;
+                  spi_power_reg =  1'b0;
+                  if (dbg_spi)
                     begin
-                      spi_can_regA =  1'b1;
-                      spi_mon_regA =  1'b0;
+                      spi_can_reg =  1'b1;
+                      spi_mon_reg =  1'b0;
                     end
                   else
                     begin
-                      spi_mon_regA =  1'b1;
-                      spi_can_regA =  1'b0;
+                      spi_mon_reg =  1'b1;
+                      spi_can_reg =  1'b0;
                     end
                 end
-              8'h090 : 
+              8'h90 : 
                 begin
-                  spi_mon_regA =  1'b0;
-                  spi_can_regA =  1'b0;
-                  can_id_regA =  1'b0;
-                  spi_power_regA =  1'b1;
+                  spi_mon_reg =  1'b0;
+                  spi_can_reg =  1'b0;
+                  can_id_reg =  1'b0;
+                  spi_power_reg =  1'b1;
                 end
-              8'h000 : 
+              8'h00 : 
                 begin
-                  can_id_regA =  1'b1;
-                  spi_mon_regA =  1'b0;
-                  spi_power_regA =  1'b1;
-                  spi_can_regA =  1'b0;
+                  can_id_reg =  1'b1;
+                  spi_mon_reg =  1'b0;
+                  spi_power_reg =  1'b1;
+                  spi_can_reg =  1'b0;
                 end
               default : 
                 begin
-                  can_id_regA =  1'b1;
-                  spi_mon_regA =  1'b0;
-                  spi_power_regA =  1'b0;
-                  spi_can_regA =  1'b0;
+                  can_id_reg =  1'b1;
+                  spi_mon_reg =  1'b0;
+                  spi_power_reg =  1'b0;
+                  spi_can_reg =  1'b0;
                 end
             endcase
           else
             begin
-              can_id_regA =  1'b0;
-              spi_mon_regA =  1'b0;
-              spi_power_regA =  1'b0;
-              spi_can_regA =  1'b0;
+              can_id_reg =  1'b0;
+              spi_mon_reg =  1'b0;
+              spi_power_reg =  1'b0;
+              spi_can_reg =  1'b0;
             end
         end
       else
-        if (cs_ereadA&&data_tra_10bitinA=={2'b01,Kchar_eopA})
+        if (cs_eread&&data_tra_10bitin=={2'b01,Kchar_eop})
           begin
-            fifo_data_sopA =  1'b0;
-            fifo_data_eopA =  1'b1;
-            can_id_regA =  1'b0;
-            spi_mon_regA =  1'b0;
-            spi_can_regA =  1'b0;
-            spi_power_regA =  1'b0;
-            fifo_data_packetA =  1'b0;
+            fifo_data_sop =  1'b0;
+            fifo_data_eop =  1'b1;
+            can_id_reg =  1'b0;
+            spi_mon_reg =  1'b0;
+            spi_can_reg =  1'b0;
+            spi_power_reg =  1'b0;
+            fifo_data_packet =  1'b0;
           end
         else
           begin
-            can_id_regA =  1'b0;
-            spi_can_regA =  1'b0;
-            spi_mon_regA =  1'b0;
-            spi_power_regA =  1'b0;
-            fifo_data_sopA =  1'b0;
-            fifo_data_eopA =  1'b0;
-            fifo_data_packetA =  1'b0;
-          end
-  end
-
-always @( * )
-  begin
-    if (cs_ereadB&&data_tra_10bitinB=={2'b10,Kchar_sopB})
-      begin
-        fifo_data_sopB =  1'b1;
-        fifo_data_eopB =  1'b0;
-        fifo_data_packetB =  1'b0;
-        can_id_regB =  1'b0;
-        spi_mon_regB =  1'b0;
-        spi_power_regB =  1'b0;
-        spi_can_regB =  1'b0;
-      end
-    else
-      if (cs_ereadB&&data_tra_10bitinB!={2'b10,Kchar_sopB}&&data_tra_10bitinB!={2'b01,Kchar_eopB}&&data_tra_10bitinB[9:8] ==2'b00)
-        begin
-          fifo_data_sopB =  1'b0;
-          fifo_data_eopB =  1'b0;
-          fifo_data_packetB =  1'b1;
-          if (addr_readB==5'h02)
-            case (data_tra_10bitinB[7:0] )
-              8'h020 : 
-                begin
-                  can_id_regB =  1'b0;
-                  spi_power_regB =  1'b0;
-                  if (dbg_spiB)
-                    begin
-                      spi_can_regB =  1'b1;
-                      spi_mon_regB =  1'b0;
-                    end
-                  else
-                    begin
-                      spi_mon_regB =  1'b1;
-                      spi_can_regB =  1'b0;
-                    end
-                end
-              8'h090 : 
-                begin
-                  spi_mon_regB =  1'b0;
-                  spi_can_regB =  1'b0;
-                  can_id_regB =  1'b0;
-                  spi_power_regB =  1'b1;
-                end
-              8'h000 : 
-                begin
-                  can_id_regB =  1'b1;
-                  spi_mon_regB =  1'b0;
-                  spi_power_regB =  1'b1;
-                  spi_can_regB =  1'b0;
-                end
-              default : 
-                begin
-                  can_id_regB =  1'b1;
-                  spi_mon_regB =  1'b0;
-                  spi_power_regB =  1'b0;
-                  spi_can_regB =  1'b0;
-                end
-            endcase
-          else
-            begin
-              can_id_regB =  1'b0;
-              spi_mon_regB =  1'b0;
-              spi_power_regB =  1'b0;
-              spi_can_regB =  1'b0;
-            end
-        end
-      else
-        if (cs_ereadB&&data_tra_10bitinB=={2'b01,Kchar_eopB})
-          begin
-            fifo_data_sopB =  1'b0;
-            fifo_data_eopB =  1'b1;
-            can_id_regB =  1'b0;
-            spi_mon_regB =  1'b0;
-            spi_can_regB =  1'b0;
-            spi_power_regB =  1'b0;
-            fifo_data_packetB =  1'b0;
-          end
-        else
-          begin
-            can_id_regB =  1'b0;
-            spi_can_regB =  1'b0;
-            spi_mon_regB =  1'b0;
-            spi_power_regB =  1'b0;
-            fifo_data_sopB =  1'b0;
-            fifo_data_eopB =  1'b0;
-            fifo_data_packetB =  1'b0;
-          end
-  end
-
-always @( * )
-  begin
-    if (cs_ereadC&&data_tra_10bitinC=={2'b10,Kchar_sopC})
-      begin
-        fifo_data_sopC =  1'b1;
-        fifo_data_eopC =  1'b0;
-        fifo_data_packetC =  1'b0;
-        can_id_regC =  1'b0;
-        spi_mon_regC =  1'b0;
-        spi_power_regC =  1'b0;
-        spi_can_regC =  1'b0;
-      end
-    else
-      if (cs_ereadC&&data_tra_10bitinC!={2'b10,Kchar_sopC}&&data_tra_10bitinC!={2'b01,Kchar_eopC}&&data_tra_10bitinC[9:8] ==2'b00)
-        begin
-          fifo_data_sopC =  1'b0;
-          fifo_data_eopC =  1'b0;
-          fifo_data_packetC =  1'b1;
-          if (addr_readC==5'h02)
-            case (data_tra_10bitinC[7:0] )
-              8'h020 : 
-                begin
-                  can_id_regC =  1'b0;
-                  spi_power_regC =  1'b0;
-                  if (dbg_spiC)
-                    begin
-                      spi_can_regC =  1'b1;
-                      spi_mon_regC =  1'b0;
-                    end
-                  else
-                    begin
-                      spi_mon_regC =  1'b1;
-                      spi_can_regC =  1'b0;
-                    end
-                end
-              8'h090 : 
-                begin
-                  spi_mon_regC =  1'b0;
-                  spi_can_regC =  1'b0;
-                  can_id_regC =  1'b0;
-                  spi_power_regC =  1'b1;
-                end
-              8'h000 : 
-                begin
-                  can_id_regC =  1'b1;
-                  spi_mon_regC =  1'b0;
-                  spi_power_regC =  1'b1;
-                  spi_can_regC =  1'b0;
-                end
-              default : 
-                begin
-                  can_id_regC =  1'b1;
-                  spi_mon_regC =  1'b0;
-                  spi_power_regC =  1'b0;
-                  spi_can_regC =  1'b0;
-                end
-            endcase
-          else
-            begin
-              can_id_regC =  1'b0;
-              spi_mon_regC =  1'b0;
-              spi_power_regC =  1'b0;
-              spi_can_regC =  1'b0;
-            end
-        end
-      else
-        if (cs_ereadC&&data_tra_10bitinC=={2'b01,Kchar_eopC})
-          begin
-            fifo_data_sopC =  1'b0;
-            fifo_data_eopC =  1'b1;
-            can_id_regC =  1'b0;
-            spi_mon_regC =  1'b0;
-            spi_can_regC =  1'b0;
-            spi_power_regC =  1'b0;
-            fifo_data_packetC =  1'b0;
-          end
-        else
-          begin
-            can_id_regC =  1'b0;
-            spi_can_regC =  1'b0;
-            spi_mon_regC =  1'b0;
-            spi_power_regC =  1'b0;
-            fifo_data_sopC =  1'b0;
-            fifo_data_eopC =  1'b0;
-            fifo_data_packetC =  1'b0;
+            can_id_reg =  1'b0;
+            spi_can_reg =  1'b0;
+            spi_mon_reg =  1'b0;
+            spi_power_reg =  1'b0;
+            fifo_data_sop =  1'b0;
+            fifo_data_eop =  1'b0;
+            fifo_data_packet =  1'b0;
           end
   end
 assign rx_data_rdy =  !rx_fifo_empty;
 assign tx_data_rdy =  !tx_fifo_empty;
 assign spi_mode =  spi_tra_mode||spi_rec_mode||spi_read_mode||spi_can_mode;
-assign data_rec_spi_10bitout =  {data_rec_spi_delimiter,data_rec_spi_8bitout};
-assign data_rec_can_10bitout =  {data_rec_can_delimiter,data_rec_can_8bitout};
-assign spi_can_irq =  (addr_write==5'h02&&data_rec_can_8bitout==8'h020);
+assign spi_can_irq =  (addr_write==5'h02&&data_rec_can_10bitout=={2'b00,8'h20});
 assign data_rec_spi_10bitout_Active =  (spi_can_mode==1||spi_can_irq==1) ? data_rec_spi_can_10bitout : data_rec_spi_10bitout;
 assign data_rec_10bitout =  (spi_rec_mode==1||spi_can_mode==1||spi_can_irq==1) ? data_rec_spi_10bitout_Active : data_rec_can_10bitout;
 initial
   begin
-    Kchar_commaA =  8'b10111100;
-    Kchar_eopA =  8'b11011100;
-    Kchar_sopA =  8'b00111100;
-    COMMAnA =  10'b1100000101;
-    COMMApA =  10'b0011111010;
+    Kchar_comma =  8'b10111100;
+    Kchar_eop =  8'b11011100;
+    Kchar_sop =  8'b00111100;
+    COMMAn =  10'b1100000101;
+    COMMAp =  10'b0011111010;
   end
-initial
-  begin
-    Kchar_commaB =  8'b10111100;
-    Kchar_eopB =  8'b11011100;
-    Kchar_sopB =  8'b00111100;
-    COMMAnB =  10'b1100000101;
-    COMMApB =  10'b0011111010;
-  end
-initial
-  begin
-    Kchar_commaC =  8'b10111100;
-    Kchar_eopC =  8'b11011100;
-    Kchar_sopC =  8'b00111100;
-    COMMAnC =  10'b1100000101;
-    COMMApC =  10'b0011111010;
-  end
-
-majorityVoter #(.WIDTH(10)) COMMAnVoter (
-    .inA(COMMAnA),
-    .inB(COMMAnB),
-    .inC(COMMAnC),
-    .out(COMMAn),
-    .tmrErr(COMMAnTmrError)
-    );
-
-majorityVoter #(.WIDTH(10)) COMMApVoter (
-    .inA(COMMApA),
-    .inB(COMMApB),
-    .inC(COMMApC),
-    .out(COMMAp),
-    .tmrErr(COMMApTmrError)
-    );
-
-majorityVoter #(.WIDTH(8)) Kchar_commaVoter (
-    .inA(Kchar_commaA),
-    .inB(Kchar_commaB),
-    .inC(Kchar_commaC),
-    .out(Kchar_comma),
-    .tmrErr(Kchar_commaTmrError)
-    );
-
-majorityVoter #(.WIDTH(8)) Kchar_eopVoter (
-    .inA(Kchar_eopA),
-    .inB(Kchar_eopB),
-    .inC(Kchar_eopC),
-    .out(Kchar_eop),
-    .tmrErr(Kchar_eopTmrError)
-    );
-
-majorityVoter #(.WIDTH(8)) Kchar_sopVoter (
-    .inA(Kchar_sopA),
-    .inB(Kchar_sopB),
-    .inC(Kchar_sopC),
-    .out(Kchar_sop),
-    .tmrErr(Kchar_sopTmrError)
-    );
-
-majorityVoter #(.WIDTH(5)) addr_readVoter (
-    .inA(addr_readA),
-    .inB(addr_readB),
-    .inC(addr_readC),
-    .out(addr_read),
-    .tmrErr(addr_readTmrError)
-    );
-
-majorityVoter #(.WIDTH(5)) addr_writeVoter (
-    .inA(addr_writeA),
-    .inB(addr_writeB),
-    .inC(addr_writeC),
-    .out(addr_write),
-    .tmrErr(addr_writeTmrError)
-    );
-
-majorityVoter buffer_elink_enVoter (
-    .inA(buffer_elink_enA),
-    .inB(buffer_elink_enB),
-    .inC(buffer_elink_enC),
-    .out(buffer_elink_en),
-    .tmrErr(buffer_elink_enTmrError)
-    );
-
-majorityVoter buffer_elink_spi_enVoter (
-    .inA(buffer_elink_spi_enA),
-    .inB(buffer_elink_spi_enB),
-    .inC(buffer_elink_spi_enC),
-    .out(buffer_elink_spi_en),
-    .tmrErr(buffer_elink_spi_enTmrError)
-    );
-
-majorityVoter buffer_rec_enVoter (
-    .inA(buffer_rec_enA),
-    .inB(buffer_rec_enB),
-    .inC(buffer_rec_enC),
-    .out(buffer_rec_en),
-    .tmrErr(buffer_rec_enTmrError)
-    );
-
-majorityVoter buffer_spi_rec_enVoter (
-    .inA(buffer_spi_rec_enA),
-    .inB(buffer_spi_rec_enB),
-    .inC(buffer_spi_rec_enC),
-    .out(buffer_spi_rec_en),
-    .tmrErr(buffer_spi_rec_enTmrError)
-    );
-
-majorityVoter buffer_spi_tra_enVoter (
-    .inA(buffer_spi_tra_enA),
-    .inB(buffer_spi_tra_enB),
-    .inC(buffer_spi_tra_enC),
-    .out(buffer_spi_tra_en),
-    .tmrErr(buffer_spi_tra_enTmrError)
-    );
-
-majorityVoter buffer_tra_enVoter (
-    .inA(buffer_tra_enA),
-    .inB(buffer_tra_enB),
-    .inC(buffer_tra_enC),
-    .out(buffer_tra_en),
-    .tmrErr(buffer_tra_enTmrError)
-    );
-
-majorityVoter can_id_regVoter (
-    .inA(can_id_regA),
-    .inB(can_id_regB),
-    .inC(can_id_regC),
-    .out(can_id_reg),
-    .tmrErr(can_id_regTmrError)
-    );
-
-majorityVoter cs_ereadVoter (
-    .inA(cs_ereadA),
-    .inB(cs_ereadB),
-    .inC(cs_ereadC),
-    .out(cs_eread),
-    .tmrErr(cs_ereadTmrError)
-    );
-
-majorityVoter cs_ewriteVoter (
-    .inA(cs_ewriteA),
-    .inB(cs_ewriteB),
-    .inC(cs_ewriteC),
-    .out(cs_ewrite),
-    .tmrErr(cs_ewriteTmrError)
-    );
-
-majorityVoter end_read_elinkVoter (
-    .inA(end_read_elinkA),
-    .inB(end_read_elinkB),
-    .inC(end_read_elinkC),
-    .out(end_read_elink),
-    .tmrErr(end_read_elinkTmrError)
-    );
-
-majorityVoter end_write_elinkVoter (
-    .inA(end_write_elinkA),
-    .inB(end_write_elinkB),
-    .inC(end_write_elinkC),
-    .out(end_write_elink),
-    .tmrErr(end_write_elinkTmrError)
-    );
-
-majorityVoter end_write_elink_spiVoter (
-    .inA(end_write_elink_spiA),
-    .inB(end_write_elink_spiB),
-    .inC(end_write_elink_spiC),
-    .out(end_write_elink_spi),
-    .tmrErr(end_write_elink_spiTmrError)
-    );
-
-majorityVoter entimeout_elink_recVoter (
-    .inA(entimeout_elink_recA),
-    .inB(entimeout_elink_recB),
-    .inC(entimeout_elink_recC),
-    .out(entimeout_elink_rec),
-    .tmrErr(entimeout_elink_recTmrError)
-    );
-
-majorityVoter entimeout_elink_traVoter (
-    .inA(entimeout_elink_traA),
-    .inB(entimeout_elink_traB),
-    .inC(entimeout_elink_traC),
-    .out(entimeout_elink_tra),
-    .tmrErr(entimeout_elink_traTmrError)
-    );
-
-majorityVoter fifo_data_eopVoter (
-    .inA(fifo_data_eopA),
-    .inB(fifo_data_eopB),
-    .inC(fifo_data_eopC),
-    .out(fifo_data_eop),
-    .tmrErr(fifo_data_eopTmrError)
-    );
-
-majorityVoter fifo_data_packetVoter (
-    .inA(fifo_data_packetA),
-    .inB(fifo_data_packetB),
-    .inC(fifo_data_packetC),
-    .out(fifo_data_packet),
-    .tmrErr(fifo_data_packetTmrError)
-    );
-
-majorityVoter fifo_data_sopVoter (
-    .inA(fifo_data_sopA),
-    .inB(fifo_data_sopB),
-    .inC(fifo_data_sopC),
-    .out(fifo_data_sop),
-    .tmrErr(fifo_data_sopTmrError)
-    );
-
-majorityVoter irq_elink_recVoter (
-    .inA(irq_elink_recA),
-    .inB(irq_elink_recB),
-    .inC(irq_elink_recC),
-    .out(irq_elink_rec),
-    .tmrErr(irq_elink_recTmrError)
-    );
-
-majorityVoter irq_elink_traVoter (
-    .inA(irq_elink_traA),
-    .inB(irq_elink_traB),
-    .inC(irq_elink_traC),
-    .out(irq_elink_tra),
-    .tmrErr(irq_elink_traTmrError)
-    );
-
-majorityVoter irq_spi_traVoter (
-    .inA(irq_spi_traA),
-    .inB(irq_spi_traB),
-    .inC(irq_spi_traC),
-    .out(irq_spi_tra),
-    .tmrErr(irq_spi_traTmrError)
-    );
-
-majorityVoter spi_can_regVoter (
-    .inA(spi_can_regA),
-    .inB(spi_can_regB),
-    .inC(spi_can_regC),
-    .out(spi_can_reg),
-    .tmrErr(spi_can_regTmrError)
-    );
-
-majorityVoter spi_mon_regVoter (
-    .inA(spi_mon_regA),
-    .inB(spi_mon_regB),
-    .inC(spi_mon_regC),
-    .out(spi_mon_reg),
-    .tmrErr(spi_mon_regTmrError)
-    );
-
-majorityVoter spi_power_regVoter (
-    .inA(spi_power_regA),
-    .inB(spi_power_regB),
-    .inC(spi_power_regC),
-    .out(spi_power_reg),
-    .tmrErr(spi_power_regTmrError)
-    );
-
-majorityVoter spi_rec_modeVoter (
-    .inA(spi_rec_modeA),
-    .inB(spi_rec_modeB),
-    .inC(spi_rec_modeC),
-    .out(spi_rec_mode),
-    .tmrErr(spi_rec_modeTmrError)
-    );
-
-majorityVoter spi_tra_modeVoter (
-    .inA(spi_tra_modeA),
-    .inB(spi_tra_modeB),
-    .inC(spi_tra_modeC),
-    .out(spi_tra_mode),
-    .tmrErr(spi_tra_modeTmrError)
-    );
-
-majorityVoter #(.WIDTH(6)) statedeb_recVoter (
-    .inA(statedeb_recA),
-    .inB(statedeb_recB),
-    .inC(statedeb_recC),
-    .out(statedeb_rec),
-    .tmrErr(statedeb_recTmrError)
-    );
-
-majorityVoter #(.WIDTH(7)) statedeb_traVoter (
-    .inA(statedeb_traA),
-    .inB(statedeb_traB),
-    .inC(statedeb_traC),
-    .out(statedeb_tra),
-    .tmrErr(statedeb_traTmrError)
-    );
-
-majorityVoter #(.WIDTH(32)) time_limit_trimVoter (
-    .inA(time_limit_trimA),
-    .inB(time_limit_trimB),
-    .inC(time_limit_trimC),
-    .out(time_limit_trim),
-    .tmrErr(time_limit_trimTmrError)
-    );
-
-fanout #(.WIDTH(5)) addr_readFanout (
-    .in(addr_read),
-    .outA(addr_readA),
-    .outB(addr_readB),
-    .outC(addr_readC)
-    );
-
-fanout cs_ereadFanout (
-    .in(cs_eread),
-    .outA(cs_ereadA),
-    .outB(cs_ereadB),
-    .outC(cs_ereadC)
-    );
-
-fanout #(.WIDTH(10)) data_tra_10bitinFanout (
-    .in(data_tra_10bitin),
-    .outA(data_tra_10bitinA),
-    .outB(data_tra_10bitinB),
-    .outC(data_tra_10bitinC)
-    );
-
-fanout dbg_spiFanout (
-    .in(dbg_spi),
-    .outA(dbg_spiA),
-    .outB(dbg_spiB),
-    .outC(dbg_spiC)
-    );
 endmodule
 

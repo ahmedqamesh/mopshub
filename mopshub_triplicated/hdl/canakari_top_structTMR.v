@@ -6,17 +6,17 @@
  *                                                                                                  *
  * user    : lucas                                                                                  *
  * host    : DESKTOP-BFDSFP2                                                                        *
- * date    : 16/08/2022 12:58:13                                                                    *
+ * date    : 06/10/2022 13:52:41                                                                    *
  *                                                                                                  *
- * workdir : /mnt/c/Users/Lucas/Desktop/mopshub_triplication/mopshub_top_board_canakari_ftrim/hdl   *
- * cmd     : /mnt/c/Users/Lucas/Desktop/mopshub_triplication/tmrg-master/bin/tmrg -c tmrg.cfg -vvv  *
+ * workdir : /mnt/c/Users/Lucas/Documents/GitHub/mopshub_triplicated/triplicated/mopshub_top_board/hdl *
+ * cmd     : /mnt/c/Users/Lucas/Desktop/mopshub_triplication/tmrg-master/bin/tmrg -vv -c tmrg.cfg   *
  * tmrg rev:                                                                                        *
  *                                                                                                  *
  * src file: canakari_top_struct.v                                                                  *
- *           Git SHA           : File not in git repository!                                        *
- *           Modification time : 2022-08-16 09:58:03.878179                                         *
- *           File Size         : 15189                                                              *
- *           MD5 hash          : be30c4e7422485a9add52d7c30993cbc                                   *
+ *           Git SHA           : c110441b08b692cc54ebd4a3b84a2599430e8f93                           *
+ *           Modification time : 2022-10-06 13:25:16                                                *
+ *           File Size         : 15276                                                              *
+ *           MD5 hash          : f4c4a39e40e784fe9eb3d8d399e9664b                                   *
  *                                                                                                  *
  ****************************************************************************************************/
 
@@ -516,7 +516,9 @@ node_tra_demuxTMR node_tra_demux0 (
     .irqsuctra12(irqsuctra12),
     .irqsuctra13(irqsuctra13),
     .irqsuctra14(irqsuctra14),
-    .irqsuctra15(irqsuctra15)
+    .irqsuctra15(irqsuctra15),
+    .clk(clk),
+    .rst(rst)
     );
 assign cs0 =  cs_rec0|cs_tra0;
 assign cs1 =  cs_rec1|cs_tra1;

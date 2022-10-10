@@ -6,17 +6,17 @@
  *                                                                                                  *
  * user    : lucas                                                                                  *
  * host    : DESKTOP-BFDSFP2                                                                        *
- * date    : 16/08/2022 12:58:39                                                                    *
+ * date    : 06/10/2022 13:53:06                                                                    *
  *                                                                                                  *
- * workdir : /mnt/c/Users/Lucas/Desktop/mopshub_triplication/mopshub_top_board_canakari_ftrim/hdl   *
- * cmd     : /mnt/c/Users/Lucas/Desktop/mopshub_triplication/tmrg-master/bin/tmrg -c tmrg.cfg -vvv  *
+ * workdir : /mnt/c/Users/Lucas/Documents/GitHub/mopshub_triplicated/triplicated/mopshub_top_board/hdl *
+ * cmd     : /mnt/c/Users/Lucas/Desktop/mopshub_triplication/tmrg-master/bin/tmrg -vv -c tmrg.cfg   *
  * tmrg rev:                                                                                        *
  *                                                                                                  *
  * src file: timeoutrst_module.v                                                                    *
- *           Git SHA           : File not in git repository!                                        *
- *           Modification time : 2022-08-12 11:28:18                                                *
- *           File Size         : 814                                                                *
- *           MD5 hash          : 23b82a1f7eb4b0298f54586684b68009                                   *
+ *           Git SHA           : c110441b08b692cc54ebd4a3b84a2599430e8f93                           *
+ *           Modification time : 2022-10-05 23:21:37                                                *
+ *           File Size         : 791                                                                *
+ *           MD5 hash          : 324fab999844bb9b4e5c9b897daffa67                                   *
  *                                                                                                  *
  ****************************************************************************************************/
 
@@ -30,18 +30,15 @@ module timout_rstTMR(
 wire timeoutrstC;
 wire timeoutrstB;
 wire timeoutrstA;
-wire [31:0] time_limitC;
-wire [31:0] time_limitB;
-wire [31:0] time_limitA;
 wire rstC;
 wire rstB;
 wire rstA;
 wire entimeoutC;
 wire entimeoutB;
 wire entimeoutA;
-wire [31:0] counter_vC;
-wire [31:0] counter_vB;
-wire [31:0] counter_vA;
+wire [31:0] counterVC;
+wire [31:0] counterVB;
+wire [31:0] counterVA;
 wire clkC;
 wire clkB;
 wire clkA;
@@ -50,10 +47,7 @@ wire [31:0] counter;
 reg  [31:0] counterA ;
 reg  [31:0] counterB ;
 reg  [31:0] counterC ;
-reg  timeoutrstregA ;
-reg  timeoutrstregB ;
-reg  timeoutrstregC ;
-wire [31:0] counter_v =  counter;
+wire [31:0] counterV =  counter;
 
 always @( posedge clkA )
   begin
@@ -64,7 +58,7 @@ always @( posedge clkA )
     else
       begin
         if (entimeoutA&!timeoutrstA)
-          counterA <= {counter_vA+1};
+          counterA <= {counterVA+1};
         else
           begin
             counterA <= 0;
@@ -81,7 +75,7 @@ always @( posedge clkB )
     else
       begin
         if (entimeoutB&!timeoutrstB)
-          counterB <= {counter_vB+1};
+          counterB <= {counterVB+1};
         else
           begin
             counterB <= 0;
@@ -98,37 +92,14 @@ always @( posedge clkC )
     else
       begin
         if (entimeoutC&!timeoutrstC)
-          counterC <= {counter_vC+1};
+          counterC <= {counterVC+1};
         else
           begin
             counterC <= 0;
           end
       end
   end
-
-always @( posedge clkA )
-  begin
-    if (counter_vA>=time_limitA)
-      timeoutrstregA <= 1'b1;
-    else
-      timeoutrstregA <= 1'b0;
-  end
-
-always @( posedge clkB )
-  begin
-    if (counter_vB>=time_limitB)
-      timeoutrstregB <= 1'b1;
-    else
-      timeoutrstregB <= 1'b0;
-  end
-
-always @( posedge clkC )
-  begin
-    if (counter_vC>=time_limitC)
-      timeoutrstregC <= 1'b1;
-    else
-      timeoutrstregC <= 1'b0;
-  end
+assign timeoutrst =  (counterV>=time_limit) ? 1'b1 : 1'b0;
 
 majorityVoter #(.WIDTH(32)) counterVoter (
     .inA(counterA),
@@ -145,11 +116,11 @@ fanout clkFanout (
     .outC(clkC)
     );
 
-fanout #(.WIDTH(32)) counter_vFanout (
-    .in(counter_v),
-    .outA(counter_vA),
-    .outB(counter_vB),
-    .outC(counter_vC)
+fanout #(.WIDTH(32)) counterVFanout (
+    .in(counterV),
+    .outA(counterVA),
+    .outB(counterVB),
+    .outC(counterVC)
     );
 
 fanout entimeoutFanout (
@@ -164,13 +135,6 @@ fanout rstFanout (
     .outA(rstA),
     .outB(rstB),
     .outC(rstC)
-    );
-
-fanout #(.WIDTH(32)) time_limitFanout (
-    .in(time_limit),
-    .outA(time_limitA),
-    .outB(time_limitB),
-    .outC(time_limitC)
     );
 
 fanout timeoutrstFanout (

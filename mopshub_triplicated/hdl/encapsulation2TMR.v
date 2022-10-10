@@ -6,70 +6,64 @@
  *                                                                                                  *
  * user    : lucas                                                                                  *
  * host    : DESKTOP-BFDSFP2                                                                        *
- * date    : 16/08/2022 12:58:18                                                                    *
+ * date    : 06/10/2022 13:52:47                                                                    *
  *                                                                                                  *
- * workdir : /mnt/c/Users/Lucas/Desktop/mopshub_triplication/mopshub_top_board_canakari_ftrim/hdl   *
- * cmd     : /mnt/c/Users/Lucas/Desktop/mopshub_triplication/tmrg-master/bin/tmrg -c tmrg.cfg -vvv  *
+ * workdir : /mnt/c/Users/Lucas/Documents/GitHub/mopshub_triplicated/triplicated/mopshub_top_board/hdl *
+ * cmd     : /mnt/c/Users/Lucas/Desktop/mopshub_triplication/tmrg-master/bin/tmrg -vv -c tmrg.cfg   *
  * tmrg rev:                                                                                        *
  *                                                                                                  *
  * src file: encapsulation2.v                                                                       *
- *           Git SHA           : File not in git repository!                                        *
- *           Modification time : 2022-03-29 13:49:21                                                *
- *           File Size         : 3155                                                               *
- *           MD5 hash          : 5303a2cb97892828208c94195b1a9284                                   *
+ *           Git SHA           : c110441b08b692cc54ebd4a3b84a2599430e8f93                           *
+ *           Modification time : 2022-08-30 12:35:46                                                *
+ *           File Size         : 3112                                                               *
+ *           MD5 hash          : 09b64c1ab332c7be16f685acf82fbd0f                                   *
  *                                                                                                  *
  ****************************************************************************************************/
 
 module encapsulation2TMR(
-  input wire  clockA ,
-  input wire  clockB ,
-  input wire  clockC ,
-  input wire [28:0] identifierA ,
-  input wire [28:0] identifierB ,
-  input wire [28:0] identifierC ,
-  input wire  extendedA ,
-  input wire  extendedB ,
-  input wire  extendedC ,
-  input wire  remoteA ,
-  input wire  remoteB ,
-  input wire  remoteC ,
-  input wire  activA ,
-  input wire  activB ,
-  input wire  activC ,
-  input wire  resetA ,
-  input wire  resetB ,
-  input wire  resetC ,
-  input wire [3:0] datalenA ,
-  input wire [3:0] datalenB ,
-  input wire [3:0] datalenC ,
-  output wire [3:0] tmlenA ,
-  output wire [3:0] tmlenB ,
-  output wire [3:0] tmlenC ,
-  output reg [38:0] messageA ,
-  output reg [38:0] messageB ,
-  output reg [38:0] messageC 
+  input wire  clock ,
+  input wire [28:0] identifier ,
+  input wire  extended ,
+  input wire  remote ,
+  input wire  activ ,
+  input wire  reset ,
+  input wire [3:0] datalen ,
+  output wire [3:0] tmlen ,
+  output reg [38:0] message 
 );
-wor remTmrErrorC;
-wire remVotedC;
-wor datalen_bufTmrErrorC;
-wire [3:0] datalen_bufVotedC;
-wor remTmrErrorB;
-wire remVotedB;
-wor datalen_bufTmrErrorB;
-wire [3:0] datalen_bufVotedB;
-wor remTmrErrorA;
-wire remVotedA;
-wor datalen_bufTmrErrorA;
-wire [3:0] datalen_bufVotedA;
+wire [3:0] tmlenC;
+wire [3:0] tmlenB;
+wire [3:0] tmlenA;
+wire resetC;
+wire resetB;
+wire resetA;
+wire remoteC;
+wire remoteB;
+wire remoteA;
+wire remVC;
+wire remVB;
+wire remVA;
+wire [3:0] datalenC;
+wire [3:0] datalenB;
+wire [3:0] datalenA;
+wire clockC;
+wire clockB;
+wire clockA;
+wire activC;
+wire activB;
+wire activA;
+wor remTmrError;
+wire rem;
+wor datalen_bufTmrError;
+wire [3:0] datalen_buf;
 reg  [3:0] datalen_bufA ;
 reg  [3:0] datalen_bufB ;
 reg  [3:0] datalen_bufC ;
 reg  remA ;
 reg  remB ;
 reg  remC ;
-assign tmlenA =  datalen_bufVotedA;
-assign tmlenB =  datalen_bufVotedB;
-assign tmlenC =  datalen_bufVotedC;
+assign tmlen =  datalen_buf;
+wire remV =  rem;
 
 always @( posedge clockA )
   begin
@@ -80,11 +74,11 @@ always @( posedge clockA )
       end
     else
       begin
-        remA <= remVotedA;
-        datalen_bufA <= datalen_bufVotedA;
+        remA <= remVA;
+        datalen_bufA <= tmlenA;
         if (activA==1'b1)
           begin
-            if (remVotedA==1'b0)
+            if (remVA==1'b0)
               begin
                 remA <= 1'b1;
                 if (remoteA==1'b1)
@@ -107,11 +101,11 @@ always @( posedge clockB )
       end
     else
       begin
-        remB <= remVotedB;
-        datalen_bufB <= datalen_bufVotedB;
+        remB <= remVB;
+        datalen_bufB <= tmlenB;
         if (activB==1'b1)
           begin
-            if (remVotedB==1'b0)
+            if (remVB==1'b0)
               begin
                 remB <= 1'b1;
                 if (remoteB==1'b1)
@@ -134,11 +128,11 @@ always @( posedge clockC )
       end
     else
       begin
-        remC <= remVotedC;
-        datalen_bufC <= datalen_bufVotedC;
+        remC <= remVC;
+        datalen_bufC <= tmlenC;
         if (activC==1'b1)
           begin
-            if (remVotedC==1'b0)
+            if (remVC==1'b0)
               begin
                 remC <= 1'b1;
                 if (remoteC==1'b1)
@@ -152,109 +146,88 @@ always @( posedge clockC )
       end
   end
 
-always @( identifierA or datalenA or remoteA or extendedA )
+always @( identifier or datalen or remote or extended )
   begin
-    messageA[38]  =  1'b0;
-    messageA[6]  =  remoteA;
-    messageA[5:4]  =  2'b00;
-    messageA[3:0]  =  datalenA;
-    if (extendedA==1'b1)
+    message[38]  =  1'b0;
+    message[6]  =  remote;
+    message[5:4]  =  2'b00;
+    message[3:0]  =  datalen;
+    if (extended==1'b1)
       begin
-        messageA[37:27]  =  identifierA[28:18] ;
-        messageA[26:25]  =  2'b11;
-        messageA[24:7]  =  identifierA[17:0] ;
+        message[37:27]  =  identifier[28:18] ;
+        message[26:25]  =  2'b11;
+        message[24:7]  =  identifier[17:0] ;
       end
     else
       begin
-        messageA[37:18]  =  20'd0;
-        messageA[17:7]  =  identifierA[28:18] ;
+        message[37:18]  =  20'd0;
+        message[17:7]  =  identifier[28:18] ;
       end
   end
 
-always @( identifierB or datalenB or remoteB or extendedB )
-  begin
-    messageB[38]  =  1'b0;
-    messageB[6]  =  remoteB;
-    messageB[5:4]  =  2'b00;
-    messageB[3:0]  =  datalenB;
-    if (extendedB==1'b1)
-      begin
-        messageB[37:27]  =  identifierB[28:18] ;
-        messageB[26:25]  =  2'b11;
-        messageB[24:7]  =  identifierB[17:0] ;
-      end
-    else
-      begin
-        messageB[37:18]  =  20'd0;
-        messageB[17:7]  =  identifierB[28:18] ;
-      end
-  end
-
-always @( identifierC or datalenC or remoteC or extendedC )
-  begin
-    messageC[38]  =  1'b0;
-    messageC[6]  =  remoteC;
-    messageC[5:4]  =  2'b00;
-    messageC[3:0]  =  datalenC;
-    if (extendedC==1'b1)
-      begin
-        messageC[37:27]  =  identifierC[28:18] ;
-        messageC[26:25]  =  2'b11;
-        messageC[24:7]  =  identifierC[17:0] ;
-      end
-    else
-      begin
-        messageC[37:18]  =  20'd0;
-        messageC[17:7]  =  identifierC[28:18] ;
-      end
-  end
-
-majorityVoter #(.WIDTH(4)) datalen_bufVoterA (
+majorityVoter #(.WIDTH(4)) datalen_bufVoter (
     .inA(datalen_bufA),
     .inB(datalen_bufB),
     .inC(datalen_bufC),
-    .out(datalen_bufVotedA),
-    .tmrErr(datalen_bufTmrErrorA)
+    .out(datalen_buf),
+    .tmrErr(datalen_bufTmrError)
     );
 
-majorityVoter remVoterA (
+majorityVoter remVoter (
     .inA(remA),
     .inB(remB),
     .inC(remC),
-    .out(remVotedA),
-    .tmrErr(remTmrErrorA)
+    .out(rem),
+    .tmrErr(remTmrError)
     );
 
-majorityVoter #(.WIDTH(4)) datalen_bufVoterB (
-    .inA(datalen_bufA),
-    .inB(datalen_bufB),
-    .inC(datalen_bufC),
-    .out(datalen_bufVotedB),
-    .tmrErr(datalen_bufTmrErrorB)
+fanout activFanout (
+    .in(activ),
+    .outA(activA),
+    .outB(activB),
+    .outC(activC)
     );
 
-majorityVoter remVoterB (
-    .inA(remA),
-    .inB(remB),
-    .inC(remC),
-    .out(remVotedB),
-    .tmrErr(remTmrErrorB)
+fanout clockFanout (
+    .in(clock),
+    .outA(clockA),
+    .outB(clockB),
+    .outC(clockC)
     );
 
-majorityVoter #(.WIDTH(4)) datalen_bufVoterC (
-    .inA(datalen_bufA),
-    .inB(datalen_bufB),
-    .inC(datalen_bufC),
-    .out(datalen_bufVotedC),
-    .tmrErr(datalen_bufTmrErrorC)
+fanout #(.WIDTH(4)) datalenFanout (
+    .in(datalen),
+    .outA(datalenA),
+    .outB(datalenB),
+    .outC(datalenC)
     );
 
-majorityVoter remVoterC (
-    .inA(remA),
-    .inB(remB),
-    .inC(remC),
-    .out(remVotedC),
-    .tmrErr(remTmrErrorC)
+fanout remVFanout (
+    .in(remV),
+    .outA(remVA),
+    .outB(remVB),
+    .outC(remVC)
+    );
+
+fanout remoteFanout (
+    .in(remote),
+    .outA(remoteA),
+    .outB(remoteB),
+    .outC(remoteC)
+    );
+
+fanout resetFanout (
+    .in(reset),
+    .outA(resetA),
+    .outB(resetB),
+    .outC(resetC)
+    );
+
+fanout #(.WIDTH(4)) tmlenFanout (
+    .in(tmlen),
+    .outA(tmlenA),
+    .outB(tmlenB),
+    .outC(tmlenC)
     );
 endmodule
 

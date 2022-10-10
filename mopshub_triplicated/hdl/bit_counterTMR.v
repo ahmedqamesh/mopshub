@@ -6,17 +6,17 @@
  *                                                                                                  *
  * user    : lucas                                                                                  *
  * host    : DESKTOP-BFDSFP2                                                                        *
- * date    : 16/08/2022 12:58:07                                                                    *
+ * date    : 06/10/2022 13:52:35                                                                    *
  *                                                                                                  *
- * workdir : /mnt/c/Users/Lucas/Desktop/mopshub_triplication/mopshub_top_board_canakari_ftrim/hdl   *
- * cmd     : /mnt/c/Users/Lucas/Desktop/mopshub_triplication/tmrg-master/bin/tmrg -c tmrg.cfg -vvv  *
+ * workdir : /mnt/c/Users/Lucas/Documents/GitHub/mopshub_triplicated/triplicated/mopshub_top_board/hdl *
+ * cmd     : /mnt/c/Users/Lucas/Desktop/mopshub_triplication/tmrg-master/bin/tmrg -vv -c tmrg.cfg   *
  * tmrg rev:                                                                                        *
  *                                                                                                  *
  * src file: bit_counter.v                                                                          *
- *           Git SHA           : File not in git repository!                                        *
- *           Modification time : 2022-08-12 09:47:50                                                *
- *           File Size         : 971                                                                *
- *           MD5 hash          : 7e994576ee7bdfbbbe33c29e84b9bf29                                   *
+ *           Git SHA           : c110441b08b692cc54ebd4a3b84a2599430e8f93                           *
+ *           Modification time : 2022-10-05 20:23:26                                                *
+ *           File Size         : 857                                                                *
+ *           MD5 hash          : 0e680ef2c8f45df0a8cb6dbd17372863                                   *
  *                                                                                                  *
  ****************************************************************************************************/
 
@@ -33,9 +33,9 @@ wire rstA;
 wire ext_rstC;
 wire ext_rstB;
 wire ext_rstA;
-wire [4:0] data_out_reg_vC;
-wire [4:0] data_out_reg_vB;
-wire [4:0] data_out_reg_vA;
+wire [4:0] data_outC;
+wire [4:0] data_outB;
+wire [4:0] data_outA;
 wire cnt_enableC;
 wire cnt_enableB;
 wire cnt_enableA;
@@ -48,7 +48,6 @@ reg  [4:0] data_out_regA ;
 reg  [4:0] data_out_regB ;
 reg  [4:0] data_out_regC ;
 assign data_out =  data_out_reg;
-wire [4:0] data_out_reg_v =  data_out_reg;
 
 always @( posedge clkA )
   if (!rstA|ext_rstA)
@@ -58,11 +57,7 @@ always @( posedge clkA )
   else
     if (cnt_enableA)
       begin
-        data_out_regA <= data_out_regA+1;
-      end
-    else
-      begin
-        data_out_regA <= data_out_reg_vA;
+        data_out_regA <= data_outA+1;
       end
 
 always @( posedge clkB )
@@ -73,11 +68,7 @@ always @( posedge clkB )
   else
     if (cnt_enableB)
       begin
-        data_out_regB <= data_out_regB+1;
-      end
-    else
-      begin
-        data_out_regB <= data_out_reg_vB;
+        data_out_regB <= data_outB+1;
       end
 
 always @( posedge clkC )
@@ -88,11 +79,7 @@ always @( posedge clkC )
   else
     if (cnt_enableC)
       begin
-        data_out_regC <= data_out_regC+1;
-      end
-    else
-      begin
-        data_out_regC <= data_out_reg_vC;
+        data_out_regC <= data_outC+1;
       end
 
 majorityVoter #(.WIDTH(5)) data_out_regVoter (
@@ -117,11 +104,11 @@ fanout cnt_enableFanout (
     .outC(cnt_enableC)
     );
 
-fanout #(.WIDTH(5)) data_out_reg_vFanout (
-    .in(data_out_reg_v),
-    .outA(data_out_reg_vA),
-    .outB(data_out_reg_vB),
-    .outC(data_out_reg_vC)
+fanout #(.WIDTH(5)) data_outFanout (
+    .in(data_out),
+    .outA(data_outA),
+    .outB(data_outB),
+    .outC(data_outC)
     );
 
 fanout ext_rstFanout (

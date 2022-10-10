@@ -6,79 +6,88 @@
  *                                                                                                  *
  * user    : lucas                                                                                  *
  * host    : DESKTOP-BFDSFP2                                                                        *
- * date    : 16/08/2022 12:58:21                                                                    *
+ * date    : 06/10/2022 13:52:51                                                                    *
  *                                                                                                  *
- * workdir : /mnt/c/Users/Lucas/Desktop/mopshub_triplication/mopshub_top_board_canakari_ftrim/hdl   *
- * cmd     : /mnt/c/Users/Lucas/Desktop/mopshub_triplication/tmrg-master/bin/tmrg -c tmrg.cfg -vvv  *
+ * workdir : /mnt/c/Users/Lucas/Documents/GitHub/mopshub_triplicated/triplicated/mopshub_top_board/hdl *
+ * cmd     : /mnt/c/Users/Lucas/Desktop/mopshub_triplication/tmrg-master/bin/tmrg -vv -c tmrg.cfg   *
  * tmrg rev:                                                                                        *
  *                                                                                                  *
  * src file: interruptregister2.v                                                                   *
- *           Git SHA           : File not in git repository!                                        *
- *           Modification time : 2022-03-29 13:49:21                                                *
- *           File Size         : 2916                                                               *
- *           MD5 hash          : 95b6f2ef3f5edde928ea0c506c416fae                                   *
+ *           Git SHA           : c110441b08b692cc54ebd4a3b84a2599430e8f93                           *
+ *           Modification time : 2022-08-25 09:21:10                                                *
+ *           File Size         : 2868                                                               *
+ *           MD5 hash          : bd7e7e5669175843ce4eb731fe69d8ac                                   *
  *                                                                                                  *
  ****************************************************************************************************/
 
 module interrupregister2TMR(
-  input wire  clkA ,
-  input wire  clkB ,
-  input wire  clkC ,
-  input wire  rstA ,
-  input wire  rstB ,
-  input wire  rstC ,
-  input wire  cpuA ,
-  input wire  cpuB ,
-  input wire  cpuC ,
-  input wire  canA ,
-  input wire  canB ,
-  input wire  canC ,
-  input wire  onoffninA ,
-  input wire  onoffninB ,
-  input wire  onoffninC ,
-  input wire  iestatuspA ,
-  input wire  iestatuspB ,
-  input wire  iestatuspC ,
-  input wire  iesuctrapA ,
-  input wire  iesuctrapB ,
-  input wire  iesuctrapC ,
-  input wire  iesucrecpA ,
-  input wire  iesucrecpB ,
-  input wire  iesucrecpC ,
-  input wire  irqstatuspA ,
-  input wire  irqstatuspB ,
-  input wire  irqstatuspC ,
-  input wire  irqsuctrapA ,
-  input wire  irqsuctrapB ,
-  input wire  irqsuctrapC ,
-  input wire  irqsucrecpA ,
-  input wire  irqsucrecpB ,
-  input wire  irqsucrecpC ,
-  input wire  irqstatuscA ,
-  input wire  irqstatuscB ,
-  input wire  irqstatuscC ,
-  input wire  irqsuctracA ,
-  input wire  irqsuctracB ,
-  input wire  irqsuctracC ,
-  input wire  irqsucreccA ,
-  input wire  irqsucreccB ,
-  input wire  irqsucreccC ,
-  output wire [15:0] registerA ,
-  output wire [15:0] registerB ,
-  output wire [15:0] registerC 
+  input wire  clk ,
+  input wire  rst ,
+  input wire  cpu ,
+  input wire  can ,
+  input wire  onoffnin ,
+  input wire  iestatusp ,
+  input wire  iesuctrap ,
+  input wire  iesucrecp ,
+  input wire  irqstatusp ,
+  input wire  irqsuctrap ,
+  input wire  irqsucrecp ,
+  input wire  irqstatusc ,
+  input wire  irqsuctrac ,
+  input wire  irqsucrecc ,
+  output wire [15:0] register 
 );
-wor register_iTmrErrorC;
-wire [15:0] register_iVotedC;
-wor register_iTmrErrorB;
-wire [15:0] register_iVotedB;
-wor register_iTmrErrorA;
-wire [15:0] register_iVotedA;
+wire rstC;
+wire rstB;
+wire rstA;
+wire [15:0] registerC;
+wire [15:0] registerB;
+wire [15:0] registerA;
+wire onoffninC;
+wire onoffninB;
+wire onoffninA;
+wire irqsuctrapC;
+wire irqsuctrapB;
+wire irqsuctrapA;
+wire irqsuctracC;
+wire irqsuctracB;
+wire irqsuctracA;
+wire irqsucrecpC;
+wire irqsucrecpB;
+wire irqsucrecpA;
+wire irqsucreccC;
+wire irqsucreccB;
+wire irqsucreccA;
+wire irqstatuspC;
+wire irqstatuspB;
+wire irqstatuspA;
+wire irqstatuscC;
+wire irqstatuscB;
+wire irqstatuscA;
+wire iesuctrapC;
+wire iesuctrapB;
+wire iesuctrapA;
+wire iesucrecpC;
+wire iesucrecpB;
+wire iesucrecpA;
+wire iestatuspC;
+wire iestatuspB;
+wire iestatuspA;
+wire cpuC;
+wire cpuB;
+wire cpuA;
+wire clkC;
+wire clkB;
+wire clkA;
+wire canC;
+wire canB;
+wire canA;
+wor register_iTmrError;
+wire [15:0] register_i;
 reg  [15:0] register_iA ;
 reg  [15:0] register_iB ;
 reg  [15:0] register_iC ;
-assign registerA =  register_iVotedA;
-assign registerB =  register_iVotedB;
-assign registerC =  register_iVotedC;
+assign register =  register_i;
 
 always @( posedge clkA )
   begin
@@ -111,7 +120,7 @@ always @( posedge clkA )
               register_iA[0]  <= irqsucrecpA;
           end
         else
-          register_iA <= register_iVotedA;
+          register_iA <= registerA;
   end
 
 always @( posedge clkB )
@@ -145,7 +154,7 @@ always @( posedge clkB )
               register_iB[0]  <= irqsucrecpB;
           end
         else
-          register_iB <= register_iVotedB;
+          register_iB <= registerB;
   end
 
 always @( posedge clkC )
@@ -179,31 +188,120 @@ always @( posedge clkC )
               register_iC[0]  <= irqsucrecpC;
           end
         else
-          register_iC <= register_iVotedC;
+          register_iC <= registerC;
   end
 
-majorityVoter #(.WIDTH(16)) register_iVoterA (
+majorityVoter #(.WIDTH(16)) register_iVoter (
     .inA(register_iA),
     .inB(register_iB),
     .inC(register_iC),
-    .out(register_iVotedA),
-    .tmrErr(register_iTmrErrorA)
+    .out(register_i),
+    .tmrErr(register_iTmrError)
     );
 
-majorityVoter #(.WIDTH(16)) register_iVoterB (
-    .inA(register_iA),
-    .inB(register_iB),
-    .inC(register_iC),
-    .out(register_iVotedB),
-    .tmrErr(register_iTmrErrorB)
+fanout canFanout (
+    .in(can),
+    .outA(canA),
+    .outB(canB),
+    .outC(canC)
     );
 
-majorityVoter #(.WIDTH(16)) register_iVoterC (
-    .inA(register_iA),
-    .inB(register_iB),
-    .inC(register_iC),
-    .out(register_iVotedC),
-    .tmrErr(register_iTmrErrorC)
+fanout clkFanout (
+    .in(clk),
+    .outA(clkA),
+    .outB(clkB),
+    .outC(clkC)
+    );
+
+fanout cpuFanout (
+    .in(cpu),
+    .outA(cpuA),
+    .outB(cpuB),
+    .outC(cpuC)
+    );
+
+fanout iestatuspFanout (
+    .in(iestatusp),
+    .outA(iestatuspA),
+    .outB(iestatuspB),
+    .outC(iestatuspC)
+    );
+
+fanout iesucrecpFanout (
+    .in(iesucrecp),
+    .outA(iesucrecpA),
+    .outB(iesucrecpB),
+    .outC(iesucrecpC)
+    );
+
+fanout iesuctrapFanout (
+    .in(iesuctrap),
+    .outA(iesuctrapA),
+    .outB(iesuctrapB),
+    .outC(iesuctrapC)
+    );
+
+fanout irqstatuscFanout (
+    .in(irqstatusc),
+    .outA(irqstatuscA),
+    .outB(irqstatuscB),
+    .outC(irqstatuscC)
+    );
+
+fanout irqstatuspFanout (
+    .in(irqstatusp),
+    .outA(irqstatuspA),
+    .outB(irqstatuspB),
+    .outC(irqstatuspC)
+    );
+
+fanout irqsucreccFanout (
+    .in(irqsucrecc),
+    .outA(irqsucreccA),
+    .outB(irqsucreccB),
+    .outC(irqsucreccC)
+    );
+
+fanout irqsucrecpFanout (
+    .in(irqsucrecp),
+    .outA(irqsucrecpA),
+    .outB(irqsucrecpB),
+    .outC(irqsucrecpC)
+    );
+
+fanout irqsuctracFanout (
+    .in(irqsuctrac),
+    .outA(irqsuctracA),
+    .outB(irqsuctracB),
+    .outC(irqsuctracC)
+    );
+
+fanout irqsuctrapFanout (
+    .in(irqsuctrap),
+    .outA(irqsuctrapA),
+    .outB(irqsuctrapB),
+    .outC(irqsuctrapC)
+    );
+
+fanout onoffninFanout (
+    .in(onoffnin),
+    .outA(onoffninA),
+    .outB(onoffninB),
+    .outC(onoffninC)
+    );
+
+fanout #(.WIDTH(16)) registerFanout (
+    .in(register),
+    .outA(registerA),
+    .outB(registerB),
+    .outC(registerC)
+    );
+
+fanout rstFanout (
+    .in(rst),
+    .outA(rstA),
+    .outB(rstB),
+    .outC(rstC)
     );
 endmodule
 

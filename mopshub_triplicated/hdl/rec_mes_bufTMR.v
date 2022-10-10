@@ -6,17 +6,17 @@
  *                                                                                                  *
  * user    : lucas                                                                                  *
  * host    : DESKTOP-BFDSFP2                                                                        *
- * date    : 16/08/2022 12:58:37                                                                    *
+ * date    : 06/10/2022 13:53:00                                                                    *
  *                                                                                                  *
- * workdir : /mnt/c/Users/Lucas/Desktop/mopshub_triplication/mopshub_top_board_canakari_ftrim/hdl   *
- * cmd     : /mnt/c/Users/Lucas/Desktop/mopshub_triplication/tmrg-master/bin/tmrg -c tmrg.cfg -vvv  *
+ * workdir : /mnt/c/Users/Lucas/Documents/GitHub/mopshub_triplicated/triplicated/mopshub_top_board/hdl *
+ * cmd     : /mnt/c/Users/Lucas/Desktop/mopshub_triplication/tmrg-master/bin/tmrg -vv -c tmrg.cfg   *
  * tmrg rev:                                                                                        *
  *                                                                                                  *
  * src file: rec_mes_buf.v                                                                          *
- *           Git SHA           : File not in git repository!                                        *
- *           Modification time : 2022-08-12 09:45:37                                                *
- *           File Size         : 3169                                                               *
- *           MD5 hash          : 91399f1d75c3050b5ae1939eec750ef8                                   *
+ *           Git SHA           : c110441b08b692cc54ebd4a3b84a2599430e8f93                           *
+ *           Modification time : 2022-10-05 20:39:33                                                *
+ *           File Size         : 2976                                                               *
+ *           MD5 hash          : d3d23d046bdf820b2a01fbd875200d9c                                   *
  *                                                                                                  *
  ****************************************************************************************************/
 
@@ -206,29 +206,17 @@ always @( posedge clkA )
                   b7A <= data_rec_inA[15:8] ;
                 end
               default begin
-  idA <= idA;
-  b1A <= b1A;
-  b2A <= b2A;
-  b3A <= b3A;
-  b4A <= b4A;
-  b5A <= b5A;
-  b6A <= b6A;
-  b7A <= b7A;
-  b8A <= b8A;
+  idA <= id_vA;
+  b1A <= b1_vA;
+  b2A <= b2_vA;
+  b3A <= b3_vA;
+  b4A <= b4_vA;
+  b5A <= b5_vA;
+  b6A <= b6_vA;
+  b7A <= b7_vA;
+  b8A <= b8_vA;
 end 
             endcase
-          end
-        else
-          begin
-            idA <= id_vA;
-            b1A <= b1_vA;
-            b2A <= b2_vA;
-            b3A <= b3_vA;
-            b4A <= b4_vA;
-            b5A <= b5_vA;
-            b6A <= b6_vA;
-            b7A <= b7_vA;
-            b8A <= b8_vA;
           end
       end
   end
@@ -274,29 +262,17 @@ always @( posedge clkB )
                   b7B <= data_rec_inB[15:8] ;
                 end
               default begin
-  idB <= idB;
-  b1B <= b1B;
-  b2B <= b2B;
-  b3B <= b3B;
-  b4B <= b4B;
-  b5B <= b5B;
-  b6B <= b6B;
-  b7B <= b7B;
-  b8B <= b8B;
+  idB <= id_vB;
+  b1B <= b1_vB;
+  b2B <= b2_vB;
+  b3B <= b3_vB;
+  b4B <= b4_vB;
+  b5B <= b5_vB;
+  b6B <= b6_vB;
+  b7B <= b7_vB;
+  b8B <= b8_vB;
 end 
             endcase
-          end
-        else
-          begin
-            idB <= id_vB;
-            b1B <= b1_vB;
-            b2B <= b2_vB;
-            b3B <= b3_vB;
-            b4B <= b4_vB;
-            b5B <= b5_vB;
-            b6B <= b6_vB;
-            b7B <= b7_vB;
-            b8B <= b8_vB;
           end
       end
   end
@@ -342,33 +318,21 @@ always @( posedge clkC )
                   b7C <= data_rec_inC[15:8] ;
                 end
               default begin
-  idC <= idC;
-  b1C <= b1C;
-  b2C <= b2C;
-  b3C <= b3C;
-  b4C <= b4C;
-  b5C <= b5C;
-  b6C <= b6C;
-  b7C <= b7C;
-  b8C <= b8C;
+  idC <= id_vC;
+  b1C <= b1_vC;
+  b2C <= b2_vC;
+  b3C <= b3_vC;
+  b4C <= b4_vC;
+  b5C <= b5_vC;
+  b6C <= b6_vC;
+  b7C <= b7_vC;
+  b8C <= b8_vC;
 end 
             endcase
           end
-        else
-          begin
-            idC <= id_vC;
-            b1C <= b1_vC;
-            b2C <= b2_vC;
-            b3C <= b3_vC;
-            b4C <= b4_vC;
-            b5C <= b5_vC;
-            b6C <= b6_vC;
-            b7C <= b7_vC;
-            b8C <= b8_vC;
-          end
       end
   end
-assign data_rec_out =  {id,b1,b3,b2,b4,b8,b7,b6,b5};
+assign data_rec_out =  {id_v,b1_v,b3_v,b2_v,b4_v,b8_v,b7_v,b6_v,b5_v};
 
 majorityVoter #(.WIDTH(8)) b1Voter (
     .inA(b1A),

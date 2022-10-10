@@ -6,21 +6,22 @@
  *                                                                                                  *
  * user    : lucas                                                                                  *
  * host    : DESKTOP-BFDSFP2                                                                        *
- * date    : 16/08/2022 12:58:32                                                                    *
+ * date    : 06/10/2022 13:52:54                                                                    *
  *                                                                                                  *
- * workdir : /mnt/c/Users/Lucas/Desktop/mopshub_triplication/mopshub_top_board_canakari_ftrim/hdl   *
- * cmd     : /mnt/c/Users/Lucas/Desktop/mopshub_triplication/tmrg-master/bin/tmrg -c tmrg.cfg -vvv  *
+ * workdir : /mnt/c/Users/Lucas/Documents/GitHub/mopshub_triplicated/triplicated/mopshub_top_board/hdl *
+ * cmd     : /mnt/c/Users/Lucas/Desktop/mopshub_triplication/tmrg-master/bin/tmrg -vv -c tmrg.cfg   *
  * tmrg rev:                                                                                        *
  *                                                                                                  *
  * src file: mux1_1bit.v                                                                            *
- *           Git SHA           : File not in git repository!                                        *
- *           Modification time : 2022-08-12 11:12:02                                                *
- *           File Size         : 2072                                                               *
- *           MD5 hash          : e179db39d96a39874a7b95c14f2bd2fe                                   *
+ *           Git SHA           : c110441b08b692cc54ebd4a3b84a2599430e8f93                           *
+ *           Modification time : 2022-10-05 22:34:08                                                *
+ *           File Size         : 1994                                                               *
+ *           MD5 hash          : 42971584dd28115abfa72bcb40944f3a                                   *
  *                                                                                                  *
  ****************************************************************************************************/
 
 module mux1_1bitTMR(
+  input wire  rst ,
   input wire [4:0] sel ,
   input wire  def_value ,
   output wire  output_port ,
@@ -41,277 +42,35 @@ module mux1_1bitTMR(
   input wire  input14 ,
   input wire  input15 
 );
-wire [4:0] selC;
-wire [4:0] selB;
-wire [4:0] selA;
-wire input9C;
-wire input9B;
-wire input9A;
-wire input8C;
-wire input8B;
-wire input8A;
-wire input7C;
-wire input7B;
-wire input7A;
-wire input6C;
-wire input6B;
-wire input6A;
-wire input5C;
-wire input5B;
-wire input5A;
-wire input4C;
-wire input4B;
-wire input4A;
-wire input3C;
-wire input3B;
-wire input3A;
-wire input2C;
-wire input2B;
-wire input2A;
-wire input1C;
-wire input1B;
-wire input1A;
-wire input15C;
-wire input15B;
-wire input15A;
-wire input14C;
-wire input14B;
-wire input14A;
-wire input13C;
-wire input13B;
-wire input13A;
-wire input12C;
-wire input12B;
-wire input12A;
-wire input11C;
-wire input11B;
-wire input11A;
-wire input10C;
-wire input10B;
-wire input10A;
-wire input0C;
-wire input0B;
-wire input0A;
-wire def_valueC;
-wire def_valueB;
-wire def_valueA;
-wor output_port_regTmrError;
-wire output_port_reg;
-reg  output_port_regA ;
-reg  output_port_regB ;
-reg  output_port_regC ;
+reg  output_port_reg ;
 initial
-  output_port_regA =  1'b0;
-initial
-  output_port_regB =  1'b0;
-initial
-  output_port_regC =  1'b0;
+  output_port_reg =  1'b0;
 assign output_port =  output_port_reg;
 
 always @( * )
-  begin
-    output_port_regA =  def_valueA;
-    case (selA)
-      5'h0 : output_port_regA =  input0A;
-      5'h1 : output_port_regA =  input1A;
-      5'h2 : output_port_regA =  input2A;
-      5'h3 : output_port_regA =  input3A;
-      5'h4 : output_port_regA =  input4A;
-      5'h5 : output_port_regA =  input5A;
-      5'h6 : output_port_regA =  input6A;
-      5'h7 : output_port_regA =  input7A;
-      5'h8 : output_port_regA =  input8A;
-      5'h9 : output_port_regA =  input9A;
-      5'hA : output_port_regA =  input10A;
-      5'hB : output_port_regA =  input11A;
-      5'hC : output_port_regA =  input12A;
-      5'hD : output_port_regA =  input13A;
-      5'hE : output_port_regA =  input14A;
-      5'hF : output_port_regA =  input15A;
-      default : output_port_regA =  def_valueA;
-    endcase
-  end
-
-always @( * )
-  begin
-    output_port_regB =  def_valueB;
-    case (selB)
-      5'h0 : output_port_regB =  input0B;
-      5'h1 : output_port_regB =  input1B;
-      5'h2 : output_port_regB =  input2B;
-      5'h3 : output_port_regB =  input3B;
-      5'h4 : output_port_regB =  input4B;
-      5'h5 : output_port_regB =  input5B;
-      5'h6 : output_port_regB =  input6B;
-      5'h7 : output_port_regB =  input7B;
-      5'h8 : output_port_regB =  input8B;
-      5'h9 : output_port_regB =  input9B;
-      5'hA : output_port_regB =  input10B;
-      5'hB : output_port_regB =  input11B;
-      5'hC : output_port_regB =  input12B;
-      5'hD : output_port_regB =  input13B;
-      5'hE : output_port_regB =  input14B;
-      5'hF : output_port_regB =  input15B;
-      default : output_port_regB =  def_valueB;
-    endcase
-  end
-
-always @( * )
-  begin
-    output_port_regC =  def_valueC;
-    case (selC)
-      5'h0 : output_port_regC =  input0C;
-      5'h1 : output_port_regC =  input1C;
-      5'h2 : output_port_regC =  input2C;
-      5'h3 : output_port_regC =  input3C;
-      5'h4 : output_port_regC =  input4C;
-      5'h5 : output_port_regC =  input5C;
-      5'h6 : output_port_regC =  input6C;
-      5'h7 : output_port_regC =  input7C;
-      5'h8 : output_port_regC =  input8C;
-      5'h9 : output_port_regC =  input9C;
-      5'hA : output_port_regC =  input10C;
-      5'hB : output_port_regC =  input11C;
-      5'hC : output_port_regC =  input12C;
-      5'hD : output_port_regC =  input13C;
-      5'hE : output_port_regC =  input14C;
-      5'hF : output_port_regC =  input15C;
-      default : output_port_regC =  def_valueC;
-    endcase
-  end
-
-majorityVoter output_port_regVoter (
-    .inA(output_port_regA),
-    .inB(output_port_regB),
-    .inC(output_port_regC),
-    .out(output_port_reg),
-    .tmrErr(output_port_regTmrError)
-    );
-
-fanout def_valueFanout (
-    .in(def_value),
-    .outA(def_valueA),
-    .outB(def_valueB),
-    .outC(def_valueC)
-    );
-
-fanout input0Fanout (
-    .in(input0),
-    .outA(input0A),
-    .outB(input0B),
-    .outC(input0C)
-    );
-
-fanout input10Fanout (
-    .in(input10),
-    .outA(input10A),
-    .outB(input10B),
-    .outC(input10C)
-    );
-
-fanout input11Fanout (
-    .in(input11),
-    .outA(input11A),
-    .outB(input11B),
-    .outC(input11C)
-    );
-
-fanout input12Fanout (
-    .in(input12),
-    .outA(input12A),
-    .outB(input12B),
-    .outC(input12C)
-    );
-
-fanout input13Fanout (
-    .in(input13),
-    .outA(input13A),
-    .outB(input13B),
-    .outC(input13C)
-    );
-
-fanout input14Fanout (
-    .in(input14),
-    .outA(input14A),
-    .outB(input14B),
-    .outC(input14C)
-    );
-
-fanout input15Fanout (
-    .in(input15),
-    .outA(input15A),
-    .outB(input15B),
-    .outC(input15C)
-    );
-
-fanout input1Fanout (
-    .in(input1),
-    .outA(input1A),
-    .outB(input1B),
-    .outC(input1C)
-    );
-
-fanout input2Fanout (
-    .in(input2),
-    .outA(input2A),
-    .outB(input2B),
-    .outC(input2C)
-    );
-
-fanout input3Fanout (
-    .in(input3),
-    .outA(input3A),
-    .outB(input3B),
-    .outC(input3C)
-    );
-
-fanout input4Fanout (
-    .in(input4),
-    .outA(input4A),
-    .outB(input4B),
-    .outC(input4C)
-    );
-
-fanout input5Fanout (
-    .in(input5),
-    .outA(input5A),
-    .outB(input5B),
-    .outC(input5C)
-    );
-
-fanout input6Fanout (
-    .in(input6),
-    .outA(input6A),
-    .outB(input6B),
-    .outC(input6C)
-    );
-
-fanout input7Fanout (
-    .in(input7),
-    .outA(input7A),
-    .outB(input7B),
-    .outC(input7C)
-    );
-
-fanout input8Fanout (
-    .in(input8),
-    .outA(input8A),
-    .outB(input8B),
-    .outC(input8C)
-    );
-
-fanout input9Fanout (
-    .in(input9),
-    .outA(input9A),
-    .outB(input9B),
-    .outC(input9C)
-    );
-
-fanout #(.WIDTH(5)) selFanout (
-    .in(sel),
-    .outA(selA),
-    .outB(selB),
-    .outC(selC)
-    );
+  if (!rst)
+    output_port_reg =  def_value;
+  else
+    begin
+      case (sel)
+        5'h0 : output_port_reg =  input0;
+        5'h1 : output_port_reg =  input1;
+        5'h2 : output_port_reg =  input2;
+        5'h3 : output_port_reg =  input3;
+        5'h4 : output_port_reg =  input4;
+        5'h5 : output_port_reg =  input5;
+        5'h6 : output_port_reg =  input6;
+        5'h7 : output_port_reg =  input7;
+        5'h8 : output_port_reg =  input8;
+        5'h9 : output_port_reg =  input9;
+        5'hA : output_port_reg =  input10;
+        5'hB : output_port_reg =  input11;
+        5'hC : output_port_reg =  input12;
+        5'hD : output_port_reg =  input13;
+        5'hE : output_port_reg =  input14;
+        5'hF : output_port_reg =  input15;
+        default : output_port_reg =  def_value;
+      endcase
+    end
 endmodule
 

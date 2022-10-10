@@ -6,369 +6,137 @@
  *                                                                                                  *
  * user    : lucas                                                                                  *
  * host    : DESKTOP-BFDSFP2                                                                        *
- * date    : 16/08/2022 12:58:38                                                                    *
+ * date    : 06/10/2022 13:53:04                                                                    *
  *                                                                                                  *
- * workdir : /mnt/c/Users/Lucas/Desktop/mopshub_triplication/mopshub_top_board_canakari_ftrim/hdl   *
- * cmd     : /mnt/c/Users/Lucas/Desktop/mopshub_triplication/tmrg-master/bin/tmrg -c tmrg.cfg -vvv  *
+ * workdir : /mnt/c/Users/Lucas/Documents/GitHub/mopshub_triplicated/triplicated/mopshub_top_board/hdl *
+ * cmd     : /mnt/c/Users/Lucas/Desktop/mopshub_triplication/tmrg-master/bin/tmrg -vv -c tmrg.cfg   *
  * tmrg rev:                                                                                        *
  *                                                                                                  *
  * src file: sum2.v                                                                                 *
- *           Git SHA           : File not in git repository!                                        *
- *           Modification time : 2022-03-29 13:49:21                                                *
+ *           Git SHA           : c110441b08b692cc54ebd4a3b84a2599430e8f93                           *
+ *           Modification time : 2022-08-30 11:15:46                                                *
  *           File Size         : 4557                                                               *
- *           MD5 hash          : 2bf9520810605ad23c7741ace145e3f3                                   *
+ *           MD5 hash          : d3bbd618f50621647d009edb54effed3                                   *
  *                                                                                                  *
  ****************************************************************************************************/
 
 module sum2TMR(
-  input wire [3:0] countA ,
-  input wire [3:0] countB ,
-  input wire [3:0] countC ,
-  input wire [2:0] tseg1orgA ,
-  input wire [2:0] tseg1orgB ,
-  input wire [2:0] tseg1orgC ,
-  input wire [4:0] tseg1mplA ,
-  input wire [4:0] tseg1mplB ,
-  input wire [4:0] tseg1mplC ,
-  input wire [2:0] tseg2A ,
-  input wire [2:0] tseg2B ,
-  input wire [2:0] tseg2C ,
-  input wire [2:0] sjwA ,
-  input wire [2:0] sjwB ,
-  input wire [2:0] sjwC ,
-  output reg  notnullA ,
-  output reg  notnullB ,
-  output reg  notnullC ,
-  output reg  gtsjwp1A ,
-  output reg  gtsjwp1B ,
-  output reg  gtsjwp1C ,
-  output reg  gttseg1p1A ,
-  output reg  gttseg1p1B ,
-  output reg  gttseg1p1C ,
-  output reg  cpsgetseg1ptseg2p2A ,
-  output reg  cpsgetseg1ptseg2p2B ,
-  output reg  cpsgetseg1ptseg2p2C ,
-  output reg  cetseg1ptseg2p1A ,
-  output reg  cetseg1ptseg2p1B ,
-  output reg  cetseg1ptseg2p1C ,
-  output reg  countesmpltimeA ,
-  output reg  countesmpltimeB ,
-  output reg  countesmpltimeC ,
-  output reg [4:0] tseg1p1psjwA ,
-  output reg [4:0] tseg1p1psjwB ,
-  output reg [4:0] tseg1p1psjwC ,
-  output reg [4:0] tseg1pcountA ,
-  output reg [4:0] tseg1pcountB ,
-  output reg [4:0] tseg1pcountC 
+  input wire [3:0] count ,
+  input wire [2:0] tseg1org ,
+  input wire [4:0] tseg1mpl ,
+  input wire [2:0] tseg2 ,
+  input wire [2:0] sjw ,
+  output reg  notnull ,
+  output reg  gtsjwp1 ,
+  output reg  gttseg1p1 ,
+  output reg  cpsgetseg1ptseg2p2 ,
+  output reg  cetseg1ptseg2p1 ,
+  output reg  countesmpltime ,
+  output reg [4:0] tseg1p1psjw ,
+  output reg [4:0] tseg1pcount 
 );
-reg  [2:0] tseg1m1A ;
-reg  [2:0] tseg1m1B ;
-reg  [2:0] tseg1m1C ;
-reg  [4:0] tseg1p1mplA ;
-reg  [4:0] tseg1p1mplB ;
-reg  [4:0] tseg1p1mplC ;
-reg  [3:0] tseg1p1orgA ;
-reg  [3:0] tseg1p1orgB ;
-reg  [3:0] tseg1p1orgC ;
-reg  [3:0] sjwp1A ;
-reg  [3:0] sjwp1B ;
-reg  [3:0] sjwp1C ;
-reg  [4:0] countpsjwA ;
-reg  [4:0] countpsjwB ;
-reg  [4:0] countpsjwC ;
-reg  [4:0] tseg1ptseg2p1A ;
-reg  [4:0] tseg1ptseg2p1B ;
-reg  [4:0] tseg1ptseg2p1C ;
-reg  [4:0] tseg1ptseg2p2A ;
-reg  [4:0] tseg1ptseg2p2B ;
-reg  [4:0] tseg1ptseg2p2C ;
+reg  [2:0] tseg1m1 ;
+reg  [4:0] tseg1p1mpl ;
+reg  [3:0] tseg1p1org ;
+reg  [3:0] sjwp1 ;
+reg  [4:0] countpsjw ;
+reg  [4:0] tseg1ptseg2p1 ;
+reg  [4:0] tseg1ptseg2p2 ;
 
-always @( tseg1mplA )
+always @( tseg1mpl )
   begin
-    tseg1p1mplA <= tseg1mplA+1;
+    tseg1p1mpl <= tseg1mpl+1;
   end
 
-always @( tseg1mplB )
+always @( tseg1org )
   begin
-    tseg1p1mplB <= tseg1mplB+1;
+    tseg1p1org <= tseg1org+1;
   end
 
-always @( tseg1mplC )
+always @( tseg1org )
   begin
-    tseg1p1mplC <= tseg1mplC+1;
-  end
-
-always @( tseg1orgA )
-  begin
-    tseg1p1orgA <= tseg1orgA+1;
-  end
-
-always @( tseg1orgB )
-  begin
-    tseg1p1orgB <= tseg1orgB+1;
-  end
-
-always @( tseg1orgC )
-  begin
-    tseg1p1orgC <= tseg1orgC+1;
-  end
-
-always @( tseg1orgA )
-  begin
-    if (tseg1orgA>0)
-      tseg1m1A <= tseg1orgA-1;
+    if (tseg1org>0)
+      tseg1m1 <= tseg1org-1;
     else
-      tseg1m1A <= 0;
+      tseg1m1 <= 0;
   end
 
-always @( tseg1orgB )
+always @( sjw )
   begin
-    if (tseg1orgB>0)
-      tseg1m1B <= tseg1orgB-1;
+    sjwp1 <= sjw+1;
+  end
+
+always @( count or sjw )
+  begin
+    countpsjw <= count+sjw;
+  end
+
+always @( tseg1p1mpl or tseg2 )
+  begin
+    tseg1ptseg2p1 <= tseg1p1mpl+{2'b00,tseg2};
+  end
+
+always @( tseg1ptseg2p1 )
+  begin
+    tseg1ptseg2p2 <= tseg1ptseg2p1+1;
+  end
+
+always @( tseg1m1 or count )
+  begin
+    tseg1pcount <= tseg1m1+count;
+  end
+
+always @( tseg1p1org or sjw )
+  begin
+    tseg1p1psjw <= tseg1p1org+sjw;
+  end
+
+always @( count )
+  begin
+    if (count!=0)
+      notnull <= 1'b1;
     else
-      tseg1m1B <= 0;
+      notnull <= 1'b0;
   end
 
-always @( tseg1orgC )
+always @( count or sjwp1 )
   begin
-    if (tseg1orgC>0)
-      tseg1m1C <= tseg1orgC-1;
+    if (count>sjwp1)
+      gtsjwp1 <= 1'b1;
     else
-      tseg1m1C <= 0;
+      gtsjwp1 <= 1'b0;
   end
 
-always @( sjwA )
+always @( count or tseg1p1mpl )
   begin
-    sjwp1A <= sjwA+1;
-  end
-
-always @( sjwB )
-  begin
-    sjwp1B <= sjwB+1;
-  end
-
-always @( sjwC )
-  begin
-    sjwp1C <= sjwC+1;
-  end
-
-always @( countA or sjwA )
-  begin
-    countpsjwA <= countA+sjwA;
-  end
-
-always @( countB or sjwB )
-  begin
-    countpsjwB <= countB+sjwB;
-  end
-
-always @( countC or sjwC )
-  begin
-    countpsjwC <= countC+sjwC;
-  end
-
-always @( tseg1p1mplA or tseg2A )
-  begin
-    tseg1ptseg2p1A <= tseg1p1mplA+{2'b00,tseg2A};
-  end
-
-always @( tseg1p1mplB or tseg2B )
-  begin
-    tseg1ptseg2p1B <= tseg1p1mplB+{2'b00,tseg2B};
-  end
-
-always @( tseg1p1mplC or tseg2C )
-  begin
-    tseg1ptseg2p1C <= tseg1p1mplC+{2'b00,tseg2C};
-  end
-
-always @( tseg1ptseg2p1A )
-  begin
-    tseg1ptseg2p2A <= tseg1ptseg2p1A+1;
-  end
-
-always @( tseg1ptseg2p1B )
-  begin
-    tseg1ptseg2p2B <= tseg1ptseg2p1B+1;
-  end
-
-always @( tseg1ptseg2p1C )
-  begin
-    tseg1ptseg2p2C <= tseg1ptseg2p1C+1;
-  end
-
-always @( tseg1m1A or countA )
-  begin
-    tseg1pcountA <= tseg1m1A+countA;
-  end
-
-always @( tseg1m1B or countB )
-  begin
-    tseg1pcountB <= tseg1m1B+countB;
-  end
-
-always @( tseg1m1C or countC )
-  begin
-    tseg1pcountC <= tseg1m1C+countC;
-  end
-
-always @( tseg1p1orgA or sjwA )
-  begin
-    tseg1p1psjwA <= tseg1p1orgA+sjwA;
-  end
-
-always @( tseg1p1orgB or sjwB )
-  begin
-    tseg1p1psjwB <= tseg1p1orgB+sjwB;
-  end
-
-always @( tseg1p1orgC or sjwC )
-  begin
-    tseg1p1psjwC <= tseg1p1orgC+sjwC;
-  end
-
-always @( countA )
-  begin
-    if (countA!=0)
-      notnullA <= 1'b1;
+    if ({1'b0,count}>tseg1p1mpl)
+      gttseg1p1 <= 1'b1;
     else
-      notnullA <= 1'b0;
+      gttseg1p1 <= 1'b0;
   end
 
-always @( countB )
+always @( countpsjw or tseg1ptseg2p2 )
   begin
-    if (countB!=0)
-      notnullB <= 1'b1;
+    if (countpsjw>=tseg1ptseg2p2)
+      cpsgetseg1ptseg2p2 <= 1'b1;
     else
-      notnullB <= 1'b0;
+      cpsgetseg1ptseg2p2 <= 1'b0;
   end
 
-always @( countC )
+always @( count or tseg1ptseg2p1 )
   begin
-    if (countC!=0)
-      notnullC <= 1'b1;
+    if ({1'b0,count}==tseg1ptseg2p1)
+      cetseg1ptseg2p1 <= 1'b1;
     else
-      notnullC <= 1'b0;
+      cetseg1ptseg2p1 <= 1'b0;
   end
 
-always @( countA or sjwp1A )
+always @( count or tseg1p1mpl )
   begin
-    if (countA>sjwp1A)
-      gtsjwp1A <= 1'b1;
+    if ({1'b0,count}==tseg1p1mpl)
+      countesmpltime <= 1'b1;
     else
-      gtsjwp1A <= 1'b0;
-  end
-
-always @( countB or sjwp1B )
-  begin
-    if (countB>sjwp1B)
-      gtsjwp1B <= 1'b1;
-    else
-      gtsjwp1B <= 1'b0;
-  end
-
-always @( countC or sjwp1C )
-  begin
-    if (countC>sjwp1C)
-      gtsjwp1C <= 1'b1;
-    else
-      gtsjwp1C <= 1'b0;
-  end
-
-always @( countA or tseg1p1mplA )
-  begin
-    if ({1'b0,countA}>tseg1p1mplA)
-      gttseg1p1A <= 1'b1;
-    else
-      gttseg1p1A <= 1'b0;
-  end
-
-always @( countB or tseg1p1mplB )
-  begin
-    if ({1'b0,countB}>tseg1p1mplB)
-      gttseg1p1B <= 1'b1;
-    else
-      gttseg1p1B <= 1'b0;
-  end
-
-always @( countC or tseg1p1mplC )
-  begin
-    if ({1'b0,countC}>tseg1p1mplC)
-      gttseg1p1C <= 1'b1;
-    else
-      gttseg1p1C <= 1'b0;
-  end
-
-always @( countpsjwA or tseg1ptseg2p2A )
-  begin
-    if (countpsjwA>=tseg1ptseg2p2A)
-      cpsgetseg1ptseg2p2A <= 1'b1;
-    else
-      cpsgetseg1ptseg2p2A <= 1'b0;
-  end
-
-always @( countpsjwB or tseg1ptseg2p2B )
-  begin
-    if (countpsjwB>=tseg1ptseg2p2B)
-      cpsgetseg1ptseg2p2B <= 1'b1;
-    else
-      cpsgetseg1ptseg2p2B <= 1'b0;
-  end
-
-always @( countpsjwC or tseg1ptseg2p2C )
-  begin
-    if (countpsjwC>=tseg1ptseg2p2C)
-      cpsgetseg1ptseg2p2C <= 1'b1;
-    else
-      cpsgetseg1ptseg2p2C <= 1'b0;
-  end
-
-always @( countA or tseg1ptseg2p1A )
-  begin
-    if ({1'b0,countA}==tseg1ptseg2p1A)
-      cetseg1ptseg2p1A <= 1'b1;
-    else
-      cetseg1ptseg2p1A <= 1'b0;
-  end
-
-always @( countB or tseg1ptseg2p1B )
-  begin
-    if ({1'b0,countB}==tseg1ptseg2p1B)
-      cetseg1ptseg2p1B <= 1'b1;
-    else
-      cetseg1ptseg2p1B <= 1'b0;
-  end
-
-always @( countC or tseg1ptseg2p1C )
-  begin
-    if ({1'b0,countC}==tseg1ptseg2p1C)
-      cetseg1ptseg2p1C <= 1'b1;
-    else
-      cetseg1ptseg2p1C <= 1'b0;
-  end
-
-always @( countA or tseg1p1mplA )
-  begin
-    if ({1'b0,countA}==tseg1p1mplA)
-      countesmpltimeA <= 1'b1;
-    else
-      countesmpltimeA <= 1'b0;
-  end
-
-always @( countB or tseg1p1mplB )
-  begin
-    if ({1'b0,countB}==tseg1p1mplB)
-      countesmpltimeB <= 1'b1;
-    else
-      countesmpltimeB <= 1'b0;
-  end
-
-always @( countC or tseg1p1mplC )
-  begin
-    if ({1'b0,countC}==tseg1p1mplC)
-      countesmpltimeC <= 1'b1;
-    else
-      countesmpltimeC <= 1'b0;
+      countesmpltime <= 1'b0;
   end
 endmodule
 

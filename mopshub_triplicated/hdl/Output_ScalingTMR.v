@@ -6,17 +6,17 @@
  *                                                                                                  *
  * user    : lucas                                                                                  *
  * host    : DESKTOP-BFDSFP2                                                                        *
- * date    : 16/08/2022 12:58:07                                                                    *
+ * date    : 06/10/2022 13:52:34                                                                    *
  *                                                                                                  *
- * workdir : /mnt/c/Users/Lucas/Desktop/mopshub_triplication/mopshub_top_board_canakari_ftrim/hdl   *
- * cmd     : /mnt/c/Users/Lucas/Desktop/mopshub_triplication/tmrg-master/bin/tmrg -c tmrg.cfg -vvv  *
+ * workdir : /mnt/c/Users/Lucas/Documents/GitHub/mopshub_triplicated/triplicated/mopshub_top_board/hdl *
+ * cmd     : /mnt/c/Users/Lucas/Desktop/mopshub_triplication/tmrg-master/bin/tmrg -vv -c tmrg.cfg   *
  * tmrg rev:                                                                                        *
  *                                                                                                  *
  * src file: Output_Scaling.v                                                                       *
- *           Git SHA           : File not in git repository!                                        *
- *           Modification time : 2022-03-29 13:49:21                                                *
- *           File Size         : 964                                                                *
- *           MD5 hash          : d00c86befd4295cb5b62a22b5aab7fd4                                   *
+ *           Git SHA           : c110441b08b692cc54ebd4a3b84a2599430e8f93                           *
+ *           Modification time : 2022-08-25 09:50:07                                                *
+ *           File Size         : 937                                                                *
+ *           MD5 hash          : 1e1e0c6e4a5e30d25ede67415b4a4afe                                   *
  *                                                                                                  *
  ****************************************************************************************************/
 
@@ -24,35 +24,34 @@ module Output_ScalingTMR #(
   parameter  WidthA  = 18,
   parameter  WidthB  = 6
 )(
-  input wire signed [WidthA-1:0] AA ,
-  input wire signed [WidthA-1:0] AB ,
-  input wire signed [WidthA-1:0] AC ,
-  input wire  ResetA ,
-  input wire  ResetB ,
-  input wire  ResetC ,
-  input wire  CLKA ,
-  input wire  CLKB ,
-  input wire  CLKC ,
-  input wire  EnableA ,
-  input wire  EnableB ,
-  input wire  EnableC ,
-  output wire [WidthB-1:0] BA ,
-  output wire [WidthB-1:0] BB ,
-  output wire [WidthB-1:0] BC 
+  input wire signed [WidthA-1:0] A ,
+  input wire  Reset ,
+  input wire  CLK ,
+  input wire  Enable ,
+  output wire [WidthB-1:0] B 
 );
 localparam Max =(2**WidthB)-1;
-wor B_iTmrErrorC;
-wire [WidthB-1:0] B_iVotedC;
-wor B_iTmrErrorB;
-wire [WidthB-1:0] B_iVotedB;
-wor B_iTmrErrorA;
-wire [WidthB-1:0] B_iVotedA;
+wire ResetC;
+wire ResetB;
+wire ResetA;
+wire EnableC;
+wire EnableB;
+wire EnableA;
+wire CLKC;
+wire CLKB;
+wire CLKA;
+wire [WidthB-1:0] BC;
+wire [WidthB-1:0] BB;
+wire [WidthB-1:0] BA;
+wire signed  [WidthA-1:0] AC;
+wire signed  [WidthA-1:0] AB;
+wire signed  [WidthA-1:0] AA;
+wor B_iTmrError;
+wire [WidthB-1:0] B_i;
 reg  [WidthB-1:0] B_iA ;
 reg  [WidthB-1:0] B_iB ;
 reg  [WidthB-1:0] B_iC ;
-assign BA =  B_iVotedA;
-assign BB =  B_iVotedB;
-assign BC =  B_iVotedC;
+assign B =  B_i;
 
 always @( posedge CLKA or negedge ResetA )
   begin
@@ -71,7 +70,7 @@ always @( posedge CLKA or negedge ResetA )
                 B_iA <= AA[8:3] ;
           end
         else
-          B_iA <= B_iVotedA;
+          B_iA <= BA;
       end
   end
 
@@ -92,7 +91,7 @@ always @( posedge CLKB or negedge ResetB )
                 B_iB <= AB[8:3] ;
           end
         else
-          B_iB <= B_iVotedB;
+          B_iB <= BB;
       end
   end
 
@@ -113,32 +112,51 @@ always @( posedge CLKC or negedge ResetC )
                 B_iC <= AC[8:3] ;
           end
         else
-          B_iC <= B_iVotedC;
+          B_iC <= BC;
       end
   end
 
-majorityVoter #(.WIDTH(((WidthB-1)>(0)) ? ((WidthB-1)-(0)+1) : ((0)-(WidthB-1)+1))) B_iVoterA (
+majorityVoter #(.WIDTH(((WidthB-1)>(0)) ? ((WidthB-1)-(0)+1) : ((0)-(WidthB-1)+1))) B_iVoter (
     .inA(B_iA),
     .inB(B_iB),
     .inC(B_iC),
-    .out(B_iVotedA),
-    .tmrErr(B_iTmrErrorA)
+    .out(B_i),
+    .tmrErr(B_iTmrError)
     );
 
-majorityVoter #(.WIDTH(((WidthB-1)>(0)) ? ((WidthB-1)-(0)+1) : ((0)-(WidthB-1)+1))) B_iVoterB (
-    .inA(B_iA),
-    .inB(B_iB),
-    .inC(B_iC),
-    .out(B_iVotedB),
-    .tmrErr(B_iTmrErrorB)
+fanout #(.WIDTH(((WidthA-1)>(0)) ? ((WidthA-1)-(0)+1) : ((0)-(WidthA-1)+1))) AFanout (
+    .in(A),
+    .outA(AA),
+    .outB(AB),
+    .outC(AC)
     );
 
-majorityVoter #(.WIDTH(((WidthB-1)>(0)) ? ((WidthB-1)-(0)+1) : ((0)-(WidthB-1)+1))) B_iVoterC (
-    .inA(B_iA),
-    .inB(B_iB),
-    .inC(B_iC),
-    .out(B_iVotedC),
-    .tmrErr(B_iTmrErrorC)
+fanout #(.WIDTH(((WidthB-1)>(0)) ? ((WidthB-1)-(0)+1) : ((0)-(WidthB-1)+1))) BFanout (
+    .in(B),
+    .outA(BA),
+    .outB(BB),
+    .outC(BC)
+    );
+
+fanout CLKFanout (
+    .in(CLK),
+    .outA(CLKA),
+    .outB(CLKB),
+    .outC(CLKC)
+    );
+
+fanout EnableFanout (
+    .in(Enable),
+    .outA(EnableA),
+    .outB(EnableB),
+    .outC(EnableC)
+    );
+
+fanout ResetFanout (
+    .in(Reset),
+    .outA(ResetA),
+    .outB(ResetB),
+    .outC(ResetC)
     );
 endmodule
 

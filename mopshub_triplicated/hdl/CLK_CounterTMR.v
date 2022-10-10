@@ -6,61 +6,61 @@
  *                                                                                                  *
  * user    : lucas                                                                                  *
  * host    : DESKTOP-BFDSFP2                                                                        *
- * date    : 16/08/2022 12:58:06                                                                    *
+ * date    : 06/10/2022 13:52:31                                                                    *
  *                                                                                                  *
- * workdir : /mnt/c/Users/Lucas/Desktop/mopshub_triplication/mopshub_top_board_canakari_ftrim/hdl   *
- * cmd     : /mnt/c/Users/Lucas/Desktop/mopshub_triplication/tmrg-master/bin/tmrg -c tmrg.cfg -vvv  *
+ * workdir : /mnt/c/Users/Lucas/Documents/GitHub/mopshub_triplicated/triplicated/mopshub_top_board/hdl *
+ * cmd     : /mnt/c/Users/Lucas/Desktop/mopshub_triplication/tmrg-master/bin/tmrg -vv -c tmrg.cfg   *
  * tmrg rev:                                                                                        *
  *                                                                                                  *
  * src file: CLK_Counter.v                                                                          *
- *           Git SHA           : File not in git repository!                                        *
- *           Modification time : 2022-03-29 13:49:21                                                *
- *           File Size         : 967                                                                *
- *           MD5 hash          : 6e7b2215da63ed7474b847953ca015f2                                   *
+ *           Git SHA           : c110441b08b692cc54ebd4a3b84a2599430e8f93                           *
+ *           Modification time : 2022-08-30 11:32:22                                                *
+ *           File Size         : 949                                                                *
+ *           MD5 hash          : 5fd68b7eeb9ec405a6c0a1c6fa94f789                                   *
  *                                                                                                  *
  ****************************************************************************************************/
 
 module CLK_CounterTMR(
-  input wire  clkA ,
-  input wire  clkB ,
-  input wire  clkC ,
-  input wire  resetA ,
-  input wire  resetB ,
-  input wire  resetC ,
-  input wire  pufferA ,
-  input wire  pufferB ,
-  input wire  pufferC ,
-  input wire  rxA ,
-  input wire  rxB ,
-  input wire  rxC ,
-  input wire  Prescale_EnA ,
-  input wire  Prescale_EnB ,
-  input wire  Prescale_EnC ,
-  output wire [3:0] Counter_CA ,
-  output wire [3:0] Counter_CB ,
-  output wire [3:0] Counter_CC 
+  input wire  clk ,
+  input wire  reset ,
+  input wire  puffer ,
+  input wire  rx ,
+  input wire  Prescale_En ,
+  output wire [3:0] Counter_C 
 );
-wor Counter_C_iTmrErrorC;
-wire [3:0] Counter_C_iVotedC;
-wor CountTmrErrorC;
-wire [3:0] CountVotedC;
-wor Counter_C_iTmrErrorB;
-wire [3:0] Counter_C_iVotedB;
-wor CountTmrErrorB;
-wire [3:0] CountVotedB;
-wor Counter_C_iTmrErrorA;
-wire [3:0] Counter_C_iVotedA;
-wor CountTmrErrorA;
-wire [3:0] CountVotedA;
+wire rxC;
+wire rxB;
+wire rxA;
+wire resetC;
+wire resetB;
+wire resetA;
+wire pufferC;
+wire pufferB;
+wire pufferA;
+wire clkC;
+wire clkB;
+wire clkA;
+wire Prescale_EnC;
+wire Prescale_EnB;
+wire Prescale_EnA;
+wire [3:0] Counter_CC;
+wire [3:0] Counter_CB;
+wire [3:0] Counter_CA;
+wire [3:0] CountVC;
+wire [3:0] CountVB;
+wire [3:0] CountVA;
+wor Counter_C_iTmrError;
+wire [3:0] Counter_C_i;
+wor CountTmrError;
+wire [3:0] Count;
 reg  [3:0] CountA ;
 reg  [3:0] CountB ;
 reg  [3:0] CountC ;
 reg  [3:0] Counter_C_iA ;
 reg  [3:0] Counter_C_iB ;
 reg  [3:0] Counter_C_iC ;
-assign Counter_CA =  Counter_C_iVotedA;
-assign Counter_CB =  Counter_C_iVotedB;
-assign Counter_CC =  Counter_C_iVotedC;
+assign Counter_C =  Counter_C_i;
+wire [3:0] CountV =  Count;
 
 always @( posedge clkA or negedge resetA )
   begin
@@ -74,14 +74,14 @@ always @( posedge clkA or negedge resetA )
         if (Prescale_EnA)
           CountA <= 1;
         else
-          CountA <= CountVotedA+1;
-        if ((rxA==0&&pufferA)&&Counter_C_iA==0)
-          Counter_C_iA <= CountVotedA;
+          CountA <= CountVA+1;
+        if ((rxA==0&&pufferA)&&Counter_CA==0)
+          Counter_C_iA <= CountVA;
         else
           if (rxA==1'b1)
             Counter_C_iA <= 0;
           else
-            Counter_C_iA <= Counter_C_iVotedA;
+            Counter_C_iA <= Counter_CA;
       end
   end
 
@@ -97,14 +97,14 @@ always @( posedge clkB or negedge resetB )
         if (Prescale_EnB)
           CountB <= 1;
         else
-          CountB <= CountVotedB+1;
-        if ((rxB==0&&pufferB)&&Counter_C_iB==0)
-          Counter_C_iB <= CountVotedB;
+          CountB <= CountVB+1;
+        if ((rxB==0&&pufferB)&&Counter_CB==0)
+          Counter_C_iB <= CountVB;
         else
           if (rxB==1'b1)
             Counter_C_iB <= 0;
           else
-            Counter_C_iB <= Counter_C_iVotedB;
+            Counter_C_iB <= Counter_CB;
       end
   end
 
@@ -120,63 +120,80 @@ always @( posedge clkC or negedge resetC )
         if (Prescale_EnC)
           CountC <= 1;
         else
-          CountC <= CountVotedC+1;
-        if ((rxC==0&&pufferC)&&Counter_C_iC==0)
-          Counter_C_iC <= CountVotedC;
+          CountC <= CountVC+1;
+        if ((rxC==0&&pufferC)&&Counter_CC==0)
+          Counter_C_iC <= CountVC;
         else
           if (rxC==1'b1)
             Counter_C_iC <= 0;
           else
-            Counter_C_iC <= Counter_C_iVotedC;
+            Counter_C_iC <= Counter_CC;
       end
   end
 
-majorityVoter #(.WIDTH(4)) CountVoterA (
+majorityVoter #(.WIDTH(4)) CountVoter (
     .inA(CountA),
     .inB(CountB),
     .inC(CountC),
-    .out(CountVotedA),
-    .tmrErr(CountTmrErrorA)
+    .out(Count),
+    .tmrErr(CountTmrError)
     );
 
-majorityVoter #(.WIDTH(4)) Counter_C_iVoterA (
+majorityVoter #(.WIDTH(4)) Counter_C_iVoter (
     .inA(Counter_C_iA),
     .inB(Counter_C_iB),
     .inC(Counter_C_iC),
-    .out(Counter_C_iVotedA),
-    .tmrErr(Counter_C_iTmrErrorA)
+    .out(Counter_C_i),
+    .tmrErr(Counter_C_iTmrError)
     );
 
-majorityVoter #(.WIDTH(4)) CountVoterB (
-    .inA(CountA),
-    .inB(CountB),
-    .inC(CountC),
-    .out(CountVotedB),
-    .tmrErr(CountTmrErrorB)
+fanout #(.WIDTH(4)) CountVFanout (
+    .in(CountV),
+    .outA(CountVA),
+    .outB(CountVB),
+    .outC(CountVC)
     );
 
-majorityVoter #(.WIDTH(4)) Counter_C_iVoterB (
-    .inA(Counter_C_iA),
-    .inB(Counter_C_iB),
-    .inC(Counter_C_iC),
-    .out(Counter_C_iVotedB),
-    .tmrErr(Counter_C_iTmrErrorB)
+fanout #(.WIDTH(4)) Counter_CFanout (
+    .in(Counter_C),
+    .outA(Counter_CA),
+    .outB(Counter_CB),
+    .outC(Counter_CC)
     );
 
-majorityVoter #(.WIDTH(4)) CountVoterC (
-    .inA(CountA),
-    .inB(CountB),
-    .inC(CountC),
-    .out(CountVotedC),
-    .tmrErr(CountTmrErrorC)
+fanout Prescale_EnFanout (
+    .in(Prescale_En),
+    .outA(Prescale_EnA),
+    .outB(Prescale_EnB),
+    .outC(Prescale_EnC)
     );
 
-majorityVoter #(.WIDTH(4)) Counter_C_iVoterC (
-    .inA(Counter_C_iA),
-    .inB(Counter_C_iB),
-    .inC(Counter_C_iC),
-    .out(Counter_C_iVotedC),
-    .tmrErr(Counter_C_iTmrErrorC)
+fanout clkFanout (
+    .in(clk),
+    .outA(clkA),
+    .outB(clkB),
+    .outC(clkC)
+    );
+
+fanout pufferFanout (
+    .in(puffer),
+    .outA(pufferA),
+    .outB(pufferB),
+    .outC(pufferC)
+    );
+
+fanout resetFanout (
+    .in(reset),
+    .outA(resetA),
+    .outB(resetB),
+    .outC(resetC)
+    );
+
+fanout rxFanout (
+    .in(rx),
+    .outA(rxA),
+    .outB(rxB),
+    .outC(rxC)
     );
 endmodule
 

@@ -6,21 +6,22 @@
  *                                                                                                  *
  * user    : lucas                                                                                  *
  * host    : DESKTOP-BFDSFP2                                                                        *
- * date    : 16/08/2022 12:58:32                                                                    *
+ * date    : 06/10/2022 13:52:55                                                                    *
  *                                                                                                  *
- * workdir : /mnt/c/Users/Lucas/Desktop/mopshub_triplication/mopshub_top_board_canakari_ftrim/hdl   *
- * cmd     : /mnt/c/Users/Lucas/Desktop/mopshub_triplication/tmrg-master/bin/tmrg -c tmrg.cfg -vvv  *
+ * workdir : /mnt/c/Users/Lucas/Documents/GitHub/mopshub_triplicated/triplicated/mopshub_top_board/hdl *
+ * cmd     : /mnt/c/Users/Lucas/Desktop/mopshub_triplication/tmrg-master/bin/tmrg -vv -c tmrg.cfg   *
  * tmrg rev:                                                                                        *
  *                                                                                                  *
  * src file: mux8_Nbit.v                                                                            *
- *           Git SHA           : File not in git repository!                                        *
- *           Modification time : 2022-08-12 11:17:09                                                *
- *           File Size         : 1318                                                               *
- *           MD5 hash          : e50118c52d03321f6891169d9b5da319                                   *
+ *           Git SHA           : c110441b08b692cc54ebd4a3b84a2599430e8f93                           *
+ *           Modification time : 2022-10-05 22:31:58                                                *
+ *           File Size         : 1313                                                               *
+ *           MD5 hash          : 7befef94b51679fbaa11ff92849f2a38                                   *
  *                                                                                                  *
  ****************************************************************************************************/
 
 module mux8_NbitTMR(
+  input wire  rst ,
   input wire [1:0] data0 ,
   input wire [1:0] data1 ,
   input wire [1:0] data2 ,
@@ -32,160 +33,27 @@ module mux8_NbitTMR(
   input wire [2:0] sel ,
   output wire [1:0] data_out 
 );
-wire [2:0] selC;
-wire [2:0] selB;
-wire [2:0] selA;
-wire [1:0] data7C;
-wire [1:0] data7B;
-wire [1:0] data7A;
-wire [1:0] data6C;
-wire [1:0] data6B;
-wire [1:0] data6A;
-wire [1:0] data5C;
-wire [1:0] data5B;
-wire [1:0] data5A;
-wire [1:0] data4C;
-wire [1:0] data4B;
-wire [1:0] data4A;
-wire [1:0] data3C;
-wire [1:0] data3B;
-wire [1:0] data3A;
-wire [1:0] data2C;
-wire [1:0] data2B;
-wire [1:0] data2A;
-wire [1:0] data1C;
-wire [1:0] data1B;
-wire [1:0] data1A;
-wire [1:0] data0C;
-wire [1:0] data0B;
-wire [1:0] data0A;
-wor data_out_rTmrError;
-wire [1:0] data_out_r;
-reg  [1:0] data_out_rA ;
-reg  [1:0] data_out_rB ;
-reg  [1:0] data_out_rC ;
+reg  [1:0] data_out_r ;
 initial
-  data_out_rA =  0;
-initial
-  data_out_rB =  0;
-initial
-  data_out_rC =  0;
+  data_out_r =  0;
 assign data_out =  data_out_r;
 
-always @( data0A or data1A or data2A or data3A or data4A or data5A or data6A or data7A or selA )
+always @( * )
   begin
-    case (selA)
-      3'b000 : data_out_rA =  data0A;
-      3'b001 : data_out_rA =  data1A;
-      3'b010 : data_out_rA =  data2A;
-      3'b011 : data_out_rA =  data3A;
-      3'b100 : data_out_rA =  data4A;
-      3'b101 : data_out_rA =  data5A;
-      3'b110 : data_out_rA =  data6A;
-      3'b111 : data_out_rA =  data7A;
-      default : data_out_rA =  0;
-    endcase
+    if (!rst)
+      data_out_r =  2'b0;
+    else
+      case (sel)
+        3'b000 : data_out_r =  data0;
+        3'b001 : data_out_r =  data1;
+        3'b010 : data_out_r =  data2;
+        3'b011 : data_out_r =  data3;
+        3'b100 : data_out_r =  data4;
+        3'b101 : data_out_r =  data5;
+        3'b110 : data_out_r =  data6;
+        3'b111 : data_out_r =  data7;
+        default : data_out_r =  2'b0;
+      endcase
   end
-
-always @( data0B or data1B or data2B or data3B or data4B or data5B or data6B or data7B or selB )
-  begin
-    case (selB)
-      3'b000 : data_out_rB =  data0B;
-      3'b001 : data_out_rB =  data1B;
-      3'b010 : data_out_rB =  data2B;
-      3'b011 : data_out_rB =  data3B;
-      3'b100 : data_out_rB =  data4B;
-      3'b101 : data_out_rB =  data5B;
-      3'b110 : data_out_rB =  data6B;
-      3'b111 : data_out_rB =  data7B;
-      default : data_out_rB =  0;
-    endcase
-  end
-
-always @( data0C or data1C or data2C or data3C or data4C or data5C or data6C or data7C or selC )
-  begin
-    case (selC)
-      3'b000 : data_out_rC =  data0C;
-      3'b001 : data_out_rC =  data1C;
-      3'b010 : data_out_rC =  data2C;
-      3'b011 : data_out_rC =  data3C;
-      3'b100 : data_out_rC =  data4C;
-      3'b101 : data_out_rC =  data5C;
-      3'b110 : data_out_rC =  data6C;
-      3'b111 : data_out_rC =  data7C;
-      default : data_out_rC =  0;
-    endcase
-  end
-
-majorityVoter #(.WIDTH(2)) data_out_rVoter (
-    .inA(data_out_rA),
-    .inB(data_out_rB),
-    .inC(data_out_rC),
-    .out(data_out_r),
-    .tmrErr(data_out_rTmrError)
-    );
-
-fanout #(.WIDTH(2)) data0Fanout (
-    .in(data0),
-    .outA(data0A),
-    .outB(data0B),
-    .outC(data0C)
-    );
-
-fanout #(.WIDTH(2)) data1Fanout (
-    .in(data1),
-    .outA(data1A),
-    .outB(data1B),
-    .outC(data1C)
-    );
-
-fanout #(.WIDTH(2)) data2Fanout (
-    .in(data2),
-    .outA(data2A),
-    .outB(data2B),
-    .outC(data2C)
-    );
-
-fanout #(.WIDTH(2)) data3Fanout (
-    .in(data3),
-    .outA(data3A),
-    .outB(data3B),
-    .outC(data3C)
-    );
-
-fanout #(.WIDTH(2)) data4Fanout (
-    .in(data4),
-    .outA(data4A),
-    .outB(data4B),
-    .outC(data4C)
-    );
-
-fanout #(.WIDTH(2)) data5Fanout (
-    .in(data5),
-    .outA(data5A),
-    .outB(data5B),
-    .outC(data5C)
-    );
-
-fanout #(.WIDTH(2)) data6Fanout (
-    .in(data6),
-    .outA(data6A),
-    .outB(data6B),
-    .outC(data6C)
-    );
-
-fanout #(.WIDTH(2)) data7Fanout (
-    .in(data7),
-    .outA(data7A),
-    .outB(data7B),
-    .outC(data7C)
-    );
-
-fanout #(.WIDTH(3)) selFanout (
-    .in(sel),
-    .outA(selA),
-    .outB(selB),
-    .outC(selC)
-    );
 endmodule
 

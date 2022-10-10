@@ -6,17 +6,17 @@
  *                                                                                                  *
  * user    : lucas                                                                                  *
  * host    : DESKTOP-BFDSFP2                                                                        *
- * date    : 16/08/2022 12:58:07                                                                    *
+ * date    : 06/10/2022 13:52:33                                                                    *
  *                                                                                                  *
- * workdir : /mnt/c/Users/Lucas/Desktop/mopshub_triplication/mopshub_top_board_canakari_ftrim/hdl   *
- * cmd     : /mnt/c/Users/Lucas/Desktop/mopshub_triplication/tmrg-master/bin/tmrg -c tmrg.cfg -vvv  *
+ * workdir : /mnt/c/Users/Lucas/Documents/GitHub/mopshub_triplicated/triplicated/mopshub_top_board/hdl *
+ * cmd     : /mnt/c/Users/Lucas/Desktop/mopshub_triplication/tmrg-master/bin/tmrg -vv -c tmrg.cfg   *
  * tmrg rev:                                                                                        *
  *                                                                                                  *
  * src file: Multi_i.v                                                                              *
- *           Git SHA           : File not in git repository!                                        *
- *           Modification time : 2022-03-29 13:49:21                                                *
- *           File Size         : 508                                                                *
- *           MD5 hash          : 7e78185df2b3ccfa33ab480143788543                                   *
+ *           Git SHA           : c110441b08b692cc54ebd4a3b84a2599430e8f93                           *
+ *           Modification time : 2022-08-25 09:44:50                                                *
+ *           File Size         : 506                                                                *
+ *           MD5 hash          : 5258699f45d571907719d9f7b91ad575                                   *
  *                                                                                                  *
  ****************************************************************************************************/
 
@@ -24,18 +24,10 @@ module Multi_iTMR #(
   parameter  WidthA  = 9,
   parameter  WidthB  = 8
 )(
-  input wire signed [WidthA-1:0] a_iA ,
-  input wire signed [WidthA-1:0] a_iB ,
-  input wire signed [WidthA-1:0] a_iC ,
-  input wire signed [WidthB-1:0] b_iA ,
-  input wire signed [WidthB-1:0] b_iB ,
-  input wire signed [WidthB-1:0] b_iC ,
-  output wire signed [WidthA+WidthB-1:0] prod_oA ,
-  output wire signed [WidthA+WidthB-1:0] prod_oB ,
-  output wire signed [WidthA+WidthB-1:0] prod_oC 
+  input wire signed [WidthA-1:0] a_i ,
+  input wire signed [WidthB-1:0] b_i ,
+  output wire signed [WidthA+WidthB-1:0] prod_o 
 );
-assign prod_oA =  a_iA*b_iA;
-assign prod_oB =  a_iB*b_iB;
-assign prod_oC =  a_iC*b_iC;
+assign prod_o =  a_i*b_i;
 endmodule
 

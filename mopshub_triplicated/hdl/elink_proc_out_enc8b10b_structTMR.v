@@ -6,17 +6,17 @@
  *                                                                                                  *
  * user    : lucas                                                                                  *
  * host    : DESKTOP-BFDSFP2                                                                        *
- * date    : 16/08/2022 12:58:17                                                                    *
+ * date    : 06/10/2022 13:52:46                                                                    *
  *                                                                                                  *
- * workdir : /mnt/c/Users/Lucas/Desktop/mopshub_triplication/mopshub_top_board_canakari_ftrim/hdl   *
- * cmd     : /mnt/c/Users/Lucas/Desktop/mopshub_triplication/tmrg-master/bin/tmrg -c tmrg.cfg -vvv  *
+ * workdir : /mnt/c/Users/Lucas/Documents/GitHub/mopshub_triplicated/triplicated/mopshub_top_board/hdl *
+ * cmd     : /mnt/c/Users/Lucas/Desktop/mopshub_triplication/tmrg-master/bin/tmrg -vv -c tmrg.cfg   *
  * tmrg rev:                                                                                        *
  *                                                                                                  *
  * src file: elink_proc_out_enc8b10b_struct.v                                                       *
- *           Git SHA           : File not in git repository!                                        *
- *           Modification time : 2022-08-16 10:13:46.651898                                         *
- *           File Size         : 3352                                                               *
- *           MD5 hash          : 7022543a2166b3d545c087813b557080                                   *
+ *           Git SHA           : c110441b08b692cc54ebd4a3b84a2599430e8f93                           *
+ *           Modification time : 2022-10-06 13:25:16                                                *
+ *           File Size         : 3405                                                               *
+ *           MD5 hash          : 1315539d583fb969c1b4472422acbbf4                                   *
  *                                                                                                  *
  ****************************************************************************************************/
 
@@ -33,37 +33,10 @@ module elink_proc_out_enc8b10bTMR(
   input wire [7:0] Kchar_eop ,
   input wire [7:0] Kchar_sop 
 );
-wire rstC;
-wire rstB;
-wire rstA;
-wire get_data_trigC;
-wire get_data_trigB;
-wire get_data_trigA;
-wire [9:0] enc10bitC;
-wire [9:0] enc10bitB;
-wire [9:0] enc10bitA;
-wire clkC;
-wire clkB;
-wire clkA;
-wire [9:0] COMMApC;
-wire [9:0] COMMApB;
-wire [9:0] COMMApA;
-wor zeros2bitTmrError;
-wire [1:0] zeros2bit;
-wor send_countTmrError;
-wire [2:0] send_count;
-wor enc10bit_rTmrError;
-wire [9:0] enc10bit_r;
 wire [9:0] enc10bit;
-reg  [9:0] enc10bit_rA ;
-reg  [9:0] enc10bit_rB ;
-reg  [9:0] enc10bit_rC ;
-reg  [1:0] zeros2bitA ;
-reg  [1:0] zeros2bitB ;
-reg  [1:0] zeros2bitC ;
-reg  [2:0] send_countA ;
-reg  [2:0] send_countB ;
-reg  [2:0] send_countC ;
+reg  [9:0] enc10bit_r ;
+reg  [1:0] zeros2bit ;
+reg  [2:0] send_count ;
 
 enc8b10b_wrapTMR enc8b10b_wrap10 (
     .clk(clk),
@@ -80,6 +53,7 @@ enc8b10b_wrapTMR enc8b10b_wrap10 (
     );
 
 mux8_NbitTMR bitMUX (
+    .rst(rst),
     .data0(enc10bit_r[1:0] ),
     .data1(enc10bit_r[3:2] ),
     .data2(enc10bit_r[5:4] ),
@@ -98,147 +72,32 @@ triger_counterTMR triger_counter1 (
     .request_trig(get_data_trig)
     );
 initial
-  zeros2bitA =  2'b0;
+  zeros2bit =  2'b0;
 initial
-  zeros2bitB =  2'b0;
-initial
-  zeros2bitC =  2'b0;
-initial
-  send_countA =  1'b0;
-initial
-  send_countB =  1'b0;
-initial
-  send_countC =  1'b0;
+  send_count =  1'b0;
 
-always @( posedge clkA )
+always @( posedge clk )
   begin
-    if (!rstA)
-      enc10bit_rA <= COMMApA;
+    if (!rst)
+      enc10bit_r <= COMMAp;
     else
-      if (get_data_trigA==1)
+      if (get_data_trig==1)
         begin
-          enc10bit_rA <= enc10bitA;
+          enc10bit_r <= enc10bit;
         end
   end
 
-always @( posedge clkB )
+always @( posedge clk )
   begin
-    if (!rstB)
-      enc10bit_rB <= COMMApB;
-    else
-      if (get_data_trigB==1)
-        begin
-          enc10bit_rB <= enc10bitB;
-        end
-  end
-
-always @( posedge clkC )
-  begin
-    if (!rstC)
-      enc10bit_rC <= COMMApC;
-    else
-      if (get_data_trigC==1)
-        begin
-          enc10bit_rC <= enc10bitC;
-        end
-  end
-
-always @( posedge clkA )
-  begin
-    if (!rstA)
-      send_countA <= 3'b0;
+    if (!rst)
+      send_count <= 3'b0;
     else
       begin
-        if (get_data_trigA==1)
-          send_countA <= 3'b0;
+        if (get_data_trig==1)
+          send_count <= 3'b0;
         else
-          send_countA <= send_countA+1;
+          send_count <= send_count+1;
       end
   end
-
-always @( posedge clkB )
-  begin
-    if (!rstB)
-      send_countB <= 3'b0;
-    else
-      begin
-        if (get_data_trigB==1)
-          send_countB <= 3'b0;
-        else
-          send_countB <= send_countB+1;
-      end
-  end
-
-always @( posedge clkC )
-  begin
-    if (!rstC)
-      send_countC <= 3'b0;
-    else
-      begin
-        if (get_data_trigC==1)
-          send_countC <= 3'b0;
-        else
-          send_countC <= send_countC+1;
-      end
-  end
-
-majorityVoter #(.WIDTH(10)) enc10bit_rVoter (
-    .inA(enc10bit_rA),
-    .inB(enc10bit_rB),
-    .inC(enc10bit_rC),
-    .out(enc10bit_r),
-    .tmrErr(enc10bit_rTmrError)
-    );
-
-majorityVoter #(.WIDTH(3)) send_countVoter (
-    .inA(send_countA),
-    .inB(send_countB),
-    .inC(send_countC),
-    .out(send_count),
-    .tmrErr(send_countTmrError)
-    );
-
-majorityVoter #(.WIDTH(2)) zeros2bitVoter (
-    .inA(zeros2bitA),
-    .inB(zeros2bitB),
-    .inC(zeros2bitC),
-    .out(zeros2bit),
-    .tmrErr(zeros2bitTmrError)
-    );
-
-fanout #(.WIDTH(10)) COMMApFanout (
-    .in(COMMAp),
-    .outA(COMMApA),
-    .outB(COMMApB),
-    .outC(COMMApC)
-    );
-
-fanout clkFanout (
-    .in(clk),
-    .outA(clkA),
-    .outB(clkB),
-    .outC(clkC)
-    );
-
-fanout #(.WIDTH(10)) enc10bitFanout (
-    .in(enc10bit),
-    .outA(enc10bitA),
-    .outB(enc10bitB),
-    .outC(enc10bitC)
-    );
-
-fanout get_data_trigFanout (
-    .in(get_data_trig),
-    .outA(get_data_trigA),
-    .outB(get_data_trigB),
-    .outC(get_data_trigC)
-    );
-
-fanout rstFanout (
-    .in(rst),
-    .outA(rstA),
-    .outB(rstB),
-    .outC(rstC)
-    );
 endmodule
 

@@ -6,49 +6,48 @@
  *                                                                                                  *
  * user    : lucas                                                                                  *
  * host    : DESKTOP-BFDSFP2                                                                        *
- * date    : 16/08/2022 12:58:37                                                                    *
+ * date    : 06/10/2022 13:53:03                                                                    *
  *                                                                                                  *
- * workdir : /mnt/c/Users/Lucas/Desktop/mopshub_triplication/mopshub_top_board_canakari_ftrim/hdl   *
- * cmd     : /mnt/c/Users/Lucas/Desktop/mopshub_triplication/tmrg-master/bin/tmrg -c tmrg.cfg -vvv  *
+ * workdir : /mnt/c/Users/Lucas/Documents/GitHub/mopshub_triplicated/triplicated/mopshub_top_board/hdl *
+ * cmd     : /mnt/c/Users/Lucas/Desktop/mopshub_triplication/tmrg-master/bin/tmrg -vv -c tmrg.cfg   *
  * tmrg rev:                                                                                        *
  *                                                                                                  *
  * src file: smpldbit_reg2.v                                                                        *
- *           Git SHA           : File not in git repository!                                        *
- *           Modification time : 2022-03-29 13:49:21                                                *
- *           File Size         : 1907                                                               *
- *           MD5 hash          : e40bbaa198b9af6fd1287d6da568addc                                   *
+ *           Git SHA           : c110441b08b692cc54ebd4a3b84a2599430e8f93                           *
+ *           Modification time : 2022-08-25 10:44:32                                                *
+ *           File Size         : 1865                                                               *
+ *           MD5 hash          : 694704794b89d3901fdf3e2e83af081b                                   *
  *                                                                                                  *
  ****************************************************************************************************/
 
 module smpldbit_reg2TMR(
-  input wire  clockA ,
-  input wire  clockB ,
-  input wire  clockC ,
-  input wire  resetA ,
-  input wire  resetB ,
-  input wire  resetC ,
-  input wire [1:0] ctrlA ,
-  input wire [1:0] ctrlB ,
-  input wire [1:0] ctrlC ,
-  output wire  smpldbitA ,
-  output wire  smpldbitB ,
-  output wire  smpldbitC ,
-  input wire  pufferA ,
-  input wire  pufferB ,
-  input wire  pufferC 
+  input wire  clock ,
+  input wire  reset ,
+  input wire [1:0] ctrl ,
+  output wire  smpldbit ,
+  input wire  puffer 
 );
-wor smpldbit_iTmrErrorC;
-wire smpldbit_iVotedC;
-wor smpldbit_iTmrErrorB;
-wire smpldbit_iVotedB;
-wor smpldbit_iTmrErrorA;
-wire smpldbit_iVotedA;
+wire smpldbitC;
+wire smpldbitB;
+wire smpldbitA;
+wire resetC;
+wire resetB;
+wire resetA;
+wire pufferC;
+wire pufferB;
+wire pufferA;
+wire [1:0] ctrlC;
+wire [1:0] ctrlB;
+wire [1:0] ctrlA;
+wire clockC;
+wire clockB;
+wire clockA;
+wor smpldbit_iTmrError;
+wire smpldbit_i;
 reg  smpldbit_iA ;
 reg  smpldbit_iB ;
 reg  smpldbit_iC ;
-assign smpldbitA =  smpldbit_iVotedA;
-assign smpldbitB =  smpldbit_iVotedB;
-assign smpldbitC =  smpldbit_iVotedC;
+assign smpldbit =  smpldbit_i;
 
 always @( posedge clockA or negedge resetA )
   begin
@@ -59,7 +58,7 @@ always @( posedge clockA or negedge resetA )
         case (ctrlA)
           2'b01 : smpldbit_iA <= 1'b1;
           2'b10 : smpldbit_iA <= pufferA;
-          default : smpldbit_iA <= smpldbit_iVotedA;
+          default : smpldbit_iA <= smpldbitA;
         endcase
       end
   end
@@ -73,7 +72,7 @@ always @( posedge clockB or negedge resetB )
         case (ctrlB)
           2'b01 : smpldbit_iB <= 1'b1;
           2'b10 : smpldbit_iB <= pufferB;
-          default : smpldbit_iB <= smpldbit_iVotedB;
+          default : smpldbit_iB <= smpldbitB;
         endcase
       end
   end
@@ -87,33 +86,52 @@ always @( posedge clockC or negedge resetC )
         case (ctrlC)
           2'b01 : smpldbit_iC <= 1'b1;
           2'b10 : smpldbit_iC <= pufferC;
-          default : smpldbit_iC <= smpldbit_iVotedC;
+          default : smpldbit_iC <= smpldbitC;
         endcase
       end
   end
 
-majorityVoter smpldbit_iVoterA (
+majorityVoter smpldbit_iVoter (
     .inA(smpldbit_iA),
     .inB(smpldbit_iB),
     .inC(smpldbit_iC),
-    .out(smpldbit_iVotedA),
-    .tmrErr(smpldbit_iTmrErrorA)
+    .out(smpldbit_i),
+    .tmrErr(smpldbit_iTmrError)
     );
 
-majorityVoter smpldbit_iVoterB (
-    .inA(smpldbit_iA),
-    .inB(smpldbit_iB),
-    .inC(smpldbit_iC),
-    .out(smpldbit_iVotedB),
-    .tmrErr(smpldbit_iTmrErrorB)
+fanout clockFanout (
+    .in(clock),
+    .outA(clockA),
+    .outB(clockB),
+    .outC(clockC)
     );
 
-majorityVoter smpldbit_iVoterC (
-    .inA(smpldbit_iA),
-    .inB(smpldbit_iB),
-    .inC(smpldbit_iC),
-    .out(smpldbit_iVotedC),
-    .tmrErr(smpldbit_iTmrErrorC)
+fanout #(.WIDTH(2)) ctrlFanout (
+    .in(ctrl),
+    .outA(ctrlA),
+    .outB(ctrlB),
+    .outC(ctrlC)
+    );
+
+fanout pufferFanout (
+    .in(puffer),
+    .outA(pufferA),
+    .outB(pufferB),
+    .outC(pufferC)
+    );
+
+fanout resetFanout (
+    .in(reset),
+    .outA(resetA),
+    .outB(resetB),
+    .outC(resetC)
+    );
+
+fanout smpldbitFanout (
+    .in(smpldbit),
+    .outA(smpldbitA),
+    .outB(smpldbitB),
+    .outC(smpldbitC)
     );
 endmodule
 

@@ -6,64 +6,57 @@
  *                                                                                                  *
  * user    : lucas                                                                                  *
  * host    : DESKTOP-BFDSFP2                                                                        *
- * date    : 16/08/2022 12:58:18                                                                    *
+ * date    : 06/10/2022 13:52:48                                                                    *
  *                                                                                                  *
- * workdir : /mnt/c/Users/Lucas/Desktop/mopshub_triplication/mopshub_top_board_canakari_ftrim/hdl   *
- * cmd     : /mnt/c/Users/Lucas/Desktop/mopshub_triplication/tmrg-master/bin/tmrg -c tmrg.cfg -vvv  *
+ * workdir : /mnt/c/Users/Lucas/Documents/GitHub/mopshub_triplicated/triplicated/mopshub_top_board/hdl *
+ * cmd     : /mnt/c/Users/Lucas/Desktop/mopshub_triplication/tmrg-master/bin/tmrg -vv -c tmrg.cfg   *
  * tmrg rev:                                                                                        *
  *                                                                                                  *
  * src file: fastshift2.v                                                                           *
- *           Git SHA           : File not in git repository!                                        *
- *           Modification time : 2022-03-29 13:49:21                                                *
- *           File Size         : 3772                                                               *
- *           MD5 hash          : 645cdc1f2afdfa7ed7db7efc58035741                                   *
+ *           Git SHA           : c110441b08b692cc54ebd4a3b84a2599430e8f93                           *
+ *           Modification time : 2022-08-25 11:44:11                                                *
+ *           File Size         : 3818                                                               *
+ *           MD5 hash          : 9d2b87ac42f17953e4756b01cba63650                                   *
  *                                                                                                  *
  ****************************************************************************************************/
 
 module fastshift2TMR(
-  input wire  resetA ,
-  input wire  resetB ,
-  input wire  resetC ,
-  input wire  clockA ,
-  input wire  clockB ,
-  input wire  clockC ,
-  input wire  activateA ,
-  input wire  activateB ,
-  input wire  activateC ,
-  input wire [3:0] rmlbA ,
-  input wire [3:0] rmlbB ,
-  input wire [3:0] rmlbC ,
-  output wire  setzeroA ,
-  output wire  setzeroB ,
-  output wire  setzeroC ,
-  output wire  directshiftA ,
-  output wire  directshiftB ,
-  output wire  directshiftC 
+  input wire  reset ,
+  input wire  clock ,
+  input wire  activate ,
+  input wire [3:0] rmlb ,
+  output wire  setzero ,
+  output wire  directshift 
 );
-wor workingTmrErrorC;
-wire workingVotedC;
-wor directshift_iTmrErrorC;
-wire directshift_iVotedC;
-wor countTmrErrorC;
-wire [7:0] countVotedC;
-wor workingTmrErrorB;
-wire workingVotedB;
-wor directshift_iTmrErrorB;
-wire directshift_iVotedB;
-wor countTmrErrorB;
-wire [7:0] countVotedB;
-wor workingTmrErrorA;
-wire workingVotedA;
-wor directshift_iTmrErrorA;
-wire directshift_iVotedA;
-wor countTmrErrorA;
-wire [7:0] countVotedA;
-wire reset_iA;
-wire reset_iB;
+wire setzeroC;
+wire setzeroB;
+wire setzeroA;
+wire [3:0] rmlbC;
+wire [3:0] rmlbB;
+wire [3:0] rmlbA;
 wire reset_iC;
-assign reset_iA =  resetA;
-assign reset_iB =  resetB;
-assign reset_iC =  resetC;
+wire reset_iB;
+wire reset_iA;
+wire directshiftC;
+wire directshiftB;
+wire directshiftA;
+wire [7:0] countVC;
+wire [7:0] countVB;
+wire [7:0] countVA;
+wire clockC;
+wire clockB;
+wire clockA;
+wire activateC;
+wire activateB;
+wire activateA;
+wor workingTmrError;
+wire working;
+wor directshift_iTmrError;
+wire directshift_i;
+wor countTmrError;
+wire [7:0] count;
+wire reset_i;
+assign reset_i =  reset;
 reg  directshift_iA ;
 reg  directshift_iB ;
 reg  directshift_iC ;
@@ -85,18 +78,15 @@ reg  [3:0] rmlb_usC ;
 reg  [7:0] count_usA ;
 reg  [7:0] count_usB ;
 reg  [7:0] count_usC ;
-assign directshiftA =  directshift_iVotedA;
-assign directshiftB =  directshift_iVotedB;
-assign directshiftC =  directshift_iVotedC;
-assign setzeroA =  ~workingVotedA;
-assign setzeroB =  ~workingVotedB;
-assign setzeroC =  ~workingVotedC;
+assign directshift =  directshift_i;
+assign setzero =  ~working;
+wire [7:0] countV =  count;
 
 always @( posedge clockA )
   begin
-    directshift_iA <= directshift_iVotedA;
-    workingA <= workingVotedA;
-    countA <= countVotedA;
+    directshift_iA <= directshiftA;
+    workingA <= ~setzeroA;
+    countA <= countVA;
     if (reset_iA==1'b0)
       begin
         workingA <= 1'b0;
@@ -109,12 +99,12 @@ always @( posedge clockA )
           workingA <= 1'b1;
         end
       else
-        if (workingVotedA==1'b1)
+        if (~setzeroA==1'b1)
           begin
             if (!((rmlb_usA==upper4countA)&&(lower4countA==4'd0)))
               begin
-                directshift_iA <= ~directshift_iVotedA;
-                countA <= countVotedA-1;
+                directshift_iA <= ~directshiftA;
+                countA <= countVA-1;
               end
             else
               workingA <= 1'b0;
@@ -123,9 +113,9 @@ always @( posedge clockA )
 
 always @( posedge clockB )
   begin
-    directshift_iB <= directshift_iVotedB;
-    workingB <= workingVotedB;
-    countB <= countVotedB;
+    directshift_iB <= directshiftB;
+    workingB <= ~setzeroB;
+    countB <= countVB;
     if (reset_iB==1'b0)
       begin
         workingB <= 1'b0;
@@ -138,12 +128,12 @@ always @( posedge clockB )
           workingB <= 1'b1;
         end
       else
-        if (workingVotedB==1'b1)
+        if (~setzeroB==1'b1)
           begin
             if (!((rmlb_usB==upper4countB)&&(lower4countB==4'd0)))
               begin
-                directshift_iB <= ~directshift_iVotedB;
-                countB <= countVotedB-1;
+                directshift_iB <= ~directshiftB;
+                countB <= countVB-1;
               end
             else
               workingB <= 1'b0;
@@ -152,9 +142,9 @@ always @( posedge clockB )
 
 always @( posedge clockC )
   begin
-    directshift_iC <= directshift_iVotedC;
-    workingC <= workingVotedC;
-    countC <= countVotedC;
+    directshift_iC <= directshiftC;
+    workingC <= ~setzeroC;
+    countC <= countVC;
     if (reset_iC==1'b0)
       begin
         workingC <= 1'b0;
@@ -167,112 +157,113 @@ always @( posedge clockC )
           workingC <= 1'b1;
         end
       else
-        if (workingVotedC==1'b1)
+        if (~setzeroC==1'b1)
           begin
             if (!((rmlb_usC==upper4countC)&&(lower4countC==4'd0)))
               begin
-                directshift_iC <= ~directshift_iVotedC;
-                countC <= countVotedC-1;
+                directshift_iC <= ~directshiftC;
+                countC <= countVC-1;
               end
             else
               workingC <= 1'b0;
           end
   end
 
-always @( countVotedA or rmlbA )
+always @( countVA or rmlbA )
   begin
-    count_usA =  countVotedA;
+    count_usA =  countVA;
     upper4countA =  count_usA[7:4] ;
     lower4countA =  count_usA[3:0] ;
     rmlb_usA =  rmlbA;
   end
 
-always @( countVotedB or rmlbB )
+always @( countVB or rmlbB )
   begin
-    count_usB =  countVotedB;
+    count_usB =  countVB;
     upper4countB =  count_usB[7:4] ;
     lower4countB =  count_usB[3:0] ;
     rmlb_usB =  rmlbB;
   end
 
-always @( countVotedC or rmlbC )
+always @( countVC or rmlbC )
   begin
-    count_usC =  countVotedC;
+    count_usC =  countVC;
     upper4countC =  count_usC[7:4] ;
     lower4countC =  count_usC[3:0] ;
     rmlb_usC =  rmlbC;
   end
 
-majorityVoter #(.WIDTH(8)) countVoterA (
+majorityVoter #(.WIDTH(8)) countVoter (
     .inA(countA),
     .inB(countB),
     .inC(countC),
-    .out(countVotedA),
-    .tmrErr(countTmrErrorA)
+    .out(count),
+    .tmrErr(countTmrError)
     );
 
-majorityVoter directshift_iVoterA (
+majorityVoter directshift_iVoter (
     .inA(directshift_iA),
     .inB(directshift_iB),
     .inC(directshift_iC),
-    .out(directshift_iVotedA),
-    .tmrErr(directshift_iTmrErrorA)
+    .out(directshift_i),
+    .tmrErr(directshift_iTmrError)
     );
 
-majorityVoter workingVoterA (
+majorityVoter workingVoter (
     .inA(workingA),
     .inB(workingB),
     .inC(workingC),
-    .out(workingVotedA),
-    .tmrErr(workingTmrErrorA)
+    .out(working),
+    .tmrErr(workingTmrError)
     );
 
-majorityVoter #(.WIDTH(8)) countVoterB (
-    .inA(countA),
-    .inB(countB),
-    .inC(countC),
-    .out(countVotedB),
-    .tmrErr(countTmrErrorB)
+fanout activateFanout (
+    .in(activate),
+    .outA(activateA),
+    .outB(activateB),
+    .outC(activateC)
     );
 
-majorityVoter directshift_iVoterB (
-    .inA(directshift_iA),
-    .inB(directshift_iB),
-    .inC(directshift_iC),
-    .out(directshift_iVotedB),
-    .tmrErr(directshift_iTmrErrorB)
+fanout clockFanout (
+    .in(clock),
+    .outA(clockA),
+    .outB(clockB),
+    .outC(clockC)
     );
 
-majorityVoter workingVoterB (
-    .inA(workingA),
-    .inB(workingB),
-    .inC(workingC),
-    .out(workingVotedB),
-    .tmrErr(workingTmrErrorB)
+fanout #(.WIDTH(8)) countVFanout (
+    .in(countV),
+    .outA(countVA),
+    .outB(countVB),
+    .outC(countVC)
     );
 
-majorityVoter #(.WIDTH(8)) countVoterC (
-    .inA(countA),
-    .inB(countB),
-    .inC(countC),
-    .out(countVotedC),
-    .tmrErr(countTmrErrorC)
+fanout directshiftFanout (
+    .in(directshift),
+    .outA(directshiftA),
+    .outB(directshiftB),
+    .outC(directshiftC)
     );
 
-majorityVoter directshift_iVoterC (
-    .inA(directshift_iA),
-    .inB(directshift_iB),
-    .inC(directshift_iC),
-    .out(directshift_iVotedC),
-    .tmrErr(directshift_iTmrErrorC)
+fanout reset_iFanout (
+    .in(reset_i),
+    .outA(reset_iA),
+    .outB(reset_iB),
+    .outC(reset_iC)
     );
 
-majorityVoter workingVoterC (
-    .inA(workingA),
-    .inB(workingB),
-    .inC(workingC),
-    .out(workingVotedC),
-    .tmrErr(workingTmrErrorC)
+fanout #(.WIDTH(4)) rmlbFanout (
+    .in(rmlb),
+    .outA(rmlbA),
+    .outB(rmlbB),
+    .outC(rmlbC)
+    );
+
+fanout setzeroFanout (
+    .in(setzero),
+    .outA(setzeroA),
+    .outB(setzeroB),
+    .outC(setzeroC)
     );
 endmodule
 

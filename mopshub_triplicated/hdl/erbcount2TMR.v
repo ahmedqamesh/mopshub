@@ -6,52 +6,53 @@
  *                                                                                                  *
  * user    : lucas                                                                                  *
  * host    : DESKTOP-BFDSFP2                                                                        *
- * date    : 16/08/2022 12:58:18                                                                    *
+ * date    : 06/10/2022 13:52:48                                                                    *
  *                                                                                                  *
- * workdir : /mnt/c/Users/Lucas/Desktop/mopshub_triplication/mopshub_top_board_canakari_ftrim/hdl   *
- * cmd     : /mnt/c/Users/Lucas/Desktop/mopshub_triplication/tmrg-master/bin/tmrg -c tmrg.cfg -vvv  *
+ * workdir : /mnt/c/Users/Lucas/Documents/GitHub/mopshub_triplicated/triplicated/mopshub_top_board/hdl *
+ * cmd     : /mnt/c/Users/Lucas/Desktop/mopshub_triplication/tmrg-master/bin/tmrg -vv -c tmrg.cfg   *
  * tmrg rev:                                                                                        *
  *                                                                                                  *
  * src file: erbcount2.v                                                                            *
- *           Git SHA           : File not in git repository!                                        *
- *           Modification time : 2022-03-29 13:49:21                                                *
- *           File Size         : 2619                                                               *
- *           MD5 hash          : a7d370571c47b682f08a3df5b7b606e4                                   *
+ *           Git SHA           : c110441b08b692cc54ebd4a3b84a2599430e8f93                           *
+ *           Modification time : 2022-08-30 12:36:22                                                *
+ *           File Size         : 2613                                                               *
+ *           MD5 hash          : ee374b2cd430f03091fc91f7e91bb9e5                                   *
  *                                                                                                  *
  ****************************************************************************************************/
 
 module erbcount2TMR(
-  input wire  clockA ,
-  input wire  clockB ,
-  input wire  clockC ,
-  input wire  resetA ,
-  input wire  resetB ,
-  input wire  resetC ,
-  input wire  elevrecbA ,
-  input wire  elevrecbB ,
-  input wire  elevrecbC ,
-  output reg  erb_eq128A ,
-  output reg  erb_eq128B ,
-  output reg  erb_eq128C 
+  input wire  clock ,
+  input wire  reset ,
+  input wire  elevrecb ,
+  output reg  erb_eq128 
 );
-wor edgedTmrErrorC;
-wire edgedVotedC;
-wor counterTmrErrorC;
-wire [7:0] counterVotedC;
-wor edgedTmrErrorB;
-wire edgedVotedB;
-wor counterTmrErrorB;
-wire [7:0] counterVotedB;
-wor edgedTmrErrorA;
-wire edgedVotedA;
-wor counterTmrErrorA;
-wire [7:0] counterVotedA;
+wire resetC;
+wire resetB;
+wire resetA;
+wire elevrecbC;
+wire elevrecbB;
+wire elevrecbA;
+wire edgedVC;
+wire edgedVB;
+wire edgedVA;
+wire [7:0] counterVC;
+wire [7:0] counterVB;
+wire [7:0] counterVA;
+wire clockC;
+wire clockB;
+wire clockA;
+wor edgedTmrError;
+wire edged;
+wor counterTmrError;
+wire [7:0] counter;
 reg  [7:0] counterA ;
 reg  [7:0] counterB ;
 reg  [7:0] counterC ;
 reg  edgedA ;
 reg  edgedB ;
 reg  edgedC ;
+wire [7:0] counterV =  counter;
+wire edgedV =  edged;
 
 always @( posedge clockA )
   begin
@@ -62,15 +63,15 @@ always @( posedge clockA )
       end
     else
       begin
-        counterA <= counterVotedA;
-        edgedA <= edgedVotedA;
+        counterA <= counterVA;
+        edgedA <= edgedVA;
         if (elevrecbA==1'b1)
           begin
-            if (edgedVotedA==1'b0)
+            if (edgedVA==1'b0)
               begin
                 edgedA <= 1'b1;
-                if (counterA<8'd128)
-                  counterA <= counterVotedA+1;
+                if (counterVA<8'd128)
+                  counterA <= counterVA+1;
               end
           end
         else
@@ -87,15 +88,15 @@ always @( posedge clockB )
       end
     else
       begin
-        counterB <= counterVotedB;
-        edgedB <= edgedVotedB;
+        counterB <= counterVB;
+        edgedB <= edgedVB;
         if (elevrecbB==1'b1)
           begin
-            if (edgedVotedB==1'b0)
+            if (edgedVB==1'b0)
               begin
                 edgedB <= 1'b1;
-                if (counterB<8'd128)
-                  counterB <= counterVotedB+1;
+                if (counterVB<8'd128)
+                  counterB <= counterVB+1;
               end
           end
         else
@@ -112,15 +113,15 @@ always @( posedge clockC )
       end
     else
       begin
-        counterC <= counterVotedC;
-        edgedC <= edgedVotedC;
+        counterC <= counterVC;
+        edgedC <= edgedVC;
         if (elevrecbC==1'b1)
           begin
-            if (edgedVotedC==1'b0)
+            if (edgedVC==1'b0)
               begin
                 edgedC <= 1'b1;
-                if (counterC<8'd128)
-                  counterC <= counterVotedC+1;
+                if (counterVC<8'd128)
+                  counterC <= counterVC+1;
               end
           end
         else
@@ -128,76 +129,63 @@ always @( posedge clockC )
       end
   end
 
-always @( counterVotedA )
+always @( counterV )
   begin
-    if (counterVotedA==8'd128)
-      erb_eq128A =  1'b1;
+    if (counterV==8'd128)
+      erb_eq128 =  1'b1;
     else
-      erb_eq128A =  1'b0;
+      erb_eq128 =  1'b0;
   end
 
-always @( counterVotedB )
-  begin
-    if (counterVotedB==8'd128)
-      erb_eq128B =  1'b1;
-    else
-      erb_eq128B =  1'b0;
-  end
-
-always @( counterVotedC )
-  begin
-    if (counterVotedC==8'd128)
-      erb_eq128C =  1'b1;
-    else
-      erb_eq128C =  1'b0;
-  end
-
-majorityVoter #(.WIDTH(8)) counterVoterA (
+majorityVoter #(.WIDTH(8)) counterVoter (
     .inA(counterA),
     .inB(counterB),
     .inC(counterC),
-    .out(counterVotedA),
-    .tmrErr(counterTmrErrorA)
+    .out(counter),
+    .tmrErr(counterTmrError)
     );
 
-majorityVoter edgedVoterA (
+majorityVoter edgedVoter (
     .inA(edgedA),
     .inB(edgedB),
     .inC(edgedC),
-    .out(edgedVotedA),
-    .tmrErr(edgedTmrErrorA)
+    .out(edged),
+    .tmrErr(edgedTmrError)
     );
 
-majorityVoter #(.WIDTH(8)) counterVoterB (
-    .inA(counterA),
-    .inB(counterB),
-    .inC(counterC),
-    .out(counterVotedB),
-    .tmrErr(counterTmrErrorB)
+fanout clockFanout (
+    .in(clock),
+    .outA(clockA),
+    .outB(clockB),
+    .outC(clockC)
     );
 
-majorityVoter edgedVoterB (
-    .inA(edgedA),
-    .inB(edgedB),
-    .inC(edgedC),
-    .out(edgedVotedB),
-    .tmrErr(edgedTmrErrorB)
+fanout #(.WIDTH(8)) counterVFanout (
+    .in(counterV),
+    .outA(counterVA),
+    .outB(counterVB),
+    .outC(counterVC)
     );
 
-majorityVoter #(.WIDTH(8)) counterVoterC (
-    .inA(counterA),
-    .inB(counterB),
-    .inC(counterC),
-    .out(counterVotedC),
-    .tmrErr(counterTmrErrorC)
+fanout edgedVFanout (
+    .in(edgedV),
+    .outA(edgedVA),
+    .outB(edgedVB),
+    .outC(edgedVC)
     );
 
-majorityVoter edgedVoterC (
-    .inA(edgedA),
-    .inB(edgedB),
-    .inC(edgedC),
-    .out(edgedVotedC),
-    .tmrErr(edgedTmrErrorC)
+fanout elevrecbFanout (
+    .in(elevrecb),
+    .outA(elevrecbA),
+    .outB(elevrecbB),
+    .outC(elevrecbC)
+    );
+
+fanout resetFanout (
+    .in(reset),
+    .outA(resetA),
+    .outB(resetB),
+    .outC(resetC)
     );
 endmodule
 

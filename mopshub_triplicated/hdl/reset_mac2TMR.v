@@ -6,55 +6,54 @@
  *                                                                                                  *
  * user    : lucas                                                                                  *
  * host    : DESKTOP-BFDSFP2                                                                        *
- * date    : 16/08/2022 12:58:37                                                                    *
+ * date    : 06/10/2022 13:53:02                                                                    *
  *                                                                                                  *
- * workdir : /mnt/c/Users/Lucas/Desktop/mopshub_triplication/mopshub_top_board_canakari_ftrim/hdl   *
- * cmd     : /mnt/c/Users/Lucas/Desktop/mopshub_triplication/tmrg-master/bin/tmrg -c tmrg.cfg -vvv  *
+ * workdir : /mnt/c/Users/Lucas/Documents/GitHub/mopshub_triplicated/triplicated/mopshub_top_board/hdl *
+ * cmd     : /mnt/c/Users/Lucas/Desktop/mopshub_triplication/tmrg-master/bin/tmrg -vv -c tmrg.cfg   *
  * tmrg rev:                                                                                        *
  *                                                                                                  *
  * src file: reset_mac2.v                                                                           *
- *           Git SHA           : File not in git repository!                                        *
- *           Modification time : 2022-03-29 13:49:21                                                *
- *           File Size         : 2442                                                               *
- *           MD5 hash          : af0c783f3ebe67b81ba9cde6444ee673                                   *
+ *           Git SHA           : c110441b08b692cc54ebd4a3b84a2599430e8f93                           *
+ *           Modification time : 2022-08-25 11:46:40                                                *
+ *           File Size         : 2425                                                               *
+ *           MD5 hash          : 4554f163a45a2e176eb1eda0480366a5                                   *
  *                                                                                                  *
  ****************************************************************************************************/
 
 module reset_mac2TMR(
-  input wire  resetA ,
-  input wire  resetB ,
-  input wire  resetC ,
-  input wire  clockA ,
-  input wire  clockB ,
-  input wire  clockC ,
-  input wire  prescalerA ,
-  input wire  prescalerB ,
-  input wire  prescalerC ,
-  output wire  sync_resetA ,
-  output wire  sync_resetB ,
-  output wire  sync_resetC 
+  input wire  reset ,
+  input wire  clock ,
+  input wire  prescaler ,
+  output wire  sync_reset 
 );
-wor countTmrErrorC;
-wire [1:0] countVotedC;
-wor activeTmrErrorC;
-wire activeVotedC;
-wor countTmrErrorB;
-wire [1:0] countVotedB;
-wor activeTmrErrorB;
-wire activeVotedB;
-wor countTmrErrorA;
-wire [1:0] countVotedA;
-wor activeTmrErrorA;
-wire activeVotedA;
+wire resetC;
+wire resetB;
+wire resetA;
+wire prescalerC;
+wire prescalerB;
+wire prescalerA;
+wire [1:0] countVC;
+wire [1:0] countVB;
+wire [1:0] countVA;
+wire clockC;
+wire clockB;
+wire clockA;
+wire activeVC;
+wire activeVB;
+wire activeVA;
+wor countTmrError;
+wire [1:0] count;
+wor activeTmrError;
+wire active;
 reg  [1:0] countA ;
 reg  [1:0] countB ;
 reg  [1:0] countC ;
 reg  activeA ;
 reg  activeB ;
 reg  activeC ;
-assign sync_resetA =  resetA&(~ activeVotedA );
-assign sync_resetB =  resetB&(~ activeVotedB );
-assign sync_resetC =  resetC&(~ activeVotedC );
+wire [1:0] countV =  count;
+wire activeV =  active;
+assign sync_reset =  reset&(~ activeV );
 
 always @( posedge clockA or negedge resetA )
   begin
@@ -65,14 +64,14 @@ always @( posedge clockA or negedge resetA )
       end
     else
       begin
-        countA <= countVotedA;
-        activeA <= activeVotedA;
+        countA <= countVA;
+        activeA <= activeVA;
         if (prescalerA==1'b1)
-          if (activeVotedA==1'b1)
-            if (countVotedA==2'd3)
+          if (activeVA==1'b1)
+            if (countVA==2'd3)
               activeA <= 1'b0;
             else
-              countA <= countVotedA+2'd1;
+              countA <= countVA+2'd1;
       end
   end
 
@@ -85,14 +84,14 @@ always @( posedge clockB or negedge resetB )
       end
     else
       begin
-        countB <= countVotedB;
-        activeB <= activeVotedB;
+        countB <= countVB;
+        activeB <= activeVB;
         if (prescalerB==1'b1)
-          if (activeVotedB==1'b1)
-            if (countVotedB==2'd3)
+          if (activeVB==1'b1)
+            if (countVB==2'd3)
               activeB <= 1'b0;
             else
-              countB <= countVotedB+2'd1;
+              countB <= countVB+2'd1;
       end
   end
 
@@ -105,63 +104,66 @@ always @( posedge clockC or negedge resetC )
       end
     else
       begin
-        countC <= countVotedC;
-        activeC <= activeVotedC;
+        countC <= countVC;
+        activeC <= activeVC;
         if (prescalerC==1'b1)
-          if (activeVotedC==1'b1)
-            if (countVotedC==2'd3)
+          if (activeVC==1'b1)
+            if (countVC==2'd3)
               activeC <= 1'b0;
             else
-              countC <= countVotedC+2'd1;
+              countC <= countVC+2'd1;
       end
   end
 
-majorityVoter activeVoterA (
+majorityVoter activeVoter (
     .inA(activeA),
     .inB(activeB),
     .inC(activeC),
-    .out(activeVotedA),
-    .tmrErr(activeTmrErrorA)
+    .out(active),
+    .tmrErr(activeTmrError)
     );
 
-majorityVoter #(.WIDTH(2)) countVoterA (
+majorityVoter #(.WIDTH(2)) countVoter (
     .inA(countA),
     .inB(countB),
     .inC(countC),
-    .out(countVotedA),
-    .tmrErr(countTmrErrorA)
+    .out(count),
+    .tmrErr(countTmrError)
     );
 
-majorityVoter activeVoterB (
-    .inA(activeA),
-    .inB(activeB),
-    .inC(activeC),
-    .out(activeVotedB),
-    .tmrErr(activeTmrErrorB)
+fanout activeVFanout (
+    .in(activeV),
+    .outA(activeVA),
+    .outB(activeVB),
+    .outC(activeVC)
     );
 
-majorityVoter #(.WIDTH(2)) countVoterB (
-    .inA(countA),
-    .inB(countB),
-    .inC(countC),
-    .out(countVotedB),
-    .tmrErr(countTmrErrorB)
+fanout clockFanout (
+    .in(clock),
+    .outA(clockA),
+    .outB(clockB),
+    .outC(clockC)
     );
 
-majorityVoter activeVoterC (
-    .inA(activeA),
-    .inB(activeB),
-    .inC(activeC),
-    .out(activeVotedC),
-    .tmrErr(activeTmrErrorC)
+fanout #(.WIDTH(2)) countVFanout (
+    .in(countV),
+    .outA(countVA),
+    .outB(countVB),
+    .outC(countVC)
     );
 
-majorityVoter #(.WIDTH(2)) countVoterC (
-    .inA(countA),
-    .inB(countB),
-    .inC(countC),
-    .out(countVotedC),
-    .tmrErr(countTmrErrorC)
+fanout prescalerFanout (
+    .in(prescaler),
+    .outA(prescalerA),
+    .outB(prescalerB),
+    .outC(prescalerC)
+    );
+
+fanout resetFanout (
+    .in(reset),
+    .outA(resetA),
+    .outB(resetB),
+    .outC(resetC)
     );
 endmodule
 

@@ -6,21 +6,22 @@
  *                                                                                                  *
  * user    : lucas                                                                                  *
  * host    : DESKTOP-BFDSFP2                                                                        *
- * date    : 16/08/2022 12:58:32                                                                    *
+ * date    : 06/10/2022 13:52:55                                                                    *
  *                                                                                                  *
- * workdir : /mnt/c/Users/Lucas/Desktop/mopshub_triplication/mopshub_top_board_canakari_ftrim/hdl   *
- * cmd     : /mnt/c/Users/Lucas/Desktop/mopshub_triplication/tmrg-master/bin/tmrg -c tmrg.cfg -vvv  *
+ * workdir : /mnt/c/Users/Lucas/Documents/GitHub/mopshub_triplicated/triplicated/mopshub_top_board/hdl *
+ * cmd     : /mnt/c/Users/Lucas/Desktop/mopshub_triplication/tmrg-master/bin/tmrg -vv -c tmrg.cfg   *
  * tmrg rev:                                                                                        *
  *                                                                                                  *
  * src file: mux32_Nbit.v                                                                           *
- *           Git SHA           : File not in git repository!                                        *
- *           Modification time : 2022-08-12 11:14:25                                                *
- *           File Size         : 1989                                                               *
- *           MD5 hash          : 34d1c3b7f5ced7081c38172762484ae8                                   *
+ *           Git SHA           : c110441b08b692cc54ebd4a3b84a2599430e8f93                           *
+ *           Modification time : 2022-10-05 22:33:29                                                *
+ *           File Size         : 1927                                                               *
+ *           MD5 hash          : 338f1dfaa8ab8141b55624f3e1994313                                   *
  *                                                                                                  *
  ****************************************************************************************************/
 
 module mux32_NbitTMR(
+  input wire  rst ,
   input wire [15:0] data0 ,
   input wire [15:0] data1 ,
   input wire [15:0] data2 ,
@@ -40,264 +41,35 @@ module mux32_NbitTMR(
   input wire [4:0] sel ,
   output wire [15:0] data_out 
 );
-wire [4:0] selC;
-wire [4:0] selB;
-wire [4:0] selA;
-wire [15:0] data9C;
-wire [15:0] data9B;
-wire [15:0] data9A;
-wire [15:0] data8C;
-wire [15:0] data8B;
-wire [15:0] data8A;
-wire [15:0] data7C;
-wire [15:0] data7B;
-wire [15:0] data7A;
-wire [15:0] data6C;
-wire [15:0] data6B;
-wire [15:0] data6A;
-wire [15:0] data5C;
-wire [15:0] data5B;
-wire [15:0] data5A;
-wire [15:0] data4C;
-wire [15:0] data4B;
-wire [15:0] data4A;
-wire [15:0] data3C;
-wire [15:0] data3B;
-wire [15:0] data3A;
-wire [15:0] data2C;
-wire [15:0] data2B;
-wire [15:0] data2A;
-wire [15:0] data1C;
-wire [15:0] data1B;
-wire [15:0] data1A;
-wire [15:0] data15C;
-wire [15:0] data15B;
-wire [15:0] data15A;
-wire [15:0] data14C;
-wire [15:0] data14B;
-wire [15:0] data14A;
-wire [15:0] data13C;
-wire [15:0] data13B;
-wire [15:0] data13A;
-wire [15:0] data12C;
-wire [15:0] data12B;
-wire [15:0] data12A;
-wire [15:0] data11C;
-wire [15:0] data11B;
-wire [15:0] data11A;
-wire [15:0] data10C;
-wire [15:0] data10B;
-wire [15:0] data10A;
-wire [15:0] data0C;
-wire [15:0] data0B;
-wire [15:0] data0A;
-wor data_out_rTmrError;
-wire [15:0] data_out_r;
-reg  [15:0] data_out_rA ;
-reg  [15:0] data_out_rB ;
-reg  [15:0] data_out_rC ;
+reg  [15:0] data_out_r ;
 initial
-  data_out_rA =  16'b0;
-initial
-  data_out_rB =  16'b0;
-initial
-  data_out_rC =  16'b0;
+  data_out_r =  16'b0;
 assign data_out =  data_out_r;
 
 always @( * )
-  begin
-    case (selA)
-      5'b000 : data_out_rA =  data0A;
-      5'b001 : data_out_rA =  data1A;
-      5'b010 : data_out_rA =  data2A;
-      5'b011 : data_out_rA =  data3A;
-      5'b100 : data_out_rA =  data4A;
-      5'b101 : data_out_rA =  data5A;
-      5'b110 : data_out_rA =  data6A;
-      5'b111 : data_out_rA =  data7A;
-      5'b1000 : data_out_rA =  data8A;
-      5'b1001 : data_out_rA =  data9A;
-      5'b1010 : data_out_rA =  data10A;
-      5'b1011 : data_out_rA =  data11A;
-      5'b1100 : data_out_rA =  data12A;
-      5'b1101 : data_out_rA =  data13A;
-      5'b1110 : data_out_rA =  data14A;
-      5'b1111 : data_out_rA =  data15A;
-      default : data_out_rA =  16'b0;
-    endcase
-  end
-
-always @( * )
-  begin
-    case (selB)
-      5'b000 : data_out_rB =  data0B;
-      5'b001 : data_out_rB =  data1B;
-      5'b010 : data_out_rB =  data2B;
-      5'b011 : data_out_rB =  data3B;
-      5'b100 : data_out_rB =  data4B;
-      5'b101 : data_out_rB =  data5B;
-      5'b110 : data_out_rB =  data6B;
-      5'b111 : data_out_rB =  data7B;
-      5'b1000 : data_out_rB =  data8B;
-      5'b1001 : data_out_rB =  data9B;
-      5'b1010 : data_out_rB =  data10B;
-      5'b1011 : data_out_rB =  data11B;
-      5'b1100 : data_out_rB =  data12B;
-      5'b1101 : data_out_rB =  data13B;
-      5'b1110 : data_out_rB =  data14B;
-      5'b1111 : data_out_rB =  data15B;
-      default : data_out_rB =  16'b0;
-    endcase
-  end
-
-always @( * )
-  begin
-    case (selC)
-      5'b000 : data_out_rC =  data0C;
-      5'b001 : data_out_rC =  data1C;
-      5'b010 : data_out_rC =  data2C;
-      5'b011 : data_out_rC =  data3C;
-      5'b100 : data_out_rC =  data4C;
-      5'b101 : data_out_rC =  data5C;
-      5'b110 : data_out_rC =  data6C;
-      5'b111 : data_out_rC =  data7C;
-      5'b1000 : data_out_rC =  data8C;
-      5'b1001 : data_out_rC =  data9C;
-      5'b1010 : data_out_rC =  data10C;
-      5'b1011 : data_out_rC =  data11C;
-      5'b1100 : data_out_rC =  data12C;
-      5'b1101 : data_out_rC =  data13C;
-      5'b1110 : data_out_rC =  data14C;
-      5'b1111 : data_out_rC =  data15C;
-      default : data_out_rC =  16'b0;
-    endcase
-  end
-
-majorityVoter #(.WIDTH(16)) data_out_rVoter (
-    .inA(data_out_rA),
-    .inB(data_out_rB),
-    .inC(data_out_rC),
-    .out(data_out_r),
-    .tmrErr(data_out_rTmrError)
-    );
-
-fanout #(.WIDTH(16)) data0Fanout (
-    .in(data0),
-    .outA(data0A),
-    .outB(data0B),
-    .outC(data0C)
-    );
-
-fanout #(.WIDTH(16)) data10Fanout (
-    .in(data10),
-    .outA(data10A),
-    .outB(data10B),
-    .outC(data10C)
-    );
-
-fanout #(.WIDTH(16)) data11Fanout (
-    .in(data11),
-    .outA(data11A),
-    .outB(data11B),
-    .outC(data11C)
-    );
-
-fanout #(.WIDTH(16)) data12Fanout (
-    .in(data12),
-    .outA(data12A),
-    .outB(data12B),
-    .outC(data12C)
-    );
-
-fanout #(.WIDTH(16)) data13Fanout (
-    .in(data13),
-    .outA(data13A),
-    .outB(data13B),
-    .outC(data13C)
-    );
-
-fanout #(.WIDTH(16)) data14Fanout (
-    .in(data14),
-    .outA(data14A),
-    .outB(data14B),
-    .outC(data14C)
-    );
-
-fanout #(.WIDTH(16)) data15Fanout (
-    .in(data15),
-    .outA(data15A),
-    .outB(data15B),
-    .outC(data15C)
-    );
-
-fanout #(.WIDTH(16)) data1Fanout (
-    .in(data1),
-    .outA(data1A),
-    .outB(data1B),
-    .outC(data1C)
-    );
-
-fanout #(.WIDTH(16)) data2Fanout (
-    .in(data2),
-    .outA(data2A),
-    .outB(data2B),
-    .outC(data2C)
-    );
-
-fanout #(.WIDTH(16)) data3Fanout (
-    .in(data3),
-    .outA(data3A),
-    .outB(data3B),
-    .outC(data3C)
-    );
-
-fanout #(.WIDTH(16)) data4Fanout (
-    .in(data4),
-    .outA(data4A),
-    .outB(data4B),
-    .outC(data4C)
-    );
-
-fanout #(.WIDTH(16)) data5Fanout (
-    .in(data5),
-    .outA(data5A),
-    .outB(data5B),
-    .outC(data5C)
-    );
-
-fanout #(.WIDTH(16)) data6Fanout (
-    .in(data6),
-    .outA(data6A),
-    .outB(data6B),
-    .outC(data6C)
-    );
-
-fanout #(.WIDTH(16)) data7Fanout (
-    .in(data7),
-    .outA(data7A),
-    .outB(data7B),
-    .outC(data7C)
-    );
-
-fanout #(.WIDTH(16)) data8Fanout (
-    .in(data8),
-    .outA(data8A),
-    .outB(data8B),
-    .outC(data8C)
-    );
-
-fanout #(.WIDTH(16)) data9Fanout (
-    .in(data9),
-    .outA(data9A),
-    .outB(data9B),
-    .outC(data9C)
-    );
-
-fanout #(.WIDTH(5)) selFanout (
-    .in(sel),
-    .outA(selA),
-    .outB(selB),
-    .outC(selC)
-    );
+  if (!rst)
+    data_out_r =  16'b0;
+  else
+    begin
+      case (sel)
+        5'b000 : data_out_r =  data0;
+        5'b001 : data_out_r =  data1;
+        5'b010 : data_out_r =  data2;
+        5'b011 : data_out_r =  data3;
+        5'b100 : data_out_r =  data4;
+        5'b101 : data_out_r =  data5;
+        5'b110 : data_out_r =  data6;
+        5'b111 : data_out_r =  data7;
+        5'b1000 : data_out_r =  data8;
+        5'b1001 : data_out_r =  data9;
+        5'b1010 : data_out_r =  data10;
+        5'b1011 : data_out_r =  data11;
+        5'b1100 : data_out_r =  data12;
+        5'b1101 : data_out_r =  data13;
+        5'b1110 : data_out_r =  data14;
+        5'b1111 : data_out_r =  data15;
+        default : data_out_r =  16'b0;
+      endcase
+    end
 endmodule
 

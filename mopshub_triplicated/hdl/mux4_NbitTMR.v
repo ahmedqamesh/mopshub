@@ -6,21 +6,22 @@
  *                                                                                                  *
  * user    : lucas                                                                                  *
  * host    : DESKTOP-BFDSFP2                                                                        *
- * date    : 16/08/2022 12:58:32                                                                    *
+ * date    : 06/10/2022 13:52:55                                                                    *
  *                                                                                                  *
- * workdir : /mnt/c/Users/Lucas/Desktop/mopshub_triplication/mopshub_top_board_canakari_ftrim/hdl   *
- * cmd     : /mnt/c/Users/Lucas/Desktop/mopshub_triplication/tmrg-master/bin/tmrg -c tmrg.cfg -vvv  *
+ * workdir : /mnt/c/Users/Lucas/Documents/GitHub/mopshub_triplicated/triplicated/mopshub_top_board/hdl *
+ * cmd     : /mnt/c/Users/Lucas/Desktop/mopshub_triplication/tmrg-master/bin/tmrg -vv -c tmrg.cfg   *
  * tmrg rev:                                                                                        *
  *                                                                                                  *
  * src file: mux4_Nbit.v                                                                            *
- *           Git SHA           : File not in git repository!                                        *
- *           Modification time : 2022-08-12 11:15:45                                                *
- *           File Size         : 1282                                                               *
- *           MD5 hash          : e9430d31bd4bfd59cf13495627b44d0e                                   *
+ *           Git SHA           : c110441b08b692cc54ebd4a3b84a2599430e8f93                           *
+ *           Modification time : 2022-10-05 22:32:27                                                *
+ *           File Size         : 1163                                                               *
+ *           MD5 hash          : 2a8c63b837d71faa34b19b0c40c11e70                                   *
  *                                                                                                  *
  ****************************************************************************************************/
 
 module mux4_NbitTMR(
+  input wire  rst ,
   input wire [7:0] data0 ,
   input wire [7:0] data1 ,
   input wire [7:0] data2 ,
@@ -29,148 +30,21 @@ module mux4_NbitTMR(
   output wire [7:0] data_out ,
   input wire [7:0] def_value 
 );
-wire [1:0] selC;
-wire [1:0] selB;
-wire [1:0] selA;
-wire [7:0] def_valueC;
-wire [7:0] def_valueB;
-wire [7:0] def_valueA;
-wire [7:0] data3C;
-wire [7:0] data3B;
-wire [7:0] data3A;
-wire [7:0] data2C;
-wire [7:0] data2B;
-wire [7:0] data2A;
-wire [7:0] data1C;
-wire [7:0] data1B;
-wire [7:0] data1A;
-wire [7:0] data0C;
-wire [7:0] data0B;
-wire [7:0] data0A;
-wor data_out_regTmrError;
-wire [7:0] data_out_reg;
-reg  [7:0] data_out_regA ;
-reg  [7:0] data_out_regB ;
-reg  [7:0] data_out_regC ;
+reg  [7:0] data_out_reg ;
 assign data_out =  data_out_reg;
 
-always @( data0A or data1A or data2A or data3A or selA )
-  begin
-    case (selA)
-      2'b00 : 
-        begin
-          data_out_regA =  data0A;
-        end
-      2'b01 : 
-        begin
-          data_out_regA =  data1A;
-        end
-      2'b10 : 
-        begin
-          data_out_regA =  data2A;
-        end
-      2'b11 : 
-        begin
-          data_out_regA =  data3A;
-        end
-      default data_out_regA =  def_valueA; 
-    endcase
-  end
-
-always @( data0B or data1B or data2B or data3B or selB )
-  begin
-    case (selB)
-      2'b00 : 
-        begin
-          data_out_regB =  data0B;
-        end
-      2'b01 : 
-        begin
-          data_out_regB =  data1B;
-        end
-      2'b10 : 
-        begin
-          data_out_regB =  data2B;
-        end
-      2'b11 : 
-        begin
-          data_out_regB =  data3B;
-        end
-      default data_out_regB =  def_valueB; 
-    endcase
-  end
-
-always @( data0C or data1C or data2C or data3C or selC )
-  begin
-    case (selC)
-      2'b00 : 
-        begin
-          data_out_regC =  data0C;
-        end
-      2'b01 : 
-        begin
-          data_out_regC =  data1C;
-        end
-      2'b10 : 
-        begin
-          data_out_regC =  data2C;
-        end
-      2'b11 : 
-        begin
-          data_out_regC =  data3C;
-        end
-      default data_out_regC =  def_valueC; 
-    endcase
-  end
-
-majorityVoter #(.WIDTH(8)) data_out_regVoter (
-    .inA(data_out_regA),
-    .inB(data_out_regB),
-    .inC(data_out_regC),
-    .out(data_out_reg),
-    .tmrErr(data_out_regTmrError)
-    );
-
-fanout #(.WIDTH(8)) data0Fanout (
-    .in(data0),
-    .outA(data0A),
-    .outB(data0B),
-    .outC(data0C)
-    );
-
-fanout #(.WIDTH(8)) data1Fanout (
-    .in(data1),
-    .outA(data1A),
-    .outB(data1B),
-    .outC(data1C)
-    );
-
-fanout #(.WIDTH(8)) data2Fanout (
-    .in(data2),
-    .outA(data2A),
-    .outB(data2B),
-    .outC(data2C)
-    );
-
-fanout #(.WIDTH(8)) data3Fanout (
-    .in(data3),
-    .outA(data3A),
-    .outB(data3B),
-    .outC(data3C)
-    );
-
-fanout #(.WIDTH(8)) def_valueFanout (
-    .in(def_value),
-    .outA(def_valueA),
-    .outB(def_valueB),
-    .outC(def_valueC)
-    );
-
-fanout #(.WIDTH(2)) selFanout (
-    .in(sel),
-    .outA(selA),
-    .outB(selB),
-    .outC(selC)
-    );
+always @( * )
+  if (!rst)
+    data_out_reg =  def_value;
+  else
+    begin
+      case (sel)
+        2'b00 : data_out_reg =  data0;
+        2'b01 : data_out_reg =  data1;
+        2'b10 : data_out_reg =  data2;
+        2'b11 : data_out_reg =  data3;
+        default data_out_reg =  def_value; 
+      endcase
+    end
 endmodule
 

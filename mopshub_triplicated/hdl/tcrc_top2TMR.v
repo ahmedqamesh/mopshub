@@ -6,163 +6,94 @@
  *                                                                                                  *
  * user    : lucas                                                                                  *
  * host    : DESKTOP-BFDSFP2                                                                        *
- * date    : 16/08/2022 12:58:38                                                                    *
+ * date    : 06/10/2022 13:53:05                                                                    *
  *                                                                                                  *
- * workdir : /mnt/c/Users/Lucas/Desktop/mopshub_triplication/mopshub_top_board_canakari_ftrim/hdl   *
- * cmd     : /mnt/c/Users/Lucas/Desktop/mopshub_triplication/tmrg-master/bin/tmrg -c tmrg.cfg -vvv  *
+ * workdir : /mnt/c/Users/Lucas/Documents/GitHub/mopshub_triplicated/triplicated/mopshub_top_board/hdl *
+ * cmd     : /mnt/c/Users/Lucas/Desktop/mopshub_triplication/tmrg-master/bin/tmrg -vv -c tmrg.cfg   *
  * tmrg rev:                                                                                        *
  *                                                                                                  *
  * src file: tcrc_top2.v                                                                            *
- *           Git SHA           : File not in git repository!                                        *
- *           Modification time : 2022-03-29 13:49:21                                                *
- *           File Size         : 4838                                                               *
- *           MD5 hash          : 3dbe63acfccaf3721b91ec598b2ae63b                                   *
+ *           Git SHA           : c110441b08b692cc54ebd4a3b84a2599430e8f93                           *
+ *           Modification time : 2022-08-30 13:13:40                                                *
+ *           File Size         : 4792                                                               *
+ *           MD5 hash          : 40aece548bd1e1bf61d7a1844b4a5c88                                   *
  *                                                                                                  *
  ****************************************************************************************************/
 
 module tcrc2TMR(
-  input wire  clockA ,
-  input wire  clockB ,
-  input wire  clockC ,
-  input wire  bitinA ,
-  input wire  bitinB ,
-  input wire  bitinC ,
-  input wire  activA ,
-  input wire  activB ,
-  input wire  activC ,
-  input wire  resetA ,
-  input wire  resetB ,
-  input wire  resetC ,
-  input wire [14:0] crc_pre_load_extA ,
-  input wire [14:0] crc_pre_load_extB ,
-  input wire [14:0] crc_pre_load_extC ,
-  input wire [14:0] crc_pre_load_remA ,
-  input wire [14:0] crc_pre_load_remB ,
-  input wire [14:0] crc_pre_load_remC ,
-  input wire  extendedA ,
-  input wire  extendedB ,
-  input wire  extendedC ,
-  input wire  loadA ,
-  input wire  loadB ,
-  input wire  loadC ,
-  input wire  load_activA ,
-  input wire  load_activB ,
-  input wire  load_activC ,
-  input wire  crc_shft_outA ,
-  input wire  crc_shft_outB ,
-  input wire  crc_shft_outC ,
-  input wire  zerointcrcA ,
-  input wire  zerointcrcB ,
-  input wire  zerointcrcC ,
-  output wire  crc_tosendA ,
-  output wire  crc_tosendB ,
-  output wire  crc_tosendC 
+  input wire  clock ,
+  input wire  bitin ,
+  input wire  activ ,
+  input wire  reset ,
+  input wire [14:0] crc_pre_load_ext ,
+  input wire [14:0] crc_pre_load_rem ,
+  input wire  extended ,
+  input wire  load ,
+  input wire  load_activ ,
+  input wire  crc_shft_out ,
+  input wire  zerointcrc ,
+  output wire  crc_tosend 
 );
-wor enable_iTmrErrorC;
-wire enable_iVotedC;
-wor edgedTmrErrorC;
-wire edgedVotedC;
-wor enable_iTmrErrorB;
-wire enable_iVotedB;
-wor edgedTmrErrorB;
-wire edgedVotedB;
-wor enable_iTmrErrorA;
-wire enable_iVotedA;
-wor edgedTmrErrorA;
-wire edgedVotedA;
+wire resetC;
+wire resetB;
+wire resetA;
+wire load_activC;
+wire load_activB;
+wire load_activA;
+wire loadC;
+wire loadB;
+wire loadA;
+wire enable_iVC;
+wire enable_iVB;
+wire enable_iVA;
+wire edgedVC;
+wire edgedVB;
+wire edgedVA;
+wire clockC;
+wire clockB;
+wire clockA;
+wire activ_iC;
+wire activ_iB;
+wire activ_iA;
+wor enable_iTmrError;
+wire enable_i;
+wor edgedTmrError;
+wire edged;
 reg  edgedA ;
 reg  edgedB ;
 reg  edgedC ;
 reg  enable_iA ;
 reg  enable_iB ;
 reg  enable_iC ;
-wire activ_iA;
-wire activ_iB;
-wire activ_iC;
-wire reset_iA;
-wire reset_iB;
-wire reset_iC;
-wire load_iA;
-wire load_iB;
-wire load_iC;
-wire bitin_iA;
-wire bitin_iB;
-wire bitin_iC;
-wire feedbackA;
-wire feedbackB;
-wire feedbackC;
-wire [14:0] q_outA;
-wire [14:0] q_outB;
-wire [14:0] q_outC;
-wire [14:0] inpA;
-wire [14:0] inpB;
-wire [14:0] inpC;
-reg  [14:0] crc_pre_load_iA ;
-reg  [14:0] crc_pre_load_iB ;
-reg  [14:0] crc_pre_load_iC ;
-assign reset_iA =  resetA;
-assign reset_iB =  resetB;
-assign reset_iC =  resetC;
-assign activ_iA =  (activA&(~ crc_shft_outA ))|(load_activA&crc_shft_outA);
-assign activ_iB =  (activB&(~ crc_shft_outB ))|(load_activB&crc_shft_outB);
-assign activ_iC =  (activC&(~ crc_shft_outC ))|(load_activC&crc_shft_outC);
-assign feedbackA =  (~ crc_shft_outA )&q_outA[14] ;
-assign feedbackB =  (~ crc_shft_outB )&q_outB[14] ;
-assign feedbackC =  (~ crc_shft_outC )&q_outC[14] ;
-assign load_iA =  loadA&load_activA;
-assign load_iB =  loadB&load_activB;
-assign load_iC =  loadC&load_activC;
-assign bitin_iA =  (bitinA|crc_shft_outA)&zerointcrcA;
-assign bitin_iB =  (bitinB|crc_shft_outB)&zerointcrcB;
-assign bitin_iC =  (bitinC|crc_shft_outC)&zerointcrcC;
-assign inpA[0]  =  bitin_iA^feedbackA;
-assign inpB[0]  =  bitin_iB^feedbackB;
-assign inpC[0]  =  bitin_iC^feedbackC;
-assign inpA[1]  =  q_outA[0] ;
-assign inpB[1]  =  q_outB[0] ;
-assign inpC[1]  =  q_outC[0] ;
-assign inpA[2]  =  q_outA[1] ;
-assign inpB[2]  =  q_outB[1] ;
-assign inpC[2]  =  q_outC[1] ;
-assign inpA[3]  =  q_outA[2] ^feedbackA;
-assign inpB[3]  =  q_outB[2] ^feedbackB;
-assign inpC[3]  =  q_outC[2] ^feedbackC;
-assign inpA[4]  =  q_outA[3] ^feedbackA;
-assign inpB[4]  =  q_outB[3] ^feedbackB;
-assign inpC[4]  =  q_outC[3] ^feedbackC;
-assign inpA[5]  =  q_outA[4] ;
-assign inpB[5]  =  q_outB[4] ;
-assign inpC[5]  =  q_outC[4] ;
-assign inpA[6]  =  q_outA[5] ;
-assign inpB[6]  =  q_outB[5] ;
-assign inpC[6]  =  q_outC[5] ;
-assign inpA[7]  =  q_outA[6] ^feedbackA;
-assign inpB[7]  =  q_outB[6] ^feedbackB;
-assign inpC[7]  =  q_outC[6] ^feedbackC;
-assign inpA[8]  =  q_outA[7] ^feedbackA;
-assign inpB[8]  =  q_outB[7] ^feedbackB;
-assign inpC[8]  =  q_outC[7] ^feedbackC;
-assign inpA[9]  =  q_outA[8] ;
-assign inpB[9]  =  q_outB[8] ;
-assign inpC[9]  =  q_outC[8] ;
-assign inpA[10]  =  q_outA[9] ^feedbackA;
-assign inpB[10]  =  q_outB[9] ^feedbackB;
-assign inpC[10]  =  q_outC[9] ^feedbackC;
-assign inpA[11]  =  q_outA[10] ;
-assign inpB[11]  =  q_outB[10] ;
-assign inpC[11]  =  q_outC[10] ;
-assign inpA[12]  =  q_outA[11] ;
-assign inpB[12]  =  q_outB[11] ;
-assign inpC[12]  =  q_outC[11] ;
-assign inpA[13]  =  q_outA[12] ;
-assign inpB[13]  =  q_outB[12] ;
-assign inpC[13]  =  q_outC[12] ;
-assign inpA[14]  =  q_outA[13] ^feedbackA;
-assign inpB[14]  =  q_outB[13] ^feedbackB;
-assign inpC[14]  =  q_outC[13] ^feedbackC;
-assign crc_tosendA =  q_outA[14] ;
-assign crc_tosendB =  q_outB[14] ;
-assign crc_tosendC =  q_outC[14] ;
+reg  [14:0] crc_pre_load_i ;
+wire activ_i;
+wire load_i;
+wire bitin_i;
+wire feedback;
+wire [14:0] q_out;
+wire [14:0] inp;
+wire enable_iV =  enable_i;
+wire edgedV =  edged;
+assign activ_i =  (activ&(~ crc_shft_out ))|(load_activ&crc_shft_out);
+assign feedback =  (~ crc_shft_out )&q_out[14] ;
+assign load_i =  load&load_activ;
+assign bitin_i =  (bitin|crc_shft_out)&zerointcrc;
+assign inp[0]  =  bitin_i^feedback;
+assign inp[1]  =  q_out[0] ;
+assign inp[2]  =  q_out[1] ;
+assign inp[3]  =  q_out[2] ^feedback;
+assign inp[4]  =  q_out[3] ^feedback;
+assign inp[5]  =  q_out[4] ;
+assign inp[6]  =  q_out[5] ;
+assign inp[7]  =  q_out[6] ^feedback;
+assign inp[8]  =  q_out[7] ^feedback;
+assign inp[9]  =  q_out[8] ;
+assign inp[10]  =  q_out[9] ^feedback;
+assign inp[11]  =  q_out[10] ;
+assign inp[12]  =  q_out[11] ;
+assign inp[13]  =  q_out[12] ;
+assign inp[14]  =  q_out[13] ^feedback;
+assign crc_tosend =  q_out[14] ;
 genvar i;
 
 generate
@@ -170,54 +101,24 @@ generate
     begin 
 
       tcrc_cell2TMR reg_i (
-          .enableA(enable_iVotedA),
-          .enableB(enable_iVotedB),
-          .enableC(enable_iVotedC),
-          .preloadA(crc_pre_load_iA[i] ),
-          .preloadB(crc_pre_load_iB[i] ),
-          .preloadC(crc_pre_load_iC[i] ),
-          .clockA(clockA),
-          .clockB(clockB),
-          .clockC(clockC),
-          .resetA(reset_iA),
-          .resetB(reset_iB),
-          .resetC(reset_iC),
-          .loadA(load_iA),
-          .loadB(load_iB),
-          .loadC(load_iC),
-          .InputA(inpA[i] ),
-          .InputB(inpB[i] ),
-          .InputC(inpC[i] ),
-          .qA(q_outA[i] ),
-          .qB(q_outB[i] ),
-          .qC(q_outC[i] )
+          .enable(enable_iV),
+          .preload(crc_pre_load_i[i] ),
+          .clock(clock),
+          .reset(reset),
+          .load(load_i),
+          .Input(inp[i] ),
+          .q(q_out[i] )
           );
     end
 
 endgenerate
 
-always @( extendedA or crc_pre_load_extA or crc_pre_load_remA )
+always @( extended or crc_pre_load_ext or crc_pre_load_rem )
   begin
-    if (extendedA==1'b1)
-      crc_pre_load_iA =  crc_pre_load_extA;
+    if (extended==1'b1)
+      crc_pre_load_i =  crc_pre_load_ext;
     else
-      crc_pre_load_iA =  crc_pre_load_remA;
-  end
-
-always @( extendedB or crc_pre_load_extB or crc_pre_load_remB )
-  begin
-    if (extendedB==1'b1)
-      crc_pre_load_iB =  crc_pre_load_extB;
-    else
-      crc_pre_load_iB =  crc_pre_load_remB;
-  end
-
-always @( extendedC or crc_pre_load_extC or crc_pre_load_remC )
-  begin
-    if (extendedC==1'b1)
-      crc_pre_load_iC =  crc_pre_load_extC;
-    else
-      crc_pre_load_iC =  crc_pre_load_remC;
+      crc_pre_load_i =  crc_pre_load_rem;
   end
 
 always @( negedge clockA )
@@ -229,10 +130,10 @@ always @( negedge clockA )
       end
     else
       begin
-        edgedA =  edgedVotedA;
-        enable_iA <= enable_iVotedA;
+        edgedA =  edgedVA;
+        enable_iA <= enable_iVA;
         if (activ_iA==1'b1)
-          if (edgedVotedA==1'b0)
+          if (edgedVA==1'b0)
             begin
               edgedA =  1'b1;
               enable_iA <= 1'b1;
@@ -262,10 +163,10 @@ always @( negedge clockB )
       end
     else
       begin
-        edgedB =  edgedVotedB;
-        enable_iB <= enable_iVotedB;
+        edgedB =  edgedVB;
+        enable_iB <= enable_iVB;
         if (activ_iB==1'b1)
-          if (edgedVotedB==1'b0)
+          if (edgedVB==1'b0)
             begin
               edgedB =  1'b1;
               enable_iB <= 1'b1;
@@ -295,10 +196,10 @@ always @( negedge clockC )
       end
     else
       begin
-        edgedC =  edgedVotedC;
-        enable_iC <= enable_iVotedC;
+        edgedC =  edgedVC;
+        enable_iC <= enable_iVC;
         if (activ_iC==1'b1)
-          if (edgedVotedC==1'b0)
+          if (edgedVC==1'b0)
             begin
               edgedC =  1'b1;
               enable_iC <= 1'b1;
@@ -319,52 +220,69 @@ always @( negedge clockC )
       end
   end
 
-majorityVoter edgedVoterA (
+majorityVoter edgedVoter (
     .inA(edgedA),
     .inB(edgedB),
     .inC(edgedC),
-    .out(edgedVotedA),
-    .tmrErr(edgedTmrErrorA)
+    .out(edged),
+    .tmrErr(edgedTmrError)
     );
 
-majorityVoter enable_iVoterA (
+majorityVoter enable_iVoter (
     .inA(enable_iA),
     .inB(enable_iB),
     .inC(enable_iC),
-    .out(enable_iVotedA),
-    .tmrErr(enable_iTmrErrorA)
+    .out(enable_i),
+    .tmrErr(enable_iTmrError)
     );
 
-majorityVoter edgedVoterB (
-    .inA(edgedA),
-    .inB(edgedB),
-    .inC(edgedC),
-    .out(edgedVotedB),
-    .tmrErr(edgedTmrErrorB)
+fanout activ_iFanout (
+    .in(activ_i),
+    .outA(activ_iA),
+    .outB(activ_iB),
+    .outC(activ_iC)
     );
 
-majorityVoter enable_iVoterB (
-    .inA(enable_iA),
-    .inB(enable_iB),
-    .inC(enable_iC),
-    .out(enable_iVotedB),
-    .tmrErr(enable_iTmrErrorB)
+fanout clockFanout (
+    .in(clock),
+    .outA(clockA),
+    .outB(clockB),
+    .outC(clockC)
     );
 
-majorityVoter edgedVoterC (
-    .inA(edgedA),
-    .inB(edgedB),
-    .inC(edgedC),
-    .out(edgedVotedC),
-    .tmrErr(edgedTmrErrorC)
+fanout edgedVFanout (
+    .in(edgedV),
+    .outA(edgedVA),
+    .outB(edgedVB),
+    .outC(edgedVC)
     );
 
-majorityVoter enable_iVoterC (
-    .inA(enable_iA),
-    .inB(enable_iB),
-    .inC(enable_iC),
-    .out(enable_iVotedC),
-    .tmrErr(enable_iTmrErrorC)
+fanout enable_iVFanout (
+    .in(enable_iV),
+    .outA(enable_iVA),
+    .outB(enable_iVB),
+    .outC(enable_iVC)
+    );
+
+fanout loadFanout (
+    .in(load),
+    .outA(loadA),
+    .outB(loadB),
+    .outC(loadC)
+    );
+
+fanout load_activFanout (
+    .in(load_activ),
+    .outA(load_activA),
+    .outB(load_activB),
+    .outC(load_activC)
+    );
+
+fanout resetFanout (
+    .in(reset),
+    .outA(resetA),
+    .outB(resetB),
+    .outC(resetC)
     );
 endmodule
 

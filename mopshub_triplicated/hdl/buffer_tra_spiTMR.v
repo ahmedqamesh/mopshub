@@ -6,17 +6,17 @@
  *                                                                                                  *
  * user    : lucas                                                                                  *
  * host    : DESKTOP-BFDSFP2                                                                        *
- * date    : 16/08/2022 12:58:09                                                                    *
+ * date    : 06/10/2022 13:52:38                                                                    *
  *                                                                                                  *
- * workdir : /mnt/c/Users/Lucas/Desktop/mopshub_triplication/mopshub_top_board_canakari_ftrim/hdl   *
- * cmd     : /mnt/c/Users/Lucas/Desktop/mopshub_triplication/tmrg-master/bin/tmrg -c tmrg.cfg -vvv  *
+ * workdir : /mnt/c/Users/Lucas/Documents/GitHub/mopshub_triplicated/triplicated/mopshub_top_board/hdl *
+ * cmd     : /mnt/c/Users/Lucas/Desktop/mopshub_triplication/tmrg-master/bin/tmrg -vv -c tmrg.cfg   *
  * tmrg rev:                                                                                        *
  *                                                                                                  *
  * src file: buffer_tra_spi.v                                                                       *
- *           Git SHA           : File not in git repository!                                        *
- *           Modification time : 2022-08-12 09:54:50                                                *
- *           File Size         : 1865                                                               *
- *           MD5 hash          : f1f0020d5fae34882168b98c109dea05                                   *
+ *           Git SHA           : c110441b08b692cc54ebd4a3b84a2599430e8f93                           *
+ *           Modification time : 2022-10-05 20:57:22                                                *
+ *           File Size         : 1778                                                               *
+ *           MD5 hash          : fb0434a16fc8fe096c02b9a04f76560a                                   *
  *                                                                                                  *
  ****************************************************************************************************/
 
@@ -31,9 +31,21 @@ module buffer_tra_spiTMR(
   output wire [7:0] spi_select ,
   output wire [7:0] data_tra_out 
 );
+wire [7:0] spi_selectC;
+wire [7:0] spi_selectB;
+wire [7:0] spi_selectA;
+wire [7:0] spi_regC;
+wire [7:0] spi_regB;
+wire [7:0] spi_regA;
+wire [7:0] spi_idC;
+wire [7:0] spi_idB;
+wire [7:0] spi_idA;
 wire rstC;
 wire rstB;
 wire rstA;
+wire [7:0] data_tra_outC;
+wire [7:0] data_tra_outB;
+wire [7:0] data_tra_outA;
 wire [7:0] data_tra_8bitinC;
 wire [7:0] data_tra_8bitinB;
 wire [7:0] data_tra_8bitinA;
@@ -43,18 +55,6 @@ wire clkA;
 wire buffer_enC;
 wire buffer_enB;
 wire buffer_enA;
-wire [7:0] b3_vC;
-wire [7:0] b3_vB;
-wire [7:0] b3_vA;
-wire [7:0] b2_vC;
-wire [7:0] b2_vB;
-wire [7:0] b2_vA;
-wire [7:0] b1_vC;
-wire [7:0] b1_vB;
-wire [7:0] b1_vA;
-wire [7:0] b0_vC;
-wire [7:0] b0_vB;
-wire [7:0] b0_vA;
 wire [4:0] addrC;
 wire [4:0] addrB;
 wire [4:0] addrA;
@@ -99,10 +99,6 @@ initial
     b2C =  8'h00;
     b3C =  8'h00;
   end
-wire [7:0] b0_v =  b0;
-wire [7:0] b1_v =  b1;
-wire [7:0] b2_v =  b2;
-wire [7:0] b3_v =  b3;
 
 always @( posedge clkA )
   begin
@@ -130,10 +126,10 @@ end
       end
     else
       begin
-        b0A <= b0_vA;
-        b1A <= b1_vA;
-        b2A <= b2_vA;
-        b3A <= b3_vA;
+        b0A <= spi_idA;
+        b1A <= spi_selectA;
+        b2A <= spi_regA;
+        b3A <= data_tra_outA;
       end
   end
 
@@ -163,10 +159,10 @@ end
       end
     else
       begin
-        b0B <= b0_vB;
-        b1B <= b1_vB;
-        b2B <= b2_vB;
-        b3B <= b3_vB;
+        b0B <= spi_idB;
+        b1B <= spi_selectB;
+        b2B <= spi_regB;
+        b3B <= data_tra_outB;
       end
   end
 
@@ -196,10 +192,10 @@ end
       end
     else
       begin
-        b0C <= b0_vC;
-        b1C <= b1_vC;
-        b2C <= b2_vC;
-        b3C <= b3_vC;
+        b0C <= spi_idC;
+        b1C <= spi_selectC;
+        b2C <= spi_regC;
+        b3C <= data_tra_outC;
       end
   end
 assign data_tra_out =  b3;
@@ -246,34 +242,6 @@ fanout #(.WIDTH(5)) addrFanout (
     .outC(addrC)
     );
 
-fanout #(.WIDTH(8)) b0_vFanout (
-    .in(b0_v),
-    .outA(b0_vA),
-    .outB(b0_vB),
-    .outC(b0_vC)
-    );
-
-fanout #(.WIDTH(8)) b1_vFanout (
-    .in(b1_v),
-    .outA(b1_vA),
-    .outB(b1_vB),
-    .outC(b1_vC)
-    );
-
-fanout #(.WIDTH(8)) b2_vFanout (
-    .in(b2_v),
-    .outA(b2_vA),
-    .outB(b2_vB),
-    .outC(b2_vC)
-    );
-
-fanout #(.WIDTH(8)) b3_vFanout (
-    .in(b3_v),
-    .outA(b3_vA),
-    .outB(b3_vB),
-    .outC(b3_vC)
-    );
-
 fanout buffer_enFanout (
     .in(buffer_en),
     .outA(buffer_enA),
@@ -295,11 +263,39 @@ fanout #(.WIDTH(8)) data_tra_8bitinFanout (
     .outC(data_tra_8bitinC)
     );
 
+fanout #(.WIDTH(8)) data_tra_outFanout (
+    .in(data_tra_out),
+    .outA(data_tra_outA),
+    .outB(data_tra_outB),
+    .outC(data_tra_outC)
+    );
+
 fanout rstFanout (
     .in(rst),
     .outA(rstA),
     .outB(rstB),
     .outC(rstC)
+    );
+
+fanout #(.WIDTH(8)) spi_idFanout (
+    .in(spi_id),
+    .outA(spi_idA),
+    .outB(spi_idB),
+    .outC(spi_idC)
+    );
+
+fanout #(.WIDTH(8)) spi_regFanout (
+    .in(spi_reg),
+    .outA(spi_regA),
+    .outB(spi_regB),
+    .outC(spi_regC)
+    );
+
+fanout #(.WIDTH(8)) spi_selectFanout (
+    .in(spi_select),
+    .outA(spi_selectA),
+    .outB(spi_selectB),
+    .outC(spi_selectC)
     );
 endmodule
 

@@ -6,17 +6,17 @@
  *                                                                                                  *
  * user    : lucas                                                                                  *
  * host    : DESKTOP-BFDSFP2                                                                        *
- * date    : 16/08/2022 12:58:09                                                                    *
+ * date    : 06/10/2022 13:52:38                                                                    *
  *                                                                                                  *
- * workdir : /mnt/c/Users/Lucas/Desktop/mopshub_triplication/mopshub_top_board_canakari_ftrim/hdl   *
- * cmd     : /mnt/c/Users/Lucas/Desktop/mopshub_triplication/tmrg-master/bin/tmrg -c tmrg.cfg -vvv  *
+ * workdir : /mnt/c/Users/Lucas/Documents/GitHub/mopshub_triplicated/triplicated/mopshub_top_board/hdl *
+ * cmd     : /mnt/c/Users/Lucas/Desktop/mopshub_triplication/tmrg-master/bin/tmrg -vv -c tmrg.cfg   *
  * tmrg rev:                                                                                        *
  *                                                                                                  *
  * src file: buffer_rec_spi_data.v                                                                  *
- *           Git SHA           : File not in git repository!                                        *
- *           Modification time : 2022-08-12 09:43:42                                                *
- *           File Size         : 1961                                                               *
- *           MD5 hash          : e9689900020a44893739defba0ab9212                                   *
+ *           Git SHA           : c110441b08b692cc54ebd4a3b84a2599430e8f93 ( M buffer_rec_spi_data.v) *
+ *           Modification time : 2022-10-06 11:57:24                                                *
+ *           File Size         : 1939                                                               *
+ *           MD5 hash          : 1f8ce75087dc151a67398edf5e68c211                                   *
  *                                                                                                  *
  ****************************************************************************************************/
 
@@ -43,9 +43,9 @@ wire [7:0] spi_id_inA;
 wire rstC;
 wire rstB;
 wire rstA;
-wire id_vC;
-wire id_vB;
-wire id_vA;
+wire [7:0] id_vC;
+wire [7:0] id_vB;
+wire [7:0] id_vA;
 wire [7:0] data_rec_inC;
 wire [7:0] data_rec_inB;
 wire [7:0] data_rec_inA;
@@ -55,15 +55,15 @@ wire clkA;
 wire buffer_enC;
 wire buffer_enB;
 wire buffer_enA;
-wire b3_vC;
-wire b3_vB;
-wire b3_vA;
-wire b2_vC;
-wire b2_vB;
-wire b2_vA;
-wire b1_vC;
-wire b1_vB;
-wire b1_vA;
+wire [7:0] b3_vC;
+wire [7:0] b3_vB;
+wire [7:0] b3_vA;
+wire [7:0] b2_vC;
+wire [7:0] b2_vB;
+wire [7:0] b2_vA;
+wire [7:0] b1_vC;
+wire [7:0] b1_vB;
+wire [7:0] b1_vA;
 wor idTmrError;
 wire [7:0] id;
 wor end_read_miso_regTmrError;
@@ -113,16 +113,16 @@ initial
     b3C =  8'h0;
     end_read_miso_regC =  1'b0;
   end
-wire id_v =  id;
-wire b1_v =  b1;
-wire b2_v =  b2;
-wire b3_v =  b3;
+wire [7:0] id_v =  id;
+wire [7:0] b1_v =  b1;
+wire [7:0] b2_v =  b2;
+wire [7:0] b3_v =  b3;
 
 always @( posedge clkA )
   begin
     if (!rstA)
       begin
-        idA <= 8'h000;
+        idA <= 8'h00;
         b1A <= 8'h00;
         b2A <= 8'h00;
         b3A <= 8'h00;
@@ -150,7 +150,7 @@ always @( posedge clkB )
   begin
     if (!rstB)
       begin
-        idB <= 8'h000;
+        idB <= 8'h00;
         b1B <= 8'h00;
         b2B <= 8'h00;
         b3B <= 8'h00;
@@ -178,7 +178,7 @@ always @( posedge clkC )
   begin
     if (!rstC)
       begin
-        idC <= 8'h000;
+        idC <= 8'h00;
         b1C <= 8'h00;
         b2C <= 8'h00;
         b3C <= 8'h00;
@@ -202,7 +202,7 @@ always @( posedge clkC )
       end
   end
 assign end_read_miso =  end_read_miso_reg;
-assign data_rec_out =  {id,b1,b2,b3};
+assign data_rec_out =  {id_v,b1_v,b2_v,b3_v};
 
 majorityVoter #(.WIDTH(8)) b1Voter (
     .inA(b1A),
@@ -244,21 +244,21 @@ majorityVoter #(.WIDTH(8)) idVoter (
     .tmrErr(idTmrError)
     );
 
-fanout b1_vFanout (
+fanout #(.WIDTH(8)) b1_vFanout (
     .in(b1_v),
     .outA(b1_vA),
     .outB(b1_vB),
     .outC(b1_vC)
     );
 
-fanout b2_vFanout (
+fanout #(.WIDTH(8)) b2_vFanout (
     .in(b2_v),
     .outA(b2_vA),
     .outB(b2_vB),
     .outC(b2_vC)
     );
 
-fanout b3_vFanout (
+fanout #(.WIDTH(8)) b3_vFanout (
     .in(b3_v),
     .outA(b3_vA),
     .outB(b3_vB),
@@ -286,7 +286,7 @@ fanout #(.WIDTH(8)) data_rec_inFanout (
     .outC(data_rec_inC)
     );
 
-fanout id_vFanout (
+fanout #(.WIDTH(8)) id_vFanout (
     .in(id_v),
     .outA(id_vA),
     .outB(id_vB),

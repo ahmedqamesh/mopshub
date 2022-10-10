@@ -6,60 +6,34 @@
  *                                                                                                  *
  * user    : lucas                                                                                  *
  * host    : DESKTOP-BFDSFP2                                                                        *
- * date    : 16/08/2022 12:58:18                                                                    *
+ * date    : 06/10/2022 13:52:48                                                                    *
  *                                                                                                  *
- * workdir : /mnt/c/Users/Lucas/Desktop/mopshub_triplication/mopshub_top_board_canakari_ftrim/hdl   *
- * cmd     : /mnt/c/Users/Lucas/Desktop/mopshub_triplication/tmrg-master/bin/tmrg -c tmrg.cfg -vvv  *
+ * workdir : /mnt/c/Users/Lucas/Documents/GitHub/mopshub_triplicated/triplicated/mopshub_top_board/hdl *
+ * cmd     : /mnt/c/Users/Lucas/Desktop/mopshub_triplication/tmrg-master/bin/tmrg -vv -c tmrg.cfg   *
  * tmrg rev:                                                                                        *
  *                                                                                                  *
  * src file: equal_id2.v                                                                            *
- *           Git SHA           : File not in git repository!                                        *
- *           Modification time : 2022-03-29 13:49:21                                                *
- *           File Size         : 2006                                                               *
- *           MD5 hash          : 83cbc51f043f72d564a58f2d863e7396                                   *
+ *           Git SHA           : c110441b08b692cc54ebd4a3b84a2599430e8f93                           *
+ *           Modification time : 2022-08-30 11:57:23                                                *
+ *           File Size         : 2007                                                               *
+ *           MD5 hash          : 61365c4cee6d8a7e71c82203840250af                                   *
  *                                                                                                  *
  ****************************************************************************************************/
 
 module equal_id2TMR(
-  input wire  extendedA ,
-  input wire  extendedB ,
-  input wire  extendedC ,
-  input wire [28:0] idregisterA ,
-  input wire [28:0] idregisterB ,
-  input wire [28:0] idregisterC ,
-  input wire [28:0] idreceivedA ,
-  input wire [28:0] idreceivedB ,
-  input wire [28:0] idreceivedC ,
-  input wire [28:0] accmaskA ,
-  input wire [28:0] accmaskB ,
-  input wire [28:0] accmaskC ,
-  output reg  equalA ,
-  output reg  equalB ,
-  output reg  equalC 
+  input wire  extended ,
+  input wire [28:0] idregister ,
+  input wire [28:0] idreceived ,
+  input wire [28:0] accmask ,
+  output reg  equal 
 );
 
-always @( extendedA or idregisterA or idreceivedA or accmaskA )
+always @( extended or idregister or idreceived or accmask )
   begin
-    if (((extendedA==1'b1)&(((idregisterA^idreceivedA)&accmaskA)==29'd0))|((extendedA==1'b0)&((((idregisterA[28:18] ^idreceivedA[28:18] )&accmaskA[28:18] )==11'd0))))
-      equalA =  1'b1;
+    if (((extended==1'b1)&(((idregister^idreceived)&accmask)==29'd0))|((extended==1'b0)&((((idregister[28:18] ^idreceived[28:18] )&accmask[28:18] )==11'd0))))
+      equal =  1'b1;
     else
-      equalA =  1'b0;
-  end
-
-always @( extendedB or idregisterB or idreceivedB or accmaskB )
-  begin
-    if (((extendedB==1'b1)&(((idregisterB^idreceivedB)&accmaskB)==29'd0))|((extendedB==1'b0)&((((idregisterB[28:18] ^idreceivedB[28:18] )&accmaskB[28:18] )==11'd0))))
-      equalB =  1'b1;
-    else
-      equalB =  1'b0;
-  end
-
-always @( extendedC or idregisterC or idreceivedC or accmaskC )
-  begin
-    if (((extendedC==1'b1)&(((idregisterC^idreceivedC)&accmaskC)==29'd0))|((extendedC==1'b0)&((((idregisterC[28:18] ^idreceivedC[28:18] )&accmaskC[28:18] )==11'd0))))
-      equalC =  1'b1;
-    else
-      equalC =  1'b0;
+      equal =  1'b0;
   end
 endmodule
 

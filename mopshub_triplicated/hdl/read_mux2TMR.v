@@ -6,171 +6,71 @@
  *                                                                                                  *
  * user    : lucas                                                                                  *
  * host    : DESKTOP-BFDSFP2                                                                        *
- * date    : 16/08/2022 12:58:34                                                                    *
+ * date    : 06/10/2022 13:52:58                                                                    *
  *                                                                                                  *
- * workdir : /mnt/c/Users/Lucas/Desktop/mopshub_triplication/mopshub_top_board_canakari_ftrim/hdl   *
- * cmd     : /mnt/c/Users/Lucas/Desktop/mopshub_triplication/tmrg-master/bin/tmrg -c tmrg.cfg -vvv  *
+ * workdir : /mnt/c/Users/Lucas/Documents/GitHub/mopshub_triplicated/triplicated/mopshub_top_board/hdl *
+ * cmd     : /mnt/c/Users/Lucas/Desktop/mopshub_triplication/tmrg-master/bin/tmrg -vv -c tmrg.cfg   *
  * tmrg rev:                                                                                        *
  *                                                                                                  *
  * src file: read_mux2.v                                                                            *
- *           Git SHA           : File not in git repository!                                        *
- *           Modification time : 2022-03-29 13:49:21                                                *
+ *           Git SHA           : c110441b08b692cc54ebd4a3b84a2599430e8f93                           *
+ *           Modification time : 2022-08-30 12:21:39                                                *
  *           File Size         : 3535                                                               *
- *           MD5 hash          : b6f0d39552d7ea8034777f546a0e2290                                   *
+ *           MD5 hash          : 6ade69bf5b78739e94e86877fe43bedf                                   *
  *                                                                                                  *
  ****************************************************************************************************/
 
 module read_mux2TMR(
-  input wire [4:0] addressA ,
-  input wire [4:0] addressB ,
-  input wire [4:0] addressC ,
-  input wire [15:0] preregrA ,
-  input wire [15:0] preregrB ,
-  input wire [15:0] preregrC ,
-  input wire [15:0] genregrA ,
-  input wire [15:0] genregrB ,
-  input wire [15:0] genregrC ,
-  input wire [15:0] intregrA ,
-  input wire [15:0] intregrB ,
-  input wire [15:0] intregrC ,
-  input wire [15:0] traconrA ,
-  input wire [15:0] traconrB ,
-  input wire [15:0] traconrC ,
-  input wire [15:0] traar1rA ,
-  input wire [15:0] traar1rB ,
-  input wire [15:0] traar1rC ,
-  input wire [15:0] traar2rA ,
-  input wire [15:0] traar2rB ,
-  input wire [15:0] traar2rC ,
-  input wire [15:0] trad01rA ,
-  input wire [15:0] trad01rB ,
-  input wire [15:0] trad01rC ,
-  input wire [15:0] trad23rA ,
-  input wire [15:0] trad23rB ,
-  input wire [15:0] trad23rC ,
-  input wire [15:0] trad45rA ,
-  input wire [15:0] trad45rB ,
-  input wire [15:0] trad45rC ,
-  input wire [15:0] trad67rA ,
-  input wire [15:0] trad67rB ,
-  input wire [15:0] trad67rC ,
-  input wire [15:0] recconrA ,
-  input wire [15:0] recconrB ,
-  input wire [15:0] recconrC ,
-  input wire [15:0] accmask1rA ,
-  input wire [15:0] accmask1rB ,
-  input wire [15:0] accmask1rC ,
-  input wire [15:0] accmask2rA ,
-  input wire [15:0] accmask2rB ,
-  input wire [15:0] accmask2rC ,
-  input wire [15:0] recar1rA ,
-  input wire [15:0] recar1rB ,
-  input wire [15:0] recar1rC ,
-  input wire [15:0] recar2rA ,
-  input wire [15:0] recar2rB ,
-  input wire [15:0] recar2rC ,
-  input wire [15:0] recd01rA ,
-  input wire [15:0] recd01rB ,
-  input wire [15:0] recd01rC ,
-  input wire [15:0] recd23rA ,
-  input wire [15:0] recd23rB ,
-  input wire [15:0] recd23rC ,
-  input wire [15:0] recd45rA ,
-  input wire [15:0] recd45rB ,
-  input wire [15:0] recd45rC ,
-  input wire [15:0] recd67rA ,
-  input wire [15:0] recd67rB ,
-  input wire [15:0] recd67rC ,
-  input wire [15:0] fehlregrA ,
-  input wire [15:0] fehlregrB ,
-  input wire [15:0] fehlregrC ,
-  output reg [15:0] data_outA ,
-  output reg [15:0] data_outB ,
-  output reg [15:0] data_outC 
+  input wire [4:0] address ,
+  input wire [15:0] preregr ,
+  input wire [15:0] genregr ,
+  input wire [15:0] intregr ,
+  input wire [15:0] traconr ,
+  input wire [15:0] traar1r ,
+  input wire [15:0] traar2r ,
+  input wire [15:0] trad01r ,
+  input wire [15:0] trad23r ,
+  input wire [15:0] trad45r ,
+  input wire [15:0] trad67r ,
+  input wire [15:0] recconr ,
+  input wire [15:0] accmask1r ,
+  input wire [15:0] accmask2r ,
+  input wire [15:0] recar1r ,
+  input wire [15:0] recar2r ,
+  input wire [15:0] recd01r ,
+  input wire [15:0] recd23r ,
+  input wire [15:0] recd45r ,
+  input wire [15:0] recd67r ,
+  input wire [15:0] fehlregr ,
+  output reg [15:0] data_out 
 );
 parameter [15:0] system_id =16'hCA05;
 
 always @( * )
   begin
-    case (addressA)
-      5'b10100 : data_outA =  system_id;
-      5'b10011 : data_outA =  fehlregrA;
-      5'b10010 : data_outA =  intregrA;
-      5'b10001 : data_outA =  accmask1rA;
-      5'b10000 : data_outA =  accmask2rA;
-      5'b01111 : data_outA =  preregrA;
-      5'b01110 : data_outA =  genregrA;
-      5'b01101 : data_outA =  traconrA;
-      5'b01100 : data_outA =  traar1rA;
-      5'b01011 : data_outA =  traar2rA;
-      5'b01010 : data_outA =  trad01rA;
-      5'b01001 : data_outA =  trad23rA;
-      5'b01000 : data_outA =  trad45rA;
-      5'b00111 : data_outA =  trad67rA;
-      5'b00110 : data_outA =  recconrA;
-      5'b00101 : data_outA =  recar1rA;
-      5'b00100 : data_outA =  recar2rA;
-      5'b00011 : data_outA =  recd01rA;
-      5'b00010 : data_outA =  recd23rA;
-      5'b00001 : data_outA =  recd45rA;
-      5'b00000 : data_outA =  recd67rA;
-      default : data_outA =  16'd0;
-    endcase
-  end
-
-always @( * )
-  begin
-    case (addressB)
-      5'b10100 : data_outB =  system_id;
-      5'b10011 : data_outB =  fehlregrB;
-      5'b10010 : data_outB =  intregrB;
-      5'b10001 : data_outB =  accmask1rB;
-      5'b10000 : data_outB =  accmask2rB;
-      5'b01111 : data_outB =  preregrB;
-      5'b01110 : data_outB =  genregrB;
-      5'b01101 : data_outB =  traconrB;
-      5'b01100 : data_outB =  traar1rB;
-      5'b01011 : data_outB =  traar2rB;
-      5'b01010 : data_outB =  trad01rB;
-      5'b01001 : data_outB =  trad23rB;
-      5'b01000 : data_outB =  trad45rB;
-      5'b00111 : data_outB =  trad67rB;
-      5'b00110 : data_outB =  recconrB;
-      5'b00101 : data_outB =  recar1rB;
-      5'b00100 : data_outB =  recar2rB;
-      5'b00011 : data_outB =  recd01rB;
-      5'b00010 : data_outB =  recd23rB;
-      5'b00001 : data_outB =  recd45rB;
-      5'b00000 : data_outB =  recd67rB;
-      default : data_outB =  16'd0;
-    endcase
-  end
-
-always @( * )
-  begin
-    case (addressC)
-      5'b10100 : data_outC =  system_id;
-      5'b10011 : data_outC =  fehlregrC;
-      5'b10010 : data_outC =  intregrC;
-      5'b10001 : data_outC =  accmask1rC;
-      5'b10000 : data_outC =  accmask2rC;
-      5'b01111 : data_outC =  preregrC;
-      5'b01110 : data_outC =  genregrC;
-      5'b01101 : data_outC =  traconrC;
-      5'b01100 : data_outC =  traar1rC;
-      5'b01011 : data_outC =  traar2rC;
-      5'b01010 : data_outC =  trad01rC;
-      5'b01001 : data_outC =  trad23rC;
-      5'b01000 : data_outC =  trad45rC;
-      5'b00111 : data_outC =  trad67rC;
-      5'b00110 : data_outC =  recconrC;
-      5'b00101 : data_outC =  recar1rC;
-      5'b00100 : data_outC =  recar2rC;
-      5'b00011 : data_outC =  recd01rC;
-      5'b00010 : data_outC =  recd23rC;
-      5'b00001 : data_outC =  recd45rC;
-      5'b00000 : data_outC =  recd67rC;
-      default : data_outC =  16'd0;
+    case (address)
+      5'b10100 : data_out =  system_id;
+      5'b10011 : data_out =  fehlregr;
+      5'b10010 : data_out =  intregr;
+      5'b10001 : data_out =  accmask1r;
+      5'b10000 : data_out =  accmask2r;
+      5'b01111 : data_out =  preregr;
+      5'b01110 : data_out =  genregr;
+      5'b01101 : data_out =  traconr;
+      5'b01100 : data_out =  traar1r;
+      5'b01011 : data_out =  traar2r;
+      5'b01010 : data_out =  trad01r;
+      5'b01001 : data_out =  trad23r;
+      5'b01000 : data_out =  trad45r;
+      5'b00111 : data_out =  trad67r;
+      5'b00110 : data_out =  recconr;
+      5'b00101 : data_out =  recar1r;
+      5'b00100 : data_out =  recar2r;
+      5'b00011 : data_out =  recd01r;
+      5'b00010 : data_out =  recd23r;
+      5'b00001 : data_out =  recd45r;
+      5'b00000 : data_out =  recd67r;
+      default : data_out =  16'd0;
     endcase
   end
 endmodule

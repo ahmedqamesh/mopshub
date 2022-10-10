@@ -6,17 +6,17 @@
  *                                                                                                  *
  * user    : lucas                                                                                  *
  * host    : DESKTOP-BFDSFP2                                                                        *
- * date    : 16/08/2022 12:58:33                                                                    *
+ * date    : 06/10/2022 13:52:56                                                                    *
  *                                                                                                  *
- * workdir : /mnt/c/Users/Lucas/Desktop/mopshub_triplication/mopshub_top_board_canakari_ftrim/hdl   *
- * cmd     : /mnt/c/Users/Lucas/Desktop/mopshub_triplication/tmrg-master/bin/tmrg -c tmrg.cfg -vvv  *
+ * workdir : /mnt/c/Users/Lucas/Documents/GitHub/mopshub_triplicated/triplicated/mopshub_top_board/hdl *
+ * cmd     : /mnt/c/Users/Lucas/Desktop/mopshub_triplication/tmrg-master/bin/tmrg -vv -c tmrg.cfg   *
  * tmrg rev:                                                                                        *
  *                                                                                                  *
  * src file: node_rec_mux_struct.v                                                                  *
- *           Git SHA           : File not in git repository!                                        *
- *           Modification time : 2022-08-16 10:22:33.816782                                         *
- *           File Size         : 26650                                                              *
- *           MD5 hash          : 36ad2d4b7736e5a8d47dbcccfd3b2a5a                                   *
+ *           Git SHA           : c110441b08b692cc54ebd4a3b84a2599430e8f93                           *
+ *           Modification time : 2022-10-06 09:27:27                                                *
+ *           File Size         : 26704                                                              *
+ *           MD5 hash          : 82a36536c5279c336cdcdb6917f1a0ff                                   *
  *                                                                                                  *
  ****************************************************************************************************/
 
@@ -96,66 +96,13 @@ module node_rec_muxTMR(
   output wire  read_n9 ,
   output wire [15:0] readdata 
 );
-wire rstC;
-wire rstB;
-wire rstA;
-wire ireqsucrecC;
-wire ireqsucrecB;
-wire ireqsucrecA;
-wire clkC;
-wire clkB;
-wire clkA;
-wor wenaTmrError;
-wire wena;
-wor time_limitTmrError;
-wire [31:0] time_limit;
-wor start_bus_loopTmrError;
-wire start_bus_loopB;
-wire start_bus_loopC;
-wire start_bus_loopA;
-wor read_irqsucrecTmrError;
-wire read_irqsucrecB;
-wire read_irqsucrecC;
-wire read_irqsucrecA;
-wor irq_can_recTmrError;
-wire irq_can_recB;
-wire irq_can_recC;
-wire irq_can_recA;
-wor fifo_read_enTmrError;
-wire fifo_read_enB;
-wire fifo_read_enC;
-wire fifo_read_enA;
-wor end_choose_busTmrError;
-wire end_choose_busB;
-wire end_choose_busC;
-wire end_choose_busA;
-wor done_bus_loopTmrError;
-wire done_bus_loopB;
-wire done_bus_loopC;
-wire done_bus_loopA;
-wor def_value_1TmrError;
-wire def_value_1;
-wor def_value_0TmrError;
-wire def_value_0;
-wor canakari_entimeoutTmrError;
-wire canakari_entimeoutB;
-wire canakari_entimeoutC;
-wire canakari_entimeoutA;
-wor bus_rec_selectTmrError;
-wire [4:0] bus_rec_selectB;
-wire [4:0] bus_rec_selectC;
-wire [4:0] bus_rec_selectA;
 wire a_fifo_empty;
 wire canakari_entimeout;
 wire canakari_timeoutrst;
 wire cs_signal_read;
 wire [15:0] data_rec_out;
-reg  def_value_0A ;
-reg  def_value_0B ;
-reg  def_value_0C ;
-reg  def_value_1A ;
-reg  def_value_1B ;
-reg  def_value_1C ;
+reg  def_value_0 ;
+reg  def_value_1 ;
 wire done_bus_loop;
 wire end_choose_bus;
 wire [15:0] ffout;
@@ -164,13 +111,9 @@ wire ireqsucrec;
 wire [15:0] irqsucrec_signals;
 wire read_irqsucrec;
 wire start_bus_loop;
-reg  [31:0] time_limitA ;
-reg  [31:0] time_limitB ;
-reg  [31:0] time_limitC ;
+reg  [31:0] time_limit ;
 wire timeoutrst;
-reg  wenaA ;
-reg  wenaB ;
-reg  wenaC ;
+reg  wena ;
 reg  [15:0] mw_spi_bus_fiforeg_cval0 ;
 reg  [15:0] mw_spi_bus_fiforeg_cval1 ;
 reg  [15:0] mw_spi_bus_fiforeg_cval2 ;
@@ -245,37 +188,21 @@ reg  [5:0] mw_spi_bus_fifoaddr_cval ;
 wire [5:0] mw_spi_bus_fifoaddr_nval;
 
 bus_rec_SMTMR bus_rec_SM0 (
-    .bus_rec_selectA(bus_rec_selectA),
-    .bus_rec_selectB(bus_rec_selectB),
-    .bus_rec_selectC(bus_rec_selectC),
-    .entimeoutA(canakari_entimeoutA),
-    .entimeoutB(canakari_entimeoutB),
-    .entimeoutC(canakari_entimeoutC),
+    .bus_rec_select(bus_rec_select),
+    .entimeout(canakari_entimeout),
     .can_rec(data_rec_out),
-    .irq_can_recA(irq_can_recA),
-    .irq_can_recB(irq_can_recB),
-    .irq_can_recC(irq_can_recC),
+    .irq_can_rec(irq_can_rec),
     .clk(clk),
-    .end_choose_busA(end_choose_busA),
-    .end_choose_busB(end_choose_busB),
-    .end_choose_busC(end_choose_busC),
+    .end_choose_bus(end_choose_bus),
     .endwait(endwait),
-    .start_bus_loopA(start_bus_loopA),
-    .start_bus_loopB(start_bus_loopB),
-    .start_bus_loopC(start_bus_loopC),
+    .start_bus_loop(start_bus_loop),
     .ireqsucrec(a_fifo_empty),
     .rst(rst),
-    .done_bus_loopA(done_bus_loopA),
-    .done_bus_loopB(done_bus_loopB),
-    .done_bus_loopC(done_bus_loopC),
-    .read_irqsucrecA(read_irqsucrecA),
-    .read_irqsucrecB(read_irqsucrecB),
-    .read_irqsucrecC(read_irqsucrecC),
+    .done_bus_loop(done_bus_loop),
+    .read_irqsucrec(read_irqsucrec),
     .timeoutrst(canakari_timeoutrst),
     .end_can_proc(end_can_proc),
-    .fifo_read_enA(fifo_read_enA),
-    .fifo_read_enB(fifo_read_enB),
-    .fifo_read_enC(fifo_read_enC)
+    .fifo_read_en(fifo_read_en)
     );
 
 dec1_NbitTMR dec1_Nbit_rec (
@@ -355,6 +282,7 @@ demux1_1bitTMR demux1_read_n (
     );
 
 mux32_NbitTMR mux32_Nbit_readdata (
+    .rst(rst),
     .data0(readdata0),
     .data1(readdata1),
     .data2(readdata2),
@@ -384,55 +312,21 @@ timout_rstTMR timout_rst1 (
     );
 initial
   begin
-    def_value_0A =  1'b0;
-    def_value_1A =  1'b1;
-    time_limitA =  32'd25000000;
-  end
-initial
-  begin
-    def_value_0B =  1'b0;
-    def_value_1B =  1'b1;
-    time_limitB =  32'd25000000;
-  end
-initial
-  begin
-    def_value_0C =  1'b0;
-    def_value_1C =  1'b1;
-    time_limitC =  32'd25000000;
+    def_value_0 =  1'b0;
+    def_value_1 =  1'b1;
+    time_limit =  32'd25000000;
   end
 assign ireqsucrec =  irqsucrec0|irqsucrec1|irqsucrec2|irqsucrec3|irqsucrec4|irqsucrec5|irqsucrec6|irqsucrec7|irqsucrec8|irqsucrec9|irqsucrec10|irqsucrec11|irqsucrec12|irqsucrec13|irqsucrec14|irqsucrec15;
 
-always @( posedge clkA )
+always @( posedge clk )
   begin
-    if (!rstA)
-      wenaA <= 0;
+    if (!rst)
+      wena <= 0;
     else
-      if (ireqsucrecA)
-        wenaA <= 1;
+      if (ireqsucrec)
+        wena <= 1;
       else
-        wenaA <= 0;
-  end
-
-always @( posedge clkB )
-  begin
-    if (!rstB)
-      wenaB <= 0;
-    else
-      if (ireqsucrecB)
-        wenaB <= 1;
-      else
-        wenaB <= 0;
-  end
-
-always @( posedge clkC )
-  begin
-    if (!rstC)
-      wenaC <= 0;
-    else
-      if (ireqsucrecC)
-        wenaC <= 1;
-      else
-        wenaC <= 0;
+        wena <= 0;
   end
 assign cs_signal_read =  (enable_cs_sig&&!read_n_sig);
 assign canakari_timeoutrst =  (main_timeoutrst||timeoutrst);
@@ -522,122 +416,5 @@ assign mw_spi_bus_fiforeg_nval29[15:0]  =  mw_spi_bus_fifotemp_wena ? mw_spi_bus
 assign mw_spi_bus_fiforeg_nval30[15:0]  =  mw_spi_bus_fifotemp_wena ? mw_spi_bus_fifotemp_rena ? (mw_spi_bus_fifoaddr_cval==30) ? irqsucrec_signals : mw_spi_bus_fiforeg_cval31[15:0]  : (mw_spi_bus_fifoaddr_cval==29) ? irqsucrec_signals : mw_spi_bus_fiforeg_cval30[15:0]  : mw_spi_bus_fifotemp_rena ? mw_spi_bus_fiforeg_cval31[15:0]  : mw_spi_bus_fiforeg_cval30[15:0] ;
 assign mw_spi_bus_fiforeg_nval31[15:0]  =  mw_spi_bus_fifotemp_wena ? mw_spi_bus_fifotemp_rena ? (mw_spi_bus_fifoaddr_cval==31) ? irqsucrec_signals : mw_spi_bus_fiforeg_cval32[15:0]  : (mw_spi_bus_fifoaddr_cval==30) ? irqsucrec_signals : mw_spi_bus_fiforeg_cval31[15:0]  : mw_spi_bus_fifotemp_rena ? mw_spi_bus_fiforeg_cval32[15:0]  : mw_spi_bus_fiforeg_cval31[15:0] ;
 assign mw_spi_bus_fiforeg_nval32[15:0]  =  mw_spi_bus_fifotemp_wena ? mw_spi_bus_fifotemp_rena ? mw_spi_bus_fiforeg_cval32[15:0]  : (mw_spi_bus_fifoaddr_cval==31) ? irqsucrec_signals : mw_spi_bus_fiforeg_cval32[15:0]  : mw_spi_bus_fifotemp_rena ? mw_spi_bus_fiforeg_cval32[15:0]  : mw_spi_bus_fiforeg_cval32[15:0] ;
-
-majorityVoter #(.WIDTH(5)) bus_rec_selectVoter (
-    .inA(bus_rec_selectA),
-    .inB(bus_rec_selectB),
-    .inC(bus_rec_selectC),
-    .out(bus_rec_select),
-    .tmrErr(bus_rec_selectTmrError)
-    );
-
-majorityVoter canakari_entimeoutVoter (
-    .inA(canakari_entimeoutA),
-    .inB(canakari_entimeoutB),
-    .inC(canakari_entimeoutC),
-    .out(canakari_entimeout),
-    .tmrErr(canakari_entimeoutTmrError)
-    );
-
-majorityVoter def_value_0Voter (
-    .inA(def_value_0A),
-    .inB(def_value_0B),
-    .inC(def_value_0C),
-    .out(def_value_0),
-    .tmrErr(def_value_0TmrError)
-    );
-
-majorityVoter def_value_1Voter (
-    .inA(def_value_1A),
-    .inB(def_value_1B),
-    .inC(def_value_1C),
-    .out(def_value_1),
-    .tmrErr(def_value_1TmrError)
-    );
-
-majorityVoter done_bus_loopVoter (
-    .inA(done_bus_loopA),
-    .inB(done_bus_loopB),
-    .inC(done_bus_loopC),
-    .out(done_bus_loop),
-    .tmrErr(done_bus_loopTmrError)
-    );
-
-majorityVoter end_choose_busVoter (
-    .inA(end_choose_busA),
-    .inB(end_choose_busB),
-    .inC(end_choose_busC),
-    .out(end_choose_bus),
-    .tmrErr(end_choose_busTmrError)
-    );
-
-majorityVoter fifo_read_enVoter (
-    .inA(fifo_read_enA),
-    .inB(fifo_read_enB),
-    .inC(fifo_read_enC),
-    .out(fifo_read_en),
-    .tmrErr(fifo_read_enTmrError)
-    );
-
-majorityVoter irq_can_recVoter (
-    .inA(irq_can_recA),
-    .inB(irq_can_recB),
-    .inC(irq_can_recC),
-    .out(irq_can_rec),
-    .tmrErr(irq_can_recTmrError)
-    );
-
-majorityVoter read_irqsucrecVoter (
-    .inA(read_irqsucrecA),
-    .inB(read_irqsucrecB),
-    .inC(read_irqsucrecC),
-    .out(read_irqsucrec),
-    .tmrErr(read_irqsucrecTmrError)
-    );
-
-majorityVoter start_bus_loopVoter (
-    .inA(start_bus_loopA),
-    .inB(start_bus_loopB),
-    .inC(start_bus_loopC),
-    .out(start_bus_loop),
-    .tmrErr(start_bus_loopTmrError)
-    );
-
-majorityVoter #(.WIDTH(32)) time_limitVoter (
-    .inA(time_limitA),
-    .inB(time_limitB),
-    .inC(time_limitC),
-    .out(time_limit),
-    .tmrErr(time_limitTmrError)
-    );
-
-majorityVoter wenaVoter (
-    .inA(wenaA),
-    .inB(wenaB),
-    .inC(wenaC),
-    .out(wena),
-    .tmrErr(wenaTmrError)
-    );
-
-fanout clkFanout (
-    .in(clk),
-    .outA(clkA),
-    .outB(clkB),
-    .outC(clkC)
-    );
-
-fanout ireqsucrecFanout (
-    .in(ireqsucrec),
-    .outA(ireqsucrecA),
-    .outB(ireqsucrecB),
-    .outC(ireqsucrecC)
-    );
-
-fanout rstFanout (
-    .in(rst),
-    .outA(rstA),
-    .outB(rstB),
-    .outC(rstC)
-    );
 endmodule
 

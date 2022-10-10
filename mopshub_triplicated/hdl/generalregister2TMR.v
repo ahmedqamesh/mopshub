@@ -6,85 +6,96 @@
  *                                                                                                  *
  * user    : lucas                                                                                  *
  * host    : DESKTOP-BFDSFP2                                                                        *
- * date    : 16/08/2022 12:58:21                                                                    *
+ * date    : 06/10/2022 13:52:50                                                                    *
  *                                                                                                  *
- * workdir : /mnt/c/Users/Lucas/Desktop/mopshub_triplication/mopshub_top_board_canakari_ftrim/hdl   *
- * cmd     : /mnt/c/Users/Lucas/Desktop/mopshub_triplication/tmrg-master/bin/tmrg -c tmrg.cfg -vvv  *
+ * workdir : /mnt/c/Users/Lucas/Documents/GitHub/mopshub_triplicated/triplicated/mopshub_top_board/hdl *
+ * cmd     : /mnt/c/Users/Lucas/Desktop/mopshub_triplication/tmrg-master/bin/tmrg -vv -c tmrg.cfg   *
  * tmrg rev:                                                                                        *
  *                                                                                                  *
  * src file: generalregister2.v                                                                     *
- *           Git SHA           : File not in git repository!                                        *
- *           Modification time : 2022-03-29 13:49:21                                                *
- *           File Size         : 2628                                                               *
- *           MD5 hash          : 32b4959cafdc55f0b68e23f48a50723a                                   *
+ *           Git SHA           : c110441b08b692cc54ebd4a3b84a2599430e8f93                           *
+ *           Modification time : 2022-08-25 09:19:34                                                *
+ *           File Size         : 2580                                                               *
+ *           MD5 hash          : 63f8f57021ac6b91d84b6aca108c9518                                   *
  *                                                                                                  *
  ****************************************************************************************************/
 
 module generalregister2TMR(
-  input wire  clkA ,
-  input wire  clkB ,
-  input wire  clkC ,
-  input wire  rstA ,
-  input wire  rstB ,
-  input wire  rstC ,
-  input wire  cpuA ,
-  input wire  cpuB ,
-  input wire  cpuC ,
-  input wire  canA ,
-  input wire  canB ,
-  input wire  canC ,
-  input wire  bofA ,
-  input wire  bofB ,
-  input wire  bofC ,
-  input wire  eraA ,
-  input wire  eraB ,
-  input wire  eraC ,
-  input wire  erpA ,
-  input wire  erpB ,
-  input wire  erpC ,
-  input wire  warA ,
-  input wire  warB ,
-  input wire  warC ,
-  input wire [2:0] sjwA ,
-  input wire [2:0] sjwB ,
-  input wire [2:0] sjwC ,
-  input wire [2:0] tseg1A ,
-  input wire [2:0] tseg1B ,
-  input wire [2:0] tseg1C ,
-  input wire [2:0] tseg2A ,
-  input wire [2:0] tseg2B ,
-  input wire [2:0] tseg2C ,
-  input wire  sspA ,
-  input wire  sspB ,
-  input wire  sspC ,
-  input wire  srpA ,
-  input wire  srpB ,
-  input wire  srpC ,
-  input wire  sscA ,
-  input wire  sscB ,
-  input wire  sscC ,
-  input wire  srcA ,
-  input wire  srcB ,
-  input wire  srcC ,
-  input wire  rspA ,
-  input wire  rspB ,
-  input wire  rspC ,
-  output wire [15:0] registerA ,
-  output wire [15:0] registerB ,
-  output wire [15:0] registerC 
+  input wire  clk ,
+  input wire  rst ,
+  input wire  cpu ,
+  input wire  can ,
+  input wire  bof ,
+  input wire  era ,
+  input wire  erp ,
+  input wire  war ,
+  input wire [2:0] sjw ,
+  input wire [2:0] tseg1 ,
+  input wire [2:0] tseg2 ,
+  input wire  ssp ,
+  input wire  srp ,
+  input wire  ssc ,
+  input wire  src ,
+  input wire  rsp ,
+  output wire [15:0] register 
 );
-wor register_iTmrErrorC;
-wire [15:0] register_iVotedC;
-wor register_iTmrErrorB;
-wire [15:0] register_iVotedB;
-wor register_iTmrErrorA;
-wire [15:0] register_iVotedA;
+wire warC;
+wire warB;
+wire warA;
+wire [2:0] tseg2C;
+wire [2:0] tseg2B;
+wire [2:0] tseg2A;
+wire [2:0] tseg1C;
+wire [2:0] tseg1B;
+wire [2:0] tseg1A;
+wire sspC;
+wire sspB;
+wire sspA;
+wire sscC;
+wire sscB;
+wire sscA;
+wire srpC;
+wire srpB;
+wire srpA;
+wire srcC;
+wire srcB;
+wire srcA;
+wire [2:0] sjwC;
+wire [2:0] sjwB;
+wire [2:0] sjwA;
+wire rstC;
+wire rstB;
+wire rstA;
+wire rspC;
+wire rspB;
+wire rspA;
+wire [15:0] registerC;
+wire [15:0] registerB;
+wire [15:0] registerA;
+wire erpC;
+wire erpB;
+wire erpA;
+wire eraC;
+wire eraB;
+wire eraA;
+wire cpuC;
+wire cpuB;
+wire cpuA;
+wire clkC;
+wire clkB;
+wire clkA;
+wire canC;
+wire canB;
+wire canA;
+wire bofC;
+wire bofB;
+wire bofA;
+wor register_iTmrError;
+wire [15:0] register_i;
 reg  [15:0] register_iA ;
 reg  [15:0] register_iB ;
 reg  [15:0] register_iC ;
-assign registerA =  register_iVotedA;
-assign registerB =  register_iVotedB;
-assign registerC =  register_iVotedC;
+assign register =  register_i;
 
 always @( posedge clkA )
   begin
@@ -94,7 +105,7 @@ always @( posedge clkA )
       end
     else
       begin
-        register_iA <= register_iVotedA;
+        register_iA <= registerA;
         register_iA[15]  <= bofA;
         register_iA[14]  <= eraA;
         register_iA[13]  <= erpA;
@@ -125,7 +136,7 @@ always @( posedge clkB )
       end
     else
       begin
-        register_iB <= register_iVotedB;
+        register_iB <= registerB;
         register_iB[15]  <= bofB;
         register_iB[14]  <= eraB;
         register_iB[13]  <= erpB;
@@ -156,7 +167,7 @@ always @( posedge clkC )
       end
     else
       begin
-        register_iC <= register_iVotedC;
+        register_iC <= registerC;
         register_iC[15]  <= bofC;
         register_iC[14]  <= eraC;
         register_iC[13]  <= erpC;
@@ -179,28 +190,131 @@ always @( posedge clkC )
       end
   end
 
-majorityVoter #(.WIDTH(16)) register_iVoterA (
+majorityVoter #(.WIDTH(16)) register_iVoter (
     .inA(register_iA),
     .inB(register_iB),
     .inC(register_iC),
-    .out(register_iVotedA),
-    .tmrErr(register_iTmrErrorA)
+    .out(register_i),
+    .tmrErr(register_iTmrError)
     );
 
-majorityVoter #(.WIDTH(16)) register_iVoterB (
-    .inA(register_iA),
-    .inB(register_iB),
-    .inC(register_iC),
-    .out(register_iVotedB),
-    .tmrErr(register_iTmrErrorB)
+fanout bofFanout (
+    .in(bof),
+    .outA(bofA),
+    .outB(bofB),
+    .outC(bofC)
     );
 
-majorityVoter #(.WIDTH(16)) register_iVoterC (
-    .inA(register_iA),
-    .inB(register_iB),
-    .inC(register_iC),
-    .out(register_iVotedC),
-    .tmrErr(register_iTmrErrorC)
+fanout canFanout (
+    .in(can),
+    .outA(canA),
+    .outB(canB),
+    .outC(canC)
+    );
+
+fanout clkFanout (
+    .in(clk),
+    .outA(clkA),
+    .outB(clkB),
+    .outC(clkC)
+    );
+
+fanout cpuFanout (
+    .in(cpu),
+    .outA(cpuA),
+    .outB(cpuB),
+    .outC(cpuC)
+    );
+
+fanout eraFanout (
+    .in(era),
+    .outA(eraA),
+    .outB(eraB),
+    .outC(eraC)
+    );
+
+fanout erpFanout (
+    .in(erp),
+    .outA(erpA),
+    .outB(erpB),
+    .outC(erpC)
+    );
+
+fanout #(.WIDTH(16)) registerFanout (
+    .in(register),
+    .outA(registerA),
+    .outB(registerB),
+    .outC(registerC)
+    );
+
+fanout rspFanout (
+    .in(rsp),
+    .outA(rspA),
+    .outB(rspB),
+    .outC(rspC)
+    );
+
+fanout rstFanout (
+    .in(rst),
+    .outA(rstA),
+    .outB(rstB),
+    .outC(rstC)
+    );
+
+fanout #(.WIDTH(3)) sjwFanout (
+    .in(sjw),
+    .outA(sjwA),
+    .outB(sjwB),
+    .outC(sjwC)
+    );
+
+fanout srcFanout (
+    .in(src),
+    .outA(srcA),
+    .outB(srcB),
+    .outC(srcC)
+    );
+
+fanout srpFanout (
+    .in(srp),
+    .outA(srpA),
+    .outB(srpB),
+    .outC(srpC)
+    );
+
+fanout sscFanout (
+    .in(ssc),
+    .outA(sscA),
+    .outB(sscB),
+    .outC(sscC)
+    );
+
+fanout sspFanout (
+    .in(ssp),
+    .outA(sspA),
+    .outB(sspB),
+    .outC(sspC)
+    );
+
+fanout #(.WIDTH(3)) tseg1Fanout (
+    .in(tseg1),
+    .outA(tseg1A),
+    .outB(tseg1B),
+    .outC(tseg1C)
+    );
+
+fanout #(.WIDTH(3)) tseg2Fanout (
+    .in(tseg2),
+    .outA(tseg2A),
+    .outB(tseg2B),
+    .outC(tseg2C)
+    );
+
+fanout warFanout (
+    .in(war),
+    .outA(warA),
+    .outB(warB),
+    .outC(warC)
     );
 endmodule
 

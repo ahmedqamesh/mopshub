@@ -6,17 +6,17 @@
  *                                                                                                  *
  * user    : lucas                                                                                  *
  * host    : DESKTOP-BFDSFP2                                                                        *
- * date    : 16/08/2022 12:58:13                                                                    *
+ * date    : 06/10/2022 13:52:42                                                                    *
  *                                                                                                  *
- * workdir : /mnt/c/Users/Lucas/Desktop/mopshub_triplication/mopshub_top_board_canakari_ftrim/hdl   *
- * cmd     : /mnt/c/Users/Lucas/Desktop/mopshub_triplication/tmrg-master/bin/tmrg -c tmrg.cfg -vvv  *
+ * workdir : /mnt/c/Users/Lucas/Documents/GitHub/mopshub_triplicated/triplicated/mopshub_top_board/hdl *
+ * cmd     : /mnt/c/Users/Lucas/Desktop/mopshub_triplication/tmrg-master/bin/tmrg -vv -c tmrg.cfg   *
  * tmrg rev:                                                                                        *
  *                                                                                                  *
  * src file: control_bus_struct.v                                                                   *
- *           Git SHA           : File not in git repository!                                        *
- *           Modification time : 2022-08-16 10:45:14                                                *
+ *           Git SHA           : c110441b08b692cc54ebd4a3b84a2599430e8f93                           *
+ *           Modification time : 2022-10-06 12:09:55                                                *
  *           File Size         : 14082                                                              *
- *           MD5 hash          : 7ca28c6ac08b8c67e47acfd8c141038b                                   *
+ *           MD5 hash          : cffe5c881bb6f509679cf0188b710dfb                                   *
  *                                                                                                  *
  ****************************************************************************************************/
 
@@ -31,45 +31,20 @@ module control_busTMR(
   input wire  start_osc_cnt ,
   input wire  start_power_init ,
   input wire  transceive ,
-  output reg  end_osc_cntA ,
-  output reg  end_osc_cntB ,
-  output reg  end_osc_cntC ,
+  output reg  end_osc_cnt ,
   output wire  mosi ,
   output wire [4:0] power_bus_cnt_active ,
   output wire  sck ,
   output wire  w_Master_TX_Ready 
 );
-wire rstC;
-wire rstB;
-wire rstA;
-wire [4:0] power_bus_cntC;
-wire [4:0] power_bus_cntB;
-wire [4:0] power_bus_cntA;
-wire [4:0] n_busesC;
-wire [4:0] n_busesB;
-wire [4:0] n_busesA;
-wire fifo_emptyC;
-wire fifo_emptyB;
-wire fifo_emptyA;
-wire clkC;
-wire clkB;
-wire clkA;
-wor renaTmrError;
-wire rena;
-wor clk_enTmrError;
-wire clk_en;
 wire SPI_MODE;
-reg  clk_enA ;
-reg  clk_enB ;
-reg  clk_enC ;
+reg  clk_en ;
 wire fifo_empty;
 wire full;
 wire [7:0] o_RX_Byte;
 wire o_RX_DV;
 wire [4:0] power_bus_cnt;
-reg  renaA ;
-reg  renaB ;
-reg  renaC ;
+reg  rena ;
 wire [7:0] rxdat;
 wire [7:0] txdat;
 reg  [7:0] mw_spi_bus_fiforeg_cval0 ;
@@ -146,82 +121,30 @@ assign power_bus_cnt_active =  (start_power_init==1) ? power_bus_cnt : power_bus
 assign txdat =  (start_power_init==1) ? data_init : data_tra_spi_out;
 assign SPI_MODE =  1'b0;
 initial
-  end_osc_cntA =  1'b0;
+  end_osc_cnt =  1'b0;
 initial
-  end_osc_cntB =  1'b0;
-initial
-  end_osc_cntC =  1'b0;
-initial
-  clk_enA =  1'b1;
-initial
-  clk_enB =  1'b1;
-initial
-  clk_enC =  1'b1;
+  clk_en =  1'b1;
 
-always @( posedge clkA )
+always @( posedge clk )
   begin
-    if (!rstA)
-      end_osc_cntA <= 0;
+    if (!rst)
+      end_osc_cnt <= 0;
     else
-      case (power_bus_cntA)
-        n_busesA : end_osc_cntA <= 1;
-        default : end_osc_cntA <= 0;
+      case (power_bus_cnt)
+        n_buses : end_osc_cnt <= 1;
+        default : end_osc_cnt <= 0;
       endcase
   end
 
-always @( posedge clkB )
+always @( posedge clk )
   begin
-    if (!rstB)
-      end_osc_cntB <= 0;
+    if (!rst)
+      rena <= 0;
     else
-      case (power_bus_cntB)
-        n_busesB : end_osc_cntB <= 1;
-        default : end_osc_cntB <= 0;
-      endcase
-  end
-
-always @( posedge clkC )
-  begin
-    if (!rstC)
-      end_osc_cntC <= 0;
-    else
-      case (power_bus_cntC)
-        n_busesC : end_osc_cntC <= 1;
-        default : end_osc_cntC <= 0;
-      endcase
-  end
-
-always @( posedge clkA )
-  begin
-    if (!rstA)
-      renaA <= 0;
-    else
-      if (!fifo_emptyA)
-        renaA <= 1;
+      if (!fifo_empty)
+        rena <= 1;
       else
-        renaA <= 0;
-  end
-
-always @( posedge clkB )
-  begin
-    if (!rstB)
-      renaB <= 0;
-    else
-      if (!fifo_emptyB)
-        renaB <= 1;
-      else
-        renaB <= 0;
-  end
-
-always @( posedge clkC )
-  begin
-    if (!rstC)
-      renaC <= 0;
-    else
-      if (!fifo_emptyC)
-        renaC <= 1;
-      else
-        renaC <= 0;
+        rena <= 0;
   end
 assign full =  mw_spi_bus_fifotemp_full;
 assign fifo_empty =  mw_spi_bus_fifotemp_empty;
@@ -286,56 +209,5 @@ assign mw_spi_bus_fiforeg_nval17[7:0]  =  mw_spi_bus_fifotemp_wena ? mw_spi_bus_
 assign mw_spi_bus_fiforeg_nval18[7:0]  =  mw_spi_bus_fifotemp_wena ? mw_spi_bus_fifotemp_rena ? (mw_spi_bus_fifoaddr_cval==18) ? o_RX_Byte : mw_spi_bus_fiforeg_cval19[7:0]  : (mw_spi_bus_fifoaddr_cval==17) ? o_RX_Byte : mw_spi_bus_fiforeg_cval18[7:0]  : mw_spi_bus_fifotemp_rena ? mw_spi_bus_fiforeg_cval19[7:0]  : mw_spi_bus_fiforeg_cval18[7:0] ;
 assign mw_spi_bus_fiforeg_nval19[7:0]  =  mw_spi_bus_fifotemp_wena ? mw_spi_bus_fifotemp_rena ? (mw_spi_bus_fifoaddr_cval==19) ? o_RX_Byte : mw_spi_bus_fiforeg_cval20[7:0]  : (mw_spi_bus_fifoaddr_cval==18) ? o_RX_Byte : mw_spi_bus_fiforeg_cval19[7:0]  : mw_spi_bus_fifotemp_rena ? mw_spi_bus_fiforeg_cval20[7:0]  : mw_spi_bus_fiforeg_cval19[7:0] ;
 assign mw_spi_bus_fiforeg_nval20[7:0]  =  mw_spi_bus_fifotemp_wena ? mw_spi_bus_fifotemp_rena ? mw_spi_bus_fiforeg_cval20[7:0]  : (mw_spi_bus_fifoaddr_cval==19) ? o_RX_Byte : mw_spi_bus_fiforeg_cval20[7:0]  : mw_spi_bus_fifotemp_rena ? mw_spi_bus_fiforeg_cval20[7:0]  : mw_spi_bus_fiforeg_cval20[7:0] ;
-
-majorityVoter clk_enVoter (
-    .inA(clk_enA),
-    .inB(clk_enB),
-    .inC(clk_enC),
-    .out(clk_en),
-    .tmrErr(clk_enTmrError)
-    );
-
-majorityVoter renaVoter (
-    .inA(renaA),
-    .inB(renaB),
-    .inC(renaC),
-    .out(rena),
-    .tmrErr(renaTmrError)
-    );
-
-fanout clkFanout (
-    .in(clk),
-    .outA(clkA),
-    .outB(clkB),
-    .outC(clkC)
-    );
-
-fanout fifo_emptyFanout (
-    .in(fifo_empty),
-    .outA(fifo_emptyA),
-    .outB(fifo_emptyB),
-    .outC(fifo_emptyC)
-    );
-
-fanout #(.WIDTH(5)) n_busesFanout (
-    .in(n_buses),
-    .outA(n_busesA),
-    .outB(n_busesB),
-    .outC(n_busesC)
-    );
-
-fanout #(.WIDTH(5)) power_bus_cntFanout (
-    .in(power_bus_cnt),
-    .outA(power_bus_cntA),
-    .outB(power_bus_cntB),
-    .outC(power_bus_cntC)
-    );
-
-fanout rstFanout (
-    .in(rst),
-    .outA(rstA),
-    .outB(rstB),
-    .outC(rstC)
-    );
 endmodule
 

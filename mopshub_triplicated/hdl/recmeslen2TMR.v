@@ -6,64 +6,57 @@
  *                                                                                                  *
  * user    : lucas                                                                                  *
  * host    : DESKTOP-BFDSFP2                                                                        *
- * date    : 16/08/2022 12:58:37                                                                    *
+ * date    : 06/10/2022 13:53:01                                                                    *
  *                                                                                                  *
- * workdir : /mnt/c/Users/Lucas/Desktop/mopshub_triplication/mopshub_top_board_canakari_ftrim/hdl   *
- * cmd     : /mnt/c/Users/Lucas/Desktop/mopshub_triplication/tmrg-master/bin/tmrg -c tmrg.cfg -vvv  *
+ * workdir : /mnt/c/Users/Lucas/Documents/GitHub/mopshub_triplicated/triplicated/mopshub_top_board/hdl *
+ * cmd     : /mnt/c/Users/Lucas/Desktop/mopshub_triplication/tmrg-master/bin/tmrg -vv -c tmrg.cfg   *
  * tmrg rev:                                                                                        *
  *                                                                                                  *
  * src file: recmeslen2.v                                                                           *
- *           Git SHA           : File not in git repository!                                        *
- *           Modification time : 2022-03-29 13:49:21                                                *
- *           File Size         : 2769                                                               *
- *           MD5 hash          : ede35316253eb45ce9b9bd586c7a05f1                                   *
+ *           Git SHA           : c110441b08b692cc54ebd4a3b84a2599430e8f93                           *
+ *           Modification time : 2022-08-25 10:33:41                                                *
+ *           File Size         : 2643                                                               *
+ *           MD5 hash          : b786485fa4d28179e12660f57b5d131e                                   *
  *                                                                                                  *
  ****************************************************************************************************/
 
 module recmeslen2TMR(
-  input wire  clockA ,
-  input wire  clockB ,
-  input wire  clockC ,
-  input wire  activA ,
-  input wire  activB ,
-  input wire  activC ,
-  input wire  resetA ,
-  input wire  resetB ,
-  input wire  resetC ,
-  input wire [2:0] setrmlenA ,
-  input wire [2:0] setrmlenB ,
-  input wire [2:0] setrmlenC ,
-  output wire [3:0] rmlbA ,
-  output wire [3:0] rmlbB ,
-  output wire [3:0] rmlbC 
+  input wire  clock ,
+  input wire  activ ,
+  input wire  reset ,
+  input wire [2:0] setrmlen ,
+  output wire [3:0] rmlb 
 );
-wor rmlb_regTmrErrorC;
-wire [3:0] rmlb_regVotedC;
-wor edgedTmrErrorC;
-wire edgedVotedC;
-wor rmlb_regTmrErrorB;
-wire [3:0] rmlb_regVotedB;
-wor edgedTmrErrorB;
-wire edgedVotedB;
-wor rmlb_regTmrErrorA;
-wire [3:0] rmlb_regVotedA;
-wor edgedTmrErrorA;
-wire edgedVotedA;
+wire [2:0] setrmlenC;
+wire [2:0] setrmlenB;
+wire [2:0] setrmlenA;
+wire [3:0] rmlbC;
+wire [3:0] rmlbB;
+wire [3:0] rmlbA;
+wire resetC;
+wire resetB;
+wire resetA;
+wire edgedVC;
+wire edgedVB;
+wire edgedVA;
+wire clockC;
+wire clockB;
+wire clockA;
+wire activC;
+wire activB;
+wire activA;
+wor rmlb_regTmrError;
+wire [3:0] rmlb_reg;
+wor edgedTmrError;
+wire edged;
 reg  edgedA ;
 reg  edgedB ;
 reg  edgedC ;
 reg  [3:0] rmlb_regA ;
 reg  [3:0] rmlb_regB ;
 reg  [3:0] rmlb_regC ;
-wire [2:0] setrmlen_regA;
-wire [2:0] setrmlen_regB;
-wire [2:0] setrmlen_regC;
-assign rmlbA =  rmlb_regVotedA;
-assign rmlbB =  rmlb_regVotedB;
-assign rmlbC =  rmlb_regVotedC;
-assign setrmlen_regA =  setrmlenA;
-assign setrmlen_regB =  setrmlenB;
-assign setrmlen_regC =  setrmlenC;
+assign rmlb =  rmlb_reg;
+wire edgedV =  edged;
 
 always @( posedge clockA )
   begin
@@ -74,23 +67,23 @@ always @( posedge clockA )
       end
     else
       begin
-        edgedA =  edgedVotedA;
-        rmlb_regA <= rmlb_regVotedA;
+        edgedA =  edgedVA;
+        rmlb_regA <= rmlbA;
         if (activA==1'b1)
           begin
-            if (edgedVotedA==1'b0)
+            if (edgedVA==1'b0)
               begin
                 edgedA =  1'b1;
-                if (setrmlen_regA==3'd1)
+                if (setrmlenA==3'd1)
                   rmlb_regA[0]  <= 1'b1;
                 else
-                  if (setrmlen_regA==3'd2)
+                  if (setrmlenA==3'd2)
                     rmlb_regA[1]  <= 1'b1;
                   else
-                    if (setrmlen_regA==3'd3)
+                    if (setrmlenA==3'd3)
                       rmlb_regA[2]  <= 1'b1;
                     else
-                      if (setrmlen_regA==3'd4)
+                      if (setrmlenA==3'd4)
                         rmlb_regA[3]  <= 1'b1;
               end
             else
@@ -112,23 +105,23 @@ always @( posedge clockB )
       end
     else
       begin
-        edgedB =  edgedVotedB;
-        rmlb_regB <= rmlb_regVotedB;
+        edgedB =  edgedVB;
+        rmlb_regB <= rmlbB;
         if (activB==1'b1)
           begin
-            if (edgedVotedB==1'b0)
+            if (edgedVB==1'b0)
               begin
                 edgedB =  1'b1;
-                if (setrmlen_regB==3'd1)
+                if (setrmlenB==3'd1)
                   rmlb_regB[0]  <= 1'b1;
                 else
-                  if (setrmlen_regB==3'd2)
+                  if (setrmlenB==3'd2)
                     rmlb_regB[1]  <= 1'b1;
                   else
-                    if (setrmlen_regB==3'd3)
+                    if (setrmlenB==3'd3)
                       rmlb_regB[2]  <= 1'b1;
                     else
-                      if (setrmlen_regB==3'd4)
+                      if (setrmlenB==3'd4)
                         rmlb_regB[3]  <= 1'b1;
               end
             else
@@ -150,23 +143,23 @@ always @( posedge clockC )
       end
     else
       begin
-        edgedC =  edgedVotedC;
-        rmlb_regC <= rmlb_regVotedC;
+        edgedC =  edgedVC;
+        rmlb_regC <= rmlbC;
         if (activC==1'b1)
           begin
-            if (edgedVotedC==1'b0)
+            if (edgedVC==1'b0)
               begin
                 edgedC =  1'b1;
-                if (setrmlen_regC==3'd1)
+                if (setrmlenC==3'd1)
                   rmlb_regC[0]  <= 1'b1;
                 else
-                  if (setrmlen_regC==3'd2)
+                  if (setrmlenC==3'd2)
                     rmlb_regC[1]  <= 1'b1;
                   else
-                    if (setrmlen_regC==3'd3)
+                    if (setrmlenC==3'd3)
                       rmlb_regC[2]  <= 1'b1;
                     else
-                      if (setrmlen_regC==3'd4)
+                      if (setrmlenC==3'd4)
                         rmlb_regC[3]  <= 1'b1;
               end
             else
@@ -179,52 +172,62 @@ always @( posedge clockC )
       end
   end
 
-majorityVoter edgedVoterA (
+majorityVoter edgedVoter (
     .inA(edgedA),
     .inB(edgedB),
     .inC(edgedC),
-    .out(edgedVotedA),
-    .tmrErr(edgedTmrErrorA)
+    .out(edged),
+    .tmrErr(edgedTmrError)
     );
 
-majorityVoter #(.WIDTH(4)) rmlb_regVoterA (
+majorityVoter #(.WIDTH(4)) rmlb_regVoter (
     .inA(rmlb_regA),
     .inB(rmlb_regB),
     .inC(rmlb_regC),
-    .out(rmlb_regVotedA),
-    .tmrErr(rmlb_regTmrErrorA)
+    .out(rmlb_reg),
+    .tmrErr(rmlb_regTmrError)
     );
 
-majorityVoter edgedVoterB (
-    .inA(edgedA),
-    .inB(edgedB),
-    .inC(edgedC),
-    .out(edgedVotedB),
-    .tmrErr(edgedTmrErrorB)
+fanout activFanout (
+    .in(activ),
+    .outA(activA),
+    .outB(activB),
+    .outC(activC)
     );
 
-majorityVoter #(.WIDTH(4)) rmlb_regVoterB (
-    .inA(rmlb_regA),
-    .inB(rmlb_regB),
-    .inC(rmlb_regC),
-    .out(rmlb_regVotedB),
-    .tmrErr(rmlb_regTmrErrorB)
+fanout clockFanout (
+    .in(clock),
+    .outA(clockA),
+    .outB(clockB),
+    .outC(clockC)
     );
 
-majorityVoter edgedVoterC (
-    .inA(edgedA),
-    .inB(edgedB),
-    .inC(edgedC),
-    .out(edgedVotedC),
-    .tmrErr(edgedTmrErrorC)
+fanout edgedVFanout (
+    .in(edgedV),
+    .outA(edgedVA),
+    .outB(edgedVB),
+    .outC(edgedVC)
     );
 
-majorityVoter #(.WIDTH(4)) rmlb_regVoterC (
-    .inA(rmlb_regA),
-    .inB(rmlb_regB),
-    .inC(rmlb_regC),
-    .out(rmlb_regVotedC),
-    .tmrErr(rmlb_regTmrErrorC)
+fanout resetFanout (
+    .in(reset),
+    .outA(resetA),
+    .outB(resetB),
+    .outC(resetC)
+    );
+
+fanout #(.WIDTH(4)) rmlbFanout (
+    .in(rmlb),
+    .outA(rmlbA),
+    .outB(rmlbB),
+    .outC(rmlbC)
+    );
+
+fanout #(.WIDTH(3)) setrmlenFanout (
+    .in(setrmlen),
+    .outA(setrmlenA),
+    .outB(setrmlenB),
+    .outC(setrmlenC)
     );
 endmodule
 

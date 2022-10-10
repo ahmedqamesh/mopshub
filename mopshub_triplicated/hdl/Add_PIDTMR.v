@@ -6,17 +6,17 @@
  *                                                                                                  *
  * user    : lucas                                                                                  *
  * host    : DESKTOP-BFDSFP2                                                                        *
- * date    : 16/08/2022 12:58:06                                                                    *
+ * date    : 06/10/2022 13:52:31                                                                    *
  *                                                                                                  *
- * workdir : /mnt/c/Users/Lucas/Desktop/mopshub_triplication/mopshub_top_board_canakari_ftrim/hdl   *
- * cmd     : /mnt/c/Users/Lucas/Desktop/mopshub_triplication/tmrg-master/bin/tmrg -c tmrg.cfg -vvv  *
+ * workdir : /mnt/c/Users/Lucas/Documents/GitHub/mopshub_triplicated/triplicated/mopshub_top_board/hdl *
+ * cmd     : /mnt/c/Users/Lucas/Desktop/mopshub_triplication/tmrg-master/bin/tmrg -vv -c tmrg.cfg   *
  * tmrg rev:                                                                                        *
  *                                                                                                  *
  * src file: Add_PID.v                                                                              *
- *           Git SHA           : File not in git repository!                                        *
- *           Modification time : 2022-03-29 13:49:21                                                *
- *           File Size         : 463                                                                *
- *           MD5 hash          : b83ad18ecb3d59224660b9cbf4299c83                                   *
+ *           Git SHA           : c110441b08b692cc54ebd4a3b84a2599430e8f93                           *
+ *           Modification time : 2022-08-23 19:43:48                                                *
+ *           File Size         : 461                                                                *
+ *           MD5 hash          : d0a53f8ad62bc700ef75e9e88e48cf7b                                   *
  *                                                                                                  *
  ****************************************************************************************************/
 
@@ -26,21 +26,11 @@ module Add_PIDTMR #(
   parameter  WidthC  = 16,
   parameter  WidthD  = 18
 )(
-  input wire signed [WidthA-1:0] AA ,
-  input wire signed [WidthA-1:0] AB ,
-  input wire signed [WidthA-1:0] AC ,
-  input wire signed [WidthB-1:0] BA ,
-  input wire signed [WidthB-1:0] BB ,
-  input wire signed [WidthB-1:0] BC ,
-  input wire signed [WidthC-1:0] CA ,
-  input wire signed [WidthC-1:0] CB ,
-  input wire signed [WidthC-1:0] CC ,
-  output wire signed [WidthD-1:0] DA ,
-  output wire signed [WidthD-1:0] DB ,
-  output wire signed [WidthD-1:0] DC 
+  input wire signed [WidthA-1:0] A ,
+  input wire signed [WidthB-1:0] B ,
+  input wire signed [WidthC-1:0] C ,
+  output wire signed [WidthD-1:0] D 
 );
-assign DA =  {AA[15] ,AA[15] ,AA}+{BA[16] ,BA}+{CA[15] ,CA[15] ,CA}+{9'b0_0000_0000,6'b100000,3'b000};
-assign DB =  {AB[15] ,AB[15] ,AB}+{BB[16] ,BB}+{CB[15] ,CB[15] ,CB}+{9'b0_0000_0000,6'b100000,3'b000};
-assign DC =  {AC[15] ,AC[15] ,AC}+{BC[16] ,BC}+{CC[15] ,CC[15] ,CC}+{9'b0_0000_0000,6'b100000,3'b000};
+assign D =  {A[15] ,A[15] ,A}+{B[16] ,B}+{C[15] ,C[15] ,C}+{9'b0_0000_0000,6'b100000,3'b000};
 endmodule
 

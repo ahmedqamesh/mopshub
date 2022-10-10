@@ -6,78 +6,67 @@
  *                                                                                                  *
  * user    : lucas                                                                                  *
  * host    : DESKTOP-BFDSFP2                                                                        *
- * date    : 16/08/2022 12:58:13                                                                    *
+ * date    : 06/10/2022 13:52:42                                                                    *
  *                                                                                                  *
- * workdir : /mnt/c/Users/Lucas/Desktop/mopshub_triplication/mopshub_top_board_canakari_ftrim/hdl   *
- * cmd     : /mnt/c/Users/Lucas/Desktop/mopshub_triplication/tmrg-master/bin/tmrg -c tmrg.cfg -vvv  *
+ * workdir : /mnt/c/Users/Lucas/Documents/GitHub/mopshub_triplicated/triplicated/mopshub_top_board/hdl *
+ * cmd     : /mnt/c/Users/Lucas/Desktop/mopshub_triplication/tmrg-master/bin/tmrg -vv -c tmrg.cfg   *
  * tmrg rev:                                                                                        *
  *                                                                                                  *
  * src file: counter2.v                                                                             *
- *           Git SHA           : File not in git repository!                                        *
- *           Modification time : 2022-03-29 13:49:21                                                *
- *           File Size         : 3687                                                               *
- *           MD5 hash          : ee17f27f759cd5ac9f7e977b1af1ddee                                   *
+ *           Git SHA           : c110441b08b692cc54ebd4a3b84a2599430e8f93                           *
+ *           Modification time : 2022-08-30 11:36:11                                                *
+ *           File Size         : 3637                                                               *
+ *           MD5 hash          : c1706e44bfc2e975b2d3852014c66d0f                                   *
  *                                                                                                  *
  ****************************************************************************************************/
 
 module counter2TMR(
-  input wire  clockA ,
-  input wire  clockB ,
-  input wire  clockC ,
-  input wire  Prescale_ENA ,
-  input wire  Prescale_ENB ,
-  input wire  Prescale_ENC ,
-  input wire  incA ,
-  input wire  incB ,
-  input wire  incC ,
-  input wire  resetA ,
-  input wire  resetB ,
-  input wire  resetC ,
-  output reg  lt3A ,
-  output reg  lt3B ,
-  output reg  lt3C ,
-  output reg  gt3A ,
-  output reg  gt3B ,
-  output reg  gt3C ,
-  output reg  eq3A ,
-  output reg  eq3B ,
-  output reg  eq3C ,
-  output reg  lt11A ,
-  output reg  lt11B ,
-  output reg  lt11C ,
-  output reg  eq11A ,
-  output reg  eq11B ,
-  output reg  eq11C ,
-  output wire [6:0] countoA ,
-  output wire [6:0] countoB ,
-  output wire [6:0] countoC 
+  input wire  clock ,
+  input wire  Prescale_EN ,
+  input wire  inc ,
+  input wire  reset ,
+  output reg  lt3 ,
+  output reg  gt3 ,
+  output reg  eq3 ,
+  output reg  lt11 ,
+  output reg  eq11 ,
+  output wire [6:0] counto 
 );
-wor inc_rise_merkerTmrErrorC;
-wire inc_rise_merkerVotedC;
-wor countTmrErrorC;
-wire [6:0] countVotedC;
-wor inc_rise_merkerTmrErrorB;
-wire inc_rise_merkerVotedB;
-wor countTmrErrorB;
-wire [6:0] countVotedB;
-wor inc_rise_merkerTmrErrorA;
-wire inc_rise_merkerVotedA;
-wor countTmrErrorA;
-wire [6:0] countVotedA;
+wire resetC;
+wire resetB;
+wire resetA;
+wire inc_rise_merkerVC;
+wire inc_rise_merkerVB;
+wire inc_rise_merkerVA;
+wire incC;
+wire incB;
+wire incA;
+wire [6:0] countoC;
+wire [6:0] countoB;
+wire [6:0] countoA;
+wire clockC;
+wire clockB;
+wire clockA;
+wire Prescale_ENC;
+wire Prescale_ENB;
+wire Prescale_ENA;
+wor inc_rise_merkerTmrError;
+wire inc_rise_merker;
+wor countTmrError;
+wire [6:0] count;
 reg  inc_rise_merkerA ;
 reg  inc_rise_merkerB ;
 reg  inc_rise_merkerC ;
 reg  [6:0] countA ;
 reg  [6:0] countB ;
 reg  [6:0] countC ;
-assign countoA =  countVotedA;
-assign countoB =  countVotedB;
-assign countoC =  countVotedC;
+wire inc_rise_merkerV =  inc_rise_merker;
+assign counto =  count;
 
 always @( posedge clockA )
   begin
-    countA <= countVotedA;
-    inc_rise_merkerA <= inc_rise_merkerVotedA;
+    countA <= countoA;
+    inc_rise_merkerA <= inc_rise_merkerVA;
     if (Prescale_ENA==1'b1)
       begin
         if (resetA==1'b0)
@@ -88,13 +77,13 @@ always @( posedge clockA )
         else
           if (incA==1'b1)
             begin
-              if (inc_rise_merkerVotedA==1'b0)
+              if (inc_rise_merkerVA==1'b0)
                 begin
                   inc_rise_merkerA <= 1'b1;
-                  if (countVotedA==7'd127)
+                  if (countoA==7'd127)
                     countA <= 7'd0;
                   else
-                    countA <= countVotedA+1;
+                    countA <= countoA+1;
                 end
             end
           else
@@ -104,8 +93,8 @@ always @( posedge clockA )
 
 always @( posedge clockB )
   begin
-    countB <= countVotedB;
-    inc_rise_merkerB <= inc_rise_merkerVotedB;
+    countB <= countoB;
+    inc_rise_merkerB <= inc_rise_merkerVB;
     if (Prescale_ENB==1'b1)
       begin
         if (resetB==1'b0)
@@ -116,13 +105,13 @@ always @( posedge clockB )
         else
           if (incB==1'b1)
             begin
-              if (inc_rise_merkerVotedB==1'b0)
+              if (inc_rise_merkerVB==1'b0)
                 begin
                   inc_rise_merkerB <= 1'b1;
-                  if (countVotedB==7'd127)
+                  if (countoB==7'd127)
                     countB <= 7'd0;
                   else
-                    countB <= countVotedB+1;
+                    countB <= countoB+1;
                 end
             end
           else
@@ -132,8 +121,8 @@ always @( posedge clockB )
 
 always @( posedge clockC )
   begin
-    countC <= countVotedC;
-    inc_rise_merkerC <= inc_rise_merkerVotedC;
+    countC <= countoC;
+    inc_rise_merkerC <= inc_rise_merkerVC;
     if (Prescale_ENC==1'b1)
       begin
         if (resetC==1'b0)
@@ -144,13 +133,13 @@ always @( posedge clockC )
         else
           if (incC==1'b1)
             begin
-              if (inc_rise_merkerVotedC==1'b0)
+              if (inc_rise_merkerVC==1'b0)
                 begin
                   inc_rise_merkerC <= 1'b1;
-                  if (countVotedC==7'd127)
+                  if (countoC==7'd127)
                     countC <= 7'd0;
                   else
-                    countC <= countVotedC+1;
+                    countC <= countoC+1;
                 end
             end
           else
@@ -158,181 +147,105 @@ always @( posedge clockC )
       end
   end
 
-always @( countVotedA )
+always @( counto )
   begin
-    if (countVotedA<3)
+    if (counto<3)
       begin
-        lt3A =  1'b1;
-        gt3A =  1'b0;
-        eq3A =  1'b0;
+        lt3 =  1'b1;
+        gt3 =  1'b0;
+        eq3 =  1'b0;
       end
     else
-      if (countVotedA==3)
+      if (counto==3)
         begin
-          lt3A =  1'b0;
-          gt3A =  1'b0;
-          eq3A =  1'b1;
+          lt3 =  1'b0;
+          gt3 =  1'b0;
+          eq3 =  1'b1;
         end
       else
         begin
-          lt3A =  1'b0;
-          gt3A =  1'b1;
-          eq3A =  1'b0;
+          lt3 =  1'b0;
+          gt3 =  1'b1;
+          eq3 =  1'b0;
         end
   end
 
-always @( countVotedB )
+always @( counto )
   begin
-    if (countVotedB<3)
+    if (counto<11)
       begin
-        lt3B =  1'b1;
-        gt3B =  1'b0;
-        eq3B =  1'b0;
+        lt11 =  1'b1;
+        eq11 =  1'b0;
       end
     else
-      if (countVotedB==3)
+      if (counto==11)
         begin
-          lt3B =  1'b0;
-          gt3B =  1'b0;
-          eq3B =  1'b1;
+          lt11 =  1'b0;
+          eq11 =  1'b1;
         end
       else
         begin
-          lt3B =  1'b0;
-          gt3B =  1'b1;
-          eq3B =  1'b0;
+          lt11 =  1'b0;
+          eq11 =  1'b0;
         end
   end
 
-always @( countVotedC )
-  begin
-    if (countVotedC<3)
-      begin
-        lt3C =  1'b1;
-        gt3C =  1'b0;
-        eq3C =  1'b0;
-      end
-    else
-      if (countVotedC==3)
-        begin
-          lt3C =  1'b0;
-          gt3C =  1'b0;
-          eq3C =  1'b1;
-        end
-      else
-        begin
-          lt3C =  1'b0;
-          gt3C =  1'b1;
-          eq3C =  1'b0;
-        end
-  end
-
-always @( countVotedA )
-  begin
-    if (countVotedA<11)
-      begin
-        lt11A =  1'b1;
-        eq11A =  1'b0;
-      end
-    else
-      if (countVotedA==11)
-        begin
-          lt11A =  1'b0;
-          eq11A =  1'b1;
-        end
-      else
-        begin
-          lt11A =  1'b0;
-          eq11A =  1'b0;
-        end
-  end
-
-always @( countVotedB )
-  begin
-    if (countVotedB<11)
-      begin
-        lt11B =  1'b1;
-        eq11B =  1'b0;
-      end
-    else
-      if (countVotedB==11)
-        begin
-          lt11B =  1'b0;
-          eq11B =  1'b1;
-        end
-      else
-        begin
-          lt11B =  1'b0;
-          eq11B =  1'b0;
-        end
-  end
-
-always @( countVotedC )
-  begin
-    if (countVotedC<11)
-      begin
-        lt11C =  1'b1;
-        eq11C =  1'b0;
-      end
-    else
-      if (countVotedC==11)
-        begin
-          lt11C =  1'b0;
-          eq11C =  1'b1;
-        end
-      else
-        begin
-          lt11C =  1'b0;
-          eq11C =  1'b0;
-        end
-  end
-
-majorityVoter #(.WIDTH(7)) countVoterA (
+majorityVoter #(.WIDTH(7)) countVoter (
     .inA(countA),
     .inB(countB),
     .inC(countC),
-    .out(countVotedA),
-    .tmrErr(countTmrErrorA)
+    .out(count),
+    .tmrErr(countTmrError)
     );
 
-majorityVoter inc_rise_merkerVoterA (
+majorityVoter inc_rise_merkerVoter (
     .inA(inc_rise_merkerA),
     .inB(inc_rise_merkerB),
     .inC(inc_rise_merkerC),
-    .out(inc_rise_merkerVotedA),
-    .tmrErr(inc_rise_merkerTmrErrorA)
+    .out(inc_rise_merker),
+    .tmrErr(inc_rise_merkerTmrError)
     );
 
-majorityVoter #(.WIDTH(7)) countVoterB (
-    .inA(countA),
-    .inB(countB),
-    .inC(countC),
-    .out(countVotedB),
-    .tmrErr(countTmrErrorB)
+fanout Prescale_ENFanout (
+    .in(Prescale_EN),
+    .outA(Prescale_ENA),
+    .outB(Prescale_ENB),
+    .outC(Prescale_ENC)
     );
 
-majorityVoter inc_rise_merkerVoterB (
-    .inA(inc_rise_merkerA),
-    .inB(inc_rise_merkerB),
-    .inC(inc_rise_merkerC),
-    .out(inc_rise_merkerVotedB),
-    .tmrErr(inc_rise_merkerTmrErrorB)
+fanout clockFanout (
+    .in(clock),
+    .outA(clockA),
+    .outB(clockB),
+    .outC(clockC)
     );
 
-majorityVoter #(.WIDTH(7)) countVoterC (
-    .inA(countA),
-    .inB(countB),
-    .inC(countC),
-    .out(countVotedC),
-    .tmrErr(countTmrErrorC)
+fanout #(.WIDTH(7)) countoFanout (
+    .in(counto),
+    .outA(countoA),
+    .outB(countoB),
+    .outC(countoC)
     );
 
-majorityVoter inc_rise_merkerVoterC (
-    .inA(inc_rise_merkerA),
-    .inB(inc_rise_merkerB),
-    .inC(inc_rise_merkerC),
-    .out(inc_rise_merkerVotedC),
-    .tmrErr(inc_rise_merkerTmrErrorC)
+fanout incFanout (
+    .in(inc),
+    .outA(incA),
+    .outB(incB),
+    .outC(incC)
+    );
+
+fanout inc_rise_merkerVFanout (
+    .in(inc_rise_merkerV),
+    .outA(inc_rise_merkerVA),
+    .outB(inc_rise_merkerVB),
+    .outC(inc_rise_merkerVC)
+    );
+
+fanout resetFanout (
+    .in(reset),
+    .outA(resetA),
+    .outB(resetB),
+    .outC(resetC)
     );
 endmodule
 

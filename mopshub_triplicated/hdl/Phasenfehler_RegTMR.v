@@ -6,64 +6,62 @@
  *                                                                                                  *
  * user    : lucas                                                                                  *
  * host    : DESKTOP-BFDSFP2                                                                        *
- * date    : 16/08/2022 12:58:07                                                                    *
+ * date    : 06/10/2022 13:52:35                                                                    *
  *                                                                                                  *
- * workdir : /mnt/c/Users/Lucas/Desktop/mopshub_triplication/mopshub_top_board_canakari_ftrim/hdl   *
- * cmd     : /mnt/c/Users/Lucas/Desktop/mopshub_triplication/tmrg-master/bin/tmrg -c tmrg.cfg -vvv  *
+ * workdir : /mnt/c/Users/Lucas/Documents/GitHub/mopshub_triplicated/triplicated/mopshub_top_board/hdl *
+ * cmd     : /mnt/c/Users/Lucas/Desktop/mopshub_triplication/tmrg-master/bin/tmrg -vv -c tmrg.cfg   *
  * tmrg rev:                                                                                        *
  *                                                                                                  *
  * src file: Phasenfehler_Reg.v                                                                     *
- *           Git SHA           : File not in git repository!                                        *
- *           Modification time : 2022-03-29 13:49:21                                                *
- *           File Size         : 1207                                                               *
- *           MD5 hash          : a1daf6f276493998cd7ade8728aee099                                   *
+ *           Git SHA           : c110441b08b692cc54ebd4a3b84a2599430e8f93                           *
+ *           Modification time : 2022-08-25 09:53:54                                                *
+ *           File Size         : 1186                                                               *
+ *           MD5 hash          : 19ba99058c016476a1e5d92c44b91a8b                                   *
  *                                                                                                  *
  ****************************************************************************************************/
 
 module Phasenfehler_RegTMR(
-  input wire  clkA ,
-  input wire  clkB ,
-  input wire  clkC ,
-  input wire  ResetA ,
-  input wire  ResetB ,
-  input wire  ResetC ,
-  input wire  EnableA ,
-  input wire  EnableB ,
-  input wire  EnableC ,
-  input wire [3:0] E2A ,
-  input wire [3:0] E2B ,
-  input wire [3:0] E2C ,
-  input wire [3:0] E1A ,
-  input wire [3:0] E1B ,
-  input wire [3:0] E1C ,
-  input wire [2:0] ctrlA ,
-  input wire [2:0] ctrlB ,
-  input wire [2:0] ctrlC ,
-  output wire signed [7:0] e_kA ,
-  output wire signed [7:0] e_kB ,
-  output wire signed [7:0] e_kC 
+  input wire  clk ,
+  input wire  Reset ,
+  input wire  Enable ,
+  input wire [3:0] E2 ,
+  input wire [3:0] E1 ,
+  input wire [2:0] ctrl ,
+  output wire signed [7:0] e_k 
 );
-wor e_k_iTmrErrorC;
-wire signed  [7:0] e_k_iVotedC;
-wor E1_regTmrErrorC;
-wire [3:0] E1_regVotedC;
-wor e_k_iTmrErrorB;
-wire signed  [7:0] e_k_iVotedB;
-wor E1_regTmrErrorB;
-wire [3:0] E1_regVotedB;
-wor e_k_iTmrErrorA;
-wire signed  [7:0] e_k_iVotedA;
-wor E1_regTmrErrorA;
-wire [3:0] E1_regVotedA;
+wire signed  [7:0] e_kC;
+wire signed  [7:0] e_kB;
+wire signed  [7:0] e_kA;
+wire [2:0] ctrlC;
+wire [2:0] ctrlB;
+wire [2:0] ctrlA;
+wire clkC;
+wire clkB;
+wire clkA;
+wire ResetC;
+wire ResetB;
+wire ResetA;
+wire [3:0] E2C;
+wire [3:0] E2B;
+wire [3:0] E2A;
+wire [3:0] E1_regVC;
+wire [3:0] E1_regVB;
+wire [3:0] E1_regVA;
+wire [3:0] E1C;
+wire [3:0] E1B;
+wire [3:0] E1A;
+wor e_k_iTmrError;
+wire signed  [7:0] e_k_i;
+wor E1_regTmrError;
+wire [3:0] E1_reg;
 reg  [3:0] E1_regA ;
 reg  [3:0] E1_regB ;
 reg  [3:0] E1_regC ;
 reg signed  [7:0] e_k_iA ;
 reg signed  [7:0] e_k_iB ;
 reg signed  [7:0] e_k_iC ;
-assign e_kA =  e_k_iA;
-assign e_kB =  e_k_iB;
-assign e_kC =  e_k_iC;
+assign e_k =  e_k_i;
+wire [3:0] E1_regV =  E1_reg;
 
 always @( posedge clkA or negedge ResetA )
   begin
@@ -74,14 +72,14 @@ always @( posedge clkA or negedge ResetA )
       end
     else
       begin
-        E1_regA <= E1_regVotedA;
-        e_k_iA <= e_k_iVotedA;
+        E1_regA <= E1_regVA;
+        e_k_iA <= e_kA;
         case (ctrlA)
-          3'd1 : e_k_iA <= (8*(E1_regVotedA-1))+E2A+3;
-          3'd2 : e_k_iA <= (8*(E1_regVotedA-9))+(E2A-9)-5;
+          3'd1 : e_k_iA <= (8*(E1_regVA-1))+E2A+3;
+          3'd2 : e_k_iA <= (8*(E1_regVA-9))+(E2A-9)-5;
           3'd3 : e_k_iA <= E2A-5;
           3'd4 : E1_regA <= E1A;
-          default : e_k_iA <= e_k_iVotedA;
+          default : e_k_iA <= e_kA;
         endcase
       end
   end
@@ -95,14 +93,14 @@ always @( posedge clkB or negedge ResetB )
       end
     else
       begin
-        E1_regB <= E1_regVotedB;
-        e_k_iB <= e_k_iVotedB;
+        E1_regB <= E1_regVB;
+        e_k_iB <= e_kB;
         case (ctrlB)
-          3'd1 : e_k_iB <= (8*(E1_regVotedB-1))+E2B+3;
-          3'd2 : e_k_iB <= (8*(E1_regVotedB-9))+(E2B-9)-5;
+          3'd1 : e_k_iB <= (8*(E1_regVB-1))+E2B+3;
+          3'd2 : e_k_iB <= (8*(E1_regVB-9))+(E2B-9)-5;
           3'd3 : e_k_iB <= E2B-5;
           3'd4 : E1_regB <= E1B;
-          default : e_k_iB <= e_k_iVotedB;
+          default : e_k_iB <= e_kB;
         endcase
       end
   end
@@ -116,64 +114,81 @@ always @( posedge clkC or negedge ResetC )
       end
     else
       begin
-        E1_regC <= E1_regVotedC;
-        e_k_iC <= e_k_iVotedC;
+        E1_regC <= E1_regVC;
+        e_k_iC <= e_kC;
         case (ctrlC)
-          3'd1 : e_k_iC <= (8*(E1_regVotedC-1))+E2C+3;
-          3'd2 : e_k_iC <= (8*(E1_regVotedC-9))+(E2C-9)-5;
+          3'd1 : e_k_iC <= (8*(E1_regVC-1))+E2C+3;
+          3'd2 : e_k_iC <= (8*(E1_regVC-9))+(E2C-9)-5;
           3'd3 : e_k_iC <= E2C-5;
           3'd4 : E1_regC <= E1C;
-          default : e_k_iC <= e_k_iVotedC;
+          default : e_k_iC <= e_kC;
         endcase
       end
   end
 
-majorityVoter #(.WIDTH(4)) E1_regVoterA (
+majorityVoter #(.WIDTH(4)) E1_regVoter (
     .inA(E1_regA),
     .inB(E1_regB),
     .inC(E1_regC),
-    .out(E1_regVotedA),
-    .tmrErr(E1_regTmrErrorA)
+    .out(E1_reg),
+    .tmrErr(E1_regTmrError)
     );
 
-majorityVoter #(.WIDTH(8)) e_k_iVoterA (
+majorityVoter #(.WIDTH(8)) e_k_iVoter (
     .inA(e_k_iA),
     .inB(e_k_iB),
     .inC(e_k_iC),
-    .out(e_k_iVotedA),
-    .tmrErr(e_k_iTmrErrorA)
+    .out(e_k_i),
+    .tmrErr(e_k_iTmrError)
     );
 
-majorityVoter #(.WIDTH(4)) E1_regVoterB (
-    .inA(E1_regA),
-    .inB(E1_regB),
-    .inC(E1_regC),
-    .out(E1_regVotedB),
-    .tmrErr(E1_regTmrErrorB)
+fanout #(.WIDTH(4)) E1Fanout (
+    .in(E1),
+    .outA(E1A),
+    .outB(E1B),
+    .outC(E1C)
     );
 
-majorityVoter #(.WIDTH(8)) e_k_iVoterB (
-    .inA(e_k_iA),
-    .inB(e_k_iB),
-    .inC(e_k_iC),
-    .out(e_k_iVotedB),
-    .tmrErr(e_k_iTmrErrorB)
+fanout #(.WIDTH(4)) E1_regVFanout (
+    .in(E1_regV),
+    .outA(E1_regVA),
+    .outB(E1_regVB),
+    .outC(E1_regVC)
     );
 
-majorityVoter #(.WIDTH(4)) E1_regVoterC (
-    .inA(E1_regA),
-    .inB(E1_regB),
-    .inC(E1_regC),
-    .out(E1_regVotedC),
-    .tmrErr(E1_regTmrErrorC)
+fanout #(.WIDTH(4)) E2Fanout (
+    .in(E2),
+    .outA(E2A),
+    .outB(E2B),
+    .outC(E2C)
     );
 
-majorityVoter #(.WIDTH(8)) e_k_iVoterC (
-    .inA(e_k_iA),
-    .inB(e_k_iB),
-    .inC(e_k_iC),
-    .out(e_k_iVotedC),
-    .tmrErr(e_k_iTmrErrorC)
+fanout ResetFanout (
+    .in(Reset),
+    .outA(ResetA),
+    .outB(ResetB),
+    .outC(ResetC)
+    );
+
+fanout clkFanout (
+    .in(clk),
+    .outA(clkA),
+    .outB(clkB),
+    .outC(clkC)
+    );
+
+fanout #(.WIDTH(3)) ctrlFanout (
+    .in(ctrl),
+    .outA(ctrlA),
+    .outB(ctrlB),
+    .outC(ctrlC)
+    );
+
+fanout #(.WIDTH(8)) e_kFanout (
+    .in(e_k),
+    .outA(e_kA),
+    .outB(e_kB),
+    .outC(e_kC)
     );
 endmodule
 

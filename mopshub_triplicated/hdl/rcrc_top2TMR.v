@@ -6,67 +6,58 @@
  *                                                                                                  *
  * user    : lucas                                                                                  *
  * host    : DESKTOP-BFDSFP2                                                                        *
- * date    : 16/08/2022 12:58:34                                                                    *
+ * date    : 06/10/2022 13:52:58                                                                    *
  *                                                                                                  *
- * workdir : /mnt/c/Users/Lucas/Desktop/mopshub_triplication/mopshub_top_board_canakari_ftrim/hdl   *
- * cmd     : /mnt/c/Users/Lucas/Desktop/mopshub_triplication/tmrg-master/bin/tmrg -c tmrg.cfg -vvv  *
+ * workdir : /mnt/c/Users/Lucas/Documents/GitHub/mopshub_triplicated/triplicated/mopshub_top_board/hdl *
+ * cmd     : /mnt/c/Users/Lucas/Desktop/mopshub_triplication/tmrg-master/bin/tmrg -vv -c tmrg.cfg   *
  * tmrg rev:                                                                                        *
  *                                                                                                  *
  * src file: rcrc_top2.v                                                                            *
- *           Git SHA           : File not in git repository!                                        *
- *           Modification time : 2022-03-29 13:49:21                                                *
- *           File Size         : 3485                                                               *
- *           MD5 hash          : 3aed53733a7d4f2a14aa48fa83d9333f                                   *
+ *           Git SHA           : c110441b08b692cc54ebd4a3b84a2599430e8f93                           *
+ *           Modification time : 2022-08-30 12:22:02                                                *
+ *           File Size         : 3488                                                               *
+ *           MD5 hash          : 826335bf1b09d2c79ea581d980ab1c3d                                   *
  *                                                                                                  *
  ****************************************************************************************************/
 
 module rcrc2TMR(
-  input wire  clockA ,
-  input wire  clockB ,
-  input wire  clockC ,
-  input wire  bitinA ,
-  input wire  bitinB ,
-  input wire  bitinC ,
-  input wire  activA ,
-  input wire  activB ,
-  input wire  activC ,
-  input wire  resetA ,
-  input wire  resetB ,
-  input wire  resetC ,
-  output reg  crc_okA ,
-  output reg  crc_okB ,
-  output reg  crc_okC 
+  input wire  clock ,
+  input wire  bitin ,
+  input wire  activ ,
+  input wire  reset ,
+  output reg  crc_ok 
 );
-wor enable_iTmrErrorC;
-wire enable_iVotedC;
-wor edgedTmrErrorC;
-wire edgedVotedC;
-wor enable_iTmrErrorB;
-wire enable_iVotedB;
-wor edgedTmrErrorB;
-wire edgedVotedB;
-wor enable_iTmrErrorA;
-wire enable_iVotedA;
-wor edgedTmrErrorA;
-wire edgedVotedA;
+wire resetC;
+wire resetB;
+wire resetA;
+wire enable_iVC;
+wire enable_iVB;
+wire enable_iVA;
+wire edgedVC;
+wire edgedVB;
+wire edgedVA;
+wire clockC;
+wire clockB;
+wire clockA;
+wire activC;
+wire activB;
+wire activA;
+wor enable_iTmrError;
+wire enable_i;
+wor edgedTmrError;
+wire edged;
 reg  enable_iA ;
 reg  enable_iB ;
 reg  enable_iC ;
-wire reset_iA;
-wire reset_iB;
-wire reset_iC;
-wire [14:0] q_outA;
-wire [14:0] q_outB;
-wire [14:0] q_outC;
-wire [14:0] inpA;
-wire [14:0] inpB;
-wire [14:0] inpC;
 reg  edgedA ;
 reg  edgedB ;
 reg  edgedC ;
-assign reset_iA =  resetA;
-assign reset_iB =  resetB;
-assign reset_iC =  resetC;
+wire reset_i;
+wire [14:0] q_out;
+wire [14:0] inp;
+assign reset_i =  reset;
+wire enable_iV =  enable_i;
+wire edgedV =  edged;
 genvar i;
 
 generate
@@ -74,21 +65,11 @@ generate
     begin 
 
       rcrc_cell2TMR reg_i (
-          .enableA(enable_iVotedA),
-          .enableB(enable_iVotedB),
-          .enableC(enable_iVotedC),
-          .clockA(clockA),
-          .clockB(clockB),
-          .clockC(clockC),
-          .resetA(reset_iA),
-          .resetB(reset_iB),
-          .resetC(reset_iC),
-          .InputA(inpA[i] ),
-          .InputB(inpB[i] ),
-          .InputC(inpC[i] ),
-          .qA(q_outA[i] ),
-          .qB(q_outB[i] ),
-          .qC(q_outC[i] )
+          .enable(enable_iV),
+          .clock(clock),
+          .reset(reset_i),
+          .Input(inp[i] ),
+          .q(q_out[i] )
           );
     end
 
@@ -100,10 +81,10 @@ always @( negedge clockA )
       enable_iA <= 1'b1;
     else
       begin
-        enable_iA <= enable_iVotedA;
-        edgedA =  edgedVotedA;
+        enable_iA <= enable_iVA;
+        edgedA =  edgedVA;
         if (activA==1'b1)
-          if (edgedVotedA==1'b0)
+          if (edgedVA==1'b0)
             begin
               edgedA =  1'b1;
               enable_iA <= 1'b1;
@@ -124,10 +105,10 @@ always @( negedge clockB )
       enable_iB <= 1'b1;
     else
       begin
-        enable_iB <= enable_iVotedB;
-        edgedB =  edgedVotedB;
+        enable_iB <= enable_iVB;
+        edgedB =  edgedVB;
         if (activB==1'b1)
-          if (edgedVotedB==1'b0)
+          if (edgedVB==1'b0)
             begin
               edgedB =  1'b1;
               enable_iB <= 1'b1;
@@ -148,10 +129,10 @@ always @( negedge clockC )
       enable_iC <= 1'b1;
     else
       begin
-        enable_iC <= enable_iVotedC;
-        edgedC =  edgedVotedC;
+        enable_iC <= enable_iVC;
+        edgedC =  edgedVC;
         if (activC==1'b1)
-          if (edgedVotedC==1'b0)
+          if (edgedVC==1'b0)
             begin
               edgedC =  1'b1;
               enable_iC <= 1'b1;
@@ -166,121 +147,78 @@ always @( negedge clockC )
       end
   end
 
-always @( q_outA )
+always @( q_out )
   begin
-    if (q_outA==15'd0)
-      crc_okA =  1'b1;
+    if (q_out==15'd0)
+      crc_ok =  1'b1;
     else
-      crc_okA =  1'b0;
+      crc_ok =  1'b0;
   end
+assign inp[0]  =  bitin^q_out[14] ;
+assign inp[1]  =  q_out[0] ;
+assign inp[2]  =  q_out[1] ;
+assign inp[3]  =  q_out[2] ^q_out[14] ;
+assign inp[4]  =  q_out[3] ^q_out[14] ;
+assign inp[5]  =  q_out[4] ;
+assign inp[6]  =  q_out[5] ;
+assign inp[7]  =  q_out[6] ^q_out[14] ;
+assign inp[8]  =  q_out[7] ^q_out[14] ;
+assign inp[9]  =  q_out[8] ;
+assign inp[10]  =  q_out[9] ^q_out[14] ;
+assign inp[11]  =  q_out[10] ;
+assign inp[12]  =  q_out[11] ;
+assign inp[13]  =  q_out[12] ;
+assign inp[14]  =  q_out[13] ^q_out[14] ;
 
-always @( q_outB )
-  begin
-    if (q_outB==15'd0)
-      crc_okB =  1'b1;
-    else
-      crc_okB =  1'b0;
-  end
-
-always @( q_outC )
-  begin
-    if (q_outC==15'd0)
-      crc_okC =  1'b1;
-    else
-      crc_okC =  1'b0;
-  end
-assign inpA[0]  =  bitinA^q_outA[14] ;
-assign inpB[0]  =  bitinB^q_outB[14] ;
-assign inpC[0]  =  bitinC^q_outC[14] ;
-assign inpA[1]  =  q_outA[0] ;
-assign inpB[1]  =  q_outB[0] ;
-assign inpC[1]  =  q_outC[0] ;
-assign inpA[2]  =  q_outA[1] ;
-assign inpB[2]  =  q_outB[1] ;
-assign inpC[2]  =  q_outC[1] ;
-assign inpA[3]  =  q_outA[2] ^q_outA[14] ;
-assign inpB[3]  =  q_outB[2] ^q_outB[14] ;
-assign inpC[3]  =  q_outC[2] ^q_outC[14] ;
-assign inpA[4]  =  q_outA[3] ^q_outA[14] ;
-assign inpB[4]  =  q_outB[3] ^q_outB[14] ;
-assign inpC[4]  =  q_outC[3] ^q_outC[14] ;
-assign inpA[5]  =  q_outA[4] ;
-assign inpB[5]  =  q_outB[4] ;
-assign inpC[5]  =  q_outC[4] ;
-assign inpA[6]  =  q_outA[5] ;
-assign inpB[6]  =  q_outB[5] ;
-assign inpC[6]  =  q_outC[5] ;
-assign inpA[7]  =  q_outA[6] ^q_outA[14] ;
-assign inpB[7]  =  q_outB[6] ^q_outB[14] ;
-assign inpC[7]  =  q_outC[6] ^q_outC[14] ;
-assign inpA[8]  =  q_outA[7] ^q_outA[14] ;
-assign inpB[8]  =  q_outB[7] ^q_outB[14] ;
-assign inpC[8]  =  q_outC[7] ^q_outC[14] ;
-assign inpA[9]  =  q_outA[8] ;
-assign inpB[9]  =  q_outB[8] ;
-assign inpC[9]  =  q_outC[8] ;
-assign inpA[10]  =  q_outA[9] ^q_outA[14] ;
-assign inpB[10]  =  q_outB[9] ^q_outB[14] ;
-assign inpC[10]  =  q_outC[9] ^q_outC[14] ;
-assign inpA[11]  =  q_outA[10] ;
-assign inpB[11]  =  q_outB[10] ;
-assign inpC[11]  =  q_outC[10] ;
-assign inpA[12]  =  q_outA[11] ;
-assign inpB[12]  =  q_outB[11] ;
-assign inpC[12]  =  q_outC[11] ;
-assign inpA[13]  =  q_outA[12] ;
-assign inpB[13]  =  q_outB[12] ;
-assign inpC[13]  =  q_outC[12] ;
-assign inpA[14]  =  q_outA[13] ^q_outA[14] ;
-assign inpB[14]  =  q_outB[13] ^q_outB[14] ;
-assign inpC[14]  =  q_outC[13] ^q_outC[14] ;
-
-majorityVoter edgedVoterA (
+majorityVoter edgedVoter (
     .inA(edgedA),
     .inB(edgedB),
     .inC(edgedC),
-    .out(edgedVotedA),
-    .tmrErr(edgedTmrErrorA)
+    .out(edged),
+    .tmrErr(edgedTmrError)
     );
 
-majorityVoter enable_iVoterA (
+majorityVoter enable_iVoter (
     .inA(enable_iA),
     .inB(enable_iB),
     .inC(enable_iC),
-    .out(enable_iVotedA),
-    .tmrErr(enable_iTmrErrorA)
+    .out(enable_i),
+    .tmrErr(enable_iTmrError)
     );
 
-majorityVoter edgedVoterB (
-    .inA(edgedA),
-    .inB(edgedB),
-    .inC(edgedC),
-    .out(edgedVotedB),
-    .tmrErr(edgedTmrErrorB)
+fanout activFanout (
+    .in(activ),
+    .outA(activA),
+    .outB(activB),
+    .outC(activC)
     );
 
-majorityVoter enable_iVoterB (
-    .inA(enable_iA),
-    .inB(enable_iB),
-    .inC(enable_iC),
-    .out(enable_iVotedB),
-    .tmrErr(enable_iTmrErrorB)
+fanout clockFanout (
+    .in(clock),
+    .outA(clockA),
+    .outB(clockB),
+    .outC(clockC)
     );
 
-majorityVoter edgedVoterC (
-    .inA(edgedA),
-    .inB(edgedB),
-    .inC(edgedC),
-    .out(edgedVotedC),
-    .tmrErr(edgedTmrErrorC)
+fanout edgedVFanout (
+    .in(edgedV),
+    .outA(edgedVA),
+    .outB(edgedVB),
+    .outC(edgedVC)
     );
 
-majorityVoter enable_iVoterC (
-    .inA(enable_iA),
-    .inB(enable_iB),
-    .inC(enable_iC),
-    .out(enable_iVotedC),
-    .tmrErr(enable_iTmrErrorC)
+fanout enable_iVFanout (
+    .in(enable_iV),
+    .outA(enable_iVA),
+    .outB(enable_iVB),
+    .outC(enable_iVC)
+    );
+
+fanout resetFanout (
+    .in(reset),
+    .outA(resetA),
+    .outB(resetB),
+    .outC(resetC)
     );
 endmodule
 

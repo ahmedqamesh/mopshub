@@ -6,17 +6,17 @@
  *                                                                                                  *
  * user    : lucas                                                                                  *
  * host    : DESKTOP-BFDSFP2                                                                        *
- * date    : 16/08/2022 12:58:32                                                                    *
+ * date    : 06/10/2022 13:52:55                                                                    *
  *                                                                                                  *
- * workdir : /mnt/c/Users/Lucas/Desktop/mopshub_triplication/mopshub_top_board_canakari_ftrim/hdl   *
- * cmd     : /mnt/c/Users/Lucas/Desktop/mopshub_triplication/tmrg-master/bin/tmrg -c tmrg.cfg -vvv  *
+ * workdir : /mnt/c/Users/Lucas/Documents/GitHub/mopshub_triplicated/triplicated/mopshub_top_board/hdl *
+ * cmd     : /mnt/c/Users/Lucas/Desktop/mopshub_triplication/tmrg-master/bin/tmrg -vv -c tmrg.cfg   *
  * tmrg rev:                                                                                        *
  *                                                                                                  *
  * src file: node_rec_decoder.v                                                                     *
- *           Git SHA           : File not in git repository!                                        *
- *           Modification time : 2022-08-12 10:17:11                                                *
- *           File Size         : 2135                                                               *
- *           MD5 hash          : dca4c942aff2e8fa347f1a5e8f43601b                                   *
+ *           Git SHA           : c110441b08b692cc54ebd4a3b84a2599430e8f93                           *
+ *           Modification time : 2022-10-05 21:47:40                                                *
+ *           File Size         : 1955                                                               *
+ *           MD5 hash          : ad091d3ce9ab5725b49b5976714f4443                                   *
  *                                                                                                  *
  ****************************************************************************************************/
 
@@ -41,27 +41,7 @@ module dec32_NbitTMR(
   input wire  Input15 ,
   output wire [15:0] data_tra_out 
 );
-wire rstC;
-wire rstB;
-wire rstA;
-wire [15:0] irqsucrec_signalsC;
-wire [15:0] irqsucrec_signalsB;
-wire [15:0] irqsucrec_signalsA;
-wire clkC;
-wire clkB;
-wire clkA;
-wor output_bus_regTmrError;
-wire [15:0] output_bus_reg;
-reg  [15:0] output_bus_regA ;
-reg  [15:0] output_bus_regB ;
-reg  [15:0] output_bus_regC ;
 wire [15:0] irqsucrec_signals;
-initial
-  output_bus_regA =  16'd0;
-initial
-  output_bus_regB =  16'd0;
-initial
-  output_bus_regC =  16'd0;
 assign irqsucrec_signals[0]  =  Input0;
 assign irqsucrec_signals[1]  =  Input1;
 assign irqsucrec_signals[2]  =  Input2;
@@ -78,65 +58,6 @@ assign irqsucrec_signals[12]  =  Input12;
 assign irqsucrec_signals[13]  =  Input13;
 assign irqsucrec_signals[14]  =  Input14;
 assign irqsucrec_signals[15]  =  Input15;
-assign data_tra_out =  output_bus_reg;
-
-always @( posedge clkA )
-  begin
-    if (!rstA)
-      begin
-        output_bus_regA <= 16'd0;
-      end
-    else
-      output_bus_regA <= irqsucrec_signalsA;
-  end
-
-always @( posedge clkB )
-  begin
-    if (!rstB)
-      begin
-        output_bus_regB <= 16'd0;
-      end
-    else
-      output_bus_regB <= irqsucrec_signalsB;
-  end
-
-always @( posedge clkC )
-  begin
-    if (!rstC)
-      begin
-        output_bus_regC <= 16'd0;
-      end
-    else
-      output_bus_regC <= irqsucrec_signalsC;
-  end
-
-majorityVoter #(.WIDTH(16)) output_bus_regVoter (
-    .inA(output_bus_regA),
-    .inB(output_bus_regB),
-    .inC(output_bus_regC),
-    .out(output_bus_reg),
-    .tmrErr(output_bus_regTmrError)
-    );
-
-fanout clkFanout (
-    .in(clk),
-    .outA(clkA),
-    .outB(clkB),
-    .outC(clkC)
-    );
-
-fanout #(.WIDTH(16)) irqsucrec_signalsFanout (
-    .in(irqsucrec_signals),
-    .outA(irqsucrec_signalsA),
-    .outB(irqsucrec_signalsB),
-    .outC(irqsucrec_signalsC)
-    );
-
-fanout rstFanout (
-    .in(rst),
-    .outA(rstA),
-    .outB(rstB),
-    .outC(rstC)
-    );
+assign data_tra_out =  rst ? irqsucrec_signals : 16'd0;
 endmodule
 

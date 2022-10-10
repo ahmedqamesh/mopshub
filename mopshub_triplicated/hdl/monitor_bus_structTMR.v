@@ -6,17 +6,17 @@
  *                                                                                                  *
  * user    : lucas                                                                                  *
  * host    : DESKTOP-BFDSFP2                                                                        *
- * date    : 16/08/2022 12:58:32                                                                    *
+ * date    : 06/10/2022 13:52:53                                                                    *
  *                                                                                                  *
- * workdir : /mnt/c/Users/Lucas/Desktop/mopshub_triplication/mopshub_top_board_canakari_ftrim/hdl   *
- * cmd     : /mnt/c/Users/Lucas/Desktop/mopshub_triplication/tmrg-master/bin/tmrg -c tmrg.cfg -vvv  *
+ * workdir : /mnt/c/Users/Lucas/Documents/GitHub/mopshub_triplicated/triplicated/mopshub_top_board/hdl *
+ * cmd     : /mnt/c/Users/Lucas/Desktop/mopshub_triplication/tmrg-master/bin/tmrg -vv -c tmrg.cfg   *
  * tmrg rev:                                                                                        *
  *                                                                                                  *
  * src file: monitor_bus_struct.v                                                                   *
- *           Git SHA           : File not in git repository!                                        *
- *           Modification time : 2022-08-16 10:17:34.959332                                         *
- *           File Size         : 14577                                                              *
- *           MD5 hash          : c55f768c3979ea7cf2a64eb62e46e439                                   *
+ *           Git SHA           : c110441b08b692cc54ebd4a3b84a2599430e8f93                           *
+ *           Modification time : 2022-10-06 13:25:17                                                *
+ *           File Size         : 14552                                                              *
+ *           MD5 hash          : 87c862543aae11d92a4938dcfac03b20                                   *
  *                                                                                                  *
  ****************************************************************************************************/
 
@@ -36,46 +36,20 @@ module monitor_busTMR(
   input wire  start_read_miso ,
   input wire  transceive ,
   output wire [31:0] data_rec_spi_in ,
-  output reg  end_mon_cntA ,
-  output reg  end_mon_cntB ,
-  output reg  end_mon_cntC ,
+  output reg  end_mon_cnt ,
   output wire  end_read_miso ,
   output wire [4:0] mon_bus_cnt_active ,
   output wire  mosi ,
   output wire  sck ,
   output wire  w_Master_TX_Ready 
 );
-wire rstC;
-wire rstB;
-wire rstA;
-wire [4:0] n_busesC;
-wire [4:0] n_busesB;
-wire [4:0] n_busesA;
-wire [4:0] mon_bus_cntC;
-wire [4:0] mon_bus_cntB;
-wire [4:0] mon_bus_cntA;
-wire fifo_emptyC;
-wire fifo_emptyB;
-wire fifo_emptyA;
-wire clkC;
-wire clkB;
-wire clkA;
-wor renaTmrError;
-wire rena;
-wor clk_enTmrError;
-wire clk_en;
 wire SPI_MODE;
-reg  clk_enA ;
-reg  clk_enB ;
-reg  clk_enC ;
+reg  clk_en ;
 wire fifo_empty;
-wire full;
 wire [4:0] mon_bus_cnt;
 wire [7:0] o_RX_Byte;
 wire o_RX_DV;
-reg  renaA ;
-reg  renaB ;
-reg  renaC ;
+reg  rena ;
 wire [7:0] rxdat;
 wire [7:0] txdat;
 reg  [7:0] mw_spi_bus_fiforeg_cval0 ;
@@ -162,86 +136,33 @@ spi_master_mopshubTMR spi_master_mopshub_monitor (
     );
 assign SPI_MODE =  1'b0;
 initial
-  end_mon_cntA =  1'b0;
+  end_mon_cnt =  1'b0;
 initial
-  end_mon_cntB =  1'b0;
-initial
-  end_mon_cntC =  1'b0;
-initial
-  clk_enA =  1'b1;
-initial
-  clk_enB =  1'b1;
-initial
-  clk_enC =  1'b1;
+  clk_en =  1'b1;
 assign mon_bus_cnt_active =  (start_mon_init==1) ? mon_bus_cnt : spi_select[4:0] ;
 assign txdat =  (start_mon_init==1) ? data_init : data_tra_spi_out;
 
-always @( posedge clkA )
+always @( posedge clk )
   begin
-    if (!rstA)
-      end_mon_cntA <= 0;
+    if (!rst)
+      end_mon_cnt <= 0;
     else
-      case (mon_bus_cntA)
-        n_busesA : end_mon_cntA <= 1;
-        default : end_mon_cntA <= 0;
+      case (mon_bus_cnt)
+        n_buses : end_mon_cnt <= 1;
+        default : end_mon_cnt <= 0;
       endcase
   end
 
-always @( posedge clkB )
+always @( posedge clk )
   begin
-    if (!rstB)
-      end_mon_cntB <= 0;
+    if (!rst)
+      rena <= 0;
     else
-      case (mon_bus_cntB)
-        n_busesB : end_mon_cntB <= 1;
-        default : end_mon_cntB <= 0;
-      endcase
-  end
-
-always @( posedge clkC )
-  begin
-    if (!rstC)
-      end_mon_cntC <= 0;
-    else
-      case (mon_bus_cntC)
-        n_busesC : end_mon_cntC <= 1;
-        default : end_mon_cntC <= 0;
-      endcase
-  end
-
-always @( posedge clkA )
-  begin
-    if (!rstA)
-      renaA <= 0;
-    else
-      if (!fifo_emptyA)
-        renaA <= 1;
+      if (!fifo_empty)
+        rena <= 1;
       else
-        renaA <= 0;
+        rena <= 0;
   end
-
-always @( posedge clkB )
-  begin
-    if (!rstB)
-      renaB <= 0;
-    else
-      if (!fifo_emptyB)
-        renaB <= 1;
-      else
-        renaB <= 0;
-  end
-
-always @( posedge clkC )
-  begin
-    if (!rstC)
-      renaC <= 0;
-    else
-      if (!fifo_emptyC)
-        renaC <= 1;
-      else
-        renaC <= 0;
-  end
-assign full =  mw_spi_bus_fifotemp_full;
 assign fifo_empty =  mw_spi_bus_fifotemp_empty;
 assign rxdat =  mw_spi_bus_fiforeg_cval0;
 assign mw_spi_bus_fifotemp_rena =  rst&rena&~mw_spi_bus_fifotemp_empty;
@@ -304,56 +225,5 @@ assign mw_spi_bus_fiforeg_nval17[7:0]  =  mw_spi_bus_fifotemp_wena ? mw_spi_bus_
 assign mw_spi_bus_fiforeg_nval18[7:0]  =  mw_spi_bus_fifotemp_wena ? mw_spi_bus_fifotemp_rena ? (mw_spi_bus_fifoaddr_cval==18) ? o_RX_Byte : mw_spi_bus_fiforeg_cval19[7:0]  : (mw_spi_bus_fifoaddr_cval==17) ? o_RX_Byte : mw_spi_bus_fiforeg_cval18[7:0]  : mw_spi_bus_fifotemp_rena ? mw_spi_bus_fiforeg_cval19[7:0]  : mw_spi_bus_fiforeg_cval18[7:0] ;
 assign mw_spi_bus_fiforeg_nval19[7:0]  =  mw_spi_bus_fifotemp_wena ? mw_spi_bus_fifotemp_rena ? (mw_spi_bus_fifoaddr_cval==19) ? o_RX_Byte : mw_spi_bus_fiforeg_cval20[7:0]  : (mw_spi_bus_fifoaddr_cval==18) ? o_RX_Byte : mw_spi_bus_fiforeg_cval19[7:0]  : mw_spi_bus_fifotemp_rena ? mw_spi_bus_fiforeg_cval20[7:0]  : mw_spi_bus_fiforeg_cval19[7:0] ;
 assign mw_spi_bus_fiforeg_nval20[7:0]  =  mw_spi_bus_fifotemp_wena ? mw_spi_bus_fifotemp_rena ? mw_spi_bus_fiforeg_cval20[7:0]  : (mw_spi_bus_fifoaddr_cval==19) ? o_RX_Byte : mw_spi_bus_fiforeg_cval20[7:0]  : mw_spi_bus_fifotemp_rena ? mw_spi_bus_fiforeg_cval20[7:0]  : mw_spi_bus_fiforeg_cval20[7:0] ;
-
-majorityVoter clk_enVoter (
-    .inA(clk_enA),
-    .inB(clk_enB),
-    .inC(clk_enC),
-    .out(clk_en),
-    .tmrErr(clk_enTmrError)
-    );
-
-majorityVoter renaVoter (
-    .inA(renaA),
-    .inB(renaB),
-    .inC(renaC),
-    .out(rena),
-    .tmrErr(renaTmrError)
-    );
-
-fanout clkFanout (
-    .in(clk),
-    .outA(clkA),
-    .outB(clkB),
-    .outC(clkC)
-    );
-
-fanout fifo_emptyFanout (
-    .in(fifo_empty),
-    .outA(fifo_emptyA),
-    .outB(fifo_emptyB),
-    .outC(fifo_emptyC)
-    );
-
-fanout #(.WIDTH(5)) mon_bus_cntFanout (
-    .in(mon_bus_cnt),
-    .outA(mon_bus_cntA),
-    .outB(mon_bus_cntB),
-    .outC(mon_bus_cntC)
-    );
-
-fanout #(.WIDTH(5)) n_busesFanout (
-    .in(n_buses),
-    .outA(n_busesA),
-    .outB(n_busesB),
-    .outC(n_busesC)
-    );
-
-fanout rstFanout (
-    .in(rst),
-    .outA(rstA),
-    .outB(rstB),
-    .outC(rstC)
-    );
 endmodule
 

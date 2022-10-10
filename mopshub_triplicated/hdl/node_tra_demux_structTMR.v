@@ -6,17 +6,17 @@
  *                                                                                                  *
  * user    : lucas                                                                                  *
  * host    : DESKTOP-BFDSFP2                                                                        *
- * date    : 16/08/2022 12:58:33                                                                    *
+ * date    : 06/10/2022 13:52:56                                                                    *
  *                                                                                                  *
- * workdir : /mnt/c/Users/Lucas/Desktop/mopshub_triplication/mopshub_top_board_canakari_ftrim/hdl   *
- * cmd     : /mnt/c/Users/Lucas/Desktop/mopshub_triplication/tmrg-master/bin/tmrg -c tmrg.cfg -vvv  *
+ * workdir : /mnt/c/Users/Lucas/Documents/GitHub/mopshub_triplicated/triplicated/mopshub_top_board/hdl *
+ * cmd     : /mnt/c/Users/Lucas/Desktop/mopshub_triplication/tmrg-master/bin/tmrg -vv -c tmrg.cfg   *
  * tmrg rev:                                                                                        *
  *                                                                                                  *
  * src file: node_tra_demux_struct.v                                                                *
- *           Git SHA           : File not in git repository!                                        *
- *           Modification time : 2022-08-11 10:33:14                                                *
- *           File Size         : 6039                                                               *
- *           MD5 hash          : 180f18a7bf127b3f9368e79cebb50549                                   *
+ *           Git SHA           : c110441b08b692cc54ebd4a3b84a2599430e8f93                           *
+ *           Modification time : 2022-10-06 13:25:18                                                *
+ *           File Size         : 6131                                                               *
+ *           MD5 hash          : 7694ee70a4ea4176a0202dea2f53f635                                   *
  *                                                                                                  *
  ****************************************************************************************************/
 
@@ -91,19 +91,13 @@ module node_tra_demuxTMR #(
   input wire  irqsuctra12 ,
   input wire  irqsuctra13 ,
   input wire  irqsuctra14 ,
-  input wire  irqsuctra15 
+  input wire  irqsuctra15 ,
+  input wire  clk ,
+  input wire  rst 
 );
-wor def_value_1TmrError;
-wire def_value_1;
-wor def_value_0TmrError;
-wire def_value_0;
 wire cs_signal_write;
-reg  def_value_1A ;
-reg  def_value_1B ;
-reg  def_value_1C ;
-reg  def_value_0A ;
-reg  def_value_0B ;
-reg  def_value_0C ;
+reg  def_value_1 ;
+reg  def_value_0 ;
 
 demux1_1bitTMR demux1_1bit_cs_tra (
     .def_value(def_value_0),
@@ -171,6 +165,7 @@ demux1_NbitTMR demux1_Nbit_writedata (
     );
 
 mux1_1bitTMR mux1_Nbit_irqsuctra (
+    .rst(rst),
     .sel(bus_tra_select),
     .def_value(def_value_0),
     .output_port(irq_can_tra),
@@ -194,34 +189,8 @@ mux1_1bitTMR mux1_Nbit_irqsuctra (
 assign cs_signal_write =  enable_cs_sig&&!write_n_sig;
 initial
   begin
-    def_value_1A =  1'b1;
-    def_value_0A =  1'b0;
+    def_value_1 =  1'b1;
+    def_value_0 =  1'b0;
   end
-initial
-  begin
-    def_value_1B =  1'b1;
-    def_value_0B =  1'b0;
-  end
-initial
-  begin
-    def_value_1C =  1'b1;
-    def_value_0C =  1'b0;
-  end
-
-majorityVoter def_value_0Voter (
-    .inA(def_value_0A),
-    .inB(def_value_0B),
-    .inC(def_value_0C),
-    .out(def_value_0),
-    .tmrErr(def_value_0TmrError)
-    );
-
-majorityVoter def_value_1Voter (
-    .inA(def_value_1A),
-    .inB(def_value_1B),
-    .inC(def_value_1C),
-    .out(def_value_1),
-    .tmrErr(def_value_1TmrError)
-    );
 endmodule
 

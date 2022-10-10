@@ -6,55 +6,59 @@
  *                                                                                                  *
  * user    : lucas                                                                                  *
  * host    : DESKTOP-BFDSFP2                                                                        *
- * date    : 16/08/2022 12:58:34                                                                    *
+ * date    : 06/10/2022 13:52:57                                                                    *
  *                                                                                                  *
- * workdir : /mnt/c/Users/Lucas/Desktop/mopshub_triplication/mopshub_top_board_canakari_ftrim/hdl   *
- * cmd     : /mnt/c/Users/Lucas/Desktop/mopshub_triplication/tmrg-master/bin/tmrg -c tmrg.cfg -vvv  *
+ * workdir : /mnt/c/Users/Lucas/Documents/GitHub/mopshub_triplicated/triplicated/mopshub_top_board/hdl *
+ * cmd     : /mnt/c/Users/Lucas/Desktop/mopshub_triplication/tmrg-master/bin/tmrg -vv -c tmrg.cfg   *
  * tmrg rev:                                                                                        *
  *                                                                                                  *
  * src file: prescale2.v                                                                            *
- *           Git SHA           : File not in git repository!                                        *
- *           Modification time : 2022-03-29 13:49:21                                                *
- *           File Size         : 2704                                                               *
- *           MD5 hash          : f5b8a855d8c3da1ebd1e6fddd5ea2077                                   *
+ *           Git SHA           : c110441b08b692cc54ebd4a3b84a2599430e8f93                           *
+ *           Modification time : 2022-08-30 13:24:35                                                *
+ *           File Size         : 2868                                                               *
+ *           MD5 hash          : a49d3eb288dfbd27fa0472c7772b53fa                                   *
  *                                                                                                  *
  ****************************************************************************************************/
 
 module prescale2TMR(
-  input wire  clockA ,
-  input wire  clockB ,
-  input wire  clockC ,
-  input wire  resetA ,
-  input wire  resetB ,
-  input wire  resetC ,
-  input wire [3:0] highA ,
-  input wire [3:0] highB ,
-  input wire [3:0] highC ,
-  input wire [3:0] lowA ,
-  input wire [3:0] lowB ,
-  input wire [3:0] lowC ,
-  output reg  Prescale_ENA ,
-  output reg  Prescale_ENB ,
-  output reg  Prescale_ENC 
+  input wire  clock ,
+  input wire  reset ,
+  input wire [3:0] high ,
+  input wire [3:0] low ,
+  output wire  Prescale_EN 
 );
-wor lo_countTmrErrorC;
-wire [3:0] lo_countVotedC;
-wor hiloTmrErrorC;
-wire hiloVotedC;
-wor hi_countTmrErrorC;
-wire [3:0] hi_countVotedC;
-wor lo_countTmrErrorB;
-wire [3:0] lo_countVotedB;
-wor hiloTmrErrorB;
-wire hiloVotedB;
-wor hi_countTmrErrorB;
-wire [3:0] hi_countVotedB;
-wor lo_countTmrErrorA;
-wire [3:0] lo_countVotedA;
-wor hiloTmrErrorA;
-wire hiloVotedA;
-wor hi_countTmrErrorA;
-wire [3:0] hi_countVotedA;
+wire resetC;
+wire resetB;
+wire resetA;
+wire [3:0] lowC;
+wire [3:0] lowB;
+wire [3:0] lowA;
+wire [3:0] lo_countVC;
+wire [3:0] lo_countVB;
+wire [3:0] lo_countVA;
+wire [3:0] hiloVC;
+wire [3:0] hiloVB;
+wire [3:0] hiloVA;
+wire [3:0] highC;
+wire [3:0] highB;
+wire [3:0] highA;
+wire [3:0] hi_countVC;
+wire [3:0] hi_countVB;
+wire [3:0] hi_countVA;
+wire clockC;
+wire clockB;
+wire clockA;
+wire Prescale_ENC;
+wire Prescale_ENB;
+wire Prescale_ENA;
+wor lo_countTmrError;
+wire [3:0] lo_count;
+wor hiloTmrError;
+wire hilo;
+wor hi_countTmrError;
+wire [3:0] hi_count;
+wor Prescale_EN_iTmrError;
+wire Prescale_EN_i;
 reg  [3:0] lo_countA ;
 reg  [3:0] lo_countB ;
 reg  [3:0] lo_countC ;
@@ -64,6 +68,13 @@ reg  [3:0] hi_countC ;
 reg  hiloA ;
 reg  hiloB ;
 reg  hiloC ;
+reg  Prescale_EN_iA ;
+reg  Prescale_EN_iB ;
+reg  Prescale_EN_iC ;
+assign Prescale_EN =  Prescale_EN_i;
+wire [3:0] lo_countV =  lo_count;
+wire [3:0] hi_countV =  hi_count;
+wire [3:0] hiloV =  hilo;
 
 always @( posedge clockA or negedge resetA )
   begin
@@ -72,36 +83,37 @@ always @( posedge clockA or negedge resetA )
         lo_countA <= 4'b0000;
         hi_countA <= 4'b0000;
         hiloA <= 1'b1;
-        Prescale_ENA <= 1'b0;
+        Prescale_EN_iA <= 1'b0;
       end
     else
       begin
-        lo_countA <= lo_countVotedA;
-        hi_countA <= hi_countVotedA;
-        hiloA <= hiloVotedA;
-        if (hiloVotedA==1'b1)
+        lo_countA <= lo_countVA;
+        hi_countA <= hi_countVA;
+        hiloA <= hiloVA;
+        Prescale_EN_iA <= Prescale_ENA;
+        if (hiloVA==1'b1)
           begin
-            Prescale_ENA <= 1'b0;
-            if (hi_countVotedA==highA)
+            Prescale_EN_iA <= 1'b0;
+            if (hi_countVA==highA)
               begin
                 hi_countA <= 4'b0000;
                 hiloA <= 1'b0;
               end
             else
-              hi_countA <= hi_countVotedA+1;
+              hi_countA <= hi_countVA+1;
           end
         else
           begin
-            if (lo_countVotedA==lowA)
+            if (lo_countVA==lowA)
               begin
-                Prescale_ENA <= 1'b1;
+                Prescale_EN_iA <= 1'b1;
                 lo_countA <= 4'b0000;
                 hiloA <= 1'b1;
               end
             else
               begin
-                Prescale_ENA <= 1'b0;
-                lo_countA <= lo_countVotedA+1;
+                Prescale_EN_iA <= 1'b0;
+                lo_countA <= lo_countVA+1;
               end
           end
       end
@@ -114,36 +126,37 @@ always @( posedge clockB or negedge resetB )
         lo_countB <= 4'b0000;
         hi_countB <= 4'b0000;
         hiloB <= 1'b1;
-        Prescale_ENB <= 1'b0;
+        Prescale_EN_iB <= 1'b0;
       end
     else
       begin
-        lo_countB <= lo_countVotedB;
-        hi_countB <= hi_countVotedB;
-        hiloB <= hiloVotedB;
-        if (hiloVotedB==1'b1)
+        lo_countB <= lo_countVB;
+        hi_countB <= hi_countVB;
+        hiloB <= hiloVB;
+        Prescale_EN_iB <= Prescale_ENB;
+        if (hiloVB==1'b1)
           begin
-            Prescale_ENB <= 1'b0;
-            if (hi_countVotedB==highB)
+            Prescale_EN_iB <= 1'b0;
+            if (hi_countVB==highB)
               begin
                 hi_countB <= 4'b0000;
                 hiloB <= 1'b0;
               end
             else
-              hi_countB <= hi_countVotedB+1;
+              hi_countB <= hi_countVB+1;
           end
         else
           begin
-            if (lo_countVotedB==lowB)
+            if (lo_countVB==lowB)
               begin
-                Prescale_ENB <= 1'b1;
+                Prescale_EN_iB <= 1'b1;
                 lo_countB <= 4'b0000;
                 hiloB <= 1'b1;
               end
             else
               begin
-                Prescale_ENB <= 1'b0;
-                lo_countB <= lo_countVotedB+1;
+                Prescale_EN_iB <= 1'b0;
+                lo_countB <= lo_countVB+1;
               end
           end
       end
@@ -156,111 +169,128 @@ always @( posedge clockC or negedge resetC )
         lo_countC <= 4'b0000;
         hi_countC <= 4'b0000;
         hiloC <= 1'b1;
-        Prescale_ENC <= 1'b0;
+        Prescale_EN_iC <= 1'b0;
       end
     else
       begin
-        lo_countC <= lo_countVotedC;
-        hi_countC <= hi_countVotedC;
-        hiloC <= hiloVotedC;
-        if (hiloVotedC==1'b1)
+        lo_countC <= lo_countVC;
+        hi_countC <= hi_countVC;
+        hiloC <= hiloVC;
+        Prescale_EN_iC <= Prescale_ENC;
+        if (hiloVC==1'b1)
           begin
-            Prescale_ENC <= 1'b0;
-            if (hi_countVotedC==highC)
+            Prescale_EN_iC <= 1'b0;
+            if (hi_countVC==highC)
               begin
                 hi_countC <= 4'b0000;
                 hiloC <= 1'b0;
               end
             else
-              hi_countC <= hi_countVotedC+1;
+              hi_countC <= hi_countVC+1;
           end
         else
           begin
-            if (lo_countVotedC==lowC)
+            if (lo_countVC==lowC)
               begin
-                Prescale_ENC <= 1'b1;
+                Prescale_EN_iC <= 1'b1;
                 lo_countC <= 4'b0000;
                 hiloC <= 1'b1;
               end
             else
               begin
-                Prescale_ENC <= 1'b0;
-                lo_countC <= lo_countVotedC+1;
+                Prescale_EN_iC <= 1'b0;
+                lo_countC <= lo_countVC+1;
               end
           end
       end
   end
 
-majorityVoter #(.WIDTH(4)) hi_countVoterA (
+majorityVoter Prescale_EN_iVoter (
+    .inA(Prescale_EN_iA),
+    .inB(Prescale_EN_iB),
+    .inC(Prescale_EN_iC),
+    .out(Prescale_EN_i),
+    .tmrErr(Prescale_EN_iTmrError)
+    );
+
+majorityVoter #(.WIDTH(4)) hi_countVoter (
     .inA(hi_countA),
     .inB(hi_countB),
     .inC(hi_countC),
-    .out(hi_countVotedA),
-    .tmrErr(hi_countTmrErrorA)
+    .out(hi_count),
+    .tmrErr(hi_countTmrError)
     );
 
-majorityVoter hiloVoterA (
+majorityVoter hiloVoter (
     .inA(hiloA),
     .inB(hiloB),
     .inC(hiloC),
-    .out(hiloVotedA),
-    .tmrErr(hiloTmrErrorA)
+    .out(hilo),
+    .tmrErr(hiloTmrError)
     );
 
-majorityVoter #(.WIDTH(4)) lo_countVoterA (
+majorityVoter #(.WIDTH(4)) lo_countVoter (
     .inA(lo_countA),
     .inB(lo_countB),
     .inC(lo_countC),
-    .out(lo_countVotedA),
-    .tmrErr(lo_countTmrErrorA)
+    .out(lo_count),
+    .tmrErr(lo_countTmrError)
     );
 
-majorityVoter #(.WIDTH(4)) hi_countVoterB (
-    .inA(hi_countA),
-    .inB(hi_countB),
-    .inC(hi_countC),
-    .out(hi_countVotedB),
-    .tmrErr(hi_countTmrErrorB)
+fanout Prescale_ENFanout (
+    .in(Prescale_EN),
+    .outA(Prescale_ENA),
+    .outB(Prescale_ENB),
+    .outC(Prescale_ENC)
     );
 
-majorityVoter hiloVoterB (
-    .inA(hiloA),
-    .inB(hiloB),
-    .inC(hiloC),
-    .out(hiloVotedB),
-    .tmrErr(hiloTmrErrorB)
+fanout clockFanout (
+    .in(clock),
+    .outA(clockA),
+    .outB(clockB),
+    .outC(clockC)
     );
 
-majorityVoter #(.WIDTH(4)) lo_countVoterB (
-    .inA(lo_countA),
-    .inB(lo_countB),
-    .inC(lo_countC),
-    .out(lo_countVotedB),
-    .tmrErr(lo_countTmrErrorB)
+fanout #(.WIDTH(4)) hi_countVFanout (
+    .in(hi_countV),
+    .outA(hi_countVA),
+    .outB(hi_countVB),
+    .outC(hi_countVC)
     );
 
-majorityVoter #(.WIDTH(4)) hi_countVoterC (
-    .inA(hi_countA),
-    .inB(hi_countB),
-    .inC(hi_countC),
-    .out(hi_countVotedC),
-    .tmrErr(hi_countTmrErrorC)
+fanout #(.WIDTH(4)) highFanout (
+    .in(high),
+    .outA(highA),
+    .outB(highB),
+    .outC(highC)
     );
 
-majorityVoter hiloVoterC (
-    .inA(hiloA),
-    .inB(hiloB),
-    .inC(hiloC),
-    .out(hiloVotedC),
-    .tmrErr(hiloTmrErrorC)
+fanout #(.WIDTH(4)) hiloVFanout (
+    .in(hiloV),
+    .outA(hiloVA),
+    .outB(hiloVB),
+    .outC(hiloVC)
     );
 
-majorityVoter #(.WIDTH(4)) lo_countVoterC (
-    .inA(lo_countA),
-    .inB(lo_countB),
-    .inC(lo_countC),
-    .out(lo_countVotedC),
-    .tmrErr(lo_countTmrErrorC)
+fanout #(.WIDTH(4)) lo_countVFanout (
+    .in(lo_countV),
+    .outA(lo_countVA),
+    .outB(lo_countVB),
+    .outC(lo_countVC)
+    );
+
+fanout #(.WIDTH(4)) lowFanout (
+    .in(low),
+    .outA(lowA),
+    .outB(lowB),
+    .outC(lowC)
+    );
+
+fanout resetFanout (
+    .in(reset),
+    .outA(resetA),
+    .outB(resetB),
+    .outC(resetC)
     );
 endmodule
 

@@ -6,17 +6,17 @@
  *                                                                                                  *
  * user    : lucas                                                                                  *
  * host    : DESKTOP-BFDSFP2                                                                        *
- * date    : 16/08/2022 12:58:14                                                                    *
+ * date    : 06/10/2022 13:52:42                                                                    *
  *                                                                                                  *
- * workdir : /mnt/c/Users/Lucas/Desktop/mopshub_triplication/mopshub_top_board_canakari_ftrim/hdl   *
- * cmd     : /mnt/c/Users/Lucas/Desktop/mopshub_triplication/tmrg-master/bin/tmrg -c tmrg.cfg -vvv  *
+ * workdir : /mnt/c/Users/Lucas/Documents/GitHub/mopshub_triplicated/triplicated/mopshub_top_board/hdl *
+ * cmd     : /mnt/c/Users/Lucas/Desktop/mopshub_triplication/tmrg-master/bin/tmrg -vv -c tmrg.cfg   *
  * tmrg rev:                                                                                        *
  *                                                                                                  *
  * src file: dec1_Nbit.v                                                                            *
- *           Git SHA           : File not in git repository!                                        *
- *           Modification time : 2022-08-12 10:12:46                                                *
- *           File Size         : 2303                                                               *
- *           MD5 hash          : 7744db3547f96dac395863f05236c86a                                   *
+ *           Git SHA           : c110441b08b692cc54ebd4a3b84a2599430e8f93                           *
+ *           Modification time : 2022-10-05 21:31:23                                                *
+ *           File Size         : 2212                                                               *
+ *           MD5 hash          : 1300a999ca3d0d217972a7b636c9ba9a                                   *
  *                                                                                                  *
  ****************************************************************************************************/
 
@@ -35,9 +35,9 @@ wire rst_bus_sigA;
 wire rstC;
 wire rstB;
 wire rstA;
-wire [15:0] output_bus_reg_vC;
-wire [15:0] output_bus_reg_vB;
-wire [15:0] output_bus_reg_vA;
+wire [15:0] data_rec_outC;
+wire [15:0] data_rec_outB;
+wire [15:0] data_rec_outA;
 wire [15:0] data_rec_inC;
 wire [15:0] data_rec_inB;
 wire [15:0] data_rec_inA;
@@ -61,7 +61,6 @@ initial
   output_bus_regB =  16'd0;
 initial
   output_bus_regC =  16'd0;
-wire [15:0] output_bus_reg_v =  output_bus_reg;
 
 always @( posedge clkA )
   begin
@@ -91,7 +90,7 @@ always @( posedge clkA )
           default : output_bus_regA <= 16'd0;
         endcase
       else
-        output_bus_regA <= output_bus_reg_vA;
+        output_bus_regA <= data_rec_outA;
   end
 
 always @( posedge clkB )
@@ -122,7 +121,7 @@ always @( posedge clkB )
           default : output_bus_regB <= 16'd0;
         endcase
       else
-        output_bus_regB <= output_bus_reg_vB;
+        output_bus_regB <= data_rec_outB;
   end
 
 always @( posedge clkC )
@@ -153,7 +152,7 @@ always @( posedge clkC )
           default : output_bus_regC <= 16'd0;
         endcase
       else
-        output_bus_regC <= output_bus_reg_vC;
+        output_bus_regC <= data_rec_outC;
   end
 assign data_rec_out =  output_bus_reg;
 
@@ -193,11 +192,11 @@ fanout #(.WIDTH(16)) data_rec_inFanout (
     .outC(data_rec_inC)
     );
 
-fanout #(.WIDTH(16)) output_bus_reg_vFanout (
-    .in(output_bus_reg_v),
-    .outA(output_bus_reg_vA),
-    .outB(output_bus_reg_vB),
-    .outC(output_bus_reg_vC)
+fanout #(.WIDTH(16)) data_rec_outFanout (
+    .in(data_rec_out),
+    .outA(data_rec_outA),
+    .outB(data_rec_outB),
+    .outC(data_rec_outC)
     );
 
 fanout rstFanout (

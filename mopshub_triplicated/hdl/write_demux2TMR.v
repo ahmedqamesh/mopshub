@@ -6,314 +6,118 @@
  *                                                                                                  *
  * user    : lucas                                                                                  *
  * host    : DESKTOP-BFDSFP2                                                                        *
- * date    : 16/08/2022 12:58:40                                                                    *
+ * date    : 06/10/2022 13:53:09                                                                    *
  *                                                                                                  *
- * workdir : /mnt/c/Users/Lucas/Desktop/mopshub_triplication/mopshub_top_board_canakari_ftrim/hdl   *
- * cmd     : /mnt/c/Users/Lucas/Desktop/mopshub_triplication/tmrg-master/bin/tmrg -c tmrg.cfg -vvv  *
+ * workdir : /mnt/c/Users/Lucas/Documents/GitHub/mopshub_triplicated/triplicated/mopshub_top_board/hdl *
+ * cmd     : /mnt/c/Users/Lucas/Desktop/mopshub_triplication/tmrg-master/bin/tmrg -vv -c tmrg.cfg   *
  * tmrg rev:                                                                                        *
  *                                                                                                  *
  * src file: write_demux2.v                                                                         *
- *           Git SHA           : File not in git repository!                                        *
- *           Modification time : 2022-03-29 13:49:21                                                *
+ *           Git SHA           : c110441b08b692cc54ebd4a3b84a2599430e8f93                           *
+ *           Modification time : 2022-08-30 13:17:33                                                *
  *           File Size         : 4858                                                               *
- *           MD5 hash          : 1db8af0a4a34630c4abc32708bd99496                                   *
+ *           MD5 hash          : 52be82728e19c9d1626ce3b886015c47                                   *
  *                                                                                                  *
  ****************************************************************************************************/
 
 module write_demux2TMR(
-  input wire [4:0] addressA ,
-  input wire [4:0] addressB ,
-  input wire [4:0] addressC ,
-  input wire  activ_inA ,
-  input wire  activ_inB ,
-  input wire  activ_inC ,
-  output reg [14:0] activ_outA ,
-  output reg [14:0] activ_outB ,
-  output reg [14:0] activ_outC 
+  input wire [4:0] address ,
+  input wire  activ_in ,
+  output reg [14:0] activ_out 
 );
 
-always @( addressA or activ_inA )
+always @( address or activ_in )
   begin
-    case (addressA)
+    case (address)
       5'b10010 : 
         begin
-          activ_outA[14]  =  activ_inA;
-          activ_outA[13:0]  =  14'd0;
+          activ_out[14]  =  activ_in;
+          activ_out[13:0]  =  14'd0;
         end
       5'b10001 : 
         begin
-          activ_outA[13]  =  activ_inA;
-          activ_outA[14:14]  =  1'd0;
-          activ_outA[12:0]  =  13'd0;
+          activ_out[13]  =  activ_in;
+          activ_out[14:14]  =  1'd0;
+          activ_out[12:0]  =  13'd0;
         end
       5'b10000 : 
         begin
-          activ_outA[12]  =  activ_inA;
-          activ_outA[14:13]  =  2'd0;
-          activ_outA[11:0]  =  12'd0;
+          activ_out[12]  =  activ_in;
+          activ_out[14:13]  =  2'd0;
+          activ_out[11:0]  =  12'd0;
         end
       5'b01111 : 
         begin
-          activ_outA[11]  =  activ_inA;
-          activ_outA[14:12]  =  3'd0;
-          activ_outA[10:0]  =  11'd0;
+          activ_out[11]  =  activ_in;
+          activ_out[14:12]  =  3'd0;
+          activ_out[10:0]  =  11'd0;
         end
       5'b01110 : 
         begin
-          activ_outA[10]  =  activ_inA;
-          activ_outA[14:11]  =  4'd0;
-          activ_outA[9:0]  =  10'd0;
+          activ_out[10]  =  activ_in;
+          activ_out[14:11]  =  4'd0;
+          activ_out[9:0]  =  10'd0;
         end
       5'b01101 : 
         begin
-          activ_outA[9]  =  activ_inA;
-          activ_outA[14:10]  =  5'd0;
-          activ_outA[8:0]  =  9'd0;
+          activ_out[9]  =  activ_in;
+          activ_out[14:10]  =  5'd0;
+          activ_out[8:0]  =  9'd0;
         end
       5'b01100 : 
         begin
-          activ_outA[8]  =  activ_inA;
-          activ_outA[14:9]  =  6'd0;
-          activ_outA[7:0]  =  8'd0;
+          activ_out[8]  =  activ_in;
+          activ_out[14:9]  =  6'd0;
+          activ_out[7:0]  =  8'd0;
         end
       5'b01011 : 
         begin
-          activ_outA[7]  =  activ_inA;
-          activ_outA[14:8]  =  7'd0;
-          activ_outA[6:0]  =  7'd0;
+          activ_out[7]  =  activ_in;
+          activ_out[14:8]  =  7'd0;
+          activ_out[6:0]  =  7'd0;
         end
       5'b01010 : 
         begin
-          activ_outA[6]  =  activ_inA;
-          activ_outA[14:7]  =  8'd0;
-          activ_outA[5:0]  =  6'd0;
+          activ_out[6]  =  activ_in;
+          activ_out[14:7]  =  8'd0;
+          activ_out[5:0]  =  6'd0;
         end
       5'b01001 : 
         begin
-          activ_outA[5]  =  activ_inA;
-          activ_outA[14:6]  =  9'd0;
-          activ_outA[4:0]  =  5'd0;
+          activ_out[5]  =  activ_in;
+          activ_out[14:6]  =  9'd0;
+          activ_out[4:0]  =  5'd0;
         end
       5'b01000 : 
         begin
-          activ_outA[4]  =  activ_inA;
-          activ_outA[14:5]  =  10'd0;
-          activ_outA[3:0]  =  4'd0;
+          activ_out[4]  =  activ_in;
+          activ_out[14:5]  =  10'd0;
+          activ_out[3:0]  =  4'd0;
         end
       5'b00111 : 
         begin
-          activ_outA[3]  =  activ_inA;
-          activ_outA[14:4]  =  11'd0;
-          activ_outA[2:0]  =  3'd0;
+          activ_out[3]  =  activ_in;
+          activ_out[14:4]  =  11'd0;
+          activ_out[2:0]  =  3'd0;
         end
       5'b00110 : 
         begin
-          activ_outA[2]  =  activ_inA;
-          activ_outA[14:3]  =  12'd0;
-          activ_outA[1:0]  =  2'd0;
+          activ_out[2]  =  activ_in;
+          activ_out[14:3]  =  12'd0;
+          activ_out[1:0]  =  2'd0;
         end
       5'b00101 : 
         begin
-          activ_outA[1]  =  activ_inA;
-          activ_outA[14:2]  =  13'd0;
-          activ_outA[0:0]  =  1'd0;
+          activ_out[1]  =  activ_in;
+          activ_out[14:2]  =  13'd0;
+          activ_out[0:0]  =  1'd0;
         end
       5'b00100 : 
         begin
-          activ_outA[0]  =  activ_inA;
-          activ_outA[14:1]  =  14'd0;
+          activ_out[0]  =  activ_in;
+          activ_out[14:1]  =  14'd0;
         end
-      default : activ_outA =  15'd0;
-    endcase
-  end
-
-always @( addressB or activ_inB )
-  begin
-    case (addressB)
-      5'b10010 : 
-        begin
-          activ_outB[14]  =  activ_inB;
-          activ_outB[13:0]  =  14'd0;
-        end
-      5'b10001 : 
-        begin
-          activ_outB[13]  =  activ_inB;
-          activ_outB[14:14]  =  1'd0;
-          activ_outB[12:0]  =  13'd0;
-        end
-      5'b10000 : 
-        begin
-          activ_outB[12]  =  activ_inB;
-          activ_outB[14:13]  =  2'd0;
-          activ_outB[11:0]  =  12'd0;
-        end
-      5'b01111 : 
-        begin
-          activ_outB[11]  =  activ_inB;
-          activ_outB[14:12]  =  3'd0;
-          activ_outB[10:0]  =  11'd0;
-        end
-      5'b01110 : 
-        begin
-          activ_outB[10]  =  activ_inB;
-          activ_outB[14:11]  =  4'd0;
-          activ_outB[9:0]  =  10'd0;
-        end
-      5'b01101 : 
-        begin
-          activ_outB[9]  =  activ_inB;
-          activ_outB[14:10]  =  5'd0;
-          activ_outB[8:0]  =  9'd0;
-        end
-      5'b01100 : 
-        begin
-          activ_outB[8]  =  activ_inB;
-          activ_outB[14:9]  =  6'd0;
-          activ_outB[7:0]  =  8'd0;
-        end
-      5'b01011 : 
-        begin
-          activ_outB[7]  =  activ_inB;
-          activ_outB[14:8]  =  7'd0;
-          activ_outB[6:0]  =  7'd0;
-        end
-      5'b01010 : 
-        begin
-          activ_outB[6]  =  activ_inB;
-          activ_outB[14:7]  =  8'd0;
-          activ_outB[5:0]  =  6'd0;
-        end
-      5'b01001 : 
-        begin
-          activ_outB[5]  =  activ_inB;
-          activ_outB[14:6]  =  9'd0;
-          activ_outB[4:0]  =  5'd0;
-        end
-      5'b01000 : 
-        begin
-          activ_outB[4]  =  activ_inB;
-          activ_outB[14:5]  =  10'd0;
-          activ_outB[3:0]  =  4'd0;
-        end
-      5'b00111 : 
-        begin
-          activ_outB[3]  =  activ_inB;
-          activ_outB[14:4]  =  11'd0;
-          activ_outB[2:0]  =  3'd0;
-        end
-      5'b00110 : 
-        begin
-          activ_outB[2]  =  activ_inB;
-          activ_outB[14:3]  =  12'd0;
-          activ_outB[1:0]  =  2'd0;
-        end
-      5'b00101 : 
-        begin
-          activ_outB[1]  =  activ_inB;
-          activ_outB[14:2]  =  13'd0;
-          activ_outB[0:0]  =  1'd0;
-        end
-      5'b00100 : 
-        begin
-          activ_outB[0]  =  activ_inB;
-          activ_outB[14:1]  =  14'd0;
-        end
-      default : activ_outB =  15'd0;
-    endcase
-  end
-
-always @( addressC or activ_inC )
-  begin
-    case (addressC)
-      5'b10010 : 
-        begin
-          activ_outC[14]  =  activ_inC;
-          activ_outC[13:0]  =  14'd0;
-        end
-      5'b10001 : 
-        begin
-          activ_outC[13]  =  activ_inC;
-          activ_outC[14:14]  =  1'd0;
-          activ_outC[12:0]  =  13'd0;
-        end
-      5'b10000 : 
-        begin
-          activ_outC[12]  =  activ_inC;
-          activ_outC[14:13]  =  2'd0;
-          activ_outC[11:0]  =  12'd0;
-        end
-      5'b01111 : 
-        begin
-          activ_outC[11]  =  activ_inC;
-          activ_outC[14:12]  =  3'd0;
-          activ_outC[10:0]  =  11'd0;
-        end
-      5'b01110 : 
-        begin
-          activ_outC[10]  =  activ_inC;
-          activ_outC[14:11]  =  4'd0;
-          activ_outC[9:0]  =  10'd0;
-        end
-      5'b01101 : 
-        begin
-          activ_outC[9]  =  activ_inC;
-          activ_outC[14:10]  =  5'd0;
-          activ_outC[8:0]  =  9'd0;
-        end
-      5'b01100 : 
-        begin
-          activ_outC[8]  =  activ_inC;
-          activ_outC[14:9]  =  6'd0;
-          activ_outC[7:0]  =  8'd0;
-        end
-      5'b01011 : 
-        begin
-          activ_outC[7]  =  activ_inC;
-          activ_outC[14:8]  =  7'd0;
-          activ_outC[6:0]  =  7'd0;
-        end
-      5'b01010 : 
-        begin
-          activ_outC[6]  =  activ_inC;
-          activ_outC[14:7]  =  8'd0;
-          activ_outC[5:0]  =  6'd0;
-        end
-      5'b01001 : 
-        begin
-          activ_outC[5]  =  activ_inC;
-          activ_outC[14:6]  =  9'd0;
-          activ_outC[4:0]  =  5'd0;
-        end
-      5'b01000 : 
-        begin
-          activ_outC[4]  =  activ_inC;
-          activ_outC[14:5]  =  10'd0;
-          activ_outC[3:0]  =  4'd0;
-        end
-      5'b00111 : 
-        begin
-          activ_outC[3]  =  activ_inC;
-          activ_outC[14:4]  =  11'd0;
-          activ_outC[2:0]  =  3'd0;
-        end
-      5'b00110 : 
-        begin
-          activ_outC[2]  =  activ_inC;
-          activ_outC[14:3]  =  12'd0;
-          activ_outC[1:0]  =  2'd0;
-        end
-      5'b00101 : 
-        begin
-          activ_outC[1]  =  activ_inC;
-          activ_outC[14:2]  =  13'd0;
-          activ_outC[0:0]  =  1'd0;
-        end
-      5'b00100 : 
-        begin
-          activ_outC[0]  =  activ_inC;
-          activ_outC[14:1]  =  14'd0;
-        end
-      default : activ_outC =  15'd0;
+      default : activ_out =  15'd0;
     endcase
   end
 endmodule

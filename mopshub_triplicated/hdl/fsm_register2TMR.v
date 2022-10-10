@@ -6,136 +6,117 @@
  *                                                                                                  *
  * user    : lucas                                                                                  *
  * host    : DESKTOP-BFDSFP2                                                                        *
- * date    : 16/08/2022 12:58:21                                                                    *
+ * date    : 06/10/2022 13:52:50                                                                    *
  *                                                                                                  *
- * workdir : /mnt/c/Users/Lucas/Desktop/mopshub_triplication/mopshub_top_board_canakari_ftrim/hdl   *
- * cmd     : /mnt/c/Users/Lucas/Desktop/mopshub_triplication/tmrg-master/bin/tmrg -c tmrg.cfg -vvv  *
+ * workdir : /mnt/c/Users/Lucas/Documents/GitHub/mopshub_triplicated/triplicated/mopshub_top_board/hdl *
+ * cmd     : /mnt/c/Users/Lucas/Desktop/mopshub_triplication/tmrg-master/bin/tmrg -vv -c tmrg.cfg   *
  * tmrg rev:                                                                                        *
  *                                                                                                  *
  * src file: fsm_register2.v                                                                        *
- *           Git SHA           : File not in git repository!                                        *
- *           Modification time : 2022-03-29 13:49:21                                                *
- *           File Size         : 6562                                                               *
- *           MD5 hash          : 7caeef3428e531616e3bce617dc5a4b6                                   *
+ *           Git SHA           : c110441b08b692cc54ebd4a3b84a2599430e8f93                           *
+ *           Modification time : 2022-08-25 11:31:21                                                *
+ *           File Size         : 6395                                                               *
+ *           MD5 hash          : 7ed1c0e80930dbec1c508a077bcd6c30                                   *
  *                                                                                                  *
  ****************************************************************************************************/
 
 module fsm_register2TMR(
-  input wire  clockA ,
-  input wire  clockB ,
-  input wire  clockC ,
-  input wire  resetA ,
-  input wire  resetB ,
-  input wire  resetC ,
-  input wire [1:0] ackerror_setA ,
-  input wire [1:0] ackerror_setB ,
-  input wire [1:0] ackerror_setC ,
-  input wire [1:0] onarbit_setA ,
-  input wire [1:0] onarbit_setB ,
-  input wire [1:0] onarbit_setC ,
-  input wire [1:0] transmitter_setA ,
-  input wire [1:0] transmitter_setB ,
-  input wire [1:0] transmitter_setC ,
-  input wire [1:0] receiver_setA ,
-  input wire [1:0] receiver_setB ,
-  input wire [1:0] receiver_setC ,
-  input wire [1:0] error_setA ,
-  input wire [1:0] error_setB ,
-  input wire [1:0] error_setC ,
-  input wire [1:0] first_setA ,
-  input wire [1:0] first_setB ,
-  input wire [1:0] first_setC ,
-  input wire [1:0] puffer_setA ,
-  input wire [1:0] puffer_setB ,
-  input wire [1:0] puffer_setC ,
-  input wire [1:0] rext_setA ,
-  input wire [1:0] rext_setB ,
-  input wire [1:0] rext_setC ,
-  input wire [1:0] rrtr_setA ,
-  input wire [1:0] rrtr_setB ,
-  input wire [1:0] rrtr_setC ,
-  output wire  ackerrorA ,
-  output wire  ackerrorB ,
-  output wire  ackerrorC ,
-  output wire  onarbitA ,
-  output wire  onarbitB ,
-  output wire  onarbitC ,
-  output wire  transmitterA ,
-  output wire  transmitterB ,
-  output wire  transmitterC ,
-  output wire  receiverA ,
-  output wire  receiverB ,
-  output wire  receiverC ,
-  output wire  errorA ,
-  output wire  errorB ,
-  output wire  errorC ,
-  output wire  firstA ,
-  output wire  firstB ,
-  output wire  firstC ,
-  output wire  pufferA ,
-  output wire  pufferB ,
-  output wire  pufferC ,
-  output wire  rextA ,
-  output wire  rextB ,
-  output wire  rextC ,
-  output wire  rrtrA ,
-  output wire  rrtrB ,
-  output wire  rrtrC 
+  input wire  clock ,
+  input wire  reset ,
+  input wire [1:0] ackerror_set ,
+  input wire [1:0] onarbit_set ,
+  input wire [1:0] transmitter_set ,
+  input wire [1:0] receiver_set ,
+  input wire [1:0] error_set ,
+  input wire [1:0] first_set ,
+  input wire [1:0] puffer_set ,
+  input wire [1:0] rext_set ,
+  input wire [1:0] rrtr_set ,
+  output wire  ackerror ,
+  output wire  onarbit ,
+  output wire  transmitter ,
+  output wire  receiver ,
+  output wire  error ,
+  output wire  first ,
+  output wire  puffer ,
+  output wire  rext ,
+  output wire  rrtr 
 );
-wor transmitter_iTmrErrorC;
-wire transmitter_iVotedC;
-wor rrtr_iTmrErrorC;
-wire rrtr_iVotedC;
-wor rext_iTmrErrorC;
-wire rext_iVotedC;
-wor receiver_iTmrErrorC;
-wire receiver_iVotedC;
-wor puffer_iTmrErrorC;
-wire puffer_iVotedC;
-wor onarbit_iTmrErrorC;
-wire onarbit_iVotedC;
-wor first_iTmrErrorC;
-wire first_iVotedC;
-wor error_iTmrErrorC;
-wire error_iVotedC;
-wor ackerror_iTmrErrorC;
-wire ackerror_iVotedC;
-wor transmitter_iTmrErrorB;
-wire transmitter_iVotedB;
-wor rrtr_iTmrErrorB;
-wire rrtr_iVotedB;
-wor rext_iTmrErrorB;
-wire rext_iVotedB;
-wor receiver_iTmrErrorB;
-wire receiver_iVotedB;
-wor puffer_iTmrErrorB;
-wire puffer_iVotedB;
-wor onarbit_iTmrErrorB;
-wire onarbit_iVotedB;
-wor first_iTmrErrorB;
-wire first_iVotedB;
-wor error_iTmrErrorB;
-wire error_iVotedB;
-wor ackerror_iTmrErrorB;
-wire ackerror_iVotedB;
-wor transmitter_iTmrErrorA;
-wire transmitter_iVotedA;
-wor rrtr_iTmrErrorA;
-wire rrtr_iVotedA;
-wor rext_iTmrErrorA;
-wire rext_iVotedA;
-wor receiver_iTmrErrorA;
-wire receiver_iVotedA;
-wor puffer_iTmrErrorA;
-wire puffer_iVotedA;
-wor onarbit_iTmrErrorA;
-wire onarbit_iVotedA;
-wor first_iTmrErrorA;
-wire first_iVotedA;
-wor error_iTmrErrorA;
-wire error_iVotedA;
-wor ackerror_iTmrErrorA;
-wire ackerror_iVotedA;
+wire [1:0] transmitter_setC;
+wire [1:0] transmitter_setB;
+wire [1:0] transmitter_setA;
+wire transmitterC;
+wire transmitterB;
+wire transmitterA;
+wire [1:0] rrtr_setC;
+wire [1:0] rrtr_setB;
+wire [1:0] rrtr_setA;
+wire rrtrC;
+wire rrtrB;
+wire rrtrA;
+wire [1:0] rext_setC;
+wire [1:0] rext_setB;
+wire [1:0] rext_setA;
+wire rextC;
+wire rextB;
+wire rextA;
+wire resetC;
+wire resetB;
+wire resetA;
+wire [1:0] receiver_setC;
+wire [1:0] receiver_setB;
+wire [1:0] receiver_setA;
+wire receiverC;
+wire receiverB;
+wire receiverA;
+wire [1:0] puffer_setC;
+wire [1:0] puffer_setB;
+wire [1:0] puffer_setA;
+wire pufferC;
+wire pufferB;
+wire pufferA;
+wire [1:0] onarbit_setC;
+wire [1:0] onarbit_setB;
+wire [1:0] onarbit_setA;
+wire [1:0] first_setC;
+wire [1:0] first_setB;
+wire [1:0] first_setA;
+wire firstC;
+wire firstB;
+wire firstA;
+wire [1:0] error_setC;
+wire [1:0] error_setB;
+wire [1:0] error_setA;
+wire errorC;
+wire errorB;
+wire errorA;
+wire clockC;
+wire clockB;
+wire clockA;
+wire [1:0] ackerror_setC;
+wire [1:0] ackerror_setB;
+wire [1:0] ackerror_setA;
+wire ackerrorC;
+wire ackerrorB;
+wire ackerrorA;
+wor transmitter_iTmrError;
+wire transmitter_i;
+wor rrtr_iTmrError;
+wire rrtr_i;
+wor rext_iTmrError;
+wire rext_i;
+wor receiver_iTmrError;
+wire receiver_i;
+wor puffer_iTmrError;
+wire puffer_i;
+wor onarbit_iTmrError;
+wire onarbit_i;
+wor first_iTmrError;
+wire first_i;
+wor error_iTmrError;
+wire error_i;
+wor ackerror_iTmrError;
+wire ackerror_i;
 reg  ackerror_iA ;
 reg  ackerror_iB ;
 reg  ackerror_iC ;
@@ -163,33 +144,15 @@ reg  rext_iC ;
 reg  rrtr_iA ;
 reg  rrtr_iB ;
 reg  rrtr_iC ;
-assign ackerrorA =  ackerror_iVotedA;
-assign ackerrorB =  ackerror_iVotedB;
-assign ackerrorC =  ackerror_iVotedC;
-assign onarbitA =  onarbit_iVotedA;
-assign onarbitB =  onarbit_iVotedB;
-assign onarbitC =  onarbit_iVotedC;
-assign transmitterA =  transmitter_iVotedA;
-assign transmitterB =  transmitter_iVotedB;
-assign transmitterC =  transmitter_iVotedC;
-assign receiverA =  receiver_iVotedA;
-assign receiverB =  receiver_iVotedB;
-assign receiverC =  receiver_iVotedC;
-assign errorA =  error_iVotedA;
-assign errorB =  error_iVotedB;
-assign errorC =  error_iVotedC;
-assign firstA =  first_iVotedA;
-assign firstB =  first_iVotedB;
-assign firstC =  first_iVotedC;
-assign pufferA =  puffer_iVotedA;
-assign pufferB =  puffer_iVotedB;
-assign pufferC =  puffer_iVotedC;
-assign rextA =  rext_iVotedA;
-assign rextB =  rext_iVotedB;
-assign rextC =  rext_iVotedC;
-assign rrtrA =  rrtr_iVotedA;
-assign rrtrB =  rrtr_iVotedB;
-assign rrtrC =  rrtr_iVotedC;
+assign ackerror =  ackerror_i;
+assign onarbit =  onarbit_i;
+assign transmitter =  transmitter_i;
+assign receiver =  receiver_i;
+assign error =  error_i;
+assign first =  first_i;
+assign puffer =  puffer_i;
+assign rext =  rext_i;
+assign rrtr =  rrtr_i;
 
 always @( posedge clockA )
   begin
@@ -199,7 +162,7 @@ always @( posedge clockA )
       case (ackerror_setA)
         2'b11 : ackerror_iA <= 1'b1;
         2'b10 : ackerror_iA <= 1'b0;
-        default : ackerror_iA <= ackerror_iVotedA;
+        default : ackerror_iA <= ackerrorA;
       endcase
   end
 
@@ -211,7 +174,7 @@ always @( posedge clockB )
       case (ackerror_setB)
         2'b11 : ackerror_iB <= 1'b1;
         2'b10 : ackerror_iB <= 1'b0;
-        default : ackerror_iB <= ackerror_iVotedB;
+        default : ackerror_iB <= ackerrorB;
       endcase
   end
 
@@ -223,7 +186,7 @@ always @( posedge clockC )
       case (ackerror_setC)
         2'b11 : ackerror_iC <= 1'b1;
         2'b10 : ackerror_iC <= 1'b0;
-        default : ackerror_iC <= ackerror_iVotedC;
+        default : ackerror_iC <= ackerrorC;
       endcase
   end
 
@@ -265,7 +228,7 @@ always @( posedge clockA )
       case (transmitter_setA)
         2'b11 : transmitter_iA <= 1'b1;
         2'b10 : transmitter_iA <= 1'b0;
-        default : transmitter_iA <= transmitter_iVotedA;
+        default : transmitter_iA <= transmitterA;
       endcase
   end
 
@@ -277,7 +240,7 @@ always @( posedge clockB )
       case (transmitter_setB)
         2'b11 : transmitter_iB <= 1'b1;
         2'b10 : transmitter_iB <= 1'b0;
-        default : transmitter_iB <= transmitter_iVotedB;
+        default : transmitter_iB <= transmitterB;
       endcase
   end
 
@@ -289,7 +252,7 @@ always @( posedge clockC )
       case (transmitter_setC)
         2'b11 : transmitter_iC <= 1'b1;
         2'b10 : transmitter_iC <= 1'b0;
-        default : transmitter_iC <= transmitter_iVotedC;
+        default : transmitter_iC <= transmitterC;
       endcase
   end
 
@@ -301,7 +264,7 @@ always @( posedge clockA )
       case (receiver_setA)
         2'b11 : receiver_iA <= 1'b1;
         2'b10 : receiver_iA <= 1'b0;
-        default : receiver_iA <= receiver_iVotedA;
+        default : receiver_iA <= receiverA;
       endcase
   end
 
@@ -313,7 +276,7 @@ always @( posedge clockB )
       case (receiver_setB)
         2'b11 : receiver_iB <= 1'b1;
         2'b10 : receiver_iB <= 1'b0;
-        default : receiver_iB <= receiver_iVotedB;
+        default : receiver_iB <= receiverB;
       endcase
   end
 
@@ -325,7 +288,7 @@ always @( posedge clockC )
       case (receiver_setC)
         2'b11 : receiver_iC <= 1'b1;
         2'b10 : receiver_iC <= 1'b0;
-        default : receiver_iC <= receiver_iVotedC;
+        default : receiver_iC <= receiverC;
       endcase
   end
 
@@ -337,7 +300,7 @@ always @( posedge clockA )
       case (error_setA)
         2'b11 : error_iA <= 1'b1;
         2'b10 : error_iA <= 1'b0;
-        default : error_iA <= error_iVotedA;
+        default : error_iA <= errorA;
       endcase
   end
 
@@ -349,7 +312,7 @@ always @( posedge clockB )
       case (error_setB)
         2'b11 : error_iB <= 1'b1;
         2'b10 : error_iB <= 1'b0;
-        default : error_iB <= error_iVotedB;
+        default : error_iB <= errorB;
       endcase
   end
 
@@ -361,7 +324,7 @@ always @( posedge clockC )
       case (error_setC)
         2'b11 : error_iC <= 1'b1;
         2'b10 : error_iC <= 1'b0;
-        default : error_iC <= error_iVotedC;
+        default : error_iC <= errorC;
       endcase
   end
 
@@ -373,7 +336,7 @@ always @( posedge clockA )
       case (first_setA)
         2'b11 : first_iA <= 1'b1;
         2'b10 : first_iA <= 1'b0;
-        default : first_iA <= first_iVotedA;
+        default : first_iA <= firstA;
       endcase
   end
 
@@ -385,7 +348,7 @@ always @( posedge clockB )
       case (first_setB)
         2'b11 : first_iB <= 1'b1;
         2'b10 : first_iB <= 1'b0;
-        default : first_iB <= first_iVotedB;
+        default : first_iB <= firstB;
       endcase
   end
 
@@ -397,7 +360,7 @@ always @( posedge clockC )
       case (first_setC)
         2'b11 : first_iC <= 1'b1;
         2'b10 : first_iC <= 1'b0;
-        default : first_iC <= first_iVotedC;
+        default : first_iC <= firstC;
       endcase
   end
 
@@ -409,7 +372,7 @@ always @( posedge clockA )
       case (puffer_setA)
         2'b11 : puffer_iA <= 1'b1;
         2'b10 : puffer_iA <= 1'b0;
-        default : puffer_iA <= puffer_iVotedA;
+        default : puffer_iA <= pufferA;
       endcase
   end
 
@@ -421,7 +384,7 @@ always @( posedge clockB )
       case (puffer_setB)
         2'b11 : puffer_iB <= 1'b1;
         2'b10 : puffer_iB <= 1'b0;
-        default : puffer_iB <= puffer_iVotedB;
+        default : puffer_iB <= pufferB;
       endcase
   end
 
@@ -433,7 +396,7 @@ always @( posedge clockC )
       case (puffer_setC)
         2'b11 : puffer_iC <= 1'b1;
         2'b10 : puffer_iC <= 1'b0;
-        default : puffer_iC <= puffer_iVotedC;
+        default : puffer_iC <= pufferC;
       endcase
   end
 
@@ -445,7 +408,7 @@ always @( posedge clockA )
       case (rext_setA)
         2'b11 : rext_iA <= 1'b1;
         2'b10 : rext_iA <= 1'b0;
-        default : rext_iA <= rext_iVotedA;
+        default : rext_iA <= rextA;
       endcase
   end
 
@@ -457,7 +420,7 @@ always @( posedge clockB )
       case (rext_setB)
         2'b11 : rext_iB <= 1'b1;
         2'b10 : rext_iB <= 1'b0;
-        default : rext_iB <= rext_iVotedB;
+        default : rext_iB <= rextB;
       endcase
   end
 
@@ -469,7 +432,7 @@ always @( posedge clockC )
       case (rext_setC)
         2'b11 : rext_iC <= 1'b1;
         2'b10 : rext_iC <= 1'b0;
-        default : rext_iC <= rext_iVotedC;
+        default : rext_iC <= rextC;
       endcase
   end
 
@@ -481,7 +444,7 @@ always @( posedge clockA )
       case (rrtr_setA)
         2'b11 : rrtr_iA <= 1'b1;
         2'b10 : rrtr_iA <= 1'b0;
-        default : rrtr_iA <= rrtr_iVotedA;
+        default : rrtr_iA <= rrtrA;
       endcase
   end
 
@@ -493,7 +456,7 @@ always @( posedge clockB )
       case (rrtr_setB)
         2'b11 : rrtr_iB <= 1'b1;
         2'b10 : rrtr_iB <= 1'b0;
-        default : rrtr_iB <= rrtr_iVotedB;
+        default : rrtr_iB <= rrtrB;
       endcase
   end
 
@@ -505,224 +468,213 @@ always @( posedge clockC )
       case (rrtr_setC)
         2'b11 : rrtr_iC <= 1'b1;
         2'b10 : rrtr_iC <= 1'b0;
-        default : rrtr_iC <= rrtr_iVotedC;
+        default : rrtr_iC <= rrtrC;
       endcase
   end
 
-majorityVoter ackerror_iVoterA (
+majorityVoter ackerror_iVoter (
     .inA(ackerror_iA),
     .inB(ackerror_iB),
     .inC(ackerror_iC),
-    .out(ackerror_iVotedA),
-    .tmrErr(ackerror_iTmrErrorA)
+    .out(ackerror_i),
+    .tmrErr(ackerror_iTmrError)
     );
 
-majorityVoter error_iVoterA (
+majorityVoter error_iVoter (
     .inA(error_iA),
     .inB(error_iB),
     .inC(error_iC),
-    .out(error_iVotedA),
-    .tmrErr(error_iTmrErrorA)
+    .out(error_i),
+    .tmrErr(error_iTmrError)
     );
 
-majorityVoter first_iVoterA (
+majorityVoter first_iVoter (
     .inA(first_iA),
     .inB(first_iB),
     .inC(first_iC),
-    .out(first_iVotedA),
-    .tmrErr(first_iTmrErrorA)
+    .out(first_i),
+    .tmrErr(first_iTmrError)
     );
 
-majorityVoter onarbit_iVoterA (
+majorityVoter onarbit_iVoter (
     .inA(onarbit_iA),
     .inB(onarbit_iB),
     .inC(onarbit_iC),
-    .out(onarbit_iVotedA),
-    .tmrErr(onarbit_iTmrErrorA)
+    .out(onarbit_i),
+    .tmrErr(onarbit_iTmrError)
     );
 
-majorityVoter puffer_iVoterA (
+majorityVoter puffer_iVoter (
     .inA(puffer_iA),
     .inB(puffer_iB),
     .inC(puffer_iC),
-    .out(puffer_iVotedA),
-    .tmrErr(puffer_iTmrErrorA)
+    .out(puffer_i),
+    .tmrErr(puffer_iTmrError)
     );
 
-majorityVoter receiver_iVoterA (
+majorityVoter receiver_iVoter (
     .inA(receiver_iA),
     .inB(receiver_iB),
     .inC(receiver_iC),
-    .out(receiver_iVotedA),
-    .tmrErr(receiver_iTmrErrorA)
+    .out(receiver_i),
+    .tmrErr(receiver_iTmrError)
     );
 
-majorityVoter rext_iVoterA (
+majorityVoter rext_iVoter (
     .inA(rext_iA),
     .inB(rext_iB),
     .inC(rext_iC),
-    .out(rext_iVotedA),
-    .tmrErr(rext_iTmrErrorA)
+    .out(rext_i),
+    .tmrErr(rext_iTmrError)
     );
 
-majorityVoter rrtr_iVoterA (
+majorityVoter rrtr_iVoter (
     .inA(rrtr_iA),
     .inB(rrtr_iB),
     .inC(rrtr_iC),
-    .out(rrtr_iVotedA),
-    .tmrErr(rrtr_iTmrErrorA)
+    .out(rrtr_i),
+    .tmrErr(rrtr_iTmrError)
     );
 
-majorityVoter transmitter_iVoterA (
+majorityVoter transmitter_iVoter (
     .inA(transmitter_iA),
     .inB(transmitter_iB),
     .inC(transmitter_iC),
-    .out(transmitter_iVotedA),
-    .tmrErr(transmitter_iTmrErrorA)
+    .out(transmitter_i),
+    .tmrErr(transmitter_iTmrError)
     );
 
-majorityVoter ackerror_iVoterB (
-    .inA(ackerror_iA),
-    .inB(ackerror_iB),
-    .inC(ackerror_iC),
-    .out(ackerror_iVotedB),
-    .tmrErr(ackerror_iTmrErrorB)
+fanout ackerrorFanout (
+    .in(ackerror),
+    .outA(ackerrorA),
+    .outB(ackerrorB),
+    .outC(ackerrorC)
     );
 
-majorityVoter error_iVoterB (
-    .inA(error_iA),
-    .inB(error_iB),
-    .inC(error_iC),
-    .out(error_iVotedB),
-    .tmrErr(error_iTmrErrorB)
+fanout #(.WIDTH(2)) ackerror_setFanout (
+    .in(ackerror_set),
+    .outA(ackerror_setA),
+    .outB(ackerror_setB),
+    .outC(ackerror_setC)
     );
 
-majorityVoter first_iVoterB (
-    .inA(first_iA),
-    .inB(first_iB),
-    .inC(first_iC),
-    .out(first_iVotedB),
-    .tmrErr(first_iTmrErrorB)
+fanout clockFanout (
+    .in(clock),
+    .outA(clockA),
+    .outB(clockB),
+    .outC(clockC)
     );
 
-majorityVoter onarbit_iVoterB (
-    .inA(onarbit_iA),
-    .inB(onarbit_iB),
-    .inC(onarbit_iC),
-    .out(onarbit_iVotedB),
-    .tmrErr(onarbit_iTmrErrorB)
+fanout errorFanout (
+    .in(error),
+    .outA(errorA),
+    .outB(errorB),
+    .outC(errorC)
     );
 
-majorityVoter puffer_iVoterB (
-    .inA(puffer_iA),
-    .inB(puffer_iB),
-    .inC(puffer_iC),
-    .out(puffer_iVotedB),
-    .tmrErr(puffer_iTmrErrorB)
+fanout #(.WIDTH(2)) error_setFanout (
+    .in(error_set),
+    .outA(error_setA),
+    .outB(error_setB),
+    .outC(error_setC)
     );
 
-majorityVoter receiver_iVoterB (
-    .inA(receiver_iA),
-    .inB(receiver_iB),
-    .inC(receiver_iC),
-    .out(receiver_iVotedB),
-    .tmrErr(receiver_iTmrErrorB)
+fanout firstFanout (
+    .in(first),
+    .outA(firstA),
+    .outB(firstB),
+    .outC(firstC)
     );
 
-majorityVoter rext_iVoterB (
-    .inA(rext_iA),
-    .inB(rext_iB),
-    .inC(rext_iC),
-    .out(rext_iVotedB),
-    .tmrErr(rext_iTmrErrorB)
+fanout #(.WIDTH(2)) first_setFanout (
+    .in(first_set),
+    .outA(first_setA),
+    .outB(first_setB),
+    .outC(first_setC)
     );
 
-majorityVoter rrtr_iVoterB (
-    .inA(rrtr_iA),
-    .inB(rrtr_iB),
-    .inC(rrtr_iC),
-    .out(rrtr_iVotedB),
-    .tmrErr(rrtr_iTmrErrorB)
+fanout #(.WIDTH(2)) onarbit_setFanout (
+    .in(onarbit_set),
+    .outA(onarbit_setA),
+    .outB(onarbit_setB),
+    .outC(onarbit_setC)
     );
 
-majorityVoter transmitter_iVoterB (
-    .inA(transmitter_iA),
-    .inB(transmitter_iB),
-    .inC(transmitter_iC),
-    .out(transmitter_iVotedB),
-    .tmrErr(transmitter_iTmrErrorB)
+fanout pufferFanout (
+    .in(puffer),
+    .outA(pufferA),
+    .outB(pufferB),
+    .outC(pufferC)
     );
 
-majorityVoter ackerror_iVoterC (
-    .inA(ackerror_iA),
-    .inB(ackerror_iB),
-    .inC(ackerror_iC),
-    .out(ackerror_iVotedC),
-    .tmrErr(ackerror_iTmrErrorC)
+fanout #(.WIDTH(2)) puffer_setFanout (
+    .in(puffer_set),
+    .outA(puffer_setA),
+    .outB(puffer_setB),
+    .outC(puffer_setC)
     );
 
-majorityVoter error_iVoterC (
-    .inA(error_iA),
-    .inB(error_iB),
-    .inC(error_iC),
-    .out(error_iVotedC),
-    .tmrErr(error_iTmrErrorC)
+fanout receiverFanout (
+    .in(receiver),
+    .outA(receiverA),
+    .outB(receiverB),
+    .outC(receiverC)
     );
 
-majorityVoter first_iVoterC (
-    .inA(first_iA),
-    .inB(first_iB),
-    .inC(first_iC),
-    .out(first_iVotedC),
-    .tmrErr(first_iTmrErrorC)
+fanout #(.WIDTH(2)) receiver_setFanout (
+    .in(receiver_set),
+    .outA(receiver_setA),
+    .outB(receiver_setB),
+    .outC(receiver_setC)
     );
 
-majorityVoter onarbit_iVoterC (
-    .inA(onarbit_iA),
-    .inB(onarbit_iB),
-    .inC(onarbit_iC),
-    .out(onarbit_iVotedC),
-    .tmrErr(onarbit_iTmrErrorC)
+fanout resetFanout (
+    .in(reset),
+    .outA(resetA),
+    .outB(resetB),
+    .outC(resetC)
     );
 
-majorityVoter puffer_iVoterC (
-    .inA(puffer_iA),
-    .inB(puffer_iB),
-    .inC(puffer_iC),
-    .out(puffer_iVotedC),
-    .tmrErr(puffer_iTmrErrorC)
+fanout rextFanout (
+    .in(rext),
+    .outA(rextA),
+    .outB(rextB),
+    .outC(rextC)
     );
 
-majorityVoter receiver_iVoterC (
-    .inA(receiver_iA),
-    .inB(receiver_iB),
-    .inC(receiver_iC),
-    .out(receiver_iVotedC),
-    .tmrErr(receiver_iTmrErrorC)
+fanout #(.WIDTH(2)) rext_setFanout (
+    .in(rext_set),
+    .outA(rext_setA),
+    .outB(rext_setB),
+    .outC(rext_setC)
     );
 
-majorityVoter rext_iVoterC (
-    .inA(rext_iA),
-    .inB(rext_iB),
-    .inC(rext_iC),
-    .out(rext_iVotedC),
-    .tmrErr(rext_iTmrErrorC)
+fanout rrtrFanout (
+    .in(rrtr),
+    .outA(rrtrA),
+    .outB(rrtrB),
+    .outC(rrtrC)
     );
 
-majorityVoter rrtr_iVoterC (
-    .inA(rrtr_iA),
-    .inB(rrtr_iB),
-    .inC(rrtr_iC),
-    .out(rrtr_iVotedC),
-    .tmrErr(rrtr_iTmrErrorC)
+fanout #(.WIDTH(2)) rrtr_setFanout (
+    .in(rrtr_set),
+    .outA(rrtr_setA),
+    .outB(rrtr_setB),
+    .outC(rrtr_setC)
     );
 
-majorityVoter transmitter_iVoterC (
-    .inA(transmitter_iA),
-    .inB(transmitter_iB),
-    .inC(transmitter_iC),
-    .out(transmitter_iVotedC),
-    .tmrErr(transmitter_iTmrErrorC)
+fanout transmitterFanout (
+    .in(transmitter),
+    .outA(transmitterA),
+    .outB(transmitterB),
+    .outC(transmitterC)
+    );
+
+fanout #(.WIDTH(2)) transmitter_setFanout (
+    .in(transmitter_set),
+    .outA(transmitter_setA),
+    .outB(transmitter_setB),
+    .outC(transmitter_setC)
     );
 endmodule
 

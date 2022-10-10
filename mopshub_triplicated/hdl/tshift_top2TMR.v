@@ -6,120 +6,83 @@
  *                                                                                                  *
  * user    : lucas                                                                                  *
  * host    : DESKTOP-BFDSFP2                                                                        *
- * date    : 16/08/2022 12:58:40                                                                    *
+ * date    : 06/10/2022 13:53:09                                                                    *
  *                                                                                                  *
- * workdir : /mnt/c/Users/Lucas/Desktop/mopshub_triplication/mopshub_top_board_canakari_ftrim/hdl   *
- * cmd     : /mnt/c/Users/Lucas/Desktop/mopshub_triplication/tmrg-master/bin/tmrg -c tmrg.cfg -vvv  *
+ * workdir : /mnt/c/Users/Lucas/Documents/GitHub/mopshub_triplicated/triplicated/mopshub_top_board/hdl *
+ * cmd     : /mnt/c/Users/Lucas/Desktop/mopshub_triplication/tmrg-master/bin/tmrg -vv -c tmrg.cfg   *
  * tmrg rev:                                                                                        *
  *                                                                                                  *
  * src file: tshift_top2.v                                                                          *
- *           Git SHA           : File not in git repository!                                        *
- *           Modification time : 2022-03-29 13:49:21                                                *
- *           File Size         : 4591                                                               *
- *           MD5 hash          : b7fe01ee2d9b290f3033a6a657d175cf                                   *
+ *           Git SHA           : c110441b08b692cc54ebd4a3b84a2599430e8f93                           *
+ *           Modification time : 2022-08-25 11:08:32                                                *
+ *           File Size         : 4587                                                               *
+ *           MD5 hash          : 37b38d0a1be5c44c530abe90f87cc893                                   *
  *                                                                                                  *
  ****************************************************************************************************/
 
 module tshiftreg2TMR(
-  input wire  clockA ,
-  input wire  clockB ,
-  input wire  clockC ,
-  input wire [102:0] mesinA ,
-  input wire [102:0] mesinB ,
-  input wire [102:0] mesinC ,
-  input wire  activA ,
-  input wire  activB ,
-  input wire  activC ,
-  input wire  resetA ,
-  input wire  resetB ,
-  input wire  resetC ,
-  input wire  loadA ,
-  input wire  loadB ,
-  input wire  loadC ,
-  input wire  shiftA ,
-  input wire  shiftB ,
-  input wire  shiftC ,
-  input wire  extendedA ,
-  input wire  extendedB ,
-  input wire  extendedC ,
-  output wire  bitoutA ,
-  output wire  bitoutB ,
-  output wire  bitoutC ,
-  output wire  crc_out_bitA ,
-  output wire  crc_out_bitB ,
-  output wire  crc_out_bitC 
+  input wire  clock ,
+  input wire [102:0] mesin ,
+  input wire  activ ,
+  input wire  reset ,
+  input wire  load ,
+  input wire  shift ,
+  input wire  extended ,
+  output wire  bitout ,
+  output wire  crc_out_bit 
 );
-wor enable_iTmrErrorC;
-wire enable_iVotedC;
-wor edgedTmrErrorC;
-wire edgedVotedC;
-wor enable_iTmrErrorB;
-wire enable_iVotedB;
-wor edgedTmrErrorB;
-wire edgedVotedB;
-wor enable_iTmrErrorA;
-wire enable_iVotedA;
-wor edgedTmrErrorA;
-wire edgedVotedA;
-wire reset_iA;
-wire reset_iB;
-wire reset_iC;
-wire load_regA;
-wire load_regB;
-wire load_regC;
-wire [102:0] q_iA;
-wire [102:0] q_iB;
-wire [102:0] q_iC;
-wire zeroA;
-wire zeroB;
-wire zeroC;
-wire bitout_iA;
-wire bitout_iB;
-wire bitout_iC;
+wire shiftC;
+wire shiftB;
+wire shiftA;
+wire resetC;
+wire resetB;
+wire resetA;
+wire loadC;
+wire loadB;
+wire loadA;
+wire enable_iVC;
+wire enable_iVB;
+wire enable_iVA;
+wire edgedVC;
+wire edgedVB;
+wire edgedVA;
+wire clockC;
+wire clockB;
+wire clockA;
+wire activC;
+wire activB;
+wire activA;
+wor enable_iTmrError;
+wire enable_i;
+wor edgedTmrError;
+wire edged;
+wire reset_i;
+wire load_reg;
+wire [102:0] q_i;
+wire zero;
+wire bitout_i;
 reg  enable_iA ;
 reg  enable_iB ;
 reg  enable_iC ;
 reg  edgedA ;
 reg  edgedB ;
 reg  edgedC ;
-assign reset_iA =  resetA;
-assign reset_iB =  resetB;
-assign reset_iC =  resetC;
-assign load_regA =  loadA;
-assign load_regB =  loadB;
-assign load_regC =  loadC;
-assign zeroA =  1'b0;
-assign zeroB =  1'b0;
-assign zeroC =  1'b0;
-assign bitoutA =  (bitout_iA&extendedA)|(q_iA[82] &(~ extendedA ));
-assign bitoutB =  (bitout_iB&extendedB)|(q_iB[82] &(~ extendedB ));
-assign bitoutC =  (bitout_iC&extendedC)|(q_iC[82] &(~ extendedC ));
-assign crc_out_bitA =  (q_iA[87] &extendedA)|(q_iA[67] &(~ extendedA ));
-assign crc_out_bitB =  (q_iB[87] &extendedB)|(q_iB[67] &(~ extendedB ));
-assign crc_out_bitC =  (q_iC[87] &extendedC)|(q_iC[67] &(~ extendedC ));
+assign reset_i =  reset;
+assign load_reg =  load;
+assign zero =  1'b0;
+assign bitout =  (bitout_i&extended)|(q_i[82] &(~ extended ));
+assign crc_out_bit =  (q_i[87] &extended)|(q_i[67] &(~ extended ));
+wire enable_iV =  enable_i;
+wire edgedV =  edged;
 
 tshift_cell2TMR topreg (
-    .enableA(enable_iVotedA),
-    .enableB(enable_iVotedB),
-    .enableC(enable_iVotedC),
-    .preloadA(mesinA[102] ),
-    .preloadB(mesinB[102] ),
-    .preloadC(mesinC[102] ),
-    .clockA(clockA),
-    .clockB(clockB),
-    .clockC(clockC),
-    .resetA(reset_iA),
-    .resetB(reset_iB),
-    .resetC(reset_iC),
-    .loadA(load_regA),
-    .loadB(load_regB),
-    .loadC(load_regC),
-    .InputA(q_iA[101] ),
-    .InputB(q_iB[101] ),
-    .InputC(q_iC[101] ),
-    .qA(bitout_iA),
-    .qB(bitout_iB),
-    .qC(bitout_iC)
+    .enable(enable_iV),
+    .preload(mesin[102] ),
+    .clock(clock),
+    .reset(reset_i),
+    .load(load_reg),
+    .Input(q_i[101] ),
+    .q(bitout_i)
     );
 genvar i;
 
@@ -128,54 +91,26 @@ generate
     begin 
 
       tshift_cell2TMR reg_i (
-          .enableA(enable_iVotedA),
-          .enableB(enable_iVotedB),
-          .enableC(enable_iVotedC),
-          .preloadA(mesinA[i] ),
-          .preloadB(mesinB[i] ),
-          .preloadC(mesinC[i] ),
-          .clockA(clockA),
-          .clockB(clockB),
-          .clockC(clockC),
-          .resetA(reset_iA),
-          .resetB(reset_iB),
-          .resetC(reset_iC),
-          .loadA(load_regA),
-          .loadB(load_regB),
-          .loadC(load_regC),
-          .InputA(q_iA[i-1] ),
-          .InputB(q_iB[i-1] ),
-          .InputC(q_iC[i-1] ),
-          .qA(q_iA[i] ),
-          .qB(q_iB[i] ),
-          .qC(q_iC[i] )
+          .enable(enable_iV),
+          .preload(mesin[i] ),
+          .clock(clock),
+          .reset(reset_i),
+          .load(load_reg),
+          .Input(q_i[i-1] ),
+          .q(q_i[i] )
           );
     end
 
 endgenerate
 
 tshift_cell2TMR bottom_reg (
-    .enableA(enable_iVotedA),
-    .enableB(enable_iVotedB),
-    .enableC(enable_iVotedC),
-    .preloadA(mesinA[0] ),
-    .preloadB(mesinB[0] ),
-    .preloadC(mesinC[0] ),
-    .clockA(clockA),
-    .clockB(clockB),
-    .clockC(clockC),
-    .resetA(reset_iA),
-    .resetB(reset_iB),
-    .resetC(reset_iC),
-    .loadA(load_regA),
-    .loadB(load_regB),
-    .loadC(load_regC),
-    .InputA(zeroA),
-    .InputB(zeroB),
-    .InputC(zeroC),
-    .qA(q_iA[0] ),
-    .qB(q_iB[0] ),
-    .qC(q_iC[0] )
+    .enable(enable_iV),
+    .preload(mesin[0] ),
+    .clock(clock),
+    .reset(reset_i),
+    .load(load_reg),
+    .Input(zero),
+    .q(q_i[0] )
     );
 
 always @( negedge clockA )
@@ -187,11 +122,11 @@ always @( negedge clockA )
       end
     else
       begin
-        edgedA =  edgedVotedA;
-        enable_iA <= enable_iVotedA;
+        edgedA =  edgedVA;
+        enable_iA <= enable_iVA;
         if (activA==1'b1)
           begin
-            if (edgedVotedA==1'b0)
+            if (edgedVA==1'b0)
               begin
                 edgedA =  1'b1;
                 if (shiftA==1'b1||loadA==1'b1)
@@ -222,11 +157,11 @@ always @( negedge clockB )
       end
     else
       begin
-        edgedB =  edgedVotedB;
-        enable_iB <= enable_iVotedB;
+        edgedB =  edgedVB;
+        enable_iB <= enable_iVB;
         if (activB==1'b1)
           begin
-            if (edgedVotedB==1'b0)
+            if (edgedVB==1'b0)
               begin
                 edgedB =  1'b1;
                 if (shiftB==1'b1||loadB==1'b1)
@@ -257,11 +192,11 @@ always @( negedge clockC )
       end
     else
       begin
-        edgedC =  edgedVotedC;
-        enable_iC <= enable_iVotedC;
+        edgedC =  edgedVC;
+        enable_iC <= enable_iVC;
         if (activC==1'b1)
           begin
-            if (edgedVotedC==1'b0)
+            if (edgedVC==1'b0)
               begin
                 edgedC =  1'b1;
                 if (shiftC==1'b1||loadC==1'b1)
@@ -283,52 +218,69 @@ always @( negedge clockC )
       end
   end
 
-majorityVoter edgedVoterA (
+majorityVoter edgedVoter (
     .inA(edgedA),
     .inB(edgedB),
     .inC(edgedC),
-    .out(edgedVotedA),
-    .tmrErr(edgedTmrErrorA)
+    .out(edged),
+    .tmrErr(edgedTmrError)
     );
 
-majorityVoter enable_iVoterA (
+majorityVoter enable_iVoter (
     .inA(enable_iA),
     .inB(enable_iB),
     .inC(enable_iC),
-    .out(enable_iVotedA),
-    .tmrErr(enable_iTmrErrorA)
+    .out(enable_i),
+    .tmrErr(enable_iTmrError)
     );
 
-majorityVoter edgedVoterB (
-    .inA(edgedA),
-    .inB(edgedB),
-    .inC(edgedC),
-    .out(edgedVotedB),
-    .tmrErr(edgedTmrErrorB)
+fanout activFanout (
+    .in(activ),
+    .outA(activA),
+    .outB(activB),
+    .outC(activC)
     );
 
-majorityVoter enable_iVoterB (
-    .inA(enable_iA),
-    .inB(enable_iB),
-    .inC(enable_iC),
-    .out(enable_iVotedB),
-    .tmrErr(enable_iTmrErrorB)
+fanout clockFanout (
+    .in(clock),
+    .outA(clockA),
+    .outB(clockB),
+    .outC(clockC)
     );
 
-majorityVoter edgedVoterC (
-    .inA(edgedA),
-    .inB(edgedB),
-    .inC(edgedC),
-    .out(edgedVotedC),
-    .tmrErr(edgedTmrErrorC)
+fanout edgedVFanout (
+    .in(edgedV),
+    .outA(edgedVA),
+    .outB(edgedVB),
+    .outC(edgedVC)
     );
 
-majorityVoter enable_iVoterC (
-    .inA(enable_iA),
-    .inB(enable_iB),
-    .inC(enable_iC),
-    .out(enable_iVotedC),
-    .tmrErr(enable_iTmrErrorC)
+fanout enable_iVFanout (
+    .in(enable_iV),
+    .outA(enable_iVA),
+    .outB(enable_iVB),
+    .outC(enable_iVC)
+    );
+
+fanout loadFanout (
+    .in(load),
+    .outA(loadA),
+    .outB(loadB),
+    .outC(loadC)
+    );
+
+fanout resetFanout (
+    .in(reset),
+    .outA(resetA),
+    .outB(resetB),
+    .outC(resetC)
+    );
+
+fanout shiftFanout (
+    .in(shift),
+    .outA(shiftA),
+    .outB(shiftB),
+    .outC(shiftC)
     );
 endmodule
 

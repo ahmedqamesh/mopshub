@@ -6,17 +6,17 @@
  *                                                                                                  *
  * user    : lucas                                                                                  *
  * host    : DESKTOP-BFDSFP2                                                                        *
- * date    : 16/08/2022 12:58:18                                                                    *
+ * date    : 06/10/2022 13:52:47                                                                    *
  *                                                                                                  *
- * workdir : /mnt/c/Users/Lucas/Desktop/mopshub_triplication/mopshub_top_board_canakari_ftrim/hdl   *
- * cmd     : /mnt/c/Users/Lucas/Desktop/mopshub_triplication/tmrg-master/bin/tmrg -c tmrg.cfg -vvv  *
+ * workdir : /mnt/c/Users/Lucas/Documents/GitHub/mopshub_triplicated/triplicated/mopshub_top_board/hdl *
+ * cmd     : /mnt/c/Users/Lucas/Desktop/mopshub_triplication/tmrg-master/bin/tmrg -vv -c tmrg.cfg   *
  * tmrg rev:                                                                                        *
  *                                                                                                  *
  * src file: enc_8b10b_mopshub.v                                                                    *
- *           Git SHA           : File not in git repository!                                        *
- *           Modification time : 2022-08-12 11:03:01                                                *
- *           File Size         : 4825                                                               *
- *           MD5 hash          : 7e3f3c0b8ebdb3279455c19a17f534c4                                   *
+ *           Git SHA           : c110441b08b692cc54ebd4a3b84a2599430e8f93 ( M enc_8b10b_mopshub.v)  *
+ *           Modification time : 2022-10-06 11:38:23                                                *
+ *           File Size         : 4790                                                               *
+ *           MD5 hash          : 50b1bb22cba12fd844098e0b1f0cc73c                                   *
  *                                                                                                  *
  ****************************************************************************************************/
 
@@ -58,9 +58,9 @@ wire doA;
 wire dispoutC;
 wire dispoutB;
 wire dispoutA;
-wire dispin_vC;
-wire dispin_vB;
-wire dispin_vA;
+wire dispinC;
+wire dispinB;
+wire dispinA;
 wire [9:0] dataout_vC;
 wire [9:0] dataout_vB;
 wire [9:0] dataout_vA;
@@ -131,7 +131,6 @@ wire compls6 =  (pd1s6&!dispin)|(nd1s6&dispin);
 wire disp6 =  dispin^(ndos6|pdos6);
 wire compls4 =  (pd1s4&!disp6)|(nd1s4&disp6);
 wire dispout =  disp6^(ndos4|pdos4);
-wire dispin_v =  dispin;
 wire [9:0] dataout_v =  dataout_r;
 
 always @( posedge clkA or negedge rstA )
@@ -149,7 +148,7 @@ always @( posedge clkA or negedge rstA )
         end
       else
         begin
-          dispin_rA <= dispin_vA;
+          dispin_rA <= dispinA;
           dataout_rA <= dataout_vA;
         end
   end
@@ -169,7 +168,7 @@ always @( posedge clkB or negedge rstB )
         end
       else
         begin
-          dispin_rB <= dispin_vB;
+          dispin_rB <= dispinB;
           dataout_rB <= dataout_vB;
         end
   end
@@ -189,11 +188,11 @@ always @( posedge clkC or negedge rstC )
         end
       else
         begin
-          dispin_rC <= dispin_vC;
+          dispin_rC <= dispinC;
           dataout_rC <= dataout_vC;
         end
   end
-assign dataout =  dataout_r;
+assign dataout =  dataout_v;
 
 majorityVoter #(.WIDTH(10)) dataout_rVoter (
     .inA(dataout_rA),
@@ -260,11 +259,11 @@ fanout #(.WIDTH(10)) dataout_vFanout (
     .outC(dataout_vC)
     );
 
-fanout dispin_vFanout (
-    .in(dispin_v),
-    .outA(dispin_vA),
-    .outB(dispin_vB),
-    .outC(dispin_vC)
+fanout dispinFanout (
+    .in(dispin),
+    .outA(dispinA),
+    .outB(dispinB),
+    .outC(dispinC)
     );
 
 fanout dispoutFanout (
