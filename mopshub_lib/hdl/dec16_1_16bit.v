@@ -29,12 +29,12 @@ module dec16_1_16bit(
   input   wire            Input13, 
   input   wire            Input14, 
   input   wire            Input15, 
-  output wire   [15:0]  data_tra_out
+  output wire   [31:0]  data_tra_out
   
   );
-  reg     [15:0]  output_bus_reg ;
-  wire    [15:0]  irqsucrec_signals;
-  initial output_bus_reg = 16'd0;
+  reg     [31:0]  output_bus_reg ;
+  wire    [31:0]  irqsucrec_signals;
+  initial output_bus_reg = 32'd0;
   assign    irqsucrec_signals[0 ] = Input0;
   assign    irqsucrec_signals[1 ] = Input1;
   assign    irqsucrec_signals[2 ] = Input2;
@@ -51,13 +51,31 @@ module dec16_1_16bit(
   assign    irqsucrec_signals[13] = Input13;
   assign    irqsucrec_signals[14] = Input14;
   assign    irqsucrec_signals[15] = Input15; 
+  
+  assign    irqsucrec_signals[16] = 1'b0;
+  assign    irqsucrec_signals[17] = 1'b0;    
+  assign    irqsucrec_signals[18] = 1'b0;
+  assign    irqsucrec_signals[19] = 1'b0;
+  assign    irqsucrec_signals[20] = 1'b0;
+  assign    irqsucrec_signals[21] = 1'b0;
+  assign    irqsucrec_signals[22] = 1'b0;
+  assign    irqsucrec_signals[23] = 1'b0;
+  assign    irqsucrec_signals[24] = 1'b0;
+  assign    irqsucrec_signals[25] = 1'b0;
+  assign    irqsucrec_signals[26] = 1'b0;
+  assign    irqsucrec_signals[27] = 1'b0;
+  assign    irqsucrec_signals[28] = 1'b0;
+  assign    irqsucrec_signals[29] = 1'b0;
+  assign    irqsucrec_signals[30] = 1'b0;
+  assign    irqsucrec_signals[31] = 1'b0;
+  
 assign data_tra_out = output_bus_reg;
   
 always@(posedge clk )
 begin 
  if(!rst)
   begin
-    output_bus_reg <= 16'd0;
+    output_bus_reg <= 32'd0;
   end
  else output_bus_reg <= irqsucrec_signals; //fill the array with signals
 end    
