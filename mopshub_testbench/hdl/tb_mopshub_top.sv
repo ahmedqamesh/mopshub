@@ -18,7 +18,7 @@ module tb_mopshub_top();
   reg              endwait_all = 1'b0;
   wire             rst_bus;
   reg              sel_bus = 1'b0;
-  reg     [4:0]    can_tra_select_dbg =5'd0;
+  reg     [4:0]    can_tra_select_dbg =5'd4;
   wire             sign_on_sig;
   wire             start_init;
   wire             end_init;
@@ -103,7 +103,7 @@ module tb_mopshub_top();
   assign can_rec_select    = mopshub0.can_rec_select;
   assign data_rec_uplink   = mopshub0.data_rec_uplink;
   assign data_tra_downlink = mopshub0.data_tra_downlink;
-  assign end_power_init     = mopshub0.end_power_init;
+  assign end_power_init    = mopshub0.end_power_init;
   assign start_init        = mopshub0.start_init;
   assign end_init          = mopshub0.end_init;
   assign rst_bus           = mopshub0.rst_bus;
@@ -114,13 +114,13 @@ module tb_mopshub_top();
   assign power_bus_cnt     = mopshub0.power_bus_cnt;  
   assign irq_elink_tra     = mopshub0.irq_elink_tra;
   assign irq_elink_rec     = mopshub0.irq_elink_rec;
-  assign start_osc_cnt   = mopshub0.start_osc_cnt;
+  assign start_osc_cnt     = mopshub0.start_osc_cnt;
   assign ready_osc         = data_generator0.ready_osc;
   
-  mopshub_top mopshub0(
+  mopshub_top_16bus mopshub0(
   .clk(clk_40_m),
   .rst(rst),
-  .n_buses(5'd2),
+  .n_buses(5'd15),
   .dbg_elink(1'b0), 
   .dbg_spi(1'b0),
   .osc_auto_trim_mopshub(osc_auto_trim_mopshub),                      
@@ -165,7 +165,7 @@ module tb_mopshub_top();
   .tx15(tx15));
   
   data_generator#(
-  .n_buses (5'd2))data_generator0(
+  .n_buses (5'd15))data_generator0(
   .clk_mops(clk_mops),
   .clk(clk_40_m),
   .rst(rst),
