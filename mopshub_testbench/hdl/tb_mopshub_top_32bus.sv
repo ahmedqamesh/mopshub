@@ -74,7 +74,24 @@ module tb_mopshub_top_32bus();
   wire            rx13;
   wire            rx14;
   wire            rx15;
-    
+  wire            rx16;
+  wire            rx17;
+  wire            rx18;
+  wire            rx19;
+  wire            rx20;
+  wire            rx21;
+  wire            rx22;
+  wire            rx23;
+  wire            rx24;
+  wire            rx25;
+  wire            rx26;
+  wire            rx27;
+  wire            rx28;
+  wire            rx29;
+  wire            rx30;
+  wire            rx31;
+
+      
       
   wire            tx0;
   wire            tx1;
@@ -92,6 +109,23 @@ module tb_mopshub_top_32bus();
   wire            tx13;
   wire            tx14;
   wire            tx15;
+  wire            tx16;
+  wire            tx17;
+  wire            tx18;
+  wire            tx19;
+  wire            tx20;
+  wire            tx21;
+  wire            tx22;
+  wire            tx23;
+  wire            tx24;
+  wire            tx25;
+  wire            tx26;
+  wire            tx27;
+  wire            tx28;
+  wire            tx29;
+  wire            tx30;
+  wire            tx31;
+  
   wire            spi_dat_m;
   wire            spi_dat_p;
       
@@ -117,10 +151,10 @@ module tb_mopshub_top_32bus();
   assign start_osc_cnt     = mopshub0.start_osc_cnt;
   assign ready_osc         = data_generator0.ready_osc;
   
-  mopshub_top mopshub0(
+  mopshub_top_32bus mopshub0(
   .clk(clk_40_m),
   .rst(rst),
-  .n_buses(5'd15),
+  .n_buses(5'd31),
   .dbg_elink(1'b0), 
   .dbg_spi(1'b0),
   .osc_auto_trim_mopshub(osc_auto_trim_mopshub),                      
@@ -146,7 +180,23 @@ module tb_mopshub_top_32bus();
   .rx12(rx12),        
   .rx13(rx13),        
   .rx14(rx14),        
-  .rx15(rx15), 
+  .rx15(rx15),
+  .rx16(rx16),
+  .rx17(rx17),
+  .rx18(rx18),              
+  .rx19(rx19),
+  .rx20(rx20),  
+  .rx21(rx21),
+  .rx22(rx22),
+  .rx23(rx23),
+  .rx24(rx24),
+  .rx25(rx25),
+  .rx26(rx26),
+  .rx27(rx27),
+  .rx28(rx28),              
+  .rx29(rx29),
+  .rx30(rx30),   
+  .rx31(rx31),
   .tx0(tx0),              
   .tx1(tx1),
   .tx2(tx2),
@@ -162,10 +212,26 @@ module tb_mopshub_top_32bus();
   .tx12(tx12),
   .tx13(tx13),
   .tx14(tx14),
-  .tx15(tx15));
+  .tx15(tx15),
+  .tx16(tx16),
+  .tx17(tx17),
+  .tx18(tx18),              
+  .tx19(tx19),
+  .tx20(tx20),  
+  .tx21(tx21),
+  .tx22(tx22),
+  .tx23(tx23),
+  .tx24(tx24),
+  .tx25(tx25),
+  .tx26(tx26),
+  .tx27(tx27),
+  .tx28(tx28),              
+  .tx29(tx29),
+  .tx30(tx30),   
+  .tx31(tx31));
   
   data_generator#(
-  .n_buses (5'd15))data_generator0(
+  .n_buses (5'd31))data_generator0(
   .clk_mops(clk_mops),
   .clk(clk_40_m),
   .rst(rst),
@@ -228,6 +294,22 @@ module tb_mopshub_top_32bus();
   .rx13(rx13),        
   .rx14(rx14),        
   .rx15(rx15), 
+  .rx16(rx16),
+  .rx17(rx17),
+  .rx18(rx18),              
+  .rx19(rx19),
+  .rx20(rx20),  
+  .rx21(rx21),
+  .rx22(rx22),
+  .rx23(rx23),
+  .rx24(rx24),
+  .rx25(rx25),
+  .rx26(rx26),
+  .rx27(rx27),
+  .rx28(rx28),              
+  .rx29(rx29),
+  .rx30(rx30),   
+  .rx31(rx31),
   .tx0(tx0),              
   .tx1(tx1),
   .tx2(tx2),
@@ -243,7 +325,23 @@ module tb_mopshub_top_32bus();
   .tx12(tx12),
   .tx13(tx13),
   .tx14(tx14),
-  .tx15(tx15));
+  .tx15(tx15),
+  .tx16(tx16),
+  .tx17(tx17),
+  .tx18(tx18),              
+  .tx19(tx19),
+  .tx20(tx20),  
+  .tx21(tx21),
+  .tx22(tx22),
+  .tx23(tx23),
+  .tx24(tx24),
+  .tx25(tx25),
+  .tx26(tx26),
+  .tx27(tx27),
+  .tx28(tx28),              
+  .tx29(tx29),
+  .tx30(tx30),   
+  .tx31(tx31));
   
   
   //Clock Generators and Dividers master

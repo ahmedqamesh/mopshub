@@ -11,43 +11,45 @@
 `resetall
 `timescale 1ns/10ps
 module demux1_32_1bit( 
-  input    wire            def_value,
-  input    wire    [4:0]   sel,
-  input    wire            input_port,  
-  output   wire            output0, 
-  output   wire            output1, 
-  output   wire            output2, 
-  output   wire            output3, 
-  output   wire            output4, 
-  output   wire            output5, 
-  output   wire            output6, 
-  output   wire            output7, 
-  output   wire            output8, 
-  output   wire            output9, 
-  output   wire            output10, 
-  output   wire            output11, 
-  output   wire            output12, 
-  output   wire            output13, 
-  output   wire            output14, 
-  output   wire            output15,
-  output   wire            output16, 
-  output   wire            output17,
-  output   wire            output18, 
-  output   wire            output19, 
-  output   wire            output20, 
-  output   wire            output21, 
-  output   wire            output22, 
-  output   wire            output23, 
-  output   wire            output24, 
-  output   wire            output25,
-  output   wire            output26, 
-  output   wire            output27, 
-  output   wire            output28, 
-  output   wire            output29, 
-  output   wire            output30, 
-  output   wire            output31
-  );
+   input   wire           def_value, 
+   input   wire    [4:0]  sel, 
+   input   wire           input_port, 
+   output  wire           output0, 
+   output  wire           output1, 
+   output  wire           output2, 
+   output  wire           output3, 
+   output  wire           output4, 
+   output  wire           output5, 
+   output  wire           output6, 
+   output  wire           output7, 
+   output  wire           output8, 
+   output  wire           output9, 
+   output  wire           output10, 
+   output  wire           output11, 
+   output  wire           output12, 
+   output  wire           output13, 
+   output  wire           output14, 
+   output  wire           output15, 
+   output  wire           output16, 
+   output  wire           output17, 
+   output  wire           output18, 
+   output  wire           output19, 
+   output  wire           output20, 
+   output  wire           output21, 
+   output  wire           output22, 
+   output  wire           output23, 
+   output  wire           output24, 
+   output  wire           output25, 
+   output  wire           output26, 
+   output  wire           output27, 
+   output  wire           output28, 
+   output  wire           output29, 
+   output  wire           output30, 
+   output  wire           output31
+);
 
+
+// Internal Declarations
   reg output0_reg; 
   reg output1_reg; 
   reg output2_reg; 
@@ -78,6 +80,7 @@ module demux1_32_1bit(
   reg output27_reg;  
   reg output28_reg;  
   reg output29_reg;  
+  
   reg output30_reg;  
   reg output31_reg;  
 
