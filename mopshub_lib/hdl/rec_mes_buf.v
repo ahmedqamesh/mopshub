@@ -22,7 +22,6 @@ reg [7:0] b6 ;
 reg [7:0] b7 ;
 reg [7:0] b8 ;
 
-
 initial 
 begin
   id = 12'd0;      // CAN ID is 11-bits.  Here 3 Hex values are used to reprent COB-ID

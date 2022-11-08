@@ -114,10 +114,10 @@ module tb_mopshub_top_voters();
   assign power_bus_cnt     = mopshubTMR0.power_bus_cnt;  
   assign irq_elink_tra     = mopshubTMR0.irq_elink_tra;
   assign irq_elink_rec     = mopshubTMR0.irq_elink_rec;
-  assign start_osc_cnt   = mopshubTMR0.start_osc_cnt;
+  assign start_osc_cnt     = mopshubTMR0.start_osc_cnt;
   assign ready_osc         = data_generator0.ready_osc;
   
-  mopshub_topTMR mopshubTMR0(
+  mopshub_top mopshubTMR0(
   .clk(clk_40_m),
   .rst(rst),
   .n_buses(5'd2),
@@ -278,7 +278,7 @@ module tb_mopshub_top_voters();
     if(end_power_init ==1) osc_auto_trim_mopshub = 1'b0;
     if(sign_on_sig ==1)//start Rx test
     begin
-    test_rx =1'b1;
+    test_tx =1'b1;
     //test_advanced = 1'b1;
     end
     if(test_rx_end ==1)//Done Rx test
