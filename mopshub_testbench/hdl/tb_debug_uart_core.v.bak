@@ -17,14 +17,13 @@ module tb_debug_uart_core();
   wire             clk;
   reg              rst   = 1'b0;  
   reg             r_Clock = 0;
-  reg   [7:0]     in_tx_byte = 0;
-  reg             in_tx_dv = 0;
+  wire   [7:0]     in_tx_byte;
+  wire             in_tx_dv;
   wire            w_tx_done;
   wire            out_tx_serial;
 
   reg in_rx_serial = 1;
   wire [7:0] out_rx_byte;
-
  
   // Takes in input byte and serializes it 
   task UART_WRITE_BYTE;
@@ -67,7 +66,30 @@ module tb_debug_uart_core();
      .out_rx_byte(out_rx_byte)
      );
  
-   
+  data_generator#(
+  .n_buses (5'd1))data_generator0(
+  .clk_mops(clk),
+  .clk(clk),
+  .rst(rst),
+  .start_osc_cnt(1'b1),
+  .tx_uart_data(in_tx_byte), 
+  .tx_uart_done (w_tx_done), 
+  .tx_uart_dv   (in_tx_dv), 
+  .test_uart_core(1'b1), 
+  .ext_trim_mops(1'b0),
+  .start_data_gen(1'b1),
+  .test_rx(1'b0),
+  .test_tx(1'b0),
+  .test_advanced(1'b0), 
+  .sel_bus(1'b1),
+  .bus_cnt(5'b0),
+  .test_mopshub_core(1'b0),
+  .osc_auto_trim_mopshub(1'b0),
+  .can_rec_select(5'b0),
+  .start_init(1'b0),   
+  .can_tra_select(5'b0),
+  .start_trim_osc(1'b0));
+     
    
   //Clock Generators and Dividers master
   clock_generator #(
@@ -90,25 +112,30 @@ module tb_debug_uart_core();
         rst = 1'b1;
       end      
       // Tell UART to send a command (exercise Tx)
-      @(posedge r_Clock);
-      @(posedge r_Clock);
-      in_tx_dv <= 1'b1;
-      in_tx_byte <= 8'hAB;
-      @(posedge r_Clock);
-      in_tx_dv <= 1'b0;
-      @(posedge w_tx_done);
-       
-      // Send a command to the UART (exercise Rx)
-      @(posedge r_Clock);
-      UART_WRITE_BYTE(8'h3F);
-      @(posedge r_Clock);
-             
-      // Check that the correct command was received
-      if (out_rx_byte == 8'h3F)
-        $display("Test Passed - Correct Byte Received");
-      else
-        $display("Test Failed - Incorrect Byte Received");
-       
+//      @(posedge r_Clock);
+//      @(posedge r_Clock);
+//      in_tx_dv <= 1'b1;
+//      in_tx_byte <= 8'hAB;
+//      @(posedge r_Clock);
+//      in_tx_dv <= 1'b0;
+//      @(posedge w_tx_done);
+//       
+//      // Send a command to the UART (exercise Rx)
+//      @(posedge r_Clock);
+//      UART_WRITE_BYTE(8'h3F);
+//      @(posedge r_Clock);
+//             
+//      // Check that the correct command was received
+//      if (out_rx_byte == 8'h3F)
+//        $display("Test Passed - Correct Byte Received");
+//      else
+//        $display("Test Failed - Incorrect Byte Received");
+    @(posedge r_Clock); 
+    
+      // Send Start Bit
+      in_rx_serial <= 1'b0;
+      #(c_BIT_PERIOD);
+      in_rx_serial <=  out_tx_serial;    
     end
    
 endmodule

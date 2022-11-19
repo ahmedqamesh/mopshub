@@ -18,7 +18,7 @@ module tb_mopshub_top();
   reg              endwait_all = 1'b0;
   wire             rst_bus;
   reg              sel_bus = 1'b0;
-  reg     [4:0]    can_tra_select_dbg =5'd4;
+  reg     [4:0]    can_tra_select_dbg =5'd0;
   wire             sign_on_sig;
   wire             start_init;
   wire             end_init;
@@ -123,6 +123,7 @@ module tb_mopshub_top();
   .n_buses(5'd15),
   .dbg_elink(1'b0), 
   .dbg_spi(1'b0),
+  .debug_mode(1'b0),
   .osc_auto_trim_mopshub(osc_auto_trim_mopshub),                      
   .endwait_all(endwait_all),  
   .tx_elink2bit(tx_mopshub_2bit),
@@ -208,6 +209,7 @@ module tb_mopshub_top();
   .data_tra_downlink(data_tra_downlink), 
   .end_trim_bus(end_trim_bus),
   .start_trim_osc(start_trim_osc),
+  .test_uart_core(1'b0),
   //ElinkSignals
   .tx_elink2bit(rx_mopshub_2bit),
   .rx_elink2bit(tx_mopshub_2bit),
