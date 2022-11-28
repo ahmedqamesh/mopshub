@@ -126,6 +126,8 @@ module tb_mopshub_top();
   .debug_mode(1'b0),
   .osc_auto_trim_mopshub(osc_auto_trim_mopshub),                      
   .endwait_all(endwait_all),  
+  .start_write_elink_dbg (1'b0),
+  .data_rec_dbg_in (76'b0),
   .tx_elink2bit(tx_mopshub_2bit),
   .rx_elink2bit(rx_mopshub_2bit),
   .mosi_m(spi_dat_m),
@@ -280,8 +282,8 @@ module tb_mopshub_top();
     if(end_power_init ==1) osc_auto_trim_mopshub = 1'b0;
     if(sign_on_sig ==1)//start Rx test
     begin
-    test_rx =1'b1;
-    //test_advanced = 1'b1;
+    //test_rx =1'b1;
+    test_advanced = 1'b1;
     end
     if(test_rx_end ==1)//Done Rx test
     begin
