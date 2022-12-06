@@ -1,0 +1,60 @@
+`resetall
+`timescale 1ns/10ps
+module tb_bitstream_shift_register;
+   parameter MSB = 8;        // [Optional] Declare a parameter to represent number of bits in shift register  
+   parameter din_bit_size = 2;
+   reg [din_bit_size-1:0]data;                  // Declare a variable to drive d-input of design  
+   reg clk;                   // Declare a variable to drive clock to the design  
+   reg en;                    // Declare a variable to drive enable to the design  
+   reg dir;                   // Declare a variable to drive direction of shift register  
+   reg rst;                  // Declare a variable to drive reset to the design  
+   wire [MSB-1:0] dout;        // Declare a wire to capture output from the design  
+  
+   // Instantiate design (16-bit shift register) by passing MSB and connect with TB signals  
+   bitstream_shift_register  #(MSB) sr0  (  
+                             .din (data),  
+                             .clk (clk),  
+                             .en (~rst),  
+                             .dir (dir),  
+                             .rst (rst),  
+                             .dout (dout));  
+  
+   // Generate clock time period = 20ns, freq => 50MHz  
+   always #10 clk = ~clk;  
+  
+   // Initialize variables to default values at time 0  
+   initial begin  
+      clk <= 0;  
+      en <= 0;  
+      dir <= 0;  
+      rst <= 0;  
+      data <= 'h1;  
+   end  
+  
+   // Drive main stimulus to the design to verify if this works  
+   initial begin  
+  
+      // 1. Apply reset and deassert reset after some time  
+      rst <= 1;  
+      #20 rst <= 0;    
+  
+      // 2. For 7 clocks, drive alternate values to data pin  
+      repeat (7) @ (posedge clk)  
+         data <= ~data;  
+  
+     // 3. Shift direction and drive alternate value to data pin for another 7 clocks  
+      #10 dir <= 1;  
+      repeat (7) @ (posedge clk)  
+         data <= ~data;  
+  
+      // 4. Drive nothing for the next 7 clocks, allow shift register to shift based on dir simply  
+      repeat (7) @ (posedge clk);  
+  
+      // 5. Finish the simulation  
+      //$finish;  
+   end  
+  
+   // Monitor values of these variables and print them into the log file for debug  
+  // Initial  
+  //    $monitor ("rstn=%0b data=%b, en=%0b, dir=%0b, out=%b", rstn, data, en, dir, out);  
+endmodule  
