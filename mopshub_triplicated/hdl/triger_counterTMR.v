@@ -6,43 +6,45 @@
  *                                                                                                  *
  * user    : lucas                                                                                  *
  * host    : DESKTOP-BFDSFP2                                                                        *
- * date    : 06/10/2022 13:53:08                                                                    *
+ * date    : 05/12/2022 13:28:38                                                                    *
  *                                                                                                  *
- * workdir : /mnt/c/Users/Lucas/Documents/GitHub/mopshub_triplicated/triplicated/mopshub_top_board/hdl *
- * cmd     : /mnt/c/Users/Lucas/Desktop/mopshub_triplication/tmrg-master/bin/tmrg -vv -c tmrg.cfg   *
- * tmrg rev:                                                                                        *
+ * workdir : /mnt/c/Users/Lucas/Documents/GitHub/mopshub_triplicated/triplicated/mopshub_top_board_16/hdl *
+ * cmd     : /mnt/c/Users/Lucas/Documents/GitHub/mopshub_triplicated/tmrg-master/bin/tmrg -vv -c    *
+ *           tmrg.cfg                                                                               *
+ * tmrg rev: b25f042058e4e97751df2a0933c24aeadd5a78a5                                               *
  *                                                                                                  *
  * src file: triger_counter.v                                                                       *
- *           Git SHA           : c110441b08b692cc54ebd4a3b84a2599430e8f93                           *
- *           Modification time : 2022-10-05 23:39:56                                                *
- *           File Size         : 934                                                                *
- *           MD5 hash          : a99cbcfa9d2c21d23eb6c7ee1cee9959                                   *
+ *           Git SHA           : b25f042058e4e97751df2a0933c24aeadd5a78a5 (?? triger_counter.v)     *
+ *           Modification time : 2022-12-04 14:35:39                                                *
+ *           File Size         : 931                                                                *
+ *           MD5 hash          : 2559ffb9a9b534dabd376593e1acee17                                   *
  *                                                                                                  *
  ****************************************************************************************************/
 
+`resetall 
+`timescale  1ns/10ps
 module triger_counterTMR(
   input wire  rst ,
   input wire  clk ,
   output wire  request_trig 
 );
-localparam [2:0] cycles_cnt =3'b100;
 wire rstC;
 wire rstB;
 wire rstA;
 wire request_trigC;
 wire request_trigB;
 wire request_trigA;
-wire [2:0] request_cycle_cntVC;
-wire [2:0] request_cycle_cntVB;
-wire [2:0] request_cycle_cntVA;
 wire clkC;
 wire clkB;
 wire clkA;
 wor request_cycle_cntTmrError;
 wire [2:0] request_cycle_cnt;
+reg  [2:0] cycles_cnt ;
 reg  [2:0] request_cycle_cntA ;
 reg  [2:0] request_cycle_cntB ;
 reg  [2:0] request_cycle_cntC ;
+initial
+  cycles_cnt =  3'b100;
 initial
   request_cycle_cntA =  3'b000;
 initial
@@ -55,41 +57,38 @@ always @( posedge clkA )
   begin
     if (!rstA)
       request_cycle_cntA <= 3'b0;
-    else
-      begin
-        if (request_trigA==1)
-          request_cycle_cntA <= 3'b0;
-        else
-          request_cycle_cntA <= (request_cycle_cntVA+1'b1);
-      end
+    begin
+      if (request_trigA==1)
+        request_cycle_cntA <= 3'b0;
+      else
+        request_cycle_cntA <= request_cycle_cntA+1'b1;
+    end
   end
 
 always @( posedge clkB )
   begin
     if (!rstB)
       request_cycle_cntB <= 3'b0;
-    else
-      begin
-        if (request_trigB==1)
-          request_cycle_cntB <= 3'b0;
-        else
-          request_cycle_cntB <= (request_cycle_cntVB+1'b1);
-      end
+    begin
+      if (request_trigB==1)
+        request_cycle_cntB <= 3'b0;
+      else
+        request_cycle_cntB <= request_cycle_cntB+1'b1;
+    end
   end
 
 always @( posedge clkC )
   begin
     if (!rstC)
       request_cycle_cntC <= 3'b0;
-    else
-      begin
-        if (request_trigC==1)
-          request_cycle_cntC <= 3'b0;
-        else
-          request_cycle_cntC <= (request_cycle_cntVC+1'b1);
-      end
+    begin
+      if (request_trigC==1)
+        request_cycle_cntC <= 3'b0;
+      else
+        request_cycle_cntC <= request_cycle_cntC+1'b1;
+    end
   end
-assign request_trig =  (request_cycle_cntV==cycles_cnt) ? 1 : 0;
+assign request_trig =  (request_cycle_cnt==cycles_cnt) ? 1 : 0;
 
 majorityVoter #(.WIDTH(3)) request_cycle_cntVoter (
     .inA(request_cycle_cntA),
@@ -104,13 +103,6 @@ fanout clkFanout (
     .outA(clkA),
     .outB(clkB),
     .outC(clkC)
-    );
-
-fanout #(.WIDTH(3)) request_cycle_cntVFanout (
-    .in(request_cycle_cntV),
-    .outA(request_cycle_cntVA),
-    .outB(request_cycle_cntVB),
-    .outC(request_cycle_cntVC)
     );
 
 fanout request_trigFanout (

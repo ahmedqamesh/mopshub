@@ -6,15 +6,16 @@
  *                                                                                                  *
  * user    : lucas                                                                                  *
  * host    : DESKTOP-BFDSFP2                                                                        *
- * date    : 06/10/2022 13:52:48                                                                    *
+ * date    : 05/12/2022 13:28:11                                                                    *
  *                                                                                                  *
- * workdir : /mnt/c/Users/Lucas/Documents/GitHub/mopshub_triplicated/triplicated/mopshub_top_board/hdl *
- * cmd     : /mnt/c/Users/Lucas/Desktop/mopshub_triplication/tmrg-master/bin/tmrg -vv -c tmrg.cfg   *
- * tmrg rev:                                                                                        *
+ * workdir : /mnt/c/Users/Lucas/Documents/GitHub/mopshub_triplicated/triplicated/mopshub_top_board_16/hdl *
+ * cmd     : /mnt/c/Users/Lucas/Documents/GitHub/mopshub_triplicated/tmrg-master/bin/tmrg -vv -c    *
+ *           tmrg.cfg                                                                               *
+ * tmrg rev: b25f042058e4e97751df2a0933c24aeadd5a78a5                                               *
  *                                                                                                  *
  * src file: erbcount2.v                                                                            *
- *           Git SHA           : c110441b08b692cc54ebd4a3b84a2599430e8f93                           *
- *           Modification time : 2022-08-30 12:36:22                                                *
+ *           Git SHA           : b25f042058e4e97751df2a0933c24aeadd5a78a5 (?? erbcount2.v)          *
+ *           Modification time : 2022-11-10 21:22:58                                                *
  *           File Size         : 2613                                                               *
  *           MD5 hash          : ee374b2cd430f03091fc91f7e91bb9e5                                   *
  *                                                                                                  *

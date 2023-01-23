@@ -6,21 +6,25 @@
  *                                                                                                  *
  * user    : lucas                                                                                  *
  * host    : DESKTOP-BFDSFP2                                                                        *
- * date    : 06/10/2022 13:52:41                                                                    *
+ * date    : 05/12/2022 13:28:04                                                                    *
  *                                                                                                  *
- * workdir : /mnt/c/Users/Lucas/Documents/GitHub/mopshub_triplicated/triplicated/mopshub_top_board/hdl *
- * cmd     : /mnt/c/Users/Lucas/Desktop/mopshub_triplication/tmrg-master/bin/tmrg -vv -c tmrg.cfg   *
- * tmrg rev:                                                                                        *
+ * workdir : /mnt/c/Users/Lucas/Documents/GitHub/mopshub_triplicated/triplicated/mopshub_top_board_16/hdl *
+ * cmd     : /mnt/c/Users/Lucas/Documents/GitHub/mopshub_triplicated/tmrg-master/bin/tmrg -vv -c    *
+ *           tmrg.cfg                                                                               *
+ * tmrg rev: b25f042058e4e97751df2a0933c24aeadd5a78a5                                               *
  *                                                                                                  *
  * src file: caninterface.v                                                                         *
- *           Git SHA           : c110441b08b692cc54ebd4a3b84a2599430e8f93                           *
- *           Modification time : 2022-10-05 21:13:51                                                *
- *           File Size         : 4908                                                               *
- *           MD5 hash          : 86b52cc810cb7c41187734726484e078                                   *
+ *           Git SHA           : b25f042058e4e97751df2a0933c24aeadd5a78a5 (?? caninterface.v)       *
+ *           Modification time : 2022-12-04 12:55:15                                                *
+ *           File Size         : 5048                                                               *
+ *           MD5 hash          : 049c7328dc9eaa127e7d2f39d5f73f66                                   *
  *                                                                                                  *
  ****************************************************************************************************/
 
+`resetall 
+`timescale  1ns/10ps
 module can_interfaceTMR(
+  input wire  clk ,
   input wire  rst ,
   input wire [4:0] addr ,
   input wire  initi ,
@@ -31,79 +35,303 @@ module can_interfaceTMR(
   output wire [3:0] cmd ,
   output wire [15:0] write_can 
 );
-reg  [15:0] write_can_reg ;
+wire [75:0] trim_dataC;
+wire [75:0] trim_dataB;
+wire [75:0] trim_dataA;
+wire [15:0] tra_controlC;
+wire [15:0] tra_controlB;
+wire [15:0] tra_controlA;
+wire [15:0] rst_irqC;
+wire [15:0] rst_irqB;
+wire [15:0] rst_irqA;
+wire rstC;
+wire rstB;
+wire rstA;
+wire [15:0] gen_dataC;
+wire [15:0] gen_dataB;
+wire [15:0] gen_dataA;
+wire [75:0] data_tra_mesC;
+wire [75:0] data_tra_mesB;
+wire [75:0] data_tra_mesA;
+wire [3:0] cmdC;
+wire [3:0] cmdB;
+wire [3:0] cmdA;
+wire clkC;
+wire clkB;
+wire clkA;
+wire [4:0] addrC;
+wire [4:0] addrB;
+wire [4:0] addrA;
+wor write_can_regTmrError;
+wire [15:0] write_can_reg;
+reg  [15:0] write_can_regA ;
+reg  [15:0] write_can_regB ;
+reg  [15:0] write_can_regC ;
 reg  [4:0] can_tra_reg ;
 reg  [15:0] tra_control ;
 reg  [15:0] rst_irq ;
 reg  [15:0] gen_data ;
 reg  [75:0] trim_data ;
 initial
-  begin
-    write_can_reg =  16'h0;
-    can_tra_reg =  5'h0;
-    tra_control =  16'h8008;
-    rst_irq =  16'h8070;
-    gen_data =  16'h9C;
-    trim_data =  {12'h555,64'hAAAAAAAAAAAAAAAA};
-  end
+  write_can_regA =  16'h0;
+initial
+  write_can_regB =  16'h0;
+initial
+  write_can_regC =  16'h0;
+initial
+  can_tra_reg =  5'h0;
+initial
+  tra_control =  16'h8008;
+initial
+  rst_irq =  16'h8070;
+initial
+  gen_data =  16'h9C;
+initial
+  trim_data =  {12'h555,64'hAAAAAAAAAAAAAAAA};
 assign write_can =  write_can_reg;
 assign cmd =  {initi,write,reset_can,trim};
+wire [15:0] write_can_regV =  write_can_reg;
 
-always @( * )
-  if (!rst)
-    write_can_reg <= 16'h0000;
+always @( posedge clkA )
+  if (!rstA)
+    write_can_regA <= 16'h0000;
   else
     begin
-      case (cmd)
+      case (cmdA)
         4'b1000 : 
           begin
-            case (addr)
-              5'b01111 : write_can_reg <= 16'h0033;
-              5'b01110 : write_can_reg <= 16'h00E3;
-              5'b00101 : write_can_reg <= 16'h0000;
-              5'b00100 : write_can_reg <= 16'h0000;
-              5'b10010 : write_can_reg <= 16'h8070;
-              5'b10001 : write_can_reg <= 16'h0000;
-              5'b10000 : write_can_reg <= 16'h0000;
-              default : write_can_reg <= 16'h0000;
+            case (addrA)
+              5'b01111 : write_can_regA <= 16'h0033;
+              5'b01110 : write_can_regA <= 16'h00E3;
+              5'b00101 : write_can_regA <= 16'h0000;
+              5'b00100 : write_can_regA <= 16'h0000;
+              5'b10010 : write_can_regA <= 16'h8070;
+              5'b10001 : write_can_regA <= 16'h0000;
+              5'b10000 : write_can_regA <= 16'h0000;
+              default : write_can_regA <= 16'h0000;
             endcase
           end
         4'b0000 : 
           begin
-            case (addr)
-              5'b01100 : write_can_reg <= {data_tra_mes[74:64] ,5'h0};
-              5'b01010 : write_can_reg <= {data_tra_mes[63:56] ,data_tra_mes[47:40] };
-              5'b01001 : write_can_reg <= {data_tra_mes[55:48] ,data_tra_mes[39:32] };
-              5'b01000 : write_can_reg <= {data_tra_mes[7:0] ,data_tra_mes[15:8] };
-              5'b00111 : write_can_reg <= {data_tra_mes[23:16] ,data_tra_mes[31:24] };
-              5'b01110 : write_can_reg <= gen_data;
-              5'b01101 : write_can_reg <= tra_control;
-              default : write_can_reg <= 16'h0;
+            case (addrA)
+              5'b01100 : write_can_regA <= {data_tra_mesA[74:64] ,5'h0};
+              5'b01010 : write_can_regA <= {data_tra_mesA[63:56] ,data_tra_mesA[47:40] };
+              5'b01001 : write_can_regA <= {data_tra_mesA[55:48] ,data_tra_mesA[39:32] };
+              5'b01000 : write_can_regA <= {data_tra_mesA[7:0] ,data_tra_mesA[15:8] };
+              5'b00111 : write_can_regA <= {data_tra_mesA[23:16] ,data_tra_mesA[31:24] };
+              5'b01110 : write_can_regA <= gen_dataA;
+              5'b01101 : write_can_regA <= tra_controlA;
+              default : write_can_regA <= 16'h0;
             endcase
           end
         4'b0001 : 
           begin
-            case (addr)
-              5'b01100 : write_can_reg <= {trim_data[74:64] ,5'h0};
-              5'b01010 : write_can_reg <= {trim_data[63:56] ,trim_data[47:40] };
-              5'b01001 : write_can_reg <= {trim_data[55:48] ,trim_data[39:32] };
-              5'b01000 : write_can_reg <= {trim_data[7:0] ,trim_data[15:8] };
-              5'b00111 : write_can_reg <= {trim_data[23:16] ,trim_data[31:24] };
-              5'b01110 : write_can_reg <= gen_data;
-              5'b01101 : write_can_reg <= tra_control;
-              default : write_can_reg <= 16'h0;
+            case (addrA)
+              5'b01100 : write_can_regA <= {trim_dataA[74:64] ,5'h0};
+              5'b01010 : write_can_regA <= {trim_dataA[63:56] ,trim_dataA[47:40] };
+              5'b01001 : write_can_regA <= {trim_dataA[55:48] ,trim_dataA[39:32] };
+              5'b01000 : write_can_regA <= {trim_dataA[7:0] ,trim_dataA[15:8] };
+              5'b00111 : write_can_regA <= {trim_dataA[23:16] ,trim_dataA[31:24] };
+              5'b01110 : write_can_regA <= gen_dataA;
+              5'b01101 : write_can_regA <= tra_controlA;
+              default : write_can_regA <= 16'h0;
             endcase
           end
         4'b0010 : 
           begin
-            case (addr)
-              5'b01110 : write_can_reg <= gen_data;
-              5'b10010 : write_can_reg <= rst_irq;
-              default : write_can_reg <= 16'h0;
+            case (addrA)
+              5'b01110 : write_can_regA <= gen_dataA;
+              5'b10010 : write_can_regA <= rst_irqA;
+              default : write_can_regA <= 16'h0;
             endcase
           end
-        default : write_can_reg <= 16'h0;
+        default : write_can_regA <= 16'h0;
       endcase
     end
+
+always @( posedge clkB )
+  if (!rstB)
+    write_can_regB <= 16'h0000;
+  else
+    begin
+      case (cmdB)
+        4'b1000 : 
+          begin
+            case (addrB)
+              5'b01111 : write_can_regB <= 16'h0033;
+              5'b01110 : write_can_regB <= 16'h00E3;
+              5'b00101 : write_can_regB <= 16'h0000;
+              5'b00100 : write_can_regB <= 16'h0000;
+              5'b10010 : write_can_regB <= 16'h8070;
+              5'b10001 : write_can_regB <= 16'h0000;
+              5'b10000 : write_can_regB <= 16'h0000;
+              default : write_can_regB <= 16'h0000;
+            endcase
+          end
+        4'b0000 : 
+          begin
+            case (addrB)
+              5'b01100 : write_can_regB <= {data_tra_mesB[74:64] ,5'h0};
+              5'b01010 : write_can_regB <= {data_tra_mesB[63:56] ,data_tra_mesB[47:40] };
+              5'b01001 : write_can_regB <= {data_tra_mesB[55:48] ,data_tra_mesB[39:32] };
+              5'b01000 : write_can_regB <= {data_tra_mesB[7:0] ,data_tra_mesB[15:8] };
+              5'b00111 : write_can_regB <= {data_tra_mesB[23:16] ,data_tra_mesB[31:24] };
+              5'b01110 : write_can_regB <= gen_dataB;
+              5'b01101 : write_can_regB <= tra_controlB;
+              default : write_can_regB <= 16'h0;
+            endcase
+          end
+        4'b0001 : 
+          begin
+            case (addrB)
+              5'b01100 : write_can_regB <= {trim_dataB[74:64] ,5'h0};
+              5'b01010 : write_can_regB <= {trim_dataB[63:56] ,trim_dataB[47:40] };
+              5'b01001 : write_can_regB <= {trim_dataB[55:48] ,trim_dataB[39:32] };
+              5'b01000 : write_can_regB <= {trim_dataB[7:0] ,trim_dataB[15:8] };
+              5'b00111 : write_can_regB <= {trim_dataB[23:16] ,trim_dataB[31:24] };
+              5'b01110 : write_can_regB <= gen_dataB;
+              5'b01101 : write_can_regB <= tra_controlB;
+              default : write_can_regB <= 16'h0;
+            endcase
+          end
+        4'b0010 : 
+          begin
+            case (addrB)
+              5'b01110 : write_can_regB <= gen_dataB;
+              5'b10010 : write_can_regB <= rst_irqB;
+              default : write_can_regB <= 16'h0;
+            endcase
+          end
+        default : write_can_regB <= 16'h0;
+      endcase
+    end
+
+always @( posedge clkC )
+  if (!rstC)
+    write_can_regC <= 16'h0000;
+  else
+    begin
+      case (cmdC)
+        4'b1000 : 
+          begin
+            case (addrC)
+              5'b01111 : write_can_regC <= 16'h0033;
+              5'b01110 : write_can_regC <= 16'h00E3;
+              5'b00101 : write_can_regC <= 16'h0000;
+              5'b00100 : write_can_regC <= 16'h0000;
+              5'b10010 : write_can_regC <= 16'h8070;
+              5'b10001 : write_can_regC <= 16'h0000;
+              5'b10000 : write_can_regC <= 16'h0000;
+              default : write_can_regC <= 16'h0000;
+            endcase
+          end
+        4'b0000 : 
+          begin
+            case (addrC)
+              5'b01100 : write_can_regC <= {data_tra_mesC[74:64] ,5'h0};
+              5'b01010 : write_can_regC <= {data_tra_mesC[63:56] ,data_tra_mesC[47:40] };
+              5'b01001 : write_can_regC <= {data_tra_mesC[55:48] ,data_tra_mesC[39:32] };
+              5'b01000 : write_can_regC <= {data_tra_mesC[7:0] ,data_tra_mesC[15:8] };
+              5'b00111 : write_can_regC <= {data_tra_mesC[23:16] ,data_tra_mesC[31:24] };
+              5'b01110 : write_can_regC <= gen_dataC;
+              5'b01101 : write_can_regC <= tra_controlC;
+              default : write_can_regC <= 16'h0;
+            endcase
+          end
+        4'b0001 : 
+          begin
+            case (addrC)
+              5'b01100 : write_can_regC <= {trim_dataC[74:64] ,5'h0};
+              5'b01010 : write_can_regC <= {trim_dataC[63:56] ,trim_dataC[47:40] };
+              5'b01001 : write_can_regC <= {trim_dataC[55:48] ,trim_dataC[39:32] };
+              5'b01000 : write_can_regC <= {trim_dataC[7:0] ,trim_dataC[15:8] };
+              5'b00111 : write_can_regC <= {trim_dataC[23:16] ,trim_dataC[31:24] };
+              5'b01110 : write_can_regC <= gen_dataC;
+              5'b01101 : write_can_regC <= tra_controlC;
+              default : write_can_regC <= 16'h0;
+            endcase
+          end
+        4'b0010 : 
+          begin
+            case (addrC)
+              5'b01110 : write_can_regC <= gen_dataC;
+              5'b10010 : write_can_regC <= rst_irqC;
+              default : write_can_regC <= 16'h0;
+            endcase
+          end
+        default : write_can_regC <= 16'h0;
+      endcase
+    end
+
+majorityVoter #(.WIDTH(16)) write_can_regVoter (
+    .inA(write_can_regA),
+    .inB(write_can_regB),
+    .inC(write_can_regC),
+    .out(write_can_reg),
+    .tmrErr(write_can_regTmrError)
+    );
+
+fanout #(.WIDTH(5)) addrFanout (
+    .in(addr),
+    .outA(addrA),
+    .outB(addrB),
+    .outC(addrC)
+    );
+
+fanout clkFanout (
+    .in(clk),
+    .outA(clkA),
+    .outB(clkB),
+    .outC(clkC)
+    );
+
+fanout #(.WIDTH(4)) cmdFanout (
+    .in(cmd),
+    .outA(cmdA),
+    .outB(cmdB),
+    .outC(cmdC)
+    );
+
+fanout #(.WIDTH(76)) data_tra_mesFanout (
+    .in(data_tra_mes),
+    .outA(data_tra_mesA),
+    .outB(data_tra_mesB),
+    .outC(data_tra_mesC)
+    );
+
+fanout #(.WIDTH(16)) gen_dataFanout (
+    .in(gen_data),
+    .outA(gen_dataA),
+    .outB(gen_dataB),
+    .outC(gen_dataC)
+    );
+
+fanout rstFanout (
+    .in(rst),
+    .outA(rstA),
+    .outB(rstB),
+    .outC(rstC)
+    );
+
+fanout #(.WIDTH(16)) rst_irqFanout (
+    .in(rst_irq),
+    .outA(rst_irqA),
+    .outB(rst_irqB),
+    .outC(rst_irqC)
+    );
+
+fanout #(.WIDTH(16)) tra_controlFanout (
+    .in(tra_control),
+    .outA(tra_controlA),
+    .outB(tra_controlB),
+    .outC(tra_controlC)
+    );
+
+fanout #(.WIDTH(76)) trim_dataFanout (
+    .in(trim_data),
+    .outA(trim_dataA),
+    .outB(trim_dataB),
+    .outC(trim_dataC)
+    );
 endmodule
 

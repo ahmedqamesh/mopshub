@@ -6,21 +6,25 @@
  *                                                                                                  *
  * user    : lucas                                                                                  *
  * host    : DESKTOP-BFDSFP2                                                                        *
- * date    : 06/10/2022 13:52:59                                                                    *
+ * date    : 05/12/2022 13:28:31                                                                    *
  *                                                                                                  *
- * workdir : /mnt/c/Users/Lucas/Documents/GitHub/mopshub_triplicated/triplicated/mopshub_top_board/hdl *
- * cmd     : /mnt/c/Users/Lucas/Desktop/mopshub_triplication/tmrg-master/bin/tmrg -vv -c tmrg.cfg   *
- * tmrg rev:                                                                                        *
+ * workdir : /mnt/c/Users/Lucas/Documents/GitHub/mopshub_triplicated/triplicated/mopshub_top_board_16/hdl *
+ * cmd     : /mnt/c/Users/Lucas/Documents/GitHub/mopshub_triplicated/tmrg-master/bin/tmrg -vv -c    *
+ *           tmrg.cfg                                                                               *
+ * tmrg rev: b25f042058e4e97751df2a0933c24aeadd5a78a5                                               *
  *                                                                                                  *
  * src file: rec_elink_buf.v                                                                        *
- *           Git SHA           : c110441b08b692cc54ebd4a3b84a2599430e8f93 ( M rec_elink_buf.v)      *
- *           Modification time : 2022-10-06 13:08:45                                                *
- *           File Size         : 1921                                                               *
- *           MD5 hash          : 0f06be2a5a8a89e26e00b0bed1f70f1b                                   *
+ *           Git SHA           : b25f042058e4e97751df2a0933c24aeadd5a78a5 (?? rec_elink_buf.v)      *
+ *           Modification time : 2022-12-04 13:43:42                                                *
+ *           File Size         : 1979                                                               *
+ *           MD5 hash          : d0af7e7b6d36c140ed35e8bb29ddf474                                   *
  *                                                                                                  *
  ****************************************************************************************************/
 
+`resetall 
+`timescale  1ns/10ps
 module buffer_rec_elinkTMR(
+  input wire  clk ,
   input wire  rst ,
   input wire [75:0] data_rec_in ,
   input wire [4:0] addr ,
@@ -29,30 +33,159 @@ module buffer_rec_elinkTMR(
   input wire [7:0] Kchar_eop ,
   input wire [7:0] Kchar_comma 
 );
-reg  [9:0] data_rec_reg ;
+wire rstC;
+wire rstB;
+wire rstA;
+wire [75:0] data_rec_inC;
+wire [75:0] data_rec_inB;
+wire [75:0] data_rec_inA;
+wire clkC;
+wire clkB;
+wire clkA;
+wire [4:0] addrC;
+wire [4:0] addrB;
+wire [4:0] addrA;
+wire [7:0] Kchar_sopC;
+wire [7:0] Kchar_sopB;
+wire [7:0] Kchar_sopA;
+wire [7:0] Kchar_eopC;
+wire [7:0] Kchar_eopB;
+wire [7:0] Kchar_eopA;
+wire [7:0] Kchar_commaC;
+wire [7:0] Kchar_commaB;
+wire [7:0] Kchar_commaA;
+wor data_rec_regTmrError;
+wire [9:0] data_rec_reg;
+reg  [9:0] data_rec_regA ;
+reg  [9:0] data_rec_regB ;
+reg  [9:0] data_rec_regC ;
 initial
-  data_rec_reg =  {2'b11,Kchar_comma};
+  data_rec_regA =  {2'b11,8'b10111100};
+initial
+  data_rec_regB =  {2'b11,8'b10111100};
+initial
+  data_rec_regC =  {2'b11,8'b10111100};
+wire [9:0] data_rec_regV =  data_rec_reg;
 
-always @( * )
-  if (!rst)
-    data_rec_reg =  {2'b11,Kchar_comma};
+always @( posedge clkA )
+  if (!rstA)
+    data_rec_regA <= {2'b11,Kchar_commaA};
   else
-    case (addr)
-      5'b00000 : data_rec_reg =  {2'b11,Kchar_comma};
-      5'b00001 : data_rec_reg =  {2'b10,Kchar_sop};
-      5'b00010 : data_rec_reg =  {2'b00,data_rec_in[75:68] };
-      5'b00011 : data_rec_reg =  {2'b00,data_rec_in[67:60] };
-      5'b00100 : data_rec_reg =  {2'b00,data_rec_in[59:52] };
-      5'b00101 : data_rec_reg =  {2'b00,data_rec_in[51:44] };
-      5'b00110 : data_rec_reg =  {2'b00,data_rec_in[43:36] };
-      5'b00111 : data_rec_reg =  {2'b00,data_rec_in[35:28] };
-      5'b01000 : data_rec_reg =  {2'b00,data_rec_in[27:20] };
-      5'b01001 : data_rec_reg =  {2'b00,data_rec_in[19:12] };
-      5'b01010 : data_rec_reg =  {2'b00,data_rec_in[11:4] };
-      5'b01011 : data_rec_reg =  {2'b00,data_rec_in[3:0] ,3'h0};
-      5'b01100 : data_rec_reg =  {2'b01,Kchar_eop};
-      default : data_rec_reg =  {2'b11,Kchar_comma};
+    case (addrA)
+      5'h0 : data_rec_regA <= {2'b11,Kchar_commaA};
+      5'h1 : data_rec_regA <= {2'b10,Kchar_sopA};
+      5'h2 : data_rec_regA <= {2'b00,data_rec_inA[75:68] };
+      5'h3 : data_rec_regA <= {2'b00,data_rec_inA[67:60] };
+      5'h4 : data_rec_regA <= {2'b00,data_rec_inA[59:52] };
+      5'h5 : data_rec_regA <= {2'b00,data_rec_inA[51:44] };
+      5'h6 : data_rec_regA <= {2'b00,data_rec_inA[43:36] };
+      5'h7 : data_rec_regA <= {2'b00,data_rec_inA[35:28] };
+      5'h8 : data_rec_regA <= {2'b00,data_rec_inA[27:20] };
+      5'h9 : data_rec_regA <= {2'b00,data_rec_inA[19:12] };
+      5'hA : data_rec_regA <= {2'b00,data_rec_inA[11:4] };
+      5'hB : data_rec_regA <= {2'b00,3'h0,data_rec_inA[3:0] };
+      5'hC : data_rec_regA <= {2'b01,Kchar_eopA};
+      default : data_rec_regA <= {2'b11,Kchar_commaA};
+    endcase
+
+always @( posedge clkB )
+  if (!rstB)
+    data_rec_regB <= {2'b11,Kchar_commaB};
+  else
+    case (addrB)
+      5'h0 : data_rec_regB <= {2'b11,Kchar_commaB};
+      5'h1 : data_rec_regB <= {2'b10,Kchar_sopB};
+      5'h2 : data_rec_regB <= {2'b00,data_rec_inB[75:68] };
+      5'h3 : data_rec_regB <= {2'b00,data_rec_inB[67:60] };
+      5'h4 : data_rec_regB <= {2'b00,data_rec_inB[59:52] };
+      5'h5 : data_rec_regB <= {2'b00,data_rec_inB[51:44] };
+      5'h6 : data_rec_regB <= {2'b00,data_rec_inB[43:36] };
+      5'h7 : data_rec_regB <= {2'b00,data_rec_inB[35:28] };
+      5'h8 : data_rec_regB <= {2'b00,data_rec_inB[27:20] };
+      5'h9 : data_rec_regB <= {2'b00,data_rec_inB[19:12] };
+      5'hA : data_rec_regB <= {2'b00,data_rec_inB[11:4] };
+      5'hB : data_rec_regB <= {2'b00,3'h0,data_rec_inB[3:0] };
+      5'hC : data_rec_regB <= {2'b01,Kchar_eopB};
+      default : data_rec_regB <= {2'b11,Kchar_commaB};
+    endcase
+
+always @( posedge clkC )
+  if (!rstC)
+    data_rec_regC <= {2'b11,Kchar_commaC};
+  else
+    case (addrC)
+      5'h0 : data_rec_regC <= {2'b11,Kchar_commaC};
+      5'h1 : data_rec_regC <= {2'b10,Kchar_sopC};
+      5'h2 : data_rec_regC <= {2'b00,data_rec_inC[75:68] };
+      5'h3 : data_rec_regC <= {2'b00,data_rec_inC[67:60] };
+      5'h4 : data_rec_regC <= {2'b00,data_rec_inC[59:52] };
+      5'h5 : data_rec_regC <= {2'b00,data_rec_inC[51:44] };
+      5'h6 : data_rec_regC <= {2'b00,data_rec_inC[43:36] };
+      5'h7 : data_rec_regC <= {2'b00,data_rec_inC[35:28] };
+      5'h8 : data_rec_regC <= {2'b00,data_rec_inC[27:20] };
+      5'h9 : data_rec_regC <= {2'b00,data_rec_inC[19:12] };
+      5'hA : data_rec_regC <= {2'b00,data_rec_inC[11:4] };
+      5'hB : data_rec_regC <= {2'b00,3'h0,data_rec_inC[3:0] };
+      5'hC : data_rec_regC <= {2'b01,Kchar_eopC};
+      default : data_rec_regC <= {2'b11,Kchar_commaC};
     endcase
 assign data_rec_10bitout =  data_rec_reg;
+
+majorityVoter #(.WIDTH(10)) data_rec_regVoter (
+    .inA(data_rec_regA),
+    .inB(data_rec_regB),
+    .inC(data_rec_regC),
+    .out(data_rec_reg),
+    .tmrErr(data_rec_regTmrError)
+    );
+
+fanout #(.WIDTH(8)) Kchar_commaFanout (
+    .in(Kchar_comma),
+    .outA(Kchar_commaA),
+    .outB(Kchar_commaB),
+    .outC(Kchar_commaC)
+    );
+
+fanout #(.WIDTH(8)) Kchar_eopFanout (
+    .in(Kchar_eop),
+    .outA(Kchar_eopA),
+    .outB(Kchar_eopB),
+    .outC(Kchar_eopC)
+    );
+
+fanout #(.WIDTH(8)) Kchar_sopFanout (
+    .in(Kchar_sop),
+    .outA(Kchar_sopA),
+    .outB(Kchar_sopB),
+    .outC(Kchar_sopC)
+    );
+
+fanout #(.WIDTH(5)) addrFanout (
+    .in(addr),
+    .outA(addrA),
+    .outB(addrB),
+    .outC(addrC)
+    );
+
+fanout clkFanout (
+    .in(clk),
+    .outA(clkA),
+    .outB(clkB),
+    .outC(clkC)
+    );
+
+fanout #(.WIDTH(76)) data_rec_inFanout (
+    .in(data_rec_in),
+    .outA(data_rec_inA),
+    .outB(data_rec_inB),
+    .outC(data_rec_inC)
+    );
+
+fanout rstFanout (
+    .in(rst),
+    .outA(rstA),
+    .outB(rstB),
+    .outC(rstC)
+    );
 endmodule
 

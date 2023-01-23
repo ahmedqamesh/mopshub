@@ -6,17 +6,18 @@
  *                                                                                                  *
  * user    : lucas                                                                                  *
  * host    : DESKTOP-BFDSFP2                                                                        *
- * date    : 06/10/2022 13:52:44                                                                    *
+ * date    : 05/12/2022 13:28:07                                                                    *
  *                                                                                                  *
- * workdir : /mnt/c/Users/Lucas/Documents/GitHub/mopshub_triplicated/triplicated/mopshub_top_board/hdl *
- * cmd     : /mnt/c/Users/Lucas/Desktop/mopshub_triplication/tmrg-master/bin/tmrg -vv -c tmrg.cfg   *
- * tmrg rev:                                                                                        *
+ * workdir : /mnt/c/Users/Lucas/Documents/GitHub/mopshub_triplicated/triplicated/mopshub_top_board_16/hdl *
+ * cmd     : /mnt/c/Users/Lucas/Documents/GitHub/mopshub_triplicated/tmrg-master/bin/tmrg -vv -c    *
+ *           tmrg.cfg                                                                               *
+ * tmrg rev: b25f042058e4e97751df2a0933c24aeadd5a78a5                                               *
  *                                                                                                  *
  * src file: destuffing2.v                                                                          *
- *           Git SHA           : c110441b08b692cc54ebd4a3b84a2599430e8f93                           *
- *           Modification time : 2022-08-23 20:24:46                                                *
- *           File Size         : 4793                                                               *
- *           MD5 hash          : 3d4ac4c6ac14bff4ce9a2086577dec33                                   *
+ *           Git SHA           : b25f042058e4e97751df2a0933c24aeadd5a78a5 (?? destuffing2.v)        *
+ *           Modification time : 2022-11-11 13:05:48.420597                                         *
+ *           File Size         : 4970                                                               *
+ *           MD5 hash          : ec9193b14bd79bc54ebb4e331680fb6a                                   *
  *                                                                                                  *
  ****************************************************************************************************/
 
@@ -30,12 +31,12 @@ module destuffing2TMR(
   output wire  stuff ,
   output wire  bitout 
 );
-wire stuffC;
-wire stuffB;
-wire stuffA;
-wire stferC;
-wire stferB;
-wire stferA;
+wire stuff_iVC;
+wire stuff_iVB;
+wire stuff_iVA;
+wire stfer_iVC;
+wire stfer_iVB;
+wire stfer_iVA;
 wire resetC;
 wire resetB;
 wire resetA;
@@ -45,12 +46,18 @@ wire edgedVA;
 wire directC;
 wire directB;
 wire directA;
+wire [2:0] countVC;
+wire [2:0] countVB;
+wire [2:0] countVA;
 wire clockC;
 wire clockB;
 wire clockA;
-wire bitoutC;
-wire bitoutB;
-wire bitoutA;
+wire buffVC;
+wire buffVB;
+wire buffVA;
+wire bitout_iVC;
+wire bitout_iVB;
+wire bitout_iVA;
 wire bitinC;
 wire bitinB;
 wire bitinA;
@@ -63,6 +70,10 @@ wor stfer_iTmrError;
 wire stfer_i;
 wor edgedTmrError;
 wire edged;
+wor countTmrError;
+wire [2:0] count;
+wor buffTmrError;
+wire buff;
 wor bitout_iTmrError;
 wire bitout_i;
 reg  [2:0] countA ;
@@ -86,10 +97,15 @@ reg  stuff_iC ;
 reg  bitout_iA ;
 reg  bitout_iB ;
 reg  bitout_iC ;
-assign stfer =  stfer_i;
-assign stuff =  stuff_i;
-assign bitout =  bitout_i;
 wire edgedV =  edged;
+wire stfer_iV =  stfer_i;
+wire stuff_iV =  stuff_i;
+wire bitout_iV =  bitout_i;
+wire buffV =  buff;
+wire [2:0] countV =  count;
+assign stfer =  stfer_iV;
+assign stuff =  stuff_iV;
+assign bitout =  bitout_iV;
 
 always @( posedge clockA )
   begin
@@ -103,24 +119,26 @@ always @( posedge clockA )
       end
     else
       begin
+        buffA =  buffVA;
+        countA =  countVA;
         edgedA =  edgedVA;
-        stfer_iA <= stferA;
-        stuff_iA <= stuffA;
-        bitout_iA <= bitoutA;
+        stfer_iA <= stfer_iVA;
+        stuff_iA <= stuff_iVA;
+        bitout_iA <= bitout_iVA;
         if (activA==1'b1)
           if (edgedVA==1'b0)
             begin
               edgedA =  1'b1;
               bitout_iA <= bitinA;
-              if (bitinA==buffA)
+              if (bitinA==buffVA)
                 stateA[3]  =  1'b1;
               else
                 stateA[3]  =  1'b0;
-              if (countA==3'd0)
+              if (countVA==3'd0)
                 stateA[2]  =  1'b1;
               else
                 stateA[2]  =  1'b0;
-              if (countA==3'd5)
+              if (countVA==3'd5)
                 stateA[1]  =  1'b1;
               else
                 stateA[1]  =  1'b0;
@@ -150,15 +168,15 @@ always @( posedge clockA )
                   end
                 4'b1000 : 
                   begin
-                    countA =  countA+4'd1;
+                    countA =  countVA+4'd1;
                     stuff_iA <= 1'b0;
                   end
                 default : 
                   begin
-                    buffA =  buffA;
-                    countA =  countA;
-                    stuff_iA <= stuffA;
-                    stfer_iA <= stferA;
+                    buffA =  buffVA;
+                    countA =  countVA;
+                    stuff_iA <= stuff_iVA;
+                    stfer_iA <= stfer_iVA;
                   end
               endcase
             end
@@ -181,24 +199,26 @@ always @( posedge clockB )
       end
     else
       begin
+        buffB =  buffVB;
+        countB =  countVB;
         edgedB =  edgedVB;
-        stfer_iB <= stferB;
-        stuff_iB <= stuffB;
-        bitout_iB <= bitoutB;
+        stfer_iB <= stfer_iVB;
+        stuff_iB <= stuff_iVB;
+        bitout_iB <= bitout_iVB;
         if (activB==1'b1)
           if (edgedVB==1'b0)
             begin
               edgedB =  1'b1;
               bitout_iB <= bitinB;
-              if (bitinB==buffB)
+              if (bitinB==buffVB)
                 stateB[3]  =  1'b1;
               else
                 stateB[3]  =  1'b0;
-              if (countB==3'd0)
+              if (countVB==3'd0)
                 stateB[2]  =  1'b1;
               else
                 stateB[2]  =  1'b0;
-              if (countB==3'd5)
+              if (countVB==3'd5)
                 stateB[1]  =  1'b1;
               else
                 stateB[1]  =  1'b0;
@@ -228,15 +248,15 @@ always @( posedge clockB )
                   end
                 4'b1000 : 
                   begin
-                    countB =  countB+4'd1;
+                    countB =  countVB+4'd1;
                     stuff_iB <= 1'b0;
                   end
                 default : 
                   begin
-                    buffB =  buffB;
-                    countB =  countB;
-                    stuff_iB <= stuffB;
-                    stfer_iB <= stferB;
+                    buffB =  buffVB;
+                    countB =  countVB;
+                    stuff_iB <= stuff_iVB;
+                    stfer_iB <= stfer_iVB;
                   end
               endcase
             end
@@ -259,24 +279,26 @@ always @( posedge clockC )
       end
     else
       begin
+        buffC =  buffVC;
+        countC =  countVC;
         edgedC =  edgedVC;
-        stfer_iC <= stferC;
-        stuff_iC <= stuffC;
-        bitout_iC <= bitoutC;
+        stfer_iC <= stfer_iVC;
+        stuff_iC <= stuff_iVC;
+        bitout_iC <= bitout_iVC;
         if (activC==1'b1)
           if (edgedVC==1'b0)
             begin
               edgedC =  1'b1;
               bitout_iC <= bitinC;
-              if (bitinC==buffC)
+              if (bitinC==buffVC)
                 stateC[3]  =  1'b1;
               else
                 stateC[3]  =  1'b0;
-              if (countC==3'd0)
+              if (countVC==3'd0)
                 stateC[2]  =  1'b1;
               else
                 stateC[2]  =  1'b0;
-              if (countC==3'd5)
+              if (countVC==3'd5)
                 stateC[1]  =  1'b1;
               else
                 stateC[1]  =  1'b0;
@@ -306,15 +328,15 @@ always @( posedge clockC )
                   end
                 4'b1000 : 
                   begin
-                    countC =  countC+4'd1;
+                    countC =  countVC+4'd1;
                     stuff_iC <= 1'b0;
                   end
                 default : 
                   begin
-                    buffC =  buffC;
-                    countC =  countC;
-                    stuff_iC <= stuffC;
-                    stfer_iC <= stferC;
+                    buffC =  buffVC;
+                    countC =  countVC;
+                    stuff_iC <= stuff_iVC;
+                    stfer_iC <= stfer_iVC;
                   end
               endcase
             end
@@ -331,6 +353,22 @@ majorityVoter bitout_iVoter (
     .inC(bitout_iC),
     .out(bitout_i),
     .tmrErr(bitout_iTmrError)
+    );
+
+majorityVoter buffVoter (
+    .inA(buffA),
+    .inB(buffB),
+    .inC(buffC),
+    .out(buff),
+    .tmrErr(buffTmrError)
+    );
+
+majorityVoter #(.WIDTH(3)) countVoter (
+    .inA(countA),
+    .inB(countB),
+    .inC(countC),
+    .out(count),
+    .tmrErr(countTmrError)
     );
 
 majorityVoter edgedVoter (
@@ -371,11 +409,18 @@ fanout bitinFanout (
     .outC(bitinC)
     );
 
-fanout bitoutFanout (
-    .in(bitout),
-    .outA(bitoutA),
-    .outB(bitoutB),
-    .outC(bitoutC)
+fanout bitout_iVFanout (
+    .in(bitout_iV),
+    .outA(bitout_iVA),
+    .outB(bitout_iVB),
+    .outC(bitout_iVC)
+    );
+
+fanout buffVFanout (
+    .in(buffV),
+    .outA(buffVA),
+    .outB(buffVB),
+    .outC(buffVC)
     );
 
 fanout clockFanout (
@@ -383,6 +428,13 @@ fanout clockFanout (
     .outA(clockA),
     .outB(clockB),
     .outC(clockC)
+    );
+
+fanout #(.WIDTH(3)) countVFanout (
+    .in(countV),
+    .outA(countVA),
+    .outB(countVB),
+    .outC(countVC)
     );
 
 fanout directFanout (
@@ -406,18 +458,18 @@ fanout resetFanout (
     .outC(resetC)
     );
 
-fanout stferFanout (
-    .in(stfer),
-    .outA(stferA),
-    .outB(stferB),
-    .outC(stferC)
+fanout stfer_iVFanout (
+    .in(stfer_iV),
+    .outA(stfer_iVA),
+    .outB(stfer_iVB),
+    .outC(stfer_iVC)
     );
 
-fanout stuffFanout (
-    .in(stuff),
-    .outA(stuffA),
-    .outB(stuffB),
-    .outC(stuffC)
+fanout stuff_iVFanout (
+    .in(stuff_iV),
+    .outA(stuff_iVA),
+    .outB(stuff_iVB),
+    .outC(stuff_iVC)
     );
 endmodule
 

@@ -6,20 +6,23 @@
  *                                                                                                  *
  * user    : lucas                                                                                  *
  * host    : DESKTOP-BFDSFP2                                                                        *
- * date    : 06/10/2022 13:52:40                                                                    *
+ * date    : 05/12/2022 13:28:03                                                                    *
  *                                                                                                  *
- * workdir : /mnt/c/Users/Lucas/Documents/GitHub/mopshub_triplicated/triplicated/mopshub_top_board/hdl *
- * cmd     : /mnt/c/Users/Lucas/Desktop/mopshub_triplication/tmrg-master/bin/tmrg -vv -c tmrg.cfg   *
- * tmrg rev:                                                                                        *
+ * workdir : /mnt/c/Users/Lucas/Documents/GitHub/mopshub_triplicated/triplicated/mopshub_top_board_16/hdl *
+ * cmd     : /mnt/c/Users/Lucas/Documents/GitHub/mopshub_triplicated/tmrg-master/bin/tmrg -vv -c    *
+ *           tmrg.cfg                                                                               *
+ * tmrg rev: b25f042058e4e97751df2a0933c24aeadd5a78a5                                               *
  *                                                                                                  *
  * src file: can_struct.v                                                                           *
- *           Git SHA           : c110441b08b692cc54ebd4a3b84a2599430e8f93                           *
- *           Modification time : 2022-10-06 09:00:13                                                *
- *           File Size         : 2152                                                               *
- *           MD5 hash          : 83d50ccc64f1a39d0de7b92f8cb7e30b                                   *
+ *           Git SHA           : b25f042058e4e97751df2a0933c24aeadd5a78a5 (?? can_struct.v)         *
+ *           Modification time : 2022-12-04 15:41:31.649242                                         *
+ *           File Size         : 2172                                                               *
+ *           MD5 hash          : 633f8b2083fa8495bfe709c05dede1f9                                   *
  *                                                                                                  *
  ****************************************************************************************************/
 
+`resetall 
+`timescale  1ns/10ps
 module canTMR(
   input wire  clock ,
   input wire  reset ,

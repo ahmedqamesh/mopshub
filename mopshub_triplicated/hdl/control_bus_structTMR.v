@@ -6,20 +6,23 @@
  *                                                                                                  *
  * user    : lucas                                                                                  *
  * host    : DESKTOP-BFDSFP2                                                                        *
- * date    : 06/10/2022 13:52:42                                                                    *
+ * date    : 05/12/2022 13:28:05                                                                    *
  *                                                                                                  *
- * workdir : /mnt/c/Users/Lucas/Documents/GitHub/mopshub_triplicated/triplicated/mopshub_top_board/hdl *
- * cmd     : /mnt/c/Users/Lucas/Desktop/mopshub_triplication/tmrg-master/bin/tmrg -vv -c tmrg.cfg   *
- * tmrg rev:                                                                                        *
+ * workdir : /mnt/c/Users/Lucas/Documents/GitHub/mopshub_triplicated/triplicated/mopshub_top_board_16/hdl *
+ * cmd     : /mnt/c/Users/Lucas/Documents/GitHub/mopshub_triplicated/tmrg-master/bin/tmrg -vv -c    *
+ *           tmrg.cfg                                                                               *
+ * tmrg rev: b25f042058e4e97751df2a0933c24aeadd5a78a5                                               *
  *                                                                                                  *
  * src file: control_bus_struct.v                                                                   *
- *           Git SHA           : c110441b08b692cc54ebd4a3b84a2599430e8f93                           *
- *           Modification time : 2022-10-06 12:09:55                                                *
- *           File Size         : 14082                                                              *
- *           MD5 hash          : cffe5c881bb6f509679cf0188b710dfb                                   *
+ *           Git SHA           : b25f042058e4e97751df2a0933c24aeadd5a78a5 (?? control_bus_struct.v) *
+ *           Modification time : 2022-12-05 11:40:56                                                *
+ *           File Size         : 14227                                                              *
+ *           MD5 hash          : 2f934a377a0aaf7864814be82db47dee                                   *
  *                                                                                                  *
  ****************************************************************************************************/
 
+`resetall 
+`timescale  1ns/10ps
 module control_busTMR(
   input wire  clk ,
   input wire [7:0] data_init ,
@@ -31,12 +34,26 @@ module control_busTMR(
   input wire  start_osc_cnt ,
   input wire  start_power_init ,
   input wire  transceive ,
-  output reg  end_osc_cnt ,
+  output wire  end_osc_cnt ,
   output wire  mosi ,
   output wire [4:0] power_bus_cnt_active ,
   output wire  sck ,
   output wire  w_Master_TX_Ready 
 );
+wire rstC;
+wire rstB;
+wire rstA;
+wire [4:0] power_bus_cntC;
+wire [4:0] power_bus_cntB;
+wire [4:0] power_bus_cntA;
+wire [4:0] n_busesC;
+wire [4:0] n_busesB;
+wire [4:0] n_busesA;
+wire clkC;
+wire clkB;
+wire clkA;
+wor end_osc_cntRTmrError;
+wire end_osc_cntR;
 wire SPI_MODE;
 reg  clk_en ;
 wire fifo_empty;
@@ -104,35 +121,66 @@ bit_counterTMR bit_counter_trim (
     .cnt_enable(start_osc_cnt)
     );
 
-spi_master_mopshubTMR #(.CLKS_PER_HALF_BIT(10)) spi_master_mopshub0 (
+spi_masterTMR #(.CLKS_PER_HALF_BIT(10)) spi_master_control0 (
     .i_Rst_L(rst),
     .i_Clk(clk),
     .SPI_MODE(SPI_MODE),
     .i_TX_Byte(txdat),
     .i_TX_DV(transceive),
-    .o_TX_Ready(w_Master_TX_Ready),
-    .o_RX_DV(o_RX_DV),
-    .o_RX_Byte(o_RX_Byte),
-    .o_SPI_Clk(sck),
+    .o_TX_ReadyW(w_Master_TX_Ready),
+    .o_RX_DVW(o_RX_DV),
+    .o_RX_ByteW(o_RX_Byte),
+    .o_SPI_ClkW(sck),
     .i_SPI_MISO(miso),
-    .o_SPI_MOSI(mosi)
+    .o_SPI_MOSIW(mosi)
     );
+reg  end_osc_cntRA ;
+reg  end_osc_cntRB ;
+reg  end_osc_cntRC ;
 assign power_bus_cnt_active =  (start_power_init==1) ? power_bus_cnt : power_bus_cnt;
 assign txdat =  (start_power_init==1) ? data_init : data_tra_spi_out;
 assign SPI_MODE =  1'b0;
 initial
-  end_osc_cnt =  1'b0;
+  end_osc_cntRA =  1'b0;
+initial
+  end_osc_cntRB =  1'b0;
+initial
+  end_osc_cntRC =  1'b0;
 initial
   clk_en =  1'b1;
+wire end_osc_cntRV =  end_osc_cntR;
+assign end_osc_cnt =  end_osc_cntR;
 
-always @( posedge clk )
+always @( posedge clkA )
   begin
-    if (!rst)
-      end_osc_cnt <= 0;
+    if (!rstA)
+      end_osc_cntRA <= 0;
     else
-      case (power_bus_cnt)
-        n_buses : end_osc_cnt <= 1;
-        default : end_osc_cnt <= 0;
+      case (power_bus_cntA)
+        n_busesA : end_osc_cntRA <= 1;
+        default : end_osc_cntRA <= 0;
+      endcase
+  end
+
+always @( posedge clkB )
+  begin
+    if (!rstB)
+      end_osc_cntRB <= 0;
+    else
+      case (power_bus_cntB)
+        n_busesB : end_osc_cntRB <= 1;
+        default : end_osc_cntRB <= 0;
+      endcase
+  end
+
+always @( posedge clkC )
+  begin
+    if (!rstC)
+      end_osc_cntRC <= 0;
+    else
+      case (power_bus_cntC)
+        n_busesC : end_osc_cntRC <= 1;
+        default : end_osc_cntRC <= 0;
       endcase
   end
 
@@ -209,5 +257,41 @@ assign mw_spi_bus_fiforeg_nval17[7:0]  =  mw_spi_bus_fifotemp_wena ? mw_spi_bus_
 assign mw_spi_bus_fiforeg_nval18[7:0]  =  mw_spi_bus_fifotemp_wena ? mw_spi_bus_fifotemp_rena ? (mw_spi_bus_fifoaddr_cval==18) ? o_RX_Byte : mw_spi_bus_fiforeg_cval19[7:0]  : (mw_spi_bus_fifoaddr_cval==17) ? o_RX_Byte : mw_spi_bus_fiforeg_cval18[7:0]  : mw_spi_bus_fifotemp_rena ? mw_spi_bus_fiforeg_cval19[7:0]  : mw_spi_bus_fiforeg_cval18[7:0] ;
 assign mw_spi_bus_fiforeg_nval19[7:0]  =  mw_spi_bus_fifotemp_wena ? mw_spi_bus_fifotemp_rena ? (mw_spi_bus_fifoaddr_cval==19) ? o_RX_Byte : mw_spi_bus_fiforeg_cval20[7:0]  : (mw_spi_bus_fifoaddr_cval==18) ? o_RX_Byte : mw_spi_bus_fiforeg_cval19[7:0]  : mw_spi_bus_fifotemp_rena ? mw_spi_bus_fiforeg_cval20[7:0]  : mw_spi_bus_fiforeg_cval19[7:0] ;
 assign mw_spi_bus_fiforeg_nval20[7:0]  =  mw_spi_bus_fifotemp_wena ? mw_spi_bus_fifotemp_rena ? mw_spi_bus_fiforeg_cval20[7:0]  : (mw_spi_bus_fifoaddr_cval==19) ? o_RX_Byte : mw_spi_bus_fiforeg_cval20[7:0]  : mw_spi_bus_fifotemp_rena ? mw_spi_bus_fiforeg_cval20[7:0]  : mw_spi_bus_fiforeg_cval20[7:0] ;
+
+majorityVoter end_osc_cntRVoter (
+    .inA(end_osc_cntRA),
+    .inB(end_osc_cntRB),
+    .inC(end_osc_cntRC),
+    .out(end_osc_cntR),
+    .tmrErr(end_osc_cntRTmrError)
+    );
+
+fanout clkFanout (
+    .in(clk),
+    .outA(clkA),
+    .outB(clkB),
+    .outC(clkC)
+    );
+
+fanout #(.WIDTH(5)) n_busesFanout (
+    .in(n_buses),
+    .outA(n_busesA),
+    .outB(n_busesB),
+    .outC(n_busesC)
+    );
+
+fanout #(.WIDTH(5)) power_bus_cntFanout (
+    .in(power_bus_cnt),
+    .outA(power_bus_cntA),
+    .outB(power_bus_cntB),
+    .outC(power_bus_cntC)
+    );
+
+fanout rstFanout (
+    .in(rst),
+    .outA(rstA),
+    .outB(rstB),
+    .outC(rstC)
+    );
 endmodule
 

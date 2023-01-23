@@ -6,25 +6,29 @@
  *                                                                                                  *
  * user    : lucas                                                                                  *
  * host    : DESKTOP-BFDSFP2                                                                        *
- * date    : 06/10/2022 13:52:37                                                                    *
+ * date    : 05/12/2022 13:28:00                                                                    *
  *                                                                                                  *
- * workdir : /mnt/c/Users/Lucas/Documents/GitHub/mopshub_triplicated/triplicated/mopshub_top_board/hdl *
- * cmd     : /mnt/c/Users/Lucas/Desktop/mopshub_triplication/tmrg-master/bin/tmrg -vv -c tmrg.cfg   *
- * tmrg rev:                                                                                        *
+ * workdir : /mnt/c/Users/Lucas/Documents/GitHub/mopshub_triplicated/triplicated/mopshub_top_board_16/hdl *
+ * cmd     : /mnt/c/Users/Lucas/Documents/GitHub/mopshub_triplicated/tmrg-master/bin/tmrg -vv -c    *
+ *           tmrg.cfg                                                                               *
+ * tmrg rev: b25f042058e4e97751df2a0933c24aeadd5a78a5                                               *
  *                                                                                                  *
  * src file: bridge_controller_struct.v                                                             *
- *           Git SHA           : c110441b08b692cc54ebd4a3b84a2599430e8f93                           *
- *           Modification time : 2022-10-06 13:25:16                                                *
- *           File Size         : 10905                                                              *
- *           MD5 hash          : b740bf106b90b820751961aa57e6cc01                                   *
+ *           Git SHA           : b25f042058e4e97751df2a0933c24aeadd5a78a5 (?? bridge_controller_struct.v) *
+ *           Modification time : 2022-12-04 15:41:31.644210                                         *
+ *           File Size         : 11396                                                              *
+ *           MD5 hash          : 8a6a787dec6f6469aa333c6d4f8aa1e7                                   *
  *                                                                                                  *
  ****************************************************************************************************/
 
+`resetall 
+`timescale  1ns/10ps
 module bridge_controllerTMR(
   input wire  buffer_en ,
   input wire [4:0] can_rec_select ,
   input wire  clk ,
   input wire [75:0] data_tra_downlink ,
+  input wire  debug_mode ,
   input wire  end_mon_init ,
   input wire  end_osc_cnt ,
   input wire  end_read_elink ,
@@ -65,6 +69,7 @@ module bridge_controllerTMR(
   output wire  write_sig_can_n 
 );
 wire abort_mes;
+wire [4:0] can_rec_select_active;
 wire [75:0] data_tra_mes;
 wire [4:0] data_tra_select;
 wire en_rec_reg;
@@ -112,7 +117,7 @@ wire timeoutrst_trim;
 buffer_rec_dataTMR rec_data_buf0 (
     .clk(clk),
     .data_rec_in(read_can),
-    .can_rec_select(can_rec_select),
+    .can_rec_select(can_rec_select_active),
     .buffer_en(en_rec_reg),
     .rst(rst),
     .addr(addr_can),
@@ -124,6 +129,7 @@ buffer_tra_dataTMR tra_data_buf0 (
     .data_tra_in(data_tra_downlink),
     .buffer_en(buffer_en),
     .rst(rst),
+    .debug_mode(debug_mode),
     .data_tra_select(data_tra_select),
     .data_tra_out(data_tra_mes)
     );
@@ -167,7 +173,7 @@ can_elink_bridge_SMTMR can_elink_bridge_SM0 (
 
 canakari_interfaceTMR canakari_interface0 (
     .abort(abort_mes),
-    .can_rec_select(can_rec_select),
+    .can_rec_select(can_rec_select_active),
     .clk(clk),
     .data_tra_mes(data_tra_mes),
     .data_tra_select(data_tra_select),
@@ -269,5 +275,6 @@ initial
     time_limit =  32'd50000000;
     time_limit_trim =  32'd10000000;
   end
+assign can_rec_select_active =  (debug_mode==0) ? can_rec_select : 5'b00000;
 endmodule
 

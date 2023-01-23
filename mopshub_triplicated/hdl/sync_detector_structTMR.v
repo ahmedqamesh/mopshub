@@ -6,20 +6,23 @@
  *                                                                                                  *
  * user    : lucas                                                                                  *
  * host    : DESKTOP-BFDSFP2                                                                        *
- * date    : 06/10/2022 13:53:04                                                                    *
+ * date    : 05/12/2022 13:28:35                                                                    *
  *                                                                                                  *
- * workdir : /mnt/c/Users/Lucas/Documents/GitHub/mopshub_triplicated/triplicated/mopshub_top_board/hdl *
- * cmd     : /mnt/c/Users/Lucas/Desktop/mopshub_triplication/tmrg-master/bin/tmrg -vv -c tmrg.cfg   *
- * tmrg rev:                                                                                        *
+ * workdir : /mnt/c/Users/Lucas/Documents/GitHub/mopshub_triplicated/triplicated/mopshub_top_board_16/hdl *
+ * cmd     : /mnt/c/Users/Lucas/Documents/GitHub/mopshub_triplicated/tmrg-master/bin/tmrg -vv -c    *
+ *           tmrg.cfg                                                                               *
+ * tmrg rev: b25f042058e4e97751df2a0933c24aeadd5a78a5                                               *
  *                                                                                                  *
  * src file: sync_detector_struct.v                                                                 *
- *           Git SHA           : c110441b08b692cc54ebd4a3b84a2599430e8f93                           *
- *           Modification time : 2022-10-06 09:29:35                                                *
- *           File Size         : 4604                                                               *
- *           MD5 hash          : 88c6cb6520566fba1f16b1272e592f56                                   *
+ *           Git SHA           : b25f042058e4e97751df2a0933c24aeadd5a78a5 (?? sync_detector_struct.v) *
+ *           Modification time : 2022-12-04 15:41:31.668209                                         *
+ *           File Size         : 5147                                                               *
+ *           MD5 hash          : 9f853a9e5f644c95bc79a6350b783794                                   *
  *                                                                                                  *
  ****************************************************************************************************/
 
+`resetall 
+`timescale  1ns/10ps
 module sync_detectorTMR(
   input wire [10:0] bitstream_in ,
   input wire  clk ,
@@ -29,64 +32,263 @@ module sync_detectorTMR(
   input wire [9:0] COMMAp ,
   input wire [9:0] COMMAn 
 );
+wire rstC;
+wire rstB;
+wire rstA;
+wire comma_valid_bits_orC;
+wire comma_valid_bits_orB;
+wire comma_valid_bits_orA;
+wire [1:0] comma_valid_bitsC;
+wire [1:0] comma_valid_bitsB;
+wire [1:0] comma_valid_bitsA;
+wire clkC;
+wire clkB;
+wire clkA;
+wire [9:0] bitstream_align1C;
+wire [9:0] bitstream_align1B;
+wire [9:0] bitstream_align1A;
+wire [9:0] bitstream_align0C;
+wire [9:0] bitstream_align0B;
+wire [9:0] bitstream_align0A;
+wire [9:0] COMMApC;
+wire [9:0] COMMApB;
+wire [9:0] COMMApA;
+wor word10b_regTmrError;
+wire [9:0] word10b_reg;
+wor alignment_regTmrError;
+wire [4:0] alignment_reg;
+wor align_selectTmrError;
+wire align_select;
 wire [9:0] bitstream_align0;
 wire [1:0] comma_valid_bits;
 wire [9:0] bitstream_align1;
-reg  [4:0] alignment_reg ;
+reg  [4:0] alignment_regA ;
+reg  [4:0] alignment_regB ;
+reg  [4:0] alignment_regC ;
 wire comma_valid_bits_or;
-reg  align_select ;
-reg  [9:0] word10b_reg ;
+reg  align_selectA ;
+reg  align_selectB ;
+reg  align_selectC ;
+reg  [9:0] word10b_regA ;
+reg  [9:0] word10b_regB ;
+reg  [9:0] word10b_regC ;
+wire align_selectV =  align_select;
+wire [4:0] alignment_regV =  alignment_reg;
+wire [9:0] word10b_regV =  word10b_reg;
 initial
   begin
-    word10b_reg =  10'b0;
-    align_select =  0;
-    alignment_reg =  5'b0;
+    word10b_regA =  10'b0;
+    align_selectA =  0;
+    alignment_regA =  5'b0;
+  end
+initial
+  begin
+    word10b_regB =  10'b0;
+    align_selectB =  0;
+    alignment_regB =  5'b0;
+  end
+initial
+  begin
+    word10b_regC =  10'b0;
+    align_selectC =  0;
+    alignment_regC =  5'b0;
   end
 assign comma_valid_bits_or =  (comma_valid_bits[1] |comma_valid_bits[0] );
 
-always @( posedge clk )
-  if (!rst)
+always @( posedge clkA )
+  if (!rstA)
     begin
-      align_select <= 2'b0;
-      alignment_reg <= 5'b0;
+      align_selectA <= 2'b0;
+      alignment_regA <= 5'b0;
     end
   else
     begin
-      if (comma_valid_bits_or==1)
+      if (comma_valid_bits_orA==1)
         begin
-          alignment_reg <= 5'b10000;
-          case (comma_valid_bits)
-            2'b01 : align_select <= 1'b0;
-            2'b10 : align_select <= 1'b1;
-            default : align_select <= 1'b0;
+          alignment_regA <= 5'b10000;
+          case (comma_valid_bitsA)
+            2'b01 : align_selectA <= 1'b0;
+            2'b10 : align_selectA <= 1'b1;
+            default : align_selectA <= 1'b0;
           endcase
         end
       else
         begin
-          alignment_reg <= {alignment_reg[0] ,alignment_reg[4:1] };
-          align_select <= align_select;
+          alignment_regA <= {alignment_regA[0] ,alignment_regA[4:1] };
+          align_selectA <= align_selectA;
+        end
+    end
+
+always @( posedge clkB )
+  if (!rstB)
+    begin
+      align_selectB <= 2'b0;
+      alignment_regB <= 5'b0;
+    end
+  else
+    begin
+      if (comma_valid_bits_orB==1)
+        begin
+          alignment_regB <= 5'b10000;
+          case (comma_valid_bitsB)
+            2'b01 : align_selectB <= 1'b0;
+            2'b10 : align_selectB <= 1'b1;
+            default : align_selectB <= 1'b0;
+          endcase
+        end
+      else
+        begin
+          alignment_regB <= {alignment_regB[0] ,alignment_regB[4:1] };
+          align_selectB <= align_selectB;
+        end
+    end
+
+always @( posedge clkC )
+  if (!rstC)
+    begin
+      align_selectC <= 2'b0;
+      alignment_regC <= 5'b0;
+    end
+  else
+    begin
+      if (comma_valid_bits_orC==1)
+        begin
+          alignment_regC <= 5'b10000;
+          case (comma_valid_bitsC)
+            2'b01 : align_selectC <= 1'b0;
+            2'b10 : align_selectC <= 1'b1;
+            default : align_selectC <= 1'b0;
+          endcase
+        end
+      else
+        begin
+          alignment_regC <= {alignment_regC[0] ,alignment_regC[4:1] };
+          align_selectC <= align_selectC;
         end
     end
 assign word10b_rdy =  alignment_reg[4] ;
 assign word10b =  word10b_reg;
 
-always @( posedge clk )
-  if (!rst)
-    word10b_reg <= COMMAp;
+always @( posedge clkA )
+  if (!rstA)
+    word10b_regA <= COMMApA;
   else
     begin
-      if (alignment_reg[0] ==1)
-        case (align_select)
-          1'b0 : word10b_reg <= bitstream_align0;
-          1'b1 : word10b_reg <= bitstream_align1;
-          default : word10b_reg <= COMMAp;
+      if (alignment_regA[0] ==1)
+        case (align_selectA)
+          1'b0 : word10b_regA <= bitstream_align0A;
+          1'b1 : word10b_regA <= bitstream_align1A;
+          default : word10b_regA <= COMMApA;
         endcase
       else
-        word10b_reg <= word10b_reg;
+        word10b_regA <= word10b_regA;
+    end
+
+always @( posedge clkB )
+  if (!rstB)
+    word10b_regB <= COMMApB;
+  else
+    begin
+      if (alignment_regB[0] ==1)
+        case (align_selectB)
+          1'b0 : word10b_regB <= bitstream_align0B;
+          1'b1 : word10b_regB <= bitstream_align1B;
+          default : word10b_regB <= COMMApB;
+        endcase
+      else
+        word10b_regB <= word10b_regB;
+    end
+
+always @( posedge clkC )
+  if (!rstC)
+    word10b_regC <= COMMApC;
+  else
+    begin
+      if (alignment_regC[0] ==1)
+        case (align_selectC)
+          1'b0 : word10b_regC <= bitstream_align0C;
+          1'b1 : word10b_regC <= bitstream_align1C;
+          default : word10b_regC <= COMMApC;
+        endcase
+      else
+        word10b_regC <= word10b_regC;
     end
 assign bitstream_align0 =  bitstream_in[9:0] ;
 assign bitstream_align1 =  bitstream_in[1+9:1+0] ;
 assign comma_valid_bits[0]  =  (bitstream_align0==COMMAp||bitstream_align0==COMMAn) ? 1 : 0;
 assign comma_valid_bits[1]  =  (bitstream_align1==COMMAp||bitstream_align1==COMMAn) ? 1 : 0;
+
+majorityVoter align_selectVoter (
+    .inA(align_selectA),
+    .inB(align_selectB),
+    .inC(align_selectC),
+    .out(align_select),
+    .tmrErr(align_selectTmrError)
+    );
+
+majorityVoter #(.WIDTH(5)) alignment_regVoter (
+    .inA(alignment_regA),
+    .inB(alignment_regB),
+    .inC(alignment_regC),
+    .out(alignment_reg),
+    .tmrErr(alignment_regTmrError)
+    );
+
+majorityVoter #(.WIDTH(10)) word10b_regVoter (
+    .inA(word10b_regA),
+    .inB(word10b_regB),
+    .inC(word10b_regC),
+    .out(word10b_reg),
+    .tmrErr(word10b_regTmrError)
+    );
+
+fanout #(.WIDTH(10)) COMMApFanout (
+    .in(COMMAp),
+    .outA(COMMApA),
+    .outB(COMMApB),
+    .outC(COMMApC)
+    );
+
+fanout #(.WIDTH(10)) bitstream_align0Fanout (
+    .in(bitstream_align0),
+    .outA(bitstream_align0A),
+    .outB(bitstream_align0B),
+    .outC(bitstream_align0C)
+    );
+
+fanout #(.WIDTH(10)) bitstream_align1Fanout (
+    .in(bitstream_align1),
+    .outA(bitstream_align1A),
+    .outB(bitstream_align1B),
+    .outC(bitstream_align1C)
+    );
+
+fanout clkFanout (
+    .in(clk),
+    .outA(clkA),
+    .outB(clkB),
+    .outC(clkC)
+    );
+
+fanout #(.WIDTH(2)) comma_valid_bitsFanout (
+    .in(comma_valid_bits),
+    .outA(comma_valid_bitsA),
+    .outB(comma_valid_bitsB),
+    .outC(comma_valid_bitsC)
+    );
+
+fanout comma_valid_bits_orFanout (
+    .in(comma_valid_bits_or),
+    .outA(comma_valid_bits_orA),
+    .outB(comma_valid_bits_orB),
+    .outC(comma_valid_bits_orC)
+    );
+
+fanout rstFanout (
+    .in(rst),
+    .outA(rstA),
+    .outB(rstB),
+    .outC(rstC)
+    );
 endmodule
 

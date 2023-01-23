@@ -6,20 +6,23 @@
  *                                                                                                  *
  * user    : lucas                                                                                  *
  * host    : DESKTOP-BFDSFP2                                                                        *
- * date    : 06/10/2022 13:52:40                                                                    *
+ * date    : 05/12/2022 13:28:03                                                                    *
  *                                                                                                  *
- * workdir : /mnt/c/Users/Lucas/Documents/GitHub/mopshub_triplicated/triplicated/mopshub_top_board/hdl *
- * cmd     : /mnt/c/Users/Lucas/Desktop/mopshub_triplication/tmrg-master/bin/tmrg -vv -c tmrg.cfg   *
- * tmrg rev:                                                                                        *
+ * workdir : /mnt/c/Users/Lucas/Documents/GitHub/mopshub_triplicated/triplicated/mopshub_top_board_16/hdl *
+ * cmd     : /mnt/c/Users/Lucas/Documents/GitHub/mopshub_triplicated/tmrg-master/bin/tmrg -vv -c    *
+ *           tmrg.cfg                                                                               *
+ * tmrg rev: b25f042058e4e97751df2a0933c24aeadd5a78a5                                               *
  *                                                                                                  *
  * src file: can_spi_debuger_struct.v                                                               *
- *           Git SHA           : c110441b08b692cc54ebd4a3b84a2599430e8f93                           *
- *           Modification time : 2022-10-06 09:02:28                                                *
- *           File Size         : 2064                                                               *
- *           MD5 hash          : 2cb594be4b96f0fb6fbb418959be45ca                                   *
+ *           Git SHA           : b25f042058e4e97751df2a0933c24aeadd5a78a5 (?? can_spi_debuger_struct.v) *
+ *           Modification time : 2022-12-04 15:41:31.649242                                         *
+ *           File Size         : 2553                                                               *
+ *           MD5 hash          : 752bcec565d267c4111d77bc3cd2ac9e                                   *
  *                                                                                                  *
  ****************************************************************************************************/
 
+`resetall 
+`timescale  1ns/10ps
 module can_spi_debugerTMR(
   input wire [7:0] Kchar_comma ,
   input wire [7:0] Kchar_eop ,
@@ -31,51 +34,242 @@ module can_spi_debugerTMR(
   output wire [9:0] data_rec_spi_can_10bitout ,
   output wire  spi_can_mode 
 );
-reg  [5:0] cnt_out ;
-reg  [9:0] data_rec_spi_can_10bitout_reg ;
-reg  spi_can_mode_reg ;
+wire spi_can_modeC;
+wire spi_can_modeB;
+wire spi_can_modeA;
+wire spi_can_irqC;
+wire spi_can_irqB;
+wire spi_can_irqA;
+wire rstC;
+wire rstB;
+wire rstA;
+wire [9:0] data_rec_can_10bitoutC;
+wire [9:0] data_rec_can_10bitoutB;
+wire [9:0] data_rec_can_10bitoutA;
+wire clkC;
+wire clkB;
+wire clkA;
+wire [7:0] Kchar_eopC;
+wire [7:0] Kchar_eopB;
+wire [7:0] Kchar_eopA;
+wire [7:0] Kchar_commaC;
+wire [7:0] Kchar_commaB;
+wire [7:0] Kchar_commaA;
+wor spi_can_mode_regTmrError;
+wire spi_can_mode_reg;
+wor data_rec_spi_can_10bitout_regTmrError;
+wire [9:0] data_rec_spi_can_10bitout_reg;
+wor cnt_outTmrError;
+wire [5:0] cnt_out;
+reg  [5:0] cnt_outA ;
+reg  [5:0] cnt_outB ;
+reg  [5:0] cnt_outC ;
+reg  [9:0] data_rec_spi_can_10bitout_regA ;
+reg  [9:0] data_rec_spi_can_10bitout_regB ;
+reg  [9:0] data_rec_spi_can_10bitout_regC ;
+reg  spi_can_mode_regA ;
+reg  spi_can_mode_regB ;
+reg  spi_can_mode_regC ;
+wire [5:0] cnt_outV =  cnt_out;
+wire [9:0] data_rec_spi_can_10bitout_regV =  data_rec_spi_can_10bitout_reg;
+wire spi_can_mode_regV =  spi_can_mode_reg;
 assign data_rec_spi_can_10bitout =  data_rec_spi_can_10bitout_reg;
 assign spi_can_mode =  spi_can_mode_reg;
 initial
-  spi_can_mode_reg =  1'b0;
+  spi_can_mode_regA =  1'b0;
 initial
-  cnt_out =  6'b0;
+  spi_can_mode_regB =  1'b0;
 initial
-  data_rec_spi_can_10bitout_reg =  10'b0;
+  spi_can_mode_regC =  1'b0;
+initial
+  cnt_outA =  6'b0;
+initial
+  cnt_outB =  6'b0;
+initial
+  cnt_outC =  6'b0;
+initial
+  data_rec_spi_can_10bitout_regA =  10'b0;
+initial
+  data_rec_spi_can_10bitout_regB =  10'b0;
+initial
+  data_rec_spi_can_10bitout_regC =  10'b0;
 
-always @( posedge clk )
+always @( posedge clkA )
   begin
-    if (!rst)
-      cnt_out <= 6'b0;
-    if (spi_can_mode==1'b0&&spi_can_irq==1'b1)
+    if (!rstA)
+      cnt_outA <= 6'b0;
+    if (spi_can_modeA==1'b0&&spi_can_irqA==1'b1)
       begin
-        spi_can_mode_reg <= 1'b1;
-        cnt_out <= 6'b0;
+        spi_can_mode_regA <= 1'b1;
+        cnt_outA <= 6'b0;
       end
     else
-      if (spi_can_mode==1'b1||spi_can_irq==1'b1)
+      if (spi_can_modeA==1'b1||spi_can_irqA==1'b1)
         begin
-          if (cnt_out==6'h15)
-            spi_can_mode_reg <= 1'b0;
+          if (cnt_outA==6'h15)
+            spi_can_mode_regA <= 1'b0;
           else
-            cnt_out <= cnt_out+1'b1;
+            cnt_outA <= cnt_outA+1'b1;
         end
       else
-        cnt_out <= 6'b0;
+        cnt_outA <= 6'b0;
   end
 
-always @( posedge clk )
+always @( posedge clkB )
   begin
-    if (!rst)
-      data_rec_spi_can_10bitout_reg <= 10'b0;
+    if (!rstB)
+      cnt_outB <= 6'b0;
+    if (spi_can_modeB==1'b0&&spi_can_irqB==1'b1)
+      begin
+        spi_can_mode_regB <= 1'b1;
+        cnt_outB <= 6'b0;
+      end
     else
-      if (cnt_out>6'h06&&cnt_out<=6'h08)
-        data_rec_spi_can_10bitout_reg <= {2'b01,Kchar_eop};
+      if (spi_can_modeB==1'b1||spi_can_irqB==1'b1)
+        begin
+          if (cnt_outB==6'h15)
+            spi_can_mode_regB <= 1'b0;
+          else
+            cnt_outB <= cnt_outB+1'b1;
+        end
       else
-        if (cnt_out>=6'h09&&cnt_out<=6'h14)
-          data_rec_spi_can_10bitout_reg <= {2'b11,Kchar_comma};
-        else
-          data_rec_spi_can_10bitout_reg <= data_rec_can_10bitout;
+        cnt_outB <= 6'b0;
   end
+
+always @( posedge clkC )
+  begin
+    if (!rstC)
+      cnt_outC <= 6'b0;
+    if (spi_can_modeC==1'b0&&spi_can_irqC==1'b1)
+      begin
+        spi_can_mode_regC <= 1'b1;
+        cnt_outC <= 6'b0;
+      end
+    else
+      if (spi_can_modeC==1'b1||spi_can_irqC==1'b1)
+        begin
+          if (cnt_outC==6'h15)
+            spi_can_mode_regC <= 1'b0;
+          else
+            cnt_outC <= cnt_outC+1'b1;
+        end
+      else
+        cnt_outC <= 6'b0;
+  end
+
+always @( posedge clkA )
+  begin
+    if (!rstA)
+      data_rec_spi_can_10bitout_regA <= 10'b0;
+    else
+      if (cnt_outA>6'h06&&cnt_outA<=6'h08)
+        data_rec_spi_can_10bitout_regA <= {2'b01,Kchar_eopA};
+      else
+        if (cnt_outA>=6'h09&&cnt_outA<=6'h14)
+          data_rec_spi_can_10bitout_regA <= {2'b11,Kchar_commaA};
+        else
+          data_rec_spi_can_10bitout_regA <= data_rec_can_10bitoutA;
+  end
+
+always @( posedge clkB )
+  begin
+    if (!rstB)
+      data_rec_spi_can_10bitout_regB <= 10'b0;
+    else
+      if (cnt_outB>6'h06&&cnt_outB<=6'h08)
+        data_rec_spi_can_10bitout_regB <= {2'b01,Kchar_eopB};
+      else
+        if (cnt_outB>=6'h09&&cnt_outB<=6'h14)
+          data_rec_spi_can_10bitout_regB <= {2'b11,Kchar_commaB};
+        else
+          data_rec_spi_can_10bitout_regB <= data_rec_can_10bitoutB;
+  end
+
+always @( posedge clkC )
+  begin
+    if (!rstC)
+      data_rec_spi_can_10bitout_regC <= 10'b0;
+    else
+      if (cnt_outC>6'h06&&cnt_outC<=6'h08)
+        data_rec_spi_can_10bitout_regC <= {2'b01,Kchar_eopC};
+      else
+        if (cnt_outC>=6'h09&&cnt_outC<=6'h14)
+          data_rec_spi_can_10bitout_regC <= {2'b11,Kchar_commaC};
+        else
+          data_rec_spi_can_10bitout_regC <= data_rec_can_10bitoutC;
+  end
+
+majorityVoter #(.WIDTH(6)) cnt_outVoter (
+    .inA(cnt_outA),
+    .inB(cnt_outB),
+    .inC(cnt_outC),
+    .out(cnt_out),
+    .tmrErr(cnt_outTmrError)
+    );
+
+majorityVoter #(.WIDTH(10)) data_rec_spi_can_10bitout_regVoter (
+    .inA(data_rec_spi_can_10bitout_regA),
+    .inB(data_rec_spi_can_10bitout_regB),
+    .inC(data_rec_spi_can_10bitout_regC),
+    .out(data_rec_spi_can_10bitout_reg),
+    .tmrErr(data_rec_spi_can_10bitout_regTmrError)
+    );
+
+majorityVoter spi_can_mode_regVoter (
+    .inA(spi_can_mode_regA),
+    .inB(spi_can_mode_regB),
+    .inC(spi_can_mode_regC),
+    .out(spi_can_mode_reg),
+    .tmrErr(spi_can_mode_regTmrError)
+    );
+
+fanout #(.WIDTH(8)) Kchar_commaFanout (
+    .in(Kchar_comma),
+    .outA(Kchar_commaA),
+    .outB(Kchar_commaB),
+    .outC(Kchar_commaC)
+    );
+
+fanout #(.WIDTH(8)) Kchar_eopFanout (
+    .in(Kchar_eop),
+    .outA(Kchar_eopA),
+    .outB(Kchar_eopB),
+    .outC(Kchar_eopC)
+    );
+
+fanout clkFanout (
+    .in(clk),
+    .outA(clkA),
+    .outB(clkB),
+    .outC(clkC)
+    );
+
+fanout #(.WIDTH(10)) data_rec_can_10bitoutFanout (
+    .in(data_rec_can_10bitout),
+    .outA(data_rec_can_10bitoutA),
+    .outB(data_rec_can_10bitoutB),
+    .outC(data_rec_can_10bitoutC)
+    );
+
+fanout rstFanout (
+    .in(rst),
+    .outA(rstA),
+    .outB(rstB),
+    .outC(rstC)
+    );
+
+fanout spi_can_irqFanout (
+    .in(spi_can_irq),
+    .outA(spi_can_irqA),
+    .outB(spi_can_irqB),
+    .outC(spi_can_irqC)
+    );
+
+fanout spi_can_modeFanout (
+    .in(spi_can_mode),
+    .outA(spi_can_modeA),
+    .outB(spi_can_modeB),
+    .outC(spi_can_modeC)
+    );
 endmodule
 

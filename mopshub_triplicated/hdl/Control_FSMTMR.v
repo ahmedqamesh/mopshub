@@ -6,17 +6,18 @@
  *                                                                                                  *
  * user    : lucas                                                                                  *
  * host    : DESKTOP-BFDSFP2                                                                        *
- * date    : 06/10/2022 13:52:32                                                                    *
+ * date    : 05/12/2022 13:27:57                                                                    *
  *                                                                                                  *
- * workdir : /mnt/c/Users/Lucas/Documents/GitHub/mopshub_triplicated/triplicated/mopshub_top_board/hdl *
- * cmd     : /mnt/c/Users/Lucas/Desktop/mopshub_triplication/tmrg-master/bin/tmrg -vv -c tmrg.cfg   *
- * tmrg rev:                                                                                        *
+ * workdir : /mnt/c/Users/Lucas/Documents/GitHub/mopshub_triplicated/triplicated/mopshub_top_board_16/hdl *
+ * cmd     : /mnt/c/Users/Lucas/Documents/GitHub/mopshub_triplicated/tmrg-master/bin/tmrg -vv -c    *
+ *           tmrg.cfg                                                                               *
+ * tmrg rev: b25f042058e4e97751df2a0933c24aeadd5a78a5                                               *
  *                                                                                                  *
  * src file: Control_FSM.v                                                                          *
- *           Git SHA           : c110441b08b692cc54ebd4a3b84a2599430e8f93                           *
- *           Modification time : 2022-08-30 13:44:36                                                *
- *           File Size         : 2127                                                               *
- *           MD5 hash          : 85076bdd4b43b14747e8a775802f448e                                   *
+ *           Git SHA           : b25f042058e4e97751df2a0933c24aeadd5a78a5 (?? Control_FSM.v)        *
+ *           Modification time : 2022-12-04 15:41:31.638209                                         *
+ *           File Size         : 2221                                                               *
+ *           MD5 hash          : 6edf04175f4d6d4d6bc7ebc8eb5f35c9                                   *
  *                                                                                                  *
  ****************************************************************************************************/
 

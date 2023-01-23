@@ -6,17 +6,18 @@
  *                                                                                                  *
  * user    : lucas                                                                                  *
  * host    : DESKTOP-BFDSFP2                                                                        *
- * date    : 06/10/2022 13:52:43                                                                    *
+ * date    : 05/12/2022 13:28:07                                                                    *
  *                                                                                                  *
- * workdir : /mnt/c/Users/Lucas/Documents/GitHub/mopshub_triplicated/triplicated/mopshub_top_board/hdl *
- * cmd     : /mnt/c/Users/Lucas/Desktop/mopshub_triplication/tmrg-master/bin/tmrg -vv -c tmrg.cfg   *
- * tmrg rev:                                                                                        *
+ * workdir : /mnt/c/Users/Lucas/Documents/GitHub/mopshub_triplicated/triplicated/mopshub_top_board_16/hdl *
+ * cmd     : /mnt/c/Users/Lucas/Documents/GitHub/mopshub_triplicated/tmrg-master/bin/tmrg -vv -c    *
+ *           tmrg.cfg                                                                               *
+ * tmrg rev: b25f042058e4e97751df2a0933c24aeadd5a78a5                                               *
  *                                                                                                  *
  * src file: dec_8b10b_mopshub.v                                                                    *
- *           Git SHA           : c110441b08b692cc54ebd4a3b84a2599430e8f93                           *
- *           Modification time : 2022-10-05 21:49:54                                                *
- *           File Size         : 5906                                                               *
- *           MD5 hash          : 3d3da33e92aa7d351e3f6ff9cdaf6513                                   *
+ *           Git SHA           : b25f042058e4e97751df2a0933c24aeadd5a78a5 (?? dec_8b10b_mopshub.v)  *
+ *           Modification time : 2022-12-04 16:25:30.647307                                         *
+ *           File Size         : 5701                                                               *
+ *           MD5 hash          : 4131a4e962477085a392df761539abc8                                   *
  *                                                                                                  *
  ****************************************************************************************************/
 
@@ -42,9 +43,6 @@ wire p13A;
 wire ko_sC;
 wire ko_sB;
 wire ko_sA;
-wire ko_r_vC;
-wire ko_r_vB;
-wire ko_r_vA;
 wire jiC;
 wire jiB;
 wire jiA;
@@ -81,15 +79,6 @@ wire doA;
 wire dispoutC;
 wire dispoutB;
 wire dispoutA;
-wire dispin_vC;
-wire dispin_vB;
-wire dispin_vA;
-wire dispinC;
-wire dispinB;
-wire dispinA;
-wire disp_err_r_vC;
-wire disp_err_r_vB;
-wire disp_err_r_vA;
 wire disp6pC;
 wire disp6pB;
 wire disp6pA;
@@ -105,15 +94,9 @@ wire disp4nA;
 wire diC;
 wire diB;
 wire diA;
-wire [7:0] dataout_r_vC;
-wire [7:0] dataout_r_vB;
-wire [7:0] dataout_r_vA;
 wire datain_validC;
 wire datain_validB;
 wire datain_validA;
-wire code_err_r_vC;
-wire code_err_r_vB;
-wire code_err_r_vA;
 wire coC;
 wire coB;
 wire coA;
@@ -137,30 +120,17 @@ wire aiB;
 wire aiA;
 wor ko_rTmrError;
 wire ko_r;
-wor dispin_rTmrError;
-wire dispin_r;
+wor dispinTmrError;
+wire dispin;
 wor disp_err_rTmrError;
 wire disp_err_r;
 wor dataout_rTmrError;
 wire [7:0] dataout_r;
 wor code_err_rTmrError;
 wire code_err_r;
-reg  dispin_rA ;
-reg  dispin_rB ;
-reg  dispin_rC ;
-reg  disp_err_rA ;
-reg  disp_err_rB ;
-reg  disp_err_rC ;
-reg  [7:0] dataout_rA ;
-reg  [7:0] dataout_rB ;
-reg  [7:0] dataout_rC ;
-reg  ko_rA ;
-reg  ko_rB ;
-reg  ko_rC ;
-reg  code_err_rA ;
-reg  code_err_rB ;
-reg  code_err_rC ;
-wire dispin =  dispin_r;
+reg  dispinA ;
+reg  dispinB ;
+reg  dispinC ;
 wire ai =  datain[9] ;
 wire bi =  datain[8] ;
 wire ci =  datain[7] ;
@@ -216,17 +186,29 @@ wire disp6p =  (p31&(ei|ii))|(p22&ei&ii);
 wire disp6n =  (p13&!(ei&ii))|(p22&!ei&!ii);
 wire disp4p =  fghjp31;
 wire disp4n =  fghjp13;
-wire dispin_v =  dispin_r;
-wire disp_err_r_v =  disp_err_r;
-wire [7:0] dataout_r_v =  dataout_r;
-wire ko_r_v =  ko_r;
-wire code_err_r_v =  code_err_r;
+reg  disp_err_rA ;
+reg  disp_err_rB ;
+reg  disp_err_rC ;
+reg  [7:0] dataout_rA ;
+reg  [7:0] dataout_rB ;
+reg  [7:0] dataout_rC ;
+reg  ko_rA ;
+reg  ko_rB ;
+reg  ko_rC ;
+reg  code_err_rA ;
+reg  code_err_rB ;
+reg  code_err_rC ;
+wire dispinV =  dispin;
+wire disp_err_rV =  disp_err_rV;
+wire [7:0] dataout_rV =  dataout_r;
+wire ko_rV =  ko_r;
+wire code_err_rV =  code_err_r;
 
 always @( posedge clkA or negedge rstA )
   begin : output_procA
     if (rstA==0)
       begin
-        dispin_rA <= 0;
+        dispinA <= 0;
         disp_err_rA <= 0;
         dataout_rA <= 0;
         ko_rA <= 0;
@@ -237,17 +219,9 @@ always @( posedge clkA or negedge rstA )
         begin
           code_err_rA <= ((aiA&biA&ciA&diA)|(! ( aiA|biA|ciA|diA ) ))|(p13A&(! eiA )&(! iiA ))|(p31A&eiA&iiA)|((fiA&giA&hiA&jiA)|(! ( fiA|giA|hiA|jiA ) ))|((eiA&iiA&fiA&giA&hiA)|(! ( eiA|iiA|fiA|giA|hiA ) ))|(((! iiA )&eiA&giA&hiA&jiA)|(! ( (! iiA )|eiA|giA|hiA|jiA ) ))|((((! eiA )&(! iiA )&giA&hiA&jiA)|(! ( (! eiA )|(! iiA )|giA|hiA|jiA ) ))&(! ( (ciA&diA&eiA)|(! ( ciA|diA|eiA ) ) ) ))|((! p31A )&eiA&(! iiA )&(! giA )&(! hiA )&(! jiA ))|((! p13A )&(! eiA )&iiA&giA&hiA&jiA);
           disp_err_rA <= ((dispinA&disp6pA)|(disp6nA&!dispinA)|(dispinA&!disp6nA&fiA&giA)|(dispinA&aiA&biA&ciA)|(dispinA&!disp6nA&disp4pA)|(! dispinA & ! disp6pA & ! fiA & ! giA )|(! dispinA & ! aiA & ! biA & ! ciA )|(! dispinA & ! disp6pA & disp4nA )|(disp6pA&disp4pA)|(disp6nA&disp4nA));
-          dispin_rA <= dispoutA;
+          dispinA <= dispoutA;
           dataout_rA <= {hoA,goA,foA,eoA,doA,coA,boA,aoA};
           ko_rA <= ko_sA;
-        end
-      else
-        begin
-          dispin_rA <= dispin_vA;
-          disp_err_rA <= disp_err_r_vA;
-          dataout_rA <= dataout_r_vA;
-          ko_rA <= ko_r_vA;
-          code_err_rA <= code_err_r_vA;
         end
   end
 
@@ -255,7 +229,7 @@ always @( posedge clkB or negedge rstB )
   begin : output_procB
     if (rstB==0)
       begin
-        dispin_rB <= 0;
+        dispinB <= 0;
         disp_err_rB <= 0;
         dataout_rB <= 0;
         ko_rB <= 0;
@@ -266,17 +240,9 @@ always @( posedge clkB or negedge rstB )
         begin
           code_err_rB <= ((aiB&biB&ciB&diB)|(! ( aiB|biB|ciB|diB ) ))|(p13B&(! eiB )&(! iiB ))|(p31B&eiB&iiB)|((fiB&giB&hiB&jiB)|(! ( fiB|giB|hiB|jiB ) ))|((eiB&iiB&fiB&giB&hiB)|(! ( eiB|iiB|fiB|giB|hiB ) ))|(((! iiB )&eiB&giB&hiB&jiB)|(! ( (! iiB )|eiB|giB|hiB|jiB ) ))|((((! eiB )&(! iiB )&giB&hiB&jiB)|(! ( (! eiB )|(! iiB )|giB|hiB|jiB ) ))&(! ( (ciB&diB&eiB)|(! ( ciB|diB|eiB ) ) ) ))|((! p31B )&eiB&(! iiB )&(! giB )&(! hiB )&(! jiB ))|((! p13B )&(! eiB )&iiB&giB&hiB&jiB);
           disp_err_rB <= ((dispinB&disp6pB)|(disp6nB&!dispinB)|(dispinB&!disp6nB&fiB&giB)|(dispinB&aiB&biB&ciB)|(dispinB&!disp6nB&disp4pB)|(! dispinB & ! disp6pB & ! fiB & ! giB )|(! dispinB & ! aiB & ! biB & ! ciB )|(! dispinB & ! disp6pB & disp4nB )|(disp6pB&disp4pB)|(disp6nB&disp4nB));
-          dispin_rB <= dispoutB;
+          dispinB <= dispoutB;
           dataout_rB <= {hoB,goB,foB,eoB,doB,coB,boB,aoB};
           ko_rB <= ko_sB;
-        end
-      else
-        begin
-          dispin_rB <= dispin_vB;
-          disp_err_rB <= disp_err_r_vB;
-          dataout_rB <= dataout_r_vB;
-          ko_rB <= ko_r_vB;
-          code_err_rB <= code_err_r_vB;
         end
   end
 
@@ -284,7 +250,7 @@ always @( posedge clkC or negedge rstC )
   begin : output_procC
     if (rstC==0)
       begin
-        dispin_rC <= 0;
+        dispinC <= 0;
         disp_err_rC <= 0;
         dataout_rC <= 0;
         ko_rC <= 0;
@@ -295,17 +261,9 @@ always @( posedge clkC or negedge rstC )
         begin
           code_err_rC <= ((aiC&biC&ciC&diC)|(! ( aiC|biC|ciC|diC ) ))|(p13C&(! eiC )&(! iiC ))|(p31C&eiC&iiC)|((fiC&giC&hiC&jiC)|(! ( fiC|giC|hiC|jiC ) ))|((eiC&iiC&fiC&giC&hiC)|(! ( eiC|iiC|fiC|giC|hiC ) ))|(((! iiC )&eiC&giC&hiC&jiC)|(! ( (! iiC )|eiC|giC|hiC|jiC ) ))|((((! eiC )&(! iiC )&giC&hiC&jiC)|(! ( (! eiC )|(! iiC )|giC|hiC|jiC ) ))&(! ( (ciC&diC&eiC)|(! ( ciC|diC|eiC ) ) ) ))|((! p31C )&eiC&(! iiC )&(! giC )&(! hiC )&(! jiC ))|((! p13C )&(! eiC )&iiC&giC&hiC&jiC);
           disp_err_rC <= ((dispinC&disp6pC)|(disp6nC&!dispinC)|(dispinC&!disp6nC&fiC&giC)|(dispinC&aiC&biC&ciC)|(dispinC&!disp6nC&disp4pC)|(! dispinC & ! disp6pC & ! fiC & ! giC )|(! dispinC & ! aiC & ! biC & ! ciC )|(! dispinC & ! disp6pC & disp4nC )|(disp6pC&disp4pC)|(disp6nC&disp4nC));
-          dispin_rC <= dispoutC;
+          dispinC <= dispoutC;
           dataout_rC <= {hoC,goC,foC,eoC,doC,coC,boC,aoC};
           ko_rC <= ko_sC;
-        end
-      else
-        begin
-          dispin_rC <= dispin_vC;
-          disp_err_rC <= disp_err_r_vC;
-          dataout_rC <= dataout_r_vC;
-          ko_rC <= ko_r_vC;
-          code_err_rC <= code_err_r_vC;
         end
   end
 assign disp_err =  disp_err_r;
@@ -337,12 +295,12 @@ majorityVoter disp_err_rVoter (
     .tmrErr(disp_err_rTmrError)
     );
 
-majorityVoter dispin_rVoter (
-    .inA(dispin_rA),
-    .inB(dispin_rB),
-    .inC(dispin_rC),
-    .out(dispin_r),
-    .tmrErr(dispin_rTmrError)
+majorityVoter dispinVoter (
+    .inA(dispinA),
+    .inB(dispinB),
+    .inC(dispinC),
+    .out(dispin),
+    .tmrErr(dispinTmrError)
     );
 
 majorityVoter ko_rVoter (
@@ -402,25 +360,11 @@ fanout coFanout (
     .outC(coC)
     );
 
-fanout code_err_r_vFanout (
-    .in(code_err_r_v),
-    .outA(code_err_r_vA),
-    .outB(code_err_r_vB),
-    .outC(code_err_r_vC)
-    );
-
 fanout datain_validFanout (
     .in(datain_valid),
     .outA(datain_validA),
     .outB(datain_validB),
     .outC(datain_validC)
-    );
-
-fanout #(.WIDTH(8)) dataout_r_vFanout (
-    .in(dataout_r_v),
-    .outA(dataout_r_vA),
-    .outB(dataout_r_vB),
-    .outC(dataout_r_vC)
     );
 
 fanout diFanout (
@@ -456,27 +400,6 @@ fanout disp6pFanout (
     .outA(disp6pA),
     .outB(disp6pB),
     .outC(disp6pC)
-    );
-
-fanout disp_err_r_vFanout (
-    .in(disp_err_r_v),
-    .outA(disp_err_r_vA),
-    .outB(disp_err_r_vB),
-    .outC(disp_err_r_vC)
-    );
-
-fanout dispinFanout (
-    .in(dispin),
-    .outA(dispinA),
-    .outB(dispinB),
-    .outC(dispinC)
-    );
-
-fanout dispin_vFanout (
-    .in(dispin_v),
-    .outA(dispin_vA),
-    .outB(dispin_vB),
-    .outC(dispin_vC)
     );
 
 fanout dispoutFanout (
@@ -561,13 +484,6 @@ fanout jiFanout (
     .outA(jiA),
     .outB(jiB),
     .outC(jiC)
-    );
-
-fanout ko_r_vFanout (
-    .in(ko_r_v),
-    .outA(ko_r_vA),
-    .outB(ko_r_vB),
-    .outC(ko_r_vC)
     );
 
 fanout ko_sFanout (

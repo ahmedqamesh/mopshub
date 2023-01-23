@@ -17,8 +17,8 @@ module tb_mopshub_top_voters();
   reg              rst   = 1'b0;
   reg              endwait_all = 1'b0;
   wire             rst_bus;
-  reg              sel_bus = 1'b1;
-  reg     [4:0]    can_tra_select_dbg =5'd0;
+  reg              sel_bus = 1'b0;
+  reg     [4:0]    can_tra_select_dbg =5'd4;
   wire             sign_on_sig;
   wire             start_init;
   wire             end_init;
@@ -99,30 +99,31 @@ module tb_mopshub_top_voters();
   wire [1:0] rx_mopshub_2bit; 
 
   //Internal assignments  
-  assign can_tra_select    = mopshubTMR0.can_tra_select;
-  assign can_rec_select    = mopshubTMR0.can_rec_select;
-  assign data_rec_uplink   = mopshubTMR0.data_rec_uplink;
-  assign data_tra_downlink = mopshubTMR0.data_tra_downlink;
-  assign end_power_init    = mopshubTMR0.end_power_init;
-  assign start_init        = mopshubTMR0.start_init;
-  assign end_init          = mopshubTMR0.end_init;
-  assign rst_bus           = mopshubTMR0.rst_bus;
-  assign sign_on_sig       = mopshubTMR0.sign_on_sig;
-  assign end_trim_bus      = mopshubTMR0.end_trim_bus;
-  assign start_trim_osc    = mopshubTMR0.start_trim_ack;
-  assign power_bus_en      = mopshubTMR0.power_bus_en;
-  assign power_bus_cnt     = mopshubTMR0.power_bus_cnt;  
-  assign irq_elink_tra     = mopshubTMR0.irq_elink_tra;
-  assign irq_elink_rec     = mopshubTMR0.irq_elink_rec;
-  assign start_osc_cnt     = mopshubTMR0.start_osc_cnt;
+  assign can_tra_select    = mopshub0.can_tra_select;
+  assign can_rec_select    = mopshub0.can_rec_select;
+  assign data_rec_uplink   = mopshub0.data_rec_uplink;
+  assign data_tra_downlink = mopshub0.data_tra_downlink;
+  assign end_power_init    = mopshub0.end_power_init;
+  assign start_init        = mopshub0.start_init;
+  assign end_init          = mopshub0.end_init;
+  assign rst_bus           = mopshub0.rst_bus;
+  assign sign_on_sig       = mopshub0.sign_on_sig;
+  assign end_trim_bus      = mopshub0.end_trim_bus;
+  assign start_trim_osc    = mopshub0.start_trim_ack;
+  assign power_bus_en      = mopshub0.power_bus_en;
+  assign power_bus_cnt     = mopshub0.power_bus_cnt;  
+  assign irq_elink_tra     = mopshub0.irq_elink_tra;
+  assign irq_elink_rec     = mopshub0.irq_elink_rec;
+  assign start_osc_cnt     = mopshub0.start_osc_cnt;
   assign ready_osc         = data_generator0.ready_osc;
   
-  mopshub_top mopshubTMR0(
+  mopshub_top_16busTMR mopshub0(
   .clk(clk_40_m),
   .rst(rst),
-  .n_buses(5'd2),
+  .n_buses(5'd15),
   .dbg_elink(1'b0), 
   .dbg_spi(1'b0),
+  .debug_mode(1'b0),
   .osc_auto_trim_mopshub(osc_auto_trim_mopshub),                      
   .endwait_all(endwait_all),  
   .tx_elink2bit(tx_mopshub_2bit),
@@ -165,7 +166,7 @@ module tb_mopshub_top_voters();
   .tx15(tx15));
   
   data_generator#(
-  .n_buses (5'd2))data_generator0(
+  .n_buses (5'd15))data_generator0(
   .clk_mops(clk_mops),
   .clk(clk_40_m),
   .rst(rst),
@@ -278,7 +279,7 @@ module tb_mopshub_top_voters();
     if(end_power_init ==1) osc_auto_trim_mopshub = 1'b0;
     if(sign_on_sig ==1)//start Rx test
     begin
-    test_tx =1'b1;
+    test_rx =1'b1;
     //test_advanced = 1'b1;
     end
     if(test_rx_end ==1)//Done Rx test

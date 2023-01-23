@@ -6,20 +6,23 @@
  *                                                                                                  *
  * user    : lucas                                                                                  *
  * host    : DESKTOP-BFDSFP2                                                                        *
- * date    : 06/10/2022 13:53:07                                                                    *
+ * date    : 05/12/2022 13:28:37                                                                    *
  *                                                                                                  *
- * workdir : /mnt/c/Users/Lucas/Documents/GitHub/mopshub_triplicated/triplicated/mopshub_top_board/hdl *
- * cmd     : /mnt/c/Users/Lucas/Desktop/mopshub_triplication/tmrg-master/bin/tmrg -vv -c tmrg.cfg   *
- * tmrg rev:                                                                                        *
+ * workdir : /mnt/c/Users/Lucas/Documents/GitHub/mopshub_triplicated/triplicated/mopshub_top_board_16/hdl *
+ * cmd     : /mnt/c/Users/Lucas/Documents/GitHub/mopshub_triplicated/tmrg-master/bin/tmrg -vv -c    *
+ *           tmrg.cfg                                                                               *
+ * tmrg rev: b25f042058e4e97751df2a0933c24aeadd5a78a5                                               *
  *                                                                                                  *
  * src file: tra_elink_buf.v                                                                        *
- *           Git SHA           : c110441b08b692cc54ebd4a3b84a2599430e8f93                           *
- *           Modification time : 2022-10-05 20:54:18                                                *
- *           File Size         : 3245                                                               *
- *           MD5 hash          : 61be7068346c48a1d9cdc8d0d041ec78                                   *
+ *           Git SHA           : b25f042058e4e97751df2a0933c24aeadd5a78a5 (?? tra_elink_buf.v)      *
+ *           Modification time : 2022-12-04 14:47:05                                                *
+ *           File Size         : 3187                                                               *
+ *           MD5 hash          : 53399905ab556708b55fbf5cc0301f88                                   *
  *                                                                                                  *
  ****************************************************************************************************/
 
+`resetall 
+`timescale  1ns/10ps
 module buffer_tra_elinkTMR(
   input wire  clk ,
   input wire [7:0] data_tra_8bitin ,
@@ -40,36 +43,6 @@ wire clkA;
 wire buffer_enC;
 wire buffer_enB;
 wire buffer_enA;
-wire [7:0] b9_vC;
-wire [7:0] b9_vB;
-wire [7:0] b9_vA;
-wire [7:0] b8_vC;
-wire [7:0] b8_vB;
-wire [7:0] b8_vA;
-wire [7:0] b7_vC;
-wire [7:0] b7_vB;
-wire [7:0] b7_vA;
-wire [7:0] b6_vC;
-wire [7:0] b6_vB;
-wire [7:0] b6_vA;
-wire [7:0] b5_vC;
-wire [7:0] b5_vB;
-wire [7:0] b5_vA;
-wire [7:0] b4_vC;
-wire [7:0] b4_vB;
-wire [7:0] b4_vA;
-wire [7:0] b3_vC;
-wire [7:0] b3_vB;
-wire [7:0] b3_vA;
-wire [7:0] b2_vC;
-wire [7:0] b2_vB;
-wire [7:0] b2_vA;
-wire [7:0] b1_vC;
-wire [7:0] b1_vB;
-wire [7:0] b1_vA;
-wire [7:0] b0_vC;
-wire [7:0] b0_vB;
-wire [7:0] b0_vA;
 wire [4:0] addrC;
 wire [4:0] addrB;
 wire [4:0] addrA;
@@ -124,44 +97,65 @@ reg  [7:0] b9A ;
 reg  [7:0] b9B ;
 reg  [7:0] b9C ;
 initial
-  begin
-    b0A =  8'h00;
-    b1A =  8'h00;
-    b2A =  8'h00;
-    b3A =  8'h00;
-    b4A =  8'h00;
-    b5A =  8'h00;
-    b6A =  8'h00;
-    b7A =  8'h00;
-    b8A =  8'h00;
-    b9A =  8'h00;
-  end
+  b0A =  8'h00;
 initial
-  begin
-    b0B =  8'h00;
-    b1B =  8'h00;
-    b2B =  8'h00;
-    b3B =  8'h00;
-    b4B =  8'h00;
-    b5B =  8'h00;
-    b6B =  8'h00;
-    b7B =  8'h00;
-    b8B =  8'h00;
-    b9B =  8'h00;
-  end
+  b0B =  8'h00;
 initial
-  begin
-    b0C =  8'h00;
-    b1C =  8'h00;
-    b2C =  8'h00;
-    b3C =  8'h00;
-    b4C =  8'h00;
-    b5C =  8'h00;
-    b6C =  8'h00;
-    b7C =  8'h00;
-    b8C =  8'h00;
-    b9C =  8'h00;
-  end
+  b0C =  8'h00;
+initial
+  b1A =  8'h00;
+initial
+  b1B =  8'h00;
+initial
+  b1C =  8'h00;
+initial
+  b2A =  8'h00;
+initial
+  b2B =  8'h00;
+initial
+  b2C =  8'h00;
+initial
+  b3A =  8'h00;
+initial
+  b3B =  8'h00;
+initial
+  b3C =  8'h00;
+initial
+  b4A =  8'h00;
+initial
+  b4B =  8'h00;
+initial
+  b4C =  8'h00;
+initial
+  b5A =  8'h00;
+initial
+  b5B =  8'h00;
+initial
+  b5C =  8'h00;
+initial
+  b6A =  8'h00;
+initial
+  b6B =  8'h00;
+initial
+  b6C =  8'h00;
+initial
+  b7A =  8'h00;
+initial
+  b7B =  8'h00;
+initial
+  b7C =  8'h00;
+initial
+  b8A =  8'h00;
+initial
+  b8B =  8'h00;
+initial
+  b8C =  8'h00;
+initial
+  b9A =  8'h00;
+initial
+  b9B =  8'h00;
+initial
+  b9C =  8'h00;
 wire [7:0] b0_v =  b0;
 wire [7:0] b1_v =  b1;
 wire [7:0] b2_v =  b2;
@@ -217,16 +211,16 @@ end
       end
     else
       begin
-        b0A <= b0_vA;
-        b1A <= b1_vA;
-        b2A <= b2_vA;
-        b3A <= b3_vA;
-        b4A <= b4_vA;
-        b5A <= b5_vA;
-        b6A <= b6_vA;
-        b7A <= b7_vA;
-        b8A <= b8_vA;
-        b9A <= b9_vA;
+        b0A <= b0A;
+        b1A <= b1A;
+        b2A <= b2A;
+        b3A <= b3A;
+        b4A <= b4A;
+        b5A <= b5A;
+        b6A <= b6A;
+        b7A <= b7A;
+        b8A <= b8A;
+        b9A <= b9A;
       end
   end
 
@@ -274,16 +268,16 @@ end
       end
     else
       begin
-        b0B <= b0_vB;
-        b1B <= b1_vB;
-        b2B <= b2_vB;
-        b3B <= b3_vB;
-        b4B <= b4_vB;
-        b5B <= b5_vB;
-        b6B <= b6_vB;
-        b7B <= b7_vB;
-        b8B <= b8_vB;
-        b9B <= b9_vB;
+        b0B <= b0B;
+        b1B <= b1B;
+        b2B <= b2B;
+        b3B <= b3B;
+        b4B <= b4B;
+        b5B <= b5B;
+        b6B <= b6B;
+        b7B <= b7B;
+        b8B <= b8B;
+        b9B <= b9B;
       end
   end
 
@@ -331,19 +325,19 @@ end
       end
     else
       begin
-        b0C <= b0_vC;
-        b1C <= b1_vC;
-        b2C <= b2_vC;
-        b3C <= b3_vC;
-        b4C <= b4_vC;
-        b5C <= b5_vC;
-        b6C <= b6_vC;
-        b7C <= b7_vC;
-        b8C <= b8_vC;
-        b9C <= b9_vC;
+        b0C <= b0C;
+        b1C <= b1C;
+        b2C <= b2C;
+        b3C <= b3C;
+        b4C <= b4C;
+        b5C <= b5C;
+        b6C <= b6C;
+        b7C <= b7C;
+        b8C <= b8C;
+        b9C <= b9C;
       end
   end
-assign data_tra_out =  {b0_v,b1_v,b2_v,b3_v,b4_v,b5_v,b6_v,b7_v,b8_v,b9_v[7:4] };
+assign data_tra_out =  {b0,b1,b2,b3,b4,b5,b6,b7,b8,b9[7:4] };
 
 majorityVoter #(.WIDTH(8)) b0Voter (
     .inA(b0A),
@@ -430,76 +424,6 @@ fanout #(.WIDTH(5)) addrFanout (
     .outA(addrA),
     .outB(addrB),
     .outC(addrC)
-    );
-
-fanout #(.WIDTH(8)) b0_vFanout (
-    .in(b0_v),
-    .outA(b0_vA),
-    .outB(b0_vB),
-    .outC(b0_vC)
-    );
-
-fanout #(.WIDTH(8)) b1_vFanout (
-    .in(b1_v),
-    .outA(b1_vA),
-    .outB(b1_vB),
-    .outC(b1_vC)
-    );
-
-fanout #(.WIDTH(8)) b2_vFanout (
-    .in(b2_v),
-    .outA(b2_vA),
-    .outB(b2_vB),
-    .outC(b2_vC)
-    );
-
-fanout #(.WIDTH(8)) b3_vFanout (
-    .in(b3_v),
-    .outA(b3_vA),
-    .outB(b3_vB),
-    .outC(b3_vC)
-    );
-
-fanout #(.WIDTH(8)) b4_vFanout (
-    .in(b4_v),
-    .outA(b4_vA),
-    .outB(b4_vB),
-    .outC(b4_vC)
-    );
-
-fanout #(.WIDTH(8)) b5_vFanout (
-    .in(b5_v),
-    .outA(b5_vA),
-    .outB(b5_vB),
-    .outC(b5_vC)
-    );
-
-fanout #(.WIDTH(8)) b6_vFanout (
-    .in(b6_v),
-    .outA(b6_vA),
-    .outB(b6_vB),
-    .outC(b6_vC)
-    );
-
-fanout #(.WIDTH(8)) b7_vFanout (
-    .in(b7_v),
-    .outA(b7_vA),
-    .outB(b7_vB),
-    .outC(b7_vC)
-    );
-
-fanout #(.WIDTH(8)) b8_vFanout (
-    .in(b8_v),
-    .outA(b8_vA),
-    .outB(b8_vB),
-    .outC(b8_vC)
-    );
-
-fanout #(.WIDTH(8)) b9_vFanout (
-    .in(b9_v),
-    .outA(b9_vA),
-    .outB(b9_vB),
-    .outC(b9_vC)
     );
 
 fanout buffer_enFanout (

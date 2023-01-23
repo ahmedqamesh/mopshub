@@ -6,20 +6,23 @@
  *                                                                                                  *
  * user    : lucas                                                                                  *
  * host    : DESKTOP-BFDSFP2                                                                        *
- * date    : 06/10/2022 13:52:39                                                                    *
+ * date    : 05/12/2022 13:28:02                                                                    *
  *                                                                                                  *
- * workdir : /mnt/c/Users/Lucas/Documents/GitHub/mopshub_triplicated/triplicated/mopshub_top_board/hdl *
- * cmd     : /mnt/c/Users/Lucas/Desktop/mopshub_triplication/tmrg-master/bin/tmrg -vv -c tmrg.cfg   *
- * tmrg rev:                                                                                        *
+ * workdir : /mnt/c/Users/Lucas/Documents/GitHub/mopshub_triplicated/triplicated/mopshub_top_board_16/hdl *
+ * cmd     : /mnt/c/Users/Lucas/Documents/GitHub/mopshub_triplicated/tmrg-master/bin/tmrg -vv -c    *
+ *           tmrg.cfg                                                                               *
+ * tmrg rev: b25f042058e4e97751df2a0933c24aeadd5a78a5                                               *
  *                                                                                                  *
  * src file: bus_control_sm_fsm.v                                                                   *
- *           Git SHA           : c110441b08b692cc54ebd4a3b84a2599430e8f93                           *
- *           Modification time : 2022-10-06 08:58:04                                                *
- *           File Size         : 68251                                                              *
- *           MD5 hash          : de744cad6b05c7c60e21ba3623130ace                                   *
+ *           Git SHA           : b25f042058e4e97751df2a0933c24aeadd5a78a5 (?? bus_control_sm_fsm.v) *
+ *           Modification time : 2022-12-04 15:41:31.633208                                         *
+ *           File Size         : 71231                                                              *
+ *           MD5 hash          : 94d40ae09c577077cb96047e91cd0be9                                   *
  *                                                                                                  *
  ****************************************************************************************************/
 
+`resetall 
+`timescale  1ns/10ps
 module bus_control_SMTMR(
   input wire  abort ,
   input wire  busy_m ,
@@ -63,283 +66,311 @@ module bus_control_SMTMR(
 parameter waittoact =9'd0;
 parameter reset =9'd1;
 parameter start =9'd2;
-parameter endinit1 =9'd3;
-parameter start1 =9'd4;
-parameter ST_Read_reg =9'd5;
-parameter st_GPIOA =9'd6;
-parameter st_GPIOA1 =9'd7;
-parameter st_GPIOA2 =9'd8;
-parameter End_Select =9'd9;
-parameter Write_Mosi =9'd10;
-parameter read_elink_mes1 =9'd11;
-parameter CS_low =9'd12;
-parameter Read_Miso =9'd13;
-parameter Done =9'd14;
-parameter write_elink =9'd15;
-parameter Wait_Miso =9'd16;
-parameter Offset_cal0 =9'd17;
-parameter Offset__cal1 =9'd18;
-parameter Offset__cal2 =9'd19;
-parameter Offset__cal3 =9'd20;
-parameter Gain_cal0 =9'd21;
-parameter Gain_cal1 =9'd22;
-parameter Gain_cal2 =9'd23;
-parameter Gain_cal3 =9'd24;
-parameter write_csrs7 =9'd25;
-parameter write_csrs6 =9'd26;
-parameter write_csrs5 =9'd27;
-parameter write_csrs4 =9'd28;
-parameter write_csrs0 =9'd29;
-parameter write_csrs1 =9'd30;
-parameter write_csrs2 =9'd31;
-parameter ST_Config4 =9'd32;
-parameter ST_Config3 =9'd33;
-parameter ST_Config1 =9'd34;
-parameter ST_Config2 =9'd35;
-parameter ST_Rest_2 =9'd36;
-parameter ST_Rest_4 =9'd37;
-parameter ST_Rest_1 =9'd38;
-parameter St_wait =9'd39;
-parameter ST_Rest_RS_1 =9'd40;
-parameter ST_Rest_RS_2 =9'd41;
-parameter st_GPIOA9 =9'd42;
-parameter st_GPIOA10 =9'd43;
-parameter st_GPIOA11 =9'd44;
-parameter w_busy15 =9'd45;
-parameter w_busy16 =9'd46;
-parameter w_busy17 =9'd47;
-parameter ST_IODIRA0 =9'd48;
-parameter w_busy0 =9'd49;
-parameter ST_IODIRA1 =9'd50;
-parameter w_busy1 =9'd51;
-parameter ST_IODIRA2 =9'd52;
-parameter w_busy2 =9'd53;
-parameter w_busy5 =9'd54;
-parameter st_IODIRB1 =9'd55;
-parameter st_IODIRB2 =9'd56;
-parameter st_IODIRB =9'd57;
-parameter w_busy3 =9'd58;
-parameter w_busy4 =9'd59;
-parameter w_busy7 =9'd60;
-parameter st_GPIOB2 =9'd61;
-parameter st_GPIOB1 =9'd62;
-parameter w_busy8 =9'd63;
-parameter w_busy6 =9'd64;
-parameter st_GPIOB0 =9'd65;
-parameter st_GPPUA =9'd66;
-parameter w_busy11 =9'd67;
-parameter w_busy9 =9'd68;
-parameter st_GPPUA2 =9'd69;
-parameter st_GPPUA1 =9'd70;
-parameter w_busy10 =9'd71;
-parameter st_GPPUB1 =9'd72;
-parameter w_busy13 =9'd73;
-parameter w_busy12 =9'd74;
-parameter st_GPPUB2 =9'd75;
-parameter w_busy14 =9'd76;
-parameter st_GPPUB =9'd77;
-parameter CS_high0 =9'd78;
-parameter CS_high1 =9'd79;
-parameter CS_high2 =9'd80;
-parameter CS_high3 =9'd81;
-parameter CS_high4 =9'd82;
-parameter CS_high5 =9'd83;
-parameter w_busy26 =9'd84;
-parameter w_busy27 =9'd85;
-parameter w_busy28 =9'd86;
-parameter w_busy29 =9'd87;
-parameter w_busy30 =9'd88;
-parameter w_busy31 =9'd89;
-parameter CS_high7 =9'd90;
-parameter w_busy32 =9'd91;
-parameter ST_Init_0 =9'd92;
-parameter ST_wait_0 =9'd93;
-parameter ST_Init_1 =9'd94;
-parameter ST_wait_1 =9'd95;
-parameter ST_Init_2 =9'd96;
-parameter ST_wait_2 =9'd97;
-parameter ST_Init_3 =9'd98;
-parameter ST_wait_3 =9'd99;
-parameter ST_Init_4 =9'd100;
-parameter ST_wait_4 =9'd101;
-parameter ST_Init_5 =9'd102;
-parameter ST_wait_5 =9'd103;
-parameter ST_Init_6 =9'd104;
-parameter ST_wait_6 =9'd105;
-parameter ST_Init_7 =9'd106;
-parameter ST_wait_7 =9'd107;
-parameter ST_Init_8 =9'd108;
-parameter ST_wait_8 =9'd109;
-parameter ST_Init_9 =9'd110;
-parameter ST_wait_9 =9'd111;
-parameter ST_Init_10 =9'd112;
-parameter ST_wait_10 =9'd113;
-parameter ST_Init_11 =9'd114;
-parameter ST_wait_11 =9'd115;
-parameter ST_Init_12 =9'd116;
-parameter ST_wait_12 =9'd117;
-parameter ST_Init_13 =9'd118;
-parameter ST_wait_13 =9'd119;
-parameter ST_Init_14 =9'd120;
-parameter ST_wait_14 =9'd121;
-parameter st_Init_2 =9'd122;
-parameter ST_wait_15 =9'd123;
-parameter CS_high8 =9'd124;
-parameter w_busy33 =9'd125;
-parameter ST_Rest_3 =9'd126;
-parameter ST_Rest_RS_3 =9'd127;
-parameter ST_Rest_RS_4 =9'd128;
-parameter St_wait1 =9'd129;
-parameter St_wait5 =9'd130;
-parameter St_wait6 =9'd131;
-parameter St_wait7 =9'd132;
-parameter St_wait8 =9'd133;
-parameter St_wait9 =9'd134;
-parameter St_wait10 =9'd135;
-parameter CS_high9 =9'd136;
-parameter w_busy34 =9'd137;
-parameter St_wait13 =9'd138;
-parameter ST_Rest_RS_6 =9'd139;
-parameter ST_Rest_RS_7 =9'd140;
-parameter St_wait14 =9'd141;
-parameter ST_Rest_RS_8 =9'd142;
-parameter St_wait15 =9'd143;
-parameter St_wait16 =9'd144;
-parameter CS_high10 =9'd145;
-parameter w_busy35 =9'd146;
-parameter CS_high12 =9'd147;
-parameter w_busy36 =9'd148;
-parameter CS_high13 =9'd149;
-parameter w_busy37 =9'd150;
-parameter w_busy38 =9'd151;
-parameter CS_high14 =9'd152;
-parameter CS_high15 =9'd153;
-parameter w_busy39 =9'd154;
-parameter St_wait17 =9'd155;
-parameter St_wait18 =9'd156;
-parameter St_wait19 =9'd157;
-parameter St_wait20 =9'd158;
-parameter St_wait32 =9'd159;
-parameter St_wait33 =9'd160;
-parameter St_wait34 =9'd161;
-parameter ST_Config5 =9'd162;
-parameter ST_Config6 =9'd163;
-parameter St_wait35 =9'd164;
-parameter ST_Config7 =9'd165;
-parameter St_wait36 =9'd166;
-parameter ST_Config8 =9'd167;
-parameter St_wait37 =9'd168;
-parameter ST_Config9 =9'd169;
-parameter St_wait38 =9'd170;
-parameter ST_Config10 =9'd171;
-parameter St_wait39 =9'd172;
-parameter St_wait40 =9'd173;
-parameter ST_Config11 =9'd174;
-parameter St_wait41 =9'd175;
-parameter ST_Config12 =9'd176;
-parameter St_wait42 =9'd177;
-parameter ST_Config13 =9'd178;
-parameter St_wait43 =9'd179;
-parameter St_wait44 =9'd180;
-parameter ST_Config14 =9'd181;
-parameter St_wait45 =9'd182;
-parameter ST_Config15 =9'd183;
-parameter St_wait46 =9'd184;
-parameter ST_Config16 =9'd185;
-parameter St_wait47 =9'd186;
-parameter St_wait25 =9'd187;
-parameter St_wait26 =9'd188;
-parameter St_wait27 =9'd189;
-parameter St_wait28 =9'd190;
-parameter St_wait29 =9'd191;
-parameter St_wait30 =9'd192;
-parameter St_wait31 =9'd193;
-parameter ST_Read_reg2 =9'd194;
-parameter St_wait21 =9'd195;
-parameter ST_Rest_RS_9 =9'd196;
-parameter ST_Rest_RS_10 =9'd197;
-parameter St_wait22 =9'd198;
-parameter ST_Rest_RS_11 =9'd199;
-parameter St_wait23 =9'd200;
-parameter St_wait24 =9'd201;
-parameter ST_Config17 =9'd202;
-parameter St_wait48 =9'd203;
-parameter ST_Config18 =9'd204;
-parameter St_wait49 =9'd205;
-parameter St_wait50 =9'd206;
-parameter St_wait51 =9'd207;
-parameter ST_Config19 =9'd208;
-parameter St_wait52 =9'd209;
-parameter ST_Config20 =9'd210;
-parameter St_wait53 =9'd211;
-parameter St_wait54 =9'd212;
-parameter ST_Config21 =9'd213;
-parameter St_wait55 =9'd214;
-parameter ST_Config22 =9'd215;
-parameter St_wait56 =9'd216;
-parameter St_wait57 =9'd217;
-parameter ST_Config23 =9'd218;
-parameter St_wait58 =9'd219;
-parameter ST_Config24 =9'd220;
-parameter St_wait59 =9'd221;
-parameter Break_Loop =9'd222;
-parameter ST_CountRst =9'd223;
-parameter ST_Start_Cnt =9'd224;
-parameter ST_Read_reg3 =9'd225;
-parameter St_wait60 =9'd226;
-parameter ST_Rest_RS_12 =9'd227;
-parameter ST_Rest_RS_13 =9'd228;
-parameter St_wait61 =9'd229;
-parameter ST_Rest_RS_14 =9'd230;
-parameter St_wait62 =9'd231;
-parameter St_wait63 =9'd232;
-parameter CS_high16 =9'd233;
-parameter w_busy43 =9'd234;
-parameter st_GPIOA15 =9'd235;
-parameter st_GPIOA16 =9'd236;
-parameter st_GPIOA17 =9'd237;
-parameter w_busy40 =9'd238;
-parameter w_busy41 =9'd239;
-parameter w_busy42 =9'd240;
-parameter CS_high6 =9'd241;
-parameter w_busy44 =9'd242;
-parameter CS_high17 =9'd243;
-parameter w_busy48 =9'd244;
-parameter st_GPIOA12 =9'd245;
-parameter st_GPIOA13 =9'd246;
-parameter st_GPIOA14 =9'd247;
-parameter w_busy18 =9'd248;
-parameter w_busy19 =9'd249;
-parameter w_busy20 =9'd250;
-parameter st_GPIOA18 =9'd251;
-parameter st_GPIOA19 =9'd252;
-parameter st_GPIOA20 =9'd253;
-parameter w_busy45 =9'd254;
-parameter w_busy46 =9'd255;
-parameter w_busy47 =9'd256;
-parameter CS_high11 =9'd257;
-parameter w_busy49 =9'd258;
-parameter CS_high18 =9'd259;
-parameter w_busy53 =9'd260;
-parameter st_GPIOA21 =9'd261;
-parameter st_GPIOA22 =9'd262;
-parameter st_GPIOA23 =9'd263;
-parameter w_busy21 =9'd264;
-parameter w_busy22 =9'd265;
-parameter w_busy23 =9'd266;
-parameter st_GPIOA24 =9'd267;
-parameter st_GPIOA25 =9'd268;
-parameter st_GPIOA26 =9'd269;
-parameter w_busy50 =9'd270;
-parameter w_busy51 =9'd271;
-parameter w_busy52 =9'd272;
-reg  [8:0] current_state ;
+parameter End_Select =9'd3;
+parameter CS_high0 =9'd4;
+parameter CS_high1 =9'd5;
+parameter CS_high2 =9'd6;
+parameter CS_high3 =9'd7;
+parameter CS_high4 =9'd8;
+parameter CS_high5 =9'd9;
+parameter w_busy26 =9'd10;
+parameter w_busy27 =9'd11;
+parameter w_busy28 =9'd12;
+parameter w_busy29 =9'd13;
+parameter w_busy30 =9'd14;
+parameter w_busy31 =9'd15;
+parameter CS_high16 =9'd16;
+parameter w_busy43 =9'd17;
+parameter st_GPIOA =9'd18;
+parameter st_GPIOA1 =9'd19;
+parameter st_GPIOA2 =9'd20;
+parameter w_busy15 =9'd21;
+parameter w_busy16 =9'd22;
+parameter w_busy17 =9'd23;
+parameter ST_IODIRA0 =9'd24;
+parameter w_busy0 =9'd25;
+parameter ST_IODIRA1 =9'd26;
+parameter w_busy1 =9'd27;
+parameter ST_IODIRA2 =9'd28;
+parameter w_busy2 =9'd29;
+parameter w_busy5 =9'd30;
+parameter st_IODIRB1 =9'd31;
+parameter st_IODIRB2 =9'd32;
+parameter st_IODIRB =9'd33;
+parameter w_busy3 =9'd34;
+parameter w_busy4 =9'd35;
+parameter w_busy7 =9'd36;
+parameter st_GPIOB2 =9'd37;
+parameter st_GPIOB1 =9'd38;
+parameter w_busy8 =9'd39;
+parameter w_busy6 =9'd40;
+parameter st_GPIOB0 =9'd41;
+parameter st_GPPUA =9'd42;
+parameter w_busy11 =9'd43;
+parameter w_busy9 =9'd44;
+parameter st_GPPUA2 =9'd45;
+parameter st_GPPUA1 =9'd46;
+parameter w_busy10 =9'd47;
+parameter st_GPPUB1 =9'd48;
+parameter w_busy13 =9'd49;
+parameter w_busy12 =9'd50;
+parameter st_GPPUB2 =9'd51;
+parameter w_busy14 =9'd52;
+parameter st_GPPUB =9'd53;
+parameter st_GPIOA15 =9'd54;
+parameter st_GPIOA16 =9'd55;
+parameter st_GPIOA17 =9'd56;
+parameter w_busy40 =9'd57;
+parameter w_busy41 =9'd58;
+parameter w_busy42 =9'd59;
+parameter endinit1 =9'd60;
+parameter start1 =9'd61;
+parameter CS_high7 =9'd62;
+parameter w_busy32 =9'd63;
+parameter CS_high8 =9'd64;
+parameter w_busy33 =9'd65;
+parameter CS_high9 =9'd66;
+parameter w_busy34 =9'd67;
+parameter CS_high10 =9'd68;
+parameter w_busy35 =9'd69;
+parameter CS_high12 =9'd70;
+parameter w_busy36 =9'd71;
+parameter CS_high13 =9'd72;
+parameter w_busy37 =9'd73;
+parameter w_busy38 =9'd74;
+parameter CS_high14 =9'd75;
+parameter CS_high15 =9'd76;
+parameter w_busy39 =9'd77;
+parameter Break_Loop =9'd78;
+parameter ST_CountRst =9'd79;
+parameter ST_Start_Cnt =9'd80;
+parameter ST_Read_reg =9'd81;
+parameter St_wait13 =9'd82;
+parameter ST_Rest_RS_6 =9'd83;
+parameter ST_Rest_RS_7 =9'd84;
+parameter St_wait14 =9'd85;
+parameter ST_Rest_RS_8 =9'd86;
+parameter St_wait15 =9'd87;
+parameter St_wait16 =9'd88;
+parameter Offset_cal0 =9'd89;
+parameter Offset__cal1 =9'd90;
+parameter Offset__cal2 =9'd91;
+parameter Offset__cal3 =9'd92;
+parameter St_wait32 =9'd93;
+parameter St_wait33 =9'd94;
+parameter St_wait34 =9'd95;
+parameter ST_Config5 =9'd96;
+parameter ST_Config6 =9'd97;
+parameter St_wait35 =9'd98;
+parameter ST_Config7 =9'd99;
+parameter St_wait36 =9'd100;
+parameter ST_Config8 =9'd101;
+parameter St_wait37 =9'd102;
+parameter ST_Config9 =9'd103;
+parameter St_wait38 =9'd104;
+parameter ST_Config10 =9'd105;
+parameter St_wait39 =9'd106;
+parameter St_wait40 =9'd107;
+parameter ST_Config11 =9'd108;
+parameter St_wait41 =9'd109;
+parameter ST_Config12 =9'd110;
+parameter St_wait42 =9'd111;
+parameter ST_Config13 =9'd112;
+parameter St_wait43 =9'd113;
+parameter St_wait44 =9'd114;
+parameter ST_Config14 =9'd115;
+parameter St_wait45 =9'd116;
+parameter ST_Config15 =9'd117;
+parameter St_wait46 =9'd118;
+parameter ST_Config16 =9'd119;
+parameter St_wait47 =9'd120;
+parameter Gain_cal0 =9'd121;
+parameter Gain_cal1 =9'd122;
+parameter Gain_cal2 =9'd123;
+parameter Gain_cal3 =9'd124;
+parameter ST_Config17 =9'd125;
+parameter St_wait48 =9'd126;
+parameter ST_Config18 =9'd127;
+parameter St_wait49 =9'd128;
+parameter St_wait50 =9'd129;
+parameter St_wait51 =9'd130;
+parameter ST_Config19 =9'd131;
+parameter St_wait52 =9'd132;
+parameter ST_Config20 =9'd133;
+parameter St_wait53 =9'd134;
+parameter St_wait54 =9'd135;
+parameter ST_Config21 =9'd136;
+parameter St_wait55 =9'd137;
+parameter ST_Config22 =9'd138;
+parameter St_wait56 =9'd139;
+parameter St_wait57 =9'd140;
+parameter ST_Config23 =9'd141;
+parameter St_wait58 =9'd142;
+parameter ST_Config24 =9'd143;
+parameter St_wait59 =9'd144;
+parameter write_csrs7 =9'd145;
+parameter write_csrs6 =9'd146;
+parameter write_csrs5 =9'd147;
+parameter write_csrs4 =9'd148;
+parameter write_csrs0 =9'd149;
+parameter write_csrs1 =9'd150;
+parameter write_csrs2 =9'd151;
+parameter St_wait25 =9'd152;
+parameter St_wait26 =9'd153;
+parameter St_wait27 =9'd154;
+parameter St_wait28 =9'd155;
+parameter St_wait29 =9'd156;
+parameter St_wait30 =9'd157;
+parameter St_wait31 =9'd158;
+parameter ST_Config4 =9'd159;
+parameter ST_Config3 =9'd160;
+parameter ST_Config1 =9'd161;
+parameter ST_Config2 =9'd162;
+parameter St_wait17 =9'd163;
+parameter St_wait18 =9'd164;
+parameter St_wait19 =9'd165;
+parameter St_wait20 =9'd166;
+parameter ST_Rest_2 =9'd167;
+parameter ST_Rest_4 =9'd168;
+parameter ST_Rest_1 =9'd169;
+parameter St_wait =9'd170;
+parameter ST_Rest_RS_1 =9'd171;
+parameter ST_Rest_RS_2 =9'd172;
+parameter ST_Rest_3 =9'd173;
+parameter ST_Rest_RS_3 =9'd174;
+parameter ST_Rest_RS_4 =9'd175;
+parameter St_wait1 =9'd176;
+parameter St_wait5 =9'd177;
+parameter St_wait6 =9'd178;
+parameter St_wait7 =9'd179;
+parameter St_wait8 =9'd180;
+parameter St_wait9 =9'd181;
+parameter St_wait10 =9'd182;
+parameter ST_Init_0 =9'd183;
+parameter ST_wait_0 =9'd184;
+parameter ST_Init_1 =9'd185;
+parameter ST_wait_1 =9'd186;
+parameter ST_Init_2 =9'd187;
+parameter ST_wait_2 =9'd188;
+parameter ST_Init_3 =9'd189;
+parameter ST_wait_3 =9'd190;
+parameter ST_Init_4 =9'd191;
+parameter ST_wait_4 =9'd192;
+parameter ST_Init_5 =9'd193;
+parameter ST_wait_5 =9'd194;
+parameter ST_Init_6 =9'd195;
+parameter ST_wait_6 =9'd196;
+parameter ST_Init_7 =9'd197;
+parameter ST_wait_7 =9'd198;
+parameter ST_Init_8 =9'd199;
+parameter ST_wait_8 =9'd200;
+parameter ST_Init_9 =9'd201;
+parameter ST_wait_9 =9'd202;
+parameter ST_Init_10 =9'd203;
+parameter ST_wait_10 =9'd204;
+parameter ST_Init_11 =9'd205;
+parameter ST_wait_11 =9'd206;
+parameter ST_Init_12 =9'd207;
+parameter ST_wait_12 =9'd208;
+parameter ST_Init_13 =9'd209;
+parameter ST_wait_13 =9'd210;
+parameter ST_Init_14 =9'd211;
+parameter ST_wait_14 =9'd212;
+parameter st_Init_2 =9'd213;
+parameter ST_wait_15 =9'd214;
+parameter ST_Read_reg2 =9'd215;
+parameter St_wait21 =9'd216;
+parameter ST_Rest_RS_9 =9'd217;
+parameter ST_Rest_RS_10 =9'd218;
+parameter St_wait22 =9'd219;
+parameter ST_Rest_RS_11 =9'd220;
+parameter St_wait23 =9'd221;
+parameter St_wait24 =9'd222;
+parameter CS_high6 =9'd223;
+parameter w_busy44 =9'd224;
+parameter CS_high17 =9'd225;
+parameter w_busy48 =9'd226;
+parameter st_GPIOA12 =9'd227;
+parameter st_GPIOA13 =9'd228;
+parameter st_GPIOA14 =9'd229;
+parameter w_busy18 =9'd230;
+parameter w_busy19 =9'd231;
+parameter w_busy20 =9'd232;
+parameter st_GPIOA18 =9'd233;
+parameter st_GPIOA19 =9'd234;
+parameter st_GPIOA20 =9'd235;
+parameter w_busy45 =9'd236;
+parameter w_busy46 =9'd237;
+parameter w_busy47 =9'd238;
+parameter CS_high11 =9'd239;
+parameter w_busy49 =9'd240;
+parameter CS_high18 =9'd241;
+parameter w_busy53 =9'd242;
+parameter st_GPIOA21 =9'd243;
+parameter st_GPIOA22 =9'd244;
+parameter st_GPIOA23 =9'd245;
+parameter w_busy21 =9'd246;
+parameter w_busy22 =9'd247;
+parameter w_busy23 =9'd248;
+parameter st_GPIOA24 =9'd249;
+parameter st_GPIOA25 =9'd250;
+parameter st_GPIOA26 =9'd251;
+parameter w_busy50 =9'd252;
+parameter w_busy51 =9'd253;
+parameter w_busy52 =9'd254;
+parameter Write_Mosi =9'd255;
+parameter read_elink_mes1 =9'd256;
+parameter CS_low =9'd257;
+parameter Read_Miso =9'd258;
+parameter Done =9'd259;
+parameter write_elink =9'd260;
+parameter Wait_Miso =9'd261;
+parameter st_GPIOA9 =9'd262;
+parameter st_GPIOA10 =9'd263;
+parameter st_GPIOA11 =9'd264;
+parameter ST_Read_reg3 =9'd265;
+parameter St_wait60 =9'd266;
+parameter ST_Rest_RS_12 =9'd267;
+parameter ST_Rest_RS_13 =9'd268;
+parameter St_wait61 =9'd269;
+parameter ST_Rest_RS_14 =9'd270;
+parameter St_wait62 =9'd271;
+parameter St_wait63 =9'd272;
+wire timeoutrstC;
+wire timeoutrstB;
+wire timeoutrstA;
+wire rstC;
+wire rstB;
+wire rstA;
+wire [8:0] next_stateC;
+wire [8:0] next_stateB;
+wire [8:0] next_stateA;
+wire [5:0] csm_next_timerC;
+wire [5:0] csm_next_timerB;
+wire [5:0] csm_next_timerA;
+wire clkC;
+wire clkB;
+wire clkA;
+wire abortC;
+wire abortB;
+wire abortA;
+wor current_stateTmrError;
+wire [8:0] current_state;
+wor csm_timerTmrError;
+wire [5:0] csm_timer;
+reg  [8:0] current_stateA ;
+reg  [8:0] current_stateB ;
+reg  [8:0] current_stateC ;
 reg  [8:0] next_state ;
-reg  [5:0] csm_timer ;
+reg  [5:0] csm_timerA ;
+reg  [5:0] csm_timerB ;
+reg  [5:0] csm_timerC ;
 reg  [5:0] csm_next_timer ;
 reg  csm_timeout ;
 reg  csm_to_CS_low ;
 reg  csm_to_Read_Miso ;
+wire [8:0] current_stateV =  current_state;
+wire [5:0] csm_timerV =  csm_timer;
 
 always @( busy_m or busy_p or csm_timeout or current_state or end_mon_cnt or end_read_elink or end_read_miso or end_write_elink_spi or irq_spi_tra or rst or start_bus_init or start_mon_init or start_power_off or start_power_on or start_read_mon or start_read_power )
   begin : next_state_block_proc
@@ -382,17 +413,86 @@ always @( busy_m or busy_p or csm_timeout or current_state or end_mon_cnt or end
         begin
           next_state =  ST_IODIRA0;
         end
-      endinit1 : 
+      End_Select : 
         begin
           next_state =  waittoact;
         end
-      start1 : 
+      CS_high0 : 
         begin
-          next_state =  ST_Init_0;
+          next_state =  w_busy26;
         end
-      ST_Read_reg : 
+      CS_high1 : 
         begin
-          next_state =  St_wait16;
+          next_state =  w_busy27;
+        end
+      CS_high2 : 
+        begin
+          next_state =  w_busy28;
+        end
+      CS_high3 : 
+        begin
+          next_state =  w_busy29;
+        end
+      CS_high4 : 
+        begin
+          next_state =  w_busy30;
+        end
+      CS_high5 : 
+        begin
+          next_state =  w_busy31;
+        end
+      w_busy26 : 
+        begin
+          if (busy_p==1)
+            next_state =  st_IODIRB;
+          else
+            next_state =  w_busy26;
+        end
+      w_busy27 : 
+        begin
+          if (busy_p==1)
+            next_state =  st_GPIOB0;
+          else
+            next_state =  w_busy27;
+        end
+      w_busy28 : 
+        begin
+          if (busy_p==1)
+            next_state =  st_GPPUA;
+          else
+            next_state =  w_busy28;
+        end
+      w_busy29 : 
+        begin
+          if (busy_p==1)
+            next_state =  st_GPPUB;
+          else
+            next_state =  w_busy29;
+        end
+      w_busy30 : 
+        begin
+          if (busy_p==1)
+            next_state =  st_GPIOA;
+          else
+            next_state =  w_busy30;
+        end
+      w_busy31 : 
+        begin
+          if (busy_p==1)
+            next_state =  st_GPIOA15;
+          else
+            next_state =  w_busy31;
+        end
+      CS_high16 : 
+        begin
+          next_state =  w_busy43;
+        end
+      w_busy43 : 
+        begin
+          if (busy_p==1)
+            next_state =  End_Select;
+          else
+            next_state =  w_busy43;
         end
       st_GPIOA : 
         begin
@@ -405,172 +505,6 @@ always @( busy_m or busy_p or csm_timeout or current_state or end_mon_cnt or end
       st_GPIOA2 : 
         begin
           next_state =  w_busy17;
-        end
-      End_Select : 
-        begin
-          next_state =  waittoact;
-        end
-      Write_Mosi : 
-        begin
-          next_state =  CS_low;
-          csm_to_CS_low =  1'b1;
-        end
-      read_elink_mes1 : 
-        begin
-          if (end_read_elink==1)
-            next_state =  Write_Mosi;
-          else
-            next_state =  read_elink_mes1;
-        end
-      CS_low : 
-        begin
-          if (csm_timeout)
-            begin
-              next_state =  Read_Miso;
-              csm_to_Read_Miso =  1'b1;
-            end
-          else
-            next_state =  CS_low;
-        end
-      Read_Miso : 
-        begin
-          if (csm_timeout)
-            next_state =  Wait_Miso;
-          else
-            next_state =  Read_Miso;
-        end
-      Done : 
-        begin
-          next_state =  waittoact;
-        end
-      write_elink : 
-        begin
-          if (end_write_elink_spi==1)
-            next_state =  Done;
-          else
-            next_state =  write_elink;
-        end
-      Wait_Miso : 
-        begin
-          if (end_read_miso==1)
-            next_state =  write_elink;
-          else
-            next_state =  Wait_Miso;
-        end
-      Offset_cal0 : 
-        begin
-          next_state =  St_wait32;
-        end
-      Offset__cal1 : 
-        begin
-          next_state =  St_wait33;
-        end
-      Offset__cal2 : 
-        begin
-          next_state =  St_wait40;
-        end
-      Offset__cal3 : 
-        begin
-          next_state =  St_wait44;
-        end
-      Gain_cal0 : 
-        begin
-          next_state =  St_wait50;
-        end
-      Gain_cal1 : 
-        begin
-          next_state =  St_wait51;
-        end
-      Gain_cal2 : 
-        begin
-          next_state =  St_wait54;
-        end
-      Gain_cal3 : 
-        begin
-          next_state =  St_wait57;
-        end
-      write_csrs7 : 
-        begin
-          next_state =  St_wait31;
-        end
-      write_csrs6 : 
-        begin
-          next_state =  St_wait30;
-        end
-      write_csrs5 : 
-        begin
-          next_state =  St_wait29;
-        end
-      write_csrs4 : 
-        begin
-          next_state =  St_wait28;
-        end
-      write_csrs0 : 
-        begin
-          next_state =  St_wait25;
-        end
-      write_csrs1 : 
-        begin
-          next_state =  St_wait26;
-        end
-      write_csrs2 : 
-        begin
-          next_state =  St_wait27;
-        end
-      ST_Config4 : 
-        begin
-          next_state =  St_wait20;
-        end
-      ST_Config3 : 
-        begin
-          next_state =  St_wait19;
-        end
-      ST_Config1 : 
-        begin
-          next_state =  St_wait18;
-        end
-      ST_Config2 : 
-        begin
-          next_state =  St_wait17;
-        end
-      ST_Rest_2 : 
-        begin
-          next_state =  St_wait1;
-        end
-      ST_Rest_4 : 
-        begin
-          next_state =  St_wait6;
-        end
-      ST_Rest_1 : 
-        begin
-          next_state =  St_wait;
-        end
-      St_wait : 
-        begin
-          if (busy_m==1)
-            next_state =  ST_Rest_2;
-          else
-            next_state =  St_wait;
-        end
-      ST_Rest_RS_1 : 
-        begin
-          next_state =  St_wait7;
-        end
-      ST_Rest_RS_2 : 
-        begin
-          next_state =  St_wait8;
-        end
-      st_GPIOA9 : 
-        begin
-          next_state =  st_GPIOA10;
-        end
-      st_GPIOA10 : 
-        begin
-          next_state =  st_GPIOA11;
-        end
-      st_GPIOA11 : 
-        begin
-          next_state =  waittoact;
         end
       w_busy15 : 
         begin
@@ -758,71 +692,46 @@ always @( busy_m or busy_p or csm_timeout or current_state or end_mon_cnt or end
         begin
           next_state =  w_busy12;
         end
-      CS_high0 : 
+      st_GPIOA15 : 
         begin
-          next_state =  w_busy26;
+          next_state =  w_busy40;
         end
-      CS_high1 : 
+      st_GPIOA16 : 
         begin
-          next_state =  w_busy27;
+          next_state =  w_busy41;
         end
-      CS_high2 : 
+      st_GPIOA17 : 
         begin
-          next_state =  w_busy28;
+          next_state =  w_busy42;
         end
-      CS_high3 : 
-        begin
-          next_state =  w_busy29;
-        end
-      CS_high4 : 
-        begin
-          next_state =  w_busy30;
-        end
-      CS_high5 : 
-        begin
-          next_state =  w_busy31;
-        end
-      w_busy26 : 
+      w_busy40 : 
         begin
           if (busy_p==1)
-            next_state =  st_IODIRB;
+            next_state =  st_GPIOA16;
           else
-            next_state =  w_busy26;
+            next_state =  w_busy40;
         end
-      w_busy27 : 
+      w_busy41 : 
         begin
           if (busy_p==1)
-            next_state =  st_GPIOB0;
+            next_state =  st_GPIOA17;
           else
-            next_state =  w_busy27;
+            next_state =  w_busy41;
         end
-      w_busy28 : 
+      w_busy42 : 
         begin
           if (busy_p==1)
-            next_state =  st_GPPUA;
+            next_state =  CS_high16;
           else
-            next_state =  w_busy28;
+            next_state =  w_busy42;
         end
-      w_busy29 : 
+      endinit1 : 
         begin
-          if (busy_p==1)
-            next_state =  st_GPPUB;
-          else
-            next_state =  w_busy29;
+          next_state =  waittoact;
         end
-      w_busy30 : 
+      start1 : 
         begin
-          if (busy_p==1)
-            next_state =  st_GPIOA;
-          else
-            next_state =  w_busy30;
-        end
-      w_busy31 : 
-        begin
-          if (busy_p==1)
-            next_state =  st_GPIOA15;
-          else
-            next_state =  w_busy31;
+          next_state =  ST_Init_0;
         end
       CS_high7 : 
         begin
@@ -834,6 +743,656 @@ always @( busy_m or busy_p or csm_timeout or current_state or end_mon_cnt or end
             next_state =  ST_Rest_1;
           else
             next_state =  w_busy32;
+        end
+      CS_high8 : 
+        begin
+          next_state =  w_busy33;
+        end
+      w_busy33 : 
+        begin
+          if (busy_m==1)
+            next_state =  ST_Read_reg;
+          else
+            next_state =  w_busy33;
+        end
+      CS_high9 : 
+        begin
+          next_state =  w_busy34;
+        end
+      w_busy34 : 
+        begin
+          if (busy_m==1)
+            next_state =  ST_Config1;
+          else
+            next_state =  w_busy34;
+        end
+      CS_high10 : 
+        begin
+          next_state =  w_busy35;
+        end
+      w_busy35 : 
+        begin
+          if (busy_m==1)
+            next_state =  ST_Read_reg2;
+          else
+            next_state =  w_busy35;
+        end
+      CS_high12 : 
+        begin
+          next_state =  w_busy36;
+        end
+      w_busy36 : 
+        begin
+          if (busy_m==1)
+            next_state =  write_csrs0;
+          else
+            next_state =  w_busy36;
+        end
+      CS_high13 : 
+        begin
+          next_state =  w_busy37;
+        end
+      w_busy37 : 
+        begin
+          if (busy_m==1)
+            next_state =  Offset_cal0;
+          else
+            next_state =  w_busy37;
+        end
+      w_busy38 : 
+        begin
+          if (busy_m==1)
+            next_state =  Gain_cal0;
+          else
+            next_state =  w_busy38;
+        end
+      CS_high14 : 
+        begin
+          next_state =  w_busy38;
+        end
+      CS_high15 : 
+        begin
+          next_state =  w_busy39;
+        end
+      w_busy39 : 
+        begin
+          if (busy_m==1)
+            next_state =  Break_Loop;
+          else
+            next_state =  w_busy39;
+        end
+      Break_Loop : 
+        begin
+          if (end_mon_cnt)
+            next_state =  ST_CountRst;
+          else
+            next_state =  ST_Start_Cnt;
+        end
+      ST_CountRst : 
+        begin
+          next_state =  endinit1;
+        end
+      ST_Start_Cnt : 
+        begin
+          next_state =  ST_Init_0;
+        end
+      ST_Read_reg : 
+        begin
+          next_state =  St_wait16;
+        end
+      St_wait13 : 
+        begin
+          if (busy_m==1)
+            next_state =  ST_Rest_RS_6;
+          else
+            next_state =  St_wait13;
+        end
+      ST_Rest_RS_6 : 
+        begin
+          next_state =  St_wait14;
+        end
+      ST_Rest_RS_7 : 
+        begin
+          next_state =  St_wait13;
+        end
+      St_wait14 : 
+        begin
+          if (busy_m==1)
+            next_state =  ST_Rest_RS_8;
+          else
+            next_state =  St_wait14;
+        end
+      ST_Rest_RS_8 : 
+        begin
+          next_state =  St_wait15;
+        end
+      St_wait15 : 
+        begin
+          if (busy_m==1)
+            next_state =  CS_high9;
+          else
+            next_state =  St_wait15;
+        end
+      St_wait16 : 
+        begin
+          if (busy_m==1)
+            next_state =  ST_Rest_RS_7;
+          else
+            next_state =  St_wait16;
+        end
+      Offset_cal0 : 
+        begin
+          next_state =  St_wait32;
+        end
+      Offset__cal1 : 
+        begin
+          next_state =  St_wait33;
+        end
+      Offset__cal2 : 
+        begin
+          next_state =  St_wait40;
+        end
+      Offset__cal3 : 
+        begin
+          next_state =  St_wait44;
+        end
+      St_wait32 : 
+        begin
+          if (busy_m==1)
+            next_state =  ST_Config5;
+          else
+            next_state =  St_wait32;
+        end
+      St_wait33 : 
+        begin
+          if (busy_m==1)
+            next_state =  ST_Config8;
+          else
+            next_state =  St_wait33;
+        end
+      St_wait34 : 
+        begin
+          if (busy_m==1)
+            next_state =  Offset__cal1;
+          else
+            next_state =  St_wait34;
+        end
+      ST_Config5 : 
+        begin
+          next_state =  St_wait35;
+        end
+      ST_Config6 : 
+        begin
+          next_state =  St_wait34;
+        end
+      St_wait35 : 
+        begin
+          if (busy_m==1)
+            next_state =  ST_Config7;
+          else
+            next_state =  St_wait35;
+        end
+      ST_Config7 : 
+        begin
+          next_state =  St_wait36;
+        end
+      St_wait36 : 
+        begin
+          if (busy_m==1)
+            next_state =  ST_Config6;
+          else
+            next_state =  St_wait36;
+        end
+      ST_Config8 : 
+        begin
+          next_state =  St_wait37;
+        end
+      St_wait37 : 
+        begin
+          if (busy_m==1)
+            next_state =  ST_Config9;
+          else
+            next_state =  St_wait37;
+        end
+      ST_Config9 : 
+        begin
+          next_state =  St_wait38;
+        end
+      St_wait38 : 
+        begin
+          if (busy_m==1)
+            next_state =  ST_Config10;
+          else
+            next_state =  St_wait38;
+        end
+      ST_Config10 : 
+        begin
+          next_state =  St_wait39;
+        end
+      St_wait39 : 
+        begin
+          if (busy_m==1)
+            next_state =  Offset__cal2;
+          else
+            next_state =  St_wait39;
+        end
+      St_wait40 : 
+        begin
+          if (busy_m==1)
+            next_state =  ST_Config11;
+          else
+            next_state =  St_wait40;
+        end
+      ST_Config11 : 
+        begin
+          next_state =  St_wait41;
+        end
+      St_wait41 : 
+        begin
+          if (busy_m==1)
+            next_state =  ST_Config12;
+          else
+            next_state =  St_wait41;
+        end
+      ST_Config12 : 
+        begin
+          next_state =  St_wait42;
+        end
+      St_wait42 : 
+        begin
+          if (busy_m==1)
+            next_state =  ST_Config13;
+          else
+            next_state =  St_wait42;
+        end
+      ST_Config13 : 
+        begin
+          next_state =  St_wait43;
+        end
+      St_wait43 : 
+        begin
+          if (busy_m==1)
+            next_state =  Offset__cal3;
+          else
+            next_state =  St_wait43;
+        end
+      St_wait44 : 
+        begin
+          if (busy_m==1)
+            next_state =  ST_Config14;
+          else
+            next_state =  St_wait44;
+        end
+      ST_Config14 : 
+        begin
+          next_state =  St_wait45;
+        end
+      St_wait45 : 
+        begin
+          if (busy_m==1)
+            next_state =  ST_Config15;
+          else
+            next_state =  St_wait45;
+        end
+      ST_Config15 : 
+        begin
+          next_state =  St_wait46;
+        end
+      St_wait46 : 
+        begin
+          if (busy_m==1)
+            next_state =  ST_Config16;
+          else
+            next_state =  St_wait46;
+        end
+      ST_Config16 : 
+        begin
+          next_state =  St_wait47;
+        end
+      St_wait47 : 
+        begin
+          if (busy_m==1)
+            next_state =  CS_high14;
+          else
+            next_state =  St_wait47;
+        end
+      Gain_cal0 : 
+        begin
+          next_state =  St_wait50;
+        end
+      Gain_cal1 : 
+        begin
+          next_state =  St_wait51;
+        end
+      Gain_cal2 : 
+        begin
+          next_state =  St_wait54;
+        end
+      Gain_cal3 : 
+        begin
+          next_state =  St_wait57;
+        end
+      ST_Config17 : 
+        begin
+          next_state =  St_wait48;
+        end
+      St_wait48 : 
+        begin
+          if (busy_m==1)
+            next_state =  ST_Config18;
+          else
+            next_state =  St_wait48;
+        end
+      ST_Config18 : 
+        begin
+          next_state =  St_wait49;
+        end
+      St_wait49 : 
+        begin
+          if (busy_m==1)
+            next_state =  Gain_cal1;
+          else
+            next_state =  St_wait49;
+        end
+      St_wait50 : 
+        begin
+          if (busy_m==1)
+            next_state =  ST_Config17;
+          else
+            next_state =  St_wait50;
+        end
+      St_wait51 : 
+        begin
+          if (busy_m==1)
+            next_state =  ST_Config19;
+          else
+            next_state =  St_wait51;
+        end
+      ST_Config19 : 
+        begin
+          next_state =  St_wait52;
+        end
+      St_wait52 : 
+        begin
+          if (busy_m==1)
+            next_state =  ST_Config20;
+          else
+            next_state =  St_wait52;
+        end
+      ST_Config20 : 
+        begin
+          next_state =  St_wait53;
+        end
+      St_wait53 : 
+        begin
+          if (busy_m==1)
+            next_state =  Gain_cal2;
+          else
+            next_state =  St_wait53;
+        end
+      St_wait54 : 
+        begin
+          if (busy_m==1)
+            next_state =  ST_Config21;
+          else
+            next_state =  St_wait54;
+        end
+      ST_Config21 : 
+        begin
+          next_state =  St_wait55;
+        end
+      St_wait55 : 
+        begin
+          if (busy_m==1)
+            next_state =  ST_Config22;
+          else
+            next_state =  St_wait55;
+        end
+      ST_Config22 : 
+        begin
+          next_state =  St_wait56;
+        end
+      St_wait56 : 
+        begin
+          if (busy_m==1)
+            next_state =  Gain_cal3;
+          else
+            next_state =  St_wait56;
+        end
+      St_wait57 : 
+        begin
+          if (busy_m==1)
+            next_state =  ST_Config23;
+          else
+            next_state =  St_wait57;
+        end
+      ST_Config23 : 
+        begin
+          next_state =  St_wait58;
+        end
+      St_wait58 : 
+        begin
+          if (busy_m==1)
+            next_state =  ST_Config24;
+          else
+            next_state =  St_wait58;
+        end
+      ST_Config24 : 
+        begin
+          next_state =  St_wait59;
+        end
+      St_wait59 : 
+        begin
+          if (busy_m==1)
+            next_state =  CS_high15;
+          else
+            next_state =  St_wait59;
+        end
+      write_csrs7 : 
+        begin
+          next_state =  St_wait31;
+        end
+      write_csrs6 : 
+        begin
+          next_state =  St_wait30;
+        end
+      write_csrs5 : 
+        begin
+          next_state =  St_wait29;
+        end
+      write_csrs4 : 
+        begin
+          next_state =  St_wait28;
+        end
+      write_csrs0 : 
+        begin
+          next_state =  St_wait25;
+        end
+      write_csrs1 : 
+        begin
+          next_state =  St_wait26;
+        end
+      write_csrs2 : 
+        begin
+          next_state =  St_wait27;
+        end
+      St_wait25 : 
+        begin
+          if (busy_m==1)
+            next_state =  write_csrs1;
+          else
+            next_state =  St_wait25;
+        end
+      St_wait26 : 
+        begin
+          if (busy_m==1)
+            next_state =  write_csrs2;
+          else
+            next_state =  St_wait26;
+        end
+      St_wait27 : 
+        begin
+          if (busy_m==1)
+            next_state =  write_csrs4;
+          else
+            next_state =  St_wait27;
+        end
+      St_wait28 : 
+        begin
+          if (busy_m==1)
+            next_state =  write_csrs5;
+          else
+            next_state =  St_wait28;
+        end
+      St_wait29 : 
+        begin
+          if (busy_m==1)
+            next_state =  write_csrs6;
+          else
+            next_state =  St_wait29;
+        end
+      St_wait30 : 
+        begin
+          if (busy_m==1)
+            next_state =  write_csrs7;
+          else
+            next_state =  St_wait30;
+        end
+      St_wait31 : 
+        begin
+          if (busy_m==1)
+            next_state =  CS_high13;
+          else
+            next_state =  St_wait31;
+        end
+      ST_Config4 : 
+        begin
+          next_state =  St_wait20;
+        end
+      ST_Config3 : 
+        begin
+          next_state =  St_wait19;
+        end
+      ST_Config1 : 
+        begin
+          next_state =  St_wait18;
+        end
+      ST_Config2 : 
+        begin
+          next_state =  St_wait17;
+        end
+      St_wait17 : 
+        begin
+          if (busy_m==1)
+            next_state =  ST_Config3;
+          else
+            next_state =  St_wait17;
+        end
+      St_wait18 : 
+        begin
+          if (busy_m==1)
+            next_state =  ST_Config2;
+          else
+            next_state =  St_wait18;
+        end
+      St_wait19 : 
+        begin
+          if (busy_m==1)
+            next_state =  ST_Config4;
+          else
+            next_state =  St_wait19;
+        end
+      St_wait20 : 
+        begin
+          if (busy_m==1)
+            next_state =  CS_high10;
+          else
+            next_state =  St_wait20;
+        end
+      ST_Rest_2 : 
+        begin
+          next_state =  St_wait1;
+        end
+      ST_Rest_4 : 
+        begin
+          next_state =  St_wait6;
+        end
+      ST_Rest_1 : 
+        begin
+          next_state =  St_wait;
+        end
+      St_wait : 
+        begin
+          if (busy_m==1)
+            next_state =  ST_Rest_2;
+          else
+            next_state =  St_wait;
+        end
+      ST_Rest_RS_1 : 
+        begin
+          next_state =  St_wait7;
+        end
+      ST_Rest_RS_2 : 
+        begin
+          next_state =  St_wait8;
+        end
+      ST_Rest_3 : 
+        begin
+          next_state =  St_wait5;
+        end
+      ST_Rest_RS_3 : 
+        begin
+          next_state =  St_wait9;
+        end
+      ST_Rest_RS_4 : 
+        begin
+          next_state =  St_wait10;
+        end
+      St_wait1 : 
+        begin
+          if (busy_m==1)
+            next_state =  ST_Rest_3;
+          else
+            next_state =  St_wait1;
+        end
+      St_wait5 : 
+        begin
+          next_state =  ST_Rest_4;
+        end
+      St_wait6 : 
+        begin
+          if (busy_m==1)
+            next_state =  ST_Rest_RS_1;
+          else
+            next_state =  St_wait6;
+        end
+      St_wait7 : 
+        begin
+          if (busy_m==1)
+            next_state =  ST_Rest_RS_2;
+          else
+            next_state =  St_wait7;
+        end
+      St_wait8 : 
+        begin
+          if (busy_m==1)
+            next_state =  ST_Rest_RS_3;
+          else
+            next_state =  St_wait8;
+        end
+      St_wait9 : 
+        begin
+          if (busy_m==1)
+            next_state =  ST_Rest_RS_4;
+          else
+            next_state =  St_wait9;
+        end
+      St_wait10 : 
+        begin
+          if (busy_m==1)
+            next_state =  CS_high8;
+          else
+            next_state =  St_wait10;
         end
       ST_Init_0 : 
         begin
@@ -1011,418 +1570,6 @@ always @( busy_m or busy_p or csm_timeout or current_state or end_mon_cnt or end
           else
             next_state =  ST_wait_15;
         end
-      CS_high8 : 
-        begin
-          next_state =  w_busy33;
-        end
-      w_busy33 : 
-        begin
-          if (busy_m==1)
-            next_state =  ST_Read_reg;
-          else
-            next_state =  w_busy33;
-        end
-      ST_Rest_3 : 
-        begin
-          next_state =  St_wait5;
-        end
-      ST_Rest_RS_3 : 
-        begin
-          next_state =  St_wait9;
-        end
-      ST_Rest_RS_4 : 
-        begin
-          next_state =  St_wait10;
-        end
-      St_wait1 : 
-        begin
-          if (busy_m==1)
-            next_state =  ST_Rest_3;
-          else
-            next_state =  St_wait1;
-        end
-      St_wait5 : 
-        begin
-          next_state =  ST_Rest_4;
-        end
-      St_wait6 : 
-        begin
-          if (busy_m==1)
-            next_state =  ST_Rest_RS_1;
-          else
-            next_state =  St_wait6;
-        end
-      St_wait7 : 
-        begin
-          if (busy_m==1)
-            next_state =  ST_Rest_RS_2;
-          else
-            next_state =  St_wait7;
-        end
-      St_wait8 : 
-        begin
-          if (busy_m==1)
-            next_state =  ST_Rest_RS_3;
-          else
-            next_state =  St_wait8;
-        end
-      St_wait9 : 
-        begin
-          if (busy_m==1)
-            next_state =  ST_Rest_RS_4;
-          else
-            next_state =  St_wait9;
-        end
-      St_wait10 : 
-        begin
-          if (busy_m==1)
-            next_state =  CS_high8;
-          else
-            next_state =  St_wait10;
-        end
-      CS_high9 : 
-        begin
-          next_state =  w_busy34;
-        end
-      w_busy34 : 
-        begin
-          if (busy_m==1)
-            next_state =  ST_Config1;
-          else
-            next_state =  w_busy34;
-        end
-      St_wait13 : 
-        begin
-          if (busy_m==1)
-            next_state =  ST_Rest_RS_6;
-          else
-            next_state =  St_wait13;
-        end
-      ST_Rest_RS_6 : 
-        begin
-          next_state =  St_wait14;
-        end
-      ST_Rest_RS_7 : 
-        begin
-          next_state =  St_wait13;
-        end
-      St_wait14 : 
-        begin
-          if (busy_m==1)
-            next_state =  ST_Rest_RS_8;
-          else
-            next_state =  St_wait14;
-        end
-      ST_Rest_RS_8 : 
-        begin
-          next_state =  St_wait15;
-        end
-      St_wait15 : 
-        begin
-          if (busy_m==1)
-            next_state =  CS_high9;
-          else
-            next_state =  St_wait15;
-        end
-      St_wait16 : 
-        begin
-          if (busy_m==1)
-            next_state =  ST_Rest_RS_7;
-          else
-            next_state =  St_wait16;
-        end
-      CS_high10 : 
-        begin
-          next_state =  w_busy35;
-        end
-      w_busy35 : 
-        begin
-          if (busy_m==1)
-            next_state =  ST_Read_reg2;
-          else
-            next_state =  w_busy35;
-        end
-      CS_high12 : 
-        begin
-          next_state =  w_busy36;
-        end
-      w_busy36 : 
-        begin
-          if (busy_m==1)
-            next_state =  write_csrs0;
-          else
-            next_state =  w_busy36;
-        end
-      CS_high13 : 
-        begin
-          next_state =  w_busy37;
-        end
-      w_busy37 : 
-        begin
-          if (busy_m==1)
-            next_state =  Offset_cal0;
-          else
-            next_state =  w_busy37;
-        end
-      w_busy38 : 
-        begin
-          if (busy_m==1)
-            next_state =  Gain_cal0;
-          else
-            next_state =  w_busy38;
-        end
-      CS_high14 : 
-        begin
-          next_state =  w_busy38;
-        end
-      CS_high15 : 
-        begin
-          next_state =  w_busy39;
-        end
-      w_busy39 : 
-        begin
-          if (busy_m==1)
-            next_state =  Break_Loop;
-          else
-            next_state =  w_busy39;
-        end
-      St_wait17 : 
-        begin
-          if (busy_m==1)
-            next_state =  ST_Config3;
-          else
-            next_state =  St_wait17;
-        end
-      St_wait18 : 
-        begin
-          if (busy_m==1)
-            next_state =  ST_Config2;
-          else
-            next_state =  St_wait18;
-        end
-      St_wait19 : 
-        begin
-          if (busy_m==1)
-            next_state =  ST_Config4;
-          else
-            next_state =  St_wait19;
-        end
-      St_wait20 : 
-        begin
-          if (busy_m==1)
-            next_state =  CS_high10;
-          else
-            next_state =  St_wait20;
-        end
-      St_wait32 : 
-        begin
-          if (busy_m==1)
-            next_state =  ST_Config5;
-          else
-            next_state =  St_wait32;
-        end
-      St_wait33 : 
-        begin
-          if (busy_m==1)
-            next_state =  ST_Config8;
-          else
-            next_state =  St_wait33;
-        end
-      St_wait34 : 
-        begin
-          if (busy_m==1)
-            next_state =  Offset__cal1;
-          else
-            next_state =  St_wait34;
-        end
-      ST_Config5 : 
-        begin
-          next_state =  St_wait35;
-        end
-      ST_Config6 : 
-        begin
-          next_state =  St_wait34;
-        end
-      St_wait35 : 
-        begin
-          if (busy_m==1)
-            next_state =  ST_Config7;
-          else
-            next_state =  St_wait35;
-        end
-      ST_Config7 : 
-        begin
-          next_state =  St_wait36;
-        end
-      St_wait36 : 
-        begin
-          if (busy_m==1)
-            next_state =  ST_Config6;
-          else
-            next_state =  St_wait36;
-        end
-      ST_Config8 : 
-        begin
-          next_state =  St_wait37;
-        end
-      St_wait37 : 
-        begin
-          if (busy_m==1)
-            next_state =  ST_Config9;
-          else
-            next_state =  St_wait37;
-        end
-      ST_Config9 : 
-        begin
-          next_state =  St_wait38;
-        end
-      St_wait38 : 
-        begin
-          if (busy_m==1)
-            next_state =  ST_Config10;
-          else
-            next_state =  St_wait38;
-        end
-      ST_Config10 : 
-        begin
-          next_state =  St_wait39;
-        end
-      St_wait39 : 
-        begin
-          if (busy_m==1)
-            next_state =  Offset__cal2;
-          else
-            next_state =  St_wait39;
-        end
-      St_wait40 : 
-        begin
-          if (busy_m==1)
-            next_state =  ST_Config11;
-          else
-            next_state =  St_wait40;
-        end
-      ST_Config11 : 
-        begin
-          next_state =  St_wait41;
-        end
-      St_wait41 : 
-        begin
-          if (busy_m==1)
-            next_state =  ST_Config12;
-          else
-            next_state =  St_wait41;
-        end
-      ST_Config12 : 
-        begin
-          next_state =  St_wait42;
-        end
-      St_wait42 : 
-        begin
-          if (busy_m==1)
-            next_state =  ST_Config13;
-          else
-            next_state =  St_wait42;
-        end
-      ST_Config13 : 
-        begin
-          next_state =  St_wait43;
-        end
-      St_wait43 : 
-        begin
-          if (busy_m==1)
-            next_state =  Offset__cal3;
-          else
-            next_state =  St_wait43;
-        end
-      St_wait44 : 
-        begin
-          if (busy_m==1)
-            next_state =  ST_Config14;
-          else
-            next_state =  St_wait44;
-        end
-      ST_Config14 : 
-        begin
-          next_state =  St_wait45;
-        end
-      St_wait45 : 
-        begin
-          if (busy_m==1)
-            next_state =  ST_Config15;
-          else
-            next_state =  St_wait45;
-        end
-      ST_Config15 : 
-        begin
-          next_state =  St_wait46;
-        end
-      St_wait46 : 
-        begin
-          if (busy_m==1)
-            next_state =  ST_Config16;
-          else
-            next_state =  St_wait46;
-        end
-      ST_Config16 : 
-        begin
-          next_state =  St_wait47;
-        end
-      St_wait47 : 
-        begin
-          if (busy_m==1)
-            next_state =  CS_high14;
-          else
-            next_state =  St_wait47;
-        end
-      St_wait25 : 
-        begin
-          if (busy_m==1)
-            next_state =  write_csrs1;
-          else
-            next_state =  St_wait25;
-        end
-      St_wait26 : 
-        begin
-          if (busy_m==1)
-            next_state =  write_csrs2;
-          else
-            next_state =  St_wait26;
-        end
-      St_wait27 : 
-        begin
-          if (busy_m==1)
-            next_state =  write_csrs4;
-          else
-            next_state =  St_wait27;
-        end
-      St_wait28 : 
-        begin
-          if (busy_m==1)
-            next_state =  write_csrs5;
-          else
-            next_state =  St_wait28;
-        end
-      St_wait29 : 
-        begin
-          if (busy_m==1)
-            next_state =  write_csrs6;
-          else
-            next_state =  St_wait29;
-        end
-      St_wait30 : 
-        begin
-          if (busy_m==1)
-            next_state =  write_csrs7;
-          else
-            next_state =  St_wait30;
-        end
-      St_wait31 : 
-        begin
-          if (busy_m==1)
-            next_state =  CS_high13;
-          else
-            next_state =  St_wait31;
-        end
       ST_Read_reg2 : 
         begin
           next_state =  St_wait24;
@@ -1466,225 +1613,6 @@ always @( busy_m or busy_p or csm_timeout or current_state or end_mon_cnt or end
             next_state =  ST_Rest_RS_10;
           else
             next_state =  St_wait24;
-        end
-      ST_Config17 : 
-        begin
-          next_state =  St_wait48;
-        end
-      St_wait48 : 
-        begin
-          if (busy_m==1)
-            next_state =  ST_Config18;
-          else
-            next_state =  St_wait48;
-        end
-      ST_Config18 : 
-        begin
-          next_state =  St_wait49;
-        end
-      St_wait49 : 
-        begin
-          if (busy_m==1)
-            next_state =  Gain_cal1;
-          else
-            next_state =  St_wait49;
-        end
-      St_wait50 : 
-        begin
-          if (busy_m==1)
-            next_state =  ST_Config17;
-          else
-            next_state =  St_wait50;
-        end
-      St_wait51 : 
-        begin
-          if (busy_m==1)
-            next_state =  ST_Config19;
-          else
-            next_state =  St_wait51;
-        end
-      ST_Config19 : 
-        begin
-          next_state =  St_wait52;
-        end
-      St_wait52 : 
-        begin
-          if (busy_m==1)
-            next_state =  ST_Config20;
-          else
-            next_state =  St_wait52;
-        end
-      ST_Config20 : 
-        begin
-          next_state =  St_wait53;
-        end
-      St_wait53 : 
-        begin
-          if (busy_m==1)
-            next_state =  Gain_cal2;
-          else
-            next_state =  St_wait53;
-        end
-      St_wait54 : 
-        begin
-          if (busy_m==1)
-            next_state =  ST_Config21;
-          else
-            next_state =  St_wait54;
-        end
-      ST_Config21 : 
-        begin
-          next_state =  St_wait55;
-        end
-      St_wait55 : 
-        begin
-          if (busy_m==1)
-            next_state =  ST_Config22;
-          else
-            next_state =  St_wait55;
-        end
-      ST_Config22 : 
-        begin
-          next_state =  St_wait56;
-        end
-      St_wait56 : 
-        begin
-          if (busy_m==1)
-            next_state =  Gain_cal3;
-          else
-            next_state =  St_wait56;
-        end
-      St_wait57 : 
-        begin
-          if (busy_m==1)
-            next_state =  ST_Config23;
-          else
-            next_state =  St_wait57;
-        end
-      ST_Config23 : 
-        begin
-          next_state =  St_wait58;
-        end
-      St_wait58 : 
-        begin
-          if (busy_m==1)
-            next_state =  ST_Config24;
-          else
-            next_state =  St_wait58;
-        end
-      ST_Config24 : 
-        begin
-          next_state =  St_wait59;
-        end
-      St_wait59 : 
-        begin
-          if (busy_m==1)
-            next_state =  CS_high15;
-          else
-            next_state =  St_wait59;
-        end
-      Break_Loop : 
-        begin
-          if (end_mon_cnt)
-            next_state =  ST_CountRst;
-          else
-            next_state =  ST_Start_Cnt;
-        end
-      ST_CountRst : 
-        begin
-          next_state =  endinit1;
-        end
-      ST_Start_Cnt : 
-        begin
-          next_state =  ST_Init_0;
-        end
-      ST_Read_reg3 : 
-        begin
-          next_state =  St_wait63;
-        end
-      St_wait60 : 
-        begin
-          if (busy_m==1)
-            next_state =  ST_Rest_RS_12;
-          else
-            next_state =  St_wait60;
-        end
-      ST_Rest_RS_12 : 
-        begin
-          next_state =  St_wait61;
-        end
-      ST_Rest_RS_13 : 
-        begin
-          next_state =  St_wait60;
-        end
-      St_wait61 : 
-        begin
-          if (busy_m==1)
-            next_state =  ST_Rest_RS_14;
-          else
-            next_state =  St_wait61;
-        end
-      ST_Rest_RS_14 : 
-        begin
-          next_state =  St_wait62;
-        end
-      St_wait62 : 
-        begin
-          if (busy_m==1)
-            next_state =  waittoact;
-          else
-            next_state =  St_wait62;
-        end
-      St_wait63 : 
-        begin
-          if (busy_m==1)
-            next_state =  ST_Rest_RS_13;
-          else
-            next_state =  St_wait63;
-        end
-      CS_high16 : 
-        begin
-          next_state =  w_busy43;
-        end
-      w_busy43 : 
-        begin
-          if (busy_p==1)
-            next_state =  End_Select;
-          else
-            next_state =  w_busy43;
-        end
-      st_GPIOA15 : 
-        begin
-          next_state =  w_busy40;
-        end
-      st_GPIOA16 : 
-        begin
-          next_state =  w_busy41;
-        end
-      st_GPIOA17 : 
-        begin
-          next_state =  w_busy42;
-        end
-      w_busy40 : 
-        begin
-          if (busy_p==1)
-            next_state =  st_GPIOA16;
-          else
-            next_state =  w_busy40;
-        end
-      w_busy41 : 
-        begin
-          if (busy_p==1)
-            next_state =  st_GPIOA17;
-          else
-            next_state =  w_busy41;
-        end
-      w_busy42 : 
-        begin
-          if (busy_p==1)
-            next_state =  CS_high16;
-          else
-            next_state =  w_busy42;
         end
       CS_high6 : 
         begin
@@ -1862,6 +1790,109 @@ always @( busy_m or busy_p or csm_timeout or current_state or end_mon_cnt or end
           else
             next_state =  w_busy52;
         end
+      Write_Mosi : 
+        begin
+          next_state =  CS_low;
+          csm_to_CS_low =  1'b1;
+        end
+      read_elink_mes1 : 
+        begin
+          if (end_read_elink==1)
+            next_state =  Write_Mosi;
+          else
+            next_state =  read_elink_mes1;
+        end
+      CS_low : 
+        begin
+          if (csm_timeout)
+            begin
+              next_state =  Read_Miso;
+              csm_to_Read_Miso =  1'b1;
+            end
+          else
+            next_state =  CS_low;
+        end
+      Read_Miso : 
+        begin
+          if (csm_timeout)
+            next_state =  Wait_Miso;
+          else
+            next_state =  Read_Miso;
+        end
+      Done : 
+        begin
+          next_state =  waittoact;
+        end
+      write_elink : 
+        begin
+          if (end_write_elink_spi==1)
+            next_state =  Done;
+          else
+            next_state =  write_elink;
+        end
+      Wait_Miso : 
+        begin
+          if (end_read_miso==1)
+            next_state =  write_elink;
+          else
+            next_state =  Wait_Miso;
+        end
+      st_GPIOA9 : 
+        begin
+          next_state =  st_GPIOA10;
+        end
+      st_GPIOA10 : 
+        begin
+          next_state =  st_GPIOA11;
+        end
+      st_GPIOA11 : 
+        begin
+          next_state =  waittoact;
+        end
+      ST_Read_reg3 : 
+        begin
+          next_state =  St_wait63;
+        end
+      St_wait60 : 
+        begin
+          if (busy_m==1)
+            next_state =  ST_Rest_RS_12;
+          else
+            next_state =  St_wait60;
+        end
+      ST_Rest_RS_12 : 
+        begin
+          next_state =  St_wait61;
+        end
+      ST_Rest_RS_13 : 
+        begin
+          next_state =  St_wait60;
+        end
+      St_wait61 : 
+        begin
+          if (busy_m==1)
+            next_state =  ST_Rest_RS_14;
+          else
+            next_state =  St_wait61;
+        end
+      ST_Rest_RS_14 : 
+        begin
+          next_state =  St_wait62;
+        end
+      St_wait62 : 
+        begin
+          if (busy_m==1)
+            next_state =  waittoact;
+          else
+            next_state =  St_wait62;
+        end
+      St_wait63 : 
+        begin
+          if (busy_m==1)
+            next_state =  ST_Rest_RS_13;
+          else
+            next_state =  St_wait63;
+        end
       default : next_state =  reset;
     endcase
   end
@@ -1899,19 +1930,72 @@ always @( current_state )
         begin
           start_init =  1;
         end
-      endinit1 : 
+      End_Select : 
         begin
-          mon_en_done =  1;
+          bus_en_done =  1;
         end
-      start1 : 
+      CS_high0 : 
         begin
-          start_init =  1;
+          cs_p =  1;
+          transcieve_p =  1;
         end
-      ST_Read_reg : 
+      CS_high1 : 
         begin
-          data_init =  8'h0B;
-          cs_m =  0;
-          transcieve_m =  1;
+          cs_p =  1;
+          transcieve_p =  1;
+        end
+      CS_high2 : 
+        begin
+          cs_p =  1;
+          transcieve_p =  1;
+        end
+      CS_high3 : 
+        begin
+          cs_p =  1;
+          transcieve_p =  1;
+        end
+      CS_high4 : 
+        begin
+          cs_p =  1;
+          transcieve_p =  1;
+        end
+      CS_high5 : 
+        begin
+          cs_p =  1;
+          transcieve_p =  1;
+        end
+      w_busy26 : 
+        begin
+          cs_p =  1;
+        end
+      w_busy27 : 
+        begin
+          cs_p =  1;
+        end
+      w_busy28 : 
+        begin
+          cs_p =  1;
+        end
+      w_busy29 : 
+        begin
+          cs_p =  1;
+        end
+      w_busy30 : 
+        begin
+          cs_p =  1;
+        end
+      w_busy31 : 
+        begin
+          cs_p =  1;
+        end
+      CS_high16 : 
+        begin
+          cs_p =  1;
+          transcieve_p =  1;
+        end
+      w_busy43 : 
+        begin
+          cs_p =  1;
         end
       st_GPIOA : 
         begin
@@ -1930,209 +2014,6 @@ always @( current_state )
           data_init =  8'h01;
           cs_p =  0;
           transcieve_p =  1;
-        end
-      End_Select : 
-        begin
-          bus_en_done =  1;
-        end
-      Write_Mosi : 
-        begin
-          spi_cs =  0;
-          read_spi_mode =  1;
-        end
-      read_elink_mes1 : 
-        begin
-          start_read_elink =  1;
-          read_spi_mode =  1;
-        end
-      CS_low : 
-        begin
-          spi_cs =  0;
-          read_spi_mode =  1;
-        end
-      Read_Miso : 
-        begin
-          start_read_miso =  1;
-          spi_cs =  0;
-          read_spi_mode =  1;
-        end
-      Done : 
-        begin
-          end_spi_proc =  1;
-          read_spi_mode =  1;
-        end
-      write_elink : 
-        begin
-          start_write_elink_spi =  1;
-          read_spi_mode =  1;
-        end
-      Wait_Miso : 
-        begin
-          read_spi_mode =  1;
-        end
-      Offset_cal0 : 
-        begin
-          data_init =  8'h81;
-          cs_m =  0;
-          transcieve_m =  1;
-        end
-      Offset__cal1 : 
-        begin
-          data_init =  8'h89;
-          cs_m =  0;
-          transcieve_m =  1;
-        end
-      Offset__cal2 : 
-        begin
-          data_init =  8'h91;
-          cs_m =  0;
-          transcieve_m =  1;
-        end
-      Offset__cal3 : 
-        begin
-          data_init =  8'h99;
-          cs_m =  0;
-          transcieve_m =  1;
-        end
-      Gain_cal0 : 
-        begin
-          data_init =  8'h82;
-          cs_m =  0;
-          transcieve_m =  1;
-        end
-      Gain_cal1 : 
-        begin
-          data_init =  8'h8A;
-          cs_m =  0;
-          transcieve_m =  1;
-        end
-      Gain_cal2 : 
-        begin
-          data_init =  8'h92;
-          cs_m =  0;
-          transcieve_m =  1;
-        end
-      Gain_cal3 : 
-        begin
-          data_init =  8'h9A;
-          cs_m =  0;
-          transcieve_m =  1;
-        end
-      write_csrs7 : 
-        begin
-          data_init =  8'h8B;
-          cs_m =  0;
-          transcieve_m =  1;
-        end
-      write_csrs6 : 
-        begin
-          data_init =  8'hB1;
-          cs_m =  0;
-          transcieve_m =  1;
-        end
-      write_csrs5 : 
-        begin
-          data_init =  8'h10;
-          cs_m =  0;
-          transcieve_m =  1;
-        end
-      write_csrs4 : 
-        begin
-          data_init =  8'h8B;
-          cs_m =  0;
-          transcieve_m =  1;
-        end
-      write_csrs0 : 
-        begin
-          data_init =  8'h05;
-          cs_m =  0;
-          transcieve_m =  1;
-        end
-      write_csrs1 : 
-        begin
-          data_init =  8'h00;
-          cs_m =  0;
-          transcieve_m =  1;
-        end
-      write_csrs2 : 
-        begin
-          data_init =  8'hB0;
-          cs_m =  0;
-          transcieve_m =  1;
-        end
-      ST_Config4 : 
-        begin
-          data_init =  8'h00;
-          cs_m =  0;
-          transcieve_m =  1;
-        end
-      ST_Config3 : 
-        begin
-          data_init =  8'h30;
-          cs_m =  0;
-          transcieve_m =  1;
-        end
-      ST_Config1 : 
-        begin
-          data_init =  8'h03;
-          cs_m =  0;
-          transcieve_m =  1;
-        end
-      ST_Config2 : 
-        begin
-          data_init =  8'h00;
-          cs_m =  0;
-          transcieve_m =  1;
-        end
-      ST_Rest_2 : 
-        begin
-          data_init =  8'h00;
-          cs_m =  0;
-          transcieve_m =  1;
-        end
-      ST_Rest_4 : 
-        begin
-          data_init =  8'h80;
-          cs_m =  0;
-          transcieve_m =  1;
-        end
-      ST_Rest_1 : 
-        begin
-          data_init =  8'h03;
-          cs_m =  0;
-          transcieve_m =  1;
-        end
-      St_wait : 
-        begin
-          data_init =  8'h03;
-          cs_m =  0;
-        end
-      ST_Rest_RS_1 : 
-        begin
-          data_init =  8'h03;
-          cs_m =  0;
-          transcieve_m =  1;
-        end
-      ST_Rest_RS_2 : 
-        begin
-          data_init =  8'h00;
-          cs_m =  0;
-          transcieve_m =  1;
-        end
-      st_GPIOA9 : 
-        begin
-          data_init =  8'h40;
-          cs_p =  0;
-        end
-      st_GPIOA10 : 
-        begin
-          data_init =  8'h12;
-          cs_p =  0;
-        end
-      st_GPIOA11 : 
-        begin
-          data_init =  8'h00;
-          cs_p =  0;
         end
       w_busy15 : 
         begin
@@ -2314,59 +2195,46 @@ always @( current_state )
           cs_p =  0;
           transcieve_p =  1;
         end
-      CS_high0 : 
+      st_GPIOA15 : 
         begin
-          cs_p =  1;
+          data_init =  8'h40;
+          cs_p =  0;
           transcieve_p =  1;
         end
-      CS_high1 : 
+      st_GPIOA16 : 
         begin
-          cs_p =  1;
+          data_init =  8'h09;
+          cs_p =  0;
           transcieve_p =  1;
         end
-      CS_high2 : 
+      st_GPIOA17 : 
         begin
-          cs_p =  1;
+          data_init =  8'h01;
+          cs_p =  0;
           transcieve_p =  1;
         end
-      CS_high3 : 
+      w_busy40 : 
         begin
-          cs_p =  1;
-          transcieve_p =  1;
+          data_init =  8'h40;
+          cs_p =  0;
         end
-      CS_high4 : 
+      w_busy41 : 
         begin
-          cs_p =  1;
-          transcieve_p =  1;
+          data_init =  8'h09;
+          cs_p =  0;
         end
-      CS_high5 : 
+      w_busy42 : 
         begin
-          cs_p =  1;
-          transcieve_p =  1;
+          data_init =  8'h01;
+          cs_p =  0;
         end
-      w_busy26 : 
+      endinit1 : 
         begin
-          cs_p =  1;
+          mon_en_done =  1;
         end
-      w_busy27 : 
+      start1 : 
         begin
-          cs_p =  1;
-        end
-      w_busy28 : 
-        begin
-          cs_p =  1;
-        end
-      w_busy29 : 
-        begin
-          cs_p =  1;
-        end
-      w_busy30 : 
-        begin
-          cs_p =  1;
-        end
-      w_busy31 : 
-        begin
-          cs_p =  1;
+          start_init =  1;
         end
       CS_high7 : 
         begin
@@ -2376,6 +2244,638 @@ always @( current_state )
       w_busy32 : 
         begin
           cs_m =  1;
+        end
+      CS_high8 : 
+        begin
+          cs_m =  1;
+          transcieve_m =  1;
+        end
+      w_busy33 : 
+        begin
+          cs_m =  1;
+        end
+      CS_high9 : 
+        begin
+          cs_m =  1;
+          transcieve_m =  1;
+        end
+      w_busy34 : 
+        begin
+          cs_m =  1;
+        end
+      CS_high10 : 
+        begin
+          cs_m =  1;
+          transcieve_m =  1;
+        end
+      w_busy35 : 
+        begin
+          cs_m =  1;
+        end
+      CS_high12 : 
+        begin
+          cs_m =  1;
+          transcieve_m =  1;
+        end
+      w_busy36 : 
+        begin
+          cs_m =  1;
+        end
+      CS_high13 : 
+        begin
+          cs_m =  1;
+          transcieve_m =  1;
+        end
+      w_busy37 : 
+        begin
+          cs_m =  1;
+        end
+      w_busy38 : 
+        begin
+          cs_m =  1;
+        end
+      CS_high14 : 
+        begin
+          cs_m =  1;
+          transcieve_m =  1;
+        end
+      CS_high15 : 
+        begin
+          cs_m =  1;
+          transcieve_m =  1;
+        end
+      w_busy39 : 
+        begin
+          cs_m =  1;
+        end
+      ST_CountRst : 
+        begin
+          rst_mon_cnt =  1;
+        end
+      ST_Start_Cnt : 
+        begin
+          start_mon_cnt =  1;
+        end
+      ST_Read_reg : 
+        begin
+          data_init =  8'h0B;
+          cs_m =  0;
+          transcieve_m =  1;
+        end
+      St_wait13 : 
+        begin
+          data_init =  8'h00;
+          cs_m =  0;
+        end
+      ST_Rest_RS_6 : 
+        begin
+          data_init =  8'h00;
+          cs_m =  0;
+          transcieve_m =  1;
+        end
+      ST_Rest_RS_7 : 
+        begin
+          data_init =  8'h00;
+          cs_m =  0;
+          transcieve_m =  1;
+        end
+      St_wait14 : 
+        begin
+          data_init =  8'h00;
+          cs_m =  0;
+        end
+      ST_Rest_RS_8 : 
+        begin
+          data_init =  8'h00;
+          cs_m =  0;
+          transcieve_m =  1;
+        end
+      St_wait15 : 
+        begin
+          data_init =  8'h00;
+          cs_m =  0;
+        end
+      St_wait16 : 
+        begin
+          data_init =  8'h0B;
+          cs_m =  0;
+        end
+      Offset_cal0 : 
+        begin
+          data_init =  8'h81;
+          cs_m =  0;
+          transcieve_m =  1;
+        end
+      Offset__cal1 : 
+        begin
+          data_init =  8'h89;
+          cs_m =  0;
+          transcieve_m =  1;
+        end
+      Offset__cal2 : 
+        begin
+          data_init =  8'h91;
+          cs_m =  0;
+          transcieve_m =  1;
+        end
+      Offset__cal3 : 
+        begin
+          data_init =  8'h99;
+          cs_m =  0;
+          transcieve_m =  1;
+        end
+      St_wait32 : 
+        begin
+          data_init =  8'h81;
+          cs_m =  0;
+        end
+      St_wait33 : 
+        begin
+          data_init =  8'h89;
+          cs_m =  0;
+        end
+      St_wait34 : 
+        begin
+          data_init =  8'h00;
+          cs_m =  0;
+        end
+      ST_Config5 : 
+        begin
+          data_init =  8'h00;
+          cs_m =  0;
+          transcieve_m =  1;
+        end
+      ST_Config6 : 
+        begin
+          data_init =  8'h00;
+          cs_m =  0;
+          transcieve_m =  1;
+        end
+      St_wait35 : 
+        begin
+          data_init =  8'h00;
+          cs_m =  0;
+        end
+      ST_Config7 : 
+        begin
+          data_init =  8'h30;
+          cs_m =  0;
+          transcieve_m =  1;
+        end
+      St_wait36 : 
+        begin
+          data_init =  8'h30;
+          cs_m =  0;
+        end
+      ST_Config8 : 
+        begin
+          data_init =  8'h00;
+          cs_m =  0;
+          transcieve_m =  1;
+        end
+      St_wait37 : 
+        begin
+          data_init =  8'h00;
+          cs_m =  0;
+        end
+      ST_Config9 : 
+        begin
+          data_init =  8'h30;
+          cs_m =  0;
+          transcieve_m =  1;
+        end
+      St_wait38 : 
+        begin
+          data_init =  8'h30;
+          cs_m =  0;
+        end
+      ST_Config10 : 
+        begin
+          data_init =  8'h00;
+          cs_m =  0;
+          transcieve_m =  1;
+        end
+      St_wait39 : 
+        begin
+          data_init =  8'h00;
+          cs_m =  0;
+        end
+      St_wait40 : 
+        begin
+          data_init =  8'h91;
+          cs_m =  0;
+        end
+      ST_Config11 : 
+        begin
+          data_init =  8'h00;
+          cs_m =  0;
+          transcieve_m =  1;
+        end
+      St_wait41 : 
+        begin
+          data_init =  8'h00;
+          cs_m =  0;
+        end
+      ST_Config12 : 
+        begin
+          data_init =  8'h30;
+          cs_m =  0;
+          transcieve_m =  1;
+        end
+      St_wait42 : 
+        begin
+          data_init =  8'h30;
+          cs_m =  0;
+        end
+      ST_Config13 : 
+        begin
+          data_init =  8'h00;
+          cs_m =  0;
+          transcieve_m =  1;
+        end
+      St_wait43 : 
+        begin
+          data_init =  8'h00;
+          cs_m =  0;
+        end
+      St_wait44 : 
+        begin
+          data_init =  8'h99;
+          cs_m =  0;
+        end
+      ST_Config14 : 
+        begin
+          data_init =  8'h00;
+          cs_m =  0;
+          transcieve_m =  1;
+        end
+      St_wait45 : 
+        begin
+          data_init =  8'h00;
+          cs_m =  0;
+        end
+      ST_Config15 : 
+        begin
+          data_init =  8'h30;
+          cs_m =  0;
+          transcieve_m =  1;
+        end
+      St_wait46 : 
+        begin
+          data_init =  8'h30;
+          cs_m =  0;
+        end
+      ST_Config16 : 
+        begin
+          data_init =  8'h00;
+          cs_m =  0;
+          transcieve_m =  1;
+        end
+      St_wait47 : 
+        begin
+          data_init =  8'h00;
+          cs_m =  0;
+        end
+      Gain_cal0 : 
+        begin
+          data_init =  8'h82;
+          cs_m =  0;
+          transcieve_m =  1;
+        end
+      Gain_cal1 : 
+        begin
+          data_init =  8'h8A;
+          cs_m =  0;
+          transcieve_m =  1;
+        end
+      Gain_cal2 : 
+        begin
+          data_init =  8'h92;
+          cs_m =  0;
+          transcieve_m =  1;
+        end
+      Gain_cal3 : 
+        begin
+          data_init =  8'h9A;
+          cs_m =  0;
+          transcieve_m =  1;
+        end
+      ST_Config17 : 
+        begin
+          data_init =  8'h00;
+          cs_m =  0;
+          transcieve_m =  1;
+        end
+      St_wait48 : 
+        begin
+          data_init =  8'h00;
+          cs_m =  0;
+        end
+      ST_Config18 : 
+        begin
+          data_init =  8'h30;
+          cs_m =  0;
+          transcieve_m =  1;
+        end
+      St_wait49 : 
+        begin
+          data_init =  8'h30;
+          cs_m =  0;
+        end
+      St_wait50 : 
+        begin
+          data_init =  8'h82;
+          cs_m =  0;
+        end
+      St_wait51 : 
+        begin
+          data_init =  8'h8A;
+          cs_m =  0;
+        end
+      ST_Config19 : 
+        begin
+          data_init =  8'h00;
+          cs_m =  0;
+          transcieve_m =  1;
+        end
+      St_wait52 : 
+        begin
+          data_init =  8'h00;
+          cs_m =  0;
+        end
+      ST_Config20 : 
+        begin
+          data_init =  8'h30;
+          cs_m =  0;
+          transcieve_m =  1;
+        end
+      St_wait53 : 
+        begin
+          data_init =  8'h30;
+          cs_m =  0;
+        end
+      St_wait54 : 
+        begin
+          data_init =  8'h92;
+          cs_m =  0;
+        end
+      ST_Config21 : 
+        begin
+          data_init =  8'h00;
+          cs_m =  0;
+          transcieve_m =  1;
+        end
+      St_wait55 : 
+        begin
+          data_init =  8'h00;
+          cs_m =  0;
+        end
+      ST_Config22 : 
+        begin
+          data_init =  8'h30;
+          cs_m =  0;
+          transcieve_m =  1;
+        end
+      St_wait56 : 
+        begin
+          data_init =  8'h30;
+          cs_m =  0;
+        end
+      St_wait57 : 
+        begin
+          data_init =  8'h9A;
+          cs_m =  0;
+        end
+      ST_Config23 : 
+        begin
+          data_init =  8'h00;
+          cs_m =  0;
+          transcieve_m =  1;
+        end
+      St_wait58 : 
+        begin
+          data_init =  8'h00;
+          cs_m =  0;
+        end
+      ST_Config24 : 
+        begin
+          data_init =  8'h30;
+          cs_m =  0;
+          transcieve_m =  1;
+        end
+      St_wait59 : 
+        begin
+          data_init =  8'h30;
+          cs_m =  0;
+        end
+      write_csrs7 : 
+        begin
+          data_init =  8'h8B;
+          cs_m =  0;
+          transcieve_m =  1;
+        end
+      write_csrs6 : 
+        begin
+          data_init =  8'hB1;
+          cs_m =  0;
+          transcieve_m =  1;
+        end
+      write_csrs5 : 
+        begin
+          data_init =  8'h10;
+          cs_m =  0;
+          transcieve_m =  1;
+        end
+      write_csrs4 : 
+        begin
+          data_init =  8'h8B;
+          cs_m =  0;
+          transcieve_m =  1;
+        end
+      write_csrs0 : 
+        begin
+          data_init =  8'h05;
+          cs_m =  0;
+          transcieve_m =  1;
+        end
+      write_csrs1 : 
+        begin
+          data_init =  8'h00;
+          cs_m =  0;
+          transcieve_m =  1;
+        end
+      write_csrs2 : 
+        begin
+          data_init =  8'hB0;
+          cs_m =  0;
+          transcieve_m =  1;
+        end
+      St_wait25 : 
+        begin
+          data_init =  8'h05;
+          cs_m =  0;
+        end
+      St_wait26 : 
+        begin
+          data_init =  8'h00;
+          cs_m =  0;
+        end
+      St_wait27 : 
+        begin
+          data_init =  8'hB0;
+          cs_m =  0;
+        end
+      St_wait28 : 
+        begin
+          data_init =  8'h8B;
+          cs_m =  0;
+        end
+      St_wait29 : 
+        begin
+          data_init =  8'h10;
+          cs_m =  0;
+        end
+      St_wait30 : 
+        begin
+          data_init =  8'hB1;
+          cs_m =  0;
+        end
+      St_wait31 : 
+        begin
+          data_init =  8'h8B;
+          cs_m =  0;
+        end
+      ST_Config4 : 
+        begin
+          data_init =  8'h00;
+          cs_m =  0;
+          transcieve_m =  1;
+        end
+      ST_Config3 : 
+        begin
+          data_init =  8'h30;
+          cs_m =  0;
+          transcieve_m =  1;
+        end
+      ST_Config1 : 
+        begin
+          data_init =  8'h03;
+          cs_m =  0;
+          transcieve_m =  1;
+        end
+      ST_Config2 : 
+        begin
+          data_init =  8'h00;
+          cs_m =  0;
+          transcieve_m =  1;
+        end
+      St_wait17 : 
+        begin
+          data_init =  8'h00;
+          cs_m =  0;
+        end
+      St_wait18 : 
+        begin
+          data_init =  8'h03;
+          cs_m =  0;
+        end
+      St_wait19 : 
+        begin
+          data_init =  8'h30;
+          cs_m =  0;
+        end
+      St_wait20 : 
+        begin
+          data_init =  8'h00;
+          cs_m =  0;
+        end
+      ST_Rest_2 : 
+        begin
+          data_init =  8'h00;
+          cs_m =  0;
+          transcieve_m =  1;
+        end
+      ST_Rest_4 : 
+        begin
+          data_init =  8'h80;
+          cs_m =  0;
+          transcieve_m =  1;
+        end
+      ST_Rest_1 : 
+        begin
+          data_init =  8'h03;
+          cs_m =  0;
+          transcieve_m =  1;
+        end
+      St_wait : 
+        begin
+          data_init =  8'h03;
+          cs_m =  0;
+        end
+      ST_Rest_RS_1 : 
+        begin
+          data_init =  8'h03;
+          cs_m =  0;
+          transcieve_m =  1;
+        end
+      ST_Rest_RS_2 : 
+        begin
+          data_init =  8'h00;
+          cs_m =  0;
+          transcieve_m =  1;
+        end
+      ST_Rest_3 : 
+        begin
+          data_init =  8'h00;
+          cs_m =  0;
+          transcieve_m =  1;
+        end
+      ST_Rest_RS_3 : 
+        begin
+          data_init =  8'h00;
+          cs_m =  0;
+          transcieve_m =  1;
+        end
+      ST_Rest_RS_4 : 
+        begin
+          data_init =  8'h00;
+          cs_m =  0;
+          transcieve_m =  1;
+        end
+      St_wait1 : 
+        begin
+          data_init =  8'h00;
+          cs_m =  0;
+        end
+      St_wait5 : 
+        begin
+          data_init =  8'h00;
+          cs_m =  0;
+        end
+      St_wait6 : 
+        begin
+          data_init =  8'h80;
+          cs_m =  0;
+        end
+      St_wait7 : 
+        begin
+          data_init =  8'h03;
+          cs_m =  0;
+        end
+      St_wait8 : 
+        begin
+          data_init =  8'h00;
+          cs_m =  0;
+        end
+      St_wait9 : 
+        begin
+          data_init =  8'h00;
+          cs_m =  0;
+        end
+      St_wait10 : 
+        begin
+          data_init =  8'h00;
+          cs_m =  0;
         end
       ST_Init_0 : 
         begin
@@ -2553,367 +3053,6 @@ always @( current_state )
           data_init =  8'hFE;
           cs_m =  0;
         end
-      CS_high8 : 
-        begin
-          cs_m =  1;
-          transcieve_m =  1;
-        end
-      w_busy33 : 
-        begin
-          cs_m =  1;
-        end
-      ST_Rest_3 : 
-        begin
-          data_init =  8'h00;
-          cs_m =  0;
-          transcieve_m =  1;
-        end
-      ST_Rest_RS_3 : 
-        begin
-          data_init =  8'h00;
-          cs_m =  0;
-          transcieve_m =  1;
-        end
-      ST_Rest_RS_4 : 
-        begin
-          data_init =  8'h00;
-          cs_m =  0;
-          transcieve_m =  1;
-        end
-      St_wait1 : 
-        begin
-          data_init =  8'h00;
-          cs_m =  0;
-        end
-      St_wait5 : 
-        begin
-          data_init =  8'h00;
-          cs_m =  0;
-        end
-      St_wait6 : 
-        begin
-          data_init =  8'h80;
-          cs_m =  0;
-        end
-      St_wait7 : 
-        begin
-          data_init =  8'h03;
-          cs_m =  0;
-        end
-      St_wait8 : 
-        begin
-          data_init =  8'h00;
-          cs_m =  0;
-        end
-      St_wait9 : 
-        begin
-          data_init =  8'h00;
-          cs_m =  0;
-        end
-      St_wait10 : 
-        begin
-          data_init =  8'h00;
-          cs_m =  0;
-        end
-      CS_high9 : 
-        begin
-          cs_m =  1;
-          transcieve_m =  1;
-        end
-      w_busy34 : 
-        begin
-          cs_m =  1;
-        end
-      St_wait13 : 
-        begin
-          data_init =  8'h00;
-          cs_m =  0;
-        end
-      ST_Rest_RS_6 : 
-        begin
-          data_init =  8'h00;
-          cs_m =  0;
-          transcieve_m =  1;
-        end
-      ST_Rest_RS_7 : 
-        begin
-          data_init =  8'h00;
-          cs_m =  0;
-          transcieve_m =  1;
-        end
-      St_wait14 : 
-        begin
-          data_init =  8'h00;
-          cs_m =  0;
-        end
-      ST_Rest_RS_8 : 
-        begin
-          data_init =  8'h00;
-          cs_m =  0;
-          transcieve_m =  1;
-        end
-      St_wait15 : 
-        begin
-          data_init =  8'h00;
-          cs_m =  0;
-        end
-      St_wait16 : 
-        begin
-          data_init =  8'h0B;
-          cs_m =  0;
-        end
-      CS_high10 : 
-        begin
-          cs_m =  1;
-          transcieve_m =  1;
-        end
-      w_busy35 : 
-        begin
-          cs_m =  1;
-        end
-      CS_high12 : 
-        begin
-          cs_m =  1;
-          transcieve_m =  1;
-        end
-      w_busy36 : 
-        begin
-          cs_m =  1;
-        end
-      CS_high13 : 
-        begin
-          cs_m =  1;
-          transcieve_m =  1;
-        end
-      w_busy37 : 
-        begin
-          cs_m =  1;
-        end
-      w_busy38 : 
-        begin
-          cs_m =  1;
-        end
-      CS_high14 : 
-        begin
-          cs_m =  1;
-          transcieve_m =  1;
-        end
-      CS_high15 : 
-        begin
-          cs_m =  1;
-          transcieve_m =  1;
-        end
-      w_busy39 : 
-        begin
-          cs_m =  1;
-        end
-      St_wait17 : 
-        begin
-          data_init =  8'h00;
-          cs_m =  0;
-        end
-      St_wait18 : 
-        begin
-          data_init =  8'h03;
-          cs_m =  0;
-        end
-      St_wait19 : 
-        begin
-          data_init =  8'h30;
-          cs_m =  0;
-        end
-      St_wait20 : 
-        begin
-          data_init =  8'h00;
-          cs_m =  0;
-        end
-      St_wait32 : 
-        begin
-          data_init =  8'h81;
-          cs_m =  0;
-        end
-      St_wait33 : 
-        begin
-          data_init =  8'h89;
-          cs_m =  0;
-        end
-      St_wait34 : 
-        begin
-          data_init =  8'h00;
-          cs_m =  0;
-        end
-      ST_Config5 : 
-        begin
-          data_init =  8'h00;
-          cs_m =  0;
-          transcieve_m =  1;
-        end
-      ST_Config6 : 
-        begin
-          data_init =  8'h00;
-          cs_m =  0;
-          transcieve_m =  1;
-        end
-      St_wait35 : 
-        begin
-          data_init =  8'h00;
-          cs_m =  0;
-        end
-      ST_Config7 : 
-        begin
-          data_init =  8'h30;
-          cs_m =  0;
-          transcieve_m =  1;
-        end
-      St_wait36 : 
-        begin
-          data_init =  8'h30;
-          cs_m =  0;
-        end
-      ST_Config8 : 
-        begin
-          data_init =  8'h00;
-          cs_m =  0;
-          transcieve_m =  1;
-        end
-      St_wait37 : 
-        begin
-          data_init =  8'h00;
-          cs_m =  0;
-        end
-      ST_Config9 : 
-        begin
-          data_init =  8'h30;
-          cs_m =  0;
-          transcieve_m =  1;
-        end
-      St_wait38 : 
-        begin
-          data_init =  8'h30;
-          cs_m =  0;
-        end
-      ST_Config10 : 
-        begin
-          data_init =  8'h00;
-          cs_m =  0;
-          transcieve_m =  1;
-        end
-      St_wait39 : 
-        begin
-          data_init =  8'h00;
-          cs_m =  0;
-        end
-      St_wait40 : 
-        begin
-          data_init =  8'h91;
-          cs_m =  0;
-        end
-      ST_Config11 : 
-        begin
-          data_init =  8'h00;
-          cs_m =  0;
-          transcieve_m =  1;
-        end
-      St_wait41 : 
-        begin
-          data_init =  8'h00;
-          cs_m =  0;
-        end
-      ST_Config12 : 
-        begin
-          data_init =  8'h30;
-          cs_m =  0;
-          transcieve_m =  1;
-        end
-      St_wait42 : 
-        begin
-          data_init =  8'h30;
-          cs_m =  0;
-        end
-      ST_Config13 : 
-        begin
-          data_init =  8'h00;
-          cs_m =  0;
-          transcieve_m =  1;
-        end
-      St_wait43 : 
-        begin
-          data_init =  8'h00;
-          cs_m =  0;
-        end
-      St_wait44 : 
-        begin
-          data_init =  8'h99;
-          cs_m =  0;
-        end
-      ST_Config14 : 
-        begin
-          data_init =  8'h00;
-          cs_m =  0;
-          transcieve_m =  1;
-        end
-      St_wait45 : 
-        begin
-          data_init =  8'h00;
-          cs_m =  0;
-        end
-      ST_Config15 : 
-        begin
-          data_init =  8'h30;
-          cs_m =  0;
-          transcieve_m =  1;
-        end
-      St_wait46 : 
-        begin
-          data_init =  8'h30;
-          cs_m =  0;
-        end
-      ST_Config16 : 
-        begin
-          data_init =  8'h00;
-          cs_m =  0;
-          transcieve_m =  1;
-        end
-      St_wait47 : 
-        begin
-          data_init =  8'h00;
-          cs_m =  0;
-        end
-      St_wait25 : 
-        begin
-          data_init =  8'h05;
-          cs_m =  0;
-        end
-      St_wait26 : 
-        begin
-          data_init =  8'h00;
-          cs_m =  0;
-        end
-      St_wait27 : 
-        begin
-          data_init =  8'hB0;
-          cs_m =  0;
-        end
-      St_wait28 : 
-        begin
-          data_init =  8'h8B;
-          cs_m =  0;
-        end
-      St_wait29 : 
-        begin
-          data_init =  8'h10;
-          cs_m =  0;
-        end
-      St_wait30 : 
-        begin
-          data_init =  8'hB1;
-          cs_m =  0;
-        end
-      St_wait31 : 
-        begin
-          data_init =  8'h8B;
-          cs_m =  0;
-        end
       ST_Read_reg2 : 
         begin
           data_init =  8'h0B;
@@ -2957,208 +3096,6 @@ always @( current_state )
         begin
           data_init =  8'h0B;
           cs_m =  0;
-        end
-      ST_Config17 : 
-        begin
-          data_init =  8'h00;
-          cs_m =  0;
-          transcieve_m =  1;
-        end
-      St_wait48 : 
-        begin
-          data_init =  8'h00;
-          cs_m =  0;
-        end
-      ST_Config18 : 
-        begin
-          data_init =  8'h30;
-          cs_m =  0;
-          transcieve_m =  1;
-        end
-      St_wait49 : 
-        begin
-          data_init =  8'h30;
-          cs_m =  0;
-        end
-      St_wait50 : 
-        begin
-          data_init =  8'h82;
-          cs_m =  0;
-        end
-      St_wait51 : 
-        begin
-          data_init =  8'h8A;
-          cs_m =  0;
-        end
-      ST_Config19 : 
-        begin
-          data_init =  8'h00;
-          cs_m =  0;
-          transcieve_m =  1;
-        end
-      St_wait52 : 
-        begin
-          data_init =  8'h00;
-          cs_m =  0;
-        end
-      ST_Config20 : 
-        begin
-          data_init =  8'h30;
-          cs_m =  0;
-          transcieve_m =  1;
-        end
-      St_wait53 : 
-        begin
-          data_init =  8'h30;
-          cs_m =  0;
-        end
-      St_wait54 : 
-        begin
-          data_init =  8'h92;
-          cs_m =  0;
-        end
-      ST_Config21 : 
-        begin
-          data_init =  8'h00;
-          cs_m =  0;
-          transcieve_m =  1;
-        end
-      St_wait55 : 
-        begin
-          data_init =  8'h00;
-          cs_m =  0;
-        end
-      ST_Config22 : 
-        begin
-          data_init =  8'h30;
-          cs_m =  0;
-          transcieve_m =  1;
-        end
-      St_wait56 : 
-        begin
-          data_init =  8'h30;
-          cs_m =  0;
-        end
-      St_wait57 : 
-        begin
-          data_init =  8'h9A;
-          cs_m =  0;
-        end
-      ST_Config23 : 
-        begin
-          data_init =  8'h00;
-          cs_m =  0;
-          transcieve_m =  1;
-        end
-      St_wait58 : 
-        begin
-          data_init =  8'h00;
-          cs_m =  0;
-        end
-      ST_Config24 : 
-        begin
-          data_init =  8'h30;
-          cs_m =  0;
-          transcieve_m =  1;
-        end
-      St_wait59 : 
-        begin
-          data_init =  8'h30;
-          cs_m =  0;
-        end
-      ST_CountRst : 
-        begin
-          rst_mon_cnt =  1;
-        end
-      ST_Start_Cnt : 
-        begin
-          start_mon_cnt =  1;
-        end
-      ST_Read_reg3 : 
-        begin
-          data_init =  8'h0B;
-          cs_m =  0;
-          transcieve_m =  1;
-        end
-      St_wait60 : 
-        begin
-          data_init =  8'h00;
-          cs_m =  0;
-        end
-      ST_Rest_RS_12 : 
-        begin
-          data_init =  8'h00;
-          cs_m =  0;
-          transcieve_m =  1;
-        end
-      ST_Rest_RS_13 : 
-        begin
-          data_init =  8'h00;
-          cs_m =  0;
-          transcieve_m =  1;
-        end
-      St_wait61 : 
-        begin
-          data_init =  8'h00;
-          cs_m =  0;
-        end
-      ST_Rest_RS_14 : 
-        begin
-          data_init =  8'h00;
-          cs_m =  0;
-          transcieve_m =  1;
-        end
-      St_wait62 : 
-        begin
-          data_init =  8'h00;
-          cs_m =  0;
-        end
-      St_wait63 : 
-        begin
-          data_init =  8'h0B;
-          cs_m =  0;
-        end
-      CS_high16 : 
-        begin
-          cs_p =  1;
-          transcieve_p =  1;
-        end
-      w_busy43 : 
-        begin
-          cs_p =  1;
-        end
-      st_GPIOA15 : 
-        begin
-          data_init =  8'h40;
-          cs_p =  0;
-          transcieve_p =  1;
-        end
-      st_GPIOA16 : 
-        begin
-          data_init =  8'h09;
-          cs_p =  0;
-          transcieve_p =  1;
-        end
-      st_GPIOA17 : 
-        begin
-          data_init =  8'h01;
-          cs_p =  0;
-          transcieve_p =  1;
-        end
-      w_busy40 : 
-        begin
-          data_init =  8'h40;
-          cs_p =  0;
-        end
-      w_busy41 : 
-        begin
-          data_init =  8'h09;
-          cs_p =  0;
-        end
-      w_busy42 : 
-        begin
-          data_init =  8'h01;
-          cs_p =  0;
         end
       CS_high6 : 
         begin
@@ -3328,32 +3265,178 @@ always @( current_state )
           data_init =  8'h00;
           cs_p =  0;
         end
+      Write_Mosi : 
+        begin
+          spi_cs =  0;
+          read_spi_mode =  1;
+        end
+      read_elink_mes1 : 
+        begin
+          start_read_elink =  1;
+          read_spi_mode =  1;
+        end
+      CS_low : 
+        begin
+          spi_cs =  0;
+          read_spi_mode =  1;
+        end
+      Read_Miso : 
+        begin
+          start_read_miso =  1;
+          spi_cs =  0;
+          read_spi_mode =  1;
+        end
+      Done : 
+        begin
+          end_spi_proc =  1;
+          read_spi_mode =  1;
+        end
+      write_elink : 
+        begin
+          start_write_elink_spi =  1;
+          read_spi_mode =  1;
+        end
+      Wait_Miso : 
+        begin
+          read_spi_mode =  1;
+        end
+      st_GPIOA9 : 
+        begin
+          data_init =  8'h40;
+          cs_p =  0;
+        end
+      st_GPIOA10 : 
+        begin
+          data_init =  8'h12;
+          cs_p =  0;
+        end
+      st_GPIOA11 : 
+        begin
+          data_init =  8'h00;
+          cs_p =  0;
+        end
+      ST_Read_reg3 : 
+        begin
+          data_init =  8'h0B;
+          cs_m =  0;
+          transcieve_m =  1;
+        end
+      St_wait60 : 
+        begin
+          data_init =  8'h00;
+          cs_m =  0;
+        end
+      ST_Rest_RS_12 : 
+        begin
+          data_init =  8'h00;
+          cs_m =  0;
+          transcieve_m =  1;
+        end
+      ST_Rest_RS_13 : 
+        begin
+          data_init =  8'h00;
+          cs_m =  0;
+          transcieve_m =  1;
+        end
+      St_wait61 : 
+        begin
+          data_init =  8'h00;
+          cs_m =  0;
+        end
+      ST_Rest_RS_14 : 
+        begin
+          data_init =  8'h00;
+          cs_m =  0;
+          transcieve_m =  1;
+        end
+      St_wait62 : 
+        begin
+          data_init =  8'h00;
+          cs_m =  0;
+        end
+      St_wait63 : 
+        begin
+          data_init =  8'h0B;
+          cs_m =  0;
+        end
     endcase
   end
 
-always @( posedge clk )
-  begin : clocked_block_proc
-    if (!rst)
+always @( posedge clkA )
+  begin : clocked_block_procA
+    if (!rstA)
       begin
-        current_state <= reset;
-        csm_timer <= 6'd0;
+        current_stateA <= reset;
+        csm_timerA <= 6'd0;
       end
     else
-      if (timeoutrst)
+      if (timeoutrstA)
         begin
-          current_state <= reset;
-          csm_timer <= 6'd0;
+          current_stateA <= reset;
+          csm_timerA <= 6'd0;
         end
       else
-        if (abort)
+        if (abortA)
           begin
-            current_state <= reset;
-            csm_timer <= 6'd0;
+            current_stateA <= reset;
+            csm_timerA <= 6'd0;
           end
         else
           begin
-            current_state <= next_state;
-            csm_timer <= csm_next_timer;
+            current_stateA <= next_stateA;
+            csm_timerA <= csm_next_timerA;
+          end
+  end
+
+always @( posedge clkB )
+  begin : clocked_block_procB
+    if (!rstB)
+      begin
+        current_stateB <= reset;
+        csm_timerB <= 6'd0;
+      end
+    else
+      if (timeoutrstB)
+        begin
+          current_stateB <= reset;
+          csm_timerB <= 6'd0;
+        end
+      else
+        if (abortB)
+          begin
+            current_stateB <= reset;
+            csm_timerB <= 6'd0;
+          end
+        else
+          begin
+            current_stateB <= next_stateB;
+            csm_timerB <= csm_next_timerB;
+          end
+  end
+
+always @( posedge clkC )
+  begin : clocked_block_procC
+    if (!rstC)
+      begin
+        current_stateC <= reset;
+        csm_timerC <= 6'd0;
+      end
+    else
+      if (timeoutrstC)
+        begin
+          current_stateC <= reset;
+          csm_timerC <= 6'd0;
+        end
+      else
+        if (abortC)
+          begin
+            current_stateC <= reset;
+            csm_timerC <= 6'd0;
+          end
+        else
+          begin
+            current_stateC <= next_stateC;
+            csm_timerC <= csm_next_timerC;
           end
   end
 
@@ -3377,5 +3460,63 @@ always @( csm_timer or csm_to_CS_low or csm_to_Read_Miso )
 
 always @( current_state )
   statedeb =  current_state;
+
+majorityVoter #(.WIDTH(6)) csm_timerVoter (
+    .inA(csm_timerA),
+    .inB(csm_timerB),
+    .inC(csm_timerC),
+    .out(csm_timer),
+    .tmrErr(csm_timerTmrError)
+    );
+
+majorityVoter #(.WIDTH(9)) current_stateVoter (
+    .inA(current_stateA),
+    .inB(current_stateB),
+    .inC(current_stateC),
+    .out(current_state),
+    .tmrErr(current_stateTmrError)
+    );
+
+fanout abortFanout (
+    .in(abort),
+    .outA(abortA),
+    .outB(abortB),
+    .outC(abortC)
+    );
+
+fanout clkFanout (
+    .in(clk),
+    .outA(clkA),
+    .outB(clkB),
+    .outC(clkC)
+    );
+
+fanout #(.WIDTH(6)) csm_next_timerFanout (
+    .in(csm_next_timer),
+    .outA(csm_next_timerA),
+    .outB(csm_next_timerB),
+    .outC(csm_next_timerC)
+    );
+
+fanout #(.WIDTH(9)) next_stateFanout (
+    .in(next_state),
+    .outA(next_stateA),
+    .outB(next_stateB),
+    .outC(next_stateC)
+    );
+
+fanout rstFanout (
+    .in(rst),
+    .outA(rstA),
+    .outB(rstB),
+    .outC(rstC)
+    );
+
+fanout timeoutrstFanout (
+    .in(timeoutrst),
+    .outA(timeoutrstA),
+    .outB(timeoutrstB),
+    .outC(timeoutrstC)
+    );
 endmodule
 

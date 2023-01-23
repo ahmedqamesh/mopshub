@@ -6,20 +6,23 @@
  *                                                                                                  *
  * user    : lucas                                                                                  *
  * host    : DESKTOP-BFDSFP2                                                                        *
- * date    : 06/10/2022 13:52:46                                                                    *
+ * date    : 05/12/2022 13:28:09                                                                    *
  *                                                                                                  *
- * workdir : /mnt/c/Users/Lucas/Documents/GitHub/mopshub_triplicated/triplicated/mopshub_top_board/hdl *
- * cmd     : /mnt/c/Users/Lucas/Desktop/mopshub_triplication/tmrg-master/bin/tmrg -vv -c tmrg.cfg   *
- * tmrg rev:                                                                                        *
+ * workdir : /mnt/c/Users/Lucas/Documents/GitHub/mopshub_triplicated/triplicated/mopshub_top_board_16/hdl *
+ * cmd     : /mnt/c/Users/Lucas/Documents/GitHub/mopshub_triplicated/tmrg-master/bin/tmrg -vv -c    *
+ *           tmrg.cfg                                                                               *
+ * tmrg rev: b25f042058e4e97751df2a0933c24aeadd5a78a5                                               *
  *                                                                                                  *
  * src file: elink_to_fifo_struct.v                                                                 *
- *           Git SHA           : c110441b08b692cc54ebd4a3b84a2599430e8f93                           *
- *           Modification time : 2022-10-06 13:25:17                                                *
- *           File Size         : 1781                                                               *
- *           MD5 hash          : 4d7f66c1cd1638265479e2a29466c27e                                   *
+ *           Git SHA           : b25f042058e4e97751df2a0933c24aeadd5a78a5 (?? elink_to_fifo_struct.v) *
+ *           Modification time : 2022-12-04 15:41:31.654210                                         *
+ *           File Size         : 1950                                                               *
+ *           MD5 hash          : 929151fe22557f375499a4eb1a3b6ff9                                   *
  *                                                                                                  *
  ****************************************************************************************************/
 
+`resetall 
+`timescale  1ns/10ps
 module elink_to_fifoTMR(
   input wire  fifo_flush ,
   output wire  fifo_full ,
@@ -33,7 +36,8 @@ module elink_to_fifoTMR(
   input wire [9:0] COMMAp ,
   input wire [7:0] Kchar_comma ,
   input wire [7:0] Kchar_eop ,
-  input wire [7:0] Kchar_sop 
+  input wire [7:0] Kchar_sop ,
+  output wire  word10b_rdy 
 );
 wire [9:0] dec10b_Out;
 wire dec10b_rdy;
@@ -42,15 +46,16 @@ wire rdy_fifo;
 elink_proc_in_dec8b10bTMR elink_proc_in_dec8b10b0 (
     .DATA_IN(data_2bit_in),
     .clk(clk),
-    .ISK(dec10b_Out[9:8] ),
     .rst(rst),
-    .dec8b_data(dec10b_Out[7:0] ),
+    .word10b_rdy(word10b_rdy),
     .dec8b_rdy(dec10b_rdy),
     .COMMAn(COMMAn),
     .COMMAp(COMMAp),
     .Kchar_comma(Kchar_comma),
     .Kchar_eop(Kchar_eop),
-    .Kchar_sop(Kchar_sop)
+    .Kchar_sop(Kchar_sop),
+    .dec8b_data_out(dec10b_Out[7:0] ),
+    .ISK(dec10b_Out[9:8] )
     );
 
 fifo_core_wrapperTMR fifo_core_wrap_rx (

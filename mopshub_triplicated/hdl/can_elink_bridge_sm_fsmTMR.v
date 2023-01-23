@@ -6,20 +6,23 @@
  *                                                                                                  *
  * user    : lucas                                                                                  *
  * host    : DESKTOP-BFDSFP2                                                                        *
- * date    : 06/10/2022 13:52:39                                                                    *
+ * date    : 05/12/2022 13:28:03                                                                    *
  *                                                                                                  *
- * workdir : /mnt/c/Users/Lucas/Documents/GitHub/mopshub_triplicated/triplicated/mopshub_top_board/hdl *
- * cmd     : /mnt/c/Users/Lucas/Desktop/mopshub_triplication/tmrg-master/bin/tmrg -vv -c tmrg.cfg   *
- * tmrg rev:                                                                                        *
+ * workdir : /mnt/c/Users/Lucas/Documents/GitHub/mopshub_triplicated/triplicated/mopshub_top_board_16/hdl *
+ * cmd     : /mnt/c/Users/Lucas/Documents/GitHub/mopshub_triplicated/tmrg-master/bin/tmrg -vv -c    *
+ *           tmrg.cfg                                                                               *
+ * tmrg rev: b25f042058e4e97751df2a0933c24aeadd5a78a5                                               *
  *                                                                                                  *
  * src file: can_elink_bridge_sm_fsm.v                                                              *
- *           Git SHA           : c110441b08b692cc54ebd4a3b84a2599430e8f93                           *
- *           Modification time : 2022-10-06 10:24:27                                                *
- *           File Size         : 10166                                                              *
- *           MD5 hash          : ae94bfe7ac59d98a27fe0cf66f84a7d1                                   *
+ *           Git SHA           : b25f042058e4e97751df2a0933c24aeadd5a78a5 (?? can_elink_bridge_sm_fsm.v) *
+ *           Modification time : 2022-12-04 15:41:31.636209                                         *
+ *           File Size         : 14886                                                              *
+ *           MD5 hash          : 0906302f5167e8d05101098a3e04e4a0                                   *
  *                                                                                                  *
  ****************************************************************************************************/
 
+`resetall 
+`timescale  1ns/10ps
 module can_elink_bridge_SMTMR(
   input wire  clk ,
   input wire  end_init ,
@@ -56,9 +59,9 @@ module can_elink_bridge_SMTMR(
   output reg  start_write_elink ,
   output reg [5:0] statedeb 
 );
-parameter reset =5'd0;
-parameter initialize =5'd1;
-parameter waittoact =5'd2;
+parameter waittoact =5'd0;
+parameter reset =5'd1;
+parameter initialize =5'd2;
 parameter endwaitst =5'd3;
 parameter signon =5'd4;
 parameter rst_all_irq_can =5'd5;
@@ -74,127 +77,238 @@ parameter rst_rec_irq_can =5'd14;
 parameter pass_mes_to_elink =5'd15;
 parameter assign_bus_id =5'd16;
 parameter Start_read_elink =5'd17;
-reg  [4:0] current_state ;
+wire timeoutrstC;
+wire timeoutrstB;
+wire timeoutrstA;
+wire rstC;
+wire rstB;
+wire rstA;
+wire [4:0] next_stateC;
+wire [4:0] next_stateB;
+wire [4:0] next_stateA;
+wire endwaitC;
+wire endwaitB;
+wire endwaitA;
+wire clkC;
+wire clkB;
+wire clkA;
+wor current_stateTmrError;
+wire [4:0] current_state;
+reg  [4:0] current_stateA ;
+reg  [4:0] current_stateB ;
+reg  [4:0] current_stateC ;
 reg  [4:0] next_state ;
+reg  hds_animation_indicator ;
+wire [4:0] current_stateV =  current_state;
 
 always @( current_state or end_init or end_mon_init or end_power_init or end_read_can or end_read_elink or end_write_can or end_write_elink or irq_can_rec or irq_can_tra or irq_elink_tra or reset_all_done or reset_irq_can_done or rst )
   begin : next_state_block_proc
     case (current_state)
+      waittoact : 
+        begin
+          if (irq_can_rec==1)
+            begin
+              next_state =  assign_bus_id;
+              $hdsNextPath(0, 1);
+            end
+          else
+            if (irq_elink_tra==1)
+              begin
+                next_state =  read_elink_mes;
+                $hdsNextPath(0, 2);
+              end
+            else
+              begin
+                next_state =  waittoact;
+                $hdsNextPath(0, 0);
+              end
+        end
       reset : 
         begin
           if (rst==1)
-            next_state =  initialize;
+            begin
+              next_state =  initialize;
+              $hdsNextPath(0, 3);
+            end
           else
-            next_state =  reset;
+            begin
+              next_state =  reset;
+              $hdsNextPath(0, 0);
+            end
         end
       initialize : 
         begin
           if (end_init==1)
-            next_state =  init_Mon_ADC;
+            begin
+              next_state =  init_Mon_ADC;
+              $hdsNextPath(0, 4);
+            end
           else
-            next_state =  initialize;
-        end
-      waittoact : 
-        begin
-          if (irq_can_rec==1)
-            next_state =  assign_bus_id;
-          else
-            if (irq_elink_tra==1)
-              next_state =  read_elink_mes;
-            else
-              next_state =  waittoact;
+            begin
+              next_state =  initialize;
+              $hdsNextPath(0, 0);
+            end
         end
       endwaitst : 
         begin
           next_state =  Abort_current;
+          $hdsNextPath(0, 5);
         end
       signon : 
         begin
           next_state =  waittoact;
+          $hdsNextPath(0, 6);
         end
       rst_all_irq_can : 
         begin
           if (reset_all_done==1)
-            next_state =  waittoact;
+            begin
+              next_state =  waittoact;
+              $hdsNextPath(0, 7);
+            end
           else
-            next_state =  rst_all_irq_can;
+            begin
+              next_state =  rst_all_irq_can;
+              $hdsNextPath(0, 0);
+            end
         end
       init_Trim_OSC : 
         begin
           if (end_power_init==1)
-            next_state =  signon;
+            begin
+              next_state =  signon;
+              $hdsNextPath(0, 8);
+            end
           else
-            next_state =  init_Trim_OSC;
+            begin
+              next_state =  init_Trim_OSC;
+              $hdsNextPath(0, 0);
+            end
         end
       Abort_current : 
         begin
           next_state =  rst_all_irq_can;
+          $hdsNextPath(0, 9);
         end
       init_Mon_ADC : 
         begin
           if (end_mon_init==1)
-            next_state =  init_Trim_OSC;
+            begin
+              next_state =  init_Trim_OSC;
+              $hdsNextPath(0, 10);
+            end
           else
-            next_state =  init_Mon_ADC;
+            begin
+              next_state =  init_Mon_ADC;
+              $hdsNextPath(0, 0);
+            end
         end
       read_elink_mes : 
         begin
           if (end_read_elink==1)
-            next_state =  Start_write_can;
+            begin
+              next_state =  Start_write_can;
+              $hdsNextPath(0, 11);
+            end
           else
-            next_state =  read_elink_mes;
+            begin
+              next_state =  read_elink_mes;
+              $hdsNextPath(0, 0);
+            end
         end
       Start_write_can : 
         begin
           if (end_write_can==1)
-            next_state =  pass_mes_to_can;
+            begin
+              next_state =  pass_mes_to_can;
+              $hdsNextPath(0, 12);
+            end
           else
-            next_state =  Start_write_can;
+            begin
+              next_state =  Start_write_can;
+              $hdsNextPath(0, 0);
+            end
         end
       pass_mes_to_can : 
         begin
           if (irq_can_tra==1)
-            next_state =  rst_tra_irq_can;
+            begin
+              next_state =  rst_tra_irq_can;
+              $hdsNextPath(0, 13);
+            end
           else
-            next_state =  pass_mes_to_can;
+            begin
+              next_state =  pass_mes_to_can;
+              $hdsNextPath(0, 0);
+            end
         end
       rst_tra_irq_can : 
         begin
           if (reset_irq_can_done==1)
-            next_state =  waittoact;
+            begin
+              next_state =  waittoact;
+              $hdsNextPath(0, 14);
+            end
           else
-            next_state =  rst_tra_irq_can;
+            begin
+              next_state =  rst_tra_irq_can;
+              $hdsNextPath(0, 0);
+            end
         end
       finish_proc : 
         begin
           next_state =  pass_mes_to_elink;
+          $hdsNextPath(0, 15);
         end
       rst_rec_irq_can : 
         begin
           if (reset_irq_can_done==1)
-            next_state =  finish_proc;
+            begin
+              next_state =  finish_proc;
+              $hdsNextPath(0, 16);
+            end
           else
-            next_state =  rst_rec_irq_can;
+            begin
+              next_state =  rst_rec_irq_can;
+              $hdsNextPath(0, 0);
+            end
         end
       pass_mes_to_elink : 
         begin
           if (end_write_elink==1)
-            next_state =  waittoact;
+            begin
+              next_state =  waittoact;
+              $hdsNextPath(0, 17);
+            end
           else
-            next_state =  pass_mes_to_elink;
+            begin
+              next_state =  pass_mes_to_elink;
+              $hdsNextPath(0, 0);
+            end
         end
       assign_bus_id : 
         begin
           next_state =  Start_read_elink;
+          $hdsNextPath(0, 18);
         end
       Start_read_elink : 
         begin
           if (end_read_can==1)
-            next_state =  rst_rec_irq_can;
+            begin
+              next_state =  rst_rec_irq_can;
+              $hdsNextPath(0, 19);
+            end
           else
-            next_state =  Start_read_elink;
+            begin
+              next_state =  Start_read_elink;
+              $hdsNextPath(0, 0);
+            end
         end
-      default : next_state =  reset;
+      default : 
+        begin
+          next_state =  reset;
+          $hdsNextPath(0, 0);
+        end
     endcase
   end
 
@@ -218,6 +332,10 @@ always @( current_state )
     start_write_can =  0;
     start_write_elink =  0;
     case (current_state)
+      waittoact : 
+        begin
+          entimeout =  0;
+        end
       reset : 
         begin
           abort_mes =  0;
@@ -236,10 +354,6 @@ always @( current_state )
       initialize : 
         begin
           start_init_can =  1;
-          entimeout =  0;
-        end
-      waittoact : 
-        begin
           entimeout =  0;
         end
       signon : 
@@ -308,26 +422,77 @@ always @( current_state )
     endcase
   end
 
-always @( posedge clk or posedge endwait )
-  begin : clocked_block_proc
-    if (endwait)
+always @( posedge clkA or posedge endwaitA )
+  begin : clocked_block_procA
+    if (endwaitA)
       begin
-        current_state <= endwaitst;
+        current_stateA <= endwaitst;
       end
     else
       begin
-        if (!rst)
+        if (!rstA)
           begin
-            current_state <= reset;
+            current_stateA <= reset;
           end
         else
-          if (timeoutrst)
+          if (timeoutrstA)
             begin
-              current_state <= endwaitst;
+              current_stateA <= endwaitst;
             end
           else
             begin
-              current_state <= next_state;
+              current_stateA <= next_stateA;
+              $hdsClock(0);
+            end
+      end
+  end
+
+always @( posedge clkB or posedge endwaitB )
+  begin : clocked_block_procB
+    if (endwaitB)
+      begin
+        current_stateB <= endwaitst;
+      end
+    else
+      begin
+        if (!rstB)
+          begin
+            current_stateB <= reset;
+          end
+        else
+          if (timeoutrstB)
+            begin
+              current_stateB <= endwaitst;
+            end
+          else
+            begin
+              current_stateB <= next_stateB;
+              $hdsClock(0);
+            end
+      end
+  end
+
+always @( posedge clkC or posedge endwaitC )
+  begin : clocked_block_procC
+    if (endwaitC)
+      begin
+        current_stateC <= endwaitst;
+      end
+    else
+      begin
+        if (!rstC)
+          begin
+            current_stateC <= reset;
+          end
+        else
+          if (timeoutrstC)
+            begin
+              current_stateC <= endwaitst;
+            end
+          else
+            begin
+              current_stateC <= next_stateC;
+              $hdsClock(0);
             end
       end
   end
@@ -337,5 +502,48 @@ always @( current_state )
     statedeb =  6'b0;
     statedeb[4:0]  =  current_state;
   end
+
+majorityVoter #(.WIDTH(5)) current_stateVoter (
+    .inA(current_stateA),
+    .inB(current_stateB),
+    .inC(current_stateC),
+    .out(current_state),
+    .tmrErr(current_stateTmrError)
+    );
+
+fanout clkFanout (
+    .in(clk),
+    .outA(clkA),
+    .outB(clkB),
+    .outC(clkC)
+    );
+
+fanout endwaitFanout (
+    .in(endwait),
+    .outA(endwaitA),
+    .outB(endwaitB),
+    .outC(endwaitC)
+    );
+
+fanout #(.WIDTH(5)) next_stateFanout (
+    .in(next_state),
+    .outA(next_stateA),
+    .outB(next_stateB),
+    .outC(next_stateC)
+    );
+
+fanout rstFanout (
+    .in(rst),
+    .outA(rstA),
+    .outB(rstB),
+    .outC(rstC)
+    );
+
+fanout timeoutrstFanout (
+    .in(timeoutrst),
+    .outA(timeoutrstA),
+    .outB(timeoutrstB),
+    .outC(timeoutrstC)
+    );
 endmodule
 

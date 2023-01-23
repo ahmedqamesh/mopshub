@@ -6,20 +6,23 @@
  *                                                                                                  *
  * user    : lucas                                                                                  *
  * host    : DESKTOP-BFDSFP2                                                                        *
- * date    : 06/10/2022 13:52:45                                                                    *
+ * date    : 05/12/2022 13:28:08                                                                    *
  *                                                                                                  *
- * workdir : /mnt/c/Users/Lucas/Documents/GitHub/mopshub_triplicated/triplicated/mopshub_top_board/hdl *
- * cmd     : /mnt/c/Users/Lucas/Desktop/mopshub_triplication/tmrg-master/bin/tmrg -vv -c tmrg.cfg   *
- * tmrg rev:                                                                                        *
+ * workdir : /mnt/c/Users/Lucas/Documents/GitHub/mopshub_triplicated/triplicated/mopshub_top_board_16/hdl *
+ * cmd     : /mnt/c/Users/Lucas/Documents/GitHub/mopshub_triplicated/tmrg-master/bin/tmrg -vv -c    *
+ *           tmrg.cfg                                                                               *
+ * tmrg rev: b25f042058e4e97751df2a0933c24aeadd5a78a5                                               *
  *                                                                                                  *
  * src file: elink_data_gen_sm_fsm.v                                                                *
- *           Git SHA           : c110441b08b692cc54ebd4a3b84a2599430e8f93                           *
- *           Modification time : 2022-10-06 09:11:44                                                *
- *           File Size         : 14495                                                              *
- *           MD5 hash          : 8c8d68fe191dc78bcd1f07a008b52ccb                                   *
+ *           Git SHA           : b25f042058e4e97751df2a0933c24aeadd5a78a5 (?? elink_data_gen_sm_fsm.v) *
+ *           Modification time : 2022-12-04 15:57:22.740461                                         *
+ *           File Size         : 17742                                                              *
+ *           MD5 hash          : 66af16824105e548e1297dfcb12b3d90                                   *
  *                                                                                                  *
  ****************************************************************************************************/
 
+`resetall 
+`timescale  1ns/10ps
 module elink_data_gen_SMTMR #(
   parameter  Kchar_eop  = 8'b11011100,
   parameter  Kchar_sop  = 8'b00111100,
@@ -37,9 +40,19 @@ module elink_data_gen_SMTMR #(
   output reg  rst_cnt ,
   output reg  counter_gen_en ,
   input wire  test_can_core ,
+  input wire  test_uart_core ,
+  input wire  tx_uart_ready ,
   output reg [9:0] data_10bit_in_dbg ,
   output reg  rdy_dbg ,
-  output reg  irq_elink_dbg 
+  output reg  irq_elink_dbg ,
+  output reg  tx_uart_valid ,
+  output reg [31:0] tx_uart_data ,
+  output reg [3:0] tx_uart_addr ,
+  input wire  rx_uart_valid ,
+  output reg  rx_uart_addr_valid ,
+  output reg  rx_uart_ready ,
+  input wire  rx_uart_addr_ready ,
+  output reg [3:0] rx_uart_addr 
 );
 parameter ST_Reset =6'd0;
 parameter ST_WAIT =6'd1;
@@ -76,6 +89,13 @@ parameter ST_DATA6 =6'd31;
 parameter ST_Set_DATA7 =6'd32;
 parameter ST_DATA7 =6'd33;
 parameter ST_Set_DATA8 =6'd34;
+parameter Send_tx0_0 =6'd35;
+parameter Enable_rx =6'd36;
+parameter Ack_uart_rx =6'd37;
+parameter wait_slave =6'd38;
+parameter Send_tx0_1 =6'd39;
+parameter Send_tx0_2 =6'd40;
+parameter Send_tx0_3 =6'd41;
 reg  [5:0] current_state ;
 reg  [5:0] next_state ;
 reg  [23:0] csm_timer ;
@@ -97,7 +117,7 @@ reg  csm_to_ST_DATA8 ;
 reg  csm_to_ST_DATA6 ;
 reg  csm_to_ST_DATA7 ;
 
-always @( cnt_done or csm_timeout or current_state or start_read_elink or test_can_core )
+always @( cnt_done or csm_timeout or current_state or rx_uart_addr_ready or rx_uart_valid or start_read_elink or test_can_core or test_uart_core or tx_uart_ready )
   begin : next_state_block_proc
     csm_to_ST_WAIT =  1'b0;
     csm_to_ST_Done_Wait =  1'b0;
@@ -180,7 +200,10 @@ always @( cnt_done or csm_timeout or current_state or start_read_elink or test_c
           if (test_can_core==1)
             next_state =  ST_start_test;
           else
-            next_state =  ST_SOP;
+            if (test_uart_core==1)
+              next_state =  Send_tx0_0;
+            else
+              next_state =  ST_SOP;
         end
       ST_Done_Wait1 : 
         begin
@@ -321,6 +344,52 @@ always @( cnt_done or csm_timeout or current_state or start_read_elink or test_c
           next_state =  ST_DATA8;
           csm_to_ST_DATA8 =  1'b1;
         end
+      Send_tx0_0 : 
+        begin
+          if (tx_uart_ready==1)
+            next_state =  Send_tx0_1;
+          else
+            next_state =  Send_tx0_0;
+        end
+      Enable_rx : 
+        begin
+          if (rx_uart_addr_ready==1)
+            next_state =  wait_slave;
+          else
+            next_state =  Enable_rx;
+        end
+      Ack_uart_rx : 
+        begin
+          next_state =  ST_Reset;
+        end
+      wait_slave : 
+        begin
+          if (rx_uart_valid==1)
+            next_state =  Ack_uart_rx;
+          else
+            next_state =  wait_slave;
+        end
+      Send_tx0_1 : 
+        begin
+          if (tx_uart_ready==0)
+            next_state =  Send_tx0_2;
+          else
+            next_state =  Send_tx0_1;
+        end
+      Send_tx0_2 : 
+        begin
+          if (tx_uart_ready==1)
+            next_state =  Send_tx0_3;
+          else
+            next_state =  Send_tx0_2;
+        end
+      Send_tx0_3 : 
+        begin
+          if (tx_uart_ready==0)
+            next_state =  Enable_rx;
+          else
+            next_state =  Send_tx0_3;
+        end
       default : next_state =  ST_Reset;
     endcase
   end
@@ -337,6 +406,12 @@ always @( current_state )
     data_10bit_in_dbg =  {2'b11,Kchar_comma};
     rdy_dbg =  0;
     irq_elink_dbg =  0;
+    tx_uart_valid =  0;
+    tx_uart_data =  8'b0;
+    tx_uart_addr =  4'b0;
+    rx_uart_addr_valid =  0;
+    rx_uart_ready =  0;
+    rx_uart_addr =  0;
     case (current_state)
       ST_Reset : 
         begin
@@ -472,6 +547,41 @@ always @( current_state )
         begin
           data_10bit_in_dbg =  {2'b00,8'h0};
           rdy_dbg =  1;
+        end
+      Send_tx0_0 : 
+        begin
+          tx_uart_data =  32'hDE;
+          tx_uart_valid =  1;
+          tx_uart_addr =  4'h04;
+        end
+      Enable_rx : 
+        begin
+          rx_uart_addr_valid =  1;
+          rx_uart_addr =  4'h00;
+        end
+      Ack_uart_rx : 
+        begin
+          rx_uart_ready =  1;
+          rx_uart_addr =  4'h0;
+        end
+      wait_slave : 
+        begin
+          rx_uart_ready =  1;
+          rx_uart_addr =  4'h0;
+        end
+      Send_tx0_1 : 
+        begin
+          tx_uart_data =  32'hDE;
+        end
+      Send_tx0_2 : 
+        begin
+          tx_uart_data =  32'hAD;
+          tx_uart_valid =  1;
+          tx_uart_addr =  4'h04;
+        end
+      Send_tx0_3 : 
+        begin
+          tx_uart_data =  32'hAD;
         end
     endcase
   end

@@ -6,20 +6,23 @@
  *                                                                                                  *
  * user    : lucas                                                                                  *
  * host    : DESKTOP-BFDSFP2                                                                        *
- * date    : 06/10/2022 13:52:56                                                                    *
+ * date    : 05/12/2022 13:28:29                                                                    *
  *                                                                                                  *
- * workdir : /mnt/c/Users/Lucas/Documents/GitHub/mopshub_triplicated/triplicated/mopshub_top_board/hdl *
- * cmd     : /mnt/c/Users/Lucas/Desktop/mopshub_triplication/tmrg-master/bin/tmrg -vv -c tmrg.cfg   *
- * tmrg rev:                                                                                        *
+ * workdir : /mnt/c/Users/Lucas/Documents/GitHub/mopshub_triplicated/triplicated/mopshub_top_board_16/hdl *
+ * cmd     : /mnt/c/Users/Lucas/Documents/GitHub/mopshub_triplicated/tmrg-master/bin/tmrg -vv -c    *
+ *           tmrg.cfg                                                                               *
+ * tmrg rev: b25f042058e4e97751df2a0933c24aeadd5a78a5                                               *
  *                                                                                                  *
  * src file: osc_trim_sm_fsm.v                                                                      *
- *           Git SHA           : c110441b08b692cc54ebd4a3b84a2599430e8f93                           *
- *           Modification time : 2022-10-06 09:29:02                                                *
- *           File Size         : 14496                                                              *
- *           MD5 hash          : 851441787ecf24125fb38e18a3aa7f90                                   *
+ *           Git SHA           : b25f042058e4e97751df2a0933c24aeadd5a78a5 (?? osc_trim_sm_fsm.v)    *
+ *           Modification time : 2022-12-04 15:41:31.643210                                         *
+ *           File Size         : 15123                                                              *
+ *           MD5 hash          : 591f0914c1c03a3985501777873ee859                                   *
  *                                                                                                  *
  ****************************************************************************************************/
 
+`resetall 
+`timescale  1ns/10ps
 module osc_trim_SMTMR(
   input wire  abort ,
   input wire  clk ,
@@ -59,51 +62,71 @@ module osc_trim_SMTMR(
 );
 parameter waittoact =6'd0;
 parameter reset =6'd1;
-parameter ST_Skip_Bus =6'd2;
-parameter rst_irq_can =6'd3;
-parameter Wait_W_SPI2 =6'd4;
-parameter ST_Start_Cnt =6'd5;
-parameter Break_Loop =6'd6;
-parameter finish_proc =6'd7;
-parameter ST_CountRst =6'd8;
-parameter Read_Resp =6'd9;
-parameter pass_to_elink =6'd10;
-parameter Wait_Resp =6'd11;
-parameter rst_rec_irq_can =6'd12;
-parameter finish_proc1 =6'd13;
-parameter rst_tra_irq_can =6'd14;
-parameter Trim_ack =6'd15;
-parameter Start_write_trim =6'd16;
-parameter pass_mes_to_can =6'd17;
-parameter send_ack1 =6'd18;
-parameter Check_Trim =6'd19;
-parameter ST_Done_Trim =6'd20;
-parameter ST_Skip_Bus1 =6'd21;
-parameter rst_irq_can1 =6'd22;
-parameter RST_MOPS_dbg1 =6'd23;
-parameter ST_Start_Cnt1 =6'd24;
-parameter Break_Loop1 =6'd25;
-parameter finish_proc3 =6'd26;
-parameter ST_CountRst1 =6'd27;
-parameter Check_Trim1 =6'd28;
-parameter ST_Done_Trim1 =6'd29;
-parameter Read_Resp1 =6'd30;
-parameter pass_to_elink1 =6'd31;
-parameter Wait_Resp1 =6'd32;
-parameter rst_rec_irq_can1 =6'd33;
-parameter finish_proc2 =6'd34;
-parameter rst_tra_irq_can1 =6'd35;
-parameter Trim_ack1 =6'd36;
-parameter Start_write_trim1 =6'd37;
-parameter pass_mes_to_can1 =6'd38;
-parameter send_ack2 =6'd39;
-parameter ST_En_power0 =6'd40;
-parameter ST_En_power1 =6'd41;
-parameter Wait_W_SPI =6'd42;
-parameter Wait_W_SPI1 =6'd43;
-parameter ST_MOPS_dbg2 =6'd44;
-reg  [5:0] current_state ;
+parameter Break_Loop =6'd2;
+parameter ST_CountRst =6'd3;
+parameter ST_Start_Cnt =6'd4;
+parameter ST_Skip_Bus =6'd5;
+parameter rst_irq_can =6'd6;
+parameter Wait_W_SPI2 =6'd7;
+parameter finish_proc =6'd8;
+parameter Check_Trim =6'd9;
+parameter ST_Done_Trim =6'd10;
+parameter ST_En_power0 =6'd11;
+parameter ST_En_power1 =6'd12;
+parameter Wait_W_SPI =6'd13;
+parameter Wait_W_SPI1 =6'd14;
+parameter ST_MOPS_dbg2 =6'd15;
+parameter Read_Resp =6'd16;
+parameter pass_to_elink =6'd17;
+parameter Wait_Resp =6'd18;
+parameter rst_rec_irq_can =6'd19;
+parameter finish_proc1 =6'd20;
+parameter rst_tra_irq_can =6'd21;
+parameter Trim_ack =6'd22;
+parameter Start_write_trim =6'd23;
+parameter pass_mes_to_can =6'd24;
+parameter send_ack1 =6'd25;
+parameter ST_Skip_Bus1 =6'd26;
+parameter rst_irq_can1 =6'd27;
+parameter RST_MOPS_dbg1 =6'd28;
+parameter ST_Start_Cnt1 =6'd29;
+parameter Break_Loop1 =6'd30;
+parameter finish_proc3 =6'd31;
+parameter ST_CountRst1 =6'd32;
+parameter Check_Trim1 =6'd33;
+parameter ST_Done_Trim1 =6'd34;
+parameter Read_Resp1 =6'd35;
+parameter pass_to_elink1 =6'd36;
+parameter Wait_Resp1 =6'd37;
+parameter rst_rec_irq_can1 =6'd38;
+parameter finish_proc2 =6'd39;
+parameter rst_tra_irq_can1 =6'd40;
+parameter Trim_ack1 =6'd41;
+parameter Start_write_trim1 =6'd42;
+parameter pass_mes_to_can1 =6'd43;
+parameter send_ack2 =6'd44;
+wire timeoutrstC;
+wire timeoutrstB;
+wire timeoutrstA;
+wire rstC;
+wire rstB;
+wire rstA;
+wire [5:0] next_stateC;
+wire [5:0] next_stateB;
+wire [5:0] next_stateA;
+wire clkC;
+wire clkB;
+wire clkA;
+wire abortC;
+wire abortB;
+wire abortA;
+wor current_stateTmrError;
+wire [5:0] current_state;
+reg  [5:0] current_stateA ;
+reg  [5:0] current_stateB ;
+reg  [5:0] current_stateC ;
 reg  [5:0] next_state ;
+wire [5:0] current_stateV =  current_state;
 
 always @( current_state or end_osc_cnt or end_read_can or end_write_can or end_write_elink or irq_can_rec or irq_can_tra or irq_trim_bus_osc or osc_auto_trim_mopshub or power_bus_en_done or reset_irq_can_done or rst or start_power_init )
   begin : next_state_block_proc
@@ -125,6 +148,24 @@ always @( current_state or end_osc_cnt or end_read_can or end_write_can or end_w
           else
             next_state =  reset;
         end
+      Break_Loop : 
+        begin
+          if (end_osc_cnt==1)
+            next_state =  ST_CountRst;
+          else
+            next_state =  ST_Start_Cnt;
+        end
+      ST_CountRst : 
+        begin
+          next_state =  ST_Done_Trim;
+        end
+      ST_Start_Cnt : 
+        begin
+          if (osc_auto_trim_mopshub==1)
+            next_state =  ST_MOPS_dbg2;
+          else
+            next_state =  Wait_W_SPI1;
+        end
       ST_Skip_Bus : 
         begin
           next_state =  rst_irq_can;
@@ -143,27 +184,46 @@ always @( current_state or end_osc_cnt or end_read_can or end_write_can or end_w
           else
             next_state =  Wait_W_SPI2;
         end
-      ST_Start_Cnt : 
-        begin
-          if (osc_auto_trim_mopshub==1)
-            next_state =  ST_MOPS_dbg2;
-          else
-            next_state =  Wait_W_SPI1;
-        end
-      Break_Loop : 
-        begin
-          if (end_osc_cnt==1)
-            next_state =  ST_CountRst;
-          else
-            next_state =  ST_Start_Cnt;
-        end
       finish_proc : 
         begin
           next_state =  Break_Loop;
         end
-      ST_CountRst : 
+      Check_Trim : 
         begin
-          next_state =  ST_Done_Trim;
+          if (osc_auto_trim_mopshub==1)
+            next_state =  ST_En_power1;
+          else
+            next_state =  ST_En_power0;
+        end
+      ST_Done_Trim : 
+        begin
+          next_state =  waittoact;
+        end
+      ST_En_power0 : 
+        begin
+          next_state =  Wait_W_SPI;
+        end
+      ST_En_power1 : 
+        begin
+          next_state =  Wait_W_SPI2;
+        end
+      Wait_W_SPI : 
+        begin
+          if (power_bus_en_done==1)
+            next_state =  Break_Loop;
+          else
+            next_state =  Wait_W_SPI;
+        end
+      Wait_W_SPI1 : 
+        begin
+          if (power_bus_en_done==1)
+            next_state =  Break_Loop;
+          else
+            next_state =  Wait_W_SPI1;
+        end
+      ST_MOPS_dbg2 : 
+        begin
+          next_state =  Trim_ack;
         end
       Read_Resp : 
         begin
@@ -225,17 +285,6 @@ always @( current_state or end_osc_cnt or end_read_can or end_write_can or end_w
       send_ack1 : 
         begin
           next_state =  rst_tra_irq_can;
-        end
-      Check_Trim : 
-        begin
-          if (osc_auto_trim_mopshub==1)
-            next_state =  ST_En_power1;
-          else
-            next_state =  ST_En_power0;
-        end
-      ST_Done_Trim : 
-        begin
-          next_state =  waittoact;
         end
       ST_Skip_Bus1 : 
         begin
@@ -346,32 +395,6 @@ always @( current_state or end_osc_cnt or end_read_can or end_write_can or end_w
         begin
           next_state =  rst_tra_irq_can1;
         end
-      ST_En_power0 : 
-        begin
-          next_state =  Wait_W_SPI;
-        end
-      ST_En_power1 : 
-        begin
-          next_state =  Wait_W_SPI2;
-        end
-      Wait_W_SPI : 
-        begin
-          if (power_bus_en_done==1)
-            next_state =  Break_Loop;
-          else
-            next_state =  Wait_W_SPI;
-        end
-      Wait_W_SPI1 : 
-        begin
-          if (power_bus_en_done==1)
-            next_state =  Break_Loop;
-          else
-            next_state =  Wait_W_SPI1;
-        end
-      ST_MOPS_dbg2 : 
-        begin
-          next_state =  Trim_ack;
-        end
       default : next_state =  reset;
     endcase
   end
@@ -409,6 +432,15 @@ always @( current_state )
           osc_trim_mode =  0;
           power_bus_en =  0;
         end
+      ST_CountRst : 
+        begin
+          rst_osc_cnt =  1;
+        end
+      ST_Start_Cnt : 
+        begin
+          start_osc_cnt =  1;
+          power_bus_en =  1;
+        end
       ST_Skip_Bus : 
         begin
           skip_osc_trim =  1;
@@ -417,18 +449,25 @@ always @( current_state )
         begin
           reset_irq_osc_can =  1;
         end
-      ST_Start_Cnt : 
-        begin
-          start_osc_cnt =  1;
-          power_bus_en =  1;
-        end
       finish_proc : 
         begin
           end_trim_bus =  1;
         end
-      ST_CountRst : 
+      ST_Done_Trim : 
         begin
-          rst_osc_cnt =  1;
+          end_power_init =  1;
+        end
+      ST_En_power0 : 
+        begin
+          power_bus_en =  1;
+        end
+      ST_En_power1 : 
+        begin
+          power_bus_en =  1;
+        end
+      ST_MOPS_dbg2 : 
+        begin
+          rst_bus =  1;
         end
       Read_Resp : 
         begin
@@ -467,10 +506,6 @@ always @( current_state )
       send_ack1 : 
         begin
           irq_can_ack =  1;
-        end
-      ST_Done_Trim : 
-        begin
-          end_power_init =  1;
         end
       ST_Skip_Bus1 : 
         begin
@@ -542,43 +577,122 @@ always @( current_state )
         begin
           irq_can_ack =  1;
         end
-      ST_En_power0 : 
-        begin
-          power_bus_en =  1;
-        end
-      ST_En_power1 : 
-        begin
-          power_bus_en =  1;
-        end
-      ST_MOPS_dbg2 : 
-        begin
-          rst_bus =  1;
-        end
     endcase
   end
 
-always @( posedge clk or negedge rst )
-  begin : clocked_block_proc
-    if (!rst)
+always @( posedge clkA or negedge rstA )
+  begin : clocked_block_procA
+    if (!rstA)
       begin
-        current_state <= reset;
+        current_stateA <= reset;
       end
     else
       begin
-        if (timeoutrst)
+        if (timeoutrstA)
           begin
-            current_state <= ST_Skip_Bus;
+            current_stateA <= ST_Skip_Bus;
           end
         else
-          if (abort)
+          if (abortA)
             begin
-              current_state <= reset;
+              current_stateA <= reset;
             end
           else
             begin
-              current_state <= next_state;
+              current_stateA <= next_stateA;
             end
       end
   end
+
+always @( posedge clkB or negedge rstB )
+  begin : clocked_block_procB
+    if (!rstB)
+      begin
+        current_stateB <= reset;
+      end
+    else
+      begin
+        if (timeoutrstB)
+          begin
+            current_stateB <= ST_Skip_Bus;
+          end
+        else
+          if (abortB)
+            begin
+              current_stateB <= reset;
+            end
+          else
+            begin
+              current_stateB <= next_stateB;
+            end
+      end
+  end
+
+always @( posedge clkC or negedge rstC )
+  begin : clocked_block_procC
+    if (!rstC)
+      begin
+        current_stateC <= reset;
+      end
+    else
+      begin
+        if (timeoutrstC)
+          begin
+            current_stateC <= ST_Skip_Bus;
+          end
+        else
+          if (abortC)
+            begin
+              current_stateC <= reset;
+            end
+          else
+            begin
+              current_stateC <= next_stateC;
+            end
+      end
+  end
+
+majorityVoter #(.WIDTH(6)) current_stateVoter (
+    .inA(current_stateA),
+    .inB(current_stateB),
+    .inC(current_stateC),
+    .out(current_state),
+    .tmrErr(current_stateTmrError)
+    );
+
+fanout abortFanout (
+    .in(abort),
+    .outA(abortA),
+    .outB(abortB),
+    .outC(abortC)
+    );
+
+fanout clkFanout (
+    .in(clk),
+    .outA(clkA),
+    .outB(clkB),
+    .outC(clkC)
+    );
+
+fanout #(.WIDTH(6)) next_stateFanout (
+    .in(next_state),
+    .outA(next_stateA),
+    .outB(next_stateB),
+    .outC(next_stateC)
+    );
+
+fanout rstFanout (
+    .in(rst),
+    .outA(rstA),
+    .outB(rstB),
+    .outC(rstC)
+    );
+
+fanout timeoutrstFanout (
+    .in(timeoutrst),
+    .outA(timeoutrstA),
+    .outB(timeoutrstB),
+    .outC(timeoutrstC)
+    );
 endmodule
 

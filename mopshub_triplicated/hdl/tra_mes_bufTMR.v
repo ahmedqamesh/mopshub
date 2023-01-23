@@ -6,43 +6,44 @@
  *                                                                                                  *
  * user    : lucas                                                                                  *
  * host    : DESKTOP-BFDSFP2                                                                        *
- * date    : 06/10/2022 13:53:07                                                                    *
+ * date    : 05/12/2022 13:28:37                                                                    *
  *                                                                                                  *
- * workdir : /mnt/c/Users/Lucas/Documents/GitHub/mopshub_triplicated/triplicated/mopshub_top_board/hdl *
- * cmd     : /mnt/c/Users/Lucas/Desktop/mopshub_triplication/tmrg-master/bin/tmrg -vv -c tmrg.cfg   *
- * tmrg rev:                                                                                        *
+ * workdir : /mnt/c/Users/Lucas/Documents/GitHub/mopshub_triplicated/triplicated/mopshub_top_board_16/hdl *
+ * cmd     : /mnt/c/Users/Lucas/Documents/GitHub/mopshub_triplicated/tmrg-master/bin/tmrg -vv -c    *
+ *           tmrg.cfg                                                                               *
+ * tmrg rev: b25f042058e4e97751df2a0933c24aeadd5a78a5                                               *
  *                                                                                                  *
  * src file: tra_mes_buf.v                                                                          *
- *           Git SHA           : c110441b08b692cc54ebd4a3b84a2599430e8f93                           *
- *           Modification time : 2022-10-05 20:50:43                                                *
- *           File Size         : 1116                                                               *
- *           MD5 hash          : 4a680becd01ea772429c2e21d2565b4f                                   *
+ *           Git SHA           : b25f042058e4e97751df2a0933c24aeadd5a78a5 (?? tra_mes_buf.v)        *
+ *           Modification time : 2022-12-04 13:14:07                                                *
+ *           File Size         : 1305                                                               *
+ *           MD5 hash          : 015afb688ae0b9b81145410100272b7f                                   *
  *                                                                                                  *
  ****************************************************************************************************/
 
+`resetall 
+`timescale  1ns/10ps
 module buffer_tra_dataTMR(
   input wire  clk ,
   input wire [75:0] data_tra_in ,
   input wire  buffer_en ,
   input wire  rst ,
+  input wire  debug_mode ,
   output wire [4:0] data_tra_select ,
   output wire [75:0] data_tra_out 
 );
 wire rstC;
 wire rstB;
 wire rstA;
-wire [4:0] data_tra_selectC;
-wire [4:0] data_tra_selectB;
-wire [4:0] data_tra_selectA;
-wire [75:0] data_tra_outC;
-wire [75:0] data_tra_outB;
-wire [75:0] data_tra_outA;
 wire [75:0] data_tra_inC;
 wire [75:0] data_tra_inB;
 wire [75:0] data_tra_inA;
 wire clkC;
 wire clkB;
 wire clkA;
+wire [4:0] bus_idC;
+wire [4:0] bus_idB;
+wire [4:0] bus_idA;
 wire buffer_enC;
 wire buffer_enB;
 wire buffer_enA;
@@ -56,21 +57,22 @@ reg  [75:0] data_tra_regC ;
 reg  [4:0] data_tra_select_regA ;
 reg  [4:0] data_tra_select_regB ;
 reg  [4:0] data_tra_select_regC ;
+wire [4:0] bus_id;
 initial
-  begin
-    data_tra_regA =  76'd0;
-    data_tra_select_regA =  5'd0;
-  end
+  data_tra_regA =  76'd0;
 initial
-  begin
-    data_tra_regB =  76'd0;
-    data_tra_select_regB =  5'd0;
-  end
+  data_tra_regB =  76'd0;
 initial
-  begin
-    data_tra_regC =  76'd0;
-    data_tra_select_regC =  5'd0;
-  end
+  data_tra_regC =  76'd0;
+initial
+  data_tra_select_regA =  5'd0;
+initial
+  data_tra_select_regB =  5'd0;
+initial
+  data_tra_select_regC =  5'd0;
+assign bus_id =  (debug_mode==0) ? data_tra_in[28:24]  : 5'd0;
+wire [4:0] data_tra_select_regV =  data_tra_select_reg;
+wire [75:0] data_tra_regV =  data_tra_reg;
 
 always @( posedge clkA )
   begin
@@ -78,9 +80,9 @@ always @( posedge clkA )
       data_tra_select_regA <= 5'd0;
     else
       if (buffer_enA)
-        data_tra_select_regA <= data_tra_inA[28:24] ;
+        data_tra_select_regA <= bus_idA;
       else
-        data_tra_select_regA <= data_tra_selectA;
+        data_tra_select_regA <= data_tra_select_regA;
   end
 
 always @( posedge clkB )
@@ -89,9 +91,9 @@ always @( posedge clkB )
       data_tra_select_regB <= 5'd0;
     else
       if (buffer_enB)
-        data_tra_select_regB <= data_tra_inB[28:24] ;
+        data_tra_select_regB <= bus_idB;
       else
-        data_tra_select_regB <= data_tra_selectB;
+        data_tra_select_regB <= data_tra_select_regB;
   end
 
 always @( posedge clkC )
@@ -100,9 +102,9 @@ always @( posedge clkC )
       data_tra_select_regC <= 5'd0;
     else
       if (buffer_enC)
-        data_tra_select_regC <= data_tra_inC[28:24] ;
+        data_tra_select_regC <= bus_idC;
       else
-        data_tra_select_regC <= data_tra_selectC;
+        data_tra_select_regC <= data_tra_select_regC;
   end
 
 always @( posedge clkA )
@@ -113,7 +115,7 @@ always @( posedge clkA )
       if (buffer_enA)
         data_tra_regA <= data_tra_inA;
       else
-        data_tra_regA <= data_tra_outA;
+        data_tra_regA <= data_tra_regA;
   end
 
 always @( posedge clkB )
@@ -124,7 +126,7 @@ always @( posedge clkB )
       if (buffer_enB)
         data_tra_regB <= data_tra_inB;
       else
-        data_tra_regB <= data_tra_outB;
+        data_tra_regB <= data_tra_regB;
   end
 
 always @( posedge clkC )
@@ -135,7 +137,7 @@ always @( posedge clkC )
       if (buffer_enC)
         data_tra_regC <= data_tra_inC;
       else
-        data_tra_regC <= data_tra_outC;
+        data_tra_regC <= data_tra_regC;
   end
 assign data_tra_out =  data_tra_reg;
 assign data_tra_select =  data_tra_select_reg;
@@ -163,6 +165,13 @@ fanout buffer_enFanout (
     .outC(buffer_enC)
     );
 
+fanout #(.WIDTH(5)) bus_idFanout (
+    .in(bus_id),
+    .outA(bus_idA),
+    .outB(bus_idB),
+    .outC(bus_idC)
+    );
+
 fanout clkFanout (
     .in(clk),
     .outA(clkA),
@@ -175,20 +184,6 @@ fanout #(.WIDTH(76)) data_tra_inFanout (
     .outA(data_tra_inA),
     .outB(data_tra_inB),
     .outC(data_tra_inC)
-    );
-
-fanout #(.WIDTH(76)) data_tra_outFanout (
-    .in(data_tra_out),
-    .outA(data_tra_outA),
-    .outB(data_tra_outB),
-    .outC(data_tra_outC)
-    );
-
-fanout #(.WIDTH(5)) data_tra_selectFanout (
-    .in(data_tra_select),
-    .outA(data_tra_selectA),
-    .outB(data_tra_selectB),
-    .outC(data_tra_selectC)
     );
 
 fanout rstFanout (

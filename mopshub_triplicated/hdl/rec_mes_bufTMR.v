@@ -6,20 +6,23 @@
  *                                                                                                  *
  * user    : lucas                                                                                  *
  * host    : DESKTOP-BFDSFP2                                                                        *
- * date    : 06/10/2022 13:53:00                                                                    *
+ * date    : 05/12/2022 13:28:32                                                                    *
  *                                                                                                  *
- * workdir : /mnt/c/Users/Lucas/Documents/GitHub/mopshub_triplicated/triplicated/mopshub_top_board/hdl *
- * cmd     : /mnt/c/Users/Lucas/Desktop/mopshub_triplication/tmrg-master/bin/tmrg -vv -c tmrg.cfg   *
- * tmrg rev:                                                                                        *
+ * workdir : /mnt/c/Users/Lucas/Documents/GitHub/mopshub_triplicated/triplicated/mopshub_top_board_16/hdl *
+ * cmd     : /mnt/c/Users/Lucas/Documents/GitHub/mopshub_triplicated/tmrg-master/bin/tmrg -vv -c    *
+ *           tmrg.cfg                                                                               *
+ * tmrg rev: b25f042058e4e97751df2a0933c24aeadd5a78a5                                               *
  *                                                                                                  *
  * src file: rec_mes_buf.v                                                                          *
- *           Git SHA           : c110441b08b692cc54ebd4a3b84a2599430e8f93                           *
- *           Modification time : 2022-10-05 20:39:33                                                *
- *           File Size         : 2976                                                               *
- *           MD5 hash          : d3d23d046bdf820b2a01fbd875200d9c                                   *
+ *           Git SHA           : b25f042058e4e97751df2a0933c24aeadd5a78a5 (?? rec_mes_buf.v)        *
+ *           Modification time : 2022-12-04 13:08:15                                                *
+ *           File Size         : 3025                                                               *
+ *           MD5 hash          : 9c228ec45dd149bf5f06d934761fa3cd                                   *
  *                                                                                                  *
  ****************************************************************************************************/
 
+`resetall 
+`timescale  1ns/10ps
 module buffer_rec_dataTMR(
   input wire  clk ,
   input wire [15:0] data_rec_in ,
@@ -32,9 +35,6 @@ module buffer_rec_dataTMR(
 wire rstC;
 wire rstB;
 wire rstA;
-wire id_vC;
-wire id_vB;
-wire id_vA;
 wire [15:0] data_rec_inC;
 wire [15:0] data_rec_inB;
 wire [15:0] data_rec_inA;
@@ -47,30 +47,6 @@ wire [4:0] can_rec_selectA;
 wire buffer_enC;
 wire buffer_enB;
 wire buffer_enA;
-wire b8_vC;
-wire b8_vB;
-wire b8_vA;
-wire b7_vC;
-wire b7_vB;
-wire b7_vA;
-wire b6_vC;
-wire b6_vB;
-wire b6_vA;
-wire b5_vC;
-wire b5_vB;
-wire b5_vA;
-wire b4_vC;
-wire b4_vB;
-wire b4_vA;
-wire b3_vC;
-wire b3_vB;
-wire b3_vA;
-wire b2_vC;
-wire b2_vB;
-wire b2_vA;
-wire b1_vC;
-wire b1_vB;
-wire b1_vA;
 wire [4:0] addrC;
 wire [4:0] addrB;
 wire [4:0] addrA;
@@ -120,50 +96,68 @@ reg  [7:0] b8A ;
 reg  [7:0] b8B ;
 reg  [7:0] b8C ;
 initial
-  begin
-    idA =  12'd0;
-    b1A =  8'h0;
-    b2A =  8'h0;
-    b3A =  8'h0;
-    b4A =  8'h0;
-    b5A =  8'h0;
-    b6A =  8'h0;
-    b7A =  8'h0;
-    b8A =  8'h0;
-  end
+  idA =  12'd0;
 initial
-  begin
-    idB =  12'd0;
-    b1B =  8'h0;
-    b2B =  8'h0;
-    b3B =  8'h0;
-    b4B =  8'h0;
-    b5B =  8'h0;
-    b6B =  8'h0;
-    b7B =  8'h0;
-    b8B =  8'h0;
-  end
+  idB =  12'd0;
 initial
-  begin
-    idC =  12'd0;
-    b1C =  8'h0;
-    b2C =  8'h0;
-    b3C =  8'h0;
-    b4C =  8'h0;
-    b5C =  8'h0;
-    b6C =  8'h0;
-    b7C =  8'h0;
-    b8C =  8'h0;
-  end
-wire id_v =  id;
-wire b1_v =  b1;
-wire b2_v =  b2;
-wire b3_v =  b3;
-wire b4_v =  b4;
-wire b5_v =  b5;
-wire b6_v =  b6;
-wire b7_v =  b7;
-wire b8_v =  b8;
+  idC =  12'd0;
+initial
+  b1A =  8'h0;
+initial
+  b1B =  8'h0;
+initial
+  b1C =  8'h0;
+initial
+  b2A =  8'h0;
+initial
+  b2B =  8'h0;
+initial
+  b2C =  8'h0;
+initial
+  b3A =  8'h0;
+initial
+  b3B =  8'h0;
+initial
+  b3C =  8'h0;
+initial
+  b4A =  8'h0;
+initial
+  b4B =  8'h0;
+initial
+  b4C =  8'h0;
+initial
+  b5A =  8'h0;
+initial
+  b5B =  8'h0;
+initial
+  b5C =  8'h0;
+initial
+  b6A =  8'h0;
+initial
+  b6B =  8'h0;
+initial
+  b6C =  8'h0;
+initial
+  b7A =  8'h0;
+initial
+  b7B =  8'h0;
+initial
+  b7C =  8'h0;
+initial
+  b8A =  8'h0;
+initial
+  b8B =  8'h0;
+initial
+  b8C =  8'h0;
+wire [11:0] id_v =  id;
+wire [7:0] b1_v =  b1;
+wire [7:0] b2_v =  b2;
+wire [7:0] b3_v =  b3;
+wire [7:0] b4_v =  b4;
+wire [7:0] b5_v =  b5;
+wire [7:0] b6_v =  b6;
+wire [7:0] b7_v =  b7;
+wire [7:0] b8_v =  b8;
 
 always @( posedge clkA )
   begin
@@ -206,15 +200,15 @@ always @( posedge clkA )
                   b7A <= data_rec_inA[15:8] ;
                 end
               default begin
-  idA <= id_vA;
-  b1A <= b1_vA;
-  b2A <= b2_vA;
-  b3A <= b3_vA;
-  b4A <= b4_vA;
-  b5A <= b5_vA;
-  b6A <= b6_vA;
-  b7A <= b7_vA;
-  b8A <= b8_vA;
+  idA <= idA;
+  b1A <= b1A;
+  b2A <= b2A;
+  b3A <= b3A;
+  b4A <= b4A;
+  b5A <= b5A;
+  b6A <= b6A;
+  b7A <= b7A;
+  b8A <= b8A;
 end 
             endcase
           end
@@ -262,15 +256,15 @@ always @( posedge clkB )
                   b7B <= data_rec_inB[15:8] ;
                 end
               default begin
-  idB <= id_vB;
-  b1B <= b1_vB;
-  b2B <= b2_vB;
-  b3B <= b3_vB;
-  b4B <= b4_vB;
-  b5B <= b5_vB;
-  b6B <= b6_vB;
-  b7B <= b7_vB;
-  b8B <= b8_vB;
+  idB <= idB;
+  b1B <= b1B;
+  b2B <= b2B;
+  b3B <= b3B;
+  b4B <= b4B;
+  b5B <= b5B;
+  b6B <= b6B;
+  b7B <= b7B;
+  b8B <= b8B;
 end 
             endcase
           end
@@ -318,21 +312,21 @@ always @( posedge clkC )
                   b7C <= data_rec_inC[15:8] ;
                 end
               default begin
-  idC <= id_vC;
-  b1C <= b1_vC;
-  b2C <= b2_vC;
-  b3C <= b3_vC;
-  b4C <= b4_vC;
-  b5C <= b5_vC;
-  b6C <= b6_vC;
-  b7C <= b7_vC;
-  b8C <= b8_vC;
+  idC <= idC;
+  b1C <= b1C;
+  b2C <= b2C;
+  b3C <= b3C;
+  b4C <= b4C;
+  b5C <= b5C;
+  b6C <= b6C;
+  b7C <= b7C;
+  b8C <= b8C;
 end 
             endcase
           end
       end
   end
-assign data_rec_out =  {id_v,b1_v,b3_v,b2_v,b4_v,b8_v,b7_v,b6_v,b5_v};
+assign data_rec_out =  {id,b1,b3,b2,b4,b8,b7,b6,b5};
 
 majorityVoter #(.WIDTH(8)) b1Voter (
     .inA(b1A),
@@ -413,62 +407,6 @@ fanout #(.WIDTH(5)) addrFanout (
     .outC(addrC)
     );
 
-fanout b1_vFanout (
-    .in(b1_v),
-    .outA(b1_vA),
-    .outB(b1_vB),
-    .outC(b1_vC)
-    );
-
-fanout b2_vFanout (
-    .in(b2_v),
-    .outA(b2_vA),
-    .outB(b2_vB),
-    .outC(b2_vC)
-    );
-
-fanout b3_vFanout (
-    .in(b3_v),
-    .outA(b3_vA),
-    .outB(b3_vB),
-    .outC(b3_vC)
-    );
-
-fanout b4_vFanout (
-    .in(b4_v),
-    .outA(b4_vA),
-    .outB(b4_vB),
-    .outC(b4_vC)
-    );
-
-fanout b5_vFanout (
-    .in(b5_v),
-    .outA(b5_vA),
-    .outB(b5_vB),
-    .outC(b5_vC)
-    );
-
-fanout b6_vFanout (
-    .in(b6_v),
-    .outA(b6_vA),
-    .outB(b6_vB),
-    .outC(b6_vC)
-    );
-
-fanout b7_vFanout (
-    .in(b7_v),
-    .outA(b7_vA),
-    .outB(b7_vB),
-    .outC(b7_vC)
-    );
-
-fanout b8_vFanout (
-    .in(b8_v),
-    .outA(b8_vA),
-    .outB(b8_vB),
-    .outC(b8_vC)
-    );
-
 fanout buffer_enFanout (
     .in(buffer_en),
     .outA(buffer_enA),
@@ -495,13 +433,6 @@ fanout #(.WIDTH(16)) data_rec_inFanout (
     .outA(data_rec_inA),
     .outB(data_rec_inB),
     .outC(data_rec_inC)
-    );
-
-fanout id_vFanout (
-    .in(id_v),
-    .outA(id_vA),
-    .outB(id_vB),
-    .outC(id_vC)
     );
 
 fanout rstFanout (

@@ -6,20 +6,23 @@
  *                                                                                                  *
  * user    : lucas                                                                                  *
  * host    : DESKTOP-BFDSFP2                                                                        *
- * date    : 06/10/2022 13:52:46                                                                    *
+ * date    : 05/12/2022 13:28:08                                                                    *
  *                                                                                                  *
- * workdir : /mnt/c/Users/Lucas/Documents/GitHub/mopshub_triplicated/triplicated/mopshub_top_board/hdl *
- * cmd     : /mnt/c/Users/Lucas/Desktop/mopshub_triplication/tmrg-master/bin/tmrg -vv -c tmrg.cfg   *
- * tmrg rev:                                                                                        *
+ * workdir : /mnt/c/Users/Lucas/Documents/GitHub/mopshub_triplicated/triplicated/mopshub_top_board_16/hdl *
+ * cmd     : /mnt/c/Users/Lucas/Documents/GitHub/mopshub_triplicated/tmrg-master/bin/tmrg -vv -c    *
+ *           tmrg.cfg                                                                               *
+ * tmrg rev: b25f042058e4e97751df2a0933c24aeadd5a78a5                                               *
  *                                                                                                  *
  * src file: elink_interface_tra_sm_fsm.v                                                           *
- *           Git SHA           : c110441b08b692cc54ebd4a3b84a2599430e8f93                           *
- *           Modification time : 2022-10-06 09:12:49                                                *
- *           File Size         : 19104                                                              *
- *           MD5 hash          : 40479176549322f7afe98f3c772351e2                                   *
+ *           Git SHA           : b25f042058e4e97751df2a0933c24aeadd5a78a5 (?? elink_interface_tra_sm_fsm.v) *
+ *           Modification time : 2022-12-04 15:41:31.642210                                         *
+ *           File Size         : 19899                                                              *
+ *           MD5 hash          : 8616653d73f3eb1129042b7ac24a9c07                                   *
  *                                                                                                  *
  ****************************************************************************************************/
 
+`resetall 
+`timescale  1ns/10ps
 module elink_interface_tra_SMTMR(
   input wire  abort ,
   input wire  can_id ,
@@ -48,43 +51,43 @@ module elink_interface_tra_SMTMR(
 );
 parameter ST_waittoact =6'd0;
 parameter ST_reset =6'd1;
-parameter RB2 =6'd2;
-parameter store_RB2 =6'd3;
-parameter RB3 =6'd4;
-parameter RB4 =6'd5;
-parameter store_RB3 =6'd6;
-parameter store_RB4 =6'd7;
-parameter store_RB0 =6'd8;
-parameter RB1 =6'd9;
-parameter store_RB1 =6'd10;
-parameter RB5 =6'd11;
-parameter store_RB5 =6'd12;
-parameter RB6 =6'd13;
-parameter store_RB6 =6'd14;
-parameter RB7 =6'd15;
-parameter store_RB7 =6'd16;
-parameter store_RB8 =6'd17;
-parameter RB8 =6'd18;
-parameter store_RB9 =6'd19;
-parameter RB9 =6'd20;
-parameter ST_wait_eop =6'd21;
-parameter ST_end_read_en =6'd22;
-parameter ST_GOToWait =6'd23;
-parameter ST_en_buffer =6'd24;
-parameter ST_wait_sop =6'd25;
-parameter RB0 =6'd26;
-parameter store_SPI0 =6'd27;
-parameter SPI1 =6'd28;
-parameter store_SPI1 =6'd29;
-parameter SPI2 =6'd30;
-parameter store_SPI2 =6'd31;
-parameter ST_end_read_en1 =6'd32;
-parameter ST_en_buffer1 =6'd33;
-parameter ST_GOToWait1 =6'd34;
-parameter SPI3 =6'd35;
-parameter store_SPI3 =6'd36;
-parameter ST_wait_eop1 =6'd37;
-parameter ST_skip_msg =6'd38;
+parameter ST_wait_sop =6'd2;
+parameter RB0 =6'd3;
+parameter ST_skip_msg =6'd4;
+parameter RB2 =6'd5;
+parameter store_RB2 =6'd6;
+parameter RB3 =6'd7;
+parameter RB4 =6'd8;
+parameter store_RB3 =6'd9;
+parameter store_RB4 =6'd10;
+parameter store_RB0 =6'd11;
+parameter RB1 =6'd12;
+parameter store_RB1 =6'd13;
+parameter RB5 =6'd14;
+parameter store_RB5 =6'd15;
+parameter RB6 =6'd16;
+parameter store_RB6 =6'd17;
+parameter RB7 =6'd18;
+parameter store_RB7 =6'd19;
+parameter store_RB8 =6'd20;
+parameter RB8 =6'd21;
+parameter store_RB9 =6'd22;
+parameter RB9 =6'd23;
+parameter ST_wait_eop =6'd24;
+parameter ST_end_read_en =6'd25;
+parameter ST_GOToWait =6'd26;
+parameter ST_en_buffer =6'd27;
+parameter store_SPI0 =6'd28;
+parameter SPI1 =6'd29;
+parameter store_SPI1 =6'd30;
+parameter SPI2 =6'd31;
+parameter store_SPI2 =6'd32;
+parameter ST_end_read_en1 =6'd33;
+parameter ST_en_buffer1 =6'd34;
+parameter ST_GOToWait1 =6'd35;
+parameter SPI3 =6'd36;
+parameter store_SPI3 =6'd37;
+parameter ST_wait_eop1 =6'd38;
 parameter RB10 =6'd39;
 parameter store_RB10 =6'd40;
 parameter RB11 =6'd41;
@@ -108,8 +111,28 @@ parameter ST_wait_eop2 =6'd58;
 parameter ST_end_read_en2 =6'd59;
 parameter ST_GOToWait2 =6'd60;
 parameter ST_en_buffer2 =6'd61;
-reg  [5:0] current_state ;
+wire timeoutrstC;
+wire timeoutrstB;
+wire timeoutrstA;
+wire rstC;
+wire rstB;
+wire rstA;
+wire [5:0] next_stateC;
+wire [5:0] next_stateB;
+wire [5:0] next_stateA;
+wire clkC;
+wire clkB;
+wire clkA;
+wire abortC;
+wire abortB;
+wire abortA;
+wor current_stateTmrError;
+wire [5:0] current_state;
+reg  [5:0] current_stateA ;
+reg  [5:0] current_stateB ;
+reg  [5:0] current_stateC ;
 reg  [5:0] next_state ;
+wire [5:0] current_stateV =  current_state;
 
 always @( can_id or current_state or fifo_data_eop or fifo_data_sop or fifo_elink_rdy or fifo_packet_rdy or rst or spi_can_id or spi_mon_id or start_read_elink )
   begin : next_state_block_proc
@@ -127,6 +150,30 @@ always @( can_id or current_state or fifo_data_eop or fifo_data_sop or fifo_elin
             next_state =  ST_waittoact;
           else
             next_state =  ST_reset;
+        end
+      ST_wait_sop : 
+        begin
+          if (fifo_data_sop==1)
+            next_state =  RB0;
+          else
+            next_state =  ST_wait_sop;
+        end
+      RB0 : 
+        begin
+          if (can_id==1)
+            next_state =  store_RB0;
+          else
+            if ((spi_mon_id==1)&&(fifo_packet_rdy==1))
+              next_state =  store_SPI0;
+            else
+              if (spi_can_id==1)
+                next_state =  store_RB13;
+              else
+                next_state =  RB0;
+        end
+      ST_skip_msg : 
+        begin
+          next_state =  ST_waittoact;
         end
       RB2 : 
         begin
@@ -256,26 +303,6 @@ always @( can_id or current_state or fifo_data_eop or fifo_data_sop or fifo_elin
         begin
           next_state =  ST_GOToWait;
         end
-      ST_wait_sop : 
-        begin
-          if (fifo_data_sop==1)
-            next_state =  RB0;
-          else
-            next_state =  ST_wait_sop;
-        end
-      RB0 : 
-        begin
-          if (can_id==1)
-            next_state =  store_RB0;
-          else
-            if ((spi_mon_id==1)&&(fifo_packet_rdy==1))
-              next_state =  store_SPI0;
-            else
-              if (spi_can_id==1)
-                next_state =  store_RB13;
-              else
-                next_state =  RB0;
-        end
       store_SPI0 : 
         begin
           if (fifo_elink_rdy&&fifo_packet_rdy==1)
@@ -337,10 +364,6 @@ always @( can_id or current_state or fifo_data_eop or fifo_data_sop or fifo_elin
             next_state =  ST_end_read_en1;
           else
             next_state =  ST_wait_eop1;
-        end
-      ST_skip_msg : 
-        begin
-          next_state =  ST_waittoact;
         end
       RB10 : 
         begin
@@ -479,6 +502,16 @@ always @( current_state )
           entimeout =  0;
           spi_tra_mode =  0;
         end
+      ST_wait_sop : 
+        begin
+          addr_read =  5'b00000;
+          cs_eread =  1;
+        end
+      RB0 : 
+        begin
+          addr_read =  5'b00010;
+          cs_eread =  1;
+        end
       RB2 : 
         begin
           addr_read =  5'b00100;
@@ -604,16 +637,6 @@ always @( current_state )
         begin
           addr_read =  5'b00000;
           buffer_tra_en =  1;
-        end
-      ST_wait_sop : 
-        begin
-          addr_read =  5'b00000;
-          cs_eread =  1;
-        end
-      RB0 : 
-        begin
-          addr_read =  5'b00010;
-          cs_eread =  1;
         end
       store_SPI0 : 
         begin
@@ -814,25 +837,69 @@ always @( current_state )
     endcase
   end
 
-always @( posedge clk )
-  begin : clocked_block_proc
-    if (!rst)
+always @( posedge clkA )
+  begin : clocked_block_procA
+    if (!rstA)
       begin
-        current_state <= ST_reset;
+        current_stateA <= ST_reset;
       end
     else
-      if (timeoutrst)
+      if (timeoutrstA)
         begin
-          current_state <= ST_skip_msg;
+          current_stateA <= ST_skip_msg;
         end
       else
-        if (abort)
+        if (abortA)
           begin
-            current_state <= ST_skip_msg;
+            current_stateA <= ST_skip_msg;
           end
         else
           begin
-            current_state <= next_state;
+            current_stateA <= next_stateA;
+          end
+  end
+
+always @( posedge clkB )
+  begin : clocked_block_procB
+    if (!rstB)
+      begin
+        current_stateB <= ST_reset;
+      end
+    else
+      if (timeoutrstB)
+        begin
+          current_stateB <= ST_skip_msg;
+        end
+      else
+        if (abortB)
+          begin
+            current_stateB <= ST_skip_msg;
+          end
+        else
+          begin
+            current_stateB <= next_stateB;
+          end
+  end
+
+always @( posedge clkC )
+  begin : clocked_block_procC
+    if (!rstC)
+      begin
+        current_stateC <= ST_reset;
+      end
+    else
+      if (timeoutrstC)
+        begin
+          current_stateC <= ST_skip_msg;
+        end
+      else
+        if (abortC)
+          begin
+            current_stateC <= ST_skip_msg;
+          end
+        else
+          begin
+            current_stateC <= next_stateC;
           end
   end
 
@@ -841,5 +908,48 @@ always @( current_state )
     statedeb =  7'b0;
     statedeb[5:0]  =  current_state;
   end
+
+majorityVoter #(.WIDTH(6)) current_stateVoter (
+    .inA(current_stateA),
+    .inB(current_stateB),
+    .inC(current_stateC),
+    .out(current_state),
+    .tmrErr(current_stateTmrError)
+    );
+
+fanout abortFanout (
+    .in(abort),
+    .outA(abortA),
+    .outB(abortB),
+    .outC(abortC)
+    );
+
+fanout clkFanout (
+    .in(clk),
+    .outA(clkA),
+    .outB(clkB),
+    .outC(clkC)
+    );
+
+fanout #(.WIDTH(6)) next_stateFanout (
+    .in(next_state),
+    .outA(next_stateA),
+    .outB(next_stateB),
+    .outC(next_stateC)
+    );
+
+fanout rstFanout (
+    .in(rst),
+    .outA(rstA),
+    .outB(rstB),
+    .outC(rstC)
+    );
+
+fanout timeoutrstFanout (
+    .in(timeoutrst),
+    .outA(timeoutrstA),
+    .outB(timeoutrstB),
+    .outC(timeoutrstC)
+    );
 endmodule
 

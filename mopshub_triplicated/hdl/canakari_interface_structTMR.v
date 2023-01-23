@@ -6,20 +6,23 @@
  *                                                                                                  *
  * user    : lucas                                                                                  *
  * host    : DESKTOP-BFDSFP2                                                                        *
- * date    : 06/10/2022 13:52:41                                                                    *
+ * date    : 05/12/2022 13:28:04                                                                    *
  *                                                                                                  *
- * workdir : /mnt/c/Users/Lucas/Documents/GitHub/mopshub_triplicated/triplicated/mopshub_top_board/hdl *
- * cmd     : /mnt/c/Users/Lucas/Desktop/mopshub_triplication/tmrg-master/bin/tmrg -vv -c tmrg.cfg   *
- * tmrg rev:                                                                                        *
+ * workdir : /mnt/c/Users/Lucas/Documents/GitHub/mopshub_triplicated/triplicated/mopshub_top_board_16/hdl *
+ * cmd     : /mnt/c/Users/Lucas/Documents/GitHub/mopshub_triplicated/tmrg-master/bin/tmrg -vv -c    *
+ *           tmrg.cfg                                                                               *
+ * tmrg rev: b25f042058e4e97751df2a0933c24aeadd5a78a5                                               *
  *                                                                                                  *
  * src file: canakari_interface_struct.v                                                            *
- *           Git SHA           : c110441b08b692cc54ebd4a3b84a2599430e8f93 ( M canakari_interface_struct.v) *
- *           Modification time : 2022-10-06 13:25:16                                                *
- *           File Size         : 6252                                                               *
- *           MD5 hash          : 56b965be574c06acb1761af20c9aff93                                   *
+ *           Git SHA           : b25f042058e4e97751df2a0933c24aeadd5a78a5 (?? canakari_interface_struct.v) *
+ *           Modification time : 2022-12-04 15:41:31.646211                                         *
+ *           File Size         : 6516                                                               *
+ *           MD5 hash          : 132e677bd1387a789ee9670d49e072e6                                   *
  *                                                                                                  *
  ****************************************************************************************************/
 
+`resetall 
+`timescale  1ns/10ps
 module canakari_interfaceTMR(
   input wire  abort ,
   input wire [4:0] can_rec_select ,
@@ -57,11 +60,27 @@ module canakari_interfaceTMR(
   output wire [15:0] write_can ,
   output wire  write_sig_can_n 
 );
+wire rstC;
+wire rstB;
+wire rstA;
+wire [4:0] n_busesC;
+wire [4:0] n_busesB;
+wire [4:0] n_busesA;
+wire [4:0] data_tra_select_cntC;
+wire [4:0] data_tra_select_cntB;
+wire [4:0] data_tra_select_cntA;
+wire clkC;
+wire clkB;
+wire clkA;
+wor end_cntTmrError;
+wire end_cnt;
 wire [3:0] cmd;
 wire cnt_osc_select;
 wire cnt_select;
 wire [4:0] data_tra_select_cnt;
-reg  end_cnt ;
+reg  end_cntA ;
+reg  end_cntB ;
+reg  end_cntC ;
 wire initi;
 wire reset_irq_can_active;
 wire reset_sig_can_all;
@@ -71,6 +90,7 @@ wire set_bus_id;
 wire start_cnt;
 wire tra_select;
 wire trim;
+wire end_cntV =  end_cnt;
 
 bit_counterTMR bit_counter0 (
     .ext_rst(rst_cnt),
@@ -95,6 +115,7 @@ buffer_tristate_busidTMR buffer_tristate_busid0 (
     );
 
 can_interfaceTMR can_interface0 (
+    .clk(clk),
     .rst(rst),
     .addr(addr_can),
     .initi(initi),
@@ -146,17 +167,79 @@ assign cnt_select =  (init||reset_sig_can_all);
 assign cnt_osc_select =  (start_trim_osc||reset_irq_osc_can);
 assign reset_irq_can_active =  (reset_irq_can||reset_irq_osc_can);
 initial
-  end_cnt =  1'b0;
+  end_cntA =  1'b0;
+initial
+  end_cntB =  1'b0;
+initial
+  end_cntC =  1'b0;
 
-always @( posedge clk )
+always @( posedge clkA )
   begin
-    if (!rst)
-      end_cnt <= 0;
+    if (!rstA)
+      end_cntA <= 0;
     else
-      case (data_tra_select_cnt)
-        n_buses : end_cnt <= 1;
-        default : end_cnt <= 0;
+      case (data_tra_select_cntA)
+        n_busesA : end_cntA <= 1;
+        default : end_cntA <= 0;
       endcase
   end
+
+always @( posedge clkB )
+  begin
+    if (!rstB)
+      end_cntB <= 0;
+    else
+      case (data_tra_select_cntB)
+        n_busesB : end_cntB <= 1;
+        default : end_cntB <= 0;
+      endcase
+  end
+
+always @( posedge clkC )
+  begin
+    if (!rstC)
+      end_cntC <= 0;
+    else
+      case (data_tra_select_cntC)
+        n_busesC : end_cntC <= 1;
+        default : end_cntC <= 0;
+      endcase
+  end
+
+majorityVoter end_cntVoter (
+    .inA(end_cntA),
+    .inB(end_cntB),
+    .inC(end_cntC),
+    .out(end_cnt),
+    .tmrErr(end_cntTmrError)
+    );
+
+fanout clkFanout (
+    .in(clk),
+    .outA(clkA),
+    .outB(clkB),
+    .outC(clkC)
+    );
+
+fanout #(.WIDTH(5)) data_tra_select_cntFanout (
+    .in(data_tra_select_cnt),
+    .outA(data_tra_select_cntA),
+    .outB(data_tra_select_cntB),
+    .outC(data_tra_select_cntC)
+    );
+
+fanout #(.WIDTH(5)) n_busesFanout (
+    .in(n_buses),
+    .outA(n_busesA),
+    .outB(n_busesB),
+    .outC(n_busesC)
+    );
+
+fanout rstFanout (
+    .in(rst),
+    .outA(rstA),
+    .outB(rstB),
+    .outC(rstC)
+    );
 endmodule
 

@@ -6,17 +6,18 @@
  *                                                                                                  *
  * user    : lucas                                                                                  *
  * host    : DESKTOP-BFDSFP2                                                                        *
- * date    : 06/10/2022 13:53:03                                                                    *
+ * date    : 05/12/2022 13:28:35                                                                    *
  *                                                                                                  *
- * workdir : /mnt/c/Users/Lucas/Documents/GitHub/mopshub_triplicated/triplicated/mopshub_top_board/hdl *
- * cmd     : /mnt/c/Users/Lucas/Desktop/mopshub_triplication/tmrg-master/bin/tmrg -vv -c tmrg.cfg   *
- * tmrg rev:                                                                                        *
+ * workdir : /mnt/c/Users/Lucas/Documents/GitHub/mopshub_triplicated/triplicated/mopshub_top_board_16/hdl *
+ * cmd     : /mnt/c/Users/Lucas/Documents/GitHub/mopshub_triplicated/tmrg-master/bin/tmrg -vv -c    *
+ *           tmrg.cfg                                                                               *
+ * tmrg rev: b25f042058e4e97751df2a0933c24aeadd5a78a5                                               *
  *                                                                                                  *
  * src file: stuffing2.v                                                                            *
- *           Git SHA           : c110441b08b692cc54ebd4a3b84a2599430e8f93                           *
- *           Modification time : 2022-08-25 10:47:17                                                *
- *           File Size         : 4618                                                               *
- *           MD5 hash          : 5f3235ae82f222fdfa6b1842a8419f3c                                   *
+ *           Git SHA           : b25f042058e4e97751df2a0933c24aeadd5a78a5 (?? stuffing2.v)          *
+ *           Modification time : 2022-11-11 13:15:34.029213                                         *
+ *           File Size         : 4699                                                               *
+ *           MD5 hash          : 6a0d9317eb5cfac5ecdfbb6f1e844aa7                                   *
  *                                                                                                  *
  ****************************************************************************************************/
 
@@ -49,6 +50,9 @@ wire edgedVA;
 wire directC;
 wire directB;
 wire directA;
+wire [2:0] countVC;
+wire [2:0] countVB;
+wire [2:0] countVA;
 wire clockC;
 wire clockB;
 wire clockA;
@@ -61,12 +65,19 @@ wire bitinA;
 wire activC;
 wire activB;
 wire activA;
+wire BufVC;
+wire BufVB;
+wire BufVA;
 wor stuff_iTmrError;
 wire stuff_i;
 wor edgedTmrError;
 wire edged;
+wor countTmrError;
+wire [2:0] count;
 wor bitout_iTmrError;
 wire bitout_i;
+wor BufTmrError;
+wire Buf;
 reg  [2:0] countA ;
 reg  [2:0] countB ;
 reg  [2:0] countC ;
@@ -85,6 +96,8 @@ reg  stuff_iC ;
 assign bitout =  bitout_i;
 assign stuff =  stuff_i;
 wire edgedV =  edged;
+wire BufV =  Buf;
+wire [2:0] countV =  count;
 
 always @( posedge clockA )
   begin
@@ -98,6 +111,8 @@ always @( posedge clockA )
       end
     else
       begin
+        countA =  countVA;
+        BufA =  BufVA;
         edgedA =  edgedVA;
         stuff_iA <= stuffA;
         bitout_iA <= bitoutA;
@@ -124,7 +139,7 @@ always @( posedge clockA )
                         stuff_iA <= 1'b0;
                       end
                     else
-                      if ((countA==3'd0)||((bitinA!=BufA)&&(countA!=5)))
+                      if ((countVA==3'd0)||((bitinA!=BufVA)&&(countVA!=5)))
                         begin
                           BufA =  bitinA;
                           countA =  3'd1;
@@ -132,14 +147,14 @@ always @( posedge clockA )
                           stuff_iA <= 1'b0;
                         end
                       else
-                        if (bitinA==BufA&&countA!=5)
+                        if (bitinA==BufVA&&countVA!=5)
                           begin
-                            countA =  countA+3'd1;
+                            countA =  countVA+3'd1;
                             bitout_iA <= bitinA;
                             stuff_iA <= 1'b0;
                           end
                         else
-                          if (countA==3'd5)
+                          if (countVA==3'd5)
                             begin
                               countA =  3'd1;
                               BufA =  ~BufA;
@@ -167,6 +182,8 @@ always @( posedge clockB )
       end
     else
       begin
+        countB =  countVB;
+        BufB =  BufVB;
         edgedB =  edgedVB;
         stuff_iB <= stuffB;
         bitout_iB <= bitoutB;
@@ -193,7 +210,7 @@ always @( posedge clockB )
                         stuff_iB <= 1'b0;
                       end
                     else
-                      if ((countB==3'd0)||((bitinB!=BufB)&&(countB!=5)))
+                      if ((countVB==3'd0)||((bitinB!=BufVB)&&(countVB!=5)))
                         begin
                           BufB =  bitinB;
                           countB =  3'd1;
@@ -201,14 +218,14 @@ always @( posedge clockB )
                           stuff_iB <= 1'b0;
                         end
                       else
-                        if (bitinB==BufB&&countB!=5)
+                        if (bitinB==BufVB&&countVB!=5)
                           begin
-                            countB =  countB+3'd1;
+                            countB =  countVB+3'd1;
                             bitout_iB <= bitinB;
                             stuff_iB <= 1'b0;
                           end
                         else
-                          if (countB==3'd5)
+                          if (countVB==3'd5)
                             begin
                               countB =  3'd1;
                               BufB =  ~BufB;
@@ -236,6 +253,8 @@ always @( posedge clockC )
       end
     else
       begin
+        countC =  countVC;
+        BufC =  BufVC;
         edgedC =  edgedVC;
         stuff_iC <= stuffC;
         bitout_iC <= bitoutC;
@@ -262,7 +281,7 @@ always @( posedge clockC )
                         stuff_iC <= 1'b0;
                       end
                     else
-                      if ((countC==3'd0)||((bitinC!=BufC)&&(countC!=5)))
+                      if ((countVC==3'd0)||((bitinC!=BufVC)&&(countVC!=5)))
                         begin
                           BufC =  bitinC;
                           countC =  3'd1;
@@ -270,14 +289,14 @@ always @( posedge clockC )
                           stuff_iC <= 1'b0;
                         end
                       else
-                        if (bitinC==BufC&&countC!=5)
+                        if (bitinC==BufVC&&countVC!=5)
                           begin
-                            countC =  countC+3'd1;
+                            countC =  countVC+3'd1;
                             bitout_iC <= bitinC;
                             stuff_iC <= 1'b0;
                           end
                         else
-                          if (countC==3'd5)
+                          if (countVC==3'd5)
                             begin
                               countC =  3'd1;
                               BufC =  ~BufC;
@@ -293,12 +312,28 @@ always @( posedge clockC )
       end
   end
 
+majorityVoter BufVoter (
+    .inA(BufA),
+    .inB(BufB),
+    .inC(BufC),
+    .out(Buf),
+    .tmrErr(BufTmrError)
+    );
+
 majorityVoter bitout_iVoter (
     .inA(bitout_iA),
     .inB(bitout_iB),
     .inC(bitout_iC),
     .out(bitout_i),
     .tmrErr(bitout_iTmrError)
+    );
+
+majorityVoter #(.WIDTH(3)) countVoter (
+    .inA(countA),
+    .inB(countB),
+    .inC(countC),
+    .out(count),
+    .tmrErr(countTmrError)
     );
 
 majorityVoter edgedVoter (
@@ -315,6 +350,13 @@ majorityVoter stuff_iVoter (
     .inC(stuff_iC),
     .out(stuff_i),
     .tmrErr(stuff_iTmrError)
+    );
+
+fanout BufVFanout (
+    .in(BufV),
+    .outA(BufVA),
+    .outB(BufVB),
+    .outC(BufVC)
     );
 
 fanout activFanout (
@@ -343,6 +385,13 @@ fanout clockFanout (
     .outA(clockA),
     .outB(clockB),
     .outC(clockC)
+    );
+
+fanout #(.WIDTH(3)) countVFanout (
+    .in(countV),
+    .outA(countVA),
+    .outB(countVB),
+    .outC(countVC)
     );
 
 fanout directFanout (

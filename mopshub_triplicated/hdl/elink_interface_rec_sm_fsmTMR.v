@@ -6,88 +6,142 @@
  *                                                                                                  *
  * user    : lucas                                                                                  *
  * host    : DESKTOP-BFDSFP2                                                                        *
- * date    : 06/10/2022 13:52:45                                                                    *
+ * date    : 05/12/2022 13:28:08                                                                    *
  *                                                                                                  *
- * workdir : /mnt/c/Users/Lucas/Documents/GitHub/mopshub_triplicated/triplicated/mopshub_top_board/hdl *
- * cmd     : /mnt/c/Users/Lucas/Desktop/mopshub_triplication/tmrg-master/bin/tmrg -vv -c tmrg.cfg   *
- * tmrg rev:                                                                                        *
+ * workdir : /mnt/c/Users/Lucas/Documents/GitHub/mopshub_triplicated/triplicated/mopshub_top_board_16/hdl *
+ * cmd     : /mnt/c/Users/Lucas/Documents/GitHub/mopshub_triplicated/tmrg-master/bin/tmrg -vv -c    *
+ *           tmrg.cfg                                                                               *
+ * tmrg rev: b25f042058e4e97751df2a0933c24aeadd5a78a5                                               *
  *                                                                                                  *
  * src file: elink_interface_rec_sm_fsm.v                                                           *
- *           Git SHA           : c110441b08b692cc54ebd4a3b84a2599430e8f93                           *
- *           Modification time : 2022-10-06 09:12:23                                                *
- *           File Size         : 12237                                                              *
- *           MD5 hash          : 6f0209ee6eb271927e4902fba380d417                                   *
+ *           Git SHA           : b25f042058e4e97751df2a0933c24aeadd5a78a5 (?? elink_interface_rec_sm_fsm.v) *
+ *           Modification time : 2022-12-04 15:41:31.641211                                         *
+ *           File Size         : 19317                                                              *
+ *           MD5 hash          : 624597a0f6f70d719d761a753794ee83                                   *
  *                                                                                                  *
  ****************************************************************************************************/
 
+`resetall 
+`timescale  1ns/10ps
 module elink_interface_rec_SMTMR(
   input wire  abort ,
   input wire  clk ,
   input wire  rst ,
   input wire  start_write_elink ,
+  input wire  start_write_elink_dbg ,
   input wire  start_write_elink_spi ,
   input wire  timeoutrst ,
   output reg [4:0] addr_write ,
   output reg  buffer_rec_en ,
   output reg  buffer_spi_rec_en ,
   output reg  cs_ewrite ,
+  output reg  dbg_rec_mode ,
   output reg  end_write_elink ,
+  output reg  end_write_elink_dbg ,
   output reg  end_write_elink_spi ,
   output reg  entimeout ,
   output reg  irq_elink_rec ,
   output reg  spi_rec_mode ,
-  output reg [5:0] statedeb 
+  output reg [6:0] statedeb 
 );
-parameter ST_waittoact =6'd0;
-parameter ST_reset =6'd1;
-parameter ST_end_write_en =6'd2;
-parameter store_WB0 =6'd3;
-parameter store_WB1 =6'd4;
-parameter ST_wait_can_rq =6'd5;
-parameter store_WB8 =6'd6;
-parameter store_WB2 =6'd7;
-parameter store_WB7 =6'd8;
-parameter store_WB3 =6'd9;
-parameter store_WB6 =6'd10;
-parameter store_WB4 =6'd11;
-parameter store_WB5 =6'd12;
-parameter st_write_data =6'd13;
-parameter store_SOP =6'd14;
-parameter store_WB9 =6'd15;
-parameter store_Eop =6'd16;
-parameter WB0 =6'd17;
-parameter WB1 =6'd18;
-parameter WB2 =6'd19;
-parameter WB3 =6'd20;
-parameter WB4 =6'd21;
-parameter WB5 =6'd22;
-parameter WB6 =6'd23;
-parameter WB7 =6'd24;
-parameter WB8 =6'd25;
-parameter WB9 =6'd26;
-parameter W_SOP =6'd27;
-parameter W_Eop =6'd28;
-parameter ST_end_write_en1 =6'd29;
-parameter store_SPI0 =6'd30;
-parameter store_SPI1 =6'd31;
-parameter ST_wait_eop2 =6'd32;
-parameter store_SPI2 =6'd33;
-parameter store_SPI3 =6'd34;
-parameter st_write_data1 =6'd35;
-parameter store_SOP1 =6'd36;
-parameter store_Eop1 =6'd37;
-parameter SPI0 =6'd38;
-parameter SPI1 =6'd39;
-parameter SPI2 =6'd40;
-parameter SPI3 =6'd41;
-parameter W_SOP1 =6'd42;
-parameter W_Eop1 =6'd43;
-parameter store_comma =6'd44;
-parameter store_comma1 =6'd45;
-reg  [5:0] current_state ;
-reg  [5:0] next_state ;
+parameter ST_waittoact =7'd0;
+parameter ST_reset =7'd1;
+parameter ST_end_write_en =7'd2;
+parameter store_WB0 =7'd3;
+parameter store_WB1 =7'd4;
+parameter ST_wait_can_rq =7'd5;
+parameter store_WB8 =7'd6;
+parameter store_WB2 =7'd7;
+parameter store_WB7 =7'd8;
+parameter store_WB3 =7'd9;
+parameter store_WB6 =7'd10;
+parameter store_WB4 =7'd11;
+parameter store_WB5 =7'd12;
+parameter st_write_data =7'd13;
+parameter store_SOP =7'd14;
+parameter store_WB9 =7'd15;
+parameter store_Eop =7'd16;
+parameter WB0 =7'd17;
+parameter WB1 =7'd18;
+parameter WB2 =7'd19;
+parameter WB3 =7'd20;
+parameter WB4 =7'd21;
+parameter WB5 =7'd22;
+parameter WB6 =7'd23;
+parameter WB7 =7'd24;
+parameter WB8 =7'd25;
+parameter WB9 =7'd26;
+parameter W_SOP =7'd27;
+parameter W_Eop =7'd28;
+parameter store_comma =7'd29;
+parameter ST_end_write_en1 =7'd30;
+parameter store_SPI0 =7'd31;
+parameter store_SPI1 =7'd32;
+parameter ST_wait_eop2 =7'd33;
+parameter store_SPI2 =7'd34;
+parameter store_SPI3 =7'd35;
+parameter st_write_data1 =7'd36;
+parameter store_SOP1 =7'd37;
+parameter store_Eop1 =7'd38;
+parameter SPI0 =7'd39;
+parameter SPI1 =7'd40;
+parameter SPI2 =7'd41;
+parameter SPI3 =7'd42;
+parameter W_SOP1 =7'd43;
+parameter W_Eop1 =7'd44;
+parameter store_comma1 =7'd45;
+parameter ST_end_write_en2 =7'd46;
+parameter store_WB10 =7'd47;
+parameter store_WB11 =7'd48;
+parameter ST_wait_can_rq1 =7'd49;
+parameter store_WB12 =7'd50;
+parameter store_WB13 =7'd51;
+parameter store_WB14 =7'd52;
+parameter store_WB15 =7'd53;
+parameter store_WB16 =7'd54;
+parameter store_WB17 =7'd55;
+parameter store_WB18 =7'd56;
+parameter st_write_data2 =7'd57;
+parameter store_SOP2 =7'd58;
+parameter store_WB19 =7'd59;
+parameter store_Eop2 =7'd60;
+parameter WB10 =7'd61;
+parameter WB11 =7'd62;
+parameter WB12 =7'd63;
+parameter WB13 =7'd64;
+parameter WB14 =7'd65;
+parameter WB15 =7'd66;
+parameter WB16 =7'd67;
+parameter WB17 =7'd68;
+parameter WB18 =7'd69;
+parameter WB19 =7'd70;
+parameter W_SOP2 =7'd71;
+parameter W_Eop2 =7'd72;
+parameter store_comma2 =7'd73;
+wire timeoutrstC;
+wire timeoutrstB;
+wire timeoutrstA;
+wire rstC;
+wire rstB;
+wire rstA;
+wire [6:0] next_stateC;
+wire [6:0] next_stateB;
+wire [6:0] next_stateA;
+wire clkC;
+wire clkB;
+wire clkA;
+wire abortC;
+wire abortB;
+wire abortA;
+wor current_stateTmrError;
+wire [6:0] current_state;
+reg  [6:0] current_stateA ;
+reg  [6:0] current_stateB ;
+reg  [6:0] current_stateC ;
+reg  [6:0] next_state ;
+wire [6:0] current_stateV =  current_state;
 
-always @( current_state or rst or start_write_elink or start_write_elink_spi )
+always @( current_state or rst or start_write_elink or start_write_elink_dbg or start_write_elink_spi )
   begin : next_state_block_proc
     case (current_state)
       ST_waittoact : 
@@ -98,7 +152,10 @@ always @( current_state or rst or start_write_elink or start_write_elink_spi )
             if (start_write_elink_spi==1)
               next_state =  st_write_data1;
             else
-              next_state =  ST_waittoact;
+              if (start_write_elink_dbg==1)
+                next_state =  st_write_data2;
+              else
+                next_state =  ST_waittoact;
         end
       ST_reset : 
         begin
@@ -215,6 +272,10 @@ always @( current_state or rst or start_write_elink or start_write_elink_spi )
         begin
           next_state =  store_Eop;
         end
+      store_comma : 
+        begin
+          next_state =  ST_wait_can_rq;
+        end
       ST_end_write_en1 : 
         begin
           next_state =  ST_waittoact;
@@ -275,13 +336,121 @@ always @( current_state or rst or start_write_elink or start_write_elink_spi )
         begin
           next_state =  store_Eop1;
         end
-      store_comma : 
-        begin
-          next_state =  ST_wait_can_rq;
-        end
       store_comma1 : 
         begin
           next_state =  ST_wait_eop2;
+        end
+      ST_end_write_en2 : 
+        begin
+          next_state =  ST_waittoact;
+        end
+      store_WB10 : 
+        begin
+          next_state =  WB11;
+        end
+      store_WB11 : 
+        begin
+          next_state =  WB12;
+        end
+      ST_wait_can_rq1 : 
+        begin
+          next_state =  ST_end_write_en2;
+        end
+      store_WB12 : 
+        begin
+          next_state =  WB19;
+        end
+      store_WB13 : 
+        begin
+          next_state =  WB13;
+        end
+      store_WB14 : 
+        begin
+          next_state =  WB18;
+        end
+      store_WB15 : 
+        begin
+          next_state =  WB14;
+        end
+      store_WB16 : 
+        begin
+          next_state =  WB17;
+        end
+      store_WB17 : 
+        begin
+          next_state =  WB15;
+        end
+      store_WB18 : 
+        begin
+          next_state =  WB16;
+        end
+      st_write_data2 : 
+        begin
+          next_state =  W_SOP2;
+        end
+      store_SOP2 : 
+        begin
+          next_state =  WB10;
+        end
+      store_WB19 : 
+        begin
+          next_state =  W_Eop2;
+        end
+      store_Eop2 : 
+        begin
+          next_state =  store_comma2;
+        end
+      WB10 : 
+        begin
+          next_state =  store_WB10;
+        end
+      WB11 : 
+        begin
+          next_state =  store_WB11;
+        end
+      WB12 : 
+        begin
+          next_state =  store_WB13;
+        end
+      WB13 : 
+        begin
+          next_state =  store_WB15;
+        end
+      WB14 : 
+        begin
+          next_state =  store_WB17;
+        end
+      WB15 : 
+        begin
+          next_state =  store_WB18;
+        end
+      WB16 : 
+        begin
+          next_state =  store_WB16;
+        end
+      WB17 : 
+        begin
+          next_state =  store_WB14;
+        end
+      WB18 : 
+        begin
+          next_state =  store_WB12;
+        end
+      WB19 : 
+        begin
+          next_state =  store_WB19;
+        end
+      W_SOP2 : 
+        begin
+          next_state =  store_SOP2;
+        end
+      W_Eop2 : 
+        begin
+          next_state =  store_Eop2;
+        end
+      store_comma2 : 
+        begin
+          next_state =  ST_wait_can_rq1;
         end
       default : next_state =  ST_reset;
     endcase
@@ -293,7 +462,9 @@ always @( current_state )
     buffer_rec_en =  0;
     buffer_spi_rec_en =  0;
     cs_ewrite =  0;
+    dbg_rec_mode =  0;
     end_write_elink =  0;
+    end_write_elink_dbg =  0;
     end_write_elink_spi =  0;
     entimeout =  1;
     irq_elink_rec =  0;
@@ -435,6 +606,11 @@ always @( current_state )
         begin
           addr_write =  5'b01100;
         end
+      store_comma : 
+        begin
+          addr_write =  5'b00000;
+          cs_ewrite =  1;
+        end
       ST_end_write_en1 : 
         begin
           end_write_elink_spi =  1;
@@ -520,43 +696,284 @@ always @( current_state )
           addr_write =  5'b01100;
           spi_rec_mode =  1;
         end
-      store_comma : 
-        begin
-          addr_write =  5'b00000;
-          cs_ewrite =  1;
-        end
       store_comma1 : 
         begin
           addr_write =  5'b00000;
           cs_ewrite =  1;
           spi_rec_mode =  1;
         end
+      ST_end_write_en2 : 
+        begin
+          end_write_elink_dbg =  1;
+          dbg_rec_mode =  1'b1;
+        end
+      store_WB10 : 
+        begin
+          addr_write =  5'b00010;
+          cs_ewrite =  1;
+          buffer_rec_en =  1;
+          dbg_rec_mode =  1'b1;
+        end
+      store_WB11 : 
+        begin
+          addr_write =  5'b00011;
+          cs_ewrite =  1;
+          buffer_rec_en =  1;
+          dbg_rec_mode =  1'b1;
+        end
+      ST_wait_can_rq1 : 
+        begin
+          addr_write =  5'b00000;
+          irq_elink_rec =  1;
+          dbg_rec_mode =  1'b1;
+        end
+      store_WB12 : 
+        begin
+          addr_write =  5'b01010;
+          cs_ewrite =  1;
+          buffer_rec_en =  1;
+          dbg_rec_mode =  1'b1;
+        end
+      store_WB13 : 
+        begin
+          addr_write =  5'b00100;
+          cs_ewrite =  1;
+          buffer_rec_en =  1;
+          dbg_rec_mode =  1'b1;
+        end
+      store_WB14 : 
+        begin
+          addr_write =  5'b01001;
+          cs_ewrite =  1;
+          buffer_rec_en =  1;
+          dbg_rec_mode =  1'b1;
+        end
+      store_WB15 : 
+        begin
+          addr_write =  5'b00101;
+          cs_ewrite =  1;
+          buffer_rec_en =  1;
+          dbg_rec_mode =  1'b1;
+        end
+      store_WB16 : 
+        begin
+          addr_write =  5'b01000;
+          cs_ewrite =  1;
+          buffer_rec_en =  1;
+          dbg_rec_mode =  1'b1;
+        end
+      store_WB17 : 
+        begin
+          addr_write =  5'b00110;
+          cs_ewrite =  1;
+          buffer_rec_en =  1;
+          dbg_rec_mode =  1'b1;
+        end
+      store_WB18 : 
+        begin
+          addr_write =  5'b00111;
+          cs_ewrite =  1;
+          buffer_rec_en =  1;
+          dbg_rec_mode =  1'b1;
+        end
+      store_SOP2 : 
+        begin
+          addr_write =  5'b00001;
+          cs_ewrite =  1;
+          dbg_rec_mode =  1'b1;
+        end
+      store_WB19 : 
+        begin
+          addr_write =  5'b01011;
+          cs_ewrite =  1;
+          buffer_rec_en =  1;
+          dbg_rec_mode =  1'b1;
+        end
+      store_Eop2 : 
+        begin
+          addr_write =  5'b01100;
+          cs_ewrite =  1;
+          dbg_rec_mode =  1'b1;
+        end
+      WB10 : 
+        begin
+          addr_write =  5'b00010;
+          dbg_rec_mode =  1'b1;
+        end
+      WB11 : 
+        begin
+          addr_write =  5'b00011;
+          dbg_rec_mode =  1'b1;
+        end
+      WB12 : 
+        begin
+          addr_write =  5'b00100;
+          dbg_rec_mode =  1'b1;
+        end
+      WB13 : 
+        begin
+          addr_write =  5'b00101;
+          dbg_rec_mode =  1'b1;
+        end
+      WB14 : 
+        begin
+          addr_write =  5'b00110;
+          dbg_rec_mode =  1'b1;
+        end
+      WB15 : 
+        begin
+          addr_write =  5'b00111;
+          dbg_rec_mode =  1'b1;
+        end
+      WB16 : 
+        begin
+          addr_write =  5'b01000;
+          dbg_rec_mode =  1'b1;
+        end
+      WB17 : 
+        begin
+          addr_write =  5'b01001;
+          dbg_rec_mode =  1'b1;
+        end
+      WB18 : 
+        begin
+          addr_write =  5'b01010;
+          dbg_rec_mode =  1'b1;
+        end
+      WB19 : 
+        begin
+          addr_write =  5'b01011;
+          dbg_rec_mode =  1'b1;
+        end
+      W_SOP2 : 
+        begin
+          addr_write =  5'b00001;
+          dbg_rec_mode =  1'b1;
+        end
+      W_Eop2 : 
+        begin
+          addr_write =  5'b01100;
+          dbg_rec_mode =  1'b1;
+        end
+      store_comma2 : 
+        begin
+          addr_write =  5'b00000;
+          cs_ewrite =  1;
+          dbg_rec_mode =  1'b1;
+        end
     endcase
   end
 
-always @( posedge clk )
-  begin : clocked_block_proc
-    if (!rst)
+always @( posedge clkA )
+  begin : clocked_block_procA
+    if (!rstA)
       begin
-        current_state <= ST_reset;
+        current_stateA <= ST_reset;
       end
     else
-      if (timeoutrst)
+      if (timeoutrstA)
         begin
-          current_state <= ST_reset;
+          current_stateA <= ST_reset;
         end
       else
-        if (abort)
+        if (abortA)
           begin
-            current_state <= ST_reset;
+            current_stateA <= ST_reset;
           end
         else
           begin
-            current_state <= next_state;
+            current_stateA <= next_stateA;
+          end
+  end
+
+always @( posedge clkB )
+  begin : clocked_block_procB
+    if (!rstB)
+      begin
+        current_stateB <= ST_reset;
+      end
+    else
+      if (timeoutrstB)
+        begin
+          current_stateB <= ST_reset;
+        end
+      else
+        if (abortB)
+          begin
+            current_stateB <= ST_reset;
+          end
+        else
+          begin
+            current_stateB <= next_stateB;
+          end
+  end
+
+always @( posedge clkC )
+  begin : clocked_block_procC
+    if (!rstC)
+      begin
+        current_stateC <= ST_reset;
+      end
+    else
+      if (timeoutrstC)
+        begin
+          current_stateC <= ST_reset;
+        end
+      else
+        if (abortC)
+          begin
+            current_stateC <= ST_reset;
+          end
+        else
+          begin
+            current_stateC <= next_stateC;
           end
   end
 
 always @( current_state )
   statedeb =  current_state;
+
+majorityVoter #(.WIDTH(7)) current_stateVoter (
+    .inA(current_stateA),
+    .inB(current_stateB),
+    .inC(current_stateC),
+    .out(current_state),
+    .tmrErr(current_stateTmrError)
+    );
+
+fanout abortFanout (
+    .in(abort),
+    .outA(abortA),
+    .outB(abortB),
+    .outC(abortC)
+    );
+
+fanout clkFanout (
+    .in(clk),
+    .outA(clkA),
+    .outB(clkB),
+    .outC(clkC)
+    );
+
+fanout #(.WIDTH(7)) next_stateFanout (
+    .in(next_state),
+    .outA(next_stateA),
+    .outB(next_stateB),
+    .outC(next_stateC)
+    );
+
+fanout rstFanout (
+    .in(rst),
+    .outA(rstA),
+    .outB(rstB),
+    .outC(rstC)
+    );
+
+fanout timeoutrstFanout (
+    .in(timeoutrst),
+    .outA(timeoutrstA),
+    .outB(timeoutrstB),
+    .outC(timeoutrstC)
+    );
 endmodule
 

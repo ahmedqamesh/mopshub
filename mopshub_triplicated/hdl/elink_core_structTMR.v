@@ -6,20 +6,23 @@
  *                                                                                                  *
  * user    : lucas                                                                                  *
  * host    : DESKTOP-BFDSFP2                                                                        *
- * date    : 06/10/2022 13:52:45                                                                    *
+ * date    : 05/12/2022 13:28:08                                                                    *
  *                                                                                                  *
- * workdir : /mnt/c/Users/Lucas/Documents/GitHub/mopshub_triplicated/triplicated/mopshub_top_board/hdl *
- * cmd     : /mnt/c/Users/Lucas/Desktop/mopshub_triplication/tmrg-master/bin/tmrg -vv -c tmrg.cfg   *
- * tmrg rev:                                                                                        *
+ * workdir : /mnt/c/Users/Lucas/Documents/GitHub/mopshub_triplicated/triplicated/mopshub_top_board_16/hdl *
+ * cmd     : /mnt/c/Users/Lucas/Documents/GitHub/mopshub_triplicated/tmrg-master/bin/tmrg -vv -c    *
+ *           tmrg.cfg                                                                               *
+ * tmrg rev: b25f042058e4e97751df2a0933c24aeadd5a78a5                                               *
  *                                                                                                  *
  * src file: elink_core_struct.v                                                                    *
- *           Git SHA           : c110441b08b692cc54ebd4a3b84a2599430e8f93 ( M elink_core_struct.v)  *
- *           Modification time : 2022-10-06 13:24:52                                                *
- *           File Size         : 13140                                                              *
- *           MD5 hash          : 8742c5c4acbe42378b78950ce96c364c                                   *
+ *           Git SHA           : b25f042058e4e97751df2a0933c24aeadd5a78a5 (?? elink_core_struct.v)  *
+ *           Modification time : 2022-12-04 15:41:31.652210                                         *
+ *           File Size         : 15553                                                              *
+ *           MD5 hash          : 9d848b017b6712471e2025714cb8dde1                                   *
  *                                                                                                  *
  ****************************************************************************************************/
 
+`resetall 
+`timescale  1ns/10ps
 module elink_coreTMR(
   input wire  clk ,
   input wire  rst ,
@@ -53,7 +56,11 @@ module elink_coreTMR(
   output wire [7:0] spi_id ,
   output wire [7:0] spi_tra_mon_select ,
   input wire  spi_read_mode ,
-  input wire  dbg_spi 
+  input wire  dbg_spi ,
+  output wire  word10b_rdy ,
+  input wire  start_write_elink_dbg ,
+  input wire [75:0] data_rec_dbg_in ,
+  output wire  end_write_elink_dbg 
 );
 wire buffer_spi_tra_en;
 wire timeoutrst_elink_tra;
@@ -62,6 +69,7 @@ wire cs_ewrite;
 wire [9:0] data_rec_10bitout;
 wire [9:0] data_rec_spi_10bitout_Active;
 wire [9:0] data_rec_can_10bitout;
+wire [9:0] data_rec_dbg_10bitout;
 wire [9:0] data_rec_spi_10bitout;
 wire cs_eread;
 reg  fifo_data_packet ;
@@ -73,7 +81,7 @@ reg  can_id_reg ;
 wire [4:0] addr_read;
 wire [9:0] data_tra_10bitin;
 wire buffer_elink_en;
-wire [5:0] statedeb_rec;
+wire [6:0] statedeb_rec;
 wire [6:0] statedeb_tra;
 wire buffer_rec_en;
 wire rx_fifo_empty;
@@ -99,8 +107,23 @@ wire spi_can_irq;
 wire spi_can_mode;
 wire spi_can_id;
 reg  spi_can_reg ;
+wire dbg_rec_mode;
+wire can_rec_buf0 =  1'b0;
+wire spi_rec_signal;
+
+buffer_rec_elinkTMR buffer_rec_elink_dbg (
+    .clk(clk),
+    .rst(rst),
+    .data_rec_in(data_rec_dbg_in),
+    .addr(addr_write),
+    .data_rec_10bitout(data_rec_dbg_10bitout),
+    .Kchar_sop(Kchar_sop),
+    .Kchar_eop(Kchar_eop),
+    .Kchar_comma(Kchar_comma)
+    );
 
 buffer_rec_elinkTMR rec_elink_buf0 (
+    .clk(clk),
     .rst(rst),
     .data_rec_in(data_rec_uplink),
     .addr(addr_write),
@@ -110,7 +133,8 @@ buffer_rec_elinkTMR rec_elink_buf0 (
     .Kchar_comma(Kchar_comma)
     );
 
-buffer_rec_spiTMR buffer_rec_spi0 (
+buffer_rec_elink_spiTMR buffer_rec_elink_spi0 (
+    .clk(clk),
     .rst(rst),
     .data_rec_in(data_rec_spi_in),
     .addr(addr_write),
@@ -129,7 +153,7 @@ buffer_tra_elinkTMR tra_elink_buf0 (
     .data_tra_out(data_tra_out)
     );
 
-buffer_tra_spiTMR buffer_tra_spi0 (
+buffer_tra_elink_spiTMR buffer_tra_spi0 (
     .clk(clk),
     .data_tra_8bitin(data_tra_10bitin[7:0] ),
     .buffer_en(buffer_elink_spi_en),
@@ -139,6 +163,19 @@ buffer_tra_spiTMR buffer_tra_spi0 (
     .spi_reg(spi_tra_mon_reg),
     .spi_select(spi_tra_mon_select),
     .data_tra_out(data_tra_mon_spi)
+    );
+
+buffer_tristate_elinkTMR buffer_tristate_elink0 (
+    .clk(clk),
+    .rst(rst),
+    .data_tra_in0(data_rec_can_10bitout),
+    .data_tra_in1(data_rec_spi_10bitout_Active),
+    .data_tra_in2(data_rec_dbg_10bitout),
+    .buffer_en0(can_rec_buf0),
+    .buffer_en1(spi_rec_signal),
+    .buffer_en2(dbg_rec_mode),
+    .Kchar_comma(Kchar_comma),
+    .data_tra_out(data_rec_10bitout)
     );
 
 can_spi_debugerTMR can_spi_debuger (
@@ -158,13 +195,16 @@ elink_interface_rec_SMTMR elink_interface_rec_SM0 (
     .clk(clk),
     .rst(rst),
     .start_write_elink(start_write_elink),
+    .start_write_elink_dbg(start_write_elink_dbg),
     .start_write_elink_spi(start_write_elink_spi),
     .timeoutrst(timeoutrst),
     .addr_write(addr_write),
     .buffer_rec_en(buffer_rec_en),
     .buffer_spi_rec_en(buffer_spi_rec_en),
     .cs_ewrite(cs_ewrite),
+    .dbg_rec_mode(dbg_rec_mode),
     .end_write_elink(end_write_elink),
+    .end_write_elink_dbg(end_write_elink_dbg),
     .end_write_elink_spi(end_write_elink_spi),
     .entimeout(entimeout_elink_rec),
     .irq_elink_rec(irq_elink_rec),
@@ -212,7 +252,8 @@ elink_to_fifoTMR elink_to_fifo0 (
     .COMMAp(COMMAp),
     .Kchar_comma(Kchar_comma),
     .Kchar_eop(Kchar_eop),
-    .Kchar_sop(Kchar_sop)
+    .Kchar_sop(Kchar_sop),
+    .word10b_rdy(word10b_rdy)
     );
 
 fifo_to_elinkTMR fifo_to_elink0 (
@@ -349,7 +390,7 @@ assign tx_data_rdy =  !tx_fifo_empty;
 assign spi_mode =  spi_tra_mode||spi_rec_mode||spi_read_mode||spi_can_mode;
 assign spi_can_irq =  (addr_write==5'h02&&data_rec_can_10bitout=={2'b00,8'h20});
 assign data_rec_spi_10bitout_Active =  (spi_can_mode==1||spi_can_irq==1) ? data_rec_spi_can_10bitout : data_rec_spi_10bitout;
-assign data_rec_10bitout =  (spi_rec_mode==1||spi_can_mode==1||spi_can_irq==1) ? data_rec_spi_10bitout_Active : data_rec_can_10bitout;
+assign spi_rec_signal =  spi_rec_mode==1||spi_can_mode==1||spi_can_irq==1;
 initial
   begin
     Kchar_comma =  8'b10111100;

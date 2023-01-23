@@ -6,17 +6,18 @@
  *                                                                                                  *
  * user    : lucas                                                                                  *
  * host    : DESKTOP-BFDSFP2                                                                        *
- * date    : 06/10/2022 13:52:47                                                                    *
+ * date    : 05/12/2022 13:28:10                                                                    *
  *                                                                                                  *
- * workdir : /mnt/c/Users/Lucas/Documents/GitHub/mopshub_triplicated/triplicated/mopshub_top_board/hdl *
- * cmd     : /mnt/c/Users/Lucas/Desktop/mopshub_triplication/tmrg-master/bin/tmrg -vv -c tmrg.cfg   *
- * tmrg rev:                                                                                        *
+ * workdir : /mnt/c/Users/Lucas/Documents/GitHub/mopshub_triplicated/triplicated/mopshub_top_board_16/hdl *
+ * cmd     : /mnt/c/Users/Lucas/Documents/GitHub/mopshub_triplicated/tmrg-master/bin/tmrg -vv -c    *
+ *           tmrg.cfg                                                                               *
+ * tmrg rev: b25f042058e4e97751df2a0933c24aeadd5a78a5                                               *
  *                                                                                                  *
  * src file: enc_8b10b_mopshub.v                                                                    *
- *           Git SHA           : c110441b08b692cc54ebd4a3b84a2599430e8f93 ( M enc_8b10b_mopshub.v)  *
- *           Modification time : 2022-10-06 11:38:23                                                *
- *           File Size         : 4790                                                               *
- *           MD5 hash          : 50b1bb22cba12fd844098e0b1f0cc73c                                   *
+ *           Git SHA           : b25f042058e4e97751df2a0933c24aeadd5a78a5 (?? enc_8b10b_mopshub.v)  *
+ *           Modification time : 2022-12-04 16:40:04.479449                                         *
+ *           File Size         : 4678                                                               *
+ *           MD5 hash          : f146a36169a36480c5c3f623032ed519                                   *
  *                                                                                                  *
  ****************************************************************************************************/
 
@@ -58,12 +59,6 @@ wire doA;
 wire dispoutC;
 wire dispoutB;
 wire dispoutA;
-wire dispinC;
-wire dispinB;
-wire dispinA;
-wire [9:0] dataout_vC;
-wire [9:0] dataout_vB;
-wire [9:0] dataout_vA;
 wire compls6C;
 wire compls6B;
 wire compls6A;
@@ -82,17 +77,13 @@ wire boA;
 wire aoC;
 wire aoB;
 wire aoA;
-wor dispin_rTmrError;
-wire dispin_r;
+wor dispinTmrError;
+wire dispin;
 wor dataout_rTmrError;
 wire [9:0] dataout_r;
-reg  dispin_rA ;
-reg  dispin_rB ;
-reg  dispin_rC ;
-reg  [9:0] dataout_rA ;
-reg  [9:0] dataout_rB ;
-reg  [9:0] dataout_rC ;
-wire dispin =  dispin_r;
+reg  dispinA ;
+reg  dispinB ;
+reg  dispinC ;
 wire ai =  datain[0] ;
 wire bi =  datain[1] ;
 wire ci =  datain[2] ;
@@ -131,25 +122,24 @@ wire compls6 =  (pd1s6&!dispin)|(nd1s6&dispin);
 wire disp6 =  dispin^(ndos6|pdos6);
 wire compls4 =  (pd1s4&!disp6)|(nd1s4&disp6);
 wire dispout =  disp6^(ndos4|pdos4);
-wire [9:0] dataout_v =  dataout_r;
+reg  [9:0] dataout_rA ;
+reg  [9:0] dataout_rB ;
+reg  [9:0] dataout_rC ;
+wire dispinV =  dispin;
+wire [9:0] dataout_rV =  dataout_r;
 
 always @( posedge clkA or negedge rstA )
   begin : disp_procA
     if (rstA==0)
       begin
-        dispin_rA <= 0;
+        dispinA <= 0;
         dataout_rA <= 0;
       end
     else
       if (enaA==1)
         begin
-          dispin_rA <= dispoutA;
+          dispinA <= dispoutA;
           dataout_rA =  {(aoA^compls6A),(boA^compls6A),(coA^compls6A),(doA^compls6A),(eoA^compls6A),(ioA^compls6A),(foA^compls4A),(goA^compls4A),(hoA^compls4A),(joA^compls4A)};
-        end
-      else
-        begin
-          dispin_rA <= dispinA;
-          dataout_rA <= dataout_vA;
         end
   end
 
@@ -157,19 +147,14 @@ always @( posedge clkB or negedge rstB )
   begin : disp_procB
     if (rstB==0)
       begin
-        dispin_rB <= 0;
+        dispinB <= 0;
         dataout_rB <= 0;
       end
     else
       if (enaB==1)
         begin
-          dispin_rB <= dispoutB;
+          dispinB <= dispoutB;
           dataout_rB =  {(aoB^compls6B),(boB^compls6B),(coB^compls6B),(doB^compls6B),(eoB^compls6B),(ioB^compls6B),(foB^compls4B),(goB^compls4B),(hoB^compls4B),(joB^compls4B)};
-        end
-      else
-        begin
-          dispin_rB <= dispinB;
-          dataout_rB <= dataout_vB;
         end
   end
 
@@ -177,22 +162,17 @@ always @( posedge clkC or negedge rstC )
   begin : disp_procC
     if (rstC==0)
       begin
-        dispin_rC <= 0;
+        dispinC <= 0;
         dataout_rC <= 0;
       end
     else
       if (enaC==1)
         begin
-          dispin_rC <= dispoutC;
+          dispinC <= dispoutC;
           dataout_rC =  {(aoC^compls6C),(boC^compls6C),(coC^compls6C),(doC^compls6C),(eoC^compls6C),(ioC^compls6C),(foC^compls4C),(goC^compls4C),(hoC^compls4C),(joC^compls4C)};
         end
-      else
-        begin
-          dispin_rC <= dispinC;
-          dataout_rC <= dataout_vC;
-        end
   end
-assign dataout =  dataout_v;
+assign dataout =  dataout_r;
 
 majorityVoter #(.WIDTH(10)) dataout_rVoter (
     .inA(dataout_rA),
@@ -202,12 +182,12 @@ majorityVoter #(.WIDTH(10)) dataout_rVoter (
     .tmrErr(dataout_rTmrError)
     );
 
-majorityVoter dispin_rVoter (
-    .inA(dispin_rA),
-    .inB(dispin_rB),
-    .inC(dispin_rC),
-    .out(dispin_r),
-    .tmrErr(dispin_rTmrError)
+majorityVoter dispinVoter (
+    .inA(dispinA),
+    .inB(dispinB),
+    .inC(dispinC),
+    .out(dispin),
+    .tmrErr(dispinTmrError)
     );
 
 fanout aoFanout (
@@ -250,20 +230,6 @@ fanout compls6Fanout (
     .outA(compls6A),
     .outB(compls6B),
     .outC(compls6C)
-    );
-
-fanout #(.WIDTH(10)) dataout_vFanout (
-    .in(dataout_v),
-    .outA(dataout_vA),
-    .outB(dataout_vB),
-    .outC(dataout_vC)
-    );
-
-fanout dispinFanout (
-    .in(dispin),
-    .outA(dispinA),
-    .outB(dispinB),
-    .outC(dispinC)
     );
 
 fanout dispoutFanout (

@@ -6,20 +6,23 @@
  *                                                                                                  *
  * user    : lucas                                                                                  *
  * host    : DESKTOP-BFDSFP2                                                                        *
- * date    : 06/10/2022 13:52:38                                                                    *
+ * date    : 05/12/2022 13:28:01                                                                    *
  *                                                                                                  *
- * workdir : /mnt/c/Users/Lucas/Documents/GitHub/mopshub_triplicated/triplicated/mopshub_top_board/hdl *
- * cmd     : /mnt/c/Users/Lucas/Desktop/mopshub_triplication/tmrg-master/bin/tmrg -vv -c tmrg.cfg   *
- * tmrg rev:                                                                                        *
+ * workdir : /mnt/c/Users/Lucas/Documents/GitHub/mopshub_triplicated/triplicated/mopshub_top_board_16/hdl *
+ * cmd     : /mnt/c/Users/Lucas/Documents/GitHub/mopshub_triplicated/tmrg-master/bin/tmrg -vv -c    *
+ *           tmrg.cfg                                                                               *
+ * tmrg rev: b25f042058e4e97751df2a0933c24aeadd5a78a5                                               *
  *                                                                                                  *
  * src file: buffer_rec_spi_data.v                                                                  *
- *           Git SHA           : c110441b08b692cc54ebd4a3b84a2599430e8f93 ( M buffer_rec_spi_data.v) *
- *           Modification time : 2022-10-06 11:57:24                                                *
- *           File Size         : 1939                                                               *
- *           MD5 hash          : 1f8ce75087dc151a67398edf5e68c211                                   *
+ *           Git SHA           : b25f042058e4e97751df2a0933c24aeadd5a78a5 (?? buffer_rec_spi_data.v) *
+ *           Modification time : 2022-12-04 14:53:38                                                *
+ *           File Size         : 1975                                                               *
+ *           MD5 hash          : 2eb8b6b9b0e80d887e905c0e695b22a3                                   *
  *                                                                                                  *
  ****************************************************************************************************/
 
+`resetall 
+`timescale  1ns/10ps
 module buffer_rec_spi_dataTMR(
   input wire  clk ,
   input wire  rst ,
@@ -43,9 +46,6 @@ wire [7:0] spi_id_inA;
 wire rstC;
 wire rstB;
 wire rstA;
-wire [7:0] id_vC;
-wire [7:0] id_vB;
-wire [7:0] id_vA;
 wire [7:0] data_rec_inC;
 wire [7:0] data_rec_inB;
 wire [7:0] data_rec_inA;
@@ -55,15 +55,6 @@ wire clkA;
 wire buffer_enC;
 wire buffer_enB;
 wire buffer_enA;
-wire [7:0] b3_vC;
-wire [7:0] b3_vB;
-wire [7:0] b3_vA;
-wire [7:0] b2_vC;
-wire [7:0] b2_vB;
-wire [7:0] b2_vA;
-wire [7:0] b1_vC;
-wire [7:0] b1_vB;
-wire [7:0] b1_vA;
 wor idTmrError;
 wire [7:0] id;
 wor end_read_miso_regTmrError;
@@ -90,33 +81,40 @@ reg  end_read_miso_regA ;
 reg  end_read_miso_regB ;
 reg  end_read_miso_regC ;
 initial
-  begin
-    idA =  8'h0;
-    b1A =  8'h0;
-    b2A =  8'h0;
-    b3A =  8'h0;
-    end_read_miso_regA =  1'b0;
-  end
+  idA =  8'h0;
 initial
-  begin
-    idB =  8'h0;
-    b1B =  8'h0;
-    b2B =  8'h0;
-    b3B =  8'h0;
-    end_read_miso_regB =  1'b0;
-  end
+  idB =  8'h0;
 initial
-  begin
-    idC =  8'h0;
-    b1C =  8'h0;
-    b2C =  8'h0;
-    b3C =  8'h0;
-    end_read_miso_regC =  1'b0;
-  end
+  idC =  8'h0;
+initial
+  b1A =  8'h0;
+initial
+  b1B =  8'h0;
+initial
+  b1C =  8'h0;
+initial
+  b2A =  8'h0;
+initial
+  b2B =  8'h0;
+initial
+  b2C =  8'h0;
+initial
+  b3A =  8'h0;
+initial
+  b3B =  8'h0;
+initial
+  b3C =  8'h0;
+initial
+  end_read_miso_regA =  1'b0;
+initial
+  end_read_miso_regB =  1'b0;
+initial
+  end_read_miso_regC =  1'b0;
 wire [7:0] id_v =  id;
 wire [7:0] b1_v =  b1;
 wire [7:0] b2_v =  b2;
 wire [7:0] b3_v =  b3;
+wire end_read_miso_regV =  end_read_miso_reg;
 
 always @( posedge clkA )
   begin
@@ -138,10 +136,10 @@ always @( posedge clkA )
       end
     else
       begin
-        idA <= id_vA;
-        b1A <= b1_vA;
-        b2A <= b2_vA;
-        b3A <= b3_vA;
+        idA <= idA;
+        b1A <= b1A;
+        b2A <= b2A;
+        b3A <= b3A;
         end_read_miso_regA =  1'b0;
       end
   end
@@ -166,10 +164,10 @@ always @( posedge clkB )
       end
     else
       begin
-        idB <= id_vB;
-        b1B <= b1_vB;
-        b2B <= b2_vB;
-        b3B <= b3_vB;
+        idB <= idB;
+        b1B <= b1B;
+        b2B <= b2B;
+        b3B <= b3B;
         end_read_miso_regB =  1'b0;
       end
   end
@@ -194,15 +192,15 @@ always @( posedge clkC )
       end
     else
       begin
-        idC <= id_vC;
-        b1C <= b1_vC;
-        b2C <= b2_vC;
-        b3C <= b3_vC;
+        idC <= idC;
+        b1C <= b1C;
+        b2C <= b2C;
+        b3C <= b3C;
         end_read_miso_regC =  1'b0;
       end
   end
 assign end_read_miso =  end_read_miso_reg;
-assign data_rec_out =  {id_v,b1_v,b2_v,b3_v};
+assign data_rec_out =  {id,b1,b2,b3};
 
 majorityVoter #(.WIDTH(8)) b1Voter (
     .inA(b1A),
@@ -244,27 +242,6 @@ majorityVoter #(.WIDTH(8)) idVoter (
     .tmrErr(idTmrError)
     );
 
-fanout #(.WIDTH(8)) b1_vFanout (
-    .in(b1_v),
-    .outA(b1_vA),
-    .outB(b1_vB),
-    .outC(b1_vC)
-    );
-
-fanout #(.WIDTH(8)) b2_vFanout (
-    .in(b2_v),
-    .outA(b2_vA),
-    .outB(b2_vB),
-    .outC(b2_vC)
-    );
-
-fanout #(.WIDTH(8)) b3_vFanout (
-    .in(b3_v),
-    .outA(b3_vA),
-    .outB(b3_vB),
-    .outC(b3_vC)
-    );
-
 fanout buffer_enFanout (
     .in(buffer_en),
     .outA(buffer_enA),
@@ -284,13 +261,6 @@ fanout #(.WIDTH(8)) data_rec_inFanout (
     .outA(data_rec_inA),
     .outB(data_rec_inB),
     .outC(data_rec_inC)
-    );
-
-fanout #(.WIDTH(8)) id_vFanout (
-    .in(id_v),
-    .outA(id_vA),
-    .outB(id_vB),
-    .outC(id_vC)
     );
 
 fanout rstFanout (

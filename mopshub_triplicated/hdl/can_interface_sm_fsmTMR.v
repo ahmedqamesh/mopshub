@@ -6,20 +6,23 @@
  *                                                                                                  *
  * user    : lucas                                                                                  *
  * host    : DESKTOP-BFDSFP2                                                                        *
- * date    : 06/10/2022 13:52:40                                                                    *
+ * date    : 05/12/2022 13:28:03                                                                    *
  *                                                                                                  *
- * workdir : /mnt/c/Users/Lucas/Documents/GitHub/mopshub_triplicated/triplicated/mopshub_top_board/hdl *
- * cmd     : /mnt/c/Users/Lucas/Desktop/mopshub_triplication/tmrg-master/bin/tmrg -vv -c tmrg.cfg   *
- * tmrg rev:                                                                                        *
+ * workdir : /mnt/c/Users/Lucas/Documents/GitHub/mopshub_triplicated/triplicated/mopshub_top_board_16/hdl *
+ * cmd     : /mnt/c/Users/Lucas/Documents/GitHub/mopshub_triplicated/tmrg-master/bin/tmrg -vv -c    *
+ *           tmrg.cfg                                                                               *
+ * tmrg rev: b25f042058e4e97751df2a0933c24aeadd5a78a5                                               *
  *                                                                                                  *
  * src file: can_interface_sm_fsm.v                                                                 *
- *           Git SHA           : c110441b08b692cc54ebd4a3b84a2599430e8f93                           *
- *           Modification time : 2022-10-06 09:01:46                                                *
- *           File Size         : 21722                                                              *
- *           MD5 hash          : bac6a8bb6cdda62a4f71e7428dcbc63b                                   *
+ *           Git SHA           : b25f042058e4e97751df2a0933c24aeadd5a78a5 (?? can_interface_sm_fsm.v) *
+ *           Modification time : 2022-12-04 15:41:31.638209                                         *
+ *           File Size         : 22741                                                              *
+ *           MD5 hash          : 556dfcce7b3af8120f683613a4f761c5                                   *
  *                                                                                                  *
  ****************************************************************************************************/
 
+`resetall 
+`timescale  1ns/10ps
 module can_interface_SMTMR(
   input wire  abort ,
   input wire  clk ,
@@ -57,72 +60,72 @@ module can_interface_SMTMR(
 );
 parameter waittoact =7'd0;
 parameter reset =7'd1;
-parameter prescalar =7'd2;
-parameter general =7'd3;
-parameter encom =7'd4;
-parameter accmask =7'd5;
-parameter accmask1 =7'd6;
-parameter idr31 =7'd7;
-parameter idr41 =7'd8;
-parameter endinit =7'd9;
-parameter start =7'd10;
-parameter waitCAN =7'd11;
-parameter RB1 =7'd12;
-parameter store_RB1 =7'd13;
-parameter store_idr1 =7'd14;
-parameter idr1 =7'd15;
-parameter RB2 =7'd16;
-parameter store_RB2 =7'd17;
-parameter RB3 =7'd18;
-parameter RB4 =7'd19;
-parameter store_RB3 =7'd20;
-parameter end_readst =7'd21;
-parameter store_RB4 =7'd22;
-parameter set_d3 =7'd23;
-parameter set_d1 =7'd24;
-parameter set_gen =7'd25;
-parameter rstirq =7'd26;
-parameter general2 =7'd27;
-parameter ST_CountRst =7'd28;
-parameter rstirq1 =7'd29;
-parameter general3 =7'd30;
-parameter start1 =7'd31;
-parameter ST_CountRst1 =7'd32;
-parameter loop_rst =7'd33;
-parameter ST_Start_Cnt =7'd34;
-parameter finishtrim =7'd35;
-parameter ST_Start_Trim =7'd36;
-parameter general4 =7'd37;
-parameter id2 =7'd38;
-parameter d5 =7'd39;
-parameter d6 =7'd40;
-parameter d7 =7'd41;
-parameter d8 =7'd42;
-parameter tc1 =7'd43;
-parameter set_id1 =7'd44;
-parameter set_tc =7'd45;
-parameter set_d4 =7'd46;
-parameter set_d2 =7'd47;
-parameter Set_bus_Id2 =7'd48;
-parameter Wait_bits =7'd49;
-parameter prescalar1 =7'd50;
-parameter general1 =7'd51;
-parameter encom1 =7'd52;
-parameter idr3 =7'd53;
-parameter idr4 =7'd54;
-parameter accmask2 =7'd55;
-parameter accmask3 =7'd56;
-parameter general5 =7'd57;
-parameter rstirq2 =7'd58;
-parameter set_gen1 =7'd59;
-parameter set_id2 =7'd60;
-parameter set_tc1 =7'd61;
-parameter set_d5 =7'd62;
-parameter set_d6 =7'd63;
-parameter set_d7 =7'd64;
-parameter set_d8 =7'd65;
-parameter general6 =7'd66;
-parameter rstirq3 =7'd67;
+parameter start =7'd2;
+parameter start1 =7'd3;
+parameter ST_CountRst =7'd4;
+parameter ST_Start_Cnt =7'd5;
+parameter prescalar =7'd6;
+parameter general =7'd7;
+parameter encom =7'd8;
+parameter accmask =7'd9;
+parameter accmask1 =7'd10;
+parameter idr31 =7'd11;
+parameter idr41 =7'd12;
+parameter endinit =7'd13;
+parameter waitCAN =7'd14;
+parameter prescalar1 =7'd15;
+parameter general1 =7'd16;
+parameter encom1 =7'd17;
+parameter idr3 =7'd18;
+parameter idr4 =7'd19;
+parameter accmask2 =7'd20;
+parameter accmask3 =7'd21;
+parameter RB1 =7'd22;
+parameter store_RB1 =7'd23;
+parameter store_idr1 =7'd24;
+parameter idr1 =7'd25;
+parameter RB2 =7'd26;
+parameter store_RB2 =7'd27;
+parameter RB3 =7'd28;
+parameter RB4 =7'd29;
+parameter store_RB3 =7'd30;
+parameter end_readst =7'd31;
+parameter store_RB4 =7'd32;
+parameter Wait_bits =7'd33;
+parameter set_d3 =7'd34;
+parameter set_d1 =7'd35;
+parameter set_gen =7'd36;
+parameter set_id1 =7'd37;
+parameter set_tc =7'd38;
+parameter set_d4 =7'd39;
+parameter set_d2 =7'd40;
+parameter Set_bus_Id2 =7'd41;
+parameter set_gen1 =7'd42;
+parameter set_id2 =7'd43;
+parameter set_tc1 =7'd44;
+parameter set_d5 =7'd45;
+parameter set_d6 =7'd46;
+parameter set_d7 =7'd47;
+parameter set_d8 =7'd48;
+parameter rstirq =7'd49;
+parameter general2 =7'd50;
+parameter general5 =7'd51;
+parameter rstirq2 =7'd52;
+parameter rstirq1 =7'd53;
+parameter general3 =7'd54;
+parameter ST_CountRst1 =7'd55;
+parameter loop_rst =7'd56;
+parameter general6 =7'd57;
+parameter rstirq3 =7'd58;
+parameter finishtrim =7'd59;
+parameter ST_Start_Trim =7'd60;
+parameter general4 =7'd61;
+parameter id2 =7'd62;
+parameter d5 =7'd63;
+parameter d6 =7'd64;
+parameter d7 =7'd65;
+parameter d8 =7'd66;
+parameter tc1 =7'd67;
 parameter general7 =7'd68;
 parameter id3 =7'd69;
 parameter d9 =7'd70;
@@ -130,22 +133,50 @@ parameter d10 =7'd71;
 parameter d11 =7'd72;
 parameter d12 =7'd73;
 parameter tc2 =7'd74;
-reg  [6:0] current_state ;
+wire timeoutrstC;
+wire timeoutrstB;
+wire timeoutrstA;
+wire rstC;
+wire rstB;
+wire rstA;
+wire [6:0] next_stateC;
+wire [6:0] next_stateB;
+wire [6:0] next_stateA;
+wire [5:0] csm_next_timerC;
+wire [5:0] csm_next_timerB;
+wire [5:0] csm_next_timerA;
+wire clkC;
+wire clkB;
+wire clkA;
+wire abortC;
+wire abortB;
+wire abortA;
+wor current_stateTmrError;
+wire [6:0] current_state;
+wor csm_timerTmrError;
+wire [5:0] csm_timer;
+reg  [6:0] current_stateA ;
+reg  [6:0] current_stateB ;
+reg  [6:0] current_stateC ;
 reg  [6:0] next_state ;
-reg  [5:0] csm_timer ;
+reg  [5:0] csm_timerA ;
+reg  [5:0] csm_timerB ;
+reg  [5:0] csm_timerC ;
 reg  [5:0] csm_next_timer ;
 reg  csm_timeout ;
 reg  csm_to_waitCAN ;
 reg  csm_to_end_readst ;
-reg  csm_to_ST_Start_Trim ;
 reg  csm_to_Wait_bits ;
+reg  csm_to_ST_Start_Trim ;
+wire [5:0] current_stateV =  current_state;
+wire [5:0] csm_timerV =  csm_timer;
 
 always @( csm_timeout or current_state or end_cnt or init or reset_irq_can or reset_irq_can_all or rst or send_mes or start_osc_trim or start_read or start_write )
   begin : next_state_block_proc
     csm_to_waitCAN =  1'b0;
     csm_to_end_readst =  1'b0;
-    csm_to_ST_Start_Trim =  1'b0;
     csm_to_Wait_bits =  1'b0;
+    csm_to_ST_Start_Trim =  1'b0;
     case (current_state)
       waittoact : 
         begin
@@ -182,6 +213,23 @@ always @( csm_timeout or current_state or end_cnt or init or reset_irq_can or re
           else
             next_state =  reset;
         end
+      start : 
+        begin
+          next_state =  waitCAN;
+          csm_to_waitCAN =  1'b1;
+        end
+      start1 : 
+        begin
+          next_state =  general3;
+        end
+      ST_CountRst : 
+        begin
+          next_state =  endinit;
+        end
+      ST_Start_Cnt : 
+        begin
+          next_state =  start;
+        end
       prescalar : 
         begin
           next_state =  prescalar1;
@@ -217,17 +265,40 @@ always @( csm_timeout or current_state or end_cnt or init or reset_irq_can or re
         begin
           next_state =  waittoact;
         end
-      start : 
-        begin
-          next_state =  waitCAN;
-          csm_to_waitCAN =  1'b1;
-        end
       waitCAN : 
         begin
           if (csm_timeout&&(init==1))
             next_state =  prescalar;
           else
             next_state =  waitCAN;
+        end
+      prescalar1 : 
+        begin
+          next_state =  general;
+        end
+      general1 : 
+        begin
+          next_state =  encom;
+        end
+      encom1 : 
+        begin
+          next_state =  idr3;
+        end
+      idr3 : 
+        begin
+          next_state =  idr31;
+        end
+      idr4 : 
+        begin
+          next_state =  idr41;
+        end
+      accmask2 : 
+        begin
+          next_state =  accmask;
+        end
+      accmask3 : 
+        begin
+          next_state =  accmask1;
         end
       RB1 : 
         begin
@@ -277,6 +348,13 @@ always @( csm_timeout or current_state or end_cnt or init or reset_irq_can or re
           next_state =  end_readst;
           csm_to_end_readst =  1'b1;
         end
+      Wait_bits : 
+        begin
+          if (csm_timeout)
+            next_state =  idr1;
+          else
+            next_state =  Wait_bits;
+        end
       set_d3 : 
         begin
           next_state =  set_d5;
@@ -289,6 +367,57 @@ always @( csm_timeout or current_state or end_cnt or init or reset_irq_can or re
         begin
           next_state =  set_gen1;
         end
+      set_id1 : 
+        begin
+          next_state =  set_id2;
+        end
+      set_tc : 
+        begin
+          next_state =  waittoact;
+        end
+      set_d4 : 
+        begin
+          if (send_mes==1)
+            next_state =  set_tc1;
+          else
+            next_state =  set_d4;
+        end
+      set_d2 : 
+        begin
+          next_state =  set_d7;
+        end
+      Set_bus_Id2 : 
+        begin
+          next_state =  set_gen;
+        end
+      set_gen1 : 
+        begin
+          next_state =  set_id1;
+        end
+      set_id2 : 
+        begin
+          next_state =  set_d8;
+        end
+      set_tc1 : 
+        begin
+          next_state =  set_tc;
+        end
+      set_d5 : 
+        begin
+          next_state =  set_d4;
+        end
+      set_d6 : 
+        begin
+          next_state =  set_d3;
+        end
+      set_d7 : 
+        begin
+          next_state =  set_d6;
+        end
+      set_d8 : 
+        begin
+          next_state =  set_d1;
+        end
       rstirq : 
         begin
           next_state =  rstirq2;
@@ -297,9 +426,13 @@ always @( csm_timeout or current_state or end_cnt or init or reset_irq_can or re
         begin
           next_state =  general5;
         end
-      ST_CountRst : 
+      general5 : 
         begin
-          next_state =  endinit;
+          next_state =  rstirq;
+        end
+      rstirq2 : 
+        begin
+          next_state =  waittoact;
         end
       rstirq1 : 
         begin
@@ -308,10 +441,6 @@ always @( csm_timeout or current_state or end_cnt or init or reset_irq_can or re
       general3 : 
         begin
           next_state =  rstirq1;
-        end
-      start1 : 
-        begin
-          next_state =  general3;
         end
       ST_CountRst1 : 
         begin
@@ -324,9 +453,13 @@ always @( csm_timeout or current_state or end_cnt or init or reset_irq_can or re
           else
             next_state =  start1;
         end
-      ST_Start_Cnt : 
+      general6 : 
         begin
-          next_state =  start;
+          next_state =  general3;
+        end
+      rstirq3 : 
+        begin
+          next_state =  loop_rst;
         end
       finishtrim : 
         begin
@@ -366,108 +499,6 @@ always @( csm_timeout or current_state or end_cnt or init or reset_irq_can or re
       tc1 : 
         begin
           next_state =  tc2;
-        end
-      set_id1 : 
-        begin
-          next_state =  set_id2;
-        end
-      set_tc : 
-        begin
-          next_state =  waittoact;
-        end
-      set_d4 : 
-        begin
-          if (send_mes==1)
-            next_state =  set_tc1;
-          else
-            next_state =  set_d4;
-        end
-      set_d2 : 
-        begin
-          next_state =  set_d7;
-        end
-      Set_bus_Id2 : 
-        begin
-          next_state =  set_gen;
-        end
-      Wait_bits : 
-        begin
-          if (csm_timeout)
-            next_state =  idr1;
-          else
-            next_state =  Wait_bits;
-        end
-      prescalar1 : 
-        begin
-          next_state =  general;
-        end
-      general1 : 
-        begin
-          next_state =  encom;
-        end
-      encom1 : 
-        begin
-          next_state =  idr3;
-        end
-      idr3 : 
-        begin
-          next_state =  idr31;
-        end
-      idr4 : 
-        begin
-          next_state =  idr41;
-        end
-      accmask2 : 
-        begin
-          next_state =  accmask;
-        end
-      accmask3 : 
-        begin
-          next_state =  accmask1;
-        end
-      general5 : 
-        begin
-          next_state =  rstirq;
-        end
-      rstirq2 : 
-        begin
-          next_state =  waittoact;
-        end
-      set_gen1 : 
-        begin
-          next_state =  set_id1;
-        end
-      set_id2 : 
-        begin
-          next_state =  set_d8;
-        end
-      set_tc1 : 
-        begin
-          next_state =  set_tc;
-        end
-      set_d5 : 
-        begin
-          next_state =  set_d4;
-        end
-      set_d6 : 
-        begin
-          next_state =  set_d3;
-        end
-      set_d7 : 
-        begin
-          next_state =  set_d6;
-        end
-      set_d8 : 
-        begin
-          next_state =  set_d1;
-        end
-      general6 : 
-        begin
-          next_state =  general3;
-        end
-      rstirq3 : 
-        begin
-          next_state =  loop_rst;
         end
       general7 : 
         begin
@@ -526,6 +557,22 @@ always @( current_state )
     trim =  0;
     write =  1;
     case (current_state)
+      start : 
+        begin
+          start_init =  1;
+        end
+      start1 : 
+        begin
+          start_cnt =  1;
+        end
+      ST_CountRst : 
+        begin
+          rst_cnt =  1;
+        end
+      ST_Start_Cnt : 
+        begin
+          start_cnt =  1;
+        end
       prescalar : 
         begin
           initi =  1;
@@ -575,9 +622,51 @@ always @( current_state )
         begin
           end_init =  1;
         end
-      start : 
+      prescalar1 : 
         begin
-          start_init =  1;
+          initi =  1;
+          addr =  5'b01111;
+          write =  0;
+          cs_can =  1;
+        end
+      general1 : 
+        begin
+          initi =  1;
+          addr =  5'b01110;
+          write =  0;
+          cs_can =  1;
+        end
+      encom1 : 
+        begin
+          initi =  1;
+          addr =  5'b10010;
+          write =  0;
+          cs_can =  1;
+        end
+      idr3 : 
+        begin
+          addr =  5'b00101;
+          initi =  1;
+          write =  0;
+        end
+      idr4 : 
+        begin
+          initi =  1;
+          addr =  5'b00100;
+          write =  0;
+        end
+      accmask2 : 
+        begin
+          initi =  1;
+          addr =  5'b10001;
+          write =  0;
+        end
+      accmask3 : 
+        begin
+          initi =  1;
+          addr =  5'b10000;
+          write =  0;
+          cs_can =  1;
         end
       RB1 : 
         begin
@@ -669,97 +758,6 @@ always @( current_state )
           addr =  5'b01110;
           set_bus_id =  1;
         end
-      rstirq : 
-        begin
-          write =  0;
-          reset_sig_can =  1;
-          addr =  5'b10010;
-        end
-      general2 : 
-        begin
-          write =  0;
-          reset_sig_can =  1;
-          addr =  5'b01110;
-        end
-      ST_CountRst : 
-        begin
-          rst_cnt =  1;
-        end
-      rstirq1 : 
-        begin
-          write =  0;
-          addr =  5'b10010;
-          reset_sig_can =  1;
-          reset_sig_can_all =  1;
-        end
-      general3 : 
-        begin
-          write =  0;
-          cs_can =  1;
-          addr =  5'b01110;
-          reset_sig_can =  1;
-          reset_sig_can_all =  1;
-        end
-      start1 : 
-        begin
-          start_cnt =  1;
-        end
-      ST_CountRst1 : 
-        begin
-          rst_cnt =  1;
-          reset_all_done =  1;
-        end
-      ST_Start_Cnt : 
-        begin
-          start_cnt =  1;
-        end
-      finishtrim : 
-        begin
-          end_osc_trim =  1;
-        end
-      general4 : 
-        begin
-          write =  0;
-          trim =  1;
-          addr =  5'b01110;
-        end
-      id2 : 
-        begin
-          write =  0;
-          trim =  1;
-          addr =  5'b01100;
-        end
-      d5 : 
-        begin
-          write =  0;
-          trim =  1;
-          addr =  5'b01010;
-        end
-      d6 : 
-        begin
-          write =  0;
-          trim =  1;
-          addr =  5'b01001;
-        end
-      d7 : 
-        begin
-          write =  0;
-          trim =  1;
-          addr =  5'b01000;
-        end
-      d8 : 
-        begin
-          write =  0;
-          trim =  1;
-          addr =  5'b00111;
-          end_write =  1;
-        end
-      tc1 : 
-        begin
-          write =  0;
-          trim =  1;
-          addr =  5'b01101;
-        end
       set_id1 : 
         begin
           write =  0;
@@ -790,67 +788,6 @@ always @( current_state )
       Set_bus_Id2 : 
         begin
           set_bus_id =  1;
-        end
-      prescalar1 : 
-        begin
-          initi =  1;
-          addr =  5'b01111;
-          write =  0;
-          cs_can =  1;
-        end
-      general1 : 
-        begin
-          initi =  1;
-          addr =  5'b01110;
-          write =  0;
-          cs_can =  1;
-        end
-      encom1 : 
-        begin
-          initi =  1;
-          addr =  5'b10010;
-          write =  0;
-          cs_can =  1;
-        end
-      idr3 : 
-        begin
-          addr =  5'b00101;
-          initi =  1;
-          write =  0;
-        end
-      idr4 : 
-        begin
-          initi =  1;
-          addr =  5'b00100;
-          write =  0;
-        end
-      accmask2 : 
-        begin
-          initi =  1;
-          addr =  5'b10001;
-          write =  0;
-        end
-      accmask3 : 
-        begin
-          initi =  1;
-          addr =  5'b10000;
-          write =  0;
-          cs_can =  1;
-        end
-      general5 : 
-        begin
-          write =  0;
-          reset_sig_can =  1;
-          cs_can =  1;
-          addr =  5'b01110;
-        end
-      rstirq2 : 
-        begin
-          write =  0;
-          reset_sig_can =  1;
-          cs_can =  1;
-          addr =  5'b10010;
-          reset_irq_can_done =  1;
         end
       set_gen1 : 
         begin
@@ -898,6 +835,53 @@ always @( current_state )
           addr =  5'b01010;
           set_bus_id =  1;
         end
+      rstirq : 
+        begin
+          write =  0;
+          reset_sig_can =  1;
+          addr =  5'b10010;
+        end
+      general2 : 
+        begin
+          write =  0;
+          reset_sig_can =  1;
+          addr =  5'b01110;
+        end
+      general5 : 
+        begin
+          write =  0;
+          reset_sig_can =  1;
+          cs_can =  1;
+          addr =  5'b01110;
+        end
+      rstirq2 : 
+        begin
+          write =  0;
+          reset_sig_can =  1;
+          cs_can =  1;
+          addr =  5'b10010;
+          reset_irq_can_done =  1;
+        end
+      rstirq1 : 
+        begin
+          write =  0;
+          addr =  5'b10010;
+          reset_sig_can =  1;
+          reset_sig_can_all =  1;
+        end
+      general3 : 
+        begin
+          write =  0;
+          cs_can =  1;
+          addr =  5'b01110;
+          reset_sig_can =  1;
+          reset_sig_can_all =  1;
+        end
+      ST_CountRst1 : 
+        begin
+          rst_cnt =  1;
+          reset_all_done =  1;
+        end
       general6 : 
         begin
           write =  0;
@@ -912,6 +896,53 @@ always @( current_state )
           addr =  5'b10010;
           reset_sig_can =  1;
           reset_sig_can_all =  1;
+        end
+      finishtrim : 
+        begin
+          end_osc_trim =  1;
+        end
+      general4 : 
+        begin
+          write =  0;
+          trim =  1;
+          addr =  5'b01110;
+        end
+      id2 : 
+        begin
+          write =  0;
+          trim =  1;
+          addr =  5'b01100;
+        end
+      d5 : 
+        begin
+          write =  0;
+          trim =  1;
+          addr =  5'b01010;
+        end
+      d6 : 
+        begin
+          write =  0;
+          trim =  1;
+          addr =  5'b01001;
+        end
+      d7 : 
+        begin
+          write =  0;
+          trim =  1;
+          addr =  5'b01000;
+        end
+      d8 : 
+        begin
+          write =  0;
+          trim =  1;
+          addr =  5'b00111;
+          end_write =  1;
+        end
+      tc1 : 
+        begin
+          write =  0;
+          trim =  1;
+          addr =  5'b01101;
         end
       general7 : 
         begin
@@ -966,33 +997,85 @@ always @( current_state )
     endcase
   end
 
-always @( posedge clk )
-  begin : clocked_block_proc
-    if (!rst)
+always @( posedge clkA )
+  begin : clocked_block_procA
+    if (!rstA)
       begin
-        current_state <= reset;
-        csm_timer <= 6'd0;
+        current_stateA <= reset;
+        csm_timerA <= 6'd0;
       end
     else
-      if (timeoutrst)
+      if (timeoutrstA)
         begin
-          current_state <= reset;
-          csm_timer <= 6'd0;
+          current_stateA <= reset;
+          csm_timerA <= 6'd0;
         end
       else
-        if (abort)
+        if (abortA)
           begin
-            current_state <= reset;
-            csm_timer <= 6'd0;
+            current_stateA <= reset;
+            csm_timerA <= 6'd0;
           end
         else
           begin
-            current_state <= next_state;
-            csm_timer <= csm_next_timer;
+            current_stateA <= next_stateA;
+            csm_timerA <= csm_next_timerA;
           end
   end
 
-always @( csm_timer or csm_to_waitCAN or csm_to_end_readst or csm_to_ST_Start_Trim or csm_to_Wait_bits )
+always @( posedge clkB )
+  begin : clocked_block_procB
+    if (!rstB)
+      begin
+        current_stateB <= reset;
+        csm_timerB <= 6'd0;
+      end
+    else
+      if (timeoutrstB)
+        begin
+          current_stateB <= reset;
+          csm_timerB <= 6'd0;
+        end
+      else
+        if (abortB)
+          begin
+            current_stateB <= reset;
+            csm_timerB <= 6'd0;
+          end
+        else
+          begin
+            current_stateB <= next_stateB;
+            csm_timerB <= csm_next_timerB;
+          end
+  end
+
+always @( posedge clkC )
+  begin : clocked_block_procC
+    if (!rstC)
+      begin
+        current_stateC <= reset;
+        csm_timerC <= 6'd0;
+      end
+    else
+      if (timeoutrstC)
+        begin
+          current_stateC <= reset;
+          csm_timerC <= 6'd0;
+        end
+      else
+        if (abortC)
+          begin
+            current_stateC <= reset;
+            csm_timerC <= 6'd0;
+          end
+        else
+          begin
+            current_stateC <= next_stateC;
+            csm_timerC <= csm_next_timerC;
+          end
+  end
+
+always @( csm_timer or csm_to_waitCAN or csm_to_end_readst or csm_to_Wait_bits or csm_to_ST_Start_Trim )
   begin : csm_wait_block_proc
     csm_timeout =  (csm_timer==6'd0);
     if (csm_to_waitCAN==1'b1)
@@ -1005,14 +1088,14 @@ always @( csm_timer or csm_to_waitCAN or csm_to_end_readst or csm_to_ST_Start_Tr
           csm_next_timer =  6'd3;
         end
       else
-        if (csm_to_ST_Start_Trim==1'b1)
+        if (csm_to_Wait_bits==1'b1)
           begin
-            csm_next_timer =  6'd59;
+            csm_next_timer =  6'd19;
           end
         else
-          if (csm_to_Wait_bits==1'b1)
+          if (csm_to_ST_Start_Trim==1'b1)
             begin
-              csm_next_timer =  6'd19;
+              csm_next_timer =  6'd59;
             end
           else
             begin
@@ -1022,5 +1105,63 @@ always @( csm_timer or csm_to_waitCAN or csm_to_end_readst or csm_to_ST_Start_Tr
 
 always @( current_state )
   statedeb =  current_state;
+
+majorityVoter #(.WIDTH(6)) csm_timerVoter (
+    .inA(csm_timerA),
+    .inB(csm_timerB),
+    .inC(csm_timerC),
+    .out(csm_timer),
+    .tmrErr(csm_timerTmrError)
+    );
+
+majorityVoter #(.WIDTH(7)) current_stateVoter (
+    .inA(current_stateA),
+    .inB(current_stateB),
+    .inC(current_stateC),
+    .out(current_state),
+    .tmrErr(current_stateTmrError)
+    );
+
+fanout abortFanout (
+    .in(abort),
+    .outA(abortA),
+    .outB(abortB),
+    .outC(abortC)
+    );
+
+fanout clkFanout (
+    .in(clk),
+    .outA(clkA),
+    .outB(clkB),
+    .outC(clkC)
+    );
+
+fanout #(.WIDTH(6)) csm_next_timerFanout (
+    .in(csm_next_timer),
+    .outA(csm_next_timerA),
+    .outB(csm_next_timerB),
+    .outC(csm_next_timerC)
+    );
+
+fanout #(.WIDTH(7)) next_stateFanout (
+    .in(next_state),
+    .outA(next_stateA),
+    .outB(next_stateB),
+    .outC(next_stateC)
+    );
+
+fanout rstFanout (
+    .in(rst),
+    .outA(rstA),
+    .outB(rstB),
+    .outC(rstC)
+    );
+
+fanout timeoutrstFanout (
+    .in(timeoutrst),
+    .outA(timeoutrstA),
+    .outB(timeoutrstB),
+    .outC(timeoutrstC)
+    );
 endmodule
 

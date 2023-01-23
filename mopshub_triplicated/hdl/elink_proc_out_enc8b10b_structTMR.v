@@ -6,20 +6,23 @@
  *                                                                                                  *
  * user    : lucas                                                                                  *
  * host    : DESKTOP-BFDSFP2                                                                        *
- * date    : 06/10/2022 13:52:46                                                                    *
+ * date    : 05/12/2022 13:28:09                                                                    *
  *                                                                                                  *
- * workdir : /mnt/c/Users/Lucas/Documents/GitHub/mopshub_triplicated/triplicated/mopshub_top_board/hdl *
- * cmd     : /mnt/c/Users/Lucas/Desktop/mopshub_triplication/tmrg-master/bin/tmrg -vv -c tmrg.cfg   *
- * tmrg rev:                                                                                        *
+ * workdir : /mnt/c/Users/Lucas/Documents/GitHub/mopshub_triplicated/triplicated/mopshub_top_board_16/hdl *
+ * cmd     : /mnt/c/Users/Lucas/Documents/GitHub/mopshub_triplicated/tmrg-master/bin/tmrg -vv -c    *
+ *           tmrg.cfg                                                                               *
+ * tmrg rev: b25f042058e4e97751df2a0933c24aeadd5a78a5                                               *
  *                                                                                                  *
  * src file: elink_proc_out_enc8b10b_struct.v                                                       *
- *           Git SHA           : c110441b08b692cc54ebd4a3b84a2599430e8f93                           *
- *           Modification time : 2022-10-06 13:25:16                                                *
- *           File Size         : 3405                                                               *
- *           MD5 hash          : 1315539d583fb969c1b4472422acbbf4                                   *
+ *           Git SHA           : b25f042058e4e97751df2a0933c24aeadd5a78a5 (?? elink_proc_out_enc8b10b_struct.v) *
+ *           Modification time : 2022-12-04 15:41:31.654210                                         *
+ *           File Size         : 5172                                                               *
+ *           MD5 hash          : 312c7d0637e7e889b6695c9b8013632d                                   *
  *                                                                                                  *
  ****************************************************************************************************/
 
+`resetall 
+`timescale  1ns/10ps
 module elink_proc_out_enc8b10bTMR(
   input wire  clk ,
   input wire [9:0] data_10bit_in ,
@@ -27,32 +30,102 @@ module elink_proc_out_enc8b10bTMR(
   input wire  rst ,
   output wire  get_data_trig ,
   output wire [1:0] data_2bit_out ,
-  input wire [9:0] COMMAn ,
-  input wire [9:0] COMMAp ,
   input wire [7:0] Kchar_comma ,
   input wire [7:0] Kchar_eop ,
-  input wire [7:0] Kchar_sop 
+  input wire [7:0] Kchar_sop ,
+  input wire [9:0] COMMAn ,
+  input wire [9:0] COMMAp 
 );
+wire rstC;
+wire rstB;
+wire rstA;
+wire get_data_trigC;
+wire get_data_trigB;
+wire get_data_trigA;
+wire [9:0] enc10bitC;
+wire [9:0] enc10bitB;
+wire [9:0] enc10bitA;
+wire [9:0] data_outC;
+wire [9:0] data_outB;
+wire [9:0] data_outA;
+wire [1:0] data_codeC;
+wire [1:0] data_codeB;
+wire [1:0] data_codeA;
+wire [9:0] data_10bit_inC;
+wire [9:0] data_10bit_inB;
+wire [9:0] data_10bit_inA;
+wire clkC;
+wire clkB;
+wire clkA;
+wire [7:0] Kchar_commaC;
+wire [7:0] Kchar_commaB;
+wire [7:0] Kchar_commaA;
+wire [9:0] COMMApC;
+wire [9:0] COMMApB;
+wire [9:0] COMMApA;
+wire [9:0] COMMAnC;
+wire [9:0] COMMAnB;
+wire [9:0] COMMAnA;
+wor send_countTmrError;
+wire [2:0] send_count;
+wor enc_10b_data_out_rTmrError;
+wire [9:0] enc_10b_data_out_r;
+wor enc10bit_rTmrError;
+wire [9:0] enc10bit_r;
+wor bit_cntTmrError;
+wire bit_cnt;
+wor KI_regTmrError;
+wire KI_reg;
 wire [9:0] enc10bit;
-reg  [9:0] enc10bit_r ;
+reg  [9:0] enc10bit_rA ;
+reg  [9:0] enc10bit_rB ;
+reg  [9:0] enc10bit_rC ;
 reg  [1:0] zeros2bit ;
-reg  [2:0] send_count ;
+reg  [2:0] send_countA ;
+reg  [2:0] send_countB ;
+reg  [2:0] send_countC ;
+wire [1:0] data_code;
+wire [7:0] byte;
+reg  [9:0] enc_10b_data_out_rA ;
+reg  [9:0] enc_10b_data_out_rB ;
+reg  [9:0] enc_10b_data_out_rC ;
+wire [9:0] data_out;
+reg  bit_cntA ;
+reg  bit_cntB ;
+reg  bit_cntC ;
+reg  KI_regA ;
+reg  KI_regB ;
+reg  KI_regC ;
+wire [7:0] data_input;
+wire KI_regV =  KI_reg;
+wire bit_cntV =  bit_cnt;
+wire [9:0] enc10bit_rV =  enc10bit_r;
+wire [2:0] send_countV =  send_count;
+wire [9:0] enc_10b_data_out_rV =  enc_10b_data_out_r;
 
-enc8b10b_wrapTMR enc8b10b_wrap10 (
+enc_8b10b_mopshubTMR enc_8b10b_mopshub0 (
+    .rst(rst),
+    .clk(clk),
+    .ena(data_in_rdy),
+    .ki(KI_reg),
+    .datain(byte),
+    .dataout(data_out)
+    );
+
+mux4_NbitTMR mux4_Nbit0 (
     .clk(clk),
     .rst(rst),
-    .data_code(data_10bit_in[9:8] ),
-    .data_in(data_10bit_in[7:0] ),
-    .data_in_rdy(data_in_rdy),
-    .enc_10b_data_out(enc10bit),
-    .Kchar_comma(Kchar_comma),
-    .Kchar_eop(Kchar_eop),
-    .Kchar_sop(Kchar_sop),
-    .COMMAp(COMMAp),
-    .COMMAn(COMMAn)
+    .data0(data_input),
+    .data1(Kchar_eop),
+    .data2(Kchar_sop),
+    .data3(Kchar_comma),
+    .sel(data_code),
+    .data_out(byte),
+    .def_value(Kchar_comma)
     );
 
 mux8_NbitTMR bitMUX (
+    .clk(clk),
     .rst(rst),
     .data0(enc10bit_r[1:0] ),
     .data1(enc10bit_r[3:2] ),
@@ -74,30 +147,297 @@ triger_counterTMR triger_counter1 (
 initial
   zeros2bit =  2'b0;
 initial
-  send_count =  1'b0;
+  send_countA =  1'b0;
+initial
+  send_countB =  1'b0;
+initial
+  send_countC =  1'b0;
 
-always @( posedge clk )
+always @( posedge clkA )
   begin
-    if (!rst)
-      enc10bit_r <= COMMAp;
+    if (!rstA)
+      enc10bit_rA <= COMMApA;
     else
-      if (get_data_trig==1)
+      if (get_data_trigA==1)
         begin
-          enc10bit_r <= enc10bit;
+          enc10bit_rA <= enc10bitA;
         end
   end
 
-always @( posedge clk )
+always @( posedge clkB )
   begin
-    if (!rst)
-      send_count <= 3'b0;
+    if (!rstB)
+      enc10bit_rB <= COMMApB;
+    else
+      if (get_data_trigB==1)
+        begin
+          enc10bit_rB <= enc10bitB;
+        end
+  end
+
+always @( posedge clkC )
+  begin
+    if (!rstC)
+      enc10bit_rC <= COMMApC;
+    else
+      if (get_data_trigC==1)
+        begin
+          enc10bit_rC <= enc10bitC;
+        end
+  end
+
+always @( posedge clkA )
+  begin
+    if (!rstA)
+      send_countA <= 3'b0;
     else
       begin
-        if (get_data_trig==1)
-          send_count <= 3'b0;
+        if (get_data_trigA==1)
+          send_countA <= 3'b0;
         else
-          send_count <= send_count+1;
+          send_countA <= send_countA+1;
       end
   end
+
+always @( posedge clkB )
+  begin
+    if (!rstB)
+      send_countB <= 3'b0;
+    else
+      begin
+        if (get_data_trigB==1)
+          send_countB <= 3'b0;
+        else
+          send_countB <= send_countB+1;
+      end
+  end
+
+always @( posedge clkC )
+  begin
+    if (!rstC)
+      send_countC <= 3'b0;
+    else
+      begin
+        if (get_data_trigC==1)
+          send_countC <= 3'b0;
+        else
+          send_countC <= send_countC+1;
+      end
+  end
+initial
+  KI_regA =  1'b1;
+initial
+  KI_regB =  1'b1;
+initial
+  KI_regC =  1'b1;
+assign data_code =  data_10bit_in[9:8] ;
+assign data_input =  data_10bit_in[7:0] ;
+
+always @( posedge clkA )
+  if (!rstA)
+    KI_regA <= 1'b1;
+  else
+    KI_regA <= data_codeA[1] |data_codeA[0] ;
+
+always @( posedge clkB )
+  if (!rstB)
+    KI_regB <= 1'b1;
+  else
+    KI_regB <= data_codeB[1] |data_codeB[0] ;
+
+always @( posedge clkC )
+  if (!rstC)
+    KI_regC <= 1'b1;
+  else
+    KI_regC <= data_codeC[1] |data_codeC[0] ;
+initial
+  begin
+    bit_cntA =  1'b0;
+  end
+initial
+  begin
+    bit_cntB =  1'b0;
+  end
+initial
+  begin
+    bit_cntC =  1'b0;
+  end
+
+always @( posedge clkA )
+  if (!rstA)
+    bit_cntA <= 1'b0;
+  else
+    bit_cntA <= !bit_cntA;
+
+always @( posedge clkB )
+  if (!rstB)
+    bit_cntB <= 1'b0;
+  else
+    bit_cntB <= !bit_cntB;
+
+always @( posedge clkC )
+  if (!rstC)
+    bit_cntC <= 1'b0;
+  else
+    bit_cntC <= !bit_cntC;
+assign enc10bit =  enc_10b_data_out_r;
+
+always @( posedge clkA )
+  if (!rstA)
+    enc_10b_data_out_rA <= COMMApA;
+  else
+    begin
+      if (data_10bit_inA[7:0] ==Kchar_commaA&&KI_regA==1)
+        begin
+          if (bit_cntA==1)
+            enc_10b_data_out_rA <= COMMApA;
+          else
+            enc_10b_data_out_rA <= COMMAnA;
+        end
+      else
+        enc_10b_data_out_rA <= data_outA;
+    end
+
+always @( posedge clkB )
+  if (!rstB)
+    enc_10b_data_out_rB <= COMMApB;
+  else
+    begin
+      if (data_10bit_inB[7:0] ==Kchar_commaB&&KI_regB==1)
+        begin
+          if (bit_cntB==1)
+            enc_10b_data_out_rB <= COMMApB;
+          else
+            enc_10b_data_out_rB <= COMMAnB;
+        end
+      else
+        enc_10b_data_out_rB <= data_outB;
+    end
+
+always @( posedge clkC )
+  if (!rstC)
+    enc_10b_data_out_rC <= COMMApC;
+  else
+    begin
+      if (data_10bit_inC[7:0] ==Kchar_commaC&&KI_regC==1)
+        begin
+          if (bit_cntC==1)
+            enc_10b_data_out_rC <= COMMApC;
+          else
+            enc_10b_data_out_rC <= COMMAnC;
+        end
+      else
+        enc_10b_data_out_rC <= data_outC;
+    end
+
+majorityVoter KI_regVoter (
+    .inA(KI_regA),
+    .inB(KI_regB),
+    .inC(KI_regC),
+    .out(KI_reg),
+    .tmrErr(KI_regTmrError)
+    );
+
+majorityVoter bit_cntVoter (
+    .inA(bit_cntA),
+    .inB(bit_cntB),
+    .inC(bit_cntC),
+    .out(bit_cnt),
+    .tmrErr(bit_cntTmrError)
+    );
+
+majorityVoter #(.WIDTH(10)) enc10bit_rVoter (
+    .inA(enc10bit_rA),
+    .inB(enc10bit_rB),
+    .inC(enc10bit_rC),
+    .out(enc10bit_r),
+    .tmrErr(enc10bit_rTmrError)
+    );
+
+majorityVoter #(.WIDTH(10)) enc_10b_data_out_rVoter (
+    .inA(enc_10b_data_out_rA),
+    .inB(enc_10b_data_out_rB),
+    .inC(enc_10b_data_out_rC),
+    .out(enc_10b_data_out_r),
+    .tmrErr(enc_10b_data_out_rTmrError)
+    );
+
+majorityVoter #(.WIDTH(3)) send_countVoter (
+    .inA(send_countA),
+    .inB(send_countB),
+    .inC(send_countC),
+    .out(send_count),
+    .tmrErr(send_countTmrError)
+    );
+
+fanout #(.WIDTH(10)) COMMAnFanout (
+    .in(COMMAn),
+    .outA(COMMAnA),
+    .outB(COMMAnB),
+    .outC(COMMAnC)
+    );
+
+fanout #(.WIDTH(10)) COMMApFanout (
+    .in(COMMAp),
+    .outA(COMMApA),
+    .outB(COMMApB),
+    .outC(COMMApC)
+    );
+
+fanout #(.WIDTH(8)) Kchar_commaFanout (
+    .in(Kchar_comma),
+    .outA(Kchar_commaA),
+    .outB(Kchar_commaB),
+    .outC(Kchar_commaC)
+    );
+
+fanout clkFanout (
+    .in(clk),
+    .outA(clkA),
+    .outB(clkB),
+    .outC(clkC)
+    );
+
+fanout #(.WIDTH(10)) data_10bit_inFanout (
+    .in(data_10bit_in),
+    .outA(data_10bit_inA),
+    .outB(data_10bit_inB),
+    .outC(data_10bit_inC)
+    );
+
+fanout #(.WIDTH(2)) data_codeFanout (
+    .in(data_code),
+    .outA(data_codeA),
+    .outB(data_codeB),
+    .outC(data_codeC)
+    );
+
+fanout #(.WIDTH(10)) data_outFanout (
+    .in(data_out),
+    .outA(data_outA),
+    .outB(data_outB),
+    .outC(data_outC)
+    );
+
+fanout #(.WIDTH(10)) enc10bitFanout (
+    .in(enc10bit),
+    .outA(enc10bitA),
+    .outB(enc10bitB),
+    .outC(enc10bitC)
+    );
+
+fanout get_data_trigFanout (
+    .in(get_data_trig),
+    .outA(get_data_trigA),
+    .outB(get_data_trigB),
+    .outC(get_data_trigC)
+    );
+
+fanout rstFanout (
+    .in(rst),
+    .outA(rstA),
+    .outB(rstB),
+    .outC(rstC)
+    );
 endmodule
 

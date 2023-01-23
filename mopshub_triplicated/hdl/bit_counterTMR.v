@@ -6,20 +6,23 @@
  *                                                                                                  *
  * user    : lucas                                                                                  *
  * host    : DESKTOP-BFDSFP2                                                                        *
- * date    : 06/10/2022 13:52:35                                                                    *
+ * date    : 05/12/2022 13:27:59                                                                    *
  *                                                                                                  *
- * workdir : /mnt/c/Users/Lucas/Documents/GitHub/mopshub_triplicated/triplicated/mopshub_top_board/hdl *
- * cmd     : /mnt/c/Users/Lucas/Desktop/mopshub_triplication/tmrg-master/bin/tmrg -vv -c tmrg.cfg   *
- * tmrg rev:                                                                                        *
+ * workdir : /mnt/c/Users/Lucas/Documents/GitHub/mopshub_triplicated/triplicated/mopshub_top_board_16/hdl *
+ * cmd     : /mnt/c/Users/Lucas/Documents/GitHub/mopshub_triplicated/tmrg-master/bin/tmrg -vv -c    *
+ *           tmrg.cfg                                                                               *
+ * tmrg rev: b25f042058e4e97751df2a0933c24aeadd5a78a5                                               *
  *                                                                                                  *
  * src file: bit_counter.v                                                                          *
- *           Git SHA           : c110441b08b692cc54ebd4a3b84a2599430e8f93                           *
- *           Modification time : 2022-10-05 20:23:26                                                *
- *           File Size         : 857                                                                *
- *           MD5 hash          : 0e680ef2c8f45df0a8cb6dbd17372863                                   *
+ *           Git SHA           : b25f042058e4e97751df2a0933c24aeadd5a78a5 (?? bit_counter.v)        *
+ *           Modification time : 2022-12-04 12:47:35                                                *
+ *           File Size         : 898                                                                *
+ *           MD5 hash          : 7ba45d55bdd0f604ed5ddbeaf69101a8                                   *
  *                                                                                                  *
  ****************************************************************************************************/
 
+`resetall 
+`timescale  1ns/10ps
 module bit_counterTMR(
   input wire  ext_rst ,
   input wire  rst ,
@@ -33,9 +36,6 @@ wire rstA;
 wire ext_rstC;
 wire ext_rstB;
 wire ext_rstA;
-wire [4:0] data_outC;
-wire [4:0] data_outB;
-wire [4:0] data_outA;
 wire cnt_enableC;
 wire cnt_enableB;
 wire cnt_enableA;
@@ -48,6 +48,7 @@ reg  [4:0] data_out_regA ;
 reg  [4:0] data_out_regB ;
 reg  [4:0] data_out_regC ;
 assign data_out =  data_out_reg;
+wire [4:0] data_out_regV =  data_out_reg;
 
 always @( posedge clkA )
   if (!rstA|ext_rstA)
@@ -57,7 +58,7 @@ always @( posedge clkA )
   else
     if (cnt_enableA)
       begin
-        data_out_regA <= data_outA+1;
+        data_out_regA <= data_out_regA+1;
       end
 
 always @( posedge clkB )
@@ -68,7 +69,7 @@ always @( posedge clkB )
   else
     if (cnt_enableB)
       begin
-        data_out_regB <= data_outB+1;
+        data_out_regB <= data_out_regB+1;
       end
 
 always @( posedge clkC )
@@ -79,7 +80,7 @@ always @( posedge clkC )
   else
     if (cnt_enableC)
       begin
-        data_out_regC <= data_outC+1;
+        data_out_regC <= data_out_regC+1;
       end
 
 majorityVoter #(.WIDTH(5)) data_out_regVoter (
@@ -102,13 +103,6 @@ fanout cnt_enableFanout (
     .outA(cnt_enableA),
     .outB(cnt_enableB),
     .outC(cnt_enableC)
-    );
-
-fanout #(.WIDTH(5)) data_outFanout (
-    .in(data_out),
-    .outA(data_outA),
-    .outB(data_outB),
-    .outC(data_outC)
     );
 
 fanout ext_rstFanout (
