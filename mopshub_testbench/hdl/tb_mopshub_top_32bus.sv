@@ -157,6 +157,7 @@ module tb_mopshub_top_32bus();
   .n_buses(5'd31),
   .dbg_elink(1'b0), 
   .dbg_spi(1'b0),
+  .debug_mode(1'b0),
   .osc_auto_trim_mopshub(osc_auto_trim_mopshub),                      
   .endwait_all(endwait_all),  
   .tx_elink2bit(tx_mopshub_2bit),

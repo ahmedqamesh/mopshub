@@ -20,8 +20,8 @@ interface debug_if (input clock, input reset );
 //timeunit 1ns;
 //timeprecision 100ps;
 
-//import uvm_pkg::*;
-//`include "uvm_macros.svh"
+import uvm_pkg::*;
+`include "uvm_macros.svh"
 
     // Actual Signals
     logic       out_irq;
@@ -35,7 +35,7 @@ interface debug_if (input clock, input reset );
 // wait for state
 task wait_for_status( input byte waitstatus);
     begin
-       // `uvm_info("debug_if", "Executing task wait_for_status", UVM_LOW)
+        `uvm_info("debug_if", "Executing task wait_for_status", UVM_LOW)
         wait(out_statedeb == waitstatus);
     end
 endtask : wait_for_status
@@ -43,10 +43,10 @@ endtask : wait_for_status
 // wait for complete hard reset
 task wait_for_reset;
     begin
-       // `uvm_info("debug_if", "Executing task wait_for_reset", UVM_LOW)
+        `uvm_info("debug_if", "Executing task wait_for_reset", UVM_LOW)
         @(negedge reset)
 		@(posedge reset)
-		//`uvm_info("debug_if", "Dropped reset detected: Continue Simulation", UVM_LOW)
+		`uvm_info("debug_if", "Dropped reset detected: Continue Simulation", UVM_LOW)
     end
 endtask : wait_for_reset
 

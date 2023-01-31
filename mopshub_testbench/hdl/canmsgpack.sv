@@ -23,30 +23,29 @@ CAN_message_MOPS:
   * To reset the MOPS chip, make a call to task 'rst_mops'
   * To build a custom CAN message, call the task 'msgcustom'
   * To intentionaly introduce an error in a CAN frame use the task 'errframe'
-
-
 */
-
-
-
-
 //Defined below is the class for a random CAN message. The random CAN message (canmsgrand) structure is used inside the class to define CAN message
 class CAN_Messagerand;
   //Defined below is the structure for a random CAN message
-typedef struct {
+  typedef struct {
        logic          SOF;      // Start of frame
- randc logic [10:0]   ID;       // 11-bit identifier
+       logic [10:0]   ID;       // 11-bit identifier
        logic          RTR;      // reply required?
        logic  [1:0]   RSVD;     // "reserved for expansion" bits
- randc logic  [3:0]   DLC;      // 4-bit Data Length Code
- randc logic          dataran [];  // 8 bytes of random data
+       logic  [3:0]   DLC;      // 4-bit Data Length Code
+       logic          dataran [];  // 8 bytes of random data
        logic [14:0]   CRC;      // 15-bit checksum
        logic          CRCDEL;   // CRC delimiter
        logic          ACK;      // Acknowledgment bit 
        logic          ACKDEL;   // Acknowledgment delimiter
        logic [6:0]    EOF;      // End of frame bit 
-} canmsgrand;
+       } canmsgrand;
 
+ randc logic  [3:0]   DLC;      // 4-bit Data Length Code
+ randc logic [10:0]   ID;       // 11-bit identifier
+ randc logic          dataran [];  // 8 bytes of random data
+  
+  
   rand  canmsgrand message;
         logic [18:0]   head;                 // Head of the message frame
         logic [9:0]    tail;                 // Tail of the message frame
@@ -78,8 +77,7 @@ constraint c2 {message.dataran.size() == message.DLC*8;}
     framewithstuff  = new[framewithcrc.size()+20];  //    Size of the frame will change depending upon the number of stuff bits required and will be changed dynamically
     //framewithstuff  = '{default:0};                 //    ----
     canframe        = new[framewithstuff.size()+10];     // Size of the frame will change depending upon the number of stuff bits required and will be changed dynamically
-    //canframe        = '{default:0};                             
-       
+    //canframe        = '{default:0};                                 
   endtask
   
 // Create message frame to calculate crc
@@ -176,8 +174,6 @@ constraint c2 {message.dataran.size() == message.DLC*8;}
             countzero = 0;
             countone += 1;
           end
-        
-        
         /*if((framewithcrc[k] == 1'b1) & (countone==5))
           begin
             framewithstuff[l] = 1'b0;
@@ -237,28 +233,12 @@ constraint c2 {message.dataran.size() == message.DLC*8;}
   endtask     
   
 endclass: CAN_Messagerand
-    
-        
-         
-        
-  
-        
-        
-           
-
-
-
 ////************Here Starts another class *****************
-
-
-
-
-
-
 
 //Defined below is the class for a CAN message specific to our chip
 class CAN_Message_MOPS;
   //Defined below is the structure for a CAN message specific to our chip
+
 typedef struct {
        logic          SOF;      // Start of frame
        logic [10:0]   ID;       // 11-bit identifier
@@ -271,8 +251,7 @@ typedef struct {
        logic          ACK;      // Acknowledgment bit 
        logic          ACKDEL;   // Acknowledgment delimiter
        logic [6:0]    EOF;      // End of frame bit 
-} canmsg;
-
+       } canmsg;
 
         canmsg message;                      // A variable of type 'canmsg' structure
         int            dlen;                 // data length (number of bits)... also used to define lengths of different dynamic frames

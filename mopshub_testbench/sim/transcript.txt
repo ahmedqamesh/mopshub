@@ -1,1070 +1,20 @@
 # vsim -f hds_args.tmp -foreign "hdsInit /eda/mentor/2019-20/RHELx86/HDL-DESIGNER_2019.4/resources/downstream/modelsim/ModelSim_64Bit.dll" -pli ""/eda/mentor/2019-20/RHELx86/HDL-DESIGNER_2019.4/resources/downstream/modelsim/ModelSim_64Bit.dll"" 
-# Start time: 17:28:21 on Dec 06,2022
-# ** Note: (vsim-3812) Design is being optimized...
-# ** Warning: (vsim-3865) Due to PLI being present, global +acc is being enabled automatically. This will cause your simulation to run very slowly. Please use vsim -no_autoacc to disable this feature. This feature is now deprecated and will be removed from future releases.
-# ** Warning: (vopt-10017) vopt and vlog detected inconsistent ordering of options -L tsmcdigital_lib, -L top_lib, -L MOPSv2_lib, -L canakari, -L CANdecoder, -L ftrim, -L mopshub_lib, -L mopshub_testbench and -L mopshub_triplicated for design-unit 'tb_mopshub_top_voters'. vopt will ignore the ordering that was given to vlog.
-# ** Warning: (vopt-10017) vopt and vlog detected inconsistent ordering of options -L tsmcdigital_lib, -L top_lib, -L MOPSv2_lib, -L canakari, -L CANdecoder, -L ftrim, -L mopshub_lib and -L mopshub_testbench for design-unit 'can_bus_activity'. vopt will ignore the ordering that was given to vlog.
-# ** Warning: (vopt-10017) vopt and vlog detected inconsistent ordering of options -L tsmcdigital_lib, -L top_lib, -L MOPSv2_lib, -L canakari, -L CANdecoder, -L ftrim and -L mopshub_lib for design-unit 'canframegen'. vopt will ignore the ordering that was given to vlog.
-# ** Warning: (vopt-10017) vopt and vlog detected inconsistent ordering of options -L tsmcdigital_lib, -L top_lib, -L MOPSv2_lib, -L canakari, -L CANdecoder, -L ftrim and -L mopshub_lib for design-unit 'canframegen_sv_unit'. vopt will ignore the ordering that was given to vlog.
-# ** Warning: /home/dcs/git/CANAkari/CANdecoder/hdl/canbus_decoder_struct.v(125): (vopt-2685) [TFMPC] - Too few port connections for 'bridgeSMdec0'.  Expected 30, found 29.
-# ** Warning: /home/dcs/git/CANAkari/CANdecoder/hdl/canbus_decoder_struct.v(125): (vopt-2718) [TFMPC] - Missing connection for port 'irq_can_ack'.
-# ** Note: (vopt-143) Recognized 1 FSM in module "bridgeSMdec(fast)".
-# ** Note: (vopt-143) Recognized 1 FSM in module "ADCfsm(fast)".
-# ** Warning: /home/dcs/git/mopshub/mopshub_testbench/hdl/data_generator_struct.v(312): (vopt-2685) [TFMPC] - Too few port connections for 'canframegen_gen'.  Expected 24, found 23.
-# ** Warning: /home/dcs/git/mopshub/mopshub_testbench/hdl/data_generator_struct.v(312): (vopt-2718) [TFMPC] - Missing connection for port 'bus_id'.
-# ** Note: (vopt-143) Recognized 1 FSM in module "bridgeSM(fast)".
-# ** Warning: /home/dcs/git/mopshub/mopshub_testbench/hdl/can_bus_activity.sv(258): (vopt-2121) Illegal concatenation of an unsized constant. Will treat it as a 32-bit value.
-# ** Warning: /home/dcs/git/mopshub/mopshub_testbench/hdl/tb_mopshub_top_voters.sv(120): (vopt-2685) [TFMPC] - Too few port connections for 'mopshubTMR0'.  Expected 68, found 45.
-# ** Warning: /home/dcs/git/mopshub/mopshub_testbench/hdl/tb_mopshub_top_voters.sv(120): (vopt-2718) [TFMPC] - Missing connection for port 'word10b_rdy'.
-# ** Warning: /home/dcs/git/mopshub/mopshub_testbench/hdl/tb_mopshub_top_voters.sv(120): (vopt-2718) [TFMPC] - Missing connection for port 'tx_efifo_full'.
-# ** Warning: /home/dcs/git/mopshub/mopshub_testbench/hdl/tb_mopshub_top_voters.sv(120): (vopt-2718) [TFMPC] - Missing connection for port 'tx_data_rdy'.
-# ** Warning: /home/dcs/git/mopshub/mopshub_testbench/hdl/tb_mopshub_top_voters.sv(120): (vopt-2718) [TFMPC] - Missing connection for port 'sck_m'.
-# ** Warning: /home/dcs/git/mopshub/mopshub_testbench/hdl/tb_mopshub_top_voters.sv(120): (vopt-2718) [TFMPC] - Missing connection for port 'sck_c'.
-# ** Warning: /home/dcs/git/mopshub/mopshub_testbench/hdl/tb_mopshub_top_voters.sv(120): (vopt-2718) [TFMPC] - Missing connection for port 'rx_fifo_full'.
-# ** Warning: /home/dcs/git/mopshub/mopshub_testbench/hdl/tb_mopshub_top_voters.sv(120): (vopt-2718) [TFMPC] - Missing connection for port 'rx_data_rdy'.
-# ** Warning: /home/dcs/git/mopshub/mopshub_testbench/hdl/tb_mopshub_top_voters.sv(120): (vopt-2718) [TFMPC] - Missing connection for port 'rst_bus'.
-# ** Warning: /home/dcs/git/mopshub/mopshub_testbench/hdl/tb_mopshub_top_voters.sv(120): (vopt-2718) [TFMPC] - Missing connection for port 'power_bus_cnt'.
-# ** Warning: /home/dcs/git/mopshub/mopshub_testbench/hdl/tb_mopshub_top_voters.sv(120): (vopt-2718) [TFMPC] - Missing connection for port 'mon_bus_cnt'.
-# ** Warning: /home/dcs/git/mopshub/mopshub_testbench/hdl/tb_mopshub_top_voters.sv(120): (vopt-2718) [TFMPC] - Missing connection for port 'irq_elink_tra'.
-# ** Warning: /home/dcs/git/mopshub/mopshub_testbench/hdl/tb_mopshub_top_voters.sv(120): (vopt-2718) [TFMPC] - Missing connection for port 'irq_elink_rec'.
-# ** Warning: /home/dcs/git/mopshub/mopshub_testbench/hdl/tb_mopshub_top_voters.sv(120): (vopt-2718) [TFMPC] - Missing connection for port 'irq_can_tra'.
-# ** Warning: /home/dcs/git/mopshub/mopshub_testbench/hdl/tb_mopshub_top_voters.sv(120): (vopt-2718) [TFMPC] - Missing connection for port 'irq_can_rec'.
-# ** Warning: /home/dcs/git/mopshub/mopshub_testbench/hdl/tb_mopshub_top_voters.sv(120): (vopt-2718) [TFMPC] - Missing connection for port 'data_tra_downlink'.
-# ** Warning: /home/dcs/git/mopshub/mopshub_testbench/hdl/tb_mopshub_top_voters.sv(120): (vopt-2718) [TFMPC] - Missing connection for port 'data_rec_uplink'.
-# ** Warning: /home/dcs/git/mopshub/mopshub_testbench/hdl/tb_mopshub_top_voters.sv(120): (vopt-2718) [TFMPC] - Missing connection for port 'cs_active_m'.
-# ** Warning: /home/dcs/git/mopshub/mopshub_testbench/hdl/tb_mopshub_top_voters.sv(120): (vopt-2718) [TFMPC] - Missing connection for port 'cs_active_c'.
-# ** Warning: /home/dcs/git/mopshub/mopshub_testbench/hdl/tb_mopshub_top_voters.sv(120): (vopt-2718) [TFMPC] - Missing connection for port 'start_write_elink_dbg'.
-# ** Warning: /home/dcs/git/mopshub/mopshub_testbench/hdl/tb_mopshub_top_voters.sv(120): (vopt-2718) [TFMPC] - Missing connection for port 'rdy_dbg'.
-# ** Warning: /home/dcs/git/mopshub/mopshub_testbench/hdl/tb_mopshub_top_voters.sv(120): (vopt-2718) [TFMPC] - Missing connection for port 'debug_mode'.
-# ** Warning: /home/dcs/git/mopshub/mopshub_testbench/hdl/tb_mopshub_top_voters.sv(120): (vopt-2718) [TFMPC] - Missing connection for port 'data_rec_dbg_in'.
-# ** Warning: /home/dcs/git/mopshub/mopshub_testbench/hdl/tb_mopshub_top_voters.sv(120): (vopt-2718) [TFMPC] - Missing connection for port 'data_10bit_in_dbg'.
-# ** Warning: /home/dcs/git/mopshub/mopshub_testbench/hdl/tb_mopshub_top_voters.sv(168): (vopt-2685) [TFMPC] - Too few port connections for 'data_generator0'.  Expected 110, found 70.
-# ** Warning: /home/dcs/git/mopshub/mopshub_testbench/hdl/tb_mopshub_top_voters.sv(168): (vopt-2718) [TFMPC] - Missing connection for port 'tx_uart_dv'.
-# ** Warning: /home/dcs/git/mopshub/mopshub_testbench/hdl/tb_mopshub_top_voters.sv(168): (vopt-2718) [TFMPC] - Missing connection for port 'tx_uart_done'.
-# ** Warning: /home/dcs/git/mopshub/mopshub_testbench/hdl/tb_mopshub_top_voters.sv(168): (vopt-2718) [TFMPC] - Missing connection for port 'tx_uart_data'.
-# ** Warning: /home/dcs/git/mopshub/mopshub_testbench/hdl/tb_mopshub_top_voters.sv(168): (vopt-2718) [TFMPC] - Missing connection for port 'test_uart_core'.
-# ** Warning: /home/dcs/git/mopshub/mopshub_testbench/hdl/tb_mopshub_top_voters.sv(168): (vopt-2718) [TFMPC] - Missing connection for port 'tx31'.
-# ** Warning: /home/dcs/git/mopshub/mopshub_testbench/hdl/tb_mopshub_top_voters.sv(168): (vopt-2718) [TFMPC] - Missing connection for port 'tx30'.
-# ** Warning: /home/dcs/git/mopshub/mopshub_testbench/hdl/tb_mopshub_top_voters.sv(168): (vopt-2718) [TFMPC] - Missing connection for port 'tx29'.
-# ** Warning: /home/dcs/git/mopshub/mopshub_testbench/hdl/tb_mopshub_top_voters.sv(168): (vopt-2718) [TFMPC] - Missing connection for port 'tx28'.
-# ** Warning: /home/dcs/git/mopshub/mopshub_testbench/hdl/tb_mopshub_top_voters.sv(168): (vopt-2718) [TFMPC] - Missing connection for port 'tx27'.
-# ** Warning: /home/dcs/git/mopshub/mopshub_testbench/hdl/tb_mopshub_top_voters.sv(168): (vopt-2718) [TFMPC] - Missing connection for port 'tx26'.
-# ** Warning: /home/dcs/git/mopshub/mopshub_testbench/hdl/tb_mopshub_top_voters.sv(168): (vopt-2718) [TFMPC] - Missing connection for port 'tx25'.
-# ** Warning: /home/dcs/git/mopshub/mopshub_testbench/hdl/tb_mopshub_top_voters.sv(168): (vopt-2718) [TFMPC] - Missing connection for port 'tx24'.
-# ** Warning: /home/dcs/git/mopshub/mopshub_testbench/hdl/tb_mopshub_top_voters.sv(168): (vopt-2718) [TFMPC] - Missing connection for port 'rx31'.
-# ** Warning: /home/dcs/git/mopshub/mopshub_testbench/hdl/tb_mopshub_top_voters.sv(168): (vopt-2718) [TFMPC] - Missing connection for port 'rx30'.
-# ** Warning: /home/dcs/git/mopshub/mopshub_testbench/hdl/tb_mopshub_top_voters.sv(168): (vopt-2718) [TFMPC] - Missing connection for port 'rx29'.
-# ** Warning: /home/dcs/git/mopshub/mopshub_testbench/hdl/tb_mopshub_top_voters.sv(168): (vopt-2718) [TFMPC] - Missing connection for port 'rx28'.
-# ** Warning: /home/dcs/git/mopshub/mopshub_testbench/hdl/tb_mopshub_top_voters.sv(168): (vopt-2718) [TFMPC] - Missing connection for port 'rx27'.
-# ** Warning: /home/dcs/git/mopshub/mopshub_testbench/hdl/tb_mopshub_top_voters.sv(168): (vopt-2718) [TFMPC] - Missing connection for port 'rx26'.
-# ** Warning: /home/dcs/git/mopshub/mopshub_testbench/hdl/tb_mopshub_top_voters.sv(168): (vopt-2718) [TFMPC] - Missing connection for port 'rx25'.
-# ** Warning: /home/dcs/git/mopshub/mopshub_testbench/hdl/tb_mopshub_top_voters.sv(168): (vopt-2718) [TFMPC] - Missing connection for port 'rx24'.
-# ** Warning: /home/dcs/git/mopshub/mopshub_testbench/hdl/tb_mopshub_top_voters.sv(168): (vopt-2718) [TFMPC] - Missing connection for port 'tx23'.
-# ** Warning: /home/dcs/git/mopshub/mopshub_testbench/hdl/tb_mopshub_top_voters.sv(168): (vopt-2718) [TFMPC] - Missing connection for port 'tx22'.
-# ** Warning: /home/dcs/git/mopshub/mopshub_testbench/hdl/tb_mopshub_top_voters.sv(168): (vopt-2718) [TFMPC] - Missing connection for port 'tx21'.
-# ** Warning: /home/dcs/git/mopshub/mopshub_testbench/hdl/tb_mopshub_top_voters.sv(168): (vopt-2718) [TFMPC] - Missing connection for port 'tx20'.
-# ** Warning: /home/dcs/git/mopshub/mopshub_testbench/hdl/tb_mopshub_top_voters.sv(168): (vopt-2718) [TFMPC] - Missing connection for port 'tx19'.
-# ** Warning: /home/dcs/git/mopshub/mopshub_testbench/hdl/tb_mopshub_top_voters.sv(168): (vopt-2718) [TFMPC] - Missing connection for port 'tx18'.
-# ** Warning: /home/dcs/git/mopshub/mopshub_testbench/hdl/tb_mopshub_top_voters.sv(168): (vopt-2718) [TFMPC] - Missing connection for port 'tx17'.
-# ** Warning: /home/dcs/git/mopshub/mopshub_testbench/hdl/tb_mopshub_top_voters.sv(168): (vopt-2718) [TFMPC] - Missing connection for port 'tx16'.
-# ** Warning: /home/dcs/git/mopshub/mopshub_testbench/hdl/tb_mopshub_top_voters.sv(168): (vopt-2718) [TFMPC] - Missing connection for port 'rx23'.
-# ** Warning: /home/dcs/git/mopshub/mopshub_testbench/hdl/tb_mopshub_top_voters.sv(168): (vopt-2718) [TFMPC] - Missing connection for port 'rx22'.
-# ** Warning: /home/dcs/git/mopshub/mopshub_testbench/hdl/tb_mopshub_top_voters.sv(168): (vopt-2718) [TFMPC] - Missing connection for port 'rx21'.
-# ** Warning: /home/dcs/git/mopshub/mopshub_testbench/hdl/tb_mopshub_top_voters.sv(168): (vopt-2718) [TFMPC] - Missing connection for port 'rx20'.
-# ** Warning: /home/dcs/git/mopshub/mopshub_testbench/hdl/tb_mopshub_top_voters.sv(168): (vopt-2718) [TFMPC] - Missing connection for port 'rx19'.
-# ** Warning: /home/dcs/git/mopshub/mopshub_testbench/hdl/tb_mopshub_top_voters.sv(168): (vopt-2718) [TFMPC] - Missing connection for port 'rx18'.
-# ** Warning: /home/dcs/git/mopshub/mopshub_testbench/hdl/tb_mopshub_top_voters.sv(168): (vopt-2718) [TFMPC] - Missing connection for port 'rx17'.
-# ** Warning: /home/dcs/git/mopshub/mopshub_testbench/hdl/tb_mopshub_top_voters.sv(168): (vopt-2718) [TFMPC] - Missing connection for port 'rx16'.
-# ** Warning: /home/dcs/git/mopshub/mopshub_testbench/hdl/tb_mopshub_top_voters.sv(168): (vopt-2718) [TFMPC] - Missing connection for port 'costum_msg_start'.
-# ** Warning: /home/dcs/git/mopshub/mopshub_testbench/hdl/tb_mopshub_top_voters.sv(168): (vopt-2718) [TFMPC] - Missing connection for port 'irq_elink_tra'.
-# ** Warning: /home/dcs/git/mopshub/mopshub_testbench/hdl/tb_mopshub_top_voters.sv(168): (vopt-2718) [TFMPC] - Missing connection for port 'respmsg'.
-# ** Warning: /home/dcs/git/mopshub/mopshub_testbench/hdl/tb_mopshub_top_voters.sv(168): (vopt-2718) [TFMPC] - Missing connection for port 'reqmsg'.
-# ** Note: (vopt-143) Recognized 1 FSM in module "data_generator_SM(fast)".
-# ** Note: (vopt-143) Recognized 1 FSM in module "interfaceSM(fast)".
-# ** Note: (vopt-143) Recognized 1 FSM in module "ODfsm(fast)".
-# ** Note: (vopt-143) Recognized 1 FSM in module "elink_interface_tra_SM(fast)".
-# ** Note: (vopt-143) Recognized 1 FSM in module "elink_interface_rec_SM(fast)".
-# ** Note: (vopt-143) Recognized 1 FSM in module "interfaceSMdec(fast)".
-# Loading sv_std.std
-# Loading work.tb_mopshub_top_voters(fast)
-# Loading mopshub_triplicated.mopshub_top_16busTMR(fast)
-# Loading mopshub_triplicated.bridge_controllerTMR(fast)
-# Loading mopshub_triplicated.buffer_rec_dataTMR(fast)
-# Loading mopshub_triplicated.majorityVoter(fast)
-# Loading mopshub_triplicated.majorityVoter(fast__1)
-# Loading mopshub_triplicated.fanout(fast)
-# Loading mopshub_triplicated.fanout(fast__1)
-# Loading mopshub_triplicated.fanout(fast__2)
-# Loading mopshub_triplicated.buffer_tra_dataTMR(fast)
-# Loading mopshub_triplicated.majorityVoter(fast__2)
-# Loading mopshub_triplicated.majorityVoter(fast__3)
-# Loading mopshub_triplicated.fanout(fast__3)
-# Loading mopshub_triplicated.can_elink_bridge_SMTMR(fast)
-# Loading mopshub_triplicated.canakari_interfaceTMR(fast)
-# Loading mopshub_triplicated.bit_counterTMR(fast)
-# Loading mopshub_triplicated.buffer_tristate_busidTMR(fast)
-# Loading mopshub_triplicated.can_interfaceTMR(fast)
-# Loading mopshub_triplicated.majorityVoter(fast__4)
-# Loading mopshub_triplicated.fanout(fast__4)
-# Loading mopshub_triplicated.can_interface_SMTMR(fast)
-# Loading mopshub_triplicated.majorityVoter(fast__5)
-# Loading mopshub_triplicated.majorityVoter(fast__6)
-# Loading mopshub_triplicated.fanout(fast__5)
-# Loading mopshub_triplicated.fanout(fast__6)
-# Loading mopshub_triplicated.majorityVoter(fast__7)
-# Loading mopshub_triplicated.osc_trim_SMTMR(fast)
-# Loading mopshub_triplicated.timout_rstTMR(fast)
-# Loading mopshub_triplicated.majorityVoter(fast__8)
-# Loading mopshub_triplicated.fanout(fast__7)
-# Loading mopshub_triplicated.bus_control_SMTMR(fast)
-# Loading mopshub_triplicated.majorityVoter(fast__9)
-# Loading mopshub_triplicated.fanout(fast__8)
-# Loading mopshub_triplicated.canakari_top_16busTMR(fast)
-# Loading mopshub_triplicated.canakari_0_7TMR(fast)
-# Loading mopshub_triplicated.canTMR(fast)
-# Loading mopshub_triplicated.can2TMR(fast)
-# Loading mopshub_triplicated.resetgen2TMR(fast)
-# Loading mopshub_triplicated.majorityVoter(fast__10)
-# Loading mopshub_triplicated.fanout(fast__9)
-# Loading mopshub_triplicated.mac2TMR(fast)
-# Loading mopshub_triplicated.reset_mac2TMR(fast)
-# Loading mopshub_triplicated.macfsm2TMR(fast)
-# Loading mopshub_triplicated.fanout(fast__10)
-# Loading mopshub_triplicated.biterrordetect2TMR(fast)
-# Loading mopshub_triplicated.counter2TMR(fast)
-# Loading mopshub_triplicated.decapsulation2TMR(fast)
-# Loading mopshub_triplicated.destuffing2TMR(fast)
-# Loading mopshub_triplicated.majorityVoter(fast__11)
-# Loading mopshub_triplicated.fanout(fast__11)
-# Loading mopshub_triplicated.encapsulation2TMR(fast)
-# Loading mopshub_triplicated.majorityVoter(fast__12)
-# Loading mopshub_triplicated.rcrc2TMR(fast)
-# Loading mopshub_triplicated.rcrc_cell2TMR(fast)
-# Loading mopshub_triplicated.recmeslen2TMR(fast)
-# Loading mopshub_triplicated.rshiftreg2TMR(fast)
-# Loading mopshub_triplicated.rshift_cell2TMR(fast)
-# Loading mopshub_triplicated.stuffing2TMR(fast)
-# Loading mopshub_triplicated.tcrc2TMR(fast)
-# Loading mopshub_triplicated.tcrc_cell2TMR(fast)
-# Loading mopshub_triplicated.tshiftreg2TMR(fast)
-# Loading mopshub_triplicated.tshift_cell2TMR(fast)
-# Loading mopshub_triplicated.fsm_register2TMR(fast)
-# Loading mopshub_triplicated.fastshift2TMR(fast)
-# Loading mopshub_triplicated.meslencompare2TMR(fast)
-# Loading mopshub_triplicated.llc2TMR(fast)
-# Loading mopshub_triplicated.llc_fsm2TMR(fast)
-# Loading mopshub_triplicated.equal_id2TMR(fast)
-# Loading mopshub_triplicated.bittiming2TMR(fast)
-# Loading mopshub_triplicated.Control_SysTMR(fast)
-# Loading mopshub_triplicated.PID_ReglerTMR(fast)
-# Loading mopshub_triplicated.Ftrim_EnTMR(fast)
-# Loading mopshub_triplicated.DiffTMR(fast)
-# Loading mopshub_triplicated.MultiTMR(fast)
-# Loading mopshub_triplicated.Multi_iTMR(fast)
-# Loading mopshub_triplicated.AccumulatorTMR(fast)
-# Loading mopshub_triplicated.Add_PIDTMR(fast)
-# Loading mopshub_triplicated.Output_ScalingTMR(fast)
-# Loading mopshub_triplicated.fanout(fast__12)
-# Loading mopshub_triplicated.CLK_CounterTMR(fast)
-# Loading mopshub_triplicated.Control_FSMTMR(fast)
-# Loading mopshub_triplicated.Phasenfehler_RegTMR(fast)
-# Loading mopshub_triplicated.ready_counterTMR(fast)
-# Loading mopshub_triplicated.majorityVoter(fast__13)
-# Loading mopshub_triplicated.fanout(fast__13)
-# Loading mopshub_triplicated.bittime2TMR(fast)
-# Loading mopshub_triplicated.sum2TMR(fast)
-# Loading mopshub_triplicated.timecount2TMR(fast)
-# Loading mopshub_triplicated.edgepuffer2TMR(fast)
-# Loading mopshub_triplicated.smpldbit_reg2TMR(fast)
-# Loading mopshub_triplicated.tseg_reg2TMR(fast)
-# Loading mopshub_triplicated.fce2TMR(fast)
-# Loading mopshub_triplicated.faultfsm2TMR(fast)
-# Loading mopshub_triplicated.rec2TMR(fast)
-# Loading mopshub_triplicated.tec2TMR(fast)
-# Loading mopshub_triplicated.erbcount2TMR(fast)
-# Loading mopshub_triplicated.interruptunit2TMR(fast)
-# Loading mopshub_triplicated.iocpu2TMR(fast)
-# Loading mopshub_triplicated.multiplexer2TMR(fast)
-# Loading mopshub_triplicated.read_mux2TMR(fast)
-# Loading mopshub_triplicated.write_demux2TMR(fast)
-# Loading mopshub_triplicated.generalregister2TMR(fast)
-# Loading mopshub_triplicated.recmescontrolreg2TMR(fast)
-# Loading mopshub_triplicated.recarbitreg2TMR(fast)
-# Loading mopshub_triplicated.accmaskreg2TMR(fast)
-# Loading mopshub_triplicated.interrupregister2TMR(fast)
-# Loading mopshub_triplicated.prescalereg2TMR(fast)
-# Loading mopshub_triplicated.recregister2TMR(fast)
-# Loading mopshub_triplicated.transmesconreg2TMR(fast)
-# Loading mopshub_triplicated.transmitreg2TMR(fast)
-# Loading mopshub_triplicated.prescale2TMR(fast)
-# Loading mopshub_triplicated.node_rec_mux_16TMR(fast)
-# Loading mopshub_triplicated.bus_rec_SMTMR(fast)
-# Loading mopshub_triplicated.dec16_1_16bitTMR(fast)
-# Loading mopshub_triplicated.dec1_1_32bitTMR(fast)
-# Loading mopshub_triplicated.demux1_16_1bitTMR(fast)
-# Loading mopshub_triplicated.mux16_1_16bitTMR(fast)
-# Loading mopshub_triplicated.node_tra_demux_16TMR(fast)
-# Loading mopshub_triplicated.demux1_16_16bitTMR(fast)
-# Loading mopshub_triplicated.mux16_1_1bitTMR(fast)
-# Loading mopshub_triplicated.control_busTMR(fast)
-# Loading mopshub_triplicated.spi_masterTMR(fast)
-# Loading mopshub_triplicated.elink_coreTMR(fast)
-# Loading mopshub_triplicated.buffer_rec_elinkTMR(fast)
-# Loading mopshub_triplicated.buffer_rec_elink_spiTMR(fast)
-# Loading mopshub_triplicated.buffer_tra_elinkTMR(fast)
-# Loading mopshub_triplicated.buffer_tra_elink_spiTMR(fast)
-# Loading mopshub_triplicated.buffer_tristate_elinkTMR(fast)
-# Loading mopshub_triplicated.can_spi_debugerTMR(fast)
-# Loading mopshub_triplicated.elink_interface_rec_SMTMR(fast)
-# Loading mopshub_triplicated.elink_interface_tra_SMTMR(fast)
-# Loading mopshub_triplicated.elink_to_fifoTMR(fast)
-# Loading mopshub_triplicated.elink_proc_in_dec8b10bTMR(fast)
-# Loading mopshub_triplicated.bitstream_shift_registerTMR(fast)
-# Loading mopshub_triplicated.majorityVoter(fast__14)
-# Loading mopshub_triplicated.dec_8b10b_mopshubTMR(fast)
-# Loading mopshub_triplicated.sync_detectorTMR(fast)
-# Loading mopshub_triplicated.fifo_core_wrapperTMR(fast)
-# Loading mopshub_triplicated.fifo_to_elinkTMR(fast)
-# Loading mopshub_triplicated.elink_proc_out_enc8b10bTMR(fast)
-# Loading mopshub_triplicated.enc_8b10b_mopshubTMR(fast)
-# Loading mopshub_triplicated.mux4_NbitTMR(fast)
-# Loading mopshub_triplicated.mux8_NbitTMR(fast)
-# Loading mopshub_triplicated.triger_counterTMR(fast)
-# Loading mopshub_triplicated.monitor_busTMR(fast)
-# Loading mopshub_triplicated.buffer_rec_spi_dataTMR(fast)
-# Loading mopshub_triplicated.spi_masterTMR(fast__1)
-# Loading work.data_generator(fast)
-# Loading mopshub_lib.bit_counter(fast)
-# Loading CANdecoder.CANbus_decoder(fast)
-# Loading canakari.can2(fast)
-# Loading canakari.resetgen2(fast)
-# Loading canakari.mac2(fast)
-# Loading canakari.reset_mac2(fast)
-# Loading canakari.macfsm2(fast)
-# Loading canakari.biterrordetect2(fast)
-# Loading canakari.counter2(fast)
-# Loading canakari.decapsulation2(fast)
-# Loading canakari.destuffing2(fast)
-# Loading canakari.encapsulation2(fast)
-# Loading canakari.rcrc2(fast)
-# Loading canakari.rcrc_cell2(fast)
-# Loading canakari.recmeslen2(fast)
-# Loading canakari.rshiftreg2(fast)
-# Loading canakari.rshift_cell2(fast)
-# Loading canakari.stuffing2(fast)
-# Loading canakari.tcrc2(fast)
-# Loading canakari.tcrc_cell2(fast)
-# Loading canakari.tshiftreg2(fast)
-# Loading canakari.tshift_cell2(fast)
-# Loading canakari.fsm_register2(fast)
-# Loading canakari.fastshift2(fast)
-# Loading canakari.meslencompare2(fast)
-# Loading canakari.llc2(fast)
-# Loading canakari.llc_fsm2(fast)
-# Loading canakari.equal_id2(fast)
-# Loading canakari.bittiming2(fast)
-# Loading ftrim.Control_Sys(fast)
-# Loading ftrim.PID_Regler(fast)
-# Loading ftrim.Ftrim_En(fast)
-# Loading ftrim.Diff(fast)
-# Loading ftrim.Multi(fast)
-# Loading ftrim.Multi_i(fast)
-# Loading ftrim.Accumulator(fast)
-# Loading ftrim.Add_PID(fast)
-# Loading ftrim.Output_Scaling(fast)
-# Loading ftrim.CLK_Counter(fast)
-# Loading ftrim.Control_FSM(fast)
-# Loading ftrim.Phasenfehler_Reg(fast)
-# Loading ftrim.ready_counter(fast)
-# Loading canakari.bittime2(fast)
-# Loading canakari.sum2(fast)
-# Loading canakari.timecount2(fast)
-# Loading canakari.edgepuffer2(fast)
-# Loading canakari.smpldbit_reg2(fast)
-# Loading canakari.tseg_reg2(fast)
-# Loading canakari.fce2(fast)
-# Loading canakari.faultfsm2(fast)
-# Loading canakari.rec2(fast)
-# Loading canakari.tec2(fast)
-# Loading canakari.erbcount2(fast)
-# Loading canakari.interruptunit2(fast)
-# Loading canakari.iocpu2(fast)
-# Loading canakari.multiplexer2(fast)
-# Loading canakari.read_mux2(fast)
-# Loading canakari.write_demux2(fast)
-# Loading canakari.generalregister2(fast)
-# Loading canakari.recmescontrolreg2(fast)
-# Loading canakari.recarbitreg2(fast)
-# Loading canakari.accmaskreg2(fast)
-# Loading canakari.interrupregister2(fast)
-# Loading canakari.prescalereg2(fast)
-# Loading canakari.recregister2(fast)
-# Loading canakari.transmesconreg2(fast)
-# Loading canakari.transmitreg2(fast)
-# Loading canakari.prescale2(fast)
-# Loading CANdecoder.CANAkari_interfacedec(fast)
-# Loading CANdecoder.caninterfacedec(fast)
-# Loading CANdecoder.idcompdec(fast)
-# Loading CANdecoder.interfaceSMdec(fast)
-# Loading CANdecoder.bridgeSMdec(fast)
-# Loading CANdecoder.initialize_blockdec(fast)
-# Loading CANdecoder.rec_mes_bufdec(fast)
-# Loading CANdecoder.timoutrstdec(fast)
-# Loading work.can_bus_activity(fast)
-# Loading work.can_net_decoder(fast)
-# Loading mopshub_lib.buffer_tristate_busid(fast)
-# Loading work.mops_top_level(fast)
-# Loading CANdecoder.adcdumdata(fast)
-# Loading MOPSv2_lib.top_level(fast)
-# Loading MOPSv2_lib.clkbuffer(fast)
-# Loading MOPSv2_lib.global_resetgen(fast)
-# Loading MOPSv2_lib.delay_cell(fast)
-# Loading MOPSv2_lib.bridge_controller_top(fast)
-# Loading MOPSv2_lib.ADCinterface(fast)
-# Loading MOPSv2_lib.ADCfsm(fast)
-# Loading MOPSv2_lib.adcsel(fast)
-# Loading MOPSv2_lib.CANAkari_interface(fast)
-# Loading MOPSv2_lib.caninterface(fast)
-# Loading MOPSv2_lib.idcomp(fast)
-# Loading MOPSv2_lib.interfaceSM(fast)
-# Loading MOPSv2_lib.bridgeSM(fast)
-# Loading MOPSv2_lib.canopen_block(fast)
-# Loading MOPSv2_lib.ODfsm(fast)
-# Loading MOPSv2_lib.abortcodes(fast)
-# Loading MOPSv2_lib.msgdecode(fast)
-# Loading MOPSv2_lib.odinterface(fast)
-# Loading MOPSv2_lib.count2reload(fast)
-# Loading MOPSv2_lib.ftrim_sel(fast)
-# Loading MOPSv2_lib.initialize_block(fast)
-# Loading MOPSv2_lib.od(fast)
-# Loading MOPSv2_lib.OD_MUX(fast)
-# Loading MOPSv2_lib.OD_buf(fast)
-# Loading MOPSv2_lib.OD_control(fast)
-# Loading MOPSv2_lib.rec_mes_buf(fast)
-# Loading MOPSv2_lib.timoutrst(fast)
-# Loading MOPSv2_lib.tra_mes_buf(fast)
-# Loading top_lib.canframegen_sv_unit(fast)
-# Loading top_lib.canframegen(fast)
-# Loading work.clk_div(fast)
-# Loading work.data_generator_SM(fast)
-# Loading work.mopshub_decoder(fast)
-# Loading mopshub_lib.elink_core(fast)
-# Loading mopshub_lib.buffer_rec_elink(fast)
-# Loading mopshub_lib.buffer_rec_elink_spi(fast)
-# Loading mopshub_lib.buffer_tra_elink(fast)
-# Loading mopshub_lib.buffer_tra_elink_spi(fast)
-# Loading mopshub_lib.buffer_tristate_elink(fast)
-# Loading mopshub_lib.can_spi_debuger(fast)
-# Loading mopshub_lib.elink_interface_rec_SM(fast)
-# Loading mopshub_lib.elink_interface_tra_SM(fast)
-# Loading mopshub_lib.elink_to_fifo(fast)
-# Loading mopshub_lib.elink_proc_in_dec8b10b(fast)
-# Loading mopshub_lib.bitstream_shift_register(fast)
-# Loading mopshub_lib.dec_8b10b_mopshub(fast)
-# Loading mopshub_lib.sync_detector(fast)
-# Loading mopshub_lib.fifo_core_wrapper(fast)
-# Loading mopshub_lib.fifo_to_elink(fast)
-# Loading mopshub_lib.elink_proc_out_enc8b10b(fast)
-# Loading mopshub_lib.enc_8b10b_mopshub(fast)
-# Loading mopshub_lib.mux4_Nbit(fast)
-# Loading mopshub_lib.mux8_Nbit(fast)
-# Loading mopshub_lib.triger_counter(fast)
-# Loading mopshub_lib.timout_rst(fast)
-# Loading work.clock_generator(fast)
-# Loading mopshub_lib.clock_divider(fast)
-# Loading /eda/mentor/2019-20/RHELx86/HDL-DESIGNER_2019.4/resources/downstream/modelsim/ModelSim_64Bit.dll
-# ** Warning: (vsim-8634) Code was not compiled with coverage options.
-add wave -position insertpoint  \
-sim:/tb_mopshub_top_voters/adc_ch \
-sim:/tb_mopshub_top_voters/bus_dec_data \
-sim:/tb_mopshub_top_voters/bus_id \
-sim:/tb_mopshub_top_voters/can_rec_select \
-sim:/tb_mopshub_top_voters/can_tra_select \
-sim:/tb_mopshub_top_voters/can_tra_select_dbg \
-sim:/tb_mopshub_top_voters/clk_40_m \
-sim:/tb_mopshub_top_voters/clk_m \
-sim:/tb_mopshub_top_voters/clk_mops \
-sim:/tb_mopshub_top_voters/costum_msg_end \
-sim:/tb_mopshub_top_voters/data_rec_uplink \
-sim:/tb_mopshub_top_voters/data_tra_downlink \
-sim:/tb_mopshub_top_voters/end_init \
-sim:/tb_mopshub_top_voters/end_power_init \
-sim:/tb_mopshub_top_voters/end_trim_bus \
-sim:/tb_mopshub_top_voters/endwait_all \
-sim:/tb_mopshub_top_voters/info_debug_sig \
-sim:/tb_mopshub_top_voters/irq_elink_rec \
-sim:/tb_mopshub_top_voters/irq_elink_tra \
-sim:/tb_mopshub_top_voters/osc_auto_trim_mopshub \
-sim:/tb_mopshub_top_voters/power_bus_cnt \
-sim:/tb_mopshub_top_voters/power_bus_en \
-sim:/tb_mopshub_top_voters/ready_osc \
-sim:/tb_mopshub_top_voters/rst \
-sim:/tb_mopshub_top_voters/rst_bus \
-sim:/tb_mopshub_top_voters/rx0 \
-sim:/tb_mopshub_top_voters/rx1 \
-sim:/tb_mopshub_top_voters/rx2 \
-sim:/tb_mopshub_top_voters/rx3 \
-sim:/tb_mopshub_top_voters/rx4 \
-sim:/tb_mopshub_top_voters/rx5 \
-sim:/tb_mopshub_top_voters/rx6 \
-sim:/tb_mopshub_top_voters/rx7 \
-sim:/tb_mopshub_top_voters/rx8 \
-sim:/tb_mopshub_top_voters/rx9 \
-sim:/tb_mopshub_top_voters/rx10 \
-sim:/tb_mopshub_top_voters/rx11 \
-sim:/tb_mopshub_top_voters/rx12 \
-sim:/tb_mopshub_top_voters/rx13 \
-sim:/tb_mopshub_top_voters/rx14 \
-sim:/tb_mopshub_top_voters/rx15 \
-sim:/tb_mopshub_top_voters/rx_mopshub_2bit \
-sim:/tb_mopshub_top_voters/sel_bus \
-sim:/tb_mopshub_top_voters/sign_on_sig \
-sim:/tb_mopshub_top_voters/spi_dat_m \
-sim:/tb_mopshub_top_voters/spi_dat_p \
-sim:/tb_mopshub_top_voters/start_init \
-sim:/tb_mopshub_top_voters/start_osc_cnt \
-sim:/tb_mopshub_top_voters/start_trim_osc \
-sim:/tb_mopshub_top_voters/test_advanced \
-sim:/tb_mopshub_top_voters/test_rx \
-sim:/tb_mopshub_top_voters/test_rx_end \
-sim:/tb_mopshub_top_voters/test_rx_start \
-sim:/tb_mopshub_top_voters/test_tx \
-sim:/tb_mopshub_top_voters/test_tx_end \
-sim:/tb_mopshub_top_voters/test_tx_start \
-sim:/tb_mopshub_top_voters/tx0 \
-sim:/tb_mopshub_top_voters/tx1 \
-sim:/tb_mopshub_top_voters/tx2 \
-sim:/tb_mopshub_top_voters/tx3 \
-sim:/tb_mopshub_top_voters/tx4 \
-sim:/tb_mopshub_top_voters/tx5 \
-sim:/tb_mopshub_top_voters/tx6 \
-sim:/tb_mopshub_top_voters/tx7 \
-sim:/tb_mopshub_top_voters/tx8 \
-sim:/tb_mopshub_top_voters/tx9 \
-sim:/tb_mopshub_top_voters/tx10 \
-sim:/tb_mopshub_top_voters/tx11 \
-sim:/tb_mopshub_top_voters/tx12 \
-sim:/tb_mopshub_top_voters/tx13 \
-sim:/tb_mopshub_top_voters/tx14 \
-sim:/tb_mopshub_top_voters/tx15 \
-sim:/tb_mopshub_top_voters/tx_mopshub_2bit
-run
-# Frequncy  = 160 MHz, Period = 6.250 ns
-# clk phase = 0 deg
-# clk duty = 50 %
-# 	 initialization [BUS ID  0]:
-# 	 initialization [BUS ID  1]:
-# 	 initialization [BUS ID  2]:
-# *****************************************************************************
-# Status GOOD [BUS ID  0] - TX Test
-# 	 Transmit TX signals [BUS ID   0]: 	 request 6014000240f00000000 	 response 5818000240f00020000
-# Status GOOD [BUS ID  0] - TX Test
-# 	 Transmit TX signals [BUS ID   0]: 	 request 6014000241000000000 	 response 5818000241000020000
-# 0
-# 
-# hds_restart
-restart -force
-# ** Note: (vsim-12125) Error and warning message counts have been reset to '0' because of 'restart'.
+# Start time: 13:28:05 on Jan 31,2023
 # ** Note: (vsim-3813) Design is being optimized due to module recompilation...
 # ** Warning: (vsim-3865) Due to PLI being present, global +acc is being enabled automatically. This will cause your simulation to run very slowly. Please use vsim -no_autoacc to disable this feature. This feature is now deprecated and will be removed from future releases.
-# ** Warning: (vopt-10017) vopt and vlog detected inconsistent ordering of options -L tsmcdigital_lib, -L top_lib, -L MOPSv2_lib, -L canakari, -L CANdecoder, -L ftrim, -L mopshub_lib, -L mopshub_testbench and -L mopshub_triplicated for design-unit 'tb_mopshub_top_voters'. vopt will ignore the ordering that was given to vlog.
 # ** Warning: (vopt-10017) vopt and vlog detected inconsistent ordering of options -L tsmcdigital_lib, -L top_lib, -L MOPSv2_lib, -L canakari, -L CANdecoder, -L ftrim, -L mopshub_lib and -L mopshub_testbench for design-unit 'can_bus_activity'. vopt will ignore the ordering that was given to vlog.
 # ** Warning: (vopt-10017) vopt and vlog detected inconsistent ordering of options -L tsmcdigital_lib, -L top_lib, -L MOPSv2_lib, -L canakari, -L CANdecoder, -L ftrim and -L mopshub_lib for design-unit 'canframegen'. vopt will ignore the ordering that was given to vlog.
 # ** Warning: (vopt-10017) vopt and vlog detected inconsistent ordering of options -L tsmcdigital_lib, -L top_lib, -L MOPSv2_lib, -L canakari, -L CANdecoder, -L ftrim and -L mopshub_lib for design-unit 'canframegen_sv_unit'. vopt will ignore the ordering that was given to vlog.
-# ** Warning: /home/dcs/git/mopshub/mopshub_testbench/hdl/data_generator_struct.v(312): (vopt-2685) [TFMPC] - Too few port connections for 'canframegen_gen'.  Expected 24, found 23.
-# ** Warning: /home/dcs/git/mopshub/mopshub_testbench/hdl/data_generator_struct.v(312): (vopt-2718) [TFMPC] - Missing connection for port 'bus_id'.
-# ** Warning: /home/dcs/git/mopshub/mopshub_testbench/hdl/tb_mopshub_top_voters.sv(120): (vopt-2685) [TFMPC] - Too few port connections for 'mopshub0'.  Expected 68, found 46.
-# ** Warning: /home/dcs/git/mopshub/mopshub_testbench/hdl/tb_mopshub_top_voters.sv(120): (vopt-2718) [TFMPC] - Missing connection for port 'word10b_rdy'.
-# ** Warning: /home/dcs/git/mopshub/mopshub_testbench/hdl/tb_mopshub_top_voters.sv(120): (vopt-2718) [TFMPC] - Missing connection for port 'tx_efifo_full'.
-# ** Warning: /home/dcs/git/mopshub/mopshub_testbench/hdl/tb_mopshub_top_voters.sv(120): (vopt-2718) [TFMPC] - Missing connection for port 'tx_data_rdy'.
-# ** Warning: /home/dcs/git/mopshub/mopshub_testbench/hdl/tb_mopshub_top_voters.sv(120): (vopt-2718) [TFMPC] - Missing connection for port 'sck_m'.
-# ** Warning: /home/dcs/git/mopshub/mopshub_testbench/hdl/tb_mopshub_top_voters.sv(120): (vopt-2718) [TFMPC] - Missing connection for port 'sck_c'.
-# ** Warning: /home/dcs/git/mopshub/mopshub_testbench/hdl/tb_mopshub_top_voters.sv(120): (vopt-2718) [TFMPC] - Missing connection for port 'rx_fifo_full'.
-# ** Warning: /home/dcs/git/mopshub/mopshub_testbench/hdl/tb_mopshub_top_voters.sv(120): (vopt-2718) [TFMPC] - Missing connection for port 'rx_data_rdy'.
-# ** Warning: /home/dcs/git/mopshub/mopshub_testbench/hdl/tb_mopshub_top_voters.sv(120): (vopt-2718) [TFMPC] - Missing connection for port 'rst_bus'.
-# ** Warning: /home/dcs/git/mopshub/mopshub_testbench/hdl/tb_mopshub_top_voters.sv(120): (vopt-2718) [TFMPC] - Missing connection for port 'power_bus_cnt'.
-# ** Warning: /home/dcs/git/mopshub/mopshub_testbench/hdl/tb_mopshub_top_voters.sv(120): (vopt-2718) [TFMPC] - Missing connection for port 'mon_bus_cnt'.
-# ** Warning: /home/dcs/git/mopshub/mopshub_testbench/hdl/tb_mopshub_top_voters.sv(120): (vopt-2718) [TFMPC] - Missing connection for port 'irq_elink_tra'.
-# ** Warning: /home/dcs/git/mopshub/mopshub_testbench/hdl/tb_mopshub_top_voters.sv(120): (vopt-2718) [TFMPC] - Missing connection for port 'irq_elink_rec'.
-# ** Warning: /home/dcs/git/mopshub/mopshub_testbench/hdl/tb_mopshub_top_voters.sv(120): (vopt-2718) [TFMPC] - Missing connection for port 'irq_can_tra'.
-# ** Warning: /home/dcs/git/mopshub/mopshub_testbench/hdl/tb_mopshub_top_voters.sv(120): (vopt-2718) [TFMPC] - Missing connection for port 'irq_can_rec'.
-# ** Warning: /home/dcs/git/mopshub/mopshub_testbench/hdl/tb_mopshub_top_voters.sv(120): (vopt-2718) [TFMPC] - Missing connection for port 'data_tra_downlink'.
-# ** Warning: /home/dcs/git/mopshub/mopshub_testbench/hdl/tb_mopshub_top_voters.sv(120): (vopt-2718) [TFMPC] - Missing connection for port 'data_rec_uplink'.
-# ** Warning: /home/dcs/git/mopshub/mopshub_testbench/hdl/tb_mopshub_top_voters.sv(120): (vopt-2718) [TFMPC] - Missing connection for port 'cs_active_m'.
-# ** Warning: /home/dcs/git/mopshub/mopshub_testbench/hdl/tb_mopshub_top_voters.sv(120): (vopt-2718) [TFMPC] - Missing connection for port 'cs_active_c'.
-# ** Warning: /home/dcs/git/mopshub/mopshub_testbench/hdl/tb_mopshub_top_voters.sv(120): (vopt-2718) [TFMPC] - Missing connection for port 'start_write_elink_dbg'.
-# ** Warning: /home/dcs/git/mopshub/mopshub_testbench/hdl/tb_mopshub_top_voters.sv(120): (vopt-2718) [TFMPC] - Missing connection for port 'rdy_dbg'.
-# ** Warning: /home/dcs/git/mopshub/mopshub_testbench/hdl/tb_mopshub_top_voters.sv(120): (vopt-2718) [TFMPC] - Missing connection for port 'data_rec_dbg_in'.
-# ** Warning: /home/dcs/git/mopshub/mopshub_testbench/hdl/tb_mopshub_top_voters.sv(120): (vopt-2718) [TFMPC] - Missing connection for port 'data_10bit_in_dbg'.
-# ** Warning: /home/dcs/git/mopshub/mopshub_testbench/hdl/tb_mopshub_top_voters.sv(169): (vopt-2685) [TFMPC] - Too few port connections for 'data_generator0'.  Expected 110, found 70.
-# ** Warning: /home/dcs/git/mopshub/mopshub_testbench/hdl/tb_mopshub_top_voters.sv(169): (vopt-2718) [TFMPC] - Missing connection for port 'tx_uart_dv'.
-# ** Warning: /home/dcs/git/mopshub/mopshub_testbench/hdl/tb_mopshub_top_voters.sv(169): (vopt-2718) [TFMPC] - Missing connection for port 'tx_uart_done'.
-# ** Warning: /home/dcs/git/mopshub/mopshub_testbench/hdl/tb_mopshub_top_voters.sv(169): (vopt-2718) [TFMPC] - Missing connection for port 'tx_uart_data'.
-# ** Warning: /home/dcs/git/mopshub/mopshub_testbench/hdl/tb_mopshub_top_voters.sv(169): (vopt-2718) [TFMPC] - Missing connection for port 'test_uart_core'.
-# ** Warning: /home/dcs/git/mopshub/mopshub_testbench/hdl/tb_mopshub_top_voters.sv(169): (vopt-2718) [TFMPC] - Missing connection for port 'tx31'.
-# ** Warning: /home/dcs/git/mopshub/mopshub_testbench/hdl/tb_mopshub_top_voters.sv(169): (vopt-2718) [TFMPC] - Missing connection for port 'tx30'.
-# ** Warning: /home/dcs/git/mopshub/mopshub_testbench/hdl/tb_mopshub_top_voters.sv(169): (vopt-2718) [TFMPC] - Missing connection for port 'tx29'.
-# ** Warning: /home/dcs/git/mopshub/mopshub_testbench/hdl/tb_mopshub_top_voters.sv(169): (vopt-2718) [TFMPC] - Missing connection for port 'tx28'.
-# ** Warning: /home/dcs/git/mopshub/mopshub_testbench/hdl/tb_mopshub_top_voters.sv(169): (vopt-2718) [TFMPC] - Missing connection for port 'tx27'.
-# ** Warning: /home/dcs/git/mopshub/mopshub_testbench/hdl/tb_mopshub_top_voters.sv(169): (vopt-2718) [TFMPC] - Missing connection for port 'tx26'.
-# ** Warning: /home/dcs/git/mopshub/mopshub_testbench/hdl/tb_mopshub_top_voters.sv(169): (vopt-2718) [TFMPC] - Missing connection for port 'tx25'.
-# ** Warning: /home/dcs/git/mopshub/mopshub_testbench/hdl/tb_mopshub_top_voters.sv(169): (vopt-2718) [TFMPC] - Missing connection for port 'tx24'.
-# ** Warning: /home/dcs/git/mopshub/mopshub_testbench/hdl/tb_mopshub_top_voters.sv(169): (vopt-2718) [TFMPC] - Missing connection for port 'rx31'.
-# ** Warning: /home/dcs/git/mopshub/mopshub_testbench/hdl/tb_mopshub_top_voters.sv(169): (vopt-2718) [TFMPC] - Missing connection for port 'rx30'.
-# ** Warning: /home/dcs/git/mopshub/mopshub_testbench/hdl/tb_mopshub_top_voters.sv(169): (vopt-2718) [TFMPC] - Missing connection for port 'rx29'.
-# ** Warning: /home/dcs/git/mopshub/mopshub_testbench/hdl/tb_mopshub_top_voters.sv(169): (vopt-2718) [TFMPC] - Missing connection for port 'rx28'.
-# ** Warning: /home/dcs/git/mopshub/mopshub_testbench/hdl/tb_mopshub_top_voters.sv(169): (vopt-2718) [TFMPC] - Missing connection for port 'rx27'.
-# ** Warning: /home/dcs/git/mopshub/mopshub_testbench/hdl/tb_mopshub_top_voters.sv(169): (vopt-2718) [TFMPC] - Missing connection for port 'rx26'.
-# ** Warning: /home/dcs/git/mopshub/mopshub_testbench/hdl/tb_mopshub_top_voters.sv(169): (vopt-2718) [TFMPC] - Missing connection for port 'rx25'.
-# ** Warning: /home/dcs/git/mopshub/mopshub_testbench/hdl/tb_mopshub_top_voters.sv(169): (vopt-2718) [TFMPC] - Missing connection for port 'rx24'.
-# ** Warning: /home/dcs/git/mopshub/mopshub_testbench/hdl/tb_mopshub_top_voters.sv(169): (vopt-2718) [TFMPC] - Missing connection for port 'tx23'.
-# ** Warning: /home/dcs/git/mopshub/mopshub_testbench/hdl/tb_mopshub_top_voters.sv(169): (vopt-2718) [TFMPC] - Missing connection for port 'tx22'.
-# ** Warning: /home/dcs/git/mopshub/mopshub_testbench/hdl/tb_mopshub_top_voters.sv(169): (vopt-2718) [TFMPC] - Missing connection for port 'tx21'.
-# ** Warning: /home/dcs/git/mopshub/mopshub_testbench/hdl/tb_mopshub_top_voters.sv(169): (vopt-2718) [TFMPC] - Missing connection for port 'tx20'.
-# ** Warning: /home/dcs/git/mopshub/mopshub_testbench/hdl/tb_mopshub_top_voters.sv(169): (vopt-2718) [TFMPC] - Missing connection for port 'tx19'.
-# ** Warning: /home/dcs/git/mopshub/mopshub_testbench/hdl/tb_mopshub_top_voters.sv(169): (vopt-2718) [TFMPC] - Missing connection for port 'tx18'.
-# ** Warning: /home/dcs/git/mopshub/mopshub_testbench/hdl/tb_mopshub_top_voters.sv(169): (vopt-2718) [TFMPC] - Missing connection for port 'tx17'.
-# ** Warning: /home/dcs/git/mopshub/mopshub_testbench/hdl/tb_mopshub_top_voters.sv(169): (vopt-2718) [TFMPC] - Missing connection for port 'tx16'.
-# ** Warning: /home/dcs/git/mopshub/mopshub_testbench/hdl/tb_mopshub_top_voters.sv(169): (vopt-2718) [TFMPC] - Missing connection for port 'rx23'.
-# ** Warning: /home/dcs/git/mopshub/mopshub_testbench/hdl/tb_mopshub_top_voters.sv(169): (vopt-2718) [TFMPC] - Missing connection for port 'rx22'.
-# ** Warning: /home/dcs/git/mopshub/mopshub_testbench/hdl/tb_mopshub_top_voters.sv(169): (vopt-2718) [TFMPC] - Missing connection for port 'rx21'.
-# ** Warning: /home/dcs/git/mopshub/mopshub_testbench/hdl/tb_mopshub_top_voters.sv(169): (vopt-2718) [TFMPC] - Missing connection for port 'rx20'.
-# ** Warning: /home/dcs/git/mopshub/mopshub_testbench/hdl/tb_mopshub_top_voters.sv(169): (vopt-2718) [TFMPC] - Missing connection for port 'rx19'.
-# ** Warning: /home/dcs/git/mopshub/mopshub_testbench/hdl/tb_mopshub_top_voters.sv(169): (vopt-2718) [TFMPC] - Missing connection for port 'rx18'.
-# ** Warning: /home/dcs/git/mopshub/mopshub_testbench/hdl/tb_mopshub_top_voters.sv(169): (vopt-2718) [TFMPC] - Missing connection for port 'rx17'.
-# ** Warning: /home/dcs/git/mopshub/mopshub_testbench/hdl/tb_mopshub_top_voters.sv(169): (vopt-2718) [TFMPC] - Missing connection for port 'rx16'.
-# ** Warning: /home/dcs/git/mopshub/mopshub_testbench/hdl/tb_mopshub_top_voters.sv(169): (vopt-2718) [TFMPC] - Missing connection for port 'costum_msg_start'.
-# ** Warning: /home/dcs/git/mopshub/mopshub_testbench/hdl/tb_mopshub_top_voters.sv(169): (vopt-2718) [TFMPC] - Missing connection for port 'irq_elink_tra'.
-# ** Warning: /home/dcs/git/mopshub/mopshub_testbench/hdl/tb_mopshub_top_voters.sv(169): (vopt-2718) [TFMPC] - Missing connection for port 'respmsg'.
-# ** Warning: /home/dcs/git/mopshub/mopshub_testbench/hdl/tb_mopshub_top_voters.sv(169): (vopt-2718) [TFMPC] - Missing connection for port 'reqmsg'.
+# ** Warning: /../../home/dcs/git/mopshub/mopshub_testbench/hdl/data_generator_struct.v(312): (vopt-2685) [TFMPC] - Too few port connections for 'canframegen_gen'.  Expected 24, found 23.
+# ** Warning: /../../home/dcs/git/mopshub/mopshub_testbench/hdl/data_generator_struct.v(312): (vopt-2718) [TFMPC] - Missing connection for port 'bus_id'.
 # Loading sv_std.std
-# Loading work.tb_mopshub_top_voters(fast)
-# Loading mopshub_triplicated.mopshub_top_16busTMR(fast)
-# Loading mopshub_triplicated.bridge_controllerTMR(fast)
-# Loading mopshub_triplicated.buffer_rec_dataTMR(fast)
-# Loading mopshub_triplicated.majorityVoter(fast)
-# Loading mopshub_triplicated.majorityVoter(fast__1)
-# Loading mopshub_triplicated.fanout(fast)
-# Loading mopshub_triplicated.fanout(fast__1)
-# Loading mopshub_triplicated.fanout(fast__2)
-# Loading mopshub_triplicated.buffer_tra_dataTMR(fast)
-# Loading mopshub_triplicated.majorityVoter(fast__2)
-# Loading mopshub_triplicated.majorityVoter(fast__3)
-# Loading mopshub_triplicated.fanout(fast__3)
-# Loading mopshub_triplicated.can_elink_bridge_SMTMR(fast)
-# Loading mopshub_triplicated.canakari_interfaceTMR(fast)
-# Loading mopshub_triplicated.bit_counterTMR(fast)
-# Loading mopshub_triplicated.buffer_tristate_busidTMR(fast)
-# Loading mopshub_triplicated.can_interfaceTMR(fast)
-# Loading mopshub_triplicated.majorityVoter(fast__4)
-# Loading mopshub_triplicated.fanout(fast__4)
-# Loading mopshub_triplicated.can_interface_SMTMR(fast)
-# Loading mopshub_triplicated.majorityVoter(fast__5)
-# Loading mopshub_triplicated.majorityVoter(fast__6)
-# Loading mopshub_triplicated.fanout(fast__5)
-# Loading mopshub_triplicated.fanout(fast__6)
-# Loading mopshub_triplicated.majorityVoter(fast__7)
-# Loading mopshub_triplicated.osc_trim_SMTMR(fast)
-# Loading mopshub_triplicated.timout_rstTMR(fast)
-# Loading mopshub_triplicated.majorityVoter(fast__8)
-# Loading mopshub_triplicated.fanout(fast__7)
-# Loading mopshub_triplicated.bus_control_SMTMR(fast)
-# Loading mopshub_triplicated.majorityVoter(fast__9)
-# Loading mopshub_triplicated.fanout(fast__8)
-# Loading mopshub_triplicated.canakari_top_16busTMR(fast)
-# Loading mopshub_triplicated.canakari_0_7TMR(fast)
-# Loading mopshub_triplicated.canTMR(fast)
-# Loading mopshub_triplicated.can2TMR(fast)
-# Loading mopshub_triplicated.resetgen2TMR(fast)
-# Loading mopshub_triplicated.majorityVoter(fast__10)
-# Loading mopshub_triplicated.fanout(fast__9)
-# Loading mopshub_triplicated.mac2TMR(fast)
-# Loading mopshub_triplicated.reset_mac2TMR(fast)
-# Loading mopshub_triplicated.macfsm2TMR(fast)
-# Loading mopshub_triplicated.fanout(fast__10)
-# Loading mopshub_triplicated.biterrordetect2TMR(fast)
-# Loading mopshub_triplicated.counter2TMR(fast)
-# Loading mopshub_triplicated.decapsulation2TMR(fast)
-# Loading mopshub_triplicated.destuffing2TMR(fast)
-# Loading mopshub_triplicated.majorityVoter(fast__11)
-# Loading mopshub_triplicated.fanout(fast__11)
-# Loading mopshub_triplicated.encapsulation2TMR(fast)
-# Loading mopshub_triplicated.majorityVoter(fast__12)
-# Loading mopshub_triplicated.rcrc2TMR(fast)
-# Loading mopshub_triplicated.rcrc_cell2TMR(fast)
-# Loading mopshub_triplicated.recmeslen2TMR(fast)
-# Loading mopshub_triplicated.rshiftreg2TMR(fast)
-# Loading mopshub_triplicated.rshift_cell2TMR(fast)
-# Loading mopshub_triplicated.stuffing2TMR(fast)
-# Loading mopshub_triplicated.tcrc2TMR(fast)
-# Loading mopshub_triplicated.tcrc_cell2TMR(fast)
-# Loading mopshub_triplicated.tshiftreg2TMR(fast)
-# Loading mopshub_triplicated.tshift_cell2TMR(fast)
-# Loading mopshub_triplicated.fsm_register2TMR(fast)
-# Loading mopshub_triplicated.fastshift2TMR(fast)
-# Loading mopshub_triplicated.meslencompare2TMR(fast)
-# Loading mopshub_triplicated.llc2TMR(fast)
-# Loading mopshub_triplicated.llc_fsm2TMR(fast)
-# Loading mopshub_triplicated.equal_id2TMR(fast)
-# Loading mopshub_triplicated.bittiming2TMR(fast)
-# Loading mopshub_triplicated.Control_SysTMR(fast)
-# Loading mopshub_triplicated.PID_ReglerTMR(fast)
-# Loading mopshub_triplicated.Ftrim_EnTMR(fast)
-# Loading mopshub_triplicated.DiffTMR(fast)
-# Loading mopshub_triplicated.MultiTMR(fast)
-# Loading mopshub_triplicated.Multi_iTMR(fast)
-# Loading mopshub_triplicated.AccumulatorTMR(fast)
-# Loading mopshub_triplicated.Add_PIDTMR(fast)
-# Loading mopshub_triplicated.Output_ScalingTMR(fast)
-# Loading mopshub_triplicated.fanout(fast__12)
-# Loading mopshub_triplicated.CLK_CounterTMR(fast)
-# Loading mopshub_triplicated.Control_FSMTMR(fast)
-# Loading mopshub_triplicated.Phasenfehler_RegTMR(fast)
-# Loading mopshub_triplicated.ready_counterTMR(fast)
-# Loading mopshub_triplicated.majorityVoter(fast__13)
-# Loading mopshub_triplicated.fanout(fast__13)
-# Loading mopshub_triplicated.bittime2TMR(fast)
-# Loading mopshub_triplicated.sum2TMR(fast)
-# Loading mopshub_triplicated.timecount2TMR(fast)
-# Loading mopshub_triplicated.edgepuffer2TMR(fast)
-# Loading mopshub_triplicated.smpldbit_reg2TMR(fast)
-# Loading mopshub_triplicated.tseg_reg2TMR(fast)
-# Loading mopshub_triplicated.fce2TMR(fast)
-# Loading mopshub_triplicated.faultfsm2TMR(fast)
-# Loading mopshub_triplicated.rec2TMR(fast)
-# Loading mopshub_triplicated.tec2TMR(fast)
-# Loading mopshub_triplicated.erbcount2TMR(fast)
-# Loading mopshub_triplicated.interruptunit2TMR(fast)
-# Loading mopshub_triplicated.iocpu2TMR(fast)
-# Loading mopshub_triplicated.multiplexer2TMR(fast)
-# Loading mopshub_triplicated.read_mux2TMR(fast)
-# Loading mopshub_triplicated.write_demux2TMR(fast)
-# Loading mopshub_triplicated.generalregister2TMR(fast)
-# Loading mopshub_triplicated.recmescontrolreg2TMR(fast)
-# Loading mopshub_triplicated.recarbitreg2TMR(fast)
-# Loading mopshub_triplicated.accmaskreg2TMR(fast)
-# Loading mopshub_triplicated.interrupregister2TMR(fast)
-# Loading mopshub_triplicated.prescalereg2TMR(fast)
-# Loading mopshub_triplicated.recregister2TMR(fast)
-# Loading mopshub_triplicated.transmesconreg2TMR(fast)
-# Loading mopshub_triplicated.transmitreg2TMR(fast)
-# Loading mopshub_triplicated.prescale2TMR(fast)
-# Loading mopshub_triplicated.node_rec_mux_16TMR(fast)
-# Loading mopshub_triplicated.bus_rec_SMTMR(fast)
-# Loading mopshub_triplicated.dec16_1_16bitTMR(fast)
-# Loading mopshub_triplicated.dec1_1_32bitTMR(fast)
-# Loading mopshub_triplicated.demux1_16_1bitTMR(fast)
-# Loading mopshub_triplicated.mux16_1_16bitTMR(fast)
-# Loading mopshub_triplicated.node_tra_demux_16TMR(fast)
-# Loading mopshub_triplicated.demux1_16_16bitTMR(fast)
-# Loading mopshub_triplicated.mux16_1_1bitTMR(fast)
-# Loading mopshub_triplicated.control_busTMR(fast)
-# Loading mopshub_triplicated.spi_masterTMR(fast)
-# Loading mopshub_triplicated.elink_coreTMR(fast)
-# Loading mopshub_triplicated.buffer_rec_elinkTMR(fast)
-# Loading mopshub_triplicated.buffer_rec_elink_spiTMR(fast)
-# Loading mopshub_triplicated.buffer_tra_elinkTMR(fast)
-# Loading mopshub_triplicated.buffer_tra_elink_spiTMR(fast)
-# Loading mopshub_triplicated.buffer_tristate_elinkTMR(fast)
-# Loading mopshub_triplicated.can_spi_debugerTMR(fast)
-# Loading mopshub_triplicated.elink_interface_rec_SMTMR(fast)
-# Loading mopshub_triplicated.elink_interface_tra_SMTMR(fast)
-# Loading mopshub_triplicated.elink_to_fifoTMR(fast)
-# Loading mopshub_triplicated.elink_proc_in_dec8b10bTMR(fast)
-# Loading mopshub_triplicated.bitstream_shift_registerTMR(fast)
-# Loading mopshub_triplicated.majorityVoter(fast__14)
-# Loading mopshub_triplicated.dec_8b10b_mopshubTMR(fast)
-# Loading mopshub_triplicated.sync_detectorTMR(fast)
-# Loading mopshub_triplicated.fifo_core_wrapperTMR(fast)
-# Loading mopshub_triplicated.fifo_to_elinkTMR(fast)
-# Loading mopshub_triplicated.elink_proc_out_enc8b10bTMR(fast)
-# Loading mopshub_triplicated.enc_8b10b_mopshubTMR(fast)
-# Loading mopshub_triplicated.mux4_NbitTMR(fast)
-# Loading mopshub_triplicated.mux8_NbitTMR(fast)
-# Loading mopshub_triplicated.triger_counterTMR(fast)
-# Loading mopshub_triplicated.monitor_busTMR(fast)
-# Loading mopshub_triplicated.buffer_rec_spi_dataTMR(fast)
-# Loading mopshub_triplicated.spi_masterTMR(fast__1)
-# Loading work.data_generator(fast)
-# Loading mopshub_lib.bit_counter(fast)
-# Loading CANdecoder.CANbus_decoder(fast)
-# Loading canakari.can2(fast)
-# Loading canakari.resetgen2(fast)
-# Loading canakari.mac2(fast)
-# Loading canakari.reset_mac2(fast)
-# Loading canakari.macfsm2(fast)
-# Loading canakari.biterrordetect2(fast)
-# Loading canakari.counter2(fast)
-# Loading canakari.decapsulation2(fast)
-# Loading canakari.destuffing2(fast)
-# Loading canakari.encapsulation2(fast)
-# Loading canakari.rcrc2(fast)
-# Loading canakari.rcrc_cell2(fast)
-# Loading canakari.recmeslen2(fast)
-# Loading canakari.rshiftreg2(fast)
-# Loading canakari.rshift_cell2(fast)
-# Loading canakari.stuffing2(fast)
-# Loading canakari.tcrc2(fast)
-# Loading canakari.tcrc_cell2(fast)
-# Loading canakari.tshiftreg2(fast)
-# Loading canakari.tshift_cell2(fast)
-# Loading canakari.fsm_register2(fast)
-# Loading canakari.fastshift2(fast)
-# Loading canakari.meslencompare2(fast)
-# Loading canakari.llc2(fast)
-# Loading canakari.llc_fsm2(fast)
-# Loading canakari.equal_id2(fast)
-# Loading canakari.bittiming2(fast)
-# Loading ftrim.Control_Sys(fast)
-# Loading ftrim.PID_Regler(fast)
-# Loading ftrim.Ftrim_En(fast)
-# Loading ftrim.Diff(fast)
-# Loading ftrim.Multi(fast)
-# Loading ftrim.Multi_i(fast)
-# Loading ftrim.Accumulator(fast)
-# Loading ftrim.Add_PID(fast)
-# Loading ftrim.Output_Scaling(fast)
-# Loading ftrim.CLK_Counter(fast)
-# Loading ftrim.Control_FSM(fast)
-# Loading ftrim.Phasenfehler_Reg(fast)
-# Loading ftrim.ready_counter(fast)
-# Loading canakari.bittime2(fast)
-# Loading canakari.sum2(fast)
-# Loading canakari.timecount2(fast)
-# Loading canakari.edgepuffer2(fast)
-# Loading canakari.smpldbit_reg2(fast)
-# Loading canakari.tseg_reg2(fast)
-# Loading canakari.fce2(fast)
-# Loading canakari.faultfsm2(fast)
-# Loading canakari.rec2(fast)
-# Loading canakari.tec2(fast)
-# Loading canakari.erbcount2(fast)
-# Loading canakari.interruptunit2(fast)
-# Loading canakari.iocpu2(fast)
-# Loading canakari.multiplexer2(fast)
-# Loading canakari.read_mux2(fast)
-# Loading canakari.write_demux2(fast)
-# Loading canakari.generalregister2(fast)
-# Loading canakari.recmescontrolreg2(fast)
-# Loading canakari.recarbitreg2(fast)
-# Loading canakari.accmaskreg2(fast)
-# Loading canakari.interrupregister2(fast)
-# Loading canakari.prescalereg2(fast)
-# Loading canakari.recregister2(fast)
-# Loading canakari.transmesconreg2(fast)
-# Loading canakari.transmitreg2(fast)
-# Loading canakari.prescale2(fast)
-# Loading CANdecoder.CANAkari_interfacedec(fast)
-# Loading CANdecoder.caninterfacedec(fast)
-# Loading CANdecoder.idcompdec(fast)
-# Loading CANdecoder.interfaceSMdec(fast)
-# Loading CANdecoder.bridgeSMdec(fast)
-# Loading CANdecoder.initialize_blockdec(fast)
-# Loading CANdecoder.rec_mes_bufdec(fast)
-# Loading CANdecoder.timoutrstdec(fast)
-# Loading work.can_bus_activity(fast)
-# Loading work.can_net_decoder(fast)
-# Loading mopshub_lib.buffer_tristate_busid(fast)
-# Loading work.mops_top_level(fast)
-# Loading CANdecoder.adcdumdata(fast)
-# Loading MOPSv2_lib.top_level(fast)
-# Loading MOPSv2_lib.clkbuffer(fast)
-# Loading MOPSv2_lib.global_resetgen(fast)
-# Loading MOPSv2_lib.delay_cell(fast)
-# Loading MOPSv2_lib.bridge_controller_top(fast)
-# Loading MOPSv2_lib.ADCinterface(fast)
-# Loading MOPSv2_lib.ADCfsm(fast)
-# Loading MOPSv2_lib.adcsel(fast)
-# Loading MOPSv2_lib.CANAkari_interface(fast)
-# Loading MOPSv2_lib.caninterface(fast)
-# Loading MOPSv2_lib.idcomp(fast)
-# Loading MOPSv2_lib.interfaceSM(fast)
-# Loading MOPSv2_lib.bridgeSM(fast)
-# Loading MOPSv2_lib.canopen_block(fast)
-# Loading MOPSv2_lib.ODfsm(fast)
-# Loading MOPSv2_lib.abortcodes(fast)
-# Loading MOPSv2_lib.msgdecode(fast)
-# Loading MOPSv2_lib.odinterface(fast)
-# Loading MOPSv2_lib.count2reload(fast)
-# Loading MOPSv2_lib.ftrim_sel(fast)
-# Loading MOPSv2_lib.initialize_block(fast)
-# Loading MOPSv2_lib.od(fast)
-# Loading MOPSv2_lib.OD_MUX(fast)
-# Loading MOPSv2_lib.OD_buf(fast)
-# Loading MOPSv2_lib.OD_control(fast)
-# Loading MOPSv2_lib.rec_mes_buf(fast)
-# Loading MOPSv2_lib.timoutrst(fast)
-# Loading MOPSv2_lib.tra_mes_buf(fast)
-# Loading top_lib.canframegen_sv_unit(fast)
-# Loading top_lib.canframegen(fast)
-# Loading work.clk_div(fast)
-# Loading work.data_generator_SM(fast)
-# Loading work.mopshub_decoder(fast)
-# Loading mopshub_lib.elink_core(fast)
-# Loading mopshub_lib.buffer_rec_elink(fast)
-# Loading mopshub_lib.buffer_rec_elink_spi(fast)
-# Loading mopshub_lib.buffer_tra_elink(fast)
-# Loading mopshub_lib.buffer_tra_elink_spi(fast)
-# Loading mopshub_lib.buffer_tristate_elink(fast)
-# Loading mopshub_lib.can_spi_debuger(fast)
-# Loading mopshub_lib.elink_interface_rec_SM(fast)
-# Loading mopshub_lib.elink_interface_tra_SM(fast)
-# Loading mopshub_lib.elink_to_fifo(fast)
-# Loading mopshub_lib.elink_proc_in_dec8b10b(fast)
-# Loading mopshub_lib.bitstream_shift_register(fast)
-# Loading mopshub_lib.dec_8b10b_mopshub(fast)
-# Loading mopshub_lib.sync_detector(fast)
-# Loading mopshub_lib.fifo_core_wrapper(fast)
-# Loading mopshub_lib.fifo_to_elink(fast)
-# Loading mopshub_lib.elink_proc_out_enc8b10b(fast)
-# Loading mopshub_lib.enc_8b10b_mopshub(fast)
-# Loading mopshub_lib.mux4_Nbit(fast)
-# Loading mopshub_lib.mux8_Nbit(fast)
-# Loading mopshub_lib.triger_counter(fast)
-# Loading mopshub_lib.timout_rst(fast)
-# Loading work.clock_generator(fast)
-# Loading mopshub_lib.clock_divider(fast)
-# Loading /eda/mentor/2019-20/RHELx86/HDL-DESIGNER_2019.4/resources/downstream/modelsim/ModelSim_64Bit.dll
-# ** Warning: (vsim-8634) Code was not compiled with coverage options.
-run
-# Frequncy  = 160 MHz, Period = 6.250 ns
-# clk phase = 0 deg
-# clk duty = 50 %
-# 	 initialization [BUS ID  0]:
-# 	 initialization [BUS ID  1]:
-# 	 initialization [BUS ID  2]:
-# 	 initialization [BUS ID  3]:
-# 	 initialization [BUS ID  4]:
-# 	 initialization [BUS ID  5]:
-# 	 initialization [BUS ID  6]:
-# 	 initialization [BUS ID  7]:
-# 	 initialization [BUS ID  8]:
-# 	 initialization [BUS ID  9]:
-# 	 initialization [BUS ID 10]:
-# 	 initialization [BUS ID 11]:
-# 	 initialization [BUS ID 12]:
-# 	 initialization [BUS ID 13]:
-# 	 initialization [BUS ID 14]:
-# 	 initialization [BUS ID 15]:
-# *****************************************************************************
-# Status GOOD [BUS ID   0]- RX test
-# 	 Receive RX signals [BUS ID   0]: 	 request 6014024001b00000000 	 response 5814324001b0000031b
-# Status GOOD [BUS ID   0]- RX test
-# 	 Receive RX signals [BUS ID   0]: 	 request 6014024001c00000000 	 response 5814324001c0000031c
-# Status GOOD [BUS ID   0]- RX test
-# 	 Receive RX signals [BUS ID   0]: 	 request 6014024001d00000000 	 response 5814324001d0000031d
-# Status GOOD [BUS ID   1]- RX test
-# 	 Receive RX signals [BUS ID   1]: 	 request 6014024001b01000000 	 response 5814324001b0100031b
-# Status GOOD [BUS ID   1]- RX test
-# 	 Receive RX signals [BUS ID   1]: 	 request 6014024001c01000000 	 response 5814324001c0100031c
-# Status GOOD [BUS ID   1]- RX test
-# 	 Receive RX signals [BUS ID   1]: 	 request 6014024001d01000000 	 response 5814324001d0100031d
-# Status GOOD [BUS ID   2]- RX test
-# 	 Receive RX signals [BUS ID   2]: 	 request 6014024001b02000000 	 response 5814324001b0200031b
-# Status GOOD [BUS ID   2]- RX test
-# 	 Receive RX signals [BUS ID   2]: 	 request 6014024001c02000000 	 response 5814324001c0200031c
-# Status GOOD [BUS ID   2]- RX test
-# 	 Receive RX signals [BUS ID   2]: 	 request 6014024001d02000000 	 response 5814324001d0200031d
-# Status GOOD [BUS ID   3]- RX test
-# 	 Receive RX signals [BUS ID   3]: 	 request 6014024001b03000000 	 response 5814324001b0300031b
-# Status GOOD [BUS ID   3]- RX test
-# 	 Receive RX signals [BUS ID   3]: 	 request 6014024001c03000000 	 response 5814324001c0300031c
-# Status GOOD [BUS ID   3]- RX test
-# 	 Receive RX signals [BUS ID   3]: 	 request 6014024001d03000000 	 response 5814324001d0300031d
-# Status GOOD [BUS ID   4]- RX test
-# 	 Receive RX signals [BUS ID   4]: 	 request 6014024001b04000000 	 response 5814324001b0400031b
-# Status GOOD [BUS ID   4]- RX test
-# 	 Receive RX signals [BUS ID   4]: 	 request 6014024001c04000000 	 response 5814324001c0400031c
-# Status GOOD [BUS ID   4]- RX test
-# 	 Receive RX signals [BUS ID   4]: 	 request 6014024001d04000000 	 response 5814324001d0400031d
-# Status GOOD [BUS ID   5]- RX test
-# 	 Receive RX signals [BUS ID   5]: 	 request 6014024001b05000000 	 response 5814324001b0500031b
-# Status GOOD [BUS ID   5]- RX test
-# 	 Receive RX signals [BUS ID   5]: 	 request 6014024001c05000000 	 response 5814324001c0500031c
-# Status GOOD [BUS ID   5]- RX test
-# 	 Receive RX signals [BUS ID   5]: 	 request 6014024001d05000000 	 response 5814324001d0500031d
-# Status GOOD [BUS ID   6]- RX test
-# 	 Receive RX signals [BUS ID   6]: 	 request 6014024001b06000000 	 response 5814324001b0600031b
-# Status GOOD [BUS ID   6]- RX test
-# 	 Receive RX signals [BUS ID   6]: 	 request 6014024001c06000000 	 response 5814324001c0600031c
-# Status GOOD [BUS ID   6]- RX test
-# 	 Receive RX signals [BUS ID   6]: 	 request 6014024001d06000000 	 response 5814324001d0600031d
-# Status GOOD [BUS ID   7]- RX test
-# 	 Receive RX signals [BUS ID   7]: 	 request 6014024001b07000000 	 response 5814324001b0700031b
-# Status GOOD [BUS ID   7]- RX test
-# 	 Receive RX signals [BUS ID   7]: 	 request 6014024001c07000000 	 response 5814324001c0700031c
-# Status GOOD [BUS ID   7]- RX test
-# 	 Receive RX signals [BUS ID   7]: 	 request 6014024001d07000000 	 response 5814324001d0700031d
-# Status GOOD [BUS ID   8]- RX test
-# 	 Receive RX signals [BUS ID   8]: 	 request 6014024001b08000000 	 response 5814324001b0800031b
-# Status GOOD [BUS ID   8]- RX test
-# 	 Receive RX signals [BUS ID   8]: 	 request 6014024001c08000000 	 response 5814324001c0800031c
-# Status GOOD [BUS ID   8]- RX test
-# 	 Receive RX signals [BUS ID   8]: 	 request 6014024001d08000000 	 response 5814324001d0800031d
-# Status GOOD [BUS ID   9]- RX test
-# 	 Receive RX signals [BUS ID   9]: 	 request 6014024001b09000000 	 response 5814324001b0900031b
-# Status GOOD [BUS ID   9]- RX test
-# 	 Receive RX signals [BUS ID   9]: 	 request 6014024001c09000000 	 response 5814324001c0900031c
-# Status GOOD [BUS ID   9]- RX test
-# 	 Receive RX signals [BUS ID   9]: 	 request 6014024001d09000000 	 response 5814324001d0900031d
-# Status GOOD [BUS ID  10]- RX test
-# 	 Receive RX signals [BUS ID  10]: 	 request 6014024001b0a000000 	 response 5814324001b0a00031b
-# Status GOOD [BUS ID  10]- RX test
-# 	 Receive RX signals [BUS ID  10]: 	 request 6014024001c0a000000 	 response 5814324001c0a00031c
-# Status GOOD [BUS ID  10]- RX test
-# 	 Receive RX signals [BUS ID  10]: 	 request 6014024001d0a000000 	 response 5814324001d0a00031d
-# Status GOOD [BUS ID  11]- RX test
-# 	 Receive RX signals [BUS ID  11]: 	 request 6014024001b0b000000 	 response 5814324001b0b00031b
-# Status GOOD [BUS ID  11]- RX test
-# 	 Receive RX signals [BUS ID  11]: 	 request 6014024001c0b000000 	 response 5814324001c0b00031c
-# Status GOOD [BUS ID  11]- RX test
-# 	 Receive RX signals [BUS ID  11]: 	 request 6014024001d0b000000 	 response 5814324001d0b00031d
-# Status GOOD [BUS ID  12]- RX test
-# 	 Receive RX signals [BUS ID  12]: 	 request 6014024001b0c000000 	 response 5814324001b0c00031b
-# Status GOOD [BUS ID  12]- RX test
-# 	 Receive RX signals [BUS ID  12]: 	 request 6014024001c0c000000 	 response 5814324001c0c00031c
-# Status GOOD [BUS ID  12]- RX test
-# 	 Receive RX signals [BUS ID  12]: 	 request 6014024001d0c000000 	 response 5814324001d0c00031d
-# Status GOOD [BUS ID  13]- RX test
-# 	 Receive RX signals [BUS ID  13]: 	 request 6014024001b0d000000 	 response 5814324001b0d00031b
-# Status GOOD [BUS ID  13]- RX test
-# 	 Receive RX signals [BUS ID  13]: 	 request 6014024001c0d000000 	 response 5814324001c0d00031c
-# Status GOOD [BUS ID  13]- RX test
-# 	 Receive RX signals [BUS ID  13]: 	 request 6014024001d0d000000 	 response 5814324001d0d00031d
-# Status GOOD [BUS ID  14]- RX test
-# 	 Receive RX signals [BUS ID  14]: 	 request 6014024001b0e000000 	 response 5814324001b0e00031b
-# Status GOOD [BUS ID  14]- RX test
-# 	 Receive RX signals [BUS ID  14]: 	 request 6014024001c0e000000 	 response 5814324001c0e00031c
-# Status GOOD [BUS ID  14]- RX test
-# 	 Receive RX signals [BUS ID  14]: 	 request 6014024001d0e000000 	 response 5814324001d0e00031d
-# Status GOOD [BUS ID  15]- RX test
-# 	 Receive RX signals [BUS ID  15]: 	 request 6014024001b0f000000 	 response 5814324001b0f00031b
-# Status GOOD [BUS ID  15]- RX test
-# 	 Receive RX signals [BUS ID  15]: 	 request 6014024001c0f000000 	 response 5814324001c0f00031c
-# Status GOOD [BUS ID  15]- RX test
-# 	 Receive RX signals [BUS ID  15]: 	 request 6014024001d0f000000 	 response 5814324001d0f00031d
-# *****************************************************************************
-# Status GOOD [BUS ID  0] - TX Test
-# 	 Transmit TX signals [BUS ID   0]: 	 request 6014000240f00000000 	 response 5818000240f00020000
-# Status GOOD [BUS ID  0] - TX Test
-# 	 Transmit TX signals [BUS ID   0]: 	 request 6014000241000000000 	 response 5818000241000020000
-# Status GOOD [BUS ID  0] - TX Test
-# 	 Transmit TX signals [BUS ID   0]: 	 request 6014000240a00000000 	 response 5818000240a00020000
-# Status GOOD [BUS ID  1] - TX Test
-# 	 Transmit TX signals [BUS ID   1]: 	 request 6014000240f01000000 	 response 5818000240f01020000
-# Status GOOD [BUS ID  1] - TX Test
-# 	 Transmit TX signals [BUS ID   1]: 	 request 6014000241001000000 	 response 5818000241001020000
-# Status GOOD [BUS ID  1] - TX Test
-# 	 Transmit TX signals [BUS ID   1]: 	 request 6014000240a01000000 	 response 5818000240a01020000
-# Status GOOD [BUS ID  2] - TX Test
-# 	 Transmit TX signals [BUS ID   2]: 	 request 6014000240f02000000 	 response 5818000240f02020000
-# Status GOOD [BUS ID  2] - TX Test
-# 	 Transmit TX signals [BUS ID   2]: 	 request 6014000241002000000 	 response 5818000241002020000
-# 0
-# 
-# hds_start \$HDS_PROJECT_DIR/mopshub_testbench/sim
-# End time: 18:05:20 on Dec 06,2022, Elapsed time: 0:36:59
-# Errors: 0, Warnings: 72
-# reading modelsim.ini
-vsim -L tsmcdigital_lib -L top_lib -L MOPSv2_lib -L canakari -L CANdecoder -L ftrim -L mopshub_lib -L mopshub_testbench -L mopshub_triplicated -l transcript.txt -i -t ns -multisource_delay latest +typdelays -nopsl -coverage mopshub_testbench.tb_mopshub_top_16bus
-# vsim -L tsmcdigital_lib -L top_lib -L MOPSv2_lib -L canakari -L CANdecoder -L ftrim -L mopshub_lib -L mopshub_testbench -L mopshub_triplicated -l transcript.txt -i -t ns -multisource_delay latest "+typdelays" -nopsl -coverage mopshub_testbench.tb_mopshub_top_16bus -foreign "hdsInit /eda/mentor/2019-20/RHELx86/HDL-DESIGNER_2019.4/resources/downstream/modelsim/ModelSim_64Bit.dll" -pli ""/eda/mentor/2019-20/RHELx86/HDL-DESIGNER_2019.4/resources/downstream/modelsim/ModelSim_64Bit.dll"" 
-# Start time: 18:05:20 on Dec 06,2022
-# ** Note: (vsim-3812) Design is being optimized...
-# ** Warning: (vsim-3865) Due to PLI being present, global +acc is being enabled automatically. This will cause your simulation to run very slowly. Please use vsim -no_autoacc to disable this feature. This feature is now deprecated and will be removed from future releases.
-# ** Warning: (vopt-10017) vopt and vlog detected inconsistent ordering of options -L tsmcdigital_lib, -L top_lib, -L MOPSv2_lib, -L canakari, -L CANdecoder, -L ftrim, -L mopshub_lib and -L mopshub_testbench for design-unit 'can_bus_activity'. vopt will ignore the ordering that was given to vlog.
-# ** Warning: (vopt-10017) vopt and vlog detected inconsistent ordering of options -L tsmcdigital_lib, -L top_lib, -L MOPSv2_lib, -L canakari, -L CANdecoder, -L ftrim and -L mopshub_lib for design-unit 'canframegen'. vopt will ignore the ordering that was given to vlog.
-# ** Warning: (vopt-10017) vopt and vlog detected inconsistent ordering of options -L tsmcdigital_lib, -L top_lib, -L MOPSv2_lib, -L canakari, -L CANdecoder, -L ftrim and -L mopshub_lib for design-unit 'canframegen_sv_unit'. vopt will ignore the ordering that was given to vlog.
-# ** Warning: /home/dcs/git/CANAkari/CANdecoder/hdl/canbus_decoder_struct.v(125): (vopt-2685) [TFMPC] - Too few port connections for 'bridgeSMdec0'.  Expected 30, found 29.
-# ** Warning: /home/dcs/git/CANAkari/CANdecoder/hdl/canbus_decoder_struct.v(125): (vopt-2718) [TFMPC] - Missing connection for port 'irq_can_ack'.
-# ** Warning: /home/dcs/git/mopshub/mopshub_testbench/hdl/data_generator_struct.v(312): (vopt-2685) [TFMPC] - Too few port connections for 'canframegen_gen'.  Expected 24, found 23.
-# ** Warning: /home/dcs/git/mopshub/mopshub_testbench/hdl/data_generator_struct.v(312): (vopt-2718) [TFMPC] - Missing connection for port 'bus_id'.
-# ** Note: (vopt-143) Recognized 1 FSM in module "osc_trim_SM(fast)".
-# ** Note: (vopt-143) Recognized 1 FSM in module "bridgeSM(fast)".
-# ** Warning: /home/dcs/git/mopshub/mopshub_testbench/hdl/can_bus_activity.sv(258): (vopt-2121) Illegal concatenation of an unsized constant. Will treat it as a 32-bit value.
-# ** Note: (vopt-143) Recognized 1 FSM in module "can_elink_bridge_SM(fast)".
-# ** Warning: /home/dcs/git/mopshub/mopshub_testbench/hdl/mopshub_top_16bus.sv(120): (vopt-2685) [TFMPC] - Too few port connections for 'mopshub0'.  Expected 68, found 46.
-# ** Warning: /home/dcs/git/mopshub/mopshub_testbench/hdl/mopshub_top_16bus.sv(120): (vopt-2718) [TFMPC] - Missing connection for port 'word10b_rdy'.
-# ** Warning: /home/dcs/git/mopshub/mopshub_testbench/hdl/mopshub_top_16bus.sv(120): (vopt-2718) [TFMPC] - Missing connection for port 'tx_efifo_full'.
-# ** Warning: /home/dcs/git/mopshub/mopshub_testbench/hdl/mopshub_top_16bus.sv(120): (vopt-2718) [TFMPC] - Missing connection for port 'tx_data_rdy'.
-# ** Warning: /home/dcs/git/mopshub/mopshub_testbench/hdl/mopshub_top_16bus.sv(120): (vopt-2718) [TFMPC] - Missing connection for port 'sck_m'.
-# ** Warning: /home/dcs/git/mopshub/mopshub_testbench/hdl/mopshub_top_16bus.sv(120): (vopt-2718) [TFMPC] - Missing connection for port 'sck_c'.
-# ** Warning: /home/dcs/git/mopshub/mopshub_testbench/hdl/mopshub_top_16bus.sv(120): (vopt-2718) [TFMPC] - Missing connection for port 'rx_fifo_full'.
-# ** Warning: /home/dcs/git/mopshub/mopshub_testbench/hdl/mopshub_top_16bus.sv(120): (vopt-2718) [TFMPC] - Missing connection for port 'rx_data_rdy'.
-# ** Warning: /home/dcs/git/mopshub/mopshub_testbench/hdl/mopshub_top_16bus.sv(120): (vopt-2718) [TFMPC] - Missing connection for port 'rst_bus'.
-# ** Warning: /home/dcs/git/mopshub/mopshub_testbench/hdl/mopshub_top_16bus.sv(120): (vopt-2718) [TFMPC] - Missing connection for port 'power_bus_cnt'.
-# ** Warning: /home/dcs/git/mopshub/mopshub_testbench/hdl/mopshub_top_16bus.sv(120): (vopt-2718) [TFMPC] - Missing connection for port 'mon_bus_cnt'.
-# ** Warning: /home/dcs/git/mopshub/mopshub_testbench/hdl/mopshub_top_16bus.sv(120): (vopt-2718) [TFMPC] - Missing connection for port 'irq_elink_tra'.
-# ** Warning: /home/dcs/git/mopshub/mopshub_testbench/hdl/mopshub_top_16bus.sv(120): (vopt-2718) [TFMPC] - Missing connection for port 'irq_elink_rec'.
-# ** Warning: /home/dcs/git/mopshub/mopshub_testbench/hdl/mopshub_top_16bus.sv(120): (vopt-2718) [TFMPC] - Missing connection for port 'irq_can_tra'.
-# ** Warning: /home/dcs/git/mopshub/mopshub_testbench/hdl/mopshub_top_16bus.sv(120): (vopt-2718) [TFMPC] - Missing connection for port 'irq_can_rec'.
-# ** Warning: /home/dcs/git/mopshub/mopshub_testbench/hdl/mopshub_top_16bus.sv(120): (vopt-2718) [TFMPC] - Missing connection for port 'data_tra_downlink'.
-# ** Warning: /home/dcs/git/mopshub/mopshub_testbench/hdl/mopshub_top_16bus.sv(120): (vopt-2718) [TFMPC] - Missing connection for port 'data_rec_uplink'.
-# ** Warning: /home/dcs/git/mopshub/mopshub_testbench/hdl/mopshub_top_16bus.sv(120): (vopt-2718) [TFMPC] - Missing connection for port 'cs_active_m'.
-# ** Warning: /home/dcs/git/mopshub/mopshub_testbench/hdl/mopshub_top_16bus.sv(120): (vopt-2718) [TFMPC] - Missing connection for port 'cs_active_c'.
-# ** Warning: /home/dcs/git/mopshub/mopshub_testbench/hdl/mopshub_top_16bus.sv(120): (vopt-2718) [TFMPC] - Missing connection for port 'start_write_elink_dbg'.
-# ** Warning: /home/dcs/git/mopshub/mopshub_testbench/hdl/mopshub_top_16bus.sv(120): (vopt-2718) [TFMPC] - Missing connection for port 'rdy_dbg'.
-# ** Warning: /home/dcs/git/mopshub/mopshub_testbench/hdl/mopshub_top_16bus.sv(120): (vopt-2718) [TFMPC] - Missing connection for port 'data_rec_dbg_in'.
-# ** Warning: /home/dcs/git/mopshub/mopshub_testbench/hdl/mopshub_top_16bus.sv(120): (vopt-2718) [TFMPC] - Missing connection for port 'data_10bit_in_dbg'.
-# ** Warning: /home/dcs/git/mopshub/mopshub_testbench/hdl/mopshub_top_16bus.sv(169): (vopt-2685) [TFMPC] - Too few port connections for 'data_generator0'.  Expected 110, found 70.
-# ** Warning: /home/dcs/git/mopshub/mopshub_testbench/hdl/mopshub_top_16bus.sv(169): (vopt-2718) [TFMPC] - Missing connection for port 'tx_uart_dv'.
-# ** Warning: /home/dcs/git/mopshub/mopshub_testbench/hdl/mopshub_top_16bus.sv(169): (vopt-2718) [TFMPC] - Missing connection for port 'tx_uart_done'.
-# ** Warning: /home/dcs/git/mopshub/mopshub_testbench/hdl/mopshub_top_16bus.sv(169): (vopt-2718) [TFMPC] - Missing connection for port 'tx_uart_data'.
-# ** Warning: /home/dcs/git/mopshub/mopshub_testbench/hdl/mopshub_top_16bus.sv(169): (vopt-2718) [TFMPC] - Missing connection for port 'test_uart_core'.
-# ** Warning: /home/dcs/git/mopshub/mopshub_testbench/hdl/mopshub_top_16bus.sv(169): (vopt-2718) [TFMPC] - Missing connection for port 'tx31'.
-# ** Warning: /home/dcs/git/mopshub/mopshub_testbench/hdl/mopshub_top_16bus.sv(169): (vopt-2718) [TFMPC] - Missing connection for port 'tx30'.
-# ** Warning: /home/dcs/git/mopshub/mopshub_testbench/hdl/mopshub_top_16bus.sv(169): (vopt-2718) [TFMPC] - Missing connection for port 'tx29'.
-# ** Warning: /home/dcs/git/mopshub/mopshub_testbench/hdl/mopshub_top_16bus.sv(169): (vopt-2718) [TFMPC] - Missing connection for port 'tx28'.
-# ** Warning: /home/dcs/git/mopshub/mopshub_testbench/hdl/mopshub_top_16bus.sv(169): (vopt-2718) [TFMPC] - Missing connection for port 'tx27'.
-# ** Warning: /home/dcs/git/mopshub/mopshub_testbench/hdl/mopshub_top_16bus.sv(169): (vopt-2718) [TFMPC] - Missing connection for port 'tx26'.
-# ** Warning: /home/dcs/git/mopshub/mopshub_testbench/hdl/mopshub_top_16bus.sv(169): (vopt-2718) [TFMPC] - Missing connection for port 'tx25'.
-# ** Warning: /home/dcs/git/mopshub/mopshub_testbench/hdl/mopshub_top_16bus.sv(169): (vopt-2718) [TFMPC] - Missing connection for port 'tx24'.
-# ** Warning: /home/dcs/git/mopshub/mopshub_testbench/hdl/mopshub_top_16bus.sv(169): (vopt-2718) [TFMPC] - Missing connection for port 'rx31'.
-# ** Warning: /home/dcs/git/mopshub/mopshub_testbench/hdl/mopshub_top_16bus.sv(169): (vopt-2718) [TFMPC] - Missing connection for port 'rx30'.
-# ** Warning: /home/dcs/git/mopshub/mopshub_testbench/hdl/mopshub_top_16bus.sv(169): (vopt-2718) [TFMPC] - Missing connection for port 'rx29'.
-# ** Warning: /home/dcs/git/mopshub/mopshub_testbench/hdl/mopshub_top_16bus.sv(169): (vopt-2718) [TFMPC] - Missing connection for port 'rx28'.
-# ** Warning: /home/dcs/git/mopshub/mopshub_testbench/hdl/mopshub_top_16bus.sv(169): (vopt-2718) [TFMPC] - Missing connection for port 'rx27'.
-# ** Warning: /home/dcs/git/mopshub/mopshub_testbench/hdl/mopshub_top_16bus.sv(169): (vopt-2718) [TFMPC] - Missing connection for port 'rx26'.
-# ** Warning: /home/dcs/git/mopshub/mopshub_testbench/hdl/mopshub_top_16bus.sv(169): (vopt-2718) [TFMPC] - Missing connection for port 'rx25'.
-# ** Warning: /home/dcs/git/mopshub/mopshub_testbench/hdl/mopshub_top_16bus.sv(169): (vopt-2718) [TFMPC] - Missing connection for port 'rx24'.
-# ** Warning: /home/dcs/git/mopshub/mopshub_testbench/hdl/mopshub_top_16bus.sv(169): (vopt-2718) [TFMPC] - Missing connection for port 'tx23'.
-# ** Warning: /home/dcs/git/mopshub/mopshub_testbench/hdl/mopshub_top_16bus.sv(169): (vopt-2718) [TFMPC] - Missing connection for port 'tx22'.
-# ** Warning: /home/dcs/git/mopshub/mopshub_testbench/hdl/mopshub_top_16bus.sv(169): (vopt-2718) [TFMPC] - Missing connection for port 'tx21'.
-# ** Warning: /home/dcs/git/mopshub/mopshub_testbench/hdl/mopshub_top_16bus.sv(169): (vopt-2718) [TFMPC] - Missing connection for port 'tx20'.
-# ** Warning: /home/dcs/git/mopshub/mopshub_testbench/hdl/mopshub_top_16bus.sv(169): (vopt-2718) [TFMPC] - Missing connection for port 'tx19'.
-# ** Warning: /home/dcs/git/mopshub/mopshub_testbench/hdl/mopshub_top_16bus.sv(169): (vopt-2718) [TFMPC] - Missing connection for port 'tx18'.
-# ** Warning: /home/dcs/git/mopshub/mopshub_testbench/hdl/mopshub_top_16bus.sv(169): (vopt-2718) [TFMPC] - Missing connection for port 'tx17'.
-# ** Warning: /home/dcs/git/mopshub/mopshub_testbench/hdl/mopshub_top_16bus.sv(169): (vopt-2718) [TFMPC] - Missing connection for port 'tx16'.
-# ** Warning: /home/dcs/git/mopshub/mopshub_testbench/hdl/mopshub_top_16bus.sv(169): (vopt-2718) [TFMPC] - Missing connection for port 'rx23'.
-# ** Warning: /home/dcs/git/mopshub/mopshub_testbench/hdl/mopshub_top_16bus.sv(169): (vopt-2718) [TFMPC] - Missing connection for port 'rx22'.
-# ** Warning: /home/dcs/git/mopshub/mopshub_testbench/hdl/mopshub_top_16bus.sv(169): (vopt-2718) [TFMPC] - Missing connection for port 'rx21'.
-# ** Warning: /home/dcs/git/mopshub/mopshub_testbench/hdl/mopshub_top_16bus.sv(169): (vopt-2718) [TFMPC] - Missing connection for port 'rx20'.
-# ** Warning: /home/dcs/git/mopshub/mopshub_testbench/hdl/mopshub_top_16bus.sv(169): (vopt-2718) [TFMPC] - Missing connection for port 'rx19'.
-# ** Warning: /home/dcs/git/mopshub/mopshub_testbench/hdl/mopshub_top_16bus.sv(169): (vopt-2718) [TFMPC] - Missing connection for port 'rx18'.
-# ** Warning: /home/dcs/git/mopshub/mopshub_testbench/hdl/mopshub_top_16bus.sv(169): (vopt-2718) [TFMPC] - Missing connection for port 'rx17'.
-# ** Warning: /home/dcs/git/mopshub/mopshub_testbench/hdl/mopshub_top_16bus.sv(169): (vopt-2718) [TFMPC] - Missing connection for port 'rx16'.
-# ** Warning: /home/dcs/git/mopshub/mopshub_testbench/hdl/mopshub_top_16bus.sv(169): (vopt-2718) [TFMPC] - Missing connection for port 'costum_msg_start'.
-# ** Warning: /home/dcs/git/mopshub/mopshub_testbench/hdl/mopshub_top_16bus.sv(169): (vopt-2718) [TFMPC] - Missing connection for port 'irq_elink_tra'.
-# ** Warning: /home/dcs/git/mopshub/mopshub_testbench/hdl/mopshub_top_16bus.sv(169): (vopt-2718) [TFMPC] - Missing connection for port 'respmsg'.
-# ** Warning: /home/dcs/git/mopshub/mopshub_testbench/hdl/mopshub_top_16bus.sv(169): (vopt-2718) [TFMPC] - Missing connection for port 'reqmsg'.
-# ** Note: (vopt-143) Recognized 1 FSM in module "bridgeSMdec(fast)".
-# ** Note: (vopt-143) Recognized 1 FSM in module "ADCfsm(fast)".
-# ** Note: (vopt-143) Recognized 1 FSM in module "bus_control_SM(fast)".
-# ** Note: (vopt-143) Recognized 1 FSM in module "data_generator_SM(fast)".
-# ** Note: (vopt-143) Recognized 1 FSM in module "can_interface_SM(fast)".
-# ** Note: (vopt-143) Recognized 1 FSM in module "bus_rec_SM(fast)".
-# ** Note: (vopt-143) Recognized 1 FSM in module "interfaceSM(fast)".
-# ** Note: (vopt-143) Recognized 1 FSM in module "ODfsm(fast)".
-# ** Note: (vopt-143) Recognized 1 FSM in module "elink_interface_tra_SM(fast)".
-# ** Note: (vopt-143) Recognized 1 FSM in module "elink_interface_rec_SM(fast)".
-# ** Note: (vopt-143) Recognized 1 FSM in module "interfaceSMdec(fast)".
-# Loading sv_std.std
-# Loading work.tb_mopshub_top_16bus(fast)
-# Loading mopshub_lib.mopshub_top_16bus(fast)
+# Loading work.tb_mopshub_top_32bus(fast)
+# Loading mopshub_lib.mopshub_top_32bus(fast)
 # Loading mopshub_lib.bridge_controller(fast)
 # Loading mopshub_lib.buffer_rec_data(fast)
 # Loading mopshub_lib.buffer_tra_data(fast)
 # Loading mopshub_lib.can_elink_bridge_SM(fast)
-# Loading mopshub_lib.canakari_interface(fast)
+# Loading mopshub_lib.canakari_interface_mopshub(fast)
 # Loading mopshub_lib.bit_counter(fast)
 # Loading mopshub_lib.buffer_tristate_busid(fast)
 # Loading mopshub_lib.can_interface(fast)
@@ -1072,22 +22,66 @@ vsim -L tsmcdigital_lib -L top_lib -L MOPSv2_lib -L canakari -L CANdecoder -L ft
 # Loading mopshub_lib.osc_trim_SM(fast)
 # Loading mopshub_lib.timout_rst(fast)
 # Loading mopshub_lib.bus_control_SM(fast)
-# Loading mopshub_lib.canakari_top_16bus(fast)
+# Loading mopshub_lib.canakari_top_32bus(fast)
 # Loading mopshub_lib.canakari_0_7(fast)
 # Loading mopshub_lib.can(fast)
 # Loading canakari.can2(fast)
-# Loading canakari.resetgen2(fast)
+# Loading canakari.bittiming2(fast)
+# Loading canakari.bittime2(fast)
+# Loading canakari.edgepuffer2(fast)
+# Loading canakari.smpldbit_reg2(fast)
+# Loading canakari.sum2(fast)
+# Loading canakari.timecount2(fast)
+# Loading canakari.tseg_reg2(fast)
+# Loading ftrim.Control_Sys(fast)
+# Loading ftrim.CLK_Counter(fast)
+# Loading ftrim.Control_FSM(fast)
+# Loading ftrim.PID_Regler(fast)
+# Loading ftrim.Accumulator(fast)
+# Loading ftrim.Add_PID(fast)
+# Loading ftrim.Diff(fast)
+# Loading ftrim.Ftrim_En(fast)
+# Loading ftrim.Multi(fast)
+# Loading ftrim.Multi_i(fast)
+# Loading ftrim.Output_Scaling(fast)
+# Loading ftrim.Phasenfehler_Reg(fast)
+# Loading ftrim.ready_counter(fast)
+# Loading canakari.fce2(fast)
+# Loading canakari.erbcount2(fast)
+# Loading canakari.faultfsm2(fast)
+# Loading canakari.rec2(fast)
+# Loading canakari.tec2(fast)
+# Loading canakari.interruptunit2(fast)
+# Loading canakari.iocpu2(fast)
+# Loading canakari.accmaskreg2(fast)
+# Loading canakari.generalregister2(fast)
+# Loading canakari.interrupregister2(fast)
+# Loading canakari.multiplexer2(fast)
+# Loading canakari.read_mux2(fast)
+# Loading canakari.write_demux2(fast)
+# Loading canakari.prescalereg2(fast)
+# Loading canakari.recarbitreg2(fast)
+# Loading canakari.recmescontrolreg2(fast)
+# Loading canakari.recregister2(fast)
+# Loading canakari.transmesconreg2(fast)
+# Loading canakari.transmitreg2(fast)
+# Loading canakari.llc2(fast)
+# Loading canakari.equal_id2(fast)
+# Loading canakari.llc_fsm2(fast)
 # Loading canakari.mac2(fast)
-# Loading canakari.reset_mac2(fast)
-# Loading canakari.macfsm2(fast)
 # Loading canakari.biterrordetect2(fast)
 # Loading canakari.counter2(fast)
 # Loading canakari.decapsulation2(fast)
 # Loading canakari.destuffing2(fast)
 # Loading canakari.encapsulation2(fast)
+# Loading canakari.fastshift2(fast)
+# Loading canakari.fsm_register2(fast)
+# Loading canakari.macfsm2(fast)
+# Loading canakari.meslencompare2(fast)
 # Loading canakari.rcrc2(fast)
 # Loading canakari.rcrc_cell2(fast)
 # Loading canakari.recmeslen2(fast)
+# Loading canakari.reset_mac2(fast)
 # Loading canakari.rshiftreg2(fast)
 # Loading canakari.rshift_cell2(fast)
 # Loading canakari.stuffing2(fast)
@@ -1095,61 +89,17 @@ vsim -L tsmcdigital_lib -L top_lib -L MOPSv2_lib -L canakari -L CANdecoder -L ft
 # Loading canakari.tcrc_cell2(fast)
 # Loading canakari.tshiftreg2(fast)
 # Loading canakari.tshift_cell2(fast)
-# Loading canakari.fsm_register2(fast)
-# Loading canakari.fastshift2(fast)
-# Loading canakari.meslencompare2(fast)
-# Loading canakari.llc2(fast)
-# Loading canakari.llc_fsm2(fast)
-# Loading canakari.equal_id2(fast)
-# Loading canakari.bittiming2(fast)
-# Loading ftrim.Control_Sys(fast)
-# Loading ftrim.PID_Regler(fast)
-# Loading ftrim.Ftrim_En(fast)
-# Loading ftrim.Diff(fast)
-# Loading ftrim.Multi(fast)
-# Loading ftrim.Multi_i(fast)
-# Loading ftrim.Accumulator(fast)
-# Loading ftrim.Add_PID(fast)
-# Loading ftrim.Output_Scaling(fast)
-# Loading ftrim.CLK_Counter(fast)
-# Loading ftrim.Control_FSM(fast)
-# Loading ftrim.Phasenfehler_Reg(fast)
-# Loading ftrim.ready_counter(fast)
-# Loading canakari.bittime2(fast)
-# Loading canakari.sum2(fast)
-# Loading canakari.timecount2(fast)
-# Loading canakari.edgepuffer2(fast)
-# Loading canakari.smpldbit_reg2(fast)
-# Loading canakari.tseg_reg2(fast)
-# Loading canakari.fce2(fast)
-# Loading canakari.faultfsm2(fast)
-# Loading canakari.rec2(fast)
-# Loading canakari.tec2(fast)
-# Loading canakari.erbcount2(fast)
-# Loading canakari.interruptunit2(fast)
-# Loading canakari.iocpu2(fast)
-# Loading canakari.multiplexer2(fast)
-# Loading canakari.read_mux2(fast)
-# Loading canakari.write_demux2(fast)
-# Loading canakari.generalregister2(fast)
-# Loading canakari.recmescontrolreg2(fast)
-# Loading canakari.recarbitreg2(fast)
-# Loading canakari.accmaskreg2(fast)
-# Loading canakari.interrupregister2(fast)
-# Loading canakari.prescalereg2(fast)
-# Loading canakari.recregister2(fast)
-# Loading canakari.transmesconreg2(fast)
-# Loading canakari.transmitreg2(fast)
 # Loading canakari.prescale2(fast)
-# Loading mopshub_lib.node_rec_mux_16(fast)
+# Loading canakari.resetgen2(fast)
+# Loading mopshub_lib.node_rec_mux_32(fast)
 # Loading mopshub_lib.bus_rec_SM(fast)
-# Loading mopshub_lib.dec16_1_16bit(fast)
 # Loading mopshub_lib.dec1_1_32bit(fast)
-# Loading mopshub_lib.demux1_16_1bit(fast)
-# Loading mopshub_lib.mux16_1_16bit(fast)
-# Loading mopshub_lib.node_tra_demux_16(fast)
-# Loading mopshub_lib.demux1_16_16bit(fast)
-# Loading mopshub_lib.mux16_1_1bit(fast)
+# Loading mopshub_lib.dec32_1_16bit(fast)
+# Loading mopshub_lib.demux1_32_1bit(fast)
+# Loading mopshub_lib.mux32_1_16bit(fast)
+# Loading mopshub_lib.node_tra_demux_32(fast)
+# Loading mopshub_lib.demux1_32_16bit(fast)
+# Loading mopshub_lib.mux32_1_1bit(fast)
 # Loading mopshub_lib.control_bus(fast)
 # Loading mopshub_lib.spi_master(fast)
 # Loading mopshub_lib.elink_core(fast)
@@ -1228,6 +178,112 @@ vsim -L tsmcdigital_lib -L top_lib -L MOPSv2_lib -L canakari -L CANdecoder -L ft
 # Loading mopshub_lib.clock_divider(fast)
 # Loading /eda/mentor/2019-20/RHELx86/HDL-DESIGNER_2019.4/resources/downstream/modelsim/ModelSim_64Bit.dll
 # ** Warning: (vsim-8634) Code was not compiled with coverage options.
+add wave -position insertpoint  \
+sim:/tb_mopshub_top_32bus/adc_ch \
+sim:/tb_mopshub_top_32bus/bus_dec_data \
+sim:/tb_mopshub_top_32bus/bus_id \
+sim:/tb_mopshub_top_32bus/can_rec_select \
+sim:/tb_mopshub_top_32bus/can_tra_select \
+sim:/tb_mopshub_top_32bus/can_tra_select_dbg \
+sim:/tb_mopshub_top_32bus/clk_40_m \
+sim:/tb_mopshub_top_32bus/clk_m \
+sim:/tb_mopshub_top_32bus/clk_mops \
+sim:/tb_mopshub_top_32bus/costum_msg_end \
+sim:/tb_mopshub_top_32bus/data_rec_uplink \
+sim:/tb_mopshub_top_32bus/data_tra_downlink \
+sim:/tb_mopshub_top_32bus/end_init \
+sim:/tb_mopshub_top_32bus/end_power_init \
+sim:/tb_mopshub_top_32bus/end_trim_bus \
+sim:/tb_mopshub_top_32bus/endwait_all \
+sim:/tb_mopshub_top_32bus/info_debug_sig \
+sim:/tb_mopshub_top_32bus/irq_elink_rec \
+sim:/tb_mopshub_top_32bus/irq_elink_tra \
+sim:/tb_mopshub_top_32bus/osc_auto_trim_mopshub \
+sim:/tb_mopshub_top_32bus/power_bus_cnt \
+sim:/tb_mopshub_top_32bus/power_bus_en \
+sim:/tb_mopshub_top_32bus/ready_osc \
+sim:/tb_mopshub_top_32bus/rst \
+sim:/tb_mopshub_top_32bus/rst_bus \
+sim:/tb_mopshub_top_32bus/rx0 \
+sim:/tb_mopshub_top_32bus/rx1 \
+sim:/tb_mopshub_top_32bus/rx2 \
+sim:/tb_mopshub_top_32bus/rx3 \
+sim:/tb_mopshub_top_32bus/rx4 \
+sim:/tb_mopshub_top_32bus/rx5 \
+sim:/tb_mopshub_top_32bus/rx6 \
+sim:/tb_mopshub_top_32bus/rx7 \
+sim:/tb_mopshub_top_32bus/rx8 \
+sim:/tb_mopshub_top_32bus/rx9 \
+sim:/tb_mopshub_top_32bus/rx10 \
+sim:/tb_mopshub_top_32bus/rx11 \
+sim:/tb_mopshub_top_32bus/rx12 \
+sim:/tb_mopshub_top_32bus/rx13 \
+sim:/tb_mopshub_top_32bus/rx14 \
+sim:/tb_mopshub_top_32bus/rx15 \
+sim:/tb_mopshub_top_32bus/rx16 \
+sim:/tb_mopshub_top_32bus/rx17 \
+sim:/tb_mopshub_top_32bus/rx18 \
+sim:/tb_mopshub_top_32bus/rx19 \
+sim:/tb_mopshub_top_32bus/rx20 \
+sim:/tb_mopshub_top_32bus/rx21 \
+sim:/tb_mopshub_top_32bus/rx22 \
+sim:/tb_mopshub_top_32bus/rx23 \
+sim:/tb_mopshub_top_32bus/rx24 \
+sim:/tb_mopshub_top_32bus/rx25 \
+sim:/tb_mopshub_top_32bus/rx26 \
+sim:/tb_mopshub_top_32bus/rx27 \
+sim:/tb_mopshub_top_32bus/rx28 \
+sim:/tb_mopshub_top_32bus/rx29 \
+sim:/tb_mopshub_top_32bus/rx30 \
+sim:/tb_mopshub_top_32bus/rx31 \
+sim:/tb_mopshub_top_32bus/rx_mopshub_2bit \
+sim:/tb_mopshub_top_32bus/sel_bus \
+sim:/tb_mopshub_top_32bus/sign_on_sig \
+sim:/tb_mopshub_top_32bus/spi_dat_m \
+sim:/tb_mopshub_top_32bus/spi_dat_p \
+sim:/tb_mopshub_top_32bus/start_init \
+sim:/tb_mopshub_top_32bus/start_osc_cnt \
+sim:/tb_mopshub_top_32bus/start_trim_osc \
+sim:/tb_mopshub_top_32bus/test_advanced \
+sim:/tb_mopshub_top_32bus/test_rx \
+sim:/tb_mopshub_top_32bus/test_rx_end \
+sim:/tb_mopshub_top_32bus/test_rx_start \
+sim:/tb_mopshub_top_32bus/test_tx \
+sim:/tb_mopshub_top_32bus/test_tx_end \
+sim:/tb_mopshub_top_32bus/test_tx_start \
+sim:/tb_mopshub_top_32bus/tx0 \
+sim:/tb_mopshub_top_32bus/tx1 \
+sim:/tb_mopshub_top_32bus/tx2 \
+sim:/tb_mopshub_top_32bus/tx3 \
+sim:/tb_mopshub_top_32bus/tx4 \
+sim:/tb_mopshub_top_32bus/tx5 \
+sim:/tb_mopshub_top_32bus/tx6 \
+sim:/tb_mopshub_top_32bus/tx7 \
+sim:/tb_mopshub_top_32bus/tx8 \
+sim:/tb_mopshub_top_32bus/tx9 \
+sim:/tb_mopshub_top_32bus/tx10 \
+sim:/tb_mopshub_top_32bus/tx11 \
+sim:/tb_mopshub_top_32bus/tx12 \
+sim:/tb_mopshub_top_32bus/tx13 \
+sim:/tb_mopshub_top_32bus/tx14 \
+sim:/tb_mopshub_top_32bus/tx15 \
+sim:/tb_mopshub_top_32bus/tx16 \
+sim:/tb_mopshub_top_32bus/tx17 \
+sim:/tb_mopshub_top_32bus/tx18 \
+sim:/tb_mopshub_top_32bus/tx19 \
+sim:/tb_mopshub_top_32bus/tx20 \
+sim:/tb_mopshub_top_32bus/tx21 \
+sim:/tb_mopshub_top_32bus/tx22 \
+sim:/tb_mopshub_top_32bus/tx23 \
+sim:/tb_mopshub_top_32bus/tx24 \
+sim:/tb_mopshub_top_32bus/tx25 \
+sim:/tb_mopshub_top_32bus/tx26 \
+sim:/tb_mopshub_top_32bus/tx27 \
+sim:/tb_mopshub_top_32bus/tx28 \
+sim:/tb_mopshub_top_32bus/tx29 \
+sim:/tb_mopshub_top_32bus/tx30 \
+sim:/tb_mopshub_top_32bus/tx31 \
+sim:/tb_mopshub_top_32bus/tx_mopshub_2bit
 run
 # Frequncy  = 160 MHz, Period = 6.250 ns
 # clk phase = 0 deg
@@ -1248,81 +304,23 @@ run
 # 	 initialization [BUS ID 13]:
 # 	 initialization [BUS ID 14]:
 # 	 initialization [BUS ID 15]:
+# 	 initialization [BUS ID 16]:
+# 	 initialization [BUS ID 17]:
+# 	 initialization [BUS ID 18]:
+# 	 initialization [BUS ID 19]:
+# 	 initialization [BUS ID 20]:
+# 	 initialization [BUS ID 21]:
+# 	 initialization [BUS ID 22]:
+# 	 initialization [BUS ID 23]:
+# 	 initialization [BUS ID 24]:
+# 	 initialization [BUS ID 25]:
+# 	 initialization [BUS ID 26]:
+# 	 initialization [BUS ID 27]:
+# 	 initialization [BUS ID 28]:
+# 	 initialization [BUS ID 29]:
+# 	 initialization [BUS ID 30]:
+# 	 initialization [BUS ID 31]:
 # *****************************************************************************
-add wave -position insertpoint  \
-sim:/tb_mopshub_top_16bus/adc_ch \
-sim:/tb_mopshub_top_16bus/bus_dec_data \
-sim:/tb_mopshub_top_16bus/bus_id \
-sim:/tb_mopshub_top_16bus/can_rec_select \
-sim:/tb_mopshub_top_16bus/can_tra_select \
-sim:/tb_mopshub_top_16bus/can_tra_select_dbg \
-sim:/tb_mopshub_top_16bus/clk_40_m \
-sim:/tb_mopshub_top_16bus/clk_m \
-sim:/tb_mopshub_top_16bus/clk_mops \
-sim:/tb_mopshub_top_16bus/costum_msg_end \
-sim:/tb_mopshub_top_16bus/data_rec_uplink \
-sim:/tb_mopshub_top_16bus/data_tra_downlink \
-sim:/tb_mopshub_top_16bus/end_init \
-sim:/tb_mopshub_top_16bus/end_power_init \
-sim:/tb_mopshub_top_16bus/end_trim_bus \
-sim:/tb_mopshub_top_16bus/endwait_all \
-sim:/tb_mopshub_top_16bus/info_debug_sig \
-sim:/tb_mopshub_top_16bus/irq_elink_rec \
-sim:/tb_mopshub_top_16bus/irq_elink_tra \
-sim:/tb_mopshub_top_16bus/osc_auto_trim_mopshub \
-sim:/tb_mopshub_top_16bus/power_bus_cnt \
-sim:/tb_mopshub_top_16bus/power_bus_en \
-sim:/tb_mopshub_top_16bus/ready_osc \
-sim:/tb_mopshub_top_16bus/rst \
-sim:/tb_mopshub_top_16bus/rst_bus \
-sim:/tb_mopshub_top_16bus/rx0 \
-sim:/tb_mopshub_top_16bus/rx1 \
-sim:/tb_mopshub_top_16bus/rx2 \
-sim:/tb_mopshub_top_16bus/rx3 \
-sim:/tb_mopshub_top_16bus/rx4 \
-sim:/tb_mopshub_top_16bus/rx5 \
-sim:/tb_mopshub_top_16bus/rx6 \
-sim:/tb_mopshub_top_16bus/rx7 \
-sim:/tb_mopshub_top_16bus/rx8 \
-sim:/tb_mopshub_top_16bus/rx9 \
-sim:/tb_mopshub_top_16bus/rx10 \
-sim:/tb_mopshub_top_16bus/rx11 \
-sim:/tb_mopshub_top_16bus/rx12 \
-sim:/tb_mopshub_top_16bus/rx13 \
-sim:/tb_mopshub_top_16bus/rx14 \
-sim:/tb_mopshub_top_16bus/rx15 \
-sim:/tb_mopshub_top_16bus/rx_mopshub_2bit \
-sim:/tb_mopshub_top_16bus/sel_bus \
-sim:/tb_mopshub_top_16bus/sign_on_sig \
-sim:/tb_mopshub_top_16bus/spi_dat_m \
-sim:/tb_mopshub_top_16bus/spi_dat_p \
-sim:/tb_mopshub_top_16bus/start_init \
-sim:/tb_mopshub_top_16bus/start_osc_cnt \
-sim:/tb_mopshub_top_16bus/start_trim_osc \
-sim:/tb_mopshub_top_16bus/test_advanced \
-sim:/tb_mopshub_top_16bus/test_rx \
-sim:/tb_mopshub_top_16bus/test_rx_end \
-sim:/tb_mopshub_top_16bus/test_rx_start \
-sim:/tb_mopshub_top_16bus/test_tx \
-sim:/tb_mopshub_top_16bus/test_tx_end \
-sim:/tb_mopshub_top_16bus/test_tx_start \
-sim:/tb_mopshub_top_16bus/tx0 \
-sim:/tb_mopshub_top_16bus/tx1 \
-sim:/tb_mopshub_top_16bus/tx2 \
-sim:/tb_mopshub_top_16bus/tx3 \
-sim:/tb_mopshub_top_16bus/tx4 \
-sim:/tb_mopshub_top_16bus/tx5 \
-sim:/tb_mopshub_top_16bus/tx6 \
-sim:/tb_mopshub_top_16bus/tx7 \
-sim:/tb_mopshub_top_16bus/tx8 \
-sim:/tb_mopshub_top_16bus/tx9 \
-sim:/tb_mopshub_top_16bus/tx10 \
-sim:/tb_mopshub_top_16bus/tx11 \
-sim:/tb_mopshub_top_16bus/tx12 \
-sim:/tb_mopshub_top_16bus/tx13 \
-sim:/tb_mopshub_top_16bus/tx14 \
-sim:/tb_mopshub_top_16bus/tx15 \
-sim:/tb_mopshub_top_16bus/tx_mopshub_2bit
 # Status GOOD [BUS ID   0]- RX test
 # 	 Receive RX signals [BUS ID   0]: 	 request 6014024001b00000000 	 response 5814324001b0000031b
 # Status GOOD [BUS ID   0]- RX test
@@ -1341,184 +339,3 @@ sim:/tb_mopshub_top_16bus/tx_mopshub_2bit
 # 	 Receive RX signals [BUS ID   2]: 	 request 6014024001c02000000 	 response 5814324001c0200031c
 # Status GOOD [BUS ID   2]- RX test
 # 	 Receive RX signals [BUS ID   2]: 	 request 6014024001d02000000 	 response 5814324001d0200031d
-# Status GOOD [BUS ID   3]- RX test
-# 	 Receive RX signals [BUS ID   3]: 	 request 6014024001b03000000 	 response 5814324001b0300031b
-# Status GOOD [BUS ID   3]- RX test
-# 	 Receive RX signals [BUS ID   3]: 	 request 6014024001c03000000 	 response 5814324001c0300031c
-# Status GOOD [BUS ID   3]- RX test
-# 	 Receive RX signals [BUS ID   3]: 	 request 6014024001d03000000 	 response 5814324001d0300031d
-# Status GOOD [BUS ID   4]- RX test
-# 	 Receive RX signals [BUS ID   4]: 	 request 6014024001b04000000 	 response 5814324001b0400031b
-# Status GOOD [BUS ID   4]- RX test
-# 	 Receive RX signals [BUS ID   4]: 	 request 6014024001c04000000 	 response 5814324001c0400031c
-# Status GOOD [BUS ID   4]- RX test
-# 	 Receive RX signals [BUS ID   4]: 	 request 6014024001d04000000 	 response 5814324001d0400031d
-# Status GOOD [BUS ID   5]- RX test
-# 	 Receive RX signals [BUS ID   5]: 	 request 6014024001b05000000 	 response 5814324001b0500031b
-# Status GOOD [BUS ID   5]- RX test
-# 	 Receive RX signals [BUS ID   5]: 	 request 6014024001c05000000 	 response 5814324001c0500031c
-# Status GOOD [BUS ID   5]- RX test
-# 	 Receive RX signals [BUS ID   5]: 	 request 6014024001d05000000 	 response 5814324001d0500031d
-# Status GOOD [BUS ID   6]- RX test
-# 	 Receive RX signals [BUS ID   6]: 	 request 6014024001b06000000 	 response 5814324001b0600031b
-# Status GOOD [BUS ID   6]- RX test
-# 	 Receive RX signals [BUS ID   6]: 	 request 6014024001c06000000 	 response 5814324001c0600031c
-# Status GOOD [BUS ID   6]- RX test
-# 	 Receive RX signals [BUS ID   6]: 	 request 6014024001d06000000 	 response 5814324001d0600031d
-# Status GOOD [BUS ID   7]- RX test
-# 	 Receive RX signals [BUS ID   7]: 	 request 6014024001b07000000 	 response 5814324001b0700031b
-# Status GOOD [BUS ID   7]- RX test
-# 	 Receive RX signals [BUS ID   7]: 	 request 6014024001c07000000 	 response 5814324001c0700031c
-# Status GOOD [BUS ID   7]- RX test
-# 	 Receive RX signals [BUS ID   7]: 	 request 6014024001d07000000 	 response 5814324001d0700031d
-# Status GOOD [BUS ID   8]- RX test
-# 	 Receive RX signals [BUS ID   8]: 	 request 6014024001b08000000 	 response 5814324001b0800031b
-# Status GOOD [BUS ID   8]- RX test
-# 	 Receive RX signals [BUS ID   8]: 	 request 6014024001c08000000 	 response 5814324001c0800031c
-# Status GOOD [BUS ID   8]- RX test
-# 	 Receive RX signals [BUS ID   8]: 	 request 6014024001d08000000 	 response 5814324001d0800031d
-# Status GOOD [BUS ID   9]- RX test
-# 	 Receive RX signals [BUS ID   9]: 	 request 6014024001b09000000 	 response 5814324001b0900031b
-# Status GOOD [BUS ID   9]- RX test
-# 	 Receive RX signals [BUS ID   9]: 	 request 6014024001c09000000 	 response 5814324001c0900031c
-# Status GOOD [BUS ID   9]- RX test
-# 	 Receive RX signals [BUS ID   9]: 	 request 6014024001d09000000 	 response 5814324001d0900031d
-# Status GOOD [BUS ID  10]- RX test
-# 	 Receive RX signals [BUS ID  10]: 	 request 6014024001b0a000000 	 response 5814324001b0a00031b
-# Status GOOD [BUS ID  10]- RX test
-# 	 Receive RX signals [BUS ID  10]: 	 request 6014024001c0a000000 	 response 5814324001c0a00031c
-# Status GOOD [BUS ID  10]- RX test
-# 	 Receive RX signals [BUS ID  10]: 	 request 6014024001d0a000000 	 response 5814324001d0a00031d
-# Status GOOD [BUS ID  11]- RX test
-# 	 Receive RX signals [BUS ID  11]: 	 request 6014024001b0b000000 	 response 5814324001b0b00031b
-# Status GOOD [BUS ID  11]- RX test
-# 	 Receive RX signals [BUS ID  11]: 	 request 6014024001c0b000000 	 response 5814324001c0b00031c
-# Status GOOD [BUS ID  11]- RX test
-# 	 Receive RX signals [BUS ID  11]: 	 request 6014024001d0b000000 	 response 5814324001d0b00031d
-# Status GOOD [BUS ID  12]- RX test
-# 	 Receive RX signals [BUS ID  12]: 	 request 6014024001b0c000000 	 response 5814324001b0c00031b
-# Status GOOD [BUS ID  12]- RX test
-# 	 Receive RX signals [BUS ID  12]: 	 request 6014024001c0c000000 	 response 5814324001c0c00031c
-# Status GOOD [BUS ID  12]- RX test
-# 	 Receive RX signals [BUS ID  12]: 	 request 6014024001d0c000000 	 response 5814324001d0c00031d
-# Status GOOD [BUS ID  13]- RX test
-# 	 Receive RX signals [BUS ID  13]: 	 request 6014024001b0d000000 	 response 5814324001b0d00031b
-# Status GOOD [BUS ID  13]- RX test
-# 	 Receive RX signals [BUS ID  13]: 	 request 6014024001c0d000000 	 response 5814324001c0d00031c
-# Status GOOD [BUS ID  13]- RX test
-# 	 Receive RX signals [BUS ID  13]: 	 request 6014024001d0d000000 	 response 5814324001d0d00031d
-# Status GOOD [BUS ID  14]- RX test
-# 	 Receive RX signals [BUS ID  14]: 	 request 6014024001b0e000000 	 response 5814324001b0e00031b
-# Status GOOD [BUS ID  14]- RX test
-# 	 Receive RX signals [BUS ID  14]: 	 request 6014024001c0e000000 	 response 5814324001c0e00031c
-# Status GOOD [BUS ID  14]- RX test
-# 	 Receive RX signals [BUS ID  14]: 	 request 6014024001d0e000000 	 response 5814324001d0e00031d
-# Status GOOD [BUS ID  15]- RX test
-# 	 Receive RX signals [BUS ID  15]: 	 request 6014024001b0f000000 	 response 5814324001b0f00031b
-# Status GOOD [BUS ID  15]- RX test
-# 	 Receive RX signals [BUS ID  15]: 	 request 6014024001c0f000000 	 response 5814324001c0f00031c
-# Status GOOD [BUS ID  15]- RX test
-# 	 Receive RX signals [BUS ID  15]: 	 request 6014024001d0f000000 	 response 5814324001d0f00031d
-# *****************************************************************************
-# Status GOOD [BUS ID  0] - TX Test
-# 	 Transmit TX signals [BUS ID   0]: 	 request 6014000240f00000000 	 response 5818000240f00020000
-# Status GOOD [BUS ID  0] - TX Test
-# 	 Transmit TX signals [BUS ID   0]: 	 request 6014000241000000000 	 response 5818000241000020000
-# Status GOOD [BUS ID  0] - TX Test
-# 	 Transmit TX signals [BUS ID   0]: 	 request 6014000240a00000000 	 response 5818000240a00020000
-# Status GOOD [BUS ID  1] - TX Test
-# 	 Transmit TX signals [BUS ID   1]: 	 request 6014000240f01000000 	 response 5818000240f01020000
-# Status GOOD [BUS ID  1] - TX Test
-# 	 Transmit TX signals [BUS ID   1]: 	 request 6014000241001000000 	 response 5818000241001020000
-# Status GOOD [BUS ID  1] - TX Test
-# 	 Transmit TX signals [BUS ID   1]: 	 request 6014000240a01000000 	 response 5818000240a01020000
-# Status GOOD [BUS ID  2] - TX Test
-# 	 Transmit TX signals [BUS ID   2]: 	 request 6014000240f02000000 	 response 5818000240f02020000
-# Status GOOD [BUS ID  2] - TX Test
-# 	 Transmit TX signals [BUS ID   2]: 	 request 6014000241002000000 	 response 5818000241002020000
-# Status GOOD [BUS ID  2] - TX Test
-# 	 Transmit TX signals [BUS ID   2]: 	 request 6014000240a02000000 	 response 5818000240a02020000
-# Status GOOD [BUS ID  3] - TX Test
-# 	 Transmit TX signals [BUS ID   3]: 	 request 6014000240f03000000 	 response 5818000240f03020000
-# Status GOOD [BUS ID  3] - TX Test
-# 	 Transmit TX signals [BUS ID   3]: 	 request 6014000241003000000 	 response 5818000241003020000
-# Status GOOD [BUS ID  3] - TX Test
-# 	 Transmit TX signals [BUS ID   3]: 	 request 6014000240a03000000 	 response 5818000240a03020000
-# Status GOOD [BUS ID  4] - TX Test
-# 	 Transmit TX signals [BUS ID   4]: 	 request 6014000240f04000000 	 response 5818000240f04020000
-# Status GOOD [BUS ID  4] - TX Test
-# 	 Transmit TX signals [BUS ID   4]: 	 request 6014000241004000000 	 response 5818000241004020000
-# Status GOOD [BUS ID  4] - TX Test
-# 	 Transmit TX signals [BUS ID   4]: 	 request 6014000240a04000000 	 response 5818000240a04020000
-# Status GOOD [BUS ID  5] - TX Test
-# 	 Transmit TX signals [BUS ID   5]: 	 request 6014000240f05000000 	 response 5818000240f05020000
-# Status GOOD [BUS ID  5] - TX Test
-# 	 Transmit TX signals [BUS ID   5]: 	 request 6014000241005000000 	 response 5818000241005020000
-# Status GOOD [BUS ID  5] - TX Test
-# 	 Transmit TX signals [BUS ID   5]: 	 request 6014000240a05000000 	 response 5818000240a05020000
-# Status GOOD [BUS ID  6] - TX Test
-# 	 Transmit TX signals [BUS ID   6]: 	 request 6014000240f06000000 	 response 5818000240f06020000
-# Status GOOD [BUS ID  6] - TX Test
-# 	 Transmit TX signals [BUS ID   6]: 	 request 6014000241006000000 	 response 5818000241006020000
-# Status GOOD [BUS ID  6] - TX Test
-# 	 Transmit TX signals [BUS ID   6]: 	 request 6014000240a06000000 	 response 5818000240a06020000
-# Status GOOD [BUS ID  7] - TX Test
-# 	 Transmit TX signals [BUS ID   7]: 	 request 6014000240f07000000 	 response 5818000240f07020000
-# Status GOOD [BUS ID  7] - TX Test
-# 	 Transmit TX signals [BUS ID   7]: 	 request 6014000241007000000 	 response 5818000241007020000
-# Status GOOD [BUS ID  7] - TX Test
-# 	 Transmit TX signals [BUS ID   7]: 	 request 6014000240a07000000 	 response 5818000240a07020000
-# Status GOOD [BUS ID  8] - TX Test
-# 	 Transmit TX signals [BUS ID   8]: 	 request 6014000240f08000000 	 response 5818000240f08020000
-# Status GOOD [BUS ID  8] - TX Test
-# 	 Transmit TX signals [BUS ID   8]: 	 request 6014000241008000000 	 response 5818000241008020000
-# Status GOOD [BUS ID  8] - TX Test
-# 	 Transmit TX signals [BUS ID   8]: 	 request 6014000240a08000000 	 response 5818000240a08020000
-# Status GOOD [BUS ID  9] - TX Test
-# 	 Transmit TX signals [BUS ID   9]: 	 request 6014000240f09000000 	 response 5818000240f09020000
-# Status GOOD [BUS ID  9] - TX Test
-# 	 Transmit TX signals [BUS ID   9]: 	 request 6014000241009000000 	 response 5818000241009020000
-# Status GOOD [BUS ID  9] - TX Test
-# 	 Transmit TX signals [BUS ID   9]: 	 request 6014000240a09000000 	 response 5818000240a09020000
-# Status GOOD [BUS ID 10] - TX Test
-# 	 Transmit TX signals [BUS ID  10]: 	 request 6014000240f0a000000 	 response 5818000240f0a020000
-# Status GOOD [BUS ID 10] - TX Test
-# 	 Transmit TX signals [BUS ID  10]: 	 request 601400024100a000000 	 response 581800024100a020000
-# Status GOOD [BUS ID 10] - TX Test
-# 	 Transmit TX signals [BUS ID  10]: 	 request 6014000240a0a000000 	 response 5818000240a0a020000
-# Status GOOD [BUS ID 11] - TX Test
-# 	 Transmit TX signals [BUS ID  11]: 	 request 6014000240f0b000000 	 response 5818000240f0b020000
-# Status GOOD [BUS ID 11] - TX Test
-# 	 Transmit TX signals [BUS ID  11]: 	 request 601400024100b000000 	 response 581800024100b020000
-# Status GOOD [BUS ID 11] - TX Test
-# 	 Transmit TX signals [BUS ID  11]: 	 request 6014000240a0b000000 	 response 5818000240a0b020000
-# Status GOOD [BUS ID 12] - TX Test
-# 	 Transmit TX signals [BUS ID  12]: 	 request 6014000240f0c000000 	 response 5818000240f0c020000
-# Status GOOD [BUS ID 12] - TX Test
-# 	 Transmit TX signals [BUS ID  12]: 	 request 601400024100c000000 	 response 581800024100c020000
-# Status GOOD [BUS ID 12] - TX Test
-# 	 Transmit TX signals [BUS ID  12]: 	 request 6014000240a0c000000 	 response 5818000240a0c020000
-# Status GOOD [BUS ID 13] - TX Test
-# 	 Transmit TX signals [BUS ID  13]: 	 request 6014000240f0d000000 	 response 5818000240f0d020000
-# Status GOOD [BUS ID 13] - TX Test
-# 	 Transmit TX signals [BUS ID  13]: 	 request 601400024100d000000 	 response 581800024100d020000
-# Status GOOD [BUS ID 13] - TX Test
-# 	 Transmit TX signals [BUS ID  13]: 	 request 6014000240a0d000000 	 response 5818000240a0d020000
-# Status GOOD [BUS ID 14] - TX Test
-# 	 Transmit TX signals [BUS ID  14]: 	 request 6014000240f0e000000 	 response 5818000240f0e020000
-# Status GOOD [BUS ID 14] - TX Test
-# 	 Transmit TX signals [BUS ID  14]: 	 request 601400024100e000000 	 response 581800024100e020000
-# Status GOOD [BUS ID 14] - TX Test
-# 	 Transmit TX signals [BUS ID  14]: 	 request 6014000240a0e000000 	 response 5818000240a0e020000
-# Status GOOD [BUS ID 15] - TX Test
-# 	 Transmit TX signals [BUS ID  15]: 	 request 6014000240f0f000000 	 response 5818000240f0f020000
-# Status GOOD [BUS ID 15] - TX Test
-# 	 Transmit TX signals [BUS ID  15]: 	 request 601400024100f000000 	 response 581800024100f020000
-# Status GOOD [BUS ID 15] - TX Test
-# 	 Transmit TX signals [BUS ID  15]: 	 request 6014000240a0f000000 	 response 5818000240a0f020000
-# *****************************************************************************
-# The connection to HDS has been closed
-# 0
-# 
-# End time: 15:56:14 on Dec 07,2022, Elapsed time: 21:50:54
-# Errors: 0, Warnings: 74

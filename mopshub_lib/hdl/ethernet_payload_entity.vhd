@@ -47,7 +47,7 @@ entity ethernet_payload is
         start_write_elink_dbg: out std_logic;
         data_tra_downlink: in std_logic_vector(75 downto 0);
         data_rec_uplink: in std_logic_vector(75 downto 0);
-        data_rec_elink: out std_logic_vector(75 downto 0);
+        data_rec_ethernet: out std_logic_vector(75 downto 0);
 		status: in std_logic_vector(31 downto 0) := X"abcdfedc";
 		nuke: out std_logic;
 		soft_rst: out std_logic;
@@ -114,6 +114,6 @@ begin
 		    data_tra_downlink => data_tra_downlink,
 		    data_rec_uplink => data_rec_uplink,
 		    start_write_elink_dbg => start_write_elink_dbg,
-		    data_rec_elink=>data_rec_elink
+		    data_rec_ethernet=>data_rec_ethernet
 		);
 end rtl;

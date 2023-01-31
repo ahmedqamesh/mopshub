@@ -27,8 +27,7 @@ always@(*)
        if(buffer_en0) data_tra_reg <= data_tra_in0;
        else if(buffer_en1) data_tra_reg <= data_tra_in1;
        else if(buffer_en2) data_tra_reg <= data_tra_in2;
-       else
-         data_tra_reg <= data_tra_in0;
+       else data_tra_reg <= data_tra_in0;
      end
   end 
 assign data_tra_out = data_tra_reg;

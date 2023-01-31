@@ -26,6 +26,7 @@ module canframegen(
    input   wire [31:0]taildata,
    input   wire [10:0]customcanid         // Custom CAN id from tbSM
 );
+ 
 
 // Internal Declarations
 

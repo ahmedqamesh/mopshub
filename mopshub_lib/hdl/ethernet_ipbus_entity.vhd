@@ -58,7 +58,7 @@ entity ethernet_ipbus is
         start_write_elink_dbg: out std_logic;
         data_tra_downlink: in std_logic_vector(75 downto 0);
         data_rec_uplink: in std_logic_vector(75 downto 0);
-        data_rec_elink: out std_logic_vector(75 downto 0);
+        data_rec_ethernet: out std_logic_vector(75 downto 0);
         leds: out std_logic_vector(7 downto 0); -- status LEDs
         dip_sw: in std_logic_vector(3 downto 0) -- switches
 	);
@@ -163,7 +163,7 @@ begin
 			start_write_elink_dbg => start_write_elink_dbg,
 		  data_tra_downlink => data_tra_downlink,
 		  data_rec_uplink => data_rec_uplink,
-		  data_rec_elink=>data_rec_elink,
+		  data_rec_ethernet=>data_rec_ethernet,
 			nuke => nuke,
 			soft_rst => soft_rst,
 			userled => userled
