@@ -24,7 +24,7 @@ architecture rtl of ethernet_SM is
   constant ADDR_WIDTH: integer := calc_width(N_REG);
   signal ipb_ack_i : std_logic;
   signal ipb_err_i : std_logic;
-  signal data_rec_elink_reg: std_logic_vector(95 downto 0) :='0';
+  signal data_rec_elink_reg: std_logic_vector(95 downto 0);
 --	signal data_reg1: std_logic_vector(31 downto 0);
  -- signal data_reg2: std_logic_vector(31 downto 0); 
 	--signal data_reg3: std_logic_vector(31 downto 0);
