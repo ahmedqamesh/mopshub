@@ -9,23 +9,20 @@ unitName "STD_LOGIC_1164"
 itemName "ALL"
 )
 (DmPackageRef
-library "mopshub_lib"
+library "work"
 unitName "ipbus"
 )
 (DmPackageRef
-library "mopshub_lib"
+library "work"
 unitName "ipbus_reg_types"
 )
 (DmPackageRef
-library "mopshub_lib"
-unitName "ipbus_decode_ipbus_example"
+library "work"
+unitName "ipbus_decode_ipbus_mopshub"
 )
 ]
 libraryRefs [
 "IEEE"
-"mopshub_lib"
-"mopshub_lib"
-"mopshub_lib"
 ]
 )
 version "27.1"
@@ -34,10 +31,11 @@ model (Symbol
 commonDM (CommonDM
 ldm (LogicalDM
 ordering 1
-suid 12,0
+suid 13,0
 usingSuid 1
 emptyRow *1 (LEmptyRow
 )
+uid 140,0
 optionalChildren [
 *2 (RefLabelRowHdr
 )
@@ -177,22 +175,6 @@ uid 123,0
 *21 (LogPort
 port (LogicalPort
 lang 11
-m 1
-decl (Decl
-n "data_rec_elink"
-t "std_logic_vector"
-b "(75 downto 0)"
-preAdd 0
-posAdd 0
-o 8
-suid 8,0
-)
-)
-uid 125,0
-)
-*22 (LogPort
-port (LogicalPort
-lang 11
 decl (Decl
 n "status"
 t "std_logic_vector"
@@ -206,7 +188,7 @@ i "X\"abcdfedc\""
 )
 uid 127,0
 )
-*23 (LogPort
+*22 (LogPort
 port (LogicalPort
 lang 11
 m 1
@@ -221,7 +203,7 @@ suid 10,0
 )
 uid 129,0
 )
-*24 (LogPort
+*23 (LogPort
 port (LogicalPort
 lang 11
 m 1
@@ -236,7 +218,7 @@ suid 11,0
 )
 uid 131,0
 )
-*25 (LogPort
+*24 (LogPort
 port (LogicalPort
 lang 11
 m 1
@@ -251,11 +233,26 @@ suid 12,0
 )
 uid 133,0
 )
+*25 (LogPort
+port (LogicalPort
+lang 11
+m 1
+decl (Decl
+n "data_rec_ethernet"
+t "std_logic_vector"
+b "(75 downto 0)"
+o 8
+suid 13,0
+)
+)
+uid 200,0
+)
 ]
 )
 pdm (PhysicalDM
 displayShortBounds 1
 editShortBounds 1
+uid 153,0
 optionalChildren [
 *26 (Sheet
 sheetRow (SheetRow
@@ -279,22 +276,26 @@ litem &1
 pos 3
 dimension 20
 )
+uid 155,0
 optionalChildren [
 *28 (MRCItem
 litem &2
 pos 0
 dimension 20
+uid 156,0
 )
 *29 (MRCItem
 litem &3
 pos 1
 dimension 23
+uid 157,0
 )
 *30 (MRCItem
 litem &4
 pos 2
 hidden 1
 dimension 20
+uid 158,0
 )
 *31 (MRCItem
 litem &14
@@ -342,31 +343,31 @@ uid 124,0
 litem &21
 pos 7
 dimension 20
-uid 126,0
+uid 128,0
 )
 *39 (MRCItem
 litem &22
 pos 8
 dimension 20
-uid 128,0
+uid 130,0
 )
 *40 (MRCItem
 litem &23
 pos 9
 dimension 20
-uid 130,0
+uid 132,0
 )
 *41 (MRCItem
 litem &24
 pos 10
 dimension 20
-uid 132,0
+uid 134,0
 )
 *42 (MRCItem
 litem &25
 pos 11
 dimension 20
-uid 134,0
+uid 201,0
 )
 ]
 )
@@ -377,62 +378,74 @@ fontColor "0,0,0"
 font "courier,10,0"
 textAngle 90
 )
+uid 159,0
 optionalChildren [
 *43 (MRCItem
 litem &5
 pos 0
 dimension 20
+uid 160,0
 )
 *44 (MRCItem
 litem &7
 pos 1
 dimension 50
+uid 161,0
 )
 *45 (MRCItem
 litem &8
 pos 2
 dimension 100
+uid 162,0
 )
 *46 (MRCItem
 litem &9
 pos 3
 dimension 50
+uid 163,0
 )
 *47 (MRCItem
 litem &10
 pos 4
 dimension 100
+uid 164,0
 )
 *48 (MRCItem
 litem &11
 pos 5
 dimension 100
+uid 165,0
 )
 *49 (MRCItem
 litem &12
 pos 6
 dimension 50
+uid 166,0
 )
 *50 (MRCItem
 litem &13
 pos 7
 dimension 80
+uid 167,0
 )
 ]
 )
 fixedCol 4
 fixedRow 2
 name "Ports"
+uid 154,0
 vaOverrides [
 ]
 )
 ]
 )
+uid 139,0
 )
 genericsCommonDM (CommonDM
 ldm (LogicalDM
 emptyRow *51 (LEmptyRow
 )
+uid 169,0
 optionalChildren [
 *52 (RefLabelRowHdr
 )
@@ -469,6 +482,7 @@ tm "GenericEolColHdrMgr"
 pdm (PhysicalDM
 displayShortBounds 1
 editShortBounds 1
+uid 181,0
 optionalChildren [
 *63 (Sheet
 sheetRow (SheetRow
@@ -492,22 +506,26 @@ litem &51
 pos 3
 dimension 20
 )
+uid 183,0
 optionalChildren [
 *65 (MRCItem
 litem &52
 pos 0
 dimension 20
+uid 184,0
 )
 *66 (MRCItem
 litem &53
 pos 1
 dimension 23
+uid 185,0
 )
 *67 (MRCItem
 litem &54
 pos 2
 hidden 1
 dimension 20
+uid 186,0
 )
 ]
 )
@@ -518,75 +536,85 @@ fontColor "0,0,0"
 font "courier,10,0"
 textAngle 90
 )
+uid 187,0
 optionalChildren [
 *68 (MRCItem
 litem &55
 pos 0
 dimension 20
+uid 188,0
 )
 *69 (MRCItem
 litem &57
 pos 1
 dimension 50
+uid 189,0
 )
 *70 (MRCItem
 litem &58
 pos 2
 dimension 100
+uid 190,0
 )
 *71 (MRCItem
 litem &59
 pos 3
 dimension 100
+uid 191,0
 )
 *72 (MRCItem
 litem &60
 pos 4
 dimension 50
+uid 192,0
 )
 *73 (MRCItem
 litem &61
 pos 5
 dimension 50
+uid 193,0
 )
 *74 (MRCItem
 litem &62
 pos 6
 dimension 80
+uid 194,0
 )
 ]
 )
 fixedCol 3
 fixedRow 2
 name "Ports"
+uid 182,0
 vaOverrides [
 ]
 )
 ]
 )
+uid 168,0
 type 1
 )
 VExpander (VariableExpander
 vvMap [
 (vvPair
 variable "HDLDir"
-value "/home/dcs/git/mopshub/mopshub_lib/hdl"
+value "/../../home/dcs/git/mopshub/mopshub_lib/hdl"
 )
 (vvPair
 variable "HDSDir"
-value "/home/dcs/git/mopshub/mopshub_lib/hds"
+value "/../../home/dcs/git/mopshub/mopshub_lib/hds"
 )
 (vvPair
 variable "SideDataDesignDir"
-value "/home/dcs/git/mopshub/mopshub_lib/hds/ethernet_payload/symbol.sb.info"
+value "/../../home/dcs/git/mopshub/mopshub_lib/hds/ethernet_payload/symbol.sb.info"
 )
 (vvPair
 variable "SideDataUserDir"
-value "/home/dcs/git/mopshub/mopshub_lib/hds/ethernet_payload/symbol.sb.user"
+value "/../../home/dcs/git/mopshub/mopshub_lib/hds/ethernet_payload/symbol.sb.user"
 )
 (vvPair
 variable "SourceDir"
-value "/home/dcs/git/mopshub/mopshub_lib/hds"
+value "/../../home/dcs/git/mopshub/mopshub_lib/hds"
 )
 (vvPair
 variable "appl"
@@ -602,27 +630,27 @@ value "%(unit)_%(view)_config"
 )
 (vvPair
 variable "d"
-value "/home/dcs/git/mopshub/mopshub_lib/hds/ethernet_payload"
+value "/../../home/dcs/git/mopshub/mopshub_lib/hds/ethernet_payload"
 )
 (vvPair
 variable "d_logical"
-value "/home/dcs/git/mopshub/mopshub_lib/hds/ethernet_payload"
+value "/../../home/dcs/git/mopshub/mopshub_lib/hds/ethernet_payload"
 )
 (vvPair
 variable "date"
-value "01/24/23"
+value "02/01/23"
 )
 (vvPair
 variable "day"
-value "Tue"
+value "Wed"
 )
 (vvPair
 variable "day_long"
-value "Tuesday"
+value "Wednesday"
 )
 (vvPair
 variable "dd"
-value "24"
+value "01"
 )
 (vvPair
 variable "entity_name"
@@ -650,7 +678,7 @@ value "dcs"
 )
 (vvPair
 variable "graphical_source_date"
-value "01/24/23"
+value "02/01/23"
 )
 (vvPair
 variable "graphical_source_group"
@@ -662,7 +690,7 @@ value "chipdev2.physik.uni-wuppertal.de"
 )
 (vvPair
 variable "graphical_source_time"
-value "10:57:14"
+value "13:05:35"
 )
 (vvPair
 variable "group"
@@ -706,7 +734,7 @@ value "$HDS_PROJECT_DIR/mopshub_lib/svassistant"
 )
 (vvPair
 variable "mm"
-value "01"
+value "02"
 )
 (vvPair
 variable "module_name"
@@ -714,19 +742,19 @@ value "ethernet_payload"
 )
 (vvPair
 variable "month"
-value "Jan"
+value "Feb"
 )
 (vvPair
 variable "month_long"
-value "January"
+value "February"
 )
 (vvPair
 variable "p"
-value "/home/dcs/git/mopshub/mopshub_lib/hds/ethernet_payload/symbol.sb"
+value "/../../home/dcs/git/mopshub/mopshub_lib/hds/ethernet_payload/symbol.sb"
 )
 (vvPair
 variable "p_logical"
-value "/home/dcs/git/mopshub/mopshub_lib/hds/ethernet_payload/symbol.sb"
+value "/../../home/dcs/git/mopshub/mopshub_lib/hds/ethernet_payload/symbol.sb"
 )
 (vvPair
 variable "package_name"
@@ -750,11 +778,11 @@ value "<TBD>"
 )
 (vvPair
 variable "task_ModelSimPath"
-value "/eda/mentor/2019-20/RHELx86/AMS_2019.4/amsv/modeltech/bin"
+value "<TBD>"
 )
 (vvPair
 variable "task_NC-SimPath"
-value "/eda/cadence/2019-20/RHELx86/XCELIUM_19.03.013/tools/bin"
+value "<TBD>"
 )
 (vvPair
 variable "task_PrecisionRTLPath"
@@ -762,7 +790,7 @@ value "<TBD>"
 )
 (vvPair
 variable "task_QuestaSimPath"
-value "/eda/mentor/2019-20/RHELx86/QUESTA-CORE-PRIME_2019.4/questasim/linux_x86_64"
+value "<TBD>"
 )
 (vvPair
 variable "task_VCSPath"
@@ -782,7 +810,7 @@ value "symbol"
 )
 (vvPair
 variable "time"
-value "10:57:14"
+value "13:05:35"
 )
 (vvPair
 variable "unit"
@@ -811,6 +839,7 @@ value "23"
 ]
 )
 LanguageMgr "Vhdl2008LangMgr"
+uid 138,0
 optionalChildren [
 *75 (SymbolBody
 uid 8,0
@@ -1158,57 +1187,6 @@ suid 7,0
 )
 )
 *83 (CptPort
-uid 83,0
-ps "OnEdgeStrategy"
-shape (Triangle
-uid 84,0
-ro 90
-va (VaSet
-vasetType 1
-fg "0,65535,0"
-)
-xt "69000,7625,69750,8375"
-)
-tg (CPTG
-uid 85,0
-ps "CptPortTextPlaceStrategy"
-stg "RightVerticalLayoutStrategy"
-f (Text
-uid 86,0
-va (VaSet
-font "courier,8,0"
-)
-xt "60500,7550,68000,8450"
-st "data_rec_elink"
-ju 2
-blo "68000,8250"
-tm "CptPortNameMgr"
-)
-)
-dt (MLText
-uid 87,0
-va (VaSet
-font "courier,8,0"
-)
-xt "2000,18200,34000,19100"
-st "data_rec_elink        : OUT    std_logic_vector (75 downto 0) ;
-"
-)
-thePort (LogicalPort
-lang 11
-m 1
-decl (Decl
-n "data_rec_elink"
-t "std_logic_vector"
-b "(75 downto 0)"
-preAdd 0
-posAdd 0
-o 8
-suid 8,0
-)
-)
-)
-*84 (CptPort
 uid 88,0
 ps "OnEdgeStrategy"
 shape (Triangle
@@ -1258,7 +1236,7 @@ i "X\"abcdfedc\""
 )
 )
 )
-*85 (CptPort
+*84 (CptPort
 uid 93,0
 ps "OnEdgeStrategy"
 shape (Triangle
@@ -1308,7 +1286,7 @@ suid 10,0
 )
 )
 )
-*86 (CptPort
+*85 (CptPort
 uid 98,0
 ps "OnEdgeStrategy"
 shape (Triangle
@@ -1358,7 +1336,7 @@ suid 11,0
 )
 )
 )
-*87 (CptPort
+*86 (CptPort
 uid 103,0
 ps "OnEdgeStrategy"
 shape (Triangle
@@ -1405,6 +1383,55 @@ preAdd 0
 posAdd 0
 o 12
 suid 12,0
+)
+)
+)
+*87 (CptPort
+uid 195,0
+ps "OnEdgeStrategy"
+shape (Triangle
+uid 196,0
+ro 90
+va (VaSet
+vasetType 1
+fg "0,65535,0"
+)
+xt "69000,14625,69750,15375"
+)
+tg (CPTG
+uid 197,0
+ps "CptPortTextPlaceStrategy"
+stg "RightVerticalLayoutStrategy"
+f (Text
+uid 198,0
+va (VaSet
+font "courier,8,0"
+)
+xt "59000,14550,68000,15450"
+st "data_rec_ethernet"
+ju 2
+blo "68000,15250"
+tm "CptPortNameMgr"
+)
+)
+dt (MLText
+uid 199,0
+va (VaSet
+font "courier,8,0"
+)
+xt "2000,18200,34000,19100"
+st "data_rec_ethernet     : OUT    std_logic_vector (75 downto 0) ;
+"
+)
+thePort (LogicalPort
+lang 11
+m 1
+decl (Decl
+n "data_rec_ethernet"
+t "std_logic_vector"
+b "(75 downto 0)"
+o 8
+suid 13,0
 )
 )
 )
@@ -1777,7 +1804,7 @@ fg "0,0,32768"
 bg "0,0,32768"
 font "courier,8,0"
 )
-xt "48200,23050,57200,23950"
+xt "48200,23050,63200,23950"
 st "
 %library/%unit/%view
 "
@@ -1863,16 +1890,12 @@ uid 137,0
 va (VaSet
 font "courier,8,0"
 )
-xt "0,1900,24000,9100"
-st "LIBRARY IEEE;
-USE IEEE.STD_LOGIC_1164.ALL;
-LIBRARY mopshub_lib;
-USE mopshub_lib.ipbus.all;
-LIBRARY mopshub_lib;
-USE mopshub_lib.ipbus_reg_types.all;
-LIBRARY mopshub_lib;
-USE mopshub_lib.ipbus_decode_ipbus_example.all;
-"
+xt "0,1900,20500,6400"
+st "library IEEE;
+use IEEE.STD_LOGIC_1164.ALL;
+use work.ipbus.all;
+use work.ipbus_reg_types.all;
+use work.ipbus_decode_ipbus_mopshub.all;"
 tm "PackageList"
 )
 ]
@@ -2150,6 +2173,6 @@ xt "0,10100,0,10100"
 tm "SyDeclarativeTextMgr"
 )
 )
-lastUid 137,0
+lastUid 201,0
 activeModelName "Symbol:CDM"
 )

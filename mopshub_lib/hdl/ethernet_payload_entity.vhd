@@ -36,7 +36,7 @@ library IEEE;
 use IEEE.STD_LOGIC_1164.ALL;
 use work.ipbus.all;
 use work.ipbus_reg_types.all;
-use work.ipbus_decode_ipbus_example.all;
+use work.ipbus_decode_ipbus_mopshub.all;
 
 entity ethernet_payload is
 	port(
@@ -73,7 +73,7 @@ begin
     port map(
       ipb_in => ipb_in,
       ipb_out => ipb_out,
-      sel => ipbus_sel_ipbus_example(ipb_in.ipb_addr),
+      sel => ipbus_sel_ipbus_mopshub(ipb_in.ipb_addr),
       ipb_to_slaves => ipbw,
       ipb_from_slaves => ipbr
     );
