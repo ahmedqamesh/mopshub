@@ -17,7 +17,7 @@ USE IEEE.STD_LOGIC_1164.all;
 
 ENTITY dec_8b10b IS
    PORT( 
-      rst        : IN     std_logic;
+      reset        : IN     std_logic;
       clk          : IN     std_logic;
       datain       : IN     std_logic_vector (9 DOWNTO 0);
       datain_valid : IN     std_logic;
@@ -189,9 +189,9 @@ begin
     disp4n <= fghjp13 ;
 
 
-    output_proc: process(clk,rst)
+    output_proc: process(clk, reset)
     begin
-        if rst = '0' then
+        if reset = '1' then
             dispin <= '0';
             disp_err <= '0';
             dataout <= x"00";

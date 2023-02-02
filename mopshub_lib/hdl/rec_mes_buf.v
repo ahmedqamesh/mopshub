@@ -7,6 +7,7 @@ module buffer_rec_data(
    input   wire    [4 :0]  can_rec_select,
    input   wire            buffer_en,      // enable signal
    input   wire            rst,            // reset active low
+   input   wire            debug_mode, 
    input   wire    [4 :0]  addr,           // same address of register as in canakari
    output  wire    [75:0]  data_rec_out    // complete CAN message output. 11-bit ID and 4 data-bytes
 
@@ -69,7 +70,8 @@ begin
                  b5  <= data_rec_in[15:8];            // fifth 
                end                    
      5'b00000 :begin 
-                 b8  <= {3'b0,can_rec_select};       // Eigth // holds the bus Id
+               if (debug_mode) b8  <= data_rec_in[7:0];       // Eigth // holds the bus Id
+               else            b8  <= {3'b0,can_rec_select};  // Eigth // holds the bus Id
                  b7  <= data_rec_in[15:8];            // Seventh 
                end             
      default 
