@@ -121,6 +121,8 @@ module tb_mopshub_top_16bus();
   .clk(clk_40_m),
   .rst(rst),
   .n_buses(5'd15),
+  .prescaler_init(16'h0033),
+  .general_init(16'h00E3),
   .dbg_elink(1'b0), 
   .dbg_spi(1'b0),
   .debug_mode(1'b0),

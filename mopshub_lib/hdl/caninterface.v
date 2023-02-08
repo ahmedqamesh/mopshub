@@ -4,7 +4,8 @@ module can_interface(
    input   wire            clk, 
    input   wire            rst,      
    input   wire    [4:0]   addr,          // Address of the Cankari register
-   //input   wire    [15:0]  data_init,     // Data coming from the intial block for initial configuration of the registers
+   input   wire    [15:0]  prescaler_init,     
+   input   wire    [15:0]  general_init,
    input   wire            initi,         // Initialization command   
    input   wire            write, 
    input   wire            reset_can, 
@@ -41,8 +42,8 @@ begin
   case(cmd) 
     4'b1000 :  begin  
                  case(addr)
-                     5'b01111 : write_can_reg <= 16'h0033;//FF;//         //  prescalar register value 5'h0F
-                     5'b01110 : write_can_reg <= 16'h00E3;//A3;//         // general register.first 7bits<=0 then sjw,tseg1,tseg2 each 3bits [0000000 010 100 011]5'h0E
+                     5'b01111 : write_can_reg <= prescaler_init;//16'h0033;//FF;//         //  prescalar register value 5'h0F
+                     5'b01110 : write_can_reg <= general_init;//16'h00E3;//A3;//         // general register.first 7bits<=0 then sjw,tseg1,tseg2 each 3bits [0000000 010 100 011]5'h0E
                      
                      5'b00101 : write_can_reg <= 16'h0000;          //ID 28-13 5'h05
                      5'b00100 : write_can_reg <= 16'h0000;          //ID 12-0  5'h04
