@@ -198,7 +198,6 @@ module tb_mopshub_top_16bus();
   .osc_auto_trim_mopshub(osc_auto_trim_mopshub),
   .can_rec_select(can_rec_select),
   .bus_id(bus_id),
-  .buffer_en(),
   .test_elink_data_done(),
   .start_write_emulator(),
   .start_read_elink(),

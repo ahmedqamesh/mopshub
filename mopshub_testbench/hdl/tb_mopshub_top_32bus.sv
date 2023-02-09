@@ -140,23 +140,23 @@ module tb_mopshub_top_32bus();
   assign end_power_init    = mopshub0.end_power_init;
   assign start_init        = mopshub0.start_init;
   assign end_init          = mopshub0.end_init;
-  assign rst_bus           = mopshub0.rst_bus;
   assign sign_on_sig       = mopshub0.sign_on_sig;
   assign end_trim_bus      = mopshub0.end_trim_bus;
   assign start_trim_osc    = mopshub0.start_trim_ack;
   assign power_bus_en      = mopshub0.power_bus_en;
-  assign power_bus_cnt     = mopshub0.power_bus_cnt;  
-  assign irq_elink_tra     = mopshub0.irq_elink_tra;
-  assign irq_elink_rec     = mopshub0.irq_elink_rec;
   assign start_osc_cnt     = mopshub0.start_osc_cnt;
   assign ready_osc         = data_generator0.ready_osc;
+
+  
   
   mopshub_top_32bus mopshub0(
   .clk(clk_40_m),
   .rst(rst),
   .n_buses(5'd31),
-  .prescaler_init(16'h0033),
-  .general_init(16'h00E3),
+  .prescaler_init(16'h33),
+  .general_init(16'hE3),
+  .irq_elink_tra(irq_elink_tra),
+  .irq_elink_rec(irq_elink_rec),
   .dbg_elink(1'b0), 
   .dbg_spi(1'b0),
   .debug_mode(1'b0),
@@ -164,6 +164,25 @@ module tb_mopshub_top_32bus();
   .endwait_all(endwait_all),  
   .tx_elink2bit(tx_mopshub_2bit),
   .rx_elink2bit(rx_mopshub_2bit),
+  .word10b_rdy(),
+  .tx_efifo_full(),
+  .tx_data_rdy(),
+  .rx_fifo_full(),
+  .rx_data_rdy(),
+  .sck_m(),
+  .sck_c(),
+  .rst_bus(rst_bus),
+  .power_bus_cnt(power_bus_cnt),
+  .mon_bus_cnt(),
+  .irq_can_tra(),
+  .irq_can_rec(),
+  .rdy_dbg(),
+  .start_write_elink_dbg(),
+  .end_write_elink_dbg(),
+  .data_10bit_in_dbg(),
+  .cs_active_c(),
+  .cs_active_m(), 
+  .data_rec_dbg_in(),
   .mosi_m(spi_dat_m),
   .miso_m(spi_dat_m),        
   .mosi_c(spi_dat_p),
@@ -264,7 +283,6 @@ module tb_mopshub_top_32bus();
   .osc_auto_trim_mopshub(osc_auto_trim_mopshub),
   .can_rec_select(can_rec_select),
   .bus_id(bus_id),
-  .buffer_en(),
   .test_elink_data_done(),
   .start_write_emulator(),
   .start_read_elink(),
@@ -277,6 +295,10 @@ module tb_mopshub_top_32bus();
   .data_tra_downlink(data_tra_downlink), 
   .end_trim_bus(end_trim_bus),
   .start_trim_osc(start_trim_osc),
+  .test_uart_core(1'b0),
+  .tx_uart_done(1'b0),
+  .tx_uart_data(),
+  .tx_uart_dv(),
   //ElinkSignals
   .tx_elink2bit(rx_mopshub_2bit),
   .rx_elink2bit(tx_mopshub_2bit),
@@ -349,7 +371,7 @@ module tb_mopshub_top_32bus();
   
   //Clock Generators and Dividers master
   clock_generator #(
-  .freq(160))
+  .freq(40))
   clock_generator0( 
   .clk  (clk_m), 
   .enable (1'b1)
