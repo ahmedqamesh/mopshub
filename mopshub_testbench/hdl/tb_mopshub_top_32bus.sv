@@ -27,7 +27,7 @@ module tb_mopshub_top_32bus();
   wire    [75:0]  bus_dec_data;
   wire    [7:0]   bus_id;
   int             adc_ch;
-
+  
   reg             osc_auto_trim_mopshub = 1'b0;
   wire            ready_osc;
   wire            start_trim_osc;
@@ -393,11 +393,11 @@ module tb_mopshub_top_32bus();
   begin
     rst = 1'b0;
     #10
-    rst = 1'b1;
-  end
+    rst = 1'b1; 
+  end 
   /////*******Start Full SM for Data Generation ****/////
   always@(posedge clk_40_m)
-  begin  
+  begin
     if(end_power_init ==1) osc_auto_trim_mopshub = 1'b0;
     if(sign_on_sig ==1)//start Rx test
     begin
@@ -413,9 +413,13 @@ module tb_mopshub_top_32bus();
      #3000
      test_tx =1'b1; 
     end
-    if (test_tx_end    ==1) test_tx =1'b0;//Done Tx test
+    if (test_tx_end    ==1) 
+    begin 
+      test_tx =1'b0;//Done Tx test
+    end
     if (costum_msg_end ==1) test_advanced = 1'b0;
   end
+
   /////******* prints bus activity ******///
   always@(posedge clk_40_m)
   if (!rst) info_debug_sig = "<:RESET>";
@@ -432,4 +436,7 @@ module tb_mopshub_top_32bus();
     if (test_advanced) info_debug_sig = $sformatf("<:Costum Message  [BUS ID %d ]  :>",bus_id); 
     if (test_tx_end || test_rx_end ||end_init||end_trim_bus||costum_msg_end)  info_debug_sig = {""};    
   end
+  
+
+          
 endmodule 

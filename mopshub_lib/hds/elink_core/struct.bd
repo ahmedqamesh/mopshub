@@ -186,19 +186,19 @@ value "/../../home/dcs/git/mopshub/mopshub_lib/hds/elink_core"
 )
 (vvPair
 variable "date"
-value "02/09/23"
+value "02/10/23"
 )
 (vvPair
 variable "day"
-value "Thu"
+value "Fri"
 )
 (vvPair
 variable "day_long"
-value "Thursday"
+value "Friday"
 )
 (vvPair
 variable "dd"
-value "09"
+value "10"
 )
 (vvPair
 variable "entity_name"
@@ -226,7 +226,7 @@ value "dcs"
 )
 (vvPair
 variable "graphical_source_date"
-value "02/09/23"
+value "02/10/23"
 )
 (vvPair
 variable "graphical_source_group"
@@ -238,7 +238,7 @@ value "chipdev2.physik.uni-wuppertal.de"
 )
 (vvPair
 variable "graphical_source_time"
-value "14:38:06"
+value "18:22:21"
 )
 (vvPair
 variable "group"
@@ -358,7 +358,7 @@ value "struct"
 )
 (vvPair
 variable "time"
-value "14:38:06"
+value "18:22:21"
 )
 (vvPair
 variable "unit"
@@ -5111,7 +5111,7 @@ always@(*)
         spi_power_reg    = 1'b0;
         spi_can_reg      = 1'b0; 
       end 
-    else if(cs_eread && data_tra_10bitin != {2'b10,Kchar_sop}&& data_tra_10bitin != {2'b01,Kchar_eop} && data_tra_10bitin[9:8] == 2'b00)// data
+  else if(cs_eread && data_tra_10bitin != {2'b10,Kchar_sop}&& data_tra_10bitin != {2'b01,Kchar_eop} && data_tra_10bitin[9:8] == 2'b00)// data
       begin
         fifo_data_sop    = 1'b0;
         fifo_data_eop    = 1'b0;
@@ -5162,7 +5162,7 @@ always@(*)
             spi_can_reg   = 1'b0;
             end                    
       end   
-    else if(cs_eread&&  data_tra_10bitin == {2'b01,Kchar_eop})// 0xdc = 1101 1100 (if 8b10b)
+  else if(cs_eread&&  data_tra_10bitin == {2'b01,Kchar_eop})// 0xdc = 1101 1100 EOP(if 8b10b)
       begin
        fifo_data_sop    = 1'b0;
        fifo_data_eop    = 1'b1;
@@ -5173,17 +5173,18 @@ always@(*)
        fifo_data_packet = 1'b0;
         
       end
-    else  
-      begin
-       can_id_reg       = 1'b0;
-       spi_can_reg      = 1'b0;
-       spi_mon_reg      = 1'b0;
-       spi_power_reg    = 1'b0;
-       fifo_data_sop    = 1'b0;
-       fifo_data_eop    = 1'b0;
-       fifo_data_packet = 1'b0;
-      end    
+  else  
+    begin
+     can_id_reg       = 1'b0;
+     spi_can_reg      = 1'b0;
+     spi_mon_reg      = 1'b0;
+     spi_power_reg    = 1'b0;
+     fifo_data_sop    = 1'b0;
+     fifo_data_eop    = 1'b0;
+     fifo_data_packet = 1'b0;
+    end    
   end
+
 
 
 
@@ -16608,11 +16609,11 @@ tm "BdCompilerDirectivesTextMgr"
 associable 1
 )
 windowSize "3832,13,5768,1088"
-viewArea "-125300,-45242,-17381,13474"
+viewArea "-70710,-33076,30357,21912"
 cachedDiagramExtent "-141400,-46900,103000,70000"
 hasePageBreakOrigin 1
 pageBreakOrigin "-207000,-51000"
-lastUid 31388,0
+lastUid 31593,0
 defaultCommentText (CommentText
 shape (Rectangle
 layer 0

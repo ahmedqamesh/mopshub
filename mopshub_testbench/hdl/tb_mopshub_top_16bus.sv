@@ -74,8 +74,22 @@ module tb_mopshub_top_16bus();
   wire            rx13;
   wire            rx14;
   wire            rx15;
-    
-      
+  wire            rx16;
+  wire            rx17;
+  wire            rx18;
+  wire            rx19;
+  wire            rx20;
+  wire            rx21;
+  wire            rx22;
+  wire            rx23;
+  wire            rx24;
+  wire            rx25;
+  wire            rx26;
+  wire            rx27;
+  wire            rx28;
+  wire            rx29;
+  wire            rx30;
+  wire            rx31;   
   wire            tx0;
   wire            tx1;
   wire            tx2;
@@ -92,6 +106,23 @@ module tb_mopshub_top_16bus();
   wire            tx13;
   wire            tx14;
   wire            tx15;
+  wire            tx16;
+  wire            tx17;
+  wire            tx18;
+  wire            tx19;
+  wire            tx20;
+  wire            tx21;
+  wire            tx22;
+  wire            tx23;
+  wire            tx24;
+  wire            tx25;
+  wire            tx26;
+  wire            tx27;
+  wire            tx28;
+  wire            tx29;
+  wire            tx30;
+  wire            tx31;
+  
   wire            spi_dat_m;
   wire            spi_dat_p;
       
@@ -101,28 +132,27 @@ module tb_mopshub_top_16bus();
   //Internal assignments  
   assign can_tra_select    = mopshub0.can_tra_select;
   assign can_rec_select    = mopshub0.can_rec_select;
-  assign data_rec_uplink   = mopshub0.data_rec_uplink;
-  assign data_tra_downlink = mopshub0.data_tra_downlink;
+
   assign end_power_init    = mopshub0.end_power_init;
   assign start_init        = mopshub0.start_init;
   assign end_init          = mopshub0.end_init;
-  assign rst_bus           = mopshub0.rst_bus;
   assign sign_on_sig       = mopshub0.sign_on_sig;
   assign end_trim_bus      = mopshub0.end_trim_bus;
   assign start_trim_osc    = mopshub0.start_trim_ack;
   assign power_bus_en      = mopshub0.power_bus_en;
-  assign power_bus_cnt     = mopshub0.power_bus_cnt;  
-  assign irq_elink_tra     = mopshub0.irq_elink_tra;
-  assign irq_elink_rec     = mopshub0.irq_elink_rec;
   assign start_osc_cnt     = mopshub0.start_osc_cnt;
   assign ready_osc         = data_generator0.ready_osc;
+
+  
   
   mopshub_top_16bus mopshub0(
   .clk(clk_40_m),
   .rst(rst),
   .n_buses(5'd15),
-  .prescaler_init(16'h0033),
-  .general_init(16'h00E3),
+  .prescaler_init(16'h33),
+  .general_init(16'hE3),
+  .irq_elink_tra(irq_elink_tra),
+  .irq_elink_rec(irq_elink_rec),
   .dbg_elink(1'b0), 
   .dbg_spi(1'b0),
   .debug_mode(1'b0),
@@ -130,6 +160,27 @@ module tb_mopshub_top_16bus();
   .endwait_all(endwait_all),  
   .tx_elink2bit(tx_mopshub_2bit),
   .rx_elink2bit(rx_mopshub_2bit),
+  .data_rec_uplink(data_rec_uplink),
+  .data_tra_downlink (data_tra_downlink),
+  .word10b_rdy(),
+  .tx_efifo_full(),
+  .tx_data_rdy(),
+  .rx_fifo_full(),
+  .rx_data_rdy(),
+  .sck_m(),
+  .sck_c(),
+  .rst_bus(rst_bus),
+  .power_bus_cnt(power_bus_cnt),
+  .mon_bus_cnt(),
+  .irq_can_tra(),
+  .irq_can_rec(),
+  .rdy_dbg(),
+  .start_write_elink_dbg(),
+  .end_write_elink_dbg(),
+  .data_10bit_in_dbg(),
+  .cs_active_c(),
+  .cs_active_m(), 
+  .data_rec_dbg_in(),
   .mosi_m(spi_dat_m),
   .miso_m(spi_dat_m),        
   .mosi_c(spi_dat_p),
@@ -149,7 +200,7 @@ module tb_mopshub_top_16bus();
   .rx12(rx12),        
   .rx13(rx13),        
   .rx14(rx14),        
-  .rx15(rx15), 
+  .rx15(rx15),
   .tx0(tx0),              
   .tx1(tx1),
   .tx2(tx2),
@@ -210,6 +261,10 @@ module tb_mopshub_top_16bus();
   .data_tra_downlink(data_tra_downlink), 
   .end_trim_bus(end_trim_bus),
   .start_trim_osc(start_trim_osc),
+  .test_uart_core(1'b0),
+  .tx_uart_done(1'b0),
+  .tx_uart_data(),
+  .tx_uart_dv(),
   //ElinkSignals
   .tx_elink2bit(rx_mopshub_2bit),
   .rx_elink2bit(tx_mopshub_2bit),
@@ -230,6 +285,22 @@ module tb_mopshub_top_16bus();
   .rx13(rx13),        
   .rx14(rx14),        
   .rx15(rx15), 
+  .rx16(rx16),
+  .rx17(rx17),
+  .rx18(rx18),              
+  .rx19(rx19),
+  .rx20(rx20),  
+  .rx21(rx21),
+  .rx22(rx22),
+  .rx23(rx23),
+  .rx24(rx24),
+  .rx25(rx25),
+  .rx26(rx26),
+  .rx27(rx27),
+  .rx28(rx28),              
+  .rx29(rx29),
+  .rx30(rx30),   
+  .rx31(rx31),
   .tx0(tx0),              
   .tx1(tx1),
   .tx2(tx2),
@@ -245,12 +316,28 @@ module tb_mopshub_top_16bus();
   .tx12(tx12),
   .tx13(tx13),
   .tx14(tx14),
-  .tx15(tx15));
+  .tx15(tx15),
+  .tx16(tx16),
+  .tx17(tx17),
+  .tx18(tx18),              
+  .tx19(tx19),
+  .tx20(tx20),  
+  .tx21(tx21),
+  .tx22(tx22),
+  .tx23(tx23),
+  .tx24(tx24),
+  .tx25(tx25),
+  .tx26(tx26),
+  .tx27(tx27),
+  .tx28(tx28),              
+  .tx29(tx29),
+  .tx30(tx30),   
+  .tx31(tx31));
   
   
   //Clock Generators and Dividers master
   clock_generator #(
-  .freq(160))
+  .freq(40))
   clock_generator0( 
   .clk  (clk_m), 
   .enable (1'b1)

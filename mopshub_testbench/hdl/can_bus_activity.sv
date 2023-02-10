@@ -45,9 +45,19 @@ module can_bus_activity (
    input wire            reqmsg,
    input wire            respmsg
 );
-int failures = 0;   // Number of BAD reponses from the chip  
+int failures = 0;   // Number of BAD reponses from the chip
+int status = 0;
+time time_start; 
+time time_signal; 
 reg      [75:0] requestreg  = 75'h0;
 reg      [75:0] responsereg = 75'h0; 
+integer         file;
+/////*******Save results to a file****/////
+initial begin 
+  time_start = $realtime;
+  file = $fopen("/home/dcs/tb_mopshub_top.csv","w");
+  $fwrite(file,"time,test_rx,test_tx,test_advanced,bus_id,can_tra_select,can_rec_select,reqmsg,requestreg,respmsg,responsereg,status\n");
+end
   /////******* prints bus activity ******///
   always@(posedge clk)
   if (!rst)
@@ -98,9 +108,13 @@ reg      [75:0] responsereg = 75'h0;
     begin 
       casez(requestreg)
         75'h701??00000000000000:   //////// Node guard / status ////
-        begin 
+        begin
+           
           if(responsereg == 75'h701?500000000000000)
+          begin
           $strobe("Status GOOD");
+          status=1;
+          end
           else
           begin
             $display("Current simulation time is: ", $realtime);
@@ -111,7 +125,10 @@ reg      [75:0] responsereg = 75'h0;
         75'h6014010000000000000:
         begin 
           if(responsereg == 75'h5814310000000000191)
+          begin
           $strobe("Status GOOD");
+          status=1;
+          end
           else
           begin
             $display("Current simulation time is: ", $realtime);
@@ -122,7 +139,10 @@ reg      [75:0] responsereg = 75'h0;
         75'h6014010010000000000:
         begin 
           if(responsereg == 75'h5814310010000000000)
-          $strobe("Status GOOD");
+          begin
+            $strobe("Status GOOD");
+            status=1;
+          end
           else
           begin
             $display("Current simulation time is: ", $realtime);
@@ -133,7 +153,10 @@ reg      [75:0] responsereg = 75'h0;
         75'h6014010050000000000:
         begin 
           if(responsereg == 75'h5814310050000000080)
-          $strobe("Status GOOD");
+          begin
+            $strobe("Status GOOD");
+            status=1;
+          end
           else
           begin
             $display("Current simulation time is: ", $realtime);
@@ -144,7 +167,10 @@ reg      [75:0] responsereg = 75'h0;
         75'h6014010140000000000:
         begin 
           if(responsereg == 75'h5814310140000000081)
-          $strobe("Status GOOD");
+          begin
+            $strobe("Status GOOD");
+            status=1;
+          end
           else
           begin
             $display("Current simulation time is: ", $realtime);
@@ -155,10 +181,11 @@ reg      [75:0] responsereg = 75'h0;
         75'h601401018??00000000:
         begin 
           
-          if(responsereg == 75'h5814310180000000001)
-          $strobe("Status GOOD");
-          else if (responsereg == 75'h5814310180087654321)
-          $strobe("Status GOOD");
+          if(responsereg == 75'h5814310180000000001 ||responsereg == 75'h5814310180087654321)
+          begin
+            $strobe("Status GOOD");
+            status=1;
+          end
           else
           begin
             $display("Current simulation time is: ", $realtime);
@@ -168,12 +195,11 @@ reg      [75:0] responsereg = 75'h0;
         end
         75'h601401200??00000000:
         begin 
-          if(responsereg == 75'h5814312000000000002)
-          $strobe("Status GOOD");
-          else if (responsereg == 75'h5814312000100000601)
-          $strobe("Status GOOD");
-          else if (responsereg == 75'h5814312000200000581)
-          $strobe("Status GOOD");
+          if(responsereg == 75'h5814312000000000002 || responsereg == 75'h5814312000100000601|| responsereg == 75'h5814312000200000581)
+          begin
+            $strobe("Status GOOD");
+            status=1;
+          end
           else
           begin
             $display("Current simulation time is: ", $realtime);
@@ -183,20 +209,13 @@ reg      [75:0] responsereg = 75'h0;
         end
         75'h601401800??00000000:
         begin 
-          if(responsereg == 75'h5814318000000000006)
-          $strobe("Status GOOD");
-          else if(responsereg == 75'h5814318000100000181)
-          $strobe("Status GOOD");
-          else if(responsereg == 75'h58143180002000000FE)
-          $strobe("Status GOOD");
-          else if(responsereg == 75'h5814318000300000000)
-          $strobe("Status GOOD");
-          else if(responsereg == 75'h5814318000400000000)
-          $strobe("Status GOOD");
-          else if(responsereg == 75'h5814318000500000000)
-          $strobe("Status GOOD");
-          else if(responsereg == 75'h5814318000600000000)
-          $strobe("Status GOOD");
+          if(responsereg == 75'h5814318000000000006 || responsereg == 75'h5814318000100000181 || responsereg == 75'h58143180002000000FE
+           ||responsereg == 75'h5814318000300000000 || responsereg == 75'h5814318000400000000 || responsereg == 75'h5814318000500000000
+           ||responsereg == 75'h5814318000600000000)
+          begin
+            $strobe("Status GOOD");
+            status=1;
+          end
           else
           begin
             $display("Current simulation time is: ", $realtime);
@@ -206,20 +225,13 @@ reg      [75:0] responsereg = 75'h0;
         end
         75'h601401801??00000000:
         begin 
-          if(responsereg == 75'h5814318010000000006)
-          $strobe("Status GOOD");
-          else if(responsereg == 75'h5814318010100000281)
-          $strobe("Status GOOD");
-          else if(responsereg == 75'h58143180102000000FE)
-          $strobe("Status GOOD");
-          else if(responsereg == 75'h5814318010300000000)
-          $strobe("Status GOOD");
-          else if(responsereg == 75'h5814318010400000000)
-          $strobe("Status GOOD");
-          else if(responsereg == 75'h5814318010500000000)
-          $strobe("Status GOOD");
-          else if(responsereg == 75'h5814318010600000000)
-          $strobe("Status GOOD");
+          if(responsereg == 75'h5814318010000000006 || responsereg == 75'h5814318010100000281 || responsereg == 75'h58143180102000000FE
+           ||responsereg == 75'h5814318010300000000 || responsereg == 75'h5814318010400000000 || responsereg == 75'h5814318010500000000
+           ||responsereg == 75'h5814318010600000000)
+          begin
+            $strobe("Status GOOD");
+            status=1;
+          end
           else
           begin
             $display("Current simulation time is: ", $realtime);
@@ -229,10 +241,11 @@ reg      [75:0] responsereg = 75'h0;
         end
         75'h601401A00??00000000:
         begin 
-          if(responsereg == 75'h581431A000000000001)
-          $strobe("Status GOOD");
-          else if(responsereg == 75'h581431A000121000020)
-          $strobe("Status GOOD");
+          if(responsereg == 75'h581431A000000000001 || responsereg == 75'h581431A000121000020)
+          begin
+            $strobe("Status GOOD");
+            status=1;
+          end
           else
           begin
             $display("Current simulation time is: ", $realtime);
@@ -242,10 +255,11 @@ reg      [75:0] responsereg = 75'h0;
         end
         75'h601401A01??00000000:
         begin 
-          if(responsereg == 75'h581431A010000000001)
-          $strobe("Status GOOD");
-          else if(responsereg == 75'h581431A010121010030)
-          $strobe("Status GOOD");
+          if(responsereg == 75'h581431A010000000001 || responsereg == 75'h581431A010121010030)
+          begin
+            $strobe("Status GOOD");
+            status=1;
+          end
           else
           begin
             $display("Current simulation time is: ", $realtime);
@@ -256,7 +270,10 @@ reg      [75:0] responsereg = 75'h0;
         75'h6014020010000000000:
         begin 
           if(responsereg == {75'h58143200100000000,2'b00,000000})//I replaced adc_trim here
-          $strobe("Status GOOD");
+          begin
+            $strobe("Status GOOD");
+            status=1;
+          end
           else
           begin
             $display("Current simulation time is: ", $realtime);
@@ -267,7 +284,11 @@ reg      [75:0] responsereg = 75'h0;
         {43'h60140200200,bus_id,8'h0,16'h0}://75'h6014020020000000000:
         begin 
           if(responsereg == {43'h58143200200,bus_id,24'h01})// {75'h58143200200000000,8'h01})
-          $strobe("Status GOOD [BUS ID %d]- Sign-in test",bus_id);
+          
+          begin
+            $strobe("Status GOOD [BUS ID %d]- Sign-in test",bus_id);
+            status=1;
+          end
           else
           begin
             $display("Current simulation time is: ", $realtime);
@@ -278,7 +299,10 @@ reg      [75:0] responsereg = 75'h0;
         {43'h60140200300,bus_id,8'h0,16'h0}: //75'h601 40200300 00 000000:
         begin 
           if(responsereg == {43'h58143200300,bus_id,24'h01})// {75'h58143200300000000,8'h01})
-          $strobe("Status GOOD [BUS ID %d]- Sign-in test",bus_id);
+          begin
+            $strobe("Status GOOD [BUS ID %d]- Sign-in test",bus_id);
+            status=1;
+          end
           else
           begin
             $display("Current simulation time is: ", $realtime);
@@ -289,7 +313,10 @@ reg      [75:0] responsereg = 75'h0;
         {43'h60140200400,bus_id,8'h0,16'h0}: //75'h6014020040000000000:
         begin 
           if(responsereg == {43'h58143200400,bus_id,24'h00})//{75'h5814320040000000000,8'h01})
-          $strobe("Status GOOD [BUS ID %d]- Sign-in test",bus_id);
+          begin
+            $strobe("Status GOOD [BUS ID %d]- Sign-in test",bus_id);
+            status=1;
+          end
           else
           begin
             $display("Current simulation time is: ", $realtime);
@@ -300,8 +327,11 @@ reg      [75:0] responsereg = 75'h0;
         //Check Osc test
         {76'h555aaaaaaaaaaaaaaaa}:
         begin 
-          if(responsereg inside{{43'h555aaaaaaaa,bus_id,24'haaaaaa}})
-          $strobe("Status GOOD [BUS ID %d]- Trimming Osc test",bus_id);
+          if(responsereg inside{{43'h555aaaaaaaa,bus_id,24'haaaaaa}})          
+          begin
+            $strobe("Status GOOD [BUS ID %d]- Trimming Osc test",bus_id);
+            status=1;
+          end
           else
           begin
             $display("Current simulation time is: ", $realtime);
@@ -312,7 +342,10 @@ reg      [75:0] responsereg = 75'h0;
         end 
         {43'h60140??401?,3'h0,can_tra_select,8'h0,16'h0}:begin
           if(responsereg inside{ {43'h5818000401?,3'h0,can_tra_select,24'h???}})
-          $strobe("Status GOOD [BUS ID %d] - TX Test",can_tra_select);
+          begin
+            $strobe("Status GOOD [BUS ID %d] - TX Test",can_tra_select);;
+            status=1;
+          end
           else
           begin
             $display("Current simulation time is: ", $realtime);
@@ -322,12 +355,14 @@ reg      [75:0] responsereg = 75'h0;
       end
         {43'h60140002???,3'h0,can_tra_select,24'h???}:begin
           if(responsereg inside{ {43'h58180002???,3'h0,can_tra_select,24'h???}})
-          $strobe("Status GOOD [BUS ID %d] - TX Test",can_tra_select);
+          begin
+            $strobe("Status GOOD [BUS ID %d] - TX Test",can_tra_select);;
+            status=1;
+          end          
           else
           begin
             $display("Current simulation time is: ", $realtime);
             $strobe("Status BAD ********************************[TX Test [BUS ID %d]****************** Status BAD",can_tra_select);
-
             failures += 1;
           end
         end
@@ -335,7 +370,10 @@ reg      [75:0] responsereg = 75'h0;
         {43'h60140210000,bus_id,8'h0,16'h0}: 
         begin 
           if(responsereg == {43'h58143210000,bus_id,24'h00})
-          $strobe("Status GOOD [BUS ID %d]- RX test",bus_id);
+          begin
+            $strobe("Status GOOD [BUS ID %d] - RX Test",bus_id);;
+            status=1;
+          end
           else
           begin
             $display("Current simulation time is: ", $realtime);
@@ -345,14 +383,12 @@ reg      [75:0] responsereg = 75'h0;
         end
         {43'h601402310??,bus_id,8'h0,16'h0}: 
         begin
-          if(responsereg == {43'h58143231000,bus_id,24'h03})
-          $strobe("Status GOOD [BUS ID %d]- RX test",bus_id);
-          else if(responsereg == {43'h58143231001,bus_id,24'h123})//75'h5814323100100000123)
-          $strobe("Status GOOD [BUS ID %d]- RX test",bus_id);
-          else if(responsereg == {43'h58143231002,bus_id,24'h223})//75'h5814323100200000223)
-          $strobe("Status GOOD [BUS ID %d]- RX test",bus_id);
-          else if(responsereg == {43'h58143231003,bus_id,24'h323})//75'h5814323100300000323)
-          $strobe("Status GOOD [BUS ID %d]- RX test",bus_id);
+          if(responsereg == {43'h58143231000,bus_id,24'h03} || responsereg == {43'h58143231001,bus_id,24'h123} 
+          || responsereg == {43'h58143231002,bus_id,24'h223}|| responsereg == {43'h58143231003,bus_id,24'h323})
+          begin
+            $strobe("Status GOOD [BUS ID %d] - RX Test",bus_id);;
+            status=1;
+          end
           else
           begin
             $display("Current simulation time is: ", $realtime);
@@ -363,7 +399,10 @@ reg      [75:0] responsereg = 75'h0;
         {43'h601402400??,bus_id,8'h0,16'h0}:
         begin 
           if(responsereg inside{ {43'h581??2400??,bus_id,24'h???}})
-          $strobe("Status GOOD [BUS ID %d]- RX test",bus_id);
+          begin
+            $strobe("Status GOOD [BUS ID %d] - RX Test",bus_id);;
+            status=1;
+          end
           else
           begin
             $display("Current simulation time is: ", $realtime);
@@ -374,7 +413,11 @@ reg      [75:0] responsereg = 75'h0;
         {43'h60123??????,bus_id,24'h??}:
         begin 
           if(responsereg inside {{43'h58160??????,bus_id,8'h??,16'h0}})//75'h581 60?? ?? ?? 0000 0000})
-          $strobe("Status GOOD [BUS ID %d]- Sign-in test",bus_id);
+           begin
+            $strobe("Status GOOD [BUS ID %d]- Sign-in test",bus_id);
+            $strobe("Status GOOD");
+            status=1;
+          end
           else
           begin
             $display("Current simulation time is: ", $realtime);
@@ -384,6 +427,7 @@ reg      [75:0] responsereg = 75'h0;
         end
         default:
         begin 
+          status=0;
           if(responsereg == requestreg ||(responsereg[75:8] ==requestreg[75:8]))
           $strobe("Status GOOD [BUS ID %d]- RX-TX test",bus_id);
           if (responsereg == {44'h70105000000,3'h0,can_rec_select,24'h0}) //{43'h701?5000000,can_rec_select,24'h0}}
@@ -408,7 +452,9 @@ reg      [75:0] responsereg = 75'h0;
           end
         end
       endcase
-      
+      time_signal = $realtime - time_start;
+      $fwrite(file,"%d,%d,%d,%d,%d,%d,%d,%d,%h,%d,%h,%d\n",time_signal,test_rx,test_tx,test_advanced,bus_id,can_tra_select,can_rec_select,respmsg,requestreg,respmsg,responsereg,status);
+
     end
   end
   
