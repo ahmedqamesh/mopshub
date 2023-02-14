@@ -106,22 +106,7 @@ module tb_mopshub_top_16bus();
   wire            tx13;
   wire            tx14;
   wire            tx15;
-  wire            tx16;
-  wire            tx17;
-  wire            tx18;
-  wire            tx19;
-  wire            tx20;
-  wire            tx21;
-  wire            tx22;
-  wire            tx23;
-  wire            tx24;
-  wire            tx25;
-  wire            tx26;
-  wire            tx27;
-  wire            tx28;
-  wire            tx29;
-  wire            tx30;
-  wire            tx31;
+
   
   wire            spi_dat_m;
   wire            spi_dat_p;
@@ -218,9 +203,9 @@ module tb_mopshub_top_16bus();
   .tx14(tx14),
   .tx15(tx15));
   
-  data_generator#(
-  .n_buses (5'd15))data_generator0(
+  data_generator data_generator0(
   .clk_mops(clk_mops),
+  .n_buses(5'd15),
   .clk(clk_40_m),
   .rst(rst),
   .ext_rst_mops(rst_bus),
@@ -317,22 +302,22 @@ module tb_mopshub_top_16bus();
   .tx13(tx13),
   .tx14(tx14),
   .tx15(tx15),
-  .tx16(tx16),
-  .tx17(tx17),
-  .tx18(tx18),              
-  .tx19(tx19),
-  .tx20(tx20),  
-  .tx21(tx21),
-  .tx22(tx22),
-  .tx23(tx23),
-  .tx24(tx24),
-  .tx25(tx25),
-  .tx26(tx26),
-  .tx27(tx27),
-  .tx28(tx28),              
-  .tx29(tx29),
-  .tx30(tx30),   
-  .tx31(tx31));
+  .tx16(),
+  .tx17(),
+  .tx18(),              
+  .tx19(),
+  .tx20(),  
+  .tx21(),
+  .tx22(),
+  .tx23(),
+  .tx24(),
+  .tx25(),
+  .tx26(),
+  .tx27(),
+  .tx28(),              
+  .tx29(),
+  .tx30(),   
+  .tx31());
   
   
   //Clock Generators and Dividers master
@@ -359,29 +344,34 @@ module tb_mopshub_top_16bus();
   begin
     rst = 1'b0;
     #10
-    rst = 1'b1;
-  end
-  /////*******Start Full SM for Data Generation ****/////
+    rst = 1'b1; 
+  //repeat (2) run_data(); 
+  end 
+    /////*******Start Full SM for Data Generation ****/////
   always@(posedge clk_40_m)
-  begin  
-    if(end_power_init ==1) osc_auto_trim_mopshub = 1'b0;
-    if(sign_on_sig ==1)//start Rx test
     begin
-    test_rx =1'b1;
-    //test_advanced = 1'b1;
+      if(end_power_init ==1) osc_auto_trim_mopshub = 1'b0;
+      if(sign_on_sig ==1)//start Rx test
+      begin
+      test_rx =1'b1;
+      //test_advanced = 1'b1;
+      end
+      if(test_rx_end ==1)//Done Rx test
+      begin
+       test_rx =1'b0; 
+       endwait_all = 1'b1;
+       #10
+       endwait_all =1'b0;
+       #3000
+       test_tx =1'b1; 
+      end
+      if (test_tx_end    ==1) 
+      begin 
+        //test_tx =1'b0;//Done Tx test
+        test_tx =1'b1;//Loop Tx test
+      end
+      if (costum_msg_end ==1) test_advanced = 1'b0;
     end
-    if(test_rx_end ==1)//Done Rx test
-    begin
-     test_rx =1'b0; 
-     endwait_all = 1'b1;
-     #10
-     endwait_all =1'b0;
-     #3000
-     test_tx =1'b1; 
-    end
-    if (test_tx_end    ==1) test_tx =1'b0;//Done Tx test
-    if (costum_msg_end ==1) test_advanced = 1'b0;
-  end
   /////******* prints bus activity ******///
   always@(posedge clk_40_m)
   if (!rst) info_debug_sig = "<:RESET>";

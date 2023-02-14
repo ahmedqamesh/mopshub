@@ -14,6 +14,7 @@ module can_bus_activity (
    input  wire       clk,
    input  wire       rst,
    input wire    [7:0]   bus_id,
+   input wire    [4:0]   n_buses,
    input wire    [4:0]   can_tra_select,
    input wire    [4:0]   can_rec_select,
    input wire    [4:0]   power_bus_cnt,
@@ -52,10 +53,21 @@ time time_signal;
 reg      [75:0] requestreg  = 75'h0;
 reg      [75:0] responsereg = 75'h0; 
 integer         file;
+reg [999:0] filename;
+import "DPI-C"
+function string getenv(input string env_name);
+string HOME; 
+
 /////*******Save results to a file****/////
 initial begin 
+  //$timeformat(unit#, prec#, "unit", minwidth);
+  $timeformat(-9, 2, " ns", 10); 
   time_start = $realtime;
-  file = $fopen("/home/dcs/tb_mopshub_top.csv","w");
+  HOME = getenv("HOME");
+  $display("$HOME = %s\n", HOME);
+  $sformat(filename, "%s/tb_mopshub_top_%i_buses.csv",HOME,n_buses);
+  $strobeh("\t Opening File%s\n",filename);
+  file = $fopen(filename,"w");
   $fwrite(file,"time,test_rx,test_tx,test_advanced,bus_id,can_tra_select,can_rec_select,reqmsg,requestreg,respmsg,responsereg,status\n");
 end
   /////******* prints bus activity ******///
@@ -453,7 +465,7 @@ end
         end
       endcase
       time_signal = $realtime - time_start;
-      $fwrite(file,"%d,%d,%d,%d,%d,%d,%d,%d,%h,%d,%h,%d\n",time_signal,test_rx,test_tx,test_advanced,bus_id,can_tra_select,can_rec_select,reqmsg,requestreg,respmsg,responsereg,status);
+      $fwrite(file,"%t,%d,%d,%d,%d,%d,%d,%d,%h,%d,%h,%d\n",time_signal,test_rx,test_tx,test_advanced,bus_id,can_tra_select,can_rec_select,respmsg,requestreg,respmsg,responsereg,status);
 
     end
   end
