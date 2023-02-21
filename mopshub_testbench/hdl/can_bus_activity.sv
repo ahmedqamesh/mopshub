@@ -54,8 +54,7 @@ reg      [75:0] requestreg  = 75'h0;
 reg      [75:0] responsereg = 75'h0; 
 integer         file;
 reg [999:0] filename;
-import "DPI-C"
-function string getenv(input string env_name);
+import "DPI-C" function string getenv(input string env_name);
 string HOME; 
 
 /////*******Save results to a file****/////
@@ -281,7 +280,7 @@ end
         end
         75'h6014020010000000000:
         begin 
-          if(responsereg == {75'h58143200100000000,2'b00,000000})//I replaced adc_trim here
+          if(responsereg == {75'h58143200100000000,2'b00,24'h00})//I replaced adc_trim here
           begin
             $strobe("Status GOOD");
             status=1;

@@ -10,6 +10,7 @@
 
 `resetall
 `timescale 1ns/10ps
+import "DPI-C" function string getenv(input string env_name);
 module can_bus_activity ( 
    input  wire       clk,
    input  wire       rst,
@@ -54,8 +55,7 @@ reg      [75:0] requestreg  = 75'h0;
 reg      [75:0] responsereg = 75'h0; 
 integer         file;
 reg [999:0] filename;
-import "DPI-C"
-function string getenv(input string env_name);
+
 string HOME; 
 
 /////*******Save results to a file****/////
@@ -281,7 +281,7 @@ end
         end
         75'h6014020010000000000:
         begin 
-          if(responsereg == {75'h58143200100000000,2'b00,000000})//I replaced adc_trim here
+          if(responsereg == {75'h58143200100000000,2'b00,24'h00})//I replaced adc_trim here
           begin
             $strobe("Status GOOD");
             status=1;
@@ -465,7 +465,7 @@ end
         end
       endcase
       time_signal = $realtime - time_start;
-      $fwrite(file,"%t,%d,%d,%d,%d,%d,%d,%d,%h,%d,%h,%d\n",time_signal,test_rx,test_tx,test_advanced,bus_id,can_tra_select,can_rec_select,respmsg,requestreg,respmsg,responsereg,status);
+      $fwrite(file,"%d,%d,%d,%d,%d,%d,%d,%d,%h,%d,%h,%d\n",time_signal,test_rx,test_tx,test_advanced,bus_id,can_tra_select,can_rec_select,respmsg,requestreg,respmsg,responsereg,status);
 
     end
   end

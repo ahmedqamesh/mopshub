@@ -14,6 +14,9 @@ entity ethernet_SM is
         ipb_slave_in : in ipb_wbus := IPB_WBUS_NULL;
         ipb_slave_out : out ipb_rbus;
         start_write_elink_dbg: out std_logic;
+        start_read_elink_dbg : out std_logic;
+        fifo_flush_dbg: out std_logic;
+        irq_tra_sig: in std_logic;
         data_tra_downlink: in std_logic_vector(75 downto 0);
         data_rec_uplink: in std_logic_vector(75 downto 0);
         data_rec_ethernet: out std_logic_vector(75 downto 0)
@@ -25,10 +28,9 @@ architecture rtl of ethernet_SM is
   signal ipb_ack_i : std_logic;
   signal ipb_err_i : std_logic;
   signal data_rec_elink_reg: std_logic_vector(95 downto 0);
---	signal data_reg1: std_logic_vector(31 downto 0);
- -- signal data_reg2: std_logic_vector(31 downto 0); 
-	--signal data_reg3: std_logic_vector(31 downto 0);
 	signal start_write_elink_reg: std_logic;
+	signal start_read_elink_reg: std_logic;
+	signal fifo_flush_reg: std_logic;
 	signal data_reg: ipb_reg_v(N_REG - 1 downto 0);
 	signal data_rec_r: ipb_reg_v(2 ** ADDR_WIDTH - 1 downto 0);
 	signal sel: integer range 0 to 2 ** ADDR_WIDTH - 1 := 0;
@@ -47,15 +49,15 @@ process (clk, rst) begin
         ipb_err_i <= '0';
         data_rec_elink_reg <= (others => '0');
         start_write_elink_reg <='0';
-       -- data_reg1 <= (others => '0');
-       -- data_reg2 <= (others => '0');
-       -- data_reg3 <= (others => '0');
+        start_read_elink_reg <='0';
     else
         if rising_edge(clk) then
             -- defaults
             ipb_ack_i <= '0';
             ipb_err_i <= '0';
             start_write_elink_reg <= '0';
+            start_read_elink_reg <= '0';
+            fifo_flush_reg <= '0';
             if ipb_slave_in.ipb_strobe = '1' and ipb_ack_i = '0' then
                 ipb_ack_i <= '1';
                 if ipb_slave_in.ipb_strobe = '1' and ipb_slave_in.ipb_write = '1' then
@@ -66,7 +68,8 @@ process (clk, rst) begin
                         when "0111" => data_rec_elink_reg(63 downto 32) <= ipb_slave_in.ipb_wdata;
                         when "1000" => data_rec_elink_reg(31 downto 0)  <= ipb_slave_in.ipb_wdata;
                         when "1001" => start_write_elink_reg <= '1';
-                        when "1010" => start_write_elink_reg <= '0';
+                        when "1010" => start_read_elink_reg <= '1';
+                        when "1011" => fifo_flush_reg <= '1';
                         when  others => null;                 
                     end case;
                     
@@ -76,7 +79,7 @@ process (clk, rst) begin
                         when "0001" => ipb_slave_out.ipb_rdata <= data_tra_downlink(43 downto 12) ;--X"BEEFBEEF";
                         when "0010" => ipb_slave_out.ipb_rdata <= data_tra_downlink(11 downto 0) & X"00000"; --X"000";
                          
-                        when "0011" => ipb_slave_out.ipb_rdata <= data_rec_uplink(75 downto 44); --X"DEEDBEEF";
+                        when "0011" => ipb_slave_out.ipb_rdata <= X"0000000"& b"000"& irq_tra_sig;--  data_rec_uplink(75 downto 44); --X"DEEDBEEF";
                         when "0100" => ipb_slave_out.ipb_rdata <= data_rec_uplink(43 downto 12) ;--X"BEEFBEEF";
                         when "0101" => ipb_slave_out.ipb_rdata <= data_rec_uplink(11 downto 0) & X"00000"; --X"000"; 
                         
@@ -97,5 +100,6 @@ ipb_slave_out.ipb_ack <= ipb_ack_i;
 ipb_slave_out.ipb_err <= ipb_err_i;
 data_rec_ethernet <= data_rec_elink_reg(95 downto 20);   
 start_write_elink_dbg <= start_write_elink_reg;
+start_read_elink_dbg  <= start_read_elink_reg;
+fifo_flush_dbg <= fifo_flush_reg;
 end architecture;
-    
