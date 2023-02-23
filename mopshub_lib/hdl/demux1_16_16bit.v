@@ -31,25 +31,40 @@ module demux1_16_16bit(
   output   wire  [15 : 0]            output15 
   );
   reg [15 : 0] def_value ;
-  initial def_value = 16'b0;
-  reg  [15 : 0]  output0_reg  = 16'b0;  
-  reg  [15 : 0]  output1_reg  = 16'b0;  
-  reg  [15 : 0]  output2_reg  = 16'b0;  
-  reg  [15 : 0]  output3_reg  = 16'b0;  
-  reg  [15 : 0]  output4_reg  = 16'b0;  
-  reg  [15 : 0]  output5_reg  = 16'b0;  
-  reg  [15 : 0]  output6_reg  = 16'b0;  
-  reg  [15 : 0]  output7_reg  = 16'b0;  
-  reg  [15 : 0]  output8_reg  = 16'b0;
-  reg  [15 : 0]  output9_reg  = 16'b0;    
-  reg  [15 : 0]  output10_reg = 16'b0;  
-  reg  [15 : 0]  output11_reg = 16'b0;  
-  reg  [15 : 0]  output12_reg = 16'b0;  
-  reg  [15 : 0]  output13_reg = 16'b0;  
-  reg  [15 : 0]  output14_reg = 16'b0;  
-  reg  [15 : 0]  output15_reg = 16'b0;  
+  reg  [15 : 0]  output0_reg ;  
+  reg  [15 : 0]  output1_reg ;  
+  reg  [15 : 0]  output2_reg ;  
+  reg  [15 : 0]  output3_reg ;  
+  reg  [15 : 0]  output4_reg ;  
+  reg  [15 : 0]  output5_reg ;  
+  reg  [15 : 0]  output6_reg ;  
+  reg  [15 : 0]  output7_reg ;  
+  reg  [15 : 0]  output8_reg ;
+  reg  [15 : 0]  output9_reg ;    
+  reg  [15 : 0]  output10_reg;  
+  reg  [15 : 0]  output11_reg;  
+  reg  [15 : 0]  output12_reg;  
+  reg  [15 : 0]  output13_reg;  
+  reg  [15 : 0]  output14_reg;  
+  reg  [15 : 0]  output15_reg;  
  
-
+  initial def_value = 16'b0;
+  initial output0_reg  = 16'b0;  
+  initial output1_reg  = 16'b0;  
+  initial output2_reg  = 16'b0;  
+  initial output3_reg  = 16'b0;  
+  initial output4_reg  = 16'b0;  
+  initial output5_reg  = 16'b0;  
+  initial output6_reg  = 16'b0;  
+  initial output7_reg  = 16'b0;  
+  initial output8_reg  = 16'b0;
+  initial output9_reg  = 16'b0;    
+  initial output10_reg = 16'b0;  
+  initial output11_reg = 16'b0;  
+  initial output12_reg = 16'b0;  
+  initial output13_reg = 16'b0;  
+  initial output14_reg = 16'b0;  
+  initial output15_reg = 16'b0; 
  
    
  assign  output0=output0_reg; 
