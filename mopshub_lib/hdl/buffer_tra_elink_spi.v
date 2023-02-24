@@ -46,10 +46,10 @@ begin
        5'b00101 : b3  <= data_tra_8bitin[7:0]; //data_tra                                            
        default 
         begin
-         b0 <= 8'h00;
-         b1 <= 8'h00;
-         b2 <= 8'h00;
-         b3 <= 8'h00;
+          b0 <= b0;
+          b1 <= b1;
+          b2 <= b2;    
+          b3 <= b3;
         end 
       endcase
     end  

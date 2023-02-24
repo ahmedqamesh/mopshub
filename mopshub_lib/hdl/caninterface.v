@@ -23,15 +23,12 @@ reg [15:0] tra_control;
 reg [15:0] rst_irq;
 reg [15:0] gen_data;
 reg [75:0] trim_data;
-initial 
-begin
- write_can_reg   = 16'h0;
- can_tra_reg     = 5'h0;
- tra_control     = 16'h8008; //16'b1 000000000 00 1000
- rst_irq         = 16'h8070;
- gen_data        = 16'h9C; //16'b0000000010011100
- trim_data       = {12'h555,64'hAAAAAAAAAAAAAAAA};  //Msg with the most possible transitions [660 High to low transitions]
-end
+initial write_can_reg   = 16'h0;
+initial can_tra_reg     = 5'h0;
+initial tra_control     = 16'h8008; //16'b1 000000000 00 1000
+initial rst_irq         = 16'h8070;
+initial gen_data        = 16'h9C; //16'b0000000010011100
+initial trim_data       = {12'h555,64'hAAAAAAAAAAAAAAAA};  //Msg with the most possible transitions [660 High to low transitions]
 assign write_can       = write_can_reg;
 assign cmd  = {initi,write,reset_can,trim}; //initi is active high while read and write are active low
 //This is a purely combinational block to read and write values to Canakari node

@@ -84,23 +84,23 @@ VExpander (VariableExpander
 vvMap [
 (vvPair
 variable "HDLDir"
-value "/home/dcs/git/mopshub/mopshub_testbench/hdl"
+value "/../../home/dcs/git/mopshub/mopshub_testbench/hdl"
 )
 (vvPair
 variable "HDSDir"
-value "/home/dcs/git/mopshub/mopshub_testbench/hds"
+value "/../../home/dcs/git/mopshub/mopshub_testbench/hds"
 )
 (vvPair
 variable "SideDataDesignDir"
-value "/home/dcs/git/mopshub/mopshub_testbench/hds/can_net_decoder/struct.bd.info"
+value "/../../home/dcs/git/mopshub/mopshub_testbench/hds/can_net_decoder/struct.bd.info"
 )
 (vvPair
 variable "SideDataUserDir"
-value "/home/dcs/git/mopshub/mopshub_testbench/hds/can_net_decoder/struct.bd.user"
+value "/../../home/dcs/git/mopshub/mopshub_testbench/hds/can_net_decoder/struct.bd.user"
 )
 (vvPair
 variable "SourceDir"
-value "/home/dcs/git/mopshub/mopshub_testbench/hds"
+value "/../../home/dcs/git/mopshub/mopshub_testbench/hds"
 )
 (vvPair
 variable "appl"
@@ -116,27 +116,27 @@ value "%(unit)_%(view)_config"
 )
 (vvPair
 variable "d"
-value "/home/dcs/git/mopshub/mopshub_testbench/hds/can_net_decoder"
+value "/../../home/dcs/git/mopshub/mopshub_testbench/hds/can_net_decoder"
 )
 (vvPair
 variable "d_logical"
-value "/home/dcs/git/mopshub/mopshub_testbench/hds/can_net_decoder"
+value "/../../home/dcs/git/mopshub/mopshub_testbench/hds/can_net_decoder"
 )
 (vvPair
 variable "date"
-value "11/16/22"
+value "02/24/23"
 )
 (vvPair
 variable "day"
-value "Wed"
+value "Fri"
 )
 (vvPair
 variable "day_long"
-value "Wednesday"
+value "Friday"
 )
 (vvPair
 variable "dd"
-value "16"
+value "24"
 )
 (vvPair
 variable "entity_name"
@@ -164,7 +164,7 @@ value "dcs"
 )
 (vvPair
 variable "graphical_source_date"
-value "11/16/22"
+value "02/24/23"
 )
 (vvPair
 variable "graphical_source_group"
@@ -176,7 +176,7 @@ value "chipdev2.physik.uni-wuppertal.de"
 )
 (vvPair
 variable "graphical_source_time"
-value "19:32:18"
+value "11:17:15"
 )
 (vvPair
 variable "group"
@@ -216,7 +216,7 @@ value "$HDS_PROJECT_DIR/mopshub_testbench/svassistant"
 )
 (vvPair
 variable "mm"
-value "11"
+value "02"
 )
 (vvPair
 variable "module_name"
@@ -224,19 +224,19 @@ value "can_net_decoder"
 )
 (vvPair
 variable "month"
-value "Nov"
+value "Feb"
 )
 (vvPair
 variable "month_long"
-value "November"
+value "February"
 )
 (vvPair
 variable "p"
-value "/home/dcs/git/mopshub/mopshub_testbench/hds/can_net_decoder/struct.bd"
+value "/../../home/dcs/git/mopshub/mopshub_testbench/hds/can_net_decoder/struct.bd"
 )
 (vvPair
 variable "p_logical"
-value "/home/dcs/git/mopshub/mopshub_testbench/hds/can_net_decoder/struct.bd"
+value "/../../home/dcs/git/mopshub/mopshub_testbench/hds/can_net_decoder/struct.bd"
 )
 (vvPair
 variable "package_name"
@@ -260,11 +260,11 @@ value "<TBD>"
 )
 (vvPair
 variable "task_ModelSimPath"
-value "/eda/mentor/2019-20/RHELx86/AMS_2019.4/amsv/modeltech/bin"
+value "<TBD>"
 )
 (vvPair
 variable "task_NC-SimPath"
-value "/eda/cadence/2019-20/RHELx86/XCELIUM_19.03.013/tools/bin"
+value "<TBD>"
 )
 (vvPair
 variable "task_PrecisionRTLPath"
@@ -272,7 +272,7 @@ value "<TBD>"
 )
 (vvPair
 variable "task_QuestaSimPath"
-value "/eda/mentor/2019-20/RHELx86/QUESTA-CORE-PRIME_2019.4/questasim/linux_x86_64"
+value "<TBD>"
 )
 (vvPair
 variable "task_VCSPath"
@@ -292,7 +292,7 @@ value "struct"
 )
 (vvPair
 variable "time"
-value "19:32:18"
+value "11:17:15"
 )
 (vvPair
 variable "unit"
@@ -312,11 +312,11 @@ value "struct"
 )
 (vvPair
 variable "year"
-value "2022"
+value "2023"
 )
 (vvPair
 variable "yy"
-value "22"
+value "23"
 )
 ]
 )
@@ -3230,7 +3230,7 @@ assign select_bus   =(sel_bus ==1'b0 || ext_trim_mops ==1'b1) ? bus_loop_cnt :da
 //assign rx_mopshub0 = (test_simult== 1'b1 || select_bus == 5'd0) ? ~(rst ^ (tx_mopshub0 & txgen & tx0_mops1)): 0;
 //assign rx_mopshub1 = (test_simult== 1'b1 || select_bus == 5'd1) ? ~(rst ^ (tx_mopshub1 & txgen & tx1_mops1)): 0;
 
-assign rx_mopshub0  = (test_simult== 1'b1 || select_bus == 5'd0) ? ~(rst ^ (tx_mopshub0 & txgen & txmops)): 0;
+assign rx_mopshub0  = (test_simult== 1'b1 || select_bus == 5'd0) ? ~(rst ^ (tx_mopshub0 & txgen & txmops)): 0;//
 assign rx_mopshub1  = (test_simult== 1'b1 || select_bus == 5'd1) ? ~(rst ^ (tx_mopshub1 & txgen & txmops)): 0;
 assign rx_mopshub2  = (test_simult== 1'b1 || select_bus == 5'd2) ? ~(rst ^ (tx_mopshub2 & txgen & txmops)): 0;
 
@@ -3283,6 +3283,10 @@ assign tx_mopshub  = ~(rst ^ (tx_mopshub0 & tx_mopshub1 & tx_mopshub2 & tx_mopsh
                              &tx_mopshub8 & tx_mopshub9 & tx_mopshub10& tx_mopshub11& tx_mopshub12 & tx_mopshub13& tx_mopshub14& tx_mopshub15
                              &tx_mopshub16& tx_mopshub17& tx_mopshub18& tx_mopshub19& tx_mopshub20 & tx_mopshub21& tx_mopshub22& tx_mopshub23
                              &tx_mopshub24& tx_mopshub25& tx_mopshub26& tx_mopshub27& tx_mopshub28 & tx_mopshub29& tx_mopshub30& tx_mopshub31));
+
+
+
+
 
 
 
@@ -14141,11 +14145,11 @@ tm "BdCompilerDirectivesTextMgr"
 associable 1
 )
 windowSize "3832,13,5768,1088"
-viewArea "49302,32654,119535,69718"
+viewArea "49300,32700,102403,61592"
 cachedDiagramExtent "-17000,-42000,123000,98000"
 hasePageBreakOrigin 1
 pageBreakOrigin "-69000,0"
-lastUid 18308,0
+lastUid 19085,0
 defaultCommentText (CommentText
 shape (Rectangle
 layer 0

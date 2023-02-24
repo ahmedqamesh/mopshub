@@ -18,11 +18,9 @@ module triger_counter (
   
 reg   [2:0]  cycles_cnt;
 reg   [2:0] request_cycle_cnt;
-initial 
-begin
-cycles_cnt = 3'b100;
-request_cycle_cnt = 3'b000;
-end
+initial cycles_cnt = 3'b100;
+initial request_cycle_cnt = 3'b000;
+
 
   // Counter over the Clock signal
   always @(posedge clk)

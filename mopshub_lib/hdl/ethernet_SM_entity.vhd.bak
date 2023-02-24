@@ -67,15 +67,10 @@ process (clk, rst) begin
                         when "0110" => data_rec_elink_reg(95 downto 64) <= ipb_slave_in.ipb_wdata;
                         when "0111" => data_rec_elink_reg(63 downto 32) <= ipb_slave_in.ipb_wdata;
                         when "1000" => data_rec_elink_reg(31 downto 0)  <= ipb_slave_in.ipb_wdata;
-                        when "1001" => 
-                         
-                        if ipb_slave_in.ipb_wdata == X"0000000"& b"0001" then start_write_elink_reg <= '1';
-                        else start_write_elink_reg <= '0';
-                        end if;
-                         
+                        when "1001" => start_write_elink_reg <= '1';
                         when "1010" => start_read_elink_reg <= '1';
                         when "1011" => fifo_flush_reg <= '1';
-                        when  others => null;                 
+                        when  others => data_rec_elink_reg <= data_rec_elink_reg;                 
                     end case;
                     
                 else
@@ -96,6 +91,7 @@ process (clk, rst) begin
                         when others => ipb_slave_out.ipb_rdata <= (others => '0');
                     end case;
                 end if;
+            else data_rec_elink_reg <= data_rec_elink_reg; 
             end if;
         end if;
     end if;

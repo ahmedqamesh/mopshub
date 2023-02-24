@@ -18,7 +18,7 @@ module tb_mopshub_top_32bus();
   reg              endwait_all = 1'b0;
   wire             rst_bus;
   reg              sel_bus = 1'b0;
-  reg     [4:0]    can_tra_select_dbg =5'd4;
+  reg     [4:0]    can_tra_select_dbg =5'd0;
   wire             sign_on_sig;
   wire             start_init;
   wire             end_init;

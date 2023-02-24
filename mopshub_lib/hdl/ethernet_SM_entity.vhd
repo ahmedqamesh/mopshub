@@ -70,7 +70,7 @@ process (clk, rst) begin
                         when "1001" => start_write_elink_reg <= '1';
                         when "1010" => start_read_elink_reg <= '1';
                         when "1011" => fifo_flush_reg <= '1';
-                        when  others => null;                 
+                        when  others => data_rec_elink_reg <= data_rec_elink_reg;                 
                     end case;
                     
                 else
@@ -91,7 +91,8 @@ process (clk, rst) begin
                         when others => ipb_slave_out.ipb_rdata <= (others => '0');
                     end case;
                 end if;
-            end if;
+            else data_rec_elink_reg <= data_rec_elink_reg; 
+          end if;
         end if;
     end if;
 end process;
