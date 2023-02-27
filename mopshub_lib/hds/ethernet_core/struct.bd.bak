@@ -154,7 +154,7 @@ value "chipdev2.physik.uni-wuppertal.de"
 )
 (vvPair
 variable "graphical_source_time"
-value "16:10:10"
+value "16:17:33"
 )
 (vvPair
 variable "group"
@@ -274,7 +274,7 @@ value "struct"
 )
 (vvPair
 variable "time"
-value "16:10:10"
+value "16:17:33"
 )
 (vvPair
 variable "unit"
@@ -3841,7 +3841,7 @@ xt "97200,4200,114700,8700"
 st "
 //FIFO block  
 initial rena_w_elink           = 1'b0;
-initial end_read_elink_fifo           = 1'b0;
+initial irq_elink_dbg_fifo           = 1'b0;
 initial dout_rdy_fifo_reg   = 1'b0;
 initial clk_en              = 1'b1;
 
@@ -3870,9 +3870,10 @@ always @ (posedge clk)
 
 //read elink part
 always @ (posedge clk125)
-    if (!rst) end_read_elink_fifo   <=1'b0;
-    else    end_read_elink_fifo   <= !fifo_r_empty;   
+    if (!rst) irq_elink_dbg_fifo   <=1'b0;
+    else    irq_elink_dbg_fifo   <= !fifo_r_empty;   
     
+
 
 
 
@@ -6380,23 +6381,6 @@ font "courier,8,0"
 )
 )
 *218 (Net
-uid 4931,0
-lang 5
-decl (Decl
-n "end_read_elink_fifo"
-t "reg"
-o 49
-suid 123,0
-)
-declText (MLText
-uid 4932,0
-va (VaSet
-isHidden 1
-font "courier,8,0"
-)
-)
-)
-*219 (Net
 uid 4935,0
 lang 5
 decl (Decl
@@ -6413,7 +6397,7 @@ font "courier,8,0"
 )
 )
 )
-*220 (Net
+*219 (Net
 uid 4939,0
 lang 5
 decl (Decl
@@ -6430,7 +6414,7 @@ font "courier,8,0"
 )
 )
 )
-*221 (Net
+*220 (Net
 uid 5113,0
 lang 5
 decl (Decl
@@ -6447,7 +6431,7 @@ font "courier,8,0"
 )
 )
 )
-*222 (Net
+*221 (Net
 uid 5202,0
 lang 5
 decl (Decl
@@ -6458,6 +6442,23 @@ suid 127,0
 )
 declText (MLText
 uid 5203,0
+va (VaSet
+isHidden 1
+font "courier,8,0"
+)
+)
+)
+*222 (Net
+uid 5206,0
+lang 5
+decl (Decl
+n "irq_elink_dbg_fifo"
+t "reg"
+o 49
+suid 128,0
+)
+declText (MLText
+uid 5207,0
 va (VaSet
 isHidden 1
 font "courier,8,0"
@@ -7566,7 +7567,7 @@ blo "90800,22000"
 tm "WireNameMgr"
 )
 )
-on &220
+on &219
 )
 *251 (Wire
 uid 988,0
@@ -8074,7 +8075,7 @@ blo "89800,22000"
 tm "WireNameMgr"
 )
 )
-on &219
+on &218
 )
 *264 (Wire
 uid 3051,0
@@ -8263,7 +8264,7 @@ blo "51750,3800"
 tm "WireNameMgr"
 )
 )
-on &221
+on &220
 )
 *269 (Wire
 uid 3754,0
@@ -8375,7 +8376,7 @@ blo "107000,-8200"
 tm "WireNameMgr"
 )
 )
-on &222
+on &221
 )
 *272 (Wire
 uid 4251,0
@@ -8638,13 +8639,13 @@ uid 4401,0
 va (VaSet
 font "courier,8,0"
 )
-xt "52000,2100,62000,3000"
-st "end_read_elink_fifo"
+xt "52000,2100,61500,3000"
+st "irq_elink_dbg_fifo"
 blo "52000,2800"
 tm "WireNameMgr"
 )
 )
-on &218
+on &222
 )
 *279 (Wire
 uid 4816,0
@@ -8812,7 +8813,7 @@ viewArea "27585,-16185,132078,37007"
 cachedDiagramExtent "-7000,-20000,122000,117600"
 hasePageBreakOrigin 1
 pageBreakOrigin "-10000,-64000"
-lastUid 5205,0
+lastUid 5209,0
 defaultCommentText (CommentText
 shape (Rectangle
 layer 0
@@ -9870,7 +9871,7 @@ tm "BdDeclarativeTextMgr"
 commonDM (CommonDM
 ldm (LogicalDM
 ordering 1
-suid 127,0
+suid 128,0
 usingSuid 1
 emptyRow *311 (LEmptyRow
 )
@@ -10547,19 +10548,6 @@ port (LogicalPort
 lang 5
 m 4
 decl (Decl
-n "end_read_elink_fifo"
-t "reg"
-o 49
-suid 123,0
-)
-)
-uid 4933,0
-)
-*372 (LeafLogPort
-port (LogicalPort
-lang 5
-m 4
-decl (Decl
 n "rena_w_elink"
 t "reg"
 o 43
@@ -10568,7 +10556,7 @@ suid 124,0
 )
 uid 4937,0
 )
-*373 (LeafLogPort
+*372 (LeafLogPort
 port (LogicalPort
 lang 5
 m 4
@@ -10581,7 +10569,7 @@ suid 125,0
 )
 uid 4941,0
 )
-*374 (LeafLogPort
+*373 (LeafLogPort
 port (LogicalPort
 lang 5
 m 4
@@ -10594,7 +10582,7 @@ suid 126,0
 )
 uid 5115,0
 )
-*375 (LeafLogPort
+*374 (LeafLogPort
 port (LogicalPort
 lang 5
 decl (Decl
@@ -10605,6 +10593,19 @@ suid 127,0
 )
 )
 uid 5204,0
+)
+*375 (LeafLogPort
+port (LogicalPort
+lang 5
+m 4
+decl (Decl
+n "irq_elink_dbg_fifo"
+t "reg"
+o 49
+suid 128,0
+)
+)
+uid 5208,0
 )
 ]
 )
@@ -10930,31 +10931,31 @@ uid 4827,0
 litem &371
 pos 45
 dimension 20
-uid 4934,0
+uid 4938,0
 )
 *427 (MRCItem
 litem &372
 pos 46
 dimension 20
-uid 4938,0
+uid 4942,0
 )
 *428 (MRCItem
 litem &373
 pos 47
 dimension 20
-uid 4942,0
+uid 5116,0
 )
 *429 (MRCItem
 litem &374
 pos 48
 dimension 20
-uid 5116,0
+uid 5205,0
 )
 *430 (MRCItem
 litem &375
 pos 49
 dimension 20
-uid 5205,0
+uid 5209,0
 )
 ]
 )
