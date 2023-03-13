@@ -25,8 +25,6 @@ end ethernet_SM;
 
 architecture rtl of ethernet_SM is
   constant ADDR_WIDTH: integer := calc_width(N_REG);
-  signal ipb_ack_i : std_logic;
-  signal ipb_err_i : std_logic;
   signal data_rec_elink_reg: std_logic_vector(95 downto 0);
 	signal start_write_elink_reg: std_logic;
 	signal start_read_elink_reg: std_logic;
@@ -45,44 +43,52 @@ process (clk, rst) begin
     if rst = '1' then
         --ipb_slave_out <= IPB_RBUS_NULL;
         ipb_slave_out.ipb_rdata <= (others => '0');
-        ipb_ack_i <= '0';
-        ipb_err_i <= '0';
+        ipb_slave_out.ipb_ack <= '0';
+        ipb_slave_out.ipb_err  <= '0';
         data_rec_elink_reg <= (others => '0');
         start_write_elink_reg <='0';
         start_read_elink_reg <='0';
+        fifo_flush_reg <= '0';
     else
         if rising_edge(clk) then
             -- defaults
-            ipb_ack_i <= '0';
-            ipb_err_i <= '0';
+            ipb_slave_out.ipb_ack <= '0';
+            ipb_slave_out.ipb_err <= '0';
             start_write_elink_reg <= '0';
-            start_read_elink_reg <= '0';
-            fifo_flush_reg <= '0';
-            if ipb_slave_in.ipb_strobe = '1' and ipb_ack_i = '0' then
-                ipb_ack_i <= '1';
-                if ipb_slave_in.ipb_strobe = '1' and ipb_slave_in.ipb_write = '1' then
-                    ipb_err_i <= '0';
+            start_read_elink_reg  <= '0';
+            fifo_flush_reg        <= '0';
+            
+            if ipb_slave_in.ipb_strobe = '1' then
+                if ipb_slave_in.ipb_write = '1' then
+                    --- write is acknowledged 
+                    ipb_slave_out.ipb_ack <= '1';
+                    ipb_slave_out.ipb_err <= '0';
                     data_reg(sel) <= ipb_slave_in.ipb_wdata;
                     case  ipb_slave_in.ipb_addr(3 downto 0) is 
                         when "0110" => data_rec_elink_reg(95 downto 64) <= ipb_slave_in.ipb_wdata;
                         when "0111" => data_rec_elink_reg(63 downto 32) <= ipb_slave_in.ipb_wdata;
                         when "1000" => data_rec_elink_reg(31 downto 0)  <= ipb_slave_in.ipb_wdata;
                         when "1001" => start_write_elink_reg <= '1';
-                        when "1010" => start_read_elink_reg <= '1';
+                        when "1010" => start_read_elink_reg  <= '1';
                         when "1011" => fifo_flush_reg <= '1';
                         when  others => data_rec_elink_reg <= data_rec_elink_reg;                 
                     end case;
                     
                 else
+           					   -- reads are acknowledged
+					          ipb_slave_out.ipb_ack <= '1';
                     case ipb_slave_in.ipb_addr(3 downto 0) is
                         when "0000" => ipb_slave_out.ipb_rdata <= data_tra_downlink(75 downto 44); --X"DEEDBEEF";
                         when "0001" => ipb_slave_out.ipb_rdata <= data_tra_downlink(43 downto 12) ;--X"BEEFBEEF";
-                        when "0010" => ipb_slave_out.ipb_rdata <= data_tra_downlink(11 downto 0) & X"00000"; --X"000";
-                         
-                        when "0011" => ipb_slave_out.ipb_rdata <= X"0000000"& b"000"& irq_tra_sig;--  data_rec_uplink(75 downto 44); --X"DEEDBEEF";
-                        when "0100" => ipb_slave_out.ipb_rdata <= data_rec_uplink(43 downto 12) ;--X"BEEFBEEF";
-                        when "0101" => ipb_slave_out.ipb_rdata <= data_rec_uplink(11 downto 0) & X"00000"; --X"000"; 
+                        when "0010" => 
+                                       ipb_slave_out.ipb_rdata(31 downto 20) <= data_tra_downlink(11 downto 0);
+                                       ipb_slave_out.ipb_rdata(19 downto 0)  <= (others => '0');
+                        when "0011" => 
+                                       ipb_slave_out.ipb_rdata(31 downto 1) <= (others => '0');
+                                       ipb_slave_out.ipb_rdata(0)           <= irq_tra_sig;
                         
+                        when "0100" => ipb_slave_out.ipb_rdata <= data_rec_uplink(43 downto 12);
+                        when "0101" => ipb_slave_out.ipb_rdata <= data_rec_uplink(11 downto 0) & X"00000";                       
                         when "0110" => ipb_slave_out.ipb_rdata <= data_rec_elink_reg(95 downto 64);
                         when "0111" => ipb_slave_out.ipb_rdata <= data_rec_elink_reg(63 downto 32);
                         when "1000" => ipb_slave_out.ipb_rdata <= data_rec_elink_reg(31 downto 0);
@@ -97,8 +103,6 @@ process (clk, rst) begin
     end if;
 end process;
 
-ipb_slave_out.ipb_ack <= ipb_ack_i;
-ipb_slave_out.ipb_err <= ipb_err_i;
 data_rec_ethernet <= data_rec_elink_reg(95 downto 20);   
 start_write_elink_dbg <= start_write_elink_reg;
 start_read_elink_dbg  <= start_read_elink_reg;

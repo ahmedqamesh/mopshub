@@ -42,7 +42,7 @@ module buffer_rec_elink(
       5'h8  :   data_rec_reg   <=  {2'b00,data_rec_in[27:20]};          
       5'h9  :   data_rec_reg   <=  {2'b00,data_rec_in[19:12]};  
       5'hA  :   data_rec_reg   <=  {2'b00,data_rec_in[11:4]};         
-      5'hB  :   data_rec_reg   <=  {2'b00,3'h0,data_rec_in[3:0]};
+      5'hB  :   data_rec_reg   <=  {2'b00,4'h0,data_rec_in[3:0]};
       //Add EOP 
       5'hC  :   data_rec_reg   <=  {2'b01,Kchar_eop}; 
       default   :   data_rec_reg   <=  {2'b11,Kchar_comma};    

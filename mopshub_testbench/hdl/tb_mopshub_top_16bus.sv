@@ -377,15 +377,10 @@ module tb_mopshub_top_16bus();
   if (!rst) info_debug_sig = "<:RESET>";
   else 
   begin
-    if(start_init) info_debug_sig = "<:initialization:>";    
-    /////*********************************Oscillator Trimming*********************************///// 
-    if(start_trim_osc) info_debug_sig = {"<:Oscillator Trimming [BUS ID ",$sformatf("%h",power_bus_cnt)," ]:>"};
-    //if(trim_sig_start) info_debug_sig = {"<:Oscillator Trimming [BUS ID ",$sformatf("%h",bus_id)," ]:>"};  
-    /////*********************************  RX Test    *********************************///// 
-    if(test_rx_start)  info_debug_sig = $sformatf("<:RX signals   [BUS ID %d ]  :>",bus_id);
-    /////*********************************  TX Test    *********************************/////     
+    if (start_init)    info_debug_sig = {"<:initialization:>"};    
+    if (start_trim_osc)info_debug_sig = {"<:Oscillator Trimming [BUS ID ",$sformatf("%h",power_bus_cnt)," ]:>"};
+    if (test_rx_start) info_debug_sig = $sformatf("<:RX signals   [BUS ID %d ]  :>",bus_id);   
     if (test_tx_start) info_debug_sig = $sformatf("<:TX signals  [BUS ID %d ]  :>",bus_id);    
     if (test_advanced) info_debug_sig = $sformatf("<:Costum Message  [BUS ID %d ]  :>",bus_id); 
-    if (test_tx_end || test_rx_end ||end_init||end_trim_bus||costum_msg_end)  info_debug_sig = {""};    
   end
 endmodule 
