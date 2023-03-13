@@ -247,7 +247,7 @@ value "chipdev2.physik.uni-wuppertal.de"
 )
 (vvPair
 variable "graphical_source_time"
-value "13:11:39"
+value "15:37:22"
 )
 (vvPair
 variable "group"
@@ -367,7 +367,7 @@ value "struct"
 )
 (vvPair
 variable "time"
-value "13:11:39"
+value "15:37:22"
 )
 (vvPair
 variable "unit"
@@ -4981,9 +4981,10 @@ st "
 assign spi_can_irq = (addr_write == 5'h02 && data_rec_can_10bitout   == {2'b00,8'h20}); //detect the first Byte that holds the spi ID
 //SPI Data
 assign data_rec_spi_10bitout_Active = (spi_can_mode ==1 ||spi_can_irq ==1) ? data_rec_spi_can_10bitout: data_rec_spi_10bitout; 
-assign spi_rec_signal = spi_rec_mode ==1|| spi_can_mode ==1||spi_can_irq ==1;
+assign spi_rec_signal = spi_rec_mode|| spi_can_mode ||spi_can_irq;
 //FIFO Rec Data
 //assign data_rec_10bitout =(spi_rec_signal) ? data_rec_spi_10bitout_Active: data_rec_can_10bitout; 
+
 
 
 
@@ -5367,9 +5368,9 @@ st "
 //Check FIFO output
 assign can_id      = can_id_reg;
 assign spi_mon_id  = spi_mon_reg;
-assign spi_power_on_id   = spi_power_on_reg;
-assign spi_power_off_id   = spi_power_off_reg;
 assign spi_can_id  = spi_can_reg;
+assign spi_power_on_id    = spi_power_on_reg;
+assign spi_power_off_id   = spi_power_off_reg;
 assign spi_power_id = spi_power_on_id || spi_power_off_id;
 always@(*) 
   begin
@@ -5381,9 +5382,9 @@ always@(*)
         fifo_data_packet = 1'b0;
         can_id_reg       = 1'b0;
         spi_mon_reg      = 1'b0;
+        spi_can_reg      = 1'b0; 
         spi_power_on_reg    = 1'b0;
         spi_power_off_reg   = 1'b0;
-        spi_can_reg      = 1'b0; 
       end 
   // Detect DATA  
   else if(cs_eread && data_tra_10bitin != {2'b10,Kchar_sop}&& data_tra_10bitin != {2'b01,Kchar_eop} && data_tra_10bitin[9:8] == 2'b00)// data
@@ -5398,12 +5399,12 @@ always@(*)
               can_id_reg    = 1'b0;
               spi_power_on_reg    = 1'b0;
               spi_power_off_reg   = 1'b0;
-              if (dbg_spi) 
+              if (dbg_spi) // Measurement Board 
                 begin 
-                spi_can_reg   = 1'b1; 
-                spi_mon_reg   = 1'b0;
+                  spi_can_reg   = 1'b1; 
+                  spi_mon_reg   = 1'b0;
                 end
-              else 
+              else // MOPSHUB Board 
                 begin 
                   spi_mon_reg   = 1'b1;
                   spi_can_reg   = 1'b0; 
@@ -5425,14 +5426,14 @@ always@(*)
               spi_power_on_reg = 1'b1;
               spi_power_off_reg   = 1'b0;
             end
-            8'h00 :
-            begin  //Identify CAN
-              can_id_reg     = 1'b1;
-              spi_mon_reg    = 1'b0;
-              spi_can_reg    = 1'b0;
-              spi_power_on_reg  = 1'b1;
-              spi_power_off_reg = 1'b0;
-            end
+//            8'h00 :
+//            begin  //Identify CAN not needed now 
+//              can_id_reg     = 1'b1;
+//              spi_mon_reg    = 1'b0;
+//              spi_can_reg    = 1'b0;
+//              spi_power_on_reg  = 1'b1;
+//              spi_power_off_reg = 1'b0;
+//            end
             default:
             begin
               can_id_reg    = 1'b1;
@@ -5476,6 +5477,9 @@ always@(*)
      fifo_data_packet = 1'b0;
     end    
   end
+
+
+
 
 
 
@@ -16405,9 +16409,9 @@ va (VaSet
 vasetType 3
 lineWidth 2
 )
-xt "-16000,25000,-1750,25000"
+xt "-17000,25000,-1750,25000"
 pts [
-"-16000,25000"
+"-17000,25000"
 "-1750,25000"
 ]
 )
@@ -16427,9 +16431,9 @@ uid 23770,0
 va (VaSet
 font "courier,8,0"
 )
-xt "-18000,24100,-3000,25000"
+xt "-19000,24100,-4000,25000"
 st "data_rec_can_10bitout : [9:0]"
-blo "-18000,24800"
+blo "-19000,24800"
 tm "WireNameMgr"
 )
 )
@@ -18244,8 +18248,8 @@ tm "BdCompilerDirectivesTextMgr"
 ]
 associable 1
 )
-windowSize "3832,13,5768,1088"
-viewArea "-84516,-43511,7558,6584"
+windowSize "-8,13,1928,1088"
+viewArea "-90912,5778,1162,55873"
 cachedDiagramExtent "-141400,-51000,103000,70000"
 hasePageBreakOrigin 1
 pageBreakOrigin "-207000,-51000"
