@@ -69,7 +69,7 @@ entity ethernet_ipbus is
 end ethernet_ipbus;
 
 architecture rtl of ethernet_ipbus is
-	signal sysclk, clk_ipb, clk_ipb_i, clk_aux, locked, clk_locked, rst125, rst_ipb, rst_ipb_ctrl, rst_aux, onehz, pkt: std_logic;--eth_locked
+	signal sysclk, clk_ipb, clk_ipb_i, clk_aux, locked, clk_locked, rst125, rst_ipb, rst_ipb_ctrl, rst_aux, onehz, pkt:std_logic;
 	signal led_p: std_logic_vector(0 downto 0);
 	signal mac_addr: std_logic_vector(47 downto 0);
 	signal ip_addr: std_logic_vector(31 downto 0);  

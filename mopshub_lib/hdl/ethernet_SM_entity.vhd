@@ -17,8 +17,8 @@ entity ethernet_SM is
         start_read_elink_dbg : out std_logic;
         fifo_flush_dbg: out std_logic;
         irq_tra_sig: in std_logic;
-        data_tra_downlink: in std_logic_vector(75 downto 0);
-        data_rec_uplink: in std_logic_vector(75 downto 0);
+        data_tra_downlink: in  std_logic_vector(75 downto 0);
+        data_rec_uplink  : in  std_logic_vector(75 downto 0);
         data_rec_ethernet: out std_logic_vector(75 downto 0)
     );
 end ethernet_SM;
@@ -60,7 +60,7 @@ process (clk, rst) begin
             if ipb_slave_in.ipb_strobe = '1' and ipb_ack_i = '0' then
                 -- The master identifies write transactions with the ipb_write flag
                 if ipb_slave_in.ipb_write = '1' then
-                    ---data_reg(sel) <= ipb_slave_in.ipb_wdata;
+                    data_reg(sel) <= ipb_slave_in.ipb_wdata;
                     case  ipb_slave_in.ipb_addr(3 downto 0) is 
                       
                         when "0110" =>
@@ -75,8 +75,7 @@ process (clk, rst) begin
                           start_read_elink_reg  <= '1';
                         when "1011" => 
                           fifo_flush_reg        <= '1';
-                        when  others => 
-                          data_rec_elink_reg <= data_rec_elink_reg;                 
+                        when  others => data_rec_elink_reg <= data_rec_elink_reg;                 
                     end case;
                     --- write is acknowledged as soon as writing is done
                     ipb_ack_i <= '1';
@@ -85,9 +84,9 @@ process (clk, rst) begin
                     case ipb_slave_in.ipb_addr(3 downto 0) is
                       
                         when "0000" => 
-                          ipb_slave_out.ipb_rdata <= data_tra_downlink(75 downto 44); --X"DEEDBEEF";
+                          ipb_slave_out.ipb_rdata <= data_tra_downlink(75 downto 44);
                         when "0001" => 
-                          ipb_slave_out.ipb_rdata <= data_tra_downlink(43 downto 12) ;--X"BEEFBEEF";
+                          ipb_slave_out.ipb_rdata <= data_tra_downlink(43 downto 12) ;
                         when "0010" => 
                           ipb_slave_out.ipb_rdata(31 downto 20) <= data_tra_downlink(11 downto 0);
                           ipb_slave_out.ipb_rdata(19 downto 0)  <= (others => '0');
@@ -97,7 +96,8 @@ process (clk, rst) begin
                         when "0100" => 
                           ipb_slave_out.ipb_rdata <= data_rec_uplink(43 downto 12);
                         when "0101" => 
-                          ipb_slave_out.ipb_rdata <= data_rec_uplink(11 downto 0) & X"00000";                       
+                          ipb_slave_out.ipb_rdata(31 downto 20) <= data_rec_uplink(11 downto 0); 
+                          ipb_slave_out.ipb_rdata(19 downto 0)  <= (others => '0');                      
                         when "0110" => 
                           ipb_slave_out.ipb_rdata <= data_rec_elink_reg(95 downto 64);
                         when "0111" => 

@@ -49,8 +49,8 @@ architecture Behavioral of emp_bram_gen is
 	type ram_t is array (MEMORY_DEPTH-1 downto 0) of std_logic_vector(MEMORY_WIDTH - 1 downto 0);
 
 	-- Signals
-	signal RAM : ram_t;
-
+	signal RAMa : ram_t;
+	signal RAMb : ram_t;
 begin
 
 	ch1 : process(clka)
@@ -58,9 +58,9 @@ begin
 		if rising_edge(clka) then
 			if ena = '1' then
 				if wea = '1' then
-					RAM(to_integer(unsigned(addra))) <= dina;
+				  RAMa(to_integer(unsigned(addra))) <= dina;
 				else
-					douta <= RAM(to_integer(unsigned(addra)));
+					douta <= RAMa(to_integer(unsigned(addra)));
 				end if;
 			end if;
 		end if;
@@ -71,9 +71,9 @@ begin
 		if rising_edge(clkb) then
 			if enb = '1' then
 				if web = '1' then
-					RAM(to_integer(unsigned(addrb))) <= dinb;
+					RAMb(to_integer(unsigned(addrb))) <= dinb;
 				else
-					doutb <= RAM(to_integer(unsigned(addrb)));
+					doutb <= RAMb(to_integer(unsigned(addrb)));
 				end if;
 			end if;
 		end if;

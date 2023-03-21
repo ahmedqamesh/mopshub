@@ -35,7 +35,6 @@ architecture rtl of test_ethernet_SM is
 
 begin
     --sel <= to_integer(unsigned(ipb_slave_in.ipb_addr(ADDR_WIDTH - 1 downto 0))) when ADDR_WIDTH > 0 else 0;
-    
     --data_rec_r(N_REG - 1 downto 0) <= data_reg;
     --data_rec_r(2 ** ADDR_WIDTH - 1 downto N_REG) <= (others => (others => '0'));
 	 ipb_slave_out_reg<= (others => '0');

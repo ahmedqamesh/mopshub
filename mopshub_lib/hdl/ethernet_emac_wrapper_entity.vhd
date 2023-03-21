@@ -42,7 +42,7 @@ architecture rtl of ethernet_emac_wrapper is
         signal  hostbus_out: emac_hostbus_out;
         signal hostbus_in:   emac_hostbus_in := ('0', "00", "0000000000", X"00000000", '0', '0', '0');
 
-	COMPONENT temac_gbe_v9_0
+	COMPONENT tri_mode_ethernet_mac_0
 		PORT (
 			gtx_clk : IN STD_LOGIC;
 			glbl_rstn : IN STD_LOGIC;
@@ -86,7 +86,7 @@ architecture rtl of ethernet_emac_wrapper is
 begin	
 	rstn <= not (rst_eth or not eth_locked);
 
-	mac: temac_gbe_v9_0
+	mac: tri_mode_ethernet_mac_0
 		port map(
 			gtx_clk => clk125,
 			glbl_rstn => rstn,

@@ -126,7 +126,6 @@ architecture RTL of emp_elink_mem_interface_regs is
     signal s_reg_elink_group_sel_value_r : std_logic_vector(3 downto 0);
     signal s_int_enable_strobe_r : std_logic;
     signal s_reg_int_enable_value_r : std_logic_vector(0 downto 0);
-
 begin
 
     ----------------------------------------------------------------------------
@@ -135,7 +134,6 @@ begin
     s_reg_magic_value <= magic_value;
     s_reg_status_done <= status_done;
     s_reg_mem_read_data_value <= mem_read_data_value;
-
     ----------------------------------------------------------------------------
     -- Read-transaction FSM
     --    
@@ -171,9 +169,9 @@ begin
             s_magic_strobe_r <= '0';
             s_status_strobe_r <= '0';
             s_mem_read_data_strobe_r <= '0';
-
+            
             case v_state_r is
-
+          
                 -- Wait for the start of a read transaction, which is 
                 -- initiated by the assertion of ARVALID
                 when IDLE =>
@@ -347,6 +345,8 @@ begin
                         s_axi_wstrb_reg_r  <= s_axi_wstrb; -- save the write-strobe
                         s_axi_wready_r     <= '1'; -- acknowledge the write-data
                         v_state_r          := UPDATE_REGISTER;
+
+                        
                     elsif s_axi_awvalid = '1' then
                         s_axi_awaddr_reg_r <= unsigned(s_axi_awaddr); -- save the write-address 
                         s_axi_awready_r    <= '1'; -- acknowledge the write-address
@@ -365,6 +365,7 @@ begin
                         s_axi_wstrb_reg_r <= s_axi_wstrb; -- save the write-strobe
                         s_axi_wready_r    <= '1'; -- acknowledge the write-data
                         v_state_r         := UPDATE_REGISTER;
+
                     end if;
 
                 -- Data-first write transaction: wait for the write-address
@@ -373,6 +374,7 @@ begin
                         s_axi_awaddr_reg_r <= unsigned(s_axi_awaddr); -- save the write-address 
                         s_axi_awready_r    <= '1'; -- acknowledge the write-address
                         v_state_r          := UPDATE_REGISTER;
+
                     end if;
 
                 -- Update the actual storage element
@@ -618,7 +620,7 @@ begin
                         if s_axi_wstrb_reg_r(0) = '1' then
                             s_reg_elink_group_sel_value_r(0) <= s_axi_wdata_reg_r(0); -- value(0)
                         end if;
-                        if s_axi_wstrb_reg_r(0) = '1' then
+                        if s_axi_wstrb_reg_r(0) = '1' then 
                             s_reg_elink_group_sel_value_r(1) <= s_axi_wdata_reg_r(1); -- value(1)
                         end if;
                         if s_axi_wstrb_reg_r(0) = '1' then

@@ -4,7 +4,7 @@
 -- 
 -- Create Date: 01/20/2021 12:05:07 PM
 -- Design Name: 
--- Module Name: emp_elink_memory_interface - Behavioral
+-- Module Name: elink_memory_interface - Behavioral
 -- Project Name: 
 -- Target Devices: 
 -- Tool Versions: 
@@ -78,7 +78,7 @@ end emp_elink_memory_interface;
 
 architecture Behavioral of emp_elink_memory_interface is
 
-	component clk_mux
+	component clk_mux_fake
 		port(                           -- Clock in ports
 			clk_downlink : in  std_logic;
 			clk_in_sel   : in  std_logic;
@@ -253,7 +253,7 @@ begin
 	-- 8 bits per elink @320MHz, 16 bits per elink @640MHz, 32 bits per elink @1280Mbps
 	-- stores 32 bits (1 to 4 elinks) at time
 
-	clk_mux_inst : clk_mux
+	clk_mux_inst : clk_mux_fake
 		port map(
 			clk_downlink => downlink_clk_40MHz,
 			clk_in_sel   => clk_sel,    -- '1' uplink
@@ -371,7 +371,9 @@ begin
 					when idle =>
 						if command_start_uplink_storage_cdc = '1' then
 							clk_sel_order <= '1';
+							
 							fsm_state     <= uplink_receiving;
+							
 						elsif command_start_downlink_delivery_cdc = '1' then
 							clk_sel_order <= '0';
 							fsm_state     <= downlink_sending;
@@ -392,13 +394,14 @@ begin
 						en_s        <= '1';
 						we_s        <= '1';
 						addr_unsig  <= addr_unsig + 1;
-
+            
 						if addr_unsig = MEMORY_DEPTH - 1 then
 							en_s            <= '0';
 							we_s            <= '0';
 							upword_buff     <= (others => '0');
 							addr_unsig      <= (others => '0');
 							status_done_cdc <= '1';
+							
 							fsm_state       <= waiting_for_reset;
 						end if;
 
