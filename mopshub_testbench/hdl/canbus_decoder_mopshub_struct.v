@@ -1,5 +1,5 @@
 //
-// Module mopshub_testbench.CANbus_decoder_mopshub.struct
+// Module mopshub_testbench.canbus_decoder_mopshub.struct
 //
 // Created:
 //          by - dcs.dcs (chipdev2.physik.uni-wuppertal.de)
@@ -10,7 +10,7 @@
 
 `resetall
 `timescale 1ns/10ps
-module CANbus_decoder_mopshub( 
+module canbus_decoder_mopshub( 
    // Port Declarations
    input   wire            clk, 
    input   wire            rst, 
@@ -198,5 +198,5 @@ assign Ki =8'd0;
 assign Kp =8'd0;
 assign en_osc_trim =1'b0;
 
-endmodule // CANbus_decoder_mopshub
+endmodule // canbus_decoder_mopshub
 
