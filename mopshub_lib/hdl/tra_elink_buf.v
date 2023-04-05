@@ -65,16 +65,16 @@ begin
    if(buffer_en)
     begin
       case(addr)
-       5'b00010 : b0  <= data_tra_8bitin[7:0];        
-       5'b00011 : b1  <= data_tra_8bitin[7:0];         
-       5'b00100 : b2  <= data_tra_8bitin[7:0];                                  
-       5'b00101 : b3  <= data_tra_8bitin[7:0];        
-       5'b00110 : b4  <= data_tra_8bitin[7:0];                     
-       5'b00111 : b5  <= data_tra_8bitin[7:0];       
-       5'b01000 : b6  <= data_tra_8bitin[7:0];           
-       5'b01001 : b7  <= data_tra_8bitin[7:0];      
-       5'b01010 : b8  <= data_tra_8bitin[7:0];            
-       5'b01011 : b9  <= data_tra_8bitin[7:0];            
+       5'h2 : b0  <= data_tra_8bitin[7:0];        
+       5'h3 : b1  <= data_tra_8bitin[7:0];         
+       5'h4 : b2  <= data_tra_8bitin[7:0];                                  
+       5'h5 : b3  <= data_tra_8bitin[7:0];        
+       5'h6 : b4  <= data_tra_8bitin[7:0];                     
+       5'h7 : b5  <= data_tra_8bitin[7:0];       
+       5'h8 : b6  <= data_tra_8bitin[7:0];           
+       5'h9 : b7  <= data_tra_8bitin[7:0];      
+       5'hA : b8  <= data_tra_8bitin[7:0];            
+       5'hB : b9  <= data_tra_8bitin[7:0];            
        default 
         begin
          b0 <= 8'h00;
