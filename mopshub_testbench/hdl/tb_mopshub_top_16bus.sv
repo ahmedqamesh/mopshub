@@ -136,6 +136,7 @@ module tb_mopshub_top_16bus();
   .n_buses(5'd15),
   .prescaler_init(16'h33),
   .general_init(16'hE3),
+  .xadc_rec_in(12'hA),
   .irq_elink_tra(irq_elink_tra),
   .irq_elink_rec(irq_elink_rec),
   .dbg_elink(1'b0), 
