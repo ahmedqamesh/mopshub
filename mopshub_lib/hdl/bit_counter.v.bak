@@ -24,6 +24,12 @@ module bit_counter(
   assign data_out = data_out_reg ;
 
   always @(posedge clk)
-    if (!rst | ext_rst)  data_out_reg <= 5'b00000 ; 
-    else if (cnt_enable) data_out_reg <= data_out_reg + 1;
+    if (!rst | ext_rst) 
+      begin
+        data_out_reg <= 5'b00000 ; 
+      end 
+    else if (cnt_enable) 
+      begin
+        data_out_reg <= data_out_reg + 1;
+      end
 endmodule 

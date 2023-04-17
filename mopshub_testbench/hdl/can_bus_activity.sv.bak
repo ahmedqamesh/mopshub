@@ -44,7 +44,8 @@ module can_bus_activity (
    input wire    [75:0]  data_tra_downlink,
    input wire    [75:0]  bus_dec_data,
    input wire            reqmsg,
-   input wire            respmsg
+   input wire            respmsg,
+   output wire    [31:0]  sim_failures
 );
 int failures = 0;   // Number of BAD reponses from the chip
 int status = 0;
