@@ -173,6 +173,7 @@ module tb_mopshub_top_32bus();
   .sck_m(),
   .sck_c(),
   .rst_bus(rst_bus),
+  .end_read_elink(),
   .power_bus_cnt(power_bus_cnt),
   .mon_bus_cnt(),
   .irq_can_tra(),
@@ -403,8 +404,8 @@ module tb_mopshub_top_32bus();
       if(end_power_init ==1) osc_auto_trim_mopshub = 1'b0;
       if(sign_on_sig ==1)//start Rx test
       begin
-      //test_tx =1'b1;
-      test_advanced = 1'b1;
+      test_tx =1'b1;
+      //test_advanced = 1'b1;
       end
       if(test_rx_end ==1)//Done Rx test
       begin

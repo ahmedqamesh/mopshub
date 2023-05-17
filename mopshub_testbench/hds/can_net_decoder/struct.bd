@@ -124,19 +124,19 @@ value "/../../home/dcs/git/mopshub/mopshub_testbench/hds/can_net_decoder"
 )
 (vvPair
 variable "date"
-value "02/24/23"
+value "04/19/23"
 )
 (vvPair
 variable "day"
-value "Fri"
+value "Wed"
 )
 (vvPair
 variable "day_long"
-value "Friday"
+value "Wednesday"
 )
 (vvPair
 variable "dd"
-value "24"
+value "19"
 )
 (vvPair
 variable "entity_name"
@@ -164,7 +164,7 @@ value "dcs"
 )
 (vvPair
 variable "graphical_source_date"
-value "02/24/23"
+value "04/19/23"
 )
 (vvPair
 variable "graphical_source_group"
@@ -176,7 +176,7 @@ value "chipdev2.physik.uni-wuppertal.de"
 )
 (vvPair
 variable "graphical_source_time"
-value "11:17:15"
+value "12:23:31"
 )
 (vvPair
 variable "group"
@@ -216,7 +216,7 @@ value "$HDS_PROJECT_DIR/mopshub_testbench/svassistant"
 )
 (vvPair
 variable "mm"
-value "02"
+value "04"
 )
 (vvPair
 variable "module_name"
@@ -224,11 +224,11 @@ value "can_net_decoder"
 )
 (vvPair
 variable "month"
-value "Feb"
+value "Apr"
 )
 (vvPair
 variable "month_long"
-value "February"
+value "April"
 )
 (vvPair
 variable "p"
@@ -292,7 +292,7 @@ value "struct"
 )
 (vvPair
 variable "time"
-value "11:17:15"
+value "12:23:31"
 )
 (vvPair
 variable "unit"
@@ -1756,17 +1756,14 @@ font "courier,8,0"
 xt "27200,71200,44700,75700"
 st "
 assign ready_osc = ready_osc_master || ready_osc_00||ready_osc_01||ready_osc_10||ready_osc_11;
-//assign rst_mops = !ext_rst_mops;
 always@(posedge clk)
-if (!rst)
-rst_mops <=0;
-else 
-begin
-if (ext_rst_mops==1)
-rst_mops <=0;
-else
-rst_mops <=1; 
-end
+  if (!rst) rst_mops <=0;
+  else 
+    begin
+      if (ext_rst_mops==1) rst_mops <=0;
+      else rst_mops <=1; 
+    end
+
 
 
 
@@ -14145,11 +14142,11 @@ tm "BdCompilerDirectivesTextMgr"
 associable 1
 )
 windowSize "3832,13,5768,1088"
-viewArea "49300,32700,102403,61592"
+viewArea "-2499,36318,75121,77280"
 cachedDiagramExtent "-17000,-42000,123000,98000"
 hasePageBreakOrigin 1
 pageBreakOrigin "-69000,0"
-lastUid 19085,0
+lastUid 19344,0
 defaultCommentText (CommentText
 shape (Rectangle
 layer 0

@@ -173,6 +173,7 @@ module tb_mopshub_top_32bus();
   .sck_m(),
   .sck_c(),
   .rst_bus(rst_bus),
+  .end_read_elink(),
   .power_bus_cnt(power_bus_cnt),
   .mon_bus_cnt(),
   .irq_can_tra(),

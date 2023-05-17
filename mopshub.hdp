@@ -9,15 +9,14 @@ top_lib = /home/dcs/git/CANAkari/MOPSv2/top_lib/work
 mopshub_lib = $HDS_PROJECT_DIR/mopshub_lib/ps
 [QuestaSim]
 canakari_mopshub = $HDS_PROJECT_DIR/canakari-mopshub/canakari_mopshub/work
-CANdecoder = /home/dcs/git/CANAkari/CANdecoder/work
-ftrim = /home/dcs/git/CANAkari/MOPSv2/ftrim/work
+CANdecoder = /home/dcs/git/mopshub/CANAkari/CANdecoder/work
+ftrim = /home/dcs/git/mopshub/CANAkari/MOPSv2/ftrim/work
 ipbus_firmware_lib = $HDS_PROJECT_DIR/ipbus_firmware/work
 mopshub_lib = $HDS_PROJECT_DIR/mopshub_lib/work
 mopshub_testbench = $HDS_PROJECT_DIR/mopshub_testbench/mopshub_testbench/work
 MOPSv2_lib = $HDS_PROJECT_DIR/CANAkari/MOPSv2/MOPSv2_lib/work
 top_lib = /home/dcs/git/CANAkari/MOPSv2/top_lib/work
 [QuestaSim_Invoke_Dir]
-ftrim = /home/dcs/git/CANAkari/MOPSv2/ftrim/sim
 mopshub_lib = $HDS_PROJECT_DIR/mopshub_lib/sim
 mopshub_testbench = $HDS_PROJECT_DIR/mopshub_testbench/sim
 top_lib = /home/dcs/git/CANAkari/MOPSv2/top_lib/sim
@@ -31,6 +30,7 @@ CANdecoder = /home/dcs/git/mopshub/CANAkari/CANdecoder/hdl
 ftrim = /home/dcs/git/mopshub/CANAkari/MOPSv2/ftrim/hdl
 ipbus_firmware_lib = $HDS_PROJECT_DIR/ipbus-firmware
 mopshub_lib = $HDS_PROJECT_DIR/mopshub_lib/hdl
+mopshub_reconfig = $HDS_PROJECT_DIR/mopshub_reconfig/hdl
 mopshub_testbench = $HDS_PROJECT_DIR/mopshub_testbench/hdl
 mopshub_triplicated_lib = $HDS_PROJECT_DIR/mopshub-triplicated/mopshub_lib/hdl/mopshub_top_board_16busTMR
 MOPSv2_lib = $HDS_PROJECT_DIR/CANAkari/MOPSv2/MOPSv2_lib/hdl
@@ -38,26 +38,28 @@ top_lib = /home/dcs/git/mopshub/CANAkari/MOPSv2/top_lib/hdl
 [hds]
 canakari_mopshub = $HDS_PROJECT_DIR/canakari-mopshub/canakari_mopshub/hds
 CANdecoder = /home/dcs/git/mopshub/CANAkari/CANdecoder/hds
-ftrim = /home/dcs/git/mopshub/CANAkari/MOPSv2/ftrim
+ftrim = /home/dcs/git/mopshub/CANAkari/MOPSv2/ftrim/hds
 ipbus_firmware_lib = $HDS_PROJECT_DIR/ipbus-firmware/hds
 mopshub_lib = $HDS_PROJECT_DIR/mopshub_lib/hds
+mopshub_reconfig = $HDS_PROJECT_DIR/mopshub_reconfig/hds
 mopshub_testbench = $HDS_PROJECT_DIR/mopshub_testbench/hds
 mopshub_triplicated_lib = $HDS_PROJECT_DIR/mopshub-triplicated
 MOPSv2_lib = $HDS_PROJECT_DIR/CANAkari/MOPSv2/MOPSv2_lib/hds
 top_lib = /home/dcs/git/mopshub/CANAkari/MOPSv2/top_lib/hds
 [hds_settings]
-default_library = canakari_mopshub
+default_library = mopshub_reconfig
 design_root = mopshub_testbench.tb_mopshub_top_32bus(tb_mopshub_top_32bus)tb_mopshub_top_32bus.sv
-library_search_path = MOPSv2_lib canakari_mopshub CANdecoder ftrim mopshub_lib mopshub_testbench
+library_search_path = MOPSv2_lib canakari_mopshub mopshub_reconfig CANdecoder ftrim mopshub_lib mopshub_testbench
 version = 2
 [includes_search_path]
 ipbus_firmware_lib = $MOPSHUB_LIB2/opencores_spi/firmware/hdl;$ipbus_firmware_lib;$ipbus_firmware_lib/components/opencores_spi/firmware/hdl
 [library_files_inclusion]
 canakari_mopshub = all
-CANdecoder = all
+CANdecoder = specify
 ftrim = all
 ipbus_firmware_lib = specify
 mopshub_lib = specify
+mopshub_reconfig = all
 mopshub_testbench = specify
 mopshub_triplicated_lib = specify
 MOPSv2_lib = all
@@ -69,6 +71,7 @@ CANdecoder = regular
 ftrim = regular
 ipbus_firmware_lib = regular
 mopshub_lib = regular
+mopshub_reconfig = regular
 mopshub_testbench = regular
 mopshub_triplicated_lib = regular
 MOPSv2_lib = regular
