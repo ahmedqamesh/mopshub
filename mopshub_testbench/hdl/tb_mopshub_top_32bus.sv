@@ -8,13 +8,15 @@
 // using Mentor Graphics HDL Designer(TM) 2019.4 (Build 4)
 //
 ///eda/mentor/2019-20/RHELx86/QUESTA-CORE-PRIME_2019.4/questasim/linux_x86_64
+
 `resetall
 `timescale 1ns/10ps
+
 module tb_mopshub_top_32bus();
   wire             clk_m;
   wire             clk_mops;
   wire             clk_40_m;
-  reg              rst   = 1'b0;
+  reg              rst         = 1'b0;
   reg              endwait_all = 1'b0;
   wire             rst_bus;
   reg              sel_bus = 1'b0;
@@ -23,6 +25,7 @@ module tb_mopshub_top_32bus();
   wire             start_init;
   wire             end_init;
   string           info_debug_sig;     
+
   //tbSM signals  
   wire    [75:0]  bus_dec_data;
   wire    [7:0]   bus_id;
@@ -33,14 +36,13 @@ module tb_mopshub_top_32bus();
   wire            start_trim_osc;
   wire            end_trim_bus;
   wire            end_power_init;
-  
+   
   wire            power_bus_en;
-  wire    [4:0]   power_bus_cnt;
-  
+  wire    [4:0]   power_bus_cnt;   
   reg             test_rx = 1'b0;
   wire            test_rx_start;
   wire            test_rx_end;
-  
+    
   reg             test_tx = 1'b0;
   wire            test_tx_start;
   wire            test_tx_end;
@@ -90,9 +92,7 @@ module tb_mopshub_top_32bus();
   wire            rx29;
   wire            rx30;
   wire            rx31;
-
-      
-      
+    
   wire            tx0;
   wire            tx1;
   wire            tx2;
@@ -147,8 +147,6 @@ module tb_mopshub_top_32bus();
   assign start_osc_cnt     = mopshub0.start_osc_cnt;
   assign ready_osc         = data_generator0.ready_osc;
 
-  
-  
   mopshub_top_32bus mopshub0(
   .clk(clk_40_m),
   .rst(rst),
@@ -370,7 +368,6 @@ module tb_mopshub_top_32bus();
   .tx30(tx30),   
   .tx31(tx31));
   
-  
   //Clock Generators and Dividers master
   clock_generator #(
   .freq(40))
@@ -398,7 +395,7 @@ module tb_mopshub_top_32bus();
     rst = 1'b1; 
   //repeat (2) run_data(); 
   end 
-    /////*******Start Full SM for Data Generation ****/////
+ /////*******Start Full SM for Data Generation ****/////
   always@(posedge clk_40_m)
     begin
       if(end_power_init ==1) osc_auto_trim_mopshub = 1'b0;
