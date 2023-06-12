@@ -160,7 +160,7 @@ module tb_mopshub_top_16bus();
   .mon_bus_cnt(),
   .irq_can_tra(),
   .irq_can_rec(),
-  .rdy_dbg(),
+  .data_rdy_10bit_in_dbg(),
   .start_write_elink_dbg(),
   .end_write_elink_dbg(),
   .data_10bit_in_dbg(),
@@ -323,7 +323,7 @@ module tb_mopshub_top_16bus();
   
   //Clock Generators and Dividers master
   clock_generator #(
-  .freq(40))
+  .freq(160))
   clock_generator0( 
   .clk  (clk_m), 
   .enable (1'b1)
@@ -354,7 +354,7 @@ module tb_mopshub_top_16bus();
       if(end_power_init ==1) osc_auto_trim_mopshub = 1'b0;
       if(sign_on_sig ==1)//start Rx test
       begin
-      test_tx =1'b1;
+      test_rx =1'b1;
       //test_advanced = 1'b1;
       end
       if(test_rx_end ==1)//Done Rx test

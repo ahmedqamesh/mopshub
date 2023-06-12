@@ -149,6 +149,7 @@ module tb_mopshub_top_32bus();
 
   mopshub_top_32bus mopshub0(
   .clk(clk_40_m),
+  .clk_icap(clk_40_m),
   .rst(rst),
   .n_buses(5'd31),
   .prescaler_init(16'h33),
@@ -176,7 +177,7 @@ module tb_mopshub_top_32bus();
   .mon_bus_cnt(),
   .irq_can_tra(),
   .irq_can_rec(),
-  .rdy_dbg(),
+  .data_rdy_10bit_in_dbg(1'b0),
   .start_write_elink_dbg(),
   .end_write_elink_dbg(),
   .data_10bit_in_dbg(),
@@ -370,7 +371,7 @@ module tb_mopshub_top_32bus();
   
   //Clock Generators and Dividers master
   clock_generator #(
-  .freq(40))
+  .freq(160))
   clock_generator0( 
   .clk  (clk_m), 
   .enable (1'b1)
@@ -393,7 +394,6 @@ module tb_mopshub_top_32bus();
     rst = 1'b0;
     #10
     rst = 1'b1; 
-  //repeat (2) run_data(); 
   end 
  /////*******Start Full SM for Data Generation ****/////
   always@(posedge clk_40_m)
@@ -401,7 +401,7 @@ module tb_mopshub_top_32bus();
       if(end_power_init ==1) osc_auto_trim_mopshub = 1'b0;
       if(sign_on_sig ==1)//start Rx test
       begin
-      test_rx =1'b1;
+      test_tx =1'b1;
       //test_advanced = 1'b1;
       end
       if(test_rx_end ==1)//Done Rx test

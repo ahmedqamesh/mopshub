@@ -114,7 +114,8 @@ module enc_8b10b_mopshub (
 		if (rst == 0) begin
 			dispin <= 0;
 			dataout_r <= 0;
-		end else if (ena == 1) begin
+		end 
+		else if (ena == 1) begin
 			dispin <= dispout;
             dataout_r = {(ao ^ compls6), (bo ^ compls6),
 		                 (co ^ compls6), (do ^ compls6),

@@ -161,7 +161,7 @@ module tb_mopshub_top_16bus_debug();
   .mon_bus_cnt(),
   .irq_can_tra(),
   .irq_can_rec(),
-  .rdy_dbg(),
+  .data_rdy_10bit_in_dbg(),
   .start_write_elink_dbg(),
   .end_write_elink_dbg(),
   .data_10bit_in_dbg(),
