@@ -12,16 +12,18 @@
 `timescale 1ns/10ps
 module mux4_Nbit( 
    // Port Declarations
-   input   wire            clk, 
-   input   wire            rst,  
+   input   wire           clk, 
    input   wire    [7:0]  data0, 
    input   wire    [7:0]  data1, 
    input   wire    [7:0]  data2, 
-   input   wire    [7:0]  data3,  
-   input   wire    [1:0]   sel, 
-   output  wire    [7:0]  data_out,
-   input   wire    [7:0]  def_value
+   input   wire    [7:0]  data3, 
+   input   wire    [7:0]  def_value, 
+   input   wire           rst, 
+   input   wire    [1:0]  sel, 
+   output  wire    [7:0]  data_out
 );
+
+
 // Internal Declarations
 reg [7:0] data_out_reg;
 assign data_out = data_out_reg;
@@ -41,3 +43,4 @@ begin
    endcase
 end
 endmodule
+

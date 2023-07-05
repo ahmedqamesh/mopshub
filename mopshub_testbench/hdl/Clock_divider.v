@@ -17,7 +17,7 @@ module clock_divider #(
   end
   // The frequency of the output clk_out
   //  = The frequency of the input clk_in divided by DIVISOR
-  // For example: Fclk_in = 50Mhz, if you want to get 1Hz signal to blink LEDs
+  // For example: clock_in = 50Mhz, if you want to get 1Hz
   // You will modify the DIVISOR parameter value to 28'd50.000.000
   // Then the frequency of the output clk_out = 50Mhz/50.000.000 = 1Hz
   always @(posedge clock_in)

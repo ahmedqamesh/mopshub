@@ -124,19 +124,19 @@ value "/../../home/dcs/git/mopshub/mopshub_testbench/hds/can_net_decoder"
 )
 (vvPair
 variable "date"
-value "02/24/23"
+value "07/05/23"
 )
 (vvPair
 variable "day"
-value "Fri"
+value "Wed"
 )
 (vvPair
 variable "day_long"
-value "Friday"
+value "Wednesday"
 )
 (vvPair
 variable "dd"
-value "24"
+value "05"
 )
 (vvPair
 variable "entity_name"
@@ -164,7 +164,7 @@ value "dcs"
 )
 (vvPair
 variable "graphical_source_date"
-value "02/24/23"
+value "07/05/23"
 )
 (vvPair
 variable "graphical_source_group"
@@ -176,7 +176,7 @@ value "chipdev2.physik.uni-wuppertal.de"
 )
 (vvPair
 variable "graphical_source_time"
-value "11:17:15"
+value "12:48:41"
 )
 (vvPair
 variable "group"
@@ -216,7 +216,7 @@ value "$HDS_PROJECT_DIR/mopshub_testbench/svassistant"
 )
 (vvPair
 variable "mm"
-value "02"
+value "07"
 )
 (vvPair
 variable "module_name"
@@ -224,11 +224,11 @@ value "can_net_decoder"
 )
 (vvPair
 variable "month"
-value "Feb"
+value "Jul"
 )
 (vvPair
 variable "month_long"
-value "February"
+value "July"
 )
 (vvPair
 variable "p"
@@ -292,7 +292,7 @@ value "struct"
 )
 (vvPair
 variable "time"
-value "11:17:15"
+value "12:48:41"
 )
 (vvPair
 variable "unit"
@@ -1353,16 +1353,16 @@ optionalChildren [
 uid 531,0
 sl 0
 ro 270
-xt "35000,66625,36500,67375"
+xt "32000,65625,33500,66375"
 )
 (Line
 uid 532,0
 sl 0
 ro 270
-xt "36500,67000,37000,67000"
+xt "33500,66000,34000,66000"
 pts [
-"36500,67000"
-"37000,67000"
+"33500,66000"
+"34000,66000"
 ]
 )
 ]
@@ -1378,10 +1378,10 @@ uid 534,0
 va (VaSet
 font "courier,8,0"
 )
-xt "30000,66550,34000,67450"
+xt "27000,65550,31000,66450"
 st "clk_mops"
 ju 2
-blo "34000,67250"
+blo "31000,66250"
 tm "WireNameMgr"
 )
 )
@@ -1756,17 +1756,14 @@ font "courier,8,0"
 xt "27200,71200,44700,75700"
 st "
 assign ready_osc = ready_osc_master || ready_osc_00||ready_osc_01||ready_osc_10||ready_osc_11;
-//assign rst_mops = !ext_rst_mops;
 always@(posedge clk)
-if (!rst)
-rst_mops <=0;
-else 
-begin
-if (ext_rst_mops==1)
-rst_mops <=0;
-else
-rst_mops <=1; 
-end
+  if (!rst) rst_mops <=0;
+  else 
+    begin
+      if (ext_rst_mops==1) rst_mops <=0;
+      else rst_mops <=1; 
+    end
+
 
 
 
@@ -1942,16 +1939,16 @@ optionalChildren [
 uid 728,0
 sl 0
 ro 270
-xt "36000,68625,37500,69375"
+xt "32000,66625,33500,67375"
 )
 (Line
 uid 729,0
 sl 0
 ro 270
-xt "37500,69000,38000,69000"
+xt "33500,67000,34000,67000"
 pts [
-"37500,69000"
-"38000,69000"
+"33500,67000"
+"34000,67000"
 ]
 )
 ]
@@ -1967,10 +1964,10 @@ uid 731,0
 va (VaSet
 font "courier,8,0"
 )
-xt "28000,68550,35000,69450"
+xt "24000,66550,31000,67450"
 st "ext_trim_mops"
 ju 2
-blo "35000,69250"
+blo "31000,67250"
 tm "WireNameMgr"
 )
 )
@@ -4941,7 +4938,7 @@ va (VaSet
 vasetType 1
 fg "0,65535,0"
 )
-xt "41250,69625,42000,70375"
+xt "38250,68625,39000,69375"
 )
 tg (CPTG
 uid 3170,0
@@ -4952,9 +4949,9 @@ uid 3171,0
 va (VaSet
 font "courier,8,0"
 )
-xt "43000,69550,45500,70450"
+xt "40000,68550,42500,69450"
 st "rst_n"
-blo "43000,70250"
+blo "40000,69250"
 )
 )
 thePort (LogicalPort
@@ -4976,7 +4973,7 @@ va (VaSet
 vasetType 1
 fg "0,65535,0"
 )
-xt "41250,68625,42000,69375"
+xt "38250,66625,39000,67375"
 )
 tg (CPTG
 uid 3174,0
@@ -4987,9 +4984,9 @@ uid 3175,0
 va (VaSet
 font "courier,8,0"
 )
-xt "43000,68550,50000,69450"
+xt "40000,66550,47000,67450"
 st "osc_auto_trim"
-blo "43000,69250"
+blo "40000,67250"
 )
 )
 thePort (LogicalPort
@@ -5011,7 +5008,7 @@ va (VaSet
 vasetType 1
 fg "0,65535,0"
 )
-xt "41250,67625,42000,68375"
+xt "38250,67625,39000,68375"
 )
 tg (CPTG
 uid 3178,0
@@ -5022,9 +5019,9 @@ uid 3179,0
 va (VaSet
 font "courier,8,0"
 )
-xt "43000,67550,47500,68450"
+xt "40000,67550,44500,68450"
 st "ready_osc"
-blo "43000,68250"
+blo "40000,68250"
 )
 )
 thePort (LogicalPort
@@ -5047,7 +5044,7 @@ va (VaSet
 vasetType 1
 fg "0,65535,0"
 )
-xt "41250,65625,42000,66375"
+xt "38250,69625,39000,70375"
 )
 tg (CPTG
 uid 3182,0
@@ -5058,9 +5055,9 @@ uid 3183,0
 va (VaSet
 font "courier,8,0"
 )
-xt "43000,65550,52500,66450"
+xt "40000,69550,49500,70450"
 st "can_nodeid : [6:0]"
-blo "43000,66250"
+blo "40000,70250"
 )
 )
 thePort (LogicalPort
@@ -5083,7 +5080,7 @@ va (VaSet
 vasetType 1
 fg "0,65535,0"
 )
-xt "41250,66625,42000,67375"
+xt "38250,65625,39000,66375"
 )
 tg (CPTG
 uid 3186,0
@@ -5094,9 +5091,9 @@ uid 3187,0
 va (VaSet
 font "courier,8,0"
 )
-xt "43000,66550,44500,67450"
+xt "40000,65550,41500,66450"
 st "clk"
-blo "43000,67250"
+blo "40000,66250"
 )
 )
 thePort (LogicalPort
@@ -5119,7 +5116,7 @@ va (VaSet
 vasetType 1
 fg "0,65535,0"
 )
-xt "57000,67625,57750,68375"
+xt "59000,67625,59750,68375"
 )
 tg (CPTG
 uid 3190,0
@@ -5130,10 +5127,10 @@ uid 3191,0
 va (VaSet
 font "courier,8,0"
 )
-xt "53000,67550,56000,68450"
+xt "55000,67550,58000,68450"
 st "txmops"
 ju 2
-blo "56000,68250"
+blo "58000,68250"
 )
 )
 thePort (LogicalPort
@@ -5156,7 +5153,7 @@ va (VaSet
 vasetType 1
 fg "0,65535,0"
 )
-xt "57000,66625,57750,67375"
+xt "59000,66625,59750,67375"
 )
 tg (CPTG
 uid 3194,0
@@ -5167,10 +5164,10 @@ uid 3195,0
 va (VaSet
 font "courier,8,0"
 )
-xt "53000,66550,56000,67450"
+xt "55000,66550,58000,67450"
 st "rxmops"
 ju 2
-blo "56000,67250"
+blo "58000,67250"
 )
 )
 thePort (LogicalPort
@@ -5191,7 +5188,7 @@ fg "0,65535,0"
 lineColor "0,32896,0"
 lineWidth 2
 )
-xt "42000,65000,57000,71000"
+xt "39000,65000,59000,73000"
 )
 oxt "15000,6000,39000,26000"
 ttg (MlTextGroup
@@ -5255,7 +5252,7 @@ va (VaSet
 vasetType 1
 fg "49152,49152,49152"
 )
-xt "42250,69250,43750,70750"
+xt "39250,71250,40750,72750"
 iconName "BlockDiagram.png"
 iconMaskName "BlockDiagram.msk"
 ftype 1
@@ -9566,10 +9563,10 @@ uid 524,0
 va (VaSet
 vasetType 3
 )
-xt "37000,67000,41250,67000"
+xt "34000,66000,38250,66000"
 pts [
-"37000,67000"
-"41250,67000"
+"34000,66000"
+"38250,66000"
 ]
 )
 start &30
@@ -9591,9 +9588,9 @@ va (VaSet
 isHidden 1
 font "courier,8,0"
 )
-xt "35000,66100,39000,67000"
+xt "32000,65100,36000,66000"
 st "clk_mops"
-blo "35000,66800"
+blo "32000,65800"
 tm "WireNameMgr"
 )
 )
@@ -9682,10 +9679,10 @@ uid 733,0
 va (VaSet
 vasetType 3
 )
-xt "38000,69000,41250,69000"
+xt "34000,67000,38250,67000"
 pts [
-"38000,69000"
-"41250,69000"
+"34000,67000"
+"38250,67000"
 ]
 )
 start &48
@@ -9706,9 +9703,9 @@ va (VaSet
 isHidden 1
 font "courier,8,0"
 )
-xt "39000,68100,46000,69000"
+xt "36000,66100,43000,67000"
 st "ext_trim_mops"
-blo "39000,68800"
+blo "36000,66800"
 tm "WireNameMgr"
 )
 )
@@ -10498,9 +10495,10 @@ uid 1593,0
 va (VaSet
 vasetType 3
 )
-xt "57750,67000,95000,67000"
+xt "59750,67000,95000,67000"
 pts [
-"57750,67000"
+"59750,67000"
+"77000,67000"
 "95000,67000"
 ]
 )
@@ -10536,10 +10534,11 @@ uid 1607,0
 va (VaSet
 vasetType 3
 )
-xt "57750,68000,95000,68000"
+xt "59750,68000,95000,68000"
 pts [
 "95000,68000"
-"57750,68000"
+"77000,68000"
+"59750,68000"
 ]
 )
 start &92
@@ -11258,10 +11257,10 @@ uid 2770,0
 va (VaSet
 vasetType 3
 )
-xt "35000,70000,41250,70000"
+xt "33000,69000,38250,69000"
 pts [
-"35000,70000"
-"41250,70000"
+"33000,69000"
+"38250,69000"
 ]
 )
 end &138
@@ -11280,9 +11279,9 @@ uid 2774,0
 va (VaSet
 font "courier,8,0"
 )
-xt "36000,69100,40000,70000"
+xt "34000,68100,38000,69000"
 st "rst_mops"
-blo "36000,69800"
+blo "34000,68800"
 tm "WireNameMgr"
 )
 )
@@ -11296,10 +11295,10 @@ va (VaSet
 vasetType 3
 lineWidth 2
 )
-xt "32000,66000,41250,66000"
+xt "29000,70000,38250,70000"
 pts [
-"32000,66000"
-"41250,66000"
+"29000,70000"
+"38250,70000"
 ]
 )
 end &141
@@ -11318,9 +11317,9 @@ uid 3203,0
 va (VaSet
 font "courier,8,0"
 )
-xt "33000,65100,42500,66000"
+xt "30000,69100,39500,70000"
 st "can_nodeid : [6:0]"
-blo "33000,65800"
+blo "30000,69800"
 tm "WireNameMgr"
 )
 )
@@ -13231,9 +13230,10 @@ uid 6772,0
 va (VaSet
 vasetType 3
 )
-xt "24000,68000,41250,68000"
+xt "24000,68000,38250,68000"
 pts [
-"41250,68000"
+"38250,68000"
+"31000,68000"
 "24000,68000"
 ]
 )
@@ -13252,9 +13252,9 @@ uid 6776,0
 va (VaSet
 font "courier,8,0"
 )
-xt "31250,67100,39750,68000"
+xt "28250,67100,36750,68000"
 st "ready_osc_master"
-blo "31250,67800"
+blo "28250,67800"
 tm "WireNameMgr"
 )
 )
@@ -14144,12 +14144,12 @@ tm "BdCompilerDirectivesTextMgr"
 ]
 associable 1
 )
-windowSize "3832,13,5768,1088"
-viewArea "49300,32700,102403,61592"
+windowSize "1912,40,3848,1055"
+viewArea "15685,54921,71872,82604"
 cachedDiagramExtent "-17000,-42000,123000,98000"
 hasePageBreakOrigin 1
 pageBreakOrigin "-69000,0"
-lastUid 19085,0
+lastUid 19603,0
 defaultCommentText (CommentText
 shape (Rectangle
 layer 0

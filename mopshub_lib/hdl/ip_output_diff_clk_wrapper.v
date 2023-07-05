@@ -10,7 +10,7 @@
 
 `resetall
 `timescale 1ns/10ps
-module ip_output_diff_clk_wrapper( 
+module ip_output_diff_clk_mopshub( 
    input   wire      clk_in, 
    input   wire      locked,
    output  wire      clk_out_p,

@@ -39,6 +39,7 @@ module clock_generator#(
    clk <=0;
    start_clk <=0;
   end
+  
   //achieve duty cycle by skewd clock on/off time and let this run as long as the clock are turn on 
   //run as long as the clocks are turned on 
   always@(posedge enable)

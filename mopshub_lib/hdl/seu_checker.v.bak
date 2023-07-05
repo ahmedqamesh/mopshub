@@ -1,0 +1,43 @@
+//
+// Verilog Module mopshub_lib.seu_checker
+//
+// Created:
+//          by - dcs.dcs (chipdev2.physik.uni-wuppertal.de)
+//          at - 16:09:18 06/16/23
+//
+// using Mentor Graphics HDL Designer(TM) 2019.4 (Build 4)
+//
+
+`resetall
+`timescale 1ns/10ps
+module seu_checker (
+  input wire rst,
+  input wire clk,
+  input wire controller_signal,
+  input wire inject_error,
+  input wire [4:0]data1,
+  input wire [4:0]data2,
+  output wire [7:0] error_count,
+  output wire dut_valid_signal,
+  output wire error_signal
+);
+
+reg   [7:0] request_cycle_cnt;
+initial request_cycle_cnt = 8'b000;
+
+ // Counter over the Clock signal
+ always @(posedge clk)
+  begin
+    if (!rst) request_cycle_cnt <= 3'b0;
+    else
+      begin
+        if  (error_signal == 1) request_cycle_cnt <= request_cycle_cnt + 1'b1;     
+        else  request_cycle_cnt <= request_cycle_cnt;
+      end
+  end
+  
+assign dut_valid_signal = (data1==data2)? 1'b1 : 1'b0 ; 
+assign error_signal = controller_signal || !dut_valid_signal|| inject_error;
+assign error_count = request_cycle_cnt;
+
+endmodule

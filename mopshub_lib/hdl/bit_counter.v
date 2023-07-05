@@ -12,11 +12,11 @@
 `timescale 1ns/10ps
 module bit_counter( 
    // Port Declarations
-   input   wire                    ext_rst, 
-   input   wire                    rst, 
+   input   wire    ext_rst, 
+   input   wire    rst, 
    output  wire    [4:0]  data_out, 
-   input   wire                    clk, 
-   input   wire                    cnt_enable
+   input   wire    clk, 
+   input   wire    cnt_enable
 );
 
 // Internal Declarations

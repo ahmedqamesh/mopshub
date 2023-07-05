@@ -10,7 +10,7 @@
 
 `resetall
 `timescale 1ns/10ps
-module triger_counter (
+module counter_trigger (
   input wire rst,
   input wire clk,
   output wire request_trig

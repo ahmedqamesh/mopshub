@@ -14,6 +14,7 @@ module tb_mopshub_top_16bus_debug();
   wire             clk_m;
   wire             clk_mops;
   wire             clk_40_m;
+  wire             clk_ipb;
   reg              rst   = 1'b0;
   reg              endwait_all = 1'b0;
   wire             rst_bus;
@@ -106,14 +107,20 @@ module tb_mopshub_top_16bus_debug();
   wire            tx13;
   wire            tx14;
   wire            tx15;
-  wire  [75:0]           data_tra_out;
-  wire    buffer_eth_en;
+
   wire            spi_dat_m;
   wire            spi_dat_p;
       
   wire [1:0] tx_mopshub_2bit; 
   wire [1:0] rx_mopshub_2bit; 
 
+  //ethernet_core
+   wire [75:0] data_tra_downlink_ffout; 
+   wire rx_fifo_empty; 
+   wire  [75:0] data_tra_out;
+   wire    buffer_eth_en;   
+   
+   
   //Internal assignments  
   assign can_tra_select    = mopshub0.can_tra_select;
   assign can_rec_select    = mopshub0.can_rec_select;
@@ -148,7 +155,7 @@ module tb_mopshub_top_16bus_debug();
   .data_rec_uplink(data_rec_uplink),
   .data_tra_downlink (data_tra_downlink),
   .buffer_eth_en (buffer_eth_en),
-  .irq_elink_eth(),
+  .irq_elink_eth(irq_elink_eth),
   .word10b_rdy(),
   .tx_efifo_full(),
   .tx_data_rdy(),
@@ -216,6 +223,20 @@ buffer_tra_data tra_data_buf_eth0(
    .data_tra_out    (data_tra_out)
 ); 
 
+fifo_async #(76,15) fifo_async0( 
+   .wclk      (clk_40_m), 
+   .wrst_n    (rst), 
+   .winc      (irq_elink_eth), 
+   .wdata     (data_tra_out), 
+   .wfull     (), 
+   .awfull    (), 
+   .rclk      (clk_ipb), 
+   .rrst_n    (rst), 
+   .rinc      (!rx_fifo_empty), 
+   .dout_fifo (data_tra_downlink_ffout), 
+   .rempty    (rx_fifo_empty), 
+   .arempty   ()
+); 
   
   data_generator data_generator0(
   .clk_mops(clk_mops),
@@ -336,7 +357,7 @@ buffer_tra_data tra_data_buf_eth0(
   
   //Clock Generators and Dividers master
   clock_generator #(
-  .freq(40))
+  .freq(160))
   clock_generator0( 
   .clk  (clk_m), 
   .enable (1'b1)
@@ -352,7 +373,12 @@ buffer_tra_data tra_data_buf_eth0(
   .clock_in  (clk_m), 
   .clock_out (clk_40_m)
   ); 
-
+  
+  clock_divider #(28'd2)
+  clock_divider_ipb( 
+  .clock_in  (clk_m), 
+  .clock_out (clk_ipb)
+  ); 
   /////******* Reset Generator task--low active ****/////
   initial 
   begin
@@ -367,7 +393,7 @@ buffer_tra_data tra_data_buf_eth0(
       if(end_power_init ==1) osc_auto_trim_mopshub = 1'b0;
       if(sign_on_sig ==1)//start Rx test
       begin
-      test_tx =1'b1;
+      test_rx =1'b1;
       //test_advanced = 1'b1;
       end
       if(test_rx_end ==1)//Done Rx test
