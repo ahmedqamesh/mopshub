@@ -19,8 +19,8 @@ module tb_mopshub_top_32bus();
   reg              rst         = 1'b0;
   reg              endwait_all = 1'b0;
   wire             rst_bus;
-  reg              sel_bus = 1'b1;
-  reg     [4:0]    can_tra_select_dbg =5'd0;
+  reg              sel_bus = 1'b0;
+  reg     [4:0]    can_tra_select_dbg =5'd2;
   wire             sign_on_sig;
   wire             start_init;
   wire             end_init;
@@ -131,7 +131,7 @@ module tb_mopshub_top_32bus();
       
   wire [1:0] tx_mopshub_2bit; 
   wire [1:0] rx_mopshub_2bit; 
-
+  reg [4:0]    n_buses =5'd31;
   //Internal assignments  
   assign can_tra_select    = mopshub0.can_tra_select;
   assign can_rec_select    = mopshub0.can_rec_select;
@@ -151,8 +151,8 @@ module tb_mopshub_top_32bus();
   .clk(clk_40_m),
   .clk_can(clk_40_m),
   .rst(rst),
-  .n_buses(5'd31),
-  .prescaler_init(16'h0033), //(16'h33),//(16'h00FF),
+  .n_buses(n_buses),
+  .prescaler_init(16'h00FF), //(16'h33),//(16'h00FF),
   .general_init(16'hA3),//(16'hA3), 
   .xadc_rec_in(12'hA),
   .irq_elink_tra(irq_elink_tra),
@@ -255,7 +255,7 @@ module tb_mopshub_top_32bus();
   
   data_generator data_generator0(
   .clk_mops(clk_mops),
-  .n_buses(5'd31),
+  .n_buses(n_buses),
   .clk(clk_40_m),
   .rst(rst),
   .ext_rst_mops(rst_bus),
@@ -296,10 +296,6 @@ module tb_mopshub_top_32bus();
   .data_tra_downlink(data_tra_downlink), 
   .end_trim_bus(end_trim_bus),
   .start_trim_osc(start_trim_osc),
-  .test_uart_core(1'b0),
-  .tx_uart_done(1'b0),
-  .tx_uart_data(),
-  .tx_uart_dv(),
   //ElinkSignals
   .tx_elink2bit(rx_mopshub_2bit),
   .rx_elink2bit(tx_mopshub_2bit),
@@ -376,7 +372,7 @@ module tb_mopshub_top_32bus();
   .clk  (clk_m), 
   .enable (1'b1)
   ); 
-  clock_divider #(28'd4)
+  clock_divider #(28'd16)
   clock_divider_mops( 
   .clock_in  (clk_m), 
   .clock_out (clk_mops)

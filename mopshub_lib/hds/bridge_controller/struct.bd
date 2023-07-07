@@ -120,19 +120,19 @@ value "/../../home/dcs/git/mopshub/mopshub_lib/hds/bridge_controller"
 )
 (vvPair
 variable "date"
-value "07/05/23"
+value "07/07/23"
 )
 (vvPair
 variable "day"
-value "Wed"
+value "Fri"
 )
 (vvPair
 variable "day_long"
-value "Wednesday"
+value "Friday"
 )
 (vvPair
 variable "dd"
-value "05"
+value "07"
 )
 (vvPair
 variable "entity_name"
@@ -160,7 +160,7 @@ value "dcs"
 )
 (vvPair
 variable "graphical_source_date"
-value "07/05/23"
+value "07/07/23"
 )
 (vvPair
 variable "graphical_source_group"
@@ -172,7 +172,7 @@ value "chipdev2.physik.uni-wuppertal.de"
 )
 (vvPair
 variable "graphical_source_time"
-value "16:33:21"
+value "12:02:04"
 )
 (vvPair
 variable "group"
@@ -292,7 +292,7 @@ value "struct"
 )
 (vvPair
 variable "time"
-value "16:33:21"
+value "12:02:04"
 )
 (vvPair
 variable "unit"
@@ -6755,7 +6755,7 @@ va (VaSet
 vasetType 1
 fg "0,65535,0"
 )
-xt "91250,57625,92000,58375"
+xt "91250,60625,92000,61375"
 )
 tg (CPTG
 uid 16738,0
@@ -6766,9 +6766,9 @@ uid 16739,0
 va (VaSet
 font "courier,8,0"
 )
-xt "93000,57550,102000,58450"
+xt "93000,60550,102000,61450"
 st "reset_irq_rec_can"
-blo "93000,58250"
+blo "93000,61250"
 )
 )
 thePort (LogicalPort
@@ -7733,7 +7733,12 @@ xt "117200,19200,134700,23700"
 st "
 assign irq_elink_tra_active = (irq_elink_tra & !osc_trim_mode & !read_can_mode);
 assign start_write_elink    = (start_write_elink_main || start_write_elink_trim);
-initial time_limit_trim         = 32'd10000000;   //corresponds to 25 msec if the FPGA freq is 40Mhz
+initial time_limit_trim         = 32'd25000000;   //corresponds to 25 msec if the FPGA freq is 40Mhz
+
+
+
+
+
 
 
 
@@ -13510,10 +13515,10 @@ uid 17043,0
 va (VaSet
 vasetType 3
 )
-xt "80000,58000,91250,58000"
+xt "80000,61000,91250,61000"
 pts [
-"91250,58000"
-"80000,58000"
+"91250,61000"
+"80000,61000"
 ]
 )
 start &194
@@ -13530,9 +13535,9 @@ uid 17047,0
 va (VaSet
 font "courier,8,0"
 )
-xt "81000,57100,92500,58000"
+xt "81000,60100,92500,61000"
 st "reset_irq_rec_can_trim"
-blo "81000,57800"
+blo "81000,60800"
 tm "WireNameMgr"
 )
 )
@@ -14804,11 +14809,11 @@ tm "BdCompilerDirectivesTextMgr"
 associable 1
 )
 windowSize "3832,13,5768,1088"
-viewArea "13607,13226,123239,71082"
+viewArea "21500,12678,134558,72342"
 cachedDiagramExtent "-72000,-49300,138000,94000"
 hasePageBreakOrigin 1
 pageBreakOrigin "-138000,0"
-lastUid 28602,0
+lastUid 28852,0
 defaultCommentText (CommentText
 shape (Rectangle
 layer 0
