@@ -29,14 +29,14 @@ assign w_tx_done = debug_uart_core0.w_tx_done;
       .rstn(rst),
       .clk_uart(clk_uart),
      //tx part
-     .out_tx_serial(out_tx_serial),
-     //rx part
-     .in_rx_serial(in_rx_serial),
+    .out_tx_serial(out_tx_serial),
+   //rx part
+    .in_rx_serial(in_rx_serial),
     .statedeb_main(8'ha), 
     .statedeb_can(8'hb), 
     .statedb_can_mux (8'hc), 
     .statedeb_osc_trim (8'hd), 
-     .statedeb_elink_tra(8'he), 
+    .statedeb_elink_tra(8'he), 
     .statedeb_elink_rec (8'hf), 
     .statedeb_spi(8'h1A));
  
@@ -107,7 +107,8 @@ clock_generator #(
         $display("Test Passed - Correct Byte Received");
       else
         $display("Test Failed - Incorrect Byte Received");
-
+    #1ms
+    $stop;   // end of simulation
     end
    
 endmodule

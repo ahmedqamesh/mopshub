@@ -13,14 +13,16 @@
 `timescale 1ns/10ps
 
 module tb_mopshub_top_32bus();
-  wire             clk_m ;
+ // wire             clk_m ;
   wire             clk_mops;
   wire             clk_40_m;
+  wire             clk_elink;
   reg              rst         = 1'b0;
-  reg              endwait_all = 1'b0;
+  reg              endwait_all  = 1'b0;
+  reg              enable_elink = 1'b0;  
   wire             rst_bus;
   reg              sel_bus = 1'b0;
-  reg     [4:0]    can_tra_select_dbg =5'd2;
+  reg     [4:0]    can_tra_select_dbg =5'd0;
   wire             sign_on_sig;
   wire             start_init;
   wire             end_init;
@@ -32,6 +34,7 @@ module tb_mopshub_top_32bus();
   int             adc_ch;
   
   reg             osc_auto_trim_mopshub = 1'b0;
+  
   wire            ready_osc;
   wire            start_trim_osc;
   wire            end_trim_bus;
@@ -149,7 +152,7 @@ module tb_mopshub_top_32bus();
 
   mopshub_top_32bus mopshub0(
   .clk(clk_40_m),
-  .clk_can(clk_40_m),
+  .clk_elink(clk_elink),
   .rst(rst),
   .n_buses(n_buses),
   .prescaler_init(16'h00FF), //(16'h33),//(16'h00FF),
@@ -257,6 +260,7 @@ module tb_mopshub_top_32bus();
   .clk_mops(clk_mops),
   .n_buses(n_buses),
   .clk(clk_40_m),
+  .clk_elink(clk_elink),
   .rst(rst),
   .ext_rst_mops(rst_bus),
   .start_osc_cnt(start_osc_cnt),
@@ -367,31 +371,32 @@ module tb_mopshub_top_32bus();
   
  // Clock Generators and Dividers master
   clock_generator #(
-  .freq(160))
+  .freq(40))
   clock_generator0( 
-  .clk  (clk_m), 
+  .clk  (clk_40_m), 
   .enable (1'b1)
   ); 
-  clock_divider #(28'd16)
+  clock_generator #(
+  .freq(40), 
+  .phase(5))
+  clock_generator1( 
+  .clk  (clk_elink), 
+  .enable (enable_elink)
+  );  
+  clock_divider #(28'd4)
   clock_divider_mops( 
-  .clock_in  (clk_m), 
+  .clock_in  (clk_40_m), 
   .clock_out (clk_mops)
   ); 
-
-      
-  clock_divider #(28'd4)
-  clock_divider4( 
-  .clock_in  (clk_m), 
-  .clock_out (clk_40_m)
-  ); 
-
 
   /////******* Reset Generator task--low active ****/////
   initial 
   begin
     rst = 1'b0;
+    enable_elink =1'b0;
     #10
     rst = 1'b1; 
+    enable_elink =1'b1;
   end 
  /////*******Start Full SM for Data Generation ****/////
   always@(posedge clk_40_m)

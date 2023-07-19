@@ -52,8 +52,9 @@ entity ethernet_ipbus is
         mac_tx_error: out std_logic;
         mac_tx_ready: in std_logic;
         clk125 : IN STD_LOGIC;			
-        sysclk_p: in std_logic;
-        sysclk_n: in std_logic;
+      --  sysclk_p: in std_logic;
+      --  sysclk_n: in std_logic;
+        sysclk: in std_logic;
         clk_ipb_o: out std_logic; -- IPbus clock
         start_write_elink_dbg: out std_logic;
         start_read_elink_dbg : out std_logic;
@@ -69,7 +70,7 @@ entity ethernet_ipbus is
 end ethernet_ipbus;
 
 architecture rtl of ethernet_ipbus is
-	signal sysclk, clk_ipb, clk_ipb_i, clk_aux, locked, clk_locked, rst125, rst_ipb, rst_ipb_ctrl, rst_aux, onehz, pkt:std_logic;
+	signal clk_ipb, clk_ipb_i, clk_aux, locked, clk_locked, rst125, rst_ipb, rst_ipb_ctrl, rst_aux, onehz, pkt:std_logic; --sysclk, 
 	signal led_p: std_logic_vector(0 downto 0);
 	signal mac_addr: std_logic_vector(47 downto 0);
 	signal ip_addr: std_logic_vector(31 downto 0);  
@@ -80,12 +81,12 @@ architecture rtl of ethernet_ipbus is
 	signal soft_rst:  std_logic; -- The signal of lesser doom
 begin
 
-	ibuf: IBUFDS
-		port map(
-			i => sysclk_p,
-			ib => sysclk_n,
-			o => sysclk
-		);
+--	ibuf: IBUFDS
+--		port map(
+--			i => sysclk_p,
+--			ib => sysclk_n,
+--			o => sysclk
+--		);
 
 --	DCM clock generation for internal bus, ethernet
 

@@ -11,7 +11,6 @@
 `resetall
 `timescale 1ns/10ps
 module tb_mopshub_top_16bus();
-  wire             clk_m;
   wire             clk_mops;
   wire             clk_40_m;
   reg              rst   = 1'b0;
@@ -28,7 +27,7 @@ module tb_mopshub_top_16bus();
   wire    [7:0]   bus_id;
   int             adc_ch;
 
-  reg             osc_auto_trim_mopshub = 1'b0;
+  reg             osc_auto_trim_mopshub = 1'b1;
   wire            ready_osc;
   wire            start_trim_osc;
   wire            end_trim_bus;
@@ -113,7 +112,7 @@ module tb_mopshub_top_16bus();
       
   wire [1:0] tx_mopshub_2bit; 
   wire [1:0] rx_mopshub_2bit; 
-
+  reg [4:0]    n_buses =5'd15;
   //Internal assignments  
   assign can_tra_select    = mopshub0.can_tra_select;
   assign can_rec_select    = mopshub0.can_rec_select;
@@ -132,10 +131,11 @@ module tb_mopshub_top_16bus();
   
   mopshub_top_16bus mopshub0(
   .clk(clk_40_m),
+  .clk_elink(clk_40_m),
   .rst(rst),
-  .n_buses(5'd15),
-  .prescaler_init(16'h33),
-  .general_init(16'hE3),
+  .n_buses(n_buses),
+  .prescaler_init(16'h00FF), //(16'h33),//(16'h00FF),
+  .general_init(16'hA3),//(16'hA3), 
   .xadc_rec_in(12'hA),
   .irq_elink_tra(irq_elink_tra),
   .irq_elink_rec(irq_elink_rec),
@@ -206,8 +206,9 @@ module tb_mopshub_top_16bus();
   
   data_generator data_generator0(
   .clk_mops(clk_mops),
-  .n_buses(5'd15),
+  .n_buses(n_buses),
   .clk(clk_40_m),
+  .clk_elink(clk_40_m),
   .rst(rst),
   .ext_rst_mops(rst_bus),
   .start_osc_cnt(start_osc_cnt),
@@ -247,10 +248,6 @@ module tb_mopshub_top_16bus();
   .data_tra_downlink(data_tra_downlink), 
   .end_trim_bus(end_trim_bus),
   .start_trim_osc(start_trim_osc),
-  .test_uart_core(1'b0),
-  .tx_uart_done(1'b0),
-  .tx_uart_data(),
-  .tx_uart_dv(),
   //ElinkSignals
   .tx_elink2bit(rx_mopshub_2bit),
   .rx_elink2bit(tx_mopshub_2bit),
@@ -321,23 +318,18 @@ module tb_mopshub_top_16bus();
   .tx31());
   
   
-  //Clock Generators and Dividers master
+ // Clock Generators and Dividers master
   clock_generator #(
-  .freq(160))
+  .freq(40))
   clock_generator0( 
-  .clk  (clk_m), 
+  .clk  (clk_40_m), 
   .enable (1'b1)
   ); 
+  
   clock_divider #(28'd4)
   clock_divider_mops( 
-  .clock_in  (clk_m), 
+  .clock_in  (clk_40_m), 
   .clock_out (clk_mops)
-  ); 
-    
-  clock_divider #(28'd4)
-  clock_divider4( 
-  .clock_in  (clk_m), 
-  .clock_out (clk_40_m)
   ); 
 
   /////******* Reset Generator task--low active ****/////

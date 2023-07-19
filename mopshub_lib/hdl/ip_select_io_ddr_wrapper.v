@@ -31,7 +31,7 @@ module ip_select_io_ddr_wrapper(
    
    IDDRE1 #(
       .DDR_CLK_EDGE("OPPOSITE_EDGE"), // IDDRE1 mode (OPPOSITE_EDGE, SAME_EDGE, SAME_EDGE_PIPELINED)
-      .IS_CB_INVERTED(1'b1),          // Optional inversion for CB
+      .IS_CB_INVERTED(1'b0),          // Optional inversion for CB
       .IS_C_INVERTED(1'b0)            // Optional inversion for C
    )
    IDDRE1_inst (
