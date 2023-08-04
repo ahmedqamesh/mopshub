@@ -17,7 +17,7 @@ module fifo_sync_r2w
 
     reg [ASIZE:0] wq1_rptr;
 
-    always @(posedge wclk or negedge wrst_n) begin
+    always @(posedge wclk) begin
 
         if (!wrst_n)
             {wq2_rptr,wq1_rptr} <= 0;

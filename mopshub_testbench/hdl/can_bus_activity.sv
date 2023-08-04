@@ -29,22 +29,25 @@ module can_bus_activity (
    input wire       test_rx,
    input wire       test_rx_start,
    input wire       test_rx_end,
-
-   input wire       test_mopshub_core,
-   
-   
    input wire       test_advanced,
+   input wire       test_spi,
+   input wire       random1000,
+  // input wire       test_rand_tx,
+  // input wire       test_rand_uart,
    input wire       costum_msg_start,
    input wire       costum_msg_end,
-    
+   input wire    [75:0]  request_data,
+   input wire    [75:0]  response_data,    
    input wire       osc_auto_trim_mopshub,     
    input wire       end_trim_bus,
    input wire       start_trim_osc,
    input wire    [75:0]  data_rec_uplink,
+  // input wire    [75:0]  data_rec_spi,
    input wire    [75:0]  data_tra_downlink,
    input wire    [75:0]  bus_dec_data,
    input wire            reqmsg,
-   input wire            respmsg
+   input wire            respmsg,
+   input wire            no_respmsg
 );
 int failures = 0;   // Number of BAD reponses from the chip
 int status = 0;
@@ -72,48 +75,45 @@ end
   /////******* prints bus activity ******///
   always@(posedge clk)
   if (!rst)
-  begin
-    requestreg  <= 0;
-    responsereg <= 0;
-  end
-  else 
-  begin
-    responsereg <= data_rec_uplink;
-    if(start_init)     $strobeh("\t initialization [BUS ID %d]:",can_tra_select); 
-   // if(trim_sig_start) $strobeh("\t Oscillator Trimming [BUS ID %d]:",bus_id);  
-    if(start_trim_osc) $strobeh("\t Oscillator Trimming [BUS ID %d]:",power_bus_cnt);         
-       /////*********************************  Sign In message print *********************************
-    if(end_trim_bus)
-      $strobeh("\t Sign In Message[BUS ID %d (%h)]: \t request %h \t response %h \t",can_rec_select,can_rec_select,requestreg,responsereg);
-    if(test_rx_end || end_init ||test_tx_end ||end_trim_bus|| costum_msg_end)
-    begin 
-      $strobe("*****************************************************************************");
-    end         
-    /////*********************************  Test Osc Trim  Response part  *********************************
-    if((reqmsg|| start_trim_osc ) && osc_auto_trim_mopshub && !test_rx && !test_mopshub_core )
     begin
-      requestreg <= {76'h555aaaaaaaaaaaaaaaa};  
-    end 
-    if(respmsg && osc_auto_trim_mopshub && !test_rx && !test_mopshub_core )
-      $strobeh("\t Oscillator Trimming [BUS ID %d]: \t request %h \t response %h",bus_id,requestreg,responsereg);   
-     /////********************************* test RX part  *********************************
-    if(reqmsg && test_rx) requestreg <= data_rec_uplink; 
-    else if (respmsg && test_rx) $strobeh("\t Receive RX signals [BUS ID %d]: \t request %h \t response %h",bus_id,requestreg,responsereg);
-     /////********************************* test TX part  *********************************
-    if(reqmsg && (test_mopshub_core||test_tx)) requestreg <= data_tra_downlink;
-    else if (respmsg && (test_mopshub_core || test_tx)) $strobeh("\t Transmit TX signals [BUS ID %d]: \t request %h \t response %h",bus_id,requestreg,responsereg); 
-    /////********************************* costum msg part *********************************
-    if (reqmsg  && test_advanced) requestreg <= data_tra_downlink;//bus_dec_data ;
-    //else if (respmsg && test_advanced) 
-    //  $strobeh("\t Costumom TX signals [BUS ID %d]: \t request %h \t response %h",bus_id,requestreg,responsereg);
-    /////********************************* Default *********************************
-    else if (reqmsg  && !test_mopshub_core && !test_tx && !test_rx) requestreg <= data_rec_uplink; 
-    else if (respmsg && !test_mopshub_core && !test_tx && !test_rx&& !test_advanced)
-      $strobeh("\t [BUS ID %d]: \t request %h \t response %h",bus_id,requestreg,responsereg);
-  end  
-  // ### Please start your Verilog code here ### 
+      requestreg  <= 0;
+      responsereg <= 0;
+    end
+  else 
+    begin
+      responsereg <= response_data;
+      if(start_init)       $strobeh("\t initialization [BUS ID %d]:",can_tra_select); 
+      if(start_trim_osc)   $strobeh("\t Oscillator Trimming Test[BUS ID %d]:",power_bus_cnt);         
+      if(end_trim_bus)     $strobeh("\t Sign In Message[BUS ID %d (%h)]: \t request %h \t response %h \t",can_rec_select,can_rec_select,requestreg,responsereg);
+      if(costum_msg_start) $strobeh("\t Costum message Test [BUS ID %d]:",can_rec_select);     
+      if(test_rx_end || end_init ||test_tx_end || costum_msg_end)
+      begin 
+        $strobe("*****************************************************************************");
+      end         
+      /////*********************************  Test Osc Trim  Response part  *********************************
+      else if((reqmsg|| start_trim_osc ) && osc_auto_trim_mopshub && !test_rx ) requestreg <= {76'h555aaaaaaaaaaaaaaaa};  
+      else if(respmsg && osc_auto_trim_mopshub && !test_rx)
+        $strobeh("\t Oscillator Trimming [BUS ID %d]: \t request %h \t response %h",bus_id,requestreg,responsereg);   
+       /////********************************* test RX part  *********************************
+      else if (reqmsg && (test_rx || random1000 || test_tx)) requestreg <= request_data; 
+      else if (respmsg && test_rx)    $strobeh("\t Receive RX signals [BUS ID %d]: \t request %h \t response %h",bus_id,requestreg,responsereg);
+      else if (no_respmsg && test_rx) $strobeh("\t NO Response RX signals [BUS ID %d]: \t request %h \t response %h",bus_id,requestreg,responsereg);
+      else if (respmsg && random1000) $strobeh("\t Receive Random signals [BUS ID %d]: \t request %h \t response %h",bus_id,requestreg,responsereg);
+       /////********************************* test TX part  *********************************
+      else if (respmsg &&  test_tx) $strobeh("\t Transmit TX signals [BUS ID %d]: \t request %h \t response %h",bus_id,requestreg,responsereg); 
+      /////********************************* costum msg part *********************************
+      else if (reqmsg  && test_advanced && !random1000) 
+          begin
+            requestreg <= data_tra_downlink;
+            $strobeh("\t Advance Test [BUS ID %d]: \t request %h \t response %h",can_rec_select,requestreg,responsereg);   
+          end
+      /////********************************* Default *********************************
+      //else if (reqmsg  && !test_tx && !test_rx) requestreg <= data_rec_uplink; 
+     // else if (respmsg && !test_tx && !test_rx&& !test_advanced)
+     //   $strobeh("\t [BUS ID %d]: \t request %h \t response %h",bus_id,requestreg,responsereg);
+    end  
   //// ********* Score board for RX*************////
-  always@(*)
+  always@(posedge clk)
   begin  
   if (respmsg)
     begin 
@@ -426,7 +426,7 @@ end
         end 
         {43'h60123??????,bus_id,24'h??}:
         begin 
-          if(responsereg inside {{43'h58160??????,bus_id,8'h??,16'h0}})//75'h581 60?? ?? ?? 0000 0000})
+          if(responsereg inside {{43'h58160??????,bus_id,8'h??,16'h0}})
            begin
             $strobe("Status GOOD [BUS ID %d]- Sign-in test",bus_id);
             $strobe("Status GOOD");
@@ -443,19 +443,20 @@ end
         begin 
           status=0;
           if(responsereg == requestreg ||(responsereg[75:8] ==requestreg[75:8]))
-          $strobe("Status GOOD [BUS ID %d]- RX-TX test",bus_id);
-          if (responsereg == {44'h70105000000,3'h0,can_rec_select,24'h0}) //{43'h701?5000000,can_rec_select,24'h0}}
+            $strobe("Status GOOD [BUS ID %d]- RX-TX test",bus_id);
+          else if (responsereg == {44'h70105000000,3'h0,can_rec_select,24'h0}) //{43'h701?5000000,can_rec_select,24'h0}}
             begin   
-              $strobe("*****************************************************************************");                  
+              //$strobe("*****************************************************************************");                  
               $strobeh("\t Sign In Message    [BUS ID %d]: \t response %h \t",can_rec_select,responsereg);
               $strobe("*****************************************************************************");
             end 
-          if (test_advanced ==1)
-            begin   
-              $strobe("*****************************************************************************");                  
-              $strobeh("\t Costum Message test   [BUS ID %d]: \t response %h \t",can_rec_select,responsereg);
-              $strobe("*****************************************************************************");
-            end 
+          //else if (test_advanced ==1)
+          //  begin   
+              //$strobe("*****************************************************************************");                  
+              //$strobeh("\t Costum Message test   [BUS ID %d]: \t response %h \t",can_rec_select,responsereg);
+          //    $strobe("Status ---- [BUS ID %d]- Advanced test",can_rec_select);
+              //$strobe("*****************************************************************************");
+          // end 
           else
           begin
             $display("Current simulation time is: ", $realtime);
@@ -468,8 +469,7 @@ end
       endcase
       time_signal = $realtime - time_start;
       $fwrite(file,"%d,%d,%d,%d,%d,%d,%d,%d,%h,%d,%h,%d\n",time_signal,test_rx,test_tx,test_advanced,bus_id,can_tra_select,can_rec_select,respmsg,requestreg,respmsg,responsereg,status);
-
     end
   end
-  
+
 endmodule

@@ -63,45 +63,43 @@ if (!rst) data_out_r <=16'b0;
 else
   begin 
     case (sel)
-      5'b000  : data_out_r<=data0;
-      5'b001  : data_out_r<=data1;
-      5'b010  : data_out_r<=data2;
-      5'b011  : data_out_r<=data3;
-      5'b100  : data_out_r<=data4;
-      5'b101  : data_out_r<=data5;
-      5'b110  : data_out_r<=data6;
-      5'b111  : data_out_r<=data7;
+      5'h0  : data_out_r<=data0;
+      5'h1  : data_out_r<=data1;
+      5'h2  : data_out_r<=data2;
+      5'h3  : data_out_r<=data3;
+      5'h4  : data_out_r<=data4;
+      5'h5  : data_out_r<=data5;
+      5'h6  : data_out_r<=data6;
+      5'h7  : data_out_r<=data7;
       
-      5'b1000 : data_out_r<=data8;
-      5'b1001 : data_out_r<=data9;
-      5'b1010 : data_out_r<=data10;
-      5'b1011 : data_out_r<=data11;
-      5'b1100 : data_out_r<=data12;
-      5'b1101 : data_out_r<=data13;
-      5'b1110 : data_out_r<=data14;    
-      5'b1111 : data_out_r<=data15;
+      5'h8 : data_out_r<=data8;
+      5'h9 : data_out_r<=data9;
+      5'hA : data_out_r<=data10;
+      5'hB : data_out_r<=data11;
+      5'hC : data_out_r<=data12;
+      5'hD : data_out_r<=data13;
+      5'hE : data_out_r<=data14;    
+      5'hF : data_out_r<=data15;
       
-      5'b10000  : data_out_r<=data16;
-      5'b10001  : data_out_r<=data17;
-      5'b10010  : data_out_r<=data18;
-      5'b10011  : data_out_r<=data19;
-      5'b10100  : data_out_r<=data20;
-      5'b10101  : data_out_r<=data21;
-      5'b10110  : data_out_r<=data22;
-      5'b10111  : data_out_r<=data23;
+      5'h10  : data_out_r<=data16;
+      5'h11  : data_out_r<=data17;
+      5'h12  : data_out_r<=data18;
+      5'h13  : data_out_r<=data19;
+      5'h14  : data_out_r<=data20;
+      5'h15  : data_out_r<=data21;
+      5'h16  : data_out_r<=data22;
+      5'h17  : data_out_r<=data23;
             
-      5'b11000  : data_out_r<=data24;
-      5'b11001  : data_out_r<=data25;
-      5'b11010  : data_out_r<=data26;
-      5'b11011  : data_out_r<=data27;
-      5'b11100  : data_out_r<=data28;
-      5'b11101  : data_out_r<=data29;
-      5'b11110  : data_out_r<=data30;
-      5'b11111  : data_out_r<=data31;
+      5'h18  : data_out_r<=data24;
+      5'h19  : data_out_r<=data25;
+      5'h1A  : data_out_r<=data26;
+      5'h1B  : data_out_r<=data27;
+      5'h1C  : data_out_r<=data28;
+      5'h1D  : data_out_r<=data29;
+      5'h1E  : data_out_r<=data30;
+      5'h1F  : data_out_r<=data31;
       
-            
-      default : data_out_r<=16'b0;
-      
+      default : data_out_r <= 16'b0;
     endcase
   end
   

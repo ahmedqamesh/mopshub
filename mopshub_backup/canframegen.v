@@ -1,7 +1,7 @@
 `include "canmsgpack.sv"      // Comment out this line for NCsim while use uncommented for Questasim
 `resetall
 `timescale 1ns/10ps
-module canframegen_mopshub( 
+module canframegen( 
    input   wire      clk,                // main 10 Mhz clock 
    input   wire      clk_low,            //This clock is equal to bus speed
    input   wire      rst_n, 
@@ -26,7 +26,6 @@ module canframegen_mopshub(
    input   wire [31:0]taildata,
    input   wire [10:0]customcanid         // Custom CAN id from tbSM
 );
- 
 
 // Internal Declarations
 

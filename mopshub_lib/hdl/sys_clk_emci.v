@@ -30,7 +30,7 @@
 // __primary__________80.000____________0.010
 `resetall
 `timescale 1ns/10ps
-module sys_clk_emci( 
+module ip_sys_clk_emci( 
   output        clk_40,
   output        clk_80,
   output        clk_tx,

@@ -15,13 +15,13 @@
 module dec_8b10b_mopshub (
 		input rst,
 		input clk,
-		input [9:0] datain,
+		input [9:0] datain, // (10-bit input data to be decoded)
 		input datain_valid,
 		
-		output ko,
+		output ko, //comma alignment signal, 
 		output [7:0] dataout,
-		output code_err,
-		output disp_err
+		output code_err, //code error flag
+		output disp_err //disparity error flag
 	);
 
 	reg dispin;

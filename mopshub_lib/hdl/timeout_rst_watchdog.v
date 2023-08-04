@@ -1,14 +1,15 @@
 `resetall
 `timescale 1ns/10ps
-module timout_rst_watchdog( 
-   input   wire        clk, 
-   input   wire        entimeout0, 
-   input   wire        entimeout1, 
-   input   wire        entimeout2, 
-   input   wire [31:0] time_limit, 
-   input   wire        rst, 
-   output  wire        timeoutrst
+module timeout_rst_watchdog( 
+   input   wire            clk, 
+   input   wire            entimeout0, 
+   input   wire            entimeout1, 
+   input   wire            entimeout2, 
+   input   wire    [31:0]  time_limit, 
+   input   wire            rst, 
+   output  wire            timeoutrst
 );
+
 //40MHZ clock gives 25 ns
 // Internal Declarations
 reg [31:0] counter;
@@ -44,3 +45,4 @@ begin
 end 
 
 endmodule // timeoutrst
+

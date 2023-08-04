@@ -26,7 +26,7 @@ module fifo_rptr_empty
     //-------------------
     // GRAYSTYLE2 pointer
     //-------------------
-    always @(posedge rclk or negedge rrst_n) begin
+    always @(posedge rclk) begin
 
         if (!rrst_n)
             {rbin, rptr} <= 0;
@@ -47,13 +47,14 @@ module fifo_rptr_empty
     assign rempty_val = (rgraynext == rq2_wptr);
     assign arempty_val = (rgraynextm1 == rq2_wptr);
 
-    always @ (posedge rclk or negedge rrst_n) begin
+    always @ (posedge rclk) begin
 
         if (!rrst_n) begin
             arempty <= 1'b0;
             rempty <= 1'b1;
         end
-        else begin
+        else 
+        begin
             arempty <= arempty_val;
             rempty <= rempty_val;
         end

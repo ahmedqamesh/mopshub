@@ -55,25 +55,24 @@ begin
    if(buffer_en)
     begin
     case(addr)
-     5'b00101 : id[10:0] <= data_rec_in[15:5];        // 5-bit selection line is the address of corresponding registers in Cankari. ID register data
-
-     5'b00011 :begin 
-                 b2  <= data_rec_in[7:0];             // second data byte
-                 b1  <= data_rec_in[15:8];            // first  data byte
-               end
-     5'b00010 :begin 
-                 b4  <= data_rec_in[7:0];             // fourth
-                 b3  <= data_rec_in[15:8];            // third 
-               end                                    
-     5'b00001 :begin 
-                 b6  <= data_rec_in[7:0];             // sixth 
-                 b5  <= data_rec_in[15:8];            // fifth 
-               end                    
-     5'b00000 :begin 
-               if (debug_mode) b8  <= data_rec_in[7:0];       // Eigth // holds the bus Id
-               else            b8  <= {3'b0,can_rec_select};  // Eigth // holds the bus Id
-                 b7  <= data_rec_in[15:8];            // Seventh 
-               end             
+         5'h5 : id[10:0] <= data_rec_in[15:5];        // 5-bit selection line is the address of corresponding registers in Cankari. ID register data
+         5'h3 :begin 
+                     b2  <= data_rec_in[7:0];     // second data byte
+                     b1  <= data_rec_in[15:8];    // first  data byte
+                   end
+         5'h2 :begin 
+                     b4  <= data_rec_in[7:0];             // fourth data byte
+                     b3  <= data_rec_in[15:8];            // third data byte 
+                   end                                    
+         5'h1 :begin 
+                     b6  <= data_rec_in[7:0];             // sixth data byte 
+                     b5  <= data_rec_in[15:8];            // fifth data byte 
+                   end                    
+         5'h0 :begin 
+                   if (debug_mode) b8  <= data_rec_in[7:0];       // Eigth // holds the bus Id
+                   else            b8  <= {3'b0,can_rec_select};  // Eigth // holds the bus Id
+                     b7  <= data_rec_in[15:8];            // Seventh 
+                   end             
      default 
       begin
         id <= id;

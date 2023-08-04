@@ -20,13 +20,23 @@ module buffer_rec_canakari(
 
 // Internal Declarations
 reg [4:0] data_tra_reg;
-
-always@(posedge clk)
+// Triplication assignment
+wire [4:0] data_tra_regVoted = data_tra_reg;
+always@(posedge clk or negedge rst)
 begin 
- if(!rst) data_tra_reg <= 5'd0;
+ if(!rst)
+  begin
+    data_tra_reg <= 5'd0;
+  end
  else
-  if(buffer_en) data_tra_reg <= data_tra_in;
-  else data_tra_reg <= data_tra_reg;
+  if(buffer_en)
+  begin
+      data_tra_reg <= data_tra_in;
+    end
+  else
+  begin 
+   data_tra_reg <= data_tra_regVoted;
+ end
 end 
-assign data_tra_out = data_tra_reg;
+assign data_tra_out = data_tra_regVoted;
 endmodule

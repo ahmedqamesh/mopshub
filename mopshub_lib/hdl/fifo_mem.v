@@ -13,6 +13,8 @@ module fifo_mem
     ) (
         input  wire                wclk,
         input  wire                wclken,
+        input  wire                wreset,         // Synchronous reset input
+        input  wire                rreset,         // Synchronous reset input
         input  wire [ADDRSIZE-1:0] waddr,
         input  wire [DATASIZE-1:0] wdata,
         input  wire                wfull,
@@ -28,10 +30,13 @@ module fifo_mem
     reg [DATASIZE-1:0] rdata_r;
 
     always @(posedge wclk) begin
-        if (wclken && !wfull)
-            mem[waddr] <= wdata;
-    end
-
+    if (!wreset) begin          // Synchronous reset
+        // Reset values for registers (if needed)
+        mem[waddr] <= 0;       // Example: Reset the memory at waddr to 0
+    end 
+    else  
+      if (wclken && !wfull) mem[waddr] <= wdata;
+   end
     generate
         if (FALLTHROUGH == "TRUE")
         begin : fallthrough
@@ -39,9 +44,14 @@ module fifo_mem
         end
         else
         begin : registered_read
-            always @(posedge rclk) begin
-                if (rclken)
-                    rdata_r <= mem[raddr];
+            always @(posedge rclk) 
+            begin
+               if (!rreset) begin          // Synchronous reset
+                  // Reset values for registers (if needed)
+                  rdata_r <= 0;       // Example: Reset the memory at waddr to 0
+              end 
+              else                 
+                if (rclken) rdata_r <= mem[raddr];
             end
             assign rdata = rdata_r;
         end

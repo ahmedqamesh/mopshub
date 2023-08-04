@@ -1,0 +1,85 @@
+//
+// Verilog Module mopshub_testbench.can_bus_activity_wrapper
+//
+// Created:
+//          by - dcs.dcs (chipdev2.physik.uni-wuppertal.de)
+//          at - 09:37:56 08/04/23
+//
+// using Mentor Graphics HDL Designer(TM) 2019.4 (Build 4)
+//
+
+`resetall
+`timescale 1ns/10ps
+module can_bus_activity_wrapper( 
+   input  wire       clk,
+   input  wire       rst,
+   input wire    [7:0]   bus_id,
+   input wire    [4:0]   n_buses,
+   input wire    [4:0]   can_tra_select,
+   input wire    [4:0]   can_rec_select,
+   input wire    [4:0]   power_bus_cnt,
+   //Step name
+   input wire       start_init,
+   input wire       end_init,
+
+   input wire       test_tx,
+   input wire       test_tx_start,
+   input wire       test_tx_end,
+      
+   input wire       test_rx,
+   input wire       test_rx_start,
+   input wire       test_rx_end,
+   input wire       test_advanced,
+   input wire       test_spi,
+   input wire       random1000,
+   input wire       costum_msg_start,
+   input wire       costum_msg_end,
+   input wire    [75:0]  request_data,
+   input wire    [75:0]  response_data,    
+   input wire       osc_auto_trim_mopshub,     
+   input wire       end_trim_bus,
+   input wire       start_trim_osc,
+   input wire    [75:0]  data_rec_uplink,
+  // input wire    [75:0]  data_rec_spi,
+   input wire    [75:0]  data_tra_downlink,
+   input wire    [75:0]  bus_dec_data,
+   input wire            reqmsg,
+   input wire            respmsg,
+   input wire            no_respmsg
+);
+
+can_bus_activity can_bus_activity0( 
+   .clk                   (clk), 
+   .rst                   (rst), 
+   .bus_id                (bus_id), 
+   .n_buses               (n_buses), 
+   .can_tra_select        (can_tra_select), 
+   .can_rec_select        (can_rec_select), 
+   .power_bus_cnt         (power_bus_cnt), 
+   .start_init            (start_init), 
+   .end_init              (end_init), 
+   .test_tx               (test_tx), 
+   .test_tx_start         (test_tx_start), 
+   .test_tx_end           (test_tx_end), 
+   .test_rx               (test_rx), 
+   .test_rx_start         (test_rx_start), 
+   .test_rx_end           (test_rx_end),  
+   .test_advanced         (test_advanced),
+   .random1000(random1000), 
+   
+   .costum_msg_start      (costum_msg_start), 
+   .costum_msg_end        (costum_msg_end), 
+   .osc_auto_trim_mopshub (osc_auto_trim_mopshub), 
+   .end_trim_bus          (end_trim_bus), 
+   .start_trim_osc        (start_trim_osc), 
+   .request_data       (request_data), 
+   .response_data     (response_data), 
+   .data_rec_uplink       (data_rec_uplink), 
+   .data_tra_downlink     (data_tra_downlink), 
+   .bus_dec_data          (bus_dec_data), 
+   .reqmsg                (reqmsg), 
+   .respmsg               (respmsg),
+   .no_respmsg            (no_respmsg)
+); 
+
+endmodule

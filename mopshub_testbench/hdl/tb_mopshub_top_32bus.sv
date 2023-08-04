@@ -22,7 +22,7 @@ module tb_mopshub_top_32bus();
   reg              enable_elink = 1'b0;  
   wire             rst_bus;
   reg              sel_bus = 1'b0;
-  reg     [4:0]    can_tra_select_dbg =5'd0;
+  reg     [4:0]    can_tra_select_dbg =5'd1;
   wire             sign_on_sig;
   wire             start_init;
   wire             end_init;
@@ -58,6 +58,7 @@ module tb_mopshub_top_32bus();
   wire    [4 :0]  can_rec_select;
   wire    [75:0]  data_tra_downlink;
   wire    [4 :0]  can_tra_select;
+  wire    [4 :0]  bus_cnt_power;
 
   wire            irq_elink_tra;
   wire            irq_elink_rec;
@@ -134,7 +135,7 @@ module tb_mopshub_top_32bus();
       
   wire [1:0] tx_mopshub_2bit; 
   wire [1:0] rx_mopshub_2bit; 
-  reg [4:0]    n_buses =5'd31;
+  reg  [4:0]    n_buses =5'd31;
   //Internal assignments  
   assign can_tra_select    = mopshub0.can_tra_select;
   assign can_rec_select    = mopshub0.can_rec_select;
@@ -147,7 +148,7 @@ module tb_mopshub_top_32bus();
   assign end_trim_bus      = mopshub0.end_trim_bus;
   assign start_trim_osc    = mopshub0.start_trim_ack;
   assign power_bus_en      = mopshub0.power_bus_en;
-  assign start_osc_cnt     = mopshub0.start_osc_cnt;
+  assign bus_cnt_power     = mopshub0.bus_cnt_power;
   assign ready_osc         = data_generator0.ready_osc;
 
   mopshub_top_32bus mopshub0(
@@ -263,7 +264,7 @@ module tb_mopshub_top_32bus();
   .clk_elink(clk_elink),
   .rst(rst),
   .ext_rst_mops(rst_bus),
-  .start_osc_cnt(start_osc_cnt),
+  .bus_cnt_power(bus_cnt_power),
   .ext_trim_mops(osc_auto_trim_mopshub),
   //Start SM
   .start_data_gen(sign_on_sig),
@@ -381,7 +382,7 @@ module tb_mopshub_top_32bus();
   .phase(5))
   clock_generator1( 
   .clk  (clk_elink), 
-  .enable (enable_elink)
+  .enable (1'b1)
   );  
   clock_divider #(28'd4)
   clock_divider_mops( 
@@ -404,8 +405,8 @@ module tb_mopshub_top_32bus();
       if(end_power_init ==1) osc_auto_trim_mopshub = 1'b0;
       if(sign_on_sig ==1)//start Rx test
       begin
-      test_rx =1'b1;
-      //test_advanced = 1'b1;
+      //test_rx =1'b1;
+      test_advanced = 1'b1;
       end
       if(test_rx_end ==1)//Done Rx test
       begin
@@ -416,10 +417,10 @@ module tb_mopshub_top_32bus();
        #3000
        test_tx =1'b1; 
       end
-      if (test_tx_end    ==1) 
+      if (test_tx_end==1) 
       begin 
         //test_tx =1'b0;//Done Tx test
-        test_tx =1'b1;//Loop Tx test
+        test_advanced = 1'b1;
       end
       if (costum_msg_end ==1) test_advanced = 1'b0;
     end

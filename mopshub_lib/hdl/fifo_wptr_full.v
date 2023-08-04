@@ -24,7 +24,7 @@ module fifo_wptr_full
     wire              awfull_val, wfull_val;
 
 	// GRAYSTYLE2 pointer
-	always @(posedge wclk or negedge wrst_n) begin
+	always @(posedge wclk) begin
 
 		if (!wrst_n)
 			{wbin, wptr} <= 0;
@@ -49,7 +49,7 @@ module fifo_wptr_full
      assign wfull_val = (wgraynext == {~wq2_rptr[ADDRSIZE:ADDRSIZE-1],wq2_rptr[ADDRSIZE-2:0]});
      assign awfull_val = (wgraynextp1 == {~wq2_rptr[ADDRSIZE:ADDRSIZE-1],wq2_rptr[ADDRSIZE-2:0]});
 
-     always @(posedge wclk or negedge wrst_n) begin
+     always @(posedge wclk) begin
 
         if (!wrst_n) begin
             awfull <= 1'b0;

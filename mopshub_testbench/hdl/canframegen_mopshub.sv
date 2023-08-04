@@ -1,4 +1,10 @@
+/*
+Created by: rahmad@uni-wuppertal.de
+This module generates a CAN frame to be sent over the bus with correct timing. The CAN 
+frame is generated using canmsgpack which is written in system verilog and commands from tb state machine.
+*/
 `include "canmsgpack.sv"      // Comment out this line for NCsim while use uncommented for Questasim
+//`include "CANFRAME.sv"
 `resetall
 `timescale 1ns/10ps
 module canframegen_mopshub( 
@@ -30,7 +36,7 @@ module canframegen_mopshub(
 
 // Internal Declarations
 
-logic canframereg[];
+logic canframegen_mopshub[];
 logic [7:0]readcmd = 8'h40;        // read command in the SDO frame
 logic [7:0]writecmd = 8'h23;       // write cmd in the SDO frame
 logic [31:0]tailcmd = 32'h0;        // 4 bytes tail of zeros in the frame

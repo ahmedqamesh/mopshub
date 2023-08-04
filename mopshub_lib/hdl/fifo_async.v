@@ -30,8 +30,7 @@ module fifo_async #(
 // Internal Declarations
     wire [ASIZE-1:0] waddr, raddr;
     wire [ASIZE  :0] wptr, rptr, wq2_rptr, rq2_wptr;
-  
-       
+        
     // The module synchronizing the read point
     // from read to write domain
     fifo_sync_r2w
@@ -72,6 +71,8 @@ module fifo_async #(
     fifo_mem
     #(DSIZE, ASIZE, FALLTHROUGH)
     fifomem (
+    .wreset(wrst_n),
+    .rreset(rrst_n),
     .rclken (rinc),
     .rclk   (rclk),
     .rdata  (dout_fifo),

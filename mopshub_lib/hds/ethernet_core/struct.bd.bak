@@ -131,7 +131,7 @@ value "/../../home/dcs/git/mopshub/mopshub_lib/hds/ethernet_core"
 )
 (vvPair
 variable "date"
-value "07/19/23"
+value "07/26/23"
 )
 (vvPair
 variable "day"
@@ -143,7 +143,7 @@ value "Wednesday"
 )
 (vvPair
 variable "dd"
-value "19"
+value "26"
 )
 (vvPair
 variable "entity_name"
@@ -171,7 +171,7 @@ value "dcs"
 )
 (vvPair
 variable "graphical_source_date"
-value "07/19/23"
+value "07/26/23"
 )
 (vvPair
 variable "graphical_source_group"
@@ -183,7 +183,7 @@ value "chipdev2.physik.uni-wuppertal.de"
 )
 (vvPair
 variable "graphical_source_time"
-value "10:53:52"
+value "09:07:35"
 )
 (vvPair
 variable "group"
@@ -207,7 +207,7 @@ value "$HDS_PROJECT_DIR/mopshub_lib/designcheck"
 )
 (vvPair
 variable "library_downstream_ModelSimCompiler"
-value "$HDS_PROJECT_DIR/mopshub_lib/work"
+value "$HDS_PROJECT_DIR/work"
 )
 (vvPair
 variable "library_downstream_PrecisionSynthesisDataPrep"
@@ -215,7 +215,7 @@ value "$HDS_PROJECT_DIR/mopshub_lib/ps"
 )
 (vvPair
 variable "library_downstream_QuestaSimCompiler"
-value "$HDS_PROJECT_DIR/mopshub_lib/work"
+value "$HDS_PROJECT_DIR/work"
 )
 (vvPair
 variable "library_downstream_QuestaSimSimulator"
@@ -303,7 +303,7 @@ value "struct"
 )
 (vvPair
 variable "time"
-value "10:53:52"
+value "09:07:35"
 )
 (vvPair
 variable "unit"
@@ -618,16 +618,16 @@ optionalChildren [
 uid 145,0
 sl 0
 ro 270
-xt "19000,31625,20500,32375"
+xt "20000,31625,21500,32375"
 )
 (Line
 uid 146,0
 sl 0
 ro 270
-xt "20500,32000,21000,32000"
+xt "21500,32000,22000,32000"
 pts [
-"20500,32000"
-"21000,32000"
+"21500,32000"
+"22000,32000"
 ]
 )
 ]
@@ -642,10 +642,10 @@ uid 148,0
 va (VaSet
 font "courier,8,0"
 )
-xt "15000,31500,18000,32400"
+xt "16000,31500,19000,32400"
 st "clk125"
 ju 2
-blo "18000,32200"
+blo "19000,32200"
 tm "WireNameMgr"
 )
 )
@@ -3396,10 +3396,10 @@ suid 25,0
 )
 )
 *97 (CptPort
-uid 7567,0
+uid 8322,0
 ps "OnEdgeStrategy"
 shape (Triangle
-uid 7568,0
+uid 8323,0
 ro 90
 va (VaSet
 vasetType 1
@@ -3408,11 +3408,11 @@ fg "0,65535,0"
 xt "26250,1625,27000,2375"
 )
 tg (CPTG
-uid 7569,0
+uid 8324,0
 ps "CptPortTextPlaceStrategy"
 stg "VerticalLayoutStrategy"
 f (Text
-uid 7570,0
+uid 8325,0
 va (VaSet
 font "courier,8,0"
 )
@@ -3429,8 +3429,9 @@ t "std_logic"
 prec "--  sysclk_p: in std_logic;
 --  sysclk_n: in std_logic;"
 preAdd 0
+posAdd 0
 o 13
-suid 26,0
+suid 35,0
 )
 )
 )
@@ -5715,23 +5716,44 @@ tm "WireNameMgr"
 )
 )
 )
-*172 (PortIoIn
-uid 7579,0
+*172 (Net
+uid 8326,0
+lang 5
+decl (Decl
+n "sysclk"
+t "wire"
+prec "// --  sysclk_p: in std_logic;
+// --  sysclk_n: in std_logic;"
+preAdd 0
+posAdd 0
+o 48
+suid 160,0
+)
+declText (MLText
+uid 8327,0
+va (VaSet
+isHidden 1
+font "courier,8,0"
+)
+)
+)
+*173 (PortIoIn
+uid 8334,0
 shape (CompositeShape
-uid 7580,0
+uid 8335,0
 va (VaSet
 vasetType 1
 fg "0,0,32768"
 )
 optionalChildren [
 (Pentagon
-uid 7581,0
+uid 8336,0
 sl 0
 ro 270
 xt "19000,1625,20500,2375"
 )
 (Line
-uid 7582,0
+uid 8337,0
 sl 0
 ro 270
 xt "20500,2000,21000,2000"
@@ -5744,39 +5766,19 @@ pts [
 )
 stc 0
 tg (WTG
-uid 7583,0
+uid 8338,0
 ps "PortIoTextPlaceStrategy"
 stg "STSignalDisplayStrategy"
 f (Text
-uid 7584,0
+uid 8339,0
 va (VaSet
 font "courier,8,0"
 )
-xt "11500,1550,18000,2450"
-st "ethernet_clk"
+xt "15000,1550,18000,2450"
+st "sysclk"
 ju 2
 blo "18000,2250"
 tm "WireNameMgr"
-)
-)
-)
-*173 (Net
-uid 7585,0
-lang 5
-decl (Decl
-n "ethernet_clk"
-t "wire"
-prec "// --  sysclk_p: in std_logic;
-// --  sysclk_n: in std_logic;"
-preAdd 0
-o 48
-suid 153,0
-)
-declText (MLText
-uid 7586,0
-va (VaSet
-isHidden 1
-font "courier,8,0"
 )
 )
 )
@@ -5787,9 +5789,9 @@ uid 152,0
 va (VaSet
 vasetType 3
 )
-xt "21000,32000,26250,32000"
+xt "22000,32000,26250,32000"
 pts [
-"21000,32000"
+"22000,32000"
 "26250,32000"
 ]
 )
@@ -5810,9 +5812,9 @@ va (VaSet
 isHidden 1
 font "courier,8,0"
 )
-xt "20000,31100,23000,32000"
+xt "21000,31100,24000,32000"
 st "clk125"
-blo "20000,31800"
+blo "21000,31800"
 tm "WireNameMgr"
 )
 )
@@ -6774,8 +6776,8 @@ lineWidth 2
 xt "49750,7000,83250,26000"
 pts [
 "49750,7000"
-"63000,7000"
-"63000,26000"
+"66000,7000"
+"66000,26000"
 "83250,26000"
 ]
 )
@@ -7984,9 +7986,9 @@ tm "WireNameMgr"
 on &170
 )
 *231 (Wire
-uid 7573,0
+uid 8328,0
 shape (OrthoPolyLine
-uid 7574,0
+uid 8329,0
 va (VaSet
 vasetType 3
 )
@@ -7996,7 +7998,7 @@ pts [
 "26250,2000"
 ]
 )
-start &172
+start &173
 end &97
 sat 32
 eat 32
@@ -8004,22 +8006,22 @@ stc 0
 st 0
 si 0
 tg (WTG
-uid 7577,0
+uid 8332,0
 ps "ConnStartEndStrategy"
 stg "STSignalDisplayStrategy"
 f (Text
-uid 7578,0
+uid 8333,0
 va (VaSet
 isHidden 1
 font "courier,8,0"
 )
-xt "22000,1100,28500,2000"
-st "ethernet_clk"
+xt "22000,1100,25000,2000"
+st "sysclk"
 blo "22000,1800"
 tm "WireNameMgr"
 )
 )
-on &173
+on &172
 )
 ]
 bg "65535,65535,65535"
@@ -8144,11 +8146,11 @@ tm "BdCompilerDirectivesTextMgr"
 associable 1
 )
 windowSize "3832,13,5768,1088"
-viewArea "-7986,-24463,93212,30597"
+viewArea "3700,-3340,65368,30212"
 cachedDiagramExtent "-1000,-30300,146000,117600"
 hasePageBreakOrigin 1
 pageBreakOrigin "-10000,-64000"
-lastUid 7588,0
+lastUid 8341,0
 defaultCommentText (CommentText
 shape (Rectangle
 layer 0
@@ -9206,7 +9208,7 @@ tm "BdDeclarativeTextMgr"
 commonDM (CommonDM
 ldm (LogicalDM
 ordering 1
-suid 153,0
+suid 160,0
 usingSuid 1
 emptyRow *263 (LEmptyRow
 )
@@ -9904,13 +9906,13 @@ uid 7177,0
 port (LogicalPort
 lang 5
 decl (Decl
-n "ethernet_clk"
+n "sysclk"
 t "wire"
 o 48
-suid 153,0
+suid 160,0
 )
 )
-uid 7587,0
+uid 8340,0
 )
 ]
 )
@@ -10248,7 +10250,7 @@ uid 7178,0
 litem &325
 pos 47
 dimension 20
-uid 7588,0
+uid 8341,0
 )
 ]
 )
