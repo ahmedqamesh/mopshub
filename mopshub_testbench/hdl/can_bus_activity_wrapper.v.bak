@@ -32,8 +32,8 @@ module can_bus_activity_wrapper(
    input wire       test_advanced,
    input wire       test_spi,
    input wire       random1000,
-   input wire       costum_msg_start,
-   input wire       costum_msg_end,
+   input wire       test_advanced_start,
+   input wire       test_advanced_end,
    input wire    [75:0]  request_data,
    input wire    [75:0]  response_data,    
    input wire       osc_auto_trim_mopshub,     
@@ -44,8 +44,8 @@ module can_bus_activity_wrapper(
    input wire    [75:0]  data_tra_downlink,
    input wire    [75:0]  bus_dec_data,
    input wire            reqmsg,
-   input wire            respmsg
- //  input wire            no_respmsg
+   input wire            respmsg,
+   input wire            no_respmsg
 );
 
 can_bus_activity can_bus_activity0( 
@@ -65,19 +65,19 @@ can_bus_activity can_bus_activity0(
    .test_rx_start         (test_rx_start), 
    .test_rx_end           (test_rx_end),  
    .test_advanced         (test_advanced),
+   .test_advanced_start   (test_advanced_start), 
+   .test_advanced_end     (test_advanced_end), 
+   .test_spi              (test_spi),
    .random1000(random1000), 
-   .costum_msg_start      (costum_msg_start), 
-   .costum_msg_end        (costum_msg_end), 
    .osc_auto_trim_mopshub (osc_auto_trim_mopshub), 
    .end_trim_bus          (end_trim_bus), 
    .start_trim_osc        (start_trim_osc), 
    .request_data       (request_data), 
    .response_data     (response_data), 
-   .data_rec_uplink       (data_rec_uplink), 
-   .data_tra_downlink     (data_tra_downlink), 
    .bus_dec_data          (bus_dec_data), 
    .reqmsg                (reqmsg), 
-   .respmsg               (respmsg)
+   .respmsg               (respmsg),
+   .no_respmsg            (no_respmsg)
 ); 
 
 endmodule

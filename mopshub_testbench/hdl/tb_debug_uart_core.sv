@@ -22,6 +22,8 @@ module tb_debug_uart_core();
   wire            out_tx_serial;
   reg in_rx_serial = 1;
   wire [7:0] out_rx_byte;
+
+
 assign out_rx_byte = debug_uart_core0.out_rx_byte;
 assign w_tx_done = debug_uart_core0.w_tx_done;
    debug_uart_core #(.CLKS_PER_BIT(c_CLKS_PER_BIT)) debug_uart_core0
@@ -38,7 +40,8 @@ assign w_tx_done = debug_uart_core0.w_tx_done;
     .statedeb_osc_trim (8'hd), 
     .statedeb_elink_tra(8'he), 
     .statedeb_elink_rec (8'hf), 
-    .statedeb_spi(8'h1A));
+    .statedeb_spi(8'h1A),
+    .dec10b_Out_dbg(8'h1B));
  
  debug_uart_receiver #(.CLKS_PER_BIT(c_CLKS_PER_BIT)) debug_uart_receiver0( 
    .i_Clock     (clk_uart), 
@@ -46,7 +49,6 @@ assign w_tx_done = debug_uart_core0.w_tx_done;
    .o_Rx_DV     (out_rx_dv_dbg), 
    .o_Rx_Byte   (out_rx_byte_dbg)
 ); 
-
   // Takes in input byte and serializes it 
   task automatic generate_uart_data(
     input byte data[$]

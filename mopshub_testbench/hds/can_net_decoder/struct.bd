@@ -124,19 +124,19 @@ value "/../../home/dcs/git/mopshub/mopshub_testbench/hds/can_net_decoder"
 )
 (vvPair
 variable "date"
-value "08/03/23"
+value "08/08/23"
 )
 (vvPair
 variable "day"
-value "Thu"
+value "Tue"
 )
 (vvPair
 variable "day_long"
-value "Thursday"
+value "Tuesday"
 )
 (vvPair
 variable "dd"
-value "03"
+value "08"
 )
 (vvPair
 variable "entity_name"
@@ -164,7 +164,7 @@ value "dcs"
 )
 (vvPair
 variable "graphical_source_date"
-value "08/03/23"
+value "08/08/23"
 )
 (vvPair
 variable "graphical_source_group"
@@ -176,7 +176,7 @@ value "chipdev2.physik.uni-wuppertal.de"
 )
 (vvPair
 variable "graphical_source_time"
-value "17:50:14"
+value "12:54:55"
 )
 (vvPair
 variable "group"
@@ -292,7 +292,7 @@ value "struct"
 )
 (vvPair
 variable "time"
-value "17:50:14"
+value "12:54:55"
 )
 (vvPair
 variable "unit"
@@ -663,7 +663,7 @@ lang 5
 decl (Decl
 n "rx_mopshub0"
 t "wire"
-o 46
+o 49
 suid 1,0
 )
 declText (MLText
@@ -682,7 +682,7 @@ lang 5
 decl (Decl
 n "tx_mopshub0"
 t "wire"
-o 11
+o 13
 suid 9,0
 )
 declText (MLText
@@ -1327,7 +1327,7 @@ decl (Decl
 n "clk_mops"
 t "wire"
 eolc "write FIFO clk"
-o 3
+o 4
 suid 24,0
 )
 declText (MLText
@@ -1914,7 +1914,7 @@ lang 5
 decl (Decl
 n "ext_rst_mops"
 t "wire"
-o 4
+o 5
 suid 30,0
 )
 declText (MLText
@@ -1979,7 +1979,7 @@ lang 5
 decl (Decl
 n "ext_trim_mops"
 t "wire"
-o 5
+o 6
 suid 31,0
 )
 declText (MLText
@@ -1998,7 +1998,7 @@ lang 5
 decl (Decl
 n "rx0_mops0"
 t "wire"
-o 91
+o 96
 suid 34,0
 )
 declText (MLText
@@ -2017,7 +2017,7 @@ lang 5
 decl (Decl
 n "tx0_mops0"
 t "wire"
-o 96
+o 101
 suid 35,0
 )
 declText (MLText
@@ -2036,7 +2036,7 @@ lang 5
 decl (Decl
 n "rx0_mops1"
 t "wire"
-o 92
+o 97
 suid 38,0
 )
 declText (MLText
@@ -2055,7 +2055,7 @@ lang 5
 decl (Decl
 n "tx0_mops1"
 t "wire"
-o 97
+o 102
 suid 39,0
 )
 declText (MLText
@@ -2074,7 +2074,7 @@ lang 5
 decl (Decl
 n "rx1_mops0"
 t "wire"
-o 93
+o 98
 suid 40,0
 )
 declText (MLText
@@ -2093,7 +2093,7 @@ lang 5
 decl (Decl
 n "tx1_mops0"
 t "wire"
-o 98
+o 103
 suid 41,0
 )
 declText (MLText
@@ -2112,7 +2112,7 @@ lang 5
 decl (Decl
 n "rx1_mops1"
 t "wire"
-o 94
+o 99
 suid 42,0
 )
 declText (MLText
@@ -2131,7 +2131,7 @@ lang 5
 decl (Decl
 n "tx1_mops1"
 t "wire"
-o 99
+o 104
 suid 43,0
 )
 declText (MLText
@@ -2830,7 +2830,7 @@ n "can_nodeid0"
 t "reg"
 b "[6:0]"
 eolc " // Hardwired CANopen Node-ID for each DCS controller chip"
-o 83
+o 87
 suid 46,0
 iv "7'h0"
 )
@@ -2852,7 +2852,7 @@ n "can_nodeid1"
 t "reg"
 b "[6:0]"
 eolc " // Hardwired CANopen Node-ID for each DCS controller chip"
-o 84
+o 88
 suid 47,0
 iv "7'h1"
 )
@@ -2918,7 +2918,7 @@ lang 5
 decl (Decl
 n "rst"
 t "wire"
-o 8
+o 9
 suid 48,0
 )
 declText (MLText
@@ -2983,7 +2983,7 @@ lang 5
 decl (Decl
 n "txgen"
 t "wire"
-o 43
+o 46
 suid 49,0
 )
 declText (MLText
@@ -3180,7 +3180,7 @@ decl (Decl
 n "select_bus"
 t "wire"
 b "[4:0]"
-o 79
+o 82
 suid 52,0
 )
 declText (MLText
@@ -3228,7 +3228,7 @@ assign select_bus   =(sel_bus ==1'b0 || ext_trim_mops ==1'b1) ? bus_loop_cnt :da
 //assign rx_mopshub0 = (test_simult== 1'b1 || select_bus == 5'd0) ? ~(rst ^ (tx_mopshub0 & txgen & tx0_mops1)): 0;
 //assign rx_mopshub1 = (test_simult== 1'b1 || select_bus == 5'd1) ? ~(rst ^ (tx_mopshub1 & txgen & tx1_mops1)): 0;
 
-assign rx_mopshub0  = (test_simult== 1'b1 || select_bus == 5'd0) ? ~(rst ^ (tx_mopshub0 & txgen& txmops)): 0;//
+assign rx_mopshub0  = (test_simult== 1'b1 || select_bus == 5'd0) ? ~(rst ^ (tx_mopshub0 & txgen & txmops)): 0;//
 assign rx_mopshub1  = (test_simult== 1'b1 || select_bus == 5'd1) ? ~(rst ^ (tx_mopshub1 & txgen & txmops)): 0;
 assign rx_mopshub2  = (test_simult== 1'b1 || select_bus == 5'd2) ? ~(rst ^ (tx_mopshub2 & txgen & txmops)): 0;
 
@@ -3277,7 +3277,7 @@ assign rx_mopshub  = ~(rst ^(rx_mopshub0 | rx_mopshub1 | rx_mopshub2 | rx_mopshu
                             |rx_mopshub16| rx_mopshub17| rx_mopshub18| rx_mopshub19| rx_mopshub20 | rx_mopshub21| rx_mopshub22| rx_mopshub23
                             |rx_mopshub24| rx_mopshub25| rx_mopshub26| rx_mopshub27| rx_mopshub28 | rx_mopshub29| rx_mopshub30| rx_mopshub31));
                              
-assign tx_mopshub  = ~(rst ^ (tx_mopshub0 & tx_mopshub1 & tx_mopshub2 & tx_mopshub3 & tx_mopshub4  & tx_mopshub5 & tx_mopshub6 & tx_mopshub7 
+assign tx_mopshub  =  ~(rst ^ (tx_mopshub0 & tx_mopshub1 & tx_mopshub2 & tx_mopshub3 & tx_mopshub4  & tx_mopshub5 & tx_mopshub6 & tx_mopshub7 
                              &tx_mopshub8 & tx_mopshub9 & tx_mopshub10& tx_mopshub11& tx_mopshub12 & tx_mopshub13& tx_mopshub14& tx_mopshub15
                              &tx_mopshub16& tx_mopshub17& tx_mopshub18& tx_mopshub19& tx_mopshub20 & tx_mopshub21& tx_mopshub22& tx_mopshub23
                              &tx_mopshub24& tx_mopshub25& tx_mopshub26& tx_mopshub27& tx_mopshub28 & tx_mopshub29& tx_mopshub30& tx_mopshub31));
@@ -3627,7 +3627,7 @@ lang 5
 decl (Decl
 n "rxmops"
 t "wire"
-o 95
+o 100
 suid 53,0
 )
 declText (MLText
@@ -3646,7 +3646,7 @@ lang 5
 decl (Decl
 n "txmops"
 t "wire"
-o 100
+o 105
 suid 54,0
 )
 declText (MLText
@@ -3665,7 +3665,7 @@ lang 5
 decl (Decl
 n "rxdec"
 t "wire"
-o 78
+o 81
 suid 55,0
 )
 declText (MLText
@@ -3729,7 +3729,7 @@ lang 5
 decl (Decl
 n "tx_mopshub"
 t "wire"
-o 80
+o 83
 suid 56,0
 )
 declText (MLText
@@ -3794,7 +3794,7 @@ lang 5
 decl (Decl
 n "rx_mopshub"
 t "wire"
-o 45
+o 48
 suid 57,0
 )
 declText (MLText
@@ -3813,7 +3813,7 @@ lang 5
 decl (Decl
 n "rx_mopshub5"
 t "wire"
-o 73
+o 76
 suid 59,0
 )
 declText (MLText
@@ -3832,7 +3832,7 @@ lang 5
 decl (Decl
 n "rx_mopshub4"
 t "wire"
-o 72
+o 75
 suid 60,0
 )
 declText (MLText
@@ -3851,7 +3851,7 @@ lang 5
 decl (Decl
 n "rx_mopshub3"
 t "wire"
-o 69
+o 72
 suid 61,0
 )
 declText (MLText
@@ -3870,7 +3870,7 @@ lang 5
 decl (Decl
 n "rx_mopshub2"
 t "wire"
-o 58
+o 61
 suid 62,0
 )
 declText (MLText
@@ -3889,7 +3889,7 @@ lang 5
 decl (Decl
 n "rx_mopshub1"
 t "wire"
-o 47
+o 50
 suid 63,0
 )
 declText (MLText
@@ -3908,7 +3908,7 @@ lang 5
 decl (Decl
 n "rx_mopshub7"
 t "wire"
-o 75
+o 78
 suid 64,0
 )
 declText (MLText
@@ -3927,7 +3927,7 @@ lang 5
 decl (Decl
 n "rx_mopshub6"
 t "wire"
-o 74
+o 77
 suid 65,0
 )
 declText (MLText
@@ -3946,7 +3946,7 @@ lang 5
 decl (Decl
 n "tx_mopshub5"
 t "wire"
-o 38
+o 40
 suid 66,0
 )
 declText (MLText
@@ -3965,7 +3965,7 @@ lang 5
 decl (Decl
 n "tx_mopshub4"
 t "wire"
-o 37
+o 39
 suid 67,0
 )
 declText (MLText
@@ -3984,7 +3984,7 @@ lang 5
 decl (Decl
 n "tx_mopshub3"
 t "wire"
-o 34
+o 36
 suid 68,0
 )
 declText (MLText
@@ -4003,7 +4003,7 @@ lang 5
 decl (Decl
 n "tx_mopshub2"
 t "wire"
-o 23
+o 25
 suid 69,0
 )
 declText (MLText
@@ -4022,7 +4022,7 @@ lang 5
 decl (Decl
 n "tx_mopshub1"
 t "wire"
-o 12
+o 14
 suid 70,0
 )
 declText (MLText
@@ -4041,7 +4041,7 @@ lang 5
 decl (Decl
 n "tx_mopshub7"
 t "wire"
-o 40
+o 42
 suid 71,0
 )
 declText (MLText
@@ -4060,7 +4060,7 @@ lang 5
 decl (Decl
 n "tx_mopshub6"
 t "wire"
-o 39
+o 41
 suid 72,0
 )
 declText (MLText
@@ -4918,7 +4918,7 @@ lang 5
 decl (Decl
 n "rst_mops"
 t "reg"
-o 9
+o 95
 suid 77,0
 )
 declText (MLText
@@ -5278,7 +5278,7 @@ n "can_nodeid"
 t "reg"
 b "[6:0]"
 eolc " // Hardwired CANopen Node-ID for each DCS controller chip"
-o 82
+o 86
 suid 78,0
 iv "7'h1"
 )
@@ -5298,7 +5298,7 @@ lang 5
 decl (Decl
 n "ready_osc"
 t "wire"
-o 44
+o 47
 suid 79,0
 )
 declText (MLText
@@ -5408,7 +5408,7 @@ lang 5
 decl (Decl
 n "tx_mopshub8"
 t "wire"
-o 41
+o 43
 suid 97,0
 )
 declText (MLText
@@ -5472,7 +5472,7 @@ lang 5
 decl (Decl
 n "tx_mopshub9"
 t "wire"
-o 42
+o 44
 suid 98,0
 )
 declText (MLText
@@ -5536,7 +5536,7 @@ lang 5
 decl (Decl
 n "tx_mopshub10"
 t "wire"
-o 13
+o 15
 suid 99,0
 )
 declText (MLText
@@ -5600,7 +5600,7 @@ lang 5
 decl (Decl
 n "tx_mopshub14"
 t "wire"
-o 17
+o 19
 suid 100,0
 )
 declText (MLText
@@ -5664,7 +5664,7 @@ lang 5
 decl (Decl
 n "tx_mopshub13"
 t "wire"
-o 16
+o 18
 suid 101,0
 )
 declText (MLText
@@ -5728,7 +5728,7 @@ lang 5
 decl (Decl
 n "tx_mopshub12"
 t "wire"
-o 15
+o 17
 suid 102,0
 )
 declText (MLText
@@ -5792,7 +5792,7 @@ lang 5
 decl (Decl
 n "tx_mopshub11"
 t "wire"
-o 14
+o 16
 suid 103,0
 )
 declText (MLText
@@ -5856,7 +5856,7 @@ lang 5
 decl (Decl
 n "tx_mopshub15"
 t "wire"
-o 18
+o 20
 suid 104,0
 )
 declText (MLText
@@ -5921,7 +5921,7 @@ lang 5
 decl (Decl
 n "rx_mopshub8"
 t "wire"
-o 76
+o 79
 suid 105,0
 )
 declText (MLText
@@ -5986,7 +5986,7 @@ lang 5
 decl (Decl
 n "rx_mopshub9"
 t "wire"
-o 77
+o 80
 suid 106,0
 )
 declText (MLText
@@ -6051,7 +6051,7 @@ lang 5
 decl (Decl
 n "rx_mopshub10"
 t "wire"
-o 48
+o 51
 suid 107,0
 )
 declText (MLText
@@ -6116,7 +6116,7 @@ lang 5
 decl (Decl
 n "rx_mopshub11"
 t "wire"
-o 49
+o 52
 suid 108,0
 )
 declText (MLText
@@ -6181,7 +6181,7 @@ lang 5
 decl (Decl
 n "rx_mopshub12"
 t "wire"
-o 50
+o 53
 suid 109,0
 )
 declText (MLText
@@ -6246,7 +6246,7 @@ lang 5
 decl (Decl
 n "rx_mopshub13"
 t "wire"
-o 51
+o 54
 suid 110,0
 )
 declText (MLText
@@ -6311,7 +6311,7 @@ lang 5
 decl (Decl
 n "rx_mopshub14"
 t "wire"
-o 52
+o 55
 suid 111,0
 )
 declText (MLText
@@ -6376,7 +6376,7 @@ lang 5
 decl (Decl
 n "rx_mopshub15"
 t "wire"
-o 53
+o 56
 suid 112,0
 )
 declText (MLText
@@ -6441,7 +6441,7 @@ lang 5
 decl (Decl
 n "rx_mopshub23"
 t "wire"
-o 62
+o 65
 suid 115,0
 )
 declText (MLText
@@ -6506,7 +6506,7 @@ lang 5
 decl (Decl
 n "rx_mopshub22"
 t "wire"
-o 61
+o 64
 suid 116,0
 )
 declText (MLText
@@ -6571,7 +6571,7 @@ lang 5
 decl (Decl
 n "rx_mopshub21"
 t "wire"
-o 60
+o 63
 suid 117,0
 )
 declText (MLText
@@ -6636,7 +6636,7 @@ lang 5
 decl (Decl
 n "rx_mopshub20"
 t "wire"
-o 59
+o 62
 suid 118,0
 )
 declText (MLText
@@ -6701,7 +6701,7 @@ lang 5
 decl (Decl
 n "rx_mopshub19"
 t "wire"
-o 57
+o 60
 suid 119,0
 )
 declText (MLText
@@ -6766,7 +6766,7 @@ lang 5
 decl (Decl
 n "rx_mopshub18"
 t "wire"
-o 56
+o 59
 suid 120,0
 )
 declText (MLText
@@ -6831,7 +6831,7 @@ lang 5
 decl (Decl
 n "rx_mopshub17"
 t "wire"
-o 55
+o 58
 suid 121,0
 )
 declText (MLText
@@ -6896,7 +6896,7 @@ lang 5
 decl (Decl
 n "rx_mopshub16"
 t "wire"
-o 54
+o 57
 suid 122,0
 )
 declText (MLText
@@ -6960,7 +6960,7 @@ lang 5
 decl (Decl
 n "tx_mopshub23"
 t "wire"
-o 27
+o 29
 suid 123,0
 )
 declText (MLText
@@ -7024,7 +7024,7 @@ lang 5
 decl (Decl
 n "tx_mopshub22"
 t "wire"
-o 26
+o 28
 suid 124,0
 )
 declText (MLText
@@ -7088,7 +7088,7 @@ lang 5
 decl (Decl
 n "tx_mopshub21"
 t "wire"
-o 25
+o 27
 suid 125,0
 )
 declText (MLText
@@ -7152,7 +7152,7 @@ lang 5
 decl (Decl
 n "tx_mopshub20"
 t "wire"
-o 24
+o 26
 suid 126,0
 )
 declText (MLText
@@ -7216,7 +7216,7 @@ lang 5
 decl (Decl
 n "tx_mopshub19"
 t "wire"
-o 22
+o 24
 suid 127,0
 )
 declText (MLText
@@ -7280,7 +7280,7 @@ lang 5
 decl (Decl
 n "tx_mopshub18"
 t "wire"
-o 21
+o 23
 suid 128,0
 )
 declText (MLText
@@ -7344,7 +7344,7 @@ lang 5
 decl (Decl
 n "tx_mopshub17"
 t "wire"
-o 20
+o 22
 suid 129,0
 )
 declText (MLText
@@ -7408,7 +7408,7 @@ lang 5
 decl (Decl
 n "tx_mopshub16"
 t "wire"
-o 19
+o 21
 suid 130,0
 )
 declText (MLText
@@ -7473,7 +7473,7 @@ lang 5
 decl (Decl
 n "rx_mopshub30"
 t "wire"
-o 70
+o 73
 suid 131,0
 )
 declText (MLText
@@ -7538,7 +7538,7 @@ lang 5
 decl (Decl
 n "rx_mopshub29"
 t "wire"
-o 68
+o 71
 suid 132,0
 )
 declText (MLText
@@ -7603,7 +7603,7 @@ lang 5
 decl (Decl
 n "rx_mopshub28"
 t "wire"
-o 67
+o 70
 suid 133,0
 )
 declText (MLText
@@ -7668,7 +7668,7 @@ lang 5
 decl (Decl
 n "rx_mopshub27"
 t "wire"
-o 66
+o 69
 suid 134,0
 )
 declText (MLText
@@ -7733,7 +7733,7 @@ lang 5
 decl (Decl
 n "rx_mopshub26"
 t "wire"
-o 65
+o 68
 suid 135,0
 )
 declText (MLText
@@ -7798,7 +7798,7 @@ lang 5
 decl (Decl
 n "rx_mopshub25"
 t "wire"
-o 64
+o 67
 suid 136,0
 )
 declText (MLText
@@ -7863,7 +7863,7 @@ lang 5
 decl (Decl
 n "rx_mopshub24"
 t "wire"
-o 63
+o 66
 suid 137,0
 )
 declText (MLText
@@ -7928,7 +7928,7 @@ lang 5
 decl (Decl
 n "rx_mopshub31"
 t "wire"
-o 71
+o 74
 suid 138,0
 )
 declText (MLText
@@ -7992,7 +7992,7 @@ lang 5
 decl (Decl
 n "tx_mopshub31"
 t "wire"
-o 36
+o 38
 suid 140,0
 )
 declText (MLText
@@ -8056,7 +8056,7 @@ lang 5
 decl (Decl
 n "tx_mopshub30"
 t "wire"
-o 35
+o 37
 suid 141,0
 )
 declText (MLText
@@ -8120,7 +8120,7 @@ lang 5
 decl (Decl
 n "tx_mopshub29"
 t "wire"
-o 33
+o 35
 suid 142,0
 )
 declText (MLText
@@ -8184,7 +8184,7 @@ lang 5
 decl (Decl
 n "tx_mopshub28"
 t "wire"
-o 32
+o 34
 suid 143,0
 )
 declText (MLText
@@ -8248,7 +8248,7 @@ lang 5
 decl (Decl
 n "tx_mopshub27"
 t "wire"
-o 31
+o 33
 suid 144,0
 )
 declText (MLText
@@ -8312,7 +8312,7 @@ lang 5
 decl (Decl
 n "tx_mopshub26"
 t "wire"
-o 30
+o 32
 suid 145,0
 )
 declText (MLText
@@ -8376,7 +8376,7 @@ lang 5
 decl (Decl
 n "tx_mopshub25"
 t "wire"
-o 29
+o 31
 suid 146,0
 )
 declText (MLText
@@ -8440,7 +8440,7 @@ lang 5
 decl (Decl
 n "tx_mopshub24"
 t "wire"
-o 28
+o 30
 suid 147,0
 )
 declText (MLText
@@ -8459,7 +8459,7 @@ lang 5
 decl (Decl
 n "ready_osc_master"
 t "wire"
-o 89
+o 94
 suid 149,0
 )
 declText (MLText
@@ -8476,7 +8476,7 @@ lang 5
 decl (Decl
 n "ready_osc_11"
 t "wire"
-o 88
+o 93
 suid 150,0
 )
 declText (MLText
@@ -8493,7 +8493,7 @@ lang 5
 decl (Decl
 n "ready_osc_10"
 t "wire"
-o 87
+o 92
 suid 151,0
 )
 declText (MLText
@@ -8510,7 +8510,7 @@ lang 5
 decl (Decl
 n "ready_osc_01"
 t "wire"
-o 86
+o 91
 suid 152,0
 )
 declText (MLText
@@ -8527,7 +8527,7 @@ lang 5
 decl (Decl
 n "ready_osc_00"
 t "wire"
-o 85
+o 90
 suid 153,0
 )
 declText (MLText
@@ -8591,7 +8591,7 @@ decl (Decl
 n "power_bus_cnt"
 t "wire"
 b "[4:0]"
-o 100
+o 7
 suid 154,0
 )
 declText (MLText
@@ -9106,7 +9106,7 @@ t "wire"
 b "[4:0]"
 eolc "// Output data to be written on the CAN bus"
 posAdd 0
-o 101
+o 89
 suid 159,0
 )
 declText (MLText
@@ -9126,7 +9126,7 @@ t "wire"
 eolc "// enable signal"
 preAdd 0
 posAdd 0
-o 102
+o 84
 suid 161,0
 iv "1'b0"
 )
@@ -9147,7 +9147,7 @@ t "wire"
 eolc "// enable signal"
 preAdd 0
 posAdd 0
-o 103
+o 85
 suid 162,0
 iv "1'b0"
 )
@@ -9211,7 +9211,7 @@ lang 5
 decl (Decl
 n "test_advanced"
 t "wire"
-o 104
+o 11
 suid 164,0
 )
 declText (MLText
@@ -9273,7 +9273,7 @@ lang 5
 decl (Decl
 n "txdec"
 t "wire"
-o 105
+o 45
 suid 167,0
 )
 declText (MLText
@@ -9336,7 +9336,7 @@ lang 5
 decl (Decl
 n "test_simult"
 t "wire"
-o 106
+o 12
 suid 168,0
 )
 declText (MLText
@@ -9416,7 +9416,7 @@ lang 5
 decl (Decl
 n "random1000"
 t "wire"
-o 105
+o 8
 suid 171,0
 )
 declText (MLText
@@ -14252,11 +14252,11 @@ tm "BdCompilerDirectivesTextMgr"
 associable 1
 )
 windowSize "3832,13,5768,1088"
-viewArea "-82174,-19993,131951,93007"
+viewArea "31895,38074,134949,94143"
 cachedDiagramExtent "-17000,-42000,123000,98000"
 hasePageBreakOrigin 1
 pageBreakOrigin "-69000,0"
-lastUid 20918,0
+lastUid 21723,0
 defaultCommentText (CommentText
 shape (Rectangle
 layer 0
@@ -15319,7 +15319,7 @@ tm "BdDeclarativeTextMgr"
 )
 commonDM (CommonDM
 ldm (LogicalDM
-suid 171,0
+suid 173,0
 usingSuid 1
 emptyRow *437 (LEmptyRow
 )
@@ -15371,7 +15371,7 @@ m 1
 decl (Decl
 n "rx_mopshub0"
 t "wire"
-o 46
+o 49
 suid 1,0
 )
 )
@@ -15383,7 +15383,7 @@ lang 5
 decl (Decl
 n "tx_mopshub0"
 t "wire"
-o 11
+o 13
 suid 9,0
 )
 )
@@ -15395,7 +15395,7 @@ lang 5
 decl (Decl
 n "clk_mops"
 t "wire"
-o 3
+o 4
 suid 24,0
 )
 )
@@ -15407,7 +15407,7 @@ lang 5
 decl (Decl
 n "ext_rst_mops"
 t "wire"
-o 4
+o 5
 suid 30,0
 )
 )
@@ -15419,7 +15419,7 @@ lang 5
 decl (Decl
 n "ext_trim_mops"
 t "wire"
-o 5
+o 6
 suid 31,0
 )
 )
@@ -15432,7 +15432,7 @@ m 4
 decl (Decl
 n "rx0_mops0"
 t "wire"
-o 91
+o 96
 suid 34,0
 )
 )
@@ -15445,7 +15445,7 @@ m 4
 decl (Decl
 n "tx0_mops0"
 t "wire"
-o 96
+o 101
 suid 35,0
 )
 )
@@ -15458,7 +15458,7 @@ m 4
 decl (Decl
 n "rx0_mops1"
 t "wire"
-o 92
+o 97
 suid 38,0
 )
 )
@@ -15471,7 +15471,7 @@ m 4
 decl (Decl
 n "tx0_mops1"
 t "wire"
-o 97
+o 102
 suid 39,0
 )
 )
@@ -15484,7 +15484,7 @@ m 4
 decl (Decl
 n "rx1_mops0"
 t "wire"
-o 93
+o 98
 suid 40,0
 )
 )
@@ -15497,7 +15497,7 @@ m 4
 decl (Decl
 n "tx1_mops0"
 t "wire"
-o 98
+o 103
 suid 41,0
 )
 )
@@ -15510,7 +15510,7 @@ m 4
 decl (Decl
 n "rx1_mops1"
 t "wire"
-o 94
+o 99
 suid 42,0
 )
 )
@@ -15523,7 +15523,7 @@ m 4
 decl (Decl
 n "tx1_mops1"
 t "wire"
-o 99
+o 104
 suid 43,0
 )
 )
@@ -15538,7 +15538,7 @@ n "can_nodeid0"
 t "reg"
 b "[6:0]"
 eolc " // Hardwired CANopen Node-ID for each DCS controller chip"
-o 83
+o 87
 suid 46,0
 iv "7'h0"
 )
@@ -15554,7 +15554,7 @@ n "can_nodeid1"
 t "reg"
 b "[6:0]"
 eolc " // Hardwired CANopen Node-ID for each DCS controller chip"
-o 84
+o 88
 suid 47,0
 iv "7'h1"
 )
@@ -15567,7 +15567,7 @@ lang 5
 decl (Decl
 n "rst"
 t "wire"
-o 8
+o 9
 suid 48,0
 )
 )
@@ -15580,7 +15580,7 @@ lang 5
 decl (Decl
 n "txgen"
 t "wire"
-o 43
+o 46
 suid 49,0
 )
 )
@@ -15623,7 +15623,7 @@ decl (Decl
 n "select_bus"
 t "wire"
 b "[4:0]"
-o 79
+o 82
 suid 52,0
 )
 )
@@ -15637,7 +15637,7 @@ m 4
 decl (Decl
 n "rxmops"
 t "wire"
-o 95
+o 100
 suid 53,0
 )
 )
@@ -15651,7 +15651,7 @@ m 4
 decl (Decl
 n "txmops"
 t "wire"
-o 100
+o 105
 suid 54,0
 )
 )
@@ -15665,7 +15665,7 @@ m 1
 decl (Decl
 n "rxdec"
 t "wire"
-o 78
+o 81
 suid 55,0
 )
 )
@@ -15679,7 +15679,7 @@ m 1
 decl (Decl
 n "tx_mopshub"
 t "wire"
-o 80
+o 83
 suid 56,0
 )
 )
@@ -15693,7 +15693,7 @@ m 1
 decl (Decl
 n "rx_mopshub"
 t "wire"
-o 45
+o 48
 suid 57,0
 )
 )
@@ -15707,7 +15707,7 @@ m 1
 decl (Decl
 n "rx_mopshub5"
 t "wire"
-o 73
+o 76
 suid 59,0
 )
 )
@@ -15720,7 +15720,7 @@ m 1
 decl (Decl
 n "rx_mopshub4"
 t "wire"
-o 72
+o 75
 suid 60,0
 )
 )
@@ -15733,7 +15733,7 @@ m 1
 decl (Decl
 n "rx_mopshub3"
 t "wire"
-o 69
+o 72
 suid 61,0
 )
 )
@@ -15746,7 +15746,7 @@ m 1
 decl (Decl
 n "rx_mopshub2"
 t "wire"
-o 58
+o 61
 suid 62,0
 )
 )
@@ -15759,7 +15759,7 @@ m 1
 decl (Decl
 n "rx_mopshub1"
 t "wire"
-o 47
+o 50
 suid 63,0
 )
 )
@@ -15772,7 +15772,7 @@ m 1
 decl (Decl
 n "rx_mopshub7"
 t "wire"
-o 75
+o 78
 suid 64,0
 )
 )
@@ -15785,7 +15785,7 @@ m 1
 decl (Decl
 n "rx_mopshub6"
 t "wire"
-o 74
+o 77
 suid 65,0
 )
 )
@@ -15797,7 +15797,7 @@ lang 5
 decl (Decl
 n "tx_mopshub5"
 t "wire"
-o 38
+o 40
 suid 66,0
 )
 )
@@ -15809,7 +15809,7 @@ lang 5
 decl (Decl
 n "tx_mopshub4"
 t "wire"
-o 37
+o 39
 suid 67,0
 )
 )
@@ -15821,7 +15821,7 @@ lang 5
 decl (Decl
 n "tx_mopshub3"
 t "wire"
-o 34
+o 36
 suid 68,0
 )
 )
@@ -15833,7 +15833,7 @@ lang 5
 decl (Decl
 n "tx_mopshub2"
 t "wire"
-o 23
+o 25
 suid 69,0
 )
 )
@@ -15845,7 +15845,7 @@ lang 5
 decl (Decl
 n "tx_mopshub1"
 t "wire"
-o 12
+o 14
 suid 70,0
 )
 )
@@ -15857,7 +15857,7 @@ lang 5
 decl (Decl
 n "tx_mopshub7"
 t "wire"
-o 40
+o 42
 suid 71,0
 )
 )
@@ -15869,7 +15869,7 @@ lang 5
 decl (Decl
 n "tx_mopshub6"
 t "wire"
-o 39
+o 41
 suid 72,0
 )
 )
@@ -15895,7 +15895,7 @@ m 4
 decl (Decl
 n "rst_mops"
 t "reg"
-o 9
+o 95
 suid 77,0
 )
 )
@@ -15911,7 +15911,7 @@ n "can_nodeid"
 t "reg"
 b "[6:0]"
 eolc " // Hardwired CANopen Node-ID for each DCS controller chip"
-o 82
+o 86
 suid 78,0
 iv "7'h1"
 )
@@ -15925,7 +15925,7 @@ m 1
 decl (Decl
 n "ready_osc"
 t "wire"
-o 44
+o 47
 suid 79,0
 )
 )
@@ -15937,7 +15937,7 @@ lang 5
 decl (Decl
 n "tx_mopshub8"
 t "wire"
-o 41
+o 43
 suid 97,0
 )
 )
@@ -15949,7 +15949,7 @@ lang 5
 decl (Decl
 n "tx_mopshub9"
 t "wire"
-o 42
+o 44
 suid 98,0
 )
 )
@@ -15961,7 +15961,7 @@ lang 5
 decl (Decl
 n "tx_mopshub10"
 t "wire"
-o 13
+o 15
 suid 99,0
 )
 )
@@ -15973,7 +15973,7 @@ lang 5
 decl (Decl
 n "tx_mopshub14"
 t "wire"
-o 17
+o 19
 suid 100,0
 )
 )
@@ -15985,7 +15985,7 @@ lang 5
 decl (Decl
 n "tx_mopshub13"
 t "wire"
-o 16
+o 18
 suid 101,0
 )
 )
@@ -15997,7 +15997,7 @@ lang 5
 decl (Decl
 n "tx_mopshub12"
 t "wire"
-o 15
+o 17
 suid 102,0
 )
 )
@@ -16009,7 +16009,7 @@ lang 5
 decl (Decl
 n "tx_mopshub11"
 t "wire"
-o 14
+o 16
 suid 103,0
 )
 )
@@ -16021,7 +16021,7 @@ lang 5
 decl (Decl
 n "tx_mopshub15"
 t "wire"
-o 18
+o 20
 suid 104,0
 )
 )
@@ -16034,7 +16034,7 @@ m 1
 decl (Decl
 n "rx_mopshub8"
 t "wire"
-o 76
+o 79
 suid 105,0
 )
 )
@@ -16047,7 +16047,7 @@ m 1
 decl (Decl
 n "rx_mopshub9"
 t "wire"
-o 77
+o 80
 suid 106,0
 )
 )
@@ -16060,7 +16060,7 @@ m 1
 decl (Decl
 n "rx_mopshub10"
 t "wire"
-o 48
+o 51
 suid 107,0
 )
 )
@@ -16073,7 +16073,7 @@ m 1
 decl (Decl
 n "rx_mopshub11"
 t "wire"
-o 49
+o 52
 suid 108,0
 )
 )
@@ -16086,7 +16086,7 @@ m 1
 decl (Decl
 n "rx_mopshub12"
 t "wire"
-o 50
+o 53
 suid 109,0
 )
 )
@@ -16099,7 +16099,7 @@ m 1
 decl (Decl
 n "rx_mopshub13"
 t "wire"
-o 51
+o 54
 suid 110,0
 )
 )
@@ -16112,7 +16112,7 @@ m 1
 decl (Decl
 n "rx_mopshub14"
 t "wire"
-o 52
+o 55
 suid 111,0
 )
 )
@@ -16125,7 +16125,7 @@ m 1
 decl (Decl
 n "rx_mopshub15"
 t "wire"
-o 53
+o 56
 suid 112,0
 )
 )
@@ -16138,7 +16138,7 @@ m 1
 decl (Decl
 n "rx_mopshub23"
 t "wire"
-o 62
+o 65
 suid 115,0
 )
 )
@@ -16151,7 +16151,7 @@ m 1
 decl (Decl
 n "rx_mopshub22"
 t "wire"
-o 61
+o 64
 suid 116,0
 )
 )
@@ -16164,7 +16164,7 @@ m 1
 decl (Decl
 n "rx_mopshub21"
 t "wire"
-o 60
+o 63
 suid 117,0
 )
 )
@@ -16177,7 +16177,7 @@ m 1
 decl (Decl
 n "rx_mopshub20"
 t "wire"
-o 59
+o 62
 suid 118,0
 )
 )
@@ -16190,7 +16190,7 @@ m 1
 decl (Decl
 n "rx_mopshub19"
 t "wire"
-o 57
+o 60
 suid 119,0
 )
 )
@@ -16203,7 +16203,7 @@ m 1
 decl (Decl
 n "rx_mopshub18"
 t "wire"
-o 56
+o 59
 suid 120,0
 )
 )
@@ -16216,7 +16216,7 @@ m 1
 decl (Decl
 n "rx_mopshub17"
 t "wire"
-o 55
+o 58
 suid 121,0
 )
 )
@@ -16229,7 +16229,7 @@ m 1
 decl (Decl
 n "rx_mopshub16"
 t "wire"
-o 54
+o 57
 suid 122,0
 )
 )
@@ -16241,7 +16241,7 @@ lang 5
 decl (Decl
 n "tx_mopshub23"
 t "wire"
-o 27
+o 29
 suid 123,0
 )
 )
@@ -16253,7 +16253,7 @@ lang 5
 decl (Decl
 n "tx_mopshub22"
 t "wire"
-o 26
+o 28
 suid 124,0
 )
 )
@@ -16265,7 +16265,7 @@ lang 5
 decl (Decl
 n "tx_mopshub21"
 t "wire"
-o 25
+o 27
 suid 125,0
 )
 )
@@ -16277,7 +16277,7 @@ lang 5
 decl (Decl
 n "tx_mopshub20"
 t "wire"
-o 24
+o 26
 suid 126,0
 )
 )
@@ -16289,7 +16289,7 @@ lang 5
 decl (Decl
 n "tx_mopshub19"
 t "wire"
-o 22
+o 24
 suid 127,0
 )
 )
@@ -16301,7 +16301,7 @@ lang 5
 decl (Decl
 n "tx_mopshub18"
 t "wire"
-o 21
+o 23
 suid 128,0
 )
 )
@@ -16313,7 +16313,7 @@ lang 5
 decl (Decl
 n "tx_mopshub17"
 t "wire"
-o 20
+o 22
 suid 129,0
 )
 )
@@ -16325,7 +16325,7 @@ lang 5
 decl (Decl
 n "tx_mopshub16"
 t "wire"
-o 19
+o 21
 suid 130,0
 )
 )
@@ -16338,7 +16338,7 @@ m 1
 decl (Decl
 n "rx_mopshub30"
 t "wire"
-o 70
+o 73
 suid 131,0
 )
 )
@@ -16351,7 +16351,7 @@ m 1
 decl (Decl
 n "rx_mopshub29"
 t "wire"
-o 68
+o 71
 suid 132,0
 )
 )
@@ -16364,7 +16364,7 @@ m 1
 decl (Decl
 n "rx_mopshub28"
 t "wire"
-o 67
+o 70
 suid 133,0
 )
 )
@@ -16377,7 +16377,7 @@ m 1
 decl (Decl
 n "rx_mopshub27"
 t "wire"
-o 66
+o 69
 suid 134,0
 )
 )
@@ -16390,7 +16390,7 @@ m 1
 decl (Decl
 n "rx_mopshub26"
 t "wire"
-o 65
+o 68
 suid 135,0
 )
 )
@@ -16403,7 +16403,7 @@ m 1
 decl (Decl
 n "rx_mopshub25"
 t "wire"
-o 64
+o 67
 suid 136,0
 )
 )
@@ -16416,7 +16416,7 @@ m 1
 decl (Decl
 n "rx_mopshub24"
 t "wire"
-o 63
+o 66
 suid 137,0
 )
 )
@@ -16429,7 +16429,7 @@ m 1
 decl (Decl
 n "rx_mopshub31"
 t "wire"
-o 71
+o 74
 suid 138,0
 )
 )
@@ -16441,7 +16441,7 @@ lang 5
 decl (Decl
 n "tx_mopshub31"
 t "wire"
-o 36
+o 38
 suid 140,0
 )
 )
@@ -16453,7 +16453,7 @@ lang 5
 decl (Decl
 n "tx_mopshub30"
 t "wire"
-o 35
+o 37
 suid 141,0
 )
 )
@@ -16465,7 +16465,7 @@ lang 5
 decl (Decl
 n "tx_mopshub29"
 t "wire"
-o 33
+o 35
 suid 142,0
 )
 )
@@ -16477,7 +16477,7 @@ lang 5
 decl (Decl
 n "tx_mopshub28"
 t "wire"
-o 32
+o 34
 suid 143,0
 )
 )
@@ -16489,7 +16489,7 @@ lang 5
 decl (Decl
 n "tx_mopshub27"
 t "wire"
-o 31
+o 33
 suid 144,0
 )
 )
@@ -16501,7 +16501,7 @@ lang 5
 decl (Decl
 n "tx_mopshub26"
 t "wire"
-o 30
+o 32
 suid 145,0
 )
 )
@@ -16513,7 +16513,7 @@ lang 5
 decl (Decl
 n "tx_mopshub25"
 t "wire"
-o 29
+o 31
 suid 146,0
 )
 )
@@ -16525,7 +16525,7 @@ lang 5
 decl (Decl
 n "tx_mopshub24"
 t "wire"
-o 28
+o 30
 suid 147,0
 )
 )
@@ -16538,7 +16538,7 @@ m 4
 decl (Decl
 n "ready_osc_master"
 t "wire"
-o 89
+o 94
 suid 149,0
 )
 )
@@ -16551,7 +16551,7 @@ m 4
 decl (Decl
 n "ready_osc_11"
 t "wire"
-o 88
+o 93
 suid 150,0
 )
 )
@@ -16564,7 +16564,7 @@ m 4
 decl (Decl
 n "ready_osc_10"
 t "wire"
-o 87
+o 92
 suid 151,0
 )
 )
@@ -16577,7 +16577,7 @@ m 4
 decl (Decl
 n "ready_osc_01"
 t "wire"
-o 86
+o 91
 suid 152,0
 )
 )
@@ -16590,7 +16590,7 @@ m 4
 decl (Decl
 n "ready_osc_00"
 t "wire"
-o 85
+o 90
 suid 153,0
 )
 )
@@ -16603,7 +16603,7 @@ decl (Decl
 n "power_bus_cnt"
 t "wire"
 b "[4:0]"
-o 100
+o 7
 suid 154,0
 )
 )
@@ -16620,7 +16620,7 @@ t "wire"
 b "[4:0]"
 eolc "// Output data to be written on the CAN bus"
 posAdd 0
-o 101
+o 89
 suid 159,0
 )
 )
@@ -16636,7 +16636,7 @@ t "wire"
 eolc "// enable signal"
 preAdd 0
 posAdd 0
-o 102
+o 84
 suid 161,0
 iv "1'b0"
 )
@@ -16653,7 +16653,7 @@ t "wire"
 eolc "// enable signal"
 preAdd 0
 posAdd 0
-o 103
+o 85
 suid 162,0
 iv "1'b0"
 )
@@ -16666,7 +16666,7 @@ lang 5
 decl (Decl
 n "test_advanced"
 t "wire"
-o 104
+o 11
 suid 164,0
 )
 )
@@ -16678,7 +16678,7 @@ lang 5
 decl (Decl
 n "txdec"
 t "wire"
-o 105
+o 45
 suid 167,0
 )
 )
@@ -16690,7 +16690,7 @@ lang 5
 decl (Decl
 n "test_simult"
 t "wire"
-o 106
+o 12
 suid 168,0
 )
 )
@@ -16715,7 +16715,7 @@ lang 5
 decl (Decl
 n "random1000"
 t "wire"
-o 105
+o 8
 suid 171,0
 )
 )
@@ -16803,61 +16803,61 @@ uid 795,0
 )
 *567 (MRCItem
 litem &457
-pos 78
+pos 84
 dimension 20
 uid 801,0
 )
 *568 (MRCItem
 litem &458
-pos 79
+pos 85
 dimension 20
 uid 803,0
 )
 *569 (MRCItem
 litem &459
-pos 80
+pos 86
 dimension 20
 uid 805,0
 )
 *570 (MRCItem
 litem &460
-pos 81
+pos 87
 dimension 20
 uid 807,0
 )
 *571 (MRCItem
 litem &461
-pos 82
+pos 88
 dimension 20
 uid 1023,0
 )
 *572 (MRCItem
 litem &462
-pos 83
+pos 89
 dimension 20
 uid 1025,0
 )
 *573 (MRCItem
 litem &463
-pos 84
+pos 90
 dimension 20
 uid 1027,0
 )
 *574 (MRCItem
 litem &464
-pos 85
+pos 91
 dimension 20
 uid 1029,0
 )
 *575 (MRCItem
 litem &465
-pos 86
+pos 92
 dimension 20
 uid 1033,0
 )
 *576 (MRCItem
 litem &466
-pos 87
+pos 93
 dimension 20
 uid 1035,0
 )
@@ -16893,13 +16893,13 @@ uid 1529,0
 )
 *582 (MRCItem
 litem &472
-pos 88
+pos 94
 dimension 20
 uid 1583,0
 )
 *583 (MRCItem
 litem &473
-pos 89
+pos 95
 dimension 20
 uid 1585,0
 )
@@ -17013,19 +17013,19 @@ uid 2144,0
 )
 *602 (MRCItem
 litem &492
-pos 76
+pos 83
 dimension 20
 uid 2762,0
 )
 *603 (MRCItem
 litem &493
-pos 90
+pos 96
 dimension 20
 uid 3207,0
 )
 *604 (MRCItem
 litem &494
-pos 77
+pos 76
 dimension 20
 uid 3229,0
 )
@@ -17319,85 +17319,85 @@ uid 4612,0
 )
 *653 (MRCItem
 litem &543
-pos 91
+pos 97
 dimension 20
 uid 6780,0
 )
 *654 (MRCItem
 litem &544
-pos 92
+pos 98
 dimension 20
 uid 6814,0
 )
 *655 (MRCItem
 litem &545
-pos 93
+pos 99
 dimension 20
 uid 6816,0
 )
 *656 (MRCItem
 litem &546
-pos 94
+pos 100
 dimension 20
 uid 6818,0
 )
 *657 (MRCItem
 litem &547
-pos 95
+pos 101
 dimension 20
 uid 6820,0
 )
 *658 (MRCItem
 litem &548
-pos 96
+pos 77
 dimension 20
 uid 7575,0
 )
 *659 (MRCItem
 litem &549
-pos 97
+pos 102
 dimension 20
 uid 7936,0
 )
 *660 (MRCItem
 litem &550
-pos 98
+pos 103
 dimension 20
 uid 8227,0
 )
 *661 (MRCItem
 litem &551
-pos 99
+pos 104
 dimension 20
 uid 8791,0
 )
 *662 (MRCItem
 litem &552
-pos 100
+pos 78
 dimension 20
 uid 10413,0
 )
 *663 (MRCItem
 litem &553
-pos 101
+pos 79
 dimension 20
 uid 10447,0
 )
 *664 (MRCItem
 litem &554
-pos 102
+pos 80
 dimension 20
 uid 11804,0
 )
 *665 (MRCItem
 litem &555
-pos 103
+pos 81
 dimension 20
 uid 15104,0
 )
 *666 (MRCItem
 litem &556
-pos 104
+pos 82
 dimension 20
 uid 20918,0
 )

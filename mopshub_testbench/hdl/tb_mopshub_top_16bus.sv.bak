@@ -45,14 +45,16 @@ module tb_mopshub_top_16bus();
   wire            test_tx_end;
   
   reg             test_advanced =1'b0;
-  wire            costum_msg_end;
+  wire            test_advanced_end ;
 
   // MOPSHUB signals
   wire    [75:0]  data_rec_uplink;
-  wire    [4 :0]  can_rec_select;
   wire    [75:0]  data_tra_downlink;
+  wire    [75:0]  data_tra_power_spi;
+  wire    [75:0]  data_tra_mon_spi;
+  wire    [4 :0]  can_rec_select;
   wire    [4 :0]  can_tra_select;
-
+  wire    [4 :0]  bus_cnt_power;
   wire            irq_elink_tra;
   wire            irq_elink_rec;
   
@@ -115,8 +117,9 @@ module tb_mopshub_top_16bus();
   reg [4:0]    n_buses =5'd15;
   //Internal assignments  
   assign can_tra_select    = mopshub0.can_tra_select;
-  assign can_rec_select    = mopshub0.can_rec_select;
-
+  assign can_rec_select    = mopshub0.can_rec_select; 
+  assign data_tra_power_spi= mopshub0.data_tra_power_spi;
+  assign data_tra_mon_spi  = mopshub0.data_tra_mon_spi;
   assign end_power_init    = mopshub0.end_power_init;
   assign start_init        = mopshub0.start_init;
   assign end_init          = mopshub0.end_init;
@@ -124,10 +127,9 @@ module tb_mopshub_top_16bus();
   assign end_trim_bus      = mopshub0.end_trim_bus;
   assign start_trim_osc    = mopshub0.start_trim_ack;
   assign power_bus_en      = mopshub0.power_bus_en;
-  assign start_osc_cnt     = mopshub0.start_osc_cnt;
+  assign bus_cnt_power     = mopshub0.bus_cnt_power;
   assign ready_osc         = data_generator0.ready_osc;
-
-  
+ 
   
   mopshub_top_16bus mopshub0(
   .clk(clk_40_m),
@@ -203,6 +205,7 @@ module tb_mopshub_top_16bus();
   .tx13(tx13),
   .tx14(tx14),
   .tx15(tx15));
+
   
   data_generator data_generator0(
   .clk_mops(clk_mops),
@@ -211,10 +214,10 @@ module tb_mopshub_top_16bus();
   .clk_elink(clk_40_m),
   .rst(rst),
   .ext_rst_mops(rst_bus),
-  .start_osc_cnt(start_osc_cnt),
+  .bus_cnt_power(bus_cnt_power),
   .ext_trim_mops(osc_auto_trim_mopshub),
   //Start SM
-  .start_data_gen(sign_on_sig),
+  .sign_on_sig(sign_on_sig),
   //Read ADC channels from MOPS and send it to MOPSHUB rx
   .test_rx(test_rx),
   .test_tx(test_tx),
@@ -223,7 +226,7 @@ module tb_mopshub_top_16bus();
   .test_rx_end(test_rx_end),
   .test_tx_start(test_tx_start),
   .test_advanced(test_advanced),
-  .costum_msg_end(costum_msg_end),
+  .test_advanced_end (test_advanced_end ),
   .adc_ch(adc_ch),  
   // Acknowledgement bit from the MOPSHUB
   //Decoder Signals [Listen always to the bus ]
@@ -237,8 +240,7 @@ module tb_mopshub_top_16bus();
   .can_rec_select(can_rec_select),
   .bus_id(bus_id),
   .test_elink_data_done(),
-  .start_write_emulator(),
-  .start_read_elink(),
+  .start_read_elink(1'b0),
   .end_read_elink(),
   //print activity
   .start_init(start_init),   
@@ -246,6 +248,8 @@ module tb_mopshub_top_16bus();
   .can_tra_select(can_tra_select),
   .data_rec_uplink(data_rec_uplink), 
   .data_tra_downlink(data_tra_downlink), 
+  .data_tra_mon_spi(data_tra_mon_spi),
+  .data_tra_power_spi(data_tra_power_spi),
   .end_trim_bus(end_trim_bus),
   .start_trim_osc(start_trim_osc),
   //ElinkSignals
@@ -300,22 +304,22 @@ module tb_mopshub_top_16bus();
   .tx13(tx13),
   .tx14(tx14),
   .tx15(tx15),
-  .tx16(),
-  .tx17(),
-  .tx18(),              
-  .tx19(),
-  .tx20(),  
-  .tx21(),
-  .tx22(),
-  .tx23(),
-  .tx24(),
-  .tx25(),
-  .tx26(),
-  .tx27(),
-  .tx28(),              
-  .tx29(),
-  .tx30(),   
-  .tx31());
+  .tx16(1'b1),
+  .tx17(1'b1),
+  .tx18(1'b1),              
+  .tx19(1'b1),
+  .tx20(1'b1),  
+  .tx21(1'b1),
+  .tx22(1'b1),
+  .tx23(1'b1),
+  .tx24(1'b1),
+  .tx25(1'b1),
+  .tx26(1'b1),
+  .tx27(1'b1),
+  .tx28(1'b1),              
+  .tx29(1'b1),
+  .tx30(1'b1),   
+  .tx31(1'b1));
   
   
  // Clock Generators and Dividers master
@@ -346,8 +350,8 @@ module tb_mopshub_top_16bus();
       if(end_power_init ==1) osc_auto_trim_mopshub = 1'b0;
       if(sign_on_sig ==1)//start Rx test
       begin
-      test_rx =1'b1;
-      //test_advanced = 1'b1;
+      //test_tx =1'b1;
+      test_advanced = 1'b1;
       end
       if(test_rx_end ==1)//Done Rx test
       begin
@@ -363,7 +367,7 @@ module tb_mopshub_top_16bus();
         //test_tx =1'b0;//Done Tx test
         test_tx =1'b1;//Loop Tx test
       end
-      if (costum_msg_end ==1) test_advanced = 1'b0;
+      if (test_advanced_end  ==1) test_advanced = 1'b0;
     end
   /////******* prints bus activity ******///
   always@(posedge clk_40_m)
@@ -374,6 +378,6 @@ module tb_mopshub_top_16bus();
     if (start_trim_osc)info_debug_sig = {"<:Oscillator Trimming [BUS ID ",$sformatf("%h",power_bus_cnt)," ]:>"};
     if (test_rx_start) info_debug_sig = $sformatf("<:RX signals   [BUS ID %d ]  :>",bus_id);   
     if (test_tx_start) info_debug_sig = $sformatf("<:TX signals  [BUS ID %d ]  :>",bus_id);    
-    if (test_advanced) info_debug_sig = $sformatf("<:Costum Message  [BUS ID %d ]  :>",bus_id); 
+    if (test_advanced) info_debug_sig = $sformatf("<:Advanced Test  [BUS ID %d ]  :>",bus_id); 
   end
 endmodule 

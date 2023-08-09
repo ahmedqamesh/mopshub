@@ -72,19 +72,19 @@ value "/../../home/dcs/git/mopshub/mopshub_lib/hds/sync_detector"
 )
 (vvPair
 variable "date"
-value "02/24/23"
+value "08/09/23"
 )
 (vvPair
 variable "day"
-value "Fri"
+value "Wed"
 )
 (vvPair
 variable "day_long"
-value "Friday"
+value "Wednesday"
 )
 (vvPair
 variable "dd"
-value "24"
+value "09"
 )
 (vvPair
 variable "entity_name"
@@ -112,7 +112,7 @@ value "dcs"
 )
 (vvPair
 variable "graphical_source_date"
-value "02/24/23"
+value "08/09/23"
 )
 (vvPair
 variable "graphical_source_group"
@@ -124,7 +124,7 @@ value "chipdev2.physik.uni-wuppertal.de"
 )
 (vvPair
 variable "graphical_source_time"
-value "09:44:12"
+value "15:36:13"
 )
 (vvPair
 variable "group"
@@ -148,7 +148,7 @@ value "$HDS_PROJECT_DIR/mopshub_lib/designcheck"
 )
 (vvPair
 variable "library_downstream_ModelSimCompiler"
-value "$HDS_PROJECT_DIR/mopshub_lib/work"
+value "$HDS_PROJECT_DIR/work"
 )
 (vvPair
 variable "library_downstream_PrecisionSynthesisDataPrep"
@@ -156,7 +156,7 @@ value "$HDS_PROJECT_DIR/mopshub_lib/ps"
 )
 (vvPair
 variable "library_downstream_QuestaSimCompiler"
-value "$HDS_PROJECT_DIR/mopshub_lib/work"
+value "$HDS_PROJECT_DIR/work"
 )
 (vvPair
 variable "library_downstream_QuestaSimSimulator"
@@ -168,7 +168,7 @@ value "$HDS_PROJECT_DIR/mopshub_lib/svassistant"
 )
 (vvPair
 variable "mm"
-value "02"
+value "08"
 )
 (vvPair
 variable "module_name"
@@ -176,11 +176,11 @@ value "sync_detector"
 )
 (vvPair
 variable "month"
-value "Feb"
+value "Aug"
 )
 (vvPair
 variable "month_long"
-value "February"
+value "August"
 )
 (vvPair
 variable "p"
@@ -244,7 +244,7 @@ value "struct"
 )
 (vvPair
 variable "time"
-value "09:44:12"
+value "15:36:13"
 )
 (vvPair
 variable "unit"
@@ -847,7 +847,7 @@ lang 5
 decl (Decl
 n "bitstream_in"
 t "wire"
-b "[10:0]"
+b "[11:0]"
 o 3
 suid 12,0
 )
@@ -857,7 +857,7 @@ va (VaSet
 font "courier,8,0"
 )
 xt "2000,1800,15500,2700"
-st "wire [10:0]  bitstream_in;"
+st "wire [11:0]  bitstream_in;"
 )
 )
 *19 (PortIoIn
@@ -1065,20 +1065,31 @@ st "
 //-- alignment selected
 //-------------------------------------------------------------------------------------------
 assign word10b_rdy = alignment_reg[4]; // The data is ready once alignment_sreg == 10000
-assign word10b = word10b_reg;
+assign word10b     = word10b_reg;
 always@(posedge clk)
-if (!rst) word10b_reg <= COMMAp;
-else
-begin
-  if(alignment_reg[0] ==1)
-    case (align_select)
-        1'b0 : word10b_reg   <= bitstream_align0;//when bit0 word got comma => align to bitstream_align_array0
-        1'b1 : word10b_reg   <= bitstream_align1;//when bit1 word got comma => align to bitstream_align_array1    
-        default: word10b_reg <= COMMAp;
-    endcase
- else
-  word10b_reg <= word10b_reg;
-end
+if (!rst) word10b_reg <= COMMAn;
+else if(alignment_reg[0] ==1)
+      case (align_select)
+          1'b0   : word10b_reg   <= bitstream_align0;//when bit0 word got comma => align to bitstream_align_array0
+          1'b1   : word10b_reg   <= bitstream_align1;//when bit1 word got comma => align to bitstream_align_array1    
+          default: word10b_reg   <= COMMAn;
+      endcase
+else word10b_reg <= word10b_reg;
+//end
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
@@ -1240,11 +1251,11 @@ xt "75200,47200,92700,51700"
 st "
 // eb1 1
 //check if there are valid commas 
-assign comma_valid_bits_or =  (comma_valid_bits[1] | comma_valid_bits[0]);
+assign comma_valid_bits_or =  (comma_valid_bits[0] | comma_valid_bits[1]);
 always@(posedge clk)
 if (!rst)
 begin
-  align_select   <= 2'b0;
+  align_select   <= 1'b0;
   alignment_reg <= 5'b0; //alignment selector state
 end
 else 
@@ -1252,11 +1263,12 @@ begin
   if(comma_valid_bits_or ==1) 
   begin
   alignment_reg <= 5'b10000; 
-    case (comma_valid_bits)
-        2'b01 : align_select <=  1'b0;//when bit0 word got comma => align to bitstream_align0
-        2'b10 : align_select <=  1'b1;//when bit1 word got comma => align to bitstream_align1
-        default: align_select <=  1'b0;    
-    endcase
+  align_select =  (!comma_valid_bits[0] & comma_valid_bits[1]);
+  //  case (comma_valid_bits)
+   //     2'b01 : align_select <=  1'b0;//when bit0 word got comma => align to bitstream_align0
+    //    2'b10 : align_select <=  1'b1;//when bit1 word got comma => align to bitstream_align1
+     //   default: align_select <=  1'b0;    
+    //endcase
   end 
   else
   begin
@@ -1264,6 +1276,14 @@ begin
     align_select  <= align_select;
   end 
 end
+
+
+
+
+
+
+
+
 
 
 
@@ -1756,8 +1776,9 @@ xt "57200,22200,74800,26700"
 st "
 // eb1 1                                        
 initial word10b_reg          = 10'b0;
-initial align_select         = 0;
+initial align_select         = 1'b0;
 initial alignment_reg        = 5'b0;
+
 
 
 "
@@ -2251,11 +2272,11 @@ va (VaSet
 vasetType 3
 lineWidth 2
 )
-xt "51000,19000,66000,36000"
+xt "51000,20000,66000,36000"
 pts [
-"51000,19000"
-"52000,19000"
-"52000,36000"
+"51000,20000"
+"53000,20000"
+"53000,36000"
 "66000,36000"
 ]
 )
@@ -2631,11 +2652,11 @@ tm "BdCompilerDirectivesTextMgr"
 associable 1
 )
 windowSize "-8,13,1928,1088"
-viewArea "5689,-79,93514,47705"
+viewArea "7200,-15600,111693,39544"
 cachedDiagramExtent "0,0,93000,52000"
 hasePageBreakOrigin 1
 pageBreakOrigin "0,0"
-lastUid 4256,0
+lastUid 4859,0
 defaultCommentText (CommentText
 shape (Rectangle
 layer 0
@@ -3692,7 +3713,7 @@ tm "BdDeclarativeTextMgr"
 commonDM (CommonDM
 ldm (LogicalDM
 ordering 1
-suid 61,0
+suid 64,0
 usingSuid 1
 emptyRow *98 (LEmptyRow
 )
@@ -3757,7 +3778,7 @@ lang 5
 decl (Decl
 n "bitstream_in"
 t "wire"
-b "[10:0]"
+b "[11:0]"
 o 3
 suid 12,0
 )

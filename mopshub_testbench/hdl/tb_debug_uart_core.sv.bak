@@ -21,7 +21,10 @@ module tb_debug_uart_core();
   wire            w_tx_done;
   wire            out_tx_serial;
   reg in_rx_serial = 1;
+  wire out_rx_serial;
   wire [7:0] out_rx_byte;
+
+
 assign out_rx_byte = debug_uart_core0.out_rx_byte;
 assign w_tx_done = debug_uart_core0.w_tx_done;
    debug_uart_core #(.CLKS_PER_BIT(c_CLKS_PER_BIT)) debug_uart_core0
@@ -38,7 +41,8 @@ assign w_tx_done = debug_uart_core0.w_tx_done;
     .statedeb_osc_trim (8'hd), 
     .statedeb_elink_tra(8'he), 
     .statedeb_elink_rec (8'hf), 
-    .statedeb_spi(8'h1A));
+    .statedeb_spi(8'h1A),
+    .dec10b_Out_dbg(8'h1B));
  
  debug_uart_receiver #(.CLKS_PER_BIT(c_CLKS_PER_BIT)) debug_uart_receiver0( 
    .i_Clock     (clk_uart), 
@@ -46,6 +50,19 @@ assign w_tx_done = debug_uart_core0.w_tx_done;
    .o_Rx_DV     (out_rx_dv_dbg), 
    .o_Rx_Byte   (out_rx_byte_dbg)
 ); 
+
+data_gen_uart_sm #(
+   .BAUD_RATE(115200),
+   .BAUD_TICKS($ceil((1 / 115200) * 1e9))
+)data_gen_uart_sm0
+
+( 
+   .clk(clk_uart), 
+   .data_byte(8'hD), 
+   .rst(rst), 
+   .out_rx_serial(out_rx_serial), 
+   .statedb()
+);
 
   // Takes in input byte and serializes it 
   task automatic generate_uart_data(
@@ -107,7 +124,7 @@ clock_generator #(
         $display("Test Passed - Correct Byte Received");
       else
         $display("Test Failed - Incorrect Byte Received");
-    #1 ms
+    #1ms
     $stop;   // end of simulation
     end
    

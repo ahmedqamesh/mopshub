@@ -46,7 +46,7 @@ module dec_8b10b_mopshub (
 	wire disp6a = p31 | (p22 & dispin) ; // pos disp if p22 and was pos, or p31.
 	wire disp6a2 = p31 & dispin ;  // disp is ++ after 4 bits
 	wire disp6a0 = p13 & !dispin ; // -- disp after 4 bits
-    wire disp6b = (((ei & ii & !disp6a0) | (disp6a & (ei | ii)) | disp6a2 | (ei & ii & di)) & (ei | ii | di));
+  wire disp6b = (((ei & ii & !disp6a0) | (disp6a & (ei | ii)) | disp6a2 | (ei & ii & di)) & (ei | ii | di));
 	
 	// The 5B/6B decoding special cases where ABCDE != abcde
 	wire p22bceeqi = p22 & bi & ci & (ei == ii);

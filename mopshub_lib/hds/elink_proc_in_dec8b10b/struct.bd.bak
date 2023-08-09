@@ -105,19 +105,19 @@ value "/../../home/dcs/git/mopshub/mopshub_lib/hds/elink_proc_in_dec8b10b"
 )
 (vvPair
 variable "date"
-value "08/03/23"
+value "08/09/23"
 )
 (vvPair
 variable "day"
-value "Thu"
+value "Wed"
 )
 (vvPair
 variable "day_long"
-value "Thursday"
+value "Wednesday"
 )
 (vvPair
 variable "dd"
-value "03"
+value "09"
 )
 (vvPair
 variable "entity_name"
@@ -145,7 +145,7 @@ value "dcs"
 )
 (vvPair
 variable "graphical_source_date"
-value "08/03/23"
+value "08/09/23"
 )
 (vvPair
 variable "graphical_source_group"
@@ -157,7 +157,7 @@ value "chipdev2.physik.uni-wuppertal.de"
 )
 (vvPair
 variable "graphical_source_time"
-value "11:20:46"
+value "14:19:06"
 )
 (vvPair
 variable "group"
@@ -277,7 +277,7 @@ value "struct"
 )
 (vvPair
 variable "time"
-value "11:20:46"
+value "14:19:06"
 )
 (vvPair
 variable "unit"
@@ -689,7 +689,7 @@ va (VaSet
 font "courier,8,0"
 )
 xt "20000,-20450,31000,-19550"
-st "bitstream_in : [10:0]"
+st "bitstream_in : [11:0]"
 blo "20000,-19750"
 )
 )
@@ -698,7 +698,7 @@ lang 5
 decl (Decl
 n "bitstream_in"
 t "wire"
-b "[10:0]"
+b "[11:0]"
 o 1
 suid 16,0
 )
@@ -1024,7 +1024,7 @@ lang 5
 decl (Decl
 n "bitstream_in"
 t "wire"
-b "[10:0]"
+b "[11:0]"
 o 4
 suid 54,0
 )
@@ -1356,7 +1356,7 @@ va (VaSet
 font "courier,8,0"
 )
 xt "-2000,-20450,5000,-19550"
-st "dout : [10:0]"
+st "dout : [11:0]"
 ju 2
 blo "5000,-19750"
 )
@@ -1367,7 +1367,7 @@ m 1
 decl (Decl
 n "dout"
 t "wire"
-b "[10:0]"
+b "[11:0]"
 preAdd 0
 posAdd 0
 o 4
@@ -2294,7 +2294,6 @@ assign ISK_eob     = (word10b == EOBp   |  word10b == EOBn   )  ? 1: 0;
 assign ISKcode[0]  = ((! ISK_soc) & (ISK_eoc ^ ISK_comma)) | ISK_sob | ISK_eob;
 assign ISKcode[1]  = ((! ISK_eoc) & (ISK_soc ^ ISK_comma)) | ISK_sob | ISK_eob;
 
-
 always@(posedge clk)
 if (!rst)
 begin
@@ -2309,6 +2308,8 @@ begin
   else if (ISK_sob ==1)//start of busy detected 
   busy_r <= 1;
 end                                        
+
+
 
 
 
@@ -2412,7 +2413,7 @@ fg "65535,65535,65535"
 lineColor "0,0,32768"
 lineWidth 2
 )
-xt "83000,3000,101000,8000"
+xt "82000,1000,100000,6000"
 )
 oxt "0,0,18000,5000"
 text (MLText
@@ -2423,7 +2424,7 @@ fg "26368,26368,26368"
 bg "49152,49152,49152"
 font "courier,8,0"
 )
-xt "83200,3200,100700,7700"
+xt "82200,1200,99700,5700"
 st "
 // Wire_assign 1                     
 initial dataout_valid_r   = 0;
@@ -2469,7 +2470,7 @@ fg "65535,65535,37120"
 lineColor "0,0,32768"
 lineWidth 2
 )
-xt "75000,-7000,83000,-3000"
+xt "74000,-9000,82000,-5000"
 )
 oxt "0,0,8000,10000"
 ttg (MlTextGroup
@@ -2482,9 +2483,9 @@ uid 11548,0
 va (VaSet
 font "courier,8,1"
 )
-xt "76250,-5900,82750,-5000"
+xt "75250,-7900,81750,-7000"
 st "Wire_assign2"
-blo "76250,-5200"
+blo "75250,-7200"
 tm "HdlTextNameMgr"
 )
 *71 (Text
@@ -2492,9 +2493,9 @@ uid 11549,0
 va (VaSet
 font "courier,8,1"
 )
-xt "76250,-5000,76750,-4100"
+xt "75250,-7000,75750,-6100"
 st "6"
-blo "76250,-4300"
+blo "75250,-6300"
 tm "HdlTextNumberMgr"
 )
 ]
@@ -2506,7 +2507,7 @@ va (VaSet
 vasetType 1
 fg "49152,49152,49152"
 )
-xt "75250,-4750,76750,-3250"
+xt "74250,-6750,75750,-5250"
 iconName "TextFile.png"
 iconMaskName "TextFile.msk"
 ftype 21
@@ -3645,16 +3646,16 @@ optionalChildren [
 uid 12722,0
 sl 0
 ro 90
-xt "28750,-30375,30250,-29625"
+xt "37000,-26375,38500,-25625"
 )
 (Line
 uid 12723,0
 sl 0
 ro 90
-xt "30250,-30000,30750,-30000"
+xt "38500,-26000,39000,-26000"
 pts [
-"30750,-30000"
-"30250,-30000"
+"39000,-26000"
+"38500,-26000"
 ]
 )
 ]
@@ -3670,10 +3671,10 @@ uid 12725,0
 va (VaSet
 font "courier,8,0"
 )
-xt "22000,-30450,28000,-29550"
+xt "30250,-26450,36250,-25550"
 st "word10b_rdy"
 ju 2
-blo "28000,-29750"
+blo "36250,-25750"
 tm "WireNameMgr"
 )
 )
@@ -3799,9 +3800,9 @@ uid 2051,0
 va (VaSet
 font "courier,8,0"
 )
-xt "8000,-20900,19000,-20000"
-st "bitstream_in : [10:0]"
-blo "8000,-20200"
+xt "6000,-20900,17000,-20000"
+st "bitstream_in : [11:0]"
+blo "6000,-20200"
 tm "WireNameMgr"
 )
 )
@@ -5195,10 +5196,10 @@ uid 11802,0
 va (VaSet
 vasetType 3
 )
-xt "73000,-9000,79000,-9000"
+xt "73000,-10000,78000,-10000"
 pts [
-"73000,-9000"
-"79000,-9000"
+"73000,-10000"
+"78000,-10000"
 ]
 )
 start &64
@@ -5216,9 +5217,9 @@ uid 11808,0
 va (VaSet
 font "courier,8,0"
 )
-xt "75000,-9900,78000,-9000"
+xt "74000,-10900,77000,-10000"
 st "busy_r"
-blo "75000,-9200"
+blo "74000,-10200"
 tm "WireNameMgr"
 )
 )
@@ -5973,10 +5974,10 @@ uid 12707,0
 va (VaSet
 vasetType 3
 )
-xt "30750,-30000,43250,-30000"
+xt "39000,-26000,51500,-26000"
 pts [
-"30750,-30000"
-"43250,-30000"
+"39000,-26000"
+"51500,-26000"
 ]
 )
 start &117
@@ -5997,9 +5998,9 @@ va (VaSet
 isHidden 1
 font "courier,8,0"
 )
-xt "35000,-30900,41000,-30000"
+xt "44000,-26900,50000,-26000"
 st "word10b_rdy"
-blo "35000,-30200"
+blo "44000,-26200"
 tm "WireNameMgr"
 )
 )
@@ -6120,12 +6121,12 @@ tm "BdCompilerDirectivesTextMgr"
 ]
 associable 1
 )
-windowSize "1912,40,3848,1055"
-viewArea "-9540,-48000,100092,6016"
+windowSize "-8,13,1928,1088"
+viewArea "10114,-34736,106470,16114"
 cachedDiagramExtent "-19000,-36000,130000,55000"
 hasePageBreakOrigin 1
 pageBreakOrigin "-81000,-51000"
-lastUid 14170,0
+lastUid 15253,0
 defaultCommentText (CommentText
 shape (Rectangle
 layer 0
@@ -7187,7 +7188,7 @@ tm "BdDeclarativeTextMgr"
 commonDM (CommonDM
 ldm (LogicalDM
 ordering 1
-suid 181,0
+suid 188,0
 usingSuid 1
 emptyRow *211 (LEmptyRow
 )
@@ -7254,7 +7255,7 @@ m 4
 decl (Decl
 n "bitstream_in"
 t "wire"
-b "[10:0]"
+b "[11:0]"
 o 4
 suid 54,0
 )

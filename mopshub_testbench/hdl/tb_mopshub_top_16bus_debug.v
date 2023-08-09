@@ -247,7 +247,7 @@ fifo_async #(76,15) fifo_async0(
   .start_osc_cnt(start_osc_cnt),
   .ext_trim_mops(osc_auto_trim_mopshub),
   //Start SM
-  .start_data_gen(sign_on_sig),
+  .sign_on_sig(sign_on_sig),
   //Read ADC channels from MOPS and send it to MOPSHUB rx
   .test_rx(test_rx),
   .test_tx(test_tx),
