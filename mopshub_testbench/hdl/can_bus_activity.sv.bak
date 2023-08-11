@@ -129,6 +129,21 @@ end
               $strobe("Status BAD ***************************************************************************** Status BAD=%h",responsereg);
               failures += 1;
             end
+        end 
+        
+        75'h608????????????????:
+        begin 
+          if(responsereg inside{75'h608????????????????})
+            begin
+              $strobe("Status GOOD");
+              status=1;
+            end
+          else
+            begin
+              $display("Current simulation time is: ", $realtime);
+              $strobe("Status BAD ***************************************************************************** Status BAD=%h",responsereg);
+              failures += 1;
+            end
         end       
         75'h6014010000000000000:
         begin 

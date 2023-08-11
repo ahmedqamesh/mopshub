@@ -8,7 +8,7 @@ module tb_data_gen_elink ;
   wire wr_en;
   wire done;               // dbg
   wire [1:0] delimeter;
-  reg  [9:0] counter10bit_limit = 10'd8;
+  reg  [9:0] counter10bit_limit = 10'd10;
   wire [9:0] data10bout; 
   wire [9:0] data_tra_10bitin;
   wire KI;
@@ -34,6 +34,8 @@ data_gen_elink_sm data_gen_elink0(
   .end_write_emulator(1'b1),
   .done(done),
   .tx_efifo_full(tx_efifo_full),
+  .wr_en_comma(wr_en_comma),
+  .efifo_empty(efifo_empty),
   .wr_en(wr_en));   
 
 assign delimeter = data10bout[9:8];
@@ -41,11 +43,12 @@ assign KI =  delimeter[1] | delimeter[0]; //Control signal for the KI of the enc
 
  fifo_to_elink fifo_to_elink0( 
    .fifo_wr_en            (wr_en), 
+   .wr_en_comma           (wr_en_comma),
    .clk                   (clk), 
    .fifo_din              ({delimeter, data10bout[7:0]}), 
    .fifo_flush            (1'b0), 
    .data_2bit_out         (data_2bit_in), 
-   .efifo_empty           (), 
+   .efifo_empty           (efifo_empty), 
    .efifo_full            (tx_efifo_full), 
    .rst                   (rst), 
    .Kchar_comma           (Kchar_comma),  

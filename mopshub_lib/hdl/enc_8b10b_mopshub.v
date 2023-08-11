@@ -18,7 +18,8 @@ module enc_8b10b_mopshub (
 		input ena,
 		input ki,	// Control (K) input(active high)
 		input [7:0] datain,
-		
+		input [9:0] COMMAp,
+		input [9:0] COMMAn,		
 		output [9:0] dataout
 	);
 	reg dispin;
@@ -110,10 +111,10 @@ module enc_8b10b_mopshub (
 	reg [9:0] dataout_r;
 	
 	
-	always @ (posedge clk, negedge rst) begin : disp_proc
-		if (rst == 0) begin
+	always @ (posedge clk) begin : disp_proc
+		if (!rst) begin
 			dispin <= 0;
-			dataout_r <= 0;
+			dataout_r <= COMMAn;
 		end 
 		else if (ena == 1) begin
 			dispin <= dispout;

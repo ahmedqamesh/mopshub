@@ -58,6 +58,8 @@ module tb_mopshub_top_32bus();
   wire    [75:0]  data_rec_uplink;
   wire    [4 :0]  can_rec_select;
   wire    [75:0]  data_tra_downlink;
+  wire    [75:0]  data_tra_power_spi;
+  wire    [75:0]  data_tra_mon_spi;  
   wire    [4 :0]  can_tra_select;
   wire    [4 :0]  bus_cnt_power;
 
@@ -142,6 +144,8 @@ module tb_mopshub_top_32bus();
   assign can_rec_select    = mopshub0.can_rec_select;
   assign data_rec_uplink   = mopshub0.data_rec_uplink;
   assign data_tra_downlink = mopshub0.data_tra_downlink;
+  assign data_tra_power_spi= mopshub0.data_tra_power_spi;
+  assign data_tra_mon_spi  = mopshub0.data_tra_mon_spi;
   assign end_power_init    = mopshub0.end_power_init;
   assign start_init        = mopshub0.start_init;
   assign end_init          = mopshub0.end_init;
@@ -305,6 +309,9 @@ module tb_mopshub_top_32bus();
   // UART signals
   //.out_tx_serial(out_tx_serial),
  // .in_rx_serial(in_rx_serial),
+  //SPI Signals
+  .data_tra_mon_spi(data_tra_mon_spi),
+  .data_tra_power_spi(data_tra_power_spi),
   //ElinkSignals
   .tx_elink2bit(rx_mopshub_2bit),
   .rx_elink2bit(tx_mopshub_2bit),
@@ -425,8 +432,8 @@ clock_generator #(
       if(end_power_init ==1) osc_auto_trim_mopshub = 1'b0;
       if(sign_on_sig ==1)//start Rx test
       begin
-      //test_rx =1'b1;
-      test_advanced = 1'b1;
+      test_rx =1'b1;
+      //test_advanced = 1'b1;
       end
       if(test_rx_end ==1)//Done Rx test
       begin

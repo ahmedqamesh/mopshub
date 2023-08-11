@@ -17,7 +17,7 @@ module dec_8b10b_mopshub (
 		input clk,
 		input [9:0] datain, // (10-bit input data to be decoded)
 		input datain_valid,
-		
+		input [7:0] Kchar_comma,	
 		output ko, //comma alignment signal, 
 		output [7:0] dataout,
 		output code_err, //code error flag
@@ -46,7 +46,7 @@ module dec_8b10b_mopshub (
 	wire disp6a = p31 | (p22 & dispin) ; // pos disp if p22 and was pos, or p31.
 	wire disp6a2 = p31 & dispin ;  // disp is ++ after 4 bits
 	wire disp6a0 = p13 & !dispin ; // -- disp after 4 bits
-    wire disp6b = (((ei & ii & !disp6a0) | (disp6a & (ei | ii)) | disp6a2 | (ei & ii & di)) & (ei | ii | di));
+  wire disp6b = (((ei & ii & !disp6a0) | (disp6a & (ei | ii)) | disp6a2 | (ei & ii & di)) & (ei | ii | di));
 	
 	// The 5B/6B decoding special cases where ABCDE != abcde
 	wire p22bceeqi = p22 & bi & ci & (ei == ii);
@@ -114,11 +114,11 @@ module dec_8b10b_mopshub (
 	reg ko_r;
 	reg code_err_r;
 	
-	always @ (posedge clk, negedge rst) begin : output_proc
-		if (rst == 0) begin
+	always @ (posedge clk) begin : output_proc
+		if (!rst) begin
 			dispin <= 0;
 			disp_err_r <= 0;
-			dataout_r <= 0;
+			dataout_r <= Kchar_comma;
 			ko_r <= 0;
 			code_err_r <= 0;
 		end else if (datain_valid == 1) begin

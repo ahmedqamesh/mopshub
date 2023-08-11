@@ -13,11 +13,11 @@
 // Translated back into Verilog by Lucas Schreiter
 
 module dec_8b10b_mopshub (
-		input rst,
-		input clk,
-		input [9:0] datain, // (10-bit input data to be decoded)
-		input datain_valid,
-		
+		input  rst,
+		input  clk,
+		input  [9:0] datain, // (10-bit input data to be decoded)
+		input  datain_valid,
+		input  [7:0] Kchar_comma,	
 		output ko, //comma alignment signal, 
 		output [7:0] dataout,
 		output code_err, //code error flag
@@ -114,11 +114,11 @@ module dec_8b10b_mopshub (
 	reg ko_r;
 	reg code_err_r;
 	
-	always @ (posedge clk, negedge rst) begin : output_proc
-		if (rst == 0) begin
+	always @ (posedge clk) begin : output_proc
+		if (!rst) begin
 			dispin <= 0;
 			disp_err_r <= 0;
-			dataout_r <= 0;
+			dataout_r <= Kchar_comma;
 			ko_r <= 0;
 			code_err_r <= 0;
 		end else if (datain_valid == 1) begin
