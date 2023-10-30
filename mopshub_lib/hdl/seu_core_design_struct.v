@@ -15,10 +15,8 @@ module seu_core_design(
    input   wire           clk, 
    input   wire           rst, 
    input   wire           status_uncorrectable, 
-  // output  wire           uncorrectable_txwrite, 
-  // output  wire    [7:0]  uncorrectable_count_txdata, 
-   output  wire           error_count_txwrite,
-   output  wire    [7:0]  error_count_txdata, 
+   output  wire           error_count_txwrite, //gives an indication of a mismatch
+   output  wire    [7:0]  error_count_txdata,  //Counter with the number of mismatches
    output  wire    [7:0]  out_data_uart, 
    output  wire           request_trig
 );
@@ -32,31 +30,30 @@ module seu_core_design(
 // Internal signal declarations
 wire  [4:0] data1;
 wire  [4:0] data2;
-wire rst_signal = !status_uncorrectable || rst;
 // Instances 
-seu_checker seu_checker0( 
-   .rst               (rst_signal), 
+(* DONT_TOUCH = "1" *)  seu_checker seu_checker0( 
+   .rst               (rst), 
    .clk               (clk), 
    .status_uncorrectable    (status_uncorrectable),
-  // .uncorrectable_count_txdata     (uncorrectable_count_txdata),
-  // .uncorrectable_txwrite   (uncorrectable_txwrite),
    .error_count_txdata      (error_count_txdata),
    .error_count_txwrite     (error_count_txwrite),
    .data1             (data1), 
    .data2             (data2)
 ); 
 
-seu_counter DUT_counter( 
-   .rst           (rst_signal), 
+(* DONT_TOUCH = "1" *)  seu_counter DUT_counter( 
+   .rst           (rst), 
    .clk           (clk), 
+   .status_uncorrectable    (status_uncorrectable),
    .out_data      (data2), 
    .out_data_uart (out_data_uart), 
    .request_trig  (request_trig)
 ); 
 
-seu_counter Golden_counter( 
-   .rst           (rst_signal), 
+(* DONT_TOUCH = "1" *)  seu_counter Golden_counter( 
+   .rst           (rst), 
    .clk           (clk), 
+   .status_uncorrectable    (status_uncorrectable),
    .out_data      (data1), 
    .out_data_uart (), 
    .request_trig  ()

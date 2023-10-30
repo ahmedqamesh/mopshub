@@ -10,9 +10,10 @@
 
 `resetall
 `timescale 1ns/10ps
-module seu_counter (
+(* DONT_TOUCH = "1" *)  module seu_counter (
   input wire rst,
   input wire clk,
+  input wire status_uncorrectable, 
   output wire [4:0]out_data,
   output wire [7:0]out_data_uart,
   output wire request_trig 
@@ -22,7 +23,7 @@ reg   [4:0]  cycles_cnt;
 reg   [4:0] request_cycle_cnt;
 initial cycles_cnt = 5'd31;
 initial request_cycle_cnt = 5'b000;
-assign out_data_uart = {4'b0,out_data};
+assign out_data_uart = {3'b0,out_data};
 
  // Counter over the Clock signal
  always @(posedge clk)
@@ -31,6 +32,7 @@ assign out_data_uart = {4'b0,out_data};
     else
     begin
       if  (request_trig == 1) request_cycle_cnt <= 3'b0;
+      else if (status_uncorrectable ==1) request_cycle_cnt <= 3'b0;
       else request_cycle_cnt <= request_cycle_cnt + 1'b1;
     end
   end

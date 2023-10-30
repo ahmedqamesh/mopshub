@@ -10,14 +10,12 @@
 
 `resetall
 `timescale 1ns/10ps
-module seu_checker (
+(* DONT_TOUCH = "1" *)  module seu_checker (
   input wire rst,
   input wire clk,
   input wire [4:0]data1,
   input wire [4:0]data2,
   input wire status_uncorrectable,
-  //output wire uncorrectable_txwrite,
-  //output wire [7:0] uncorrectable_count_txdata,
   output wire       error_count_txwrite,
   output wire [7:0] error_count_txdata
     );
@@ -54,21 +52,10 @@ initial uncorrectable_txwrite_reg = 1'b0;
       end
   end
 
-  always @(posedge clk)
-  begin
-    if (!rst) uncorrectable_txwrite_reg <= 1'b0;
-    else
-      begin
-        if  (status_uncorrectable == 1'b1) uncorrectable_txwrite_reg <= 1'b1;     
-        else  uncorrectable_txwrite_reg <= 1'b0;
-      end
-   end 
-
-
      
 assign signal_mismatch = (data1==data2) ? 1'b0 : 1'b1 ; 
-assign error_count_txdata = (uncorrectable_txwrite_reg == 1'b1) ?  8'h1f :error_cycle_cnt_reg ;
-assign error_count_txwrite = error_count_txwrite_reg;
-//assign uncorrectable_txwrite = uncorrectable_txwrite_reg;
-
+// when status_uncorrectable goes high we get 8'h1f  but normally any mismatch will result error_cycle_cnt_reg
+assign error_count_txdata = (status_uncorrectable == 1'b1) ?  8'h1f :error_cycle_cnt_reg ;
+// error_count_txwrite will indicate an error when ever it happens
+assign error_count_txwrite = error_count_txwrite_reg || status_uncorrectable;
 endmodule

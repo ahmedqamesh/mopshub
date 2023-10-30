@@ -66,6 +66,8 @@ architecture behavioral of enc_8b10b is
     signal ho : std_logic;
     signal jo : std_logic;
     signal dispin, dispout: std_logic;
+    signal a_a, a_b: std_logic;
+
 begin 
 
     ai <= datain(0) ;
@@ -103,7 +105,10 @@ begin
     l40 <= ai  and  bi  and  ci  and  di ;
     l04 <= not ai  and  not bi  and  not ci  and  not di ;
     l13 <= ( not aeqb  and  not ci  and  not di)  or 
-          ( not ceqd  and  not ai  and  not bi) ;
+           ( not ceqd  and  not ai  and  not bi) ;
+	  a_a <=   not aeqb  and  not ci  and  not di;
+	  a_b <= ( not ceqd  and  not ai  and  not bi);
+	
     l31 <= ( not aeqb  and  ci  and  di)  or 
          ( not ceqd  and  ai  and  bi) ;
 

@@ -4,7 +4,7 @@ module buffer_rec_spi_data(
    // Port Declarations
    input   wire            clk, 
    input   wire            rst,            // reset active low
-   input   wire            buffer_en,            // reset active low
+   input   wire            buffer_en,      // reset active low
    input   wire    [4:0]   addr, 
    input   wire    [11:0] xadc_rec_in,
    input   wire    [7 :0] spi_id_in,

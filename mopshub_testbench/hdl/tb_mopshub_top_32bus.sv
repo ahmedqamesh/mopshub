@@ -432,8 +432,8 @@ clock_generator #(
       if(end_power_init ==1) osc_auto_trim_mopshub = 1'b0;
       if(sign_on_sig ==1)//start Rx test
       begin
-      test_tx =1'b1;
-      //test_advanced = 1'b1;
+      //test_tx =1'b1;
+      test_advanced = 1'b1;
       end
       if(test_rx_end ==1)//Done Rx test
       begin

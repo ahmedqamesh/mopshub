@@ -43,7 +43,7 @@ assign KI =  delimeter[1] | delimeter[0]; //Control signal for the KI of the enc
 
  fifo_to_elink fifo_to_elink0( 
    .fifo_wr_en            (wr_en), 
-   .wr_en_comma           (wr_en_comma),
+   //.wr_en_comma           (wr_en_comma),
    .clk                   (clk), 
    .fifo_din              ({delimeter, data10bout[7:0]}), 
    .fifo_flush            (1'b0), 

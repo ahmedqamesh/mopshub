@@ -12,7 +12,7 @@
 // Changed to VHDL by Frans Schreuder, original verilog code: http://asics.chuckbenz.com/#My_open_source_8b10b_encoderdecoder
 // Translated back into Verilog by Lucas Schreiter
 
-module enc_8b10b_mopshub (
+module enc_8b10b_mopshub(
 		input rst,
 		input clk,
 		input ena,
@@ -65,7 +65,7 @@ module enc_8b10b_mopshub (
 	// an alternate coding is used (referred to as Dx.A7, normal is Dx.P7)
 	// specifically, D11, D13, D14, D17, D18, D19.
 	// wire alt7 = fi & gi & hi & (ki | (dispin ? (!ei & di & l31) : (ei & !di & l13)));
-	wire alt7 = dispin ? (fi & gi & hi & (ki | (!ei & di & 131))) : (fi & gi & hi & (ki | (ei & !di & 131)));
+	wire alt7 = dispin ? (fi & gi & hi & (ki | (!ei & di & l31))) : (fi & gi & hi & (ki | (ei & !di & l13)));
 
 	wire fo = fi & ! alt7;
 	wire go = gi | (!fi & !gi & !hi);
@@ -111,14 +111,14 @@ module enc_8b10b_mopshub (
 	reg [9:0] dataout_r;
 	
 	
-	always @ (posedge clk) begin : disp_proc
+	always @ (posedge clk, negedge rst) begin : disp_proc
 		if (!rst) begin
 			dispin <= 0;
 			dataout_r <= COMMAn;
 		end 
 		else if (ena == 1) begin
 			dispin <= dispout;
-      dataout_r = {(ao ^ compls6), (bo ^ compls6),
+      dataout_r <= {(ao ^ compls6), (bo ^ compls6),
                (co ^ compls6), (do ^ compls6),
                (eo ^ compls6), (io ^ compls6),
                (fo ^ compls4), (go ^ compls4),

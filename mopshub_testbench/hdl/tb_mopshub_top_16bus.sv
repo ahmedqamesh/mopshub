@@ -170,7 +170,7 @@ module tb_mopshub_top_16bus();
   .cs_active_m(), 
   .data_rec_dbg_in(),
   .mosi_m(spi_dat_m),
-  .miso_m(spi_dat_m),        
+  .miso_m(1'b0),        
   .mosi_c(spi_dat_p),
   .miso_c(spi_dat_p), 
   .rx0(rx0),        

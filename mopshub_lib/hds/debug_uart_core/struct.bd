@@ -153,7 +153,7 @@ value "/../../home/dcs/git/mopshub/mopshub_lib/hds/debug_uart_core"
 )
 (vvPair
 variable "date"
-value "08/08/23"
+value "10/10/23"
 )
 (vvPair
 variable "day"
@@ -165,7 +165,7 @@ value "Tuesday"
 )
 (vvPair
 variable "dd"
-value "08"
+value "10"
 )
 (vvPair
 variable "entity_name"
@@ -193,7 +193,7 @@ value "dcs"
 )
 (vvPair
 variable "graphical_source_date"
-value "08/08/23"
+value "10/10/23"
 )
 (vvPair
 variable "graphical_source_group"
@@ -205,7 +205,7 @@ value "chipdev2.physik.uni-wuppertal.de"
 )
 (vvPair
 variable "graphical_source_time"
-value "15:57:41"
+value "12:49:19"
 )
 (vvPair
 variable "group"
@@ -249,7 +249,7 @@ value "$HDS_PROJECT_DIR/mopshub_lib/svassistant"
 )
 (vvPair
 variable "mm"
-value "08"
+value "10"
 )
 (vvPair
 variable "module_name"
@@ -257,11 +257,11 @@ value "debug_uart_core"
 )
 (vvPair
 variable "month"
-value "Aug"
+value "Oct"
 )
 (vvPair
 variable "month_long"
-value "August"
+value "October"
 )
 (vvPair
 variable "p"
@@ -325,7 +325,7 @@ value "struct"
 )
 (vvPair
 variable "time"
-value "15:57:41"
+value "12:49:19"
 )
 (vvPair
 variable "unit"
@@ -1381,7 +1381,8 @@ va (VaSet
 font "courier,8,0"
 )
 xt "2000,2700,13000,3600"
-st "wire        clk_uart;"
+st "wire        clk_uart;
+"
 )
 )
 *33 (Net
@@ -1401,7 +1402,8 @@ va (VaSet
 font "courier,8,0"
 )
 xt "2000,36000,14500,36900"
-st "wire        w_tx_active;"
+st "wire        w_tx_active;
+"
 )
 )
 *34 (Net
@@ -1421,7 +1423,8 @@ va (VaSet
 font "courier,8,0"
 )
 xt "2000,12600,15500,13500"
-st "wire        out_tx_serial;"
+st "wire        out_tx_serial;
+"
 )
 )
 *35 (Net
@@ -1441,7 +1444,8 @@ va (VaSet
 font "courier,8,0"
 )
 xt "2000,36900,13500,37800"
-st "wire        w_tx_done;"
+st "wire        w_tx_done;
+"
 )
 )
 *36 (PortIoIn
@@ -1507,7 +1511,8 @@ va (VaSet
 font "courier,8,0"
 )
 xt "2000,4500,15000,5400"
-st "wire        in_rx_serial;"
+st "wire        in_rx_serial;
+"
 )
 )
 *38 (Net
@@ -1527,7 +1532,8 @@ va (VaSet
 font "courier,8,0"
 )
 xt "2000,25200,13500,26100"
-st "wire        out_rx_dv;"
+st "wire        out_rx_dv;
+"
 )
 )
 *39 (SaComponent
@@ -2085,7 +2091,8 @@ va (VaSet
 font "courier,8,0"
 )
 xt "2000,23400,12500,24300"
-st "wire        o_Rx_DV;"
+st "wire        o_Rx_DV;
+"
 )
 )
 *56 (Net
@@ -2106,7 +2113,8 @@ va (VaSet
 font "courier,8,0"
 )
 xt "2000,22500,13500,23400"
-st "wire [7:0]  o_Rx_Byte;"
+st "wire [7:0]  o_Rx_Byte;
+"
 )
 )
 *57 (HdlText
@@ -2152,21 +2160,21 @@ assign out_rx_dv  = dout_rdy_fifo_reg;
 assign wena_w_fifo    = o_Rx_DV  && !fifo_full;
 assign rd_en_s_rx     = !rx_fifo_empty;
 assign rd_en_s_tx     = !tx_fifo_empty;
-assign rst_fifo  = (rstn);
+assign rst_fifo  = (rst);
 
 
 always @ (posedge clk_uart)
-  if (!rstn) rd_en_data_tx       <=1'b0;
+  if (!rst) rd_en_data_tx       <=1'b0;
   else rd_en_data_tx  <= rd_en_s_tx;  
   
   
 always @ (posedge clk_40)
-  if (!rstn) rd_en_data_rx       <=1'b0;
+  if (!rst) rd_en_data_rx       <=1'b0;
   else rd_en_data_rx  <= rd_en_s_rx;     
     
 
 always @ (posedge clk_40)
-  if (!rstn) 
+  if (!rst) 
   begin 
   dout_fifo_reg       <=8'b0;
   dout_rdy_fifo_reg   <= 1'b0;
@@ -2185,6 +2193,7 @@ always @ (posedge clk_40)
 
       end
     end  
+
 
 
 
@@ -2340,7 +2349,8 @@ va (VaSet
 font "courier,8,0"
 )
 xt "2000,29700,13000,30600"
-st "wire        rst_fifo;"
+st "wire        rst_fifo;
+"
 )
 )
 *62 (Net
@@ -2360,7 +2370,8 @@ va (VaSet
 font "courier,8,0"
 )
 xt "2000,1800,12000,2700"
-st "wire        clk_40;"
+st "wire        clk_40;
+"
 )
 )
 *63 (Net
@@ -2379,7 +2390,8 @@ va (VaSet
 font "courier,8,0"
 )
 xt "2000,15300,13000,16200"
-st "wire [7:0]  dout8bit;"
+st "wire [7:0]  dout8bit;
+"
 )
 )
 *64 (Net
@@ -2398,7 +2410,8 @@ va (VaSet
 font "courier,8,0"
 )
 xt "2000,16200,15500,17100"
-st "reg [7:0]   dout_fifo_reg;"
+st "reg [7:0]   dout_fifo_reg;
+"
 )
 )
 *65 (Net
@@ -2416,14 +2429,15 @@ va (VaSet
 font "courier,8,0"
 )
 xt "2000,17100,17500,18000"
-st "reg         dout_rdy_fifo_reg;"
+st "reg         dout_rdy_fifo_reg;
+"
 )
 )
 *66 (Net
 uid 701,0
 lang 5
 decl (Decl
-n "rstn"
+n "rst"
 t "wire"
 preAdd 0
 posAdd 0
@@ -2435,8 +2449,9 @@ uid 702,0
 va (VaSet
 font "courier,8,0"
 )
-xt "2000,5400,11000,6300"
-st "wire        rstn;"
+xt "2000,5400,10500,6300"
+st "wire        rst;
+"
 )
 )
 *67 (PortIoIn
@@ -2477,8 +2492,8 @@ uid 708,0
 va (VaSet
 font "courier,8,0"
 )
-xt "127000,-12450,129000,-11550"
-st "rstn"
+xt "127500,-12450,129000,-11550"
+st "rst"
 ju 2
 blo "129000,-11750"
 tm "WireNameMgr"
@@ -2500,7 +2515,8 @@ va (VaSet
 font "courier,8,0"
 )
 xt "2000,37800,14500,38700"
-st "wire        wena_w_fifo;"
+st "wire        wena_w_fifo;
+"
 )
 )
 *69 (Net
@@ -2518,7 +2534,8 @@ va (VaSet
 font "courier,8,0"
 )
 xt "2000,19800,13500,20700"
-st "wire        fifo_full;"
+st "wire        fifo_full;
+"
 )
 )
 *70 (SaComponent
@@ -3118,7 +3135,8 @@ va (VaSet
 font "courier,8,0"
 )
 xt "2000,20700,14000,21600"
-st "wire [7:0]  in_tx_byte;"
+st "wire [7:0]  in_tx_byte;
+"
 )
 )
 *88 (Net
@@ -3139,7 +3157,8 @@ va (VaSet
 font "courier,8,0"
 )
 xt "2000,24300,14500,25200"
-st "wire [7:0]  out_rx_byte;"
+st "wire [7:0]  out_rx_byte;
+"
 )
 )
 *89 (SaComponent
@@ -3683,7 +3702,8 @@ va (VaSet
 font "courier,8,0"
 )
 xt "2000,31500,15500,32400"
-st "wire        select_dbg_sm;"
+st "wire        select_dbg_sm;
+"
 )
 )
 *106 (SaComponent
@@ -4287,7 +4307,8 @@ va (VaSet
 font "courier,8,0"
 )
 xt "2000,14400,19100,15300"
-st "wire        axi_uart_test = 1'b0;"
+st "wire        axi_uart_test = 1'b0;
+"
 )
 )
 *124 (Net
@@ -4308,7 +4329,8 @@ va (VaSet
 font "courier,8,0"
 )
 xt "2000,32400,14000,33300"
-st "wire [7:0]  sm_dbg_out;"
+st "wire [7:0]  sm_dbg_out;
+"
 )
 )
 *125 (Net
@@ -4326,7 +4348,8 @@ va (VaSet
 font "courier,8,0"
 )
 xt "2000,18900,17500,19800"
-st "wire        fifo_dbg_out_read;"
+st "wire        fifo_dbg_out_read;
+"
 )
 )
 *126 (Net
@@ -4344,7 +4367,8 @@ va (VaSet
 font "courier,8,0"
 )
 xt "2000,21600,14500,22500"
-st "wire        in_tx_dv_sm;"
+st "wire        in_tx_dv_sm;
+"
 )
 )
 *127 (Net
@@ -4362,7 +4386,8 @@ va (VaSet
 font "courier,8,0"
 )
 xt "2000,38700,16000,39600"
-st "wire        write_dbg_fifo;"
+st "wire        write_dbg_fifo;
+"
 )
 )
 *128 (Net
@@ -4380,7 +4405,8 @@ va (VaSet
 font "courier,8,0"
 )
 xt "2000,27900,14000,28800"
-st "wire        rd_en_s_rx;"
+st "wire        rd_en_s_rx;
+"
 )
 )
 *129 (Net
@@ -4398,7 +4424,8 @@ va (VaSet
 font "courier,8,0"
 )
 xt "2000,26100,15500,27000"
-st "reg         rd_en_data_rx;"
+st "reg         rd_en_data_rx;
+"
 )
 )
 *130 (Net
@@ -4416,7 +4443,8 @@ va (VaSet
 font "courier,8,0"
 )
 xt "2000,27000,15500,27900"
-st "reg         rd_en_data_tx;"
+st "reg         rd_en_data_tx;
+"
 )
 )
 *131 (Net
@@ -4434,7 +4462,8 @@ va (VaSet
 font "courier,8,0"
 )
 xt "2000,30600,15500,31500"
-st "wire        rx_fifo_empty;"
+st "wire        rx_fifo_empty;
+"
 )
 )
 *132 (Net
@@ -4452,7 +4481,8 @@ va (VaSet
 font "courier,8,0"
 )
 xt "2000,35100,15500,36000"
-st "wire        tx_fifo_empty;"
+st "wire        tx_fifo_empty;
+"
 )
 )
 *133 (Net
@@ -4470,7 +4500,8 @@ va (VaSet
 font "courier,8,0"
 )
 xt "2000,28800,14000,29700"
-st "wire        rd_en_s_tx;"
+st "wire        rd_en_s_tx;
+"
 )
 )
 *134 (Net
@@ -4489,7 +4520,8 @@ va (VaSet
 font "courier,8,0"
 )
 xt "2000,11700,15000,12600"
-st "wire [7:0]  statedeb_spi;"
+st "wire [7:0]  statedeb_spi;
+"
 )
 )
 *135 (Net
@@ -4508,7 +4540,8 @@ va (VaSet
 font "courier,8,0"
 )
 xt "2000,7200,15000,8100"
-st "wire [7:0]  statedeb_can;"
+st "wire [7:0]  statedeb_can;
+"
 )
 )
 *136 (Net
@@ -4527,7 +4560,8 @@ va (VaSet
 font "courier,8,0"
 )
 xt "2000,8100,18000,9000"
-st "wire [7:0]  statedeb_elink_rec;"
+st "wire [7:0]  statedeb_elink_rec;
+"
 )
 )
 *137 (Net
@@ -4546,7 +4580,8 @@ va (VaSet
 font "courier,8,0"
 )
 xt "2000,9000,18000,9900"
-st "wire [7:0]  statedeb_elink_tra;"
+st "wire [7:0]  statedeb_elink_tra;
+"
 )
 )
 *138 (Net
@@ -4565,7 +4600,8 @@ va (VaSet
 font "courier,8,0"
 )
 xt "2000,6300,16500,7200"
-st "wire [7:0]  statedb_can_mux;"
+st "wire [7:0]  statedb_can_mux;
+"
 )
 )
 *139 (Net
@@ -4584,7 +4620,8 @@ va (VaSet
 font "courier,8,0"
 )
 xt "2000,10800,17500,11700"
-st "wire [7:0]  statedeb_osc_trim;"
+st "wire [7:0]  statedeb_osc_trim;
+"
 )
 )
 *140 (Net
@@ -4603,7 +4640,8 @@ va (VaSet
 font "courier,8,0"
 )
 xt "2000,9900,15500,10800"
-st "wire [7:0]  statedeb_main;"
+st "wire [7:0]  statedeb_main;
+"
 )
 )
 *141 (PortIoIn
@@ -4938,7 +4976,8 @@ va (VaSet
 font "courier,8,0"
 )
 xt "2000,33300,42000,34200"
-st "reg [31:0]  time_limit_trim; //corresponds to 25 msec if the FPGA freq is 40Mhz"
+st "reg [31:0]  time_limit_trim; //corresponds to 25 msec if the FPGA freq is 40Mhz
+"
 )
 )
 *149 (Net
@@ -4957,7 +4996,8 @@ va (VaSet
 font "courier,8,0"
 )
 xt "2000,34200,71000,35100"
-st "wire        timeoutrst_uart; // timeout reset signal to the state machine in case bridge controller is not respoding for a specified time"
+st "wire        timeoutrst_uart; // timeout reset signal to the state machine in case bridge controller is not respoding for a specified time
+"
 )
 )
 *150 (Net
@@ -4975,7 +5015,8 @@ va (VaSet
 font "courier,8,0"
 )
 xt "2000,18000,16000,18900"
-st "wire        entimeout_uart;"
+st "wire        entimeout_uart;
+"
 )
 )
 *151 (PortIoIn
@@ -5041,7 +5082,8 @@ va (VaSet
 font "courier,8,0"
 )
 xt "2000,3600,16000,4500"
-st "wire [7:0]  dec10b_Out_dbg;"
+st "wire [7:0]  dec10b_Out_dbg;
+"
 )
 )
 *153 (SaComponent
@@ -6108,8 +6150,8 @@ va (VaSet
 isHidden 1
 font "courier,8,0"
 )
-xt "135000,-12900,137000,-12000"
-st "rstn"
+xt "135000,-12900,136500,-12000"
+st "rst"
 blo "135000,-12200"
 tm "WireNameMgr"
 )
@@ -6332,8 +6374,8 @@ uid 952,0
 va (VaSet
 font "courier,8,0"
 )
-xt "157000,-18900,159000,-18000"
-st "rstn"
+xt "157000,-18900,158500,-18000"
+st "rst"
 blo "157000,-18200"
 tm "WireNameMgr"
 )
@@ -6558,8 +6600,8 @@ uid 1231,0
 va (VaSet
 font "courier,8,0"
 )
-xt "160000,-35900,162000,-35000"
-st "rstn"
+xt "160000,-35900,161500,-35000"
+st "rst"
 blo "160000,-35200"
 tm "WireNameMgr"
 )
@@ -7297,8 +7339,8 @@ uid 2148,0
 va (VaSet
 font "courier,8,0"
 )
-xt "147000,11100,149000,12000"
-st "rstn"
+xt "147000,11100,148500,12000"
+st "rst"
 blo "147000,11800"
 tm "WireNameMgr"
 )
@@ -7606,11 +7648,11 @@ tm "BdCompilerDirectivesTextMgr"
 associable 1
 )
 windowSize "3832,13,5768,1088"
-viewArea "132994,-40300,246052,19364"
+viewArea "54760,-46420,183235,23480"
 cachedDiagramExtent "0,-38000,198500,61000"
 hasePageBreakOrigin 1
 pageBreakOrigin "0,-51000"
-lastUid 3154,0
+lastUid 3261,0
 defaultCommentText (CommentText
 shape (Rectangle
 layer 0
@@ -8896,7 +8938,7 @@ uid 731,0
 port (LogicalPort
 lang 5
 decl (Decl
-n "rstn"
+n "rst"
 t "wire"
 o 6
 suid 35,0

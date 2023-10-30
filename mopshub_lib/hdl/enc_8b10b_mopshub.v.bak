@@ -38,7 +38,9 @@ module enc_8b10b_mopshub (
 	wire l22 = 	(ai & bi & !ci & !di) | (ci & di & !ai & !bi) | (!aeqb & !ceqd);
 	wire l40 = ai & bi & ci & di;
 	wire l04 = !ai & !bi & !ci & !di;
-	wire l13 = (!aeqb & !ci & !di) | ( !ceqd & !ai & !bi);
+	wire l13 = (!aeqb && !ci && !di) || (!ceqd && !ai && !bi);
+	wire a_a = (!aeqb && !ci && !di);
+	wire a_b = (!ceqd && !ai && !bi);
 	wire l31 = (!aeqb & ci & di) | ( !ceqd & ai & bi);
 	
 	// The 5B/6B encoding
@@ -70,7 +72,7 @@ module enc_8b10b_mopshub (
 	wire fo = fi & ! alt7;
 	wire go = gi | (!fi & !gi & !hi);
 	wire ho = hi;
-	wire jo = (!hi & (gi ^ fi)) | alt7;
+	wire jo = ((!hi) & (gi ^ fi)) | alt7;
 	
 	// nd1s4 is cases where d-1 is assumed - to get our encoded value
 	wire nd1s4 = fi & gi ;
@@ -114,16 +116,16 @@ module enc_8b10b_mopshub (
 	always @ (posedge clk) begin : disp_proc
 		if (!rst) begin
 			dispin <= 0;
-			dataout_r <= COMMAn;
+			dataout_r <= 10'b0;//COMMAn;
 		end 
 		else if (ena == 1) begin
 			dispin <= dispout;
-            dataout_r = {(ao ^ compls6), (bo ^ compls6),
-		                 (co ^ compls6), (do ^ compls6),
-		                 (eo ^ compls6), (io ^ compls6),
-		                 (fo ^ compls4), (go ^ compls4),
-		                 (ho ^ compls4), (jo ^ compls4)
-		                };
+      dataout_r = {(ao ^ compls6), (bo ^ compls6),
+               (co ^ compls6), (do ^ compls6),
+               (eo ^ compls6), (io ^ compls6),
+               (fo ^ compls4), (go ^ compls4),
+               (ho ^ compls4), (jo ^ compls4)
+              };
 		end
 	end
 	 

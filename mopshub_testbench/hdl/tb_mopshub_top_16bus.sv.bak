@@ -216,6 +216,8 @@ module tb_mopshub_top_16bus();
   .ext_rst_mops(rst_bus),
   .bus_cnt_power(bus_cnt_power),
   .ext_trim_mops(osc_auto_trim_mopshub),
+  .end_trim_bus(end_trim_bus),
+  .start_trim_osc(start_trim_osc),
   //Start SM
   .sign_on_sig(sign_on_sig),
   //Read ADC channels from MOPS and send it to MOPSHUB rx
@@ -248,10 +250,12 @@ module tb_mopshub_top_16bus();
   .can_tra_select(can_tra_select),
   .data_rec_uplink(data_rec_uplink), 
   .data_tra_downlink(data_tra_downlink), 
+  // UART signals
+  //.out_tx_serial(out_tx_serial),
+  //.in_rx_serial(in_rx_serial),
+  //SPI Signals
   .data_tra_mon_spi(data_tra_mon_spi),
   .data_tra_power_spi(data_tra_power_spi),
-  .end_trim_bus(end_trim_bus),
-  .start_trim_osc(start_trim_osc),
   //ElinkSignals
   .tx_elink2bit(rx_mopshub_2bit),
   .rx_elink2bit(tx_mopshub_2bit),

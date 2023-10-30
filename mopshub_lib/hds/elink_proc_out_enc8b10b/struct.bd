@@ -93,19 +93,19 @@ value "/../../home/dcs/git/mopshub/mopshub_lib/hds/elink_proc_out_enc8b10b"
 )
 (vvPair
 variable "date"
-value "09/14/23"
+value "10/09/23"
 )
 (vvPair
 variable "day"
-value "Thu"
+value "Mon"
 )
 (vvPair
 variable "day_long"
-value "Thursday"
+value "Monday"
 )
 (vvPair
 variable "dd"
-value "14"
+value "09"
 )
 (vvPair
 variable "entity_name"
@@ -133,7 +133,7 @@ value "dcs"
 )
 (vvPair
 variable "graphical_source_date"
-value "09/14/23"
+value "10/09/23"
 )
 (vvPair
 variable "graphical_source_group"
@@ -145,7 +145,7 @@ value "chipdev2.physik.uni-wuppertal.de"
 )
 (vvPair
 variable "graphical_source_time"
-value "15:38:53"
+value "15:24:13"
 )
 (vvPair
 variable "group"
@@ -189,7 +189,7 @@ value "$HDS_PROJECT_DIR/mopshub_lib/svassistant"
 )
 (vvPair
 variable "mm"
-value "09"
+value "10"
 )
 (vvPair
 variable "module_name"
@@ -197,11 +197,11 @@ value "elink_proc_out_enc8b10b"
 )
 (vvPair
 variable "month"
-value "Sep"
+value "Oct"
 )
 (vvPair
 variable "month_long"
-value "September"
+value "October"
 )
 (vvPair
 variable "p"
@@ -265,7 +265,7 @@ value "struct"
 )
 (vvPair
 variable "time"
-value "15:38:53"
+value "15:24:13"
 )
 (vvPair
 variable "unit"
@@ -1693,6 +1693,7 @@ assign KI_signal  = data_code[1] || data_code[0]; //Control signal for the KI of
 
 
 
+
 "
 tm "HdlTextMgr"
 wrapOption 3
@@ -1793,37 +1794,39 @@ o 1
 )
 )
 *47 (CptPort
-uid 7437,0
+uid 7445,0
 ps "OnEdgeStrategy"
 shape (Triangle
-uid 7438,0
+uid 7446,0
 ro 90
 va (VaSet
 vasetType 1
 fg "0,65535,0"
 )
-xt "-34750,9625,-34000,10375"
+xt "-34750,11625,-34000,12375"
 )
 tg (CPTG
-uid 7439,0
+uid 7447,0
 ps "CptPortTextPlaceStrategy"
 stg "VerticalLayoutStrategy"
 f (Text
-uid 7440,0
+uid 7448,0
 va (VaSet
 font "courier,8,0"
 )
-xt "-33000,9550,-31500,10450"
-st "clk"
-blo "-33000,10250"
+xt "-33000,11550,-32000,12450"
+st "ki"
+blo "-33000,12250"
 )
 )
 thePort (LogicalPort
 lang 5
 decl (Decl
-n "clk"
+n "ki"
 t "wire"
-o 2
+eolc "// Control (K) input(active high)"
+posAdd 0
+o 4
 )
 )
 )
@@ -1863,39 +1866,40 @@ o 3
 )
 )
 *49 (CptPort
-uid 7445,0
+uid 7453,0
 ps "OnEdgeStrategy"
 shape (Triangle
-uid 7446,0
+uid 7454,0
 ro 90
 va (VaSet
 vasetType 1
 fg "0,65535,0"
 )
-xt "-34750,11625,-34000,12375"
+xt "-15000,8625,-14250,9375"
 )
 tg (CPTG
-uid 7447,0
+uid 7455,0
 ps "CptPortTextPlaceStrategy"
-stg "VerticalLayoutStrategy"
+stg "RightVerticalLayoutStrategy"
 f (Text
-uid 7448,0
+uid 7456,0
 va (VaSet
 font "courier,8,0"
 )
-xt "-33000,11550,-32000,12450"
-st "ki"
-blo "-33000,12250"
+xt "-24000,8550,-16000,9450"
+st "dataout : [9:0]"
+ju 2
+blo "-16000,9250"
 )
 )
 thePort (LogicalPort
 lang 5
+m 1
 decl (Decl
-n "ki"
+n "dataout"
 t "wire"
-eolc "// Control (K) input(active high)"
-posAdd 0
-o 4
+b "[9:0]"
+o 8
 )
 )
 )
@@ -1937,81 +1941,41 @@ o 5
 )
 )
 *51 (CptPort
-uid 7453,0
+uid 7437,0
 ps "OnEdgeStrategy"
 shape (Triangle
-uid 7454,0
+uid 7438,0
 ro 90
 va (VaSet
 vasetType 1
 fg "0,65535,0"
 )
-xt "-15000,8625,-14250,9375"
+xt "-34750,9625,-34000,10375"
 )
 tg (CPTG
-uid 7455,0
+uid 7439,0
 ps "CptPortTextPlaceStrategy"
-stg "RightVerticalLayoutStrategy"
+stg "VerticalLayoutStrategy"
 f (Text
-uid 7456,0
+uid 7440,0
 va (VaSet
 font "courier,8,0"
 )
-xt "-24000,8550,-16000,9450"
-st "dataout : [9:0]"
-ju 2
-blo "-16000,9250"
+xt "-33000,9550,-31500,10450"
+st "clk"
+blo "-33000,10250"
 )
 )
 thePort (LogicalPort
 lang 5
-m 1
 decl (Decl
-n "dataout"
+n "clk"
 t "wire"
-b "[9:0]"
-o 8
+o 2
 )
 )
 )
 *52 (CptPort
-uid 9532,0
-ps "OnEdgeStrategy"
-shape (Triangle
-uid 9533,0
-ro 90
-va (VaSet
-vasetType 1
-fg "0,65535,0"
-)
-xt "-34750,13625,-34000,14375"
-)
-tg (CPTG
-uid 9534,0
-ps "CptPortTextPlaceStrategy"
-stg "VerticalLayoutStrategy"
-f (Text
-uid 9535,0
-va (VaSet
-font "courier,8,0"
-)
-xt "-33000,13550,-25500,14450"
-st "COMMAn : [9:0]"
-blo "-33000,14250"
-)
-)
-thePort (LogicalPort
-lang 5
-decl (Decl
-n "COMMAn"
-t "wire"
-b "[9:0]"
-o 7
-suid 13,0
-)
-)
-)
-*53 (CptPort
 uid 9536,0
 ps "OnEdgeStrategy"
 shape (Triangle
@@ -2045,6 +2009,43 @@ t "wire"
 b "[9:0]"
 o 6
 suid 14,0
+)
+)
+)
+*53 (CptPort
+uid 9532,0
+ps "OnEdgeStrategy"
+shape (Triangle
+uid 9533,0
+ro 90
+va (VaSet
+vasetType 1
+fg "0,65535,0"
+)
+xt "-34750,13625,-34000,14375"
+)
+tg (CPTG
+uid 9534,0
+ps "CptPortTextPlaceStrategy"
+stg "VerticalLayoutStrategy"
+f (Text
+uid 9535,0
+va (VaSet
+font "courier,8,0"
+)
+xt "-33000,13550,-25500,14450"
+st "COMMAn : [9:0]"
+blo "-33000,14250"
+)
+)
+thePort (LogicalPort
+lang 5
+decl (Decl
+n "COMMAn"
+t "wire"
+b "[9:0]"
+o 7
+suid 13,0
 )
 )
 )
@@ -3291,8 +3292,9 @@ pts [
 "0,5000"
 ]
 )
-start &51
+start &49
 end &25
+ss 0
 sat 32
 eat 1
 stc 0
@@ -3330,7 +3332,7 @@ pts [
 ]
 )
 start &57
-end &52
+end &53
 sat 32
 eat 32
 sty 1
@@ -3370,7 +3372,7 @@ pts [
 ]
 )
 start &58
-end &53
+end &52
 es 0
 sat 32
 eat 32
@@ -3444,7 +3446,7 @@ pts [
 "-34750,10000"
 ]
 )
-end &47
+end &51
 sat 16
 eat 32
 st 0
@@ -3559,7 +3561,7 @@ pts [
 ]
 )
 start &41
-end &49
+end &47
 sat 2
 eat 32
 st 0
@@ -3746,12 +3748,12 @@ tm "BdCompilerDirectivesTextMgr"
 ]
 associable 1
 )
-windowSize "3832,13,5768,1088"
-viewArea "-58017,-8100,32772,39812"
+windowSize "1912,40,3848,1055"
+viewArea "-115436,-19042,10460,45045"
 cachedDiagramExtent "-69000,-10000,55000,38800"
 hasePageBreakOrigin 1
 pageBreakOrigin "-79000,-12000"
-lastUid 10809,0
+lastUid 11858,0
 defaultCommentText (CommentText
 shape (Rectangle
 layer 0
@@ -4809,7 +4811,7 @@ tm "BdDeclarativeTextMgr"
 commonDM (CommonDM
 ldm (LogicalDM
 ordering 1
-suid 141,0
+suid 158,0
 usingSuid 1
 emptyRow *131 (LEmptyRow
 )
