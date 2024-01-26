@@ -126,18 +126,16 @@ module tb_mopshub_top_16bus();
   assign sign_on_sig       = mopshub0.sign_on_sig;
   assign end_trim_bus      = mopshub0.end_trim_bus;
   assign start_trim_osc    = mopshub0.start_trim_ack;
-  assign power_bus_en      = mopshub0.power_bus_en;
+  assign power_bus_en      = mopshub0.set_power_init;
   assign bus_cnt_power     = mopshub0.bus_cnt_power;
   assign ready_osc         = data_generator0.ready_osc;
  
   
-  mopshub_top_16bus mopshub0(
+  mopshub_top_16bus #(2)mopshub0(
   .clk(clk_40_m),
   .clk_elink(clk_40_m),
   .rst(rst),
   .n_buses(n_buses),
-  .prescaler_init(16'h00FF), //(16'h33),//(16'h00FF),
-  .general_init(16'hA3),//(16'hA3), 
   .xadc_rec_in(12'hA),
   .irq_elink_tra(irq_elink_tra),
   .irq_elink_rec(irq_elink_rec),
@@ -173,6 +171,7 @@ module tb_mopshub_top_16bus();
   .miso_m(1'b0),        
   .mosi_c(spi_dat_p),
   .miso_c(spi_dat_p), 
+  .mopshub_id(4'b1),
   .rx0(rx0),        
   .rx1(rx1),        
   .rx2(rx2),        

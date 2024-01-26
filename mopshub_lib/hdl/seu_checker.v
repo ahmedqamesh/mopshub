@@ -16,6 +16,7 @@
   input wire [4:0]data1,
   input wire [4:0]data2,
   input wire status_uncorrectable,
+  output wire signal_mismatch,
   output wire       error_count_txwrite,
   output wire [7:0] error_count_txdata
     );
@@ -23,7 +24,7 @@
 reg   [7:0] error_cycle_cnt_reg;
 reg uncorrectable_txwrite_reg;
 reg error_count_txwrite_reg;
-wire signal_mismatch;
+
 
 initial error_cycle_cnt_reg = 8'b0;
 initial error_count_txwrite_reg   = 1'b0;

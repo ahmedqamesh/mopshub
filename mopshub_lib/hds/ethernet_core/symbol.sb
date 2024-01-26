@@ -61,6 +61,7 @@ decl (Decl
 n "clk125"
 t "wire"
 prec "// Port Declarations"
+eolc "Ethernet domain clock(125MHz)"
 preAdd 0
 posAdd 0
 o 1
@@ -76,6 +77,7 @@ decl (Decl
 n "data_rec_uplink"
 t "wire"
 b "[75:0]"
+eolc "received data buffer from elink"
 preAdd 0
 posAdd 0
 o 2
@@ -91,6 +93,7 @@ decl (Decl
 n "data_tra_downlink"
 t "wire"
 b "[75:0]"
+eolc "trasmit data buffer from elink"
 preAdd 0
 posAdd 0
 o 3
@@ -106,6 +109,7 @@ decl (Decl
 n "dip_sw"
 t "wire"
 b "[3:0]"
+eolc "mac_addr control"
 preAdd 0
 posAdd 0
 o 4
@@ -120,6 +124,7 @@ lang 5
 decl (Decl
 n "gmii_rx_dv"
 t "wire"
+eolc "GMII received control signal to MAC."
 preAdd 0
 posAdd 0
 o 5
@@ -134,6 +139,7 @@ lang 5
 decl (Decl
 n "gmii_rx_er"
 t "wire"
+eolc "GMII received control signal to MAC."
 preAdd 0
 posAdd 0
 o 6
@@ -149,6 +155,7 @@ decl (Decl
 n "gmii_rxd"
 t "wire"
 b "[7:0]"
+eolc "GMII received data to MAC"
 preAdd 0
 posAdd 0
 o 7
@@ -163,6 +170,7 @@ lang 5
 decl (Decl
 n "mmcm_locked"
 t "wire"
+eolc "GMII signal for stable output"
 preAdd 0
 posAdd 0
 o 8
@@ -177,6 +185,7 @@ lang 5
 decl (Decl
 n "resetdone"
 t "wire"
+eolc "GMII signal for complete reset sequence"
 preAdd 0
 posAdd 0
 o 9
@@ -192,6 +201,7 @@ m 1
 decl (Decl
 n "clk_ipb"
 t "wire"
+eolc "IPbus domain clock (31MHz)"
 preAdd 0
 posAdd 0
 o 10
@@ -208,6 +218,7 @@ decl (Decl
 n "configuration_vector"
 t "wire"
 b "[4:0]"
+eolc "GMII configuration signal"
 preAdd 0
 posAdd 0
 o 11
@@ -224,6 +235,7 @@ decl (Decl
 n "data_rec_elink_dbg"
 t "wire"
 b "[75:0]"
+eolc "received data buffer from IPbus"
 preAdd 0
 posAdd 0
 o 12
@@ -239,6 +251,7 @@ m 1
 decl (Decl
 n "gmii_tx_en"
 t "wire"
+eolc "GMII transmit control signal from MAC"
 preAdd 0
 posAdd 0
 o 13
@@ -254,6 +267,7 @@ m 1
 decl (Decl
 n "gmii_tx_er"
 t "wire"
+eolc "GMII transmit control signal from MAC"
 preAdd 0
 posAdd 0
 o 14
@@ -270,6 +284,7 @@ decl (Decl
 n "gmii_txd"
 t "wire"
 b "[7:0]"
+eolc " GMII Transmit data from MAC."
 preAdd 0
 posAdd 0
 o 15
@@ -285,6 +300,7 @@ m 1
 decl (Decl
 n "led"
 t "wire"
+eolc "status LED signal"
 preAdd 0
 posAdd 0
 o 16
@@ -300,6 +316,7 @@ m 1
 decl (Decl
 n "sfp_enable"
 t "wire"
+eolc "enable SFP signal"
 preAdd 0
 posAdd 0
 o 18
@@ -315,6 +332,7 @@ m 1
 decl (Decl
 n "start_write_elink_dbg"
 t "wire"
+eolc "fifo status port flag from IPbus"
 preAdd 0
 posAdd 0
 o 19
@@ -330,6 +348,7 @@ m 1
 decl (Decl
 n "rst_eth"
 t "wire"
+eolc "ethernet startup reset"
 o 17
 suid 22,0
 )
@@ -342,6 +361,7 @@ lang 5
 decl (Decl
 n "clk"
 t "wire"
+eolc "system clock (40MHz)"
 o 20
 suid 23,0
 )
@@ -354,6 +374,7 @@ lang 5
 decl (Decl
 n "rst"
 t "wire"
+eolc "reset"
 o 21
 suid 24,0
 )
@@ -366,6 +387,7 @@ lang 5
 decl (Decl
 n "irq_elink_dbg_in"
 t "wire"
+eolc "control the write operation from ethernet fifo"
 o 22
 suid 27,0
 )
@@ -378,6 +400,7 @@ lang 5
 decl (Decl
 n "start_read_eth_fifo"
 t "wire"
+eolc "control the read operation from ethernet fifo"
 o 23
 suid 29,0
 )
@@ -390,6 +413,7 @@ lang 5
 decl (Decl
 n "sysclk_n"
 t "wire"
+eolc "free-running clock (125MHz)"
 o 24
 suid 38,0
 )
@@ -402,6 +426,7 @@ lang 5
 decl (Decl
 n "sysclk_p"
 t "wire"
+eolc "free-running clock (125MHz)"
 o 25
 suid 39,0
 )
@@ -460,151 +485,151 @@ uid 222,0
 )
 *45 (MRCItem
 litem &15
-pos 1
+pos 3
 dimension 20
 uid 157,0
 )
 *46 (MRCItem
 litem &16
-pos 3
+pos 5
 dimension 20
 uid 159,0
 )
 *47 (MRCItem
 litem &17
-pos 4
+pos 6
 dimension 20
 uid 161,0
 )
 *48 (MRCItem
 litem &18
-pos 5
+pos 7
 dimension 20
 uid 163,0
 )
 *49 (MRCItem
 litem &19
-pos 6
+pos 8
 dimension 20
 uid 165,0
 )
 *50 (MRCItem
 litem &20
-pos 7
+pos 9
 dimension 20
 uid 167,0
 )
 *51 (MRCItem
 litem &21
-pos 8
+pos 10
 dimension 20
 uid 169,0
 )
 *52 (MRCItem
 litem &22
-pos 9
+pos 11
 dimension 20
 uid 171,0
 )
 *53 (MRCItem
 litem &23
-pos 10
+pos 12
 dimension 20
 uid 173,0
 )
 *54 (MRCItem
 litem &24
-pos 2
+pos 4
 dimension 20
 uid 179,0
 )
 *55 (MRCItem
 litem &25
-pos 11
+pos 13
 dimension 20
 uid 181,0
 )
 *56 (MRCItem
 litem &26
-pos 12
+pos 14
 dimension 20
 uid 183,0
 )
 *57 (MRCItem
 litem &27
-pos 13
+pos 15
 dimension 20
 uid 185,0
 )
 *58 (MRCItem
 litem &28
-pos 14
+pos 16
 dimension 20
 uid 187,0
 )
 *59 (MRCItem
 litem &29
-pos 15
+pos 17
 dimension 20
 uid 189,0
 )
 *60 (MRCItem
 litem &30
-pos 16
+pos 18
 dimension 20
 uid 191,0
 )
 *61 (MRCItem
 litem &31
-pos 18
+pos 20
 dimension 20
 uid 195,0
 )
 *62 (MRCItem
 litem &32
-pos 19
+pos 21
 dimension 20
 uid 197,0
 )
 *63 (MRCItem
 litem &33
-pos 17
+pos 19
 dimension 20
 uid 278,0
 )
 *64 (MRCItem
 litem &34
-pos 0
+pos 2
 dimension 20
 uid 307,0
 )
 *65 (MRCItem
 litem &35
-pos 20
+pos 22
 dimension 20
 uid 336,0
 )
 *66 (MRCItem
 litem &36
-pos 21
+pos 23
 dimension 20
 uid 1039,0
 )
 *67 (MRCItem
 litem &37
-pos 22
+pos 24
 dimension 20
 uid 1207,0
 )
 *68 (MRCItem
 litem &38
-pos 23
+pos 0
 dimension 20
 uid 1666,0
 )
 *69 (MRCItem
 litem &39
-pos 24
+pos 1
 dimension 20
 uid 1668,0
 )
@@ -865,19 +890,19 @@ value "/../../home/dcs/git/mopshub/mopshub_lib/hds/ethernet_core"
 )
 (vvPair
 variable "date"
-value "10/09/23"
+value "12/14/23"
 )
 (vvPair
 variable "day"
-value "Mon"
+value "Thu"
 )
 (vvPair
 variable "day_long"
-value "Monday"
+value "Thursday"
 )
 (vvPair
 variable "dd"
-value "09"
+value "14"
 )
 (vvPair
 variable "entity_name"
@@ -905,7 +930,7 @@ value "dcs"
 )
 (vvPair
 variable "graphical_source_date"
-value "10/09/23"
+value "12/14/23"
 )
 (vvPair
 variable "graphical_source_group"
@@ -917,7 +942,7 @@ value "chipdev2.physik.uni-wuppertal.de"
 )
 (vvPair
 variable "graphical_source_time"
-value "15:42:08"
+value "14:41:12"
 )
 (vvPair
 variable "group"
@@ -961,7 +986,7 @@ value "$HDS_PROJECT_DIR/mopshub_lib/svassistant"
 )
 (vvPair
 variable "mm"
-value "10"
+value "12"
 )
 (vvPair
 variable "module_name"
@@ -969,11 +994,11 @@ value "ethernet_core"
 )
 (vvPair
 variable "month"
-value "Oct"
+value "Dec"
 )
 (vvPair
 variable "month_long"
-value "October"
+value "December"
 )
 (vvPair
 variable "p"
@@ -1005,11 +1030,11 @@ value "<TBD>"
 )
 (vvPair
 variable "task_ModelSimPath"
-value "<TBD>"
+value "/eda/mentor/2019-20/RHELx86/AMS_2019.4/amsv/modeltech/bin"
 )
 (vvPair
 variable "task_NC-SimPath"
-value "<TBD>"
+value "/eda/cadence/2019-20/RHELx86/XCELIUM_19.03.013/tools/bin"
 )
 (vvPair
 variable "task_PrecisionRTLPath"
@@ -1017,7 +1042,7 @@ value "<TBD>"
 )
 (vvPair
 variable "task_QuestaSimPath"
-value "<TBD>"
+value "/eda/mentor/2019-20/RHELx86/QUESTA-CORE-PRIME_2019.4/questasim/linux_x86_64"
 )
 (vvPair
 variable "task_VCSPath"
@@ -1037,7 +1062,7 @@ value "symbol"
 )
 (vvPair
 variable "time"
-value "15:42:08"
+value "14:41:12"
 )
 (vvPair
 variable "unit"
@@ -1103,9 +1128,10 @@ uid 52,0
 va (VaSet
 font "courier,8,0"
 )
-xt "2000,9200,12500,11000"
+xt "2000,9200,28500,11000"
 st "// Port Declarations
-input  wire clk125;"
+input  wire clk125; // Ethernet domain clock(125MHz)
+"
 )
 thePort (LogicalPort
 lang 5
@@ -1113,6 +1139,7 @@ decl (Decl
 n "clk125"
 t "wire"
 prec "// Port Declarations"
+eolc "Ethernet domain clock(125MHz)"
 preAdd 0
 posAdd 0
 o 1
@@ -1152,8 +1179,9 @@ uid 57,0
 va (VaSet
 font "courier,8,0"
 )
-xt "2000,11000,20500,11900"
-st "input  wire [75:0]  data_rec_uplink;"
+xt "2000,11000,38000,11900"
+st "input  wire [75:0]  data_rec_uplink; // received data buffer from elink
+"
 )
 thePort (LogicalPort
 lang 5
@@ -1161,6 +1189,7 @@ decl (Decl
 n "data_rec_uplink"
 t "wire"
 b "[75:0]"
+eolc "received data buffer from elink"
 preAdd 0
 posAdd 0
 o 2
@@ -1200,8 +1229,9 @@ uid 62,0
 va (VaSet
 font "courier,8,0"
 )
-xt "2000,11900,21500,12800"
-st "input  wire [75:0]  data_tra_downlink;"
+xt "2000,11900,38500,12800"
+st "input  wire [75:0]  data_tra_downlink; // trasmit data buffer from elink
+"
 )
 thePort (LogicalPort
 lang 5
@@ -1209,6 +1239,7 @@ decl (Decl
 n "data_tra_downlink"
 t "wire"
 b "[75:0]"
+eolc "trasmit data buffer from elink"
 preAdd 0
 posAdd 0
 o 3
@@ -1248,8 +1279,9 @@ uid 67,0
 va (VaSet
 font "courier,8,0"
 )
-xt "2000,12800,16000,13700"
-st "input  wire [3:0]   dip_sw;"
+xt "2000,12800,26000,13700"
+st "input  wire [3:0]   dip_sw; // mac_addr control
+"
 )
 thePort (LogicalPort
 lang 5
@@ -1257,6 +1289,7 @@ decl (Decl
 n "dip_sw"
 t "wire"
 b "[3:0]"
+eolc "mac_addr control"
 preAdd 0
 posAdd 0
 o 4
@@ -1296,14 +1329,16 @@ uid 72,0
 va (VaSet
 font "courier,8,0"
 )
-xt "2000,13700,18000,14600"
-st "input  wire         gmii_rx_dv;"
+xt "2000,13700,38000,14600"
+st "input  wire         gmii_rx_dv; // GMII received control signal to MAC.
+"
 )
 thePort (LogicalPort
 lang 5
 decl (Decl
 n "gmii_rx_dv"
 t "wire"
+eolc "GMII received control signal to MAC."
 preAdd 0
 posAdd 0
 o 5
@@ -1343,14 +1378,16 @@ uid 77,0
 va (VaSet
 font "courier,8,0"
 )
-xt "2000,14600,18000,15500"
-st "input  wire         gmii_rx_er;"
+xt "2000,14600,38000,15500"
+st "input  wire         gmii_rx_er; // GMII received control signal to MAC.
+"
 )
 thePort (LogicalPort
 lang 5
 decl (Decl
 n "gmii_rx_er"
 t "wire"
+eolc "GMII received control signal to MAC."
 preAdd 0
 posAdd 0
 o 6
@@ -1390,8 +1427,9 @@ uid 82,0
 va (VaSet
 font "courier,8,0"
 )
-xt "2000,15500,17000,16400"
-st "input  wire [7:0]   gmii_rxd;"
+xt "2000,15500,31500,16400"
+st "input  wire [7:0]   gmii_rxd; // GMII received data to MAC
+"
 )
 thePort (LogicalPort
 lang 5
@@ -1399,6 +1437,7 @@ decl (Decl
 n "gmii_rxd"
 t "wire"
 b "[7:0]"
+eolc "GMII received data to MAC"
 preAdd 0
 posAdd 0
 o 7
@@ -1438,14 +1477,16 @@ uid 87,0
 va (VaSet
 font "courier,8,0"
 )
-xt "2000,16400,18500,17300"
-st "input  wire         mmcm_locked;"
+xt "2000,16400,35000,17300"
+st "input  wire         mmcm_locked; // GMII signal for stable output
+"
 )
 thePort (LogicalPort
 lang 5
 decl (Decl
 n "mmcm_locked"
 t "wire"
+eolc "GMII signal for stable output"
 preAdd 0
 posAdd 0
 o 8
@@ -1485,14 +1526,16 @@ uid 92,0
 va (VaSet
 font "courier,8,0"
 )
-xt "2000,17300,17500,18200"
-st "input  wire         resetdone;"
+xt "2000,17300,39000,18200"
+st "input  wire         resetdone; // GMII signal for complete reset sequence
+"
 )
 thePort (LogicalPort
 lang 5
 decl (Decl
 n "resetdone"
 t "wire"
+eolc "GMII signal for complete reset sequence"
 preAdd 0
 posAdd 0
 o 9
@@ -1533,8 +1576,9 @@ uid 107,0
 va (VaSet
 font "courier,8,0"
 )
-xt "2000,18200,16500,19100"
-st "output wire         clk_ipb;"
+xt "2000,18200,31500,19100"
+st "output wire         clk_ipb; // IPbus domain clock (31MHz)
+"
 )
 thePort (LogicalPort
 lang 5
@@ -1542,6 +1586,7 @@ m 1
 decl (Decl
 n "clk_ipb"
 t "wire"
+eolc "IPbus domain clock (31MHz)"
 preAdd 0
 posAdd 0
 o 10
@@ -1582,8 +1627,9 @@ uid 112,0
 va (VaSet
 font "courier,8,0"
 )
-xt "2000,19100,23000,20000"
-st "output wire [4:0]   configuration_vector;"
+xt "2000,19100,37500,20000"
+st "output wire [4:0]   configuration_vector; // GMII configuration signal
+"
 )
 thePort (LogicalPort
 lang 5
@@ -1592,6 +1638,7 @@ decl (Decl
 n "configuration_vector"
 t "wire"
 b "[4:0]"
+eolc "GMII configuration signal"
 preAdd 0
 posAdd 0
 o 11
@@ -1632,8 +1679,9 @@ uid 117,0
 va (VaSet
 font "courier,8,0"
 )
-xt "2000,20000,22000,20900"
-st "output wire [75:0]  data_rec_elink_dbg;"
+xt "2000,20000,39500,20900"
+st "output wire [75:0]  data_rec_elink_dbg; // received data buffer from IPbus
+"
 )
 thePort (LogicalPort
 lang 5
@@ -1642,6 +1690,7 @@ decl (Decl
 n "data_rec_elink_dbg"
 t "wire"
 b "[75:0]"
+eolc "received data buffer from IPbus"
 preAdd 0
 posAdd 0
 o 12
@@ -1682,8 +1731,9 @@ uid 122,0
 va (VaSet
 font "courier,8,0"
 )
-xt "2000,20900,18000,21800"
-st "output wire         gmii_tx_en;"
+xt "2000,20900,38500,21800"
+st "output wire         gmii_tx_en; // GMII transmit control signal from MAC
+"
 )
 thePort (LogicalPort
 lang 5
@@ -1691,6 +1741,7 @@ m 1
 decl (Decl
 n "gmii_tx_en"
 t "wire"
+eolc "GMII transmit control signal from MAC"
 preAdd 0
 posAdd 0
 o 13
@@ -1731,8 +1782,9 @@ uid 127,0
 va (VaSet
 font "courier,8,0"
 )
-xt "2000,21800,18000,22700"
-st "output wire         gmii_tx_er;"
+xt "2000,21800,38500,22700"
+st "output wire         gmii_tx_er; // GMII transmit control signal from MAC
+"
 )
 thePort (LogicalPort
 lang 5
@@ -1740,6 +1792,7 @@ m 1
 decl (Decl
 n "gmii_tx_er"
 t "wire"
+eolc "GMII transmit control signal from MAC"
 preAdd 0
 posAdd 0
 o 14
@@ -1780,8 +1833,9 @@ uid 132,0
 va (VaSet
 font "courier,8,0"
 )
-xt "2000,22700,17000,23600"
-st "output wire [7:0]   gmii_txd;"
+xt "2000,22700,33500,23600"
+st "output wire [7:0]   gmii_txd; //  GMII Transmit data from MAC.
+"
 )
 thePort (LogicalPort
 lang 5
@@ -1790,6 +1844,7 @@ decl (Decl
 n "gmii_txd"
 t "wire"
 b "[7:0]"
+eolc " GMII Transmit data from MAC."
 preAdd 0
 posAdd 0
 o 15
@@ -1830,8 +1885,9 @@ uid 137,0
 va (VaSet
 font "courier,8,0"
 )
-xt "2000,23600,14500,24500"
-st "output wire         led;"
+xt "2000,23600,25000,24500"
+st "output wire         led; // status LED signal
+"
 )
 thePort (LogicalPort
 lang 5
@@ -1839,6 +1895,7 @@ m 1
 decl (Decl
 n "led"
 t "wire"
+eolc "status LED signal"
 preAdd 0
 posAdd 0
 o 16
@@ -1879,8 +1936,9 @@ uid 147,0
 va (VaSet
 font "courier,8,0"
 )
-xt "2000,25400,18000,26300"
-st "output wire         sfp_enable;"
+xt "2000,25400,28500,26300"
+st "output wire         sfp_enable; // enable SFP signal
+"
 )
 thePort (LogicalPort
 lang 5
@@ -1888,6 +1946,7 @@ m 1
 decl (Decl
 n "sfp_enable"
 t "wire"
+eolc "enable SFP signal"
 preAdd 0
 posAdd 0
 o 18
@@ -1928,8 +1987,9 @@ uid 152,0
 va (VaSet
 font "courier,8,0"
 )
-xt "2000,26300,23500,27200"
-st "output wire         start_write_elink_dbg;"
+xt "2000,26300,41500,27200"
+st "output wire         start_write_elink_dbg; // fifo status port flag from IPbus
+"
 )
 thePort (LogicalPort
 lang 5
@@ -1937,6 +1997,7 @@ m 1
 decl (Decl
 n "start_write_elink_dbg"
 t "wire"
+eolc "fifo status port flag from IPbus"
 preAdd 0
 posAdd 0
 o 19
@@ -1977,8 +2038,9 @@ uid 284,0
 va (VaSet
 font "courier,8,0"
 )
-xt "2000,24500,16500,25400"
-st "output wire         rst_eth;"
+xt "2000,24500,29500,25400"
+st "output wire         rst_eth; // ethernet startup reset
+"
 )
 thePort (LogicalPort
 lang 5
@@ -1986,6 +2048,7 @@ m 1
 decl (Decl
 n "rst_eth"
 t "wire"
+eolc "ethernet startup reset"
 o 17
 suid 22,0
 )
@@ -2023,14 +2086,16 @@ uid 313,0
 va (VaSet
 font "courier,8,0"
 )
-xt "2000,27200,14500,28100"
-st "input  wire         clk;"
+xt "2000,27200,26500,28100"
+st "input  wire         clk; // system clock (40MHz)
+"
 )
 thePort (LogicalPort
 lang 5
 decl (Decl
 n "clk"
 t "wire"
+eolc "system clock (40MHz)"
 o 20
 suid 23,0
 )
@@ -2068,14 +2133,16 @@ uid 342,0
 va (VaSet
 font "courier,8,0"
 )
-xt "2000,28100,14500,29000"
-st "input  wire         rst;"
+xt "2000,28100,19000,29000"
+st "input  wire         rst; // reset
+"
 )
 thePort (LogicalPort
 lang 5
 decl (Decl
 n "rst"
 t "wire"
+eolc "reset"
 o 21
 suid 24,0
 )
@@ -2113,14 +2180,16 @@ uid 1045,0
 va (VaSet
 font "courier,8,0"
 )
-xt "2000,29000,21000,29900"
-st "input  wire         irq_elink_dbg_in;"
+xt "2000,29000,46000,29900"
+st "input  wire         irq_elink_dbg_in; // control the write operation from ethernet fifo
+"
 )
 thePort (LogicalPort
 lang 5
 decl (Decl
 n "irq_elink_dbg_in"
 t "wire"
+eolc "control the write operation from ethernet fifo"
 o 22
 suid 27,0
 )
@@ -2158,14 +2227,16 @@ uid 1213,0
 va (VaSet
 font "courier,8,0"
 )
-xt "2000,29900,22500,30800"
-st "input  wire         start_read_eth_fifo;"
+xt "2000,29900,47000,30800"
+st "input  wire         start_read_eth_fifo; // control the read operation from ethernet fifo
+"
 )
 thePort (LogicalPort
 lang 5
 decl (Decl
 n "start_read_eth_fifo"
 t "wire"
+eolc "control the read operation from ethernet fifo"
 o 23
 suid 29,0
 )
@@ -2203,14 +2274,16 @@ uid 1674,0
 va (VaSet
 font "courier,8,0"
 )
-xt "2000,30800,17000,31700"
-st "input  wire         sysclk_n;"
+xt "2000,30800,32500,31700"
+st "input  wire         sysclk_n; // free-running clock (125MHz)
+"
 )
 thePort (LogicalPort
 lang 5
 decl (Decl
 n "sysclk_n"
 t "wire"
+eolc "free-running clock (125MHz)"
 o 24
 suid 38,0
 )
@@ -2248,14 +2321,16 @@ uid 1679,0
 va (VaSet
 font "courier,8,0"
 )
-xt "2000,31700,17000,32600"
-st "input  wire         sysclk_p;"
+xt "2000,31700,32500,32600"
+st "input  wire         sysclk_p; // free-running clock (125MHz)
+"
 )
 thePort (LogicalPort
 lang 5
 decl (Decl
 n "sysclk_p"
 t "wire"
+eolc "free-running clock (125MHz)"
 o 25
 suid 39,0
 )
@@ -3001,7 +3076,7 @@ xt "2000,8300,2000,8300"
 tm "SyDeclarativeTextMgr"
 )
 )
-lastUid 1767,0
+lastUid 1855,0
 okToSyncOnLoad 1
 OkToSyncGenericsOnLoad 1
 activeModelName "Symbol:CDM"

@@ -131,19 +131,19 @@ value "/../../home/dcs/git/mopshub/mopshub_lib/hds/ethernet_core"
 )
 (vvPair
 variable "date"
-value "10/09/23"
+value "12/14/23"
 )
 (vvPair
 variable "day"
-value "Mon"
+value "Thu"
 )
 (vvPair
 variable "day_long"
-value "Monday"
+value "Thursday"
 )
 (vvPair
 variable "dd"
-value "09"
+value "14"
 )
 (vvPair
 variable "entity_name"
@@ -171,7 +171,7 @@ value "dcs"
 )
 (vvPair
 variable "graphical_source_date"
-value "10/09/23"
+value "12/14/23"
 )
 (vvPair
 variable "graphical_source_group"
@@ -183,7 +183,7 @@ value "chipdev2.physik.uni-wuppertal.de"
 )
 (vvPair
 variable "graphical_source_time"
-value "15:31:19"
+value "14:40:55"
 )
 (vvPair
 variable "group"
@@ -227,7 +227,7 @@ value "$HDS_PROJECT_DIR/mopshub_lib/svassistant"
 )
 (vvPair
 variable "mm"
-value "10"
+value "12"
 )
 (vvPair
 variable "module_name"
@@ -235,11 +235,11 @@ value "ethernet_core"
 )
 (vvPair
 variable "month"
-value "Oct"
+value "Dec"
 )
 (vvPair
 variable "month_long"
-value "October"
+value "December"
 )
 (vvPair
 variable "p"
@@ -271,11 +271,11 @@ value "<TBD>"
 )
 (vvPair
 variable "task_ModelSimPath"
-value "<TBD>"
+value "/eda/mentor/2019-20/RHELx86/AMS_2019.4/amsv/modeltech/bin"
 )
 (vvPair
 variable "task_NC-SimPath"
-value "<TBD>"
+value "/eda/cadence/2019-20/RHELx86/XCELIUM_19.03.013/tools/bin"
 )
 (vvPair
 variable "task_PrecisionRTLPath"
@@ -283,7 +283,7 @@ value "<TBD>"
 )
 (vvPair
 variable "task_QuestaSimPath"
-value "<TBD>"
+value "/eda/mentor/2019-20/RHELx86/QUESTA-CORE-PRIME_2019.4/questasim/linux_x86_64"
 )
 (vvPair
 variable "task_VCSPath"
@@ -303,7 +303,7 @@ value "struct"
 )
 (vvPair
 variable "time"
-value "15:31:19"
+value "14:40:55"
 )
 (vvPair
 variable "unit"
@@ -8286,11 +8286,11 @@ tm "BdCompilerDirectivesTextMgr"
 associable 1
 )
 windowSize "1912,40,3848,1055"
-viewArea "-7194,-20784,160091,64372"
+viewArea "-8145,-10153,108339,49143"
 cachedDiagramExtent "-1000,-30300,146000,117600"
 hasePageBreakOrigin 1
 pageBreakOrigin "-10000,-64000"
-lastUid 8555,0
+lastUid 8729,0
 defaultCommentText (CommentText
 shape (Rectangle
 layer 0
@@ -9399,6 +9399,7 @@ lang 5
 decl (Decl
 n "clk"
 t "wire"
+eolc "system clock (40MHz)"
 o 20
 suid 1,0
 )
@@ -9558,6 +9559,7 @@ lang 5
 decl (Decl
 n "rst"
 t "wire"
+eolc "reset"
 o 21
 suid 17,0
 )
@@ -9585,6 +9587,7 @@ decl (Decl
 n "clk125"
 t "wire"
 prec "// Port Declarations"
+eolc "Ethernet domain clock(125MHz)"
 preAdd 0
 posAdd 0
 o 1
@@ -9600,6 +9603,7 @@ decl (Decl
 n "data_rec_uplink"
 t "wire"
 b "[75:0]"
+eolc " received data buffer from elink"
 preAdd 0
 posAdd 0
 o 2
@@ -9615,6 +9619,7 @@ decl (Decl
 n "data_tra_downlink"
 t "wire"
 b "[75:0]"
+eolc " trasmit data buffer from elink"
 preAdd 0
 posAdd 0
 o 3
@@ -9630,6 +9635,7 @@ decl (Decl
 n "dip_sw"
 t "wire"
 b "[3:0]"
+eolc "mac_addr control"
 preAdd 0
 posAdd 0
 o 4
@@ -9644,6 +9650,7 @@ lang 5
 decl (Decl
 n "gmii_rx_dv"
 t "wire"
+eolc "GMII received control signal to MAC."
 preAdd 0
 posAdd 0
 o 5
@@ -9658,6 +9665,7 @@ lang 5
 decl (Decl
 n "gmii_rx_er"
 t "wire"
+eolc "GMII received control signal to MAC."
 preAdd 0
 posAdd 0
 o 6
@@ -9673,6 +9681,7 @@ decl (Decl
 n "gmii_rxd"
 t "wire"
 b "[7:0]"
+eolc "GMII received data to MAC"
 preAdd 0
 posAdd 0
 o 7
@@ -9687,6 +9696,7 @@ lang 5
 decl (Decl
 n "mmcm_locked"
 t "wire"
+eolc "GMII signal for stable output"
 preAdd 0
 posAdd 0
 o 8
@@ -9701,6 +9711,7 @@ lang 5
 decl (Decl
 n "resetdone"
 t "wire"
+eolc "GMII signal for complete reset sequence"
 preAdd 0
 posAdd 0
 o 9
@@ -9716,6 +9727,7 @@ m 1
 decl (Decl
 n "clk_ipb"
 t "wire"
+eolc "IPbus domain clock (31MHz)"
 preAdd 0
 posAdd 0
 o 10
@@ -9732,6 +9744,7 @@ decl (Decl
 n "configuration_vector"
 t "wire"
 b "[4:0]"
+eolc "GMII configuration signal"
 preAdd 0
 posAdd 0
 o 11
@@ -9748,6 +9761,7 @@ decl (Decl
 n "data_rec_elink_dbg"
 t "wire"
 b "[75:0]"
+eolc "received data buffer from IPbus"
 preAdd 0
 posAdd 0
 o 12
@@ -9763,6 +9777,7 @@ m 1
 decl (Decl
 n "gmii_tx_en"
 t "wire"
+eolc "GMII transmit control signal from MAC"
 preAdd 0
 posAdd 0
 o 13
@@ -9778,6 +9793,7 @@ m 1
 decl (Decl
 n "gmii_tx_er"
 t "wire"
+eolc "GMII transmit control signal from MAC"
 preAdd 0
 posAdd 0
 o 14
@@ -9794,6 +9810,7 @@ decl (Decl
 n "gmii_txd"
 t "wire"
 b "[7:0]"
+eolc " GMII Transmit data from MAC."
 preAdd 0
 posAdd 0
 o 15
@@ -9809,6 +9826,7 @@ m 1
 decl (Decl
 n "led"
 t "wire"
+eolc "status LED signal"
 preAdd 0
 posAdd 0
 o 16
@@ -9824,6 +9842,7 @@ m 1
 decl (Decl
 n "rst_eth"
 t "wire"
+eolc "ethernet startup reset"
 o 17
 suid 86,0
 )
@@ -9837,6 +9856,7 @@ m 1
 decl (Decl
 n "sfp_enable"
 t "wire"
+eolc "enable SFP signal"
 preAdd 0
 posAdd 0
 o 18
@@ -9852,6 +9872,7 @@ m 1
 decl (Decl
 n "start_write_elink_dbg"
 t "wire"
+eolc "fifo status port flag from IPbus"
 preAdd 0
 posAdd 0
 o 19
@@ -9946,6 +9967,7 @@ lang 5
 decl (Decl
 n "irq_elink_dbg_in"
 t "wire"
+eolc "control the write operation from ethernet fifo"
 o 22
 suid 127,0
 )
@@ -10036,6 +10058,7 @@ lang 5
 decl (Decl
 n "start_read_eth_fifo"
 t "wire"
+eolc "control the read operation from ethernet fifo"
 o 23
 suid 151,0
 )
@@ -10048,6 +10071,7 @@ lang 5
 decl (Decl
 n "sysclk_n"
 t "wire"
+eolc "free-running clock (125MHz)"
 o 48
 suid 161,0
 )
@@ -10060,6 +10084,7 @@ lang 5
 decl (Decl
 n "sysclk_p"
 t "wire"
+eolc "free-running clock (125MHz)"
 o 49
 suid 162,0
 )
@@ -10118,295 +10143,295 @@ uid 2334,0
 )
 *336 (MRCItem
 litem &282
-pos 0
+pos 2
 dimension 20
 uid 2126,0
 )
 *337 (MRCItem
 litem &283
-pos 23
+pos 25
 dimension 20
 uid 2132,0
 )
 *338 (MRCItem
 litem &284
-pos 24
+pos 26
 dimension 20
 uid 2136,0
 )
 *339 (MRCItem
 litem &285
-pos 25
+pos 27
 dimension 20
 uid 2138,0
 )
 *340 (MRCItem
 litem &286
-pos 26
+pos 28
 dimension 20
 uid 2140,0
 )
 *341 (MRCItem
 litem &287
-pos 27
+pos 29
 dimension 20
 uid 2142,0
 )
 *342 (MRCItem
 litem &288
-pos 28
+pos 30
 dimension 20
 uid 2144,0
 )
 *343 (MRCItem
 litem &289
-pos 29
+pos 31
 dimension 20
 uid 2146,0
 )
 *344 (MRCItem
 litem &290
-pos 30
+pos 32
 dimension 20
 uid 2148,0
 )
 *345 (MRCItem
 litem &291
-pos 31
+pos 33
 dimension 20
 uid 2150,0
 )
 *346 (MRCItem
 litem &292
-pos 32
+pos 34
 dimension 20
 uid 2152,0
 )
 *347 (MRCItem
 litem &293
-pos 33
+pos 35
 dimension 20
 uid 2154,0
 )
 *348 (MRCItem
 litem &294
-pos 20
+pos 22
 dimension 20
 uid 2158,0
 )
 *349 (MRCItem
 litem &295
-pos 34
+pos 36
 dimension 20
 uid 2160,0
 )
 *350 (MRCItem
 litem &296
-pos 1
+pos 3
 dimension 20
 uid 2260,0
 )
 *351 (MRCItem
 litem &297
-pos 3
+pos 5
 dimension 20
 uid 2262,0
 )
 *352 (MRCItem
 litem &298
-pos 4
+pos 6
 dimension 20
 uid 2264,0
 )
 *353 (MRCItem
 litem &299
-pos 5
+pos 7
 dimension 20
 uid 2266,0
 )
 *354 (MRCItem
 litem &300
-pos 6
+pos 8
 dimension 20
 uid 2268,0
 )
 *355 (MRCItem
 litem &301
-pos 7
+pos 9
 dimension 20
 uid 2270,0
 )
 *356 (MRCItem
 litem &302
-pos 8
+pos 10
 dimension 20
 uid 2272,0
 )
 *357 (MRCItem
 litem &303
-pos 9
+pos 11
 dimension 20
 uid 2274,0
 )
 *358 (MRCItem
 litem &304
-pos 10
+pos 12
 dimension 20
 uid 2276,0
 )
 *359 (MRCItem
 litem &305
-pos 2
+pos 4
 dimension 20
 uid 2282,0
 )
 *360 (MRCItem
 litem &306
-pos 11
+pos 13
 dimension 20
 uid 2284,0
 )
 *361 (MRCItem
 litem &307
-pos 12
+pos 14
 dimension 20
 uid 2286,0
 )
 *362 (MRCItem
 litem &308
-pos 13
+pos 15
 dimension 20
 uid 2288,0
 )
 *363 (MRCItem
 litem &309
-pos 14
+pos 16
 dimension 20
 uid 2290,0
 )
 *364 (MRCItem
 litem &310
-pos 15
+pos 17
 dimension 20
 uid 2292,0
 )
 *365 (MRCItem
 litem &311
-pos 16
+pos 18
 dimension 20
 uid 2294,0
 )
 *366 (MRCItem
 litem &312
-pos 17
+pos 19
 dimension 20
 uid 2296,0
 )
 *367 (MRCItem
 litem &313
-pos 18
+pos 20
 dimension 20
 uid 2298,0
 )
 *368 (MRCItem
 litem &314
-pos 19
+pos 21
 dimension 20
 uid 2300,0
 )
 *369 (MRCItem
 litem &315
-pos 35
+pos 37
 dimension 20
 uid 3070,0
 )
 *370 (MRCItem
 litem &316
-pos 36
+pos 38
 dimension 20
 uid 4290,0
 )
 *371 (MRCItem
 litem &317
-pos 37
+pos 39
 dimension 20
 uid 4292,0
 )
 *372 (MRCItem
 litem &318
-pos 38
+pos 40
 dimension 20
 uid 4823,0
 )
 *373 (MRCItem
 litem &319
-pos 39
+pos 41
 dimension 20
 uid 4942,0
 )
 *374 (MRCItem
 litem &320
-pos 40
+pos 42
 dimension 20
 uid 5116,0
 )
 *375 (MRCItem
 litem &321
-pos 21
+pos 23
 dimension 20
 uid 5205,0
 )
 *376 (MRCItem
 litem &322
-pos 41
+pos 43
 dimension 20
 uid 5209,0
 )
 *377 (MRCItem
 litem &323
-pos 42
+pos 44
 dimension 20
 uid 6684,0
 )
 *378 (MRCItem
 litem &324
-pos 43
+pos 45
 dimension 20
 uid 6856,0
 )
 *379 (MRCItem
 litem &325
-pos 44
+pos 46
 dimension 20
 uid 6882,0
 )
 *380 (MRCItem
 litem &326
-pos 45
+pos 47
 dimension 20
 uid 6884,0
 )
 *381 (MRCItem
 litem &327
-pos 46
+pos 48
 dimension 20
 uid 7146,0
 )
 *382 (MRCItem
 litem &328
-pos 22
+pos 24
 dimension 20
 uid 7178,0
 )
 *383 (MRCItem
 litem &329
-pos 47
+pos 0
 dimension 20
 uid 8379,0
 )
 *384 (MRCItem
 litem &330
-pos 48
+pos 1
 dimension 20
 uid 8381,0
 )
@@ -10478,7 +10503,7 @@ uid 2344,0
 *394 (MRCItem
 litem &281
 pos 9
-dimension 80
+dimension 699
 uid 2345,0
 )
 ]

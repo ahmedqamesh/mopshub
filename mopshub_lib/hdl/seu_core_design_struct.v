@@ -30,6 +30,7 @@ module seu_core_design(
 // Internal signal declarations
 wire  [4:0] data1;
 wire  [4:0] data2;
+wire        signal_mismatch;
 // Instances 
 (* DONT_TOUCH = "1" *)  seu_checker seu_checker0( 
    .rst               (rst), 
@@ -37,6 +38,7 @@ wire  [4:0] data2;
    .status_uncorrectable    (status_uncorrectable),
    .error_count_txdata      (error_count_txdata),
    .error_count_txwrite     (error_count_txwrite),
+   .signal_mismatch         (signal_mismatch),
    .data1             (data1), 
    .data2             (data2)
 ); 

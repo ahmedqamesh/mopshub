@@ -12,10 +12,11 @@ model (Symbol
 commonDM (CommonDM
 ldm (LogicalDM
 ordering 1
-suid 11,0
+suid 22,0
 usingSuid 1
 emptyRow *1 (LEmptyRow
 )
+uid 135,0
 optionalChildren [
 *2 (RefLabelRowHdr
 )
@@ -57,17 +58,15 @@ tm "EolColHdrMgr"
 port (LogicalPort
 lang 5
 decl (Decl
-n "i_Rst_L"
+n "SPI_MODE"
 t "wire"
-prec "// Control/Data Signals,"
-eolc "// FPGA Reset"
 preAdd 0
 posAdd 0
-o 1
-suid 1,0
+o 3
+suid 12,0
 )
 )
-uid 108,0
+uid 387,0
 )
 *16 (LogPort
 port (LogicalPort
@@ -79,26 +78,40 @@ eolc "// FPGA Clock"
 preAdd 0
 posAdd 0
 o 2
-suid 2,0
+suid 13,0
 )
 )
-uid 110,0
+uid 389,0
 )
 *17 (LogPort
 port (LogicalPort
 lang 5
 decl (Decl
-n "SPI_MODE"
+n "i_Rst_L"
 t "wire"
+prec "// Control/Data Signals,"
+eolc "// FPGA Reset"
 preAdd 0
 posAdd 0
-o 3
-suid 3,0
+o 1
+suid 14,0
 )
 )
-uid 112,0
+uid 391,0
 )
 *18 (LogPort
+port (LogicalPort
+lang 5
+decl (Decl
+n "i_SPI_MISO"
+t "wire"
+o 10
+suid 15,0
+)
+)
+uid 393,0
+)
+*19 (LogPort
 port (LogicalPort
 lang 5
 decl (Decl
@@ -110,12 +123,12 @@ eolc "// Byte to transmit on MOSI"
 preAdd 0
 posAdd 0
 o 4
-suid 4,0
+suid 16,0
 )
 )
-uid 114,0
+uid 395,0
 )
-*19 (LogPort
+*20 (LogPort
 port (LogicalPort
 lang 5
 decl (Decl
@@ -125,45 +138,12 @@ eolc "// Data Valid Pulse with i_TX_Byte"
 preAdd 0
 posAdd 0
 o 5
-suid 5,0
+suid 17,0
 )
 )
-uid 116,0
-)
-*20 (LogPort
-port (LogicalPort
-lang 5
-m 1
-decl (Decl
-n "o_TX_Ready"
-t "reg"
-eolc "// Transmit Ready for next byte"
-preAdd 0
-posAdd 0
-o 6
-suid 6,0
-)
-)
-uid 118,0
+uid 397,0
 )
 *21 (LogPort
-port (LogicalPort
-lang 5
-m 1
-decl (Decl
-n "o_RX_DV"
-t "reg"
-prec "// RX (MISO) Signals"
-eolc "// Data Valid pulse (1 clock cycle)"
-preAdd 0
-posAdd 0
-o 7
-suid 7,0
-)
-)
-uid 120,0
-)
-*22 (LogPort
 port (LogicalPort
 lang 5
 m 1
@@ -175,10 +155,27 @@ eolc "// Byte received on MISO"
 preAdd 0
 posAdd 0
 o 8
-suid 8,0
+suid 18,0
 )
 )
-uid 122,0
+uid 399,0
+)
+*22 (LogPort
+port (LogicalPort
+lang 5
+m 1
+decl (Decl
+n "o_RX_DV"
+t "reg"
+prec "// RX (MISO) Signals"
+eolc "// Data Valid pulse (1 clock cycle)"
+preAdd 0
+posAdd 0
+o 7
+suid 19,0
+)
+)
+uid 401,0
 )
 *23 (LogPort
 port (LogicalPort
@@ -189,47 +186,47 @@ n "o_SPI_Clk"
 t "reg"
 prec "// SPI Interface"
 preAdd 0
-posAdd 0
 o 9
-suid 9,0
+suid 20,0
 )
 )
-uid 124,0
+uid 403,0
 )
 *24 (LogPort
-port (LogicalPort
-lang 5
-decl (Decl
-n "i_SPI_MISO"
-t "wire"
-preAdd 0
-posAdd 0
-o 10
-suid 10,0
-)
-)
-uid 126,0
-)
-*25 (LogPort
 port (LogicalPort
 lang 5
 m 1
 decl (Decl
 n "o_SPI_MOSI"
 t "reg"
+o 11
+suid 21,0
+)
+)
+uid 405,0
+)
+*25 (LogPort
+port (LogicalPort
+lang 5
+m 1
+decl (Decl
+n "o_TX_Ready"
+t "reg"
+eolc "// Transmit Ready for next byte"
 preAdd 0
 posAdd 0
-o 11
-suid 11,0
+o 6
+suid 22,0
 )
 )
-uid 128,0
+uid 407,0
 )
 ]
 )
 pdm (PhysicalDM
 displayShortBounds 1
 editShortBounds 1
+uid 149,0
 optionalChildren [
 *26 (Sheet
 sheetRow (SheetRow
@@ -253,88 +250,92 @@ litem &1
 pos 3
 dimension 20
 )
+uid 151,0
 optionalChildren [
 *28 (MRCItem
 litem &2
 pos 0
 dimension 20
+uid 152,0
 )
 *29 (MRCItem
 litem &3
 pos 1
 dimension 23
+uid 153,0
 )
 *30 (MRCItem
 litem &4
 pos 2
 hidden 1
 dimension 20
+uid 154,0
 )
 *31 (MRCItem
 litem &15
 pos 0
 dimension 20
-uid 109,0
+uid 388,0
 )
 *32 (MRCItem
 litem &16
 pos 1
 dimension 20
-uid 111,0
+uid 390,0
 )
 *33 (MRCItem
 litem &17
 pos 2
 dimension 20
-uid 113,0
+uid 392,0
 )
 *34 (MRCItem
 litem &18
 pos 3
 dimension 20
-uid 115,0
+uid 394,0
 )
 *35 (MRCItem
 litem &19
 pos 4
 dimension 20
-uid 117,0
+uid 396,0
 )
 *36 (MRCItem
 litem &20
 pos 5
 dimension 20
-uid 119,0
+uid 398,0
 )
 *37 (MRCItem
 litem &21
 pos 6
 dimension 20
-uid 121,0
+uid 400,0
 )
 *38 (MRCItem
 litem &22
 pos 7
 dimension 20
-uid 123,0
+uid 402,0
 )
 *39 (MRCItem
 litem &23
 pos 8
 dimension 20
-uid 125,0
+uid 404,0
 )
 *40 (MRCItem
 litem &24
 pos 9
 dimension 20
-uid 127,0
+uid 406,0
 )
 *41 (MRCItem
 litem &25
 pos 10
 dimension 20
-uid 129,0
+uid 408,0
 )
 ]
 )
@@ -345,67 +346,80 @@ fontColor "0,0,0"
 font "courier,10,0"
 textAngle 90
 )
+uid 155,0
 optionalChildren [
 *42 (MRCItem
 litem &5
 pos 0
 dimension 20
+uid 156,0
 )
 *43 (MRCItem
 litem &7
 pos 1
 dimension 50
+uid 157,0
 )
 *44 (MRCItem
 litem &8
 pos 2
 dimension 100
+uid 158,0
 )
 *45 (MRCItem
 litem &9
 pos 3
 dimension 50
+uid 159,0
 )
 *46 (MRCItem
 litem &10
 pos 4
 dimension 100
+uid 160,0
 )
 *47 (MRCItem
 litem &11
 pos 5
 dimension 60
+uid 161,0
 )
 *48 (MRCItem
 litem &12
 pos 6
 dimension 100
+uid 162,0
 )
 *49 (MRCItem
 litem &13
 pos 7
 dimension 50
+uid 163,0
 )
 *50 (MRCItem
 litem &14
 pos 8
 dimension 80
+uid 164,0
 )
 ]
 )
 fixedCol 4
 fixedRow 2
 name "Ports"
+uid 150,0
 vaOverrides [
 ]
 )
 ]
 )
+uid 134,0
 )
 genericsCommonDM (CommonDM
 ldm (LogicalDM
 emptyRow *51 (LEmptyRow
 )
+uid 166,0
 optionalChildren [
 *52 (RefLabelRowHdr
 )
@@ -434,19 +448,16 @@ tm "GenericEolColHdrMgr"
 *61 (LogGeneric
 generic (GiElement
 name "CLKS_PER_HALF_BIT"
-value "2"
-po ")
-
-)"
-apo 0
+value "200"
 )
-uid 103,0
+uid 409,0
 )
 ]
 )
 pdm (PhysicalDM
 displayShortBounds 1
 editShortBounds 1
+uid 176,0
 optionalChildren [
 *62 (Sheet
 sheetRow (SheetRow
@@ -470,28 +481,32 @@ litem &51
 pos 3
 dimension 20
 )
+uid 178,0
 optionalChildren [
 *64 (MRCItem
 litem &52
 pos 0
 dimension 20
+uid 179,0
 )
 *65 (MRCItem
 litem &53
 pos 1
 dimension 23
+uid 180,0
 )
 *66 (MRCItem
 litem &54
 pos 2
 hidden 1
 dimension 20
+uid 181,0
 )
 *67 (MRCItem
 litem &61
 pos 0
 dimension 20
-uid 104,0
+uid 410,0
 )
 ]
 )
@@ -502,42 +517,50 @@ fontColor "0,0,0"
 font "courier,10,0"
 textAngle 90
 )
+uid 182,0
 optionalChildren [
 *68 (MRCItem
 litem &55
 pos 0
 dimension 20
+uid 183,0
 )
 *69 (MRCItem
 litem &57
 pos 1
 dimension 50
+uid 184,0
 )
 *70 (MRCItem
 litem &58
 pos 2
 dimension 100
+uid 185,0
 )
 *71 (MRCItem
 litem &59
 pos 3
 dimension 50
+uid 186,0
 )
 *72 (MRCItem
 litem &60
 pos 4
 dimension 80
+uid 187,0
 )
 ]
 )
 fixedCol 3
 fixedRow 2
 name "Ports"
+uid 177,0
 vaOverrides [
 ]
 )
 ]
 )
+uid 165,0
 type 1
 )
 VExpander (VariableExpander
@@ -584,19 +607,19 @@ value "/../../home/dcs/git/mopshub/mopshub_lib/hds/spi_master"
 )
 (vvPair
 variable "date"
-value "02/09/23"
+value "11/03/23"
 )
 (vvPair
 variable "day"
-value "Thu"
+value "Fri"
 )
 (vvPair
 variable "day_long"
-value "Thursday"
+value "Friday"
 )
 (vvPair
 variable "dd"
-value "09"
+value "03"
 )
 (vvPair
 variable "entity_name"
@@ -624,7 +647,7 @@ value "dcs"
 )
 (vvPair
 variable "graphical_source_date"
-value "02/09/23"
+value "11/03/23"
 )
 (vvPair
 variable "graphical_source_group"
@@ -636,7 +659,7 @@ value "chipdev2.physik.uni-wuppertal.de"
 )
 (vvPair
 variable "graphical_source_time"
-value "13:51:06"
+value "15:19:07"
 )
 (vvPair
 variable "group"
@@ -660,7 +683,7 @@ value "$HDS_PROJECT_DIR/mopshub_lib/designcheck"
 )
 (vvPair
 variable "library_downstream_ModelSimCompiler"
-value "$HDS_PROJECT_DIR/mopshub_lib/work"
+value "$HDS_PROJECT_DIR/work"
 )
 (vvPair
 variable "library_downstream_PrecisionSynthesisDataPrep"
@@ -668,7 +691,7 @@ value "$HDS_PROJECT_DIR/mopshub_lib/ps"
 )
 (vvPair
 variable "library_downstream_QuestaSimCompiler"
-value "$HDS_PROJECT_DIR/mopshub_lib/work"
+value "$HDS_PROJECT_DIR/work"
 )
 (vvPair
 variable "library_downstream_QuestaSimSimulator"
@@ -680,7 +703,7 @@ value "$HDS_PROJECT_DIR/mopshub_lib/svassistant"
 )
 (vvPair
 variable "mm"
-value "02"
+value "11"
 )
 (vvPair
 variable "module_name"
@@ -688,11 +711,11 @@ value "spi_master"
 )
 (vvPair
 variable "month"
-value "Feb"
+value "Nov"
 )
 (vvPair
 variable "month_long"
-value "February"
+value "November"
 )
 (vvPair
 variable "p"
@@ -724,11 +747,11 @@ value "<TBD>"
 )
 (vvPair
 variable "task_ModelSimPath"
-value "<TBD>"
+value "/eda/mentor/2019-20/RHELx86/AMS_2019.4/amsv/modeltech/bin"
 )
 (vvPair
 variable "task_NC-SimPath"
-value "<TBD>"
+value "/eda/cadence/2019-20/RHELx86/XCELIUM_19.03.013/tools/bin"
 )
 (vvPair
 variable "task_PrecisionRTLPath"
@@ -736,7 +759,7 @@ value "<TBD>"
 )
 (vvPair
 variable "task_QuestaSimPath"
-value "<TBD>"
+value "/eda/mentor/2019-20/RHELx86/QUESTA-CORE-PRIME_2019.4/questasim/linux_x86_64"
 )
 (vvPair
 variable "task_VCSPath"
@@ -756,7 +779,7 @@ value "symbol"
 )
 (vvPair
 variable "time"
-value "13:51:06"
+value "15:19:07"
 )
 (vvPair
 variable "unit"
@@ -785,15 +808,64 @@ value "23"
 ]
 )
 LanguageMgr "Verilog2001LangMgr"
+uid 133,0
 optionalChildren [
 *73 (SymbolBody
 uid 8,0
 optionalChildren [
 *74 (CptPort
-uid 48,0
+uid 332,0
 ps "OnEdgeStrategy"
 shape (Triangle
-uid 49,0
+uid 333,0
+ro 90
+va (VaSet
+vasetType 1
+fg "0,65535,0"
+)
+xt "35250,6625,36000,7375"
+)
+tg (CPTG
+uid 334,0
+ps "CptPortTextPlaceStrategy"
+stg "VerticalLayoutStrategy"
+f (Text
+uid 335,0
+va (VaSet
+font "courier,8,0"
+)
+xt "37000,6550,45000,7450"
+st "SPI_MODE : wire"
+blo "37000,7250"
+tm "CptPortNameMgr"
+)
+)
+dt (MLText
+uid 336,0
+va (VaSet
+font "courier,8,0"
+)
+xt "2000,11900,16500,12800"
+st "input  wire        SPI_MODE;
+"
+)
+thePort (LogicalPort
+lang 5
+decl (Decl
+n "SPI_MODE"
+t "wire"
+preAdd 0
+posAdd 0
+o 3
+suid 12,0
+)
+)
+)
+*75 (CptPort
+uid 337,0
+ps "OnEdgeStrategy"
+shape (Triangle
+uid 338,0
 ro 90
 va (VaSet
 vasetType 1
@@ -802,22 +874,71 @@ fg "0,65535,0"
 xt "35250,7625,36000,8375"
 )
 tg (CPTG
-uid 50,0
+uid 339,0
 ps "CptPortTextPlaceStrategy"
 stg "VerticalLayoutStrategy"
 f (Text
-uid 51,0
+uid 340,0
 va (VaSet
 font "courier,8,0"
 )
-xt "37000,7550,44500,8450"
-st "i_Rst_L : wire"
+xt "37000,7550,43500,8450"
+st "i_Clk : wire"
 blo "37000,8250"
 tm "CptPortNameMgr"
 )
 )
 dt (MLText
-uid 52,0
+uid 341,0
+va (VaSet
+font "courier,8,0"
+)
+xt "2000,11000,22000,11900"
+st "input  wire        i_Clk; // FPGA Clock
+"
+)
+thePort (LogicalPort
+lang 5
+decl (Decl
+n "i_Clk"
+t "wire"
+eolc "// FPGA Clock"
+preAdd 0
+posAdd 0
+o 2
+suid 13,0
+)
+)
+)
+*76 (CptPort
+uid 342,0
+ps "OnEdgeStrategy"
+shape (Triangle
+uid 343,0
+ro 90
+va (VaSet
+vasetType 1
+fg "0,65535,0"
+)
+xt "35250,8625,36000,9375"
+)
+tg (CPTG
+uid 344,0
+ps "CptPortTextPlaceStrategy"
+stg "VerticalLayoutStrategy"
+f (Text
+uid 345,0
+va (VaSet
+font "courier,8,0"
+)
+xt "37000,8550,44500,9450"
+st "i_Rst_L : wire"
+blo "37000,9250"
+tm "CptPortNameMgr"
+)
+)
+dt (MLText
+uid 346,0
 va (VaSet
 font "courier,8,0"
 )
@@ -836,15 +957,15 @@ eolc "// FPGA Reset"
 preAdd 0
 posAdd 0
 o 1
-suid 1,0
+suid 14,0
 )
 )
 )
-*75 (CptPort
-uid 53,0
+*77 (CptPort
+uid 347,0
 ps "OnEdgeStrategy"
 shape (Triangle
-uid 54,0
+uid 348,0
 ro 90
 va (VaSet
 vasetType 1
@@ -853,119 +974,68 @@ fg "0,65535,0"
 xt "35250,9625,36000,10375"
 )
 tg (CPTG
-uid 55,0
+uid 349,0
 ps "CptPortTextPlaceStrategy"
 stg "VerticalLayoutStrategy"
 f (Text
-uid 56,0
+uid 350,0
 va (VaSet
 font "courier,8,0"
 )
-xt "37000,9550,43500,10450"
-st "i_Clk : wire"
+xt "37000,9550,46000,10450"
+st "i_SPI_MISO : wire"
 blo "37000,10250"
 tm "CptPortNameMgr"
 )
 )
 dt (MLText
-uid 57,0
+uid 351,0
 va (VaSet
 font "courier,8,0"
 )
-xt "2000,11000,22000,11900"
-st "input  wire        i_Clk; // FPGA Clock
+xt "2000,20900,17500,21800"
+st "input  wire        i_SPI_MISO;
 "
 )
 thePort (LogicalPort
 lang 5
 decl (Decl
-n "i_Clk"
+n "i_SPI_MISO"
 t "wire"
-eolc "// FPGA Clock"
-preAdd 0
-posAdd 0
-o 2
-suid 2,0
+o 10
+suid 15,0
 )
 )
 )
-*76 (CptPort
-uid 58,0
+*78 (CptPort
+uid 352,0
 ps "OnEdgeStrategy"
 shape (Triangle
-uid 59,0
+uid 353,0
 ro 90
 va (VaSet
 vasetType 1
 fg "0,65535,0"
 )
-xt "35250,11625,36000,12375"
+xt "35250,10625,36000,11375"
 )
 tg (CPTG
-uid 60,0
+uid 354,0
 ps "CptPortTextPlaceStrategy"
 stg "VerticalLayoutStrategy"
 f (Text
-uid 61,0
+uid 355,0
 va (VaSet
 font "courier,8,0"
 )
-xt "37000,11550,45000,12450"
-st "SPI_MODE : wire"
-blo "37000,12250"
-tm "CptPortNameMgr"
-)
-)
-dt (MLText
-uid 62,0
-va (VaSet
-font "courier,8,0"
-)
-xt "2000,11900,16500,12800"
-st "input  wire        SPI_MODE;
-"
-)
-thePort (LogicalPort
-lang 5
-decl (Decl
-n "SPI_MODE"
-t "wire"
-preAdd 0
-posAdd 0
-o 3
-suid 3,0
-)
-)
-)
-*77 (CptPort
-uid 63,0
-ps "OnEdgeStrategy"
-shape (Triangle
-uid 64,0
-ro 90
-va (VaSet
-vasetType 1
-fg "0,65535,0"
-)
-xt "35250,13625,36000,14375"
-)
-tg (CPTG
-uid 65,0
-ps "CptPortTextPlaceStrategy"
-stg "VerticalLayoutStrategy"
-f (Text
-uid 66,0
-va (VaSet
-font "courier,8,0"
-)
-xt "37000,13550,48000,14450"
+xt "37000,10550,48000,11450"
 st "i_TX_Byte : wire[7:0]"
-blo "37000,14250"
+blo "37000,11250"
 tm "CptPortNameMgr"
 )
 )
 dt (MLText
-uid 67,0
+uid 356,0
 va (VaSet
 font "courier,8,0"
 )
@@ -985,39 +1055,39 @@ eolc "// Byte to transmit on MOSI"
 preAdd 0
 posAdd 0
 o 4
-suid 4,0
+suid 16,0
 )
 )
 )
-*78 (CptPort
-uid 68,0
+*79 (CptPort
+uid 357,0
 ps "OnEdgeStrategy"
 shape (Triangle
-uid 69,0
+uid 358,0
 ro 90
 va (VaSet
 vasetType 1
 fg "0,65535,0"
 )
-xt "35250,15625,36000,16375"
+xt "35250,11625,36000,12375"
 )
 tg (CPTG
-uid 70,0
+uid 359,0
 ps "CptPortTextPlaceStrategy"
 stg "VerticalLayoutStrategy"
 f (Text
-uid 71,0
+uid 360,0
 va (VaSet
 font "courier,8,0"
 )
-xt "37000,15550,44500,16450"
+xt "37000,11550,44500,12450"
 st "i_TX_DV : wire"
-blo "37000,16250"
+blo "37000,12250"
 tm "CptPortNameMgr"
 )
 )
 dt (MLText
-uid 72,0
+uid 361,0
 va (VaSet
 font "courier,8,0"
 )
@@ -1034,15 +1104,67 @@ eolc "// Data Valid Pulse with i_TX_Byte"
 preAdd 0
 posAdd 0
 o 5
-suid 5,0
+suid 17,0
 )
 )
 )
-*79 (CptPort
-uid 73,0
+*80 (CptPort
+uid 362,0
 ps "OnEdgeStrategy"
 shape (Triangle
-uid 74,0
+uid 363,0
+ro 90
+va (VaSet
+vasetType 1
+fg "0,65535,0"
+)
+xt "62000,6625,62750,7375"
+)
+tg (CPTG
+uid 364,0
+ps "CptPortTextPlaceStrategy"
+stg "RightVerticalLayoutStrategy"
+f (Text
+uid 365,0
+va (VaSet
+font "courier,8,0"
+)
+xt "50500,6550,61000,7450"
+st "o_RX_Byte : reg[7:0]"
+ju 2
+blo "61000,7250"
+tm "CptPortNameMgr"
+)
+)
+dt (MLText
+uid 366,0
+va (VaSet
+font "courier,8,0"
+)
+xt "2000,18200,29500,19100"
+st "output reg [7:0]   o_RX_Byte; // Byte received on MISO
+"
+)
+thePort (LogicalPort
+lang 5
+m 1
+decl (Decl
+n "o_RX_Byte"
+t "reg"
+b "[7:0]"
+eolc "// Byte received on MISO"
+preAdd 0
+posAdd 0
+o 8
+suid 18,0
+)
+)
+)
+*81 (CptPort
+uid 367,0
+ps "OnEdgeStrategy"
+shape (Triangle
+uid 368,0
 ro 90
 va (VaSet
 vasetType 1
@@ -1051,74 +1173,23 @@ fg "0,65535,0"
 xt "62000,7625,62750,8375"
 )
 tg (CPTG
-uid 75,0
+uid 369,0
 ps "CptPortTextPlaceStrategy"
 stg "RightVerticalLayoutStrategy"
 f (Text
-uid 76,0
+uid 370,0
 va (VaSet
 font "courier,8,0"
 )
-xt "52500,7550,61000,8450"
-st "o_TX_Ready : reg"
+xt "54000,7550,61000,8450"
+st "o_RX_DV : reg"
 ju 2
 blo "61000,8250"
 tm "CptPortNameMgr"
 )
 )
 dt (MLText
-uid 77,0
-va (VaSet
-font "courier,8,0"
-)
-xt "2000,15500,33500,16400"
-st "output reg         o_TX_Ready; // Transmit Ready for next byte
-"
-)
-thePort (LogicalPort
-lang 5
-m 1
-decl (Decl
-n "o_TX_Ready"
-t "reg"
-eolc "// Transmit Ready for next byte"
-preAdd 0
-posAdd 0
-o 6
-suid 6,0
-)
-)
-)
-*80 (CptPort
-uid 78,0
-ps "OnEdgeStrategy"
-shape (Triangle
-uid 79,0
-ro 90
-va (VaSet
-vasetType 1
-fg "0,65535,0"
-)
-xt "62000,9625,62750,10375"
-)
-tg (CPTG
-uid 80,0
-ps "CptPortTextPlaceStrategy"
-stg "RightVerticalLayoutStrategy"
-f (Text
-uid 81,0
-va (VaSet
-font "courier,8,0"
-)
-xt "54000,9550,61000,10450"
-st "o_RX_DV : reg"
-ju 2
-blo "61000,10250"
-tm "CptPortNameMgr"
-)
-)
-dt (MLText
-uid 82,0
+uid 371,0
 va (VaSet
 font "courier,8,0"
 )
@@ -1138,92 +1209,40 @@ eolc "// Data Valid pulse (1 clock cycle)"
 preAdd 0
 posAdd 0
 o 7
-suid 7,0
-)
-)
-)
-*81 (CptPort
-uid 83,0
-ps "OnEdgeStrategy"
-shape (Triangle
-uid 84,0
-ro 90
-va (VaSet
-vasetType 1
-fg "0,65535,0"
-)
-xt "62000,11625,62750,12375"
-)
-tg (CPTG
-uid 85,0
-ps "CptPortTextPlaceStrategy"
-stg "RightVerticalLayoutStrategy"
-f (Text
-uid 86,0
-va (VaSet
-font "courier,8,0"
-)
-xt "50500,11550,61000,12450"
-st "o_RX_Byte : reg[7:0]"
-ju 2
-blo "61000,12250"
-tm "CptPortNameMgr"
-)
-)
-dt (MLText
-uid 87,0
-va (VaSet
-font "courier,8,0"
-)
-xt "2000,18200,29500,19100"
-st "output reg [7:0]   o_RX_Byte; // Byte received on MISO
-"
-)
-thePort (LogicalPort
-lang 5
-m 1
-decl (Decl
-n "o_RX_Byte"
-t "reg"
-b "[7:0]"
-eolc "// Byte received on MISO"
-preAdd 0
-posAdd 0
-o 8
-suid 8,0
+suid 19,0
 )
 )
 )
 *82 (CptPort
-uid 88,0
+uid 372,0
 ps "OnEdgeStrategy"
 shape (Triangle
-uid 89,0
+uid 373,0
 ro 90
 va (VaSet
 vasetType 1
 fg "0,65535,0"
 )
-xt "62000,13625,62750,14375"
+xt "62000,8625,62750,9375"
 )
 tg (CPTG
-uid 90,0
+uid 374,0
 ps "CptPortTextPlaceStrategy"
 stg "RightVerticalLayoutStrategy"
 f (Text
-uid 91,0
+uid 375,0
 va (VaSet
 font "courier,8,0"
 )
-xt "53000,13550,61000,14450"
+xt "53000,8550,61000,9450"
 st "o_SPI_Clk : reg"
 ju 2
-blo "61000,14250"
+blo "61000,9250"
 tm "CptPortNameMgr"
 )
 )
 dt (MLText
-uid 92,0
+uid 376,0
 va (VaSet
 font "courier,8,0"
 )
@@ -1240,90 +1259,41 @@ n "o_SPI_Clk"
 t "reg"
 prec "// SPI Interface"
 preAdd 0
-posAdd 0
 o 9
-suid 9,0
+suid 20,0
 )
 )
 )
 *83 (CptPort
-uid 93,0
+uid 377,0
 ps "OnEdgeStrategy"
 shape (Triangle
-uid 94,0
+uid 378,0
 ro 90
 va (VaSet
 vasetType 1
 fg "0,65535,0"
 )
-xt "35250,17625,36000,18375"
+xt "62000,9625,62750,10375"
 )
 tg (CPTG
-uid 95,0
-ps "CptPortTextPlaceStrategy"
-stg "VerticalLayoutStrategy"
-f (Text
-uid 96,0
-va (VaSet
-font "courier,8,0"
-)
-xt "37000,17550,46000,18450"
-st "i_SPI_MISO : wire"
-blo "37000,18250"
-tm "CptPortNameMgr"
-)
-)
-dt (MLText
-uid 97,0
-va (VaSet
-font "courier,8,0"
-)
-xt "2000,20900,17500,21800"
-st "input  wire        i_SPI_MISO;
-"
-)
-thePort (LogicalPort
-lang 5
-decl (Decl
-n "i_SPI_MISO"
-t "wire"
-preAdd 0
-posAdd 0
-o 10
-suid 10,0
-)
-)
-)
-*84 (CptPort
-uid 98,0
-ps "OnEdgeStrategy"
-shape (Triangle
-uid 99,0
-ro 90
-va (VaSet
-vasetType 1
-fg "0,65535,0"
-)
-xt "62000,15625,62750,16375"
-)
-tg (CPTG
-uid 100,0
+uid 379,0
 ps "CptPortTextPlaceStrategy"
 stg "RightVerticalLayoutStrategy"
 f (Text
-uid 101,0
+uid 380,0
 va (VaSet
 font "courier,8,0"
 )
-xt "52500,15550,61000,16450"
+xt "52500,9550,61000,10450"
 st "o_SPI_MOSI : reg"
 ju 2
-blo "61000,16250"
+blo "61000,10250"
 tm "CptPortNameMgr"
 )
 )
 dt (MLText
-uid 102,0
+uid 381,0
 va (VaSet
 font "courier,8,0"
 )
@@ -1337,10 +1307,59 @@ m 1
 decl (Decl
 n "o_SPI_MOSI"
 t "reg"
+o 11
+suid 21,0
+)
+)
+)
+*84 (CptPort
+uid 382,0
+ps "OnEdgeStrategy"
+shape (Triangle
+uid 383,0
+ro 90
+va (VaSet
+vasetType 1
+fg "0,65535,0"
+)
+xt "62000,10625,62750,11375"
+)
+tg (CPTG
+uid 384,0
+ps "CptPortTextPlaceStrategy"
+stg "RightVerticalLayoutStrategy"
+f (Text
+uid 385,0
+va (VaSet
+font "courier,8,0"
+)
+xt "52500,10550,61000,11450"
+st "o_TX_Ready : reg"
+ju 2
+blo "61000,11250"
+tm "CptPortNameMgr"
+)
+)
+dt (MLText
+uid 386,0
+va (VaSet
+font "courier,8,0"
+)
+xt "2000,15500,33500,16400"
+st "output reg         o_TX_Ready; // Transmit Ready for next byte
+"
+)
+thePort (LogicalPort
+lang 5
+m 1
+decl (Decl
+n "o_TX_Ready"
+t "reg"
+eolc "// Transmit Ready for next byte"
 preAdd 0
 posAdd 0
-o 11
-suid 11,0
+o 6
+suid 22,0
 )
 )
 )
@@ -1388,13 +1407,10 @@ uid 15,0
 va (VaSet
 font "courier,8,0"
 )
-xt "35500,-400,47000,5000"
+xt "35500,-400,47500,2300"
 st "Parameter Declarations
 
-CLKS_PER_HALF_BIT 2  
-)
-
-)
+CLKS_PER_HALF_BIT 200  
 "
 )
 header "Parameter Declarations"
@@ -1403,11 +1419,7 @@ showHdrWhenContentsEmpty 1
 elements [
 (GiElement
 name "CLKS_PER_HALF_BIT"
-value "2"
-po ")
-
-)"
-apo 0
+value "200"
 )
 ]
 )
@@ -1730,7 +1742,7 @@ fg "0,0,32768"
 bg "0,0,32768"
 font "courier,8,0"
 )
-xt "40200,27050,49200,27950"
+xt "40200,27050,55200,27950"
 st "
 %library/%unit/%view
 "
@@ -1954,7 +1966,6 @@ showHdrWhenContentsEmpty 1
 elements [
 ]
 )
-udl 1
 portInstanceVisAsIs 1
 portInstanceVis (PortSigDisplay
 sIVOD 1
@@ -2097,6 +2108,7 @@ xt "2000,8300,2000,8300"
 tm "SyDeclarativeTextMgr"
 )
 )
-lastUid 132,0
+lastUid 410,0
+postModuleDirective "// SPI Interface (All Runs at SPI Clock Domain)"
 activeModelName "Symbol:CDM"
 )

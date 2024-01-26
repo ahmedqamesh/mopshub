@@ -78,17 +78,19 @@ end
   else 
     begin
       responsereg <= response_data;
-      if(start_init)       $strobeh("\t initialization [BUS ID %d]:",can_tra_select); 
-      else if (start_trim_osc)   $strobeh("\t Oscillator Trimming Test[BUS ID %d]:",power_bus_cnt);         
-      else if (end_trim_bus)     $strobeh("\t Sign In Message[BUS ID %d (%h)]: \t request %h \t response %h \t",can_rec_select,can_rec_select,requestreg,responsereg);
+      if (reqmsg) requestreg <= request_data; 
+      else if (start_trim_osc && osc_auto_trim_mopshub && !test_rx ) 
+        begin 
+          requestreg <= {76'h555aaaaaaaaaaaaaaaa};  
+          $strobeh("\t Oscillator Trimming Test[BUS ID %d]:",power_bus_cnt);
+        end 
+      else if (start_init)       $strobeh("\t initialization [BUS ID %d]:",can_tra_select); 
+      //else if (start_trim_osc)            
+      else if (end_trim_bus)     $strobeh("\t Sign In Message[BUS ID %d (%h)]: \t request %h \t response %h \t",bus_id,bus_id,requestreg,responsereg);
       else if (test_rx_start && test_spi) $strobeh("\t Start SPI test[CAN SPI]");     
       else if (test_tx_start && test_spi) $strobeh("\t Start SPI test[Elink SPI]");     
       else if (test_rx_end || end_init ||test_tx_end || test_advanced_end ||test_rx_start||test_tx_start)
-        begin 
           $strobe("*****************************************************************************");
-        end         
-      else if ((reqmsg|| start_trim_osc ) && osc_auto_trim_mopshub && !test_rx ) requestreg <= {76'h555aaaaaaaaaaaaaaaa};  
-      else if (reqmsg ) requestreg <= request_data; 
       else if (respmsg && osc_auto_trim_mopshub && !test_rx)$strobeh("\t Oscillator Trimming [BUS ID %d]: \t request %h \t response %h",bus_id,requestreg,responsereg);   
       else if (respmsg && test_rx)    $strobeh("\t Receive RX signals [BUS ID %d]: \t request %h \t response %h",bus_id,requestreg,responsereg);
       else if (respmsg && test_tx)    $strobeh("\t Transmit TX signals [BUS ID %d]: \t request %h \t response %h",bus_id,requestreg,responsereg); 
@@ -130,7 +132,6 @@ end
               failures += 1;
             end
         end 
-        
         75'h608????????????????:
         begin 
           if(responsereg inside{75'h608????????????????})

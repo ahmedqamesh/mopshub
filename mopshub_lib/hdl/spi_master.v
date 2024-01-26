@@ -27,11 +27,12 @@
 //              derived from i_Clk.  Set to integer number of clocks for each
 //              half-bit of SPI data.  E.g. 100 MHz i_Clk, CLKS_PER_HALF_BIT = 2
 //              would create o_SPI_CLK of 25 MHz.  Must be >= 2
-//
+//              100 MHz i_Clk >>> 25 MHz
+//               40 MHz i_Clk >>> 25 MHz
 ///////////////////////////////////////////////////////////////////////////////
 
 module spi_master#(
-parameter CLKS_PER_HALF_BIT = 2
+parameter CLKS_PER_HALF_BIT = 200
 
 )(
    // Control/Data Signals,

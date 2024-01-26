@@ -1,14 +1,52 @@
 # vsim -f hds_args.tmp -foreign "hdsInit /eda/mentor/2019-20/RHELx86/HDL-DESIGNER_2019.4/resources/downstream/modelsim/ModelSim_64Bit.dll" -pli ""/eda/mentor/2019-20/RHELx86/HDL-DESIGNER_2019.4/resources/downstream/modelsim/ModelSim_64Bit.dll"" 
-# Start time: 11:21:02 on Oct 30,2023
-# ** Note: (vsim-3813) Design is being optimized due to module recompilation...
+# Start time: 16:55:18 on Dec 11,2023
+# ** Note: (vsim-3812) Design is being optimized...
 # ** Warning: (vsim-3865) Due to PLI being present, global +acc is being enabled automatically. This will cause your simulation to run very slowly. Please use vsim -no_autoacc to disable this feature. This feature is now deprecated and will be removed from future releases.
 # ** Warning: (vopt-10017) vopt and vlog detected inconsistent ordering of options -L MOPSv2_lib, -L mopshub_reconfig_lib, -L mopshub_canakari, -L CANdecoder, -L ftrim, -L mopshub_lib and -L mopshub_testbench for design-unit 'can_bus_activity'. vopt will ignore the ordering that was given to vlog.
 # ** Warning: (vopt-10017) vopt and vlog detected inconsistent ordering of options -L MOPSv2_lib, -L mopshub_reconfig_lib, -L mopshub_canakari, -L CANdecoder, -L ftrim, -L mopshub_lib and -L mopshub_testbench for design-unit 'canframegen_mopshub'. vopt will ignore the ordering that was given to vlog.
 # ** Warning: (vopt-10017) vopt and vlog detected inconsistent ordering of options -L MOPSv2_lib, -L mopshub_reconfig_lib, -L mopshub_canakari, -L CANdecoder, -L ftrim, -L mopshub_lib and -L mopshub_testbench for design-unit 'canframegen_mopshub_sv_unit'. vopt will ignore the ordering that was given to vlog.
+# ** Error (suppressible): /../../home/dcs/git/mopshub/mopshub_testbench/hdl/tb_mopshub_top_16bus.sv(134): (vopt-2912) Port 'prescaler_init' not found in module 'mopshub_top_16bus' (5th connection).
+# ** Error (suppressible): /../../home/dcs/git/mopshub/mopshub_testbench/hdl/tb_mopshub_top_16bus.sv(134): (vopt-2912) Port 'general_init' not found in module 'mopshub_top_16bus' (6th connection).
+# Optimization failed
+# Error loading design
+# End time: 16:55:19 on Dec 11,2023, Elapsed time: 0:00:01
+# Errors: 2, Warnings: 4
+# hds_restart
+vsim -L MOPSv2_lib -L mopshub_reconfig_lib -L mopshub_canakari -L CANdecoder -L ftrim -L mopshub_lib -L mopshub_testbench -l transcript.txt -i -t ns -multisource_delay latest +typdelays -coverage -vopt mopshub_testbench.tb_mopshub_top_16bus
+# vsim -L MOPSv2_lib -L mopshub_reconfig_lib -L mopshub_canakari -L CANdecoder -L ftrim -L mopshub_lib -L mopshub_testbench -l transcript.txt -i -t ns -multisource_delay latest "+typdelays" -coverage -vopt mopshub_testbench.tb_mopshub_top_16bus -foreign "hdsInit /eda/mentor/2019-20/RHELx86/HDL-DESIGNER_2019.4/resources/downstream/modelsim/ModelSim_64Bit.dll" -pli ""/eda/mentor/2019-20/RHELx86/HDL-DESIGNER_2019.4/resources/downstream/modelsim/ModelSim_64Bit.dll"" 
+# Start time: 16:55:42 on Dec 11,2023
+# ** Note: (vsim-3812) Design is being optimized...
+# ** Warning: (vsim-3865) Due to PLI being present, global +acc is being enabled automatically. This will cause your simulation to run very slowly. Please use vsim -no_autoacc to disable this feature. This feature is now deprecated and will be removed from future releases.
+# ** Warning: (vopt-10017) vopt and vlog detected inconsistent ordering of options -L MOPSv2_lib, -L mopshub_reconfig_lib, -L mopshub_canakari, -L CANdecoder, -L ftrim, -L mopshub_lib and -L mopshub_testbench for design-unit 'can_bus_activity'. vopt will ignore the ordering that was given to vlog.
+# ** Warning: (vopt-10017) vopt and vlog detected inconsistent ordering of options -L MOPSv2_lib, -L mopshub_reconfig_lib, -L mopshub_canakari, -L CANdecoder, -L ftrim, -L mopshub_lib and -L mopshub_testbench for design-unit 'canframegen_mopshub'. vopt will ignore the ordering that was given to vlog.
+# ** Warning: (vopt-10017) vopt and vlog detected inconsistent ordering of options -L MOPSv2_lib, -L mopshub_reconfig_lib, -L mopshub_canakari, -L CANdecoder, -L ftrim, -L mopshub_lib and -L mopshub_testbench for design-unit 'canframegen_mopshub_sv_unit'. vopt will ignore the ordering that was given to vlog.
+# ** Note: (vopt-143) Recognized 1 FSM in module "debug_uart_receiver(fast)".
+# ** Note: (vopt-143) Recognized 1 FSM in module "debug_uart_transmitter(fast)".
+# ** Note: (vopt-143) Recognized 1 FSM in module "osc_trim_sm(fast)".
+# ** Note: (vopt-143) Recognized 1 FSM in module "bridgeSM(fast)".
+# ** Note: (vopt-143) Recognized 1 FSM in module "can_elink_bridge_sm(fast)".
+# ** Warning: /../../home/dcs/git/mopshub/mopshub_testbench/hdl/tb_mopshub_top_16bus.sv(134): (vopt-2685) [TFMPC] - Too few port connections for 'mopshub0'.  Expected 78, found 72.
+# ** Warning: /../../home/dcs/git/mopshub/mopshub_testbench/hdl/tb_mopshub_top_16bus.sv(134): (vopt-2718) [TFMPC] - Missing connection for port 'start_read_eth_fifo'.
+# ** Warning: /../../home/dcs/git/mopshub/mopshub_testbench/hdl/tb_mopshub_top_16bus.sv(134): (vopt-2718) [TFMPC] - Missing connection for port 'out_tx_serial'.
+# ** Warning: /../../home/dcs/git/mopshub/mopshub_testbench/hdl/tb_mopshub_top_16bus.sv(134): (vopt-2718) [TFMPC] - Missing connection for port 'irq_elink_eth'.
+# ** Warning: /../../home/dcs/git/mopshub/mopshub_testbench/hdl/tb_mopshub_top_16bus.sv(134): (vopt-2718) [TFMPC] - Missing connection for port 'buffer_eth_en'.
+# ** Warning: /../../home/dcs/git/mopshub/mopshub_testbench/hdl/tb_mopshub_top_16bus.sv(134): (vopt-2718) [TFMPC] - Missing connection for port 'in_rx_serial'.
+# ** Warning: /../../home/dcs/git/mopshub/mopshub_testbench/hdl/tb_mopshub_top_16bus.sv(134): (vopt-2718) [TFMPC] - Missing connection for port 'clk_uart'.
+# ** Note: (vopt-143) Recognized 1 FSM in module "ADCfsm(fast)".
+# ** Note: (vopt-143) Recognized 1 FSM in module "bridgeSMdec(fast)".
+# ** Note: (vopt-143) Recognized 1 FSM in module "debug_uart_sm(fast)".
 # ** Note: (vopt-143) Recognized 1 FSM in module "spi_control_sm(fast)".
+# ** Note: (vopt-143) Recognized 1 FSM in module "data_generator_sm(fast)".
+# ** Note: (vopt-143) Recognized 1 FSM in module "can_interface_sm(fast)".
+# ** Note: (vopt-143) Recognized 1 FSM in module "bus_rec_sm(fast)".
+# ** Note: (vopt-143) Recognized 1 FSM in module "elink_interface_rec_sm(fast)".
+# ** Note: (vopt-143) Recognized 1 FSM in module "interfaceSM(fast)".
+# ** Note: (vopt-143) Recognized 1 FSM in module "ODfsm(fast)".
+# ** Note: (vopt-143) Recognized 1 FSM in module "elink_interface_tra_sm(fast)".
+# ** Note: (vopt-143) Recognized 1 FSM in module "interfaceSMdec(fast)".
 # Loading sv_std.std
-# Loading work.tb_mopshub_top_32bus(fast)
-# Loading work.mopshub_top_32bus(fast)
+# Loading work.tb_mopshub_top_16bus(fast)
+# Loading work.mopshub_top_16bus(fast)
 # Loading work.bridge_controller(fast)
 # Loading work.buffer_rec_data(fast)
 # Loading work.buffer_tra_data(fast)
@@ -19,7 +57,7 @@
 # Loading work.can_interface_sm(fast)
 # Loading work.osc_trim_sm(fast)
 # Loading work.timeout_rst_module(fast)
-# Loading work.canakari_top_32bus(fast)
+# Loading work.canakari_top_16bus(fast)
 # Loading work.canakari_0_7(fast)
 # Loading work.can(fast)
 # Loading work.can2(fast)
@@ -88,15 +126,15 @@
 # Loading work.transmesconreg2(fast)
 # Loading work.transmitreg2(fast)
 # Loading work.prescale2(fast)
-# Loading work.node_rec_mux_32(fast)
+# Loading work.node_rec_mux_16(fast)
 # Loading work.bus_rec_sm(fast)
+# Loading work.dec16_1_16bit(fast)
 # Loading work.dec1_1_32bit(fast)
-# Loading work.dec32_1_16bit(fast)
-# Loading work.demux1_32_1bit(fast)
-# Loading work.mux32_1_16bit(fast)
-# Loading work.node_tra_demux_32(fast)
-# Loading work.demux1_32_16bit(fast)
-# Loading work.mux32_1_1bit(fast)
+# Loading work.demux1_16_1bit(fast)
+# Loading work.mux16_1_16bit(fast)
+# Loading work.node_tra_demux_16(fast)
+# Loading work.demux1_16_16bit(fast)
+# Loading work.mux16_1_1bit(fast)
 # Loading work.debug_uart_core(fast)
 # Loading work.debug_uart_receiver(fast)
 # Loading work.debug_uart_sm(fast)
@@ -186,13 +224,102 @@
 # Loading work.data_generator_sm(fast)
 # Loading work.elink_decoder(fast)
 # Loading work.clock_generator(fast)
-# Loading work.clock_generator(fast__1)
 # Loading work.clock_divider(fast__1)
-# Loading work.clock_generator(fast__2)
-# Loading work.clock_divider(fast__2)
-# ** Warning: (vsim-3015) [PCDPC] - Port size (9) does not match connection size (8) for port 'statedeb'. The port definition is at: /../../home/dcs/git/mopshub/mopshub_lib/hdl/spi_control_sm_fsm.v(47).
-#    Time: 0 ns  Iteration: 0  Instance: :tb_mopshub_top_32bus:mopshub0:spi_core0:SPI_control_SM File: /../../home/dcs/git/mopshub/mopshub_lib/hdl/spi_core_struct.v Line: 81
+# ** Warning: (vsim-3015) [PCDPC] - Port size (9) does not match connection size (8) for port 'statedeb'. The port definition is at: /../../home/dcs/git/mopshub/mopshub_lib/hdl/spi_control_sm_fsm.v(48).
+#    Time: 0 ns  Iteration: 0  Instance: :tb_mopshub_top_16bus:mopshub0:spi_core0:SPI_control_SM File: /../../home/dcs/git/mopshub/mopshub_lib/hdl/spi_core_struct.v Line: 85
 # Loading /eda/mentor/2019-20/RHELx86/HDL-DESIGNER_2019.4/resources/downstream/modelsim/ModelSim_64Bit.dll
+add wave -position insertpoint  \
+sim/:tb_mopshub_top_16bus:adc_ch \
+sim/:tb_mopshub_top_16bus:bus_cnt_power \
+sim/:tb_mopshub_top_16bus:bus_dec_data \
+sim/:tb_mopshub_top_16bus:bus_id \
+sim/:tb_mopshub_top_16bus:can_rec_select \
+sim/:tb_mopshub_top_16bus:can_tra_select \
+sim/:tb_mopshub_top_16bus:can_tra_select_dbg \
+sim/:tb_mopshub_top_16bus:clk_40_m \
+sim/:tb_mopshub_top_16bus:clk_mops \
+sim/:tb_mopshub_top_16bus:data_rec_uplink \
+sim/:tb_mopshub_top_16bus:data_tra_downlink \
+sim/:tb_mopshub_top_16bus:data_tra_mon_spi \
+sim/:tb_mopshub_top_16bus:data_tra_power_spi \
+sim/:tb_mopshub_top_16bus:end_init \
+sim/:tb_mopshub_top_16bus:end_power_init \
+sim/:tb_mopshub_top_16bus:end_trim_bus \
+sim/:tb_mopshub_top_16bus:endwait_all \
+sim/:tb_mopshub_top_16bus:info_debug_sig \
+sim/:tb_mopshub_top_16bus:irq_elink_rec \
+sim/:tb_mopshub_top_16bus:irq_elink_tra \
+sim/:tb_mopshub_top_16bus:n_buses \
+sim/:tb_mopshub_top_16bus:osc_auto_trim_mopshub \
+sim/:tb_mopshub_top_16bus:power_bus_cnt \
+sim/:tb_mopshub_top_16bus:power_bus_en \
+sim/:tb_mopshub_top_16bus:ready_osc \
+sim/:tb_mopshub_top_16bus:rst \
+sim/:tb_mopshub_top_16bus:rst_bus \
+sim/:tb_mopshub_top_16bus:rx0 \
+sim/:tb_mopshub_top_16bus:rx1 \
+sim/:tb_mopshub_top_16bus:rx2 \
+sim/:tb_mopshub_top_16bus:rx3 \
+sim/:tb_mopshub_top_16bus:rx4 \
+sim/:tb_mopshub_top_16bus:rx5 \
+sim/:tb_mopshub_top_16bus:rx6 \
+sim/:tb_mopshub_top_16bus:rx7 \
+sim/:tb_mopshub_top_16bus:rx8 \
+sim/:tb_mopshub_top_16bus:rx9 \
+sim/:tb_mopshub_top_16bus:rx10 \
+sim/:tb_mopshub_top_16bus:rx11 \
+sim/:tb_mopshub_top_16bus:rx12 \
+sim/:tb_mopshub_top_16bus:rx13 \
+sim/:tb_mopshub_top_16bus:rx14 \
+sim/:tb_mopshub_top_16bus:rx15 \
+sim/:tb_mopshub_top_16bus:rx16 \
+sim/:tb_mopshub_top_16bus:rx17 \
+sim/:tb_mopshub_top_16bus:rx18 \
+sim/:tb_mopshub_top_16bus:rx19 \
+sim/:tb_mopshub_top_16bus:rx20 \
+sim/:tb_mopshub_top_16bus:rx21 \
+sim/:tb_mopshub_top_16bus:rx22 \
+sim/:tb_mopshub_top_16bus:rx23 \
+sim/:tb_mopshub_top_16bus:rx24 \
+sim/:tb_mopshub_top_16bus:rx25 \
+sim/:tb_mopshub_top_16bus:rx26 \
+sim/:tb_mopshub_top_16bus:rx27 \
+sim/:tb_mopshub_top_16bus:rx28 \
+sim/:tb_mopshub_top_16bus:rx29 \
+sim/:tb_mopshub_top_16bus:rx30 \
+sim/:tb_mopshub_top_16bus:rx31 \
+sim/:tb_mopshub_top_16bus:rx_mopshub_2bit \
+sim/:tb_mopshub_top_16bus:sel_bus \
+sim/:tb_mopshub_top_16bus:sign_on_sig \
+sim/:tb_mopshub_top_16bus:spi_dat_m \
+sim/:tb_mopshub_top_16bus:spi_dat_p \
+sim/:tb_mopshub_top_16bus:start_init \
+sim/:tb_mopshub_top_16bus:start_trim_osc \
+sim/:tb_mopshub_top_16bus:test_advanced \
+sim/:tb_mopshub_top_16bus:test_advanced_end \
+sim/:tb_mopshub_top_16bus:test_rx \
+sim/:tb_mopshub_top_16bus:test_rx_end \
+sim/:tb_mopshub_top_16bus:test_rx_start \
+sim/:tb_mopshub_top_16bus:test_tx \
+sim/:tb_mopshub_top_16bus:test_tx_end \
+sim/:tb_mopshub_top_16bus:test_tx_start \
+sim/:tb_mopshub_top_16bus:tx0 \
+sim/:tb_mopshub_top_16bus:tx1 \
+sim/:tb_mopshub_top_16bus:tx2 \
+sim/:tb_mopshub_top_16bus:tx3 \
+sim/:tb_mopshub_top_16bus:tx4 \
+sim/:tb_mopshub_top_16bus:tx5 \
+sim/:tb_mopshub_top_16bus:tx6 \
+sim/:tb_mopshub_top_16bus:tx7 \
+sim/:tb_mopshub_top_16bus:tx8 \
+sim/:tb_mopshub_top_16bus:tx9 \
+sim/:tb_mopshub_top_16bus:tx10 \
+sim/:tb_mopshub_top_16bus:tx11 \
+sim/:tb_mopshub_top_16bus:tx12 \
+sim/:tb_mopshub_top_16bus:tx13 \
+sim/:tb_mopshub_top_16bus:tx14 \
+sim/:tb_mopshub_top_16bus:tx15 \
+sim/:tb_mopshub_top_16bus:tx_mopshub_2bit
 run
 # $HOME = /home/dcs
 # 
@@ -200,15 +327,8 @@ run
 # Frequncy  = 40 MHz, Period = 25.000 ns
 # clk phase = 0 deg
 # clk duty = 50 %
-# Frequncy  = 40 MHz, Period = 25.000 ns
-# clk phase = 5 deg
-# clk duty = 50 %
 # New Clock Divided by Factor 4
-# Frequncy  = 160 MHz, Period = 6.250 ns
-# clk phase = 0 deg
-# clk duty = 50 %
-# New Clock Divided by Factor 16
-# 	 Opening File          /home/dcs/tb_mopshub_top_tb_mopshub_top_32bus.data_generator0.can_bus_activity_wrapper0.can_bus_activity0_buses.csv
+# 	 Opening File          /home/dcs/tb_mopshub_top_tb_mopshub_top_16bus.data_generator0.can_bus_activity_wrapper0.can_bus_activity0_buses.csv
 # 
 # 	 initialization [BUS ID  0]:
 # 	 initialization [BUS ID  1]:
@@ -226,31 +346,18 @@ run
 # 	 initialization [BUS ID 13]:
 # 	 initialization [BUS ID 14]:
 # 	 initialization [BUS ID 15]:
-# 	 initialization [BUS ID 16]:
-# 	 initialization [BUS ID 17]:
-# 	 initialization [BUS ID 18]:
-# 	 initialization [BUS ID 19]:
-# 	 initialization [BUS ID 20]:
-# 	 initialization [BUS ID 21]:
-# 	 initialization [BUS ID 22]:
-# 	 initialization [BUS ID 23]:
-# 	 initialization [BUS ID 24]:
-# 	 initialization [BUS ID 25]:
-# 	 initialization [BUS ID 26]:
-# 	 initialization [BUS ID 27]:
-# 	 initialization [BUS ID 28]:
-# 	 initialization [BUS ID 29]:
-# 	 initialization [BUS ID 30]:
-# 	 initialization [BUS ID 31]:
 # *****************************************************************************
 # 	 Start SPI test[CAN SPI]
 # 	 Receive SPI signals [BUS ID   0]: 	 request 200bebeefef00beefbe 	 response 200bebeefef00beefbe
 # Status GOOD
 # 	 Start SPI test[Elink SPI]
-# 	 Receive SPI signals [BUS ID   0]: 	 request 200180dbeefdeadbeaf 	 response 200180800000000000a
+# 	 Receive SPI signals [BUS ID   0]: 	 request 200180dbeefdeadbeaf 	 response 200180000000000000a
 # Status GOOD
 # 	 Start SPI test[Elink SPI]
 # 	 Receive SPI signals [BUS ID   0]: 	 request 300deadb00000000000 	 response 300deadb00000000000
+# Status GOOD [BUS ID   0]- RX-TX test
+# 	 Start SPI test[Elink SPI]
+# 	 Receive SPI signals [BUS ID   0]: 	 request 310deadb00000000000 	 response 310deadb00000000000
 # Status GOOD [BUS ID   0]- RX-TX test
 # *****************************************************************************
 # 	 Counter RX signals [BUS ID   0]: 	 request 608000a0a0a000a0a0a 	 response 608000a0a0a000a0a0a
@@ -275,7 +382,316 @@ run
 # Status GOOD [BUS ID   0]- RX-TX test
 # 	 Receive Random signals [BUS ID   0]: 	 request 647f300000000000000 	 response 647f300000000000000
 # Status GOOD [BUS ID   0]- RX-TX test
-# Break key hit
-# Break in Module elink_proc_in_dec8b10b at /../../home/dcs/git/mopshub/mopshub_lib/hdl/elink_proc_in_dec8b10b_struct.v line 174
-# End time: 11:21:51 on Oct 30,2023, Elapsed time: 0:00:49
-# Errors: 0, Warnings: 5
+# 	 Receive Random signals [BUS ID   0]: 	 request 32be7d83db200000000 	 response 32be7d83db200000000
+# Status GOOD [BUS ID   0]- RX-TX test
+# 	 Receive Random signals [BUS ID   0]: 	 request 66d6e2f621e00000000 	 response 66d6e2f621e00000000
+# Status GOOD [BUS ID   0]- RX-TX test
+# 	 Receive Random signals [BUS ID   0]: 	 request 1c26e2ba5560000006e 	 response 1c26e2ba5560000006e
+# Status GOOD [BUS ID   0]- RX-TX test
+# 	 Receive Random signals [BUS ID   0]: 	 request 5ac535f5156004ea61b 	 response 5ac535f5156004ea61b
+# Status GOOD [BUS ID   0]- RX-TX test
+# 	 Receive Random signals [BUS ID   0]: 	 request 456aeff3cad000000cc 	 response 456aeff3cad000000cc
+# Status GOOD [BUS ID   0]- RX-TX test
+# 	 Receive Random signals [BUS ID   0]: 	 request 32db457090d00000000 	 response 32db457090d00000000
+# Status GOOD [BUS ID   0]- RX-TX test
+# 	 Receive Random signals [BUS ID   0]: 	 request 346e181703d000000f2 	 response 346e181703d000000f2
+# Status GOOD [BUS ID   0]- RX-TX test
+# 	 Receive Random signals [BUS ID   0]: 	 request 5c43a2d37960069a221 	 response 5c43a2d37960069a221
+# Status GOOD [BUS ID   0]- RX-TX test
+# 	 Receive Random signals [BUS ID   0]: 	 request 55798dda40000000000 	 response 55798dda40000000000
+# Status GOOD [BUS ID   0]- RX-TX test
+# 	 Receive Random signals [BUS ID   0]: 	 request 15bf600000000000000 	 response 15bf600000000000000
+# Status GOOD [BUS ID   0]- RX-TX test
+# 	 Receive Random signals [BUS ID   0]: 	 request 0638a004d0000000000 	 response 0638a004d0000000000
+# Status GOOD [BUS ID   0]- RX-TX test
+# 	 Receive Random signals [BUS ID   0]: 	 request 3a55171f30000000000 	 response 3a55171f30000000000
+# Status GOOD [BUS ID   0]- RX-TX test
+# 	 Receive Random signals [BUS ID   0]: 	 request 5d95001aa7200c6d031 	 response 5d95001aa7200c6d031
+# Status GOOD [BUS ID   0]- RX-TX test
+# 	 Receive Random signals [BUS ID   0]: 	 request 78c1500000000000000 	 response 78c1500000000000000
+# Status GOOD [BUS ID   0]- RX-TX test
+# 	 Receive Random signals [BUS ID   0]: 	 request 515dc31687700000000 	 response 515dc31687700000000
+# Status GOOD [BUS ID   0]- RX-TX test
+# 	 Receive Random signals [BUS ID   0]: 	 request 4f1d600030000000000 	 response 4f1d600030000000000
+# Status GOOD [BUS ID   0]- RX-TX test
+# 	 Receive Random signals [BUS ID   0]: 	 request 160cadeb00000000000 	 response 160cadeb00000000000
+# Status GOOD [BUS ID   0]- RX-TX test
+# 	 Receive Random signals [BUS ID   0]: 	 request 00431f1003b00000000 	 response 00431f1003b00000000
+# Status GOOD [BUS ID   0]- RX-TX test
+# 	 Receive Random signals [BUS ID   0]: 	 request 3172100c20000000000 	 response 3172100c20000000000
+# Status GOOD [BUS ID   0]- RX-TX test
+# 	 Receive Random signals [BUS ID   0]: 	 request 7271c34080900847fb6 	 response 7271c34080900847fb6
+# Status GOOD [BUS ID   0]- RX-TX test
+# 	 Receive Random signals [BUS ID   0]: 	 request 6cf55008b0000000000 	 response 6cf55008b0000000000
+# Status GOOD [BUS ID   0]- RX-TX test
+# 	 Receive Random signals [BUS ID   0]: 	 request 21df75d080000000000 	 response 21df75d080000000000
+# Status GOOD [BUS ID   0]- RX-TX test
+# 	 Receive Random signals [BUS ID   0]: 	 request 743c100370000000000 	 response 743c100370000000000
+# Status GOOD [BUS ID   0]- RX-TX test
+# 	 Receive Random signals [BUS ID   0]: 	 request 1c345b677d800ce74e7 	 response 1c345b677d800ce74e7
+# Status GOOD [BUS ID   0]- RX-TX test
+# 	 Receive Random signals [BUS ID   0]: 	 request 7359945b80500000000 	 response 7359945b80500000000
+# Status GOOD [BUS ID   0]- RX-TX test
+# 	 Receive Random signals [BUS ID   0]: 	 request 33e92007e0000000000 	 response 33e92007e0000000000
+# Status GOOD [BUS ID   0]- RX-TX test
+# 	 Receive Random signals [BUS ID   0]: 	 request 6825838110000000000 	 response 6825838110000000000
+# Status GOOD [BUS ID   0]- RX-TX test
+# Current simulation time is: 54157064
+# 	 Receive Random signals [BUS ID   0]: 	 request 25c4576a62c0000dd6a 	 response 25c457574386fdfd762
+# Status BAD **************************[RX-TX test [BUS ID  0]****************** Status BAD 25c4576a62c0000dd6a
+# Status BAD **************************[RX-TX test [BUS ID  0]****************** Status BAD 25c457574386fdfd762
+# ************MOPS reponded to a costumom message. The reponse must be checked
+# Current simulation time is: 55454984
+# 	 Receive Random signals [BUS ID   0]: 	 request 072b671ee4a0000fd85 	 response 25c457574386fdfd762
+# Status BAD **************************[RX-TX test [BUS ID  0]****************** Status BAD 072b671ee4a0000fd85
+# Status BAD **************************[RX-TX test [BUS ID  0]****************** Status BAD 25c457574386fdfd762
+# ************MOPS reponded to a costumom message. The reponse must be checked
+# 	 Receive Random signals [BUS ID   0]: 	 request 32dbce8803300fb839b 	 response 32dbce8803300fb839b
+# Status GOOD [BUS ID   0]- RX-TX test
+# 	 Receive Random signals [BUS ID   0]: 	 request 2608800000000000000 	 response 2608800000000000000
+# Status GOOD [BUS ID   0]- RX-TX test
+# 	 Receive Random signals [BUS ID   0]: 	 request 2884ed77b3b005d7173 	 response 2884ed77b3b005d7173
+# Status GOOD [BUS ID   0]- RX-TX test
+# 	 Receive Random signals [BUS ID   0]: 	 request 70cb8831a4800000000 	 response 70cb8831a4800000000
+# Status GOOD [BUS ID   0]- RX-TX test
+# 	 Receive Random signals [BUS ID   0]: 	 request 0b79a20d2aa0000520a 	 response 0b79a20d2aa0000520a
+# Status GOOD [BUS ID   0]- RX-TX test
+# 	 Receive Random signals [BUS ID   0]: 	 request 47bc21a420000000000 	 response 47bc21a420000000000
+# Status GOOD [BUS ID   0]- RX-TX test
+# 	 Receive Random signals [BUS ID   0]: 	 request 1a9610a503d00000000 	 response 1a9610a503d00000000
+# Status GOOD [BUS ID   0]- RX-TX test
+# 	 Receive Random signals [BUS ID   0]: 	 request 441d5fc212b00708286 	 response 441d5fc212b00708286
+# Status GOOD [BUS ID   0]- RX-TX test
+# 	 Receive Random signals [BUS ID   0]: 	 request 12bae2f73720000f86b 	 response 12bae2f73720000f86b
+# Status GOOD [BUS ID   0]- RX-TX test
+# 	 Receive Random signals [BUS ID   0]: 	 request 6faba00000000000000 	 response 6faba00000000000000
+# Status GOOD [BUS ID   0]- RX-TX test
+# 	 Receive Random signals [BUS ID   0]: 	 request 04e2785e2b4000045e1 	 response 04e2785e2b4000045e1
+# Status GOOD [BUS ID   0]- RX-TX test
+# 	 Receive Random signals [BUS ID   0]: 	 request 02dd7f90ea500000000 	 response 02dd7f90ea500000000
+# Status GOOD [BUS ID   0]- RX-TX test
+# 	 Receive Random signals [BUS ID   0]: 	 request 07c43c63db700000080 	 response 07c43c63db700000080
+# Status GOOD [BUS ID   0]- RX-TX test
+# 	 Receive Random signals [BUS ID   0]: 	 request 7a87f5eacc0000000c8 	 response 7a87f5eacc0000000c8
+# Status GOOD [BUS ID   0]- RX-TX test
+# 	 Receive Random signals [BUS ID   0]: 	 request 19ca58de39400cce07b 	 response 19ca58de39400cce07b
+# Status GOOD [BUS ID   0]- RX-TX test
+# 	 Receive Random signals [BUS ID   0]: 	 request 3380a00000000000000 	 response 3380a00000000000000
+# Status GOOD [BUS ID   0]- RX-TX test
+# 	 Receive Random signals [BUS ID   0]: 	 request 2b6f700f50000000000 	 response 2b6f700f50000000000
+# Status GOOD [BUS ID   0]- RX-TX test
+# 	 Receive Random signals [BUS ID   0]: 	 request 3c49c008e0000000000 	 response 3c49c008e0000000000
+# Status GOOD [BUS ID   0]- RX-TX test
+# 	 Receive Random signals [BUS ID   0]: 	 request 20e5e23876000924efc 	 response 20e5e23876000924efc
+# Status GOOD [BUS ID   0]- RX-TX test
+# 	 Receive Random signals [BUS ID   0]: 	 request 27ed600893800e8c7b7 	 response 27ed600893800e8c7b7
+# Status GOOD [BUS ID   0]- RX-TX test
+# 	 Receive Random signals [BUS ID   0]: 	 request 4b6e1650aeb0083a48e 	 response 4b6e1650aeb0083a48e
+# Status GOOD [BUS ID   0]- RX-TX test
+# 	 Receive Random signals [BUS ID   0]: 	 request 0d016ec4f8f00000000 	 response 0d016ec4f8f00000000
+# Status GOOD [BUS ID   0]- RX-TX test
+# 	 Receive Random signals [BUS ID   0]: 	 request 028a6b25cb500000000 	 response 028a6b25cb500000000
+# Status GOOD [BUS ID   0]- RX-TX test
+# 	 Receive Random signals [BUS ID   0]: 	 request 3b37300490000000000 	 response 3b37300490000000000
+# Status GOOD [BUS ID   0]- RX-TX test
+# 	 Receive Random signals [BUS ID   0]: 	 request 4aa03dd568200000045 	 response 4aa03dd568200000045
+# Status GOOD [BUS ID   0]- RX-TX test
+# 	 Receive Random signals [BUS ID   0]: 	 request 624e06178b20000e3c6 	 response 624e06178b20000e3c6
+# Status GOOD [BUS ID   0]- RX-TX test
+# 	 Receive Random signals [BUS ID   0]: 	 request 11a9626bb8b00000075 	 response 11a9626bb8b00000075
+# Status GOOD [BUS ID   0]- RX-TX test
+# 	 Receive Random signals [BUS ID   0]: 	 request 1c46a00ca0000000000 	 response 1c46a00ca0000000000
+# Status GOOD [BUS ID   0]- RX-TX test
+# 	 Receive Random signals [BUS ID   0]: 	 request 004dac14cf40091b3b2 	 response 004dac14cf40091b3b2
+# Status GOOD [BUS ID   0]- RX-TX test
+# 	 Receive Random signals [BUS ID   0]: 	 request 24cf500140000000000 	 response 24cf500140000000000
+# Status GOOD [BUS ID   0]- RX-TX test
+# 	 Receive Random signals [BUS ID   0]: 	 request 37c20cadeef00000000 	 response 37c20cadeef00000000
+# Status GOOD [BUS ID   0]- RX-TX test
+# 	 Receive Random signals [BUS ID   0]: 	 request 043377397c900009bf7 	 response 043377397c900009bf7
+# Status GOOD [BUS ID   0]- RX-TX test
+# 	 Receive Random signals [BUS ID   0]: 	 request 57feef69b0000000000 	 response 57feef69b0000000000
+# Status GOOD [BUS ID   0]- RX-TX test
+# 	 Receive Random signals [BUS ID   0]: 	 request 05c450013ef000071f9 	 response 05c450013ef000071f9
+# Status GOOD [BUS ID   0]- RX-TX test
+# 	 Receive Random signals [BUS ID   0]: 	 request 6560f32621a00577f0a 	 response 6560f32621a00577f0a
+# Status GOOD [BUS ID   0]- RX-TX test
+# 	 Receive Random signals [BUS ID   0]: 	 request 6f2bc13bba600000092 	 response 6f2bc13bba600000092
+# Status GOOD [BUS ID   0]- RX-TX test
+# 0
+# 
+run
+# 	 Receive Random signals [BUS ID   0]: 	 request 242037848cb000000d3 	 response 242037848cb000000d3
+# Status GOOD [BUS ID   0]- RX-TX test
+# 	 Receive Random signals [BUS ID   0]: 	 request 4207100000000000000 	 response 4207100000000000000
+# Status GOOD [BUS ID   0]- RX-TX test
+# 	 Receive Random signals [BUS ID   0]: 	 request 0921ce621f400000000 	 response 0921ce621f400000000
+# Status GOOD [BUS ID   0]- RX-TX test
+# 	 Receive Random signals [BUS ID   0]: 	 request 6d42570ceb90000ed70 	 response 6d42570ceb90000ed70
+# Status GOOD [BUS ID   0]- RX-TX test
+# 	 Receive Random signals [BUS ID   0]: 	 request 1401d6e927600bc4153 	 response 1401d6e927600bc4153
+# Status GOOD [BUS ID   0]- RX-TX test
+# 	 Receive Random signals [BUS ID   0]: 	 request 66b0000000000000000 	 response 66b0000000000000000
+# Status GOOD [BUS ID   0]- RX-TX test
+# 	 Receive Random signals [BUS ID   0]: 	 request 39ee400000000000000 	 response 39ee400000000000000
+# Status GOOD [BUS ID   0]- RX-TX test
+# 	 Receive Random signals [BUS ID   0]: 	 request 1623c5619ac0095f8c6 	 response 1623c5619ac0095f8c6
+# Status GOOD [BUS ID   0]- RX-TX test
+# 	 Receive Random signals [BUS ID   0]: 	 request 7640e18790100d0a8de 	 response 7640e18790100d0a8de
+# Status GOOD [BUS ID   0]- RX-TX test
+# 	 Receive Random signals [BUS ID   0]: 	 request 0ad1f00000000000000 	 response 0ad1f00000000000000
+# Status GOOD [BUS ID   0]- RX-TX test
+# 	 Receive Random signals [BUS ID   0]: 	 request 03631e6eaee00000000 	 response 03631e6eaee00000000
+# Status GOOD [BUS ID   0]- RX-TX test
+# 	 Receive Random signals [BUS ID   0]: 	 request 0edc2004f0000000000 	 response 0edc2004f0000000000
+# Status GOOD [BUS ID   0]- RX-TX test
+# 	 Receive Random signals [BUS ID   0]: 	 request 3e1b76bb00000000000 	 response 3e1b76bb00000000000
+# Status GOOD [BUS ID   0]- RX-TX test
+# 	 Receive Random signals [BUS ID   0]: 	 request 7d2bdf6a88000e4261c 	 response 7d2bdf6a88000e4261c
+# Status GOOD [BUS ID   0]- RX-TX test
+# 	 Receive Random signals [BUS ID   0]: 	 request 3668f161022003ab2ac 	 response 3668f161022003ab2ac
+# Status GOOD [BUS ID   0]- RX-TX test
+# 	 Receive Random signals [BUS ID   0]: 	 request 367f6387df30000fa7c 	 response 367f6387df30000fa7c
+# Status GOOD [BUS ID   0]- RX-TX test
+# 	 Receive Random signals [BUS ID   0]: 	 request 6385b5cef0700a94fb2 	 response 6385b5cef0700a94fb2
+# Status GOOD [BUS ID   0]- RX-TX test
+# 	 Receive Random signals [BUS ID   0]: 	 request 029397f85b700000012 	 response 029397f85b700000012
+# Status GOOD [BUS ID   0]- RX-TX test
+# 	 Receive Random signals [BUS ID   0]: 	 request 65d55ea084300000000 	 response 65d55ea084300000000
+# Status GOOD [BUS ID   0]- RX-TX test
+# 	 Receive Random signals [BUS ID   0]: 	 request 6eebd6a07f30057e433 	 response 6eebd6a07f30057e433
+# Status GOOD [BUS ID   0]- RX-TX test
+# 	 Receive Random signals [BUS ID   0]: 	 request 1cf438f5c9200000000 	 response 1cf438f5c9200000000
+# Status GOOD [BUS ID   0]- RX-TX test
+# 	 Receive Random signals [BUS ID   0]: 	 request 1186900000000000000 	 response 1186900000000000000
+# Status GOOD [BUS ID   0]- RX-TX test
+# 	 Receive Random signals [BUS ID   0]: 	 request 6cc1cd5677100000087 	 response 6cc1cd5677100000087
+# Status GOOD [BUS ID   0]- RX-TX test
+# 	 Receive Random signals [BUS ID   0]: 	 request 7b887de005000000000 	 response 7b887de005000000000
+# Status GOOD [BUS ID   0]- RX-TX test
+# 	 Receive Random signals [BUS ID   0]: 	 request 5d6fd00790000000000 	 response 5d6fd00790000000000
+# Status GOOD [BUS ID   0]- RX-TX test
+# 	 Receive Random signals [BUS ID   0]: 	 request 49c8545e9af000037c8 	 response 49c8545e9af000037c8
+# Status GOOD [BUS ID   0]- RX-TX test
+# 	 Receive Random signals [BUS ID   0]: 	 request 430aaaeea0000000000 	 response 430aaaeea0000000000
+# Status GOOD [BUS ID   0]- RX-TX test
+# 	 Receive Random signals [BUS ID   0]: 	 request 27bc1d3a81f008ffb9f 	 response 27bc1d3a81f008ffb9f
+# Status GOOD [BUS ID   0]- RX-TX test
+# 	 Receive Random signals [BUS ID   0]: 	 request 747bfc32f0000000000 	 response 747bfc32f0000000000
+# Status GOOD [BUS ID   0]- RX-TX test
+# 	 Receive Random signals [BUS ID   0]: 	 request 0cc9c7e810200000000 	 response 0cc9c7e810200000000
+# Status GOOD [BUS ID   0]- RX-TX test
+# 	 Receive Random signals [BUS ID   0]: 	 request 13e463208f800000036 	 response 13e463208f800000036
+# Status GOOD [BUS ID   0]- RX-TX test
+# Current simulation time is: 137856264
+# 	 Receive Random signals [BUS ID   0]: 	 request 0868138dfd70000009c 	 response 8ed0002000000000008
+# Status BAD **************************[RX-TX test [BUS ID  0]****************** Status BAD 0868138dfd70000009c
+# Status BAD **************************[RX-TX test [BUS ID  0]****************** Status BAD 8ed0002000000000008
+# ************MOPS reponded to a costumom message. The reponse must be checked
+# 	 Receive Random signals [BUS ID   0]: 	 request 2f3d2f4efad0026f90e 	 response 2f3d2f4efad0026f90e
+# Status GOOD [BUS ID   0]- RX-TX test
+# 	 Receive Random signals [BUS ID   0]: 	 request 6bda400000000000000 	 response 6bda400000000000000
+# Status GOOD [BUS ID   0]- RX-TX test
+# 	 Receive Random signals [BUS ID   0]: 	 request 36fb9a733ee00000010 	 response 36fb9a733ee00000010
+# Status GOOD [BUS ID   0]- RX-TX test
+# 	 Receive Random signals [BUS ID   0]: 	 request 30b05093d90000000b2 	 response 30b05093d90000000b2
+# Status GOOD [BUS ID   0]- RX-TX test
+# 	 Receive Random signals [BUS ID   0]: 	 request 4c281c000f50000dd3f 	 response 4c281c000f50000dd3f
+# Status GOOD [BUS ID   0]- RX-TX test
+# 	 Receive Random signals [BUS ID   0]: 	 request 57a0100000000000000 	 response 57a0100000000000000
+# Status GOOD [BUS ID   0]- RX-TX test
+# 	 Receive Random signals [BUS ID   0]: 	 request 461501da4a30000006e 	 response 461501da4a30000006e
+# Status GOOD [BUS ID   0]- RX-TX test
+# 	 Receive Random signals [BUS ID   0]: 	 request 5e72100750000000000 	 response 5e72100750000000000
+# Status GOOD [BUS ID   0]- RX-TX test
+# 	 Receive Random signals [BUS ID   0]: 	 request 3bbef0420f40000008a 	 response 3bbef0420f40000008a
+# Status GOOD [BUS ID   0]- RX-TX test
+# 	 Receive Random signals [BUS ID   0]: 	 request 29d884ec6af00a884a8 	 response 29d884ec6af00a884a8
+# Status GOOD [BUS ID   0]- RX-TX test
+# 	 Receive Random signals [BUS ID   0]: 	 request 22db0a9990c008c9994 	 response 22db0a9990c008c9994
+# Status GOOD [BUS ID   0]- RX-TX test
+# 	 Receive Random signals [BUS ID   0]: 	 request 00d8768982d000000cc 	 response 00d8768982d000000cc
+# Status GOOD [BUS ID   0]- RX-TX test
+# 	 Receive Random signals [BUS ID   0]: 	 request 76f5e7adb180000830f 	 response 76f5e7adb180000830f
+# Status GOOD [BUS ID   0]- RX-TX test
+# 	 Receive Random signals [BUS ID   0]: 	 request 77f1800a40000000000 	 response 77f1800a40000000000
+# Status GOOD [BUS ID   0]- RX-TX test
+# 	 Receive Random signals [BUS ID   0]: 	 request 05e6dd4e833008bdc82 	 response 05e6dd4e833008bdc82
+# Status GOOD [BUS ID   0]- RX-TX test
+# 	 Receive Random signals [BUS ID   0]: 	 request 7d5b98c7f4a0075bbfa 	 response 7d5b98c7f4a0075bbfa
+# Status GOOD [BUS ID   0]- RX-TX test
+# 	 Receive Random signals [BUS ID   0]: 	 request 3eebe00000000000000 	 response 3eebe00000000000000
+# Status GOOD [BUS ID   0]- RX-TX test
+# 	 Receive Random signals [BUS ID   0]: 	 request 09d2897176500e1bbcb 	 response 09d2897176500e1bbcb
+# Status GOOD [BUS ID   0]- RX-TX test
+# 	 Receive Random signals [BUS ID   0]: 	 request 426b900a60000000000 	 response 426b900a60000000000
+# Status GOOD [BUS ID   0]- RX-TX test
+# 	 Receive Random signals [BUS ID   0]: 	 request 43d45a20852000043f8 	 response 43d45a20852000043f8
+# Status GOOD [BUS ID   0]- RX-TX test
+# 	 Receive Random signals [BUS ID   0]: 	 request 7e69700000000000000 	 response 7e69700000000000000
+# Status GOOD [BUS ID   0]- RX-TX test
+# 	 Receive Random signals [BUS ID   0]: 	 request 212c483ad6900000000 	 response 212c483ad6900000000
+# Status GOOD [BUS ID   0]- RX-TX test
+# 	 Receive Random signals [BUS ID   0]: 	 request 778503f980000000000 	 response 778503f980000000000
+# Status GOOD [BUS ID   0]- RX-TX test
+# 	 Receive Random signals [BUS ID   0]: 	 request 3f62300b80000000000 	 response 3f62300b80000000000
+# Status GOOD [BUS ID   0]- RX-TX test
+# 	 Receive Random signals [BUS ID   0]: 	 request 15afd009e0000000000 	 response 15afd009e0000000000
+# Status GOOD [BUS ID   0]- RX-TX test
+# 	 Receive Random signals [BUS ID   0]: 	 request 4d16fba25c40000f5a8 	 response 4d16fba25c40000f5a8
+# Status GOOD [BUS ID   0]- RX-TX test
+# 	 Receive Random signals [BUS ID   0]: 	 request 00da1aa6de300664992 	 response 00da1aa6de300664992
+# Status GOOD [BUS ID   0]- RX-TX test
+# 	 Receive Random signals [BUS ID   0]: 	 request 16917e58be100a2276e 	 response 16917e58be100a2276e
+# Status GOOD [BUS ID   0]- RX-TX test
+# 	 Receive Random signals [BUS ID   0]: 	 request 3e35800000000000000 	 response 3e35800000000000000
+# Status GOOD [BUS ID   0]- RX-TX test
+# 	 Receive Random signals [BUS ID   0]: 	 request 1934b20557200000000 	 response 1934b20557200000000
+# Status GOOD [BUS ID   0]- RX-TX test
+# 	 Receive Random signals [BUS ID   0]: 	 request 2cd3002d08d00000000 	 response 2cd3002d08d00000000
+# Status GOOD [BUS ID   0]- RX-TX test
+# 	 Receive Random signals [BUS ID   0]: 	 request 5634483fd0000000000 	 response 5634483fd0000000000
+# Status GOOD [BUS ID   0]- RX-TX test
+# 	 Receive Random signals [BUS ID   0]: 	 request 13fca00200000000000 	 response 13fca00200000000000
+# Status GOOD [BUS ID   0]- RX-TX test
+# 	 Receive Random signals [BUS ID   0]: 	 request 522472aaa8100830368 	 response 522472aaa8100830368
+# Status GOOD [BUS ID   0]- RX-TX test
+# 	 Receive Random signals [BUS ID   0]: 	 request 7fcf67afc920000004e 	 response 7fcf67afc920000004e
+# Status GOOD [BUS ID   0]- RX-TX test
+# 	 Receive Random signals [BUS ID   0]: 	 request 6b71199376900915e61 	 response 6b71199376900915e61
+# Status GOOD [BUS ID   0]- RX-TX test
+# 	 Receive Random signals [BUS ID   0]: 	 request 4deee81bb5000002465 	 response 4deee81bb5000002465
+# Status GOOD [BUS ID   0]- RX-TX test
+# 	 Receive Random signals [BUS ID   0]: 	 request 4e8168a890000000000 	 response 4e8168a890000000000
+# Status GOOD [BUS ID   0]- RX-TX test
+# 	 Receive Random signals [BUS ID   0]: 	 request 73d28d80d6a00000000 	 response 73d28d80d6a00000000
+# Status GOOD [BUS ID   0]- RX-TX test
+# 	 Receive Random signals [BUS ID   0]: 	 request 1870e2f5d5a001eb844 	 response 1870e2f5d5a001eb844
+# Status GOOD [BUS ID   0]- RX-TX test
+# 	 Receive Random signals [BUS ID   0]: 	 request 1c08d489a5600005b1e 	 response 1c08d489a5600005b1e
+# Status GOOD [BUS ID   0]- RX-TX test
+# 	 Receive Random signals [BUS ID   0]: 	 request 315ece2a3ad00b49168 	 response 315ece2a3ad00b49168
+# Status GOOD [BUS ID   0]- RX-TX test
+# 	 Receive Random signals [BUS ID   0]: 	 request 617fd00560000000000 	 response 617fd00560000000000
+# Status GOOD [BUS ID   0]- RX-TX test
+# 	 Receive Random signals [BUS ID   0]: 	 request 0bb2bc794c60044a8bd 	 response 0bb2bc794c60044a8bd
+# Status GOOD [BUS ID   0]- RX-TX test
+# 	 Receive Random signals [BUS ID   0]: 	 request 65d2d4e7b090000f00f 	 response 65d2d4e7b090000f00f
+# Status GOOD [BUS ID   0]- RX-TX test
+# 	 Receive Random signals [BUS ID   0]: 	 request 6e1fb14eff700000000 	 response 6e1fb14eff700000000
+# Status GOOD [BUS ID   0]- RX-TX test
+# 	 Receive Random signals [BUS ID   0]: 	 request 2153d08f75b00137a20 	 response 2153d08f75b00137a20
+# Status GOOD [BUS ID   0]- RX-TX test
+# 	 Receive Random signals [BUS ID   0]: 	 request 09092c93c70002da4d0 	 response 09092c93c70002da4d0
+# Status GOOD [BUS ID   0]- RX-TX test
+# 	 Receive Random signals [BUS ID   0]: 	 request 0bea0cc00b900fe70ce 	 response 0bea0cc00b900fe70ce
+# Status GOOD [BUS ID   0]- RX-TX test
+# 	 Receive Random signals [BUS ID   0]: 	 request 1953918b1e400000000 	 response 1953918b1e400000000
+# Status GOOD [BUS ID   0]- RX-TX test
+# 	 Receive Random signals [BUS ID   0]: 	 request 2c1873acbd1005edf20 	 response 2c1873acbd1005edf20
+# Status GOOD [BUS ID   0]- RX-TX test
+# 0
+# 
+# ** Fatal: License connection lost and unable to reconnect after multiple attempts.
+# End time: 11:09:14 on Dec 13,2023, Elapsed time: 42:13:32
+# Errors: 0, Warnings: 12

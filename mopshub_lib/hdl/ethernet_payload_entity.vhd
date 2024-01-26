@@ -61,7 +61,7 @@ end ethernet_payload;
 
 architecture rtl of ethernet_payload is
 
-	signal ipbw: ipb_wbus_array(N_SLAVES - 1 downto 0);
+	signal ipbw: ipb_wbus_array(N_SLAVES - 1 downto 0); --signals from master to slave to request read and write operations.
 	signal ipbr: ipb_rbus_array(N_SLAVES - 1 downto 0);
 	signal ctrl, stat: ipb_reg_v(0 downto 0);
 

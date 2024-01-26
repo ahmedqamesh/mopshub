@@ -152,18 +152,16 @@ module tb_mopshub_top_32bus();
   assign sign_on_sig       = mopshub0.sign_on_sig;
   assign end_trim_bus      = mopshub0.end_trim_bus;
   assign start_trim_osc    = mopshub0.start_trim_ack;
-  assign power_bus_en      = mopshub0.power_bus_en;
+  assign power_bus_en      = mopshub0.set_power_init;
   assign bus_cnt_power     = mopshub0.bus_cnt_power;
   assign ready_osc         = data_generator0.ready_osc;
 
-  mopshub_top_32bus mopshub0(
+  mopshub_top_32bus #(2)mopshub0(
   .clk(clk_40_m),
   .clk_elink(clk_elink),
   .clk_uart(clk_uart),
   .rst(rst),
   .n_buses(n_buses),
-  .prescaler_init(16'h00FF), //(16'h33),//(16'h00FF),
-  .general_init(16'hA3),//(16'hA3), 
   .xadc_rec_in(12'hA),
   .irq_elink_tra(irq_elink_tra),
   .irq_elink_rec(irq_elink_rec),
@@ -190,7 +188,7 @@ module tb_mopshub_top_32bus();
   .data_rdy_10bit_in_dbg(1'b0),
   .start_write_elink_dbg(1'b0),
   .end_write_elink_dbg(),
-  .data_10bit_in_dbg(10'b0),
+  .data_10bit_in_dbg(),
   .cs_active_c(),
   .cs_active_m(), 
   .data_rec_dbg_in(76'b0),
@@ -198,6 +196,7 @@ module tb_mopshub_top_32bus();
   .miso_m(spi_dat_m),        
   .mosi_c(spi_dat_p),
   .miso_c(spi_dat_p), 
+  .mopshub_id(4'b1),
   .rx0(rx0),        
   .rx1(rx1),        
   .rx2(rx2),        
@@ -306,9 +305,6 @@ module tb_mopshub_top_32bus();
   .data_tra_downlink(data_tra_downlink), 
   .end_trim_bus(end_trim_bus),
   .start_trim_osc(start_trim_osc),
-  // UART signals
-  //.out_tx_serial(out_tx_serial),
- // .in_rx_serial(in_rx_serial),
   //SPI Signals
   .data_tra_mon_spi(data_tra_mon_spi),
   .data_tra_power_spi(data_tra_power_spi),
@@ -432,8 +428,8 @@ clock_generator #(
       if(end_power_init ==1) osc_auto_trim_mopshub = 1'b0;
       if(sign_on_sig ==1)//start Rx test
       begin
-      //test_tx =1'b1;
-      test_advanced = 1'b1;
+      test_tx =1'b1;
+      //test_advanced = 1'b1;
       end
       if(test_rx_end ==1)//Done Rx test
       begin

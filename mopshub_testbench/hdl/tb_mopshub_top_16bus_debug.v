@@ -54,7 +54,7 @@ module tb_mopshub_top_16bus_debug();
   wire    [4 :0]  can_rec_select;
   wire    [75:0]  data_tra_downlink;
   wire    [4 :0]  can_tra_select;
-
+  wire    [4 :0]  bus_cnt_power;
   wire            irq_elink_tra;
   wire            irq_elink_rec;
   
@@ -131,8 +131,8 @@ module tb_mopshub_top_16bus_debug();
   assign sign_on_sig       = mopshub0.sign_on_sig;
   assign end_trim_bus      = mopshub0.end_trim_bus;
   assign start_trim_osc    = mopshub0.start_trim_ack;
-  assign power_bus_en      = mopshub0.power_bus_en;
-  assign start_osc_cnt     = mopshub0.start_osc_cnt;
+  assign power_bus_en      = mopshub0.set_power_init;
+  assign bus_cnt_power     = mopshub0.bus_cnt_power;
   assign ready_osc         = data_generator0.ready_osc;
 
   
@@ -244,7 +244,7 @@ fifo_async #(76,15) fifo_async0(
   .clk(clk_40_m),
   .rst(rst),
   .ext_rst_mops(rst_bus),
-  .start_osc_cnt(start_osc_cnt),
+  .bus_cnt_power(bus_cnt_power),
   .ext_trim_mops(osc_auto_trim_mopshub),
   //Start SM
   .sign_on_sig(sign_on_sig),
@@ -281,10 +281,6 @@ fifo_async #(76,15) fifo_async0(
   .data_tra_downlink(data_tra_downlink), 
   .end_trim_bus(end_trim_bus),
   .start_trim_osc(start_trim_osc),
-  .test_uart_core(1'b0),
-  .tx_uart_done(1'b0),
-  .tx_uart_data(),
-  .tx_uart_dv(),
   //ElinkSignals
   .tx_elink2bit(rx_mopshub_2bit),
   .rx_elink2bit(tx_mopshub_2bit),
