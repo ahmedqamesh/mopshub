@@ -12,7 +12,7 @@ model (Symbol
 commonDM (CommonDM
 ldm (LogicalDM
 ordering 1
-suid 79,0
+suid 82,0
 usingSuid 1
 emptyRow *1 (LEmptyRow
 )
@@ -200,7 +200,7 @@ lang 5
 decl (Decl
 n "clk_elink"
 t "wire"
-o 15
+o 14
 suid 72,0
 )
 )
@@ -223,32 +223,29 @@ port (LogicalPort
 lang 5
 m 1
 decl (Decl
-n "data_in_rdy"
+n "enc10b_out_rdy"
 t "wire"
 preAdd 0
 posAdd 0
 o 13
-suid 74,0
+suid 81,0
 )
 )
-uid 6301,0
+uid 7187,0
 )
 *29 (LogPort
 port (LogicalPort
 lang 5
 m 1
 decl (Decl
-n "data_10bit_in"
+n "enc10b_out"
 t "wire"
 b "[9:0]"
-eolc "//Data stored in the FIFO"
-preAdd 0
-posAdd 0
-o 14
-suid 75,0
+o 15
+suid 82,0
 )
 )
-uid 6303,0
+uid 7216,0
 )
 ]
 )
@@ -362,13 +359,13 @@ uid 5129,0
 )
 *45 (MRCItem
 litem &25
-pos 13
+pos 11
 dimension 20
 uid 6074,0
 )
 *46 (MRCItem
 litem &26
-pos 14
+pos 12
 dimension 20
 uid 6154,0
 )
@@ -380,15 +377,15 @@ uid 6183,0
 )
 *48 (MRCItem
 litem &28
-pos 11
+pos 13
 dimension 20
-uid 6300,0
+uid 7186,0
 )
 *49 (MRCItem
 litem &29
-pos 12
+pos 14
 dimension 20
-uid 6302,0
+uid 7215,0
 )
 ]
 )
@@ -647,19 +644,19 @@ value "/../../home/dcs/git/mopshub/mopshub_lib/hds/fifo_to_elink"
 )
 (vvPair
 variable "date"
-value "11/03/23"
+value "02/05/24"
 )
 (vvPair
 variable "day"
-value "Fri"
+value "Mon"
 )
 (vvPair
 variable "day_long"
-value "Friday"
+value "Monday"
 )
 (vvPair
 variable "dd"
-value "03"
+value "05"
 )
 (vvPair
 variable "entity_name"
@@ -687,7 +684,7 @@ value "dcs"
 )
 (vvPair
 variable "graphical_source_date"
-value "11/03/23"
+value "02/05/24"
 )
 (vvPair
 variable "graphical_source_group"
@@ -699,7 +696,7 @@ value "chipdev2.physik.uni-wuppertal.de"
 )
 (vvPair
 variable "graphical_source_time"
-value "11:29:17"
+value "16:10:46"
 )
 (vvPair
 variable "group"
@@ -743,7 +740,7 @@ value "$HDS_PROJECT_DIR/mopshub_lib/svassistant"
 )
 (vvPair
 variable "mm"
-value "11"
+value "02"
 )
 (vvPair
 variable "module_name"
@@ -751,11 +748,11 @@ value "fifo_to_elink"
 )
 (vvPair
 variable "month"
-value "Nov"
+value "Feb"
 )
 (vvPair
 variable "month_long"
-value "November"
+value "February"
 )
 (vvPair
 variable "p"
@@ -819,7 +816,7 @@ value "symbol"
 )
 (vvPair
 variable "time"
-value "11:29:17"
+value "16:10:46"
 )
 (vvPair
 variable "unit"
@@ -839,11 +836,11 @@ value "symbol"
 )
 (vvPair
 variable "year"
-value "2023"
+value "2024"
 )
 (vvPair
 variable "yy"
-value "23"
+value "24"
 )
 ]
 )
@@ -863,7 +860,7 @@ va (VaSet
 vasetType 1
 fg "0,65535,0"
 )
-xt "26250,10625,27000,11375"
+xt "26250,26625,27000,27375"
 )
 tg (CPTG
 uid 673,0
@@ -874,9 +871,9 @@ uid 674,0
 va (VaSet
 font "courier,8,0"
 )
-xt "28000,10550,33500,11450"
+xt "28000,26550,33500,27450"
 st "fifo_flush"
-blo "28000,11250"
+blo "28000,27250"
 tm "CptPortNameMgr"
 )
 )
@@ -908,7 +905,7 @@ va (VaSet
 vasetType 1
 fg "0,65535,0"
 )
-xt "26250,15625,27000,16375"
+xt "26250,29625,27000,30375"
 )
 tg (CPTG
 uid 803,0
@@ -919,9 +916,9 @@ uid 804,0
 va (VaSet
 font "courier,8,0"
 )
-xt "28000,15550,33500,16450"
+xt "28000,29550,33500,30450"
 st "fifo_wr_en"
-blo "28000,16250"
+blo "28000,30250"
 tm "CptPortNameMgr"
 )
 )
@@ -953,7 +950,7 @@ va (VaSet
 vasetType 1
 fg "0,65535,0"
 )
-xt "26250,16625,27000,17375"
+xt "26250,30625,27000,31375"
 )
 tg (CPTG
 uid 808,0
@@ -964,9 +961,9 @@ uid 809,0
 va (VaSet
 font "courier,8,0"
 )
-xt "28000,16550,32000,17450"
-st "fifo_din"
-blo "28000,17250"
+xt "28000,30550,36500,31450"
+st "fifo_din : [9:0]"
+blo "28000,31250"
 tm "CptPortNameMgr"
 )
 )
@@ -994,26 +991,25 @@ uid 1721,0
 ps "OnEdgeStrategy"
 shape (Triangle
 uid 1722,0
-ro 90
+ro 270
 va (VaSet
 vasetType 1
 fg "0,65535,0"
 )
-xt "52000,9625,52750,10375"
+xt "26250,28625,27000,29375"
 )
 tg (CPTG
 uid 1723,0
 ps "CptPortTextPlaceStrategy"
-stg "RightVerticalLayoutStrategy"
+stg "VerticalLayoutStrategy"
 f (Text
 uid 1724,0
 va (VaSet
 font "courier,8,0"
 )
-xt "45500,9550,51000,10450"
+xt "28000,28550,33500,29450"
 st "efifo_full"
-ju 2
-blo "51000,10250"
+blo "28000,29250"
 tm "CptPortNameMgr"
 )
 )
@@ -1041,26 +1037,25 @@ uid 2395,0
 ps "OnEdgeStrategy"
 shape (Triangle
 uid 2396,0
-ro 90
+ro 270
 va (VaSet
 vasetType 1
 fg "0,65535,0"
 )
-xt "52000,14625,52750,15375"
+xt "26250,27625,27000,28375"
 )
 tg (CPTG
 uid 2397,0
 ps "CptPortTextPlaceStrategy"
-stg "RightVerticalLayoutStrategy"
+stg "VerticalLayoutStrategy"
 f (Text
 uid 2398,0
 va (VaSet
 font "courier,8,0"
 )
-xt "45000,14550,51000,15450"
+xt "28000,27550,34000,28450"
 st "efifo_empty"
-ju 2
-blo "51000,15250"
+blo "28000,28250"
 tm "CptPortNameMgr"
 )
 )
@@ -1093,7 +1088,7 @@ va (VaSet
 vasetType 1
 fg "0,65535,0"
 )
-xt "26250,24625,27000,25375"
+xt "26250,25625,27000,26375"
 )
 tg (CPTG
 uid 3212,0
@@ -1104,9 +1099,9 @@ uid 3213,0
 va (VaSet
 font "courier,8,0"
 )
-xt "28000,24550,29500,25450"
+xt "28000,25550,29500,26450"
 st "rst"
-blo "28000,25250"
+blo "28000,26250"
 tm "CptPortNameMgr"
 )
 )
@@ -1138,7 +1133,7 @@ va (VaSet
 vasetType 1
 fg "0,65535,0"
 )
-xt "52000,15625,52750,16375"
+xt "54000,23625,54750,24375"
 )
 tg (CPTG
 uid 3900,0
@@ -1149,10 +1144,10 @@ uid 3901,0
 va (VaSet
 font "courier,8,0"
 )
-xt "44000,15550,51000,16450"
-st "data_2bit_out"
+xt "42000,23550,53000,24450"
+st "data_2bit_out : [1:0]"
 ju 2
-blo "51000,16250"
+blo "53000,24250"
 tm "CptPortNameMgr"
 )
 )
@@ -1182,25 +1177,26 @@ uid 4929,0
 ps "OnEdgeStrategy"
 shape (Triangle
 uid 4930,0
-ro 90
+ro 270
 va (VaSet
 vasetType 1
 fg "0,65535,0"
 )
-xt "26250,25625,27000,26375"
+xt "54000,24625,54750,25375"
 )
 tg (CPTG
 uid 4931,0
 ps "CptPortTextPlaceStrategy"
-stg "VerticalLayoutStrategy"
+stg "RightVerticalLayoutStrategy"
 f (Text
 uid 4932,0
 va (VaSet
 font "courier,8,0"
 )
-xt "28000,25550,34000,26450"
-st "Kchar_comma"
-blo "28000,26250"
+xt "43000,24550,53000,25450"
+st "Kchar_comma : [7:0]"
+ju 2
+blo "53000,25250"
 tm "CptPortNameMgr"
 )
 )
@@ -1228,12 +1224,11 @@ uid 5131,0
 ps "OnEdgeStrategy"
 shape (Triangle
 uid 5132,0
-ro 90
 va (VaSet
 vasetType 1
 fg "0,65535,0"
 )
-xt "26250,30625,27000,31375"
+xt "38625,38000,39375,38750"
 )
 tg (CPTG
 uid 5133,0
@@ -1241,12 +1236,13 @@ ps "CptPortTextPlaceStrategy"
 stg "VerticalLayoutStrategy"
 f (Text
 uid 5134,0
+ro 270
 va (VaSet
 font "courier,8,0"
 )
-xt "28000,30550,37000,31450"
-st "data_10bit_in_dbg"
-blo "28000,31250"
+xt "38550,24000,39450,37000"
+st "data_10bit_in_dbg : [9:0]"
+blo "39250,37000"
 tm "CptPortNameMgr"
 )
 )
@@ -1274,12 +1270,11 @@ uid 5146,0
 ps "OnEdgeStrategy"
 shape (Triangle
 uid 5147,0
-ro 90
 va (VaSet
 vasetType 1
 fg "0,65535,0"
 )
-xt "26250,32625,27000,33375"
+xt "39625,38000,40375,38750"
 )
 tg (CPTG
 uid 5148,0
@@ -1287,12 +1282,13 @@ ps "CptPortTextPlaceStrategy"
 stg "VerticalLayoutStrategy"
 f (Text
 uid 5149,0
+ro 270
 va (VaSet
 font "courier,8,0"
 )
-xt "28000,32550,32500,33450"
+xt "39550,32500,40450,37000"
 st "dbg_elink"
-blo "28000,33250"
+blo "40250,37000"
 tm "CptPortNameMgr"
 )
 )
@@ -1319,12 +1315,11 @@ uid 6076,0
 ps "OnEdgeStrategy"
 shape (Triangle
 uid 6077,0
-ro 90
 va (VaSet
 vasetType 1
 fg "0,65535,0"
 )
-xt "26250,33625,27000,34375"
+xt "40625,38000,41375,38750"
 )
 tg (CPTG
 uid 6078,0
@@ -1332,12 +1327,13 @@ ps "CptPortTextPlaceStrategy"
 stg "VerticalLayoutStrategy"
 f (Text
 uid 6079,0
+ro 270
 va (VaSet
 font "courier,8,0"
 )
-xt "28000,33550,39000,34450"
+xt "40550,26000,41450,37000"
 st "data_rdy_10bit_in_dbg"
-blo "28000,34250"
+blo "41250,37000"
 tm "CptPortNameMgr"
 )
 )
@@ -1369,7 +1365,7 @@ va (VaSet
 vasetType 1
 fg "0,65535,0"
 )
-xt "26250,34625,27000,35375"
+xt "26250,23625,27000,24375"
 )
 tg (CPTG
 uid 6158,0
@@ -1380,9 +1376,9 @@ uid 6159,0
 va (VaSet
 font "courier,8,0"
 )
-xt "28000,34550,32500,35450"
+xt "28000,23550,32500,24450"
 st "clk_elink"
-blo "28000,35250"
+blo "28000,24250"
 tm "CptPortNameMgr"
 )
 )
@@ -1391,7 +1387,7 @@ uid 6160,0
 va (VaSet
 font "courier,8,0"
 )
-xt "2000,21800,17000,22700"
+xt "2000,20900,17000,21800"
 st "input  wire        clk_elink;"
 )
 thePort (LogicalPort
@@ -1399,7 +1395,7 @@ lang 5
 decl (Decl
 n "clk_elink"
 t "wire"
-o 15
+o 14
 suid 72,0
 )
 )
@@ -1414,7 +1410,7 @@ va (VaSet
 vasetType 1
 fg "0,65535,0"
 )
-xt "26250,35625,27000,36375"
+xt "26250,24625,27000,25375"
 )
 tg (CPTG
 uid 6187,0
@@ -1425,9 +1421,9 @@ uid 6188,0
 va (VaSet
 font "courier,8,0"
 )
-xt "28000,35550,29500,36450"
+xt "28000,24550,29500,25450"
 st "clk"
-blo "28000,36250"
+blo "28000,25250"
 tm "CptPortNameMgr"
 )
 )
@@ -1450,117 +1446,113 @@ suid 73,0
 )
 )
 *93 (CptPort
-uid 6304,0
+uid 7188,0
 ps "OnEdgeStrategy"
 shape (Triangle
-uid 6305,0
+uid 7189,0
 ro 90
 va (VaSet
 vasetType 1
 fg "0,65535,0"
 )
-xt "52000,16625,52750,17375"
+xt "54000,25625,54750,26375"
 )
 tg (CPTG
-uid 6306,0
+uid 7190,0
 ps "CptPortTextPlaceStrategy"
 stg "RightVerticalLayoutStrategy"
 f (Text
-uid 6307,0
+uid 7191,0
 va (VaSet
 font "courier,8,0"
 )
-xt "45000,16550,51000,17450"
-st "data_in_rdy"
+xt "45500,25550,53000,26450"
+st "enc10b_out_rdy"
 ju 2
-blo "51000,17250"
+blo "53000,26250"
 tm "CptPortNameMgr"
 )
 )
 dt (MLText
-uid 6308,0
+uid 7192,0
 va (VaSet
 font "courier,8,0"
 )
-xt "2000,20000,18000,20900"
-st "output wire        data_in_rdy;"
+xt "2000,20000,19500,20900"
+st "output wire        enc10b_out_rdy;"
 )
 thePort (LogicalPort
 lang 5
 m 1
 decl (Decl
-n "data_in_rdy"
+n "enc10b_out_rdy"
 t "wire"
 preAdd 0
 posAdd 0
 o 13
-suid 74,0
+suid 81,0
 )
 )
 )
 *94 (CptPort
-uid 6309,0
+uid 7217,0
 ps "OnEdgeStrategy"
 shape (Triangle
-uid 6310,0
+uid 7218,0
 ro 90
 va (VaSet
 vasetType 1
 fg "0,65535,0"
 )
-xt "52000,17625,52750,18375"
+xt "54000,26625,54750,27375"
 )
 tg (CPTG
-uid 6311,0
+uid 7219,0
 ps "CptPortTextPlaceStrategy"
 stg "RightVerticalLayoutStrategy"
 f (Text
-uid 6312,0
+uid 7220,0
 va (VaSet
 font "courier,8,0"
 )
-xt "44000,17550,51000,18450"
-st "data_10bit_in"
+xt "43500,26550,53000,27450"
+st "enc10b_out : [9:0]"
 ju 2
-blo "51000,18250"
+blo "53000,27250"
 tm "CptPortNameMgr"
 )
 )
 dt (MLText
-uid 6313,0
+uid 7221,0
 va (VaSet
 font "courier,8,0"
 )
-xt "2000,20900,32000,21800"
-st "output wire [9:0]  data_10bit_in; //Data stored in the FIFO"
+xt "2000,21800,17500,22700"
+st "output wire [9:0]  enc10b_out;"
 )
 thePort (LogicalPort
 lang 5
 m 1
 decl (Decl
-n "data_10bit_in"
+n "enc10b_out"
 t "wire"
 b "[9:0]"
-eolc "//Data stored in the FIFO"
-preAdd 0
-posAdd 0
-o 14
-suid 75,0
+o 15
+suid 82,0
 )
 )
 )
 ]
 shape (Rectangle
-uid 9,0
+uid 7134,0
 va (VaSet
 vasetType 1
 fg "0,65535,0"
 lineColor "0,32896,0"
 lineWidth 2
 )
-xt "27000,6000,52000,38000"
+xt "27000,23000,54000,38000"
 )
-oxt "27000,6000,43000,22000"
 biTextGroup (BiTextGroup
 uid 10,0
 ps "CenterOffsetStrategy"
@@ -1570,18 +1562,18 @@ uid 11,0
 va (VaSet
 font "courier,8,1"
 )
-xt "32750,13100,38750,14000"
+xt "27750,34100,33750,35000"
 st "mopshub_lib"
-blo "32750,13800"
+blo "27750,34800"
 )
 second (Text
 uid 12,0
 va (VaSet
 font "courier,8,1"
 )
-xt "32750,14000,39750,14900"
+xt "27750,35000,34750,35900"
 st "fifo_to_elink"
-blo "32750,14700"
+blo "27750,35700"
 )
 )
 gi *95 (GenericInterface
@@ -1610,7 +1602,7 @@ sIVOD 1
 sF 0
 )
 portVis (PortSigDisplay
-sTC 0
+sIVOD 1
 sF 0
 )
 )
@@ -2289,7 +2281,7 @@ xt "2000,8300,2000,8300"
 tm "SyDeclarativeTextMgr"
 )
 )
-lastUid 7067,0
+lastUid 7265,0
 postModuleDirective "// Local declarations
 // Internal signal declarations
 

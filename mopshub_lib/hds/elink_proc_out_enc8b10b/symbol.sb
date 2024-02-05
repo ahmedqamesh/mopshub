@@ -12,7 +12,7 @@ model (Symbol
 commonDM (CommonDM
 ldm (LogicalDM
 ordering 1
-suid 37,0
+suid 38,0
 usingSuid 1
 emptyRow *1 (LEmptyRow
 )
@@ -115,18 +115,6 @@ uid 5727,0
 port (LogicalPort
 lang 5
 decl (Decl
-n "data_in_rdy"
-t "wire"
-o 3
-suid 33,0
-)
-)
-uid 5729,0
-)
-*20 (LogPort
-port (LogicalPort
-lang 5
-decl (Decl
 n "rst"
 t "wire"
 eolc "// reset all the counters and data"
@@ -135,6 +123,18 @@ suid 34,0
 )
 )
 uid 5731,0
+)
+*20 (LogPort
+port (LogicalPort
+lang 5
+decl (Decl
+n "data_out_rdy"
+t "wire"
+o 3
+suid 38,0
+)
+)
+uid 9025,0
 )
 ]
 )
@@ -188,7 +188,7 @@ uid 138,0
 )
 *26 (MRCItem
 litem &15
-pos 4
+pos 3
 dimension 20
 uid 252,0
 )
@@ -200,7 +200,7 @@ uid 4722,0
 )
 *28 (MRCItem
 litem &17
-pos 5
+pos 4
 dimension 20
 uid 4758,0
 )
@@ -214,13 +214,13 @@ uid 5726,0
 litem &19
 pos 2
 dimension 20
-uid 5728,0
+uid 5730,0
 )
 *31 (MRCItem
 litem &20
-pos 3
+pos 5
 dimension 20
-uid 5730,0
+uid 9024,0
 )
 ]
 )
@@ -479,19 +479,19 @@ value "/../../home/dcs/git/mopshub/mopshub_lib/hds/elink_proc_out_enc8b10b"
 )
 (vvPair
 variable "date"
-value "11/03/23"
+value "02/04/24"
 )
 (vvPair
 variable "day"
-value "Fri"
+value "Sun"
 )
 (vvPair
 variable "day_long"
-value "Friday"
+value "Sunday"
 )
 (vvPair
 variable "dd"
-value "03"
+value "04"
 )
 (vvPair
 variable "entity_name"
@@ -519,7 +519,7 @@ value "dcs"
 )
 (vvPair
 variable "graphical_source_date"
-value "11/03/23"
+value "02/04/24"
 )
 (vvPair
 variable "graphical_source_group"
@@ -531,7 +531,7 @@ value "chipdev2.physik.uni-wuppertal.de"
 )
 (vvPair
 variable "graphical_source_time"
-value "11:27:42"
+value "16:07:23"
 )
 (vvPair
 variable "group"
@@ -575,7 +575,7 @@ value "$HDS_PROJECT_DIR/mopshub_lib/svassistant"
 )
 (vvPair
 variable "mm"
-value "11"
+value "02"
 )
 (vvPair
 variable "module_name"
@@ -583,11 +583,11 @@ value "elink_proc_out_enc8b10b"
 )
 (vvPair
 variable "month"
-value "Nov"
+value "Feb"
 )
 (vvPair
 variable "month_long"
-value "November"
+value "February"
 )
 (vvPair
 variable "p"
@@ -651,7 +651,7 @@ value "symbol"
 )
 (vvPair
 variable "time"
-value "11:27:42"
+value "16:07:23"
 )
 (vvPair
 variable "unit"
@@ -671,11 +671,11 @@ value "symbol"
 )
 (vvPair
 variable "year"
-value "2023"
+value "2024"
 )
 (vvPair
 variable "yy"
-value "23"
+value "24"
 )
 ]
 )
@@ -882,52 +882,6 @@ suid 32,0
 )
 )
 *66 (CptPort
-uid 5737,0
-ps "OnEdgeStrategy"
-shape (Triangle
-uid 5738,0
-ro 90
-va (VaSet
-vasetType 1
-fg "0,65535,0"
-)
-xt "50250,26625,51000,27375"
-)
-tg (CPTG
-uid 5739,0
-ps "CptPortTextPlaceStrategy"
-stg "VerticalLayoutStrategy"
-f (Text
-uid 5740,0
-va (VaSet
-font "courier,8,0"
-)
-xt "52000,26550,58000,27450"
-st "data_in_rdy"
-blo "52000,27250"
-tm "CptPortNameMgr"
-)
-)
-dt (MLText
-uid 5741,0
-va (VaSet
-font "courier,8,0"
-)
-xt "2000,11900,18000,12800"
-st "input  wire        data_in_rdy;
-"
-)
-thePort (LogicalPort
-lang 5
-decl (Decl
-n "data_in_rdy"
-t "wire"
-o 3
-suid 33,0
-)
-)
-)
-*67 (CptPort
 uid 5742,0
 ps "OnEdgeStrategy"
 shape (Triangle
@@ -971,6 +925,52 @@ t "wire"
 eolc "// reset all the counters and data"
 o 4
 suid 34,0
+)
+)
+)
+*67 (CptPort
+uid 9026,0
+ps "OnEdgeStrategy"
+shape (Triangle
+uid 9027,0
+ro 90
+va (VaSet
+vasetType 1
+fg "0,65535,0"
+)
+xt "50250,28625,51000,29375"
+)
+tg (CPTG
+uid 9028,0
+ps "CptPortTextPlaceStrategy"
+stg "VerticalLayoutStrategy"
+f (Text
+uid 9029,0
+va (VaSet
+font "courier,8,0"
+)
+xt "52000,28550,58500,29450"
+st "data_out_rdy"
+blo "52000,29250"
+tm "CptPortNameMgr"
+)
+)
+dt (MLText
+uid 9030,0
+va (VaSet
+font "courier,8,0"
+)
+xt "2000,11900,18500,12800"
+st "input  wire        data_out_rdy;
+"
+)
+thePort (LogicalPort
+lang 5
+decl (Decl
+n "data_out_rdy"
+t "wire"
+o 3
+suid 38,0
 )
 )
 )
@@ -1713,7 +1713,7 @@ xt "2000,8300,2000,8300"
 tm "SyDeclarativeTextMgr"
 )
 )
-lastUid 9001,0
+lastUid 9030,0
 postModuleDirective "// Local declarations
   
   // Internal signal declarations
