@@ -245,7 +245,7 @@ module tb_mopshub_triplicated();
   .tx30(tx30),
   .tx31(tx31));
   
-  data_generator#(
+  mopshub_tb_environment#(
   .n_buses (5'd31))data_generator0(
   .clk_m(clk_m),
   .clk(clk_40_m),

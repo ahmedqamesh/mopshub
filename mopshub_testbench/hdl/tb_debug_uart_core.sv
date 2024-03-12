@@ -20,19 +20,19 @@ module tb_debug_uart_core();
   wire            out_rx_dv_dbg;
   wire            w_tx_done;
   wire            out_tx_serial;
-  reg in_rx_serial = 1;
-  wire [7:0] out_rx_byte;
+  reg             in_rx_serial = 1;
+  wire [7:0] register_status;
 
 
-assign out_rx_byte = debug_uart_core0.out_rx_byte;
+assign register_status = debug_uart_core0.register_status;
 assign w_tx_done = debug_uart_core0.w_tx_done;
    debug_uart_core #(.CLKS_PER_BIT(c_CLKS_PER_BIT)) debug_uart_core0
-    ( .clk_40(clk_40),
-      .rstn(rst),
-      .clk_uart(clk_uart),
+    (.clk_40(clk_40),
+    .rst(rst),
+    .clk_uart(clk_uart),
      //tx part
     .out_tx_serial(out_tx_serial),
-   //rx part
+     //rx part
     .in_rx_serial(in_rx_serial),
     .statedeb_main(8'ha), 
     .statedeb_can(8'hb), 
@@ -41,7 +41,7 @@ assign w_tx_done = debug_uart_core0.w_tx_done;
     .statedeb_elink_tra(8'he), 
     .statedeb_elink_rec (8'hf), 
     .statedeb_spi(8'h1A),
-    .dec10b_Out_dbg(8'h1B));
+    .dec10b_in_dbg(8'h1B));
  
  debug_uart_receiver #(.CLKS_PER_BIT(c_CLKS_PER_BIT)) debug_uart_receiver0( 
    .i_Clock     (clk_uart), 
@@ -71,7 +71,13 @@ assign w_tx_done = debug_uart_core0.w_tx_done;
         // Stop bit
         in_rx_serial = 1;
         #BAUD_TICKS;
+      // Check that the correct command was received
+      if (register_status == 8'hA||8'hB||8'hC||8'hD||8'hE || 8'hF || 8'h1A ||8'h1B)
+        $display("Test %h Passed - Correct Byte Received",register_status);
+      else
+        $display("Test %h Failed - Incorrect Byte Received",register_status);
     end
+
 endtask
 
   //Clock Generators and Dividers master
@@ -102,13 +108,7 @@ clock_generator #(
         rst = 1'b1;
         generate_uart_data({8'h0,8'h1,8'h2,8'h3,8'h4,8'h5,8'h6,8'h7});    
       end        
-      // Send a command to the UART (exercise Rx)
-      @(posedge clk_uart);
-      // Check that the correct command was received
-      if (out_rx_byte == 8'h0||8'h1||8'h2||8'h3||8'h4 || 8'h5 || 8'h6 ||8'h7)
-        $display("Test Passed - Correct Byte Received");
-      else
-        $display("Test Failed - Incorrect Byte Received");
+
     #1ms
     $stop;   // end of simulation
     end

@@ -238,7 +238,7 @@ fifo_async #(76,15) fifo_async0(
    .arempty   ()
 ); 
   
-  data_generator data_generator0(
+  mopshub_tb_environment data_generator0(
   .clk_mops(clk_mops),
   .n_buses(5'd15),
   .clk(clk_40_m),

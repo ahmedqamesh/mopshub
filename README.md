@@ -7,7 +7,7 @@ Beside that, MOPS-HUB will monitor information per CAN bus (voltage/current) and
 2. MOPS-HUB measurement board project uses third party developed libraries (e.g. [ipbus-firmware](https://github.com/ipbus/ipbus-firmware)) for several porpuses: 
 One has to include these libraries sub-modules.<br/> 
 a. Use `git submodule init`  to initialize the Submodules.<br/>
-b. Use `git submodule update`  to fetch all the data from that project and check out the appropriate commit listed in your superproject.<br/>
+b. Use `git submodule update`  to fetch all the data from that project and check out the appropriate commit listed in your project.<br/>
 **Note**: you can alternatively clone the project with its submodules `git submodule update --init --recursive`
 
 ## Publications

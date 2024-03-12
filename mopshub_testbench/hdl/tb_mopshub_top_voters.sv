@@ -165,7 +165,7 @@ module tb_mopshub_top_voters();
   .tx14(tx14),
   .tx15(tx15));
   
-  data_generator#(
+  mopshub_tb_environment#(
   .n_buses (5'd15))data_generator0(
   .clk_mops(clk_mops),
   .clk(clk_40_m),

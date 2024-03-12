@@ -16,7 +16,7 @@ module tb_data_generator ;
   wire               end_read_elink;
   reg                send_mes_can_done;
   
-  data_generator #(
+  mopshub_tb_environment #(
   .max_cnt_size (5),
   .n_buses (32)
   )DataGen(

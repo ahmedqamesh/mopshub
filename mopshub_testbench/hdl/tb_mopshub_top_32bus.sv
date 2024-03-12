@@ -262,7 +262,7 @@ module tb_mopshub_top_32bus();
   .tx30(tx30),   
   .tx31(tx31));
   
-  data_generator data_generator0(
+  mopshub_tb_environment data_generator0(
   .clk_mops(clk_mops),
   .n_buses(n_buses),
   .clk(clk_40_m),

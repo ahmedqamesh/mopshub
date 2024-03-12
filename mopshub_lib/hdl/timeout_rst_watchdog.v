@@ -2,21 +2,21 @@
 `timescale 1ns/10ps
 module timeout_rst_watchdog( 
    input   wire            clk, 
-   input   wire            entimeout0, 
-   input   wire            entimeout1, 
-   input   wire            entimeout2, 
+   input   wire            enable_timeout0, 
+   input   wire            enable_timeout1, 
+   input   wire            enable_timeout2, 
    input   wire    [31:0]  time_limit, 
    input   wire            rst, 
-   output  wire            timeoutrst
+   output  wire            rst_timeout
 );
 
 //40MHZ clock gives 25 ns
 // Internal Declarations
 reg [31:0] counter;
-reg timeoutrstreg;
+reg rst_timeoutreg;
 
-assign timeoutrst = timeoutrstreg;
-wire enable_timeout = entimeout0 ||entimeout1||entimeout2;
+assign rst_timeout = rst_timeoutreg;
+wire enable_timeout = enable_timeout0 ||enable_timeout1||enable_timeout2;
 
 always@(posedge clk)
 begin 
@@ -26,7 +26,7 @@ if(!rst)
   end
 else 
 begin 
-  if(enable_timeout & !timeoutrst)
+  if(enable_timeout & !rst_timeout)
     counter <= {counter + 1};
   else 
     begin
@@ -39,10 +39,10 @@ end
 always@(posedge clk)
 begin 
   if(counter >= time_limit)
-      timeoutrstreg <= 1'b1;
+      rst_timeoutreg <= 1'b1;
   else
-      timeoutrstreg <= 1'b0;
+      rst_timeoutreg <= 1'b0;
 end 
 
-endmodule // timeoutrst
+endmodule // rst_timeout
 

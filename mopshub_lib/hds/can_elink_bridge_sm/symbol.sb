@@ -56,7 +56,7 @@ tm "EolColHdrMgr"
 *15 (LGroup
 name "top"
 comment ""
-uid 16087,0
+uid 16551,0
 optionalChildren [
 *16 (LogPort
 port (LogicalPort
@@ -65,7 +65,7 @@ m 1
 decl (Decl
 n "entimeout"
 t "reg"
-eolc "enable for timeout reset counter "
+eolc " Watchdong timeout reset counter "
 o 20
 suid 40,0
 )
@@ -78,7 +78,7 @@ lang 5
 decl (Decl
 n "timeoutrst"
 t "wire"
-eolc "timeout reset in case bridge controller does not respond in a specied amount of time "
+eolc " Interrupt reset timeout signal"
 o 16
 suid 41,0
 )
@@ -93,6 +93,7 @@ decl (Decl
 n "statedeb"
 t "reg"
 b "[7:0]"
+eolc "debug state machine status"
 o 35
 suid 42,0
 )
@@ -106,7 +107,7 @@ m 1
 decl (Decl
 n "sign_on_sig"
 t "reg"
-eolc "Signal to send one time NMT message after bootup"
+eolc "Sign-In signal"
 o 28
 suid 63,0
 )
@@ -120,7 +121,7 @@ m 1
 decl (Decl
 n "abort_mes"
 t "reg"
-eolc "Signals other state machines to come to a known statte "
+eolc " Interrupt abort message"
 o 17
 suid 29,0
 )
@@ -133,7 +134,7 @@ lang 5
 decl (Decl
 n "endwait"
 t "wire"
-eolc "This signal indicates when message can't be decoded in one of the CANopen objects to go back to known state to receive message"
+eolc "Signal Interrupt from Other SM"
 o 9
 suid 43,0
 )
@@ -146,7 +147,7 @@ lang 5
 decl (Decl
 n "clk"
 t "wire"
-eolc "posedge"
+eolc "clock (40MHz)"
 o 1
 suid 1,0
 )
@@ -159,7 +160,7 @@ lang 5
 decl (Decl
 n "rst"
 t "wire"
-eolc "lowactive"
+eolc "reset (low active)"
 o 15
 suid 2,0
 )
@@ -171,7 +172,7 @@ uid 109,0
 *24 (LGroup
 name "can"
 comment ""
-uid 16088,0
+uid 16552,0
 optionalChildren [
 *25 (LogPort
 port (LogicalPort
@@ -180,6 +181,7 @@ m 1
 decl (Decl
 n "send_mes_can"
 t "reg"
+eolc "Debug CAN signal"
 o 26
 suid 74,0
 )
@@ -193,6 +195,7 @@ m 1
 decl (Decl
 n "read_can_mode"
 t "reg"
+eolc "Debug CAN signal"
 o 21
 suid 111,0
 )
@@ -205,6 +208,7 @@ lang 5
 decl (Decl
 n "reset_all_done"
 t "wire"
+eolc "Flag successful reset all CAN buses "
 o 13
 suid 119,0
 )
@@ -218,6 +222,7 @@ m 1
 decl (Decl
 n "end_can_proc"
 t "reg"
+eolc "Flag successful CAN message processing"
 o 18
 suid 62,0
 )
@@ -230,7 +235,7 @@ lang 5
 decl (Decl
 n "irq_can_tra"
 t "wire"
-eolc "successful transmission interrupt signal from cankari "
+eolc "Interrupt successful Transmission CAN signal"
 o 11
 suid 35,0
 )
@@ -244,7 +249,7 @@ m 1
 decl (Decl
 n "start_read_can"
 t "reg"
-eolc "to read canakari receive registers"
+eolc "Read CAN message signal"
 o 31
 suid 4,0
 )
@@ -258,7 +263,7 @@ m 1
 decl (Decl
 n "start_write_can"
 t "reg"
-eolc "to write transmit registers of canakari "
+eolc "Write CAN message signal"
 o 33
 suid 5,0
 )
@@ -271,7 +276,7 @@ lang 5
 decl (Decl
 n "end_init"
 t "wire"
-eolc "Signal from CAN interface block to indicate that initialization process is finished "
+eolc "Flag successful CAN initialization"
 o 2
 suid 7,0
 )
@@ -284,7 +289,7 @@ lang 5
 decl (Decl
 n "end_read_can"
 t "wire"
-eolc "signal from CANopen block to indicate that it has read receive message buffer "
+eolc "Flag successful read CAN"
 o 5
 suid 8,0
 )
@@ -297,7 +302,7 @@ lang 5
 decl (Decl
 n "end_write_can"
 t "wire"
-eolc "goes high when can interface block had finished writing canakari transmit registers"
+eolc "Flag successful write CAN"
 o 7
 suid 9,0
 )
@@ -311,7 +316,7 @@ m 1
 decl (Decl
 n "reset_irq_can"
 t "reg"
-eolc "reset canakri interrupt "
+eolc " Reset CAN controller  "
 o 22
 suid 11,0
 )
@@ -324,7 +329,7 @@ lang 5
 decl (Decl
 n "irq_can_rec"
 t "wire"
-eolc "interrupt signal from canakari to indicate successful read of a new message by one of the 32 buses "
+eolc "Interrupt successful Receive CAN signal"
 o 10
 suid 34,0
 )
@@ -338,7 +343,7 @@ m 1
 decl (Decl
 n "reset_irq_can_all"
 t "reg"
-eolc "reset all canakri interrupt "
+eolc "reset all interrupt signals"
 o 23
 suid 67,0
 )
@@ -352,6 +357,7 @@ m 1
 decl (Decl
 n "reset_irq_tra_can"
 t "reg"
+eolc " Reset transmit  interrupt signal"
 o 25
 suid 77,0
 )
@@ -365,6 +371,7 @@ m 1
 decl (Decl
 n "reset_irq_rec_can"
 t "reg"
+eolc " Reset Receive interrupt signal  "
 o 24
 suid 78,0
 )
@@ -378,7 +385,7 @@ m 1
 decl (Decl
 n "start_init_can"
 t "reg"
-eolc "to initialize the CAN node (cankari)"
+eolc "Initialize the CAN controllers."
 o 29
 suid 114,0
 )
@@ -391,6 +398,7 @@ lang 5
 decl (Decl
 n "reset_irq_can_done"
 t "wire"
+eolc "Flag successful reset CAN bus"
 o 14
 suid 137,0
 )
@@ -402,7 +410,7 @@ uid 14900,0
 *42 (LGroup
 name "elink"
 comment ""
-uid 16089,0
+uid 16553,0
 optionalChildren [
 *43 (LogPort
 port (LogicalPort
@@ -410,7 +418,7 @@ lang 5
 decl (Decl
 n "end_write_elink"
 t "wire"
-eolc "Goes high when CANopen block finished reading the received message buffer register "
+eolc "Flag successful write eLink"
 o 8
 suid 50,0
 )
@@ -424,6 +432,7 @@ m 1
 decl (Decl
 n "start_write_elink"
 t "reg"
+eolc "Write eLink message signal"
 o 34
 suid 51,0
 )
@@ -437,7 +446,7 @@ m 1
 decl (Decl
 n "start_read_elink"
 t "reg"
-eolc "signal to read transmit message buffer register "
+eolc "Read eLink message signal"
 o 32
 suid 57,0
 )
@@ -450,7 +459,7 @@ lang 5
 decl (Decl
 n "end_read_elink"
 t "wire"
-eolc "this signal goes high when CANopen block has finshed writing transmit message buffer register "
+eolc "Flag successful read eLink"
 o 6
 suid 58,0
 )
@@ -463,7 +472,7 @@ lang 5
 decl (Decl
 n "irq_elink_tra"
 t "wire"
-eolc "interrupt from elink to indicate it has a msg"
+eolc "Interrupt successful Transmission eLink signal"
 o 12
 suid 81,0
 )
@@ -477,6 +486,7 @@ m 1
 decl (Decl
 n "end_elink_proc"
 t "reg"
+eolc "Flag successful eLink message processing"
 o 19
 suid 146,0
 )
@@ -488,7 +498,7 @@ uid 15701,0
 *49 (LGroup
 name "mon"
 comment ""
-uid 16090,0
+uid 16554,0
 optionalChildren [
 *50 (LogPort
 port (LogicalPort
@@ -497,6 +507,7 @@ m 1
 decl (Decl
 n "start_mon_init"
 t "reg"
+eolc "Initialize the ADC Monitoring"
 o 30
 suid 138,0
 )
@@ -509,6 +520,7 @@ lang 5
 decl (Decl
 n "end_mon_init"
 t "wire"
+eolc "Flag end the ADC Monitoring initialization"
 o 3
 suid 139,0
 )
@@ -520,7 +532,7 @@ uid 14963,0
 *52 (LGroup
 name "trim"
 comment ""
-uid 16091,0
+uid 16555,0
 optionalChildren [
 *53 (LogPort
 port (LogicalPort
@@ -528,6 +540,7 @@ lang 5
 decl (Decl
 n "end_power_init"
 t "wire"
+eolc "Flag end bus powering"
 o 4
 suid 145,0
 )
@@ -541,6 +554,7 @@ m 1
 decl (Decl
 n "set_power_init"
 t "reg"
+eolc "Initialize the bus Powering initialization"
 o 27
 suid 147,0
 )
@@ -637,7 +651,7 @@ uid 179,0
 )
 *66 (MRCItem
 litem &34
-pos 21
+pos 19
 dimension 20
 uid 181,0
 )
@@ -715,7 +729,7 @@ uid 4155,0
 )
 *79 (MRCItem
 litem &28
-pos 20
+pos 24
 dimension 20
 uid 4470,0
 )
@@ -727,7 +741,7 @@ uid 4502,0
 )
 *81 (MRCItem
 litem &37
-pos 19
+pos 14
 dimension 20
 uid 6406,0
 )
@@ -769,13 +783,13 @@ uid 13237,0
 )
 *88 (MRCItem
 litem &27
-pos 24
+pos 21
 dimension 20
 uid 13697,0
 )
 *89 (MRCItem
 litem &41
-pos 14
+pos 20
 dimension 20
 uid 14899,0
 )
@@ -1066,19 +1080,19 @@ value "/../../home/dcs/git/mopshub/mopshub_lib/hds/can_elink_bridge_sm"
 )
 (vvPair
 variable "date"
-value "11/02/23"
+value "02/21/24"
 )
 (vvPair
 variable "day"
-value "Thu"
+value "Wed"
 )
 (vvPair
 variable "day_long"
-value "Thursday"
+value "Wednesday"
 )
 (vvPair
 variable "dd"
-value "02"
+value "21"
 )
 (vvPair
 variable "entity_name"
@@ -1106,7 +1120,7 @@ value "dcs"
 )
 (vvPair
 variable "graphical_source_date"
-value "11/02/23"
+value "02/21/24"
 )
 (vvPair
 variable "graphical_source_group"
@@ -1118,7 +1132,7 @@ value "chipdev2.physik.uni-wuppertal.de"
 )
 (vvPair
 variable "graphical_source_time"
-value "12:48:00"
+value "11:44:24"
 )
 (vvPair
 variable "group"
@@ -1162,7 +1176,7 @@ value "$HDS_PROJECT_DIR/mopshub_lib/svassistant"
 )
 (vvPair
 variable "mm"
-value "11"
+value "02"
 )
 (vvPair
 variable "module_name"
@@ -1170,11 +1184,11 @@ value "can_elink_bridge_sm"
 )
 (vvPair
 variable "month"
-value "Nov"
+value "Feb"
 )
 (vvPair
 variable "month_long"
-value "November"
+value "February"
 )
 (vvPair
 variable "p"
@@ -1238,7 +1252,7 @@ value "symbol"
 )
 (vvPair
 variable "time"
-value "12:48:00"
+value "11:44:24"
 )
 (vvPair
 variable "unit"
@@ -1258,11 +1272,11 @@ value "symbol"
 )
 (vvPair
 variable "year"
-value "2023"
+value "2024"
 )
 (vvPair
 variable "yy"
-value "23"
+value "24"
 )
 ]
 )
@@ -1304,16 +1318,15 @@ uid 114,0
 va (VaSet
 font "courier,8,0"
 )
-xt "2000,3600,19000,4500"
-st "input  wire       clk; // posedge
-"
+xt "2000,3600,22000,4500"
+st "input  wire       clk; // clock (40MHz)"
 )
 thePort (LogicalPort
 lang 5
 decl (Decl
 n "clk"
 t "wire"
-eolc "posedge"
+eolc "clock (40MHz)"
 o 1
 suid 1,0
 )
@@ -1351,16 +1364,15 @@ uid 119,0
 va (VaSet
 font "courier,8,0"
 )
-xt "2000,16200,20000,17100"
-st "input  wire       rst; // lowactive
-"
+xt "2000,16200,24500,17100"
+st "input  wire       rst; // reset (low active)"
 )
 thePort (LogicalPort
 lang 5
 decl (Decl
 n "rst"
 t "wire"
-eolc "lowactive"
+eolc "reset (low active)"
 o 15
 suid 2,0
 )
@@ -1398,9 +1410,8 @@ uid 201,0
 va (VaSet
 font "courier,8,0"
 )
-xt "2000,30600,38000,31500"
-st "output reg        start_read_can; // to read canakari receive registers
-"
+xt "2000,30600,32500,31500"
+st "output reg        start_read_can; // Read CAN message signal"
 )
 thePort (LogicalPort
 lang 5
@@ -1408,7 +1419,7 @@ m 1
 decl (Decl
 n "start_read_can"
 t "reg"
-eolc "to read canakari receive registers"
+eolc "Read CAN message signal"
 o 31
 suid 4,0
 )
@@ -1446,9 +1457,8 @@ uid 206,0
 va (VaSet
 font "courier,8,0"
 )
-xt "2000,32400,41500,33300"
-st "output reg        start_write_can; // to write transmit registers of canakari 
-"
+xt "2000,32400,33500,33300"
+st "output reg        start_write_can; // Write CAN message signal"
 )
 thePort (LogicalPort
 lang 5
@@ -1456,7 +1466,7 @@ m 1
 decl (Decl
 n "start_write_can"
 t "reg"
-eolc "to write transmit registers of canakari "
+eolc "Write CAN message signal"
 o 33
 suid 5,0
 )
@@ -1494,16 +1504,15 @@ uid 216,0
 va (VaSet
 font "courier,8,0"
 )
-xt "2000,4500,60000,5400"
-st "input  wire       end_init; // Signal from CAN interface block to indicate that initialization process is finished 
-"
+xt "2000,4500,35000,5400"
+st "input  wire       end_init; // Flag successful CAN initialization"
 )
 thePort (LogicalPort
 lang 5
 decl (Decl
 n "end_init"
 t "wire"
-eolc "Signal from CAN interface block to indicate that initialization process is finished "
+eolc "Flag successful CAN initialization"
 o 2
 suid 7,0
 )
@@ -1541,16 +1550,15 @@ uid 221,0
 va (VaSet
 font "courier,8,0"
 )
-xt "2000,7200,59000,8100"
-st "input  wire       end_read_can; // signal from CANopen block to indicate that it has read receive message buffer 
-"
+xt "2000,7200,32000,8100"
+st "input  wire       end_read_can; // Flag successful read CAN"
 )
 thePort (LogicalPort
 lang 5
 decl (Decl
 n "end_read_can"
 t "wire"
-eolc "signal from CANopen block to indicate that it has read receive message buffer "
+eolc "Flag successful read CAN"
 o 5
 suid 8,0
 )
@@ -1588,16 +1596,15 @@ uid 226,0
 va (VaSet
 font "courier,8,0"
 )
-xt "2000,9000,62000,9900"
-st "input  wire       end_write_can; // goes high when can interface block had finished writing canakari transmit registers
-"
+xt "2000,9000,33000,9900"
+st "input  wire       end_write_can; // Flag successful write CAN"
 )
 thePort (LogicalPort
 lang 5
 decl (Decl
 n "end_write_can"
 t "wire"
-eolc "goes high when can interface block had finished writing canakari transmit registers"
+eolc "Flag successful write CAN"
 o 7
 suid 9,0
 )
@@ -1635,9 +1642,8 @@ uid 236,0
 va (VaSet
 font "courier,8,0"
 )
-xt "2000,22500,32500,23400"
-st "output reg        reset_irq_can; // reset canakri interrupt 
-"
+xt "2000,22500,32000,23400"
+st "output reg        reset_irq_can; //  Reset CAN controller  "
 )
 thePort (LogicalPort
 lang 5
@@ -1645,7 +1651,7 @@ m 1
 decl (Decl
 n "reset_irq_can"
 t "reg"
-eolc "reset canakri interrupt "
+eolc " Reset CAN controller  "
 o 22
 suid 11,0
 )
@@ -1684,9 +1690,8 @@ uid 1719,0
 va (VaSet
 font "courier,8,0"
 )
-xt "2000,18000,46000,18900"
-st "output reg        abort_mes; // Signals other state machines to come to a known statte 
-"
+xt "2000,18000,30500,18900"
+st "output reg        abort_mes; //  Interrupt abort message"
 )
 thePort (LogicalPort
 lang 5
@@ -1694,7 +1699,7 @@ m 1
 decl (Decl
 n "abort_mes"
 t "reg"
-eolc "Signals other state machines to come to a known statte "
+eolc " Interrupt abort message"
 o 17
 suid 29,0
 )
@@ -1732,16 +1737,15 @@ uid 2078,0
 va (VaSet
 font "courier,8,0"
 )
-xt "2000,12600,46500,13500"
-st "input  wire       irq_can_tra; // successful transmission interrupt signal from cankari 
-"
+xt "2000,12600,41500,13500"
+st "input  wire       irq_can_tra; // Interrupt successful Transmission CAN signal"
 )
 thePort (LogicalPort
 lang 5
 decl (Decl
 n "irq_can_tra"
 t "wire"
-eolc "successful transmission interrupt signal from cankari "
+eolc "Interrupt successful Transmission CAN signal"
 o 11
 suid 35,0
 )
@@ -1779,16 +1783,15 @@ uid 2083,0
 va (VaSet
 font "courier,8,0"
 )
-xt "2000,11700,69000,12600"
-st "input  wire       irq_can_rec; // interrupt signal from canakari to indicate successful read of a new message by one of the 32 buses 
-"
+xt "2000,11700,39000,12600"
+st "input  wire       irq_can_rec; // Interrupt successful Receive CAN signal"
 )
 thePort (LogicalPort
 lang 5
 decl (Decl
 n "irq_can_rec"
 t "wire"
-eolc "interrupt signal from canakari to indicate successful read of a new message by one of the 32 buses "
+eolc "Interrupt successful Receive CAN signal"
 o 10
 suid 34,0
 )
@@ -1828,8 +1831,7 @@ va (VaSet
 font "courier,8,0"
 )
 xt "2000,20700,35000,21600"
-st "output reg        entimeout; // enable for timeout reset counter 
-"
+st "output reg        entimeout; //  Watchdong timeout reset counter "
 )
 thePort (LogicalPort
 lang 5
@@ -1837,7 +1839,7 @@ m 1
 decl (Decl
 n "entimeout"
 t "reg"
-eolc "enable for timeout reset counter "
+eolc " Watchdong timeout reset counter "
 o 20
 suid 40,0
 )
@@ -1875,16 +1877,15 @@ uid 2451,0
 va (VaSet
 font "courier,8,0"
 )
-xt "2000,17100,61500,18000"
-st "input  wire       timeoutrst; // timeout reset in case bridge controller does not respond in a specied amount of time 
-"
+xt "2000,17100,34500,18000"
+st "input  wire       timeoutrst; //  Interrupt reset timeout signal"
 )
 thePort (LogicalPort
 lang 5
 decl (Decl
 n "timeoutrst"
 t "wire"
-eolc "timeout reset in case bridge controller does not respond in a specied amount of time "
+eolc " Interrupt reset timeout signal"
 o 16
 suid 41,0
 )
@@ -1923,9 +1924,8 @@ uid 2508,0
 va (VaSet
 font "courier,8,0"
 )
-xt "2000,34200,16000,35100"
-st "output reg [7:0]  statedeb;
-"
+xt "2000,34200,31000,35100"
+st "output reg [7:0]  statedeb; // debug state machine status"
 )
 thePort (LogicalPort
 lang 5
@@ -1934,6 +1934,7 @@ decl (Decl
 n "statedeb"
 t "reg"
 b "[7:0]"
+eolc "debug state machine status"
 o 35
 suid 42,0
 )
@@ -1972,16 +1973,15 @@ uid 2590,0
 va (VaSet
 font "courier,8,0"
 )
-xt "2000,10800,80600,11700"
-st "input  wire       endwait; // This signal indicates when message can't be decoded in one of the CANopen objects to go back to known state to receive message
-"
+xt "2000,10800,32500,11700"
+st "input  wire       endwait; // Signal Interrupt from Other SM"
 )
 thePort (LogicalPort
 lang 5
 decl (Decl
 n "endwait"
 t "wire"
-eolc "This signal indicates when message can't be decoded in one of the CANopen objects to go back to known state to receive message"
+eolc "Signal Interrupt from Other SM"
 o 9
 suid 43,0
 )
@@ -2019,16 +2019,15 @@ uid 3940,0
 va (VaSet
 font "courier,8,0"
 )
-xt "2000,9900,63000,10800"
-st "input  wire       end_write_elink; // Goes high when CANopen block finished reading the received message buffer register 
-"
+xt "2000,9900,35000,10800"
+st "input  wire       end_write_elink; // Flag successful write eLink"
 )
 thePort (LogicalPort
 lang 5
 decl (Decl
 n "end_write_elink"
 t "wire"
-eolc "Goes high when CANopen block finished reading the received message buffer register "
+eolc "Flag successful write eLink"
 o 8
 suid 50,0
 )
@@ -2067,9 +2066,8 @@ uid 3945,0
 va (VaSet
 font "courier,8,0"
 )
-xt "2000,33300,20500,34200"
-st "output reg        start_write_elink;
-"
+xt "2000,33300,35500,34200"
+st "output reg        start_write_elink; // Write eLink message signal"
 )
 thePort (LogicalPort
 lang 5
@@ -2077,6 +2075,7 @@ m 1
 decl (Decl
 n "start_write_elink"
 t "reg"
+eolc "Write eLink message signal"
 o 34
 suid 51,0
 )
@@ -2115,9 +2114,8 @@ uid 4165,0
 va (VaSet
 font "courier,8,0"
 )
-xt "2000,31500,46000,32400"
-st "output reg        start_read_elink; // signal to read transmit message buffer register 
-"
+xt "2000,31500,34500,32400"
+st "output reg        start_read_elink; // Read eLink message signal"
 )
 thePort (LogicalPort
 lang 5
@@ -2125,7 +2123,7 @@ m 1
 decl (Decl
 n "start_read_elink"
 t "reg"
-eolc "signal to read transmit message buffer register "
+eolc "Read eLink message signal"
 o 32
 suid 57,0
 )
@@ -2163,16 +2161,15 @@ uid 4170,0
 va (VaSet
 font "courier,8,0"
 )
-xt "2000,8100,68000,9000"
-st "input  wire       end_read_elink; // this signal goes high when CANopen block has finshed writing transmit message buffer register 
-"
+xt "2000,8100,34000,9000"
+st "input  wire       end_read_elink; // Flag successful read eLink"
 )
 thePort (LogicalPort
 lang 5
 decl (Decl
 n "end_read_elink"
 t "wire"
-eolc "this signal goes high when CANopen block has finshed writing transmit message buffer register "
+eolc "Flag successful read eLink"
 o 6
 suid 58,0
 )
@@ -2211,9 +2208,8 @@ uid 4479,0
 va (VaSet
 font "courier,8,0"
 )
-xt "2000,18900,18000,19800"
-st "output reg        end_can_proc;
-"
+xt "2000,18900,39000,19800"
+st "output reg        end_can_proc; // Flag successful CAN message processing"
 )
 thePort (LogicalPort
 lang 5
@@ -2221,6 +2217,7 @@ m 1
 decl (Decl
 n "end_can_proc"
 t "reg"
+eolc "Flag successful CAN message processing"
 o 18
 suid 62,0
 )
@@ -2259,9 +2256,8 @@ uid 4511,0
 va (VaSet
 font "courier,8,0"
 )
-xt "2000,27900,43500,28800"
-st "output reg        sign_on_sig; // Signal to send one time NMT message after bootup
-"
+xt "2000,27900,26500,28800"
+st "output reg        sign_on_sig; // Sign-In signal"
 )
 thePort (LogicalPort
 lang 5
@@ -2269,7 +2265,7 @@ m 1
 decl (Decl
 n "sign_on_sig"
 t "reg"
-eolc "Signal to send one time NMT message after bootup"
+eolc "Sign-In signal"
 o 28
 suid 63,0
 )
@@ -2308,9 +2304,8 @@ uid 6415,0
 va (VaSet
 font "courier,8,0"
 )
-xt "2000,23400,36500,24300"
-st "output reg        reset_irq_can_all; // reset all canakri interrupt 
-"
+xt "2000,23400,36000,24300"
+st "output reg        reset_irq_can_all; // reset all interrupt signals"
 )
 thePort (LogicalPort
 lang 5
@@ -2318,7 +2313,7 @@ m 1
 decl (Decl
 n "reset_irq_can_all"
 t "reg"
-eolc "reset all canakri interrupt "
+eolc "reset all interrupt signals"
 o 23
 suid 67,0
 )
@@ -2357,9 +2352,8 @@ uid 7714,0
 va (VaSet
 font "courier,8,0"
 )
-xt "2000,26100,18000,27000"
-st "output reg        send_mes_can;
-"
+xt "2000,26100,28000,27000"
+st "output reg        send_mes_can; // Debug CAN signal"
 )
 thePort (LogicalPort
 lang 5
@@ -2367,6 +2361,7 @@ m 1
 decl (Decl
 n "send_mes_can"
 t "reg"
+eolc "Debug CAN signal"
 o 26
 suid 74,0
 )
@@ -2405,9 +2400,8 @@ uid 8026,0
 va (VaSet
 font "courier,8,0"
 )
-xt "2000,25200,20500,26100"
-st "output reg        reset_irq_tra_can;
-"
+xt "2000,25200,39000,26100"
+st "output reg        reset_irq_tra_can; //  Reset transmit  interrupt signal"
 )
 thePort (LogicalPort
 lang 5
@@ -2415,6 +2409,7 @@ m 1
 decl (Decl
 n "reset_irq_tra_can"
 t "reg"
+eolc " Reset transmit  interrupt signal"
 o 25
 suid 77,0
 )
@@ -2453,9 +2448,8 @@ uid 8031,0
 va (VaSet
 font "courier,8,0"
 )
-xt "2000,24300,20500,25200"
-st "output reg        reset_irq_rec_can;
-"
+xt "2000,24300,39000,25200"
+st "output reg        reset_irq_rec_can; //  Reset Receive interrupt signal  "
 )
 thePort (LogicalPort
 lang 5
@@ -2463,6 +2457,7 @@ m 1
 decl (Decl
 n "reset_irq_rec_can"
 t "reg"
+eolc " Reset Receive interrupt signal  "
 o 24
 suid 78,0
 )
@@ -2500,16 +2495,15 @@ uid 8120,0
 va (VaSet
 font "courier,8,0"
 )
-xt "2000,13500,43000,14400"
-st "input  wire       irq_elink_tra; // interrupt from elink to indicate it has a msg
-"
+xt "2000,13500,43500,14400"
+st "input  wire       irq_elink_tra; // Interrupt successful Transmission eLink signal"
 )
 thePort (LogicalPort
 lang 5
 decl (Decl
 n "irq_elink_tra"
 t "wire"
-eolc "interrupt from elink to indicate it has a msg"
+eolc "Interrupt successful Transmission eLink signal"
 o 12
 suid 81,0
 )
@@ -2548,9 +2542,8 @@ uid 12575,0
 va (VaSet
 font "courier,8,0"
 )
-xt "2000,21600,18500,22500"
-st "output reg        read_can_mode;
-"
+xt "2000,21600,28500,22500"
+st "output reg        read_can_mode; // Debug CAN signal"
 )
 thePort (LogicalPort
 lang 5
@@ -2558,6 +2551,7 @@ m 1
 decl (Decl
 n "read_can_mode"
 t "reg"
+eolc "Debug CAN signal"
 o 21
 suid 111,0
 )
@@ -2596,9 +2590,8 @@ uid 13246,0
 va (VaSet
 font "courier,8,0"
 )
-xt "2000,28800,39000,29700"
-st "output reg        start_init_can; // to initialize the CAN node (cankari)
-"
+xt "2000,28800,36500,29700"
+st "output reg        start_init_can; // Initialize the CAN controllers."
 )
 thePort (LogicalPort
 lang 5
@@ -2606,7 +2599,7 @@ m 1
 decl (Decl
 n "start_init_can"
 t "reg"
-eolc "to initialize the CAN node (cankari)"
+eolc "Initialize the CAN controllers."
 o 29
 suid 114,0
 )
@@ -2644,15 +2637,15 @@ uid 13706,0
 va (VaSet
 font "courier,8,0"
 )
-xt "2000,14400,19000,15300"
-st "input  wire       reset_all_done;
-"
+xt "2000,14400,39000,15300"
+st "input  wire       reset_all_done; // Flag successful reset all CAN buses "
 )
 thePort (LogicalPort
 lang 5
 decl (Decl
 n "reset_all_done"
 t "wire"
+eolc "Flag successful reset all CAN buses "
 o 13
 suid 119,0
 )
@@ -2690,15 +2683,15 @@ uid 14910,0
 va (VaSet
 font "courier,8,0"
 )
-xt "2000,15300,21000,16200"
-st "input  wire       reset_irq_can_done;
-"
+xt "2000,15300,37500,16200"
+st "input  wire       reset_irq_can_done; // Flag successful reset CAN bus"
 )
 thePort (LogicalPort
 lang 5
 decl (Decl
 n "reset_irq_can_done"
 t "wire"
+eolc "Flag successful reset CAN bus"
 o 14
 suid 137,0
 )
@@ -2737,9 +2730,8 @@ uid 14974,0
 va (VaSet
 font "courier,8,0"
 )
-xt "2000,29700,19000,30600"
-st "output reg        start_mon_init;
-"
+xt "2000,29700,35500,30600"
+st "output reg        start_mon_init; // Initialize the ADC Monitoring"
 )
 thePort (LogicalPort
 lang 5
@@ -2747,6 +2739,7 @@ m 1
 decl (Decl
 n "start_mon_init"
 t "reg"
+eolc "Initialize the ADC Monitoring"
 o 30
 suid 138,0
 )
@@ -2784,15 +2777,15 @@ uid 14979,0
 va (VaSet
 font "courier,8,0"
 )
-xt "2000,5400,18000,6300"
-st "input  wire       end_mon_init;
-"
+xt "2000,5400,41000,6300"
+st "input  wire       end_mon_init; // Flag end the ADC Monitoring initialization"
 )
 thePort (LogicalPort
 lang 5
 decl (Decl
 n "end_mon_init"
 t "wire"
+eolc "Flag end the ADC Monitoring initialization"
 o 3
 suid 139,0
 )
@@ -2830,15 +2823,15 @@ uid 15434,0
 va (VaSet
 font "courier,8,0"
 )
-xt "2000,6300,19000,7200"
-st "input  wire       end_power_init;
-"
+xt "2000,6300,31500,7200"
+st "input  wire       end_power_init; // Flag end bus powering"
 )
 thePort (LogicalPort
 lang 5
 decl (Decl
 n "end_power_init"
 t "wire"
+eolc "Flag end bus powering"
 o 4
 suid 145,0
 )
@@ -2877,9 +2870,8 @@ uid 15711,0
 va (VaSet
 font "courier,8,0"
 )
-xt "2000,19800,19000,20700"
-st "output reg        end_elink_proc;
-"
+xt "2000,19800,41000,20700"
+st "output reg        end_elink_proc; // Flag successful eLink message processing"
 )
 thePort (LogicalPort
 lang 5
@@ -2887,6 +2879,7 @@ m 1
 decl (Decl
 n "end_elink_proc"
 t "reg"
+eolc "Flag successful eLink message processing"
 o 19
 suid 146,0
 )
@@ -2925,9 +2918,8 @@ uid 16096,0
 va (VaSet
 font "courier,8,0"
 )
-xt "2000,27000,19000,27900"
-st "output reg        set_power_init;
-"
+xt "2000,27000,42000,27900"
+st "output reg        set_power_init; // Initialize the bus Powering initialization"
 )
 thePort (LogicalPort
 lang 5
@@ -2935,6 +2927,7 @@ m 1
 decl (Decl
 n "set_power_init"
 t "reg"
+eolc "Initialize the bus Powering initialization"
 o 27
 suid 147,0
 )
@@ -3653,7 +3646,7 @@ xt "2000,2700,2000,2700"
 tm "SyDeclarativeTextMgr"
 )
 )
-lastUid 16096,0
+lastUid 16555,0
 okToSyncOnLoad 1
 OkToSyncGenericsOnLoad 1
 activeModelName "Symbol:CDM"

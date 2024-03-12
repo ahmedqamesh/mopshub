@@ -11,6 +11,8 @@
 `resetall
 `timescale 1ns/10ps
 module tb_mopshub_top_16bus();
+  wire             clk_m;
+  wire             clk_uart;
   wire             clk_mops;
   wire             clk_40_m;
   reg              rst   = 1'b0;
@@ -114,6 +116,8 @@ module tb_mopshub_top_16bus();
       
   wire [1:0] tx_mopshub_2bit; 
   wire [1:0] rx_mopshub_2bit; 
+  wire            out_tx_serial;
+  reg             in_rx_serial = 1;
   reg [4:0]    n_buses =5'd15;
   //Internal assignments  
   assign can_tra_select    = mopshub0.can_tra_select;
@@ -128,8 +132,8 @@ module tb_mopshub_top_16bus();
   assign start_trim_osc    = mopshub0.start_trim_ack;
   assign power_bus_en      = mopshub0.set_power_init;
   assign bus_cnt_power     = mopshub0.bus_cnt_power;
-  assign ready_osc         = data_generator0.ready_osc;
- 
+  assign ready_osc         = mopshub_tb_environment0.ready_osc;
+
   
   mopshub_top_16bus #(2)mopshub0(
   .clk(clk_40_m),
@@ -206,8 +210,9 @@ module tb_mopshub_top_16bus();
   .tx15(tx15));
 
   
-  data_generator data_generator0(
+  mopshub_tb_environment mopshub_tb_environment0(
   .clk_mops(clk_mops),
+  .clk_uart(clk_uart),
   .n_buses(n_buses),
   .clk(clk_40_m),
   .clk_elink(clk_40_m),
@@ -250,8 +255,8 @@ module tb_mopshub_top_16bus();
   .data_rec_uplink(data_rec_uplink), 
   .data_tra_downlink(data_tra_downlink), 
   // UART signals
-  //.out_tx_serial(out_tx_serial),
-  //.in_rx_serial(in_rx_serial),
+  .out_tx_serial(out_tx_serial),
+  .in_rx_serial(in_rx_serial),
   //SPI Signals
   .data_tra_mon_spi(data_tra_mon_spi),
   .data_tra_power_spi(data_tra_power_spi),
@@ -326,13 +331,31 @@ module tb_mopshub_top_16bus();
   
   
  // Clock Generators and Dividers master
-  clock_generator #(
-  .freq(40))
+clock_generator #(
+  .freq(160))
   clock_generator0( 
-  .clk  (clk_40_m), 
+  .clk  (clk_m), 
   .enable (1'b1)
   ); 
+  clock_divider #(28'd16)
+  clock_divider0( 
+  .clock_in  (clk_m), 
+  .clock_out (clk_uart)
+  );  
+   
+  clock_divider #(28'd4)
+  clock_divider1( 
+  .clock_in  (clk_m), 
+  .clock_out (clk_40_m)
+  ); 
   
+//  clock_generator #(
+//  .freq(40))
+//  clock_generator0( 
+//  .clk  (clk_40_m), 
+//  .enable (1'b1)
+//  ); 
+//  
   clock_divider #(28'd4)
   clock_divider_mops( 
   .clock_in  (clk_40_m), 
@@ -353,8 +376,8 @@ module tb_mopshub_top_16bus();
       if(end_power_init ==1) osc_auto_trim_mopshub = 1'b0;
       if(sign_on_sig ==1)//start Rx test
       begin
-      //test_tx =1'b1;
-      test_advanced = 1'b1;
+      test_tx =1'b1;
+      //test_advanced = 1'b1;
       end
       if(test_rx_end ==1)//Done Rx test
       begin

@@ -11,7 +11,7 @@ module buffer_rec_spi_data(
    input   wire    [7 :0] spi_reg,   
    input   wire    [7 :0] data_rec_in,    // 8-bit data from SPI
    input   wire    [7 :0] spi_select,      // enable signal 
-   output  wire    [75:0] data_tra_out 
+   output  wire    [75:0] data_rec_out 
 );
 
 // Internal Declarations
@@ -66,5 +66,5 @@ begin
 
    end
 end 
-assign data_tra_out = {spi_id_in,spi_select,spi_reg,b3,b4,b5,b6,b7,xadc_rec_in};
+assign data_rec_out = {spi_id_in,spi_select,spi_reg,b3,b4,b5,b6,b7,xadc_rec_in};
 endmodule

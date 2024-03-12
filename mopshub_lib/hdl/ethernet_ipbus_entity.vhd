@@ -70,7 +70,7 @@ entity ethernet_ipbus is
 end ethernet_ipbus;
 
 architecture rtl of ethernet_ipbus is
-	signal sysclk, clk_ipb, clk_ipb_i, clk_aux, locked, clk_locked, rst125, rst_ipb, rst_ipb_ctrl, rst_aux, onehz, pkt:std_logic; --
+	signal sysclk,sysclk_out, clk_ipb, clk_ipb_i, clk_aux, locked, clk_locked, rst125, rst_ipb, rst_ipb_ctrl, rst_aux, onehz, pkt:std_logic; --
 	signal led_p: std_logic_vector(0 downto 0);
 	signal mac_addr: std_logic_vector(47 downto 0);
 	signal ip_addr: std_logic_vector(31 downto 0);  
@@ -88,14 +88,19 @@ begin
 			o => sysclk
 		);
 
---	DCM clock generation for internal bus, ethernet
+   BUFG_inst : BUFG
+   port map (
+      O => sysclk_out, -- 1-bit output: Clock output.
+      I => sysclk  -- 1-bit input: Clock input.
+   );
 
+--	DCM clock generation for internal bus, ethernet
 	clocks: entity work.clocks_us_serdes
 		generic map(
 			CLK_AUX_FREQ => 40.0 --CLK_AUX_FREQ
 		)
 		port map(
-			clki_fr => sysclk,
+			clki_fr => sysclk_out,
 			clki_125 => clk125,
 			clko_ipb => clk_ipb_i,
 			clko_aux => clk_aux,
