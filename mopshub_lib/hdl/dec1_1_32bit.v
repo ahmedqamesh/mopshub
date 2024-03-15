@@ -1,13 +1,3 @@
-//
-// Verilog Module mopshub_lib.dec1_Nbit
-//
-// Created:
-//          by - dcs.dcs (chipdev2.physik.uni-wuppertal.de)
-//          at - 10:08:22 10/31/21
-//
-// using Mentor Graphics HDL Designer(TM) 2019.4 (Build 4)
-//
-
 `resetall
 `timescale 1ns/10ps
 module dec1_1_32bit (
