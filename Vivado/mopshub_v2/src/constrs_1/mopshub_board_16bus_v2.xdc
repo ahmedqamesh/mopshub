@@ -219,8 +219,8 @@ set_property IOSTANDARD LVCMOS33 [get_ports tmr_out_0]
 set_property IOSTANDARD LVCMOS33 [get_ports shift_data_0]
 set_property IOSTANDARD LVCMOS33 [get_ports shift_clk_0]
 
-#set_property CLOCK_DEDICATED_ROUTE FALSE [get_nets {mopshub_design_16bus_new_i/ip_buf_0/inst/output_wire}]
-#set_property CLOCK_DEDICATED_ROUTE FALSE [get_nets {mopshub_design_16bus_new_i/ip_buf_1/inst/output_wire}]
+#set_property CLOCK_DEDICATED_ROUTE FALSE [get_nets {mopshub_board_v2_i/ip_buf_0/inst/output_wire}]
+#set_property CLOCK_DEDICATED_ROUTE FALSE [get_nets {mopshub_board_v2_i/ip_buf_1/inst/output_wire}]
 set_property CLOCK_DEDICATED_ROUTE FALSE [get_nets mopshub_board_v2_i/clk_wiz_s/inst/clk_in1_mopshub_board_v2_clk_wiz_s_0]
 set_property CLOCK_DEDICATED_ROUTE FALSE [get_nets mopshub_board_v2_i/mopshub_top_board_16_0/inst/seu_shift_combined0/clk]
 

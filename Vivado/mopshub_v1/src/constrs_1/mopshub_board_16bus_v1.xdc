@@ -220,7 +220,7 @@ set_property IOSTANDARD LVCMOS33 [get_ports shift_mode_0]
 set_property IOSTANDARD LVCMOS33 [get_ports tmr_out_0]
 set_property IOSTANDARD LVCMOS33 [get_ports shift_data_0]
 set_property IOSTANDARD LVCMOS33 [get_ports shift_clk_0]
-set_property CLOCK_DEDICATED_ROUTE FALSE [get_nets mopshub_design_16bus_i/mopshub_top_board_16_0/inst/seu_shift_combined0/clk]
+set_property CLOCK_DEDICATED_ROUTE FALSE [get_nets mopshub_board_v1_i/mopshub_top_board_16_0/inst/seu_shift_combined0/clk]
 ####################################################################################################################################
 #MultiBoot Bitstream Properties
 #enables the Fallback option. [This enables loading the default bitstream when configuration attempt fails].
@@ -248,12 +248,12 @@ set_property BITSTREAM.CONFIG.CONFIGRATE 40 [current_design]
 ## near the configuration logic and also helps in generating
 ## a reasonable slice count estimate for reliability estimates.
 create_pblock SEM_CONTROLLER
-add_cells_to_pblock [get_pblocks SEM_CONTROLLER] [get_cells -quiet mopshub_design_16bus_i/sem_controller_wrapp_0/inst/sem_0_sem_controller0/*]
-add_cells_to_pblock [get_pblocks SEM_CONTROLLER] [get_cells mopshub_design_16bus_i/sem_controller_wrapp_0/inst/sem_0_sem_controller0]
+add_cells_to_pblock [get_pblocks SEM_CONTROLLER] [get_cells -quiet mopshub_board_v1_i/sem_controller_wrapp_0/inst/sem_0_sem_controller0/*]
+add_cells_to_pblock [get_pblocks SEM_CONTROLLER] [get_cells mopshub_board_v1_i/sem_controller_wrapp_0/inst/sem_0_sem_controller0]
 ## Force ICAP to the required (top) site in the device.
 ## Force FRAME_ECC to the required (only) site in the device.
-set_property LOC FRAME_ECC_X0Y0 [get_cells mopshub_design_16bus_i/sem_controller_wrapp_0/inst/sem_0_sem_cfg0/frame_ecc_init0]
-set_property LOC ICAP_X0Y1 [get_cells mopshub_design_16bus_i/sem_controller_wrapp_0/inst/sem_0_sem_cfg0/icap_init0]
+set_property LOC FRAME_ECC_X0Y0 [get_cells mopshub_board_v1_i/sem_controller_wrapp_0/inst/sem_0_sem_cfg0/frame_ecc_init0]
+set_property LOC ICAP_X0Y1 [get_cells mopshub_board_v1_i/sem_controller_wrapp_0/inst/sem_0_sem_cfg0/icap_init0]
 
 
 ############################################################
