@@ -123,3 +123,134 @@ Starting Logic Optimization Task
 Phase 1 Generate And Synthesize Debug Cores
 INFO: [Chipscope 16-329] Generating Script for core instance : dbg_hub 
 INFO: [IP_Flow 19-3806] Processing IP xilinx.com:ip:xsdbm:3.0 for cell dbg_hub_CV.
+Netlist sorting complete. Time (s): cpu = 00:00:00.04 ; elapsed = 00:00:00.04 . Memory (MB): peak = 3397.594 ; gain = 0.000 ; free physical = 5416 ; free virtual = 10668
+Phase 1 Generate And Synthesize Debug Cores | Checksum: 1ade6c31c
+
+Time (s): cpu = 00:01:13 ; elapsed = 00:02:21 . Memory (MB): peak = 3397.594 ; gain = 43.777 ; free physical = 5416 ; free virtual = 10668
+
+Phase 2 Retarget
+INFO: [Opt 31-138] Pushed 7 inverter(s) to 176 load pin(s).
+INFO: [Opt 31-49] Retargeted 0 cell(s).
+Phase 2 Retarget | Checksum: 219f2987f
+
+Time (s): cpu = 00:01:16 ; elapsed = 00:02:23 . Memory (MB): peak = 3397.594 ; gain = 43.777 ; free physical = 5443 ; free virtual = 10696
+INFO: [Opt 31-389] Phase Retarget created 11 cells and removed 61 cells
+INFO: [Opt 31-1021] In phase Retarget, 64 netlist objects are constrained preventing optimization. Please run opt_design with -debug_log to get more detail. 
+
+Phase 3 Constant propagation
+INFO: [Opt 31-138] Pushed 0 inverter(s) to 0 load pin(s).
+Phase 3 Constant propagation | Checksum: 1f8752bf7
+
+Time (s): cpu = 00:01:17 ; elapsed = 00:02:23 . Memory (MB): peak = 3397.594 ; gain = 43.777 ; free physical = 5443 ; free virtual = 10696
+INFO: [Opt 31-389] Phase Constant propagation created 22 cells and removed 54 cells
+INFO: [Opt 31-1021] In phase Constant propagation, 47 netlist objects are constrained preventing optimization. Please run opt_design with -debug_log to get more detail. 
+
+Phase 4 Sweep
+Phase 4 Sweep | Checksum: 19027849d
+
+Time (s): cpu = 00:01:17 ; elapsed = 00:02:24 . Memory (MB): peak = 3397.594 ; gain = 43.777 ; free physical = 5442 ; free virtual = 10695
+INFO: [Opt 31-389] Phase Sweep created 0 cells and removed 83 cells
+INFO: [Opt 31-1021] In phase Sweep, 867 netlist objects are constrained preventing optimization. Please run opt_design with -debug_log to get more detail. 
+
+Phase 5 BUFG optimization
+INFO: [Opt 31-194] Inserted BUFG mopshub_board_v1_i/mopshub_top_board_16_0/inst/seu_shift_combined0/clk_BUFG_inst to drive 95 load(s) on clock net mopshub_board_v1_i/mopshub_top_board_16_0/inst/seu_shift_combined0/clk_BUFG
+INFO: [Opt 31-193] Inserted 1 BUFG(s) on clock nets
+INFO: [Opt 31-274] Optimized connectivity to 1 cascaded buffer cells
+Phase 5 BUFG optimization | Checksum: 17a716e27
+
+Time (s): cpu = 00:01:18 ; elapsed = 00:02:24 . Memory (MB): peak = 3397.594 ; gain = 43.777 ; free physical = 5443 ; free virtual = 10696
+INFO: [Opt 31-662] Phase BUFG optimization created 1 cells of which 1 are BUFGs and removed 1 cells.
+
+Phase 6 Shift Register Optimization
+INFO: [Opt 31-1064] SRL Remap converted 0 SRLs to 0 registers and converted 0 registers of register chains to 0 SRLs
+Phase 6 Shift Register Optimization | Checksum: 176400f13
+
+Time (s): cpu = 00:01:18 ; elapsed = 00:02:24 . Memory (MB): peak = 3397.594 ; gain = 43.777 ; free physical = 5443 ; free virtual = 10696
+INFO: [Opt 31-389] Phase Shift Register Optimization created 0 cells and removed 0 cells
+
+Phase 7 Post Processing Netlist
+Phase 7 Post Processing Netlist | Checksum: 1c778e757
+
+Time (s): cpu = 00:01:18 ; elapsed = 00:02:24 . Memory (MB): peak = 3397.594 ; gain = 43.777 ; free physical = 5443 ; free virtual = 10696
+INFO: [Opt 31-389] Phase Post Processing Netlist created 0 cells and removed 0 cells
+INFO: [Opt 31-1021] In phase Post Processing Netlist, 57 netlist objects are constrained preventing optimization. Please run opt_design with -debug_log to get more detail. 
+Opt_design Change Summary
+=========================
+
+
+-------------------------------------------------------------------------------------------------------------------------
+|  Phase                        |  #Cells created  |  #Cells Removed  |  #Constrained objects preventing optimizations  |
+-------------------------------------------------------------------------------------------------------------------------
+|  Retarget                     |              11  |              61  |                                             64  |
+|  Constant propagation         |              22  |              54  |                                             47  |
+|  Sweep                        |               0  |              83  |                                            867  |
+|  BUFG optimization            |               1  |               1  |                                              0  |
+|  Shift Register Optimization  |               0  |               0  |                                              0  |
+|  Post Processing Netlist      |               0  |               0  |                                             57  |
+-------------------------------------------------------------------------------------------------------------------------
+
+
+
+Starting Connectivity Check Task
+
+Time (s): cpu = 00:00:00.09 ; elapsed = 00:00:00.09 . Memory (MB): peak = 3397.594 ; gain = 0.000 ; free physical = 5443 ; free virtual = 10696
+Ending Logic Optimization Task | Checksum: 1b2a5553e
+
+Time (s): cpu = 00:01:19 ; elapsed = 00:02:25 . Memory (MB): peak = 3397.594 ; gain = 43.777 ; free physical = 5443 ; free virtual = 10696
+
+Starting Power Optimization Task
+INFO: [Pwropt 34-132] Skipping clock gating for clocks with a period < 2.00 ns.
+INFO: [Power 33-23] Power model is not available for frame_ecc_init0
+INFO: [Timing 38-35] Done setting XDC timing constraints.
+Running Vector-less Activity Propagation...
+
+Finished Running Vector-less Activity Propagation
+INFO: [Pwropt 34-9] Applying IDT optimizations ...
+INFO: [Pwropt 34-10] Applying ODC optimizations ...
+
+
+Starting PowerOpt Patch Enables Task
+INFO: [Pwropt 34-162] WRITE_MODE attribute of 0 BRAM(s) out of a total of 187 has been updated to save power. Run report_power_opt to get a complete listing of the BRAMs updated.
+INFO: [Pwropt 34-201] Structural ODC has moved 80 WE to EN ports
+Number of BRAM Ports augmented: 177 newly gated: 80 Total Ports: 374
+Number of Flops added for Enable Generation: 8
+
+Ending PowerOpt Patch Enables Task | Checksum: 18bad1520
+
+Time (s): cpu = 00:00:00.78 ; elapsed = 00:00:00.78 . Memory (MB): peak = 3923.664 ; gain = 0.000 ; free physical = 5353 ; free virtual = 10609
+Ending Power Optimization Task | Checksum: 18bad1520
+
+Time (s): cpu = 00:00:24 ; elapsed = 00:00:16 . Memory (MB): peak = 3923.664 ; gain = 526.070 ; free physical = 5386 ; free virtual = 10641
+
+Starting Final Cleanup Task
+
+Starting Logic Optimization Task
+INFO: [Timing 38-35] Done setting XDC timing constraints.
+Ending Logic Optimization Task | Checksum: 1b1559972
+
+Time (s): cpu = 00:00:06 ; elapsed = 00:00:03 . Memory (MB): peak = 3923.664 ; gain = 0.000 ; free physical = 5404 ; free virtual = 10660
+Ending Final Cleanup Task | Checksum: 1b1559972
+
+Time (s): cpu = 00:00:08 ; elapsed = 00:00:05 . Memory (MB): peak = 3923.664 ; gain = 0.000 ; free physical = 5403 ; free virtual = 10659
+
+Starting Netlist Obfuscation Task
+Netlist sorting complete. Time (s): cpu = 00:00:00.01 ; elapsed = 00:00:00.02 . Memory (MB): peak = 3923.664 ; gain = 0.000 ; free physical = 5403 ; free virtual = 10659
+Ending Netlist Obfuscation Task | Checksum: 1b1559972
+
+Time (s): cpu = 00:00:00.02 ; elapsed = 00:00:00.02 . Memory (MB): peak = 3923.664 ; gain = 0.000 ; free physical = 5403 ; free virtual = 10659
+INFO: [Common 17-83] Releasing license: Implementation
+54 Infos, 11 Warnings, 14 Critical Warnings and 0 Errors encountered.
+opt_design completed successfully
+opt_design: Time (s): cpu = 00:01:57 ; elapsed = 00:02:50 . Memory (MB): peak = 3923.664 ; gain = 793.605 ; free physical = 5406 ; free virtual = 10662
+INFO: [Timing 38-35] Done setting XDC timing constraints.
+INFO: [Timing 38-480] Writing timing data to binary archive.
+Writing placer database...
+Writing XDEF routing.
+Writing XDEF routing logical nets.
+Writing XDEF routing special nets.
+Write XDEF Complete: Time (s): cpu = 00:00:00.08 ; elapsed = 00:00:00.02 . Memory (MB): peak = 3923.664 ; gain = 0.000 ; free physical = 5379 ; free virtual = 10636
+INFO: [Common 17-1381] The checkpoint '/home/dcs/git/mopshub/Vivado/mopshub_v1/mopshub_board_v1/mopshub_board_v1.runs/impl_1/mopshub_board_v1_wrapper_opt.dcp' has been generated.
+write_checkpoint: Time (s): cpu = 00:00:12 ; elapsed = 00:00:08 . Memory (MB): peak = 3923.664 ; gain = 0.000 ; free physical = 5360 ; free virtual = 10627
+INFO: [runtcl-4] Executing : report_drc -file mopshub_board_v1_wrapper_drc_opted.rpt -pb mopshub_board_v1_wrapper_drc_opted.pb -rpx mopshub_board_v1_wrapper_drc_opted.rpx
+Command: report_drc -file mopshub_board_v1_wrapper_drc_opted.rpt -pb mopshub_board_v1_wrapper_drc_opted.pb -rpx mopshub_board_v1_wrapper_drc_opted.rpx
+INFO: [IP_Flow 19-1839] IP Catalog is up to date.
