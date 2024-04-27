@@ -16,6 +16,7 @@ suid 12,0
 usingSuid 1
 emptyRow *1 (LEmptyRow
 )
+uid 146,0
 optionalChildren [
 *2 (RefLabelRowHdr
 )
@@ -59,6 +60,7 @@ lang 5
 decl (Decl
 n "wclk"
 t "wire"
+eolc "//Clock signal for the write domain."
 preAdd 0
 posAdd 0
 o 1
@@ -73,6 +75,7 @@ lang 5
 decl (Decl
 n "wrst_n"
 t "wire"
+eolc "//Active-low asynchronous reset signal for the write domain."
 preAdd 0
 posAdd 0
 o 2
@@ -87,6 +90,7 @@ lang 5
 decl (Decl
 n "winc"
 t "wire"
+eolc "//Write increment signal, indicating a write operation."
 preAdd 0
 posAdd 0
 o 3
@@ -102,6 +106,7 @@ decl (Decl
 n "wdata"
 t "wire"
 b "[DSIZE-1:0]"
+eolc "//Input data to be written into the FIFO."
 preAdd 0
 posAdd 0
 o 4
@@ -117,6 +122,7 @@ m 1
 decl (Decl
 n "wfull"
 t "wire"
+eolc "//Output signal indicating whether the FIFO is full in the write domain."
 preAdd 0
 posAdd 0
 o 5
@@ -132,6 +138,7 @@ m 1
 decl (Decl
 n "awfull"
 t "wire"
+eolc "//Output signal indicating whether the FIFO is full in the asynchronous domain."
 preAdd 0
 posAdd 0
 o 6
@@ -146,6 +153,7 @@ lang 5
 decl (Decl
 n "rclk"
 t "wire"
+eolc "//Clock signal for the read domain."
 preAdd 0
 posAdd 0
 o 7
@@ -160,6 +168,7 @@ lang 5
 decl (Decl
 n "rrst_n"
 t "wire"
+eolc "//Active-low asynchronous reset signal for the read domain."
 preAdd 0
 posAdd 0
 o 8
@@ -174,6 +183,7 @@ lang 5
 decl (Decl
 n "rinc"
 t "wire"
+eolc "// Read increment signal, indicating a read operation."
 preAdd 0
 posAdd 0
 o 9
@@ -190,6 +200,7 @@ decl (Decl
 n "dout_fifo"
 t "wire"
 b "[DSIZE-1:0]"
+eolc "//Output data read from the FIFO."
 preAdd 0
 posAdd 0
 o 10
@@ -205,6 +216,7 @@ m 1
 decl (Decl
 n "rempty"
 t "wire"
+eolc "//Output signal indicating whether the FIFO is empty in the read domain."
 preAdd 0
 posAdd 0
 o 11
@@ -220,6 +232,7 @@ m 1
 decl (Decl
 n "arempty"
 t "wire"
+eolc "//Output signal indicating whether the FIFO is empty in the asynchronous domain."
 preAdd 0
 posAdd 0
 o 12
@@ -233,6 +246,7 @@ uid 139,0
 pdm (PhysicalDM
 displayShortBounds 1
 editShortBounds 1
+uid 160,0
 optionalChildren [
 *27 (Sheet
 sheetRow (SheetRow
@@ -256,22 +270,26 @@ litem &1
 pos 3
 dimension 20
 )
+uid 162,0
 optionalChildren [
 *29 (MRCItem
 litem &2
 pos 0
 dimension 20
+uid 163,0
 )
 *30 (MRCItem
 litem &3
 pos 1
 dimension 23
+uid 164,0
 )
 *31 (MRCItem
 litem &4
 pos 2
 hidden 1
 dimension 20
+uid 165,0
 )
 *32 (MRCItem
 litem &15
@@ -354,67 +372,80 @@ fontColor "0,0,0"
 font "courier,10,0"
 textAngle 90
 )
+uid 166,0
 optionalChildren [
 *44 (MRCItem
 litem &5
 pos 0
 dimension 20
+uid 167,0
 )
 *45 (MRCItem
 litem &7
 pos 1
 dimension 50
+uid 168,0
 )
 *46 (MRCItem
 litem &8
 pos 2
 dimension 100
+uid 169,0
 )
 *47 (MRCItem
 litem &9
 pos 3
 dimension 50
+uid 170,0
 )
 *48 (MRCItem
 litem &10
 pos 4
 dimension 100
+uid 171,0
 )
 *49 (MRCItem
 litem &11
 pos 5
 dimension 60
+uid 172,0
 )
 *50 (MRCItem
 litem &12
 pos 6
 dimension 100
+uid 173,0
 )
 *51 (MRCItem
 litem &13
 pos 7
 dimension 50
+uid 174,0
 )
 *52 (MRCItem
 litem &14
 pos 8
 dimension 80
+uid 175,0
 )
 ]
 )
 fixedCol 4
 fixedRow 2
 name "Ports"
+uid 161,0
 vaOverrides [
 ]
 )
 ]
 )
+uid 145,0
 )
 genericsCommonDM (CommonDM
 ldm (LogicalDM
 emptyRow *53 (LEmptyRow
 )
+uid 177,0
 optionalChildren [
 *54 (RefLabelRowHdr
 )
@@ -447,14 +478,14 @@ value "10"
 pr "// synopsys template"
 apr 0
 )
-uid 108,0
+uid 199,0
 )
 *64 (LogGeneric
 generic (GiElement
 name "ASIZE"
 value "15"
 )
-uid 110,0
+uid 201,0
 )
 *65 (LogGeneric
 generic (GiElement
@@ -466,13 +497,14 @@ po "// First word fall-through without latency
 apo 0
 e "// First word fall-through without latency"
 )
-uid 112,0
+uid 203,0
 )
 ]
 )
 pdm (PhysicalDM
 displayShortBounds 1
 editShortBounds 1
+uid 187,0
 optionalChildren [
 *66 (Sheet
 sheetRow (SheetRow
@@ -496,40 +528,44 @@ litem &53
 pos 3
 dimension 20
 )
+uid 189,0
 optionalChildren [
 *68 (MRCItem
 litem &54
 pos 0
 dimension 20
+uid 190,0
 )
 *69 (MRCItem
 litem &55
 pos 1
 dimension 23
+uid 191,0
 )
 *70 (MRCItem
 litem &56
 pos 2
 hidden 1
 dimension 20
+uid 192,0
 )
 *71 (MRCItem
 litem &63
 pos 0
 dimension 20
-uid 109,0
+uid 200,0
 )
 *72 (MRCItem
 litem &64
 pos 1
 dimension 20
-uid 111,0
+uid 202,0
 )
 *73 (MRCItem
 litem &65
 pos 2
 dimension 20
-uid 113,0
+uid 204,0
 )
 ]
 )
@@ -540,42 +576,50 @@ fontColor "0,0,0"
 font "courier,10,0"
 textAngle 90
 )
+uid 193,0
 optionalChildren [
 *74 (MRCItem
 litem &57
 pos 0
 dimension 20
+uid 194,0
 )
 *75 (MRCItem
 litem &59
 pos 1
 dimension 50
+uid 195,0
 )
 *76 (MRCItem
 litem &60
 pos 2
 dimension 100
+uid 196,0
 )
 *77 (MRCItem
 litem &61
 pos 3
 dimension 50
+uid 197,0
 )
 *78 (MRCItem
 litem &62
 pos 4
 dimension 80
+uid 198,0
 )
 ]
 )
 fixedCol 3
 fixedRow 2
 name "Ports"
+uid 188,0
 vaOverrides [
 ]
 )
 ]
 )
+uid 176,0
 type 1
 )
 VExpander (VariableExpander
@@ -622,19 +666,19 @@ value "/../../home/dcs/git/mopshub/mopshub_lib/hds/fifo_async"
 )
 (vvPair
 variable "date"
-value "08/01/23"
+value "04/26/24"
 )
 (vvPair
 variable "day"
-value "Tue"
+value "Fri"
 )
 (vvPair
 variable "day_long"
-value "Tuesday"
+value "Friday"
 )
 (vvPair
 variable "dd"
-value "01"
+value "26"
 )
 (vvPair
 variable "entity_name"
@@ -662,7 +706,7 @@ value "dcs"
 )
 (vvPair
 variable "graphical_source_date"
-value "08/01/23"
+value "04/26/24"
 )
 (vvPair
 variable "graphical_source_group"
@@ -674,7 +718,7 @@ value "chipdev2.physik.uni-wuppertal.de"
 )
 (vvPair
 variable "graphical_source_time"
-value "20:26:04"
+value "10:34:46"
 )
 (vvPair
 variable "group"
@@ -718,7 +762,7 @@ value "$HDS_PROJECT_DIR/mopshub_lib/svassistant"
 )
 (vvPair
 variable "mm"
-value "08"
+value "04"
 )
 (vvPair
 variable "module_name"
@@ -726,11 +770,11 @@ value "fifo_async"
 )
 (vvPair
 variable "month"
-value "Aug"
+value "Apr"
 )
 (vvPair
 variable "month_long"
-value "August"
+value "April"
 )
 (vvPair
 variable "p"
@@ -762,11 +806,11 @@ value "<TBD>"
 )
 (vvPair
 variable "task_ModelSimPath"
-value "<TBD>"
+value "/eda/mentor/2019-20/RHELx86/AMS_2019.4/amsv/modeltech/bin"
 )
 (vvPair
 variable "task_NC-SimPath"
-value "<TBD>"
+value "/eda/cadence/2019-20/RHELx86/XCELIUM_19.03.013/tools/bin"
 )
 (vvPair
 variable "task_PrecisionRTLPath"
@@ -774,7 +818,7 @@ value "<TBD>"
 )
 (vvPair
 variable "task_QuestaSimPath"
-value "<TBD>"
+value "/eda/mentor/2019-20/RHELx86/QUESTA-CORE-PRIME_2019.4/questasim/linux_x86_64"
 )
 (vvPair
 variable "task_VCSPath"
@@ -794,7 +838,7 @@ value "symbol"
 )
 (vvPair
 variable "time"
-value "20:26:04"
+value "10:34:46"
 )
 (vvPair
 variable "unit"
@@ -814,15 +858,16 @@ value "symbol"
 )
 (vvPair
 variable "year"
-value "2023"
+value "2024"
 )
 (vvPair
 variable "yy"
-value "23"
+value "24"
 )
 ]
 )
 LanguageMgr "Verilog2001LangMgr"
+uid 144,0
 optionalChildren [
 *79 (SymbolBody
 uid 8,0
@@ -837,7 +882,7 @@ va (VaSet
 vasetType 1
 fg "0,65535,0"
 )
-xt "21250,10625,22000,11375"
+xt "61250,10625,62000,11375"
 )
 tg (CPTG
 uid 50,0
@@ -848,9 +893,9 @@ uid 51,0
 va (VaSet
 font "courier,8,0"
 )
-xt "23000,10550,29000,11450"
+xt "63000,10550,69000,11450"
 st "wclk : wire"
-blo "23000,11250"
+blo "63000,11250"
 tm "CptPortNameMgr"
 )
 )
@@ -859,8 +904,8 @@ uid 52,0
 va (VaSet
 font "courier,8,0"
 )
-xt "2000,9200,17500,10100"
-st "input  wire              wclk;
+xt "2000,9200,36000,10100"
+st "input  wire              wclk; //Clock signal for the write domain.
 "
 )
 thePort (LogicalPort
@@ -868,6 +913,7 @@ lang 5
 decl (Decl
 n "wclk"
 t "wire"
+eolc "//Clock signal for the write domain."
 preAdd 0
 posAdd 0
 o 1
@@ -885,7 +931,7 @@ va (VaSet
 vasetType 1
 fg "0,65535,0"
 )
-xt "21250,12625,22000,13375"
+xt "61250,12625,62000,13375"
 )
 tg (CPTG
 uid 55,0
@@ -896,9 +942,9 @@ uid 56,0
 va (VaSet
 font "courier,8,0"
 )
-xt "23000,12550,30000,13450"
+xt "63000,12550,70000,13450"
 st "wrst_n : wire"
-blo "23000,13250"
+blo "63000,13250"
 tm "CptPortNameMgr"
 )
 )
@@ -907,8 +953,8 @@ uid 57,0
 va (VaSet
 font "courier,8,0"
 )
-xt "2000,10100,18500,11000"
-st "input  wire              wrst_n;
+xt "2000,10100,49000,11000"
+st "input  wire              wrst_n; //Active-low asynchronous reset signal for the write domain.
 "
 )
 thePort (LogicalPort
@@ -916,6 +962,7 @@ lang 5
 decl (Decl
 n "wrst_n"
 t "wire"
+eolc "//Active-low asynchronous reset signal for the write domain."
 preAdd 0
 posAdd 0
 o 2
@@ -933,7 +980,7 @@ va (VaSet
 vasetType 1
 fg "0,65535,0"
 )
-xt "21250,14625,22000,15375"
+xt "61250,14625,62000,15375"
 )
 tg (CPTG
 uid 60,0
@@ -944,9 +991,9 @@ uid 61,0
 va (VaSet
 font "courier,8,0"
 )
-xt "23000,14550,29000,15450"
+xt "63000,14550,69000,15450"
 st "winc : wire"
-blo "23000,15250"
+blo "63000,15250"
 tm "CptPortNameMgr"
 )
 )
@@ -955,8 +1002,8 @@ uid 62,0
 va (VaSet
 font "courier,8,0"
 )
-xt "2000,11000,17500,11900"
-st "input  wire              winc;
+xt "2000,11000,45500,11900"
+st "input  wire              winc; //Write increment signal, indicating a write operation.
 "
 )
 thePort (LogicalPort
@@ -964,6 +1011,7 @@ lang 5
 decl (Decl
 n "winc"
 t "wire"
+eolc "//Write increment signal, indicating a write operation."
 preAdd 0
 posAdd 0
 o 3
@@ -981,7 +1029,7 @@ va (VaSet
 vasetType 1
 fg "0,65535,0"
 )
-xt "21250,16625,22000,17375"
+xt "61250,16625,62000,17375"
 )
 tg (CPTG
 uid 65,0
@@ -992,9 +1040,9 @@ uid 66,0
 va (VaSet
 font "courier,8,0"
 )
-xt "23000,16550,35000,17450"
+xt "63000,16550,75000,17450"
 st "wdata : wire[DSIZE-1:0]"
-blo "23000,17250"
+blo "63000,17250"
 tm "CptPortNameMgr"
 )
 )
@@ -1003,8 +1051,8 @@ uid 67,0
 va (VaSet
 font "courier,8,0"
 )
-xt "2000,11900,18000,12800"
-st "input  wire [DSIZE-1:0]  wdata;
+xt "2000,11900,39000,12800"
+st "input  wire [DSIZE-1:0]  wdata; //Input data to be written into the FIFO.
 "
 )
 thePort (LogicalPort
@@ -1013,6 +1061,7 @@ decl (Decl
 n "wdata"
 t "wire"
 b "[DSIZE-1:0]"
+eolc "//Input data to be written into the FIFO."
 preAdd 0
 posAdd 0
 o 4
@@ -1030,7 +1079,7 @@ va (VaSet
 vasetType 1
 fg "0,65535,0"
 )
-xt "53000,10625,53750,11375"
+xt "93000,10625,93750,11375"
 )
 tg (CPTG
 uid 70,0
@@ -1041,10 +1090,10 @@ uid 71,0
 va (VaSet
 font "courier,8,0"
 )
-xt "45500,10550,52000,11450"
+xt "85500,10550,92000,11450"
 st "wfull : wire"
 ju 2
-blo "52000,11250"
+blo "92000,11250"
 tm "CptPortNameMgr"
 )
 )
@@ -1053,8 +1102,8 @@ uid 72,0
 va (VaSet
 font "courier,8,0"
 )
-xt "2000,12800,18000,13700"
-st "output wire              wfull;
+xt "2000,12800,54500,13700"
+st "output wire              wfull; //Output signal indicating whether the FIFO is full in the write domain.
 "
 )
 thePort (LogicalPort
@@ -1063,6 +1112,7 @@ m 1
 decl (Decl
 n "wfull"
 t "wire"
+eolc "//Output signal indicating whether the FIFO is full in the write domain."
 preAdd 0
 posAdd 0
 o 5
@@ -1080,7 +1130,7 @@ va (VaSet
 vasetType 1
 fg "0,65535,0"
 )
-xt "53000,12625,53750,13375"
+xt "93000,12625,93750,13375"
 )
 tg (CPTG
 uid 75,0
@@ -1091,10 +1141,10 @@ uid 76,0
 va (VaSet
 font "courier,8,0"
 )
-xt "45000,12550,52000,13450"
+xt "85000,12550,92000,13450"
 st "awfull : wire"
 ju 2
-blo "52000,13250"
+blo "92000,13250"
 tm "CptPortNameMgr"
 )
 )
@@ -1103,8 +1153,8 @@ uid 77,0
 va (VaSet
 font "courier,8,0"
 )
-xt "2000,13700,18500,14600"
-st "output wire              awfull;
+xt "2000,13700,58500,14600"
+st "output wire              awfull; //Output signal indicating whether the FIFO is full in the asynchronous domain.
 "
 )
 thePort (LogicalPort
@@ -1113,6 +1163,7 @@ m 1
 decl (Decl
 n "awfull"
 t "wire"
+eolc "//Output signal indicating whether the FIFO is full in the asynchronous domain."
 preAdd 0
 posAdd 0
 o 6
@@ -1130,7 +1181,7 @@ va (VaSet
 vasetType 1
 fg "0,65535,0"
 )
-xt "21250,18625,22000,19375"
+xt "61250,18625,62000,19375"
 )
 tg (CPTG
 uid 80,0
@@ -1141,9 +1192,9 @@ uid 81,0
 va (VaSet
 font "courier,8,0"
 )
-xt "23000,18550,29000,19450"
+xt "63000,18550,69000,19450"
 st "rclk : wire"
-blo "23000,19250"
+blo "63000,19250"
 tm "CptPortNameMgr"
 )
 )
@@ -1152,8 +1203,8 @@ uid 82,0
 va (VaSet
 font "courier,8,0"
 )
-xt "2000,14600,17500,15500"
-st "input  wire              rclk;
+xt "2000,14600,35500,15500"
+st "input  wire              rclk; //Clock signal for the read domain.
 "
 )
 thePort (LogicalPort
@@ -1161,6 +1212,7 @@ lang 5
 decl (Decl
 n "rclk"
 t "wire"
+eolc "//Clock signal for the read domain."
 preAdd 0
 posAdd 0
 o 7
@@ -1178,7 +1230,7 @@ va (VaSet
 vasetType 1
 fg "0,65535,0"
 )
-xt "21250,20625,22000,21375"
+xt "61250,20625,62000,21375"
 )
 tg (CPTG
 uid 85,0
@@ -1189,9 +1241,9 @@ uid 86,0
 va (VaSet
 font "courier,8,0"
 )
-xt "23000,20550,30000,21450"
+xt "63000,20550,70000,21450"
 st "rrst_n : wire"
-blo "23000,21250"
+blo "63000,21250"
 tm "CptPortNameMgr"
 )
 )
@@ -1200,8 +1252,8 @@ uid 87,0
 va (VaSet
 font "courier,8,0"
 )
-xt "2000,15500,18500,16400"
-st "input  wire              rrst_n;
+xt "2000,15500,48500,16400"
+st "input  wire              rrst_n; //Active-low asynchronous reset signal for the read domain.
 "
 )
 thePort (LogicalPort
@@ -1209,6 +1261,7 @@ lang 5
 decl (Decl
 n "rrst_n"
 t "wire"
+eolc "//Active-low asynchronous reset signal for the read domain."
 preAdd 0
 posAdd 0
 o 8
@@ -1226,7 +1279,7 @@ va (VaSet
 vasetType 1
 fg "0,65535,0"
 )
-xt "21250,22625,22000,23375"
+xt "61250,22625,62000,23375"
 )
 tg (CPTG
 uid 90,0
@@ -1237,9 +1290,9 @@ uid 91,0
 va (VaSet
 font "courier,8,0"
 )
-xt "23000,22550,29000,23450"
+xt "63000,22550,69000,23450"
 st "rinc : wire"
-blo "23000,23250"
+blo "63000,23250"
 tm "CptPortNameMgr"
 )
 )
@@ -1248,8 +1301,8 @@ uid 92,0
 va (VaSet
 font "courier,8,0"
 )
-xt "2000,16400,17500,17300"
-st "input  wire              rinc;
+xt "2000,16400,45000,17300"
+st "input  wire              rinc; // Read increment signal, indicating a read operation.
 "
 )
 thePort (LogicalPort
@@ -1257,6 +1310,7 @@ lang 5
 decl (Decl
 n "rinc"
 t "wire"
+eolc "// Read increment signal, indicating a read operation."
 preAdd 0
 posAdd 0
 o 9
@@ -1274,7 +1328,7 @@ va (VaSet
 vasetType 1
 fg "0,65535,0"
 )
-xt "53000,14625,53750,15375"
+xt "93000,14625,93750,15375"
 )
 tg (CPTG
 uid 95,0
@@ -1285,10 +1339,10 @@ uid 96,0
 va (VaSet
 font "courier,8,0"
 )
-xt "38000,14550,52000,15450"
+xt "78000,14550,92000,15450"
 st "dout_fifo : wire[DSIZE-1:0]"
 ju 2
-blo "52000,15250"
+blo "92000,15250"
 tm "CptPortNameMgr"
 )
 )
@@ -1297,8 +1351,8 @@ uid 97,0
 va (VaSet
 font "courier,8,0"
 )
-xt "2000,17300,20000,18200"
-st "output wire [DSIZE-1:0]  dout_fifo;
+xt "2000,17300,37000,18200"
+st "output wire [DSIZE-1:0]  dout_fifo; //Output data read from the FIFO.
 "
 )
 thePort (LogicalPort
@@ -1308,6 +1362,7 @@ decl (Decl
 n "dout_fifo"
 t "wire"
 b "[DSIZE-1:0]"
+eolc "//Output data read from the FIFO."
 preAdd 0
 posAdd 0
 o 10
@@ -1325,7 +1380,7 @@ va (VaSet
 vasetType 1
 fg "0,65535,0"
 )
-xt "53000,16625,53750,17375"
+xt "93000,16625,93750,17375"
 )
 tg (CPTG
 uid 100,0
@@ -1336,10 +1391,10 @@ uid 101,0
 va (VaSet
 font "courier,8,0"
 )
-xt "45000,16550,52000,17450"
+xt "85000,16550,92000,17450"
 st "rempty : wire"
 ju 2
-blo "52000,17250"
+blo "92000,17250"
 tm "CptPortNameMgr"
 )
 )
@@ -1348,8 +1403,8 @@ uid 102,0
 va (VaSet
 font "courier,8,0"
 )
-xt "2000,18200,18500,19100"
-st "output wire              rempty;
+xt "2000,18200,55000,19100"
+st "output wire              rempty; //Output signal indicating whether the FIFO is empty in the read domain.
 "
 )
 thePort (LogicalPort
@@ -1358,6 +1413,7 @@ m 1
 decl (Decl
 n "rempty"
 t "wire"
+eolc "//Output signal indicating whether the FIFO is empty in the read domain."
 preAdd 0
 posAdd 0
 o 11
@@ -1375,7 +1431,7 @@ va (VaSet
 vasetType 1
 fg "0,65535,0"
 )
-xt "53000,18625,53750,19375"
+xt "93000,18625,93750,19375"
 )
 tg (CPTG
 uid 105,0
@@ -1386,10 +1442,10 @@ uid 106,0
 va (VaSet
 font "courier,8,0"
 )
-xt "44500,18550,52000,19450"
+xt "84500,18550,92000,19450"
 st "arempty : wire"
 ju 2
-blo "52000,19250"
+blo "92000,19250"
 tm "CptPortNameMgr"
 )
 )
@@ -1398,8 +1454,8 @@ uid 107,0
 va (VaSet
 font "courier,8,0"
 )
-xt "2000,19100,19000,20000"
-st "output wire              arempty;
+xt "2000,19100,59500,20000"
+st "output wire              arempty; //Output signal indicating whether the FIFO is empty in the asynchronous domain.
 "
 )
 thePort (LogicalPort
@@ -1408,6 +1464,7 @@ m 1
 decl (Decl
 n "arempty"
 t "wire"
+eolc "//Output signal indicating whether the FIFO is empty in the asynchronous domain."
 preAdd 0
 posAdd 0
 o 12
@@ -1424,7 +1481,7 @@ fg "0,65535,0"
 lineColor "0,32896,0"
 lineWidth 2
 )
-xt "22000,9000,53000,25000"
+xt "62000,9000,93000,25000"
 )
 biTextGroup (BiTextGroup
 uid 10,0
@@ -1435,18 +1492,18 @@ uid 11,0
 va (VaSet
 font "courier,8,1"
 )
-xt "35250,16100,41250,17000"
+xt "75250,16100,81250,17000"
 st "mopshub_lib"
-blo "35250,16800"
+blo "75250,16800"
 )
 second (Text
 uid 12,0
 va (VaSet
 font "courier,8,1"
 )
-xt "35250,17000,40750,17900"
+xt "75250,17000,80750,17900"
 st "fifo_async"
-blo "35250,17700"
+blo "75250,17700"
 )
 )
 gi *92 (GenericInterface
@@ -1459,7 +1516,7 @@ uid 15,0
 va (VaSet
 font "courier,8,0"
 )
-xt "22000,-100,54000,8000"
+xt "61500,-100,93500,8000"
 st "Parameter Declarations
 
 // synopsys template
@@ -1519,7 +1576,7 @@ va (VaSet
 vasetType 1
 fg "65280,65280,46080"
 )
-xt "26000,33000,43000,34000"
+xt "66000,33000,83000,34000"
 )
 oxt "18000,70000,35000,71000"
 text (MLText
@@ -1529,7 +1586,7 @@ fg "0,0,32768"
 bg "0,0,32768"
 font "courier,8,0"
 )
-xt "26200,33050,37200,33950"
+xt "66200,33050,77200,33950"
 st "
 by %user on %dd %month %year
 "
@@ -1551,7 +1608,7 @@ va (VaSet
 vasetType 1
 fg "65280,65280,46080"
 )
-xt "43000,29000,47000,30000"
+xt "83000,29000,87000,30000"
 )
 oxt "35000,66000,39000,67000"
 text (MLText
@@ -1561,7 +1618,7 @@ fg "0,0,32768"
 bg "0,0,32768"
 font "courier,8,0"
 )
-xt "43200,29050,47200,29950"
+xt "83200,29050,87200,29950"
 st "
 Project:
 "
@@ -1583,7 +1640,7 @@ va (VaSet
 vasetType 1
 fg "65280,65280,46080"
 )
-xt "26000,31000,43000,32000"
+xt "66000,31000,83000,32000"
 )
 oxt "18000,68000,35000,69000"
 text (MLText
@@ -1593,7 +1650,7 @@ fg "0,0,32768"
 bg "0,0,32768"
 font "courier,8,0"
 )
-xt "26200,31050,39700,31950"
+xt "66200,31050,79700,31950"
 st "
 <enter diagram title here>
 "
@@ -1615,7 +1672,7 @@ va (VaSet
 vasetType 1
 fg "65280,65280,46080"
 )
-xt "22000,31000,26000,32000"
+xt "62000,31000,66000,32000"
 )
 oxt "14000,68000,18000,69000"
 text (MLText
@@ -1625,7 +1682,7 @@ fg "0,0,32768"
 bg "0,0,32768"
 font "courier,8,0"
 )
-xt "22200,31050,25200,31950"
+xt "62200,31050,65200,31950"
 st "
 Title:
 "
@@ -1647,7 +1704,7 @@ va (VaSet
 vasetType 1
 fg "65280,65280,46080"
 )
-xt "43000,30000,63000,34000"
+xt "83000,30000,103000,34000"
 )
 oxt "35000,67000,55000,71000"
 text (MLText
@@ -1657,7 +1714,7 @@ fg "0,0,32768"
 bg "0,0,32768"
 font "courier,8,0"
 )
-xt "43200,30200,54200,31100"
+xt "83200,30200,94200,31100"
 st "
 <enter comments here>
 "
@@ -1678,7 +1735,7 @@ va (VaSet
 vasetType 1
 fg "65280,65280,46080"
 )
-xt "47000,29000,63000,30000"
+xt "87000,29000,103000,30000"
 )
 oxt "39000,66000,55000,67000"
 text (MLText
@@ -1688,7 +1745,7 @@ fg "0,0,32768"
 bg "0,0,32768"
 font "courier,8,0"
 )
-xt "47200,29050,50700,29950"
+xt "87200,29050,90700,29950"
 st "
 %project_name
 "
@@ -1710,7 +1767,7 @@ va (VaSet
 vasetType 1
 fg "65280,65280,46080"
 )
-xt "22000,29000,43000,31000"
+xt "62000,29000,83000,31000"
 )
 oxt "14000,66000,35000,68000"
 text (MLText
@@ -1718,7 +1775,7 @@ uid 38,0
 va (VaSet
 fg "32768,0,0"
 )
-xt "28000,29500,37000,30500"
+xt "68000,29500,77000,30500"
 st "
 <company name>
 "
@@ -1741,7 +1798,7 @@ va (VaSet
 vasetType 1
 fg "65280,65280,46080"
 )
-xt "22000,32000,26000,33000"
+xt "62000,32000,66000,33000"
 )
 oxt "14000,69000,18000,70000"
 text (MLText
@@ -1751,7 +1808,7 @@ fg "0,0,32768"
 bg "0,0,32768"
 font "courier,8,0"
 )
-xt "22200,32050,24700,32950"
+xt "62200,32050,64700,32950"
 st "
 Path:
 "
@@ -1773,7 +1830,7 @@ va (VaSet
 vasetType 1
 fg "65280,65280,46080"
 )
-xt "22000,33000,26000,34000"
+xt "62000,33000,66000,34000"
 )
 oxt "14000,70000,18000,71000"
 text (MLText
@@ -1783,7 +1840,7 @@ fg "0,0,32768"
 bg "0,0,32768"
 font "courier,8,0"
 )
-xt "22200,33050,25700,33950"
+xt "62200,33050,65700,33950"
 st "
 Edited:
 "
@@ -1805,7 +1862,7 @@ va (VaSet
 vasetType 1
 fg "65280,65280,46080"
 )
-xt "26000,32000,43000,33000"
+xt "66000,32000,83000,33000"
 )
 oxt "18000,69000,35000,70000"
 text (MLText
@@ -1815,7 +1872,7 @@ fg "0,0,32768"
 bg "0,0,32768"
 font "courier,8,0"
 )
-xt "26200,32050,35200,32950"
+xt "66200,32050,81200,32950"
 st "
 %library/%unit/%view
 "
@@ -1837,7 +1894,7 @@ fg "65535,65535,65535"
 lineStyle 2
 lineWidth 2
 )
-xt "22000,29000,63000,34000"
+xt "62000,29000,103000,34000"
 )
 oxt "14000,66000,55000,71000"
 )
@@ -1861,7 +1918,7 @@ fg "0,0,32768"
 xt "200,-5800,31400,-800"
 st "
 Created using Mentor Graphics HDL2Graphics(TM) Technology
-on - 20:26:04 08/01/23
+on - 19:43:35 04/24/24
 from - /../../home/dcs/git/mopshub/mopshub_lib/hdl/fifo_async.v
 
 "
@@ -2039,7 +2096,6 @@ showHdrWhenContentsEmpty 1
 elements [
 ]
 )
-udl 1
 portInstanceVisAsIs 1
 portInstanceVis (PortSigDisplay
 sIVOD 1
@@ -2182,6 +2238,7 @@ xt "2000,8300,2000,8300"
 tm "SyDeclarativeTextMgr"
 )
 )
-lastUid 143,0
+lastUid 204,0
+postModuleDirective "// Internal Declarations"
 activeModelName "Symbol:CDM"
 )

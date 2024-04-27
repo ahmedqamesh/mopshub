@@ -16,16 +16,21 @@ module fifo_sync_w2r
     );
 
     reg [ASIZE:0] rq1_wptr;
-
+    // Assigning rq2_wptr
     always @(posedge rclk) begin
-
         if (!rrst_n)
-            {rq2_wptr,rq1_wptr} <= 0;
+            rq2_wptr <= 0;
         else
-            {rq2_wptr,rq1_wptr} <= {rq1_wptr,wptr};
-
+            rq2_wptr <= rq1_wptr;
     end
-
+    
+    // Assigning rq1_wptr
+    always @(posedge rclk) begin
+        if (!rrst_n)
+            rq1_wptr <= 0;
+        else
+            rq1_wptr <= wptr;
+    end
 endmodule
 
 `resetall

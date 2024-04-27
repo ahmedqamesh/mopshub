@@ -155,7 +155,6 @@ proc checkRequiredFiles { origin_dir} {
    "$origin_dir/../../mopshub_lib/hdl/demux1_16_16bit.v" \
    "$origin_dir/../../mopshub_lib/hdl/demux1_16_1bit.v" \
    "$origin_dir/../../mopshub_lib/hdl/elink_core_struct.v" \
-   "$origin_dir/../../mopshub_lib/hdl/elink_data_gen_sm_fsm.v" \
    "$origin_dir/../../mopshub_lib/hdl/elink_interface_rec_sm_fsm.v" \
    "$origin_dir/../../mopshub_lib/hdl/elink_interface_tra_sm_fsm.v" \
    "$origin_dir/../../mopshub_lib/hdl/elink_proc_in_dec8b10b_struct.v" \
@@ -437,7 +436,6 @@ set files [list \
  [file normalize "${origin_dir}/../../mopshub_lib/hdl/demux1_16_16bit.v"] \
  [file normalize "${origin_dir}/../../mopshub_lib/hdl/demux1_16_1bit.v"] \
  [file normalize "${origin_dir}/../../mopshub_lib/hdl/elink_core_struct.v"] \
- [file normalize "${origin_dir}/../../mopshub_lib/hdl/elink_data_gen_sm_fsm.v"] \
  [file normalize "${origin_dir}/../../mopshub_lib/hdl/elink_interface_rec_sm_fsm.v"] \
  [file normalize "${origin_dir}/../../mopshub_lib/hdl/elink_interface_tra_sm_fsm.v"] \
  [file normalize "${origin_dir}/../../mopshub_lib/hdl/elink_proc_in_dec8b10b_struct.v"] \

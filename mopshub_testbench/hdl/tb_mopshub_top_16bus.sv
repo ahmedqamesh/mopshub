@@ -15,6 +15,7 @@ module tb_mopshub_top_16bus();
   wire             clk_uart;
   wire             clk_mops;
   wire             clk_40_m;
+  wire             clk_elink;
   reg              rst   = 1'b0;
   reg              endwait_all = 1'b0;
   wire             rst_bus;
@@ -137,7 +138,7 @@ module tb_mopshub_top_16bus();
   
   mopshub_top_16bus #(2)mopshub0(
   .clk(clk_40_m),
-  .clk_elink(clk_40_m),
+  .clk_elink(clk_elink),
   .rst(rst),
   .n_buses(n_buses),
   .xadc_rec_in(12'hA),
@@ -215,7 +216,7 @@ module tb_mopshub_top_16bus();
   .clk_uart(clk_uart),
   .n_buses(n_buses),
   .clk(clk_40_m),
-  .clk_elink(clk_40_m),
+  .clk_elink(clk_elink),
   .rst(rst),
   .ext_rst_mops(rst_bus),
   .bus_cnt_power(bus_cnt_power),
@@ -349,13 +350,13 @@ clock_generator #(
   .clock_out (clk_40_m)
   ); 
   
-//  clock_generator #(
-//  .freq(40))
-//  clock_generator0( 
-//  .clk  (clk_40_m), 
-//  .enable (1'b1)
-//  ); 
-//  
+  clock_generator #(
+  .freq(40), 
+  .phase(90))
+  clock_generator1( 
+  .clk  (clk_elink), 
+  .enable (1'b1)
+  ); 
   clock_divider #(28'd4)
   clock_divider_mops( 
   .clock_in  (clk_40_m), 

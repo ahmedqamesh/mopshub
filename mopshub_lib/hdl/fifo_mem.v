@@ -26,21 +26,21 @@ module fifo_mem
 
     localparam DEPTH = 1<<ADDRSIZE;
 
-    reg [DATASIZE-1:0] mem [0:DEPTH-1];
+    reg [DATASIZE-1:0] fifo_storage [0:DEPTH-1];
     reg [DATASIZE-1:0] rdata_r;
 
     always @(posedge wclk) begin
     if (!wreset) begin          // Synchronous reset
         // Reset values for registers (if needed)
-        mem[waddr] <= 0;       // Example: Reset the memory at waddr to 0
+        fifo_storage[waddr] <= 0;       // Example: Reset the memory at waddr to 0
     end 
     else  
-      if (wclken && !wfull) mem[waddr] <= wdata;
+      if (wclken && !wfull) fifo_storage[waddr] <= wdata;
    end
     generate
         if (FALLTHROUGH == "TRUE")
         begin : fallthrough
-            assign rdata = mem[raddr];
+            assign rdata = fifo_storage[raddr];
         end
         else
         begin : registered_read
@@ -51,7 +51,7 @@ module fifo_mem
                   rdata_r <= 0;       // Example: Reset the memory at waddr to 0
               end 
               else                 
-                if (rclken) rdata_r <= mem[raddr];
+                if (rclken) rdata_r <= fifo_storage[raddr];
             end
             assign rdata = rdata_r;
         end

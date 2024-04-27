@@ -23,15 +23,21 @@ module fifo_wptr_full
     wire [ADDRSIZE:0] wgraynext, wbinnext, wgraynextp1;
     wire              awfull_val, wfull_val;
 
-	// GRAYSTYLE2 pointer
-	always @(posedge wclk) begin
-
-		if (!wrst_n)
-			{wbin, wptr} <= 0;
-		else
-			{wbin, wptr} <= {wbinnext, wgraynext};
-
-	end
+    // GRAYSTYLE2 pointer for wbin
+    always @(posedge wclk) begin
+        if (!wrst_n)
+            wbin <= 0;
+        else
+            wbin <= wbinnext;
+    end
+    
+    // GRAYSTYLE2 pointer for wptr
+    always @(posedge wclk) begin
+        if (!wrst_n)
+            wptr <= 0;
+        else
+            wptr <= wgraynext;
+    end
 
     // Memory write-address pointer (okay to use binary to address memory)
     assign waddr = wbin[ADDRSIZE-1:0];

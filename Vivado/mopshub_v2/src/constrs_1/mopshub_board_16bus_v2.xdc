@@ -205,7 +205,9 @@ set_property PACKAGE_PIN M13 [get_ports irq_can_tra_0]
 #LED7
 set_property CONFIG_VOLTAGE 3.3 [current_design]
 set_property CFGBVS VCCO [current_design]
-
+#DIP SW
+set_property PACKAGE_PIN W1 [get_ports disable_sw_0]
+set_property IOSTANDARD LVCMOS15 [get_ports disable_sw_0]
 
 # TMR shift Register [to ML14 J5]
 set_property PACKAGE_PIN A14 [get_ports simple_out_0]

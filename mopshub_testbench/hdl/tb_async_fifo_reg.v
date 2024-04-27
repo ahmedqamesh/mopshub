@@ -1,0 +1,89 @@
+//
+// Verilog Module mopshub_testbench.tb_async_fifo_reg
+//
+// Created:
+//          by - dcs.dcs (chipdev2.physik.uni-wuppertal.de)
+//          at - 10:49:26 04/25/24
+//
+// using Mentor Graphics HDL Designer(TM) 2019.4 (Build 4)
+//
+
+`resetall
+`timescale 1ns/10ps
+module tb_async_fifo_reg();
+  wire clk_40_m;
+  wire clk_elink;
+  reg wrst_n = 1'b0;
+  reg test_elink_rx = 1'b0;
+  wire winc;
+  wire r_en;
+  wire [9:0] wdata;
+  reg rinc = 1'b0;
+  wire [9:0] dout_fifo;
+  wire full, empty;
+  wire done;
+
+  fifo_async_reg fifo_async_reg0 (
+    .wclk(clk_40_m),
+    .rclk(clk_elink),
+    .wrst_n(wrst_n),
+    .rrst_n(wrst_n),
+    .rinc(r_en),
+    .winc(winc),
+    .wdata(wdata),
+    .dout_fifo(dout_fifo),
+    .full(full),
+    .empty(empty)
+  );
+ 
+  sync_bytes_SM sync_bytes_dut (
+    .clk_usr(clk_40_m),
+    .fifo_in(9'b0),
+    .fifo_out(wdata),
+    .rst(wrst_n),
+    .test_elink_tx(1'b1),
+    .test_elink_rx(test_elink_rx),
+    .fifo_empty(empty),
+    .done(done),
+    .w_en(winc),
+    .r_en(r_en),
+    .sel_cnt()
+  );
+   
+ // Clock Generators and Dividers master
+clock_generator #(
+  .freq(40))
+  clock_generator0( 
+  .clk  (clk_40_m), 
+  .enable (1'b1)
+  ); 
+clock_generator #(
+  .freq(80),
+  .phase(90))
+  clock_generator1( 
+  .clk  (clk_elink), 
+  .enable (1'b1)
+  ); 
+
+  // Initialize signals
+  initial begin
+    wrst_n = 1'b0;
+    #10
+    wrst_n = 1'b1;
+  end
+   /////******* prints bus activity ******///
+  
+  always@(posedge clk_elink)
+  if (!wrst_n) rinc = 1'b1; 
+  else
+  begin
+    if (!empty) 
+    begin 
+    rinc <= 1'b0;
+    rinc <= rinc;
+    rinc <= 1'b1;
+    end    
+    else rinc <= 1'b0;
+  end   
+//    
+endmodule
