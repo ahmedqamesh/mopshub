@@ -19,8 +19,8 @@ module tb_mopshub_top_16bus();
   reg              rst   = 1'b0;
   reg              endwait_all = 1'b0;
   wire             rst_bus;
-  reg              sel_bus = 1'b0;
-  reg     [4:0]    can_tra_select_dbg =5'd4;
+  reg              sel_bus = 1'b1;
+  reg     [4:0]    can_tra_select_dbg =5'd1;
   wire             sign_on_sig;
   wire             start_init;
   wire             end_init;
@@ -119,7 +119,7 @@ module tb_mopshub_top_16bus();
   wire [1:0] rx_mopshub_2bit; 
   wire            out_tx_serial;
   reg             in_rx_serial = 1;
-  reg [4:0]    n_buses =5'd15;
+  reg [4:0]    n_buses =5'd3;
   //Internal assignments  
   assign can_tra_select    = mopshub0.can_tra_select;
   assign can_rec_select    = mopshub0.can_rec_select; 
@@ -173,7 +173,7 @@ module tb_mopshub_top_16bus();
   .cs_active_m(), 
   .data_rec_dbg_in(),
   .mosi_m(spi_dat_m),
-  .miso_m(1'b0),        
+  .miso_m(spi_dat_m),        
   .mosi_c(spi_dat_p),
   .miso_c(spi_dat_p), 
   .mopshub_id(4'b1),
@@ -366,6 +366,13 @@ clock_generator #(
   /////******* Reset Generator task--low active ****/////
   initial 
   begin
+//    $dumpfile("tb_mopshub_top_16bus.vcd"); // Specify VCD file name
+//    $dumpvars(0, clk_40_m); // Dump all signals or specific signals
+//    $dumpvars(0, mopshub0.canakari_top_16bus0.cancari_block0_7.can_1); 
+//    $dumpvars(0, mopshub0.canakari_top_16bus0.bus_tra_select);
+//    $dumpvars(0, mopshub0.canakari_top_16bus0.bus_rec_select);
+//    $dumpvars(0, mopshub0.bridge_controller0);
+//    $dumpvars(0, mopshub0);
     rst = 1'b0;
     #10
     rst = 1'b1; 

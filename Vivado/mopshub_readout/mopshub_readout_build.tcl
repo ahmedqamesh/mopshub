@@ -170,10 +170,6 @@ proc checkRequiredFiles { origin_dir} {
    "$origin_dir/../../mopshub_lib/hdl/osc_trim_sm_fsm.v" \
    "$origin_dir/../../mopshub_lib/hdl/rec_elink_buf.v" \
    "$origin_dir/../../mopshub_lib/hdl/rec_mes_buf.v" \
-   "$origin_dir/../../mopshub_lib/hdl/spi_control_sm_fsm.v" \
-   "$origin_dir/../../mopshub_lib/hdl/spi_core_struct.v" \
-   "$origin_dir/../../mopshub_lib/hdl/spi_interface_struct.v" \
-   "$origin_dir/../../mopshub_lib/hdl/spi_master.v" \
    "$origin_dir/../../mopshub_lib/hdl/sync_detector_struct.v" \
    "$origin_dir/../../mopshub_lib/hdl/timeout_rst_watchdog.v" \
    "$origin_dir/../../mopshub_lib/hdl/timeoutrst_module.v" \
@@ -485,10 +481,6 @@ set files [list \
  [file normalize "${origin_dir}/../../mopshub_lib/hdl/fifo_wptr_full.v"] \
  [file normalize "${origin_dir}/../../mopshub_lib/hdl/rec_elink_buf.v"] \
  [file normalize "${origin_dir}/../../mopshub_lib/hdl/rec_mes_buf.v"] \
- [file normalize "${origin_dir}/../../mopshub_lib/hdl/spi_control_sm_fsm.v"] \
- [file normalize "${origin_dir}/../../mopshub_lib/hdl/spi_core_struct.v"] \
- [file normalize "${origin_dir}/../../mopshub_lib/hdl/spi_interface_struct.v"] \
- [file normalize "${origin_dir}/../../mopshub_lib/hdl/spi_master.v"] \
  [file normalize "${origin_dir}/../../mopshub_lib/hdl/sync_detector_struct.v"] \
  [file normalize "${origin_dir}/../../mopshub_lib/hdl/timeout_rst_watchdog.v"] \
  [file normalize "${origin_dir}/../../mopshub_lib/hdl/timeoutrst_module.v"] \
@@ -1198,4 +1190,5 @@ set_property top mopshub_readout_bd_wrapper [current_fileset]
 update_compile_order -fileset sources_1
 launch_runs synth_1 -jobs 3
 launch_runs impl_1 -jobs 3
+after 2000
 launch_runs impl_1 -to_step write_bitstream -jobs 5

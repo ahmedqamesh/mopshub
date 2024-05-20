@@ -93,19 +93,19 @@ value "/../../home/dcs/git/mopshub/mopshub_lib/hds/elink_proc_out_enc8b10b"
 )
 (vvPair
 variable "date"
-value "02/04/24"
+value "05/15/24"
 )
 (vvPair
 variable "day"
-value "Sun"
+value "Wed"
 )
 (vvPair
 variable "day_long"
-value "Sunday"
+value "Wednesday"
 )
 (vvPair
 variable "dd"
-value "04"
+value "15"
 )
 (vvPair
 variable "entity_name"
@@ -133,7 +133,7 @@ value "dcs"
 )
 (vvPair
 variable "graphical_source_date"
-value "02/04/24"
+value "05/15/24"
 )
 (vvPair
 variable "graphical_source_group"
@@ -145,7 +145,7 @@ value "chipdev2.physik.uni-wuppertal.de"
 )
 (vvPair
 variable "graphical_source_time"
-value "16:07:22"
+value "12:34:42"
 )
 (vvPair
 variable "group"
@@ -189,7 +189,7 @@ value "$HDS_PROJECT_DIR/mopshub_lib/svassistant"
 )
 (vvPair
 variable "mm"
-value "02"
+value "05"
 )
 (vvPair
 variable "module_name"
@@ -197,11 +197,11 @@ value "elink_proc_out_enc8b10b"
 )
 (vvPair
 variable "month"
-value "Feb"
+value "May"
 )
 (vvPair
 variable "month_long"
-value "February"
+value "May"
 )
 (vvPair
 variable "p"
@@ -265,7 +265,7 @@ value "struct"
 )
 (vvPair
 variable "time"
-value "16:07:22"
+value "12:34:42"
 )
 (vvPair
 variable "unit"
@@ -1101,10 +1101,11 @@ begin
   //Trigger after cycle 5 CLKs
   else 
   begin
-    if (get_data_trig  == 1) enc10bit_r <= data_out;
+    if (get_data_trig  == 1) enc10bit_r <= data_encoder_output;
     else  enc10bit_r <= enc10bit_r;
   end
 end
+
 
 
 
@@ -1650,8 +1651,9 @@ font "courier,8,0"
 xt "-45800,11200,-28300,15700"
 st "
 assign data_code  = data_10bit_in[9:8];
-assign data_input = data_10bit_in[7:0];
+assign data_encoder_input = data_10bit_in[7:0];
 assign KI_signal  = data_code[1] || data_code[0]; //Control signal for the KI of the encoder (goes low if there is data i.e. code = 00, 01, 10)
+
 
 
 
@@ -2068,27 +2070,7 @@ font "courier,8,0"
 )
 )
 )
-*55 (Net
-uid 7615,0
-lang 5
-decl (Decl
-n "data_out"
-t "wire"
-b "[9:0]"
-preAdd 0
-posAdd 0
-o 10
-suid 100,0
-)
-declText (MLText
-uid 7616,0
-va (VaSet
-isHidden 1
-font "courier,8,0"
-)
-)
-)
-*56 (PortIoIn
+*55 (PortIoIn
 uid 7711,0
 shape (CompositeShape
 uid 7712,0
@@ -2133,27 +2115,7 @@ tm "WireNameMgr"
 )
 )
 )
-*57 (Net
-uid 7816,0
-lang 5
-decl (Decl
-n "data_input"
-t "wire"
-b "[7:0]"
-preAdd 0
-posAdd 0
-o 11
-suid 112,0
-)
-declText (MLText
-uid 7817,0
-va (VaSet
-isHidden 1
-font "courier,8,0"
-)
-)
-)
-*58 (Net
+*56 (Net
 uid 8388,0
 lang 5
 decl (Decl
@@ -2170,7 +2132,7 @@ font "courier,8,0"
 )
 )
 )
-*59 (PortIoIn
+*57 (PortIoIn
 uid 8392,0
 shape (CompositeShape
 uid 8393,0
@@ -2215,7 +2177,7 @@ tm "WireNameMgr"
 )
 )
 )
-*60 (PortIoIn
+*58 (PortIoIn
 uid 8398,0
 shape (CompositeShape
 uid 8399,0
@@ -2260,7 +2222,7 @@ tm "WireNameMgr"
 )
 )
 )
-*61 (Net
+*59 (Net
 uid 10100,0
 lang 5
 decl (Decl
@@ -2278,7 +2240,7 @@ font "courier,8,0"
 )
 )
 )
-*62 (Net
+*60 (Net
 uid 10102,0
 lang 5
 decl (Decl
@@ -2296,7 +2258,7 @@ font "courier,8,0"
 )
 )
 )
-*63 (Net
+*61 (Net
 uid 12187,0
 lang 5
 decl (Decl
@@ -2307,6 +2269,46 @@ suid 161,0
 )
 declText (MLText
 uid 12188,0
+va (VaSet
+isHidden 1
+font "courier,8,0"
+)
+)
+)
+*62 (Net
+uid 12264,0
+lang 5
+decl (Decl
+n "data_encoder_input"
+t "wire"
+b "[7:0]"
+preAdd 0
+posAdd 0
+o 11
+suid 162,0
+)
+declText (MLText
+uid 12265,0
+va (VaSet
+isHidden 1
+font "courier,8,0"
+)
+)
+)
+*63 (Net
+uid 12266,0
+lang 5
+decl (Decl
+n "data_encoder_output"
+t "wire"
+b "[9:0]"
+preAdd 0
+posAdd 0
+o 10
+suid 163,0
+)
+declText (MLText
+uid 12267,0
 va (VaSet
 isHidden 1
 font "courier,8,0"
@@ -2404,7 +2406,7 @@ blo "26000,-200"
 tm "WireNameMgr"
 )
 )
-on &61
+on &59
 )
 *67 (Wire
 uid 354,0
@@ -2440,7 +2442,7 @@ blo "17000,-1200"
 tm "WireNameMgr"
 )
 )
-on &61
+on &59
 )
 *68 (Wire
 uid 360,0
@@ -2477,7 +2479,7 @@ blo "17000,-2200"
 tm "WireNameMgr"
 )
 )
-on &61
+on &59
 )
 *69 (Wire
 uid 366,0
@@ -2513,7 +2515,7 @@ blo "17000,-3200"
 tm "WireNameMgr"
 )
 )
-on &61
+on &59
 )
 *70 (Wire
 uid 372,0
@@ -2549,7 +2551,7 @@ blo "17000,-4200"
 tm "WireNameMgr"
 )
 )
-on &61
+on &59
 )
 *71 (Wire
 uid 378,0
@@ -2783,7 +2785,7 @@ blo "19000,-200"
 tm "WireNameMgr"
 )
 )
-on &61
+on &59
 )
 *77 (Wire
 uid 1055,0
@@ -2909,7 +2911,7 @@ pts [
 "-7750,12000"
 ]
 )
-start &59
+start &57
 end &32
 es 0
 sat 32
@@ -2948,7 +2950,7 @@ pts [
 "-7750,11000"
 ]
 )
-start &60
+start &58
 end &34
 sat 32
 eat 32
@@ -3058,7 +3060,7 @@ pts [
 "-34750,11000"
 ]
 )
-start &56
+start &55
 end &47
 es 0
 sat 32
@@ -3082,7 +3084,7 @@ blo "-39000,10800"
 tm "WireNameMgr"
 )
 )
-on &63
+on &61
 )
 *85 (Wire
 uid 7543,0
@@ -3116,13 +3118,13 @@ uid 7548,0
 va (VaSet
 font "courier,8,0"
 )
-xt "-6000,4100,-2000,5000"
-st "data_out"
+xt "-6000,4100,4000,5000"
+st "data_encoder_output"
 blo "-6000,4800"
 tm "WireNameMgr"
 )
 )
-on &55
+on &63
 )
 *86 (Wire
 uid 7649,0
@@ -3226,13 +3228,13 @@ uid 7815,0
 va (VaSet
 font "courier,8,0"
 )
-xt "-50000,12100,-44500,13000"
-st "data_input"
+xt "-50000,12100,-40500,13000"
+st "data_encoder_input"
 blo "-50000,12800"
 tm "WireNameMgr"
 )
 )
-on &57
+on &62
 )
 *89 (Wire
 uid 7818,0
@@ -3307,7 +3309,7 @@ blo "-50000,11800"
 tm "WireNameMgr"
 )
 )
-on &58
+on &56
 )
 *91 (Wire
 uid 10092,0
@@ -3344,7 +3346,7 @@ blo "5000,4800"
 tm "WireNameMgr"
 )
 )
-on &62
+on &60
 )
 ]
 bg "65535,65535,65535"
@@ -3474,12 +3476,12 @@ tm "BdCompilerDirectivesTextMgr"
 ]
 associable 1
 )
-windowSize "1912,40,3848,1055"
-viewArea "-99097,-34300,49934,41564"
+windowSize "3832,13,5768,1088"
+viewArea "-25093,-1487,11280,17708"
 cachedDiagramExtent "-69000,-10000,55000,38800"
 hasePageBreakOrigin 1
 pageBreakOrigin "-79000,-12000"
-lastUid 12190,0
+lastUid 12271,0
 defaultCommentText (CommentText
 shape (Rectangle
 layer 0
@@ -4537,7 +4539,7 @@ tm "BdDeclarativeTextMgr"
 commonDM (CommonDM
 ldm (LogicalDM
 ordering 1
-suid 161,0
+suid 163,0
 usingSuid 1
 emptyRow *123 (LEmptyRow
 )
@@ -4700,38 +4702,6 @@ port (LogicalPort
 lang 5
 m 4
 decl (Decl
-n "data_out"
-t "wire"
-b "[9:0]"
-preAdd 0
-posAdd 0
-o 10
-suid 100,0
-)
-)
-uid 7683,0
-)
-*147 (LeafLogPort
-port (LogicalPort
-lang 5
-m 4
-decl (Decl
-n "data_input"
-t "wire"
-b "[7:0]"
-preAdd 0
-posAdd 0
-o 11
-suid 112,0
-)
-)
-uid 7826,0
-)
-*148 (LeafLogPort
-port (LogicalPort
-lang 5
-m 4
-decl (Decl
 n "KI_signal"
 t "wire"
 o 12
@@ -4741,7 +4711,7 @@ suid 114,0
 uid 8378,0
 scheme 0
 )
-*149 (LeafLogPort
+*147 (LeafLogPort
 port (LogicalPort
 lang 5
 m 4
@@ -4755,7 +4725,7 @@ suid 140,0
 )
 uid 10104,0
 )
-*150 (LeafLogPort
+*148 (LeafLogPort
 port (LogicalPort
 lang 5
 m 4
@@ -4769,7 +4739,7 @@ suid 141,0
 )
 uid 10106,0
 )
-*151 (LeafLogPort
+*149 (LeafLogPort
 port (LogicalPort
 lang 5
 decl (Decl
@@ -4780,6 +4750,38 @@ suid 161,0
 )
 )
 uid 12189,0
+)
+*150 (LeafLogPort
+port (LogicalPort
+lang 5
+m 4
+decl (Decl
+n "data_encoder_input"
+t "wire"
+b "[7:0]"
+preAdd 0
+posAdd 0
+o 11
+suid 162,0
+)
+)
+uid 12268,0
+)
+*151 (LeafLogPort
+port (LogicalPort
+lang 5
+m 4
+decl (Decl
+n "data_encoder_output"
+t "wire"
+b "[9:0]"
+preAdd 0
+posAdd 0
+o 10
+suid 163,0
+)
+)
+uid 12270,0
 )
 ]
 )
@@ -4833,7 +4835,7 @@ uid 869,0
 )
 *157 (MRCItem
 litem &138
-pos 3
+pos 6
 dimension 20
 uid 813,0
 )
@@ -4857,63 +4859,63 @@ uid 831,0
 )
 *161 (MRCItem
 litem &142
-pos 5
+pos 3
 dimension 20
 uid 1901,0
 )
 *162 (MRCItem
 litem &143
-pos 4
+pos 7
 dimension 20
 uid 4062,0
 )
 *163 (MRCItem
 litem &144
-pos 6
+pos 4
 dimension 20
 uid 5474,0
 )
 *164 (MRCItem
 litem &145
-pos 7
+pos 8
 dimension 20
 uid 7676,0
 )
 *165 (MRCItem
 litem &146
-pos 8
-dimension 20
-uid 7684,0
-)
-*166 (MRCItem
-litem &147
 pos 9
-dimension 20
-uid 7827,0
-)
-*167 (MRCItem
-litem &148
-pos 10
 dimension 20
 uid 8379,0
 )
-*168 (MRCItem
-litem &149
-pos 11
+*166 (MRCItem
+litem &147
+pos 10
 dimension 20
 uid 10105,0
+)
+*167 (MRCItem
+litem &148
+pos 11
+dimension 20
+uid 10107,0
+)
+*168 (MRCItem
+litem &149
+pos 5
+dimension 20
+uid 12190,0
 )
 *169 (MRCItem
 litem &150
 pos 12
 dimension 20
-uid 10107,0
+uid 12269,0
 )
 *170 (MRCItem
 litem &151
 pos 13
 dimension 20
-uid 12190,0
+uid 12271,0
 )
 ]
 )

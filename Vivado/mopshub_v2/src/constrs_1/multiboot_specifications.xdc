@@ -7,7 +7,7 @@ set_property BITSTREAM.CONFIG.PROG_MODE INTERNAL [current_design]
 #This allows you to access a larger storage space within the flash memory
 #The FPGA is configured to reboot (restart) itself automatically after loading a new configuration
 set_property BITSTREAM.CONFIG.NEXT_CONFIG_REBOOT ENABLE [current_design]
-set_property BITSTREAM.CONFIG.NEXT_CONFIG_ADDR 0x0040350B [current_design]
+#set_property BITSTREAM.CONFIG.NEXT_CONFIG_ADDR 0x0040350B [current_design] #comment this since you dont want feedback
 #set_property BITSTREAM.CONFIG.NEXT_CONFIG_ADDR 0x00A20000 [current_design]
 set_property bitstream.seu.essentialbits yes [current_design]
 set_property BITSTREAM.GENERAL.COMPRESS TRUE [current_design]
