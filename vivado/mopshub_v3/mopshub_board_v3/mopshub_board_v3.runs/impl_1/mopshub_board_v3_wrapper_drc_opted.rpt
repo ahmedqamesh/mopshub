@@ -1,0 +1,47 @@
+Copyright 1986-2020 Xilinx, Inc. All Rights Reserved.
+---------------------------------------------------------------------------------------------------------------------------------------------------------------
+| Tool Version : Vivado v.2020.2 (lin64) Build 3064766 Wed Nov 18 09:12:47 MST 2020
+| Date         : Thu Jun 13 14:47:34 2024
+| Host         : chipdev2.physik.uni-wuppertal.de running 64-bit unknown
+| Command      : report_drc -file mopshub_board_v3_wrapper_drc_opted.rpt -pb mopshub_board_v3_wrapper_drc_opted.pb -rpx mopshub_board_v3_wrapper_drc_opted.rpx
+| Design       : mopshub_board_v3_wrapper
+| Device       : xc7a200tfbg484-2
+| Speed File   : -2
+| Design State : Synthesized
+---------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+Report DRC
+
+Table of Contents
+-----------------
+1. REPORT SUMMARY
+2. REPORT DETAILS
+
+1. REPORT SUMMARY
+-----------------
+            Netlist: netlist
+          Floorplan: design_1
+      Design limits: <entire design considered>
+           Ruledeck: default
+             Max violations: <unlimited>
+             Violations found: 1
++---------+----------+---------------------+------------+
+| Rule    | Severity | Description         | Violations |
++---------+----------+---------------------+------------+
+| PLCK-12 | Warning  | Clock Placer Checks | 1          |
++---------+----------+---------------------+------------+
+
+2. REPORT DETAILS
+-----------------
+PLCK-12#1 Warning
+Clock Placer Checks  
+Poor placement for routing between an IO pin and BUFG. 
+Resolution: Poor placement of an IO pin and a BUFG has resulted in the router using a non-dedicated path between the two.  There are several things that could trigger this DRC, each of which can cause unpredictable clock insertion delays that result in poor timing.  This DRC could be caused by any of the following: (a) a clock port was placed on a pin that is not a CCIO-pin (b)the BUFG has not been placed in the same half of the device or SLR as the CCIO-pin (c) a single ended clock has been placed on the N-Side of a differential pair CCIO-pin.
+ This is normally an ERROR but the CLOCK_DEDICATED_ROUTE constraint is set to FALSE allowing your design to continue. The use of this override is highly discouraged as it may lead to very poor timing results. It is recommended that this error condition be corrected in the design.
+
+	mopshub_board_v3_i/mopshub_top_board_16_0/inst/seu_shift_combined0/clkbuf (IBUF.O) is locked to D19
+	mopshub_board_v3_i/mopshub_top_board_16_0/inst/seu_shift_combined0/clk_BUFG_inst (BUFG.I) cannot be placed
+
+Related violations: <none>
+
+
