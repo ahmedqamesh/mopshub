@@ -19,7 +19,7 @@ module tb_mopshub_top_16bus();
   reg              rst   = 1'b0;
   reg              endwait_all = 1'b0;
   wire             rst_bus;
-  reg              sel_bus = 1'b1;
+  reg              sel_bus = 1'b0;
   reg     [4:0]    can_tra_select_dbg =5'd1;
   wire             sign_on_sig;
   wire             start_init;
@@ -119,7 +119,7 @@ module tb_mopshub_top_16bus();
   wire [1:0] rx_mopshub_2bit; 
   wire            out_tx_serial;
   reg             in_rx_serial = 1;
-  reg [4:0]    n_buses =5'd3;
+  reg [4:0]    n_buses =5'd10;
   //Internal assignments  
   assign can_tra_select    = mopshub0.can_tra_select;
   assign can_rec_select    = mopshub0.can_rec_select; 
@@ -135,7 +135,6 @@ module tb_mopshub_top_16bus();
   assign bus_cnt_power     = mopshub0.bus_cnt_power;
   assign ready_osc         = mopshub_tb_environment0.ready_osc;
 
-  
   mopshub_top_16bus #(2)mopshub0(
   .clk(clk_40_m),
   .clk_elink(clk_elink),

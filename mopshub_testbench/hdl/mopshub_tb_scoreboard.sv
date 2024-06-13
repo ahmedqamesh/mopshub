@@ -477,7 +477,7 @@ end
             $display("Current simulation time is: ", $realtime);
             $strobe("Status BAD **************************[RX-TX test [BUS ID %d]****************** Status BAD %h",can_rec_select,requestreg);
             $strobe("Status BAD **************************[RX-TX test [BUS ID %d]****************** Status BAD %h",can_tra_select,responsereg);
-            $strobe("************MOPS reponded to a costumom message. The reponse must be checked");
+            $strobe("************MOPS-Hub reponded to a costumom message. The reponse must be checked");
             failures += 1;
           end
         end

@@ -63,72 +63,72 @@ proc checkRequiredFiles { origin_dir} {
   }
 
   set files [list \
-   "$origin_dir/../../mopshub-canakari/Accumulator_VTR.v" \
-   "$origin_dir/../../mopshub-canakari/Add_PID_VTR.v" \
-   "$origin_dir/../../mopshub-canakari/CLK_Counter_VTR.v" \
-   "$origin_dir/../../mopshub-canakari/Control_FSM_VTR.v" \
-   "$origin_dir/../../mopshub-canakari/Control_Sys_VTR.v" \
-   "$origin_dir/../../mopshub-canakari/Diff_VTR.v" \
-   "$origin_dir/../../mopshub-canakari/Ftrim_En_VTR.v" \
-   "$origin_dir/../../mopshub-canakari/Multi_VTR.v" \
-   "$origin_dir/../../mopshub-canakari/Multi_i_VTR.v" \
-   "$origin_dir/../../mopshub-canakari/Output_Scaling_VTR.v" \
-   "$origin_dir/../../mopshub-canakari/PID_Regler_VTR.v" \
-   "$origin_dir/../../mopshub-canakari/Phasenfehler_Reg_VTR.v" \
-   "$origin_dir/../../mopshub-canakari/accmaskreg2_VTR.v" \
-   "$origin_dir/../../mopshub-canakari/biterrordetect2_VTR.v" \
-   "$origin_dir/../../mopshub-canakari/bittime2_VTR.v" \
-   "$origin_dir/../../mopshub-canakari/bittiming2_VTR.v" \
-   "$origin_dir/../../mopshub-canakari/can2_VTR.v" \
-   "$origin_dir/../../mopshub-canakari/counter2_VTR.v" \
-   "$origin_dir/../../mopshub-canakari/decapsulation2_VTR.v" \
-   "$origin_dir/../../mopshub-canakari/destuffing2_VTR.v" \
-   "$origin_dir/../../mopshub-canakari/edgepuffer2_VTR.v" \
-   "$origin_dir/../../mopshub-canakari/encapsulation2_VTR.v" \
-   "$origin_dir/../../mopshub-canakari/equal_id2_VTR.v" \
-   "$origin_dir/../../mopshub-canakari/erbcount2_VTR.v" \
-   "$origin_dir/../../mopshub-canakari/fastshift2_VTR.v" \
-   "$origin_dir/../../mopshub-canakari/faultfsm2_VTR.v" \
-   "$origin_dir/../../mopshub-canakari/fce2_VTR.v" \
-   "$origin_dir/../../mopshub-canakari/fsm_register2_VTR.v" \
-   "$origin_dir/../../mopshub-canakari/generalregister2_VTR.v" \
-   "$origin_dir/../../mopshub-canakari/interruptregister2_VTR.v" \
-   "$origin_dir/../../mopshub-canakari/interruptunit2_VTR.v" \
-   "$origin_dir/../../mopshub-canakari/iocpuavalon2_VTR.v" \
-   "$origin_dir/../../mopshub-canakari/llc2_VTR.v" \
-   "$origin_dir/../../mopshub-canakari/llc_fsm2_VTR.v" \
-   "$origin_dir/../../mopshub-canakari/mac2_VTR.v" \
-   "$origin_dir/../../mopshub-canakari/macfsm2_VTR.v" \
-   "$origin_dir/../../mopshub-canakari/prescale2_VTR.v" \
-   "$origin_dir/../../mopshub-canakari/prescalereg2_VTR.v" \
-   "$origin_dir/../../mopshub-canakari/rcrc_cell2_VTR.v" \
-   "$origin_dir/../../mopshub-canakari/rcrc_top2_VTR.v" \
-   "$origin_dir/../../mopshub-canakari/read_mux2_VTR.v" \
-   "$origin_dir/../../mopshub-canakari/ready_counter_VTR.v" \
-   "$origin_dir/../../mopshub-canakari/rec2_VTR.v" \
-   "$origin_dir/../../mopshub-canakari/recarbitreg2_VTR.v" \
-   "$origin_dir/../../mopshub-canakari/recmescontrolreg2_VTR.v" \
-   "$origin_dir/../../mopshub-canakari/recmeslen2_VTR.v" \
-   "$origin_dir/../../mopshub-canakari/recregister2_VTR.v" \
-   "$origin_dir/../../mopshub-canakari/reset_mac2_VTR.v" \
-   "$origin_dir/../../mopshub-canakari/resetgen2_VTR.v" \
-   "$origin_dir/../../mopshub-canakari/rshift_cell2_VTR.v" \
-   "$origin_dir/../../mopshub-canakari/rshift_top2_VTR.v" \
-   "$origin_dir/../../mopshub-canakari/meslencompare2_VTR.v" \   
-   "$origin_dir/../../mopshub-canakari/multiplexeravalon2_VTR.v" \
-   "$origin_dir/../../mopshub-canakari/smpldbit_reg2_VTR.v" \
-   "$origin_dir/../../mopshub-canakari/stuffing2_VTR.v" \
-   "$origin_dir/../../mopshub-canakari/sum2_VTR.v" \
-   "$origin_dir/../../mopshub-canakari/tcrc_cell2_VTR.v" \
-   "$origin_dir/../../mopshub-canakari/tcrc_top2_VTR.v" \
-   "$origin_dir/../../mopshub-canakari/tec2_VTR.v" \
-   "$origin_dir/../../mopshub-canakari/timecount2_VTR.v" \
-   "$origin_dir/../../mopshub-canakari/transmesconreg2_VTR.v" \
-   "$origin_dir/../../mopshub-canakari/transmitreg2_VTR.v" \
-   "$origin_dir/../../mopshub-canakari/tseg_reg2_VTR.v" \
-   "$origin_dir/../../mopshub-canakari/tshift_cell2_VTR.v" \
-   "$origin_dir/../../mopshub-canakari/tshift_top2_VTR.v" \
-   "$origin_dir/../../mopshub-canakari/write_demux2_VTR.v" \
+   "$origin_dir/../../CANAkari/MOPSv2/ftrim/hdl/Accumulator.v" \
+   "$origin_dir/../../CANAkari/MOPSv2/ftrim/hdl/Add_PID.v" \
+   "$origin_dir/../../CANAkari/MOPSv2/ftrim/hdl/CLK_Counter.v" \
+   "$origin_dir/../../CANAkari/MOPSv2/ftrim/hdl/Control_FSM.v" \
+   "$origin_dir/../../CANAkari/MOPSv2/ftrim/hdl/Control_Sys.v" \
+   "$origin_dir/../../CANAkari/MOPSv2/ftrim/hdl/Diff.v" \
+   "$origin_dir/../../CANAkari/MOPSv2/ftrim/hdl/Ftrim_En.v" \
+   "$origin_dir/../../CANAkari/MOPSv2/ftrim/hdl/Multi.v" \
+   "$origin_dir/../../CANAkari/MOPSv2/ftrim/hdl/Multi_i.v" \
+   "$origin_dir/../../CANAkari/MOPSv2/ftrim/hdl/Output_Scaling.v" \
+   "$origin_dir/../../CANAkari/MOPSv2/ftrim/hdl/PID_Regler.v" \
+   "$origin_dir/../../CANAkari/MOPSv2/ftrim/hdl/Phasenfehler_Reg.v" \
+   "$origin_dir/../../CANAkari/MOPSv2/ftrim/hdl/ready_counter.v" \
+   "$origin_dir/../../CANAkari/MOPSv2/canakari/hdl/accmaskreg2.v" \
+   "$origin_dir/../../CANAkari/MOPSv2/canakari/hdl/biterrordetect2.v" \
+   "$origin_dir/../../CANAkari/MOPSv2/canakari/hdl/bittime2.v" \
+   "$origin_dir/../../CANAkari/MOPSv2/canakari/hdl/bittiming2.v" \
+   "$origin_dir/../../CANAkari/MOPSv2/canakari/hdl/can2.v" \
+   "$origin_dir/../../CANAkari/MOPSv2/canakari/hdl/counter2.v" \
+   "$origin_dir/../../CANAkari/MOPSv2/canakari/hdl/decapsulation2.v" \
+   "$origin_dir/../../CANAkari/MOPSv2/canakari/hdl/destuffing2.v" \
+   "$origin_dir/../../CANAkari/MOPSv2/canakari/hdl/edgepuffer2.v" \
+   "$origin_dir/../../CANAkari/MOPSv2/canakari/hdl/encapsulation2.v" \
+   "$origin_dir/../../CANAkari/MOPSv2/canakari/hdl/equal_id2.v" \
+   "$origin_dir/../../CANAkari/MOPSv2/canakari/hdl/erbcount2.v" \
+   "$origin_dir/../../CANAkari/MOPSv2/canakari/hdl/fastshift2.v" \
+   "$origin_dir/../../CANAkari/MOPSv2/canakari/hdl/faultfsm2.v" \
+   "$origin_dir/../../CANAkari/MOPSv2/canakari/hdl/fce2.v" \
+   "$origin_dir/../../CANAkari/MOPSv2/canakari/hdl/fsm_register2.v" \
+   "$origin_dir/../../CANAkari/MOPSv2/canakari/hdl/generalregister2.v" \
+   "$origin_dir/../../CANAkari/MOPSv2/canakari/hdl/interruptregister2.v" \
+   "$origin_dir/../../CANAkari/MOPSv2/canakari/hdl/interruptunit2.v" \
+   "$origin_dir/../../CANAkari/MOPSv2/canakari/hdl/iocpuavalon2.v" \
+   "$origin_dir/../../CANAkari/MOPSv2/canakari/hdl/llc2.v" \
+   "$origin_dir/../../CANAkari/MOPSv2/canakari/hdl/llc_fsm2.v" \
+   "$origin_dir/../../CANAkari/MOPSv2/canakari/hdl/mac2.v" \
+   "$origin_dir/../../CANAkari/MOPSv2/canakari/hdl/macfsm2.v" \
+   "$origin_dir/../../CANAkari/MOPSv2/canakari/hdl/prescale2.v" \
+   "$origin_dir/../../CANAkari/MOPSv2/canakari/hdl/prescalereg2.v" \
+   "$origin_dir/../../CANAkari/MOPSv2/canakari/hdl/rcrc_cell2.v" \
+   "$origin_dir/../../CANAkari/MOPSv2/canakari/hdl/rcrc_top2.v" \
+   "$origin_dir/../../CANAkari/MOPSv2/canakari/hdl/read_mux2.v" \
+   "$origin_dir/../../CANAkari/MOPSv2/canakari/hdl/rec2.v" \
+   "$origin_dir/../../CANAkari/MOPSv2/canakari/hdl/recarbitreg2.v" \
+   "$origin_dir/../../CANAkari/MOPSv2/canakari/hdl/recmescontrolreg2.v" \
+   "$origin_dir/../../CANAkari/MOPSv2/canakari/hdl/recmeslen2.v" \
+   "$origin_dir/../../CANAkari/MOPSv2/canakari/hdl/recregister2.v" \
+   "$origin_dir/../../CANAkari/MOPSv2/canakari/hdl/reset_mac2.v" \
+   "$origin_dir/../../CANAkari/MOPSv2/canakari/hdl/resetgen2.v" \
+   "$origin_dir/../../CANAkari/MOPSv2/canakari/hdl/rshift_cell2.v" \
+   "$origin_dir/../../CANAkari/MOPSv2/canakari/hdl/rshift_top2.v" \
+   "$origin_dir/../../CANAkari/MOPSv2/canakari/hdl/meslencompare2.v" \   
+   "$origin_dir/../../CANAkari/MOPSv2/canakari/hdl/multiplexeravalon2.v" \
+   "$origin_dir/../../CANAkari/MOPSv2/canakari/hdl/smpldbit_reg2.v" \
+   "$origin_dir/../../CANAkari/MOPSv2/canakari/hdl/stuffing2.v" \
+   "$origin_dir/../../CANAkari/MOPSv2/canakari/hdl/sum2.v" \
+   "$origin_dir/../../CANAkari/MOPSv2/canakari/hdl/tcrc_cell2.v" \
+   "$origin_dir/../../CANAkari/MOPSv2/canakari/hdl/tcrc_top2.v" \
+   "$origin_dir/../../CANAkari/MOPSv2/canakari/hdl/tec2.v" \
+   "$origin_dir/../../CANAkari/MOPSv2/canakari/hdl/timecount2.v" \
+   "$origin_dir/../../CANAkari/MOPSv2/canakari/hdl/transmesconreg2.v" \
+   "$origin_dir/../../CANAkari/MOPSv2/canakari/hdl/transmitreg2.v" \
+   "$origin_dir/../../CANAkari/MOPSv2/canakari/hdl/tseg_reg2.v" \
+   "$origin_dir/../../CANAkari/MOPSv2/canakari/hdl/tshift_cell2.v" \
+   "$origin_dir/../../CANAkari/MOPSv2/canakari/hdl/tshift_top2.v" \
+   "$origin_dir/../../CANAkari/MOPSv2/canakari/hdl/write_demux2.v" \
    "$origin_dir/../../mopshub_lib/hdl/ip_buf.v" \
    "$origin_dir/../../mopshub_lib/hdl/bitstream_shift_register.v" \
    "$origin_dir/../../mopshub_lib/hdl/bridge_controller_struct.v" \
@@ -192,8 +192,6 @@ proc checkRequiredFiles { origin_dir} {
    "$origin_dir/../../mopshub_lib/hdl/top_led_for_synth_struct.v" \
    "$origin_dir/../../mopshub_lib/hdl/tra_elink_buf.v" \
    "$origin_dir/../../mopshub_lib/hdl/tra_mes_buf.v" \
-   "$origin_dir/../../mopshub_lib/hdl/ipbus_decode_ipbus_mopshub.vhd" \
-   "$origin_dir/../../mopshub_lib/hdl/emp_elink_mem_interface_regs_pkg.vhd" \
    "$origin_dir/../../mopshub_lib/hdl/mopshub_top_board_16bus_struct.v" \
    "$origin_dir/../../mopshub-seu-test/srcs/sources/seu_shift_combined_struct.v" \
    "$origin_dir/../../mopshub-seu-test/srcs/sources/seu_shift_reg.v" \
@@ -346,72 +344,72 @@ set obj [get_filesets sources_1]
 set files [list \
  [file normalize "${origin_dir}/../../mopshub_lib/hdl/ip_buf.v"] \
  [file normalize "${origin_dir}/../../mopshub_lib/hdl/bitstream_shift_register.v"] \
- [file normalize "${origin_dir}/../../mopshub-canakari/bittime2_VTR.v"] \
- [file normalize "${origin_dir}/../../mopshub-canakari/bittiming2_VTR.v"] \
- [file normalize "${origin_dir}/../../mopshub-canakari/Accumulator_VTR.v"] \
- [file normalize "${origin_dir}/../../mopshub-canakari/Add_PID_VTR.v"] \
- [file normalize "${origin_dir}/../../mopshub-canakari/CLK_Counter_VTR.v"] \
- [file normalize "${origin_dir}/../../mopshub-canakari/Control_FSM_VTR.v"] \
- [file normalize "${origin_dir}/../../mopshub-canakari/Control_Sys_VTR.v"] \
- [file normalize "${origin_dir}/../../mopshub-canakari/Diff_VTR.v"] \
- [file normalize "${origin_dir}/../../mopshub-canakari/Ftrim_En_VTR.v"] \
- [file normalize "${origin_dir}/../../mopshub-canakari/Multi_VTR.v"] \
- [file normalize "${origin_dir}/../../mopshub-canakari/counter2_VTR.v"] \
- [file normalize "${origin_dir}/../../mopshub-canakari/can2_VTR.v"] \
- [file normalize "${origin_dir}/../../mopshub-canakari/Multi_i_VTR.v"] \
- [file normalize "${origin_dir}/../../mopshub-canakari/Output_Scaling_VTR.v"] \
- [file normalize "${origin_dir}/../../mopshub-canakari/PID_Regler_VTR.v"] \
- [file normalize "${origin_dir}/../../mopshub-canakari/Phasenfehler_Reg_VTR.v"] \
- [file normalize "${origin_dir}/../../mopshub-canakari/accmaskreg2_VTR.v"] \
- [file normalize "${origin_dir}/../../mopshub-canakari/decapsulation2_VTR.v"] \
- [file normalize "${origin_dir}/../../mopshub-canakari/destuffing2_VTR.v"] \
- [file normalize "${origin_dir}/../../mopshub-canakari/edgepuffer2_VTR.v"] \
- [file normalize "${origin_dir}/../../mopshub-canakari/biterrordetect2_VTR.v"] \
- [file normalize "${origin_dir}/../../mopshub-canakari/encapsulation2_VTR.v"] \
- [file normalize "${origin_dir}/../../mopshub-canakari/equal_id2_VTR.v"] \
- [file normalize "${origin_dir}/../../mopshub-canakari/erbcount2_VTR.v"] \
- [file normalize "${origin_dir}/../../mopshub-canakari/fastshift2_VTR.v"] \
- [file normalize "${origin_dir}/../../mopshub-canakari/faultfsm2_VTR.v"] \
- [file normalize "${origin_dir}/../../mopshub-canakari/fce2_VTR.v"] \
- [file normalize "${origin_dir}/../../mopshub-canakari/fsm_register2_VTR.v"] \
- [file normalize "${origin_dir}/../../mopshub-canakari/generalregister2_VTR.v"] \
- [file normalize "${origin_dir}/../../mopshub-canakari/interruptregister2_VTR.v"] \
- [file normalize "${origin_dir}/../../mopshub-canakari/interruptunit2_VTR.v"] \
- [file normalize "${origin_dir}/../../mopshub-canakari/iocpuavalon2_VTR.v"] \
- [file normalize "${origin_dir}/../../mopshub-canakari/llc2_VTR.v"] \
- [file normalize "${origin_dir}/../../mopshub-canakari/llc_fsm2_VTR.v"] \
- [file normalize "${origin_dir}/../../mopshub-canakari/mac2_VTR.v"] \
- [file normalize "${origin_dir}/../../mopshub-canakari/macfsm2_VTR.v"] \
- [file normalize "${origin_dir}/../../mopshub-canakari/meslencompare2_VTR.v"] \
- [file normalize "${origin_dir}/../../mopshub-canakari/multiplexeravalon2_VTR.v"] \
- [file normalize "${origin_dir}/../../mopshub-canakari/prescale2_VTR.v"] \
- [file normalize "${origin_dir}/../../mopshub-canakari/prescalereg2_VTR.v"] \
- [file normalize "${origin_dir}/../../mopshub-canakari/rcrc_cell2_VTR.v"] \
- [file normalize "${origin_dir}/../../mopshub-canakari/rcrc_top2_VTR.v"] \
- [file normalize "${origin_dir}/../../mopshub-canakari/read_mux2_VTR.v"] \
- [file normalize "${origin_dir}/../../mopshub-canakari/ready_counter_VTR.v"] \
- [file normalize "${origin_dir}/../../mopshub-canakari/recarbitreg2_VTR.v"] \
- [file normalize "${origin_dir}/../../mopshub-canakari/recmescontrolreg2_VTR.v"] \
- [file normalize "${origin_dir}/../../mopshub-canakari/recmeslen2_VTR.v"] \
- [file normalize "${origin_dir}/../../mopshub-canakari/recregister2_VTR.v"] \
- [file normalize "${origin_dir}/../../mopshub-canakari/reset_mac2_VTR.v"] \
- [file normalize "${origin_dir}/../../mopshub-canakari/resetgen2_VTR.v"] \
- [file normalize "${origin_dir}/../../mopshub-canakari/rshift_cell2_VTR.v"] \
- [file normalize "${origin_dir}/../../mopshub-canakari/rshift_top2_VTR.v"] \
- [file normalize "${origin_dir}/../../mopshub-canakari/rec2_VTR.v"] \
- [file normalize "${origin_dir}/../../mopshub-canakari/transmesconreg2_VTR.v"] \
- [file normalize "${origin_dir}/../../mopshub-canakari/transmitreg2_VTR.v"] \
- [file normalize "${origin_dir}/../../mopshub-canakari/tcrc_cell2_VTR.v"] \
- [file normalize "${origin_dir}/../../mopshub-canakari/tcrc_top2_VTR.v"] \
- [file normalize "${origin_dir}/../../mopshub-canakari/tec2_VTR.v"] \
- [file normalize "${origin_dir}/../../mopshub-canakari/stuffing2_VTR.v"] \
- [file normalize "${origin_dir}/../../mopshub-canakari/smpldbit_reg2_VTR.v"] \
- [file normalize "${origin_dir}/../../mopshub-canakari/sum2_VTR.v"] \
- [file normalize "${origin_dir}/../../mopshub-canakari/timecount2_VTR.v"] \
- [file normalize "${origin_dir}/../../mopshub-canakari/tseg_reg2_VTR.v"] \
- [file normalize "${origin_dir}/../../mopshub-canakari/tshift_cell2_VTR.v"] \
- [file normalize "${origin_dir}/../../mopshub-canakari/tshift_top2_VTR.v"] \
- [file normalize "${origin_dir}/../../mopshub-canakari/write_demux2_VTR.v"] \
+ [file normalize "${origin_dir}/../../CANAkari/MOPSv2/canakari/hdl/bittime2.v"] \
+ [file normalize "${origin_dir}/../../CANAkari/MOPSv2/canakari/hdl/bittiming2.v"] \
+ [file normalize "${origin_dir}/../../CANAkari/MOPSv2/ftrim/hdl/Accumulator.v"] \
+ [file normalize "${origin_dir}/../../CANAkari/MOPSv2/ftrim/hdl/Add_PID.v"] \
+ [file normalize "${origin_dir}/../../CANAkari/MOPSv2/ftrim/hdl/CLK_Counter.v"] \
+ [file normalize "${origin_dir}/../../CANAkari/MOPSv2/ftrim/hdl/Control_FSM.v"] \
+ [file normalize "${origin_dir}/../../CANAkari/MOPSv2/ftrim/hdl/Control_Sys.v"] \
+ [file normalize "${origin_dir}/../../CANAkari/MOPSv2/ftrim/hdl/Diff.v"] \
+ [file normalize "${origin_dir}/../../CANAkari/MOPSv2/ftrim/hdl/Ftrim_En.v"] \
+ [file normalize "${origin_dir}/../../CANAkari/MOPSv2/ftrim/hdl/Multi.v"] \
+ [file normalize "${origin_dir}/../../CANAkari/MOPSv2/ftrim/hdl/ready_counter.v"] \
+ [file normalize "${origin_dir}/../../CANAkari/MOPSv2/canakari/hdl/counter2.v"] \
+ [file normalize "${origin_dir}/../../CANAkari/MOPSv2/canakari/hdl/can2.v"] \
+ [file normalize "${origin_dir}/../../CANAkari/MOPSv2/ftrim/hdl/Multi_i.v"] \
+ [file normalize "${origin_dir}/../../CANAkari/MOPSv2/ftrim/hdl/Output_Scaling.v"] \
+ [file normalize "${origin_dir}/../../CANAkari/MOPSv2/ftrim/hdl/PID_Regler.v"] \
+ [file normalize "${origin_dir}/../../CANAkari/MOPSv2/ftrim/hdl/Phasenfehler_Reg.v"] \
+ [file normalize "${origin_dir}/../../CANAkari/MOPSv2/canakari/hdl/accmaskreg2.v"] \
+ [file normalize "${origin_dir}/../../CANAkari/MOPSv2/canakari/hdl/decapsulation2.v"] \
+ [file normalize "${origin_dir}/../../CANAkari/MOPSv2/canakari/hdl/destuffing2.v"] \
+ [file normalize "${origin_dir}/../../CANAkari/MOPSv2/canakari/hdl/edgepuffer2.v"] \
+ [file normalize "${origin_dir}/../../CANAkari/MOPSv2/canakari/hdl/biterrordetect2.v"] \
+ [file normalize "${origin_dir}/../../CANAkari/MOPSv2/canakari/hdl/encapsulation2.v"] \
+ [file normalize "${origin_dir}/../../CANAkari/MOPSv2/canakari/hdl/equal_id2.v"] \
+ [file normalize "${origin_dir}/../../CANAkari/MOPSv2/canakari/hdl/erbcount2.v"] \
+ [file normalize "${origin_dir}/../../CANAkari/MOPSv2/canakari/hdl/fastshift2.v"] \
+ [file normalize "${origin_dir}/../../CANAkari/MOPSv2/canakari/hdl/faultfsm2.v"] \
+ [file normalize "${origin_dir}/../../CANAkari/MOPSv2/canakari/hdl/fce2.v"] \
+ [file normalize "${origin_dir}/../../CANAkari/MOPSv2/canakari/hdl/fsm_register2.v"] \
+ [file normalize "${origin_dir}/../../CANAkari/MOPSv2/canakari/hdl/generalregister2.v"] \
+ [file normalize "${origin_dir}/../../CANAkari/MOPSv2/canakari/hdl/interruptregister2.v"] \
+ [file normalize "${origin_dir}/../../CANAkari/MOPSv2/canakari/hdl/interruptunit2.v"] \
+ [file normalize "${origin_dir}/../../CANAkari/MOPSv2/canakari/hdl/iocpuavalon2.v"] \
+ [file normalize "${origin_dir}/../../CANAkari/MOPSv2/canakari/hdl/llc2.v"] \
+ [file normalize "${origin_dir}/../../CANAkari/MOPSv2/canakari/hdl/llc_fsm2.v"] \
+ [file normalize "${origin_dir}/../../CANAkari/MOPSv2/canakari/hdl/mac2.v"] \
+ [file normalize "${origin_dir}/../../CANAkari/MOPSv2/canakari/hdl/macfsm2.v"] \
+ [file normalize "${origin_dir}/../../CANAkari/MOPSv2/canakari/hdl/meslencompare2.v"] \
+ [file normalize "${origin_dir}/../../CANAkari/MOPSv2/canakari/hdl/multiplexeravalon2.v"] \
+ [file normalize "${origin_dir}/../../CANAkari/MOPSv2/canakari/hdl/prescale2.v"] \
+ [file normalize "${origin_dir}/../../CANAkari/MOPSv2/canakari/hdl/prescalereg2.v"] \
+ [file normalize "${origin_dir}/../../CANAkari/MOPSv2/canakari/hdl/rcrc_cell2.v"] \
+ [file normalize "${origin_dir}/../../CANAkari/MOPSv2/canakari/hdl/rcrc_top2.v"] \
+ [file normalize "${origin_dir}/../../CANAkari/MOPSv2/canakari/hdl/read_mux2.v"] \
+ [file normalize "${origin_dir}/../../CANAkari/MOPSv2/canakari/hdl/recarbitreg2.v"] \
+ [file normalize "${origin_dir}/../../CANAkari/MOPSv2/canakari/hdl/recmescontrolreg2.v"] \
+ [file normalize "${origin_dir}/../../CANAkari/MOPSv2/canakari/hdl/recmeslen2.v"] \
+ [file normalize "${origin_dir}/../../CANAkari/MOPSv2/canakari/hdl/recregister2.v"] \
+ [file normalize "${origin_dir}/../../CANAkari/MOPSv2/canakari/hdl/reset_mac2.v"] \
+ [file normalize "${origin_dir}/../../CANAkari/MOPSv2/canakari/hdl/resetgen2.v"] \
+ [file normalize "${origin_dir}/../../CANAkari/MOPSv2/canakari/hdl/rshift_cell2.v"] \
+ [file normalize "${origin_dir}/../../CANAkari/MOPSv2/canakari/hdl/rshift_top2.v"] \
+ [file normalize "${origin_dir}/../../CANAkari/MOPSv2/canakari/hdl/rec2.v"] \
+ [file normalize "${origin_dir}/../../CANAkari/MOPSv2/canakari/hdl/transmesconreg2.v"] \
+ [file normalize "${origin_dir}/../../CANAkari/MOPSv2/canakari/hdl/transmitreg2.v"] \
+ [file normalize "${origin_dir}/../../CANAkari/MOPSv2/canakari/hdl/tcrc_cell2.v"] \
+ [file normalize "${origin_dir}/../../CANAkari/MOPSv2/canakari/hdl/tcrc_top2.v"] \
+ [file normalize "${origin_dir}/../../CANAkari/MOPSv2/canakari/hdl/tec2.v"] \
+ [file normalize "${origin_dir}/../../CANAkari/MOPSv2/canakari/hdl/stuffing2.v"] \
+ [file normalize "${origin_dir}/../../CANAkari/MOPSv2/canakari/hdl/smpldbit_reg2.v"] \
+ [file normalize "${origin_dir}/../../CANAkari/MOPSv2/canakari/hdl/sum2.v"] \
+ [file normalize "${origin_dir}/../../CANAkari/MOPSv2/canakari/hdl/timecount2.v"] \
+ [file normalize "${origin_dir}/../../CANAkari/MOPSv2/canakari/hdl/tseg_reg2.v"] \
+ [file normalize "${origin_dir}/../../CANAkari/MOPSv2/canakari/hdl/tshift_cell2.v"] \
+ [file normalize "${origin_dir}/../../CANAkari/MOPSv2/canakari/hdl/tshift_top2.v"] \
+ [file normalize "${origin_dir}/../../CANAkari/MOPSv2/canakari/hdl/write_demux2.v"] \
  [file normalize "${origin_dir}/../../mopshub_lib/hdl/bridge_controller_struct.v"] \
  [file normalize "${origin_dir}/../../mopshub_lib/hdl/buffer_rec_spi_data.v"] \
  [file normalize "${origin_dir}/../../mopshub_lib/hdl/buffer_tristate_busid.v"] \
@@ -462,8 +460,6 @@ set files [list \
  [file normalize "${origin_dir}/../../mopshub_lib/hdl/osc_trim_sm_fsm.v"] \
  [file normalize "${origin_dir}/../../mopshub_lib/hdl/rec_elink_buf.v"] \
  [file normalize "${origin_dir}/../../mopshub_lib/hdl/rec_mes_buf.v"] \
- [file normalize "${origin_dir}/../../mopshub_lib/hdl/ipbus_decode_ipbus_mopshub.vhd"] \
- [file normalize "${origin_dir}/../../mopshub_lib/hdl/emp_elink_mem_interface_regs_pkg.vhd"] \
  [file normalize "${origin_dir}/../../mopshub_lib/hdl/spi_control_sm_fsm.v"] \
  [file normalize "${origin_dir}/../../mopshub_lib/hdl/spi_core_struct.v"] \
  [file normalize "${origin_dir}/../../mopshub_lib/hdl/spi_interface_struct.v"] \
@@ -544,16 +540,6 @@ set file [file normalize $file]
 set file_obj [get_files -of_objects [get_filesets sources_1] [list "*$file"]]
 set_property -name "used_in" -value "synthesis implementation" -objects $file_obj
 set_property -name "used_in_simulation" -value "0" -objects $file_obj
-
-set file "$origin_dir/../../mopshub_lib/hdl/ipbus_decode_ipbus_mopshub.vhd"
-set file [file normalize $file]
-set file_obj [get_files -of_objects [get_filesets sources_1] [list "*$file"]]
-set_property -name "file_type" -value "VHDL" -objects $file_obj
-
-set file "$origin_dir/../../mopshub_lib/hdl/emp_elink_mem_interface_regs_pkg.vhd"
-set file [file normalize $file]
-set file_obj [get_files -of_objects [get_filesets sources_1] [list "*$file"]]
-set_property -name "file_type" -value "VHDL" -objects $file_obj
 
 
 # Set 'sources_1' fileset file properties for local files

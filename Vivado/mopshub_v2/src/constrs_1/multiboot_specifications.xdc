@@ -9,7 +9,7 @@ set_property BITSTREAM.CONFIG.PROG_MODE INTERNAL [current_design]
 set_property BITSTREAM.CONFIG.NEXT_CONFIG_REBOOT ENABLE [current_design]
 #set_property BITSTREAM.CONFIG.NEXT_CONFIG_ADDR 0x0040350B [current_design] #comment this since you dont want feedback
 #set_property BITSTREAM.CONFIG.NEXT_CONFIG_ADDR 0x00A20000 [current_design]
-set_property bitstream.seu.essentialbits yes [current_design]
+set_property BITSTREAM.SEU.ESSENTIALBITS yes [current_design]
 set_property BITSTREAM.GENERAL.COMPRESS TRUE [current_design]
 set_property BITSTREAM.CONFIG.SPI_BUSWIDTH 4 [current_design]
 set_property BITSTREAM.CONFIG_MODE SPIx4 [current_design]
@@ -23,12 +23,13 @@ set_property BITSTREAM.CONFIG_MODE SPIx4 [current_design]
 ## near the configuration logic and also helps in generating
 ## a reasonable slice count estimate for reliability estimates.
 create_pblock SEM_CONTROLLER
-add_cells_to_pblock [get_pblocks SEM_CONTROLLER] [get_cells -quiet mopshub_board_v2_i/sem_controller_wrapp_0/sem_0_sem_controller0/*]
-add_cells_to_pblock [get_pblocks SEM_CONTROLLER] [get_cells mopshub_board_v2_i/sem_controller_wrapp_0/sem_0_sem_controller0]
+add_cells_to_pblock [get_pblocks SEM_CONTROLLER] [get_cells -quiet [list mopshub_board_v2_i/sem_controller_wrapp_0/inst/sem_0_sem_controller0]]
+add_cells_to_pblock [get_pblocks SEM_CONTROLLER] [get_cells -quiet mopshub_board_v2_i/sem_controller_wrapp_0/inst/sem_0_sem_controller0/*]
+##add_cells_to_pblock [get_pblocks SEM_CONTROLLER] [get_cells mopshub_board_v2_i/sem_controller_wrapp_0/sem_0_sem_controller0]
 ## Force ICAP to the required (top) site in the device.
 ## Force FRAME_ECC to the required (only) site in the device.
-set_property LOC FRAME_ECC_X0Y0 [get_cells mopshub_board_v2_i/sem_controller_wrapp_0/sem_0_sem_cfg0/frame_ecc_init0]
-set_property LOC ICAP_X0Y1 [get_cells mopshub_board_v2_i/sem_controller_wrapp_0/sem_0_sem_cfg0/icap_init0]
+set_property LOC FRAME_ECC_X0Y0 [get_cells mopshub_board_v2_i/sem_controller_wrapp_0/inst/sem_0_sem_cfg0/frame_ecc_init0]
+set_property LOC ICAP_X0Y1 [get_cells mopshub_board_v2_i/sem_controller_wrapp_0/inst/sem_0_sem_cfg0/icap_init0]
 ####################################################################################################################################
 #Constraints related to POST_CRC checking (Source: https://support.xilinx.com/s/article/978877?language=en_US)
 set_property POST_CRC ENABLE [current_design]
@@ -47,3 +48,4 @@ set_property POST_CRC_INIT_FLAG ENABLE [current_design]
 ############################################################
 # Debug Core Constraints                                 #
 ############################################################
+
