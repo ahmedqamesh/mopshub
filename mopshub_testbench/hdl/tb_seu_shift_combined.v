@@ -1,0 +1,56 @@
+`timescale 1ns/10ps
+
+module tb_seu_shift_combined;
+
+  // Port Declarations
+  reg clk_in;
+  reg data_in;
+  reg mode;
+  wire data_out;
+  wire data_outTMR;
+
+  // Instantiate the Device Under Test (DUT)
+  seu_shift_combined seu_shift_combined0 (
+    .clk_in(clk_in),
+    .data_in(data_in),
+    .mode(mode),
+    .data_out(data_out),
+    .data_outTMR(data_outTMR)
+  );
+
+  // Clock generation
+  initial begin
+    clk_in = 0;
+    forever #5 clk_in = ~clk_in; // 100 MHz clock
+  end
+
+  // Test stimulus
+  initial begin
+    // Initialize inputs
+    data_in = 0;
+    mode = 0;
+
+    // Apply test vectors
+    #100 data_in = 1;
+    #100 data_in = 0;
+    #100 data_in = 1;
+    #100 data_in = 1;
+    #100 data_in = 0;
+    #100 data_in = 1;
+    #100 data_in = 0;
+    #100 data_in = 1;
+    #100 data_in = 1;
+    #100 data_in = 0;
+    #100 data_in = 0;
+    
+    // Finish simulation after sufficient time
+    //#2000 $finish;
+  end
+
+  // Monitor the signals
+  initial begin
+    $monitor("Time = %0d, clk_in = %b, data_in = %b, mode = %b, data_out = %b, data_outTMR = %b",
+             $time, clk_in, data_in, mode, data_out, data_outTMR);
+  end
+
+endmodule

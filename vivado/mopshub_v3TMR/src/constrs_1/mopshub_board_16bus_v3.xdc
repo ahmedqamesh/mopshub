@@ -60,8 +60,6 @@ set_property IOSTANDARD LVCMOS33 [get_ports mosi_m_0]
 ## Define Master clk in (system clock)
 set_property PACKAGE_PIN K18 [get_ports clk_sys]
 set_property IOSTANDARD LVCMOS33 [get_ports clk_sys]
-#set_property PACKAGE_PIN T4 [get_ports CLK_IN1_D_0_clk_n]
-#set_property IOSTANDARD DIFF_SSTL15_R [get_ports CLK_IN1_D_0_clk_n]
 
 #Input clk_elink
 #Get the clk_elink from the ethernet socket
@@ -221,8 +219,9 @@ set_property IOSTANDARD LVCMOS33 [get_ports shift_clk_0]
 
 #set_property CLOCK_DEDICATED_ROUTE FALSE [get_nets {mopshub_board_v3TMR_i/ip_buf_0/inst/output_wire}]
 #set_property CLOCK_DEDICATED_ROUTE FALSE [get_nets {mopshub_board_v3TMR_i/ip_buf_1/inst/output_wire}]
-set_property CLOCK_DEDICATED_ROUTE FALSE [get_nets mopshub_board_v3TMR_i/clk_wiz_s/inst/clk_in1_mopshub_board_v3TMR_clk_wiz_s_0]
-set_property CLOCK_DEDICATED_ROUTE FALSE [get_nets mopshub_board_v3TMR_i/mopshub_top_board_16_0/inst/seu_shift_combined0/clk]
+#set_property CLOCK_DEDICATED_ROUTE FALSE [get_nets mopshub_board_v3TMR_i/clk_wiz_s/inst/clk_in1_mopshub_board_v3TMR_clk_wiz_s_0]
+set_property CLOCK_DEDICATED_ROUTE FALSE [get_nets shift_clk_0_IBUF]
+#set_property CLOCK_DEDICATED_ROUTE FALSE [get_nets mopshub_board_v3TMR_i/mopshub_top_board_16_0/inst/seu_shift_combined0/clk]
 # ignored during timing analysis of clk_uart and clk_40 since it is handled by the FIFO
 # ignored during timing analysis of clk_1000 and clk_40
 set_false_path -from [get_clocks clk_40_mopshub_board_v3TMR_clk_wiz_s_0] -to [get_clocks clk_uart_mopshub_board_v3TMR_clk_wiz_s_0] 

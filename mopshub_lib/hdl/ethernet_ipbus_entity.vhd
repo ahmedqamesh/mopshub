@@ -119,8 +119,8 @@ begin
 	locked <= clk_locked and eth_locked;
 	clk_ipb <= clk_ipb_i; -- Best to align delta delays on all clocks for simulation
 	mac_addr <= X"020ddba1151" & dip_sw; -- Careful here, arbitrary addresses do not always work
-  --ip_addr <= X"c0a8c81" & dip_sw; -- 192.168.200.16+n
-  ip_addr <= X"84c36819"; -- 132.195.104.25 -- for Uni Wuppertal IP netmask: 255.255.248.0
+  ip_addr <= X"c0a8c81" & dip_sw; -- 192.168.200.16+n
+  --ip_addr <= X"84c36819"; -- 132.195.104.25 -- for Uni Wuppertal IP netmask: 255.255.248.0
   
   leds(7 downto 2) <= "00000" & userled;
   

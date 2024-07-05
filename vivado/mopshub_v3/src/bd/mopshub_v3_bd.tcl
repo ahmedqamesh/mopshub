@@ -44,85 +44,6 @@ if { [string first $scripts_vivado_version $current_vivado_version] == -1 } {
 
 # Please add the sources of those modules before sourcing this Tcl script.
 
-# If there is no project opened, this script will create a
-# project, but make sure you do not have an existing project
-# <./myproj/project_1.xpr> in the current working folder.
-
-set list_projs [get_projects -quiet]
-if { $list_projs eq "" } {
-   create_project project_1 myproj -part xc7a200tfbg484-2
-}
-
-
-# CHANGE DESIGN NAME HERE
-variable design_name
-set design_name mopshub_board_v3
-
-# If you do not already have an existing IP Integrator design open,
-# you can create a design using the following command:
-#    create_bd_design $design_name
-
-# Creating design if needed
-set errMsg ""
-set nRet 0
-
-set cur_design [current_bd_design -quiet]
-set list_cells [get_bd_cells -quiet]
-
-if { ${design_name} eq "" } {
-   # USE CASES:
-   #    1) Design_name not set
-
-   set errMsg "Please set the variable <design_name> to a non-empty value."
-   set nRet 1
-
-} elseif { ${cur_design} ne "" && ${list_cells} eq "" } {
-   # USE CASES:
-   #    2): Current design opened AND is empty AND names same.
-   #    3): Current design opened AND is empty AND names diff; design_name NOT in project.
-   #    4): Current design opened AND is empty AND names diff; design_name exists in project.
-
-   if { $cur_design ne $design_name } {
-      common::send_gid_msg -ssname BD::TCL -id 2001 -severity "INFO" "Changing value of <design_name> from <$design_name> to <$cur_design> since current design is empty."
-      set design_name [get_property NAME $cur_design]
-   }
-   common::send_gid_msg -ssname BD::TCL -id 2002 -severity "INFO" "Constructing design in IPI design <$cur_design>..."
-
-} elseif { ${cur_design} ne "" && $list_cells ne "" && $cur_design eq $design_name } {
-   # USE CASES:
-   #    5) Current design opened AND has components AND same names.
-
-   set errMsg "Design <$design_name> already exists in your project, please set the variable <design_name> to another value."
-   set nRet 1
-} elseif { [get_files -quiet ${design_name}.bd] ne "" } {
-   # USE CASES: 
-   #    6) Current opened design, has components, but diff names, design_name exists in project.
-   #    7) No opened design, design_name exists in project.
-
-   set errMsg "Design <$design_name> already exists in your project, please set the variable <design_name> to another value."
-   set nRet 2
-
-} else {
-   # USE CASES:
-   #    8) No opened design, design_name not in project.
-   #    9) Current opened design, has components, but diff names, design_name not in project.
-
-   common::send_gid_msg -ssname BD::TCL -id 2003 -severity "INFO" "Currently there is no design <$design_name> in project, so creating one..."
-
-   create_bd_design $design_name
-
-   common::send_gid_msg -ssname BD::TCL -id 2004 -severity "INFO" "Making design <$design_name> as current_bd_design."
-   current_bd_design $design_name
-
-}
-
-common::send_gid_msg -ssname BD::TCL -id 2005 -severity "INFO" "Currently the variable <design_name> is equal to \"$design_name\"."
-
-if { $nRet != 0 } {
-   catch {common::send_gid_msg -ssname BD::TCL -id 2006 -severity "ERROR" $errMsg}
-   return $nRet
-}
-
 set bCheckIPsPassed 1
 ##################################################################
 # CHECK IPs
@@ -197,7 +118,6 @@ if { $bCheckIPsPassed != 1 } {
 proc create_root_design { parentCell } {
 
   variable script_folder
-  variable design_name
 
   if { $parentCell eq "" } {
      set parentCell [get_bd_cells /]
@@ -467,19 +387,6 @@ proc create_root_design { parentCell } {
    CONFIG.C_NUM_OF_PROBES {8} \
  ] $ila_0
 
-  # Create instance: ila_1, and set properties
-  set ila_1 [ create_bd_cell -type ip -vlnv xilinx.com:ip:ila:6.2 ila_1 ]
-  set_property -dict [ list \
-   CONFIG.ALL_PROBE_SAME_MU_CNT {2} \
-   CONFIG.C_ADV_TRIGGER {true} \
-   CONFIG.C_ENABLE_ILA_AXI_MON {false} \
-   CONFIG.C_EN_STRG_QUAL {1} \
-   CONFIG.C_MONITOR_TYPE {Native} \
-   CONFIG.C_NUM_OF_PROBES {2} \
-   CONFIG.C_PROBE0_MU_CNT {2} \
-   CONFIG.C_PROBE1_MU_CNT {2} \
- ] $ila_1
-
   # Create instance: ip_buf_0, and set properties
   set block_name ip_buf
   set block_cell_name ip_buf_0
@@ -582,7 +489,7 @@ proc create_root_design { parentCell } {
   connect_bd_net -net clk_wiz_s1_clk_elink [get_bd_pins clk_wiz_s1/clk_elink] [get_bd_pins mopshub_top_board_16_0/clk_elink] [get_bd_pins selectio_wiz_0/clk_div_in] [get_bd_pins selectio_wiz_2/clk_div_in]
   connect_bd_net -net clk_wiz_s1_clk_rx_m [get_bd_pins clk_wiz_s1/clk_rx_m] [get_bd_pins selectio_wiz_0/clk_in]
   connect_bd_net -net clk_wiz_s1_clk_tx_m [get_bd_pins clk_wiz_s1/clk_tx_m] [get_bd_pins selectio_wiz_2/clk_in]
-  connect_bd_net -net clk_wiz_s_clk_40 [get_bd_pins clk_wiz_0/clk_in1] [get_bd_pins clk_wiz_s/clk_40] [get_bd_pins ila_0/clk] [get_bd_pins ila_1/clk] [get_bd_pins ip_buf_0/input_wire] [get_bd_pins mopshub_top_board_16_0/clk_40] [get_bd_pins proc_sys_reset_0/slowest_sync_clk]
+  connect_bd_net -net clk_wiz_s_clk_40 [get_bd_pins clk_wiz_0/clk_in1] [get_bd_pins clk_wiz_s/clk_40] [get_bd_pins ila_0/clk] [get_bd_pins ip_buf_0/input_wire] [get_bd_pins mopshub_top_board_16_0/clk_40] [get_bd_pins proc_sys_reset_0/slowest_sync_clk]
   connect_bd_net -net clk_wiz_s_clk_m [get_bd_pins clk_wiz_s/clk_m] [get_bd_pins mopshub_top_board_16_0/clk_m]
   connect_bd_net -net clk_wiz_s_clk_uart [get_bd_pins clk_wiz_s/clk_uart] [get_bd_pins mopshub_top_board_16_0/clk_uart]
   connect_bd_net -net clk_wiz_s_locked [get_bd_pins clk_wiz_s/locked] [get_bd_pins mopshub_top_board_16_0/locked] [get_bd_pins proc_sys_reset_0/dcm_locked]
@@ -635,8 +542,8 @@ proc create_root_design { parentCell } {
   connect_bd_net -net mopshub_top_board_16_0_rx_data_rdy [get_bd_ports rx_data_rdy_0] [get_bd_pins mopshub_top_board_16_0/rx_data_rdy]
   connect_bd_net -net mopshub_top_board_16_0_sck_c [get_bd_ports sck_c_0] [get_bd_pins mopshub_top_board_16_0/sck_c]
   connect_bd_net -net mopshub_top_board_16_0_sck_m [get_bd_ports sck_m_0] [get_bd_pins mopshub_top_board_16_0/sck_m]
-  connect_bd_net -net mopshub_top_board_16_0_simple_out [get_bd_ports simple_out_0] [get_bd_pins ila_1/probe0] [get_bd_pins mopshub_top_board_16_0/simple_out]
-  connect_bd_net -net mopshub_top_board_16_0_tmr_out [get_bd_ports tmr_out_0] [get_bd_pins ila_1/probe1] [get_bd_pins mopshub_top_board_16_0/tmr_out]
+  connect_bd_net -net mopshub_top_board_16_0_simple_out [get_bd_ports simple_out_0] [get_bd_pins mopshub_top_board_16_0/simple_out]
+  connect_bd_net -net mopshub_top_board_16_0_tmr_out [get_bd_ports tmr_out_0] [get_bd_pins mopshub_top_board_16_0/tmr_out]
   connect_bd_net -net mopshub_top_board_16_0_tx0 [get_bd_ports tx0_0] [get_bd_pins mopshub_top_board_16_0/tx0]
   connect_bd_net -net mopshub_top_board_16_0_tx1 [get_bd_ports tx1_0] [get_bd_pins mopshub_top_board_16_0/tx1]
   connect_bd_net -net mopshub_top_board_16_0_tx2 [get_bd_ports tx2_0] [get_bd_pins mopshub_top_board_16_0/tx2]
@@ -698,16 +605,26 @@ proc create_root_design { parentCell } {
   # Restore current instance
   current_bd_instance $oldCurInst
 
-  validate_bd_design
-  save_bd_design
 }
 # End of create_root_design()
 
 
-##################################################################
-# MAIN FLOW
-##################################################################
-
-create_root_design ""
 
 
+proc available_tcl_procs { } {
+   puts "##################################################################"
+   puts "# Available Tcl procedures to recreate hierarchical blocks:"
+   puts "#"
+   puts "#    create_root_design"
+   puts "#"
+   puts "#"
+   puts "# The following procedures will create hiearchical blocks with addressing "
+   puts "# for IPs within those blocks and their sub-hierarchical blocks. Addressing "
+   puts "# will not be handled outside those blocks:"
+   puts "#"
+   puts "#    create_root_design"
+   puts "#"
+   puts "##################################################################"
+}
+
+available_tcl_procs

@@ -8,8 +8,8 @@ set_property BITSTREAM.CONFIG.PROG_MODE INTERNAL [current_design]
 #set_property BITSTREAM.CONFIG.SPI_32BIT_ADDR YES [current_design] #Causes error
 #The FPGA is configured to reboot (restart) itself automatically after loading a new configuration
 set_property BITSTREAM.CONFIG.NEXT_CONFIG_REBOOT ENABLE [current_design]
-set_property BITSTREAM.CONFIG.NEXT_CONFIG_ADDR 0054DAC2 [current_design]
-set_property BITSTREAM.CONFIG.NEXT_CONFIG_ADDR 00A9B584 [current_design]
+set_property BITSTREAM.CONFIG.NEXT_CONFIG_ADDR 0053A3D2 [current_design]
+set_property BITSTREAM.CONFIG.NEXT_CONFIG_ADDR 00A747A4 [current_design]
 
 set_property BITSTREAM.GENERAL.COMPRESS TRUE [current_design]
 set_property BITSTREAM.CONFIG.SPI_BUSWIDTH 4 [current_design]

@@ -467,19 +467,6 @@ proc create_root_design { parentCell } {
    CONFIG.C_NUM_OF_PROBES {8} \
  ] $ila_0
 
-  # Create instance: ila_1, and set properties
-  set ila_1 [ create_bd_cell -type ip -vlnv xilinx.com:ip:ila:6.2 ila_1 ]
-  set_property -dict [ list \
-   CONFIG.ALL_PROBE_SAME_MU_CNT {2} \
-   CONFIG.C_ADV_TRIGGER {true} \
-   CONFIG.C_ENABLE_ILA_AXI_MON {false} \
-   CONFIG.C_EN_STRG_QUAL {1} \
-   CONFIG.C_MONITOR_TYPE {Native} \
-   CONFIG.C_NUM_OF_PROBES {2} \
-   CONFIG.C_PROBE0_MU_CNT {2} \
-   CONFIG.C_PROBE1_MU_CNT {2} \
- ] $ila_1
-
   # Create instance: ip_buf_0, and set properties
   set block_name ip_buf
   set block_cell_name ip_buf_0
@@ -582,7 +569,7 @@ proc create_root_design { parentCell } {
   connect_bd_net -net clk_wiz_s1_clk_elink [get_bd_pins clk_wiz_s1/clk_elink] [get_bd_pins mopshub_top_board_16_0/clk_elink] [get_bd_pins selectio_wiz_0/clk_div_in] [get_bd_pins selectio_wiz_2/clk_div_in]
   connect_bd_net -net clk_wiz_s1_clk_rx_m [get_bd_pins clk_wiz_s1/clk_rx_m] [get_bd_pins selectio_wiz_0/clk_in]
   connect_bd_net -net clk_wiz_s1_clk_tx_m [get_bd_pins clk_wiz_s1/clk_tx_m] [get_bd_pins selectio_wiz_2/clk_in]
-  connect_bd_net -net clk_wiz_s_clk_40 [get_bd_pins clk_wiz_0/clk_in1] [get_bd_pins clk_wiz_s/clk_40] [get_bd_pins ila_0/clk] [get_bd_pins ila_1/clk] [get_bd_pins ip_buf_0/input_wire] [get_bd_pins mopshub_top_board_16_0/clk_40] [get_bd_pins proc_sys_reset_0/slowest_sync_clk]
+  connect_bd_net -net clk_wiz_s_clk_40 [get_bd_pins clk_wiz_0/clk_in1] [get_bd_pins clk_wiz_s/clk_40] [get_bd_pins ila_0/clk] [get_bd_pins ip_buf_0/input_wire] [get_bd_pins mopshub_top_board_16_0/clk_40] [get_bd_pins proc_sys_reset_0/slowest_sync_clk]
   connect_bd_net -net clk_wiz_s_clk_m [get_bd_pins clk_wiz_s/clk_m] [get_bd_pins mopshub_top_board_16_0/clk_m]
   connect_bd_net -net clk_wiz_s_clk_uart [get_bd_pins clk_wiz_s/clk_uart] [get_bd_pins mopshub_top_board_16_0/clk_uart]
   connect_bd_net -net clk_wiz_s_locked [get_bd_pins clk_wiz_s/locked] [get_bd_pins mopshub_top_board_16_0/locked] [get_bd_pins proc_sys_reset_0/dcm_locked]
@@ -635,8 +622,8 @@ proc create_root_design { parentCell } {
   connect_bd_net -net mopshub_top_board_16_0_rx_data_rdy [get_bd_ports rx_data_rdy_0] [get_bd_pins mopshub_top_board_16_0/rx_data_rdy]
   connect_bd_net -net mopshub_top_board_16_0_sck_c [get_bd_ports sck_c_0] [get_bd_pins mopshub_top_board_16_0/sck_c]
   connect_bd_net -net mopshub_top_board_16_0_sck_m [get_bd_ports sck_m_0] [get_bd_pins mopshub_top_board_16_0/sck_m]
-  connect_bd_net -net mopshub_top_board_16_0_simple_out [get_bd_ports simple_out_0] [get_bd_pins ila_1/probe0] [get_bd_pins mopshub_top_board_16_0/simple_out]
-  connect_bd_net -net mopshub_top_board_16_0_tmr_out [get_bd_ports tmr_out_0] [get_bd_pins ila_1/probe1] [get_bd_pins mopshub_top_board_16_0/tmr_out]
+  connect_bd_net -net mopshub_top_board_16_0_simple_out [get_bd_ports simple_out_0] [get_bd_pins mopshub_top_board_16_0/simple_out]
+  connect_bd_net -net mopshub_top_board_16_0_tmr_out [get_bd_ports tmr_out_0] [get_bd_pins mopshub_top_board_16_0/tmr_out]
   connect_bd_net -net mopshub_top_board_16_0_tx0 [get_bd_ports tx0_0] [get_bd_pins mopshub_top_board_16_0/tx0]
   connect_bd_net -net mopshub_top_board_16_0_tx1 [get_bd_ports tx1_0] [get_bd_pins mopshub_top_board_16_0/tx1]
   connect_bd_net -net mopshub_top_board_16_0_tx2 [get_bd_ports tx2_0] [get_bd_pins mopshub_top_board_16_0/tx2]
@@ -698,7 +685,6 @@ proc create_root_design { parentCell } {
   # Restore current instance
   current_bd_instance $oldCurInst
 
-  validate_bd_design
   save_bd_design
 }
 # End of create_root_design()
@@ -710,4 +696,6 @@ proc create_root_design { parentCell } {
 
 create_root_design ""
 
+
+common::send_gid_msg -ssname BD::TCL -id 2053 -severity "WARNING" "This Tcl script was generated from a block design that has not been validated. It is possible that design <$design_name> may result in errors during validation."
 
