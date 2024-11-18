@@ -163,7 +163,9 @@ proc checkRequiredFiles { origin_dir} {
    "$origin_dir/../../mopshub_lib/hdl/fifo_sync_w2r.v" \
    "$origin_dir/../../mopshub_lib/hdl/fifo_wptr_full.v" \
    "$origin_dir/../../mopshub_lib/hdl/ip_output_diff_clk_mopshub_debug.v" \
-   "$origin_dir/../../mopshub_lib/hdl/ip_select_io_ddr_wrapper.v" \
+   "$origin_dir/../../mopshub_lib/hdl/serializer_readout.v" \
+   "$origin_dir/../../mopshub_lib/hdl/serializer_rx_nitz.v" \
+   "$origin_dir/../../mopshub_lib/hdl/serializer_tx_nitz.v" \
    "$origin_dir/../../mopshub_lib/hdl/mux8_1_8bit.v" \
    "$origin_dir/../../mopshub_lib/hdl/mux8_Nbit.v" \
    "$origin_dir/../../mopshub_lib/hdl/osc_trim_sm_fsm.v" \
@@ -465,7 +467,9 @@ set files [list \
  [file normalize "${origin_dir}/../../mopshub_lib/hdl/enc_8b10b_mopshub.v"] \
  [file normalize "${origin_dir}/../../mopshub_lib/hdl/ethernet_core_struct.v"] \
  [file normalize "${origin_dir}/../../mopshub_lib/hdl/ip_output_diff_clk_mopshub_debug.v"] \
- [file normalize "${origin_dir}/../../mopshub_lib/hdl/ip_select_io_ddr_wrapper.v"] \
+ [file normalize "${origin_dir}/../../mopshub_lib/hdl/serializer_readout.v"] \
+ [file normalize "${origin_dir}/../../mopshub_lib/hdl/serializer_tx_nitz.v"] \
+ [file normalize "${origin_dir}/../../mopshub_lib/hdl/serializer_rx_nitz.v"] \
  [file normalize "${origin_dir}/../../mopshub_lib/hdl/mux8_1_8bit.v"] \
  [file normalize "${origin_dir}/../../mopshub_lib/hdl/mux8_Nbit.v"] \
  [file normalize "${origin_dir}/../../mopshub_lib/hdl/osc_trim_sm_fsm.v"] \
