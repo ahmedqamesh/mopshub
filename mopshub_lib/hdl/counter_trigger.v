@@ -2,7 +2,7 @@
 // Verilog Module mopshub_lib.triger_counter
 //
 // Created:
-//          by - dcs.dcs (chipdev2.physik.uni-wuppertal.de)
+//          by - Ahmed Qamesh (University of Wuppertal)
 //          at - 15:37:30 04/06/21
 //
 // using Mentor Graphics HDL Designer(TM) 2018.1 (Build 12)

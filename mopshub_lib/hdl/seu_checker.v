@@ -2,7 +2,7 @@
 // Verilog Module mopshub_lib.seu_checker
 //
 // Created:
-//          by - dcs.dcs (chipdev2.physik.uni-wuppertal.de)
+//          by - Ahmed Qamesh (University of Wuppertal)
 //          at - 16:09:18 06/16/23
 //
 // using Mentor Graphics HDL Designer(TM) 2019.4 (Build 4)

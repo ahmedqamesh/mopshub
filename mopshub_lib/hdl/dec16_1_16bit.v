@@ -2,7 +2,7 @@
 // Verilog Module mopshub_lib.node_rec_decoder
 //
 // Created:
-//          by - dcs.dcs (chipdev2.physik.uni-wuppertal.de)
+//          by - Ahmed Qamesh (University of Wuppertal)
 //          at - 15:06:18 01/13/21
 //
 // using Mentor Graphics HDL Designer(TM) 2019.4 (Build 4)

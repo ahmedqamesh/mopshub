@@ -2,7 +2,7 @@
 // Verilog Module mopshub_lib.rec_elink_buf
 //
 // Created:
-//          by - dcs.dcs (chipdev2.physik.uni-wuppertal.de)
+//          by - Ahmed Qamesh (University of Wuppertal)
 //          at - 12:54:06 08/11/21
 //
 // using Mentor Graphics HDL Designer(TM) 2019.4 (Build 4)

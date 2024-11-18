@@ -2,7 +2,7 @@
 // Include file mopshub_lib
 //
 // Created:
-//          by - dcs.dcs (chipdev2.physik.uni-wuppertal.de)
+//          by - Ahmed Qamesh (University of Wuppertal)
 //          at - 13:10:21 03/24/21
 //
 // using Mentor Graphics HDL Designer(TM) 2018.1 (Build 12)

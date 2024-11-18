@@ -2,7 +2,7 @@
 // Verilog Module mopshub_lib.debug_uart_transmitter
 //
 // Created:
-//          by - dcs.dcs (chipdev2.physik.uni-wuppertal.de)
+//          by - Ahmed Qamesh (University of Wuppertal)
 //          at - 09:59:31 11/07/22
 //
 // using Mentor Graphics HDL Designer(TM) 2019.4 (Build 4)

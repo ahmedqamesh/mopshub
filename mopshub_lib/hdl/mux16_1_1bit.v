@@ -2,7 +2,7 @@
 // Verilog Module mopshub_lib.mux1_1bit
 //
 // Created:
-//          by - dcs.dcs (chipdev2.physik.uni-wuppertal.de)
+//          by - Ahmed Qamesh (University of Wuppertal)
 //          at - 10:56:59 06/07/21
 //
 // using Mentor Graphics HDL Designer(TM) 2019.4 (Build 4)

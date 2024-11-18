@@ -2,7 +2,7 @@
 // Verilog Module mopshub_lib.seu_counter
 //
 // Created:
-//          by - dcs.dcs (chipdev2.physik.uni-wuppertal.de)
+//          by - Ahmed Qamesh (University of Wuppertal)
 //          at - 15:56:47 06/16/23
 //
 // using Mentor Graphics HDL Designer(TM) 2019.4 (Build 4)

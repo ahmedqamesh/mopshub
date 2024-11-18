@@ -120,19 +120,19 @@ value "/../../home/dcs/git/mopshub/mopshub_lib/hds/bridge_controller"
 )
 (vvPair
 variable "date"
-value "12/11/23"
+value "11/13/24"
 )
 (vvPair
 variable "day"
-value "Mon"
+value "Wed"
 )
 (vvPair
 variable "day_long"
-value "Monday"
+value "Wednesday"
 )
 (vvPair
 variable "dd"
-value "11"
+value "13"
 )
 (vvPair
 variable "entity_name"
@@ -160,7 +160,7 @@ value "dcs"
 )
 (vvPair
 variable "graphical_source_date"
-value "12/11/23"
+value "11/13/24"
 )
 (vvPair
 variable "graphical_source_group"
@@ -172,7 +172,7 @@ value "chipdev2.physik.uni-wuppertal.de"
 )
 (vvPair
 variable "graphical_source_time"
-value "16:45:05"
+value "11:29:06"
 )
 (vvPair
 variable "group"
@@ -204,7 +204,7 @@ value "$HDS_PROJECT_DIR/mopshub_lib/ps"
 )
 (vvPair
 variable "library_downstream_QuestaSimCompiler"
-value "$HDS_PROJECT_DIR/work"
+value "$HDS_PROJECT_DIR/mopshub_lib/work"
 )
 (vvPair
 variable "library_downstream_QuestaSimSimulator"
@@ -216,7 +216,7 @@ value "$HDS_PROJECT_DIR/mopshub_lib/svassistant"
 )
 (vvPair
 variable "mm"
-value "12"
+value "11"
 )
 (vvPair
 variable "module_name"
@@ -224,11 +224,11 @@ value "bridge_controller"
 )
 (vvPair
 variable "month"
-value "Dec"
+value "Nov"
 )
 (vvPair
 variable "month_long"
-value "December"
+value "November"
 )
 (vvPair
 variable "p"
@@ -292,7 +292,7 @@ value "struct"
 )
 (vvPair
 variable "time"
-value "16:45:05"
+value "11:29:06"
 )
 (vvPair
 variable "unit"
@@ -312,11 +312,11 @@ value "struct"
 )
 (vvPair
 variable "year"
-value "2023"
+value "2024"
 )
 (vvPair
 variable "yy"
-value "23"
+value "24"
 )
 ]
 )
@@ -9493,47 +9493,13 @@ lang 5
 decl (Decl
 n "clk"
 t "wire"
+preAdd 0
+posAdd 0
 o 1
 )
 )
 )
 *290 (CptPort
-uid 29640,0
-ps "OnEdgeStrategy"
-shape (Triangle
-uid 29641,0
-ro 270
-va (VaSet
-vasetType 1
-fg "0,65535,0"
-)
-xt "51000,69625,51750,70375"
-)
-tg (CPTG
-uid 29642,0
-ps "CptPortTextPlaceStrategy"
-stg "RightVerticalLayoutStrategy"
-f (Text
-uid 29643,0
-va (VaSet
-font "courier,8,0"
-)
-xt "45500,69550,50000,70450"
-st "entimeout"
-ju 2
-blo "50000,70250"
-)
-)
-thePort (LogicalPort
-lang 5
-decl (Decl
-n "entimeout"
-t "wire"
-o 2
-)
-)
-)
-*291 (CptPort
 uid 29644,0
 ps "OnEdgeStrategy"
 shape (Triangle
@@ -9565,11 +9531,13 @@ decl (Decl
 n "time_limit"
 t "wire"
 b "[31:0]"
+preAdd 0
+posAdd 0
 o 3
 )
 )
 )
-*292 (CptPort
+*291 (CptPort
 uid 29648,0
 ps "OnEdgeStrategy"
 shape (Triangle
@@ -9600,15 +9568,56 @@ lang 5
 decl (Decl
 n "rst"
 t "wire"
+preAdd 0
+posAdd 0
 o 4
 )
 )
 )
-*293 (CptPort
-uid 29652,0
+*292 (CptPort
+uid 31657,0
 ps "OnEdgeStrategy"
 shape (Triangle
-uid 29653,0
+uid 31658,0
+ro 270
+va (VaSet
+vasetType 1
+fg "0,65535,0"
+)
+xt "51000,69625,51750,70375"
+)
+tg (CPTG
+uid 31659,0
+ps "CptPortTextPlaceStrategy"
+stg "RightVerticalLayoutStrategy"
+f (Text
+uid 31660,0
+va (VaSet
+font "courier,8,0"
+)
+xt "42500,69550,50000,70450"
+st "enable_timeout"
+ju 2
+blo "50000,70250"
+)
+)
+thePort (LogicalPort
+lang 5
+decl (Decl
+n "enable_timeout"
+t "wire"
+preAdd 0
+posAdd 0
+o 2
+suid 2,0
+)
+)
+)
+*293 (CptPort
+uid 31661,0
+ps "OnEdgeStrategy"
+shape (Triangle
+uid 31662,0
 ro 90
 va (VaSet
 vasetType 1
@@ -9617,16 +9626,16 @@ fg "0,65535,0"
 xt "51000,68625,51750,69375"
 )
 tg (CPTG
-uid 29654,0
+uid 31663,0
 ps "CptPortTextPlaceStrategy"
 stg "RightVerticalLayoutStrategy"
 f (Text
-uid 29655,0
+uid 31664,0
 va (VaSet
 font "courier,8,0"
 )
-xt "44500,68550,50000,69450"
-st "timeoutrst"
+xt "44000,68550,50000,69450"
+st "rst_timeout"
 ju 2
 blo "50000,69250"
 )
@@ -9635,9 +9644,12 @@ thePort (LogicalPort
 lang 5
 m 1
 decl (Decl
-n "timeoutrst"
+n "rst_timeout"
 t "wire"
+preAdd 0
+posAdd 0
 o 5
+suid 5,0
 )
 )
 )
@@ -12037,7 +12049,7 @@ pts [
 "31250,72000"
 ]
 )
-end &292
+end &291
 sat 16
 eat 32
 stc 0
@@ -12075,7 +12087,7 @@ pts [
 "31250,71000"
 ]
 )
-end &291
+end &290
 sat 16
 eat 32
 sty 1
@@ -12115,7 +12127,7 @@ pts [
 ]
 )
 start &173
-end &290
+end &292
 ss 0
 sat 32
 eat 32
@@ -12154,6 +12166,7 @@ pts [
 )
 start &167
 end &293
+es 0
 sat 32
 eat 32
 st 0
@@ -12167,9 +12180,9 @@ uid 8173,0
 va (VaSet
 font "courier,8,0"
 )
-xt "74000,68100,82000,69000"
+xt "72000,68100,80000,69000"
 st "timeoutrst_trim"
-blo "74000,68800"
+blo "72000,68800"
 tm "WireNameMgr"
 )
 )
@@ -12601,13 +12614,14 @@ uid 16863,0
 va (VaSet
 vasetType 3
 )
-xt "82000,54000,91250,54000"
+xt "81000,54000,91250,54000"
 pts [
-"82000,54000"
+"81000,54000"
 "91250,54000"
 ]
 )
 end &175
+es 0
 sat 16
 eat 32
 st 0
@@ -12621,9 +12635,9 @@ uid 16867,0
 va (VaSet
 font "courier,8,0"
 )
-xt "83000,53100,89000,54000"
+xt "85000,53100,91000,54000"
 st "irq_can_tra"
-blo "83000,53800"
+blo "85000,53800"
 tm "WireNameMgr"
 )
 )
@@ -14290,11 +14304,11 @@ tm "BdCompilerDirectivesTextMgr"
 associable 1
 )
 windowSize "3832,13,5768,1088"
-viewArea "-67116,16813,58682,85257"
+viewArea "-50528,22292,107632,105758"
 cachedDiagramExtent "-72000,-49300,136000,94000"
 hasePageBreakOrigin 1
 pageBreakOrigin "-138000,0"
-lastUid 31529,0
+lastUid 31959,0
 defaultCommentText (CommentText
 shape (Rectangle
 layer 0
@@ -15357,7 +15371,7 @@ tm "BdDeclarativeTextMgr"
 )
 commonDM (CommonDM
 ldm (LogicalDM
-suid 250,0
+suid 251,0
 usingSuid 1
 emptyRow *448 (LEmptyRow
 )

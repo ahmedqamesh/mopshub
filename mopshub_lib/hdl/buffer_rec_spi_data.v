@@ -1,3 +1,12 @@
+//
+// Module mopshub_lib.buffer_rec_spi_data
+//
+// Created:
+//          by - Ahmed Qamesh (University of Wuppertal)
+//          at - 14:00:44 11/13/24
+//=============================================================
+
+
 `resetall
 `timescale 1ns/10ps
 module buffer_rec_spi_data( 

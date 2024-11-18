@@ -18,6 +18,8 @@ top_lib = $HDS_PROJECT_DIR/work
 [QuestaSim_Invoke_Dir]
 top_lib = /home/dcs/git/CANAkari/MOPSv2/top_lib/sim
 vivado_lib = /run/media/dcs/data2/vivado_compiled_lib
+[SvAssistant]
+mopshub_lib = $HDS_PROJECT_DIR/mopshub_lib/svassistant
 [XilinxVivado]
 xilinx_lib = /mnt/storage/sw/Xilinx/Vivado/2020.2/data/verilog/src/unisims
 [hdl]
@@ -48,8 +50,10 @@ MOPSv2_lib = $HDS_PROJECT_DIR/CANAkari/MOPSv2/MOPSv2_lib/hds
 top_lib = /home/dcs/git/mopshub/CANAkari/MOPSv2/top_lib/hds
 [hds_settings]
 default_library = mopshub_lib
-design_root = mopshub_testbench.tb_seu_shift_combined(tb_seu_shift_combined)tb_seu_shift_combined.v
+design_root = mopshub_testbench.tb_mopshub_top_16bus(tb_mopshub_top_16bus)tb_mopshub_top_16bus.sv
 library_search_path = MOPSv2_lib mopshub_triplicated_lib mopshub_canakari mopshub_canakari_tmr CANdecoder ftrim mopshub_lib mopshub_testbench
+project_description = MOPS-Hub is an FPGA based interface. Its main task is the aggregation of monitoring data between the MOPS chips (installed at the vicinity of the detector modules) and the DCS computer.
+Beside that, MOPS-Hub will monitor information per CAN bus (voltage/current) and send it to the DCS computer as part of the data stream. In addition, it will have a full power control over the connected CAN buses.
 version = 2
 [includes_search_path]
 ipbus_firmware_lib = $MOPSHUB_LIB2/opencores_spi/firmware/hdl;$ipbus_firmware_lib;$ipbus_firmware_lib/components/opencores_spi/firmware/hdl

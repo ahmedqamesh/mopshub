@@ -2,7 +2,7 @@
 // Verilog Module mopshub_lib.ip_xadc_wrapper
 //
 // Created:
-//          by - dcs.dcs (chipdev2.physik.uni-wuppertal.de)
+//          by - Ahmed Qamesh (University of Wuppertal)
 //          at - 14:48:43 04/11/23
 //
 // using Mentor Graphics HDL Designer(TM) 2019.4 (Build 4)

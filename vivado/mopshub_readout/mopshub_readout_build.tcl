@@ -131,7 +131,6 @@ proc checkRequiredFiles { origin_dir} {
    "$origin_dir/../../CANAkari/MOPSv2/canakari/hdl/write_demux2.v" \
    "$origin_dir/../../mopshub_lib/hdl/bitstream_shift_register.v" \
    "$origin_dir/../../mopshub_lib/hdl/bridge_controller_struct.v" \
-   "$origin_dir/../../mopshub_lib/hdl/buffer_rec_spi_data.v" \
    "$origin_dir/../../mopshub_lib/hdl/buffer_tristate_busid.v" \
    "$origin_dir/../../mopshub_lib/hdl/buffer_tristate_elink.v" \
    "$origin_dir/../../mopshub_lib/hdl/can_elink_bridge_sm_fsm.v" \
@@ -439,10 +438,8 @@ set files [list \
  [file normalize "${origin_dir}/../../CANAkari/MOPSv2/canakari/hdl/tshift_cell2.v"] \
  [file normalize "${origin_dir}/../../CANAkari/MOPSv2/canakari/hdl/tshift_top2.v"] \
  [file normalize "${origin_dir}/../../CANAkari/MOPSv2/canakari/hdl/write_demux2.v"] \
- [file normalize "${origin_dir}/../../mopshub_lib/hdl/ip_buf.v"] \
  [file normalize "${origin_dir}/../../mopshub_lib/hdl/bitstream_shift_register.v"] \
  [file normalize "${origin_dir}/../../mopshub_lib/hdl/bridge_controller_struct.v"] \
- [file normalize "${origin_dir}/../../mopshub_lib/hdl/buffer_rec_spi_data.v"] \
  [file normalize "${origin_dir}/../../mopshub_lib/hdl/buffer_tristate_busid.v"] \
  [file normalize "${origin_dir}/../../mopshub_lib/hdl/buffer_tristate_elink.v"] \
  [file normalize "${origin_dir}/../../mopshub_lib/hdl/can_elink_bridge_sm_fsm.v"] \

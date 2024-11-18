@@ -2,7 +2,7 @@
 // Verilog Module mopshub_lib.mux8_Nbit_arc
 //
 // Created:
-//          by - dcs.dcs (chipdev2.physik.uni-wuppertal.de)
+//          by - Ahmed Qamesh (University of Wuppertal)
 //          at - 17:22:16 02/22/21
 //
 // using Mentor Graphics HDL Designer(TM) 2019.4 (Build 4)

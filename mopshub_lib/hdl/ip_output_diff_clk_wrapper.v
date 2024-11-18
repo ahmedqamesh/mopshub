@@ -2,7 +2,7 @@
 // Verilog Module mopshub_lib.ip_output_diff_clk_wrapper
 //
 // Created:
-//          by - dcs.dcs (chipdev2.physik.uni-wuppertal.de)
+//          by - Ahmed Qamesh (University of Wuppertal)
 //          at - 11:50:11 04/12/23
 //
 // using Mentor Graphics HDL Designer(TM) 2019.4 (Build 4)

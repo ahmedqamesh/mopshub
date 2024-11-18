@@ -2,7 +2,7 @@
 // Verilog Module mopshub_lib.debug_uart_clk_divider
 //
 // Created:
-//          by - dcs.dcs (chipdev2.physik.uni-wuppertal.de)
+//          by - Ahmed Qamesh (University of Wuppertal)
 //          at - 20:39:55 06/12/24
 //
 // using Mentor Graphics HDL Designer(TM) 2019.4 (Build 4)

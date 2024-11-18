@@ -2,7 +2,7 @@
 // Verilog Module mopshub_lib.bitstream_shift_register
 //
 // Created:
-//          by - dcs.dcs (chipdev2.physik.uni-wuppertal.de)
+//          by - Ahmed Qamesh (Bergische Universität Wuppertal)
 //          at - 22:37:59 04/03/21
 //
 // using Mentor Graphics HDL Designer(TM) 2018.1 (Build 12)

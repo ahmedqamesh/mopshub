@@ -2,11 +2,12 @@
 // Verilog Module mopshub_lib.buffer_tristate_busid
 //
 // Created:
-//          by - dcs.dcs (chipdev2.physik.uni-wuppertal.de)
+//          by - Ahmed Qamesh (University of Wuppertal)
 //          at - 11:26:26 08/26/21
 //
-// using Mentor Graphics HDL Designer(TM) 2019.4 (Build 4)
+// ===================================================================
 //
+
 
 `resetall
 `timescale 1ns/10ps

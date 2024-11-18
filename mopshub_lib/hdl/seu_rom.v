@@ -2,7 +2,7 @@
 // Verilog Module mopshub_lib.seu_rom
 //
 // Created:
-//          by - dcs.dcs (chipdev2.physik.uni-wuppertal.de)
+//          by - Ahmed Qamesh (University of Wuppertal)
 //          at - 13:01:49 06/8/23
 //
 // using Mentor Graphics HDL Designer(TM) 2019.4 (Build 4)

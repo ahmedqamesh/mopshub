@@ -2,7 +2,7 @@
 // Verilog Module mopshub_lib.select_io_ddr_emci
 //
 // Created:
-//          by - dcs.dcs (chipdev2.physik.uni-wuppertal.de)
+//          by - Ahmed Qamesh (University of Wuppertal)
 //          at - 17:11:21 03/16/22
 //
 // using Mentor Graphics HDL Designer(TM) 2019.4 (Build 4)
@@ -13,6 +13,7 @@
 module ip_select_io_ddr_wrapper(  
   input   wire           clk_rx, 
   input   wire           clk_tx, 
+  input   wire           clk40, 
   input   wire           reset, 
   input   wire           rx_elink_n, 
   input   wire           rx_elink_p, 
@@ -31,19 +32,22 @@ module ip_select_io_ddr_wrapper(
    
    IDDRE1 #(
       .DDR_CLK_EDGE("OPPOSITE_EDGE"), // IDDRE1 mode (OPPOSITE_EDGE, SAME_EDGE, SAME_EDGE_PIPELINED)
-      .IS_CB_INVERTED(1'b1),          // Optional inversion for CB
+      .IS_CB_INVERTED(1'b0),          // Optional inversion for CB
       .IS_C_INVERTED(1'b0)            // Optional inversion for C
    )
    IDDRE1_inst (
       .Q1(rx_elink2bit[0]), // 1-bit output: Registered parallel output 1
       .Q2(rx_elink2bit[1]), // 1-bit output: Registered parallel output 2
       .C(clk_rx),   // 1-bit input: High-speed clock
-      .CB(clk_rx), // 1-bit input: Inversion of High-speed clock C
+      .CB(~clk_rx), // 1-bit input: Inversion of High-speed clock C
       .D(rx_elink1bit),   // 1-bit input: Serial Data Input
       .R(reset)    // 1-bit input: Active-High Async Reset
    );
 
-  
+
+
+        
+      
    ODDRE1 #(
       .IS_C_INVERTED(1'b0),           // Optional inversion for C
       .IS_D1_INVERTED(1'b0),          // Unsupported, do not use
@@ -60,7 +64,7 @@ module ip_select_io_ddr_wrapper(
       .SR(reset)  // 1-bit input: Active-High Async Reset
    );
    
-   
+//   
    
 
   OBUFDS edout_buf(

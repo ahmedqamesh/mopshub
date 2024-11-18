@@ -1,3 +1,12 @@
+//
+// Verilog Module mopshub_lib.buffer_tristate_elink
+//
+// Created:
+//          by - Ahmed Qamesh (University of Wuppertal)
+//          at - 11:26:26 08/26/21
+//
+// ===================================================================
+//
 `resetall
 `timescale 1ns/10ps
 module buffer_tristate_elink( 
